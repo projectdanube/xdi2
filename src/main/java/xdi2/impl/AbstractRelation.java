@@ -1,0 +1,101 @@
+/*******************************************************************************
+ * Copyright (c) 2008 Parity Communications, Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Markus Sabadello - Initial API and implementation
+ *******************************************************************************/
+package xdi2.impl;
+
+
+import xdi2.ContextNode;
+import xdi2.Graph;
+import xdi2.Relation;
+import xdi2.xri3.impl.XRI3Segment;
+
+public abstract class AbstractRelation implements Relation {
+
+	private static final long serialVersionUID = -9055773010138710261L;
+
+	protected Graph graph;
+	protected ContextNode contextNode;
+
+	public AbstractRelation(Graph graph, ContextNode contextNode) {
+
+		this.graph = graph;
+		this.contextNode = contextNode;
+	}
+
+	public Graph getGraph() {
+
+		return this.graph;
+	}
+
+	public ContextNode getContextNode() {
+
+		return this.contextNode;
+	}
+
+	public synchronized void delete() {
+
+		this.getContextNode().deleteRelation(this.getArcXri());
+	}
+
+	/*
+	 * Methods for following the relation
+	 */
+
+	public ContextNode follow() {
+
+		XRI3Segment relationXri = this.getRelationXri();
+
+		return(this.getGraph().findContextNode(relationXri));
+	}
+
+	/*
+	 * Object methods
+	 */
+
+	@Override
+	public String toString() {
+
+		return this.getRelationXri().toString();
+	}
+
+	@Override
+	public boolean equals(Object object) {
+
+		if (object == null || ! (object instanceof Relation)) return false;
+		if (object == this) return true;
+
+		Relation other = (Relation) object;
+
+		// two relations are equal if their XRIs are equal
+
+		if (this.getRelationXri() == null && other.getRelationXri() != null) return false;
+		if (this.getRelationXri() != null && other.getRelationXri() == null) return false;
+		if (this.getRelationXri() != null && other.getRelationXri() != null && ! this.getRelationXri().equals(other.getRelationXri())) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+
+		int hashCode = 1;
+
+		hashCode = (hashCode * 31) + (this.getRelationXri() == null ? 0 : this.getRelationXri().hashCode());
+
+		return hashCode;
+	}
+
+	public int compareTo(Relation other) {
+
+		if (other == null || other == this) return(0);
+
+		return this.getRelationXri().compareTo(other.getRelationXri());
+	}
+}
