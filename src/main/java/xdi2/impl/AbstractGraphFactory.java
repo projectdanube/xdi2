@@ -1,12 +1,12 @@
-package old;
+package xdi2.impl;
 
 import java.io.IOException;
 import java.util.Properties;
 
-import org.eclipse.higgins.xdi4j.Graph;
-import org.eclipse.higgins.xdi4j.GraphFactory;
-import org.eclipse.higgins.xdi4j.exceptions.ParseException;
-import org.eclipse.higgins.xdi4j.io.XDIReaderRegistry;
+import xdi2.Graph;
+import xdi2.GraphFactory;
+import xdi2.exceptions.ParseException;
+import xdi2.io.XDIReaderRegistry;
 
 public abstract class AbstractGraphFactory implements GraphFactory {
 

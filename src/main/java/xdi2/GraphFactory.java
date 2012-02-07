@@ -1,9 +1,9 @@
-package old;
+package xdi2;
 
 import java.io.IOException;
 import java.util.Properties;
 
-import org.eclipse.higgins.xdi4j.exceptions.ParseException;
+import xdi2.exceptions.ParseException;
 
 /**
  * A graph factory can construct new XDI graph implementations.

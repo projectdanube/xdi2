@@ -18,6 +18,12 @@ public interface Relation extends Serializable, Comparable<Relation> {
 	 */
 
 	/**
+	 * Get the graph of this relation.
+	 * @return The graph of this relation.
+	 */
+	public Graph getGraph();
+
+	/**
 	 * Every relation has a context node from which it originates.
 	 * @return The context node of this relation.
 	 */

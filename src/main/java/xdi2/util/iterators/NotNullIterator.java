@@ -12,8 +12,6 @@ package xdi2.util.iterators;
 
 import java.util.Iterator;
 
-import org.eclipse.higgins.xdi4j.util.iterators.SelectingIterator;
-
 /**
  * An iterator that returns only all non-null elements from another iterator.
  * 

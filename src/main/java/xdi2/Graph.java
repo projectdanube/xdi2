@@ -1,9 +1,10 @@
 package xdi2;
 
 import java.io.Serializable;
+import java.util.Properties;
 
-import org.eclipse.higgins.xdi4j.exceptions.MessagingException;
 
+import xdi2.exceptions.MessagingException;
 import xdi2.xri3.impl.XRI3;
 import xdi2.xri3.impl.XRI3Segment;
 
@@ -26,10 +27,28 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	public ContextNode getRootContextNode();
 
 	/**
+	 * Closes the graph. This should be called when work on the graph is done.
+	 */
+	public void close();
+
+	/**
 	 * Finds a context node in this graph.
 	 * @return A context node.
 	 */
 	public ContextNode findContextNode(XRI3Segment xri);
+
+	/**
+	 * Converts the graph to a string in the given serialization format.
+	 * @param parameters Parameters for the serialization.
+	 */
+	public String toString(String format);
+
+	/**
+	 * Converts the graph to a string in the given serialization format.
+	 * @param format The serialization format.
+	 * @param parameters Parameters for the serialization.
+	 */
+	public String toString(String format, Properties parameters);
 
 	/*
 	 * Methods related to messages

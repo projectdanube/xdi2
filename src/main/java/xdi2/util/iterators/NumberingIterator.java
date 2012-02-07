@@ -10,7 +10,6 @@
  *******************************************************************************/
 package xdi2.util.iterators;
 
-import org.eclipse.higgins.xdi4j.util.iterators.ReadOnlyIterator;
 
 
 /**

@@ -13,8 +13,6 @@ package xdi2.util.iterators;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import org.eclipse.higgins.xdi4j.util.iterators.DescendingIterator;
-
 /**
  * An iterator that iterates over all items of multiple other iterators.
  * 

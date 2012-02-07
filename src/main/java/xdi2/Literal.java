@@ -16,6 +16,12 @@ public interface Literal extends Serializable, Comparable<Literal> {
 	 */
 
 	/**
+	 * Get the graph of this literal.
+	 * @return The graph of this literal.
+	 */
+	public Graph getGraph();
+	
+	/**
 	 * Every literal has a context node from which it originates.
 	 * @return The context node of this literal.
 	 */

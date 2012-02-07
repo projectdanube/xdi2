@@ -13,9 +13,9 @@ package xdi2.util.iterators;
 
 import java.util.Iterator;
 
-import org.eclipse.higgins.xdi4j.Predicate;
-import org.eclipse.higgins.xdi4j.util.iterators.MappingIterator;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3Segment;
+import javax.sql.rowset.Predicate;
+
+import xdi2.xri3.impl.XRI3Segment;
 
 /**
  * A MappingIterator that maps XDI predicates to their XRIs.

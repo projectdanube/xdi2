@@ -12,8 +12,6 @@ package xdi2.util.iterators;
 
 import java.util.Iterator;
 
-import org.eclipse.higgins.xdi4j.util.iterators.ReadOnlyIterator;
-
 /**
  * An iterator that returns only elements of another iterator that satisfy a certain condition.
  * In addition, it maps the elements to other elements.

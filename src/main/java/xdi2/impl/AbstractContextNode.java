@@ -1,13 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2008 Parity Communications, Inc.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Markus Sabadello - Initial API and implementation
- *******************************************************************************/
 package xdi2.impl;
 
 
@@ -24,6 +14,7 @@ import xdi2.util.iterators.DescendingIterator;
 import xdi2.util.iterators.FirstIteratorItem;
 import xdi2.util.iterators.IteratorCounter;
 import xdi2.util.iterators.SelectingIterator;
+import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
 public abstract class AbstractContextNode implements ContextNode {
@@ -49,9 +40,44 @@ public abstract class AbstractContextNode implements ContextNode {
 		return this.contextNode;
 	}
 
+	public boolean isRootContextNode() {
+
+		return this.getGraph().getRootContextNode() == this;
+	}
+
+	@Override
+	public XRI3Segment getXri() {
+
+		ContextNode contextNode = this.getContextNode();
+
+		if (contextNode == null) return new XRI3Segment("()");
+
+		String xri = this.getXri().toString();
+
+		while (contextNode != null) {
+
+			xri = contextNode.getArcXri() + xri;
+			contextNode = contextNode.getContextNode();
+		}
+
+		return new XRI3Segment(xri);
+	}
+
 	public synchronized void delete() {
 
 		this.getContextNode().deleteContextNode(this.getArcXri());
+	}
+
+	public synchronized void clear() {
+
+		this.deleteContextNodes();
+		this.deleteRelations();
+		this.deleteLiterals();
+	}
+
+	public boolean isEmpty() {
+
+		return(! (this.containsContextNodes() || this.containsRelations() || this.containsLiterals()));
 	}
 
 	/*

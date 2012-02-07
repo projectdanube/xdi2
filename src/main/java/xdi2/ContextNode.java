@@ -2,7 +2,6 @@ package xdi2;
 
 import java.io.Serializable;
 import java.util.Iterator;
-import java.util.Properties;
 
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
@@ -22,22 +21,28 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 */
 
 	/**
-	 * Gets the predicate that has this inner graph as its target.
-	 * @return A predicate.
+	 * Get the graph of this context node.
+	 * @return The graph of this context node.
 	 */
-	public ContextNode getParentContextNode();
+	public Graph getGraph();
 
 	/**
-	 * Gets the XRI of this context node.
-	 * @return The XRI of this context node.
+	 * Every context node has a context node from which it originates.
+	 * @return The context node of this context node.
 	 */
-	public XRI3Segment getXri();
+	public ContextNode getContextNode();
 
 	/**
 	 * Checks if this context node is the root context node.
 	 * @return True, if this context node is the root context node.
 	 */
 	public boolean isRootContextNode();
+
+	/**
+	 * Gets the XRI of this context node.
+	 * @return The XRI of this context node.
+	 */
+	public XRI3Segment getXri();
 
 	/**
 	 * Deletes this context node.
@@ -51,34 +56,15 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public XRI3SubSegment getArcXri();
 
 	/**
-	 * Clears the context node. 
-	 * This is equivalent to calling deleteContextNodes().
+	 * Clears the context node. This is equivalent to calling deleteContextNodes(), deleteRelations() and deleteLiterals().
 	 */
 	public void clear();
 
 	/**
-	 * Checks if the graph is empty. 
-	 * This is equivalent to calling ! containsSubjects().
+	 * Checks if the context nodeis empty. 
+	 * This is equivalent to calling ! ( containsContextNodes() || containsRelations() || containsLiterals() ).
 	 */
 	public boolean isEmpty();
-
-	/**
-	 * Closes the graph. This should be called when work on the graph is done.
-	 */
-	public void close();
-
-	/**
-	 * Converts the graph to a string in the given serialization format.
-	 * @param parameters Parameters for the serialization.
-	 */
-	public String toString(String format);
-
-	/**
-	 * Converts the graph to a string in the given serialization format.
-	 * @param format The serialization format.
-	 * @param parameters Parameters for the serialization.
-	 */
-	public String toString(String format, Properties parameters);
 
 	/*
 	 * Methods related to context nodes of this context node
@@ -89,7 +75,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI of the new context node.
 	 * @return The newly created context node.
 	 */
-	public ContextNode createContextNode(XRI3Segment arcXri);
+	public ContextNode createContextNode(XRI3SubSegment arcXri);
 
 	/**
 	 * Finds and returns a context node with a given arc XRI. 
