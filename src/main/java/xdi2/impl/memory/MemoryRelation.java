@@ -11,24 +11,27 @@ public class MemoryRelation extends AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = -2979718490345210876L;
 
-	XRI3SubSegment arcXri;
-	XRI3Segment relationXri;
+	private XRI3SubSegment arcXri;
+	private XRI3Segment relationXri;
 
-	MemoryRelation(Graph graph, ContextNode contextNode) {
+	MemoryRelation(Graph graph, ContextNode contextNode, XRI3SubSegment arcXri, XRI3Segment relationXri) {
 
 		super(graph, contextNode);
+		
+		this.arcXri = arcXri;
+		this.relationXri = relationXri;
 	}
 
 	@Override
 	public XRI3SubSegment getArcXri() {
 
-		return arcXri;
+		return this.arcXri;
 	}
 
 	@Override
 	public XRI3Segment getRelationXri() {
 
-		return relationXri;
+		return this.relationXri;
 	}
 
 	@Override

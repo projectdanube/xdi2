@@ -26,16 +26,16 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	private Map<XRI3SubSegment, MemoryRelation> relations;
 	private Map<XRI3SubSegment, MemoryLiteral> literals;
 
-	public MemoryContextNode(Graph graph, ContextNode contextNode) {
+	MemoryContextNode(Graph graph, ContextNode contextNode) {
 
 		super(graph, contextNode);
 
-		if (((MemoryGraph) graph).sortmode == MemoryGraphFactory.SORTMODE_ALPHA) {
+		if (((MemoryGraph) graph).getSortMode() == MemoryGraphFactory.SORTMODE_ALPHA) {
 
 			this.contextNodes = new TreeMap<XRI3SubSegment, MemoryContextNode> ();
 			this.relations = new TreeMap<XRI3SubSegment, MemoryRelation> ();
 			this.literals = new TreeMap<XRI3SubSegment, MemoryLiteral> ();
-		} else if (((MemoryGraph) graph).sortmode == MemoryGraphFactory.SORTMODE_ORDER) {
+		} else if (((MemoryGraph) graph).getSortMode() == MemoryGraphFactory.SORTMODE_ORDER) {
 
 			this.contextNodes = new LinkedHashMap<XRI3SubSegment, MemoryContextNode> ();
 			this.relations = new LinkedHashMap<XRI3SubSegment, MemoryRelation> ();
@@ -117,10 +117,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
 		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
 
-		MemoryRelation relation = new MemoryRelation(this.getGraph(), this);
-		relation.arcXri = arcXri;
-		relation.relationXri = relationXri;
-
+		MemoryRelation relation = new MemoryRelation(this.getGraph(), this, arcXri, relationXri);
 		this.relations.put(arcXri, relation);
 
 		return relation;
@@ -171,10 +168,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
 		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
 
-		MemoryLiteral literal = new MemoryLiteral(this.getGraph(), this);
-		literal.arcXri = arcXri;
-		literal.literalData = literalData;
-
+		MemoryLiteral literal = new MemoryLiteral(this.getGraph(), this, arcXri, literalData);
 		this.literals.put(arcXri, literal);
 
 		return literal;

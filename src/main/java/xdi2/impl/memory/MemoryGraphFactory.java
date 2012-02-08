@@ -1,6 +1,7 @@
 package xdi2.impl.memory;
 
 import xdi2.Graph;
+import xdi2.GraphFactory;
 import xdi2.impl.AbstractGraphFactory;
 
 /**
@@ -8,18 +9,18 @@ import xdi2.impl.AbstractGraphFactory;
  * 
  * @author markus
  */
-public final class MemoryGraphFactory extends AbstractGraphFactory {
+public class MemoryGraphFactory extends AbstractGraphFactory implements GraphFactory {
 
 	public static final int SORTMODE_NONE = 0;
 	public static final int SORTMODE_ORDER = 1;
 	public static final int SORTMODE_ALPHA = 2;
 
 	private static MemoryGraphFactory instance = null;
-	
+
 	private int sortmode;
 
 	public MemoryGraphFactory() { 
-		
+
 		this.sortmode = SORTMODE_NONE;
 	}
 
@@ -38,7 +39,7 @@ public final class MemoryGraphFactory extends AbstractGraphFactory {
 	}
 
 	public int getSortmode() {
-		
+
 		return this.sortmode;
 	}
 

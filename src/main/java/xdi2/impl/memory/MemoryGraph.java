@@ -8,7 +8,7 @@ public class MemoryGraph extends AbstractGraph implements Graph {
 
 	private static final long serialVersionUID = 8979035878235290607L;
 
-	int sortmode;
+	private int sortmode;
 
 	private MemoryContextNode rootContextNode;
 
@@ -23,11 +23,20 @@ public class MemoryGraph extends AbstractGraph implements Graph {
 	@Override
 	public ContextNode getRootContextNode() {
 
-		return rootContextNode;
+		return this.rootContextNode;
 	}
 
 	@Override
 	public void close() {
 
+	}
+
+	/*
+	 * Misc methods
+	 */
+
+	int getSortMode() {
+
+		return this.sortmode;
 	}
 }

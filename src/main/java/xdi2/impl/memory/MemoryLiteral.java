@@ -10,24 +10,27 @@ public class MemoryLiteral extends AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = -7857969624385707741L;
 
-	XRI3SubSegment arcXri;
-	String literalData;
+	private XRI3SubSegment arcXri;
+	private String literalData;
 
-	public MemoryLiteral(Graph graph, ContextNode contextNode) {
+	MemoryLiteral(Graph graph, ContextNode contextNode, XRI3SubSegment arcXri, String literalData) {
 
 		super(graph, contextNode);
+
+		this.arcXri = arcXri;
+		this.literalData = literalData;
 	}
 
 	@Override
 	public XRI3SubSegment getArcXri() {
 
-		return arcXri;
+		return this.arcXri;
 	}
 
 	@Override
 	public String getLiteralData() {
 
-		return literalData;
+		return this.literalData;
 	}
 
 	@Override
