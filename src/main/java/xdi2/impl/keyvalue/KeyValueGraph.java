@@ -8,6 +8,8 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 
 	private static final long serialVersionUID = -1056367553713824301L;
 
+	private final KeyValueStore keyValueStore;
+
 	private final boolean supportGetContextNodes;
 	private final boolean supportGetRelations;
 	private final boolean supportGetLiterals;
@@ -15,6 +17,8 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 	private final KeyValueContextNode rootContextNode;
 
 	KeyValueGraph(KeyValueStore keyValueStore, boolean supportGetContextNodes, boolean supportGetRelations, boolean supportGetLiterals) {
+
+		this.keyValueStore = keyValueStore;
 
 		this.supportGetContextNodes = supportGetContextNodes;
 		this.supportGetRelations = supportGetRelations;
@@ -32,6 +36,26 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 	@Override
 	public void close() {
 
+		this.keyValueStore.close();
+	}
+
+	/*
+	 * Methods related to transactions
+	 */
+
+	public void beginTransaction() {
+
+		this.keyValueStore.beginTransaction();
+	}
+
+	public void commitTransaction() {
+
+		this.keyValueStore.commitTransaction();
+	}
+
+	public void rollbackTransaction() {
+
+		this.keyValueStore.rollbackTransaction();
 	}
 
 	/*

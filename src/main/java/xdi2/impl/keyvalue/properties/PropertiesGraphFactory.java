@@ -18,42 +18,51 @@ public final class PropertiesGraphFactory extends AbstractKeyValueGraphFactory i
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 
 	public static final boolean DEFAULT_SUPPORT_GET_LITERALS = true; 
 
-	public static final String DEFAULT_PROPERTIES_PATH = "./xdi2-graph.properties";
+	public static final File DEFAULT_PROPERTIES_FILE = new File(".", "xdi2-graph.properties");
+	public static final boolean DEFAULT_AUTO_SAVE = false;
 
-	private String path;
+	private File file;
+	private boolean autoSave;
 
 	public PropertiesGraphFactory() {
 
 		super(DEFAULT_SUPPORT_GET_CONTEXTNODES, DEFAULT_SUPPORT_GET_RELATIONS, DEFAULT_SUPPORT_GET_LITERALS);
-		
-		this.path = DEFAULT_PROPERTIES_PATH;
+
+		this.file = DEFAULT_PROPERTIES_FILE;
+		this.autoSave = DEFAULT_AUTO_SAVE;
 	}
 
 	protected KeyValueStore getKeyValueStore() throws IOException {
-
-		// we use the current working directory
-
-		File file = new File(this.path);
 
 		// open file
 
 		PropertiesKeyValueStore keyValueStore;
 
-		keyValueStore = new PropertiesKeyValueStore(file);
+		keyValueStore = new PropertiesKeyValueStore(this.file, this.autoSave);
 		keyValueStore.load();
 
 		// done
-		
+
 		return keyValueStore;
 	}
 
-	public String getPath() {
+	public File getFile() {
 
-		return this.path;
+		return this.file;
 	}
 
-	public void setPath(String path) {
+	public void setFile(File file) {
 
-		this.path = path;
+		this.file = file;
+	}
+
+	public boolean isAutoSave() {
+
+		return this.autoSave;
+	}
+
+	public void setAutoSave(boolean autoSave) {
+
+		this.autoSave = autoSave;
 	}
 }

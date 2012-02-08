@@ -32,6 +32,17 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
+	public synchronized void clear() {
+
+		if (this.isRootContextNode()) {
+
+			this.keyValueStore.clear();
+		} else {
+
+			super.clear();
+		}
+	}
+
 	public XRI3SubSegment getArcXri() {
 
 		return this.arcXri;
@@ -47,25 +58,25 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the context node " + arcXri + ".");
 
-		String relationKey = this.key + "/" + arcXri.toString();
+		String contextNodeKey = (this.isRootContextNode() ? "" : this.key) + arcXri.toString();
 
-		if (((KeyValueGraph) this.getGraph()).isSupportGetContextNodes()) this.keyValueStore.put(this.key + "/" + "()", arcXri.toString());
-		this.keyValueStore.put(relationKey, ".");
+		if (((KeyValueGraph) this.getGraph()).isSupportGetContextNodes()) this.keyValueStore.put(this.key + "/" + "--C", arcXri.toString());
+		this.keyValueStore.put(contextNodeKey, ".");
 
-		KeyValueContextNode contextNode = new KeyValueContextNode(this.getGraph(), this, this.keyValueStore, relationKey, arcXri);
+		KeyValueContextNode contextNode = new KeyValueContextNode(this.getGraph(), this, this.keyValueStore, contextNodeKey, arcXri);
 
 		return contextNode;
 	}
 
 	public Iterator<ContextNode> getContextNodes() {
 
-		return new MappingIterator<String, ContextNode> (this.keyValueStore.getAll(this.key + "/()")) {
+		return new MappingIterator<String, ContextNode> (this.keyValueStore.getAll(this.key + "/--C")) {
 
 			@Override
 			public ContextNode map(String item) {
 
 				XRI3SubSegment arcXri = new XRI3SubSegment(item);
-				String contextNodeKey = KeyValueContextNode.this.key + "/" + arcXri.toString();
+				String contextNodeKey = (KeyValueContextNode.this.isRootContextNode() ? "" : KeyValueContextNode.this.key) + arcXri.toString();
 
 				return new KeyValueContextNode(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, contextNodeKey, arcXri);
 			}
@@ -77,42 +88,42 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		if (! this.containsContextNode(arcXri)) return(null);
 
-		String contextNodeKey = KeyValueContextNode.this.key + "/" + arcXri.toString();
+		String contextNodeKey = (this.isRootContextNode() ? "" : this.key) + arcXri.toString();
 
-		return new KeyValueContextNode(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, contextNodeKey, arcXri);
-	}
-
-	@Override
-	public boolean containsContextNodes() {
-
-		return this.keyValueStore.contains(this.key + "/()");
+		return new KeyValueContextNode(this.getGraph(), this, this.keyValueStore, contextNodeKey, arcXri);
 	}
 
 	@Override
 	public boolean containsContextNode(XRI3SubSegment arcXri) {
 
-		String contextNodeKey = this.key + "/" + arcXri.toString();
+		String contextNodeKey = (this.isRootContextNode() ? "" : this.key) + arcXri.toString();
 
 		return this.keyValueStore.contains(contextNodeKey);
 	}
 
+	@Override
+	public boolean containsContextNodes() {
+
+		return this.keyValueStore.contains(this.key + "/--C");
+	}
+
 	public synchronized void deleteContextNode(XRI3SubSegment arcXri) {
 
-		String contextNodeKey = this.key + "/" + arcXri.toString();
+		String contextNodeKey = (this.isRootContextNode() ? "" : this.key) + arcXri.toString();
 
-		if (((KeyValueGraph) this.getGraph()).isSupportGetContextNodes()) this.keyValueStore.delete(this.key + "/()", arcXri.toString());
+		if (((KeyValueGraph) this.getGraph()).isSupportGetContextNodes()) this.keyValueStore.delete(this.key + "/--C", arcXri.toString());
 		this.keyValueStore.delete(contextNodeKey);
 	}
 
 	public synchronized void deleteContextNodes() {
 
-		if (((KeyValueGraph) this.getGraph()).isSupportGetContextNodes()) this.keyValueStore.delete(this.key + "/()");
+		if (((KeyValueGraph) this.getGraph()).isSupportGetContextNodes()) this.keyValueStore.delete(this.key + "/--C");
 	}
 
 	@Override
 	public synchronized int getContextNodeCount() {
 
-		return this.keyValueStore.count(this.key + "/()");
+		return this.keyValueStore.count(this.key + "/--C");
 	}
 
 	/*
@@ -127,7 +138,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
 		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
 
-		String relationKey = this.key + "/" + arcXri.toString();
+		String relationKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
 
 		if (((KeyValueGraph) this.getGraph()).isSupportGetRelations()) this.keyValueStore.put(this.key + "/" + "--R", arcXri.toString());
 		this.keyValueStore.put(relationKey, relationXri.toString());
@@ -145,7 +156,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 			public Relation map(String item) {
 
 				XRI3SubSegment arcXri = new XRI3SubSegment(item);
-				String relationKey = KeyValueContextNode.this.key + "/" + arcXri.toString();
+				String relationKey = (KeyValueContextNode.this.isRootContextNode() ? "" : KeyValueContextNode.this.key) + "/" + arcXri.toString();
 
 				return new KeyValueRelation(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arcXri, null);
 			}
@@ -157,9 +168,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		if (! this.containsRelation(arcXri)) return(null);
 
-		String relationKey = KeyValueContextNode.this.key + "/" + arcXri.toString();
+		String relationKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
 
-		return new KeyValueRelation(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arcXri, null);
+		return new KeyValueRelation(this.getGraph(), this, this.keyValueStore, relationKey, arcXri, null);
 	}
 
 	@Override
@@ -171,14 +182,14 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public boolean containsRelation(XRI3SubSegment arcXri) {
 
-		String relationKey = this.key + "/" + arcXri.toString();
+		String relationKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
 
 		return this.keyValueStore.contains(relationKey);
 	}
 
 	public synchronized void deleteRelation(XRI3SubSegment arcXri) {
 
-		String relationKey = this.key + "/" + arcXri.toString();
+		String relationKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
 
 		if (((KeyValueGraph) this.getGraph()).isSupportGetRelations()) this.keyValueStore.delete(this.key + "/--R", arcXri.toString());
 		this.keyValueStore.delete(relationKey);
@@ -207,7 +218,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
 		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
 
-		String literalKey = this.key + "/" + arcXri.toString();
+		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
 
 		if (((KeyValueGraph) this.getGraph()).isSupportGetLiterals()) this.keyValueStore.put(this.key + "/" + "--L", arcXri.toString());
 		this.keyValueStore.put(literalKey, literalData.toString());
@@ -225,7 +236,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 			public Literal map(String item) {
 
 				XRI3SubSegment arcXri = new XRI3SubSegment(item);
-				String literalKey = KeyValueContextNode.this.key + "/" + arcXri.toString();
+				String literalKey = (KeyValueContextNode.this.isRootContextNode() ? "" : KeyValueContextNode.this.key) + "/" + arcXri.toString();
 
 				return new KeyValueLiteral(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, literalKey, arcXri, null);
 			}
@@ -237,9 +248,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		if (! this.containsLiteral(arcXri)) return(null);
 
-		String literalKey = KeyValueContextNode.this.key + "/" + arcXri.toString();
+		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
 
-		return new KeyValueLiteral(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, literalKey, arcXri, null);
+		return new KeyValueLiteral(this.getGraph(), this, this.keyValueStore, literalKey, arcXri, null);
 	}
 
 	@Override
@@ -251,14 +262,14 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public boolean containsLiteral(XRI3SubSegment arcXri) {
 
-		String literalKey = this.key + "/" + arcXri.toString();
+		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
 
 		return this.keyValueStore.contains(literalKey);
 	}
 
 	public synchronized void deleteLiteral(XRI3SubSegment arcXri) {
 
-		String literalKey = this.key + "/" + arcXri.toString();
+		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
 
 		if (((KeyValueGraph) this.getGraph()).isSupportGetLiterals()) this.keyValueStore.delete(this.key + "/--L", arcXri.toString());
 		this.keyValueStore.delete(literalKey);

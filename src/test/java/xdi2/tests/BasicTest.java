@@ -1,6 +1,7 @@
 package xdi2.tests;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -10,7 +11,6 @@ import xdi2.Graph;
 import xdi2.Literal;
 import xdi2.Relation;
 import xdi2.constants.XDIConstants;
-import xdi2.impl.memory.MemoryGraphFactory;
 import xdi2.io.XDIReader;
 import xdi2.io.XDIReaderRegistry;
 import xdi2.io.XDIWriter;
@@ -18,43 +18,47 @@ import xdi2.io.XDIWriterRegistry;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
-public class BasicTest extends TestCase {
+public abstract class BasicTest extends TestCase {
+
+	protected abstract Graph openNewGraph(String id) throws IOException;
 
 	public void testMakeGraph() throws Exception {
 
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-
-		this.makeGraph(graph);
-		this.testGraph(graph);
+		Graph graph1 = this.openNewGraph("1");
+		
+		makeGraph(graph1);
+		testGraph(graph1);
 	}
 
 	public void testReadJson() throws Exception {
 
+		Graph graph2 = this.openNewGraph("2");
+
 		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
 
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		reader.read(graph, new FileReader("test.json"), null);
-		this.testGraph(graph);
+		reader.read(graph2, new FileReader("test.json"), null);
+		testGraph(graph2);
 	}
 
 	public void testWriteJson() throws Exception {
+
+		Graph graph3 = this.openNewGraph("3");
+		Graph graph4 = this.openNewGraph("4");
 
 		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
 		XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
 		StringWriter buffer = new StringWriter();
 
-		Graph graph1 = MemoryGraphFactory.getInstance().openGraph();
-		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
-		this.makeGraph(graph1);
-		writer.write(graph1, buffer, null);
-		reader.read(graph2, new StringReader(buffer.getBuffer().toString()), null);
+		makeGraph(graph3);
+		writer.write(graph3, buffer, null);
+		reader.read(graph4, new StringReader(buffer.getBuffer().toString()), null);
 
-		this.testGraph(graph2);
-		this.testGraphsEqual(graph1, graph2);
+		testGraph(graph4);
+		testGraphsEqual(graph3, graph4);
 	}
 
 	@SuppressWarnings("unused")
-	private void makeGraph(Graph graph) throws Exception {
+	private static void makeGraph(Graph graph) throws Exception {
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.createContextNode(new XRI3SubSegment("=abc"));
@@ -81,7 +85,7 @@ public class BasicTest extends TestCase {
 		Relation abcPassportRelation2 = abcPassportContextNode.createRelation(new XRI3SubSegment("*2"), new XRI3Segment("=abc+passport!2"));
 	}
 
-	private void testGraph(Graph graph) throws Exception {
+	private static void testGraph(Graph graph) throws Exception {
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.getContextNode(new XRI3SubSegment("=abc"));
@@ -159,7 +163,7 @@ public class BasicTest extends TestCase {
 		assertEquals(rootContextNode.getAllLiteralCount(), 8);
 	}
 
-	private void testGraphsEqual(Graph graph1, Graph graph2) throws Exception {
+	private static void testGraphsEqual(Graph graph1, Graph graph2) throws Exception {
 
 		ContextNode rootContextNode1 = graph1.getRootContextNode();
 		ContextNode rootContextNode2 = graph2.getRootContextNode();

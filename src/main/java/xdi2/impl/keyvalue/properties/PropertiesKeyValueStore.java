@@ -3,7 +3,6 @@ package xdi2.impl.keyvalue.properties;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import java.util.Properties;
 
 import org.apache.commons.codec.binary.Base64;
 
+import xdi2.exceptions.Xdi2RuntimeException;
 import xdi2.impl.keyvalue.AbstractKeyValueStore;
 import xdi2.impl.keyvalue.KeyValueStore;
 
@@ -25,12 +25,14 @@ import xdi2.impl.keyvalue.KeyValueStore;
 class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
 	private File file;
+	private boolean autoSave;
+
 	private Properties properties;
 
-	PropertiesKeyValueStore(File file) {
+	PropertiesKeyValueStore(File file, boolean autoSave) {
 
 		this.file = file;
-		this.properties = null;
+		this.autoSave = autoSave;
 	}
 
 	public void put(String key, String value) {
@@ -52,12 +54,14 @@ class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		this.properties.setProperty(key + "___", (indexlist == null ? "" : indexlist + " ") + newindex);
 		this.properties.setProperty(key + "___" + newindex, value);
 		this.properties.setProperty(key + "___" + hash(value), newindex);
+
+		if (this.autoSave) this.save();
 	}
 
 	@Override
 	public String getOne(String key) {
 
-		return(super.getOne(key));
+		return super.getOne(key);
 	}
 
 	public Iterator<String> getAll(String key) {
@@ -85,25 +89,27 @@ class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			contents.add(content);
 		}
 
-		return(contents.iterator());
+		return contents.iterator();
 	}
 
 	@Override
 	public boolean contains(String key) {
 
-		return(super.contains(key));
+		return super.contains(key);
 	}
 
 	@Override
 	public boolean contains(String key, String value) {
 
-		return(super.contains(key, value));
+		return super.contains(key, value);
 	}
 
 	@Override
 	public void delete(String key) {
 
 		this.properties.setProperty(key + "___", "");
+
+		if (this.autoSave) this.save();
 	}
 
 	public void delete(String key, String value) {
@@ -142,84 +148,79 @@ class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		}
 
 		this.properties.setProperty(key + "___", newindexlist);
+
+		if (this.autoSave) this.save();
 	}
 
 	public void clear() {
 
 		this.properties.clear();
+
+		if (this.autoSave) this.save();
 	}
 
 	public void close() {
 
-		try {
-
-			this.save();
-		} catch (Exception ex) {
-
-			throw new RuntimeException("Cannot save properties file: " + ex.getMessage(), ex);
-		}
+		this.save();
 
 		this.file = null;
 		this.properties = null;
 	}
 
+	@Override
 	public void beginTransaction() {
 
-		try {
-
-			if (this.properties == null) this.load();
-		} catch (Exception ex) {
-
-			throw new RuntimeException("Cannot load properties file: " + ex.getMessage(), ex);
-		}
+		if (this.properties == null) this.load();
 	}
 
+	@Override
 	public void commitTransaction() {
 
-		try {
-
-			this.save();
-		} catch (Exception ex) {
-
-			throw new RuntimeException("Cannot save properties file: " + ex.getMessage(), ex);
-		}
+		this.save();
 	}
 
+	@Override
 	public void rollbackTransaction() {
 
-		try {
-
-			this.load();
-		} catch (Exception ex) {
-
-			throw new RuntimeException("Cannot load properties file: " + ex.getMessage(), ex);
-		}
+		this.load();
 	}
 
 	public File getFile() {
 
-		return(this.file);
+		return this.file;
 	}
 
 	public Properties getProperties() {
 
-		return(this.properties);
+		return this.properties;
 	}
 
-	void load() throws IOException {
+	void load() {
 
-		if (! this.file.exists()) this.file.createNewFile();
+		try {
 
-		this.properties = new Properties();
-		this.properties.load(new FileInputStream(this.file));
+			if (! this.file.exists()) this.file.createNewFile();
+
+			this.properties = new Properties();
+			this.properties.load(new FileInputStream(this.file));
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Cannot load properties file: " + ex.getMessage(), ex);
+		}
 	}
 
-	void save() throws IOException {
+	void save() {
 
-		OutputStream stream = new FileOutputStream(this.file);
+		try {
 
-		this.properties.store(stream, null);
-		stream.close();
+			OutputStream stream = new FileOutputStream(this.file);
+
+			this.properties.store(stream, null);
+			stream.close();
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Cannot save properties file: " + ex.getMessage(), ex);
+		}
 	}
 
 	private static String hash(String str) {
@@ -237,6 +238,6 @@ class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			throw new RuntimeException("hash(): " + ex.getMessage(), ex);
 		}
 
-		return(hash);
+		return hash;
 	}
 }
