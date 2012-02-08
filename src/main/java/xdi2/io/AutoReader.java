@@ -120,21 +120,21 @@ public class AutoReader extends AbstractXDIReader {
 
 	public String getFormat() {
 
-		return(FORMAT_TYPE);
+		return FORMAT_TYPE;
 	}
 
 	public String[] getMimeTypes() {
 
-		return(new String[0]);
+		return new String[0];
 	}
 
 	public String getDefaultFileExtension() {
 
-		return(null);
+		return null;
 	}
 
 	public XDIReader getLastSuccessfulReader() {
 
-		return(this.lastSuccessfulReader);
+		return this.lastSuccessfulReader;
 	}
 }

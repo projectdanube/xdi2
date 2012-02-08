@@ -2,17 +2,16 @@ package xdi2.xri3.impl;
 
 import java.util.List;
 
-
 import xdi2.xri3.XRIReference;
 import xdi2.xri3.XRIXRef;
-import xdi2.xri3.impl.parser.ParserException;
-import xdi2.xri3.impl.parser.Rule;
 import xdi2.xri3.impl.parser.Parser.IRI;
 import xdi2.xri3.impl.parser.Parser.xref;
 import xdi2.xri3.impl.parser.Parser.xref_IRI;
 import xdi2.xri3.impl.parser.Parser.xref_empty;
 import xdi2.xri3.impl.parser.Parser.xref_xri_reference;
 import xdi2.xri3.impl.parser.Parser.xri_reference;
+import xdi2.xri3.impl.parser.ParserException;
+import xdi2.xri3.impl.parser.Rule;
 
 public class XRI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 

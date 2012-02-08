@@ -18,7 +18,7 @@ import java.util.Iterator;
  * In order for the hasNext() function to behave correctly, the iterator always looks ahead one
  * element.
  *  
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public abstract class TerminatingIterator<T> implements Iterator<T> {
 
@@ -34,7 +34,7 @@ public abstract class TerminatingIterator<T> implements Iterator<T> {
 
 	public boolean hasNext() {
 
-		return(this.nextElement != null);
+		return this.nextElement != null;
 	}
 
 	public T next() {
@@ -43,7 +43,7 @@ public abstract class TerminatingIterator<T> implements Iterator<T> {
 
 		this.lookahead();
 
-		return(element);
+		return element;
 	}
 
 	public void remove() {

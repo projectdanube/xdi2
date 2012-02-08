@@ -18,7 +18,7 @@ import java.util.Iterator;
  * I is the type of elements read by the iterator.
  * O is the type of elements returned by the iterator.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public abstract class MappingIterator<I, O> implements Iterator<O> {
 
@@ -31,12 +31,12 @@ public abstract class MappingIterator<I, O> implements Iterator<O> {
 
 	public boolean hasNext() {
 
-		return(this.iterator.hasNext());
+		return this.iterator.hasNext();
 	}
 
 	public O next() {
 
-		return(this.map(this.iterator.next()));
+		return this.map(this.iterator.next());
 	}
 
 	public void remove() {

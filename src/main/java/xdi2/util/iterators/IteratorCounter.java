@@ -15,7 +15,7 @@ import java.util.Iterator;
 /**
  * A class that can count the number of elements in an Iterator.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public final class IteratorCounter {
 
@@ -36,7 +36,7 @@ public final class IteratorCounter {
 	 */
 	public int count() {
 
-		if (this.count != -1) return(this.count);
+		if (this.count != -1) return this.count;
 
 		this.count = 0;
 		while (this.iterator.hasNext()) {
@@ -45,6 +45,6 @@ public final class IteratorCounter {
 			this.count++;
 		}
 
-		return(this.count);
+		return this.count;
 	}
 }

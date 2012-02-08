@@ -42,7 +42,7 @@ public abstract class AbstractRelation implements Relation {
 
 		XRI3Segment relationXri = this.getRelationXri();
 
-		return(this.getGraph().findContextNode(relationXri));
+		return this.getGraph().findContextNode(relationXri);
 	}
 
 	/*
@@ -84,7 +84,7 @@ public abstract class AbstractRelation implements Relation {
 
 	public int compareTo(Relation other) {
 
-		if (other == null || other == this) return(0);
+		if (other == null || other == this) return 0;
 
 		return this.getRelationXri().compareTo(other.getRelationXri());
 	}

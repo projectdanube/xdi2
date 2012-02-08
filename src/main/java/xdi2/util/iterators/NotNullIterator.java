@@ -15,7 +15,7 @@ import java.util.Iterator;
 /**
  * An iterator that returns only all non-null elements from another iterator.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public class NotNullIterator<T> extends SelectingIterator<T> {
 
@@ -27,6 +27,6 @@ public class NotNullIterator<T> extends SelectingIterator<T> {
 	@Override
 	public boolean select(T item) {
 
-		return(item != null);
+		return item != null;
 	}
 }

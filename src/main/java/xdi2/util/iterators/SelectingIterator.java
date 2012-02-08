@@ -24,7 +24,7 @@ public abstract class SelectingIterator<T> extends ReadOnlyIterator<T> {
 
 	public boolean hasNext() {
 
-		return(this.nextElement != null);
+		return this.nextElement != null;
 	}
 
 	public T next() {
@@ -33,7 +33,7 @@ public abstract class SelectingIterator<T> extends ReadOnlyIterator<T> {
 
 		this.lookahead();
 
-		return(element);
+		return element;
 	}
 
 	protected void lookahead() {

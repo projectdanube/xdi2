@@ -39,21 +39,9 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public boolean isRootContextNode();
 
 	/**
-	 * Gets the XRI of this context node.
-	 * @return The XRI of this context node.
-	 */
-	public XRI3Segment getXri();
-
-	/**
 	 * Deletes this context node.
 	 */
 	public void delete();
-
-	/**
-	 * Every context node has an associated arc XRI.
-	 * @return The arc XRI associated with this context node.
-	 */
-	public XRI3SubSegment getArcXri();
 
 	/**
 	 * Clears the context node. This is equivalent to calling deleteContextNodes(), deleteRelations() and deleteLiterals().
@@ -65,6 +53,20 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * This is equivalent to calling ! ( containsContextNodes() || containsRelations() || containsLiterals() ).
 	 */
 	public boolean isEmpty();
+
+	/**
+	 * Every context node has an associated arc XRI.
+	 * This returns null for the root context node.
+	 * @return The arc XRI associated with this context node.
+	 */
+	public XRI3SubSegment getArcXri();
+
+	/**
+	 * Gets the XRI of this context node.
+	 * This returns () for the root context node.
+	 * @return The XRI of this context node.
+	 */
+	public XRI3Segment getXri();
 
 	/*
 	 * Methods related to context nodes of this context node

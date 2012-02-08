@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Provides an appropriate XDIWriter for a given type.
  *
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public final class XDIWriterRegistry {
 
@@ -29,14 +29,7 @@ public final class XDIWriterRegistry {
 
 	private static String writerClassNames[] = {
 
-		"org.eclipse.higgins.xdi4j.io.X3StandardWriter",  // first one in the array is the default
-		"org.eclipse.higgins.xdi4j.io.X3SimpleWriter",
-		"org.eclipse.higgins.xdi4j.io.X3WhitespaceWriter",
-		"org.eclipse.higgins.xdi4j.io.XDIXMLWriter",
-		"org.eclipse.higgins.xdi4j.io.XTRIPLESWriter",
-		"org.eclipse.higgins.xdi4j.io.X3JWriter",
-		"org.eclipse.higgins.xdi4j.io.XDIJSONWriter",
-		"org.eclipse.higgins.xdi4j.io.XRIWriter"
+		XDIJSONWriter.class.getName()  // first one in the array is the default
 	};
 
 	private static List<Class<XDIWriter> > writerClasses;
@@ -114,7 +107,7 @@ public final class XDIWriterRegistry {
 
 		try {
 
-			return(writerClass.newInstance());
+			return writerClass.newInstance();
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -138,7 +131,7 @@ public final class XDIWriterRegistry {
 
 		try {
 
-			return(writerClass.newInstance());
+			return writerClass.newInstance();
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -162,7 +155,7 @@ public final class XDIWriterRegistry {
 
 		try {
 
-			return(writerClass.newInstance());
+			return writerClass.newInstance();
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -188,7 +181,7 @@ public final class XDIWriterRegistry {
 			}
 		}
 
-		return(writers);
+		return writers;
 	}
 
 	/**
@@ -201,7 +194,7 @@ public final class XDIWriterRegistry {
 
 		try {
 
-			return(writerClass.newInstance());
+			return writerClass.newInstance();
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -214,7 +207,7 @@ public final class XDIWriterRegistry {
 	 */
 	public static String[] getFormats() {
 
-		return(writerClassesByFormat.keySet().toArray(new String[writerClassesByFormat.size()]));
+		return writerClassesByFormat.keySet().toArray(new String[writerClassesByFormat.size()]);
 	}
 
 	/**
@@ -223,6 +216,6 @@ public final class XDIWriterRegistry {
 	 */
 	public static String[] getMimeTypes() {
 
-		return(writerClassesByMimeType.keySet().toArray(new String[writerClassesByMimeType.size()]));
+		return writerClassesByMimeType.keySet().toArray(new String[writerClassesByMimeType.size()]);
 	}
 }

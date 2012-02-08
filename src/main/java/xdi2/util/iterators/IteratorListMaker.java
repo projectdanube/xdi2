@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * A class that makes a list consisting of all items of an iterator.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public final class IteratorListMaker<I> {
 
@@ -44,6 +44,6 @@ public final class IteratorListMaker<I> {
 			while (this.iterator.hasNext()) this.list.add(this.iterator.next());
 		}
 
-		return(this.list);
+		return this.list;
 	}
 }

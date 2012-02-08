@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * A class that makes an array consisting of all items of an iterator.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public final class IteratorArrayMaker<I> {
 
@@ -46,6 +46,6 @@ public final class IteratorArrayMaker<I> {
 			this.array = list.toArray(array);
 		}
 
-		return(this.array);
+		return this.array;
 	}
 }

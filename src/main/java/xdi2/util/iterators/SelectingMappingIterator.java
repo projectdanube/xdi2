@@ -22,7 +22,7 @@ import java.util.Iterator;
  * I is the type of elements read by the iterator.
  * O is the type of elements returned by the iterator.
  *  
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public abstract class SelectingMappingIterator<I, O> extends ReadOnlyIterator<O> {
 
@@ -38,7 +38,7 @@ public abstract class SelectingMappingIterator<I, O> extends ReadOnlyIterator<O>
 
 	public boolean hasNext() {
 
-		return(this.nextElement != null);
+		return this.nextElement != null;
 	}
 
 	public O next() {
@@ -47,7 +47,7 @@ public abstract class SelectingMappingIterator<I, O> extends ReadOnlyIterator<O>
 
 		this.lookahead();
 
-		return(element);
+		return element;
 	}
 
 	protected void lookahead() {

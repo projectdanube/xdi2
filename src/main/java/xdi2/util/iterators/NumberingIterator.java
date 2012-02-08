@@ -18,7 +18,7 @@ package xdi2.util.iterators;
  * I is the type of elements read by the iterator.
  * O is the type of elements returned by the iterator.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public abstract class NumberingIterator<T> extends ReadOnlyIterator<T> {
 
@@ -32,12 +32,12 @@ public abstract class NumberingIterator<T> extends ReadOnlyIterator<T> {
 
 	public boolean hasNext() {
 
-		return(this.current <= this.to);
+		return this.current <= this.to;
 	}
 
 	public T next() {
 
-		return(this.get(this.current++));
+		return this.get(this.current++);
 	}
 
 	public abstract T get(int current);

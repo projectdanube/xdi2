@@ -63,8 +63,6 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		if (arcXri == null) throw new NullPointerException();
 
 		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the context node " + arcXri + ".");
-		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
-		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
 
 		MemoryContextNode contextNode = new MemoryContextNode(this.getGraph(), this);
 		contextNode.arcXri = arcXri;
@@ -76,25 +74,25 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 	public Iterator<ContextNode> getContextNodes() {
 
-		return(new CastingIterator<ContextNode> (this.contextNodes.values().iterator()));
+		return new CastingIterator<ContextNode> (this.contextNodes.values().iterator());
 	}
 
 	@Override
 	public ContextNode getContextNode(XRI3SubSegment arcXri) {
 
-		return(this.contextNodes.get(arcXri));
+		return this.contextNodes.get(arcXri);
 	}
 
 	@Override
 	public boolean containsContextNodes() {
 
-		return(! this.contextNodes.isEmpty());
+		return ! this.contextNodes.isEmpty();
 	}
 
 	@Override
 	public boolean containsContextNode(XRI3SubSegment arcXri) {
 
-		return(this.contextNodes.containsKey(arcXri));
+		return this.contextNodes.containsKey(arcXri);
 	}
 
 	public synchronized void deleteContextNode(XRI3SubSegment arcXri) {
@@ -116,7 +114,6 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		if (arcXri == null) throw new NullPointerException();
 		if (relationXri == null) throw new NullPointerException();
 
-		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the context node " + arcXri + ".");
 		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
 		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
 
@@ -131,25 +128,25 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 	public Iterator<Relation> getRelations() {
 
-		return(new CastingIterator<Relation> (this.relations.values().iterator()));
+		return new CastingIterator<Relation> (this.relations.values().iterator());
 	}
 
 	@Override
 	public Relation getRelation(XRI3SubSegment arcXri) {
 
-		return(this.relations.get(arcXri));
+		return this.relations.get(arcXri);
 	}
 
 	@Override
 	public boolean containsRelations() {
 
-		return(! this.relations.isEmpty());
+		return ! this.relations.isEmpty();
 	}
 
 	@Override
 	public boolean containsRelation(XRI3SubSegment arcXri) {
 
-		return(this.relations.containsKey(arcXri));
+		return this.relations.containsKey(arcXri);
 	}
 
 	public synchronized void deleteRelation(XRI3SubSegment arcXri) {
@@ -171,7 +168,6 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		if (arcXri == null) throw new NullPointerException();
 		if (literalData == null) throw new NullPointerException();
 
-		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the context node " + arcXri + ".");
 		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
 		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
 
@@ -186,25 +182,25 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 	public Iterator<Literal> getLiterals() {
 
-		return(new CastingIterator<Literal> (this.literals.values().iterator()));
+		return new CastingIterator<Literal> (this.literals.values().iterator());
 	}
 
 	@Override
 	public Literal getLiteral(XRI3SubSegment arcXri) {
 
-		return(this.literals.get(arcXri));
+		return this.literals.get(arcXri);
 	}
 
 	@Override
 	public boolean containsLiterals() {
 
-		return(! this.literals.isEmpty());
+		return ! this.literals.isEmpty();
 	}
 
 	@Override
 	public boolean containsLiteral(XRI3SubSegment arcXri) {
 
-		return(this.literals.containsKey(arcXri));
+		return this.literals.containsKey(arcXri);
 	}
 
 	public synchronized void deleteLiteral(XRI3SubSegment arcXri) {

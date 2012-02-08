@@ -2,12 +2,9 @@ package xdi2.xri3.impl;
 
 import java.util.List;
 
-
 import xdi2.xri3.XRILiteral;
 import xdi2.xri3.XRISubSegment;
 import xdi2.xri3.XRIXRef;
-import xdi2.xri3.impl.parser.ParserException;
-import xdi2.xri3.impl.parser.Rule;
 import xdi2.xri3.impl.parser.Parser.gcs_char;
 import xdi2.xri3.impl.parser.Parser.global_subseg;
 import xdi2.xri3.impl.parser.Parser.lcs_char;
@@ -15,6 +12,8 @@ import xdi2.xri3.impl.parser.Parser.literal;
 import xdi2.xri3.impl.parser.Parser.local_subseg;
 import xdi2.xri3.impl.parser.Parser.subseg;
 import xdi2.xri3.impl.parser.Parser.xref;
+import xdi2.xri3.impl.parser.ParserException;
+import xdi2.xri3.impl.parser.Rule;
 
 public class XRI3SubSegment extends XRI3SyntaxComponent implements XRISubSegment {
 

@@ -2,7 +2,6 @@ package xdi2.xri3.impl;
 
 import java.util.List;
 
-
 import xdi2.xri3.XRI;
 import xdi2.xri3.XRIAuthority;
 import xdi2.xri3.XRIFragment;
@@ -10,8 +9,6 @@ import xdi2.xri3.XRIPath;
 import xdi2.xri3.XRIQuery;
 import xdi2.xri3.XRIReference;
 import xdi2.xri3.XRISyntaxComponent;
-import xdi2.xri3.impl.parser.ParserException;
-import xdi2.xri3.impl.parser.Rule;
 import xdi2.xri3.impl.parser.Parser.ifragment;
 import xdi2.xri3.impl.parser.Parser.ipath_empty;
 import xdi2.xri3.impl.parser.Parser.iquery;
@@ -21,6 +18,8 @@ import xdi2.xri3.impl.parser.Parser.xri;
 import xdi2.xri3.impl.parser.Parser.xri_path_abs;
 import xdi2.xri3.impl.parser.Parser.xri_path_noscheme;
 import xdi2.xri3.impl.parser.Parser.xri_reference;
+import xdi2.xri3.impl.parser.ParserException;
+import xdi2.xri3.impl.parser.Rule;
 
 public class XRI3Reference extends XRI3SyntaxComponent implements XRIReference {
 

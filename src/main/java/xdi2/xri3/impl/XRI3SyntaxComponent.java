@@ -1,6 +1,5 @@
 package xdi2.xri3.impl;
 
-
 import xdi2.xri3.XRISyntaxComponent;
 import xdi2.xri3.impl.parser.Rule;
 

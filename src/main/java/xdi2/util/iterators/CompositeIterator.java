@@ -16,7 +16,7 @@ import java.util.Iterator;
 /**
  * An iterator that iterates over all items of multiple other iterators.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public class CompositeIterator<T> extends DescendingIterator<Iterator<T>, T> {
 
@@ -37,6 +37,6 @@ public class CompositeIterator<T> extends DescendingIterator<Iterator<T>, T> {
 	@Override
 	public Iterator<T> descend(Iterator<T> item) {
 
-		return(item);
+		return item;
 	}
 }

@@ -14,7 +14,7 @@ package xdi2.util.iterators;
 /**
  * An iterator that has no elements.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public class EmptyIterator<T> extends ReadOnlyIterator<T> {
 
@@ -24,11 +24,11 @@ public class EmptyIterator<T> extends ReadOnlyIterator<T> {
 
 	public boolean hasNext() {
 
-		return(false);
+		return false;
 	}
 
 	public T next() {
 
-		return(null);
+		return null;
 	}
 }

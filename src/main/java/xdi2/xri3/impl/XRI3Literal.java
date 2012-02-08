@@ -1,11 +1,10 @@
 package xdi2.xri3.impl;
 
-
 import xdi2.xri3.XRILiteral;
-import xdi2.xri3.impl.parser.ParserException;
-import xdi2.xri3.impl.parser.Rule;
 import xdi2.xri3.impl.parser.Parser.literal;
 import xdi2.xri3.impl.parser.Parser.literal_nc;
+import xdi2.xri3.impl.parser.ParserException;
+import xdi2.xri3.impl.parser.Rule;
 
 public class XRI3Literal extends XRI3SyntaxComponent implements XRILiteral {
 

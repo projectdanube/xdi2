@@ -9,6 +9,7 @@ import xdi2.ContextNode;
 import xdi2.Graph;
 import xdi2.Literal;
 import xdi2.Relation;
+import xdi2.constants.XDIConstants;
 import xdi2.util.iterators.CompositeIterator;
 import xdi2.util.iterators.DescendingIterator;
 import xdi2.util.iterators.FirstIteratorItem;
@@ -45,24 +46,6 @@ public abstract class AbstractContextNode implements ContextNode {
 		return this.getGraph().getRootContextNode() == this;
 	}
 
-	@Override
-	public XRI3Segment getXri() {
-
-		ContextNode contextNode = this.getContextNode();
-
-		if (contextNode == null) return new XRI3Segment("()");
-
-		String xri = this.getXri().toString();
-
-		while (contextNode != null) {
-
-			xri = contextNode.getArcXri() + xri;
-			contextNode = contextNode.getContextNode();
-		}
-
-		return new XRI3Segment(xri);
-	}
-
 	public synchronized void delete() {
 
 		this.getContextNode().deleteContextNode(this.getArcXri());
@@ -77,7 +60,24 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	public boolean isEmpty() {
 
-		return(! (this.containsContextNodes() || this.containsRelations() || this.containsLiterals()));
+		return ! (this.containsContextNodes() || this.containsRelations() || this.containsLiterals());
+	}
+
+	@Override
+	public XRI3Segment getXri() {
+
+		if (this.isRootContextNode()) return XDIConstants.XRI_CONTEXT;
+
+		String xri = this.getArcXri().toString();
+
+		for (ContextNode contextNode = this.getContextNode(); 
+				contextNode != null && ! contextNode.isRootContextNode(); 
+				contextNode = contextNode.getContextNode()) {
+
+			xri = contextNode.getArcXri() + xri;
+		}
+
+		return new XRI3Segment(xri);
 	}
 
 	/*
@@ -91,11 +91,11 @@ public abstract class AbstractContextNode implements ContextNode {
 			@Override
 			public boolean select(ContextNode contextNode) {
 
-				return(contextNode.getArcXri().equals(arcXri));
+				return contextNode.getArcXri().equals(arcXri);
 			}
 		};
 
-		return(new FirstIteratorItem<ContextNode> (selectingIterator).item());
+		return new FirstIteratorItem<ContextNode> (selectingIterator).item();
 	}
 
 	public Iterator<ContextNode> getAllContextNodes() {
@@ -105,7 +105,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			@Override
 			public Iterator<ContextNode> descend(ContextNode contextNode) {
 
-				return(contextNode.getAllContextNodes());
+				return contextNode.getAllContextNodes();
 			}
 		};
 
@@ -118,22 +118,22 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	public boolean containsContextNode(XRI3SubSegment arcXri) {
 
-		return(this.getContextNode(arcXri) != null);
+		return this.getContextNode(arcXri) != null;
 	}
 
 	public boolean containsContextNodes() {
 
-		return(this.getContextNodeCount() > 0);
+		return this.getContextNodeCount() > 0;
 	}
 
 	public int getContextNodeCount() {
 
-		return(new IteratorCounter(this.getContextNodes()).count());
+		return new IteratorCounter(this.getContextNodes()).count();
 	}
 
 	public int getAllContextNodeCount() {
 
-		return(new IteratorCounter(this.getAllContextNodes()).count());
+		return new IteratorCounter(this.getAllContextNodes()).count();
 	}
 
 	/*
@@ -147,11 +147,11 @@ public abstract class AbstractContextNode implements ContextNode {
 			@Override
 			public boolean select(Relation relation) {
 
-				return(relation.getArcXri().equals(arcXri));
+				return relation.getArcXri().equals(arcXri);
 			}
 		};
 
-		return(new FirstIteratorItem<Relation> (selectingIterator).item());
+		return new FirstIteratorItem<Relation> (selectingIterator).item();
 	}
 
 	public Iterator<Relation> getAllRelations() {
@@ -161,7 +161,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			@Override
 			public Iterator<Relation> descend(ContextNode contextNode) {
 
-				return(contextNode.getAllRelations());
+				return contextNode.getAllRelations();
 			}
 		};
 
@@ -174,22 +174,22 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	public boolean containsRelation(XRI3SubSegment arcXri) {
 
-		return(this.getRelation(arcXri) != null);
+		return this.getRelation(arcXri) != null;
 	}
 
 	public boolean containsRelations() {
 
-		return(this.getRelationCount() > 0);
+		return this.getRelationCount() > 0;
 	}
 
 	public int getRelationCount() {
 
-		return(new IteratorCounter(this.getRelations()).count());
+		return new IteratorCounter(this.getRelations()).count();
 	}
 
 	public int getAllRelationCount() {
 
-		return(new IteratorCounter(this.getAllRelations()).count());
+		return new IteratorCounter(this.getAllRelations()).count();
 	}
 
 	/*
@@ -203,11 +203,11 @@ public abstract class AbstractContextNode implements ContextNode {
 			@Override
 			public boolean select(Literal literal) {
 
-				return(literal.getArcXri().equals(arcXri));
+				return literal.getArcXri().equals(arcXri);
 			}
 		};
 
-		return(new FirstIteratorItem<Literal> (selectingIterator).item());
+		return new FirstIteratorItem<Literal> (selectingIterator).item();
 	}
 
 	public Iterator<Literal> getAllLiterals() {
@@ -217,7 +217,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			@Override
 			public Iterator<Literal> descend(ContextNode contextNode) {
 
-				return(contextNode.getAllLiterals());
+				return contextNode.getAllLiterals();
 			}
 		};
 
@@ -230,22 +230,22 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	public boolean containsLiteral(XRI3SubSegment arcXri) {
 
-		return(this.getLiteral(arcXri) != null);
+		return this.getLiteral(arcXri) != null;
 	}
 
 	public boolean containsLiterals() {
 
-		return(this.getLiteralCount() > 0);
+		return this.getLiteralCount() > 0;
 	}
 
 	public int getLiteralCount() {
 
-		return(new IteratorCounter(this.getLiterals()).count());
+		return new IteratorCounter(this.getLiterals()).count();
 	}
 
 	public int getAllLiteralCount() {
 
-		return(new IteratorCounter(this.getAllLiterals()).count());
+		return new IteratorCounter(this.getAllLiterals()).count();
 	}
 
 	/*
@@ -262,7 +262,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	public boolean equals(Object object) {
 
 		if (object == null || ! (object instanceof ContextNode)) return false;
-		if (object == this) return(true);
+		if (object == this) return true;
 
 		ContextNode other = (ContextNode) object;
 

@@ -15,7 +15,7 @@ import java.util.Iterator;
 /**
  * An iterator that doesn't alter any elements but casts them to a desired type.
  *  
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public class CastingIterator<T> implements Iterator<T> {
 
@@ -28,13 +28,13 @@ public class CastingIterator<T> implements Iterator<T> {
 
 	public boolean hasNext() {
 
-		return(this.iterator.hasNext());
+		return this.iterator.hasNext();
 	}
 
 	@SuppressWarnings("unchecked")
 	public T next() {
 
-		return((T) this.iterator.next());
+		return (T) this.iterator.next();
 	}
 
 	public void remove() {

@@ -1,10 +1,9 @@
 package xdi2.xri3.impl;
 
-
 import xdi2.xri3.XRIQuery;
+import xdi2.xri3.impl.parser.Parser.iquery;
 import xdi2.xri3.impl.parser.ParserException;
 import xdi2.xri3.impl.parser.Rule;
-import xdi2.xri3.impl.parser.Parser.iquery;
 
 public class XRI3Query extends XRI3SyntaxComponent implements XRIQuery {
 

@@ -2,15 +2,18 @@ package xdi2.impl;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.Properties;
 
 import xdi2.ContextNode;
 import xdi2.Graph;
+import xdi2.constants.XDIConstants;
 import xdi2.exceptions.MessagingException;
 import xdi2.io.XDIWriter;
 import xdi2.io.XDIWriterRegistry;
 import xdi2.xri3.impl.XRI3;
 import xdi2.xri3.impl.XRI3Segment;
+import xdi2.xri3.impl.XRI3SubSegment;
 
 public abstract class AbstractGraph implements Graph {
 
@@ -22,7 +25,18 @@ public abstract class AbstractGraph implements Graph {
 
 	public ContextNode findContextNode(XRI3Segment xri) {
 
-		return null;
+		ContextNode contextNode = this.getRootContextNode();
+		if (XDIConstants.XRI_CONTEXT.equals(xri)) return contextNode;
+
+		for (Iterator<?> subSegments = xri.getSubSegments().iterator(); subSegments.hasNext(); ) {
+
+			XRI3SubSegment subSegment = (XRI3SubSegment) subSegments.next();
+
+			contextNode = contextNode.getContextNode(subSegment);
+			if (contextNode == null) return null;
+		}
+
+		return contextNode;
 	}
 
 	public String toString(String format) {
@@ -40,10 +54,10 @@ public abstract class AbstractGraph implements Graph {
 			writer.write(this, buffer, parameters);
 		} catch (IOException ex) {
 
-			return("[Exception: " + ex.getMessage() + "]");
+			return "[Exception: " + ex.getMessage() + "]";
 		}
 
-		return(buffer.toString());
+		return buffer.toString();
 	}
 
 	/*
@@ -117,10 +131,10 @@ public abstract class AbstractGraph implements Graph {
 
 	public int compareTo(Graph other) {
 
-		if (other == null || other == this) return(0);
+		if (other == null || other == this) return 0;
 
 		// TODO
-		
+
 		return 0;
 	}
 }

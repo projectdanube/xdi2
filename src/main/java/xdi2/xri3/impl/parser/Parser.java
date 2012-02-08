@@ -10,15 +10,15 @@ package xdi2.xri3.impl.parser;
  * -----------------------------------------------------------------------------
  */
 
-import java.util.regex.Pattern;
-import java.util.ArrayList;
-import java.util.Stack;
-import java.util.Properties;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Properties;
+import java.util.Stack;
+import java.util.regex.Pattern;
 
 public class Parser
 {

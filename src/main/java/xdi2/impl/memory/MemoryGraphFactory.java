@@ -27,7 +27,7 @@ public final class MemoryGraphFactory extends AbstractGraphFactory {
 
 		if (instance == null) instance = new MemoryGraphFactory();
 
-		return(instance);
+		return instance;
 	}
 
 	public Graph openGraph() {

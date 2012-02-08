@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 import xdi2.xri3.XRI;
 import xdi2.xri3.XRIAuthority;
 import xdi2.xri3.XRIFragment;
@@ -13,14 +12,14 @@ import xdi2.xri3.XRIPath;
 import xdi2.xri3.XRIQuery;
 import xdi2.xri3.XRIReference;
 import xdi2.xri3.XRISyntaxComponent;
-import xdi2.xri3.impl.parser.ParserException;
-import xdi2.xri3.impl.parser.Rule;
 import xdi2.xri3.impl.parser.Parser.ifragment;
 import xdi2.xri3.impl.parser.Parser.iquery;
 import xdi2.xri3.impl.parser.Parser.xri;
 import xdi2.xri3.impl.parser.Parser.xri_authority;
 import xdi2.xri3.impl.parser.Parser.xri_hier_part;
 import xdi2.xri3.impl.parser.Parser.xri_path_abempty;
+import xdi2.xri3.impl.parser.ParserException;
+import xdi2.xri3.impl.parser.Rule;
 
 public class XRI3 extends XRI3SyntaxComponent implements XRI {
 

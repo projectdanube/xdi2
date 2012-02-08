@@ -33,39 +33,83 @@ class XDIJSONWriter extends AbstractXDIWriter {
 
 	XDIJSONWriter() { }
 
-	protected void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, Properties parameters, String indent) throws IOException {
+	private boolean first;
+
+	private synchronized void startItem(BufferedWriter bufferedWriter) throws IOException {
+
+		if (this.first) {
+
+			this.first = false;
+		} else {
+
+			bufferedWriter.write(",\n");
+		}
+	}
+
+	private synchronized void finishItem(BufferedWriter bufferedWriter) throws IOException {
+
+	}
+
+	private synchronized void startGraph(BufferedWriter bufferedWriter) throws IOException {
+
+		this.first = true;
+
+		bufferedWriter.write("{\n");
+	}
+
+	private synchronized void finishGraph(BufferedWriter bufferedWriter) throws IOException {
+
+		bufferedWriter.write("\n");
+		bufferedWriter.write("}\n");
+	}
+
+	private synchronized void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, Properties parameters, String indent) throws IOException {
 
 		String xri = contextNode.getXri().toString();
 
-		bufferedWriter.write(indent + "\"" + xri + "()/()\": [\n");
-		for (Iterator<ContextNode> contextNodes = contextNode.getContextNodes(); contextNodes.hasNext(); ) {
+		if (contextNode.containsContextNodes()) {
 
-			bufferedWriter.write(indent + "   \"" + contextNodes.next().getArcXri().toString() + "\"" + (contextNodes.hasNext() ? "," : "") + "\n");
+			this.startItem(bufferedWriter);
+			bufferedWriter.write(indent + "\"" + xri + "/()\": [\n");
+			for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
+
+				ContextNode innerContextNode = innerContextNodes.next();
+				bufferedWriter.write(indent + "   \"" + innerContextNode.getArcXri().toString() + "\"" + (innerContextNodes.hasNext() ? "," : "") + "\n");
+			}
+			bufferedWriter.write(indent + "]");
+			this.finishItem(bufferedWriter);
+
+			for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
+
+				ContextNode innerContextNode = innerContextNodes.next();
+				this.writeContextNode(innerContextNode, bufferedWriter, parameters, indent);
+			}
 		}
 
 		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
 
 			Relation relation = relations.next();
-			bufferedWriter.write(indent + "\"" + xri + "/" + relation.getArcXri().toString() + "\" : [ \"" + relation.getRelationXri().toString() + "\" ]" + (relations.hasNext() ? "," : "") + "\n");
+
+			this.startItem(bufferedWriter);
+			bufferedWriter.write(indent + "\"" + xri + "/" + relation.getArcXri().toString() + "\" : [ \"" + relation.getRelationXri().toString() + "\" ]");
+			this.finishItem(bufferedWriter);
 		}
 
-		bufferedWriter.write(indent + "\"" + xri + "()/()\": [\n");
 		for (Iterator<Literal> literals = contextNode.getLiterals(); literals.hasNext(); ) {
 
 			Literal literal = literals.next();
-			bufferedWriter.write(indent + "\"" + xri + "/" + literal.getArcXri().toString() + "\" : [ \"" + literal.getLiteralData() + "\" ]" + (literals.hasNext() ? "," : "") + "\n");
-		}
 
-		bufferedWriter.write(indent + "  ]");
+			this.startItem(bufferedWriter);
+			bufferedWriter.write(indent + "\"" + xri + "/" + literal.getArcXri().toString() + "!\" : [ \"" + literal.getLiteralData() + "\" ]");
+			this.finishItem(bufferedWriter);
+		}
 	}
 
 	public synchronized void write(Graph graph, BufferedWriter bufferedWriter, Properties parameters, String indent) throws IOException {
 
-		bufferedWriter.write(indent + "{\n");
-
+		this.startGraph(bufferedWriter);
 		this.writeContextNode(graph.getRootContextNode(), bufferedWriter, parameters, indent);
-
-		bufferedWriter.write(indent + "}\n");
+		this.finishGraph(bufferedWriter);
 
 		bufferedWriter.flush();
 	}
@@ -84,16 +128,16 @@ class XDIJSONWriter extends AbstractXDIWriter {
 
 	public String getFormat() {
 
-		return(FORMAT_TYPE);
+		return FORMAT_TYPE;
 	}
 
 	public String[] getMimeTypes() {
 
-		return(MIME_TYPES);
+		return MIME_TYPES;
 	}
 
 	public String getDefaultFileExtension() {
 
-		return(DEFAULT_FILE_EXTENSION);
+		return DEFAULT_FILE_EXTENSION;
 	}
 }

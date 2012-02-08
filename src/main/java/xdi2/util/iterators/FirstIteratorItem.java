@@ -15,7 +15,7 @@ import java.util.Iterator;
 /**
  * A class that conveniently gives you the first element of an iterator, or null if it has no elements.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public class FirstIteratorItem<T> {
 
@@ -32,10 +32,10 @@ public class FirstIteratorItem<T> {
 
 	public T item() {
 
-		if (this.item != null) return(this.item);
+		if (this.item != null) return this.item;
 
 		if (this.iterator.hasNext()) this.item = this.iterator.next();
 
-		return(this.item);
+		return this.item;
 	}
 }

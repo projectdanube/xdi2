@@ -14,7 +14,7 @@ package xdi2.util.iterators;
 /**
  * An iterator that contains only a single item.
  * 
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public class SingleItemIterator<T> extends ReadOnlyIterator<T> {
 
@@ -27,7 +27,7 @@ public class SingleItemIterator<T> extends ReadOnlyIterator<T> {
 
 	public boolean hasNext() {
 
-		return(this.item != null);
+		return this.item != null;
 	}
 
 	public T next() {
@@ -35,6 +35,6 @@ public class SingleItemIterator<T> extends ReadOnlyIterator<T> {
 		T item = this.item;
 		this.item = null;
 		
-		return(item);
+		return item;
 	}
 }

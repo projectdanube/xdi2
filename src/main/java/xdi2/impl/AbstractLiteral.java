@@ -71,7 +71,7 @@ public abstract class AbstractLiteral implements Literal {
 
 	public int compareTo(Literal other) {
 
-		if (other == null || other == this) return(0);
+		if (other == null || other == this) return 0;
 
 		return this.getLiteralData().compareTo(other.getLiteralData());
 	}

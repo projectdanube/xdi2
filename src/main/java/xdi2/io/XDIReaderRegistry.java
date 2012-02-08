@@ -20,14 +20,7 @@ public final class XDIReaderRegistry {
 
 	private static String readerClassNames[] = {
 
-		"org.eclipse.higgins.xdi4j.io.X3StandardReader",
-		"org.eclipse.higgins.xdi4j.io.X3SimpleReader",
-		"org.eclipse.higgins.xdi4j.io.X3WhitespaceReader",
-		"org.eclipse.higgins.xdi4j.io.XDIXMLReader",
-		"org.eclipse.higgins.xdi4j.io.XTRIPLESReader",
-		"org.eclipse.higgins.xdi4j.io.X3JReader",
-		"org.eclipse.higgins.xdi4j.io.XDIJSONReader",
-		"org.eclipse.higgins.xdi4j.io.XRIReader"
+		XDIJSONReader.class.getName()
 	};
 
 	private static List<Class<XDIReader> > readerClasses;
@@ -98,7 +91,7 @@ public final class XDIReaderRegistry {
 
 		try {
 
-			return(readerClass.newInstance());
+			return readerClass.newInstance();
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -122,7 +115,7 @@ public final class XDIReaderRegistry {
 
 		try {
 
-			return(readerClass.newInstance());
+			return readerClass.newInstance();
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -146,7 +139,7 @@ public final class XDIReaderRegistry {
 
 		try {
 
-			return(readerClass.newInstance());
+			return readerClass.newInstance();
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -172,7 +165,7 @@ public final class XDIReaderRegistry {
 			}
 		}
 
-		return(readers);
+		return readers;
 	}
 
 	/**
@@ -199,7 +192,7 @@ public final class XDIReaderRegistry {
 	 */
 	public static String[] getFormats() {
 
-		return(readerClassesByFormat.keySet().toArray(new String[readerClassesByFormat.size()]));
+		return readerClassesByFormat.keySet().toArray(new String[readerClassesByFormat.size()]);
 	}
 
 	/**
@@ -208,6 +201,6 @@ public final class XDIReaderRegistry {
 	 */
 	public static String[] getMimeTypes() {
 
-		return(readerClassesByMimeType.keySet().toArray(new String[readerClassesByMimeType.size()]));
+		return readerClassesByMimeType.keySet().toArray(new String[readerClassesByMimeType.size()]);
 	}
 }

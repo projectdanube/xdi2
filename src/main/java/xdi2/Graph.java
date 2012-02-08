@@ -33,6 +33,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 
 	/**
 	 * Finds a context node in this graph.
+	 * This return the root context node for ().
 	 * @return A context node.
 	 */
 	public ContextNode findContextNode(XRI3Segment xri);

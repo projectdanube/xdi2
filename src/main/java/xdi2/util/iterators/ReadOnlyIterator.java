@@ -15,7 +15,7 @@ import java.util.Iterator;
 /**
  * An iterator that does not support the remove() method.
  *  
- * @author msabadello at parityinc dot net
+ * @author markus
  */
 public abstract class ReadOnlyIterator<T> implements Iterator<T> {
 

@@ -1,10 +1,9 @@
 package xdi2.xri3.impl;
 
-
 import xdi2.xri3.XRIFragment;
+import xdi2.xri3.impl.parser.Parser.ifragment;
 import xdi2.xri3.impl.parser.ParserException;
 import xdi2.xri3.impl.parser.Rule;
-import xdi2.xri3.impl.parser.Parser.ifragment;
 
 public class XRI3Fragment extends XRI3SyntaxComponent implements XRIFragment {
 

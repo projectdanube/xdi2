@@ -3,18 +3,17 @@ package xdi2.xri3.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import xdi2.xri3.XRILiteral;
 import xdi2.xri3.XRISegment;
 import xdi2.xri3.XRISubSegment;
-import xdi2.xri3.impl.parser.ParserException;
-import xdi2.xri3.impl.parser.Rule;
 import xdi2.xri3.impl.parser.Parser.literal;
 import xdi2.xri3.impl.parser.Parser.literal_nc;
 import xdi2.xri3.impl.parser.Parser.subseg;
 import xdi2.xri3.impl.parser.Parser.xri_segment;
 import xdi2.xri3.impl.parser.Parser.xri_segment_nc;
 import xdi2.xri3.impl.parser.Parser.xri_segment_nz;
+import xdi2.xri3.impl.parser.ParserException;
+import xdi2.xri3.impl.parser.Rule;
 
 public class XRI3Segment extends XRI3SyntaxComponent implements XRISegment {
 
