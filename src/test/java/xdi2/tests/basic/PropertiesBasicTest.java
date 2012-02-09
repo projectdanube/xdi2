@@ -1,4 +1,4 @@
-package xdi2.tests;
+package xdi2.tests.basic;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -9,9 +9,14 @@ import xdi2.impl.keyvalue.properties.PropertiesGraphFactory;
 
 public class PropertiesBasicTest extends BasicTest {
 
-	private PropertiesGraphFactory graphFactory = new PropertiesGraphFactory();
+	private static PropertiesGraphFactory graphFactory = new PropertiesGraphFactory();
 
-	public static void deleteFiles() throws IOException {
+	static {
+
+		cleanup();
+	}
+
+	public static void cleanup() {
 
 		File[] files = new File(".").listFiles(new FilenameFilter() {
 
@@ -31,9 +36,22 @@ public class PropertiesBasicTest extends BasicTest {
 		File file = new File(".", "xdi2-graph." + id + ".properties");
 		if (file.exists()) file.delete();
 
-		this.graphFactory.setFile(file);
-		this.graphFactory.setAutoSave(true);
+		graphFactory.setFile(file);
+		graphFactory.setAutoSave(true);
 
-		return this.graphFactory.openGraph();
+		return graphFactory.openGraph();
+	}
+
+	@Override
+	protected Graph reopenGraph(Graph graph, String id) throws IOException {
+
+		graph.close();
+
+		File file = new File(".", "xdi2-graph." + id + ".properties");
+
+		graphFactory.setFile(file);
+		graphFactory.setAutoSave(true);
+
+		return graphFactory.openGraph();
 	}
 }

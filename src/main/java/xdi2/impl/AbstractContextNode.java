@@ -15,6 +15,7 @@ import xdi2.util.iterators.DescendingIterator;
 import xdi2.util.iterators.FirstIteratorItem;
 import xdi2.util.iterators.IteratorCounter;
 import xdi2.util.iterators.SelectingIterator;
+import xdi2.util.iterators.SingleItemIterator;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
@@ -55,12 +56,12 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		this.deleteContextNodes();
 		this.deleteRelations();
-		this.deleteLiterals();
+		this.deleteLiteral();
 	}
 
 	public boolean isEmpty() {
 
-		return ! (this.containsContextNodes() || this.containsRelations() || this.containsLiterals());
+		return ! (this.containsContextNodes() || this.containsRelations() || this.containsLiteral());
 	}
 
 	@Override
@@ -83,6 +84,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	/*
 	 * Methods related to context nodes of this context node
 	 */
+
 
 	public ContextNode getContextNode(final XRI3SubSegment arcXri) {
 
@@ -196,18 +198,19 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to literals of this context node
 	 */
 
-	public Literal getLiteral(final XRI3SubSegment arcXri) {
+	public Literal createLiteralInContextNode(XRI3SubSegment arcXri, String literalData) {
 
-		Iterator<Literal> selectingIterator = new SelectingIterator<Literal> (this.getLiterals()) {
+		ContextNode contextNode = this.createContextNode(arcXri);
 
-			@Override
-			public boolean select(Literal literal) {
+		return contextNode.createLiteral(literalData);
+	}
 
-				return literal.getArcXri().equals(arcXri);
-			}
-		};
+	public Literal getLiteralInContextNode(XRI3SubSegment arcXri) {
 
-		return new FirstIteratorItem<Literal> (selectingIterator).item();
+		ContextNode contextNode = this.getContextNode(arcXri);
+		if (contextNode == null) return null;
+
+		return contextNode.getLiteral();
 	}
 
 	public Iterator<Literal> getAllLiterals() {
@@ -222,25 +225,20 @@ public abstract class AbstractContextNode implements ContextNode {
 		};
 
 		List<Iterator<Literal> > list = new ArrayList<Iterator<Literal> > ();
-		list.add(this.getLiterals());
+		list.add(new SingleItemIterator<Literal> (this.getLiteral()));
 		list.add(descendingIterator);
 
 		return new CompositeIterator<Literal> (list.iterator());
 	}
 
-	public boolean containsLiteral(XRI3SubSegment arcXri) {
+	public boolean containsLiteral() {
 
-		return this.getLiteral(arcXri) != null;
+		return this.getLiteral() != null;
 	}
 
-	public boolean containsLiterals() {
+	public boolean containsLiteralInContextNode(XRI3SubSegment arcXri) {
 
-		return this.getLiteralCount() > 0;
-	}
-
-	public int getLiteralCount() {
-
-		return new IteratorCounter(this.getLiterals()).count();
+		return this.getLiteralInContextNode(arcXri)  != null;
 	}
 
 	public int getAllLiteralCount() {

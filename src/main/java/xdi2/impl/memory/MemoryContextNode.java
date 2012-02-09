@@ -24,7 +24,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 	private Map<XRI3SubSegment, MemoryContextNode> contextNodes;
 	private Map<XRI3SubSegment, MemoryRelation> relations;
-	private Map<XRI3SubSegment, MemoryLiteral> literals;
+	private MemoryLiteral literal;
 
 	MemoryContextNode(Graph graph, ContextNode contextNode) {
 
@@ -34,17 +34,17 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 			this.contextNodes = new TreeMap<XRI3SubSegment, MemoryContextNode> ();
 			this.relations = new TreeMap<XRI3SubSegment, MemoryRelation> ();
-			this.literals = new TreeMap<XRI3SubSegment, MemoryLiteral> ();
+			this.literal = null;
 		} else if (((MemoryGraph) graph).getSortMode() == MemoryGraphFactory.SORTMODE_ORDER) {
 
 			this.contextNodes = new LinkedHashMap<XRI3SubSegment, MemoryContextNode> ();
 			this.relations = new LinkedHashMap<XRI3SubSegment, MemoryRelation> ();
-			this.literals = new LinkedHashMap<XRI3SubSegment, MemoryLiteral> ();
+			this.literal = null;
 		} else {
 
 			this.contextNodes = new HashMap<XRI3SubSegment, MemoryContextNode> ();
 			this.relations = new HashMap<XRI3SubSegment, MemoryRelation> ();
-			this.literals = new HashMap<XRI3SubSegment, MemoryLiteral> ();
+			this.literal = null;
 		}
 	}
 
@@ -114,7 +114,6 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		if (arcXri == null) throw new NullPointerException();
 		if (relationXri == null) throw new NullPointerException();
 
-		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
 		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
 
 		MemoryRelation relation = new MemoryRelation(this.getGraph(), this, arcXri, relationXri);
@@ -160,50 +159,31 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 * Methods related to literals of this context node
 	 */
 
-	public synchronized Literal createLiteral(XRI3SubSegment arcXri, String literalData) {
+	public synchronized Literal createLiteral(String literalData) {
 
-		if (arcXri == null) throw new NullPointerException();
 		if (literalData == null) throw new NullPointerException();
 
-		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
-		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
+		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains a literal.");
 
-		MemoryLiteral literal = new MemoryLiteral(this.getGraph(), this, arcXri, literalData);
-		this.literals.put(arcXri, literal);
+		MemoryLiteral literal = new MemoryLiteral(this.getGraph(), this, literalData);
+		this.literal = literal;
 
 		return literal;
 	}
 
-	public Iterator<Literal> getLiterals() {
+	public Literal getLiteral() {
 
-		return new CastingIterator<Literal> (this.literals.values().iterator());
+		return this.literal;
 	}
 
 	@Override
-	public Literal getLiteral(XRI3SubSegment arcXri) {
+	public boolean containsLiteral() {
 
-		return this.literals.get(arcXri);
+		return this.literal != null;
 	}
 
-	@Override
-	public boolean containsLiterals() {
+	public synchronized void deleteLiteral() {
 
-		return ! this.literals.isEmpty();
-	}
-
-	@Override
-	public boolean containsLiteral(XRI3SubSegment arcXri) {
-
-		return this.literals.containsKey(arcXri);
-	}
-
-	public synchronized void deleteLiteral(XRI3SubSegment arcXri) {
-
-		this.literals.remove(arcXri);
-	}
-
-	public synchronized void deleteLiterals() {
-
-		this.literals.clear();
+		this.literal = null;
 	}
 }

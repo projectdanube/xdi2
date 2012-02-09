@@ -33,6 +33,8 @@ class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 		this.file = file;
 		this.autoSave = autoSave;
+
+		this.properties = null;
 	}
 
 	public void put(String key, String value) {
@@ -183,16 +185,6 @@ class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	public void rollbackTransaction() {
 
 		this.load();
-	}
-
-	public File getFile() {
-
-		return this.file;
-	}
-
-	public Properties getProperties() {
-
-		return this.properties;
 	}
 
 	void load() {

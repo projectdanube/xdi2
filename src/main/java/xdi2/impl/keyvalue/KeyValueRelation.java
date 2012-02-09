@@ -48,6 +48,10 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 	@Override
 	public void setRelationXri(XRI3Segment relationXri) {
 
+		if (relationXri == null) throw new NullPointerException();
+
+		this.keyValueStore.replace(this.key, relationXri.toString());
+
 		this.relationXri = relationXri;
 	}
 

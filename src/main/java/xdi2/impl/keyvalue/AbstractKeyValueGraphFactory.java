@@ -15,20 +15,18 @@ public abstract class AbstractKeyValueGraphFactory extends AbstractGraphFactory 
 
 	private boolean supportGetContextNodes;
 	private boolean supportGetRelations;
-	private boolean supportGetLiterals;
 
-	public AbstractKeyValueGraphFactory(boolean supportGetContextNodes, boolean supportGetRelations, boolean supportGetLiterals) {
+	public AbstractKeyValueGraphFactory(boolean supportGetContextNodes, boolean supportGetRelations) {
 
 		this.supportGetContextNodes = supportGetContextNodes;
 		this.supportGetRelations = supportGetRelations;
-		this.supportGetLiterals = supportGetLiterals;
 	}
 
 	public final Graph openGraph() throws IOException {
 
 		KeyValueStore keyValueStore = this.getKeyValueStore();
 
-		return new KeyValueGraph(keyValueStore, this.supportGetContextNodes, this.supportGetRelations, this.supportGetLiterals);
+		return new KeyValueGraph(keyValueStore, this.supportGetContextNodes, this.supportGetRelations);
 	}
 
 	protected abstract KeyValueStore getKeyValueStore() throws IOException;
@@ -51,15 +49,5 @@ public abstract class AbstractKeyValueGraphFactory extends AbstractGraphFactory 
 	public void setSupportGetRelations(boolean supportGetRelations) {
 
 		this.supportGetRelations = supportGetRelations;
-	}
-
-	public boolean isSupportGetLiterals() {
-
-		return this.supportGetLiterals;
-	}
-
-	public void setSupportGetLiterals(boolean supportGetLiterals) {
-
-		this.supportGetLiterals = supportGetLiterals;
 	}
 }

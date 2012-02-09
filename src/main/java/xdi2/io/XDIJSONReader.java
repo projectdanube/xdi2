@@ -72,13 +72,12 @@ class XDIJSONReader extends AbstractXDIReader {
 			String predicate = strings[1];
 			ContextNode contextNode = graph.findContextNode(new XRI3Segment(subject));
 
-			if (predicate.endsWith("!")) {
+			if (predicate.equals("!")) {
 
-				XRI3SubSegment arcXri = new XRI3SubSegment(predicate.substring(0, predicate.length() - 1));
 				String literalData = value.getString(0);
 
-				Literal literal = contextNode.createLiteral(arcXri, literalData);
-				log.debug("Under " + contextNode.getXri() + ": Created literal " + literal.getArcXri() + " --> " + literal.getLiteralData());
+				Literal literal = contextNode.createLiteral(literalData);
+				log.debug("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 			} else {
 
 				XRI3SubSegment arcXri = new XRI3SubSegment(predicate);

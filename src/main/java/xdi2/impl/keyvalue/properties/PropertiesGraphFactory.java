@@ -16,7 +16,6 @@ public final class PropertiesGraphFactory extends AbstractKeyValueGraphFactory i
 
 	public static final boolean DEFAULT_SUPPORT_GET_CONTEXTNODES = true; 
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 
-	public static final boolean DEFAULT_SUPPORT_GET_LITERALS = true; 
 
 	public static final File DEFAULT_PROPERTIES_FILE = new File(".", "xdi2-graph.properties");
 	public static final boolean DEFAULT_AUTO_SAVE = false;
@@ -26,7 +25,7 @@ public final class PropertiesGraphFactory extends AbstractKeyValueGraphFactory i
 
 	public PropertiesGraphFactory() {
 
-		super(DEFAULT_SUPPORT_GET_CONTEXTNODES, DEFAULT_SUPPORT_GET_RELATIONS, DEFAULT_SUPPORT_GET_LITERALS);
+		super(DEFAULT_SUPPORT_GET_CONTEXTNODES, DEFAULT_SUPPORT_GET_RELATIONS);
 
 		this.file = DEFAULT_PROPERTIES_FILE;
 		this.autoSave = DEFAULT_AUTO_SAVE;

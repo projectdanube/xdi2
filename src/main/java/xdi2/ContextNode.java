@@ -207,24 +207,31 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 
 	/**
 	 * Creates a new literal and adds it to this context node.
-	 * @param arcXri The arc XRI of the literal.
 	 * @param literalData The data of the literal.
 	 * @return The newly created literal.
 	 */
-	public Literal createLiteral(XRI3SubSegment arcXri, String literalData);
+	public Literal createLiteral(String literalData);
 
 	/**
-	 * Finds and returns a literal with a given arc XRI. 
-	 * @param arcXri The arc XRI to look for. 
-	 * @return The literal with the given arc XRI, or null.
+	 * Creates a new literal and adds it to a context node in this context node.
+	 * @param arcXri The arc XRI of the context node.
+	 * @param literalData The data of the literal.
+	 * @return The newly created literal.
 	 */
-	public Literal getLiteral(XRI3SubSegment arcXri);
+	public Literal createLiteralInContextNode(XRI3SubSegment arcXri, String literalData);
 
 	/**
-	 * Returns the literals of this context node.
-	 * @return An iterator over literals.
+	 * Returns the literal of this context node.
+	 * @return The literal.
 	 */
-	public Iterator<Literal> getLiterals();
+	public Literal getLiteral();
+
+	/**
+	 * Returns the literal of a context node in this context node.
+	 * @param arcXri The arc XRI of the context node.
+	 * @return The literal.
+	 */
+	public Literal getLiteralInContextNode(XRI3SubSegment arcXri);
 
 	/**
 	 * Returns all literals of this context node.
@@ -233,34 +240,22 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Iterator<Literal> getAllLiterals();
 
 	/**
-	 * Checks if a literal with a given arc XRI exists in this context node.
-	 * @param arcXri The arc XRI to look for. 
-	 * @return True if this context nod has a literal with the given arc XRI.
-	 */
-	public boolean containsLiteral(XRI3SubSegment arcXri);
-
-	/**
-	 * Checks if this context node has one or more literals.
+	 * Checks if this context node has a literal.
 	 * @return True if this context node has literals.
 	 */
-	public boolean containsLiterals();
+	public boolean containsLiteral();
 
 	/**
-	 * Deletes the literal with a given arc XRI from this context node.
-	 * @param arcXri The arc XRI of the literal.
+	 * Checks if this context node has a literal.
+	 * @param arcXri The arc XRI of the context node.
+	 * @return True if this context node has literals.
 	 */
-	public void deleteLiteral(XRI3SubSegment arcXri);
+	public boolean containsLiteralInContextNode(XRI3SubSegment arcXri);
 
 	/**
-	 * Deletes all literals from this context node.
+	 * Deletes the literal from this context node.
 	 */
-	public void deleteLiterals();
-
-	/**
-	 * Returns the number of literals of this context node.
-	 * @return The number of literals.
-	 */
-	public int getLiteralCount();
+	public void deleteLiteral();
 
 	/**
 	 * Returns the number of all literals of this context node.

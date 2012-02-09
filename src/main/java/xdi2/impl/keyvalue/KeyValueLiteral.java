@@ -4,7 +4,6 @@ import xdi2.ContextNode;
 import xdi2.Graph;
 import xdi2.Literal;
 import xdi2.impl.AbstractLiteral;
-import xdi2.xri3.impl.XRI3SubSegment;
 
 public class KeyValueLiteral extends AbstractLiteral implements Literal {
 
@@ -13,24 +12,16 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 	private KeyValueStore keyValueStore;
 	private String key;
 
-	private XRI3SubSegment arcXri;
 	private String literalData;
 
-	KeyValueLiteral(Graph graph, ContextNode contextNode, KeyValueStore keyValueStore, String key, XRI3SubSegment arcXri, String literalData) {
+	KeyValueLiteral(Graph graph, ContextNode contextNode, KeyValueStore keyValueStore, String key, String literalData) {
 
 		super(graph, contextNode);
 
 		this.keyValueStore = keyValueStore;
 		this.key = key;
 		
-		this.arcXri = arcXri;
 		this.literalData = literalData;
-	}
-
-	@Override
-	public XRI3SubSegment getArcXri() {
-
-		return this.arcXri;
 	}
 
 	@Override
@@ -47,7 +38,7 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 	@Override
 	public void setLiteralData(String literalData) {
 
-		if (this.literalData == null) throw new NullPointerException();
+		if (literalData == null) throw new NullPointerException();
 
 		this.keyValueStore.replace(this.key, literalData);
 

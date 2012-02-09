@@ -61,6 +61,8 @@ class XDIJSONWriter extends AbstractXDIWriter {
 
 		bufferedWriter.write("\n");
 		bufferedWriter.write("}\n");
+
+		this.first = true;
 	}
 
 	private synchronized void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, Properties parameters, String indent) throws IOException {
@@ -95,12 +97,12 @@ class XDIJSONWriter extends AbstractXDIWriter {
 			this.finishItem(bufferedWriter);
 		}
 
-		for (Iterator<Literal> literals = contextNode.getLiterals(); literals.hasNext(); ) {
-
-			Literal literal = literals.next();
+		Literal literal = contextNode.getLiteral();
+		
+		if (literal != null) {
 
 			this.startItem(bufferedWriter);
-			bufferedWriter.write(indent + "\"" + xri + "/" + literal.getArcXri().toString() + "!\" : [ \"" + literal.getLiteralData() + "\" ]");
+			bufferedWriter.write(indent + "\"" + xri + "/!\" : [ \"" + literal.getLiteralData() + "\" ]");
 			this.finishItem(bufferedWriter);
 		}
 	}

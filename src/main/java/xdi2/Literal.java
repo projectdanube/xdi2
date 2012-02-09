@@ -2,8 +2,6 @@ package xdi2;
 
 import java.io.Serializable;
 
-import xdi2.xri3.impl.XRI3SubSegment;
-
 /**
  * This interface represents a literal in an XDI graph.
  * 
@@ -31,12 +29,6 @@ public interface Literal extends Serializable, Comparable<Literal> {
 	 * Deletes this literal.
 	 */
 	public void delete();
-
-	/**
-	 * Every literal has an associated arc XRI.
-	 * @return The arc XRI associated with the literal.
-	 */
-	public XRI3SubSegment getArcXri();
 
 	/**
 	 * Get the literal data.

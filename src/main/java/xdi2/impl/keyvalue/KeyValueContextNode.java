@@ -135,7 +135,6 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		if (arcXri == null) throw new NullPointerException();
 		if (relationXri == null) throw new NullPointerException();
 
-		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
 		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
 
 		String relationKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
@@ -210,80 +209,42 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	 * Methods related to literals of this context node
 	 */
 
-	public synchronized Literal createLiteral(XRI3SubSegment arcXri, String literalData) {
+	public synchronized Literal createLiteral(String literalData) {
 
-		if (arcXri == null) throw new NullPointerException();
 		if (literalData == null) throw new NullPointerException();
 
-		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the literal " + arcXri + ".");
-		if (this.containsLiteral(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
+		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains a literal.");
 
-		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
+		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/--L";
 
-		if (((KeyValueGraph) this.getGraph()).isSupportGetLiterals()) this.keyValueStore.put(this.key + "/" + "--L", arcXri.toString());
 		this.keyValueStore.put(literalKey, literalData.toString());
 
-		KeyValueLiteral relation = new KeyValueLiteral(this.getGraph(), this, this.keyValueStore, literalKey, arcXri, literalData);
+		KeyValueLiteral literal = new KeyValueLiteral(this.getGraph(), this, this.keyValueStore, literalKey, literalData);
 
-		return relation;
-	}
-
-	public Iterator<Literal> getLiterals() {
-
-		return new MappingIterator<String, Literal> (this.keyValueStore.getAll(this.key + "/--L")) {
-
-			@Override
-			public Literal map(String item) {
-
-				XRI3SubSegment arcXri = new XRI3SubSegment(item);
-				String literalKey = (KeyValueContextNode.this.isRootContextNode() ? "" : KeyValueContextNode.this.key) + "/" + arcXri.toString();
-
-				return new KeyValueLiteral(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, literalKey, arcXri, null);
-			}
-		};
+		return literal;
 	}
 
 	@Override
-	public Literal getLiteral(XRI3SubSegment arcXri) {
+	public Literal getLiteral() {
 
-		if (! this.containsLiteral(arcXri)) return(null);
+		if (! this.containsLiteral()) return(null);
 
-		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
+		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/--L";
 
-		return new KeyValueLiteral(this.getGraph(), this, this.keyValueStore, literalKey, arcXri, null);
+		return new KeyValueLiteral(this.getGraph(), this, this.keyValueStore, literalKey, null);
 	}
 
 	@Override
-	public boolean containsLiterals() {
+	public boolean containsLiteral() {
 
-		return this.keyValueStore.contains(this.key + "/--L");
-	}
-
-	@Override
-	public boolean containsLiteral(XRI3SubSegment arcXri) {
-
-		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
+		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/--L";
 
 		return this.keyValueStore.contains(literalKey);
 	}
 
-	public synchronized void deleteLiteral(XRI3SubSegment arcXri) {
+	public synchronized void deleteLiteral() {
 
-		String literalKey = (this.isRootContextNode() ? "" : this.key) + "/" + arcXri.toString();
-
-		if (((KeyValueGraph) this.getGraph()).isSupportGetLiterals()) this.keyValueStore.delete(this.key + "/--L", arcXri.toString());
-		this.keyValueStore.delete(literalKey);
-	}
-
-	public synchronized void deleteLiterals() {
-
-		if (((KeyValueGraph) this.getGraph()).isSupportGetLiterals()) this.keyValueStore.delete(this.key + "/--L");
-	}
-
-	@Override
-	public synchronized int getLiteralCount() {
-
-		return this.keyValueStore.count(this.key + "/--L");
+		this.keyValueStore.delete(this.key + "/--L");
 	}
 
 	/*

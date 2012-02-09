@@ -1,20 +1,18 @@
 package xdi2.impl.keyvalue.bdb;
 
 import java.io.File;
-import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import xdi2.exceptions.Xdi2RuntimeException;
 import xdi2.impl.keyvalue.AbstractKeyValueStore;
 import xdi2.impl.keyvalue.KeyValueStore;
 import xdi2.util.iterators.IteratorListMaker;
 import xdi2.util.iterators.ReadOnlyIterator;
 
-import com.sleepycat.collections.CurrentTransaction;
 import com.sleepycat.je.Cursor;
 import com.sleepycat.je.Database;
 import com.sleepycat.je.DatabaseConfig;
@@ -42,8 +40,7 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
 	private Environment environment;
 	private Database database;
-
-	private List<Cursor> cursors = new ArrayList<Cursor> ();
+	private Transaction transaction;
 
 	BDBKeyValueStore(String databasePath, String databaseName, EnvironmentConfig environmentConfig, DatabaseConfig databaseConfig) {
 
@@ -63,7 +60,7 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
 	void closeDatabase() {
 
-		log.debug("Closing database (" + this.cursors.size() + " open cursors)...");
+		log.debug("Closing database...");
 
 		try {
 
@@ -82,176 +79,244 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 	@Override
 	public void beginTransaction() {
 
-		log.debug("Beginning Transaction (" + this.cursors.size() + " open cursors)...");
+		log.trace("beginTransaction()");
+
+		if (this.transaction != null) throw new Xdi2RuntimeException("Already have an open transaction.");
+		
+		log.debug("Beginning Transaction...");
 
 		try {
 
-			CurrentTransaction.getInstance(this.environment).beginTransaction(null);
+			this.transaction = this.environment.beginTransaction(null, null);
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot begin transaction: " + ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Cannot begin transaction: " + ex.getMessage(), ex);
 		}
+
+		log.debug("Began transaction...");
 	}
 
 	@Override
 	public void commitTransaction() {
 
-		log.debug("Committing database (" + this.cursors.size() + " open cursors)...");
+		log.trace("commitTransaction()");
+
+		if (this.transaction == null) throw new Xdi2RuntimeException("No open transaction.");
 
 		try {
 
-			CurrentTransaction.getInstance(this.environment).commitTransaction();
+			this.transaction.commit();
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot commit transaction: " + ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Cannot commit transaction: " + ex.getMessage(), ex);
 		}
+
+		log.debug("Committed transaction...");
 	}
 
 	@Override
 	public void rollbackTransaction() {
 
-		log.debug("Rolling back database (" + this.cursors.size() + " open cursors)...");
+		log.trace("rollbackTransaction()");
+
+		if (this.transaction == null) throw new Xdi2RuntimeException("No open transaction.");
+
+		log.debug("Rolling back transaction...");
 
 		try {
 
-			CurrentTransaction.getInstance(this.environment).abortTransaction();
+			this.transaction.abort();
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot roll back transaction: " + ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Cannot roll back transaction: " + ex.getMessage(), ex);
 		}
+
+		log.debug("Rolled back transaction...");
 	}
 
 	public void put(String key, String value) {
 
+		log.trace("put(" + key + "," + value + ")");
+		
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry(value.getBytes());
 
+		Transaction transaction = this.transaction;
+		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
+
 		try {
 
-			Transaction transaction = CurrentTransaction.getInstance(this.environment).getTransaction();
 			OperationStatus status = this.database.put(transaction, dbKey, dbValue);
-			if (! status.equals(OperationStatus.SUCCESS)) throw new RuntimeException();
+			if (! status.equals(OperationStatus.SUCCESS)) throw new Xdi2RuntimeException("Unsuccessful");
+
+			if (this.transaction == null) transaction.commit();
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot write to database: " + ex.getMessage(), ex);
+			if (this.transaction == null) transaction.abort();
+			throw new Xdi2RuntimeException("Cannot write to database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
 	public String getOne(String key) {
 
+		log.trace("getOne(" + key + ")");
+
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry();
 
+		Transaction transaction = this.transaction;
+		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
+
 		try {
 
-			Transaction transaction = CurrentTransaction.getInstance(this.environment).getTransaction();
 			OperationStatus status = this.database.get(transaction, dbKey, dbValue, null);
 			if (! status.equals(OperationStatus.SUCCESS)) return(null);
-			return(new String(dbValue.getData()));
-		} catch (DatabaseException ex) {
+			String value = new String(dbValue.getData());
 
-			throw new RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
+			if (this.transaction == null) transaction.commit();
+			return value;
+		} catch (Exception ex) {
+
+			if (this.transaction == null) transaction.abort();
+			throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	public Iterator<String> getAll(String key) {
 
+		log.trace("getAll(" + key + ")");
+
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry();
 
+		Transaction transaction = this.transaction;
+		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
+
 		try {
 
-			IteratorListMaker<String> i = new IteratorListMaker<String> (new CursorDuplicatesIterator(dbKey, dbValue));
-			return i.list().iterator();
+			IteratorListMaker<String> i = new IteratorListMaker<String> (new CursorDuplicatesIterator(transaction, dbKey, dbValue));
+			List<String> list = i.list();
+
+			if (this.transaction == null) transaction.commit();
+			return list.iterator();
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
+			if (this.transaction == null) transaction.abort();
+			throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
 	public boolean contains(String key) {
 
+		log.trace("contains(" + key + ")");
+
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry();
 
+		Transaction transaction = this.transaction;
+		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
+
 		try {
 
-			Transaction transaction = CurrentTransaction.getInstance(this.environment).getTransaction();
 			OperationStatus status = this.database.get(transaction, dbKey, dbValue, null);
-			if ((! status.equals(OperationStatus.SUCCESS)) && (! status.equals(OperationStatus.NOTFOUND))) throw new RuntimeException();
-			return(status.equals(OperationStatus.SUCCESS));
+			if ((! status.equals(OperationStatus.SUCCESS)) && (! status.equals(OperationStatus.NOTFOUND))) throw new Xdi2RuntimeException();
+
+			if (this.transaction == null) transaction.commit();
+			return status.equals(OperationStatus.SUCCESS);
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
+			if (this.transaction == null) transaction.abort();
+			throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
 	public boolean contains(String key, String value) {
 
+		log.trace("contains(" + key + "," + value + ")");
+
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry(value.getBytes());
 
+		Transaction transaction = this.transaction;
+		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
+
 		try {
 
-			Transaction transaction = CurrentTransaction.getInstance(this.environment).getTransaction();
 			OperationStatus status = this.database.getSearchBoth(transaction, dbKey, dbValue, null);
-			if ((! status.equals(OperationStatus.SUCCESS)) && (! status.equals(OperationStatus.NOTFOUND))) throw new RuntimeException();
-			return(status.equals(OperationStatus.SUCCESS));
+			if ((! status.equals(OperationStatus.SUCCESS)) && (! status.equals(OperationStatus.NOTFOUND))) throw new Xdi2RuntimeException();
+
+			if (this.transaction == null) transaction.commit();
+			return status.equals(OperationStatus.SUCCESS);
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
+			if (this.transaction == null) transaction.abort();
+			throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
 	public void delete(String key) {
 
+		log.trace("delete(" + key + ")");
+
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
+
+		Transaction transaction = this.transaction;
+		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
 
-			Transaction transaction = CurrentTransaction.getInstance(this.environment).getTransaction();
 			this.database.delete(transaction, dbKey);
+
+			if (this.transaction == null) transaction.commit();
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot delete from database: " + ex.getMessage(), ex);
+			if (this.transaction == null) transaction.abort();
+			throw new Xdi2RuntimeException("Cannot delete from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	public void delete(String key, String value) {
+
+		log.trace("delete(" + key + "," + value + ")");
 
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry(value.getBytes());
 
 		Cursor cursor = null;
 
+		Transaction transaction = this.transaction;
+		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
+
 		try {
 
-			Transaction transaction = CurrentTransaction.getInstance(this.environment).getTransaction();
 			cursor = this.database.openCursor(transaction, null);
-			this.cursors.add(cursor);
 			cursor.getSearchBoth(dbKey, dbValue, null);
 
 			OperationStatus status = cursor.delete();
-			if (! status.equals(OperationStatus.SUCCESS)) throw new RuntimeException();
+			if (! status.equals(OperationStatus.SUCCESS)) throw new Xdi2RuntimeException();
+
+			cursor.close();
+			
+			if (this.transaction == null) transaction.commit();
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot delete from database: " + ex.getMessage(), ex);
-		} finally {
-
 			if (cursor != null) cursor.close();
-			this.cursors.remove(cursor);
+
+			if (this.transaction == null) transaction.abort();
+			throw new Xdi2RuntimeException("Cannot delete from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	public void clear() {
 
-		boolean hadTransaction = CurrentTransaction.getInstance(this.environment).getTransaction() != null;
+		log.trace("clear()");
 
-		if (hadTransaction) this.commitTransaction();
+		if (this.transaction != null) throw new Xdi2RuntimeException("Cannot clear store with an open transaction.");
+
 		this.closeDatabase();
 
 		try {
@@ -261,73 +326,24 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 			environmentConfig.setTransactional(true);
 
 			Environment environment = new Environment(new File(this.databasePath), environmentConfig);
-			CurrentTransaction.getInstance(environment).beginTransaction(null);
-			Transaction transaction = CurrentTransaction.getInstance(environment).getTransaction();
+			Transaction transaction = environment.beginTransaction(null, null);
 			environment.truncateDatabase(transaction, this.databaseName, false);
-			CurrentTransaction.getInstance(environment).commitTransaction();
+			transaction.commit();
 			environment.close();
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot delete and re-create dabatase: " + ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Cannot delete and re-create dabatase: " + ex.getMessage(), ex);
 		} finally {
 
 			this.openDatabase();
-			if (hadTransaction) this.beginTransaction();
 		}
 	}
 
 	public void close() {
 
+		log.trace("close()");
+
 		this.closeDatabase();
-	}
-
-	public void dump(PrintStream stream) {
-
-		DatabaseEntry dbKey = new DatabaseEntry();
-		DatabaseEntry dbValue = new DatabaseEntry();
-
-		Cursor cursor = null;
-
-		this.beginTransaction();
-
-		try {
-
-			Transaction transaction = CurrentTransaction.getInstance(this.environment).getTransaction();
-			cursor = this.database.openCursor(transaction, null);
-			this.cursors.add(cursor);
-			OperationStatus status = cursor.getFirst(dbKey, dbValue, null);
-
-			while (status.equals(OperationStatus.SUCCESS)) {
-
-				stream.println(new String(dbKey.getData()) + " --> " + new String(dbValue.getData()));
-
-				status = cursor.getNext(dbKey, dbValue, null);
-			}
-		} catch (DatabaseException ex) {
-
-			throw new RuntimeException("Cannot dump database.", ex);
-		} finally {
-
-			if (cursor != null) cursor.close();
-			this.cursors.remove(cursor);
-		}
-
-		this.commitTransaction();
-	}
-
-	public void dump() {
-
-		this.dump(System.out);
-	}
-
-	public Environment getEnvironment() {
-
-		return(this.environment);
-	}
-
-	public Database getDatabase() {
-
-		return(this.database);
 	}
 
 	private class CursorDuplicatesIterator extends ReadOnlyIterator<String> {
@@ -337,7 +353,7 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 		private Cursor cursor;
 		private OperationStatus status;
 
-		private CursorDuplicatesIterator(DatabaseEntry dbKey, DatabaseEntry dbValue) {
+		private CursorDuplicatesIterator(Transaction transaction, DatabaseEntry dbKey, DatabaseEntry dbValue) {
 
 			this.dbKey = dbKey;
 			this.dbValue = dbValue;
@@ -346,14 +362,12 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
 			try {
 
-				Transaction transaction = CurrentTransaction.getInstance(BDBKeyValueStore.this.environment).getTransaction();
 				this.cursor = BDBKeyValueStore.this.database.openCursor(transaction, null);
-				BDBKeyValueStore.this.cursors.add(this.cursor);
 				this.status = this.cursor.getSearchKey(this.dbKey, this.dbValue, null);
 				if (! this.status.equals(OperationStatus.SUCCESS)) this.cursor.close();
 			} catch (DatabaseException ex) {
 
-				throw new RuntimeException("Cannot read from this.database.", ex);
+				throw new Xdi2RuntimeException("Cannot read from this.database.", ex);
 			}
 		}
 
@@ -363,6 +377,8 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 		}
 
 		public String next() {
+
+			log.trace("CursorDuplicatesIterator.next()");
 
 			String element = new String(this.dbValue.getData());
 
@@ -374,14 +390,13 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 				if (! this.status.equals(OperationStatus.SUCCESS)) {
 
 					this.cursor.close();
-					BDBKeyValueStore.this.cursors.remove(this.cursor);
 				}
 			} catch (DatabaseException ex) {
 
-				throw new RuntimeException("Cannot read from database.", ex);
+				throw new Xdi2RuntimeException("Cannot read from database.", ex);
 			}
 
-			return(element);
+			return element;
 		}
 	}
 }

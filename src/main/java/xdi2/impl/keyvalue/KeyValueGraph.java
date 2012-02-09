@@ -12,17 +12,15 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 
 	private final boolean supportGetContextNodes;
 	private final boolean supportGetRelations;
-	private final boolean supportGetLiterals;
 
 	private final KeyValueContextNode rootContextNode;
 
-	KeyValueGraph(KeyValueStore keyValueStore, boolean supportGetContextNodes, boolean supportGetRelations, boolean supportGetLiterals) {
+	KeyValueGraph(KeyValueStore keyValueStore, boolean supportGetContextNodes, boolean supportGetRelations) {
 
 		this.keyValueStore = keyValueStore;
 
 		this.supportGetContextNodes = supportGetContextNodes;
 		this.supportGetRelations = supportGetRelations;
-		this.supportGetLiterals = supportGetLiterals;
 
 		this.rootContextNode = new KeyValueContextNode(this, null, keyValueStore, "()", null);
 	}
@@ -43,17 +41,17 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 	 * Methods related to transactions
 	 */
 
-	public void beginTransaction() {
+	protected void internalBeginTransaction() {
 
 		this.keyValueStore.beginTransaction();
 	}
 
-	public void commitTransaction() {
+	protected void internalCommitTransaction() {
 
 		this.keyValueStore.commitTransaction();
 	}
 
-	public void rollbackTransaction() {
+	protected void internalRollbackTransaction() {
 
 		this.keyValueStore.rollbackTransaction();
 	}
@@ -70,10 +68,5 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 	boolean isSupportGetRelations() {
 
 		return this.supportGetRelations;
-	}
-
-	boolean isSupportGetLiterals() {
-
-		return this.supportGetLiterals;
 	}
 }

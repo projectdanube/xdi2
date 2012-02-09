@@ -41,7 +41,7 @@ public final class IteratorCounter {
 		this.count = 0;
 		while (this.iterator.hasNext()) {
 
-			iterator.next();
+			this.iterator.next();
 			this.count++;
 		}
 

@@ -29,7 +29,7 @@ public abstract class AbstractLiteral implements Literal {
 
 	public synchronized void delete() {
 
-		this.getContextNode().deleteLiteral(this.getArcXri());
+		this.getContextNode().deleteLiteral();
 	}
 
 	/*
