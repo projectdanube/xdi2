@@ -30,16 +30,18 @@ public interface XDIReader extends Serializable {
 	 * @param graph A graph that will hold the read data.
 	 * @param reader A character stream from which to read.
 	 * @param parameters Optional parameters for the reader.
+	 * @return The character stream.
 	 */
-	public void read(Graph graph, Reader reader, Properties parameters) throws IOException, ParseException;
+	public Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, ParseException;
 
 	/**
 	 * Reads an XDI graph from a byte stream.
 	 * @param graph A graph that will hold the read data.
 	 * @param stream A byte stream from which to read.
 	 * @param parameters Optional parameters for the reader.
+	 * @return The byte stream.
 	 */
-	public void read(Graph graph, InputStream stream, Properties parameters) throws IOException, ParseException;
+	public InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, ParseException;
 
 	/**
 	 * Returns the format this XDIReader can read, e.g.

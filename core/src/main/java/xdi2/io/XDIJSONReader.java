@@ -102,7 +102,7 @@ class XDIJSONReader extends AbstractXDIReader {
 		this.read(graph, new JSONObject(graphString.toString()));
 	}
 
-	public synchronized void read(Graph graph, Reader reader, Properties parameters) throws IOException, ParseException {
+	public synchronized Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, ParseException {
 
 		this.lastXriString = null;
 
@@ -119,6 +119,8 @@ class XDIJSONReader extends AbstractXDIReader {
 
 			throw new ParseException("Cannot parse XRI " + this.lastXriString + ": " + ex.getMessage(), ex);
 		}
+		
+		return reader;
 	}
 
 	public String getFormat() {

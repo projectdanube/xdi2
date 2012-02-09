@@ -51,7 +51,7 @@ public abstract class BasicTest extends TestCase {
 
 		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
 
-		reader.read(graph3, this.getClass().getResourceAsStream("test.json"), null);
+		reader.read(graph3, this.getClass().getResourceAsStream("test.json"), null).close();
 		testGraph(graph3);
 	}
 
@@ -64,31 +64,47 @@ public abstract class BasicTest extends TestCase {
 		XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
 
 		makeGraph(graph4);
-		writer.write(graph4, new FileWriter(new File("test.json.out")), null);
-		reader.read(graph5, new FileReader(new File("test.json.out")), null);
+		writer.write(graph4, new FileWriter(new File("test.json.out")), null).close();
+		reader.read(graph5, new FileReader(new File("test.json.out")), null).close();
 
 		testGraph(graph5);
 		testGraphsEqual(graph4, graph5);
 	}
 
-	public void testManipulate() throws Exception {
+	public void testWriteStatements() throws Exception {
 
-		Graph graph7 = this.openNewGraph("7");
+		Graph graph6 = this.openNewGraph("6");
+//		Graph graph7 = this.openNewGraph("7");
 
-		makeGraph(graph7);
-		manipulateGraph(graph7);
-		testManipulatedGraph(graph7);
+//		XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");
+		XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS");
+
+		makeGraph(graph6);
+		writer.write(graph6, new FileWriter(new File("test.statements.out")), null).close();
+//		reader.read(graph7, new FileReader(new File("test.statements.out")), null).close();
+
+//		testGraph(graph7);
+//		testGraphsEqual(graph6, graph7);
 	}
 
-	public void testManipulateAndReopenGraph() throws Exception {
+	public void testManipulate() throws Exception {
 
 		Graph graph8 = this.openNewGraph("8");
 
 		makeGraph(graph8);
-		graph8 = this.reopenGraph(graph8, "8");
 		manipulateGraph(graph8);
-		graph8 = this.reopenGraph(graph8, "8");
 		testManipulatedGraph(graph8);
+	}
+
+	public void testManipulateAndReopenGraph() throws Exception {
+
+		Graph graph9 = this.openNewGraph("8");
+
+		makeGraph(graph9);
+		graph9 = this.reopenGraph(graph9, "8");
+		manipulateGraph(graph9);
+		graph9 = this.reopenGraph(graph9, "8");
+		testManipulatedGraph(graph9);
 	}
 
 	@SuppressWarnings("unused")

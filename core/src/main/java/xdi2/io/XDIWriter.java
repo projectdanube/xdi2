@@ -21,16 +21,18 @@ public interface XDIWriter extends Serializable {
 	 * @param graph A graph that will be written to the stream.
 	 * @param writer The character stream to write to.
 	 * @param parameters Optional parameters for the writer.
+	 * @return The character stream.
 	 */
-	public void write(Graph graph, Writer writer, Properties parameters) throws IOException;
+	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException;
 
 	/**
 	 * Writes an XDI graph to a byte stream.
 	 * @param graph A graph that will be written to the stream.
 	 * @param stream The byte stream to write to.
 	 * @param parameters Optional parameters for the writer.
+	 * @return The byte stream.
 	 */
-	public void write(Graph graph, OutputStream stream, Properties parameters) throws IOException;
+	public OutputStream write(Graph graph, OutputStream stream, Properties parameters) throws IOException;
 	
 	/**
 	 * Returns the format this XDIWriter can write, e.g.

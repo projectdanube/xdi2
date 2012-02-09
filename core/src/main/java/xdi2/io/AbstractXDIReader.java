@@ -19,13 +19,15 @@ public abstract class AbstractXDIReader implements XDIReader {
 
 	private static final long serialVersionUID = -3924954880534200486L;
 
-	public synchronized void read(Graph graph, String string, Properties parameters) throws IOException, ParseException {
+	public void read(Graph graph, String string, Properties parameters) throws IOException, ParseException {
 
 		this.read(graph, new StringReader(string), parameters);
 	}
 
-	public synchronized void read(Graph graph, InputStream stream, Properties parameters) throws IOException, ParseException {
+	public InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, ParseException {
 
 		this.read(graph, new InputStreamReader(stream), parameters);
+
+		return stream;
 	}
 }

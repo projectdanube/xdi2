@@ -2,8 +2,6 @@ package xdi2.io;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Iterator;
 import java.util.Properties;
@@ -88,7 +86,7 @@ class XDIJSONWriter extends AbstractXDIWriter {
 		}
 
 		Literal literal = contextNode.getLiteral();
-		
+
 		if (literal != null) {
 
 			this.startItem(bufferedWriter);
@@ -106,16 +104,12 @@ class XDIJSONWriter extends AbstractXDIWriter {
 		bufferedWriter.flush();
 	}
 
-	public synchronized void write(Graph graph, Writer writer, Properties parameters) throws IOException {
+	public synchronized Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
 
 		this.write(graph, new BufferedWriter(writer), parameters, "");
 		writer.flush();
-	}
 
-	public synchronized void write(Graph graph, OutputStream stream, Properties parameters) throws IOException {
-
-		this.write(graph, new OutputStreamWriter(stream), parameters);
-		stream.flush();
+		return writer;
 	}
 
 	public String getFormat() {
