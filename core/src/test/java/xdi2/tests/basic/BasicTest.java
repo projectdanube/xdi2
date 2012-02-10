@@ -98,12 +98,12 @@ public abstract class BasicTest extends TestCase {
 
 	public void testManipulateAndReopenGraph() throws Exception {
 
-		Graph graph9 = this.openNewGraph("8");
+		Graph graph9 = this.openNewGraph("9");
 
 		makeGraph(graph9);
-		graph9 = this.reopenGraph(graph9, "8");
+		graph9 = this.reopenGraph(graph9, "9");
 		manipulateGraph(graph9);
-		graph9 = this.reopenGraph(graph9, "8");
+		graph9 = this.reopenGraph(graph9, "9");
 		testManipulatedGraph(graph9);
 	}
 

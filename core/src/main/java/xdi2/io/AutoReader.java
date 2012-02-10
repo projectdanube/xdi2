@@ -31,14 +31,7 @@ public class AutoReader extends AbstractXDIReader {
 
 	private static String readerClassNames[] = {
 
-		"org.eclipse.higgins.xdi4j.io.X3StandardReader",
-		"org.eclipse.higgins.xdi4j.io.X3SimpleReader",
-		"org.eclipse.higgins.xdi4j.io.X3WhitespaceReader",
-		"org.eclipse.higgins.xdi4j.io.XDIXMLReader",
-		"org.eclipse.higgins.xdi4j.io.XTRIPLESReader",
-		"org.eclipse.higgins.xdi4j.io.X3JReader",
-		"org.eclipse.higgins.xdi4j.io.XDIJSONReader",
-		"org.eclipse.higgins.xdi4j.io.XRIReader"
+		XDIJSONReader.class.getName()
 	};
 
 	private static List<XDIReader> readers;
