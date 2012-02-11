@@ -32,4 +32,24 @@
 		<servlet-name>XDIConverter</servlet-name>
 		<url-pattern>/XDIConverter</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>XDILocalMessenger</display-name>
+		<servlet-name>XDILocalMessenger</servlet-name>
+		<servlet-class>xdi2.webtools.localmessenger.XDILocalMessenger</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDILocalMessenger</servlet-name>
+		<url-pattern>/XDILocalMessenger</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>XDIGrapher</display-name>
+		<servlet-name>XDIGrapher</servlet-name>
+		<servlet-class>xdi2.webtools.grapher.XDIGrapher</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDIGrapher</servlet-name>
+		<url-pattern>/XDIGrapher</url-pattern>
+	</servlet-mapping>
 </web-app>
