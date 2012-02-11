@@ -70,7 +70,7 @@ class XDIJSONReader extends AbstractXDIReader {
 
 			String subject = strings[0];
 			String predicate = strings[1];
-			ContextNode contextNode = graph.findContextNode(new XRI3Segment(subject));
+			ContextNode contextNode = graph.findContextNode(new XRI3Segment(subject), false);
 
 			if (predicate.equals("!")) {
 

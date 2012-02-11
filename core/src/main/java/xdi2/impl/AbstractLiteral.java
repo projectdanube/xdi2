@@ -108,7 +108,7 @@ public abstract class AbstractLiteral implements Literal {
 
 		public XRI3Segment getPredicate() {
 
-			return XDIConstants.XRI_LITERAL;
+			return XDIConstants.XRI_S_LITERAL;
 		}
 
 		public XRI3Segment getObject() {

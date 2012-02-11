@@ -23,17 +23,28 @@ public abstract class AbstractGraph implements Graph {
 	 * General methods
 	 */
 
-	public ContextNode findContextNode(XRI3Segment xri) {
+	public ContextNode findContextNode(XRI3Segment xri, boolean create) {
 
 		ContextNode contextNode = this.getRootContextNode();
-		if (XDIConstants.XRI_CONTEXT.equals(xri)) return contextNode;
+		if (XDIConstants.XRI_S_CONTEXT.equals(xri)) return contextNode;
 
-		for (Iterator<?> subSegments = xri.getSubSegments().iterator(); subSegments.hasNext(); ) {
+		for (Iterator<?> arcXris = xri.getSubSegments().iterator(); arcXris.hasNext(); ) {
 
-			XRI3SubSegment subSegment = (XRI3SubSegment) subSegments.next();
+			XRI3SubSegment arcXri = (XRI3SubSegment) arcXris.next();
 
-			contextNode = contextNode.getContextNode(subSegment);
-			if (contextNode == null) return null;
+			ContextNode innerContextNode = contextNode.getContextNode(arcXri);
+			if (innerContextNode == null) {
+
+				if (create) {
+
+					innerContextNode = contextNode.createContextNode(arcXri);
+				} else {
+
+					return null;
+				}
+			}
+
+			contextNode = innerContextNode;
 		}
 
 		return contextNode;

@@ -43,7 +43,7 @@ public abstract class AbstractRelation implements Relation {
 
 		XRI3Segment relationXri = this.getRelationXri();
 
-		return this.getGraph().findContextNode(relationXri);
+		return this.getGraph().findContextNode(relationXri, false);
 	}
 
 	/*

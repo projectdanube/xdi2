@@ -69,7 +69,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public XRI3Segment getXri() {
 
-		if (this.isRootContextNode()) return XDIConstants.XRI_CONTEXT;
+		if (this.isRootContextNode()) return XDIConstants.XRI_S_CONTEXT;
 
 		String xri = this.getArcXri().toString();
 
@@ -379,7 +379,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		public XRI3Segment getPredicate() {
 
-			return XDIConstants.XRI_CONTEXT;
+			return XDIConstants.XRI_S_CONTEXT;
 		}
 
 		public XRI3Segment getObject() {

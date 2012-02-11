@@ -314,7 +314,7 @@ public abstract class BasicTest extends TestCase {
 		}
 
 		assertNull(rootContextNode.getArcXri());
-		assertEquals(XDIConstants.XRI_CONTEXT, rootContextNode.getXri());
+		assertEquals(XDIConstants.XRI_S_CONTEXT, rootContextNode.getXri());
 		assertEquals(new XRI3SubSegment("=abc"), abcContextNode.getArcXri());
 		assertEquals(new XRI3Segment("=abc"), abcContextNode.getXri());
 		assertEquals(new XRI3SubSegment("+passport"), abcPassportContextNode.getArcXri());
@@ -578,7 +578,7 @@ public abstract class BasicTest extends TestCase {
 		}
 
 		assertNull(rootContextNode.getArcXri());
-		assertEquals(XDIConstants.XRI_CONTEXT, rootContextNode.getXri());
+		assertEquals(XDIConstants.XRI_S_CONTEXT, rootContextNode.getXri());
 		assertEquals(new XRI3SubSegment("=abc"), abcContextNode.getArcXri());
 		assertEquals(new XRI3Segment("=abc"), abcContextNode.getXri());
 		assertEquals(new XRI3SubSegment("+passport"), abcPassportContextNode.getArcXri());
