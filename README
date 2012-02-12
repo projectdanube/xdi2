@@ -1,7 +1,7 @@
 How to build
 ============
 
-Just run *mvn clean install*.
+Just run mvn clean install.
 
 How to run the web tools
 ========================
