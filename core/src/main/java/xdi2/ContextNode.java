@@ -3,7 +3,6 @@ package xdi2;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
@@ -67,7 +66,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * This returns () for the root context node.
 	 * @return The XRI of this context node.
 	 */
-	public XRI3Authority getXri();
+	public XRI3Segment getXri();
 
 	/*
 	 * Methods related to context nodes of this context node

@@ -1,11 +1,13 @@
 package xdi2.tests;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import xdi2.tests.basic.BDBBasicTest;
 import xdi2.tests.basic.MapBasicTest;
 import xdi2.tests.basic.MemoryBasicTest;
 import xdi2.tests.basic.PropertiesBasicTest;
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import xdi2.tests.util.XDIUtilTest;
+import xdi2.tests.variables.VariablesUtilTest;
 
 public class AllTests {
 
@@ -16,8 +18,9 @@ public class AllTests {
 		suite.addTestSuite(MapBasicTest.class);
 		suite.addTestSuite(MemoryBasicTest.class);
 		suite.addTestSuite(PropertiesBasicTest.class);
+		suite.addTestSuite(VariablesUtilTest.class);
+		suite.addTestSuite(XDIUtilTest.class);
 		//$JUnit-END$
 		return suite;
 	}
-
 }

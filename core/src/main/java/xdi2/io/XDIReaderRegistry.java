@@ -20,7 +20,8 @@ public final class XDIReaderRegistry {
 
 	private static String readerClassNames[] = {
 
-		XDIJSONReader.class.getName()
+		XDIJSONReader.class.getName(),
+		XDIStatementsReader.class.getName()
 	};
 
 	private static List<Class<XDIReader> > readerClasses;

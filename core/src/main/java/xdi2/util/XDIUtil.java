@@ -2,29 +2,34 @@ package xdi2.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Base64;
 
 import xdi2.exceptions.Xdi2RuntimeException;
+import xdi2.xri3.impl.XRI3Segment;
+import xdi2.xri3.impl.XRI3SubSegment;
+import xdi2.xri3.impl.XRI3XRef;
 
 public class XDIUtil {
 
 	private XDIUtil() { }
 
-	public static String dataUriToString(String dataUri) {
+	private static final Pattern PATTERN_DATA_URI = Pattern.compile("^data:(.*?),(.*)$");
 
-		URI uri = URI.create(dataUri);
+	public static String dataXriSegmentToString(XRI3Segment xriSegment) {
 
-		if (! uri.getScheme().equals("data")) throw new Xdi2RuntimeException("URI has no data scheme: " + dataUri);
+		XRI3SubSegment xriSubSegment = (XRI3SubSegment) xriSegment.getFirstSubSegment();
+		XRI3XRef xRef = (XRI3XRef) xriSubSegment.getXRef();
+		String iri = xRef.getIRI();		
 
-		String authority = uri.getAuthority();
+		Matcher matcher = PATTERN_DATA_URI.matcher(iri);
+		if (! matcher.matches()) throw new Xdi2RuntimeException("Invalid data URI: " + iri);
 
-		String[] strings = authority.split(",");
-		if (strings.length != 1) throw new Xdi2RuntimeException("Invalid data URI: " + dataUri);
-
-		String typeEncodingBase64 = strings[0];
-		String data = strings[1];
-
+		String typeEncodingBase64 = matcher.group(1);
+		String data = matcher.group(2);
+		
 		try {
 
 			if (typeEncodingBase64.endsWith(";base64")) {
@@ -40,7 +45,7 @@ public class XDIUtil {
 		}
 	}
 
-	public static String stringToDataUri(String string) {
+	public static XRI3Segment stringToDataXriSegment(String string) {
 
 		StringBuilder builder = new StringBuilder("data:");
 
@@ -62,6 +67,6 @@ public class XDIUtil {
 			throw new Xdi2RuntimeException(ex);
 		}
 
-		return builder.toString();
+		return new XRI3Segment("(" + builder.toString() + ")");
 	}
 }

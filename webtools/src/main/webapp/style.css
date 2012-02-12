@@ -41,7 +41,7 @@ select {
 }
 
 div.result {
-	background-color: lightgray;
+	background-color: #deccff;
 	padding-left: 20px;
 	border: 3px dashed black;
 }

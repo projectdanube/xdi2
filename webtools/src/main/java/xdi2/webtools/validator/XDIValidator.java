@@ -3,6 +3,8 @@ package xdi2.webtools.validator;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +17,6 @@ import xdi2.Graph;
 import xdi2.impl.memory.MemoryGraphFactory;
 import xdi2.io.XDIReader;
 import xdi2.io.XDIReaderRegistry;
-import xdi2.webtools.converter.XDIConverter;
 
 /**
  * Servlet implementation class for Servlet: XDIValidator
@@ -28,32 +29,37 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 	private static Log log = LogFactory.getLog(XDIValidator.class);
 
 	private static MemoryGraphFactory graphFactory;
-	private static String sampleInput;
+	private static List<String> sampleInputs;
 
 	static {
 
 		graphFactory = MemoryGraphFactory.getInstance();
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
 
-		InputStream inputStream = XDIConverter.class.getResourceAsStream("test.json");
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		int i;
+		sampleInputs = new ArrayList<String> ();
 
-		try {
+		while (true) {
 
-			while ((i = inputStream.read()) != -1) outputStream.write(i);
-			sampleInput = new String(outputStream.toByteArray());
-		} catch (Exception ex) {
-
-			sampleInput = "[Error: Can't read sample data: " + ex.getMessage();
-		} finally {
+			InputStream inputStream = XDIValidator.class.getResourceAsStream("test" + (sampleInputs.size() + 1) + ".graph");
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			int i;
 
 			try {
 
-				inputStream.close();
-				outputStream.close();
+				while ((i = inputStream.read()) != -1) outputStream.write(i);
+				sampleInputs.add(new String(outputStream.toByteArray()));
 			} catch (Exception ex) {
 
+				break;
+			} finally {
+
+				try {
+
+					inputStream.close();
+					outputStream.close();
+				} catch (Exception ex) {
+
+				}
 			}
 		}
 	}
@@ -66,7 +72,11 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("input", sampleInput);
+		String sample = request.getParameter("sample");
+		if (sample == null) sample = "1";
+
+		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.getRequestDispatcher("/XDIValidator.jsp").forward(request, response);
 	}
 
@@ -110,6 +120,7 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 
 		// display results
 
+		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("from", from);
 		request.setAttribute("input", input);
 		request.setAttribute("output", output);

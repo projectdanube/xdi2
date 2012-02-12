@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ImageServlet
  */
-public class ImageServlet extends HttpServlet {
+public class XDIGrapherImage extends HttpServlet {
 
 	private static final long serialVersionUID = 123784683432874632L;
 
-	public ImageServlet() {
+	public XDIGrapherImage() {
 
 		super();
 	}

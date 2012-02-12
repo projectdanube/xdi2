@@ -5,7 +5,6 @@ import xdi2.ContextNode;
 import xdi2.Graph;
 import xdi2.Relation;
 import xdi2.Statement;
-import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 
 public abstract class AbstractRelation implements Relation {
@@ -44,7 +43,7 @@ public abstract class AbstractRelation implements Relation {
 
 		XRI3Segment relationXri = this.getRelationXri();
 
-		return this.getGraph().findContextNode(new XRI3Authority(relationXri.toString()), false);
+		return this.getGraph().findContextNode(relationXri, false);
 	}
 
 	/*

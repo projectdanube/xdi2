@@ -11,7 +11,11 @@
 
 	<div class="header">
 	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Validator</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;<a href="Other.jsp">Other Apps...</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
+		<a href="XDIValidator?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+	<% } %>
+	<a href="Other.jsp">&gt;&gt;&gt;Other Apps...</a>
 	</div>
 
 	<% if (request.getAttribute("error") != null) { %>

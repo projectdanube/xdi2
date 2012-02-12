@@ -1,4 +1,4 @@
-package xdi2.client.http;
+package xdi2.messaging.http;
 
 import java.util.ArrayList;
 import java.util.Collections;

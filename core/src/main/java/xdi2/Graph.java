@@ -5,7 +5,6 @@ import java.util.Properties;
 
 import xdi2.exceptions.Xdi2MessagingException;
 import xdi2.xri3.impl.XRI3;
-import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 
 /**
@@ -37,14 +36,14 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @param create Whether or not to create context nodes if they don't exist.
 	 * @return A context node with the given XRI.
 	 */
-	public ContextNode findContextNode(XRI3Authority xri, boolean create);
+	public ContextNode findContextNode(XRI3Segment xri, boolean create);
 
 	/**
 	 * Checks if a context node exists in this graph.
 	 * @param xri The XRI of the context node.
 	 * @return True, if the context node exists.
 	 */
-	public boolean containsContextNode(XRI3Authority xri);
+	public boolean containsContextNode(XRI3Segment xri);
 
 	/**
 	 * Converts the graph to a string in the given serialization format.

@@ -5,11 +5,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>XDI Grapher</title>
+<link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 
-	<img src="images/logo_xdi4j.gif" align="middle">&nbsp;&nbsp;&nbsp;<span style="font-weight: bold; border-bottom: 3px solid #707070">XDI Grapher</span> by Azigo
-	&nbsp;&nbsp;&nbsp;&nbsp;<a href="Other.jsp" style="color: #707070">Other Apps...</a>
+	<div class="header">
+	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Grapher</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
+		<a href="XDIGrapher?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+	<% } %>
+	<a href="Other.jsp">&gt;&gt;&gt;Other Apps...</a>
+	</div>
 
 	<% if (request.getAttribute("error") != null) { %>
 			
@@ -19,17 +26,16 @@
 
 	<form action="XDIGrapher" method="post">
 
-		<textarea name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
+		<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 
 		<% String type = (String) request.getAttribute("type"); if (type == null) type = ""; %>
 
 		<select name="type">
-		<option value="box" <%= type.equals("box") ? "selected" : "" %>>XDI RDF Box Graph</option>
-		<option value="spol" <%= type.equals("spol") ? "selected" : "" %>>XDI S/P/O Graph (with legend)</option>
-		<option value="spo" <%= type.equals("spo") ? "selected" : "" %>>XDI S/P/O Graph (without legend)</option>
+		<option value="stdl" <%= type.equals("stdl") ? "selected" : "" %>>XDI Standard Graph (with legend)</option>
+		<option value="std" <%= type.equals("std") ? "selected" : "" %>>XDI Standard Graph (without legend)</option>
 		</select>
 		<input type="submit" value="Draw!">
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="Help.jsp" style="color: #707070">What can I do here?</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIGrapherHelp.jsp">What can I do here?</a>
 
 		<% if (request.getAttribute("stats") != null) { %>
 			<p>
@@ -39,7 +45,7 @@
 
 		<% if (request.getAttribute("imageId") != null) { %>
 			<div>
-				<img src="image?imageId=<%= request.getAttribute("imageId") %>">
+				<img src="/XDIGrapherImage?imageId=<%= request.getAttribute("imageId") %>">
 			</div><br>
 		<% } %>
 	</form>

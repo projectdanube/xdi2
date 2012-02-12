@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,40 +34,45 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	private static final long serialVersionUID = -3840753270326755062L;
 
 	private static MemoryGraphFactory graphFactory;
-	private static String sampleInput;
-	private static String sampleMessage;
+	private static List<String> sampleInputs;
+	private static List<String> sampleMessages;
 
 	static {
 
 		graphFactory = MemoryGraphFactory.getInstance();
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
 
-		InputStream inputStream1 = XDILocalMessenger.class.getResourceAsStream("input.graph");
-		InputStream inputStream2 = XDILocalMessenger.class.getClass().getResourceAsStream("message.graph");
-		ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
-		ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
-		int i;
+		sampleInputs = new ArrayList<String> ();
+		sampleMessages = new ArrayList<String> ();
 
-		try {
+		while (true) {
 
-			while ((i = inputStream1.read()) != -1) outputStream1.write(i);
-			while ((i = inputStream2.read()) != -1) outputStream2.write(i);
-			sampleInput = new String(outputStream1.toByteArray());
-			sampleMessage = new String(outputStream2.toByteArray());
-		} catch (Exception ex) {
-
-			sampleInput = "[Error: Can't read sample data: " + ex.getMessage();
-			sampleMessage = "[Error: Can't read sample data: " + ex.getMessage();
-		} finally {
+			InputStream inputStream1 = XDILocalMessenger.class.getResourceAsStream("test" + (sampleInputs.size() + 1) + ".graph");
+			InputStream inputStream2 = XDILocalMessenger.class.getResourceAsStream("message" + (sampleMessages.size() + 1) + ".graph");
+			ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
+			ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
+			int i;
 
 			try {
 
-				inputStream1.close();
-				inputStream2.close();
-				outputStream1.close();
-				outputStream2.close();
+				while ((i = inputStream1.read()) != -1) outputStream1.write(i);
+				while ((i = inputStream2.read()) != -1) outputStream2.write(i);
+				sampleInputs.add(new String(outputStream1.toByteArray()));
+				sampleMessages.add(new String(outputStream2.toByteArray()));
 			} catch (Exception ex) {
 
+				break;
+			} finally {
+
+				try {
+
+					inputStream1.close();
+					inputStream2.close();
+					outputStream1.close();
+					outputStream2.close();
+				} catch (Exception ex) {
+
+				}
 			}
 		}
 	}
@@ -79,8 +86,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("input", sampleInput);
-		request.setAttribute("message", sampleMessage);
+		String sample = request.getParameter("sample");
+		if (sample == null) sample = "1";
+
+		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
+		request.setAttribute("message", sampleMessages.get(Integer.parseInt(sample) - 1));
 		request.getRequestDispatcher("/XDILocalMessenger.jsp").forward(request, response);
 	}
 
@@ -164,6 +175,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		// display results
 
+		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("versioningSupport", versioningSupport);
 		request.setAttribute("linkContractSupport", linkContractSupport);
 		request.setAttribute("to", to);

@@ -18,7 +18,6 @@ import xdi2.Literal;
 import xdi2.Relation;
 import xdi2.exceptions.Xdi2GraphException;
 import xdi2.exceptions.Xdi2ParseException;
-import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 import xdi2.xri3.impl.parser.ParserException;
@@ -36,12 +35,6 @@ class XDIJSONReader extends AbstractXDIReader {
 	private String lastXriString;
 
 	XDIJSONReader() { }
-
-	private synchronized XRI3Authority makeXRI3Authority(String xriString) {
-
-		this.lastXriString = xriString;
-		return new XRI3Authority(xriString);
-	}
 
 	private synchronized XRI3Segment makeXRI3Segment(String xriString) {
 
@@ -89,7 +82,7 @@ class XDIJSONReader extends AbstractXDIReader {
 
 			String subject = strings[0];
 			String predicate = strings[1];
-			ContextNode contextNode = graph.findContextNode(makeXRI3Authority(subject), false);
+			ContextNode contextNode = graph.findContextNode(makeXRI3Segment(subject), false);
 
 			if (predicate.equals("!")) {
 

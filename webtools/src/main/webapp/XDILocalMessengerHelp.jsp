@@ -10,8 +10,10 @@
 </head>
 <body>
 
-	<img src="images/logo_xdi4j.gif" align="middle">&nbsp;&nbsp;&nbsp;<span style="font-weight: bold; border-bottom: 3px solid #45b1fd">XDI Local Messenger</span> by Azigo
-	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDILocalMessenger" style="color: #45b1fd">Back...</a>
+	<div class="header">
+	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Local Messenger</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDILocalMessenger">Back...</a>
+	</div>
 
 	<div class="tabber">
 

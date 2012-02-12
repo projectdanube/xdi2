@@ -10,7 +10,6 @@ import xdi2.util.XDIConstants;
 import xdi2.util.iterators.DescendingIterator;
 import xdi2.util.iterators.IteratorCounter;
 import xdi2.util.iterators.SelectingMappingIterator;
-import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 
 /**
@@ -112,7 +111,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public MessageContainer getMessageContainer(XRI3Segment senderXri, boolean create) {
 
-		XRI3Authority messageXri = new XRI3Authority(senderXri.toString() + XDIConstants.XRI_SS_MSG.toString());
+		XRI3Segment messageXri = new XRI3Segment(senderXri.toString() + XDIConstants.XRI_SS_MSG.toString());
 		ContextNode contextNode = this.getGraph().findContextNode(messageXri, true);
 
 		return new MessageContainer(this, contextNode);
@@ -141,7 +140,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public Iterator<Message> getMessages(XRI3Segment senderXri) {
 
-		XRI3Authority messageContextXri = new XRI3Authority(senderXri.toString() + XDIConstants.XRI_SS_MSG.toString());
+		XRI3Segment messageContextXri = new XRI3Segment(senderXri.toString() + XDIConstants.XRI_SS_MSG.toString());
 		ContextNode contextNode = this.getGraph().findContextNode(messageContextXri, true);
 
 		Iterator<ContextNode> messageInstanceContextNodes = contextNode.getContextNodes();

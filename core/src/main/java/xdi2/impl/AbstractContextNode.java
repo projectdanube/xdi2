@@ -18,7 +18,6 @@ import xdi2.util.iterators.IteratorCounter;
 import xdi2.util.iterators.MappingIterator;
 import xdi2.util.iterators.SelectingIterator;
 import xdi2.util.iterators.SingleItemIterator;
-import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
@@ -68,9 +67,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public XRI3Authority getXri() {
+	public XRI3Segment getXri() {
 
-		if (this.isRootContextNode()) return XDIConstants.XRI_A_CONTEXT;
+		if (this.isRootContextNode()) return XDIConstants.XRI_S_CONTEXT;
 
 		String xri = this.getArcXri().toString();
 
@@ -81,7 +80,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			xri = contextNode.getArcXri() + xri;
 		}
 
-		return new XRI3Authority(xri);
+		return new XRI3Segment(xri);
 	}
 
 	/*

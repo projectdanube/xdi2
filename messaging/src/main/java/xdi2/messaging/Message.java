@@ -8,7 +8,6 @@ import xdi2.Relation;
 import xdi2.util.XDIConstants;
 import xdi2.util.iterators.IteratorCounter;
 import xdi2.util.iterators.SelectingMappingIterator;
-import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
@@ -93,7 +92,7 @@ public class Message implements Serializable, Comparable<Message> {
 	 * Returns the sender of the message's message container.
 	 * @return The sender of the message's message container.
 	 */
-	public XRI3Authority getSender() {
+	public XRI3Segment getSender() {
 
 		return this.getMessageContainer().getSender();
 	}

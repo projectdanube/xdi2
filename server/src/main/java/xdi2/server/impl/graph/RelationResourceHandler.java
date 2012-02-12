@@ -9,7 +9,7 @@ import xdi2.messaging.Operation;
 import xdi2.server.ExecutionContext;
 import xdi2.util.CopyUtil;
 import xdi2.variables.VariablesUtil;
-import xdi2.xri3.impl.XRI3Authority;
+import xdi2.xri3.impl.XRI3Segment;
 
 public class RelationResourceHandler extends AbstractGraphResourceHandler {
 
@@ -21,7 +21,7 @@ public class RelationResourceHandler extends AbstractGraphResourceHandler {
 	@Override
 	public boolean executeAdd(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Authority operationContextNodeXri = this.operationRelation.getContextNode().getXri();
+		XRI3Segment operationContextNodeXri = this.operationRelation.getContextNode().getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, true);
 
 		contextNode.createRelation(this.operationRelation.getArcXri(), this.operationRelation.getRelationXri());
@@ -32,7 +32,7 @@ public class RelationResourceHandler extends AbstractGraphResourceHandler {
 	@Override
 	public boolean executeGet(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Authority operationContextNodeXri = this.operationRelation.getContextNode().getXri();
+		XRI3Segment operationContextNodeXri = this.operationRelation.getContextNode().getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) return true;
 
@@ -51,7 +51,7 @@ public class RelationResourceHandler extends AbstractGraphResourceHandler {
 	@Override
 	public boolean executeDel(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Authority operationContextNodeXri = this.operationRelation.getContextNode().getXri();
+		XRI3Segment operationContextNodeXri = this.operationRelation.getContextNode().getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) return true;
 

@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -27,32 +29,37 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 	private static final long serialVersionUID = 2578333401873629083L;
 
 	private static MemoryGraphFactory graphFactory;
-	private static String sampleInput;
+	private static List<String> sampleInputs;
 
 	static {
 
 		graphFactory = MemoryGraphFactory.getInstance();
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
 
-		InputStream inputStream = XDIGrapher.class.getResourceAsStream("test.graph");
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		int i;
+		sampleInputs = new ArrayList<String> ();
 
-		try {
+		while (true) {
 
-			while ((i = inputStream.read()) != -1) outputStream.write(i);
-			sampleInput = new String(outputStream.toByteArray());
-		} catch (Exception ex) {
-
-			sampleInput = "[Error: Can't read sample data: " + ex.getMessage();
-		} finally {
+			InputStream inputStream = XDIGrapher.class.getResourceAsStream("test" + (sampleInputs.size() + 1) + ".graph");
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			int i;
 
 			try {
 
-				inputStream.close();
-				outputStream.close();
+				while ((i = inputStream.read()) != -1) outputStream.write(i);
+				sampleInputs.add(new String(outputStream.toByteArray()));
 			} catch (Exception ex) {
 
+				break;
+			} finally {
+
+				try {
+
+					inputStream.close();
+					outputStream.close();
+				} catch (Exception ex) {
+
+				}
 			}
 		}
 
@@ -75,7 +82,11 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("input", sampleInput);
+		String sample = request.getParameter("sample");
+		if (sample == null) sample = "1";
+
+		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.getRequestDispatcher("/XDIGrapher.jsp").forward(request, response);
 	}
 
@@ -96,9 +107,8 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		try {
 
 			Drawer drawer = null;
-			if (type.equals("box")) drawer = null;
-			if (type.equals("spol")) drawer = new Drawer2(true);
-			if (type.equals("spo")) drawer = new Drawer2(false);
+			if (type.equals("stdl")) drawer = new Drawer1(true);
+			if (type.equals("std")) drawer = new Drawer1(false);
 			if (drawer == null) return;
 			
 			xdiReader.read(graph, input, null);

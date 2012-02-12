@@ -9,7 +9,7 @@ import xdi2.util.XRIUtil;
 import xdi2.util.iterators.DescendingIterator;
 import xdi2.util.iterators.IteratorCounter;
 import xdi2.util.iterators.SelectingMappingIterator;
-import xdi2.xri3.impl.XRI3Authority;
+import xdi2.xri3.impl.XRI3Segment;
 
 /**
  * An XDI message container, represented as a context node.
@@ -83,7 +83,7 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 	 * Returns the sender of the message container.
 	 * @return The sender of the message container.
 	 */
-	public XRI3Authority getSender() {
+	public XRI3Segment getSender() {
 
 		return this.getContextNode().getXri();
 	}

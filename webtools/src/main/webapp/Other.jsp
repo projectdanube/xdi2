@@ -10,22 +10,24 @@
 </head>
 <body>
  
-	<img src="images/logo_xdi4j.gif" align="middle">&nbsp;&nbsp;&nbsp;<span style="font-weight: bold">XDI Applications</span> by Azigo
+	<div class="header">
+	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Applications</span>
+	</div>
 
 	<hr>
 
 	<p style="font-size: 14pt">XDI Applications</p>
 	
 	<p>
-	<a href="http://ginger.freexri.com/xdi-validator/XDIValidator">XDI Validator</a>&nbsp;&nbsp;
-	<a href="http://ginger.freexri.com/xdi-converter/XDIConverter">XDI Converter</a>&nbsp;&nbsp;
-	<a href="http://ginger.freexri.com/xdi-messenger/XDIMessenger">XDI Messenger</a>&nbsp;&nbsp;
-	<a href="http://ginger.freexri.com/xdi-localmessenger/XDILocalMessenger">XDI Local Messenger</a>&nbsp;&nbsp;
-	<a href="http://ginger.freexri.com/xdi-querier/XDIQuerier">XDI Querier</a>&nbsp;&nbsp;
-	<a href="http://ginger.freexri.com/xdi-setter/XDISetter">XDI Setter</a>&nbsp;&nbsp;
-	<a href="http://ginger.freexri.com/xdi-signer/XDISigner">XDI Signer</a>&nbsp;&nbsp;
-	<a href="http://ginger.freexri.com/xdi-addresser/XDIAddresser">XDI Addresser</a>&nbsp;&nbsp;
-	<a href="http://ginger.freexri.com/xdi-grapher/XDIGrapher">XDI Grapher</a>
+	<a href="XDIValidator">XDI Validator</a>&nbsp;&nbsp;
+	<a href="XDIConverter">XDI Converter</a>&nbsp;&nbsp;
+	XDI Messenger&nbsp;&nbsp;
+	<a href="XDILocalMessenger">XDI Local Messenger</a>&nbsp;&nbsp;
+	XDI Querier&nbsp;&nbsp;
+	XDI Setter&nbsp;&nbsp;
+	XDI Signer&nbsp;&nbsp;
+	XDI Addresser&nbsp;&nbsp;
+	XDI Grapher
 	</p>
 
 	<hr>
@@ -37,13 +39,11 @@
 
 	<hr>
 
-	<p style="font-size: 14pt">XDI4j</p>
+	<p style="font-size: 14pt">XDI2</p>
 	
-	<p><a href="http://wiki.eclipse.org/XDI4j">XDI4j</a> is a general purpose XDI library for 
-	Java.</p>
+	<p><a href="github.com/peacekeeper/xdi2">XDI2</a> is a general purpose XDI library for Java.</p>
 	
-	<p>It is a component of the Eclipse <a href="http://www.eclipse.org/higgins/">Higgins</a>
-	project.</p>
+	<p>It is the basis for the <a href="http://www.projectdanube.org/">Project Danube</a> project.</p>
 
 	<hr>
 

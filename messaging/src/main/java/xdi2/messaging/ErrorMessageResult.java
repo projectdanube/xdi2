@@ -2,14 +2,14 @@ package xdi2.messaging;
 
 import xdi2.ContextNode;
 import xdi2.Graph;
-import xdi2.xri3.impl.XRI3Authority;
+import xdi2.xri3.impl.XRI3Segment;
 
 public class ErrorMessageResult extends MessageResult {
 
 	private static final long serialVersionUID = 8816468280233966339L;
 
-	public static final XRI3Authority XRI_A_ERRORCODE = new XRI3Authority("$false$integer");
-	public static final XRI3Authority XRI_A_ERRORSTRING = new XRI3Authority("$false$string");
+	public static final XRI3Segment XRI_S_ERRORCODE = new XRI3Segment("$false$integer");
+	public static final XRI3Segment XRI_S_ERRORSTRING = new XRI3Segment("$false$string");
 
 	public static final Integer DEFAULT_ERRORCODE = Integer.valueOf(-1);
 	public static final String DEFAULT_ERRORSTRING = "XDI error.";
@@ -32,8 +32,8 @@ public class ErrorMessageResult extends MessageResult {
 
 		if (! MessageResult.isValid(graph)) return false;
 
-		if (! graph.containsContextNode(XRI_A_ERRORCODE)) return false;
-		if (! graph.containsContextNode(XRI_A_ERRORSTRING)) return false;
+		if (! graph.containsContextNode(XRI_S_ERRORCODE)) return false;
+		if (! graph.containsContextNode(XRI_S_ERRORSTRING)) return false;
 
 		return true;
 	}
@@ -58,8 +58,8 @@ public class ErrorMessageResult extends MessageResult {
 
 		Graph graph = graphFactory.openGraph();
 		
-		graph.findContextNode(XRI_A_ERRORCODE, true).createLiteral(DEFAULT_ERRORCODE.toString());
-		graph.findContextNode(XRI_A_ERRORSTRING, true).createLiteral(DEFAULT_ERRORSTRING);
+		graph.findContextNode(XRI_S_ERRORCODE, true).createLiteral(DEFAULT_ERRORCODE.toString());
+		graph.findContextNode(XRI_S_ERRORSTRING, true).createLiteral(DEFAULT_ERRORSTRING);
 		
 		return new ErrorMessageResult(graph);
 	}
@@ -70,7 +70,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public Integer getErrorCode() {
 
-		ContextNode contextNode = this.graph.findContextNode(XRI_A_ERRORCODE, false);
+		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERRORCODE, false);
 		if (contextNode == null || ! contextNode.containsLiteral()) return null;
 
 		return new Integer(contextNode.getLiteral().getLiteralData());
@@ -78,7 +78,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorCode(Integer errorCode) {
 
-		ContextNode contextNode = this.graph.findContextNode(XRI_A_ERRORCODE, true);
+		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERRORCODE, true);
 
 		if (contextNode.containsLiteral()) {
 
@@ -91,7 +91,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public String getErrorString() {
 
-		ContextNode errorCodeContextNode = this.graph.findContextNode(XRI_A_ERRORCODE, false);
+		ContextNode errorCodeContextNode = this.graph.findContextNode(XRI_S_ERRORCODE, false);
 		if (errorCodeContextNode == null || ! errorCodeContextNode.containsLiteral()) return null;
 
 		return errorCodeContextNode.getLiteral().getLiteralData();
@@ -99,7 +99,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorString(String errorString) {
 
-		ContextNode contextNode = this.graph.findContextNode(XRI_A_ERRORCODE, true);
+		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERRORCODE, true);
 
 		if (contextNode.containsLiteral()) {
 

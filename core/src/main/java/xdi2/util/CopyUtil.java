@@ -6,7 +6,7 @@ import xdi2.ContextNode;
 import xdi2.Graph;
 import xdi2.Literal;
 import xdi2.Relation;
-import xdi2.xri3.impl.XRI3Authority;
+import xdi2.xri3.impl.XRI3Segment;
 
 /**
  * Various utility methods for copying statements between graphs.
@@ -27,11 +27,18 @@ public final class CopyUtil {
 	public static ContextNode copyContextNode(ContextNode contextNode, Graph targetGraph, CopyStrategy copyStrategy) {
 
 		if (contextNode == null) return null;
-		if (contextNode.isRootContextNode()) return null;
 
-		XRI3Authority parentContextNodeXri = contextNode.getContextNode().getXri();
-		ContextNode targetParentContextNode = targetGraph.findContextNode(parentContextNodeXri, true);
-		ContextNode targetContextNode = targetParentContextNode.createContextNode(contextNode.getArcXri());
+		ContextNode targetContextNode;
+
+		if (contextNode.isRootContextNode()) {
+
+			targetContextNode = targetGraph.getRootContextNode();
+		} else {
+
+			XRI3Segment parentContextNodeXri = contextNode.getContextNode().getXri();
+			ContextNode targetParentContextNode = targetGraph.findContextNode(parentContextNodeXri, true);
+			targetContextNode = targetParentContextNode.createContextNode(contextNode.getArcXri());
+		}
 
 		CopyUtil.copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
 
@@ -49,7 +56,7 @@ public final class CopyUtil {
 
 		if (relation == null) return null;
 
-		XRI3Authority parentContextNodeXri = relation.getContextNode().getXri();
+		XRI3Segment parentContextNodeXri = relation.getContextNode().getXri();
 		ContextNode targetParentContextNode = targetGraph.findContextNode(parentContextNodeXri, true);
 		Relation targetRelation = targetParentContextNode.createRelation(relation.getArcXri(), relation.getRelationXri());
 
@@ -67,7 +74,7 @@ public final class CopyUtil {
 
 		if (literal == null) return null;
 
-		XRI3Authority parentContextNodeXri = literal.getContextNode().getXri();
+		XRI3Segment parentContextNodeXri = literal.getContextNode().getXri();
 		ContextNode targetParentContextNode = targetGraph.findContextNode(parentContextNodeXri, true);
 		Literal targetliteral = targetParentContextNode.createLiteral(literal.getLiteralData());
 

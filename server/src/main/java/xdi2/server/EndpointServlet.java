@@ -20,8 +20,6 @@ import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import xdi2.Graph;
-import xdi2.client.http.AcceptHeader;
-import xdi2.client.http.AcceptHeader.AcceptEntry;
 import xdi2.exceptions.Xdi2ParseException;
 import xdi2.impl.memory.MemoryGraphFactory;
 import xdi2.io.XDIReader;
@@ -32,6 +30,8 @@ import xdi2.messaging.ErrorMessageResult;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.MessagingConstants;
+import xdi2.messaging.http.AcceptHeader;
+import xdi2.messaging.http.AcceptHeader.AcceptEntry;
 import xdi2.xri3.impl.XRI3;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.parser.ParserException;

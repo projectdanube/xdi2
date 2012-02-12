@@ -18,9 +18,9 @@ import xdi2.io.XDIReader;
 import xdi2.io.XDIReaderRegistry;
 import xdi2.io.XDIWriter;
 import xdi2.io.XDIWriterRegistry;
+import xdi2.util.CopyUtil;
 import xdi2.util.XDIConstants;
 import xdi2.util.iterators.IteratorCounter;
-import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
@@ -75,17 +75,17 @@ public abstract class BasicTest extends TestCase {
 	public void testWriteStatements() throws Exception {
 
 		Graph graph6 = this.openNewGraph("6");
-//		Graph graph7 = this.openNewGraph("7");
+		Graph graph7 = this.openNewGraph("7");
 
-//		XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");
+		XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");
 		XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS");
 
 		makeGraph(graph6);
 		writer.write(graph6, new FileWriter(new File("test.statements.out")), null).close();
-//		reader.read(graph7, new FileReader(new File("test.statements.out")), null).close();
+		reader.read(graph7, new FileReader(new File("test.statements.out")), null).close();
 
-//		testGraph(graph7);
-//		testGraphsEqual(graph6, graph7);
+		testGraph(graph7);
+		testGraphsEqual(graph6, graph7);
 	}
 
 	public void testManipulate() throws Exception {
@@ -106,6 +106,16 @@ public abstract class BasicTest extends TestCase {
 		manipulateGraph(graph9);
 		graph9 = this.reopenGraph(graph9, "9");
 		testManipulatedGraph(graph9);
+	}
+
+	public void testCopy() throws Exception {
+
+		Graph graph10 = this.openNewGraph("10");
+		Graph graph11 = this.openNewGraph("11");
+
+		makeGraph(graph10);
+		CopyUtil.copyContextNode(graph10.getRootContextNode(), graph11, null);
+		testGraph(graph11);
 	}
 
 	@SuppressWarnings("unused")
@@ -194,25 +204,25 @@ public abstract class BasicTest extends TestCase {
 		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("*2")));
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
-				graph.findContextNode(new XRI3Authority("()"), false),
-				graph.findContextNode(new XRI3Authority("=abc"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!1"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!2"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport$v"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport$v!1"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport$v!2"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()!1"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()!2"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!1+number"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!1+country"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!1$d"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!2+number"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!2+country"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!2$d"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()!1$d"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()!2$d"), false)
+				graph.findContextNode(new XRI3Segment("()"), false),
+				graph.findContextNode(new XRI3Segment("=abc"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!1"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!2"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport$v"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport$v!1"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport$v!2"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()!1"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()!2"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!1+number"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!1+country"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!1$d"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!2+number"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!2+country"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!2$d"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()!1$d"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()!2$d"), false)
 		};
 
 		XRI3SubSegment[][] contextNodeArcXrisArray = new XRI3SubSegment [][] {
@@ -286,11 +296,11 @@ public abstract class BasicTest extends TestCase {
 		assertEquals(contextNodesArray.length, literalsArray.length);
 
 		for (ContextNode contextNode : contextNodesArray) if (contextNode != null) assertTrue(contextNode.getGraph().containsContextNode(contextNode.getXri()));
-		
+
 		for (int i=0; i<contextNodesArray.length; i++) {
 
 			if (contextNodesArray[i] == null) { assertNull(contextNodeArcXrisArray[i]); continue; } else assertNotNull(contextNodeArcXrisArray[i]);
-			
+
 			Set<XRI3SubSegment> arcXris = new HashSet<XRI3SubSegment> (Arrays.asList(contextNodeArcXrisArray[i]));
 			assertEquals(arcXris.size(), contextNodesArray[i].getContextNodeCount());
 			assertEquals(arcXris.size(), new IteratorCounter(contextNodesArray[i].getContextNodes()).count());
@@ -317,7 +327,7 @@ public abstract class BasicTest extends TestCase {
 		}
 
 		assertNull(rootContextNode.getArcXri());
-		assertEquals(XDIConstants.XRI_A_CONTEXT, rootContextNode.getXri());
+		assertEquals(XDIConstants.XRI_S_CONTEXT, rootContextNode.getXri());
 		assertEquals(new XRI3SubSegment("=abc"), abcContextNode.getArcXri());
 		assertEquals(new XRI3Segment("=abc"), abcContextNode.getXri());
 		assertEquals(new XRI3SubSegment("+passport"), abcPassportContextNode.getArcXri());
@@ -460,25 +470,25 @@ public abstract class BasicTest extends TestCase {
 		assertFalse(abcPassportContextNode.containsRelation(new XRI3Segment("*2")));		// MANIPULATED
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
-				graph.findContextNode(new XRI3Authority("()"), false),
-				graph.findContextNode(new XRI3Authority("=abc"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!1"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!2"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport$v"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport$v!1"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport$v!2"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()!1"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()!2"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!1+number"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!1+country"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!1$d"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!2+number"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!2+country"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport!2$d"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()!1$d"), false),
-				graph.findContextNode(new XRI3Authority("=abc+passport()!2$d"), false)
+				graph.findContextNode(new XRI3Segment("()"), false),
+				graph.findContextNode(new XRI3Segment("=abc"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!1"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!2"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport$v"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport$v!1"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport$v!2"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()!1"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()!2"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!1+number"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!1+country"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!1$d"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!2+number"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!2+country"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport!2$d"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()!1$d"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport()!2$d"), false)
 		};
 
 		XRI3SubSegment[][] contextNodeArcXrisArray = new XRI3SubSegment [][] {
@@ -552,7 +562,7 @@ public abstract class BasicTest extends TestCase {
 		assertEquals(contextNodesArray.length, literalsArray.length);
 
 		for (ContextNode contextNode : contextNodesArray) if (contextNode != null) assertTrue(contextNode.getGraph().containsContextNode(contextNode.getXri()));
-		
+
 		for (int i=0; i<contextNodesArray.length; i++) {
 
 			if (contextNodesArray[i] == null) { assertNull(contextNodeArcXrisArray[i]); continue; } else assertNotNull(contextNodeArcXrisArray[i]);
@@ -583,7 +593,7 @@ public abstract class BasicTest extends TestCase {
 		}
 
 		assertNull(rootContextNode.getArcXri());
-		assertEquals(XDIConstants.XRI_A_CONTEXT, rootContextNode.getXri());
+		assertEquals(XDIConstants.XRI_S_CONTEXT, rootContextNode.getXri());
 		assertEquals(new XRI3SubSegment("=abc"), abcContextNode.getArcXri());
 		assertEquals(new XRI3Segment("=abc"), abcContextNode.getXri());
 		assertEquals(new XRI3SubSegment("+passport"), abcPassportContextNode.getArcXri());

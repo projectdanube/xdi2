@@ -12,7 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import xdi2.client.XDIClient;
-import xdi2.client.http.AcceptHeader.AcceptEntry;
 import xdi2.exceptions.Xdi2MessagingException;
 import xdi2.io.XDIReader;
 import xdi2.io.XDIReaderRegistry;
@@ -21,6 +20,8 @@ import xdi2.io.XDIWriterRegistry;
 import xdi2.messaging.ErrorMessageResult;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.http.AcceptHeader;
+import xdi2.messaging.http.AcceptHeader.AcceptEntry;
 
 /**
  * An XDI client that can send XDI messages over HTTP and receive results.

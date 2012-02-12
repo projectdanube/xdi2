@@ -7,7 +7,7 @@ import xdi2.exceptions.Xdi2MessagingException;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.server.ExecutionContext;
-import xdi2.xri3.impl.XRI3Authority;
+import xdi2.xri3.impl.XRI3Segment;
 
 public class LiteralResourceHandler extends AbstractGraphResourceHandler {
 
@@ -19,7 +19,7 @@ public class LiteralResourceHandler extends AbstractGraphResourceHandler {
 	@Override
 	public boolean executeAdd(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Authority operationContextNodeXri = this.operationLiteral.getContextNode().getXri();
+		XRI3Segment operationContextNodeXri = this.operationLiteral.getContextNode().getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, true);
 
 		contextNode.createLiteral(this.operationLiteral.getLiteralData());
@@ -30,7 +30,7 @@ public class LiteralResourceHandler extends AbstractGraphResourceHandler {
 	@Override
 	public boolean executeMod(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Authority operationContextNodeXri = this.operationLiteral.getContextNode().getXri();
+		XRI3Segment operationContextNodeXri = this.operationLiteral.getContextNode().getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) return true;
 

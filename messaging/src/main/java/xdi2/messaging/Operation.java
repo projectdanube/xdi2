@@ -3,7 +3,7 @@ package xdi2.messaging;
 import java.io.Serializable;
 
 import xdi2.Relation;
-import xdi2.xri3.impl.XRI3Authority;
+import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
 /**
@@ -106,7 +106,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the sender of the message's message container.
 	 * @return The sender of the message's message container.
 	 */
-	public XRI3Authority getSender() {
+	public XRI3Segment getSender() {
 
 		return this.getMessage().getMessageContainer().getSender();
 	}

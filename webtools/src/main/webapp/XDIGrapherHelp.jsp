@@ -10,8 +10,10 @@
 </head>
 <body>
 
-	<img src="images/logo_xdi4j.gif" align="middle">&nbsp;&nbsp;&nbsp;<span style="font-weight: bold; border-bottom: 3px solid #707070">XDI Grapher</span> by Azigo
-	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIGrapher" style="color: #707070">Back...</a>
+	<div class="header">
+	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Grapher</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIGrapher">Back...</a>
+	</div>
 
 	<div class="tabber">
 

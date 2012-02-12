@@ -14,22 +14,19 @@ import java.util.List;
 import xdi2.ContextNode;
 import xdi2.Graph;
 import xdi2.Literal;
-import xdi2.Relation;
 import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Path;
 import xdi2.xri3.impl.XRI3Reference;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
-public class Drawer2 implements Drawer {
+public class Drawer1 implements Drawer {
 
 	public static final int MARGIN = 20;
-	public static final int BOX_WIDTH = 160;
-	public static final int BOX_HEIGHT = 30;
-	public static final int BOX_ARCWIDTH = 30;
-	public static final int BOX_ARCHEIGHT = 30;
-	public static final int ARC_WIDTH = 30;
-	public static final int ARC_HEIGHT = 30;
+	public static final int CONTEXTNODE_WIDTH = 5;
+	public static final int CONTEXTNODE_HEIGHT = 5;
+	public static final int ARC_WIDTH = 50;
+	public static final int ARC_HEIGHT = 50;
 	public static final int LITERAL_WIDTH = 160;
 	public static final int LITERAL_HEIGHT = 30;
 	public static final int SPACING_HEIGHT = 20;
@@ -37,20 +34,17 @@ public class Drawer2 implements Drawer {
 	public static final int GRAPH_SPACING_HEIGHT = 20;
 	public static final Font FONT_SEGMENT = new Font("Dialog", Font.PLAIN, 12);
 	public static final Font FONT_LITERAL = new Font("Dialog", Font.PLAIN, 12);
-	public static final Color CONTEXTNOED_COLOR = Color.BLUE; 
-	public static final Color PREDICATE_COLOR = Color.RED; 
+	public static final Color CONTEXTNODE_COLOR = Color.BLACK; 
 	public static final Color RELATION_COLOR = Color.BLACK; 
 	public static final Color LITERAL_COLOR = Color.BLACK; 
-	public static final Color GRAPH_COLOR = Color.GRAY;
 	public static final Color ARC_COLOR = Color.BLACK; 
 	public static final Color FONT_COLOR = Color.BLACK; 
-	public static final Stroke GRAPH_STROKE = new BasicStroke(4, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 10.0f, new float[] {7, 7}, 0);  
 	public static final Stroke BOX_STROKE = new BasicStroke(4);
 	public static final Stroke ARC_STROKE = new BasicStroke(2);
 
 	private boolean legend;
 
-	public Drawer2(boolean legend) {
+	public Drawer1(boolean legend) {
 
 		this.legend = legend;
 	}
@@ -86,34 +80,24 @@ public class Drawer2 implements Drawer {
 	}
 
 	private static Point drawLegend(Graphics2D graphics, Point offset) {
-
+/*
 		Point currentOffset = new Point(offset);
 
 		write(graphics, "Legend:", (int) offset.getX() + 20, (int) offset.getY() + BOX_HEIGHT / 2, true, true, FONT_SEGMENT);
 
 		currentOffset.translate(60, 0);
-		drawSegment(graphics, "Subject", currentOffset, CONTEXTNOED_COLOR, false, false);
+		drawContextNode(graphics, "Context Node", currentOffset, CONTEXTNODE_COLOR, false, false);
 		currentOffset.translate(BOX_WIDTH, 0);
 
 		currentOffset.translate(10, 0);
-		drawSegment(graphics, "Predicate", currentOffset, PREDICATE_COLOR, false, false);
-		currentOffset.translate(BOX_WIDTH, 0);
-
-		currentOffset.translate(10, 0);
-		drawSegment(graphics, "Reference", currentOffset, RELATION_COLOR, false, false);
+		drawContextNode(graphics, "Relation", currentOffset, RELATION_COLOR, false, false);
 		currentOffset.translate(BOX_WIDTH, 0);
 
 		currentOffset.translate(10, 0);
 		drawLiteral(graphics, "\"Literal\"", currentOffset, false);
 		currentOffset.translate(LITERAL_WIDTH, 0);
-
-		currentOffset.translate(10, 0);
-		if (graphics != null) graphics.setStroke(GRAPH_STROKE);
-		if (graphics != null) graphics.setColor(GRAPH_COLOR);
-		if (graphics != null) graphics.drawRect((int) currentOffset.getX(), (int) currentOffset.getY(), LITERAL_WIDTH, LITERAL_HEIGHT);
-		if (graphics != null) write(graphics, "Graph/Context", (int) currentOffset.getX() + 10, (int) currentOffset.getY() + LITERAL_HEIGHT / 2, false, true, FONT_LITERAL);
-		currentOffset.translate(LITERAL_WIDTH, LITERAL_HEIGHT);
-
+*/
+		Point currentOffset = offset;
 		return currentOffset;
 	}
 
@@ -131,17 +115,17 @@ public class Drawer2 implements Drawer {
 		for (Iterator<ContextNode> i = contextNodes; i.hasNext(); ) {
 
 			ContextNode contextNode = i.next();
-			secondOffset = drawSegment(graphics, contextNode.getArcXri().toString(), firstOffset, CONTEXTNOED_COLOR, true, false);
+			secondOffset = drawContextNode(graphics, contextNode, firstOffset, CONTEXTNODE_COLOR, true, true);
 			maxOffset = new Point(secondOffset);
 			adjustTotalMaxOffset(totalMaxOffset, maxOffset);
 
 			if (contextNode.containsRelations()) {
 
-				for (Iterator<Relation> ii=contextNode.getRelations(); ii.hasNext(); ) {
+/*				for (Iterator<Relation> ii=contextNode.getRelations(); ii.hasNext(); ) {
 
 					Relation relation = ii.next();
 
-					maxOffset = drawSegment(graphics, relation.getArcXri().toString(), secondOffset, RELATION_COLOR, true, true);
+					maxOffset = drawContextNode(graphics, relation.getArcXri().toString(), secondOffset, RELATION_COLOR, true, true);
 					adjustTotalMaxOffset(totalMaxOffset, maxOffset);
 
 					if (graphics != null) graphics.setStroke(ARC_STROKE);
@@ -149,7 +133,7 @@ public class Drawer2 implements Drawer {
 						drawLine(graphics, (int) secondOffset.getX(), (int) secondOffset.getY(), (int) secondOffset.getX(), (int) maxOffset.getY());
 
 					secondOffset.setLocation(secondOffset.getX(), maxOffset.getY());
-				}
+				}*/
 			} 
 
 			if (contextNode.containsLiteral()) {
@@ -166,25 +150,17 @@ public class Drawer2 implements Drawer {
 
 				Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes();
 
-				maxOffset = drawInnerContextNodes(graphics, innerContextNodes, secondOffset, true);
+				maxOffset = drawGraph(graphics, innerContextNodes, secondOffset);
 				adjustTotalMaxOffset(totalMaxOffset, maxOffset);
 
 				secondOffset.setLocation(secondOffset.getX(), maxOffset.getY());
 			}
 
 			if (graphics != null) graphics.setStroke(ARC_STROKE);
+			if (i.hasNext())
+				drawLine(graphics, (int) firstOffset.getX(), (int) firstOffset.getY(), (int) firstOffset.getX(), (int) maxOffset.getY());
 
 			firstOffset.setLocation(firstOffset.getX(), maxOffset.getY());
-		}
-
-		if (graphics != null) {
-
-			Color currentColor = (graphics != null) ? graphics.getColor() : null;
-
-			graphics.setStroke(GRAPH_STROKE);
-			graphics.setColor(GRAPH_COLOR);
-			graphics.drawRect((int) offset.getX(), (int) offset.getY(), (int) totalMaxOffset.getX() - (int) offset.getX() + GRAPH_SPACING_WIDTH, (int) totalMaxOffset.getY() - (int) offset.getY() + GRAPH_SPACING_HEIGHT);
-			graphics.setColor(currentColor);
 		}
 
 		totalMaxOffset.translate(GRAPH_SPACING_WIDTH, GRAPH_SPACING_HEIGHT);
@@ -192,7 +168,7 @@ public class Drawer2 implements Drawer {
 		return totalMaxOffset;
 	}
 
-	private static Point drawSegment(Graphics2D graphics, String segment, Point offset, Color color, boolean withArc, boolean upLine) {
+	private static Point drawContextNode(Graphics2D graphics, ContextNode contextNode, Point offset, Color color, boolean withArc, boolean upLine) {
 
 		Point currentOffset = new Point(offset);
 
@@ -202,10 +178,24 @@ public class Drawer2 implements Drawer {
 			currentOffset.translate(ARC_WIDTH, ARC_HEIGHT / 2);
 		}
 
-		drawSegmentBox(graphics, currentOffset, segment, color);
-		currentOffset.translate(BOX_WIDTH, BOX_HEIGHT);
+		drawContextNodeBox(graphics, currentOffset, contextNode, color);
+		currentOffset.translate(CONTEXTNODE_WIDTH, CONTEXTNODE_HEIGHT);
 
 		return currentOffset;
+	}
+
+	private static void drawContextNodeBox(Graphics2D graphics, Point offset, ContextNode contextNode, Color color) {
+
+		if (graphics == null) return;
+
+		Color currentColor = (graphics != null) ? graphics.getColor() : null;
+
+		graphics.setColor(color);
+		graphics.setStroke(BOX_STROKE);
+		graphics.drawOval((int) offset.getX(), (int) offset.getY(), CONTEXTNODE_WIDTH, CONTEXTNODE_HEIGHT);
+		graphics.setColor(currentColor);
+
+		write(graphics, contextNode.getArcXri().toString(), (int) offset.getX() + CONTEXTNODE_WIDTH / 2, (int) offset.getY() + CONTEXTNODE_HEIGHT / 2, true, true, FONT_SEGMENT);
 	}
 
 	private static Point drawLiteral(Graphics2D graphics, String literal, Point offset, boolean withArc) {
@@ -224,21 +214,6 @@ public class Drawer2 implements Drawer {
 		return currentOffset;
 	}
 
-	private static Point drawInnerContextNodes(Graphics2D graphics, Iterator<ContextNode> innerContextNodes, Point offset, boolean withArc) {
-
-		Point currentOffset = new Point(offset);
-
-		if (withArc) {
-
-			drawArc(graphics, currentOffset, false);
-			currentOffset.translate(ARC_WIDTH, ARC_HEIGHT);
-		}
-
-		currentOffset = drawGraph(graphics, innerContextNodes, currentOffset);
-
-		return currentOffset;
-	}
-
 	private static void drawArc(Graphics2D graphics, Point offset, boolean upLine) {
 
 		if (graphics == null) return;
@@ -250,20 +225,6 @@ public class Drawer2 implements Drawer {
 		graphics.drawArc((int) offset.getX(), (int) offset.getY() - ARC_HEIGHT, ARC_WIDTH * 2, ARC_HEIGHT * 2, -180, 90);
 		if (upLine) graphics.drawLine((int) offset.getX(), (int) offset.getY(), (int) offset.getX(), (int) offset.getY() - SPACING_HEIGHT / 2);
 		graphics.setColor(currentColor);
-	}
-
-	private static void drawSegmentBox(Graphics2D graphics, Point offset, String text, Color color) {
-
-		if (graphics == null) return;
-
-		Color currentColor = (graphics != null) ? graphics.getColor() : null;
-
-		graphics.setColor(color);
-		graphics.setStroke(BOX_STROKE);
-		graphics.drawRoundRect((int) offset.getX(), (int) offset.getY(), BOX_WIDTH, BOX_HEIGHT, BOX_ARCWIDTH, BOX_ARCHEIGHT);
-		graphics.setColor(currentColor);
-
-		write(graphics, text, (int) offset.getX() + BOX_WIDTH / 2, (int) offset.getY() + BOX_HEIGHT / 2, true, true, FONT_SEGMENT);
 	}
 
 	private static void drawLiteralBox(Graphics2D graphics, Point offset, String text) {

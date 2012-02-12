@@ -52,4 +52,14 @@
 		<servlet-name>XDIGrapher</servlet-name>
 		<url-pattern>/XDIGrapher</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>XDIGrapherImage</display-name>
+		<servlet-name>XDIGrapherImage</servlet-name>
+		<servlet-class>xdi2.webtools.grapher.XDIGrapherImage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDIGrapherImage</servlet-name>
+		<url-pattern>/XDIGrapherImage</url-pattern>
+	</servlet-mapping>
 </web-app>

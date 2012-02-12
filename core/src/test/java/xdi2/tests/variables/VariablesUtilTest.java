@@ -5,7 +5,7 @@ import xdi2.variables.VariablesUtil;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
-public class VariablesTest extends TestCase {
+public class VariablesUtilTest extends TestCase {
 
 	public void testVariables() throws Exception {
 
@@ -16,7 +16,6 @@ public class VariablesTest extends TestCase {
 				new XRI3Segment("(!)"),
 				new XRI3Segment("(!12)"),
 				new XRI3Segment("(=abc)"),
-				new XRI3Segment("($)1"),
 				new XRI3Segment("($)$1"),
 				new XRI3Segment("($)()"),
 				new XRI3Segment("$1"),
@@ -35,7 +34,6 @@ public class VariablesTest extends TestCase {
 				false,
 				false,
 				false,
-				false,
 				false
 		};
 
@@ -46,11 +44,11 @@ public class VariablesTest extends TestCase {
 			if (isVariable[i]) {
 
 				assertTrue(VariablesUtil.isVariable(xriSegments[i]));
-				assertTrue(VariablesUtil.isVariable((XRI3SubSegment) xriSegments[i].getFirstSubSegment()));
+				if (xriSegments[i].getNumSubSegments() == 1) assertTrue(VariablesUtil.isVariable((XRI3SubSegment) xriSegments[i].getFirstSubSegment()));
 			} else {
 
 				assertFalse(VariablesUtil.isVariable(xriSegments[i]));
-				assertFalse(VariablesUtil.isVariable((XRI3SubSegment) xriSegments[i].getFirstSubSegment()));
+				if (xriSegments[i].getNumSubSegments() == 1) assertFalse(VariablesUtil.isVariable((XRI3SubSegment) xriSegments[i].getFirstSubSegment()));
 			}
 		}
 	}

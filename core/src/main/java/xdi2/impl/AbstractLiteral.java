@@ -35,7 +35,7 @@ public abstract class AbstractLiteral implements Literal {
 
 		this.getContextNode().deleteLiteral();
 	}
-	
+
 	/*
 	 * Methods related to statements
 	 */
@@ -120,7 +120,7 @@ public abstract class AbstractLiteral implements Literal {
 
 		public XRI3Segment getObject() {
 
-			return new XRI3Segment("(" + XDIUtil.stringToDataUri(AbstractLiteral.this.getLiteralData()) + ")");
+			return XDIUtil.stringToDataXriSegment(AbstractLiteral.this.getLiteralData());
 		}
 
 		public Literal getLiteral() {

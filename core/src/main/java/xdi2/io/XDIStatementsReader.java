@@ -17,9 +17,6 @@ import xdi2.exceptions.Xdi2GraphException;
 import xdi2.exceptions.Xdi2ParseException;
 import xdi2.util.XDIConstants;
 import xdi2.util.XDIUtil;
-import xdi2.xri3.impl.XRI3;
-import xdi2.xri3.impl.XRI3Authority;
-import xdi2.xri3.impl.XRI3Path;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 import xdi2.xri3.impl.parser.ParserException;
@@ -38,20 +35,20 @@ class XDIStatementsReader extends AbstractXDIReader {
 
 	XDIStatementsReader() { }
 
-	private synchronized XRI3 makeXRI3(String xriString) {
+	private synchronized XRI3Segment makeXRI3Segment(String xriString) {
 
 		this.lastXriString = xriString;
-		return new XRI3(xriString);
+		return new XRI3Segment(xriString);
 	}
 
 	public synchronized void readStatement(Graph graph, String line) throws IOException, Xdi2ParseException, JSONException {
 
-		XRI3 xri = makeXRI3(line);
-		if ((! (xri.getAuthority() instanceof XRI3Authority)) || (! (xri.getPath() instanceof XRI3Path)) || xri.getPath().getNumSegments() != 2) throw new Xdi2ParseException("Invalid XDI statement: " + xri);
+		String[] segments = line.split("/");
+		if (segments.length != 3) throw new Xdi2ParseException("Invalid line:" + line);
 
-		XRI3Authority subject = (XRI3Authority) xri.getAuthority();
-		XRI3Segment predicate = (XRI3Segment) xri.getPath().getSegment(0);
-		XRI3Segment object = (XRI3Segment) xri.getPath().getSegment(1);
+		XRI3Segment subject = makeXRI3Segment(segments[0]);
+		XRI3Segment predicate = makeXRI3Segment(segments[1]);
+		XRI3Segment object = makeXRI3Segment(segments[2]);
 
 		ContextNode contextNode = graph.findContextNode(subject, true);
 
@@ -61,7 +58,7 @@ class XDIStatementsReader extends AbstractXDIReader {
 			if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
 		} else if (XDIConstants.XRI_S_LITERAL.equals(predicate)) {
 
-			Literal literal = contextNode.createLiteral(XDIUtil.dataUriToString(object.toString()));
+			Literal literal = contextNode.createLiteral(XDIUtil.dataXriSegmentToString(object));
 			if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 		} else {
 
