@@ -1,0 +1,12 @@
+How to build
+============
+
+Just run *mvn clean install*.
+
+How to run the web tools
+========================
+
+cd webtools
+mvn jetty:run
+
+Then go to http://localhost:8080/

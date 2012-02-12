@@ -39,9 +39,9 @@
 
 	<hr>
 
-	<p style="font-size: 14pt">XDI2</p>
+	<p style="font-size: 14pt">XDI²</p>
 	
-	<p><a href="github.com/peacekeeper/xdi2">XDI2</a> is a general purpose XDI library for Java.</p>
+	<p><a href="http://github.com/peacekeeper/xdi2">XDI²</a> is a general purpose XDI library for Java.</p>
 	
 	<p>It is the basis for the <a href="http://www.projectdanube.org/">Project Danube</a> project.</p>
 
