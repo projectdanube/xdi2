@@ -5,11 +5,11 @@ import java.util.Iterator;
 
 import xdi2.ContextNode;
 import xdi2.util.XDIConstants;
-import xdi2.util.XDIUtil;
+import xdi2.util.XRIUtil;
 import xdi2.util.iterators.DescendingIterator;
 import xdi2.util.iterators.IteratorCounter;
 import xdi2.util.iterators.SelectingMappingIterator;
-import xdi2.xri3.impl.XRI3Segment;
+import xdi2.xri3.impl.XRI3Authority;
 
 /**
  * An XDI message container, represented as a context node.
@@ -30,6 +30,10 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 
 		if (this.messageEnvelope == null) this.messageEnvelope = MessageEnvelope.fromGraph(contextNode.getGraph());
 	}
+
+	/*
+	 * Static methods
+	 */
 
 	/**
 	 * Checks if a context node is a valid XDI message container.
@@ -53,6 +57,10 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 		return new MessageContainer(null, contextNode);
 	}
 
+	/*
+	 * Instance methods
+	 */
+
 	/**
 	 * Returns the message envelope to which this message container belongs.
 	 * @return A message envelope.
@@ -75,7 +83,7 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 	 * Returns the sender of the message container.
 	 * @return The sender of the message container.
 	 */
-	public XRI3Segment getSender() {
+	public XRI3Authority getSender() {
 
 		return this.getContextNode().getXri();
 	}
@@ -86,7 +94,7 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 	 */
 	public Message createMessage() {
 
-		ContextNode contextNode = this.getContextNode().createContextNode(XDIUtil.newInumber());
+		ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXSubSegment('!'));
 		contextNode.createContextNode(XDIConstants.XRI_SS_DO);
 
 		return new Message(this, contextNode);

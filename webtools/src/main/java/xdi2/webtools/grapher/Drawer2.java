@@ -11,16 +11,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.higgins.xdi4j.Graph;
-import org.eclipse.higgins.xdi4j.Literal;
-import org.eclipse.higgins.xdi4j.Predicate;
-import org.eclipse.higgins.xdi4j.Reference;
-import org.eclipse.higgins.xdi4j.Subject;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3Authority;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3Path;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3Reference;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3Segment;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3SubSegment;
+import xdi2.ContextNode;
+import xdi2.Graph;
+import xdi2.Literal;
+import xdi2.Relation;
+import xdi2.xri3.impl.XRI3Authority;
+import xdi2.xri3.impl.XRI3Path;
+import xdi2.xri3.impl.XRI3Reference;
+import xdi2.xri3.impl.XRI3Segment;
+import xdi2.xri3.impl.XRI3SubSegment;
 
 public class Drawer2 implements Drawer {
 
@@ -38,9 +37,9 @@ public class Drawer2 implements Drawer {
 	public static final int GRAPH_SPACING_HEIGHT = 20;
 	public static final Font FONT_SEGMENT = new Font("Dialog", Font.PLAIN, 12);
 	public static final Font FONT_LITERAL = new Font("Dialog", Font.PLAIN, 12);
-	public static final Color SUBJECT_COLOR = Color.BLUE; 
+	public static final Color CONTEXTNOED_COLOR = Color.BLUE; 
 	public static final Color PREDICATE_COLOR = Color.RED; 
-	public static final Color REFERENCE_COLOR = Color.BLACK; 
+	public static final Color RELATION_COLOR = Color.BLACK; 
 	public static final Color LITERAL_COLOR = Color.BLACK; 
 	public static final Color GRAPH_COLOR = Color.GRAY;
 	public static final Color ARC_COLOR = Color.BLACK; 
@@ -71,7 +70,7 @@ public class Drawer2 implements Drawer {
 			offset.translate(0, LITERAL_HEIGHT + MARGIN);
 		}
 
-		maxOffset = drawGraph(graphics, graph, offset);
+		maxOffset = drawGraph(graphics, graph.getRootContextNode().getContextNodes(), offset);
 		adjustTotalMaxOffset(totalMaxOffset, maxOffset);
 
 		totalMaxOffset.translate(MARGIN, MARGIN);
@@ -93,7 +92,7 @@ public class Drawer2 implements Drawer {
 		write(graphics, "Legend:", (int) offset.getX() + 20, (int) offset.getY() + BOX_HEIGHT / 2, true, true, FONT_SEGMENT);
 
 		currentOffset.translate(60, 0);
-		drawSegment(graphics, "Subject", currentOffset, SUBJECT_COLOR, false, false);
+		drawSegment(graphics, "Subject", currentOffset, CONTEXTNOED_COLOR, false, false);
 		currentOffset.translate(BOX_WIDTH, 0);
 
 		currentOffset.translate(10, 0);
@@ -101,7 +100,7 @@ public class Drawer2 implements Drawer {
 		currentOffset.translate(BOX_WIDTH, 0);
 
 		currentOffset.translate(10, 0);
-		drawSegment(graphics, "Reference", currentOffset, REFERENCE_COLOR, false, false);
+		drawSegment(graphics, "Reference", currentOffset, RELATION_COLOR, false, false);
 		currentOffset.translate(BOX_WIDTH, 0);
 
 		currentOffset.translate(10, 0);
@@ -118,11 +117,10 @@ public class Drawer2 implements Drawer {
 		return currentOffset;
 	}
 
-	private static Point drawGraph(Graphics2D graphics, Graph graph, Point offset) {
+	private static Point drawGraph(Graphics2D graphics, Iterator<ContextNode> contextNodes, Point offset) {
 
 		Point firstOffset;
 		Point secondOffset;
-		Point thirdOffset;
 		Point maxOffset;
 		Point totalMaxOffset;
 
@@ -130,56 +128,46 @@ public class Drawer2 implements Drawer {
 		maxOffset = new Point(offset);
 		totalMaxOffset = new Point(offset);
 
-		for (Iterator<Subject> i=graph.getSubjects(); i.hasNext(); ) {
+		for (Iterator<ContextNode> i = contextNodes; i.hasNext(); ) {
 
-			Subject subject = i.next();
-			secondOffset = drawSegment(graphics, subject.getSubjectXri().toString(), firstOffset, SUBJECT_COLOR, true, false);
+			ContextNode contextNode = i.next();
+			secondOffset = drawSegment(graphics, contextNode.getArcXri().toString(), firstOffset, CONTEXTNOED_COLOR, true, false);
 			maxOffset = new Point(secondOffset);
 			adjustTotalMaxOffset(totalMaxOffset, maxOffset);
 
-			for (Iterator<Predicate> ii=subject.getPredicates(); ii.hasNext(); ) {
+			if (contextNode.containsRelations()) {
 
-				Predicate predicate = ii.next();
-				thirdOffset = drawSegment(graphics, predicate.getPredicateXri().toString(), secondOffset, PREDICATE_COLOR, true, true);
-				maxOffset = new Point(thirdOffset);
+				for (Iterator<Relation> ii=contextNode.getRelations(); ii.hasNext(); ) {
+
+					Relation relation = ii.next();
+
+					maxOffset = drawSegment(graphics, relation.getArcXri().toString(), secondOffset, RELATION_COLOR, true, true);
+					adjustTotalMaxOffset(totalMaxOffset, maxOffset);
+
+					if (graphics != null) graphics.setStroke(ARC_STROKE);
+					if (ii.hasNext())
+						drawLine(graphics, (int) secondOffset.getX(), (int) secondOffset.getY(), (int) secondOffset.getX(), (int) maxOffset.getY());
+
+					secondOffset.setLocation(secondOffset.getX(), maxOffset.getY());
+				}
+			} 
+
+			if (contextNode.containsLiteral()) {
+
+				Literal literal = contextNode.getLiteral();
+
+				maxOffset = drawLiteral(graphics, "\"" + literal.getLiteralData() + "\"", secondOffset, true);
 				adjustTotalMaxOffset(totalMaxOffset, maxOffset);
 
-				if (predicate.containsReferences()) {
+				secondOffset.setLocation(secondOffset.getX(), maxOffset.getY());
+			} 
+			
+			if (contextNode.containsContextNodes()) {
 
-					for (Iterator<Reference> iii=predicate.getReferences(); iii.hasNext(); ) {
+				Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes();
 
-						Reference reference = iii.next();
-
-						maxOffset = drawSegment(graphics, reference.getReferenceXri().toString(), thirdOffset, REFERENCE_COLOR, true, true);
-						adjustTotalMaxOffset(totalMaxOffset, maxOffset);
-
-						if (graphics != null) graphics.setStroke(ARC_STROKE);
-						if (iii.hasNext())
-							drawLine(graphics, (int) thirdOffset.getX(), (int) thirdOffset.getY(), (int) thirdOffset.getX(), (int) maxOffset.getY());
-
-						thirdOffset.setLocation(thirdOffset.getX(), maxOffset.getY());
-					}
-				} else if (predicate.containsLiteral()) {
-
-					Literal literal = predicate.getLiteral();
-
-					maxOffset = drawLiteral(graphics, "\"" + literal.getData() + "\"", thirdOffset, true);
-					adjustTotalMaxOffset(totalMaxOffset, maxOffset);
-
-					thirdOffset.setLocation(thirdOffset.getX(), maxOffset.getY());
-				} else if (predicate.containsInnerGraph()) {
-
-					Graph innerGraph = predicate.getInnerGraph();
-
-					maxOffset = drawInnerGraph(graphics, innerGraph, thirdOffset, true);
-					adjustTotalMaxOffset(totalMaxOffset, maxOffset);
-
-					thirdOffset.setLocation(thirdOffset.getX(), maxOffset.getY());
-				}
-
-				if (graphics != null) graphics.setStroke(ARC_STROKE);
-				if (ii.hasNext())
-					drawLine(graphics, (int) secondOffset.getX(), (int) secondOffset.getY(), (int) secondOffset.getX(), (int) maxOffset.getY());
+				maxOffset = drawInnerContextNodes(graphics, innerContextNodes, secondOffset, true);
+				adjustTotalMaxOffset(totalMaxOffset, maxOffset);
 
 				secondOffset.setLocation(secondOffset.getX(), maxOffset.getY());
 			}
@@ -236,7 +224,7 @@ public class Drawer2 implements Drawer {
 		return currentOffset;
 	}
 
-	private static Point drawInnerGraph(Graphics2D graphics, Graph innerGraph, Point offset, boolean withArc) {
+	private static Point drawInnerContextNodes(Graphics2D graphics, Iterator<ContextNode> innerContextNodes, Point offset, boolean withArc) {
 
 		Point currentOffset = new Point(offset);
 
@@ -246,7 +234,7 @@ public class Drawer2 implements Drawer {
 			currentOffset.translate(ARC_WIDTH, ARC_HEIGHT);
 		}
 
-		currentOffset = drawGraph(graphics, innerGraph, currentOffset);
+		currentOffset = drawGraph(graphics, innerContextNodes, currentOffset);
 
 		return currentOffset;
 	}

@@ -16,8 +16,9 @@ import xdi2.ContextNode;
 import xdi2.Graph;
 import xdi2.Literal;
 import xdi2.Relation;
-import xdi2.exceptions.ParseException;
 import xdi2.exceptions.Xdi2GraphException;
+import xdi2.exceptions.Xdi2ParseException;
+import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 import xdi2.xri3.impl.parser.ParserException;
@@ -31,12 +32,30 @@ class XDIJSONReader extends AbstractXDIReader {
 	protected static final String DEFAULT_FILE_EXTENSION = "json";
 
 	private static final Log log = LogFactory.getLog(XDIJSONReader.class);
-	
+
 	private String lastXriString;
 
 	XDIJSONReader() { }
 
-	private synchronized void readContextNode(ContextNode contextNode, JSONObject graphObject) throws IOException, ParseException, JSONException {
+	private synchronized XRI3Authority makeXRI3Authority(String xriString) {
+
+		this.lastXriString = xriString;
+		return new XRI3Authority(xriString);
+	}
+
+	private synchronized XRI3Segment makeXRI3Segment(String xriString) {
+
+		this.lastXriString = xriString;
+		return new XRI3Segment(xriString);
+	}
+
+	private synchronized XRI3SubSegment makeXRI3SubSegment(String xriString) {
+
+		this.lastXriString = xriString;
+		return new XRI3SubSegment(xriString);
+	}
+
+	private synchronized void readContextNode(ContextNode contextNode, JSONObject graphObject) throws IOException, Xdi2ParseException, JSONException {
 
 		String contextNodeXri = contextNode.getXri().toString();
 
@@ -48,14 +67,14 @@ class XDIJSONReader extends AbstractXDIReader {
 		for (int i=0; i<jsonArray.length(); i++) {
 
 			String arcXri = jsonArray.getString(i);
-			ContextNode innerContextNode = contextNode.createContextNode(new XRI3SubSegment(arcXri));
-			log.debug("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
+			ContextNode innerContextNode = contextNode.createContextNode(this.makeXRI3SubSegment(arcXri));
+			if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
 
 			this.readContextNode(innerContextNode, graphObject);
 		}
 	}
 
-	public synchronized void read(Graph graph, JSONObject graphObject) throws IOException, ParseException, JSONException {
+	public synchronized void read(Graph graph, JSONObject graphObject) throws IOException, Xdi2ParseException, JSONException {
 
 		this.readContextNode(graph.getRootContextNode(), graphObject);
 
@@ -63,33 +82,33 @@ class XDIJSONReader extends AbstractXDIReader {
 
 			String key = (String) keys.next();
 			JSONArray value = graphObject.getJSONArray(key);
-			if (value.length() != 1) throw new ParserException("JSON array for key " + key + " must have exactly one item");
+			if (value.length() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
 
 			String[] strings = key.split("/");
-			if (strings.length != 2) throw new ParseException("Invalid key: " + key);
+			if (strings.length != 2) throw new Xdi2ParseException("Invalid key: " + key);
 
 			String subject = strings[0];
 			String predicate = strings[1];
-			ContextNode contextNode = graph.findContextNode(new XRI3Segment(subject), false);
+			ContextNode contextNode = graph.findContextNode(makeXRI3Authority(subject), false);
 
 			if (predicate.equals("!")) {
 
 				String literalData = value.getString(0);
 
 				Literal literal = contextNode.createLiteral(literalData);
-				log.debug("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
+				if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 			} else {
 
-				XRI3Segment arcXri = new XRI3Segment(predicate);
-				XRI3Segment relationXri = new XRI3Segment(value.getString(0));
+				XRI3Segment arcXri = this.makeXRI3Segment(predicate);
+				XRI3Segment relationXri = this.makeXRI3Segment(value.getString(0));
 
 				Relation relation = contextNode.createRelation(arcXri, relationXri);
-				log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getRelationXri());
+				if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getRelationXri());
 			}
 		}
 	}
 
-	private void read(Graph graph, BufferedReader bufferedReader) throws IOException, ParseException, JSONException {
+	private synchronized void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException, JSONException {
 
 		String line;
 		StringBuffer graphString = new StringBuffer();
@@ -102,7 +121,7 @@ class XDIJSONReader extends AbstractXDIReader {
 		this.read(graph, new JSONObject(graphString.toString()));
 	}
 
-	public synchronized Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, ParseException {
+	public synchronized Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException {
 
 		this.lastXriString = null;
 
@@ -111,15 +130,15 @@ class XDIJSONReader extends AbstractXDIReader {
 			this.read(graph, new BufferedReader(reader));
 		} catch (JSONException ex) {
 
-			throw new ParseException("JSON parse error: " + ex.getMessage(), ex);
+			throw new Xdi2ParseException("JSON parse error: " + ex.getMessage(), ex);
 		} catch (Xdi2GraphException ex) {
 
-			throw new ParseException("Graph problem: " + ex.getMessage(), ex);
+			throw new Xdi2ParseException("Graph problem: " + ex.getMessage(), ex);
 		} catch (ParserException ex) {
 
-			throw new ParseException("Cannot parse XRI " + this.lastXriString + ": " + ex.getMessage(), ex);
+			throw new Xdi2ParseException("Cannot parse XRI " + this.lastXriString + ": " + ex.getMessage(), ex);
 		}
-		
+
 		return reader;
 	}
 

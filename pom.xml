@@ -10,9 +10,9 @@
 
 	<modules>
 		<module>core</module>
-<!-- 		<module>messaging</module>
+		<module>messaging</module>
 		<module>client</module>
-		<module>server</module> -->
+		<module>server</module>
 		<module>webtools</module>
 	</modules>
 
@@ -111,6 +111,24 @@
 			<groupId>com.sleepycat</groupId>
 			<artifactId>je</artifactId>
 			<version>4.0.103</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- for xdi2-webtools -->
+
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>1.2.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+		<!-- for xdi2-server -->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>3.0.0.RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

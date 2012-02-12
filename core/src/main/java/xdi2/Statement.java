@@ -2,6 +2,7 @@ package xdi2;
 
 import java.io.Serializable;
 
+import xdi2.xri3.impl.XRI3;
 import xdi2.xri3.impl.XRI3Segment;
 
 /**
@@ -15,6 +16,11 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	/*
 	 * General methods
 	 */
+
+	/**
+	 * Delete the statement.
+	 */
+	public void delete();
 
 	/**
 	 * Returns the graph that contains this statements.
@@ -39,4 +45,10 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * @return A object.
 	 */
 	public XRI3Segment getObject();
+
+	/**
+	 * Gets the corresponding XRI for the statement.
+	 * @return An XRI.
+	 */
+	public XRI3 getXRI3();
 }

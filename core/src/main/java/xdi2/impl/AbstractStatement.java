@@ -1,10 +1,16 @@
 package xdi2.impl;
 
 import xdi2.Statement;
+import xdi2.xri3.impl.XRI3;
 
 public abstract class AbstractStatement implements Statement {
 
 	private static final long serialVersionUID = -8541962994048481222L;
+
+	public XRI3 getXRI3() {
+
+		return new XRI3(this.toString());
+	}
 
 	/*
 	 * Object methods

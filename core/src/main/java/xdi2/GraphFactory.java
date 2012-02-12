@@ -3,7 +3,7 @@ package xdi2;
 import java.io.IOException;
 import java.util.Properties;
 
-import xdi2.exceptions.ParseException;
+import xdi2.exceptions.Xdi2ParseException;
 
 /**
  * A graph factory can construct new XDI graph implementations.
@@ -22,11 +22,11 @@ public interface GraphFactory {
 	 * Creates/opens a graph and fills it with content in one of the serialization formats.
 	 * @return An already existing or new graph.
 	 */
-	public Graph parseGraph(String graph) throws IOException, ParseException;
+	public Graph parseGraph(String graph) throws IOException, Xdi2ParseException;
 
 	/**
 	 * Creates/opens a graph and fills it with content in one of the serialization formats.
 	 * @return An already existing or new graph.
 	 */
-	public Graph parseGraph(String graph, String format, Properties parameters) throws IOException, ParseException;
+	public Graph parseGraph(String graph, String format, Properties parameters) throws IOException, Xdi2ParseException;
 }

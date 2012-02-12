@@ -50,8 +50,6 @@
 		&nbsp;
 		<input name="versioningSupport" type="checkbox" <%= versioningSupport.equals("on") ? "checked" : "" %>>Versioning
 		<input name="linkContractSupport" type="checkbox" <%= linkContractSupport.equals("on") ? "checked" : "" %>>Link Contracts&nbsp;
-		<input name="senderVerification" type="checkbox" <%= senderVerification.equals("on") ? "checked" : "" %>>Signatures&nbsp;
-		<input name="routing" type="checkbox" <%= routing.equals("on") ? "checked" : "" %>>Routing&nbsp;
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="Help.jsp" style="color: #45b1fd">What can I do here?</a>
 

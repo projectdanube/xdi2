@@ -75,6 +75,30 @@
 			<version>0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-messaging</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-client</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-server</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>1.2.3</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 </project>

@@ -31,17 +31,17 @@ public abstract class AbstractLiteral implements Literal {
 		return this.contextNode;
 	}
 
-	public synchronized void delete() {
+	public void delete() {
 
 		this.getContextNode().deleteLiteral();
 	}
-
+	
 	/*
 	 * Methods related to statements
 	 */
 
 	public Statement getStatement() {
-		
+
 		return this.statement;
 	}
 
@@ -92,9 +92,16 @@ public abstract class AbstractLiteral implements Literal {
 	/**
 	 * A class representing a statement for this literal.
 	 */
-	private final Statement statement = new AbstractStatement() {
+	public class LiteralStatement extends AbstractStatement {
 
 		private static final long serialVersionUID = -8290065911553369697L;
+
+		private LiteralStatement() { }
+
+		public void delete() {
+
+			AbstractLiteral.this.delete();
+		}
 
 		public Graph getGraph() {
 
@@ -115,5 +122,12 @@ public abstract class AbstractLiteral implements Literal {
 
 			return new XRI3Segment("(" + XDIUtil.stringToDataUri(AbstractLiteral.this.getLiteralData()) + ")");
 		}
-	};
+
+		public Literal getLiteral() {
+
+			return AbstractLiteral.this;
+		}
+	}
+
+	private final LiteralStatement statement = new LiteralStatement();
 }

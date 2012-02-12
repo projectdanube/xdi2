@@ -16,7 +16,7 @@ class XDIStatementsWriter extends AbstractXDIWriter {
 
 	protected static final String FORMAT_TYPE = "STATEMENTS";
 	protected static final String[] MIME_TYPES = new String[] { "text/plain" };
-	protected static final String DEFAULT_FILE_EXTENSION = ".xdi";
+	protected static final String DEFAULT_FILE_EXTENSION = "xdi";
 
 	XDIStatementsWriter() { }
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Properties;
 
 import xdi2.Graph;
-import xdi2.exceptions.ParseException;
+import xdi2.exceptions.Xdi2ParseException;
 
 /**
  * Provides methods for reading an XDI graph.
@@ -23,7 +23,7 @@ public interface XDIReader extends Serializable {
 	 * @param string A string from which to read.
 	 * @param parameters Optional parameters for the reader.
 	 */
-	public void read(Graph graph, String string, Properties parameters) throws IOException, ParseException;
+	public void read(Graph graph, String string, Properties parameters) throws IOException, Xdi2ParseException;
 
 	/**
 	 * Reads an XDI graph from a character stream.
@@ -32,7 +32,7 @@ public interface XDIReader extends Serializable {
 	 * @param parameters Optional parameters for the reader.
 	 * @return The character stream.
 	 */
-	public Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, ParseException;
+	public Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException;
 
 	/**
 	 * Reads an XDI graph from a byte stream.
@@ -41,7 +41,7 @@ public interface XDIReader extends Serializable {
 	 * @param parameters Optional parameters for the reader.
 	 * @return The byte stream.
 	 */
-	public InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, ParseException;
+	public InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, Xdi2ParseException;
 
 	/**
 	 * Returns the format this XDIReader can read, e.g.

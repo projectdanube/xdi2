@@ -7,11 +7,12 @@ import java.util.Properties;
 
 import xdi2.ContextNode;
 import xdi2.Graph;
-import xdi2.exceptions.MessagingException;
+import xdi2.exceptions.Xdi2MessagingException;
 import xdi2.io.XDIWriter;
 import xdi2.io.XDIWriterRegistry;
 import xdi2.util.XDIConstants;
 import xdi2.xri3.impl.XRI3;
+import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
@@ -23,10 +24,10 @@ public abstract class AbstractGraph implements Graph {
 	 * General methods
 	 */
 
-	public ContextNode findContextNode(XRI3Segment xri, boolean create) {
+	public ContextNode findContextNode(XRI3Authority xri, boolean create) {
 
 		ContextNode contextNode = this.getRootContextNode();
-		if (XDIConstants.XRI_S_CONTEXT.equals(xri)) return contextNode;
+		if (XDIConstants.XRI_A_CONTEXT.equals(xri)) return contextNode;
 
 		for (Iterator<?> arcXris = xri.getSubSegments().iterator(); arcXris.hasNext(); ) {
 
@@ -48,6 +49,11 @@ public abstract class AbstractGraph implements Graph {
 		}
 
 		return contextNode;
+	}
+
+	public boolean containsContextNode(XRI3Authority xri) {
+
+		return this.findContextNode(xri, false) != null;
 	}
 
 	public String toString(String format) {
@@ -75,14 +81,14 @@ public abstract class AbstractGraph implements Graph {
 	 * Methods related to messages
 	 */
 
-	public Graph applyOperation(Graph operationGraph, XRI3Segment operationXri) throws MessagingException {
+	public Graph applyOperation(Graph operationGraph, XRI3Segment operationXri) throws Xdi2MessagingException {
 
 		// TODO
 
 		return null;
 	}
 
-	public Graph applyOperation(XRI3 address, XRI3Segment operationXri) throws MessagingException {
+	public Graph applyOperation(XRI3 address, XRI3Segment operationXri) throws Xdi2MessagingException {
 
 		// TODO
 

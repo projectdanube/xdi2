@@ -2,36 +2,14 @@ package xdi2.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.util.Random;
 
 import org.apache.commons.codec.binary.Base64;
 
 import xdi2.exceptions.Xdi2RuntimeException;
-import xdi2.xri3.impl.XRI3SubSegment;
 
 public class XDIUtil {
 
-	private static final Random random;
-
-	static {
-
-		random = new Random();
-	}
-
 	private XDIUtil() { }
-
-	public static XRI3SubSegment newInumber() {
-
-		final String hex = "0123456789abcdef";
-		StringBuilder inumber = new StringBuilder('!');
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
-		inumber.append('.');
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
-		inumber.append('.');
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
-
-		return new XRI3SubSegment(inumber.toString());
-	}
 
 	public static String dataUriToString(String dataUri) {
 

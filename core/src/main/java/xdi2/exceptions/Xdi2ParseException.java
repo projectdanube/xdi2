@@ -5,26 +5,26 @@ package xdi2.exceptions;
  * 
  * @author markus
  */
-public class ParseException extends Xdi2Exception {
+public class Xdi2ParseException extends Xdi2Exception {
 
 	private static final long serialVersionUID = -81795287039488030L;
 
-	public ParseException() {
+	public Xdi2ParseException() {
 
 		super();
 	}
 
-	public ParseException(String message, Throwable ex) {
+	public Xdi2ParseException(String message, Throwable ex) {
 
 		super(message, ex);
 	}
 
-	public ParseException(String message) {
+	public Xdi2ParseException(String message) {
 
 		super(message);
 	}
 
-	public ParseException(Throwable ex) {
+	public Xdi2ParseException(Throwable ex) {
 
 		super(ex);
 	}

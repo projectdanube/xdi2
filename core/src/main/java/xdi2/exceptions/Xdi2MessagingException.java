@@ -5,26 +5,26 @@ package xdi2.exceptions;
  * 
  * @author markus
  */
-public class MessagingException extends Xdi2Exception {
+public class Xdi2MessagingException extends Xdi2Exception {
 
 	private static final long serialVersionUID = -1108199426288138128L;
 
-	public MessagingException() {
+	public Xdi2MessagingException() {
 
 		super();
 	}
 
-	public MessagingException(String message, Throwable ex) {
+	public Xdi2MessagingException(String message, Throwable ex) {
 
 		super(message, ex);
 	}
 
-	public MessagingException(String message) {
+	public Xdi2MessagingException(String message) {
 
 		super(message);
 	}
 
-	public MessagingException(Throwable ex) {
+	public Xdi2MessagingException(Throwable ex) {
 
 		super(ex);
 	}

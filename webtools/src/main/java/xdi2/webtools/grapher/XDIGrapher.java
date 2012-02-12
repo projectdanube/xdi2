@@ -13,10 +13,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.higgins.xdi4j.Graph;
-import org.eclipse.higgins.xdi4j.impl.memory.MemoryGraphFactory;
-import org.eclipse.higgins.xdi4j.io.XDIReader;
-import org.eclipse.higgins.xdi4j.io.XDIReaderRegistry;
+import xdi2.Graph;
+import xdi2.impl.memory.MemoryGraphFactory;
+import xdi2.io.XDIReader;
+import xdi2.io.XDIReaderRegistry;
 
 /**
  * Servlet implementation class for Servlet: XDIGrapher
@@ -26,20 +26,15 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 	private static final long serialVersionUID = 2578333401873629083L;
 
-	private static MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
+	private static MemoryGraphFactory graphFactory;
+	private static String sampleInput;
 
 	static {
 
+		graphFactory = MemoryGraphFactory.getInstance();
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
-	}
 
-	private String sampleInput;
-
-	public XDIGrapher() {
-
-		super();
-
-		InputStream inputStream = this.getClass().getResourceAsStream("test.graph");
+		InputStream inputStream = XDIGrapher.class.getResourceAsStream("test.graph");
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		int i;
 
@@ -62,6 +57,11 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		}
 
 		ImageCache.init();
+	}
+
+	public XDIGrapher() {
+
+		super();
 	}   	
 
 	@Override
@@ -96,7 +96,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		try {
 
 			Drawer drawer = null;
-			if (type.equals("box")) drawer = new Drawer1();
+			if (type.equals("box")) drawer = null;
 			if (type.equals("spol")) drawer = new Drawer2(true);
 			if (type.equals("spo")) drawer = new Drawer2(false);
 			if (drawer == null) return;
@@ -124,15 +124,10 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		
 		stats = "";
 		stats += Long.toString(stop - start) + " ms time. ";
-		stats += Integer.toString(graph.getSubjectCount()) + " subjects. ";
-		stats += Integer.toString(graph.getPredicateCount()) + " predicates. ";
-		stats += Integer.toString(graph.getReferenceCount()) + " references. ";
-		stats += Integer.toString(graph.getLiteralCount()) + " literals. ";
-		stats += Integer.toString(graph.getInnerGraphCount()) + " inner graphs. ";
-		stats += Integer.toString(graph.getStatementCount()) + " statements. ";
-		stats += Integer.toString(graph.getGraphComponentCount(false)) + " nodes. ";
-		stats += Integer.toString(graph.getGraphComponentCount(true)) + " nodes (deep). ";
-		stats += Integer.toString(graph.getCommentCount()) + " comments. ";
+		stats += Integer.toString(graph.getRootContextNode().getAllContextNodeCount()) + " context nodes. ";
+		stats += Integer.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
+		stats += Integer.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
+		stats += Integer.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
 		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ". ";
 
 		// display results

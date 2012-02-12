@@ -7,21 +7,22 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.higgins.xdi4j.Graph;
-import org.eclipse.higgins.xdi4j.Literal;
-import org.eclipse.higgins.xdi4j.Predicate;
-import org.eclipse.higgins.xdi4j.Reference;
-import org.eclipse.higgins.xdi4j.Subject;
-import org.eclipse.higgins.xdi4j.addressing.Addressing;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3Authority;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3Path;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3Reference;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3Segment;
-import org.eclipse.higgins.xdi4j.xri3.impl.XRI3SubSegment;
+import javax.security.auth.Subject;
+import javax.sql.rowset.Predicate;
+import javax.xml.ws.soap.Addressing;
+
+import xdi2.Graph;
+import xdi2.Literal;
+import xdi2.xri3.impl.XRI3Authority;
+import xdi2.xri3.impl.XRI3Path;
+import xdi2.xri3.impl.XRI3Reference;
+import xdi2.xri3.impl.XRI3Segment;
+import xdi2.xri3.impl.XRI3SubSegment;
 
 public class Drawer1 implements Drawer {
 

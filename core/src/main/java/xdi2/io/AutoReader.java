@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import xdi2.Graph;
-import xdi2.exceptions.ParseException;
+import xdi2.exceptions.Xdi2ParseException;
 
 /**
  * A reader that will try all known other readers to parse data.
@@ -67,7 +67,7 @@ public class AutoReader extends AbstractXDIReader {
 	AutoReader() { }
 
 	@Override
-	public synchronized void read(Graph graph, String string, Properties parameters) throws IOException, ParseException {
+	public synchronized void read(Graph graph, String string, Properties parameters) throws IOException, Xdi2ParseException {
 
 		for (XDIReader xdiReader : readers) {
 
@@ -86,10 +86,10 @@ public class AutoReader extends AbstractXDIReader {
 
 		this.lastSuccessfulReader = null;
 
-		throw new ParseException("Unknown serialization format.");
+		throw new Xdi2ParseException("Unknown serialization format.");
 	}
 
-	public synchronized Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, ParseException {
+	public synchronized Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException {
 
 		StringWriter stringWriter = new StringWriter();
 		BufferedReader bufferedReader = new BufferedReader(reader);
@@ -103,7 +103,7 @@ public class AutoReader extends AbstractXDIReader {
 	}
 
 	@Override
-	public synchronized InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, ParseException {
+	public synchronized InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, Xdi2ParseException {
 
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		BufferedInputStream bufferedInputStream = new BufferedInputStream(stream);

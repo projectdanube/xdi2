@@ -1,9 +1,12 @@
 package xdi2.util;
 
+import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
 public class XDIConstants {
+
+	public static final XRI3Authority XRI_A_CONTEXT = new XRI3Authority("()");
 
 	public static final XRI3Segment XRI_S_CONTEXT = new XRI3Segment("()");
 	public static final XRI3Segment XRI_S_LITERAL = new XRI3Segment("!");

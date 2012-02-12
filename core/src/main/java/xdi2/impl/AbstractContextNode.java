@@ -18,6 +18,7 @@ import xdi2.util.iterators.IteratorCounter;
 import xdi2.util.iterators.MappingIterator;
 import xdi2.util.iterators.SelectingIterator;
 import xdi2.util.iterators.SingleItemIterator;
+import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
@@ -67,9 +68,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public XRI3Segment getXri() {
+	public XRI3Authority getXri() {
 
-		if (this.isRootContextNode()) return XDIConstants.XRI_S_CONTEXT;
+		if (this.isRootContextNode()) return XDIConstants.XRI_A_CONTEXT;
 
 		String xri = this.getArcXri().toString();
 
@@ -80,13 +81,12 @@ public abstract class AbstractContextNode implements ContextNode {
 			xri = contextNode.getArcXri() + xri;
 		}
 
-		return new XRI3Segment(xri);
+		return new XRI3Authority(xri);
 	}
 
 	/*
 	 * Methods related to context nodes of this context node
 	 */
-
 
 	public ContextNode getContextNode(final XRI3SubSegment arcXri) {
 
@@ -120,6 +120,17 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new CompositeIterator<ContextNode> (list.iterator());
 	}
 
+	public Iterator<ContextNode> getAllLeafContextNodes() {
+
+		return new SelectingIterator<ContextNode> (this.getAllContextNodes()) {
+
+			public boolean select(ContextNode contextNode) {
+
+				return contextNode.isEmpty();
+			}
+		};
+	}
+
 	public boolean containsContextNode(XRI3SubSegment arcXri) {
 
 		return this.getContextNode(arcXri) != null;
@@ -143,6 +154,11 @@ public abstract class AbstractContextNode implements ContextNode {
 	/*
 	 * Methods related to relations of this context node
 	 */
+
+	public Relation createRelation(XRI3Segment arcXri, ContextNode contextNode) {
+
+		return this.createRelation(arcXri, new XRI3Segment(contextNode.getXri().toString()));
+	}
 
 	public Relation getRelation(final XRI3SubSegment arcXri) {
 
@@ -202,7 +218,8 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	public Literal createLiteralInContextNode(XRI3SubSegment arcXri, String literalData) {
 
-		ContextNode contextNode = this.createContextNode(arcXri);
+		ContextNode contextNode = this.getContextNode(arcXri);
+		if (contextNode == null) contextNode = this.createContextNode(arcXri);
 
 		return contextNode.createLiteral(literalData);
 	}
@@ -363,9 +380,16 @@ public abstract class AbstractContextNode implements ContextNode {
 	/**
 	 * A class representing a statement for this context node.
 	 */
-	private final Statement statement = new AbstractStatement() {
+	public class ContextNodeStatement extends AbstractStatement {
 
 		private static final long serialVersionUID = 4253777785819128833L;
+
+		private ContextNodeStatement() { }
+
+		public void delete() {
+
+			AbstractContextNode.this.delete();
+		}
 
 		public Graph getGraph() {
 
@@ -386,5 +410,12 @@ public abstract class AbstractContextNode implements ContextNode {
 
 			return new XRI3Segment(AbstractContextNode.this.getArcXri().toString());
 		}
-	};
+
+		public ContextNode getContextNode() {
+
+			return AbstractContextNode.this;
+		}
+	}
+
+	private final ContextNodeStatement statement = new ContextNodeStatement();
 }

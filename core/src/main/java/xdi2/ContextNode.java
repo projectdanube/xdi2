@@ -3,6 +3,7 @@ package xdi2;
 import java.io.Serializable;
 import java.util.Iterator;
 
+import xdi2.xri3.impl.XRI3Authority;
 import xdi2.xri3.impl.XRI3Segment;
 import xdi2.xri3.impl.XRI3SubSegment;
 
@@ -66,7 +67,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * This returns () for the root context node.
 	 * @return The XRI of this context node.
 	 */
-	public XRI3Segment getXri();
+	public XRI3Authority getXri();
 
 	/*
 	 * Methods related to context nodes of this context node
@@ -97,6 +98,12 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return An iterator over context nodes.
 	 */
 	public Iterator<ContextNode> getAllContextNodes();
+
+	/**
+	 * Returns all leaf context nodes of this context node.
+	 * @return An iterator over leaf context nodes.
+	 */
+	public Iterator<ContextNode> getAllLeafContextNodes();
 
 	/**
 	 * Checks if a context node with a given arc XRI exists in this context node.
@@ -145,6 +152,14 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return The newly created relation.
 	 */
 	public Relation createRelation(XRI3Segment arcXri, XRI3Segment relationXri);
+
+	/**
+	 * Creates a new relation and adds it to this context node.
+	 * @param arcXri The arc XRI of the relation.
+	 * @param contextNode The context node it points to.
+	 * @return The newly created relation.
+	 */
+	public Relation createRelation(XRI3Segment arcXri, ContextNode contextNode);
 
 	/**
 	 * Finds and returns a relation with a given arc XRI. 
@@ -213,7 +228,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal createLiteral(String literalData);
 
 	/**
-	 * Creates a new literal and adds it to a context node in this context node.
+	 * Creates a new literal of a context node and adds it to this context node.
 	 * @param arcXri The arc XRI of the context node.
 	 * @param literalData The data of the literal.
 	 * @return The newly created literal.

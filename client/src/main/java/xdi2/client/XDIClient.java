@@ -1,0 +1,27 @@
+package xdi2.client;
+
+import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.MessageResult;
+
+/**
+ * An XDIClient can send XDI message envelopes to an XDI endpoint, and retrieve the results.
+ * 
+ * @author markus
+ */
+public interface XDIClient {
+
+	/**
+	 * Sends an XDI message envelope to an XDI endpoint and retrieves the results.
+	 * @param messageEnvelope The XDI message envelope to send.
+	 * @param messageResult The message result that will hold results of the message. If this is null,
+	 * a new message result will be created.
+	 * @return The message result.
+	 */
+	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2MessagingException;
+
+	/**
+	 * Shuts down the client.
+	 */
+	public void close();
+}

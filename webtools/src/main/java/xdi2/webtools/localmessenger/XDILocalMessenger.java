@@ -1,6 +1,5 @@
 package xdi2.webtools.localmessenger;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import xdi2.Graph;
 import xdi2.impl.memory.MemoryGraphFactory;
@@ -25,10 +22,6 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.server.ExecutionContext;
 import xdi2.server.impl.graph.GraphMessagingTarget;
-import xdi2.server.impl.graph.SubjectVersioningOperationInterceptor;
-import xdi2.server.interceptor.impl.RoutingMessageInterceptor;
-import xdi2.server.interceptor.impl.authn.SignatureAuthenticationMessageInterceptor;
-import xdi2.server.interceptor.impl.authz.LinkContractAddressInterceptor;
 
 /**
  * Servlet implementation class for Servlet: XDILocalMessenger
@@ -38,24 +31,17 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 	private static final long serialVersionUID = -3840753270326755062L;
 
-	private static final Log log = LogFactory.getLog(XDILocalMessenger.class);
-
-	private static MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
+	private static MemoryGraphFactory graphFactory;
+	private static String sampleInput;
+	private static String sampleMessage;
 
 	static {
 
+		graphFactory = MemoryGraphFactory.getInstance();
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
-	}
 
-	private String sampleInput;
-	private String sampleMessage;
-
-	public XDILocalMessenger() {
-
-		super();
-
-		InputStream inputStream1 = this.getClass().getResourceAsStream("input.graph");
-		InputStream inputStream2 = this.getClass().getResourceAsStream("message.graph");
+		InputStream inputStream1 = XDILocalMessenger.class.getResourceAsStream("input.graph");
+		InputStream inputStream2 = XDILocalMessenger.class.getClass().getResourceAsStream("message.graph");
 		ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
 		ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
 		int i;
@@ -84,6 +70,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		}
 	}
 
+
+	public XDILocalMessenger() {
+
+		super();
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -97,8 +89,6 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		String versioningSupport = request.getParameter("versioningSupport");
 		String linkContractSupport = request.getParameter("linkContractSupport");
-		String senderVerification = request.getParameter("senderVerification");
-		String routing = request.getParameter("routing");
 		String to = request.getParameter("to");
 		String input = request.getParameter("input");
 		String message = request.getParameter("message");
@@ -106,7 +96,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String stats = "-1";
 		String error = null;
 
-		AutoReader xdiReader = (AutoReader) XDIReaderRegistry.getAuto();
+		AutoReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiInputWriter;
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(to);
 		MessageEnvelope messageEnvelope = null;
@@ -131,22 +121,15 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 			messagingTarget.setGraph(graphInput);
 
-
 			if ("on".equals(versioningSupport))
-				messagingTarget.getOperationInterceptors().add(new SubjectVersioningOperationInterceptor());
+//				messagingTarget.getOperationInterceptors().add(new SubjectVersioningOperationInterceptor());
 
 			if ("on".equals(linkContractSupport)) {
 
-				LinkContractAddressInterceptor linkContractAddressInterceptor = new LinkContractAddressInterceptor();
+/*				LinkContractAddressInterceptor linkContractAddressInterceptor = new LinkContractAddressInterceptor();
 				linkContractAddressInterceptor.setLinkContractGraph(graphInput);
-				messagingTarget.getAddressInterceptors().add(linkContractAddressInterceptor);
+				messagingTarget.getAddressInterceptors().add(linkContractAddressInterceptor);*/
 			}
-
-			if ("on".equals(senderVerification))
-				messagingTarget.getMessageInterceptors().add(new SignatureAuthenticationMessageInterceptor());
-
-			if ("on".equals(routing)) 
-				messagingTarget.getMessageInterceptors().add(new RoutingMessageInterceptor());
 
 			messagingTarget.init(null);
 
@@ -169,9 +152,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 		} catch (Exception ex) {
 
+			ex.printStackTrace(System.err);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
-			log.warn(error, ex);
 		}
 
 		stats = "";
@@ -183,8 +166,6 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		request.setAttribute("versioningSupport", versioningSupport);
 		request.setAttribute("linkContractSupport", linkContractSupport);
-		request.setAttribute("senderVerification", senderVerification);
-		request.setAttribute("routing", routing);
 		request.setAttribute("to", to);
 		request.setAttribute("input", input);
 		request.setAttribute("message", message);
