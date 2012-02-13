@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.ContextNode;
 import xdi2.Literal;
@@ -40,7 +40,7 @@ import xdi2.util.iterators.SingleItemIterator;
  */
 public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 
-	private static final Log log = LogFactory.getLog(ResourceMessagingTarget.class);
+	private static final Logger log = LoggerFactory.getLogger(ResourceMessagingTarget.class);
 
 	protected List<ResourceInterceptor> resourceInterceptors;
 

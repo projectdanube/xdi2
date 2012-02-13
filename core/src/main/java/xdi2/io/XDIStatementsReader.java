@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.json.JSONException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.ContextNode;
 import xdi2.Graph;
@@ -29,7 +29,7 @@ class XDIStatementsReader extends AbstractXDIReader {
 	protected static final String[] MIME_TYPES = new String[] { "text/plain" };
 	protected static final String DEFAULT_FILE_EXTENSION = "xdi";
 
-	private static final Log log = LogFactory.getLog(XDIStatementsReader.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIStatementsReader.class);
 
 	private String lastXriString;
 

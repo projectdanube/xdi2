@@ -4,8 +4,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.ContextNode;
 import xdi2.exceptions.Xdi2MessagingException;
@@ -30,7 +30,7 @@ import xdi2.server.ExecutionContext;
  */
 public class MessageMessagingTarget extends AbstractMessagingTarget {
 
-	private static final Log log = LogFactory.getLog(MessageMessagingTarget.class);
+	private static final Logger log = LoggerFactory.getLogger(MessageMessagingTarget.class);
 
 	private Map<Class<? extends Message>, MessageHandler> messageHandlers;
 	private Map<Class<? extends Message>, Method> isValidMethods;

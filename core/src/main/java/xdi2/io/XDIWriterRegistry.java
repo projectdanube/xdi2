@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides an appropriate XDIWriter for a given type.
@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class XDIWriterRegistry {
 
-	private static final Log log = LogFactory.getLog(XDIWriterRegistry.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIWriterRegistry.class);
 
 	private static String writerClassNames[] = {
 

@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides an appropriate XDIReader for a given type.
@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class XDIReaderRegistry {
 
-	private static final Log log = LogFactory.getLog(XDIReaderRegistry.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIReaderRegistry.class);
 
 	private static String readerClassNames[] = {
 

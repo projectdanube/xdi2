@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -48,7 +48,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 	private static final long serialVersionUID = 4971492507916505134L;
 
-	private static final Log log = LogFactory.getLog(EndpointServlet.class);
+	private static final Logger log = LoggerFactory.getLogger(EndpointServlet.class);
 
 	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 

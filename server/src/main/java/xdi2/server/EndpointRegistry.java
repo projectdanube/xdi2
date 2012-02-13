@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -18,7 +18,7 @@ import org.springframework.context.ApplicationContext;
  */
 public class EndpointRegistry {
 
-	private static final Log log = LogFactory.getLog(EndpointRegistry.class);
+	private static final Logger log = LoggerFactory.getLogger(EndpointRegistry.class);
 
 	private List<MessagingTarget> messagingTargets;
 	private Map<String, MessagingTarget> messagingTargetsByPath;

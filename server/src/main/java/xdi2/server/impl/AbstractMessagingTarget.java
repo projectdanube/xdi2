@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.Graph;
 import xdi2.Statement;
@@ -40,7 +40,7 @@ import xdi2.server.interceptor.ResultInterceptor;
  */
 public abstract class AbstractMessagingTarget implements MessagingTarget {
 
-	private static final Log log = LogFactory.getLog(AbstractMessagingTarget.class);
+	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
 	protected List<MessageEnvelopeInterceptor> messageEnvelopeInterceptors;
 	protected List<MessageInterceptor> messageInterceptors;

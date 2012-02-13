@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.exceptions.Xdi2RuntimeException;
 import xdi2.impl.keyvalue.AbstractKeyValueStore;
@@ -31,7 +31,7 @@ import com.sleepycat.je.Transaction;
  */
 class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
-	private final static Log log = LogFactory.getLog(BDBKeyValueStore.class);
+	private final static Logger log = LoggerFactory.getLogger(BDBKeyValueStore.class);
 
 	private String databasePath;
 	private String databaseName;

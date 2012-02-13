@@ -10,8 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.Graph;
 import xdi2.impl.memory.MemoryGraphFactory;
@@ -26,7 +26,7 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 
 	private static final long serialVersionUID = 2578333401873629083L;
 
-	private static Log log = LogFactory.getLog(XDIValidator.class);
+	private static Logger log = LoggerFactory.getLogger(XDIValidator.class);
 
 	private static MemoryGraphFactory graphFactory;
 	private static List<String> sampleInputs;

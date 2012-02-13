@@ -8,8 +8,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
 import xdi2.exceptions.Xdi2MessagingException;
@@ -50,7 +50,7 @@ public class XDIHttpClient implements XDIClient {
 	public static final String DEFAULT_RECVFORMAT = "X3 Standard";
 	public static final String DEFAULT_USERAGENT = "XDI4j";
 
-	protected static final Log log = LogFactory.getLog(XDIHttpClient.class);
+	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
 
 	protected URL url;
 	protected String sendFormat;
