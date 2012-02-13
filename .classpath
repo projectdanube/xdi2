@@ -6,7 +6,6 @@
 	<classpathentry kind="src" path="core/src/test/resources"/>
 	<classpathentry kind="src" path="client/src/main/java"/>
 	<classpathentry kind="src" path="messaging/src/main/java"/>
-	<classpathentry kind="src" path="server/src/main/java"/>
 	<classpathentry kind="src" path="webtools/src/main/java"/>
 	<classpathentry kind="src" path="webtools/src/main/resources"/>
 	<classpathentry kind="src" path="webtools/src/test/resources"/>

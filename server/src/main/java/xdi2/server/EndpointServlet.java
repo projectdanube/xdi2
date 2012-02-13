@@ -30,6 +30,7 @@ import xdi2.messaging.ErrorMessageResult;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.MessagingConstants;
+import xdi2.messaging.MessagingTarget;
 import xdi2.messaging.http.AcceptHeader;
 import xdi2.messaging.http.AcceptHeader.AcceptEntry;
 import xdi2.xri3.impl.XRI3;

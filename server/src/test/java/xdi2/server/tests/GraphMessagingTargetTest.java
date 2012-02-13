@@ -7,7 +7,7 @@ import xdi2.io.XDIReader;
 import xdi2.io.XDIReaderRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.server.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 public class GraphMessagingTargetTest extends TestCase {
 

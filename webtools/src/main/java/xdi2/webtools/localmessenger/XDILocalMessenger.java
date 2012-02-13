@@ -22,8 +22,8 @@ import xdi2.io.XDIWriter;
 import xdi2.io.XDIWriterRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.server.ExecutionContext;
-import xdi2.server.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
  * Servlet implementation class for Servlet: XDILocalMessenger
@@ -142,7 +142,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 				messagingTarget.getAddressInterceptors().add(linkContractAddressInterceptor);*/
 				}
 
-			messagingTarget.init(null);
+			messagingTarget.init();
 
 			messageResult = MessageResult.newInstance();
 			messagingTarget.execute(messageEnvelope, messageResult, new ExecutionContext());
