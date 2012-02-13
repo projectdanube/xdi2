@@ -247,26 +247,26 @@ public abstract class BasicTest extends TestCase {
 				new XRI3SubSegment[] { }
 		};
 
-		XRI3SubSegment[][] relationArcXrisArray = new XRI3SubSegment [][] {
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { new XRI3SubSegment("$v"), new XRI3SubSegment("*1"), new XRI3SubSegment("*2") },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { new XRI3SubSegment("$") },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { },
-				new XRI3SubSegment[] { }
+		XRI3Segment[][] relationArcXrisArray = new XRI3Segment [][] {
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { new XRI3Segment("$v"), new XRI3Segment("*1"), new XRI3Segment("*2") },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { new XRI3Segment("$") },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { },
+				new XRI3Segment[] { }
 		};
 
 		Boolean[] literalsArray = new Boolean [] {
@@ -312,7 +312,10 @@ public abstract class BasicTest extends TestCase {
 
 			if (contextNodesArray[i] == null) { assertNull(relationArcXrisArray[i]); continue; } else assertNotNull(relationArcXrisArray[i]);
 
-			Set<XRI3SubSegment> arcXris = new HashSet<XRI3SubSegment> (Arrays.asList(relationArcXrisArray[i]));
+			Set<XRI3Segment> arcXris = new HashSet<XRI3Segment> (Arrays.asList(relationArcXrisArray[i]));
+
+			for (Iterator<XRI3Segment> it = arcXris.iterator(); it.hasNext(); ) assertTrue(contextNodesArray[i].getGraph().containsRelation(contextNodesArray[i].getXri(), it.next()));
+
 			assertEquals(arcXris.size(), contextNodesArray[i].getRelationCount());
 			assertEquals(arcXris.size(), new IteratorCounter(contextNodesArray[i].getRelations()).count());
 			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcXris.remove(it.next().getArcXri()));
@@ -322,6 +325,8 @@ public abstract class BasicTest extends TestCase {
 		for (int i=0; i<contextNodesArray.length; i++) {
 
 			if (contextNodesArray[i] == null) { assertNull(literalsArray[i]); continue; } else assertNotNull(literalsArray[i]);
+
+			assertEquals(contextNodesArray[i].getGraph().containsLiteral(contextNodesArray[i].getXri()), literalsArray[i].booleanValue());
 
 			assertEquals(contextNodesArray[i].containsLiteral(), literalsArray[i].booleanValue());
 		}

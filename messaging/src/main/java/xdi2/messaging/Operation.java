@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import xdi2.Relation;
 import xdi2.xri3.impl.XRI3Segment;
-import xdi2.xri3.impl.XRI3SubSegment;
 
 /**
  * An XDI messaging operation, represented as a relation.
@@ -97,9 +96,18 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the operation XRI of the operation (e.g. $get, $mod).
 	 * @return The operation XRI of the operation.
 	 */
-	public XRI3SubSegment getOperationXri() {
+	public XRI3Segment getOperationXri() {
 
-		return this.getOperationXri();
+		return this.getRelation().getArcXri();
+	}
+
+	/**
+	 * Returns the operation target of the operation.
+	 * @return The operation target of the operation.
+	 */
+	public XRI3Segment getOperationTarget() {
+
+		return this.getRelation().getRelationXri();
 	}
 
 	/**

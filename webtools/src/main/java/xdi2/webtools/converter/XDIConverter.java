@@ -41,7 +41,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 
 		while (true) {
 
-			InputStream inputStream = XDIConverter.class.getResourceAsStream("test" + (sampleInputs.size() + 1) + ".graph");
+			InputStream inputStream = XDIConverter.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			int i;
 
@@ -111,13 +111,10 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		}
 
 		stats = "";
-		/*		stats += Integer.toString(graph.getSubjectCount()) + " subjects. ";
-		stats += Integer.toString(graph.getPredicateCount()) + " predicates. ";
-		stats += Integer.toString(graph.getReferenceCount()) + " references. ";
-		stats += Integer.toString(graph.getLiteralCount()) + " literals. ";
-		stats += Integer.toString(graph.getInnerGraphCount()) + " inner graphs. ";
-		stats += Integer.toString(graph.getStatementCount()) + " statements. ";
-		stats += Integer.toString(graph.getCommentCount()) + " comments. ";*/
+		stats += Integer.toString(graph.getRootContextNode().getAllContextNodeCount()) + " context nodes. ";
+		stats += Integer.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
+		stats += Integer.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
+		stats += Integer.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
 		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + " (" + Arrays.asList(xdiReader.getMimeTypes()) + "). ";
 
 		graph.close();

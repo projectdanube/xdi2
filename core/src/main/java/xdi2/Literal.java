@@ -2,6 +2,8 @@ package xdi2;
 
 import java.io.Serializable;
 
+import xdi2.Statement.LiteralStatement;
+
 /**
  * This interface represents a literal in an XDI graph.
  * 
@@ -50,5 +52,5 @@ public interface Literal extends Serializable, Comparable<Literal> {
 	 * Gets the statement that contains this literal.
 	 * @return A statement.
 	 */
-	public Statement getStatement();
+	public LiteralStatement getStatement();
 }

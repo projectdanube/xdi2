@@ -82,4 +82,23 @@ public abstract class AbstractStatement implements Statement {
 
 		return 0;
 	}
+
+	/*
+	 * Sub-classes
+	 */
+
+	public static abstract class AbstractContextNodeStatement extends AbstractStatement implements ContextNodeStatement {
+
+		private static final long serialVersionUID = -7006808512493295364L;
+	}
+
+	public static abstract class AbstractRelationStatement extends AbstractStatement implements RelationStatement {
+
+		private static final long serialVersionUID = -2393268622327844933L;
+	}
+
+	public static abstract class AbstractLiteralStatement extends AbstractStatement implements LiteralStatement {
+
+		private static final long serialVersionUID = -7876412291137305476L;
+	}
 }

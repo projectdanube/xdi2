@@ -85,7 +85,7 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 	 */
 	public XRI3Segment getSender() {
 
-		return this.getContextNode().getXri();
+		return this.getContextNode().getContextNode().getXri();
 	}
 
 	/**

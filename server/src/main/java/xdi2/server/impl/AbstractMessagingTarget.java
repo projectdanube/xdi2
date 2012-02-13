@@ -75,6 +75,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	public boolean execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (messageEnvelope == null) throw new NullPointerException();
+		if (messageResult == null) throw new NullPointerException();
+		if (executionContext == null) executionContext = new ExecutionContext();
 
 		boolean handled = false;
 
@@ -209,7 +211,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				// execute the operation
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation " + i + "/" + operationCount + " (" + operation.getOperationXri() + ") from " + operation.getSender() + ".");
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation " + i + "/" + operationCount + " (" + operation.getOperationXri() + ") on " + operation.getOperationTarget() + ".");
 
 				if (this.execute(operation, messageResult, executionContext)) handled = true;
 

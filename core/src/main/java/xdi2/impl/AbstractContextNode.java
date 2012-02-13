@@ -10,6 +10,8 @@ import xdi2.Graph;
 import xdi2.Literal;
 import xdi2.Relation;
 import xdi2.Statement;
+import xdi2.Statement.ContextNodeStatement;
+import xdi2.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.util.XDIConstants;
 import xdi2.util.iterators.CompositeIterator;
 import xdi2.util.iterators.DescendingIterator;
@@ -377,13 +379,12 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	/**
-	 * A class representing a statement for this context node.
+	 * A statement for this context node.
 	 */
-	public class ContextNodeStatement extends AbstractStatement {
 
-		private static final long serialVersionUID = 4253777785819128833L;
+	private final ContextNodeStatement statement = new AbstractContextNodeStatement() {
 
-		private ContextNodeStatement() { }
+		private static final long serialVersionUID = 5008355182847367563L;
 
 		public void delete() {
 
@@ -414,7 +415,5 @@ public abstract class AbstractContextNode implements ContextNode {
 
 			return AbstractContextNode.this;
 		}
-	}
-
-	private final ContextNodeStatement statement = new ContextNodeStatement();
+	};
 }

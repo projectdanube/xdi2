@@ -65,12 +65,12 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 			<scope>compile</scope>
-        </dependency>
+		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
@@ -79,16 +79,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-jcl</artifactId>
+			<artifactId>slf4j-api</artifactId>
 			<version>1.6.4</version>
 			<scope>compile</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.4</version>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.6.4</version>
 			<scope>compile</scope>
-        </dependency>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.4</version>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -114,15 +120,6 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- for xdi2-webtools -->
-
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>1.2.3</version>
-			<scope>compile</scope>
-		</dependency>
-
 		<!-- for xdi2-server -->
 
 		<dependency>
@@ -130,6 +127,12 @@
 			<artifactId>spring-web</artifactId>
 			<version>3.0.0.RELEASE</version>
 			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 

@@ -3,7 +3,8 @@ package xdi2.impl;
 import xdi2.ContextNode;
 import xdi2.Graph;
 import xdi2.Literal;
-import xdi2.Statement;
+import xdi2.Statement.LiteralStatement;
+import xdi2.impl.AbstractStatement.AbstractLiteralStatement;
 import xdi2.util.XDIConstants;
 import xdi2.util.XDIUtil;
 import xdi2.xri3.impl.XRI3Segment;
@@ -40,7 +41,7 @@ public abstract class AbstractLiteral implements Literal {
 	 * Methods related to statements
 	 */
 
-	public Statement getStatement() {
+	public LiteralStatement getStatement() {
 
 		return this.statement;
 	}
@@ -90,13 +91,12 @@ public abstract class AbstractLiteral implements Literal {
 	}
 
 	/**
-	 * A class representing a statement for this literal.
+	 * A statement for this literal.
 	 */
-	public class LiteralStatement extends AbstractStatement {
+
+	private final LiteralStatement statement = new AbstractLiteralStatement() {
 
 		private static final long serialVersionUID = -8290065911553369697L;
-
-		private LiteralStatement() { }
 
 		public void delete() {
 
@@ -127,7 +127,5 @@ public abstract class AbstractLiteral implements Literal {
 
 			return AbstractLiteral.this;
 		}
-	}
-
-	private final LiteralStatement statement = new LiteralStatement();
+	};
 }

@@ -28,25 +28,28 @@
 						${basedir}/src/test/resources/jetty-env.xml
 					</jettyEnvXml>
 					<contextPath>/</contextPath>
-					<systemproperties>
-						<systemproperty>
-							<name>org.apache.commons.logging.Log</name>
-							<value>org.apache.commons.logging.impl.Log4JLogger</value>
-						</systemproperty>
-						<systemproperty>
+					<useTestClasspath>true</useTestClasspath>
+					<systemProperties>
+						<systemProperty>
 							<name>slf4j</name>
 							<value>true</value>
-						</systemproperty>
-						<systemproperty>
+						</systemProperty>
+						<systemProperty>
 							<name>log4j.configuration</name>
 							<value>file:${basedir}/src/main/resources/log4j.properties</value>
-						</systemproperty>
-					</systemproperties>
+						</systemProperty>
+					</systemProperties>
 				</configuration>
 				<dependencies>
 					<dependency>
 						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-jcl</artifactId>
+						<artifactId>slf4j-api</artifactId>
+						<version>1.6.4</version>
+						<scope>compile</scope>
+					</dependency>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>jcl-over-slf4j</artifactId>
 						<version>1.6.4</version>
 						<scope>compile</scope>
 					</dependency>
@@ -54,12 +57,6 @@
 						<groupId>org.slf4j</groupId>
 						<artifactId>slf4j-log4j12</artifactId>
 						<version>1.6.4</version>
-						<scope>compile</scope>
-					</dependency>
-					<dependency>
-						<groupId>log4j</groupId>
-						<artifactId>log4j</artifactId>
-						<version>1.2.16</version>
 						<scope>compile</scope>
 					</dependency>
 				</dependencies>
@@ -90,12 +87,6 @@
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-server</artifactId>
 			<version>0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>1.2.3</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

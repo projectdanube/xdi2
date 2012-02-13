@@ -1,37 +1,57 @@
 package xdi2.webtools.grapher;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class ImageCache {
 
-	private static CacheManager cacheManager;
-	private static Cache imageCache;
+	private static final long EXPIRE_MILLISECONDS = 2 * 60 * 1000;	// 2 minutes
 
-	public static void init() {
+	private static Map<String, ImageCacheEntry> imageCache = new HashMap<String, ImageCacheEntry> ();
 
-		cacheManager = CacheManager.create(ImageCache.class.getResourceAsStream("ehcache.xml"));
+	private static class ImageCacheEntry {
 
-		imageCache = cacheManager.getCache("images");
-		if (imageCache == null) throw new RuntimeException("Can not find cache.");
-	}
+		private Date date;
+		private byte[] data;
 
-	public static void shutdown() {
+		private ImageCacheEntry(byte[] data) {
 
-		imageCache.flush();
-		cacheManager.shutdown();
+			this.date = new Date();
+			this.data = data;
+		}
 	}
 
 	public static void put(String imageId, byte[] data) {
 
-		imageCache.put(new Element(imageId, data));
+		imageCache.put(imageId, new ImageCacheEntry(data));
 	}
 
 	public static byte[] get(String imageId) {
 
-		Element element = imageCache.get(imageId);
-		if (element == null) return null;
-		return (byte[]) element.getValue();
+		expireCache();
+
+		ImageCacheEntry imageCacheEntry = imageCache.get(imageId);
+		if (imageCacheEntry == null) return null;
+
+		return imageCacheEntry.data;
+	}
+
+	private static void expireCache() {
+
+		List<String> deleteEntries = new ArrayList<String> ();
+
+		for (Entry<String, ImageCacheEntry> entry : imageCache.entrySet()) {
+
+			if (entry.getValue().date.getTime() + EXPIRE_MILLISECONDS < System.currentTimeMillis()) {
+
+				deleteEntries.add(entry.getKey());
+			}
+		}
+
+		for (String deleteEntry : deleteEntries) imageCache.remove(deleteEntry);
 	}
 }

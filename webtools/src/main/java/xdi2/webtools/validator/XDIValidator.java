@@ -40,7 +40,7 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 
 		while (true) {
 
-			InputStream inputStream = XDIValidator.class.getResourceAsStream("test" + (sampleInputs.size() + 1) + ".graph");
+			InputStream inputStream = XDIValidator.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			int i;
 

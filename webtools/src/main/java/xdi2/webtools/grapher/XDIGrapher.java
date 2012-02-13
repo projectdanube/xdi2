@@ -40,7 +40,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 		while (true) {
 
-			InputStream inputStream = XDIGrapher.class.getResourceAsStream("test" + (sampleInputs.size() + 1) + ".graph");
+			InputStream inputStream = XDIGrapher.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			int i;
 
@@ -62,8 +62,6 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 				}
 			}
 		}
-
-		ImageCache.init();
 	}
 
 	public XDIGrapher() {
@@ -75,8 +73,6 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 	public void destroy() {
 
 		super.destroy();
-
-		ImageCache.shutdown();
 	}
 
 	@Override

@@ -2,12 +2,14 @@ package xdi2.server.impl.graph;
 
 import xdi2.ContextNode;
 import xdi2.Graph;
+import xdi2.Literal;
 import xdi2.Relation;
 import xdi2.exceptions.Xdi2MessagingException;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.server.ExecutionContext;
 import xdi2.util.CopyUtil;
+import xdi2.util.XDIConstants;
 import xdi2.variables.VariablesUtil;
 import xdi2.xri3.impl.XRI3Segment;
 
@@ -36,13 +38,26 @@ public class RelationResourceHandler extends AbstractGraphResourceHandler {
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) return true;
 
-		Relation relation = contextNode.getRelation(this.operationRelation.getArcXri());
-		if (relation == null) return true;
+		boolean isRelationXriVariable = VariablesUtil.isVariable(this.operationRelation.getRelationXri());
+		
+		if (this.operationRelation.getArcXri().equals(XDIConstants.XRI_S_LITERAL)) {
 
-		if (VariablesUtil.isVariable(this.operationRelation.getRelationXri()) ||
-				this.operationRelation.getRelationXri().equals(relation.getRelationXri())) {
+			if (isRelationXriVariable) {
 
-			CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
+				Literal literal = contextNode.getLiteral();
+				if (literal == null) return true;
+
+				CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
+			}
+		} else {
+
+			Relation relation = contextNode.getRelation(this.operationRelation.getArcXri());
+			if (relation == null) return true;
+
+			if (isRelationXriVariable || this.operationRelation.getRelationXri().equals(relation.getRelationXri())) {
+
+				CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
+			}
 		}
 
 		return true;

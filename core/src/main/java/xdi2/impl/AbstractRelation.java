@@ -4,7 +4,8 @@ package xdi2.impl;
 import xdi2.ContextNode;
 import xdi2.Graph;
 import xdi2.Relation;
-import xdi2.Statement;
+import xdi2.Statement.RelationStatement;
+import xdi2.impl.AbstractStatement.AbstractRelationStatement;
 import xdi2.xri3.impl.XRI3Segment;
 
 public abstract class AbstractRelation implements Relation {
@@ -50,8 +51,8 @@ public abstract class AbstractRelation implements Relation {
 	 * Methods related to statements
 	 */
 
-	public Statement getStatement() {
-		
+	public RelationStatement getStatement() {
+
 		return this.statement;
 	}
 
@@ -100,14 +101,15 @@ public abstract class AbstractRelation implements Relation {
 	}
 
 	/**
-	 * A class representing a statement for this relation.
+	 * A statement for this relation.
 	 */
-	public class RelationStatement extends AbstractStatement {
+
+	private final RelationStatement statement = new AbstractRelationStatement() {
 
 		private static final long serialVersionUID = 1937380243537401799L;
 
 		public void delete() {
-			
+
 			AbstractRelation.this.delete();
 		}
 
@@ -135,7 +137,5 @@ public abstract class AbstractRelation implements Relation {
 
 			return AbstractRelation.this;
 		}
-	}
-
-	private final RelationStatement statement = new RelationStatement();
+	};
 }

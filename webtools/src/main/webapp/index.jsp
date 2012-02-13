@@ -43,7 +43,7 @@
 	
 	<p><a href="http://github.com/peacekeeper/xdi2">XDI²</a> is a general purpose XDI library for Java.</p>
 	
-	<p>It is the basis for the <a href="http://www.projectdanube.org/">Project Danube</a> project.</p>
+	<p>It is the basis for <a href="http://www.projectdanube.org/">Project Danube</a>.</p>
 
 	<hr>
 

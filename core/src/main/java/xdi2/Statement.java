@@ -51,4 +51,23 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * @return An XRI.
 	 */
 	public XRI3 getXRI3();
+
+	/*
+	 * Sub-interfaces
+	 */
+
+	public interface ContextNodeStatement extends Statement {
+
+		public ContextNode getContextNode();
+	}
+
+	public interface RelationStatement extends Statement {
+
+		public Relation getRelation();
+	}
+
+	public interface LiteralStatement extends Statement {
+
+		public Literal getLiteral();
+	}
 }

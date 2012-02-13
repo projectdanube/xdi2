@@ -7,6 +7,8 @@ import java.util.Properties;
 
 import xdi2.ContextNode;
 import xdi2.Graph;
+import xdi2.Literal;
+import xdi2.Relation;
 import xdi2.exceptions.Xdi2MessagingException;
 import xdi2.io.XDIWriter;
 import xdi2.io.XDIWriterRegistry;
@@ -50,9 +52,35 @@ public abstract class AbstractGraph implements Graph {
 		return contextNode;
 	}
 
+	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri) {
+
+		ContextNode contextNode = this.findContextNode(xri, false);
+		if (contextNode == null) return null;
+
+		return contextNode.getRelation(arcXri);
+	}
+
+	public Literal findLiteral(XRI3Segment xri) {
+
+		ContextNode contextNode = this.findContextNode(xri, false);
+		if (contextNode == null) return null;
+
+		return contextNode.getLiteral();
+	}
+
 	public boolean containsContextNode(XRI3Segment xri) {
 
 		return this.findContextNode(xri, false) != null;
+	}
+
+	public boolean containsRelation(XRI3Segment xri, XRI3Segment arcXri) {
+
+		return this.findRelation(xri, arcXri) != null;
+	}
+
+	public boolean containsLiteral(XRI3Segment xri) {
+
+		return this.findLiteral(xri) != null;
 	}
 
 	public String toString(String format) {

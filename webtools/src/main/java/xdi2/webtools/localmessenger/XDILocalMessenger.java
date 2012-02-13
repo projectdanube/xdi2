@@ -47,8 +47,8 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		while (true) {
 
-			InputStream inputStream1 = XDILocalMessenger.class.getResourceAsStream("test" + (sampleInputs.size() + 1) + ".graph");
-			InputStream inputStream2 = XDILocalMessenger.class.getResourceAsStream("message" + (sampleMessages.size() + 1) + ".graph");
+			InputStream inputStream1 = XDILocalMessenger.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
+			InputStream inputStream2 = XDILocalMessenger.class.getResourceAsStream("message" + (sampleMessages.size() + 1) + ".xdi");
 			ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
 			ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
 			int i;
@@ -119,7 +119,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			// parse the input graph and remember its format
 
 			xdiReader.read(graphInput, new StringReader(input), null);
-			String inputFormat = input.trim().equals("") ? "X3 Simple" : xdiReader.getLastSuccessfulReader().getFormat();
+			String inputFormat = xdiReader.getLastSuccessfulReader().getFormat();
 
 			// parse the message envelope
 
@@ -133,14 +133,14 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			messagingTarget.setGraph(graphInput);
 
 			if ("on".equals(versioningSupport))
-//				messagingTarget.getOperationInterceptors().add(new SubjectVersioningOperationInterceptor());
+				//				messagingTarget.getOperationInterceptors().add(new SubjectVersioningOperationInterceptor());
 
-			if ("on".equals(linkContractSupport)) {
+				if ("on".equals(linkContractSupport)) {
 
-/*				LinkContractAddressInterceptor linkContractAddressInterceptor = new LinkContractAddressInterceptor();
+					/*				LinkContractAddressInterceptor linkContractAddressInterceptor = new LinkContractAddressInterceptor();
 				linkContractAddressInterceptor.setLinkContractGraph(graphInput);
 				messagingTarget.getAddressInterceptors().add(linkContractAddressInterceptor);*/
-			}
+				}
 
 			messagingTarget.init(null);
 
@@ -150,7 +150,6 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			// output the modified input graph
 
 			xdiInputWriter = XDIWriterRegistry.forFormat(inputFormat);
-			if (xdiInputWriter == null) xdiInputWriter = XDIWriterRegistry.forFormat("X3 Simple");
 
 			StringWriter writer1 = new StringWriter();
 			xdiInputWriter.write(graphInput, writer1, null);

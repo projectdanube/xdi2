@@ -2,6 +2,7 @@ package xdi2;
 
 import java.io.Serializable;
 
+import xdi2.Statement.RelationStatement;
 import xdi2.xri3.impl.XRI3Segment;
 
 /**
@@ -64,5 +65,5 @@ public interface Relation extends Serializable, Comparable<Relation> {
 	 * Gets the statement that contains this literal.
 	 * @return A statement.
 	 */
-	public Statement getStatement();
+	public RelationStatement getStatement();
 }

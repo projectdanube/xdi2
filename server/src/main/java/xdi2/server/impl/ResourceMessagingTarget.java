@@ -17,22 +17,16 @@ import xdi2.messaging.Operation;
 import xdi2.server.EndpointRegistry;
 import xdi2.server.ExecutionContext;
 import xdi2.server.interceptor.ResourceInterceptor;
+import xdi2.util.XDIConstants;
 import xdi2.util.iterators.SingleItemIterator;
 
 /**
  * The ResourceMessagingTarget allows subclasses to return ResourceHandler
- * implementations for the following types of operation statements:
- * - Statements with a subject only.
- * - Statements with a subject and predicate.
- * - Statements with a subject, predicate and reference.
- * - Statements with a subject, predicate and literal.
- * - Statements with a subject, predicate and inner graph.
- * - As a special case, a ResourceHandler may also be returned for operations without
- * any operation statements.
+ * implementations for context nodes, relation and literals in the operation.
  * 
  * Subclasses must do the following:
- * - Return appropriate ResourceHandlers for the given operation statements. To do
- * this, subclasses override the getResource() methods. Note that sometimes no
+ * - Return appropriate ResourceHandlers for the given context nodes, relations and literals.
+ * To do this, subclasses override the getResource() methods. Note that sometimes no
  * resource can be identified by a given operation statement, in which case a
  * subclass may simply return null.
  * 
@@ -87,24 +81,31 @@ public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 
 		if (contextNode.isEmpty()) {
 
-			resourceHandler = getResourceHandler(operation, contextNode);
+			resourceHandler = this.getResourceHandler(operation, contextNode);
 
 			if (resourceHandler != null) {
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + contextNode.getStatement() + " (" + resourceHandler.getClass().getSimpleName() + ").");
-				handled = handled || resourceHandler.execute(operation, messageResult, executionContext);
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + contextNode.getStatement() + " (" + resourceHandler.getClass().getName() + ").");
+
+				if (this.executeResourceInterceptorsBefore(contextNode.getStatement(), operation, messageResult, executionContext)) return true;
+				if (resourceHandler.execute(operation, messageResult, executionContext)) handled = true;
+				if (this.executeResourceInterceptorsAfter(contextNode.getStatement(), operation, messageResult, executionContext)) return true;
 
 				return handled;
+			} else {
+
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No resource handler for " + operation.getOperationXri() + " on " + contextNode.getStatement());
 			}
 		}
-		
+
 		// look at context nodes
-		
+
 		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
 
 			ContextNode innerContextNode = innerContextNodes.next();
 
-			handled = handled || this.executeResourceHandlers(innerContextNode, operation, messageResult, executionContext);
+			if (XDIConstants.XRI_SS_MSG.equals(innerContextNode.getArcXri())) continue;
+			if (this.executeResourceHandlers(innerContextNode, operation, messageResult, executionContext)) handled = true;
 		}
 
 		// look at relations
@@ -112,12 +113,18 @@ public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
 
 			Relation relation = relations.next();
-			resourceHandler = getResourceHandler(operation, relation);
+			resourceHandler = this.getResourceHandler(operation, relation);
 
 			if (resourceHandler != null) {
-				
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + relation.getStatement() + " (" + resourceHandler.getClass().getSimpleName() + ").");
-				handled = handled || resourceHandler.execute(operation, messageResult, executionContext);
+
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + relation.getStatement() + " (" + resourceHandler.getClass().getName() + ").");
+
+				if (this.executeResourceInterceptorsBefore(relation.getStatement(), operation, messageResult, executionContext)) continue;
+				if (resourceHandler.execute(operation, messageResult, executionContext)) handled = true;
+				if (this.executeResourceInterceptorsAfter(relation.getStatement(), operation, messageResult, executionContext)) continue;
+			} else {
+
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No resource handler for " + operation.getOperationXri() + " on " + relation.getStatement());
 			}
 		}
 
@@ -129,9 +136,15 @@ public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 			resourceHandler = this.getResourceHandler(operation, literal);
 
 			if (resourceHandler != null) {
-				
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + literal.getStatement() + " (" + resourceHandler.getClass().getSimpleName() + ").");
-				handled = handled || resourceHandler.execute(operation, messageResult, executionContext);
+
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + literal.getStatement() + " (" + resourceHandler.getClass().getName() + ").");
+
+				if (this.executeResourceInterceptorsBefore(literal.getStatement(), operation, messageResult, executionContext)) continue;
+				if (resourceHandler.execute(operation, messageResult, executionContext)) handled = true;
+				if (this.executeResourceInterceptorsAfter(literal.getStatement(), operation, messageResult, executionContext)) continue;
+			} else {
+
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No resource handler for " + operation.getOperationXri() + " on " + literal.getStatement());
 			}
 		}
 
@@ -146,11 +159,11 @@ public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 
 		for (ResourceInterceptor contextNodeInterceptor : this.resourceInterceptors) {
 
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing resource interceptor " + contextNodeInterceptor.getClass().getSimpleName() + " on " + statement + " (before).");
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing resource interceptor " + contextNodeInterceptor.getClass().getName() + " on " + statement + " (before).");
 
 			if (contextNodeInterceptor.before(statement, operation, messageResult, executionContext)) {
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Statement " + statement + " has been fully handled by interceptor " + contextNodeInterceptor.getClass().getSimpleName() + ".");
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Statement " + statement + " has been fully handled by interceptor " + contextNodeInterceptor.getClass().getName() + ".");
 				return true;
 			}
 		}
@@ -162,11 +175,11 @@ public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 
 		for (ResourceInterceptor contextNodeInterceptor : this.resourceInterceptors) {
 
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing resource interceptor " + contextNodeInterceptor.getClass().getSimpleName() + " on " + statement + " (after).");
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing resource interceptor " + contextNodeInterceptor.getClass().getName() + " on " + statement + " (after).");
 
 			if (contextNodeInterceptor.after(statement, operation, messageResult, executionContext)) {
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Statement " + statement + " has been fully handled by interceptor " + contextNodeInterceptor.getClass().getSimpleName() + ".");
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Statement " + statement + " has been fully handled by interceptor " + contextNodeInterceptor.getClass().getName() + ".");
 				return true;
 			}
 		}

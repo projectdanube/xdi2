@@ -55,13 +55,13 @@ public abstract class AbstractResourceHandler implements ResourceHandler {
 	public boolean execute(Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			return(this.executeGet(operation, operationResult, executionContext));
+			return this.executeGet(operation, operationResult, executionContext);
 		else if (operation instanceof AddOperation)
-			return(this.executeAdd(operation, operationResult, executionContext));
+			return this.executeAdd(operation, operationResult, executionContext);
 		else if (operation instanceof ModOperation)
-			return(this.executeMod(operation, operationResult, executionContext));
+			return this.executeMod(operation, operationResult, executionContext);
 		else if (operation instanceof DelOperation)
-			return(this.executeDel(operation, operationResult, executionContext));
+			return this.executeDel(operation, operationResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri());
 	}

@@ -47,8 +47,10 @@
 		<option value="STATEMENTS" <%= to.equals("STATEMENTS") ? "selected" : "" %>>STATEMENTS</option>
 		</select>
 		&nbsp;
+<!-- 
 		<input name="versioningSupport" type="checkbox" <%= versioningSupport.equals("on") ? "checked" : "" %>>Versioning
 		<input name="linkContractSupport" type="checkbox" <%= linkContractSupport.equals("on") ? "checked" : "" %>>Link Contracts&nbsp;
+-->
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDILocalMessengerHelp.jsp">What can I do here?</a>
 
