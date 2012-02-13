@@ -3,13 +3,13 @@ package xdi2.messaging;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import xdi2.ContextNode;
-import xdi2.util.XDIConstants;
-import xdi2.util.XRIUtil;
-import xdi2.util.iterators.DescendingIterator;
-import xdi2.util.iterators.IteratorCounter;
-import xdi2.util.iterators.SelectingMappingIterator;
-import xdi2.xri3.impl.XRI3Segment;
+import xdi2.core.ContextNode;
+import xdi2.core.util.XDIConstants;
+import xdi2.core.util.XRIUtil;
+import xdi2.core.util.iterators.DescendingIterator;
+import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.SelectingMappingIterator;
+import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
  * An XDI message container, represented as a context node.

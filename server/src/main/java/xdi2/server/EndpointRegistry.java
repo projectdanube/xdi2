@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
-import xdi2.messaging.MessagingTarget;
+import xdi2.messaging.target.MessagingTarget;
 
 /**
  * Registers all known messaging targets.
@@ -50,7 +50,7 @@ public class EndpointRegistry {
 
 			try {
 
-				messagingTarget.init(this);
+				messagingTarget.init();
 			} catch (Exception ex) {
 
 				log.warn("Exception while initializing messaging target " + messagingTarget.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);

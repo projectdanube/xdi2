@@ -1,9 +1,9 @@
 package xdi2.tests.variables;
 
 import junit.framework.TestCase;
-import xdi2.variables.VariablesUtil;
-import xdi2.xri3.impl.XRI3Segment;
-import xdi2.xri3.impl.XRI3SubSegment;
+import xdi2.core.variables.VariablesUtil;
+import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public class VariablesUtilTest extends TestCase {
 

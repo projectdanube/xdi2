@@ -2,8 +2,8 @@ package xdi2.messaging;
 
 import java.io.Serializable;
 
-import xdi2.Relation;
-import xdi2.xri3.impl.XRI3Segment;
+import xdi2.core.Relation;
+import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
  * An XDI messaging operation, represented as a relation.

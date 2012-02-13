@@ -3,7 +3,9 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
+
 	<display-name>xdi2-webtools</display-name>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -12,6 +14,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+
 	<servlet>
 		<description></description>
 		<display-name>XDIValidator</display-name>
@@ -22,6 +25,7 @@
 		<servlet-name>XDIValidator</servlet-name>
 		<url-pattern>/XDIValidator</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 		<description></description>
 		<display-name>XDIConverter</display-name>
@@ -32,6 +36,18 @@
 		<servlet-name>XDIConverter</servlet-name>
 		<url-pattern>/XDIConverter</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<description></description>
+		<display-name>XDIMessenger</display-name>
+		<servlet-name>XDIMessenger</servlet-name>
+		<servlet-class>xdi2.webtools.messenger.XDIMessenger</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDIMessenger</servlet-name>
+		<url-pattern>/XDIMessenger</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<description></description>
 		<display-name>XDILocalMessenger</display-name>
@@ -42,6 +58,7 @@
 		<servlet-name>XDILocalMessenger</servlet-name>
 		<url-pattern>/XDILocalMessenger</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 		<description></description>
 		<display-name>XDIGrapher</display-name>
@@ -52,6 +69,7 @@
 		<servlet-name>XDIGrapher</servlet-name>
 		<url-pattern>/XDIGrapher</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 		<description></description>
 		<display-name>XDIGrapherImage</display-name>
@@ -62,4 +80,5 @@
 		<servlet-name>XDIGrapherImage</servlet-name>
 		<url-pattern>/XDIGrapherImage</url-pattern>
 	</servlet-mapping>
+
 </web-app>

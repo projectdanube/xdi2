@@ -1,17 +1,17 @@
 package xdi2.messaging.target.impl.graph;
 
-import xdi2.ContextNode;
-import xdi2.Graph;
-import xdi2.Literal;
-import xdi2.Relation;
-import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.Literal;
+import xdi2.core.Relation;
+import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.util.CopyUtil;
+import xdi2.core.util.XDIConstants;
+import xdi2.core.variables.VariablesUtil;
+import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.util.CopyUtil;
-import xdi2.util.XDIConstants;
-import xdi2.variables.VariablesUtil;
-import xdi2.xri3.impl.XRI3Segment;
 
 public class RelationResourceHandler extends AbstractGraphResourceHandler {
 

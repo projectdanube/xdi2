@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
-import xdi2.Graph;
-import xdi2.impl.keyvalue.properties.PropertiesGraphFactory;
+import xdi2.core.Graph;
+import xdi2.core.impl.keyvalue.properties.PropertiesGraphFactory;
 
 public class PropertiesBasicTest extends BasicTest {
 

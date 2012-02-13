@@ -7,17 +7,17 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.ContextNode;
-import xdi2.Literal;
-import xdi2.Relation;
-import xdi2.Statement;
-import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.core.ContextNode;
+import xdi2.core.Literal;
+import xdi2.core.Relation;
+import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.util.XDIConstants;
+import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.interceptor.ResourceInterceptor;
-import xdi2.util.XDIConstants;
-import xdi2.util.iterators.SingleItemIterator;
 
 /**
  * The ResourceMessagingTarget allows subclasses to return ResourceHandler

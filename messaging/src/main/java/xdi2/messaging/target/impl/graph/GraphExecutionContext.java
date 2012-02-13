@@ -5,9 +5,9 @@ import java.util.Map;
 import javax.security.auth.Subject;
 import javax.sql.rowset.Predicate;
 
+import xdi2.core.xri3.impl.XRI3;
+import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.xri3.impl.XRI3;
-import xdi2.xri3.impl.XRI3Segment;
 
 public class GraphExecutionContext {
 

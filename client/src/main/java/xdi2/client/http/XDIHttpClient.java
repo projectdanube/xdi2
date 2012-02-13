@@ -12,11 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
-import xdi2.exceptions.Xdi2MessagingException;
-import xdi2.io.XDIReader;
-import xdi2.io.XDIReaderRegistry;
-import xdi2.io.XDIWriter;
-import xdi2.io.XDIWriterRegistry;
+import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.io.XDIReader;
+import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.io.XDIWriter;
+import xdi2.core.io.XDIWriterRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.error.ErrorMessageResult;

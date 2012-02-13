@@ -2,8 +2,8 @@ package xdi2.messaging;
 
 import java.io.Serializable;
 
-import xdi2.Graph;
-import xdi2.impl.memory.MemoryGraphFactory;
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 
 /**
  * An XDI message result, represented as a graph.

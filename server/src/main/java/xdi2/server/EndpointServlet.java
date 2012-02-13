@@ -19,23 +19,23 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import xdi2.Graph;
-import xdi2.exceptions.Xdi2ParseException;
-import xdi2.impl.memory.MemoryGraphFactory;
-import xdi2.io.XDIReader;
-import xdi2.io.XDIReaderRegistry;
-import xdi2.io.XDIWriter;
-import xdi2.io.XDIWriterRegistry;
-import xdi2.messaging.ErrorMessageResult;
+import xdi2.core.Graph;
+import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.io.XDIReader;
+import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.io.XDIWriter;
+import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.MessagingConstants;
-import xdi2.messaging.MessagingTarget;
+import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.http.AcceptHeader;
 import xdi2.messaging.http.AcceptHeader.AcceptEntry;
-import xdi2.xri3.impl.XRI3;
-import xdi2.xri3.impl.XRI3Segment;
-import xdi2.xri3.impl.parser.ParserException;
+import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.util.XDIMessagingConstants;
 
 /**
  * The XDI endpoint servlet.
@@ -47,7 +47,7 @@ import xdi2.xri3.impl.parser.ParserException;
  */
 public class EndpointServlet extends HttpServlet implements HttpRequestHandler, ApplicationContextAware {
 
-	private static final long serialVersionUID = 4971492507916505134L;
+	private static final long serialVersionUID = -5653921904489832762L;
 
 	private static final Logger log = LoggerFactory.getLogger(EndpointServlet.class);
 
@@ -190,12 +190,10 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, MessagingConstants.XRI_GET, request, response);
+		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, XDIMessagingConstants.XRI_GET, request, response);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
-
-		if (log.isDebugEnabled()) log.debug(messageEnvelope.toString());
 
 		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
 		if (messageResult == null || messageResult.getGraph() == null) return;
@@ -219,12 +217,10 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, MessagingConstants.XRI_ADD, request, response);
+		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, XDIMessagingConstants.XRI_ADD, request, response);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
-
-		if (log.isDebugEnabled()) log.debug(messageEnvelope.toString());
 
 		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
 		if (messageResult == null || messageResult.getGraph() == null) return;
@@ -248,12 +244,10 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, MessagingConstants.XRI_DEL, request, response);
+		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, XDIMessagingConstants.XRI_DEL, request, response);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
-
-		if (log.isDebugEnabled()) log.debug(messageEnvelope.toString());
 
 		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
 		if (messageResult == null || messageResult.getGraph() == null) return;
@@ -281,8 +275,6 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
-
-		if (log.isDebugEnabled()) log.debug(messageEnvelope.toString());
 
 		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
 		if (messageResult == null || messageResult.getGraph() == null) return;
@@ -329,18 +321,16 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 		String addr = path.substring(messagingTargetPath.length());
 		while (addr.length() > 0 && addr.charAt(0) == '/') addr = addr.substring(1);
 
-		log.debug("Requested XDI address: " + addr + ".");
-
-		XRI3 address;
+		XRI3Segment contextNodeXri;
 
 		if (addr.equals("")) {
 
-			address = null;
+			contextNodeXri = null;
 		} else {
 
 			try {
 
-				address = new XRI3(addr);
+				contextNodeXri = new XRI3Segment(addr);
 			} catch (ParserException ex) {
 
 				log.warn("Cannot parse XDI address. Sending " + HttpServletResponse.SC_BAD_REQUEST + ".", ex);
@@ -349,24 +339,13 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 			}
 		}
 
-		// convert address to a mini messaging target
+		// convert address to a mini messaging envelope
 
-/*		Graph graph = null;
+		log.debug("Requested XDI context node: " + contextNodeXri + ".");
 
-		if (address != null) {
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromXriAndOperationXri(contextNodeXri, XDIMessagingConstants.XRI_GET);
 
-			log.debug("Converting address " + address.toString() + " to graph.");
-
-			graph = Addressing.convertAddressToGraph(address);
-		}
-
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph, operationXri);
-
-		return(messageEnvelope);*/
-		
-		// TODO
-		
-		return null;
+		return messageEnvelope;
 	}
 
 	private MessageEnvelope readFromBody(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -419,6 +398,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		ExecutionContext executionContext = new ExecutionContext();
 
+		ServletExecutionContext.setEndpointServlet(executionContext, this);
 		ServletExecutionContext.setHttpServletRequest(executionContext, request);
 		ServletExecutionContext.setHttpServletResponse(executionContext, response);
 
@@ -428,7 +408,9 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		try {
 
+			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 			messagingTarget.execute(messageEnvelope, messageResult, executionContext);
+			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 		} catch (Exception ex) {
 
 			log.error("Cannot execute message envelope. Sending error document: " + ex.getMessage(), ex);

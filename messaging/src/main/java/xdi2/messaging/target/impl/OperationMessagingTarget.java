@@ -7,9 +7,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.Relation;
-import xdi2.exceptions.Xdi2MessagingException;
-import xdi2.exceptions.Xdi2RuntimeException;
+import xdi2.core.Relation;
+import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;

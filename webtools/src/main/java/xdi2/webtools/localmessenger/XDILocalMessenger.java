@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-import xdi2.Graph;
-import xdi2.impl.memory.MemoryGraphFactory;
-import xdi2.io.AutoReader;
-import xdi2.io.XDIReaderRegistry;
-import xdi2.io.XDIWriter;
-import xdi2.io.XDIWriterRegistry;
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.io.AutoReader;
+import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.io.XDIWriter;
+import xdi2.core.io.XDIWriterRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.ExecutionContext;

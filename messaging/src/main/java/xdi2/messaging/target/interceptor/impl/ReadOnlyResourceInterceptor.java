@@ -1,13 +1,13 @@
 package xdi2.messaging.target.interceptor.impl;
 
-import xdi2.Statement;
-import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.xri3.impl.XRI3;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.interceptor.AbstractResourceInterceptor;
 import xdi2.messaging.target.interceptor.ResourceInterceptor;
-import xdi2.xri3.impl.XRI3;
 
 public class ReadOnlyResourceInterceptor extends AbstractResourceInterceptor implements ResourceInterceptor {
 

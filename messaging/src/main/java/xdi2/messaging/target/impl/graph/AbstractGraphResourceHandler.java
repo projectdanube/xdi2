@@ -1,9 +1,9 @@
 package xdi2.messaging.target.impl.graph;
 
-import xdi2.ContextNode;
-import xdi2.Graph;
-import xdi2.Literal;
-import xdi2.Relation;
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.Literal;
+import xdi2.core.Relation;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.impl.AbstractResourceHandler;
 

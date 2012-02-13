@@ -1,7 +1,7 @@
 package xdi2.messaging;
 
-import xdi2.Relation;
-import xdi2.util.XDIConstants;
+import xdi2.core.Relation;
+import xdi2.core.util.XDIConstants;
 
 /**
  * A $add XDI operation, represented as a relation.

@@ -1,14 +1,14 @@
 package xdi2.messaging.target.impl.graph;
 
-import xdi2.ContextNode;
-import xdi2.Graph;
-import xdi2.Literal;
-import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.Literal;
+import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.util.CopyUtil;
+import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.util.CopyUtil;
-import xdi2.xri3.impl.XRI3Segment;
 
 public class LiteralResourceHandler extends AbstractGraphResourceHandler {
 

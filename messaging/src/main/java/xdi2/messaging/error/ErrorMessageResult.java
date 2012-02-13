@@ -1,9 +1,9 @@
 package xdi2.messaging.error;
 
-import xdi2.ContextNode;
-import xdi2.Graph;
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageResult;
-import xdi2.xri3.impl.XRI3Segment;
 
 public class ErrorMessageResult extends MessageResult {
 

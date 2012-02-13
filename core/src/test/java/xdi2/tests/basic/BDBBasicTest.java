@@ -3,8 +3,8 @@ package xdi2.tests.basic;
 import java.io.File;
 import java.io.IOException;
 
-import xdi2.Graph;
-import xdi2.impl.keyvalue.bdb.BDBGraphFactory;
+import xdi2.core.Graph;
+import xdi2.core.impl.keyvalue.bdb.BDBGraphFactory;
 
 public class BDBBasicTest extends BasicTest {
 

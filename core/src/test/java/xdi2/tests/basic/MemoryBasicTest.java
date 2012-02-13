@@ -2,8 +2,8 @@ package xdi2.tests.basic;
 
 import java.io.IOException;
 
-import xdi2.Graph;
-import xdi2.impl.memory.MemoryGraphFactory;
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 
 public class MemoryBasicTest extends BasicTest {
 

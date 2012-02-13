@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import xdi2.ContextNode;
-import xdi2.Graph;
-import xdi2.Literal;
-import xdi2.xri3.impl.XRI3Authority;
-import xdi2.xri3.impl.XRI3Path;
-import xdi2.xri3.impl.XRI3Reference;
-import xdi2.xri3.impl.XRI3Segment;
-import xdi2.xri3.impl.XRI3SubSegment;
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.Literal;
+import xdi2.core.xri3.impl.XRI3Authority;
+import xdi2.core.xri3.impl.XRI3Path;
+import xdi2.core.xri3.impl.XRI3Reference;
+import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public class Drawer1 implements Drawer {
 

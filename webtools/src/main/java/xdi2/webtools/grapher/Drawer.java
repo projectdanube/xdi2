@@ -3,7 +3,7 @@ package xdi2.webtools.grapher;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-import xdi2.Graph;
+import xdi2.core.Graph;
 
 public interface Drawer {
 

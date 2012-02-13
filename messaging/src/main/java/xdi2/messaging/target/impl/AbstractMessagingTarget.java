@@ -7,9 +7,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.Graph;
-import xdi2.Statement;
-import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.core.Graph;
+import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;

@@ -1,7 +1,7 @@
 package xdi2.messaging.target.interceptor;
 
-import xdi2.Statement;
-import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 
 public abstract class AbstractResultInterceptor implements ResultInterceptor {

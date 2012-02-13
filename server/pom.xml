@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>xdi2</groupId>
 	<artifactId>xdi2-server</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>xdi2-server</name>
 
@@ -13,6 +13,60 @@
 		<artifactId>xdi2</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<configuration>
+					<jettyEnvXml>
+						${basedir}/src/test/resources/jetty-env.xml
+					</jettyEnvXml>
+					<contextPath>/</contextPath>
+					<useTestClasspath>true</useTestClasspath>
+					<systemProperties>
+						<systemProperty>
+							<name>jetty.port</name>
+							<value>8080</value>
+						</systemProperty>
+						<systemProperty>
+							<name>slf4j</name>
+							<value>true</value>
+						</systemProperty>
+						<systemProperty>
+							<name>log4j.configuration</name>
+							<value>file:${basedir}/src/main/resources/log4j.properties</value>
+						</systemProperty>
+					</systemProperties>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+						<version>1.6.4</version>
+						<scope>compile</scope>
+					</dependency>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>jcl-over-slf4j</artifactId>
+						<version>1.6.4</version>
+						<scope>compile</scope>
+					</dependency>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-log4j12</artifactId>
+						<version>1.6.4</version>
+						<scope>compile</scope>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 		<dependency>

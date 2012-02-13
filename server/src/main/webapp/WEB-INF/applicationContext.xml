@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<!-- Set up a MessagingTarget exposing a native in-memory XDI graph -->
+
+	<bean id="graphfactory1" class="xdi2.core.impl.memory.MemoryGraphFactory">
+	</bean>
+
+	<bean id="graph1" factory-bean="graphfactory1" factory-method="openGraph" />
+
+	<bean name="/mem-graph" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
+		<property name="graph" ref="graph1" />
+	</bean>
+
+	<!-- Set up a MessagingTarget exposing a native BDB-backed XDI graph -->
+
+	<bean id="graphfactory2" class="xdi2.core.impl.keyvalue.bdb.BDBGraphFactory">
+		<property name="databasePath" value="./xdi2-graph/" />
+	</bean>
+
+	<bean id="graph2" factory-bean="graphfactory2" factory-method="openGraph" />
+
+	<bean name="/bdb-graph" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
+		<property name="graph" ref="graph2" />
+	</bean>
+
+	<!-- Set up a MessagingTarget exposing a serialized XDI graph file -->
+
+	<bean name="/serialized-graph" class="xdi2.messaging.target.impl.serialization.SerializationMessagingTarget">
+		<property name="filename" value="./graph.xdi" />
+		<property name="format" value="XDI/JSON" />
+	</bean>
+	
+</beans>

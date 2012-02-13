@@ -1,9 +1,9 @@
 package xdi2.messaging.target.impl;
 
-import xdi2.ContextNode;
-import xdi2.Literal;
-import xdi2.Relation;
-import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.core.ContextNode;
+import xdi2.core.Literal;
+import xdi2.core.Relation;
+import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;

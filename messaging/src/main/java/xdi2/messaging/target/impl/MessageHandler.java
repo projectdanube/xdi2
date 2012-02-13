@@ -1,6 +1,6 @@
 package xdi2.messaging.target.impl;
 
-import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 

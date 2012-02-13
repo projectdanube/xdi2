@@ -31,6 +31,10 @@
 					<useTestClasspath>true</useTestClasspath>
 					<systemProperties>
 						<systemProperty>
+							<name>jetty.port</name>
+							<value>9090</value>
+						</systemProperty>
+						<systemProperty>
 							<name>slf4j</name>
 							<value>true</value>
 						</systemProperty>
@@ -74,6 +78,12 @@
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-messaging</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-client</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

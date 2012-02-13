@@ -1,8 +1,8 @@
 package xdi2.tests.util;
 
 import junit.framework.TestCase;
-import xdi2.util.XDIUtil;
-import xdi2.xri3.impl.XRI3Segment;
+import xdi2.core.util.XDIUtil;
+import xdi2.core.xri3.impl.XRI3Segment;
 
 public class XDIUtilTest extends TestCase {
 

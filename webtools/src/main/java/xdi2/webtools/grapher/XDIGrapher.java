@@ -15,11 +15,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import xdi2.Graph;
-import xdi2.impl.memory.MemoryGraphFactory;
-import xdi2.io.AutoReader;
-import xdi2.io.XDIReader;
-import xdi2.io.XDIReaderRegistry;
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.io.AutoReader;
+import xdi2.core.io.XDIReader;
+import xdi2.core.io.XDIReaderRegistry;
 
 /**
  * Servlet implementation class for Servlet: XDIGrapher

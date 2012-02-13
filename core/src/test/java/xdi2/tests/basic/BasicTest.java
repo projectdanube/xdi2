@@ -10,19 +10,19 @@ import java.util.Iterator;
 import java.util.Set;
 
 import junit.framework.TestCase;
-import xdi2.ContextNode;
-import xdi2.Graph;
-import xdi2.Literal;
-import xdi2.Relation;
-import xdi2.io.XDIReader;
-import xdi2.io.XDIReaderRegistry;
-import xdi2.io.XDIWriter;
-import xdi2.io.XDIWriterRegistry;
-import xdi2.util.CopyUtil;
-import xdi2.util.XDIConstants;
-import xdi2.util.iterators.IteratorCounter;
-import xdi2.xri3.impl.XRI3Segment;
-import xdi2.xri3.impl.XRI3SubSegment;
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.Literal;
+import xdi2.core.Relation;
+import xdi2.core.io.XDIReader;
+import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.io.XDIWriter;
+import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.util.CopyUtil;
+import xdi2.core.util.XDIConstants;
+import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public abstract class BasicTest extends TestCase {
 

@@ -21,7 +21,7 @@
 	<p>
 	<a href="XDIValidator">XDI Validator</a>&nbsp;&nbsp;
 	<a href="XDIConverter">XDI Converter</a>&nbsp;&nbsp;
-	XDI Messenger&nbsp;&nbsp;
+	<a href="XDIMessenger">XDI Messenger</a>&nbsp;&nbsp;
 	<a href="XDILocalMessenger">XDI Local Messenger</a>&nbsp;&nbsp;
 	XDI Querier&nbsp;&nbsp;
 	XDI Setter&nbsp;&nbsp;
@@ -41,7 +41,7 @@
 
 	<p style="font-size: 14pt">XDI²</p>
 	
-	<p><a href="http://github.com/peacekeeper/xdi2">XDI²</a> is a general purpose XDI library for Java.</p>
+	<p><a href="http://github.com/peacekeeper/xdi2">XDI²</a> is a general purpose XDI library for Java, supporting both a traditional client/server model and distributed peer-to-peer data exchange.</p>
 	
 	<p>It is the basis for <a href="http://www.projectdanube.org/">Project Danube</a>.</p>
 

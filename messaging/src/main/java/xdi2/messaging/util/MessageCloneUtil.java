@@ -1,10 +1,10 @@
 package xdi2.messaging.util;
 
-import xdi2.impl.memory.MemoryGraphFactory;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.util.CloneUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageContainer;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.util.CloneUtil;
 
 /**
  * Various utility methods for cloning graph components.

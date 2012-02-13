@@ -3,14 +3,15 @@ package xdi2.messaging;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import xdi2.ContextNode;
-import xdi2.Graph;
-import xdi2.impl.memory.MemoryGraphFactory;
-import xdi2.util.XDIConstants;
-import xdi2.util.iterators.DescendingIterator;
-import xdi2.util.iterators.IteratorCounter;
-import xdi2.util.iterators.SelectingMappingIterator;
-import xdi2.xri3.impl.XRI3Segment;
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.util.XDIConstants;
+import xdi2.core.util.iterators.DescendingIterator;
+import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.SelectingMappingIterator;
+import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.messaging.util.XDIMessagingConstants;
 
 /**
  * An XDI message envelope, represented as a graph.
@@ -54,6 +55,24 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (! isValid(graph)) return null;
 
 		return new MessageEnvelope(graph);
+	}
+
+	/**
+	 * Factory method that creates an XDI message envelope bound to a given graph.
+	 * @param graph The graph that is an XDI message envelope.
+	 * @return The XDI message envelope.
+	 */
+	public static MessageEnvelope fromXriAndOperationXri(XRI3Segment contextNodeXri, XRI3Segment operationXri) {
+
+		if (contextNodeXri == null) contextNodeXri = XDIConstants.XRI_S_CONTEXT;
+
+		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
+		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_ANONYMOUS, true);
+		Message message = messageContainer.createMessage();
+		ContextNode contextNode = messageEnvelope.getGraph().findContextNode(contextNodeXri, true);
+		message.createGetOperation(contextNode);
+
+		return messageEnvelope;
 	}
 
 	/**
@@ -214,7 +233,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		if (object == null || ! (object instanceof MessageEnvelope)) return false;
 		if (object == this) return true;
-		
+
 		MessageEnvelope other = (MessageEnvelope) object;
 
 		return this.getGraph().equals(other.getGraph());

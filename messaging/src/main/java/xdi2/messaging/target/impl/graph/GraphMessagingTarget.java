@@ -5,11 +5,13 @@ import java.util.HashMap;
 import javax.security.auth.Subject;
 import javax.sql.rowset.Predicate;
 
-import xdi2.ContextNode;
-import xdi2.Graph;
-import xdi2.Literal;
-import xdi2.Relation;
-import xdi2.exceptions.Xdi2MessagingException;
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.Literal;
+import xdi2.core.Relation;
+import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.xri3.impl.XRI3;
+import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -18,8 +20,6 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.ResourceHandler;
 import xdi2.messaging.target.impl.ResourceMessagingTarget;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
-import xdi2.xri3.impl.XRI3;
-import xdi2.xri3.impl.XRI3Segment;
 
 /**
  * An XDI messaging target backed by some implementation of the Graph interface.
