@@ -34,8 +34,7 @@ class XDIStatementsWriter extends AbstractXDIWriter {
 
 			if ((! writeContextStatements) &&
 					(statement instanceof ContextNodeStatement) &&
-					(! ((ContextNodeStatement) statement).getContextNode().containsRelations()) &&
-					(! ((ContextNodeStatement) statement).getContextNode().containsLiteral())) {
+					(! ((ContextNodeStatement) statement).getContextNode().isEmpty())) {
 
 				continue;
 			}
@@ -47,6 +46,8 @@ class XDIStatementsWriter extends AbstractXDIWriter {
 	}
 
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
+
+		if (parameters == null) parameters = new Properties();
 
 		write(graph, new BufferedWriter(writer), parameters);
 		writer.flush();

@@ -20,7 +20,8 @@ public final class XDIWriterRegistry {
 	private static String writerClassNames[] = {
 
 		XDIJSONWriter.class.getName(),  // first one in the array is the default
-		XDIStatementsWriter.class.getName()
+		XDIStatementsWriter.class.getName(),
+		XDIStatementsWriterWithContextStatements.class.getName()
 	};
 
 	private static List<Class<XDIWriter> > writerClasses;

@@ -27,7 +27,7 @@
 	<li>Messages can be entered in any format.</li>
 	<li>Message results are displayed in X3 Simple (use the XDI Converter to convert to different formats).</li>
 	<li>$add, $mod and $del operation will modify the XDI document in the left input text area.</li>
-	<li>$get operations will result in a direct result.</li>
+	<li>$get operations will not modify the XDI document in the left input text area, but will yield a direct result.</li>
 	<li>If you get the error "Unknown serialization format", use the XDI Validator to debug your input document and message.</li>
 	</ul>
 
@@ -37,19 +37,7 @@
 
 	<h2>Versioning</h2>
 
-	<p>If "Versioning" is enabled, every $add, $mod and $del operation will create
-	new versions of the affected subjects in the graphs.</p>
-
-	</div>
-
-    <div class="tabbertab">
-
-	<h2>HINs</h2>
-
-	<p>HINs (Hash I-Numbers) are a way of having multiple literal values on a
-	predicate, without losing addressability of all nodes in the XDI graph. If this
-	feature is enabled, HINs are automatically created when new literals are added
-	to the XDI graph.</p>
+	<p>Current not supported.</p>
 
 	</div>
 
@@ -57,52 +45,18 @@
 
 	<h2>Link Contracts</h2>
 
-	<p>Link contracts govern permissions on a graph. If this feature is enabled,
-	certain operations may not be possible, depending on the link contracts in
-	the target graph.</p>
+	<p>Currently not supported.</p>
 
 	</div>
 
     <div class="tabbertab">
 
-	<h2>Sender Verification</h2>
+	<h2>Sender Authentication</h2>
 
-	<p>If "Sender Verification" is enabled, the sender of an XDI message is verified
-	before the message is applied. In order for this to work, the following steps are
-	performed:</p>
+	<p>Currently not supported.</p>
+
+	</div>
 	
-	<ul>
-	<li>There must be a signature on the message.</li>
-	<li>When resolved, the sender XRI's XRDS document must contain a certificate
-	with a public key.</li>
-	<li>The signature on the message is verified using the discovered public key.</li>
-	</ul> 
-
-	</div>
-
-    <div class="tabbertab">
-
-	<h2>Example messages</h2>
-
-	<p style="font-weight: bold">Add something to a graph</p>
-	<p style="font-family: Courier">[=yourname[$add[[=yourname[+name["First Last"]]]]]]</p>
-	<p style="font-family: Courier">[=yourname[$add[[=yourname[+friend[=yourfriend1][=yourfriend2]]]]]]</p>
-
-	<p style="font-weight: bold">Delete everything at a graph</p>
-	<p style="font-family: Courier">[=yourname[$del]]</p>
-
-	<p style="font-weight: bold">Get everything from the graph</p>
-	<p style="font-family: Courier">[=yourname[$get]]</p>
-
-	<p style="font-weight: bold">Get something from the graph</p>
-	<p style="font-family: Courier">[=yourname[$get[[=yourname]]]]</p>
-	<p style="font-family: Courier">[=yourname[$get[[=yourname[+friend]]]]]</p>
-
-	<p style="font-weight: bold">Change something at the graph</p>
-	<p style="font-family: Courier">[=yourname[$mod[[=yourname[+name["First Middle Last"]]]]]]</p>
-
-	</div>
-
 	</div>
 
 </body>

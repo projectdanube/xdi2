@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,6 +15,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import xdi2.Graph;
 import xdi2.impl.memory.MemoryGraphFactory;
+import xdi2.io.AutoReader;
 import xdi2.io.XDIReader;
 import xdi2.io.XDIReaderRegistry;
 import xdi2.io.XDIWriter;
@@ -115,7 +115,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		stats += Integer.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
-		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + " (" + Arrays.asList(xdiReader.getMimeTypes()) + "). ";
+		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + (xdiReader instanceof AutoReader ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
 
 		graph.close();
 

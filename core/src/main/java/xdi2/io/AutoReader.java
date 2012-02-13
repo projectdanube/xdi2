@@ -136,4 +136,11 @@ public class AutoReader extends AbstractXDIReader {
 
 		return this.lastSuccessfulReader;
 	}
+
+	public String getLastSuccessfulFormat() {
+
+		if (this.lastSuccessfulReader == null) return null;
+
+		return this.lastSuccessfulReader.getFormat();
+	}
 }

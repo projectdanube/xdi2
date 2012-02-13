@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import xdi2.Graph;
 import xdi2.impl.memory.MemoryGraphFactory;
+import xdi2.io.AutoReader;
 import xdi2.io.XDIReader;
 import xdi2.io.XDIReaderRegistry;
 
@@ -134,7 +135,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		stats += Integer.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
-		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ". ";
+		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + (xdiReader instanceof AutoReader ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
 
 		// display results
 

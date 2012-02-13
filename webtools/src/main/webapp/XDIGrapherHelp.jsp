@@ -23,25 +23,8 @@
 
 	<p>This tool implements methods for visualizing XDI graphs.</p>
 	<p>The following graphing methods are supported:</p>
-	<p><b>XDI RDF Box Graph</b></p> 
-	<p>The motivation is to have an easy, intuitive way to illustrate the special capability of 
-	XDI RDF to express context, i.e., the ability to nest addressable RDF graphs to any depth.</p>
-	<p>In XDI box graphs, every RDF node and every RDF arc is represented by a box. The reason 
-	boxes are used is that with XDI addressing, every segment of an XRI structured identifier
-	(whether an XDI subject, predicate, or reference) may itself represent an RDF graph. So a 
-	complete XDI address may represent the union of dozens of component RDF graphs. In fact 
-	the only XDI addresses that do not represent RDF graphs (because they are graph "primitives") 
-	are: a) single delimiter characters, and b) literals.</p>
-	<p><b>XDI S/P/O Graph</b></p>
-	<p>An experimental graphing method for emphasizing the basic triple structure (subject/predicate/object) of XDI.</p>
-
-	</div>
-
-    <div class="tabbertab">
-
-	<h2>More information</h2>
-
-	<p><a href="http://www.oasis-open.org/committees/download.php/35590/xdi-rdf-box-graphs-v2.pdf">xdi-rdf-box-graphs-v2.pdf</a></p>
+	<p><b>XDI Standard Graph</b></p> 
+	<p>Displays context nodes, relations, and literals.</p>
 
 	</div>
 	

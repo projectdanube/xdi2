@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.Graph;
 import xdi2.impl.memory.MemoryGraphFactory;
+import xdi2.io.AutoReader;
 import xdi2.io.XDIReader;
 import xdi2.io.XDIReaderRegistry;
 
@@ -96,7 +97,7 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 
 			xdiReader.read(graph, input, null);
 
-			output = "Success!\n\n";
+			output = "Success!\n";
 /*			output += Integer.toString(Constraints.getAllConstraintCount(graph)) + " constraints found.\n";
 			output += Integer.toString(Versioning.getAllVersionListCount(graph)) + " version lists, ";
 			output += Integer.toString(Versioning.getAllVersionSnapshotCount(graph)) + " version snapshots and ";
@@ -116,7 +117,7 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 		stats += Integer.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
-		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ". ";
+		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + (xdiReader instanceof AutoReader ? " (" + ((AutoReader) xdiReader).getLastSuccessfulFormat() + ")": "")+ ". ";
 
 		// display results
 

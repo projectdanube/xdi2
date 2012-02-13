@@ -41,6 +41,7 @@
 		<select name="to">
 		<option value="XDI/JSON" <%= to.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
 		<option value="STATEMENTS" <%= to.equals("STATEMENTS") ? "selected" : "" %>>STATEMENTS</option>
+		<option value="STATEMENTS_WITH_CONTEXT_STATEMENTS" <%= to.equals("STATEMENTS_WITH_CONTEXT_STATEMENTS") ? "selected" : "" %>>STATEMENTS_WITH_CONTEXT_STATEMENTS</option>
 		</select>
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIConverterHelp.jsp">What can I do here?</a>

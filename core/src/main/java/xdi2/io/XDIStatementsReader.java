@@ -41,10 +41,10 @@ class XDIStatementsReader extends AbstractXDIReader {
 		return new XRI3Segment(xriString);
 	}
 
-	public synchronized void readStatement(Graph graph, String line) throws IOException, Xdi2ParseException, JSONException {
+	public synchronized void readStatement(Graph graph, String line, int lineNr) throws IOException, Xdi2ParseException, JSONException {
 
 		String[] segments = line.split("/");
-		if (segments.length != 3) throw new Xdi2ParseException("Invalid line:" + line);
+		if (segments.length != 3) throw new Xdi2ParseException("Invalid line #" + lineNr + ":" + line);
 
 		XRI3Segment subject = makeXRI3Segment(segments[0]);
 		XRI3Segment predicate = makeXRI3Segment(segments[1]);
@@ -70,8 +70,13 @@ class XDIStatementsReader extends AbstractXDIReader {
 	private synchronized void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException, JSONException {
 
 		String line;
-
-		while ((line = bufferedReader.readLine()) != null) this.readStatement(graph, line);
+		int lineNr = 0;
+		
+		while ((line = bufferedReader.readLine()) != null) {
+			
+			lineNr++;
+			this.readStatement(graph, line, lineNr);
+		}
 	}
 
 	public synchronized Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException {
