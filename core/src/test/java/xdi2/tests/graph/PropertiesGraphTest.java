@@ -1,4 +1,4 @@
-package xdi2.tests.basic;
+package xdi2.tests.graph;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import xdi2.core.Graph;
 import xdi2.core.impl.keyvalue.properties.PropertiesGraphFactory;
 
-public class PropertiesBasicTest extends BasicTest {
+public class PropertiesGraphTest extends AbstractGraphTest {
 
 	private static PropertiesGraphFactory graphFactory = new PropertiesGraphFactory();
 
@@ -23,7 +23,7 @@ public class PropertiesBasicTest extends BasicTest {
 			@Override
 			public boolean accept(File dir, String name) {
 
-				return name.startsWith("xdi2-graph.") && name.endsWith(".properties");
+				return name.startsWith("xdi2-test-graph.") && name.endsWith(".properties");
 			}
 		});
 
@@ -33,7 +33,7 @@ public class PropertiesBasicTest extends BasicTest {
 	@Override
 	protected Graph openNewGraph(String id) throws IOException {
 
-		File file = new File(".", "xdi2-graph." + id + ".properties");
+		File file = new File(".", "xdi2-test-graph." + id + ".properties");
 		if (file.exists()) file.delete();
 
 		graphFactory.setFile(file);
@@ -47,7 +47,7 @@ public class PropertiesBasicTest extends BasicTest {
 
 		graph.close();
 
-		File file = new File(".", "xdi2-graph." + id + ".properties");
+		File file = new File(".", "xdi2-test-graph." + id + ".properties");
 
 		graphFactory.setFile(file);
 		graphFactory.setAutoSave(true);

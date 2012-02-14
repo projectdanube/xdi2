@@ -1,4 +1,4 @@
-package xdi2.messaging.tests;
+package xdi2.messaging.tests.basic;
 
 import junit.framework.TestCase;
 import xdi2.core.ContextNode;
@@ -9,7 +9,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.Operation;
 import xdi2.messaging.util.XDIMessagingConstants;
 
-public class MessagingTest extends TestCase {
+public class BasicTest extends TestCase {
 
 	private static final XRI3Segment SENDER = new XRI3Segment("=sender");
 	

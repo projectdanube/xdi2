@@ -1,18 +1,20 @@
-package xdi2.messaging.tests;
+package xdi2.messaging.tests.messagingtarget;
+
+import java.io.IOException;
 
 import junit.framework.TestCase;
 import xdi2.core.Graph;
-import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
-public class GraphMessagingTargetTest extends TestCase {
+public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
-	private static MemoryGraphFactory graphFactory = new MemoryGraphFactory();
 	private static XDIReader autoReader = XDIReaderRegistry.getAuto();
+
+	protected abstract Graph openNewGraph(String id) throws IOException;
 
 	public void testGraphMessagingTarget() throws Exception {
 
@@ -22,7 +24,8 @@ public class GraphMessagingTargetTest extends TestCase {
 
 			if (this.getClass().getResourceAsStream("graph" + i + ".xdi") == null) break;
 
-			Graph graph = graphFactory.openGraph(); autoReader.read(graph, this.getClass().getResourceAsStream("graph" + i + ".xdi"), null).close();
+			Graph graph = this.openNewGraph(this.getClass().getName() + "-graph-" + i); 
+			autoReader.read(graph, this.getClass().getResourceAsStream("graph" + i + ".xdi"), null).close();
 
 			// execute the messages
 
@@ -32,7 +35,8 @@ public class GraphMessagingTargetTest extends TestCase {
 
 				if (this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi") == null) break;
 
-				Graph message = graphFactory.openGraph(); autoReader.read(message, this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi"), null).close();
+				Graph message = this.openNewGraph(this.getClass().getName() + "-message-" + i + "-" + ii); 
+				autoReader.read(message, this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi"), null).close();
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 				graphMessagingTarget.setGraph(graph);
@@ -53,7 +57,8 @@ public class GraphMessagingTargetTest extends TestCase {
 
 				if (this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi") == null) break;
 
-				Graph positive = graphFactory.openGraph(); autoReader.read(positive, this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi"), null).close();
+				Graph positive = this.openNewGraph(this.getClass().getName() + "-positive-" + i + "-" + ii); 
+				autoReader.read(positive, this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi"), null).close();
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 				graphMessagingTarget.setGraph(graph);
@@ -76,7 +81,8 @@ public class GraphMessagingTargetTest extends TestCase {
 
 				if (this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi") == null) break;
 
-				Graph negative = graphFactory.openGraph(); autoReader.read(negative, this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi"), null).close();
+				Graph negative = this.openNewGraph(this.getClass().getName() + "-negative-" + i + "-" + ii); 
+				autoReader.read(negative, this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi"), null).close();
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 				graphMessagingTarget.setGraph(graph);

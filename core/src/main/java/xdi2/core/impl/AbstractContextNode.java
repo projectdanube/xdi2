@@ -161,7 +161,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return this.createRelation(arcXri, new XRI3Segment(contextNode.getXri().toString()));
 	}
 
-	public Relation getRelation(final XRI3SubSegment arcXri) {
+	public Relation getRelation(final XRI3Segment arcXri) {
 
 		Iterator<Relation> selectingIterator = new SelectingIterator<Relation> (this.getRelations()) {
 
@@ -193,7 +193,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new CompositeIterator<Relation> (list.iterator());
 	}
 
-	public boolean containsRelation(XRI3SubSegment arcXri) {
+	public boolean containsRelation(XRI3Segment arcXri) {
 
 		return this.getRelation(arcXri) != null;
 	}

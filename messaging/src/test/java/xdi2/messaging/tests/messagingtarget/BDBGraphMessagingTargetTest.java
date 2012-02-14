@@ -1,4 +1,4 @@
-package xdi2.tests.basic;
+package xdi2.messaging.tests.messagingtarget;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import xdi2.core.Graph;
 import xdi2.core.impl.keyvalue.bdb.BDBGraphFactory;
 
-public class BDBBasicTest extends BasicTest {
+public class BDBGraphMessagingTargetTest extends AbstractGraphMessagingTargetTest {
 
 	private static BDBGraphFactory graphFactory = new BDBGraphFactory();
 
@@ -31,7 +31,7 @@ public class BDBBasicTest extends BasicTest {
 	@Override
 	protected Graph openNewGraph(String id) throws IOException {
 
-		String databaseName = "xdi2-graph." + id + ".properties";
+		String databaseName = "xdi2-test-graph." + id;
 
 		graphFactory.setDatabaseName(databaseName);
 
@@ -39,20 +39,5 @@ public class BDBBasicTest extends BasicTest {
 		graph.beginTransaction();
 
 		return graph;
-	}
-
-	@Override
-	protected Graph reopenGraph(Graph graph, String id) throws IOException {
-
-		graph.close();
-
-		String databaseName = "xdi2-graph." + id + ".properties";
-
-		graphFactory.setDatabaseName(databaseName);
-
-		Graph newGraph = graphFactory.openGraph();
-		newGraph.beginTransaction();
-
-		return newGraph;
 	}
 }

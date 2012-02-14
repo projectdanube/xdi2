@@ -1,4 +1,4 @@
-package xdi2.tests.basic;
+package xdi2.tests.graph;
 
 import java.io.File;
 import java.io.FileReader;
@@ -24,14 +24,14 @@ import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
-public abstract class BasicTest extends TestCase {
+public abstract class AbstractGraphTest extends TestCase {
 
 	protected abstract Graph openNewGraph(String id) throws IOException;
 	protected abstract Graph reopenGraph(Graph graph, String id) throws IOException;
 
 	public void testMakeGraph() throws Exception {
 
-		Graph graph1 = this.openNewGraph("1");
+		Graph graph1 = this.openNewGraph(this.getClass().getName() + "-graph-1");
 
 		makeGraph(graph1);
 		testGraph(graph1);
@@ -39,16 +39,16 @@ public abstract class BasicTest extends TestCase {
 
 	public void testReopenGraph() throws Exception {
 
-		Graph graph2 = this.openNewGraph("2");
+		Graph graph2 = this.openNewGraph(this.getClass().getName() + "-graph-2");
 
 		makeGraph(graph2);
-		graph2 = this.reopenGraph(graph2, "2");
+		graph2 = this.reopenGraph(graph2, this.getClass().getName() + "-graph-2");
 		testGraph(graph2);
 	}
 
 	public void testReadJson() throws Exception {
 
-		Graph graph3 = this.openNewGraph("3");
+		Graph graph3 = this.openNewGraph(this.getClass().getName() + "-graph-3");
 
 		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
 
@@ -58,8 +58,8 @@ public abstract class BasicTest extends TestCase {
 
 	public void testWriteJson() throws Exception {
 
-		Graph graph4 = this.openNewGraph("4");
-		Graph graph5 = this.openNewGraph("5");
+		Graph graph4 = this.openNewGraph(this.getClass().getName() + "-graph-4");
+		Graph graph5 = this.openNewGraph(this.getClass().getName() + "-graph-5");
 
 		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
 		XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
@@ -74,8 +74,8 @@ public abstract class BasicTest extends TestCase {
 
 	public void testWriteStatements() throws Exception {
 
-		Graph graph6 = this.openNewGraph("6");
-		Graph graph7 = this.openNewGraph("7");
+		Graph graph6 = this.openNewGraph(this.getClass().getName() + "-graph-6");
+		Graph graph7 = this.openNewGraph(this.getClass().getName() + "-graph-7");
 
 		XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");
 		XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS");
@@ -90,7 +90,7 @@ public abstract class BasicTest extends TestCase {
 
 	public void testManipulate() throws Exception {
 
-		Graph graph8 = this.openNewGraph("8");
+		Graph graph8 = this.openNewGraph(this.getClass().getName() + "-graph-8");
 
 		makeGraph(graph8);
 		manipulateGraph(graph8);
@@ -99,23 +99,118 @@ public abstract class BasicTest extends TestCase {
 
 	public void testManipulateAndReopenGraph() throws Exception {
 
-		Graph graph9 = this.openNewGraph("9");
+		Graph graph9 = this.openNewGraph(this.getClass().getName() + "-graph-9");
 
 		makeGraph(graph9);
-		graph9 = this.reopenGraph(graph9, "9");
+		graph9 = this.reopenGraph(graph9, this.getClass().getName() + "-graph-9");
 		manipulateGraph(graph9);
-		graph9 = this.reopenGraph(graph9, "9");
+		graph9 = this.reopenGraph(graph9, this.getClass().getName() + "-graph-9");
 		testManipulatedGraph(graph9);
 	}
 
 	public void testCopy() throws Exception {
 
-		Graph graph10 = this.openNewGraph("10");
-		Graph graph11 = this.openNewGraph("11");
+		Graph graph10 = this.openNewGraph(this.getClass().getName() + "-graph-10");
+		Graph graph11 = this.openNewGraph(this.getClass().getName() + "-graph-11");
 
 		makeGraph(graph10);
 		CopyUtil.copyContextNode(graph10.getRootContextNode(), graph11, null);
 		testGraph(graph11);
+	}
+
+	public void testFindAndDelete() throws Exception {
+
+		Graph graph12 = this.openNewGraph(this.getClass().getName() + "-graph-12");
+
+		graph12.findContextNode(new XRI3Segment("=markus"), true).createLiteral("Markus");
+		graph12.findContextNode(new XRI3Segment("=markus"), true).createRelation(new XRI3Segment("+friend"), new XRI3Segment("=someone"));
+		graph12.findContextNode(new XRI3Segment("=markus+name+last"), true).createLiteral("Sabadello");
+		graph12.findContextNode(new XRI3Segment("=markus+name+relation"), true).createRelation(new XRI3Segment("+rel"), new XRI3Segment("=rel+test"));
+
+		assertNotNull(graph12.findContextNode(new XRI3Segment("=markus"), false));
+		assertNotNull(graph12.findLiteral(new XRI3Segment("=markus")));
+		assertNotNull(graph12.findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")));
+		assertNotNull(graph12.findContextNode(new XRI3Segment("=markus+name"), false));
+		assertNotNull(graph12.findContextNode(new XRI3Segment("=markus+name+last"), false));
+		assertNotNull(graph12.findLiteral(new XRI3Segment("=markus+name+last")));
+		assertNotNull(graph12.findRelation(new XRI3Segment("=markus+name+relation"), new XRI3Segment("+rel")));
+
+		graph12.findContextNode(new XRI3Segment("=markus"), false).delete();
+
+		assertNull(graph12.findContextNode(new XRI3Segment("=markus"), false));
+		assertNull(graph12.findLiteral(new XRI3Segment("=markus")));
+		assertNull(graph12.findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")));
+		assertNull(graph12.findContextNode(new XRI3Segment("=markus+name"), false));
+		assertNull(graph12.findContextNode(new XRI3Segment("=markus+name+last"), false));
+		assertNull(graph12.findLiteral(new XRI3Segment("=markus+name+last")));
+		assertNull(graph12.findRelation(new XRI3Segment("=markus+name+relation"), new XRI3Segment("+rel")));
+
+		graph12.findContextNode(new XRI3Segment("=markus"), true);
+
+		assertNotNull(graph12.findContextNode(new XRI3Segment("=markus"), false));
+		assertNull(graph12.findLiteral(new XRI3Segment("=markus")));
+		assertNull(graph12.findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")));
+		assertNull(graph12.findContextNode(new XRI3Segment("=markus+name"), false));
+		assertNull(graph12.findContextNode(new XRI3Segment("=markus+name+last"), false));
+		assertNull(graph12.findLiteral(new XRI3Segment("=markus+name+last")));
+		assertNull(graph12.findRelation(new XRI3Segment("=markus+name+relation"), new XRI3Segment("+rel")));
+	}
+
+	public void testRoot() throws Exception {
+
+		Graph graph13 = this.openNewGraph(this.getClass().getName() + "-graph-13");
+		ContextNode rootContextNode = graph13.getRootContextNode();
+
+		assertTrue(rootContextNode.isEmpty());
+		assertFalse(rootContextNode.containsContextNodes());
+		assertFalse(rootContextNode.containsRelations());
+		assertFalse(rootContextNode.containsLiteral());
+		assertFalse(rootContextNode.getContextNodes().hasNext());
+		assertFalse(rootContextNode.getRelations().hasNext());
+		assertNull(rootContextNode.getLiteral());
+		assertEquals(rootContextNode.getContextNodeCount(), 0);
+		assertEquals(rootContextNode.getRelationCount(), 0);
+
+		rootContextNode.createRelation(new XRI3Segment("*arc"), new XRI3Segment("=target"));
+		rootContextNode.createLiteral("test");
+
+		assertFalse(rootContextNode.isEmpty());
+		assertFalse(rootContextNode.containsContextNodes());
+		assertTrue(rootContextNode.containsRelations());
+		assertTrue(rootContextNode.containsLiteral());
+		assertFalse(rootContextNode.getContextNodes().hasNext());
+		assertTrue(rootContextNode.getRelations().hasNext());
+		assertNotNull(rootContextNode.getLiteral());
+		assertEquals(rootContextNode.getContextNodeCount(), 0);
+		assertEquals(rootContextNode.getRelationCount(), 1);
+		
+		rootContextNode.createContextNode(new XRI3SubSegment("+name"));
+		rootContextNode.createContextNode(new XRI3SubSegment("+email"));
+
+		assertFalse(rootContextNode.isEmpty());
+		assertTrue(rootContextNode.containsContextNodes());
+		assertTrue(rootContextNode.containsRelations());
+		assertTrue(rootContextNode.containsLiteral());
+		assertTrue(rootContextNode.getContextNodes().hasNext());
+		assertTrue(rootContextNode.getRelations().hasNext());
+		assertNotNull(rootContextNode.getLiteral());
+		assertEquals(rootContextNode.getContextNodeCount(), 2);
+		assertEquals(rootContextNode.getRelationCount(), 1);
+
+		rootContextNode.getContextNodes().next().delete();
+		rootContextNode.getContextNodes().next().delete();
+		rootContextNode.getRelations().next().delete();
+		rootContextNode.getLiteral().delete();
+
+		assertTrue(rootContextNode.isEmpty());
+		assertFalse(rootContextNode.containsContextNodes());
+		assertFalse(rootContextNode.containsRelations());
+		assertFalse(rootContextNode.containsLiteral());
+		assertFalse(rootContextNode.getContextNodes().hasNext());
+		assertFalse(rootContextNode.getRelations().hasNext());
+		assertNull(rootContextNode.getLiteral());
+		assertEquals(rootContextNode.getContextNodeCount(), 0);
+		assertEquals(rootContextNode.getRelationCount(), 0);
 	}
 
 	@SuppressWarnings("unused")

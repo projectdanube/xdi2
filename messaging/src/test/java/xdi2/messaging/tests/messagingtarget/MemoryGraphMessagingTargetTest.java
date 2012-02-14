@@ -1,11 +1,9 @@
-package xdi2.tests.basic;
-
-import java.io.IOException;
+package xdi2.messaging.tests.messagingtarget;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 
-public class MemoryBasicTest extends BasicTest {
+public class MemoryGraphMessagingTargetTest extends AbstractGraphMessagingTargetTest {
 
 	private MemoryGraphFactory graphFactory = new MemoryGraphFactory();
 
@@ -13,11 +11,5 @@ public class MemoryBasicTest extends BasicTest {
 	protected Graph openNewGraph(String id) {
 
 		return this.graphFactory.openGraph();
-	}
-
-	@Override
-	protected Graph reopenGraph(Graph graph, String id) throws IOException {
-
-		return graph;
 	}
 }
