@@ -110,7 +110,7 @@ class XDIJSONReader extends AbstractXDIReader {
 
 			graphString.append(line + "\n");
 		}
-
+		
 		this.read(graph, new JSONObject(graphString.toString()));
 	}
 

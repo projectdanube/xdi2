@@ -15,7 +15,6 @@
 	<!-- Set up a MessagingTarget exposing a native BDB-backed XDI graph -->
 
 	<bean id="graphfactory2" class="xdi2.core.impl.keyvalue.bdb.BDBGraphFactory">
-		<property name="databasePath" value="./xdi2-graph/" />
 	</bean>
 
 	<bean id="graph2" factory-bean="graphfactory2" factory-method="openGraph" />
@@ -24,11 +23,11 @@
 		<property name="graph" ref="graph2" />
 	</bean>
 
-	<!-- Set up a MessagingTarget exposing a serialized XDI graph file -->
+	<!-- Set up a MessagingTarget exposing an XDI graph file -->
 
-	<bean name="/serialized-graph" class="xdi2.messaging.target.impl.serialization.SerializationMessagingTarget">
-		<property name="filename" value="./graph.xdi" />
+	<bean name="/file-graph" class="xdi2.messaging.target.impl.file.FileMessagingTarget">
+		<property name="filename" value="./xdi2-file/graph.xdi" />
 		<property name="format" value="XDI/JSON" />
 	</bean>
-	
+
 </beans>

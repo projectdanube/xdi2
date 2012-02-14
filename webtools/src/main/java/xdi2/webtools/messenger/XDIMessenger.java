@@ -23,7 +23,6 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.webtools.converter.XDIConverter;
 
 /**
  * Servlet implementation class for Servlet: XDIMessenger
@@ -69,7 +68,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			}
 		}
 
-		sampleEndpoint = "http://localhost:8080/mem-graph/"; 
+		sampleEndpoint = "/xdi/mem-graph/"; 
 	}
 
 	@Override
@@ -80,7 +79,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
-		request.setAttribute("endpoint", sampleEndpoint);
+		request.setAttribute("endpoint", request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")) + sampleEndpoint);
 		request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
 	}
 

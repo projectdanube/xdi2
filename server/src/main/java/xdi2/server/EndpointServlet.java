@@ -290,8 +290,15 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		String requestUri = request.getRequestURI();
 		String contextPath = request.getContextPath(); 
-		String path = requestUri.substring(contextPath.length());
+		String servletPath = request.getServletPath();
+		String path = requestUri.substring(contextPath.length() + servletPath.length());
 		if (path.startsWith("/")) path = path.substring(1);
+
+		log.debug("requestUri: " + requestUri);
+		log.debug("contextPath: " + contextPath);
+		log.debug("servletPath: " + servletPath);
+		log.debug("path: " + path);
+		
 		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
 
 		if (messagingTargetPath == null) {
@@ -476,7 +483,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		// and send it
 
-		log.debug("Sending error result: " + errorCode.toString() + " (" + errorString + ")");
+		log.debug("Sending error result: " + errorCode + " (" + errorString + ")");
 
 		this.sendResult(errorMessageResult, request, response);
 	}

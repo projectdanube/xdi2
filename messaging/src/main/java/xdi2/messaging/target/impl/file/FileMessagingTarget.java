@@ -1,4 +1,4 @@
-package xdi2.messaging.target.impl.serialization;
+package xdi2.messaging.target.impl.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,14 +23,14 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * 
  * @author markus
  */
-public class SerializationMessagingTarget extends GraphMessagingTarget {
+public class FileMessagingTarget extends GraphMessagingTarget {
 
 	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
 	private String filename;
 	private String format;
 
-	public SerializationMessagingTarget() {
+	public FileMessagingTarget() {
 
 		super();
 
@@ -104,6 +104,7 @@ public class SerializationMessagingTarget extends GraphMessagingTarget {
 		try {
 
 			File file = new File(this.filename);
+			file.createNewFile();
 			writer = new FileWriter(file);
 			xdiWriter.write(graph, writer, null);
 			writer.close();

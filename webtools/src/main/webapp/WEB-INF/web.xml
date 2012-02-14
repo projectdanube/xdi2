@@ -6,6 +6,8 @@
 
 	<display-name>xdi2-webtools</display-name>
 
+	<!-- XDI WEBTOOLS -->
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -80,5 +82,25 @@
 		<servlet-name>XDIGrapherImage</servlet-name>
 		<url-pattern>/XDIGrapherImage</url-pattern>
 	</servlet-mapping>
+
+	<!-- XDI SERVER -->
+
+	<servlet>
+		<servlet-name>EndpointServlet</servlet-name>
+		<servlet-class>xdi2.server.EndpointServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EndpointServlet</servlet-name>
+		<url-pattern>/xdi/*</url-pattern>
+		<url-pattern>/xdi/</url-pattern>
+	</servlet-mapping>
+
+	<!-- SPRING -->
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
 </web-app>

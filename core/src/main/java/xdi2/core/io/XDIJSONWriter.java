@@ -23,6 +23,11 @@ class XDIJSONWriter extends AbstractXDIWriter {
 
 	private boolean first;
 
+	private static String escape(String string) {
+		
+		return string.replace("\\", "\\\\");
+	}
+	
 	private synchronized void startItem(BufferedWriter bufferedWriter) throws IOException {
 
 		if (this.first) {
@@ -57,6 +62,8 @@ class XDIJSONWriter extends AbstractXDIWriter {
 
 		String xri = contextNode.getXri().toString();
 
+		// write context nodes
+		
 		if (contextNode.containsContextNodes()) {
 
 			this.startItem(bufferedWriter);
@@ -76,6 +83,8 @@ class XDIJSONWriter extends AbstractXDIWriter {
 			}
 		}
 
+		// write relations
+		
 		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
 
 			Relation relation = relations.next();
@@ -85,12 +94,14 @@ class XDIJSONWriter extends AbstractXDIWriter {
 			this.finishItem(bufferedWriter);
 		}
 
+		// write literal
+		
 		Literal literal = contextNode.getLiteral();
 
 		if (literal != null) {
 
 			this.startItem(bufferedWriter);
-			bufferedWriter.write(indent + "\"" + xri + "/!\" : [ \"" + literal.getLiteralData() + "\" ]");
+			bufferedWriter.write(indent + "\"" + xri + "/!\" : [ \"" + escape(literal.getLiteralData()) + "\" ]");
 			this.finishItem(bufferedWriter);
 		}
 	}

@@ -6,7 +6,7 @@
 
 	<display-name>xdi2-server</display-name>
 
-	<!-- XDI ENDPOINT SERVLET -->
+	<!-- XDI SERVER -->
 
 	<servlet>
 		<servlet-name>EndpointServlet</servlet-name>
@@ -16,8 +16,8 @@
 
 	<servlet-mapping>
 		<servlet-name>EndpointServlet</servlet-name>
-		<url-pattern>/*</url-pattern>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/xdi/*</url-pattern>
+		<url-pattern>/xdi/</url-pattern>
 	</servlet-mapping>
 
 	<!-- SPRING -->

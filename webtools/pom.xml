@@ -27,12 +27,12 @@
 					<jettyEnvXml>
 						${basedir}/src/test/resources/jetty-env.xml
 					</jettyEnvXml>
-					<contextPath>/</contextPath>
+					<contextPath>/mycontext</contextPath>
 					<useTestClasspath>true</useTestClasspath>
 					<systemProperties>
 						<systemProperty>
 							<name>jetty.port</name>
-							<value>9090</value>
+							<value>8080</value>
 						</systemProperty>
 						<systemProperty>
 							<name>slf4j</name>
@@ -85,6 +85,13 @@
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-client</artifactId>
 			<version>0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-server</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<classifier>classes</classifier>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

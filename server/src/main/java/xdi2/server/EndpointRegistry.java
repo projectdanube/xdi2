@@ -155,8 +155,10 @@ public class EndpointRegistry {
 	}
 
 	public synchronized String findMessagingTargetPath(String path) {
-
+		
 		if (path.startsWith("/")) path = path.substring(1);
+
+		log.info("Finding messaging target for path: " + path);
 
 		String longestMessagingTargetPath = null;
 
@@ -167,6 +169,8 @@ public class EndpointRegistry {
 				longestMessagingTargetPath = messagingTargetByPath.getKey();
 			}
 		}
+
+		log.info("Longest matching path of messaging target: " + longestMessagingTargetPath);
 
 		return longestMessagingTargetPath;
 	}
