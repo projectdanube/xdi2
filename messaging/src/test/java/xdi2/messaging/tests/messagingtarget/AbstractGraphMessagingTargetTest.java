@@ -49,6 +49,8 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				ii++;
 			}
 
+			assertTrue(ii > 1);
+			
 			// check positives
 
 			ii = 1;
@@ -72,6 +74,8 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
 				ii++;
 			}
+
+			assertTrue(ii > 1);
 
 			// check negatives
 
@@ -97,7 +101,11 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				ii++;
 			}
 
+			assertTrue(ii > 1);
+
 			i++;
 		}
+
+		assertTrue(i > 1);
 	}
 }
