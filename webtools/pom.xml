@@ -27,7 +27,7 @@
 					<jettyEnvXml>
 						${basedir}/src/test/resources/jetty-env.xml
 					</jettyEnvXml>
-					<contextPath>/mycontext</contextPath>
+					<contextPath>/</contextPath>
 					<useTestClasspath>true</useTestClasspath>
 					<systemProperties>
 						<systemProperty>

@@ -88,7 +88,7 @@ ul.tabbernav li a {
 	margin-left: 3px;
 	border: 1px solid #778;
 	border-bottom: none;
-	background: gray;
+	background-color: lightgray;
 	text-decoration: none;
 }
 

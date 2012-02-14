@@ -322,11 +322,18 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		String requestUri = request.getRequestURI();
 		String contextPath = request.getContextPath(); 
-		String path = requestUri.substring(contextPath.length());
+		String servletPath = request.getServletPath();
+		String path = requestUri.substring(contextPath.length() + servletPath.length());
 		if (path.startsWith("/")) path = path.substring(1);
-
+		
 		String addr = path.substring(messagingTargetPath.length());
 		while (addr.length() > 0 && addr.charAt(0) == '/') addr = addr.substring(1);
+
+		log.debug("requestUri: " + requestUri);
+		log.debug("contextPath: " + contextPath);
+		log.debug("servletPath: " + servletPath);
+		log.debug("path: " + path);
+		log.debug("addr: " + addr);
 
 		XRI3Segment contextNodeXri;
 

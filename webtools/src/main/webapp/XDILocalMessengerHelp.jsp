@@ -25,7 +25,6 @@
 
 	<ul>
 	<li>Messages can be entered in any format.</li>
-	<li>Message results are displayed in X3 Simple (use the XDI Converter to convert to different formats).</li>
 	<li>$add, $mod and $del operation will modify the XDI document in the left input text area.</li>
 	<li>$get operations will not modify the XDI document in the left input text area, but will yield a direct result.</li>
 	<li>If you get the error "Unknown serialization format", use the XDI Validator to debug your input document and message.</li>
@@ -37,7 +36,7 @@
 
 	<h2>Versioning</h2>
 
-	<p>Current not supported.</p>
+	<p>Currently not supported.</p>
 
 	</div>
 

@@ -1,1 +1,12 @@
-{}
+{
+"()/()": [
+   "=markus"
+],
+"=markus/()": [
+   "+name",
+   "+email"
+],
+"=markus+name/!" : [ "MarkusSabadello" ],
+"=markus+email/!" : [ "markus.sabadello@gmail.com" ],
+"=markus/+friend" : [ "=drummond" ]
+}
