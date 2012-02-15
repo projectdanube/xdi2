@@ -110,7 +110,7 @@ public final class CopyUtil {
 		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
 
 			ContextNode innerContextNode = innerContextNodes.next();
-			innerContextNode = copyStrategy.replaceContextNode(innerContextNode);
+			if ((innerContextNode = copyStrategy.replaceContextNode(innerContextNode)) == null) continue;
 
 			ContextNode targetInnerContextNode = targetContextNode.getContextNode(innerContextNode.getArcXri());
 			if (targetInnerContextNode == null) targetInnerContextNode = targetContextNode.createContextNode(innerContextNode.getArcXri());

@@ -5,11 +5,11 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
-import xdi2.core.util.XDIConstants;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.messaging.util.XDIMessagingConstants;
 
 /**
  * An XDI message, represented as a context node.
@@ -42,7 +42,7 @@ public class Message implements Serializable, Comparable<Message> {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return contextNode.containsContextNode(XDIConstants.XRI_SS_DO);
+		return contextNode.containsContextNode(XDIMessagingConstants.XRI_SS_DO);
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class Message implements Serializable, Comparable<Message> {
 	 */
 	public ContextNode getOperationsContextNode() {
 
-		return this.getContextNode().getContextNode(XDIConstants.XRI_SS_DO);
+		return this.getContextNode().getContextNode(XDIMessagingConstants.XRI_SS_DO);
 	}
 
 	/**
@@ -114,10 +114,10 @@ public class Message implements Serializable, Comparable<Message> {
 	 */
 	public Operation createOperation(XRI3Segment operationXri, ContextNode contextNode) {
 
-		if (XDIConstants.XRI_SS_GET.equals(operationXri)) return this.createGetOperation(contextNode);
-		if (XDIConstants.XRI_SS_ADD.equals(operationXri)) return this.createAddOperation(contextNode);
-		if (XDIConstants.XRI_SS_MOD.equals(operationXri)) return this.createModOperation(contextNode);
-		if (XDIConstants.XRI_SS_DEL.equals(operationXri)) return this.createDelOperation(contextNode);
+		if (XDIMessagingConstants.XRI_SS_GET.equals(operationXri)) return this.createGetOperation(contextNode);
+		if (XDIMessagingConstants.XRI_SS_ADD.equals(operationXri)) return this.createAddOperation(contextNode);
+		if (XDIMessagingConstants.XRI_SS_MOD.equals(operationXri)) return this.createModOperation(contextNode);
+		if (XDIMessagingConstants.XRI_SS_DEL.equals(operationXri)) return this.createDelOperation(contextNode);
 
 		return null;
 	}
@@ -129,7 +129,7 @@ public class Message implements Serializable, Comparable<Message> {
 	 */
 	public GetOperation createGetOperation(ContextNode contextNode) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIConstants.XRI_S_GET, contextNode);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, contextNode);
 
 		return GetOperation.fromRelation(relation);
 	}
@@ -141,7 +141,7 @@ public class Message implements Serializable, Comparable<Message> {
 	 */
 	public AddOperation createAddOperation(ContextNode contextNode) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIConstants.XRI_S_ADD, contextNode);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, contextNode);
 
 		return AddOperation.fromRelation(relation);
 	}
@@ -153,7 +153,7 @@ public class Message implements Serializable, Comparable<Message> {
 	 */
 	public ModOperation createModOperation(ContextNode contextNode) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIConstants.XRI_S_MOD, contextNode);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, contextNode);
 
 		return ModOperation.fromRelation(relation);
 	}
@@ -165,7 +165,7 @@ public class Message implements Serializable, Comparable<Message> {
 	 */
 	public DelOperation createDelOperation(ContextNode contextNode) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIConstants.XRI_S_DEL, contextNode);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, contextNode);
 
 		return DelOperation.fromRelation(relation);
 	}
@@ -191,7 +191,7 @@ public class Message implements Serializable, Comparable<Message> {
 
 		// look for a valid $get relation
 
-		Relation relation = this.getOperationsContextNode().getRelation(XDIConstants.XRI_S_GET);
+		Relation relation = this.getOperationsContextNode().getRelation(XDIMessagingConstants.XRI_S_GET);
 		if (relation == null) return null; 
 
 		return GetOperation.fromRelation(relation);
@@ -205,7 +205,7 @@ public class Message implements Serializable, Comparable<Message> {
 
 		// look for a valid $add relation
 
-		Relation relation = this.getOperationsContextNode().getRelation(XDIConstants.XRI_S_ADD);
+		Relation relation = this.getOperationsContextNode().getRelation(XDIMessagingConstants.XRI_S_ADD);
 		if (relation == null) return null; 
 
 		return AddOperation.fromRelation(relation);
@@ -219,7 +219,7 @@ public class Message implements Serializable, Comparable<Message> {
 
 		// look for a valid $mod relation
 
-		Relation relation = this.getOperationsContextNode().getRelation(XDIConstants.XRI_S_MOD);
+		Relation relation = this.getOperationsContextNode().getRelation(XDIMessagingConstants.XRI_S_MOD);
 		if (relation == null) return null; 
 
 		return ModOperation.fromRelation(relation);
@@ -233,7 +233,7 @@ public class Message implements Serializable, Comparable<Message> {
 
 		// look for a valid $del relation
 
-		Relation relation = this.getOperationsContextNode().getRelation(XDIConstants.XRI_S_DEL);
+		Relation relation = this.getOperationsContextNode().getRelation(XDIMessagingConstants.XRI_S_DEL);
 		if (relation == null) return null; 
 
 		return DelOperation.fromRelation(relation);

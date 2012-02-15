@@ -58,8 +58,8 @@ public class BasicTest extends TestCase {
 
 	public void testMessaging2() throws Exception {
 		
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromXriAndOperationXri(TARGET, XDIMessagingConstants.XRI_GET);
-		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_ANONYMOUS, false);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromXriAndOperationXri(TARGET, XDIMessagingConstants.XRI_S_GET);
+		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
 		Message message = messageContainer.getMessages().next();
 		Operation getOperation = message.getGetOperation();
 
@@ -68,9 +68,9 @@ public class BasicTest extends TestCase {
 		assertEquals(messageContainer.getMessageCount(), 1);
 		assertEquals(messageContainer.getOperationCount(), 1);
 		assertEquals(message.getOperationCount(), 1);
-		assertEquals(messageContainer.getSender(), XDIMessagingConstants.XRI_ANONYMOUS);
-		assertEquals(message.getSender(), XDIMessagingConstants.XRI_ANONYMOUS);
-		assertEquals(getOperation.getSender(), XDIMessagingConstants.XRI_ANONYMOUS);
+		assertEquals(messageContainer.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
+		assertEquals(message.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
+		assertEquals(getOperation.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
 		assertEquals(getOperation.getOperationTarget(), TARGET);
 	}
 }

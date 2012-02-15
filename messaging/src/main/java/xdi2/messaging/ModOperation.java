@@ -1,7 +1,7 @@
 package xdi2.messaging;
 
 import xdi2.core.Relation;
-import xdi2.core.util.XDIConstants;
+import xdi2.messaging.util.XDIMessagingConstants;
 
 /**
  * A $mod XDI operation, represented as a relation.
@@ -28,8 +28,8 @@ public class ModOperation extends Operation {
 	 */
 	public static boolean isValid(Relation relation) {
 
-		if (! XDIConstants.XRI_SS_MOD.equals(relation.getArcXri())) return false;
-		if (! XDIConstants.XRI_SS_DO.equals(relation.getContextNode().getArcXri())) return false;
+		if (! XDIMessagingConstants.XRI_SS_MOD.equals(relation.getArcXri())) return false;
+		if (! XDIMessagingConstants.XRI_SS_DO.equals(relation.getContextNode().getArcXri())) return false;
 
 		return true;
 	}

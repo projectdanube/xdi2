@@ -190,7 +190,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, XDIMessagingConstants.XRI_GET, request, response);
+		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, XDIMessagingConstants.XRI_S_GET, request, response);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -217,7 +217,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, XDIMessagingConstants.XRI_ADD, request, response);
+		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, XDIMessagingConstants.XRI_S_ADD, request, response);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -244,7 +244,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, XDIMessagingConstants.XRI_DEL, request, response);
+		MessageEnvelope messageEnvelope = this.readFromUrl(messagingTargetPath, XDIMessagingConstants.XRI_S_DEL, request, response);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -357,7 +357,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		log.debug("Requested XDI context node: " + contextNodeXri + ".");
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromXriAndOperationXri(contextNodeXri, XDIMessagingConstants.XRI_GET);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromXriAndOperationXri(contextNodeXri, XDIMessagingConstants.XRI_S_GET);
 
 		return messageEnvelope;
 	}

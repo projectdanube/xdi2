@@ -8,16 +8,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2MessagingException;
-import xdi2.core.util.XDIConstants;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.util.CopyUtil;
+import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.interceptor.ResourceInterceptor;
+import xdi2.messaging.util.XDIMessagingConstants;
 
 /**
  * The ResourceMessagingTarget allows subclasses to return ResourceHandler
@@ -66,9 +70,22 @@ public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 		ContextNode operationContextNode = operationRelation.follow();
 		if (operationContextNode == null) throw new Xdi2MessagingException("Invalid relation " + operationRelation.getArcXri() + " to " + operationRelation.getRelationXri());
 
+		// create a copy of the operation context node without $msg subsegments
+
+		Graph copyGraph = MemoryGraphFactory.getInstance().openGraph();
+		ContextNode copyContextNode = CopyUtil.copyContextNode(operationContextNode, copyGraph, new CopyStrategy () {
+
+			public ContextNode replaceContextNode(ContextNode contextNode) {
+
+				if (XDIMessagingConstants.XRI_SS_MSG.equals(contextNode.getArcXri())) return null;
+
+				return contextNode;
+			}
+		});
+
 		// execute the operation
 
-		return this.executeResourceHandlers(operationContextNode, operation, messageResult, executionContext);
+		return this.executeResourceHandlers(copyContextNode, operation, messageResult, executionContext);
 	}
 
 	private boolean executeResourceHandlers(ContextNode operationContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -103,7 +120,7 @@ public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 
 			ContextNode contextNode = contextNodes.next();
 
-			if (XDIConstants.XRI_SS_MSG.equals(contextNode.getArcXri())) continue;
+			if (XDIMessagingConstants.XRI_SS_MSG.equals(contextNode.getArcXri())) continue;
 			if (this.executeResourceHandlers(contextNode, operation, messageResult, executionContext)) handled = true;
 		}
 

@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.util.XDIConstants;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.messaging.util.XDIMessagingConstants;
 
 /**
  * An XDI message container, represented as a context node.
@@ -42,7 +42,7 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return XDIConstants.XRI_SS_MSG.equals(contextNode.getArcXri());
+		return XDIMessagingConstants.XRI_SS_MSG.equals(contextNode.getArcXri());
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 	public Message createMessage() {
 
 		ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXSubSegment('!'));
-		contextNode.createContextNode(XDIConstants.XRI_SS_DO);
+		contextNode.createContextNode(XDIMessagingConstants.XRI_SS_DO);
 
 		return new Message(this, contextNode);
 	}

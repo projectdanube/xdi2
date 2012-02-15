@@ -67,7 +67,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (contextNodeXri == null) contextNodeXri = XDIConstants.XRI_S_CONTEXT;
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
-		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_ANONYMOUS, true);
+		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
 		Message message = messageContainer.createMessage();
 		ContextNode contextNode = messageEnvelope.getGraph().findContextNode(contextNodeXri, true);
 		message.createGetOperation(contextNode);
@@ -130,7 +130,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public MessageContainer getMessageContainer(XRI3Segment senderXri, boolean create) {
 
-		XRI3Segment messageXri = new XRI3Segment(senderXri.toString() + XDIConstants.XRI_SS_MSG.toString());
+		XRI3Segment messageXri = new XRI3Segment(senderXri.toString() + XDIMessagingConstants.XRI_SS_MSG.toString());
 		ContextNode contextNode = this.getGraph().findContextNode(messageXri, true);
 
 		return new MessageContainer(this, contextNode);
@@ -159,7 +159,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public Iterator<Message> getMessages(XRI3Segment senderXri) {
 
-		XRI3Segment messageContextXri = new XRI3Segment(senderXri.toString() + XDIConstants.XRI_SS_MSG.toString());
+		XRI3Segment messageContextXri = new XRI3Segment(senderXri.toString() + XDIMessagingConstants.XRI_SS_MSG.toString());
 		ContextNode contextNode = this.getGraph().findContextNode(messageContextXri, true);
 
 		Iterator<ContextNode> messageInstanceContextNodes = contextNode.getContextNodes();
