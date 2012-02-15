@@ -163,9 +163,24 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Finds and returns a relation with a given arc XRI. 
 	 * @param arcXri The arc XRI to look for. 
+	 * @param relationXri The relation XRI of the relation.
+	 * @return The relation with the given arc XRI, or null.
+	 */
+	public Relation getRelation(XRI3Segment arcXri, XRI3Segment relationXri);
+
+	/**
+	 * Finds and returns a relation with a given arc XRI. 
+	 * @param arcXri The arc XRI to look for. 
 	 * @return The relation with the given arc XRI, or null.
 	 */
 	public Relation getRelation(XRI3Segment arcXri);
+
+	/**
+	 * Finds and returns the relations with a given arc XRI. 
+	 * @param arcXri The arc XRI to look for. 
+	 * @return The relations with the given arc XRI, or null.
+	 */
+	public Iterator<Relation> getRelations(XRI3Segment arcXri);
 
 	/**
 	 * Returns the relations of this context node.
@@ -182,9 +197,17 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Checks if a relation with a given arc XRI exists in this context node.
 	 * @param arcXri The arc XRI to look for. 
+	 * @param relationXri The relation XRI of the relation.
 	 * @return True if this context nod has a relation with the given arc XRI.
 	 */
-	public boolean containsRelation(XRI3Segment arcXri);
+	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment relationXri);
+
+	/**
+	 * Checks if relations with a given arc XRI exists in this context node.
+	 * @param arcXri The arc XRI to look for. 
+	 * @return True if this context nod has a relation with the given arc XRI.
+	 */
+	public boolean containsRelations(XRI3Segment arcXri);
 
 	/**
 	 * Checks if this context node has one or more relations.
@@ -195,13 +218,27 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Deletes the relation with a given arc XRI from this context node.
 	 * @param arcXri The arc XRI of the relation.
+	 * @param relationXri The relation XRI of the relation.
 	 */
-	public void deleteRelation(XRI3Segment arcXri);
+	public void deleteRelation(XRI3Segment arcXri, XRI3Segment relationXri);
+
+	/**
+	 * Deletes the relation with a given arc XRI from this context node.
+	 * @param arcXri The arc XRI of the relation.
+	 */
+	public void deleteRelations(XRI3Segment arcXri);
 
 	/**
 	 * Deletes all relations from this context node.
 	 */
 	public void deleteRelations();
+
+	/**
+	 * Returns the number of relations of this context node.
+	 * @param arcXri The arc XRI to look for. 
+	 * @return The number of relations.
+	 */
+	public int getRelationCount(XRI3Segment arcXri);
 
 	/**
 	 * Returns the number of relations of this context node.

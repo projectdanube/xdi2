@@ -1,4 +1,4 @@
-package xdi2.tests.util;
+package xdi2.tests.core.util;
 
 import junit.framework.TestCase;
 import xdi2.core.util.XDIUtil;

@@ -30,9 +30,4 @@ public class MemoryRelation extends AbstractRelation implements Relation {
 
 		return this.relationXri;
 	}
-
-	public void setRelationXri(XRI3Segment relationXri) {
-
-		this.relationXri = relationXri;
-	}
 }

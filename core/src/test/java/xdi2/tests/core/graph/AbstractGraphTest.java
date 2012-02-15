@@ -1,4 +1,4 @@
-package xdi2.tests.graph;
+package xdi2.tests.core.graph;
 
 import java.io.File;
 import java.io.FileReader;
@@ -215,6 +215,82 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(rootContextNode.getRelationCount(), 0);
 	}
 
+	public void testRelations() throws Exception {
+
+		Graph graph13 = this.openNewGraph(this.getClass().getName() + "-graph-13");
+		ContextNode root = graph13.getRootContextNode();
+		ContextNode markus = graph13.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
+		ContextNode target1 = graph13.getRootContextNode().createContextNode(new XRI3SubSegment("=test")).createContextNode(new XRI3SubSegment("*target1"));
+		ContextNode target2 = graph13.getRootContextNode().getContextNode(new XRI3SubSegment("=test")).createContextNode(new XRI3SubSegment("*target2"));
+		ContextNode target3 = graph13.getRootContextNode().getContextNode(new XRI3SubSegment("=test")).createContextNode(new XRI3SubSegment("*target3"));
+
+		markus.createRelation(new XRI3Segment("+friend"), target1);
+		markus.createRelation(new XRI3Segment("+friend"), target2);
+		markus.createRelation(new XRI3Segment("+brother"), target3);
+		root.createRelation(new XRI3Segment("+rel"), markus);
+
+		assertTrue(root.containsRelations());
+		assertTrue(root.containsRelations(new XRI3Segment("+rel")));
+		assertTrue(root.containsRelation(new XRI3Segment("+rel"), new XRI3Segment("=markus")));
+		assertEquals(root.getRelationCount(), 1);
+		assertEquals(root.getRelationCount(new XRI3Segment("+rel")), 1);
+		assertNotNull(root.getRelation(new XRI3Segment("+rel"), new XRI3Segment("=markus")));
+		assertNotNull(root.getRelation(new XRI3Segment("+rel")));
+		assertEquals(new IteratorCounter(root.getRelations(new XRI3Segment("+rel"))).count(), 1);
+		assertEquals(new IteratorCounter(root.getRelations()).count(), 1);
+
+		assertTrue(markus.containsRelations());
+		assertTrue(markus.containsRelations(new XRI3Segment("+friend")));
+		assertTrue(markus.containsRelations(new XRI3Segment("+brother")));
+		assertTrue(markus.containsRelation(new XRI3Segment("+friend"), new XRI3Segment("=test*target1")));
+		assertTrue(markus.containsRelation(new XRI3Segment("+friend"), new XRI3Segment("=test*target2")));
+		assertTrue(markus.containsRelation(new XRI3Segment("+brother"), new XRI3Segment("=test*target3")));
+		assertEquals(markus.getRelationCount(), 3);
+		assertEquals(markus.getRelationCount(new XRI3Segment("+friend")), 2);
+		assertEquals(markus.getRelationCount(new XRI3Segment("+brother")), 1);
+		assertNotNull(markus.getRelation(new XRI3Segment("+friend"), new XRI3Segment("=test*target1")));
+		assertNotNull(markus.getRelation(new XRI3Segment("+friend"), new XRI3Segment("=test*target2")));
+		assertNotNull(markus.getRelation(new XRI3Segment("+brother"), new XRI3Segment("=test*target3")));
+		assertNotNull(markus.getRelation(new XRI3Segment("+friend")));
+		assertNotNull(markus.getRelation(new XRI3Segment("+brother")));
+		assertEquals(new IteratorCounter(markus.getRelations(new XRI3Segment("+friend"))).count(), 2);
+		assertEquals(new IteratorCounter(markus.getRelations(new XRI3Segment("+brother"))).count(), 1);
+		assertEquals(new IteratorCounter(markus.getRelations()).count(), 3);
+
+		root.deleteRelations();
+		markus.deleteRelations(new XRI3Segment("+friend"));
+		markus.deleteRelation(new XRI3Segment("+brother"), new XRI3Segment("=test*target3"));
+
+		assertFalse(root.containsRelations());
+		assertFalse(root.containsRelations(new XRI3Segment("+rel")));
+		assertFalse(root.containsRelation(new XRI3Segment("+rel"), new XRI3Segment("=markus")));
+		assertEquals(root.getRelationCount(), 0);
+		assertEquals(root.getRelationCount(new XRI3Segment("+rel")), 0);
+		assertNull(root.getRelation(new XRI3Segment("+rel"), new XRI3Segment("=markus")));
+		assertNull(root.getRelation(new XRI3Segment("+rel")));
+		assertFalse(root.getRelations(new XRI3Segment("+rel")).hasNext());
+		assertEquals(new IteratorCounter(root.getRelations(new XRI3Segment("+rel"))).count(), 0);
+		assertEquals(new IteratorCounter(root.getRelations()).count(), 0);
+
+		assertFalse(markus.containsRelations());
+		assertFalse(markus.containsRelations(new XRI3Segment("+friend")));
+		assertFalse(markus.containsRelations(new XRI3Segment("+brother")));
+		assertFalse(markus.containsRelation(new XRI3Segment("+friend"), new XRI3Segment("=test*target1")));
+		assertFalse(markus.containsRelation(new XRI3Segment("+friend"), new XRI3Segment("=test*target2")));
+		assertFalse(markus.containsRelation(new XRI3Segment("+brother"), new XRI3Segment("=test*target3")));
+		assertEquals(markus.getRelationCount(), 0);
+		assertEquals(markus.getRelationCount(new XRI3Segment("+friend")), 0);
+		assertEquals(markus.getRelationCount(new XRI3Segment("+brother")), 0);
+		assertNull(markus.getRelation(new XRI3Segment("+friend"), new XRI3Segment("=test*target1")));
+		assertNull(markus.getRelation(new XRI3Segment("+friend"), new XRI3Segment("=test*target2")));
+		assertNull(markus.getRelation(new XRI3Segment("+brother"), new XRI3Segment("=test*target3")));
+		assertNull(markus.getRelation(new XRI3Segment("+friend")));
+		assertNull(markus.getRelation(new XRI3Segment("+brother")));
+		assertEquals(new IteratorCounter(markus.getRelations(new XRI3Segment("+friend"))).count(), 0);
+		assertEquals(new IteratorCounter(markus.getRelations(new XRI3Segment("+brother"))).count(), 0);
+		assertEquals(new IteratorCounter(markus.getRelations()).count(), 0);
+	}
+
 	@SuppressWarnings("unused")
 	private static void makeGraph(Graph graph) throws Exception {
 
@@ -277,7 +353,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("()")));
 		assertTrue(abcPassportVContextNode.containsContextNode(new XRI3SubSegment("!1")));
 		assertTrue(abcPassportVContextNode.containsContextNode(new XRI3SubSegment("!2")));
-		assertTrue(abcPassportV2ContextNode.containsRelation(new XRI3Segment("$")));
+		assertTrue(abcPassportV2ContextNode.containsRelation(new XRI3Segment("$"), new XRI3Segment("=abc+passport")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(new XRI3SubSegment("+number")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(new XRI3SubSegment("+country")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(new XRI3SubSegment("$d")));
@@ -296,9 +372,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(abcPassportC2ContextNode.containsContextNode(new XRI3SubSegment("$d")));
 		assertTrue(abcPassportC1ContextNode.containsLiteralInContextNode(new XRI3SubSegment("$d")));
 		assertTrue(abcPassportC2ContextNode.containsLiteralInContextNode(new XRI3SubSegment("$d")));
-		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("$v")));
-		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("*1")));
-		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("*2")));
+		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("$v"), new XRI3Segment("=abc+passport$v!2")));
+		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("*1"), new XRI3Segment("=abc+passport!1")));
+		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("*2"), new XRI3Segment("=abc+passport!2")));
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
 				graph.findContextNode(new XRI3Segment("()"), false),
@@ -510,7 +586,6 @@ public abstract class AbstractGraphTest extends TestCase {
 		abcPassport2ContextNode.delete();
 		abcPassportC1LiteralD.setLiteralData("2010-03-03T03:03:03Z");
 		abcPassportC2LiteralD.getContextNode().delete();
-		abcPassportRelation1.setRelationXri(new XRI3Segment("=abc+passport!3"));
 		abcPassportRelation2.delete();
 	}
 
@@ -548,7 +623,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("()")));
 		assertTrue(abcPassportVContextNode.containsContextNode(new XRI3SubSegment("!1")));
 		assertTrue(abcPassportVContextNode.containsContextNode(new XRI3SubSegment("!2")));
-		assertTrue(abcPassportV2ContextNode.containsRelation(new XRI3Segment("$")));
+		assertTrue(abcPassportV2ContextNode.containsRelation(new XRI3Segment("$"), new XRI3Segment("=abc+passport")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(new XRI3SubSegment("+number")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(new XRI3SubSegment("+country")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(new XRI3SubSegment("$d")));
@@ -567,9 +642,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertFalse(abcPassportC2ContextNode.containsContextNode(new XRI3SubSegment("$d")));	// MANIPULATED
 		assertTrue(abcPassportC1ContextNode.containsLiteralInContextNode(new XRI3SubSegment("$d")));
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
-		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("$v")));
-		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("*1")));
-		assertFalse(abcPassportContextNode.containsRelation(new XRI3Segment("*2")));		// MANIPULATED
+		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("$v"), new XRI3Segment("=abc+passport$v!2")));
+		assertTrue(abcPassportContextNode.containsRelation(new XRI3Segment("*1"), new XRI3Segment("=abc+passport!1")));
+		assertFalse(abcPassportContextNode.containsRelation(new XRI3Segment("*2"), new XRI3Segment("=abc+passport!2")));		// MANIPULATED
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
 				graph.findContextNode(new XRI3Segment("()"), false),
@@ -737,7 +812,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new XRI3SubSegment("$v"), abcPassportRelationV.getArcXri());
 		assertEquals(new XRI3Segment("=abc+passport$v!2"), abcPassportRelationV.getRelationXri());
 		assertEquals(new XRI3SubSegment("*1"), abcPassportRelation1.getArcXri());
-		assertEquals(new XRI3Segment("=abc+passport!3"), abcPassportRelation1.getRelationXri());	// MANIPULATED
+		assertEquals(new XRI3Segment("=abc+passport!1"), abcPassportRelation1.getRelationXri());	// MANIPULATED
 		assertNull(abcPassportRelation2);	// MANIPULATED
 		assertNull(abcPassportRelation2);	// MANIPULATED
 

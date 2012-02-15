@@ -1,8 +1,6 @@
 package xdi2.core.impl.keyvalue.map;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,25 +18,9 @@ public final class MapGraphFactory extends AbstractKeyValueGraphFactory implemen
 	public static final boolean DEFAULT_SUPPORT_GET_CONTEXTNODES = true; 
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 
 
-	public static final MapFactory DEFAULT_MAP_FACTORY = new MapFactory() {
-
-		@Override
-		public Map<String, Set<String>> newMap() {
-			
-			return new HashMap<String, Set<String>> ();
-		}
-		
-	};
-	public static final SetFactory DEFAULT_SET_FACTORY = new SetFactory() {
-
-		@Override
-		public Set<String> newSet(String key) {
-
-			return new HashSet<String> ();
-		}
-		
-	};
-
+	private static final MapFactory DEFAULT_MAP_FACTORY = new DefaultMapFactory();
+	private static final SetFactory DEFAULT_SET_FACTORY = new DefaultSetFactory();
+	
 	private MapFactory mapFactory;
 	private SetFactory setFactory;
 
@@ -57,7 +39,7 @@ public final class MapGraphFactory extends AbstractKeyValueGraphFactory implemen
 		Map<String, Set<String>> map = this.mapFactory.newMap();
 
 		KeyValueStore keyValueStore = new MapKeyValueStore(map, this.setFactory);
-		
+
 		// done
 
 		return keyValueStore;
@@ -81,15 +63,5 @@ public final class MapGraphFactory extends AbstractKeyValueGraphFactory implemen
 	public void setSetFactory(SetFactory setFactory) {
 
 		this.setFactory = setFactory;
-	}
-
-	public interface MapFactory {
-
-		public Map<String, Set<String> > newMap();
-	}
-
-	public interface SetFactory {
-
-		public Set<String> newSet(String key);
 	}
 }

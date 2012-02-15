@@ -34,21 +34,7 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 
 	public XRI3Segment getRelationXri() {
 
-		if (this.relationXri == null) {
-
-			this.relationXri = new XRI3Segment(this.keyValueStore.getOne(this.key));
-		}
-
 		return this.relationXri;
-	}
-
-	public void setRelationXri(XRI3Segment relationXri) {
-
-		if (relationXri == null) throw new NullPointerException();
-
-		this.keyValueStore.replace(this.key, relationXri.toString());
-
-		this.relationXri = relationXri;
 	}
 
 	/*

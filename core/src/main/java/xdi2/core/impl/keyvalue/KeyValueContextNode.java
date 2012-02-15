@@ -8,6 +8,8 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.impl.AbstractContextNode;
+import xdi2.core.util.iterators.DescendingIterator;
+import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
@@ -111,7 +113,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		String contextNodesKey = this.getContextNodesKey();
 
-		return this.keyValueStore.count(contextNodesKey) > 0;
+		return this.keyValueStore.contains(contextNodesKey);
 	}
 
 	public synchronized void deleteContextNode(XRI3SubSegment arcXri) {
@@ -145,7 +147,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		if (arcXri == null) throw new NullPointerException();
 		if (relationXri == null) throw new NullPointerException();
 
-		if (this.containsRelation(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + ".");
+		if (this.containsRelation(arcXri, relationXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
@@ -158,39 +160,85 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		return relation;
 	}
 
-	public Iterator<Relation> getRelations() {
+	@Override
+	public Relation getRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
 
-		String relationsKey = this.getRelationsKey();
+		if (! this.containsRelation(arcXri, relationXri)) return null;
 
-		return new MappingIterator<String, Relation> (this.keyValueStore.getAll(relationsKey)) {
+		String relationKey = this.getRelationKey(arcXri);
 
-			@Override
-			public Relation map(String item) {
-
-				XRI3Segment arcXri = new XRI3Segment(item);
-				String relationKey = KeyValueContextNode.this.getRelationKey(arcXri);
-
-				return new KeyValueRelation(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arcXri, null);
-			}
-		};
+		return new KeyValueRelation(this.getGraph(), this, this.keyValueStore, relationKey, arcXri, relationXri);
 	}
 
 	@Override
 	public Relation getRelation(XRI3Segment arcXri) {
 
-		if (! this.containsRelation(arcXri)) return null;
+		if (! this.containsRelations(arcXri)) return null;
 
 		String relationKey = this.getRelationKey(arcXri);
 
-		return new KeyValueRelation(this.getGraph(), this, this.keyValueStore, relationKey, arcXri, null);
+		XRI3Segment relationXri = new XRI3Segment(this.keyValueStore.getOne(relationKey));
+
+		return new KeyValueRelation(this.getGraph(), this, this.keyValueStore, relationKey, arcXri, relationXri);
 	}
 
-	@Override
-	public boolean containsRelation(XRI3Segment arcXri) {
+	public Iterator<Relation> getRelations(final XRI3Segment arcXri) {
+
+		if (! this.containsRelations(arcXri)) return new EmptyIterator<Relation> ();
+
+		final String relationKey = this.getRelationKey(arcXri);
+
+		return new MappingIterator<String, Relation> (this.keyValueStore.getAll(relationKey)) {
+
+			@Override
+			public Relation map(String relationXriString) {
+
+				XRI3Segment relationXri = new XRI3Segment(relationXriString);
+
+				return new KeyValueRelation(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arcXri, relationXri);
+			}
+		};
+	}
+
+	public Iterator<Relation> getRelations() {
 
 		String relationsKey = this.getRelationsKey();
 
-		return this.keyValueStore.contains(relationsKey, arcXri.toString());
+		return new DescendingIterator<String, Relation> (this.keyValueStore.getAll(relationsKey)) {
+
+			@Override
+			public Iterator<Relation> descend(String item) {
+
+				final XRI3Segment arcXri = new XRI3Segment(item);
+				final String relationKey = KeyValueContextNode.this.getRelationKey(arcXri);
+
+				return new MappingIterator<String, Relation> (KeyValueContextNode.this.keyValueStore.getAll(relationKey)) {
+
+					public Relation map(String relationXriString) {
+
+						return new KeyValueRelation(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arcXri, new XRI3Segment(relationXriString));
+					}
+				};
+			}
+		};
+	}
+
+	@Override
+	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+
+		String relationsKey = this.getRelationsKey();
+		String relationKey = this.getRelationKey(arcXri);
+
+		return this.keyValueStore.contains(relationsKey, arcXri.toString()) && this.keyValueStore.contains(relationKey, relationXri.toString());
+	}
+
+	@Override
+	public boolean containsRelations(XRI3Segment arcXri) {
+
+		String relationsKey = this.getRelationsKey();
+		String relationKey = this.getRelationKey(arcXri);
+
+		return this.keyValueStore.contains(relationsKey, arcXri.toString()) && this.keyValueStore.contains(relationKey);
 	}
 
 	@Override
@@ -198,10 +246,23 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		String relationsKey = this.getRelationsKey();
 
-		return this.keyValueStore.count(relationsKey) > 0;
+		return this.keyValueStore.contains(relationsKey);
 	}
 
-	public synchronized void deleteRelation(XRI3Segment arcXri) {
+	public synchronized void deleteRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+
+		String relationsKey = this.getRelationsKey();
+		String relationKey = this.getRelationKey(arcXri);
+
+		this.keyValueStore.delete(relationKey, relationXri.toString());
+
+		if (! this.keyValueStore.contains(relationKey)) {
+
+			this.keyValueStore.delete(relationsKey, arcXri.toString());
+		}
+	}
+
+	public synchronized void deleteRelations(XRI3Segment arcXri) {
 
 		String relationsKey = this.getRelationsKey();
 
@@ -216,11 +277,37 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized int getRelationCount() {
+	public int getRelationCount() {
 
-		String relationsNodesKey = this.getRelationsKey();
+		String relationsKey = this.getRelationsKey();
 
-		return this.keyValueStore.count(relationsNodesKey);
+		Iterator<Integer> mappingIterator = new MappingIterator<String, Integer> (this.keyValueStore.getAll(relationsKey)) {
+
+			@Override
+			public Integer map(String item) {
+
+				final XRI3Segment arcXri = new XRI3Segment(item);
+				final String relationKey = KeyValueContextNode.this.getRelationKey(arcXri);
+
+				return Integer.valueOf(KeyValueContextNode.this.keyValueStore.count(relationKey));
+			}
+		};
+
+		int sum = 0;
+		while (mappingIterator.hasNext()) sum += mappingIterator.next().intValue();
+
+		return sum;
+	}
+
+	@Override
+	public int getRelationCount(XRI3Segment arcXri) {
+
+		String relationsKey = this.getRelationsKey();
+		String relationKey = this.getRelationKey(arcXri);
+
+		if (! this.keyValueStore.contains(relationsKey, arcXri.toString())) return 0;
+
+		return this.keyValueStore.count(relationKey);
 	}
 
 	/*

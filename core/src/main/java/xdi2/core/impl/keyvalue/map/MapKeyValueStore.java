@@ -6,7 +6,6 @@ import java.util.Set;
 
 import xdi2.core.impl.keyvalue.AbstractKeyValueStore;
 import xdi2.core.impl.keyvalue.KeyValueStore;
-import xdi2.core.impl.keyvalue.map.MapGraphFactory.SetFactory;
 import xdi2.core.util.iterators.EmptyIterator;
 
 /**
@@ -15,12 +14,12 @@ import xdi2.core.util.iterators.EmptyIterator;
  * 
  * @author markus
  */
-class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
+public class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
 	private Map<String, Set<String>> map;
 	private SetFactory setFactory;
 
-	MapKeyValueStore(Map<String, Set<String>> map, SetFactory setFactory) {
+	public MapKeyValueStore(Map<String, Set<String>> map, SetFactory setFactory) {
 
 		this.map = map;
 		this.setFactory = setFactory;

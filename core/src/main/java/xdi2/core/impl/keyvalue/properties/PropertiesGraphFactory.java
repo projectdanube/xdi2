@@ -12,7 +12,7 @@ import xdi2.core.impl.keyvalue.KeyValueStore;
  * 
  * @author markus
  */
-public final class PropertiesGraphFactory extends AbstractKeyValueGraphFactory implements GraphFactory {
+public class PropertiesGraphFactory extends AbstractKeyValueGraphFactory implements GraphFactory {
 
 	public static final boolean DEFAULT_SUPPORT_GET_CONTEXTNODES = true; 
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 

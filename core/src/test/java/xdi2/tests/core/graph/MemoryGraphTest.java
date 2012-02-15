@@ -1,4 +1,4 @@
-package xdi2.tests.graph;
+package xdi2.tests.core.graph;
 
 import java.io.IOException;
 

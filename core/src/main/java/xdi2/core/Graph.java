@@ -1,6 +1,7 @@
 package xdi2.core;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Properties;
 
 import xdi2.core.exceptions.Xdi2MessagingException;
@@ -41,10 +42,18 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	/**
 	 * Finds a relation in this graph.
 	 * @param xri The XRI of the context node containing the relation.
-	 * @param arcXri The arc XRI of the relation
+	 * @param arcXri The arc XRI of the relation.
 	 * @return A relation or null.
 	 */
 	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri);
+
+	/**
+	 * Finds relations in this graph.
+	 * @param xri The XRI of the context node containing the relation.
+	 * @param arcXri The arc XRI of the relations.
+	 * @return An iterator over relations.
+	 */
+	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri);
 
 	/**
 	 * Finds a literal in this graph.

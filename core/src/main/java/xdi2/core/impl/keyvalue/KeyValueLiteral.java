@@ -20,7 +20,7 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 
 		this.keyValueStore = keyValueStore;
 		this.key = key;
-		
+
 		this.literalData = literalData;
 	}
 
@@ -53,9 +53,9 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 
 		return this.keyValueStore;
 	}
-	
+
 	String getKey() {
-		
+
 		return this.key;
 	}
 }

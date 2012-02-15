@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -24,14 +23,14 @@ import xdi2.core.impl.keyvalue.KeyValueStore;
  * 
  * @author markus
  */
-public class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
+public class CopyOfPropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
 	private File file;
 	private boolean autoSave;
 
 	private Properties properties;
 
-	public PropertiesKeyValueStore(File file, boolean autoSave) {
+	public CopyOfPropertiesKeyValueStore(File file, boolean autoSave) {
 
 		this.file = file;
 		this.autoSave = autoSave;
@@ -40,22 +39,6 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 	}
 
 	public void put(String key, String value) {
-
-		String hash = hash(value);
-
-		// find index
-
-		String index;
-
-		try {
-
-			index = this.properties.getProperty(key + "___" + hash);
-		} catch(Exception ex) {
-
-			index = null;
-		}
-
-		// find index list
 
 		String indexlist;
 
@@ -69,18 +52,11 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		}
 
 		String[] indices = indexlist == null ? new String[0] : indexlist.trim().split(" ");
-
-		// check if it exists
-
-		if (Arrays.asList(indices).contains(index)) return;
-
-		// add new content
-
-		String newindex = UUID.randomUUID().toString();
+		String newindex = indices.length == 0 ? "0" : Integer.toString((Integer.parseInt(indices[indices.length-1]) + 1));
 
 		this.properties.setProperty(key + "___", (indexlist == null ? "" : indexlist + " ") + newindex);
 		this.properties.setProperty(key + "___" + newindex, value);
-		this.properties.setProperty(key + "___" + hash, newindex);
+		this.properties.setProperty(key + "___" + hash(value), newindex);
 
 		if (this.autoSave) this.save();
 	}
@@ -93,8 +69,6 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 	public Iterator<String> getAll(String key) {
 
-		// find index list
-
 		String indexlist;
 
 		try {
@@ -107,8 +81,6 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		}
 
 		String[] indices = indexlist == null ? new String[0] : indexlist.trim().split(" ");
-
-		// find contents
 
 		List<String> contents = new ArrayList<String> (indices.length);
 
@@ -120,50 +92,30 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 			contents.add(content);
 		}
 
-		// done
-
 		return contents.iterator();
 	}
 
 	@Override
 	public boolean contains(String key) {
 
-		// find index list
-
-		String indexlist;
-
-		try {
-
-			indexlist = this.properties.getProperty(key + "___");
-			if (indexlist.trim().equals("")) indexlist = null;
-		} catch (Exception ex) {
-
-			indexlist = null;
-		}
-
-		// done
-
-		return indexlist != null;
+		return super.contains(key);
 	}
 
 	@Override
 	public boolean contains(String key, String value) {
 
-		String hash = hash(value);
+		return super.contains(key, value);
+	}
 
-		// find index
+	@Override
+	public void delete(String key) {
 
-		String index;
+		this.properties.setProperty(key + "___", "");
 
-		try {
+		if (this.autoSave) this.save();
+	}
 
-			index = this.properties.getProperty(key + "___" + hash);
-		} catch(Exception ex) {
-
-			index = null;
-		}
-
-		// find index list
+	public void delete(String key, String value) {
 
 		String indexlist;
 
@@ -178,25 +130,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		String[] indices = indexlist == null ? new String[0] : indexlist.trim().split(" ");
 
-		// done
-
-		return Arrays.asList(indices).contains(index);
-	}
-
-	@Override
-	public void delete(String key) {
-
-		this.properties.remove(key + "___");
-
-		if (this.autoSave) this.save();
-	}
-
-	public void delete(String key, String value) {
-
 		String hash = hash(value);
-
-		// find index
-
 		String index;
 
 		try {
@@ -209,23 +143,6 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		if (index == null) return;
 
-		// find index list
-
-		String indexlist;
-
-		try {
-
-			indexlist = this.properties.getProperty(key + "___");
-			if (indexlist.trim().equals("")) indexlist = null;
-		} catch (Exception ex) {
-
-			indexlist = null;
-		}
-
-		String[] indices = indexlist == null ? new String[0] : indexlist.trim().split(" ");
-
-		// create new index list
-
 		String newindexlist = "";
 
 		for (int i=0; i<indices.length; i++) {
@@ -233,8 +150,6 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 			if (indices[i].equals(index)) continue;
 			newindexlist += " " + indices[i];
 		}
-
-		// store new index list
 
 		this.properties.setProperty(key + "___", newindexlist);
 		this.properties.remove(key + "___" + index);
@@ -310,7 +225,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		try {
 
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			MessageDigest digest = MessageDigest.getInstance("MD5");
 			digest.reset();
 			digest.update(str.getBytes());
 			hash = new String(Base64.encodeBase64(digest.digest()), "UTF-8");

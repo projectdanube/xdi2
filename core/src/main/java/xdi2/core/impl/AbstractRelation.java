@@ -33,7 +33,7 @@ public abstract class AbstractRelation implements Relation {
 
 	public synchronized void delete() {
 
-		this.getContextNode().deleteRelation(this.getArcXri());
+		this.getContextNode().deleteRelation(this.getArcXri(), this.getRelationXri());
 	}
 
 	/*

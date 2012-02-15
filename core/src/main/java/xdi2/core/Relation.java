@@ -51,12 +51,6 @@ public interface Relation extends Serializable, Comparable<Relation> {
 	 */
 	public XRI3Segment getRelationXri();
 
-	/**
-	 * Set the relation XRI.
-	 * @param relationXri The relation XRI associated with the relation.
-	 */
-	public void setRelationXri(XRI3Segment relationXri);
-
 	/*
 	 * Methods related to statements
 	 */

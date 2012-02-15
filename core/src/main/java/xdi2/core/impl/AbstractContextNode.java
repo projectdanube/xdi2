@@ -161,9 +161,28 @@ public abstract class AbstractContextNode implements ContextNode {
 		return this.createRelation(arcXri, new XRI3Segment(contextNode.getXri().toString()));
 	}
 
-	public Relation getRelation(final XRI3Segment arcXri) {
+	public Relation getRelation(XRI3Segment arcXri, final XRI3Segment relationXri) {
 
-		Iterator<Relation> selectingIterator = new SelectingIterator<Relation> (this.getRelations()) {
+		Iterator<Relation> selectingIterator = new SelectingIterator<Relation> (this.getRelations(arcXri)) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return relation.getRelationXri().equals(relationXri);
+			}
+		};
+
+		return new FirstIteratorItem<Relation> (selectingIterator).item();
+	}
+
+	public Relation getRelation(XRI3Segment arcXri) {
+
+		return new FirstIteratorItem<Relation> (this.getRelations(arcXri)).item();
+	}
+
+	public Iterator<Relation> getRelations(final XRI3Segment arcXri) {
+
+		return new SelectingIterator<Relation> (this.getRelations()) {
 
 			@Override
 			public boolean select(Relation relation) {
@@ -171,8 +190,6 @@ public abstract class AbstractContextNode implements ContextNode {
 				return relation.getArcXri().equals(arcXri);
 			}
 		};
-
-		return new FirstIteratorItem<Relation> (selectingIterator).item();
 	}
 
 	public Iterator<Relation> getAllRelations() {
@@ -193,7 +210,12 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new CompositeIterator<Relation> (list.iterator());
 	}
 
-	public boolean containsRelation(XRI3Segment arcXri) {
+	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+
+		return this.getRelation(arcXri, relationXri) != null;
+	}
+
+	public boolean containsRelations(XRI3Segment arcXri) {
 
 		return this.getRelation(arcXri) != null;
 	}
@@ -201,6 +223,11 @@ public abstract class AbstractContextNode implements ContextNode {
 	public boolean containsRelations() {
 
 		return this.getRelationCount() > 0;
+	}
+
+	public int getRelationCount(XRI3Segment arcXri) {
+
+		return new IteratorCounter(this.getRelations(arcXri)).count();
 	}
 
 	public int getRelationCount() {

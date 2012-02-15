@@ -29,7 +29,7 @@ import com.sleepycat.je.Transaction;
  * 
  * @author markus
  */
-class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
+public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
 	private final static Logger log = LoggerFactory.getLogger(BDBKeyValueStore.class);
 
@@ -42,7 +42,7 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 	private Database database;
 	private Transaction transaction;
 
-	BDBKeyValueStore(String databasePath, String databaseName, EnvironmentConfig environmentConfig, DatabaseConfig databaseConfig) {
+	public BDBKeyValueStore(String databasePath, String databaseName, EnvironmentConfig environmentConfig, DatabaseConfig databaseConfig) {
 
 		this.databasePath = databasePath;
 		this.databaseName = databaseName;
@@ -50,7 +50,7 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 		this.databaseConfig = databaseConfig;
 	}
 
-	void openDatabase() throws DatabaseException {
+	public void openDatabase() throws DatabaseException {
 
 		log.debug("Opening database...");
 
@@ -58,7 +58,7 @@ class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 		this.database = this.environment.openDatabase(null, this.databaseName, this.databaseConfig);
 	}
 
-	void closeDatabase() {
+	public void closeDatabase() {
 
 		log.debug("Closing database...");
 

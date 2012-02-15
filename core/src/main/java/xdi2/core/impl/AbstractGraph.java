@@ -60,6 +60,14 @@ public abstract class AbstractGraph implements Graph {
 		return contextNode.getRelation(arcXri);
 	}
 
+	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri) {
+
+		ContextNode contextNode = this.findContextNode(xri, false);
+		if (contextNode == null) return null;
+
+		return contextNode.getRelations(arcXri);
+	}
+
 	public Literal findLiteral(XRI3Segment xri) {
 
 		ContextNode contextNode = this.findContextNode(xri, false);
