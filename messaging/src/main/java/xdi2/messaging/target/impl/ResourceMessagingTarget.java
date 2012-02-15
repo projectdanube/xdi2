@@ -71,45 +71,45 @@ public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 		return this.executeResourceHandlers(operationContextNode, operation, messageResult, executionContext);
 	}
 
-	private boolean executeResourceHandlers(ContextNode contextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private boolean executeResourceHandlers(ContextNode operationContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ResourceHandler resourceHandler;
 		boolean handled = false;
 
 		// look at this context node
 
-		if (contextNode.isEmpty()) {
+		if (operationContextNode.isEmpty()) {
 
-			resourceHandler = this.getResourceHandler(operation, contextNode);
+			resourceHandler = this.getResourceHandler(operation, operationContextNode);
 
 			if (resourceHandler != null) {
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + contextNode.getStatement() + " (" + resourceHandler.getClass().getName() + ").");
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + operationContextNode.getStatement() + " (" + resourceHandler.getClass().getName() + ").");
 
-				if (this.executeResourceInterceptorsBefore(contextNode.getStatement(), operation, messageResult, executionContext)) return true;
+				if (this.executeResourceInterceptorsBefore(operationContextNode.getStatement(), operation, messageResult, executionContext)) return true;
 				if (resourceHandler.execute(operation, messageResult, executionContext)) handled = true;
-				if (this.executeResourceInterceptorsAfter(contextNode.getStatement(), operation, messageResult, executionContext)) return true;
+				if (this.executeResourceInterceptorsAfter(operationContextNode.getStatement(), operation, messageResult, executionContext)) return true;
 
 				return handled;
 			} else {
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No resource handler for " + operation.getOperationXri() + " on " + contextNode.getStatement());
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No resource handler for " + operation.getOperationXri() + " on " + operationContextNode.getStatement());
 			}
 		}
 
 		// look at context nodes
 
-		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
+		for (Iterator<ContextNode> contextNodes = operationContextNode.getContextNodes(); contextNodes.hasNext(); ) {
 
-			ContextNode innerContextNode = innerContextNodes.next();
+			ContextNode contextNode = contextNodes.next();
 
-			if (XDIConstants.XRI_SS_MSG.equals(innerContextNode.getArcXri())) continue;
-			if (this.executeResourceHandlers(innerContextNode, operation, messageResult, executionContext)) handled = true;
+			if (XDIConstants.XRI_SS_MSG.equals(contextNode.getArcXri())) continue;
+			if (this.executeResourceHandlers(contextNode, operation, messageResult, executionContext)) handled = true;
 		}
 
 		// look at relations
 
-		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
+		for (Iterator<Relation> relations = operationContextNode.getRelations(); relations.hasNext(); ) {
 
 			Relation relation = relations.next();
 			resourceHandler = this.getResourceHandler(operation, relation);
@@ -129,7 +129,7 @@ public abstract class ResourceMessagingTarget extends AbstractMessagingTarget {
 
 		// look at literal
 
-		for (Iterator<Literal> literals = new SingleItemIterator<Literal> (contextNode.getLiteral()); literals.hasNext(); ) {
+		for (Iterator<Literal> literals = new SingleItemIterator<Literal> (operationContextNode.getLiteral()); literals.hasNext(); ) {
 
 			Literal literal = literals.next();
 			resourceHandler = this.getResourceHandler(operation, literal);

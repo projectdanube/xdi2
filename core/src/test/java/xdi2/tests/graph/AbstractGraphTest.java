@@ -121,6 +121,8 @@ public abstract class AbstractGraphTest extends TestCase {
 	public void testFindAndDelete() throws Exception {
 
 		Graph graph12 = this.openNewGraph(this.getClass().getName() + "-graph-12");
+		assertEquals(graph12.getRootContextNode(), graph12.findContextNode(XDIConstants.XRI_S_CONTEXT, false));
+		assertEquals(graph12.getRootContextNode().getXri(), XDIConstants.XRI_S_CONTEXT));
 
 		graph12.findContextNode(new XRI3Segment("=markus"), true).createLiteral("Markus");
 		graph12.findContextNode(new XRI3Segment("=markus"), true).createRelation(new XRI3Segment("+friend"), new XRI3Segment("=someone"));
