@@ -1,8 +1,10 @@
+# XDI²
+
 [XDI²](http://github.com/peacekeeper/xdi2) is a general purpose XDI library for Java, supporting both a traditional client/server model and distributed peer-to-peer data exchange. [![Build Status](https://secure.travis-ci.org/LockerProject/Locker.png)](http://travis-ci.org/LockerProject/Locker)
 
 It is the basis for [Project Danube](http://www.projectdanube.org/).
 
-A sample deployment is available at [[http://xdi2.projectdanube.org]].
+A sample deployment is available at [http://xdi2.projectdanube.org].
 
 ### Components
 
