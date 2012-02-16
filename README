@@ -1,8 +1,11 @@
 How to build
 ============
 
-Just run mvn clean install.
+Just run
 
+mvn clean install
+
+to build all components.
 
 How to run the XDI web tools
 ============================
