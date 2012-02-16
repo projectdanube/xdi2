@@ -5,3 +5,4 @@ notifications:
 branches:
     only:
         - master
+script: mvn integration-test
