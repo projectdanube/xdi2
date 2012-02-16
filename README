@@ -29,7 +29,9 @@ How to run the XDI web tools
 cd webtools
 mvn jetty:run
 
-Then go to http://localhost:8080/
+Then go to 
+
+http://localhost:8080/
 
 
 How to run the standalone XDI server
