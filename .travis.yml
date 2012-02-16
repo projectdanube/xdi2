@@ -1,4 +1,4 @@
-language: mvn
+language: java
 notifications:
     email:
         - markus.sabadello@gmail.com
