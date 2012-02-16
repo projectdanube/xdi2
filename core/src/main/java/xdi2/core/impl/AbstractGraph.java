@@ -81,7 +81,7 @@ public abstract class AbstractGraph implements Graph {
 		return this.findContextNode(xri, false) != null;
 	}
 
-	public boolean containsRelation(XRI3Segment xri, XRI3Segment arcXri) {
+	public boolean containsRelations(XRI3Segment xri, XRI3Segment arcXri) {
 
 		return this.findRelation(xri, arcXri) != null;
 	}

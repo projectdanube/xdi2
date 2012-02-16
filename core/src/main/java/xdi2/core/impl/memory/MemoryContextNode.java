@@ -172,7 +172,15 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return new CastingIterator<Relation> (descendingIterator);
 	}
 
-	public boolean containsRelation(XRI3Segment arcXri) {
+	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+
+		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
+		if (relations == null) return false;
+
+		return relations.containsKey(relationXri);
+	}
+
+	public boolean containsRelations(XRI3Segment arcXri) {
 
 		return this.relations.containsKey(arcXri);
 	}

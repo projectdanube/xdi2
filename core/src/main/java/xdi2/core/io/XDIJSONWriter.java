@@ -3,13 +3,19 @@ package xdi2.core.io;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.xri3.impl.XRI3Segment;
 
 class XDIJSONWriter extends AbstractXDIWriter {
 
@@ -24,10 +30,10 @@ class XDIJSONWriter extends AbstractXDIWriter {
 	private boolean first;
 
 	private static String escape(String string) {
-		
+
 		return string.replace("\\", "\\\\");
 	}
-	
+
 	private synchronized void startItem(BufferedWriter bufferedWriter) throws IOException {
 
 		if (this.first) {
@@ -63,7 +69,7 @@ class XDIJSONWriter extends AbstractXDIWriter {
 		String xri = contextNode.getXri().toString();
 
 		// write context nodes
-		
+
 		if (contextNode.containsContextNodes()) {
 
 			this.startItem(bufferedWriter);
@@ -84,18 +90,44 @@ class XDIJSONWriter extends AbstractXDIWriter {
 		}
 
 		// write relations
-		
+
+		Map<XRI3Segment, List<Relation>> relationsMap = new HashMap<XRI3Segment, List<Relation>> ();
+
 		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
 
 			Relation relation = relations.next();
 
+			List<Relation> relationsList = relationsMap.get(relation.getArcXri());
+
+			if (relationsList == null) {
+
+				relationsList = new ArrayList<Relation> ();
+				relationsMap.put(relation.getArcXri(), relationsList);
+			}
+
+			relationsList.add(relation);
+		}
+
+		for (Entry<XRI3Segment, List<Relation>> entry : relationsMap.entrySet()) {
+
+			XRI3Segment relationArcXri = entry.getKey();
+			List<Relation> relationsList = entry.getValue();
+
 			this.startItem(bufferedWriter);
-			bufferedWriter.write(indent + "\"" + xri + "/" + relation.getArcXri().toString() + "\" : [ \"" + relation.getRelationXri().toString() + "\" ]");
+			bufferedWriter.write(indent + "\"" + xri + "/" + relationArcXri + "\" : [ ");
+
+			for (int i=0; i<relationsList.size(); i++) {
+
+				bufferedWriter.write("\"" + relationsList.get(i).getRelationXri() + "\"");
+				if (i < relationsList.size() - 1) bufferedWriter.write(", ");
+			}
+
+			bufferedWriter.write(" ]");
 			this.finishItem(bufferedWriter);
 		}
 
 		// write literal
-		
+
 		Literal literal = contextNode.getLiteral();
 
 		if (literal != null) {

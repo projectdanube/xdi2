@@ -44,7 +44,8 @@
 "=abc+passport!1+number/!" : [ "987654321" ],
 "=abc+passport!1+country/!" : [ "Canada" ],
 "=abc+passport!1$d/!" : [ "2005-01-01T00:00:00Z" ],
-"=abc+passport/*2" : [ "=abc+passport!2" ],
 "=abc+passport/$v" : [ "=abc+passport$v!2" ],
-"=abc+passport/*1" : [ "=abc+passport!1" ]
+"=abc+passport/*2" : [ "=abc+passport!2" ],
+"=abc+passport/*1" : [ "=abc+passport!1" ],
+"=abc/+rel" : [ "=abc+passport!1", "=abc+passport!2" ]
 }

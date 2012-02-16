@@ -70,12 +70,12 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	public boolean containsContextNode(XRI3Segment xri);
 
 	/**
-	 * Checks if a relation exists in this graph.
+	 * Checks if relations exists in this graph.
 	 * @param xri The XRI of the context node containing the relation.
 	 * @param arcXri The arc XRI of the relation.
 	 * @return True, if the relation exists.
 	 */
-	public boolean containsRelation(XRI3Segment xri, XRI3Segment arcXri);
+	public boolean containsRelations(XRI3Segment xri, XRI3Segment arcXri);
 
 	/**
 	 * Checks if a literal exists in this graph.

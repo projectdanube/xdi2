@@ -75,7 +75,6 @@ class XDIJSONReader extends AbstractXDIReader {
 
 			String key = (String) keys.next();
 			JSONArray value = graphObject.getJSONArray(key);
-			if (value.length() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
 
 			String[] strings = key.split("/");
 			if (strings.length != 2) throw new Xdi2ParseException("Invalid key: " + key);
@@ -86,6 +85,8 @@ class XDIJSONReader extends AbstractXDIReader {
 
 			if (predicate.equals("!")) {
 
+				if (value.length() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
+
 				String literalData = value.getString(0);
 
 				Literal literal = contextNode.createLiteral(literalData);
@@ -93,10 +94,14 @@ class XDIJSONReader extends AbstractXDIReader {
 			} else {
 
 				XRI3Segment arcXri = this.makeXRI3Segment(predicate);
-				XRI3Segment relationXri = this.makeXRI3Segment(value.getString(0));
 
-				Relation relation = contextNode.createRelation(arcXri, relationXri);
-				if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getRelationXri());
+				for (int i=0; i<value.length(); i++) {
+
+					XRI3Segment relationXri = this.makeXRI3Segment(value.getString(i));
+
+					Relation relation = contextNode.createRelation(arcXri, relationXri);
+					if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getRelationXri());
+				}
 			}
 		}
 	}
@@ -110,7 +115,7 @@ class XDIJSONReader extends AbstractXDIReader {
 
 			graphString.append(line + "\n");
 		}
-		
+
 		this.read(graph, new JSONObject(graphString.toString()));
 	}
 
