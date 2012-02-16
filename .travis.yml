@@ -1,0 +1,7 @@
+language: mvn
+notifications:
+    email:
+        - markus.sabadello@gmail.com
+branches:
+    only:
+        - master
