@@ -22,7 +22,6 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
-				<version>7.0.0.pre5</version>
 				<configuration>
 					<jettyEnvXml>
 						${basedir}/src/test/resources/jetty-env.xml
