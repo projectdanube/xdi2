@@ -4,7 +4,7 @@
 
 It is the basis for [Project Danube](http://www.projectdanube.org/).
 
-A sample deployment is available at [http://xdi2.projectdanube.org].
+A sample deployment is available at http://xdi2.projectdanube.org.
 
 ### Components
 
