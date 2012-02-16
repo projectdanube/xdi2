@@ -12,46 +12,6 @@
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-<!--	<build>
-		<plugins>
- 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>2.3.1</version>
-				<executions>
-					<execution>
-						<id>execution1</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<configuration>
-							<groupId>com.sleepycat</groupId>
-							<artifactId>je</artifactId>
-							<version>4.0.103</version>
-							<packaging>jar</packaging>
-							<file>${basedir}/../lib/je-4.0.103.jar</file>
-						</configuration>
-					</execution>
-					<execution>
-						<id>execution2</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<configuration>
-							<groupId>org.json</groupId>
-							<artifactId>json</artifactId>
-							<version>1.0</version>
-							<packaging>jar</packaging>
-							<file>${basedir}/../lib/json-1.0.jar</file>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build> -->
-
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>
