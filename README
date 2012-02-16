@@ -1,3 +1,19 @@
+XDI² is a general purpose XDI library for Java, supporting both a traditional client/server model and distributed peer-to-peer data exchange.
+
+It is the basis for Project Danube.
+
+A sample deployment is available at http://xdi2.projectdanube.org.
+
+Components
+==========
+
+* xdi2-core
+* xdi2-messaging
+* xdi2-client
+* xdi2-server
+* xdi2-webtools
+* xdi2-p2p
+
 How to build
 ============
 
