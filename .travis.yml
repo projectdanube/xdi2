@@ -5,6 +5,4 @@ notifications:
 branches:
     only:
         - master
-before_script:
-	- mvn clean
 script: mvn clean integration-test
