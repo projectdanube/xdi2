@@ -42,10 +42,3 @@ Then XDI endpoints are available at:
 http://localhost:8080/xdi/mem-graph/
 http://localhost:8080/xdi/bdb-graph/
 http://localhost:8080/xdi/file-graph/
-
-
-Try it
-======
-
-A sample deployment is available at
-http://xdi2.projectdanube.org/

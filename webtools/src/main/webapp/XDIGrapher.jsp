@@ -7,7 +7,7 @@
 <title>XDI Grapher</title>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 </head>
-<body>
+<body style="background-image: url('images/back.png'); background-repeat: repeat-y; margin-left: 30px;">
 
 	<div class="header">
 	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Grapher</span>
@@ -15,7 +15,7 @@
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
 		<a href="XDIGrapher?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
-	<a href="index.jsp">&gt;&gt;&gt;Other Apps...</a>
+	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
 
 	<% if (request.getAttribute("error") != null) { %>

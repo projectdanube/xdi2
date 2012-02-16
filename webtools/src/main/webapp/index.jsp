@@ -4,15 +4,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>XDI Applications</title>
+<title>XDI²</title>
 <script type="text/javascript" src="tabber.js"></script>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
+<link rel="shortcut icon" href="favicon.ico" />
 </head>
-<body>
- 
+<body style="background-image: url('images/back.png'); background-repeat: repeat-y; margin-left: 30px;">
+
 	<div class="header">
-	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Applications</span>
+	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI²</span>
 	</div>
+
+	<hr>
+	
+	<p>XDI² ("XDI-Squared") is an XDI library for Java, supporting both traditional client/server models and distributed network topologies.</p>
+	
+	<p>It is designed to be a general-purpose, lightweight and modular implementation of XDI specifications, in order to support a wide range of use cases.</p>
+	
+	<p>See Github for the <a href="http://github.com/peacekeeper/xdi2">code</a> and <a href="https://github.com/peacekeeper/xdi2/wiki">wiki</a>.</p>
 
 	<hr>
 
@@ -39,13 +48,9 @@
 
 	<hr>
 
-	<p style="font-size: 14pt">XDI²</p>
-	
-	<p><a href="http://github.com/peacekeeper/xdi2">XDI²</a> is a general purpose XDI library for Java, supporting both a traditional client/server model and distributed peer-to-peer data exchange.</p>
-	
-	<p>It is the basis for <a href="http://www.projectdanube.org/">Project Danube</a>.</p>
+	<p style="font-size: 14pt">Contact</p>
 
-	<hr>
+	<a href="mailto:markus.sabadello@xdi.org">markus.sabadello@xdi.org</a>
 
 </body>
 </html>
