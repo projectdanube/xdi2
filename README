@@ -3,10 +3,30 @@ How to build
 
 Just run mvn clean install.
 
-How to run the web tools
-========================
+
+How to run the XDI web tools
+============================
 
 cd webtools
 mvn jetty:run
 
 Then go to http://localhost:8080/
+
+
+How to run the standalone XDI server
+====================================
+
+cd server
+mvn jetty:run
+
+Then XDI endpoints are available at:
+http://localhost:8080/mem-graph/
+http://localhost:8080/bdb-graph/
+http://localhost:8080/file-graph/
+
+
+Try it
+======
+
+A sample deployment is available at
+http://xdi2.projectdanube.org/

@@ -41,38 +41,20 @@
 
 	<h2>Example XDI endpoints</h2>
 
-	<p>A native XDI endpoint is backed by an actual XDI document and can potentially process any XDI message.</p>
+	<p>The following XDI endpoints are deployed together with the XDI Messenger for testing purposes:
+
+	<%	String base = request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")); %>
 	
-	<p style="font-weight: bold"><a target="_blank" href="https://graceland.parityinc.net/xdi-endpoint/mem-graph/">https://graceland.parityinc.net/xdi-endpoint/mem-graph/</a></p>
+	<p style="font-weight: bold"><a target="_blank" href="<%= base %>/xdi/mem-graph/"><%= base %>/xdi/mem-graph/</a></p>
 	<p>This is an XDI endpoint backed by an in-memory store.<br>
 	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
 	
-	<p style="font-weight: bold"><a target="_blank" href="https://graceland.parityinc.net/xdi-endpoint/mem-graph-ver/">https://graceland.parityinc.net/xdi-endpoint/mem-graph-ver/</a></p>
-	<p>This is an XDI endpoint backed by an in-memory store.<br>
-	<b>Versioning:</b> enabled. <b>Link contracts:</b> disabled.</p>
-	
-	<p style="font-weight: bold"><a target="_blank" href="https://graceland.parityinc.net/xdi-endpoint/xml-graph/">https://graceland.parityinc.net/xdi-endpoint/xml-graph/</a></p>
-	<p>This is an XDI endpoint backed by an XDI/XML store.<br>
-	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
-	
-	<p style="font-weight: bold"><a target="_blank" href="https://graceland.parityinc.net/xdi-endpoint/xml-graph-ver/">https://graceland.parityinc.net/xdi-endpoint/xml-graph-ver/</a></p>
-	<p>This is an XDI endpoint backed by an XDI/XML store.<br>
-	<b>Versioning:</b> enabled. <b>Link contracts:</b> disabled.</p>
-	
-	<p style="font-weight: bold"><a target="_blank" href="https://graceland.parityinc.net/xdi-endpoint/bdb-graph/">https://graceland.parityinc.net/xdi-endpoint/bdb-graph/</a></p>
+	<p style="font-weight: bold"><a target="_blank" href="<%= base %>/xdi/bdb-graph/"><%= base %>/xdi/bdb-graph/</a></p>
 	<p>This is an XDI endpoint backed by a Berkely DB store.<br>
 	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
 	
-	<p style="font-weight: bold"><a target="_blank" href="https://graceland.parityinc.net/xdi-endpoint/bdb-graph-ver/">https://graceland.parityinc.net/xdi-endpoint/bdb-graph-ver/</a></p>
-	<p>This is an XDI endpoint backed by a Berkely DB store.<br>
-	<b>Versioning:</b> enabled. <b>Link contracts:</b> disabled.</p>
-	
-	<p style="font-weight: bold"><a target="_blank" href="https://graceland.parityinc.net/xdi-endpoint/hibernate-graph-ver/">https://graceland.parityinc.net/xdi-endpoint/hibernate-graph-ver/</a></p>
-	<p>This is an XDI endpoint backed by a Hibernate store using an Apache Derby database.<br>
-	<b>Versioning:</b> enabled. <b>Link contracts:</b> disabled.</p>
-	
-	<p style="font-weight: bold"><a target="_blank" href="https://graceland.parityinc.net/xdi-endpoint/x3-graph/">https://graceland.parityinc.net/xdi-endpoint/x3-graph/</a></p>
-	<p>This is an XDI endpoint backed by a X3 text file.<br>
+	<p style="font-weight: bold"><a target="_blank" href="<%= base %>/xdi/file-graph/"><%= base %>/xdi/file-graph/</a></p>
+	<p>This is an XDI endpoint backed by an XDI/JSON text file.<br>
 	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
 
 	</div>
