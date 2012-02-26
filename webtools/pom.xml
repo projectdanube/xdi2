@@ -95,9 +95,8 @@
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
-			<artifactId>xdi2-server</artifactId>
+			<artifactId>xdi2-server-logic</artifactId>
 			<version>0.1-SNAPSHOT</version>
-			<classifier>classes</classifier>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

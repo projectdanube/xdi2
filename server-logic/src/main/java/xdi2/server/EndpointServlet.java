@@ -372,7 +372,6 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 		reader = XDIReaderRegistry.forMimeType(inputMimeType);
 
 		if (reader == null) reader = XDIReaderRegistry.getDefault();
-		if (reader == null) return(null);
 
 		// read everything into an in-memory XDI graph (a message envelope)
 
@@ -451,7 +450,6 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 		}
 
 		if (writer == null) writer = XDIWriterRegistry.getDefault();
-		if (writer == null);
 
 		// send out the message result
 
