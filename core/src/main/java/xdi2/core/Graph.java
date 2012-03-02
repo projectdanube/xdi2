@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Properties;
 
 import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.xri3.impl.XRI3;
 import xdi2.core.xri3.impl.XRI3Segment;
 
@@ -112,6 +113,15 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * based on a given input address.
 	 */
 	public Graph applyOperation(XRI3 address, XRI3Segment operationXri) throws Xdi2MessagingException;
+
+	/*
+	 * Methods related to statements
+	 */
+
+	/**
+	 * A simple way to add a statement to this graph.
+	 */
+	public Statement addStatement(String statement) throws Xdi2ParseException;
 
 	/*
 	 * Methods related to transactions

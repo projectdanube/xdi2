@@ -12,6 +12,7 @@ A sample deployment is available at http://xdi2.projectdanube.org.
 * [xdi2-core](https://github.com/peacekeeper/xdi2/wiki/xdi2-core)
 * [xdi2-messaging](https://github.com/peacekeeper/xdi2/wiki/xdi2-messaging)
 * [xdi2-client](https://github.com/peacekeeper/xdi2/wiki/xdi2-client)
+* [xdi2-server-logic](https://github.com/peacekeeper/xdi2/wiki/xdi2-server-logic)
 * [xdi2-server](https://github.com/peacekeeper/xdi2/wiki/xdi2-server)
 * [xdi2-webtools](https://github.com/peacekeeper/xdi2/wiki/xdi2-webtools)
 * [xdi2-p2p](https://github.com/peacekeeper/xdi2/wiki/xdi2-p2p)

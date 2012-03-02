@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AutoReader;
+import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
@@ -32,6 +35,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
 
 	private static final long serialVersionUID = -3840753270326755062L;
+
+	private static Logger log = LoggerFactory.getLogger(XDILocalMessenger.class);
 
 	private static MemoryGraphFactory graphFactory;
 	private static List<String> sampleInputs;
@@ -107,19 +112,21 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String stats = "-1";
 		String error = null;
 
-		AutoReader xdiReader = XDIReaderRegistry.getAuto();
+		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiInputWriter;
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(to);
 		MessageEnvelope messageEnvelope = null;
 		MessageResult messageResult = null;
 		Graph graphInput = graphFactory.openGraph();
 
+		long start = System.currentTimeMillis();
+
 		try {
 
 			// parse the input graph and remember its format
 
 			xdiReader.read(graphInput, new StringReader(input), null);
-			String inputFormat = xdiReader.getLastSuccessfulReader().getFormat();
+			String inputFormat = ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat();
 
 			// parse the message envelope
 
@@ -162,12 +169,15 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 		} catch (Exception ex) {
 
-			ex.printStackTrace(System.err);
+			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
 		}
 
+		long stop = System.currentTimeMillis();
+
 		stats = "";
+		stats += Long.toString(stop - start) + " ms time. ";
 		if (messageEnvelope != null) stats += Integer.toString(messageEnvelope.getMessageCount()) + " message(s). ";
 		if (messageEnvelope != null) stats += Integer.toString(messageEnvelope.getOperationCount()) + " operation(s). ";
 		if (messageResult != null) stats += Integer.toString(messageResult.getGraph().getRootContextNode().getAllStatementCount()) + " result statement(s). ";

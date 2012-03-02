@@ -89,6 +89,18 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to context nodes of this context node
 	 */
 
+	public ContextNode createContextNodes(XRI3Segment arcXri) {
+
+		ContextNode contextNode = this;
+
+		for (int i = 0; i < arcXri.getNumSubSegments(); i++) {
+
+			contextNode = contextNode.createContextNode((XRI3SubSegment) arcXri.getSubSegment(i));
+		}
+
+		return contextNode;
+	}
+
 	public ContextNode getContextNode(final XRI3SubSegment arcXri) {
 
 		Iterator<ContextNode> selectingIterator = new SelectingIterator<ContextNode> (this.getContextNodes()) {

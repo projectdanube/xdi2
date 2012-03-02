@@ -117,7 +117,7 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 		stats += Integer.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
-		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + (xdiReader instanceof AutoReader ? " (" + ((AutoReader) xdiReader).getLastSuccessfulFormat() + ")": "")+ ". ";
+		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ((xdiReader instanceof AutoReader && ((AutoReader) xdiReader).getLastSuccessfulReader() != null) ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
 
 		// display results
 

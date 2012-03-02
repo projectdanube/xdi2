@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.io.AutoReader;
+import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
@@ -31,6 +33,8 @@ import xdi2.messaging.MessageResult;
 public class XDIMessenger extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
 
 	private static final long serialVersionUID = -8317705299355338065L;
+
+	private static Logger log = LoggerFactory.getLogger(XDIMessenger.class);
 
 	private static MemoryGraphFactory graphFactory;
 	private static List<String> sampleInputs;
@@ -92,7 +96,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		String stats = "-1";
 		String error = null;
 
-		AutoReader xdiReader = XDIReaderRegistry.getAuto();
+		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiWriter = XDIWriterRegistry.forFormat("XDI/JSON");
 
 		MessageEnvelope messageEnvelope = null;
@@ -123,7 +127,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 		} catch (Exception ex) {
 
-			ex.printStackTrace(System.err);
+			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
 		}
@@ -132,7 +136,6 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 		stats = "";
 		stats += Long.toString(stop - start) + " ms time. ";
-		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + " (" + xdiReader.getLastSuccessfulReader().getFormat() + "). ";
 		if (messageEnvelope != null) stats += Integer.toString(messageEnvelope.getMessageCount()) + " message(s). ";
 		if (messageEnvelope != null) stats += Integer.toString(messageEnvelope.getOperationCount()) + " operation(s). ";
 		if (messageResult != null) stats += Integer.toString(messageResult.getGraph().getRootContextNode().getAllStatementCount()) + " result statement(s). ";
@@ -147,5 +150,5 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		request.setAttribute("error", error);
 
 		request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
-	}   	  	    
+	}
 }

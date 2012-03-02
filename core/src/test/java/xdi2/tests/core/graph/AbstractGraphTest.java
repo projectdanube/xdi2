@@ -187,7 +187,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNotNull(rootContextNode.getLiteral());
 		assertEquals(rootContextNode.getContextNodeCount(), 0);
 		assertEquals(rootContextNode.getRelationCount(), 1);
-		
+
 		rootContextNode.createContextNode(new XRI3SubSegment("+name"));
 		rootContextNode.createContextNode(new XRI3SubSegment("+email"));
 
@@ -291,6 +291,33 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new IteratorCounter(markus.getRelations(new XRI3Segment("+friend"))).count(), 0);
 		assertEquals(new IteratorCounter(markus.getRelations(new XRI3Segment("+brother"))).count(), 0);
 		assertEquals(new IteratorCounter(markus.getRelations()).count(), 0);
+	}
+
+	public void testMisc() throws Exception {
+
+		Graph graph14 = this.openNewGraph(this.getClass().getName() + "-graph-14");
+		ContextNode root = graph14.getRootContextNode();
+
+		ContextNode c = root.createContextNodes(new XRI3Segment("+a+b+c"));
+		ContextNode b = c.getContextNode();
+		ContextNode a = b.getContextNode();
+
+		ContextNode e = c.createContextNodes(new XRI3Segment("+d+e"));
+		ContextNode d = e.getContextNode();
+
+		assertTrue(a.getContextNode().isRootContextNode());
+		assertNull(a.getContextNode().getContextNode());
+
+		assertEquals(a.getXri(), new XRI3Segment("+a"));
+		assertEquals(b.getXri(), new XRI3Segment("+a+b"));
+		assertEquals(c.getXri(), new XRI3Segment("+a+b+c"));
+		assertEquals(d.getXri(), new XRI3Segment("+a+b+c+d"));
+		assertEquals(e.getXri(), new XRI3Segment("+a+b+c+d+e"));
+		assertEquals(a.getArcXri(), new XRI3Segment("+a"));
+		assertEquals(b.getArcXri(), new XRI3Segment("+b"));
+		assertEquals(c.getArcXri(), new XRI3Segment("+c"));
+		assertEquals(d.getArcXri(), new XRI3Segment("+d"));
+		assertEquals(e.getArcXri(), new XRI3Segment("+e"));
 	}
 
 	@SuppressWarnings("unused")

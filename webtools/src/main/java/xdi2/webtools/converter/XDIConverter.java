@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -28,6 +30,8 @@ import xdi2.core.io.XDIWriterRegistry;
 public class XDIConverter extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
 
 	private static final long serialVersionUID = 2578333401873629083L;
+
+	private static Logger log = LoggerFactory.getLogger(XDIConverter.class);
 
 	private static MemoryGraphFactory graphFactory;
 	private static List<String> sampleInputs;
@@ -105,7 +109,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 		} catch (Exception ex) {
 
-			ex.printStackTrace(System.err);
+			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
 		}
@@ -115,7 +119,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		stats += Integer.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
-		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + (xdiReader instanceof AutoReader ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
+		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ((xdiReader instanceof AutoReader && ((AutoReader) xdiReader).getLastSuccessfulReader() != null) ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
 
 		graph.close();
 
