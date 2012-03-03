@@ -51,6 +51,11 @@ public abstract class AbstractContextNode implements ContextNode {
 		return this.getGraph().getRootContextNode() == this;
 	}
 
+	public boolean isLeafContextNode() {
+
+		return ! this.containsContextNodes();
+	}
+
 	public synchronized void delete() {
 
 		this.getContextNode().deleteContextNode(this.getArcXri());

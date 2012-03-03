@@ -7,8 +7,6 @@ import javax.sql.rowset.Predicate;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
-import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.xri3.impl.XRI3;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -17,8 +15,8 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.impl.ResourceHandler;
-import xdi2.messaging.target.impl.ResourceMessagingTarget;
+import xdi2.messaging.target.impl.ContextNodeMessagingTarget;
+import xdi2.messaging.target.impl.ContextNodeHandler;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 
 /**
@@ -26,7 +24,7 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
  * 
  * @author markus
  */
-public class GraphMessagingTarget extends ResourceMessagingTarget {
+public class GraphMessagingTarget extends ContextNodeMessagingTarget {
 
 	private Graph graph;
 
@@ -52,26 +50,14 @@ public class GraphMessagingTarget extends ResourceMessagingTarget {
 	}
 
 	@Override
-	public ResourceHandler getResourceHandler(Operation operation, ContextNode contextNode) {
+	public ContextNodeHandler getContextNodeHandler(Operation operation, ContextNode contextNode) {
 
-		return new ContextNodeResourceHandler(operation, contextNode, this.graph);
-	}
-
-	@Override
-	public ResourceHandler getResourceHandler(Operation operation, Relation relation) {
-
-		return new RelationResourceHandler(operation, relation, this.graph);
-	}
-
-	@Override
-	public ResourceHandler getResourceHandler(Operation operation, Literal literal) {
-
-		return new LiteralResourceHandler(operation, literal, this.graph);
+		return new GraphContextNodeHandler(operation, contextNode, this.graph);
 	}
 
 	public Graph getGraph() {
 
-		return(this.graph);
+		return this.graph;
 	}
 
 	public void setGraph(Graph graph) {

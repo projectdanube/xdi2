@@ -39,6 +39,12 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public boolean isRootContextNode();
 
 	/**
+	 * Checks if this context node is a leaf context node.
+	 * @return True, if this context node is a leaf context node.
+	 */
+	public boolean isLeafContextNode();
+
+	/**
 	 * Deletes this context node.
 	 */
 	public void delete();

@@ -308,6 +308,12 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(a.getContextNode().isRootContextNode());
 		assertNull(a.getContextNode().getContextNode());
 
+		assertFalse(a.isLeafContextNode());
+		assertFalse(b.isLeafContextNode());
+		assertFalse(c.isLeafContextNode());
+		assertFalse(d.isLeafContextNode());
+		assertTrue(e.isLeafContextNode());
+		
 		assertEquals(a.getXri(), new XRI3Segment("+a"));
 		assertEquals(b.getXri(), new XRI3Segment("+a+b"));
 		assertEquals(c.getXri(), new XRI3Segment("+a+b+c"));
