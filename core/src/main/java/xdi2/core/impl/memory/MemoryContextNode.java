@@ -65,7 +65,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		if (arcXri == null) throw new NullPointerException();
 
-		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the context node " + arcXri + ".");
+		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 
 		MemoryContextNode contextNode = new MemoryContextNode(this.getGraph(), this);
 		contextNode.arcXri = arcXri;
@@ -117,7 +117,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		if (arcXri == null) throw new NullPointerException();
 		if (relationXri == null) throw new NullPointerException();
 
-		if (this.containsRelation(arcXri, relationXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
+		if (this.containsRelation(arcXri, relationXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) {
@@ -222,7 +222,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		if (literalData == null) throw new NullPointerException();
 
-		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains a literal.");
+		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
 
 		MemoryLiteral literal = new MemoryLiteral(this.getGraph(), this, literalData);
 		this.literal = literal;

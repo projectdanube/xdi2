@@ -58,7 +58,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		if (arcXri == null) throw new NullPointerException();
 
-		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the context node " + arcXri + ".");
+		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 
 		String contextNodesKey = this.getContextNodesKey();
 		String contextNodeKey = this.getContextNodeKey(arcXri);
@@ -147,7 +147,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		if (arcXri == null) throw new NullPointerException();
 		if (relationXri == null) throw new NullPointerException();
 
-		if (this.containsRelation(arcXri, relationXri)) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
+		if (this.containsRelation(arcXri, relationXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
@@ -318,7 +318,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		if (literalData == null) throw new NullPointerException();
 
-		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getArcXri() + " already contains a literal.");
+		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
 
 		String literalKey = this.getLiteralKey();
 
