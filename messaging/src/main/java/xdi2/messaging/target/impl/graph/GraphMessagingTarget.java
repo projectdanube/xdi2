@@ -8,6 +8,7 @@ import javax.sql.rowset.Predicate;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.xri3.impl.XRI3;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Message;
@@ -15,7 +16,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.impl.ContextNodeMessagingTarget;
+import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.impl.ContextNodeHandler;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 
@@ -24,13 +25,17 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
  * 
  * @author markus
  */
-public class GraphMessagingTarget extends ContextNodeMessagingTarget {
+public class GraphMessagingTarget extends AbstractMessagingTarget {
 
 	private Graph graph;
+	private GraphContextNodeHandler graphContextNodeHandler;
 
 	public GraphMessagingTarget() {
 
+		super();
+
 		this.graph = null;
+		this.graphContextNodeHandler = null;
 	}
 
 	@Override
@@ -50,9 +55,52 @@ public class GraphMessagingTarget extends ContextNodeMessagingTarget {
 	}
 
 	@Override
-	public ContextNodeHandler getContextNodeHandler(Operation operation, ContextNode contextNode) {
+	public boolean executeGetOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return new GraphContextNodeHandler(operation, contextNode, this.graph);
+		if (targetContextNode != null) return false;
+		
+		ContextNode contextNode = this.getGraph().findContextNode(targetXri, false);
+
+		if (contextNode != null) {
+
+			CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean executeAddOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContextNode contextNode = this.getGraph().findContextNode(targetXri, true);
+
+		if (targetContextNode != null) {
+
+			CopyUtil.copyContextNodeContents(targetContextNode, contextNode, null);
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean executeDelOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetContextNode != null) return false;
+
+		ContextNode contextNode = this.getGraph().findContextNode(targetXri, false);
+
+		if (contextNode != null) {
+
+			contextNode.delete();
+		}
+
+		return true;
+	}
+
+	@Override
+	public ContextNodeHandler getContextNodeHandler(ContextNode operationContextNode) throws Xdi2MessagingException {
+
+		return this.graphContextNodeHandler;
 	}
 
 	public Graph getGraph() {
@@ -63,6 +111,7 @@ public class GraphMessagingTarget extends ContextNodeMessagingTarget {
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
+		this.graphContextNodeHandler = new GraphContextNodeHandler(graph);
 	}
 
 	@Override

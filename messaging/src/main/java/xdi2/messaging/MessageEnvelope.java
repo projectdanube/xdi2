@@ -6,7 +6,9 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIConstants;
+import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.SelectingMappingIterator;
@@ -70,7 +72,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
 		Message message = messageContainer.createMessage();
 		ContextNode contextNode = messageEnvelope.getGraph().findContextNode(contextNodeXri, true);
-		message.createGetOperation(contextNode);
+		message.createOperation(operationXri, contextNode);
 
 		return messageEnvelope;
 	}
@@ -95,6 +97,27 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	public Graph getGraph() {
 
 		return this.graph;
+	}
+
+	/**
+	 * Returns the underlying "target" graph without $msg context nodes, i.e. clean of XDI messaging constructs.
+	 */
+	public Graph getTargetGraph() {
+
+		// create a copy of the operation graph without the current message container
+
+		Graph targetGraph = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyContextNode(this.getGraph().getRootContextNode(), targetGraph, new CopyStrategy () {
+
+			public ContextNode replaceContextNode(ContextNode contextNode) {
+
+				if (contextNode.getArcXri().equals(XDIMessagingConstants.XRI_S_MSG)) return null;
+
+				return contextNode;
+			}
+		});
+
+		return targetGraph;
 	}
 
 	/**

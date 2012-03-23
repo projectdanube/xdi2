@@ -84,6 +84,24 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
+	 * Returns the message container to which this operation belongs.
+	 * @return A message container.
+	 */
+	public MessageContainer getMessageContainer() {
+
+		return this.getMessage().getMessageContainer();
+	}
+
+	/**
+	 * Returns the message envelope to which this operation belongs.
+	 * @return A message envelope.
+	 */
+	public MessageEnvelope getMessageEnvelope() {
+
+		return this.getMessageContainer().getMessageEnvelope();
+	}
+
+	/**
 	 * Returns the underlying relation to which this XDI operation is bound.
 	 * @return A relation that represents an XDI operation.
 	 */
@@ -102,10 +120,10 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the operation target of the operation.
-	 * @return The operation target of the operation.
+	 * Returns the operation target XRI of the operation.
+	 * @return The operation target XRI of the operation.
 	 */
-	public XRI3Segment getOperationTarget() {
+	public XRI3Segment getOperationTargetXri() {
 
 		return this.getRelation().getRelationXri();
 	}

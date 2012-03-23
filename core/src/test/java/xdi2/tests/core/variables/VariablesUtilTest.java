@@ -13,6 +13,9 @@ public class VariablesUtilTest extends TestCase {
 				new XRI3Segment("($)"),
 				new XRI3Segment("($1)"),
 				new XRI3Segment("($34)"),
+				new XRI3Segment("!($)"),
+				new XRI3Segment("+($)"),
+				new XRI3Segment("*($)"),
 				new XRI3Segment("(!)"),
 				new XRI3Segment("(!12)"),
 				new XRI3Segment("(=abc)"),
@@ -24,6 +27,9 @@ public class VariablesUtilTest extends TestCase {
 		};
 
 		boolean isVariable[] = new boolean [] {
+				true,
+				true,
+				true,
 				true,
 				true,
 				true,

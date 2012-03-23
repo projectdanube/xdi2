@@ -71,6 +71,15 @@ public class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Returns the message envelope to which this message belongs.
+	 * @return A message envelope.
+	 */
+	public MessageEnvelope getMessageEnvelope() {
+
+		return this.getMessageContainer().getMessageEnvelope();
+	}
+
+	/**
 	 * Returns the underlying context node to which this XDI message is bound.
 	 * @return A context node that represents the XDI message.
 	 */

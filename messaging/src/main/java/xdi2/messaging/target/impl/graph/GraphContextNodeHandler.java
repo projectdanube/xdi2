@@ -18,9 +18,9 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 
 	private Graph graph;
 
-	GraphContextNodeHandler(Operation operation, ContextNode operationContextNode, Graph graph) {
+	GraphContextNodeHandler(Graph graph) {
 
-		super(operation, operationContextNode);
+		super();
 
 		this.graph = graph;
 	}
@@ -30,24 +30,11 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	 */
 
 	@Override
-	public boolean executeAddContextNode(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnContextNode(ContextNode operationContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (! this.operationContextNode.isLeafContextNode()) return false;
+		if (! operationContextNode.isEmpty()) return false;
 
-		XRI3Segment operationContextNodeXri = this.operationContextNode.getXri();
-		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, true);
-
-		CopyUtil.copyContextNodeContents(this.operationContextNode, contextNode, null);
-
-		return true;
-	}
-
-	@Override
-	public boolean executeGetContextNode(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		if (! this.operationContextNode.isEmpty()) return false;
-
-		XRI3Segment operationContextNodeXri = this.operationContextNode.getXri();
+		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) return true;
 
@@ -57,11 +44,11 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	}
 
 	@Override
-	public boolean executeDelContextNode(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnContextNode(ContextNode operationContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (! this.operationContextNode.isEmpty()) return false;
+		if (! operationContextNode.isEmpty()) return false;
 
-		XRI3Segment operationContextNodeXri = this.operationContextNode.getXri();
+		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node " + operationContextNodeXri + " not found.");
 
@@ -75,9 +62,9 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	 */
 
 	@Override
-	public boolean executeGetRelation(Relation operationRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnRelation(ContextNode operationContextNode, Relation operationRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment operationContextNodeXri = operationRelation.getContextNode().getXri();
+		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) return true;
 
@@ -107,9 +94,9 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	}
 
 	@Override
-	public boolean executeDelRelation(Relation operationRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnRelation(ContextNode operationContextNode, Relation operationRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment operationContextNodeXri = operationRelation.getContextNode().getXri();
+		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) return true;
 
@@ -130,9 +117,9 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	 */
 
 	@Override
-	public boolean executeGetLiteral(Literal operationLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnLiteral(ContextNode operationContextNode, Literal operationLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment operationContextNodeXri = operationLiteral.getContextNode().getXri();
+		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) return true;
 
@@ -148,9 +135,9 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	}
 
 	@Override
-	public boolean executeModLiteral(Literal operationLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeModOnLiteral(ContextNode operationContextNode, Literal operationLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment operationContextNodeXri = operationLiteral.getContextNode().getXri();
+		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
 		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
 		if (contextNode == null) return true;
 

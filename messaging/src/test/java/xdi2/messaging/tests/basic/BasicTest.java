@@ -58,10 +58,10 @@ public class BasicTest extends TestCase {
 
 	public void testMessaging2() throws Exception {
 		
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromXriAndOperationXri(TARGET, XDIMessagingConstants.XRI_S_GET);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromXriAndOperationXri(TARGET, XDIMessagingConstants.XRI_S_ADD);
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
 		Message message = messageContainer.getMessages().next();
-		Operation getOperation = message.getGetOperation();
+		Operation operation = message.getAddOperation();
 
 		assertEquals(messageEnvelope.getMessageCount(), 1);
 		assertEquals(messageEnvelope.getOperationCount(), 1);
@@ -70,7 +70,8 @@ public class BasicTest extends TestCase {
 		assertEquals(message.getOperationCount(), 1);
 		assertEquals(messageContainer.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
 		assertEquals(message.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
-		assertEquals(getOperation.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
-		assertEquals(getOperation.getOperationTarget(), TARGET);
+		assertEquals(operation.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
+		assertEquals(operation.getOperationXri(), XDIMessagingConstants.XRI_S_ADD);
+		assertEquals(operation.getOperationTargetXri(), TARGET);
 	}
 }
