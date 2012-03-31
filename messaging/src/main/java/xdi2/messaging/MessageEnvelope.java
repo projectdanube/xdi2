@@ -61,18 +61,18 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
-	 * @param graph The graph that is an XDI message envelope.
+	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static MessageEnvelope fromXriAndOperationXri(XRI3Segment contextNodeXri, XRI3Segment operationXri) {
+	public static MessageEnvelope fromOperationXriAndTargetXri(XRI3Segment operationXri, XRI3Segment targetXri) {
 
-		if (contextNodeXri == null) contextNodeXri = XDIConstants.XRI_S_CONTEXT;
+		if (targetXri == null) targetXri = XDIConstants.XRI_S_CONTEXT;
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
 		Message message = messageContainer.createMessage();
-		ContextNode contextNode = messageEnvelope.getGraph().findContextNode(contextNodeXri, true);
-		message.createOperation(operationXri, contextNode);
+		message.createOperation(operationXri, targetXri);
 
 		return messageEnvelope;
 	}

@@ -31,10 +31,10 @@ public class BasicTest extends TestCase {
 		ContextNode[] contextNodes = new ContextNode[CONTEXTNODEXRIS.length]; 
 		for (int i=0; i<CONTEXTNODEXRIS.length; i++) contextNodes[i] = messageEnvelope.getGraph().findContextNode(CONTEXTNODEXRIS[i], true);
 
-		Operation addOperation = message.createAddOperation(contextNodes[0]);
-		Operation getOperation = message.createGetOperation(contextNodes[1]);
-		Operation delOperation = message.createDelOperation(contextNodes[2]);
-		Operation modOperation = message.createModOperation(contextNodes[3]);
+		Operation addOperation = message.createAddOperation(contextNodes[0].getXri());
+		Operation getOperation = message.createGetOperation(contextNodes[1].getXri());
+		Operation delOperation = message.createDelOperation(contextNodes[2].getXri());
+		Operation modOperation = message.createModOperation(contextNodes[3].getXri());
 
 		assertTrue(messageContainer.equals(messageEnvelope.getMessageContainer(SENDER, false)));
 		assertTrue(message.equals(messageContainer.getMessages().next()));
@@ -58,7 +58,7 @@ public class BasicTest extends TestCase {
 
 	public void testMessaging2() throws Exception {
 		
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromXriAndOperationXri(TARGET, XDIMessagingConstants.XRI_S_ADD);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_ADD, TARGET);
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
 		Message message = messageContainer.getMessages().next();
 		Operation operation = message.getAddOperation();

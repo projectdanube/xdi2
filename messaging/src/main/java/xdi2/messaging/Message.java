@@ -118,70 +118,72 @@ public class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Creates a new operation and adds it to this XDI message.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param contextNode The context node to which the operation applies.
+	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
 	 */
-	public Operation createOperation(XRI3Segment operationXri, ContextNode contextNode) {
+	public Operation createOperation(XRI3Segment operationXri, XRI3Segment targetXri) {
 
-		if (XDIMessagingConstants.XRI_SS_GET.equals(operationXri)) return this.createGetOperation(contextNode);
-		if (XDIMessagingConstants.XRI_SS_ADD.equals(operationXri)) return this.createAddOperation(contextNode);
-		if (XDIMessagingConstants.XRI_SS_MOD.equals(operationXri)) return this.createModOperation(contextNode);
-		if (XDIMessagingConstants.XRI_SS_DEL.equals(operationXri)) return this.createDelOperation(contextNode);
+		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetXri);
 
-		return null;
+		if (XDIMessagingConstants.XRI_SS_GET.equals(operationXri)) return GetOperation.fromRelation(relation);
+		if (XDIMessagingConstants.XRI_SS_ADD.equals(operationXri)) return AddOperation.fromRelation(relation);
+		if (XDIMessagingConstants.XRI_SS_MOD.equals(operationXri)) return ModOperation.fromRelation(relation);
+		if (XDIMessagingConstants.XRI_SS_DEL.equals(operationXri)) return DelOperation.fromRelation(relation);
+
+		return Operation.fromRelation(relation);
 	}
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param contextNode The context node to which the operation applies.
+	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public GetOperation createGetOperation(ContextNode contextNode) {
+	public GetOperation createGetOperation(XRI3Segment targetXri) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, contextNode);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetXri);
 
 		return GetOperation.fromRelation(relation);
 	}
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param contextNode The context node to which the operation applies.
+	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public AddOperation createAddOperation(ContextNode contextNode) {
+	public AddOperation createAddOperation(XRI3Segment targetXri) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, contextNode);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetXri);
 
 		return AddOperation.fromRelation(relation);
 	}
 
 	/**
 	 * Creates a new $mod operation and adds it to this XDI message.
-	 * @param contextNode The context node to which the operation applies.
+	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $mod operation.
 	 */
-	public ModOperation createModOperation(ContextNode contextNode) {
+	public ModOperation createModOperation(XRI3Segment targetXri) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, contextNode);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetXri);
 
 		return ModOperation.fromRelation(relation);
 	}
 
 	/**
 	 * Creates a new $del operation and adds it to this XDI message.
-	 * @param contextNode The context node to which the operation applies.
+	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $del operation.
 	 */
-	public DelOperation createDelOperation(ContextNode contextNode) {
+	public DelOperation createDelOperation(XRI3Segment targetXri) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, contextNode);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetXri);
 
 		return DelOperation.fromRelation(relation);
 	}
 
 	/**
 	 * Finds an operation with a given operation XRI in this XDI message.
-	 * @param operationXri The operation XRI to look for.
+	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The operation, or null.
 	 */
 	public Operation getOperation(XRI3Segment operationXri) {

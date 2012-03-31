@@ -357,7 +357,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		log.debug("Requested XDI context node: " + contextNodeXri + ".");
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromXriAndOperationXri(contextNodeXri, XDIMessagingConstants.XRI_S_GET);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_GET, contextNodeXri);
 
 		return messageEnvelope;
 	}
