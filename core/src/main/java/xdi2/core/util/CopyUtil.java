@@ -18,11 +18,22 @@ public final class CopyUtil {
 	private CopyUtil() { }
 
 	/**
+	 * Copies a whole graph into another graph.
+	 * @param graph A graph.
+	 * @param targetGraph The target graph.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 */
+	public static void copyGraph(Graph graph, Graph targetGraph, CopyStrategy copyStrategy) {
+		
+		copyContextNodeContents(graph.getRootContextNode(), targetGraph.getRootContextNode(), copyStrategy);
+	}
+	
+	/**
 	 * Copies a context node into another graph.
 	 * @param contextNode A context node from any graph.
-	 * @param targetContextNode The target graph.
+	 * @param targetGraph The target graph.
 	 * @param copyStrategy The strategy to determine what to copy.
-	 * @return
+	 * @return The copied context node in the target graph.
 	 */
 	public static ContextNode copyContextNode(ContextNode contextNode, Graph targetGraph, CopyStrategy copyStrategy) {
 
@@ -48,9 +59,9 @@ public final class CopyUtil {
 	/**
 	 * Copies a relation into another graph.
 	 * @param relation A relation from any graph.
-	 * @param targetContextNode The target graph.
+	 * @param targetGraph The target graph.
 	 * @param copyStrategy The strategy to determine what to copy.
-	 * @return
+	 * @return The copied relation in the target graph.
 	 */
 	public static Relation copyRelation(Relation relation, Graph targetGraph, CopyStrategy copyStrategy) {
 
@@ -66,9 +77,9 @@ public final class CopyUtil {
 	/**
 	 * Copies a literal into another graph.
 	 * @param literal A literal from any graph.
-	 * @param targetContextNode The target graph.
+	 * @param targetGraph The target graph.
 	 * @param copyStrategy The strategy to determine what to copy.
-	 * @return
+	 * @return The copied literal in the target graph.
 	 */
 	public static Literal copyLiteral(Literal literal, Graph targetGraph, CopyStrategy copyStrategy) {
 
@@ -101,6 +112,7 @@ public final class CopyUtil {
 	 * @param contextNode A context node from any graph.
 	 * @param targetContextNode The target context node.
 	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied context nodes in the target graph.
 	 */
 	public static Iterator<ContextNode> copyContextNodes(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
@@ -126,6 +138,7 @@ public final class CopyUtil {
 	 * @param contextNode A context node from any graph.
 	 * @param targetContextNode The target context node.
 	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied relations in the target graph.
 	 */
 	public static Iterator<Relation> copyRelations(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
@@ -148,6 +161,7 @@ public final class CopyUtil {
 	 * @param contextNode A context node from any graph.
 	 * @param targetContextNode The target context node.
 	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied literal in the target graph.
 	 */
 	public static Literal copyLiteral(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
