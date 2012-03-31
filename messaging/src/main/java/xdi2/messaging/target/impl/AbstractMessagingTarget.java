@@ -36,7 +36,7 @@ import xdi2.messaging.target.interceptor.ResultInterceptor;
  *   in the envelope and all operations in the messages will be executed).
  * - Implementation of execute() with a message (all operations
  *   in the messages will be executed).
- * - Using a list of MessageEnvlopeInterceptors, MessageInterceptors and 
+ * - Using a list of MessageEnvelopeInterceptors, MessageInterceptors and 
  *   OperationInterceptors
  * - Maintaining an "execution context" object where state can be kept between
  *   individual operations.
