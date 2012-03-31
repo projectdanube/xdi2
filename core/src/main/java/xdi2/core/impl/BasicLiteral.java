@@ -17,6 +17,11 @@ public class BasicLiteral extends AbstractLiteral implements Literal {
 		this.literalData = literalData;
 	}
 
+	public BasicLiteral(String literalData) {
+
+		this(null, null, literalData);
+	}
+
 	@Override
 	public String getLiteralData() {
 
