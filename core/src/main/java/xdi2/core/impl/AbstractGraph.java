@@ -107,6 +107,8 @@ public abstract class AbstractGraph implements Graph {
 
 	public String toString(String format, Properties parameters) {
 
+		if (format == null) format = XDIWriterRegistry.getDefault().getFormat();
+
 		XDIWriter writer = XDIWriterRegistry.forFormat(format);
 		StringWriter buffer = new StringWriter();
 
@@ -207,7 +209,7 @@ public abstract class AbstractGraph implements Graph {
 	@Override
 	public String toString() {
 
-		return this.toString(XDIWriterRegistry.getDefault().getFormat(), null);
+		return this.toString(null, null);
 	}
 
 	@Override
