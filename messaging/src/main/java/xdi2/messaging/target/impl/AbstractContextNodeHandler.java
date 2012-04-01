@@ -28,36 +28,36 @@ public abstract class AbstractContextNodeHandler implements ContextNodeHandler {
 	 */
 
 	@Override
-	public boolean executeOnContextNode(ContextNode operationContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeOnContextNode(ContextNode targetContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			return this.executeGetOnContextNode(operationContextNode, operation, messageResult, executionContext);
+			return this.executeGetOnContextNode(targetContextNode, operation, messageResult, executionContext);
 		else if (operation instanceof AddOperation)
-			return this.executeAddOnContextNode(operationContextNode, operation, messageResult, executionContext);
+			return this.executeAddOnContextNode(targetContextNode, operation, messageResult, executionContext);
 		else if (operation instanceof ModOperation)
-			return this.executeModOnContextNode(operationContextNode, operation, messageResult, executionContext);
+			return this.executeModOnContextNode(targetContextNode, operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
-			return this.executeDelOnContextNode(operationContextNode, operation, messageResult, executionContext);
+			return this.executeDelOnContextNode(targetContextNode, operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri());
 	}
 
-	public boolean executeGetOnContextNode(ContextNode operationContextNode, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnContextNode(ContextNode targetContextNode, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeAddOnContextNode(ContextNode operationContextNode, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeAddOnContextNode(ContextNode targetContextNode, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeModOnContextNode(ContextNode operationContextNode, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeModOnContextNode(ContextNode targetContextNode, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeDelOnContextNode(ContextNode operationContextNode, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnContextNode(ContextNode targetContextNode, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
@@ -67,36 +67,36 @@ public abstract class AbstractContextNodeHandler implements ContextNodeHandler {
 	 */
 
 	@Override
-	public boolean executeOnRelation(ContextNode operationContextNode, Relation operationRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeOnRelation(ContextNode targetContextNode, Relation targetRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			return this.executeGetOnRelation(operationContextNode, operationRelation, operation, messageResult, executionContext);
+			return this.executeGetOnRelation(targetContextNode, targetRelation, operation, messageResult, executionContext);
 		else if (operation instanceof AddOperation)
-			return this.executeAddOnRelation(operationContextNode, operationRelation, operation, messageResult, executionContext);
+			return this.executeAddOnRelation(targetContextNode, targetRelation, operation, messageResult, executionContext);
 		else if (operation instanceof ModOperation)
-			return this.executeModOnRelation(operationContextNode, operationRelation, operation, messageResult, executionContext);
+			return this.executeModOnRelation(targetContextNode, targetRelation, operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
-			return this.executeDelOnRelation(operationContextNode, operationRelation, operation, messageResult, executionContext);
+			return this.executeDelOnRelation(targetContextNode, targetRelation, operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri());
 	}
 
-	public boolean executeGetOnRelation(ContextNode operationContextNode, Relation operationRelation, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnRelation(ContextNode targetContextNode, Relation targetRelation, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeAddOnRelation(ContextNode operationContextNode, Relation operationRelation, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeAddOnRelation(ContextNode targetContextNode, Relation targetRelation, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeModOnRelation(ContextNode operationContextNode, Relation operationRelation, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeModOnRelation(ContextNode targetContextNode, Relation targetRelation, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeDelOnRelation(ContextNode operationContextNode, Relation operationRelation, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnRelation(ContextNode targetContextNode, Relation targetRelation, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
@@ -106,36 +106,36 @@ public abstract class AbstractContextNodeHandler implements ContextNodeHandler {
 	 */
 
 	@Override
-	public boolean executeOnLiteral(ContextNode operationContextNode, Literal operationLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeOnLiteral(ContextNode targetContextNode, Literal targetLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			return this.executeGetOnLiteral(operationContextNode, operationLiteral, operation, messageResult, executionContext);
+			return this.executeGetOnLiteral(targetContextNode, targetLiteral, operation, messageResult, executionContext);
 		else if (operation instanceof AddOperation)
-			return this.executeAddOnLiteral(operationContextNode, operationLiteral, operation, messageResult, executionContext);
+			return this.executeAddOnLiteral(targetContextNode, targetLiteral, operation, messageResult, executionContext);
 		else if (operation instanceof ModOperation)
-			return this.executeModOnLiteral(operationContextNode, operationLiteral, operation, messageResult, executionContext);
+			return this.executeModOnLiteral(targetContextNode, targetLiteral, operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
-			return this.executeDelOnLiteral(operationContextNode, operationLiteral, operation, messageResult, executionContext);
+			return this.executeDelOnLiteral(targetContextNode, targetLiteral, operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri());
 	}
 
-	public boolean executeGetOnLiteral(ContextNode operationContextNode, Literal operationLiteral, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnLiteral(ContextNode targetContextNode, Literal targetLiteral, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeAddOnLiteral(ContextNode operationContextNode, Literal operationLiteral, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeAddOnLiteral(ContextNode targetContextNode, Literal targetLiteral, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeModOnLiteral(ContextNode operationContextNode, Literal operationLiteral, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeModOnLiteral(ContextNode targetContextNode, Literal targetLiteral, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeDelOnLiteral(ContextNode operationContextNode, Literal operationLiteral, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnLiteral(ContextNode targetContextNode, Literal targetLiteral, Operation operation, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}

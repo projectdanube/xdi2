@@ -93,6 +93,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		Graph targetGraph = messageEnvelope.getTargetGraph();
 
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Target graph: " + targetGraph.toString());
+
 		try {
 
 			// before message envelope
@@ -219,7 +221,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				// execute the operation
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation " + i + "/" + operationCount + " (" + operation.getOperationXri() + ") on " + operation.getOperationTargetXri() + ".");
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation " + i + "/" + operationCount + " (" + operation.getOperationXri() + ") on " + operation.getTargetXri() + ".");
 
 				if (this.execute(operation, targetGraph, messageResult, executionContext)) handled = true;
 
@@ -262,7 +264,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		boolean handled = false;
 
-		XRI3Segment targetXri = operation.getOperationTargetXri();
+		XRI3Segment targetXri = operation.getTargetXri();
 		ContextNode targetContextNode = targetGraph.findContextNode(targetXri, false);
 
 		// execute the operation
@@ -283,7 +285,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private final boolean executeOperation(XRI3Segment targetXri, ContextNode targetContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + operation.getOperationTargetXri() + " (" + this.getClass().getName() + ").");
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on address " + targetXri + " (" + this.getClass().getName() + ").");
 
 		if (operation instanceof GetOperation)
 			return this.executeGetOperation(targetXri, targetContextNode, messageResult, executionContext);
@@ -297,43 +299,43 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri());
 	}
 
-	private final boolean executeContextNodeHandlers(ContextNode operationContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private final boolean executeContextNodeHandlers(ContextNode targetContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		boolean handled = false;
 
 		// look at this context node
 
-		ContextNodeHandler contextNodeHandler = this.getContextNodeHandler(operationContextNode);
+		ContextNodeHandler contextNodeHandler = this.getContextNodeHandler(targetContextNode);
 
 		if (contextNodeHandler != null) {
 
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + operationContextNode.getStatement() + " (" + contextNodeHandler.getClass().getName() + ").");
-			if (contextNodeHandler.executeOnContextNode(operationContextNode, operation, messageResult, executionContext)) handled = true;
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on context node " + targetContextNode.getStatement() + " (" + contextNodeHandler.getClass().getName() + ").");
+			if (contextNodeHandler.executeOnContextNode(targetContextNode, operation, messageResult, executionContext)) handled = true;
 
 			// look at relations
 
-			for (Iterator<Relation> relations = operationContextNode.getRelations(); relations.hasNext(); ) {
+			for (Iterator<Relation> targetRelations = targetContextNode.getRelations(); targetRelations.hasNext(); ) {
 
-				Relation operationRelation = relations.next();
+				Relation targetRelation = targetRelations.next();
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + operationRelation.getStatement() + " (" + contextNodeHandler.getClass().getName() + ").");
-				if (contextNodeHandler.executeOnRelation(operationContextNode, operationRelation, operation, messageResult, executionContext)) handled = true;
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on relation " + targetRelation.getStatement() + " (" + contextNodeHandler.getClass().getName() + ").");
+				if (contextNodeHandler.executeOnRelation(targetContextNode, targetRelation, operation, messageResult, executionContext)) handled = true;
 			}
 
 			// look at literal
 
-			for (Iterator<Literal> literals = new SingleItemIterator<Literal> (operationContextNode.getLiteral()); literals.hasNext(); ) {
+			for (Iterator<Literal> targetLiterals = new SingleItemIterator<Literal> (targetContextNode.getLiteral()); targetLiterals.hasNext(); ) {
 
-				Literal operationLiteral = literals.next();
+				Literal targetLiteral = targetLiterals.next();
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on " + operationLiteral.getStatement() + " (" + contextNodeHandler.getClass().getName() + ").");
-				if (contextNodeHandler.executeOnLiteral(operationContextNode, operationLiteral, operation, messageResult, executionContext)) handled = true;
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on literal " + targetLiteral.getStatement() + " (" + contextNodeHandler.getClass().getName() + ").");
+				if (contextNodeHandler.executeOnLiteral(targetContextNode, targetLiteral, operation, messageResult, executionContext)) handled = true;
 			}
 		}
 
 		// look at inner context nodes
 
-		for (Iterator<ContextNode> innerContextNodes = operationContextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
+		for (Iterator<ContextNode> innerContextNodes = targetContextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
 
 			ContextNode innerContextNode = innerContextNodes.next();
 
@@ -367,7 +369,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		return false;
 	}
 
-	public ContextNodeHandler getContextNodeHandler(ContextNode operationContextNode) throws Xdi2MessagingException {
+	public ContextNodeHandler getContextNodeHandler(ContextNode targetContextNode) throws Xdi2MessagingException {
 
 		return null;
 	}

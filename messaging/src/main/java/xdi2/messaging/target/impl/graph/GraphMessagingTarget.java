@@ -58,7 +58,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public boolean executeGetOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (targetContextNode != null) return false;
-		
+
 		ContextNode contextNode = this.getGraph().findContextNode(targetXri, false);
 
 		if (contextNode != null) {
@@ -98,7 +98,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public ContextNodeHandler getContextNodeHandler(ContextNode operationContextNode) throws Xdi2MessagingException {
+	public ContextNodeHandler getContextNodeHandler(ContextNode targetContextNode) throws Xdi2MessagingException {
 
 		return this.graphContextNodeHandler;
 	}

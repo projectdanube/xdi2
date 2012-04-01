@@ -16,9 +16,9 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -1653073796384849940L;
 
-	private static final String HTML_COLOR_CONTEXTNODE = "#2f2853";
-	private static final String HTML_COLOR_RELATION = "#722f38";
-	private static final String HTML_COLOR_LITERAL = "#38652a";
+	private static final String HTML_COLOR_CONTEXTNODE = "#ff0000";
+	private static final String HTML_COLOR_RELATION = "#ff8b00";
+	private static final String HTML_COLOR_LITERAL = "#b40097";
 	
 	public static final String PARAMETER_WRITE_CONTEXT_STATEMENTS = "writeContextStatements";
 	public static final String PARAMETER_WRITE_HTML = "writeHtml";

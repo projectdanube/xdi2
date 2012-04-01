@@ -1,5 +1,7 @@
 package xdi2.messaging.target.impl.graph;
 
+import java.util.Iterator;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
@@ -30,12 +32,12 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	 */
 
 	@Override
-	public boolean executeGetOnContextNode(ContextNode operationContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnContextNode(ContextNode targetContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (! operationContextNode.isEmpty()) return false;
+		if (! targetContextNode.isEmpty()) return false;
 
-		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
-		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
+		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
+		ContextNode contextNode = this.graph.findContextNode(targetContextNodeXri, false);
 		if (contextNode == null) return true;
 
 		CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
@@ -44,13 +46,13 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	}
 
 	@Override
-	public boolean executeDelOnContextNode(ContextNode operationContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnContextNode(ContextNode targetContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (! operationContextNode.isEmpty()) return false;
+		if (! targetContextNode.isEmpty()) return false;
 
-		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
-		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node " + operationContextNodeXri + " not found.");
+		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
+		ContextNode contextNode = this.graph.findContextNode(targetContextNodeXri, false);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node " + targetContextNodeXri + " not found.");
 
 		contextNode.delete();
 
@@ -62,15 +64,15 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	 */
 
 	@Override
-	public boolean executeGetOnRelation(ContextNode operationContextNode, Relation operationRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnRelation(ContextNode targetContextNode, Relation targetRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
-		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
+		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
+		ContextNode contextNode = this.graph.findContextNode(targetContextNodeXri, false);
 		if (contextNode == null) return true;
 
-		boolean isRelationXriVariable = VariablesUtil.isVariable(operationRelation.getRelationXri());
+		boolean isRelationXriVariable = VariablesUtil.isVariable(targetRelation.getRelationXri());
 
-		if (operationRelation.getArcXri().equals(XDIConstants.XRI_S_LITERAL)) {
+		if (targetRelation.getArcXri().equals(XDIConstants.XRI_S_LITERAL)) {
 
 			if (isRelationXriVariable) {
 
@@ -81,12 +83,16 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 			}
 		} else {
 
-			Relation relation = contextNode.getRelation(operationRelation.getArcXri());
-			if (relation == null) return true;
+			Iterator<Relation> relations = contextNode.getRelations(targetRelation.getArcXri());
 
-			if (isRelationXriVariable || operationRelation.getRelationXri().equals(relation.getRelationXri())) {
+			while (relations.hasNext()) {
 
-				CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
+				Relation relation = relations.next();
+
+				if (isRelationXriVariable || targetRelation.getRelationXri().equals(relation.getRelationXri())) {
+
+					CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
+				}
 			}
 		}
 
@@ -94,19 +100,24 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	}
 
 	@Override
-	public boolean executeDelOnRelation(ContextNode operationContextNode, Relation operationRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnRelation(ContextNode targetContextNode, Relation targetRelation, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
-		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
+		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
+		ContextNode contextNode = this.graph.findContextNode(targetContextNodeXri, false);
 		if (contextNode == null) return true;
 
-		Relation relation = contextNode.getRelation(operationRelation.getArcXri());
-		if (relation == null) return true;
+		boolean isRelationXriVariable = VariablesUtil.isVariable(targetRelation.getRelationXri());
 
-		if (VariablesUtil.isVariable(operationRelation.getRelationXri()) ||
-				operationRelation.getRelationXri().equals(relation.getRelationXri())) {
+		Iterator<Relation> relations = contextNode.getRelations(targetRelation.getArcXri());
 
-			relation.delete();
+		while (relations.hasNext()) {
+
+			Relation relation = relations.next();
+
+			if (isRelationXriVariable || targetRelation.getRelationXri().equals(relation.getRelationXri())) {
+
+				relation.delete();
+			}
 		}
 
 		return true;
@@ -117,16 +128,16 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	 */
 
 	@Override
-	public boolean executeGetOnLiteral(ContextNode operationContextNode, Literal operationLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnLiteral(ContextNode targetContextNode, Literal targetLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
-		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
+		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
+		ContextNode contextNode = this.graph.findContextNode(targetContextNodeXri, false);
 		if (contextNode == null) return true;
 
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return true;
 
-		if (operationLiteral.getLiteralData().equals(literal.getLiteralData())) {
+		if (targetLiteral.getLiteralData().equals(literal.getLiteralData())) {
 
 			CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
 		}
@@ -135,16 +146,16 @@ public class GraphContextNodeHandler extends AbstractContextNodeHandler {
 	}
 
 	@Override
-	public boolean executeModOnLiteral(ContextNode operationContextNode, Literal operationLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeModOnLiteral(ContextNode targetContextNode, Literal targetLiteral, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment operationContextNodeXri = operationContextNode.getXri();
-		ContextNode contextNode = this.graph.findContextNode(operationContextNodeXri, false);
+		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
+		ContextNode contextNode = this.graph.findContextNode(targetContextNodeXri, false);
 		if (contextNode == null) return true;
 
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return true;
 
-		literal.setLiteralData(operationLiteral.getLiteralData());
+		literal.setLiteralData(targetLiteral.getLiteralData());
 
 		return true;
 	}

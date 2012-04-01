@@ -21,8 +21,12 @@ public class XDIUtil {
 	public static String dataXriSegmentToString(XRI3Segment xriSegment) {
 
 		XRI3SubSegment xriSubSegment = (XRI3SubSegment) xriSegment.getFirstSubSegment();
+
 		XRI3XRef xRef = (XRI3XRef) xriSubSegment.getXRef();
+		if (xRef == null) throw new Xdi2RuntimeException("Invalid data URI: " + xriSubSegment);
+
 		String iri = xRef.getIRI();		
+		if (iri == null) throw new Xdi2RuntimeException("Invalid data URI: " + xriSubSegment);
 
 		Matcher matcher = PATTERN_DATA_URI.matcher(iri);
 		if (! matcher.matches()) throw new Xdi2RuntimeException("Invalid data URI: " + iri);

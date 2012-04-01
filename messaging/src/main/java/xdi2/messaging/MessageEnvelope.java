@@ -9,7 +9,6 @@ import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.XDIConstants;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -125,18 +124,37 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public Graph getTargetGraph() {
 
-		// create a copy of the operation graph without the current message container
+		// create a copy of the operation graph without message containers
 
 		Graph targetGraph = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyContextNode(this.getGraph().getRootContextNode(), targetGraph, new CopyStrategy () {
+		CopyUtil.copyGraph(this.getGraph(), targetGraph, null);
 
-			public ContextNode replaceContextNode(ContextNode contextNode) {
+		boolean done;
 
-				if (contextNode.getArcXri().equals(XDIMessagingConstants.XRI_S_MSG)) return null;
+		do {
 
-				return contextNode;
+			done = true;
+
+			for (Iterator<ContextNode> contextNodes = targetGraph.getRootContextNode().getAllContextNodes(); contextNodes.hasNext(); ) {
+
+				ContextNode contextNode = contextNodes.next();
+
+				if (contextNode.getArcXri().equals(XDIMessagingConstants.XRI_S_MSG)) {
+
+					ContextNode parentContextNode = contextNode.getContextNode();
+
+					do {
+
+						contextNode.delete();
+						contextNode = parentContextNode;
+						parentContextNode = contextNode.getContextNode();
+					} while (parentContextNode != null && contextNode.isEmpty());
+
+					done = false;
+					break;
+				}
 			}
-		});
+		} while (! done);
 
 		return targetGraph;
 	}
