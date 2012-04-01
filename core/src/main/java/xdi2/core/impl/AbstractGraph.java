@@ -149,7 +149,7 @@ public abstract class AbstractGraph implements Graph {
 		if (segments.length != 3) throw new Xdi2ParseException("Invalid statement.");
 
 		XRI3Segment subject, predicate, object;
-		
+
 		try {
 
 			subject = new XRI3Segment(segments[0]);
@@ -183,7 +183,7 @@ public abstract class AbstractGraph implements Graph {
 		}
 	}
 
-	
+
 	/*
 	 * Methods related to transactions.
 	 */

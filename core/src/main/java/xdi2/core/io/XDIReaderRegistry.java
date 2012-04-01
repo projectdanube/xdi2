@@ -65,7 +65,7 @@ public final class XDIReaderRegistry {
 			}
 
 			if (reader.getFormat() != null) readerClassesByFormat.put(reader.getFormat(), readerClass);
-			for (String mimeType : reader.getMimeTypes()) readerClassesByMimeType.put(mimeType, readerClass);
+			if (reader.getMimeType() != null) readerClassesByMimeType.put(reader.getMimeType(), readerClass);
 			if (reader.getDefaultFileExtension() != null) readerClassesByDefaultFileExtension.put(reader.getDefaultFileExtension(), readerClass);
 		}
 	}
@@ -85,7 +85,7 @@ public final class XDIReaderRegistry {
 	 */
 	public static XDIReader forFormat(String format) {
 
-		if (AutoReader.FORMAT_TYPE.equalsIgnoreCase(format)) return getAuto();
+		if (AutoReader.FORMAT_NAME.equalsIgnoreCase(format)) return getAuto();
 
 		Class<XDIReader> readerClass = readerClassesByFormat.get(format);
 		if (readerClass == null) return null;

@@ -21,7 +21,8 @@ public final class XDIWriterRegistry {
 
 		XDIJSONWriter.class.getName(),  // first one in the array is the default
 		XDIStatementsWriter.class.getName(),
-		XDIStatementsWriterWithContextStatements.class.getName()
+		XDIStatementsWriterWithContextStatements.class.getName(),
+		XDIStatementsWriterHTML.class.getName(),
 	};
 
 	private static List<Class<XDIWriter> > writerClasses;
@@ -67,7 +68,7 @@ public final class XDIWriterRegistry {
 			}
 
 			if (writer.getFormat() != null) writerClassesByFormat.put(writer.getFormat(), writerClass);
-			for (String mimeType : writer.getMimeTypes()) writerClassesByMimeType.put(mimeType, writerClass);
+			if (writer.getMimeType() != null) writerClassesByMimeType.put(writer.getMimeType(), writerClass);
 			if (writer.getDefaultFileExtension() != null) writerClassesByDefaultFileExtension.put(writer.getDefaultFileExtension(), writerClass);
 		}
 

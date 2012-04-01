@@ -17,15 +17,13 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.xri3.impl.XRI3Segment;
 
-class XDIJSONWriter extends AbstractXDIWriter {
+public class XDIJSONWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -5510592554616900152L;
 
-	protected static final String FORMAT_TYPE = "XDI/JSON";
-	protected static final String[] MIME_TYPES = new String[] { "application/xdi+json" };
-	protected static final String DEFAULT_FILE_EXTENSION = "json";
-
-	XDIJSONWriter() { }
+	public static final String FORMAT_NAME = "XDI/JSON";
+	public static final String MIME_TYPE = "application/xdi+json";
+	public static final String DEFAULT_FILE_EXTENSION = "json";
 
 	private boolean first;
 
@@ -153,20 +151,5 @@ class XDIJSONWriter extends AbstractXDIWriter {
 		writer.flush();
 
 		return writer;
-	}
-
-	public String getFormat() {
-
-		return FORMAT_TYPE;
-	}
-
-	public String[] getMimeTypes() {
-
-		return MIME_TYPES;
-	}
-
-	public String getDefaultFileExtension() {
-
-		return DEFAULT_FILE_EXTENSION;
 	}
 }

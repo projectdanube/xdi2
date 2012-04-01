@@ -298,7 +298,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 		log.debug("contextPath: " + contextPath);
 		log.debug("servletPath: " + servletPath);
 		log.debug("path: " + path);
-		
+
 		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
 
 		if (messagingTargetPath == null) {
@@ -325,7 +325,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 		String servletPath = request.getServletPath();
 		String path = requestUri.substring(contextPath.length() + servletPath.length());
 		if (path.startsWith("/")) path = path.substring(1);
-		
+
 		String addr = path.substring(messagingTargetPath.length());
 		while (addr.length() > 0 && addr.charAt(0) == '/') addr = addr.substring(1);
 
@@ -440,6 +440,8 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 		// find a suitable writer based on accept headers
 
+		log.debug("Accept: " + request.getHeader("Accept"));
+
 		XDIWriter writer = null;
 
 		AcceptHeader acceptHeader = new AcceptHeader(request.getHeader("Accept"));
@@ -459,7 +461,7 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
 		writer.write(messageResult.getGraph(), buffer, null);
-		response.setContentType(writer.getMimeTypes()[0]);
+		response.setContentType(writer.getMimeType());
 		response.setContentLength(buffer.size());
 
 		if (buffer.size() > 0) {

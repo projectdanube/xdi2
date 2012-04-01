@@ -6,13 +6,13 @@ import java.util.Properties;
 
 import xdi2.core.Graph;
 
-public class XDIStatementsWriterWithContextStatements extends XDIStatementsWriter {
+public class XDIStatementsWriterHTML extends XDIStatementsWriter {
 
-	private static final long serialVersionUID = -8401736205910361341L;
+	private static final long serialVersionUID = 6165681888411006041L;
 
-	public static final String FORMAT_NAME = "STATEMENTS_WITH_CONTEXT_STATEMENTS";
-	public static final String MIME_TYPE = "text/plain";
-	public static final String DEFAULT_FILE_EXTENSION = "xdi";
+	public static final String FORMAT_NAME = "STATEMENTS_HTML";
+	public static final String MIME_TYPE = "text/html";
+	public static final String DEFAULT_FILE_EXTENSION = "html";
 
 	@Override
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
@@ -20,6 +20,7 @@ public class XDIStatementsWriterWithContextStatements extends XDIStatementsWrite
 		if (parameters == null) parameters = new Properties();
 
 		parameters.put(XDIStatementsWriter.PARAMETER_WRITE_CONTEXT_STATEMENTS, Boolean.TRUE.toString());
+		parameters.put(XDIStatementsWriter.PARAMETER_WRITE_HTML, Boolean.TRUE.toString());
 
 		return super.write(graph, writer, parameters);
 	}

@@ -263,7 +263,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		boolean handled = false;
 
 		XRI3Segment targetXri = operation.getOperationTargetXri();
-		ContextNode targetContextNode = targetGraph.findContextNode(operation.getOperationTargetXri(), false);
+		ContextNode targetContextNode = targetGraph.findContextNode(targetXri, false);
 
 		// execute the operation
 

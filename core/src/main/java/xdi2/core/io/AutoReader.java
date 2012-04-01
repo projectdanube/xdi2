@@ -27,7 +27,9 @@ public class AutoReader extends AbstractXDIReader {
 
 	private static final long serialVersionUID = 1539206988520551698L;
 
-	protected static final String FORMAT_TYPE = "AUTO";
+	public static final String FORMAT_NAME = "AUTO";
+	public static final String MIME_TYPE = null;
+	public static final String DEFAULT_FILE_EXTENSION = null;
 
 	private static String readerClassNames[] = {
 
@@ -115,21 +117,6 @@ public class AutoReader extends AbstractXDIReader {
 		this.read(graph, new String(byteArrayOutputStream.toByteArray()), parameters);
 		
 		return stream;
-	}
-
-	public String getFormat() {
-
-		return FORMAT_TYPE;
-	}
-
-	public String[] getMimeTypes() {
-
-		return new String[0];
-	}
-
-	public String getDefaultFileExtension() {
-
-		return null;
 	}
 
 	public XDIReader getLastSuccessfulReader() {

@@ -9,15 +9,13 @@ import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2Exception;
 import xdi2.core.exceptions.Xdi2ParseException;
 
-class XDIStatementsReader extends AbstractXDIReader {
+public class XDIStatementsReader extends AbstractXDIReader {
 
 	private static final long serialVersionUID = 1450041480967749122L;
 
-	protected static final String FORMAT_TYPE = "STATEMENTS";
-	protected static final String[] MIME_TYPES = new String[] { "text/plain" };
-	protected static final String DEFAULT_FILE_EXTENSION = "xdi";
-
-	XDIStatementsReader() { }
+	public static final String FORMAT_NAME = "STATEMENTS";
+	public static final String MIME_TYPE = "text/plain";
+	public static final String DEFAULT_FILE_EXTENSION = "xdi";
 
 	private void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException {
 
@@ -43,20 +41,5 @@ class XDIStatementsReader extends AbstractXDIReader {
 		this.read(graph, new BufferedReader(reader));
 
 		return reader;
-	}
-
-	public String getFormat() {
-
-		return FORMAT_TYPE;
-	}
-
-	public String[] getMimeTypes() {
-
-		return MIME_TYPES;
-	}
-
-	public String getDefaultFileExtension() {
-
-		return DEFAULT_FILE_EXTENSION;
 	}
 }

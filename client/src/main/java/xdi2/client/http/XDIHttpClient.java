@@ -21,7 +21,6 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.http.AcceptHeader;
-import xdi2.messaging.http.AcceptHeader.AcceptEntry;
 
 /**
  * An XDI client that can send XDI messages over HTTP and receive results.
@@ -42,13 +41,13 @@ import xdi2.messaging.http.AcceptHeader.AcceptEntry;
 public class XDIHttpClient implements XDIClient {
 
 	public static final String KEY_URL = "url";
-	public static final String KEY_SENDFORMAT = "sendformat";
-	public static final String KEY_RECVFORMAT = "recvformat";
+	public static final String KEY_SENDMIMETYPE = "sendmimetype";
+	public static final String KEY_RECVMIMETYPE = "recvmimetype";
 	public static final String KEY_USERAGENT = "useragent";
 
-	public static final String DEFAULT_SENDFORMAT = "X3 Standard";
-	public static final String DEFAULT_RECVFORMAT = "X3 Standard";
-	public static final String DEFAULT_USERAGENT = "XDI4j";
+	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json";
+	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json";
+	public static final String DEFAULT_USERAGENT = "XDI Squared";
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
 
@@ -60,8 +59,8 @@ public class XDIHttpClient implements XDIClient {
 	public XDIHttpClient() {
 
 		this.url = null;
-		this.sendFormat = DEFAULT_SENDFORMAT;
-		this.recvFormat = DEFAULT_RECVFORMAT;
+		this.sendFormat = DEFAULT_SENDMIMETYPE;
+		this.recvFormat = DEFAULT_RECVMIMETYPE;
 		this.userAgent = DEFAULT_USERAGENT;
 	}
 
@@ -75,8 +74,8 @@ public class XDIHttpClient implements XDIClient {
 			throw new IllegalArgumentException(ex.getMessage(), ex);
 		}
 
-		this.sendFormat = DEFAULT_SENDFORMAT;
-		this.recvFormat = DEFAULT_RECVFORMAT;
+		this.sendFormat = DEFAULT_SENDMIMETYPE;
+		this.recvFormat = DEFAULT_RECVMIMETYPE;
 		this.userAgent = DEFAULT_USERAGENT;
 	}
 
@@ -90,8 +89,8 @@ public class XDIHttpClient implements XDIClient {
 			throw new IllegalArgumentException(ex.getMessage(), ex);
 		}
 
-		this.sendFormat = (sendFormat != null) ? sendFormat : DEFAULT_SENDFORMAT;
-		this.recvFormat = (recvFormat != null) ? recvFormat : DEFAULT_RECVFORMAT;
+		this.sendFormat = (sendFormat != null) ? sendFormat : DEFAULT_SENDMIMETYPE;
+		this.recvFormat = (recvFormat != null) ? recvFormat : DEFAULT_RECVMIMETYPE;
 		this.userAgent = (userAgent != null) ? userAgent : DEFAULT_USERAGENT;
 	}
 
@@ -100,15 +99,15 @@ public class XDIHttpClient implements XDIClient {
 		if (parameters == null) {
 
 			this.url = null;
-			this.sendFormat = DEFAULT_SENDFORMAT;
-			this.recvFormat = DEFAULT_RECVFORMAT;
+			this.sendFormat = DEFAULT_SENDMIMETYPE;
+			this.recvFormat = DEFAULT_RECVMIMETYPE;
 			this.recvFormat = DEFAULT_USERAGENT;
 		} else {
 
 			this.url = new URL(parameters.getProperty(KEY_URL, null));
-			this.sendFormat = parameters.getProperty(KEY_SENDFORMAT, DEFAULT_SENDFORMAT);
-			this.recvFormat = parameters.getProperty(KEY_RECVFORMAT, DEFAULT_RECVFORMAT);
-			this.userAgent = parameters.getProperty(KEY_RECVFORMAT, DEFAULT_USERAGENT);
+			this.sendFormat = parameters.getProperty(KEY_SENDMIMETYPE, DEFAULT_SENDMIMETYPE);
+			this.recvFormat = parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_RECVMIMETYPE);
+			this.userAgent = parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_USERAGENT);
 
 			log.debug("Initialized with " + parameters.toString() + ".");
 		}
@@ -122,7 +121,7 @@ public class XDIHttpClient implements XDIClient {
 
 		XDIWriter writer = XDIWriterRegistry.forFormat(this.sendFormat);
 		if (writer == null) writer = XDIWriterRegistry.forMimeType(this.sendFormat);
-		if (writer == null) writer = XDIWriterRegistry.forFormat(DEFAULT_SENDFORMAT);
+		if (writer == null) writer = XDIWriterRegistry.forMimeType(DEFAULT_SENDMIMETYPE);
 		if (writer == null) writer = XDIWriterRegistry.getDefault();
 		if (writer == null) throw new Xdi2MessagingException("Cannot find a suitable XDI writer.");
 
@@ -132,7 +131,7 @@ public class XDIHttpClient implements XDIClient {
 
 		XDIReader reader = XDIReaderRegistry.forFormat(this.recvFormat);
 		if (reader == null) reader = XDIReaderRegistry.forMimeType(this.recvFormat);
-		if (reader == null) reader = XDIReaderRegistry.forFormat(DEFAULT_RECVFORMAT);
+		if (reader == null) reader = XDIReaderRegistry.forMimeType(DEFAULT_RECVMIMETYPE);
 		if (reader == null) reader = XDIReaderRegistry.getDefault();
 		if (reader == null) throw new Xdi2MessagingException("Cannot find a suitable XDI reader.");
 
@@ -140,24 +139,9 @@ public class XDIHttpClient implements XDIClient {
 
 		// prepare Accept: header
 
-		AcceptHeader accept = new AcceptHeader();
+		AcceptHeader acceptHeader = AcceptHeader.create(reader.getMimeType());
 
-		mimeTypes: for (String mimeType : XDIReaderRegistry.getMimeTypes()) {
-
-			for (String readerMimeType : reader.getMimeTypes()) {
-
-				if (mimeType.equals(readerMimeType)) continue mimeTypes;
-			}
-
-			accept.addEntry(new AcceptEntry(0.5f, mimeType));
-		}
-
-		for (String readerMimeType : reader.getMimeTypes()) {
-
-			accept.addEntry(new AcceptEntry(1, readerMimeType));
-		}
-
-		log.debug("Using Accept header " + accept.toString() + ".");
+		log.debug("Using Accept header " + acceptHeader.toString() + ".");
 
 		// initialize and open connection
 
@@ -181,8 +165,8 @@ public class XDIHttpClient implements XDIClient {
 
 			http.setDoInput(true);
 			http.setDoOutput(true);
-			http.setRequestProperty("Content-Type", writer.getMimeTypes()[0]);
-			http.setRequestProperty("Accept", accept.toString());
+			http.setRequestProperty("Content-Type", writer.getMimeType());
+			http.setRequestProperty("Accept", acceptHeader.toString());
 			http.setRequestProperty("User-Agent", this.userAgent);
 			http.setRequestMethod("POST");
 		} catch (Exception ex) {

@@ -22,19 +22,17 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.core.xri3.impl.parser.ParserException;
 
-class XDIJSONReader extends AbstractXDIReader {
+public class XDIJSONReader extends AbstractXDIReader {
 
 	private static final long serialVersionUID = 1450041480967749122L;
 
-	protected static final String FORMAT_TYPE = "XDI/JSON";
-	protected static final String[] MIME_TYPES = new String[] { "application/xdi+json" };
-	protected static final String DEFAULT_FILE_EXTENSION = "json";
+	public static final String FORMAT_NAME = "XDI/JSON";
+	public static final String MIME_TYPE = "application/xdi+json";
+	public static final String DEFAULT_FILE_EXTENSION = "json";
 
 	private static final Logger log = LoggerFactory.getLogger(XDIJSONReader.class);
 
 	private String lastXriString;
-
-	XDIJSONReader() { }
 
 	private synchronized XRI3Segment makeXRI3Segment(String xriString) {
 
@@ -138,20 +136,5 @@ class XDIJSONReader extends AbstractXDIReader {
 		}
 
 		return reader;
-	}
-
-	public String getFormat() {
-
-		return FORMAT_TYPE;
-	}
-
-	public String[] getMimeTypes() {
-
-		return MIME_TYPES;
-	}
-
-	public String getDefaultFileExtension() {
-
-		return DEFAULT_FILE_EXTENSION;
 	}
 }

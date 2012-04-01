@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import xdi2.core.io.XDIReaderRegistry;
+
 /**
  * A helper class that can parse and produce HTTP Accept: headers.
  * 
@@ -27,10 +29,45 @@ public class AcceptHeader {
 		if (header != null) this.parse(header);
 	}
 
+	/**
+	 * Creates an Accept: header with all the mime types we understand.
+	 * and optionally with a "preferred" one.
+	 * @param preferredMimeType The preferred mime type.
+	 * @return The Accept: header
+	 */
+	public static AcceptHeader create(String preferredMimeType) {
+
+		AcceptHeader acceptHeader = new AcceptHeader();
+
+		for (String mimeType : XDIReaderRegistry.getMimeTypes()) {
+
+			if (mimeType.equals(preferredMimeType)) continue;
+
+			acceptHeader.addEntry(new AcceptEntry(0.5f, mimeType));
+		}
+
+		if (preferredMimeType != null) {
+
+			acceptHeader.addEntry(new AcceptEntry(1, preferredMimeType));
+		}
+
+		return acceptHeader;
+	}
+
 	public void addEntry(AcceptEntry entry) {
 
 		this.entries.add(entry);
 		this.sort();
+	}
+
+	public boolean containsMimeType(String mimeType) {
+
+		for (AcceptEntry entry : this.entries) {
+
+			if (entry.getMimeType().equals(mimeType)) return true;
+		}
+
+		return false;
 	}
 
 	protected void parse(String header) {
@@ -65,7 +102,7 @@ public class AcceptHeader {
 
 	public List<AcceptEntry> getEntries() {
 
-		return(this.entries);
+		return this.entries;
 	}
 
 	@Override
@@ -81,7 +118,7 @@ public class AcceptHeader {
 			if (entries.hasNext()) header.append(ENTRY_SEPARATOR);
 		}
 
-		return(header.toString());
+		return header.toString();
 	}
 
 	/**

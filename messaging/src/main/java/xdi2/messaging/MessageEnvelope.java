@@ -5,10 +5,12 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.XDIConstants;
 import xdi2.core.util.CopyUtil.CopyStrategy;
+import xdi2.core.util.XDIConstants;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.SelectingMappingIterator;
@@ -73,6 +75,25 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
 		Message message = messageContainer.createMessage();
 		message.createOperation(operationXri, targetXri);
+
+		return messageEnvelope;
+	}
+
+	/**
+	 * Factory method that creates an XDI message envelope bound to a given graph.
+	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param statementString The statement to which the operation applies.
+	 * @return The XDI message envelope.
+	 */
+	public static MessageEnvelope fromOperationXriAndStatementXri(XRI3Segment operationXri, String statementString) throws Xdi2ParseException {
+
+		if (statementString == null) throw new NullPointerException();
+
+		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
+		Statement statement = messageEnvelope.getGraph().addStatement(statementString);
+		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
+		Message message = messageContainer.createMessage();
+		message.createOperation(operationXri, statement.getSubject().getXri());
 
 		return messageEnvelope;
 	}
