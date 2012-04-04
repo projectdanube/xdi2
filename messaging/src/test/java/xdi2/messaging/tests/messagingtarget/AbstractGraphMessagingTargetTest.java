@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.util.XDIMessagingConstants;
 
 public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
@@ -21,6 +23,23 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 	private static final XDIReader autoReader = XDIReaderRegistry.getAuto();
 
 	protected abstract Graph openNewGraph(String id) throws IOException;
+
+	public void testMessageEnvelope() throws Exception {
+
+		Graph graph = this.openNewGraph(this.getClass().getName() + "-graph-me-1"); 
+
+		GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget(); graphMessagingTarget.setGraph(graph);
+
+		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationXriAndStatement(XDIMessagingConstants.XRI_S_ADD, "=markus/+friend/=giovanni");
+		MessageResult messageResult1 = MessageResult.newInstance();
+		graphMessagingTarget.execute(messageEnvelope1, messageResult1, null);
+		assertEquals(graph.findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")).getRelationXri(), new XRI3Segment("=giovanni"));
+
+		MessageEnvelope messageEnvelope2 = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_GET, new XRI3Segment("=markus"));
+		MessageResult messageResult2 = MessageResult.newInstance();
+		graphMessagingTarget.execute(messageEnvelope2, messageResult2, null);
+		assertEquals(messageResult2.getGraph().findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")).getRelationXri(), new XRI3Segment("=giovanni"));
+	}
 
 	public void testGraphMessagingTarget() throws Exception {
 
