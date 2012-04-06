@@ -1,16 +1,16 @@
 body {
-	font-family: Arial;
+	font-family: Calibri, Arial, Helvetica, sans-serif;
 	padding: 20px;
 }
 
 * {
-	font-size: 14pt;
+	font-size: 12pt;
 }
 
 a {
 	text-decoration: none;
-	color: red;
-	border-bottom: 3px solid red;
+	color: #540dd8;
+	border-bottom: 3px solid #540dd8;
 }
 
 div.header {
@@ -19,8 +19,18 @@ div.header {
 	margin-bottom: 10px;
 }
 
+p.subheader {
+	font-weight: bold;
+}
+
+hr {
+	color: black;
+	background-color: black;
+	height: 3px;
+}
+
 #appname {
-	font-size: 18pt;
+	font-size: 16pt;
 	font-weight: bold;
 }
 
@@ -31,6 +41,11 @@ textarea.input {
 }
 
 textarea {
+	background-color: white;
+	border: 3px solid black;
+}
+
+input {
 	background-color: white;
 	border: 3px solid black;
 }
@@ -157,4 +172,3 @@ ul.tabbernav li.tabberactive a:hover {
 	height: 200px;
 	overflow: auto;
 }
-
