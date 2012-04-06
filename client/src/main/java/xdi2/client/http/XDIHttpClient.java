@@ -177,6 +177,7 @@ public class XDIHttpClient implements XDIClient {
 		// send the message envelope
 
 		log.debug("Sending message envelope with " + messageEnvelope.getMessageCount() + " messages.");
+		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 
 		int responseCode;
 		String responseMessage;
@@ -240,6 +241,8 @@ public class XDIHttpClient implements XDIClient {
 
 		http.disconnect();
 
+		if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
+		
 		// see if it is an error message result
 
 		if (ErrorMessageResult.isValid(messageResult.getGraph())) {

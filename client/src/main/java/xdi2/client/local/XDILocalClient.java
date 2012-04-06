@@ -1,8 +1,12 @@
 package xdi2.client.local;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.client.XDIClient;
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.io.XDIWriterRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.ExecutionContext;
@@ -15,6 +19,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * @author markus
  */
 public class XDILocalClient implements XDIClient {
+
+	protected static final Logger log = LoggerFactory.getLogger(XDILocalClient.class);
 
 	private GraphMessagingTarget messagingTarget;
 
@@ -46,7 +52,9 @@ public class XDILocalClient implements XDIClient {
 
 		if (messageResult == null) messageResult = MessageResult.newInstance();
 
+		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 		this.messagingTarget.execute(messageEnvelope, messageResult, new ExecutionContext());
+		if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 
 		return(messageResult);
 	}
