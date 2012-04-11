@@ -5,7 +5,7 @@
 
 It is the basis for [Project Danube](http://www.projectdanube.org/).
 
-A sample deployment is available at http://xdi2.projectdanube.org.
+A sample deployment of XDI² is available at http://xdi2.projectdanube.org.
 
 ### Components
 
@@ -45,3 +45,7 @@ Then XDI endpoints are available at:
     http://localhost:8080/xdi/mem-graph/
     http://localhost:8080/xdi/bdb-graph/
     http://localhost:8080/xdi/file-graph/
+
+### Tests
+
+See [[Testing]] for a description of unit tests, etc.
