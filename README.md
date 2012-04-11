@@ -48,4 +48,4 @@ Then XDI endpoints are available at:
 
 ### Tests
 
-See [[Testing]] for a description of unit tests, etc.
+See [Testing] for a description of unit tests, etc.
