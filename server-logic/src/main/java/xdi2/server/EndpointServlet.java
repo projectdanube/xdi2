@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -62,17 +62,13 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 
 	public EndpointRegistry getEndpointRegistry() {
 
-		return(this.endpointRegistry);
+		return this.endpointRegistry;
 	}
 
 	private void initEndpointRegistry(ApplicationContext applicationContext) {
 
-		log.info("Initializing...");
-
 		this.endpointRegistry = new EndpointRegistry();
 		this.endpointRegistry.init(applicationContext);
-
-		log.info("Initializing complete.");
 	}
 
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -80,18 +76,43 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 		this.service(request, response);
 	}
 
+	private ApplicationContext applicationContext;
+
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
-		this.initEndpointRegistry(applicationContext);
+		log.debug("Setting application context.");
+
+		this.applicationContext = applicationContext;
 	}
 
 	@Override
-	public void init(ServletConfig servletConfig) throws ServletException {
+	public void init() throws ServletException {
 
-		super.init(servletConfig);
+		log.info("Initializing...");
 
-		ApplicationContext applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletConfig.getServletContext());
-		this.initEndpointRegistry(applicationContext);
+		if (this.applicationContext == null) {
+
+			log.debug("Setting application context using servlet context.");
+
+			ServletContext servletContext = this.getServletContext();
+			this.applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+		}
+
+		this.initEndpointRegistry(this.applicationContext);
+
+		log.info("Initializing complete.");
+	}
+
+	@Override
+	public void destroy() {
+
+		log.info("Shutting down.");
+
+		this.endpointRegistry.shutdown();
+
+		super.destroy();
+
+		log.info("Shutting down complete.");
 	}
 
 	@Override
@@ -164,16 +185,6 @@ public class EndpointServlet extends HttpServlet implements HttpRequestHandler, 
 		}
 
 		log.debug("Successfully processed DELETE request.");
-	}
-
-	@Override
-	public void destroy() {
-
-		log.debug("Shutting down.");
-
-		this.endpointRegistry.shutdown();
-
-		super.destroy();
 	}
 
 	protected void processGetRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

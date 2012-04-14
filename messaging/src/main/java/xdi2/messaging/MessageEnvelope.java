@@ -97,6 +97,26 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	}
 
 	/**
+	 * Factory method that creates an XDI message envelope bound to a given graph.
+	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param xdi The target XRI or statement to which the operation applies.
+	 * @return The XDI message envelope.
+	 */
+	public static final MessageEnvelope fromOperationXriAndXdi(XRI3Segment operationXri, String xdi) throws Xdi2ParseException {
+
+		try {
+
+			if (xdi == null) xdi = "()";
+
+			XRI3Segment targetXri = new XRI3Segment(xdi);
+			return MessageEnvelope.fromOperationXriAndTargetXri(operationXri, targetXri);
+		} catch (Exception ex) {
+
+			return MessageEnvelope.fromOperationXriAndStatement(operationXri, xdi);
+		}
+	}
+
+	/**
 	 * Factory method that creates an XDI message envelope bound to a new in-memory graph.
 	 * @return The XDI message envelope.
 	 */
