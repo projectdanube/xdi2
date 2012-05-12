@@ -43,7 +43,7 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 		this.databaseName = DEFAULT_DATABASE_NAME;
 	}
 
-	protected KeyValueStore getKeyValueStore() throws IOException {
+	protected KeyValueStore openKeyValueStore() throws IOException {
 
 		// we use the current working directory
 

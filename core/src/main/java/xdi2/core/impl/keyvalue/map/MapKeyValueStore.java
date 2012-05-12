@@ -95,4 +95,14 @@ public class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		this.map.clear();
 		this.map = null;
 	}
+
+	public Map<String, Set<String>> getMap() {
+
+		return this.map;
+	}
+
+	public SetFactory getSetFactory() {
+
+		return this.setFactory;
+	}
 }

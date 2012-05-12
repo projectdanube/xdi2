@@ -2,7 +2,6 @@ package xdi2.core.impl.keyvalue;
 
 import java.io.IOException;
 
-import xdi2.core.Graph;
 import xdi2.core.GraphFactory;
 import xdi2.core.impl.AbstractGraphFactory;
 
@@ -22,14 +21,14 @@ public abstract class AbstractKeyValueGraphFactory extends AbstractGraphFactory 
 		this.supportGetRelations = supportGetRelations;
 	}
 
-	public final Graph openGraph() throws IOException {
+	public final KeyValueGraph openGraph() throws IOException {
 
-		KeyValueStore keyValueStore = this.getKeyValueStore();
+		KeyValueStore keyValueStore = this.openKeyValueStore();
 
 		return new KeyValueGraph(keyValueStore, this.supportGetContextNodes, this.supportGetRelations);
 	}
 
-	protected abstract KeyValueStore getKeyValueStore() throws IOException;
+	protected abstract KeyValueStore openKeyValueStore() throws IOException;
 
 	public boolean isSupportGetContextNodes() {
 

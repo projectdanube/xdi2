@@ -31,7 +31,7 @@ public class PropertiesGraphFactory extends AbstractKeyValueGraphFactory impleme
 		this.autoSave = DEFAULT_AUTO_SAVE;
 	}
 
-	protected KeyValueStore getKeyValueStore() throws IOException {
+	protected KeyValueStore openKeyValueStore() throws IOException {
 
 		// open file
 

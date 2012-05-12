@@ -23,6 +23,7 @@ public final class XDIWriterRegistry {
 		XDIStatementsWriter.class.getName(),
 		XDIStatementsWriterWithContextStatements.class.getName(),
 		XDIStatementsWriterHTML.class.getName(),
+		XDIKeyValueWriter.class.getName()
 	};
 
 	private static List<Class<XDIWriter> > writerClasses;

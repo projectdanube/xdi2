@@ -60,12 +60,28 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 	 * Misc methods
 	 */
 
-	boolean isSupportGetContextNodes() {
+	/**
+	 * Returns the key/value store this graph is based on.
+	 * WARNING: Do not alter the contents of the store using this method, or your XDI graph may get corrupted.
+	 * @return The key/value store backing this graph.
+	 */
+	public KeyValueStore getKeyValueStore() {
+
+		return this.keyValueStore;
+	}
+
+	/**
+	 * @return True, if this key/value graph supports enumerating contexts.
+	 */
+	public boolean isSupportGetContextNodes() {
 
 		return this.supportGetContextNodes;
 	}
 
-	boolean isSupportGetRelations() {
+	/**
+	 * @return True, if this key/value graph supports enumerating relations.
+	 */
+	public boolean isSupportGetRelations() {
 
 		return this.supportGetRelations;
 	}

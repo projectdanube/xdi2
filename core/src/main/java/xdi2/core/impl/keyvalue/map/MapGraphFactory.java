@@ -32,7 +32,7 @@ public final class MapGraphFactory extends AbstractKeyValueGraphFactory implemen
 		this.setFactory = DEFAULT_SET_FACTORY;
 	}
 
-	protected KeyValueStore getKeyValueStore() throws IOException {
+	protected KeyValueStore openKeyValueStore() throws IOException {
 
 		// open map
 
