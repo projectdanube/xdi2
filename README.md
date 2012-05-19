@@ -40,7 +40,7 @@ Then go to
     cd server
     mvn jetty:run
 
-Then XDI endpoints are available at:
+Then (with default configuration) XDI endpoints are available at:
 
     http://localhost:8080/xdi/mem-graph/
     http://localhost:8080/xdi/bdb-graph/
