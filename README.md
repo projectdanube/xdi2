@@ -34,18 +34,6 @@ Then go to
 
     http://localhost:8080/
 
-
-### How to run the standalone XDI server
-
-    cd server
-    mvn jetty:run
-
-Then (with default configuration) XDI endpoints are available at:
-
-    http://localhost:8080/xdi/mem-graph/
-    http://localhost:8080/xdi/bdb-graph/
-    http://localhost:8080/xdi/file-graph/
-
 ### Tests
 
 See [Testing](https://github.com/peacekeeper/xdi2/wiki/Testing) for a description of unit tests, etc.
