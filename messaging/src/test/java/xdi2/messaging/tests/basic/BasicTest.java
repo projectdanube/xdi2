@@ -26,7 +26,7 @@ public class BasicTest extends TestCase {
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(SENDER, true);
-		Message message = messageContainer.createMessage();
+		Message message = messageContainer.getMessage(true);
 
 		ContextNode[] contextNodes = new ContextNode[CONTEXTNODEXRIS.length]; 
 		for (int i=0; i<CONTEXTNODEXRIS.length; i++) contextNodes[i] = messageEnvelope.getGraph().findContextNode(CONTEXTNODEXRIS[i], true);

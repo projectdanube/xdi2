@@ -146,7 +146,7 @@ public class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Creates a new $get operation and adds it to this XDI message.
+	 * Creates a new $add operation and adds it to this XDI message.
 	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $get operation.
 	 */

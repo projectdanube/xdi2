@@ -58,7 +58,13 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	public synchronized void delete() {
 
-		this.getContextNode().deleteContextNode(this.getArcXri());
+		if (this.isRootContextNode()) {
+
+			this.clear();
+		} else {
+
+			this.getContextNode().deleteContextNode(this.getArcXri());
+		}
 	}
 
 	public synchronized void clear() {

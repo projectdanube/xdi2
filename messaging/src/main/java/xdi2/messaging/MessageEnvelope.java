@@ -71,7 +71,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		Message message = messageContainer.createMessage();
+		Message message = messageContainer.getMessage(true);
 		message.createOperation(operationXri, targetXri);
 
 		return messageEnvelope;
@@ -90,7 +90,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
 		ContextNode statementContextNode = messageEnvelope.getGraph().addStatement(statement).getSubject();
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		Message message = messageContainer.createMessage();
+		Message message = messageContainer.getMessage(true);
 		message.createOperation(operationXri, statementContextNode.getXri());
 
 		return messageEnvelope;
@@ -102,7 +102,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * @param xdi The target XRI or statement to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static final MessageEnvelope fromOperationXriAndXdi(XRI3Segment operationXri, String xdi) throws Xdi2ParseException {
+	public static final MessageEnvelope fromOperationXriAndTargetXriOrStatement(XRI3Segment operationXri, String xdi) throws Xdi2ParseException {
 
 		try {
 
@@ -205,8 +205,9 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	}
 
 	/**
-	 * Creates a new XDI message container in this XDI message envelope.
-	 * @param senderXri The sender of the message container.
+	 * Returns or creates a new XDI message container in this XDI message envelope.
+	 * @param senderXri The sender.
+	 * @param create Whether to create a message container if it does not exist.
 	 * @return The newly created XDI message container.
 	 */
 	public MessageContainer getMessageContainer(XRI3Segment senderXri, boolean create) {
@@ -297,6 +298,21 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		Iterator<Operation> iterator = this.getOperations();
 
 		return new IteratorCounter(iterator).count();
+	}
+
+	/*
+	 * Convenience instance methods for messages
+	 */
+
+	/**
+	 * Returns or creates a new XDI message in this XDI message envelope for a given sender.
+	 * @param senderXri The sender.
+	 * @param create Whether to create a message container if it does not exist.
+	 * @return The newly created XDI message container.
+	 */
+	public Message getMessage(XRI3Segment senderXri, boolean create) {
+
+		return this.getMessageContainer(senderXri, true).getMessage(create);
 	}
 
 	/*

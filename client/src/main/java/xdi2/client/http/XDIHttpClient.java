@@ -242,14 +242,16 @@ public class XDIHttpClient implements XDIClient {
 		http.disconnect();
 
 		if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
-		
+
 		// see if it is an error message result
 
 		if (ErrorMessageResult.isValid(messageResult.getGraph())) {
 
-			messageResult = ErrorMessageResult.fromGraph(messageResult.getGraph());
+			ErrorMessageResult errorMessageResult = ErrorMessageResult.fromGraph(messageResult.getGraph());
 
-			log.debug("Error message result received: " + ((ErrorMessageResult) messageResult).getErrorString() + " (" + ((ErrorMessageResult) messageResult).getErrorCode().toString() + ")");
+			log.debug("Error message result received: " + "(" + errorMessageResult.getErrorCode().toString() + ") " + errorMessageResult.getErrorString());
+
+			throw new Xdi2MessagingException("Error message result received: " + "(" + errorMessageResult.getErrorCode().toString() + ") " + errorMessageResult.getErrorString());
 		}
 
 		// done

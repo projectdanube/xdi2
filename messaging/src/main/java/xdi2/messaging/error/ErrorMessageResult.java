@@ -92,7 +92,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public String getErrorString() {
 
-		ContextNode errorCodeContextNode = this.graph.findContextNode(XRI_S_ERRORCODE, false);
+		ContextNode errorCodeContextNode = this.graph.findContextNode(XRI_S_ERRORSTRING, false);
 		if (errorCodeContextNode == null || ! errorCodeContextNode.containsLiteral()) return null;
 
 		return errorCodeContextNode.getLiteral().getLiteralData();
@@ -100,7 +100,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorString(String errorString) {
 
-		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERRORCODE, true);
+		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERRORSTRING, true);
 
 		if (contextNode.containsLiteral()) {
 

@@ -89,10 +89,14 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 	}
 
 	/**
-	 * Creates a new XDI message in this XDI message container.
+	 * Returns or creates a new XDI message in this XDI message container.
+	 * @param create Whether to create a message if it does not exist.
 	 * @return The newly created XDI message.
 	 */
-	public Message createMessage() {
+	public Message getMessage(boolean create) {
+
+		Iterator<Message> messages = this.getMessages();
+		if (messages.hasNext()) return messages.next();
 
 		ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXSubSegment('!'));
 		contextNode.createContextNode(XDIMessagingConstants.XRI_SS_DO);

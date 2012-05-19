@@ -56,7 +56,7 @@ public class XDILocalClient implements XDIClient {
 		this.messagingTarget.execute(messageEnvelope, messageResult, new ExecutionContext());
 		if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 
-		return(messageResult);
+		return messageResult;
 	}
 
 	public GraphMessagingTarget getMessagingTarget() {
