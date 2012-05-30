@@ -98,19 +98,9 @@ public abstract class AbstractLiteral implements Literal {
 
 		private static final long serialVersionUID = -8290065911553369697L;
 
-		public void delete() {
+		public XRI3Segment getSubject() {
 
-			AbstractLiteral.this.delete();
-		}
-
-		public Graph getGraph() {
-
-			return AbstractLiteral.this.getGraph();
-		}
-
-		public ContextNode getSubject() {
-
-			return AbstractLiteral.this.getContextNode();
+			return AbstractLiteral.this.getContextNode().getXri();
 		}
 
 		public XRI3Segment getPredicate() {
@@ -123,6 +113,19 @@ public abstract class AbstractLiteral implements Literal {
 			return XDIUtil.stringToDataXriSegment(AbstractLiteral.this.getLiteralData());
 		}
 
+		@Override
+		public Graph getGraph() {
+
+			return AbstractLiteral.this.getGraph();
+		}
+
+		@Override
+		public void delete() {
+
+			AbstractLiteral.this.delete();
+		}
+
+		@Override
 		public Literal getLiteral() {
 
 			return AbstractLiteral.this;

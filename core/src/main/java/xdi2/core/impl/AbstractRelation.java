@@ -104,19 +104,9 @@ public abstract class AbstractRelation implements Relation {
 
 		private static final long serialVersionUID = 1937380243537401799L;
 
-		public void delete() {
+		public XRI3Segment getSubject() {
 
-			AbstractRelation.this.delete();
-		}
-
-		public Graph getGraph() {
-
-			return AbstractRelation.this.getGraph();
-		}
-
-		public ContextNode getSubject() {
-
-			return AbstractRelation.this.getContextNode();
+			return AbstractRelation.this.getContextNode().getXri();
 		}
 
 		public XRI3Segment getPredicate() {
@@ -129,6 +119,19 @@ public abstract class AbstractRelation implements Relation {
 			return AbstractRelation.this.getRelationXri();
 		}
 
+		@Override
+		public Graph getGraph() {
+
+			return AbstractRelation.this.getGraph();
+		}
+
+		@Override
+		public void delete() {
+
+			AbstractRelation.this.delete();
+		}
+
+		@Override
 		public Relation getRelation() {
 
 			return AbstractRelation.this;

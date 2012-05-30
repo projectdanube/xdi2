@@ -121,6 +121,11 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	/**
 	 * A simple way to add a statement to this graph.
 	 */
+	public Statement addStatement(Statement statement);
+
+	/**
+	 * A simple way to add a statement to this graph.
+	 */
 	public Statement addStatement(String statement) throws Xdi2ParseException;
 
 	/*

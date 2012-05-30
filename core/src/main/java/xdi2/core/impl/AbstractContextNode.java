@@ -432,19 +432,9 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		private static final long serialVersionUID = 5008355182847367563L;
 
-		public void delete() {
+		public XRI3Segment getSubject() {
 
-			AbstractContextNode.this.delete();
-		}
-
-		public Graph getGraph() {
-
-			return AbstractContextNode.this.getGraph();
-		}
-
-		public ContextNode getSubject() {
-
-			return AbstractContextNode.this.getContextNode();
+			return AbstractContextNode.this.getContextNode().getXri();
 		}
 
 		public XRI3Segment getPredicate() {
@@ -457,6 +447,19 @@ public abstract class AbstractContextNode implements ContextNode {
 			return new XRI3Segment(AbstractContextNode.this.getArcXri().toString());
 		}
 
+		@Override
+		public Graph getGraph() {
+
+			return AbstractContextNode.this.getGraph();
+		}
+
+		@Override
+		public void delete() {
+
+			AbstractContextNode.this.delete();
+		}
+
+		@Override
 		public ContextNode getContextNode() {
 
 			return AbstractContextNode.this;

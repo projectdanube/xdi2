@@ -26,6 +26,8 @@ public class XDIStatementsReader extends AbstractXDIReader {
 
 			lineNr++;
 
+			if (statement.trim().isEmpty()) continue;
+
 			try {
 
 				graph.addStatement(statement);

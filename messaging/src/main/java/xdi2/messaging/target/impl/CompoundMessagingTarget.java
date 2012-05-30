@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.messaging.Message;
@@ -61,7 +60,8 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 	 * We execute an operation by letting all our individual messaging targets
 	 * execute it.
 	 */
-	public boolean execute(Operation operation, Graph targetGraph, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	@Override
+	public boolean execute(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		boolean handled = false;
 
@@ -71,7 +71,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 			try {
 
-				if (messagingTarget.execute(operation, targetGraph, messageResult, executionContext)) handled = true;
+				if (messagingTarget.execute(operation, messageResult, executionContext)) handled = true;
 				if (handled && operation.isWriteOperation() && this.mode.equalsIgnoreCase(MODE_WRITE_FIRST_HANDLED)) break;
 				if (handled && this.mode.equalsIgnoreCase(MODE_FIRST_HANDLED)) break;
 			} catch (Exception ex) { 

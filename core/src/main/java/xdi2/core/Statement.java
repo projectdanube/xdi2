@@ -18,21 +18,10 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 */
 
 	/**
-	 * Delete the statement.
-	 */
-	public void delete();
-
-	/**
-	 * Returns the graph that contains this statements.
-	 * @return The graph that contains this statements.
-	 */
-	public Graph getGraph();
-
-	/**
 	 * Gets the subject of this statement.
 	 * @return A subject.
 	 */
-	public ContextNode getSubject();
+	public XRI3Segment getSubject();
 
 	/**
 	 * Gets the predicate of this statement.
@@ -51,6 +40,17 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * @return An XRI.
 	 */
 	public XRI3 getXRI3();
+
+	/**
+	 * Returns the graph that contains this statements.
+	 * @return The graph that contains this statements.
+	 */
+	public Graph getGraph();
+
+	/**
+	 * Delete the statement.
+	 */
+	public void delete();
 
 	/*
 	 * Sub-interfaces

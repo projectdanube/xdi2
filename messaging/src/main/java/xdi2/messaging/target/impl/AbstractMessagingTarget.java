@@ -7,13 +7,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
-import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2MessagingException;
-import xdi2.core.util.iterators.SingleItemIterator;
+import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.impl.AbstractStatement;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
@@ -91,10 +89,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		int messageCount = messageEnvelope.getMessageCount();
 		int operationCount = messageEnvelope.getOperationCount();
 
-		Graph targetGraph = messageEnvelope.getTargetGraph();
-
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Target graph: " + targetGraph.toString());
-
 		try {
 
 			// before message envelope
@@ -131,7 +125,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message " + i + "/" + messageCount + " (" + operationCount + " operations).");
 
-				if (this.execute(message, targetGraph, messageResult, executionContext)) handled = true;
+				if (this.execute(message, messageResult, executionContext)) handled = true;
 
 				// execute message interceptors (after)
 
@@ -190,7 +184,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * execution of the message envelope begins and that will be passed into every execute() method.
 	 * @return True, if the message has been handled.
 	 */
-	public boolean execute(Message message, Graph targetGraph, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean execute(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (message == null) throw new NullPointerException();
 
@@ -221,9 +215,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				// execute the operation
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation " + i + "/" + operationCount + " (" + operation.getOperationXri() + ") on " + operation.getTargetXri() + ".");
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation " + i + "/" + operationCount + " (" + operation.getOperationXri() + ").");
 
-				if (this.execute(operation, targetGraph, messageResult, executionContext)) handled = true;
+				if (this.execute(operation, messageResult, executionContext)) handled = true;
 
 				// execute operation interceptors (after)
 
@@ -258,24 +252,34 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * execution of the message envelope begins and that will be passed into every execute() method.
 	 * @return True, if the operation has been handled.
 	 */
-	public boolean execute(final Operation operation, Graph targetGraph, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean execute(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation == null) throw new NullPointerException();
 
 		boolean handled = false;
 
 		XRI3Segment targetXri = operation.getTargetXri();
-		ContextNode targetContextNode = targetGraph.findContextNode(targetXri, false);
 
-		// execute the operation
+		// check if the target is a statement
 
-		if (this.executeOperation(targetXri, targetContextNode, operation, messageResult, executionContext)) handled = true;
+		try {
 
-		// execute on the individual context nodes, relations and literals
+			Statement statement = AbstractStatement.fromXriSegment(targetXri);
 
-		if (targetContextNode != null) {
+			// get a statement handler, and execute on it
 
-			if (this.executeContextNodeHandlers(targetContextNode, operation, messageResult, executionContext)) handled = true;
+			StatementHandler statementHandler = this.getStatementHandler(statement);
+
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on statement " + statement + " (" + statementHandler.getClass().getName() + ").");
+
+			if (statementHandler.executeOnStatement(statement, operation, messageResult, executionContext)) handled = true;
+		} catch (Xdi2ParseException ex) {
+
+			// execute the operation
+
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on address " + targetXri + " (" + this.getClass().getName() + ").");
+
+			if (this.executeOperation(targetXri, operation, messageResult, executionContext)) handled = true;
 		}
 
 		// done
@@ -283,93 +287,45 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		return handled;
 	}
 
-	private final boolean executeOperation(XRI3Segment targetXri, ContextNode targetContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on address " + targetXri + " (" + this.getClass().getName() + ").");
+	private final boolean executeOperation(XRI3Segment targetXri, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			return this.executeGetOperation(targetXri, targetContextNode, messageResult, executionContext);
+			return this.executeGetOperation(targetXri, messageResult, executionContext);
 		else if (operation instanceof AddOperation)
-			return this.executeAddOperation(targetXri, targetContextNode, messageResult, executionContext);
+			return this.executeAddOperation(targetXri, messageResult, executionContext);
 		else if (operation instanceof ModOperation)
-			return this.executeModOperation(targetXri, targetContextNode, messageResult, executionContext);
+			return this.executeModOperation(targetXri, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
-			return this.executeDelOperation(targetXri, targetContextNode, messageResult, executionContext);
+			return this.executeDelOperation(targetXri, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri());
-	}
-
-	private final boolean executeContextNodeHandlers(ContextNode targetContextNode, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		boolean handled = false;
-
-		// look at this context node
-
-		ContextNodeHandler contextNodeHandler = this.getContextNodeHandler(targetContextNode);
-
-		if (contextNodeHandler != null) {
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on context node " + targetContextNode.getStatement() + " (" + contextNodeHandler.getClass().getName() + ").");
-			if (contextNodeHandler.executeOnContextNode(targetContextNode, operation, messageResult, executionContext)) handled = true;
-
-			// look at relations
-
-			for (Iterator<Relation> targetRelations = targetContextNode.getRelations(); targetRelations.hasNext(); ) {
-
-				Relation targetRelation = targetRelations.next();
-
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on relation " + targetRelation.getStatement() + " (" + contextNodeHandler.getClass().getName() + ").");
-				if (contextNodeHandler.executeOnRelation(targetContextNode, targetRelation, operation, messageResult, executionContext)) handled = true;
-			}
-
-			// look at literal
-
-			for (Iterator<Literal> targetLiterals = new SingleItemIterator<Literal> (targetContextNode.getLiteral()); targetLiterals.hasNext(); ) {
-
-				Literal targetLiteral = targetLiterals.next();
-
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on literal " + targetLiteral.getStatement() + " (" + contextNodeHandler.getClass().getName() + ").");
-				if (contextNodeHandler.executeOnLiteral(targetContextNode, targetLiteral, operation, messageResult, executionContext)) handled = true;
-			}
-		}
-
-		// look at inner context nodes
-
-		for (Iterator<ContextNode> innerContextNodes = targetContextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
-
-			ContextNode innerContextNode = innerContextNodes.next();
-
-			if (this.executeContextNodeHandlers(innerContextNode, operation, messageResult, executionContext)) handled = true;
-		}
-
-		return handled;
 	}
 
 	/*
 	 * These are for being overridden by subclasses
 	 */
 
-	public boolean executeGetOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOperation(XRI3Segment targetXri, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeAddOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeAddOperation(XRI3Segment targetXri, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeModOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeModOperation(XRI3Segment targetXri, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeDelOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult operationResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOperation(XRI3Segment targetXri, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public ContextNodeHandler getContextNodeHandler(ContextNode targetContextNode) throws Xdi2MessagingException {
+	public StatementHandler getStatementHandler(Statement targetStatement) throws Xdi2MessagingException {
 
 		return null;
 	}

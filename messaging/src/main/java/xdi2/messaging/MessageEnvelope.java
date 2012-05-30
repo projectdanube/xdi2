@@ -7,7 +7,6 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIConstants;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -70,8 +69,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (targetXri == null) targetXri = XDIConstants.XRI_S_CONTEXT;
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
-		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		Message message = messageContainer.getMessage(true);
+		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
 		message.createOperation(operationXri, targetXri);
 
 		return messageEnvelope;
@@ -88,10 +86,8 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (statement == null) throw new NullPointerException();
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
-		ContextNode statementContextNode = messageEnvelope.getGraph().addStatement(statement).getSubject();
-		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		Message message = messageContainer.getMessage(true);
-		message.createOperation(operationXri, statementContextNode.getXri());
+		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
+		message.createOperation(operationXri, new XRI3Segment("(" + statement + ")"));
 
 		return messageEnvelope;
 	}
@@ -99,20 +95,20 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param xdi The target XRI or statement to which the operation applies.
+	 * @param targetXriOrStatement The target XRI or statement to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static final MessageEnvelope fromOperationXriAndTargetXriOrStatement(XRI3Segment operationXri, String xdi) throws Xdi2ParseException {
+	public static final MessageEnvelope fromOperationXriAndTargetXriOrStatement(XRI3Segment operationXri, String targetXriOrStatement) throws Xdi2ParseException {
 
 		try {
 
-			if (xdi == null) xdi = "()";
+			if (targetXriOrStatement == null) targetXriOrStatement = "()";
 
-			XRI3Segment targetXri = new XRI3Segment(xdi);
+			XRI3Segment targetXri = new XRI3Segment(targetXriOrStatement);
 			return MessageEnvelope.fromOperationXriAndTargetXri(operationXri, targetXri);
 		} catch (Exception ex) {
 
-			return MessageEnvelope.fromOperationXriAndStatement(operationXri, xdi);
+			return MessageEnvelope.fromOperationXriAndStatement(operationXri, targetXriOrStatement);
 		}
 	}
 
@@ -136,46 +132,6 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	public Graph getGraph() {
 
 		return this.graph;
-	}
-
-	/**
-	 * Returns the underlying "target" graph without $msg context nodes, i.e. clean of XDI messaging constructs.
-	 */
-	public Graph getTargetGraph() {
-
-		// create a copy of the operation graph without message containers
-
-		Graph targetGraph = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyGraph(this.getGraph(), targetGraph, null);
-
-		boolean done;
-
-		do {
-
-			done = true;
-
-			for (Iterator<ContextNode> contextNodes = targetGraph.getRootContextNode().getAllContextNodes(); contextNodes.hasNext(); ) {
-
-				ContextNode contextNode = contextNodes.next();
-
-				if (contextNode.getArcXri().equals(XDIMessagingConstants.XRI_S_MSG)) {
-
-					ContextNode parentContextNode = contextNode.getContextNode();
-
-					do {
-
-						contextNode.delete();
-						contextNode = parentContextNode;
-						parentContextNode = contextNode.getContextNode();
-					} while (parentContextNode != null && contextNode.isEmpty());
-
-					done = false;
-					break;
-				}
-			}
-		} while (! done);
-
-		return targetGraph;
 	}
 
 	/**

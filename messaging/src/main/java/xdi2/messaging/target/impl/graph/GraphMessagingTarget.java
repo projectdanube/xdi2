@@ -7,6 +7,7 @@ import javax.sql.rowset.Predicate;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.xri3.impl.XRI3;
@@ -17,7 +18,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
-import xdi2.messaging.target.impl.ContextNodeHandler;
+import xdi2.messaging.target.impl.StatementHandler;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 
 /**
@@ -28,14 +29,14 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 public class GraphMessagingTarget extends AbstractMessagingTarget {
 
 	private Graph graph;
-	private GraphContextNodeHandler graphContextNodeHandler;
+	private GraphStatementHandler graphStatementHandler;
 
 	public GraphMessagingTarget() {
 
 		super();
 
 		this.graph = null;
-		this.graphContextNodeHandler = null;
+		this.graphStatementHandler = null;
 	}
 
 	@Override
@@ -55,9 +56,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public boolean executeGetOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		if (targetContextNode != null) return false;
+	public boolean executeGetOperation(XRI3Segment targetXri, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetXri, false);
 
@@ -70,22 +69,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public boolean executeAddOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		ContextNode contextNode = this.getGraph().findContextNode(targetXri, true);
-
-		if (targetContextNode != null) {
-
-			CopyUtil.copyContextNodeContents(targetContextNode, contextNode, null);
-		}
-
-		return true;
-	}
-
-	@Override
-	public boolean executeDelOperation(XRI3Segment targetXri, ContextNode targetContextNode, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		if (targetContextNode != null) return false;
+	public boolean executeDelOperation(XRI3Segment targetXri, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetXri, false);
 
@@ -98,9 +82,9 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public ContextNodeHandler getContextNodeHandler(ContextNode targetContextNode) throws Xdi2MessagingException {
+	public StatementHandler getStatementHandler(Statement statement) throws Xdi2MessagingException {
 
-		return this.graphContextNodeHandler;
+		return this.graphStatementHandler;
 	}
 
 	public Graph getGraph() {
@@ -111,7 +95,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
-		this.graphContextNodeHandler = new GraphContextNodeHandler(graph);
+		this.graphStatementHandler = new GraphStatementHandler(graph);
 	}
 
 	@Override
