@@ -183,7 +183,7 @@ public class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Finds an operation with a given operation XRI in this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * @param operationXri The operation XRI of the new operation.
 	 * @return The operation, or null.
 	 */
 	public Operation getOperation(XRI3Segment operationXri) {
