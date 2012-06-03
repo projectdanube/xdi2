@@ -27,14 +27,14 @@ import xdi2.messaging.http.AcceptHeader;
  * It supports the following parameters (passed to the init method):
  * <ul>
  * <li>url - The URL of the XDI endpoint to talk to.</li>
- * <li>sendformat - The format to use to send the XDI messages to the endpoint (default: X3 Standard). This can be
+ * <li>sendformat - The format to use to send the XDI messages to the endpoint (default: XDI/JSON). This can be
  * either the name of the format or the mime type. In any case, the Content-type header will be set accordingly.</li>
- * <li>recvformat - The format in which we want to receive the results from the endpoint (default: X3 Standard). This
+ * <li>recvformat - The format in which we want to receive the results from the endpoint (default: XDI/JSON). This
  * can be either the name of the format or the mime type. In any case, The Accept header will be set accordingly.
  * If the endpoint replies in some other format than requested, we will still try to read it.</li>
  * </ul> 
- * Supported formats for both sending and receiving are: XDI/XML, X3, X-TRIPLES.
- * The corresponding mime types are: application/xdi+xml, text/xdi+x3, text/plain
+ * Supported formats for both sending and receiving are: XDI/JSON, STATEMENTS
+ * The corresponding mime types are: application/xdi+json, text/plain
  * 
  * @author markus
  */
