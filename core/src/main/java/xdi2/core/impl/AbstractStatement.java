@@ -114,10 +114,14 @@ public abstract class AbstractStatement implements Statement {
 
 			if (reference.hasAuthority()) {
 
+				if (reference.getPath().getNumSegments() != 2) throw new Xdi2ParseException("Invalid number of segments.");
+				
 				subject = new XRI3Segment(reference.getAuthority().toString());
 				predicate = new XRI3Segment(reference.getPath().getSegment(0).toString());
 				object = new XRI3Segment(reference.getPath().getSegment(1).toString());
 			} else {
+
+				if (reference.getPath().getNumSegments() != 3) throw new Xdi2ParseException("Invalid number of segments.");
 
 				subject = new XRI3Segment(reference.getPath().getSegment(0).toString());
 				predicate = new XRI3Segment(reference.getPath().getSegment(1).toString());
@@ -125,7 +129,7 @@ public abstract class AbstractStatement implements Statement {
 			}
 		} catch (Exception ex) {
 
-			throw new Xdi2ParseException("Cannot parse XRI: " + ex.getMessage(), ex);
+			throw new Xdi2ParseException("Cannot parse statement: " + ex.getMessage(), ex);
 		}
 
 		return fromComponents(subject, predicate, object);
