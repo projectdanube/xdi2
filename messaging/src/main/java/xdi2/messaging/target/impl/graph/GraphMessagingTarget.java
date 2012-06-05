@@ -72,11 +72,9 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public boolean executeDelOperation(XRI3Segment targetXri, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetXri, false);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + targetXri);
 
-		if (contextNode != null) {
-
-			contextNode.delete();
-		}
+		contextNode.delete();
 
 		return true;
 	}
