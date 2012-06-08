@@ -37,6 +37,7 @@ Then go to
 ### How to generate Javadoc
 
     mvn javadoc:javadoc
+    cd target/site/apidocs
 
 ### Tests
 
