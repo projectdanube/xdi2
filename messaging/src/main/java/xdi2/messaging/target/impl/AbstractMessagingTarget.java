@@ -264,15 +264,15 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		try {
 
-			Statement statement = AbstractStatement.fromXriSegment(targetXri);
+			Statement targetStatement = AbstractStatement.fromXriSegment(targetXri);
 
 			// get a statement handler, and execute on it
 
-			StatementHandler statementHandler = this.getStatementHandler(statement);
+			StatementHandler statementHandler = this.getStatementHandler(targetStatement);
 
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on statement " + statement + " (" + statementHandler.getClass().getName() + ").");
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
 
-			if (statementHandler.executeOnStatement(statement, operation, messageResult, executionContext)) handled = true;
+			if (statementHandler.executeOnStatement(targetStatement, operation, messageResult, executionContext)) handled = true;
 		} catch (Xdi2ParseException ex) {
 
 			// execute the operation

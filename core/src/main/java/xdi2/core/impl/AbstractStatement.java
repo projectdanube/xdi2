@@ -155,7 +155,7 @@ public abstract class AbstractStatement implements Statement {
 
 	/**
 	 * Creates an XDI statement from a string in the form subject/predicate/object
-	 * @param reference The string
+	 * @param string The string
 	 * @return An XDI statement
 	 */
 	public static Statement fromString(String string) throws Xdi2ParseException {

@@ -18,11 +18,11 @@ public interface StatementHandler {
 
 	/**
 	 * Executes an XDI operation on a statement.
-	 * @param targetContextNode The context node.
+	 * @param targetStatement The target statement.
 	 * @param operation The operation that is being executed.
 	 * @param messageResult The message result to fill.
 	 * @param executionContext An "execution context" object for the entire XDI message envelope.
 	 * @return True, if the operation has been handled.
 	 */
-	public boolean executeOnStatement(Statement statement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public boolean executeOnStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

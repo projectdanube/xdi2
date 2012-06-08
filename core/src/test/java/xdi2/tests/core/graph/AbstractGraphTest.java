@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
@@ -27,6 +31,8 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public abstract class AbstractGraphTest extends TestCase {
+
+	private static final Logger log = LoggerFactory.getLogger(AbstractGraphTest.class);
 
 	protected abstract Graph openNewGraph(String id) throws IOException;
 	protected abstract Graph reopenGraph(Graph graph, String id) throws IOException;
@@ -56,38 +62,35 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		reader.read(graph3, this.getClass().getResourceAsStream("test.json"), null).close();
 		testGraph(graph3);
+
+		graph3.getRootContextNode().clear();
+		reader.read(graph3, this.getClass().getResourceAsStream("test-simple.json"), null).close();
 	}
 
-	public void testWriteJson() throws Exception {
+	public void testReadWriteFormats() throws Exception {
 
-		Graph graph4 = this.openNewGraph(this.getClass().getName() + "-graph-4");
-		Graph graph5 = this.openNewGraph(this.getClass().getName() + "-graph-5");
+		String[] writerFormats = new String[] { "XDI/JSON_WITH_CONTEXT_STATEMENTS", "STATEMENTS_WITH_CONTEXT_STATEMENTS", "XDI/JSON", "STATEMENTS" };
+		String[] readerFormats = new String[] { "XDI/JSON", "STATEMENTS", "XDI/JSON", "STATEMENTS" };
 
-		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
-		XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
+		assertEquals(writerFormats.length, readerFormats.length);
+		
+		for (int i=0; i<readerFormats.length; i++) {
 
-		makeGraph(graph4);
-		writer.write(graph4, new FileWriter(new File("test.json.out")), null).close();
-		reader.read(graph5, new FileReader(new File("test.json.out")), null).close();
+			log.info("#" + i + " Write: " + writerFormats[i] + ", Read: " + readerFormats[i]);
+			
+			Graph graph4 = this.openNewGraph(this.getClass().getName() + "-graph-4" + "-" + i);
+			Graph graph5 = this.openNewGraph(this.getClass().getName() + "-graph-5" + "-" + i);
 
-		testGraph(graph5);
-		testGraphsEqual(graph4, graph5);
-	}
+			XDIWriter writer = XDIWriterRegistry.forFormat(writerFormats[i]);
+			XDIReader reader = XDIReaderRegistry.forFormat(readerFormats[i]);
 
-	public void testWriteStatements() throws Exception {
+			makeGraph(graph4);
+			writer.write(graph4, new FileWriter(new File("test." + i + ".out")), null).close();
+			reader.read(graph5, new FileReader(new File("test." + i + ".out")), null).close();
 
-		Graph graph6 = this.openNewGraph(this.getClass().getName() + "-graph-6");
-		Graph graph7 = this.openNewGraph(this.getClass().getName() + "-graph-7");
-
-		XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");
-		XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS");
-
-		makeGraph(graph6);
-		writer.write(graph6, new FileWriter(new File("test.statements.out")), null).close();
-		reader.read(graph7, new FileReader(new File("test.statements.out")), null).close();
-
-		testGraph(graph7);
-		testGraphsEqual(graph6, graph7);
+			testGraph(graph5);
+			testGraphsEqual(graph4, graph5);
+		}
 	}
 
 	public void testManipulate() throws Exception {
@@ -313,7 +316,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertFalse(c.isLeafContextNode());
 		assertFalse(d.isLeafContextNode());
 		assertTrue(e.isLeafContextNode());
-		
+
 		assertEquals(a.getXri(), new XRI3Segment("+a"));
 		assertEquals(b.getXri(), new XRI3Segment("+a+b"));
 		assertEquals(c.getXri(), new XRI3Segment("+a+b+c"));

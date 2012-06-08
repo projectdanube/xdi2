@@ -15,54 +15,68 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 public class XDIJSONWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -5510592554616900152L;
 
+	public static final String PARAMETER_WRITE_CONTEXT_STATEMENTS = "writeContextStatements";
+	public static final String DEFAULT_WRITE_CONTEXT_STATEMENTS = "false";
+
 	public static final String FORMAT_NAME = "XDI/JSON";
 	public static final String MIME_TYPE = "application/xdi+json";
 	public static final String DEFAULT_FILE_EXTENSION = "json";
 
-	private boolean first;
+	private static class State {
+
+		private boolean first;
+		private String indent;
+
+		private State() {
+
+			this.first = true;
+			this.indent = "";
+		}
+	}
 
 	private static String escape(String string) {
 
 		return string.replace("\\", "\\\\");
 	}
 
-	private synchronized void startItem(BufferedWriter bufferedWriter) throws IOException {
+	private void startItem(BufferedWriter bufferedWriter, State state) throws IOException {
 
-		if (this.first) {
+		if (state.first) {
 
-			this.first = false;
+			state.first = false;
 		} else {
 
 			bufferedWriter.write(",\n");
 		}
 	}
 
-	private synchronized void finishItem(BufferedWriter bufferedWriter) throws IOException {
+	private void finishItem(BufferedWriter bufferedWriter, State state) throws IOException {
 
 	}
 
-	private synchronized void startGraph(BufferedWriter bufferedWriter) throws IOException {
+	private void startGraph(BufferedWriter bufferedWriter, State state) throws IOException {
 
-		this.first = true;
+		state.first = true;
 
 		bufferedWriter.write("{\n");
 	}
 
-	private synchronized void finishGraph(BufferedWriter bufferedWriter) throws IOException {
+	private void finishGraph(BufferedWriter bufferedWriter, State state) throws IOException {
 
 		bufferedWriter.write("\n");
 		bufferedWriter.write("}\n");
-
-		this.first = true;
 	}
 
-	private synchronized void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, Properties parameters, String indent) throws IOException {
+	private void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, Properties parameters, State state) throws IOException {
+
+		boolean writeContextStatements = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_CONTEXT_STATEMENTS, DEFAULT_WRITE_CONTEXT_STATEMENTS));
 
 		String xri = contextNode.getXri().toString();
 
@@ -70,20 +84,40 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		if (contextNode.containsContextNodes()) {
 
-			this.startItem(bufferedWriter);
-			bufferedWriter.write(indent + "\"" + xri + "/()\": [\n");
-			for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
+			Iterator<ContextNode> needWriteContextStatements;
 
-				ContextNode innerContextNode = innerContextNodes.next();
-				bufferedWriter.write(indent + "   \"" + innerContextNode.getArcXri().toString() + "\"" + (innerContextNodes.hasNext() ? "," : "") + "\n");
+			if (writeContextStatements) {
+
+				needWriteContextStatements = contextNode.getContextNodes();
+			} else {
+
+				needWriteContextStatements = new SelectingIterator<ContextNode> (contextNode.getContextNodes()) {
+
+					@Override
+					public boolean select(ContextNode item) {
+
+						return item.isEmpty();
+					}
+				};
 			}
-			bufferedWriter.write(indent + "]");
-			this.finishItem(bufferedWriter);
+
+			if (needWriteContextStatements.hasNext()) {
+
+				this.startItem(bufferedWriter, state);
+				bufferedWriter.write(state.indent + "\"" + xri + "/()\": [\n");
+				for (; needWriteContextStatements.hasNext(); ) {
+
+					ContextNode innerContextNode = needWriteContextStatements.next();
+					bufferedWriter.write(state.indent + "   \"" + innerContextNode.getArcXri().toString() + "\"" + (needWriteContextStatements.hasNext() ? "," : "") + "\n");
+				}
+				bufferedWriter.write(state.indent + "]");
+				this.finishItem(bufferedWriter, state);
+			}
 
 			for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
 
 				ContextNode innerContextNode = innerContextNodes.next();
-				this.writeContextNode(innerContextNode, bufferedWriter, parameters, indent);
+				this.writeContextNode(innerContextNode, bufferedWriter, parameters, state);
 			}
 		}
 
@@ -111,8 +145,8 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 			XRI3Segment relationArcXri = entry.getKey();
 			List<Relation> relationsList = entry.getValue();
 
-			this.startItem(bufferedWriter);
-			bufferedWriter.write(indent + "\"" + xri + "/" + relationArcXri + "\" : [ ");
+			this.startItem(bufferedWriter, state);
+			bufferedWriter.write(state.indent + "\"" + xri + "/" + relationArcXri + "\" : [ ");
 
 			for (int i=0; i<relationsList.size(); i++) {
 
@@ -121,7 +155,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 			}
 
 			bufferedWriter.write(" ]");
-			this.finishItem(bufferedWriter);
+			this.finishItem(bufferedWriter, state);
 		}
 
 		// write literal
@@ -130,24 +164,28 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		if (literal != null) {
 
-			this.startItem(bufferedWriter);
-			bufferedWriter.write(indent + "\"" + xri + "/!\" : [ \"" + escape(literal.getLiteralData()) + "\" ]");
-			this.finishItem(bufferedWriter);
+			this.startItem(bufferedWriter, state);
+			bufferedWriter.write(state.indent + "\"" + xri + "/!\" : [ \"" + escape(literal.getLiteralData()) + "\" ]");
+			this.finishItem(bufferedWriter, state);
 		}
 	}
 
-	public synchronized void write(Graph graph, BufferedWriter bufferedWriter, Properties parameters, String indent) throws IOException {
+	private void write(Graph graph, BufferedWriter bufferedWriter, Properties parameters) throws IOException {
 
-		this.startGraph(bufferedWriter);
-		this.writeContextNode(graph.getRootContextNode(), bufferedWriter, parameters, indent);
-		this.finishGraph(bufferedWriter);
+		State state = new State();
+
+		this.startGraph(bufferedWriter, state);
+		this.writeContextNode(graph.getRootContextNode(), bufferedWriter, parameters, state);
+		this.finishGraph(bufferedWriter, state);
 
 		bufferedWriter.flush();
 	}
 
-	public synchronized Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
+	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
 
-		this.write(graph, new BufferedWriter(writer), parameters, "");
+		if (parameters == null) parameters = new Properties();
+
+		this.write(graph, new BufferedWriter(writer), parameters);
 		writer.flush();
 
 		return writer;

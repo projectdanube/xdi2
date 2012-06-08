@@ -46,7 +46,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 		return new XRI3SubSegment(xriString);
 	}
 
-	private synchronized void readContextNode(ContextNode contextNode, JSONObject graphObject) throws IOException, Xdi2ParseException, JSONException {
+	/*	private synchronized void readContextNode(ContextNode contextNode, JSONObject graphObject) throws IOException, Xdi2ParseException, JSONException {
 
 		String contextNodeXri = contextNode.getXri().toString();
 
@@ -63,11 +63,11 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 			this.readContextNode(innerContextNode, graphObject);
 		}
-	}
+	}*/
 
 	public synchronized void read(Graph graph, JSONObject graphObject) throws IOException, Xdi2ParseException, JSONException {
 
-		this.readContextNode(graph.getRootContextNode(), graphObject);
+		//		this.readContextNode(graph.getRootContextNode(), graphObject);
 
 		for (Iterator<?> keys = graphObject.keys(); keys.hasNext(); ) {
 
@@ -81,7 +81,18 @@ public class XDIJSONReader extends AbstractXDIReader {
 			String predicate = strings[1];
 			ContextNode contextNode = graph.findContextNode(makeXRI3Segment(subject), true);
 
-			if (predicate.equals("!")) {
+			if (predicate.equals("()")) {
+
+				for (int i=0; i<value.length(); i++) {
+
+					XRI3SubSegment arcXri = this.makeXRI3SubSegment(value.getString(i));
+
+					if (contextNode.containsContextNode(arcXri)) continue;
+
+					ContextNode innerContextNode = contextNode.createContextNode(arcXri);
+					if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
+				}
+			} else if (predicate.equals("!")) {
 
 				if (value.length() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
 

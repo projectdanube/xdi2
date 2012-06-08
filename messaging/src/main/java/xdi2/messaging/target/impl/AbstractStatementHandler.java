@@ -22,66 +22,66 @@ import xdi2.messaging.target.ExecutionContext;
 public abstract class AbstractStatementHandler implements StatementHandler {
 
 	@Override
-	public boolean executeOnStatement(Statement statement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeOnStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			return this.executeGetOnStatement(statement, (GetOperation) operation, messageResult, executionContext);
+			return this.executeGetOnStatement(targetStatement, (GetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof AddOperation)
-			return this.executeAddOnStatement(statement, (AddOperation) operation, messageResult, executionContext);
+			return this.executeAddOnStatement(targetStatement, (AddOperation) operation, messageResult, executionContext);
 		else if (operation instanceof ModOperation)
-			return this.executeModOnStatement(statement, (ModOperation) operation, messageResult, executionContext);
+			return this.executeModOnStatement(targetStatement, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
-			return this.executeDelOnStatement(statement, (DelOperation) operation, messageResult, executionContext);
+			return this.executeDelOnStatement(targetStatement, (DelOperation) operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri());
 	}
 
-	public boolean executeGetOnStatement(Statement statement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnStatement(Statement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (statement instanceof ContextNodeStatement)
-			return this.executeGetOnContextNodeStatement((ContextNodeStatement) statement, operation, messageResult, executionContext);
-		else if (statement instanceof RelationStatement)
-			return this.executeGetOnRelationStatement((RelationStatement) statement, operation, messageResult, executionContext);
-		else if (statement instanceof LiteralStatement)
-			return this.executeGetOnLiteralStatement((LiteralStatement) statement, operation, messageResult, executionContext);
+		if (targetStatement instanceof ContextNodeStatement)
+			return this.executeGetOnContextNodeStatement((ContextNodeStatement) targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement instanceof RelationStatement)
+			return this.executeGetOnRelationStatement((RelationStatement) targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement instanceof LiteralStatement)
+			return this.executeGetOnLiteralStatement((LiteralStatement) targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + statement.getClass().getCanonicalName());
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName());
 	}
 
-	public boolean executeAddOnStatement(Statement statement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeAddOnStatement(Statement targetStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (statement instanceof ContextNodeStatement)
-			return this.executeAddOnContextNodeStatement((ContextNodeStatement) statement, operation, messageResult, executionContext);
-		else if (statement instanceof RelationStatement)
-			return this.executeAddOnRelationStatement((RelationStatement) statement, operation, messageResult, executionContext);
-		else if (statement instanceof LiteralStatement)
-			return this.executeAddOnLiteralStatement((LiteralStatement) statement, operation, messageResult, executionContext);
+		if (targetStatement instanceof ContextNodeStatement)
+			return this.executeAddOnContextNodeStatement((ContextNodeStatement) targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement instanceof RelationStatement)
+			return this.executeAddOnRelationStatement((RelationStatement) targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement instanceof LiteralStatement)
+			return this.executeAddOnLiteralStatement((LiteralStatement) targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + statement.getClass().getCanonicalName());
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName());
 	}
 
-	public boolean executeModOnStatement(Statement statement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeModOnStatement(Statement targetStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (statement instanceof ContextNodeStatement)
-			return this.executeModOnContextNodeStatement((ContextNodeStatement) statement, operation, messageResult, executionContext);
-		else if (statement instanceof RelationStatement)
-			return this.executeModOnRelationStatement((RelationStatement) statement, operation, messageResult, executionContext);
-		else if (statement instanceof LiteralStatement)
-			return this.executeModOnLiteralStatement((LiteralStatement) statement, operation, messageResult, executionContext);
+		if (targetStatement instanceof ContextNodeStatement)
+			return this.executeModOnContextNodeStatement((ContextNodeStatement) targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement instanceof RelationStatement)
+			return this.executeModOnRelationStatement((RelationStatement) targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement instanceof LiteralStatement)
+			return this.executeModOnLiteralStatement((LiteralStatement) targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + statement.getClass().getCanonicalName());
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName());
 	}
 
-	public boolean executeDelOnStatement(Statement statement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnStatement(Statement targetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (statement instanceof ContextNodeStatement)
-			return this.executeDelOnContextNodeStatement((ContextNodeStatement) statement, operation, messageResult, executionContext);
-		else if (statement instanceof RelationStatement)
-			return this.executeDelOnRelationStatement((RelationStatement) statement, operation, messageResult, executionContext);
-		else if (statement instanceof LiteralStatement)
-			return this.executeDelOnLiteralStatement((LiteralStatement) statement, operation, messageResult, executionContext);
+		if (targetStatement instanceof ContextNodeStatement)
+			return this.executeDelOnContextNodeStatement((ContextNodeStatement) targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement instanceof RelationStatement)
+			return this.executeDelOnRelationStatement((RelationStatement) targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement instanceof LiteralStatement)
+			return this.executeDelOnLiteralStatement((LiteralStatement) targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + statement.getClass().getCanonicalName());
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName());
 	}
 
 	/*

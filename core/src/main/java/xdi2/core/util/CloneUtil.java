@@ -30,7 +30,7 @@ public final class CloneUtil {
 
 	/**
 	 * Creates a copy of the given context node containing the same contents.
-	 * @param context node The context node to clone.
+	 * @param contextNode The context node to clone.
 	 * @return The cloned context node.
 	 */
 	public static ContextNode cloneContextNode(ContextNode contextNode) {

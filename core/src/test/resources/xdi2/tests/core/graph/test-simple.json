@@ -5,10 +5,10 @@
 "=abc\/()":[
 "+passport"
 ],
-"=abc+passport\/+number!":[
+"=abc+passport+number/!":[
 "987654321"
 ],
-"=abc+passport\/+country!":[
+"=abc+passport+country/!":[
 "New Zealand"
 ]
 }

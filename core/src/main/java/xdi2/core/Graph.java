@@ -87,7 +87,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 
 	/**
 	 * Converts the graph to a string in the given serialization format.
-	 * @param parameters Parameters for the serialization.
+	 * @param format The serialization format.
 	 */
 	public String toString(String format);
 

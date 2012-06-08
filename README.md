@@ -34,6 +34,10 @@ Then go to
 
     http://localhost:8080/
 
+### How to generate Javadoc
+
+    mvn javadoc:javadoc
+
 ### Tests
 
 See [Testing](https://github.com/peacekeeper/xdi2/wiki/Testing) for a description of unit tests, etc.

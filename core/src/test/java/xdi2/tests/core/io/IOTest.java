@@ -17,7 +17,7 @@ public class IOTest extends TestCase {
 
 	public void testWriters() throws Exception {
 
-		String[] formats = new String[] { "XDI/JSON", "STATEMENTS" };
+		String[] formats = new String[] { "XDI/JSON", "STATEMENTS", "XDI/JSON_WITH_CONTEXT_STATEMENTS", "STATEMENTS_WITH_CONTEXT_STATEMENTS" };
 		String[] mimeTypes = new String[] { "application/xdi+json", "text/plain" };
 
 		for (String format : formats) assertEquals(XDIWriterRegistry.forFormat(format).getFormat(), format);
