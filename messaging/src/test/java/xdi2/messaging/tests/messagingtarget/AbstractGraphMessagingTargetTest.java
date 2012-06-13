@@ -31,12 +31,12 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget(); graphMessagingTarget.setGraph(graph);
 
 		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationXriAndStatement(XDIMessagingConstants.XRI_S_ADD, "=markus/+friend/=giovanni");
-		MessageResult messageResult1 = MessageResult.newInstance();
+		MessageResult messageResult1 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope1, messageResult1, null);
 		assertEquals(graph.findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")).getRelationXri(), new XRI3Segment("=giovanni"));
 
 		MessageEnvelope messageEnvelope2 = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_GET, new XRI3Segment("=markus"));
-		MessageResult messageResult2 = MessageResult.newInstance();
+		MessageResult messageResult2 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope2, messageResult2, null);
 		assertEquals(messageResult2.getGraph().findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")).getRelationXri(), new XRI3Segment("=giovanni"));
 	}
@@ -71,7 +71,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				graphMessagingTarget.setGraph(graph);
 
 				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(message);
-				MessageResult messageResult = MessageResult.newInstance();
+				MessageResult messageResult = new MessageResult();
 
 				graphMessagingTarget.execute(messageEnvelope, messageResult, null);
 
@@ -95,7 +95,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				graphMessagingTarget.setGraph(graph);
 
 				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(positive);
-				MessageResult messageResult = MessageResult.newInstance();
+				MessageResult messageResult = new MessageResult();
 
 				graphMessagingTarget.execute(messageEnvelope, messageResult, null);
 
@@ -121,7 +121,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				graphMessagingTarget.setGraph(graph);
 
 				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(negative);
-				MessageResult messageResult = MessageResult.newInstance();
+				MessageResult messageResult = new MessageResult();
 
 				graphMessagingTarget.execute(messageEnvelope, messageResult, null);
 

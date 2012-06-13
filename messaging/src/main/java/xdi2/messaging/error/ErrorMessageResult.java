@@ -20,6 +20,14 @@ public class ErrorMessageResult extends MessageResult {
 		super(graph);
 	}
 
+	public ErrorMessageResult() {
+
+		super();
+		
+		this.graph.findContextNode(XRI_S_ERRORCODE, true).createLiteral(DEFAULT_ERRORCODE.toString());
+		this.graph.findContextNode(XRI_S_ERRORSTRING, true).createLiteral(DEFAULT_ERRORSTRING);
+	}
+	
 	/*
 	 * Static methods
 	 */
@@ -48,20 +56,6 @@ public class ErrorMessageResult extends MessageResult {
 
 		if (! isValid(graph)) return(null);
 
-		return new ErrorMessageResult(graph);
-	}
-
-	/**
-	 * Factory method that creates an XDI error message result bound to a new in-memory graph.
-	 * @return The XDI message result.
-	 */
-	public static ErrorMessageResult newInstance() {
-
-		Graph graph = graphFactory.openGraph();
-		
-		graph.findContextNode(XRI_S_ERRORCODE, true).createLiteral(DEFAULT_ERRORCODE.toString());
-		graph.findContextNode(XRI_S_ERRORSTRING, true).createLiteral(DEFAULT_ERRORSTRING);
-		
 		return new ErrorMessageResult(graph);
 	}
 

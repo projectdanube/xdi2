@@ -5,10 +5,10 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.XDIConstants;
 import xdi2.core.util.iterators.DescendingIterator;
+import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -27,11 +27,16 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	protected Graph graph;
 
-	private MessageEnvelope(Graph graph) {
+	protected MessageEnvelope(Graph graph) {
 
 		this.graph = graph;
 	}
 
+	public MessageEnvelope() {
+
+		this(graphFactory.openGraph());
+	}
+	
 	/*
 	 * Static methods
 	 */
@@ -68,7 +73,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		if (targetXri == null) targetXri = XDIConstants.XRI_S_CONTEXT;
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
 		message.createOperation(operationXri, targetXri);
 
@@ -81,11 +86,11 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * @param statement The statement to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static MessageEnvelope fromOperationXriAndStatement(XRI3Segment operationXri, String statement) throws Xdi2ParseException {
+	public static MessageEnvelope fromOperationXriAndStatement(XRI3Segment operationXri, String statement) {
 
 		if (statement == null) throw new NullPointerException();
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
 		message.createOperation(operationXri, new XRI3Segment("(" + statement + ")"));
 
@@ -98,7 +103,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * @param targetXriOrStatement The target XRI or statement to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static final MessageEnvelope fromOperationXriAndTargetXriOrStatement(XRI3Segment operationXri, String targetXriOrStatement) throws Xdi2ParseException {
+	public static final MessageEnvelope fromOperationXriAndTargetXriOrStatement(XRI3Segment operationXri, String targetXriOrStatement) {
 
 		try {
 
@@ -110,15 +115,6 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 			return MessageEnvelope.fromOperationXriAndStatement(operationXri, targetXriOrStatement);
 		}
-	}
-
-	/**
-	 * Factory method that creates an XDI message envelope bound to a new in-memory graph.
-	 * @return The XDI message envelope.
-	 */
-	public static MessageEnvelope newInstance() {
-
-		return new MessageEnvelope(graphFactory.openGraph());
 	}
 
 	/*
@@ -155,7 +151,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 			@Override
 			public MessageContainer map(ContextNode contextNode) {
 
-				return MessageContainer.fromContextNode(contextNode);
+				return MessageContainer.fromMessageEnvelopeAndContextNode(MessageEnvelope.this, contextNode);
 			}
 		};
 	}
@@ -197,25 +193,10 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public Iterator<Message> getMessages(XRI3Segment senderXri) {
 
-		XRI3Segment messageContextXri = new XRI3Segment(senderXri.toString() + XDIMessagingConstants.XRI_SS_MSG.toString());
-		ContextNode contextNode = this.getGraph().findContextNode(messageContextXri, true);
-
-		Iterator<ContextNode> messageInstanceContextNodes = contextNode.getContextNodes();
-
-		return new SelectingMappingIterator<ContextNode, Message> (messageInstanceContextNodes) {
-
-			@Override
-			public boolean select(ContextNode messageInstanceContextNode) {
-
-				return Message.isValid(messageInstanceContextNode);
-			}
-
-			@Override
-			public Message map(ContextNode messageInstanceContextNode) {
-
-				return Message.fromContextNode(messageInstanceContextNode);
-			}
-		};
+		MessageContainer messageContainer = this.getMessageContainer(senderXri, false);
+		if (messageContainer == null) return new EmptyIterator<Message> ();
+		
+		return messageContainer.getMessages();
 	}
 
 	/**

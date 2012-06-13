@@ -14,13 +14,18 @@ public class MessageResult implements Serializable, Comparable<MessageResult> {
 
 	private static final long serialVersionUID = -518357785421448783L;
 
-	protected static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
+	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
 	protected Graph graph;
 
 	protected MessageResult(Graph graph) {
 
 		this.graph = graph;
+	}
+
+	public MessageResult() {
+
+		this(graphFactory.openGraph());
 	}
 
 	/*
@@ -47,15 +52,6 @@ public class MessageResult implements Serializable, Comparable<MessageResult> {
 		if (! isValid(graph)) return(null);
 
 		return new MessageResult(graph);
-	}
-
-	/**
-	 * Factory method that creates an XDI message result bound to a new in-memory graph.
-	 * @return The XDI message result.
-	 */
-	public static MessageResult newInstance() {
-
-		return new MessageResult(graphFactory.openGraph());
 	}
 
 	/*

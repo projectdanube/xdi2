@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<!-- XDI Servlet -->
+
+	<bean id="EndpointServlet" class="xdi2.server.EndpointServlet" init-method="init" destroy-method="destroy">
+		<property name="endpointServletInterceptors">
+			<util:list>
+				<bean class="xdi2.xri2xdi.GetEmptyPathEndpointServletInterceptor" />
+			</util:list>
+		</property>
+	</bean>
+
+	<!-- Set up a Xri2XdiMessagingTarget -->
+
+	<bean name="xriResolver" class="xdi2.xri2xdi.resolution.XriResolver" />
+
+	<bean name="/" class="xdi2.xri2xdi.Xri2XdiMessagingTarget">
+		<property name="xriResolver" ref="xriResolver" />
+	</bean>
+
+</beans>

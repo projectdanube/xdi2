@@ -16,19 +16,19 @@ import xdi2.messaging.util.XDIMessagingConstants;
  * 
  * @author markus
  */
-public class MessageContainer implements Serializable, Comparable<MessageContainer> {
+public final class MessageContainer implements Serializable, Comparable<MessageContainer> {
 
 	private static final long serialVersionUID = -7493408194946194153L;
 
-	protected MessageEnvelope messageEnvelope;
-	protected ContextNode contextNode;
+	private MessageEnvelope messageEnvelope;
+	private ContextNode contextNode;
 
 	protected MessageContainer(MessageEnvelope messageEnvelope, ContextNode contextNode) {
 
+		if (messageEnvelope == null || contextNode == null) throw new NullPointerException();
+
 		this.messageEnvelope = messageEnvelope;
 		this.contextNode = contextNode;
-
-		if (this.messageEnvelope == null) this.messageEnvelope = MessageEnvelope.fromGraph(contextNode.getGraph());
 	}
 
 	/*
@@ -50,11 +50,11 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 	 * @param contextNode The context node that is an XDI container.
 	 * @return The XDI message container.
 	 */
-	public static MessageContainer fromContextNode(ContextNode contextNode) {
+	public static MessageContainer fromMessageEnvelopeAndContextNode(MessageEnvelope messageEnvelope, ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new MessageContainer(null, contextNode);
+		return new MessageContainer(messageEnvelope, contextNode);
 	}
 
 	/*
@@ -98,7 +98,7 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 		Iterator<Message> messages = this.getMessages();
 		if (messages.hasNext()) return messages.next();
 
-		ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXSubSegment('!'));
+		ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXXRefSubSegment('!'));
 		contextNode.createContextNode(XDIMessagingConstants.XRI_SS_DO);
 
 		return new Message(this, contextNode);
@@ -125,7 +125,7 @@ public class MessageContainer implements Serializable, Comparable<MessageContain
 			@Override
 			public Message map(ContextNode contextNode) {
 
-				return Message.fromContextNode(contextNode);
+				return Message.fromMessageContainerAndContextNode(MessageContainer.this, contextNode);
 			}
 		};
 	}

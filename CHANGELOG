@@ -1,0 +1,29 @@
+VERSION 0.1-SNAPSHOT
+========================
+
+2012-06-13:
+------------------------
+
+*** Changed messaging pattern from:
+
+=!2222$msg!1$do/$get/
+
+to:
+
+=!2222$($msg)$(!1)$do/$get/
+
+Also changed tests and sample messages in the web tools accordingly.
+
+*** Added xri2xdi service for offering XDI discovery based on global XRI infrastructure.
+
+*** Changed user agent of XDI HTTP Client.
+
+*** Slightly changed STATEMENTS_HTML serialization format.
+
+*** Added support for remote root nodes in a graph (see package xdi2.core.util.remoteroots).
+
+*** Added a few tests.
+
+*** Added interceptor functionality to xdi2.servet.EndpointServlet.
+
+*** Added CHANGELOG

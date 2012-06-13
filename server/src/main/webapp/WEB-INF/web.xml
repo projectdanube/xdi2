@@ -10,8 +10,7 @@
 
 	<servlet>
 		<servlet-name>EndpointServlet</servlet-name>
-		<servlet-class>xdi2.server.EndpointServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
+		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

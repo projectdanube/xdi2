@@ -8,7 +8,7 @@ import xdi2.messaging.util.XDIMessagingConstants;
  * 
  * @author markus
  */
-public class DelOperation extends Operation {
+public final class DelOperation extends Operation {
 
 	private static final long serialVersionUID = 5732150427365911411L;
 
@@ -39,10 +39,10 @@ public class DelOperation extends Operation {
 	 * @param relation The relation that is an XDI $del operation.
 	 * @return The XDI $del operation.
 	 */
-	public static DelOperation fromRelation(Relation relation) {
+	public static DelOperation fromMessageAndRelation(Message message, Relation relation) {
 
 		if (! isValid(relation)) return null;
 
-		return new DelOperation(null, relation);
+		return new DelOperation(message, relation);
 	}
 }

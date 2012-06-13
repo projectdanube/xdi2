@@ -38,8 +38,26 @@ public final class XRIUtil {
 		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
 		inumber.append('.');
 		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
+		inumber.append('.');
+		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
 
 		return new XRI3SubSegment(inumber.toString());
+	}
+
+	public static XRI3SubSegment randomHEXXRefSubSegment(char lcs) {
+
+		final String hex = "0123456789abcdef";
+		StringBuilder inumber = new StringBuilder();
+		inumber.append(lcs);
+		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
+		inumber.append('.');
+		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
+		inumber.append('.');
+		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
+		inumber.append('.');
+		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
+
+		return new XRI3SubSegment("(" + inumber.toString() + ")");
 	}
 
 	public static XRI3 extractParentXri(XRI3 xri) {

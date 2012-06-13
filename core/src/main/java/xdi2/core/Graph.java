@@ -23,7 +23,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 
 	/**
 	 * Gets the root context node of this graph.
-	 * @return A context node.
+	 * @return The graph's root context node.
 	 */
 	public ContextNode getRootContextNode();
 

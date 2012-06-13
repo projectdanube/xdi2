@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
@@ -21,6 +24,8 @@ import xdi2.core.xri3.impl.XRI3Segment;
 public class XDIJSONWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -5510592554616900152L;
+
+	private static final Logger log = LoggerFactory.getLogger(XDIJSONWriter.class);
 
 	public static final String PARAMETER_WRITE_CONTEXT_STATEMENTS = "writeContextStatements";
 	public static final String DEFAULT_WRITE_CONTEXT_STATEMENTS = "false";
@@ -77,6 +82,8 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 	private void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, Properties parameters, State state) throws IOException {
 
 		boolean writeContextStatements = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_CONTEXT_STATEMENTS, DEFAULT_WRITE_CONTEXT_STATEMENTS));
+
+		log.debug("Parameters: writeContextStatements=" + writeContextStatements);
 
 		String xri = contextNode.getXri().toString();
 

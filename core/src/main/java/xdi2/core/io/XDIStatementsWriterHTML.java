@@ -21,6 +21,7 @@ public class XDIStatementsWriterHTML extends XDIStatementsWriter {
 
 		parameters.put(XDIStatementsWriter.PARAMETER_WRITE_CONTEXT_STATEMENTS, Boolean.TRUE.toString());
 		parameters.put(XDIStatementsWriter.PARAMETER_WRITE_HTML, Boolean.TRUE.toString());
+		parameters.put(XDIStatementsWriter.PARAMETER_WRITE_ORDERED, Boolean.TRUE.toString());
 
 		return super.write(graph, writer, parameters);
 	}

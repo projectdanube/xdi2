@@ -24,7 +24,7 @@ public class BasicTest extends TestCase {
 
 	public void testMessaging() throws Exception {
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.newInstance();
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(SENDER, true);
 		Message message = messageContainer.getMessage(true);
 

@@ -143,12 +143,13 @@ public abstract class AbstractStatement implements Statement {
 	public static Statement fromXriSegment(XRI3Segment segment) throws Xdi2ParseException {
 
 		XRI3SubSegment subSegment = (XRI3SubSegment) segment.getFirstSubSegment();
+		if (subSegment == null) throw new Xdi2ParseException("No subsegment found: " + segment.toString());
 
 		XRI3XRef xref = (XRI3XRef) subSegment.getXRef();
-		if (xref == null) throw new Xdi2ParseException("No cross-reference found.");
+		if (xref == null) throw new Xdi2ParseException("No cross-reference found: " + segment.toString());
 
 		XRI3Reference reference = (XRI3Reference) xref.getXRIReference();
-		if (reference == null) throw new Xdi2ParseException("No XRI cross-reference found.");
+		if (reference == null) throw new Xdi2ParseException("No XRI cross-reference found: " + segment.toString());
 
 		return fromXriReference(reference);
 	}

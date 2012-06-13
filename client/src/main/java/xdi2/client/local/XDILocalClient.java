@@ -50,7 +50,7 @@ public class XDILocalClient implements XDIClient {
 
 	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2MessagingException {
 
-		if (messageResult == null) messageResult = MessageResult.newInstance();
+		if (messageResult == null) messageResult = new MessageResult();
 
 		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 		this.messagingTarget.execute(messageEnvelope, messageResult, new ExecutionContext());

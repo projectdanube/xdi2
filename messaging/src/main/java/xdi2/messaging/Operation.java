@@ -19,10 +19,10 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	protected Operation(Message message, Relation relation) {
 
+		if (message == null || relation == null) throw new NullPointerException();
+
 		this.message = message;
 		this.relation = relation;
-
-		if (this.message == null) this.message = Message.fromContextNode(relation.getContextNode().getContextNode());
 	}
 
 	/*
@@ -48,14 +48,14 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * @param relation The relation that is an XDI operation.
 	 * @return The XDI operation.
 	 */
-	public static Operation fromRelation(Relation relation) {
+	public static Operation fromMessageAndRelation(Message message, Relation relation) {
 
-		if (GetOperation.isValid(relation)) return GetOperation.fromRelation(relation);
-		if (AddOperation.isValid(relation)) return AddOperation.fromRelation(relation);
-		if (ModOperation.isValid(relation)) return ModOperation.fromRelation(relation);
-		if (DelOperation.isValid(relation)) return DelOperation.fromRelation(relation);
+		if (GetOperation.isValid(relation)) return GetOperation.fromMessageAndRelation(message, relation);
+		if (AddOperation.isValid(relation)) return AddOperation.fromMessageAndRelation(message, relation);
+		if (ModOperation.isValid(relation)) return ModOperation.fromMessageAndRelation(message, relation);
+		if (DelOperation.isValid(relation)) return DelOperation.fromMessageAndRelation(message, relation);
 
-		return(null);
+		return null;
 	}
 
 	/**
@@ -67,7 +67,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 		if (operation == null) return null;
 
-		return fromRelation(operation.getRelation());
+		return fromMessageAndRelation(operation.getMessage(), operation.getRelation());
 	}
 
 	/*

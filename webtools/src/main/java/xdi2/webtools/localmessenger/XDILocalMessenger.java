@@ -130,7 +130,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			// parse the message envelope
 
-			messageEnvelope = MessageEnvelope.newInstance();
+			messageEnvelope = new MessageEnvelope();
 
 			xdiReader.read(messageEnvelope.getGraph(), new StringReader(message), null);
 
@@ -151,7 +151,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			messagingTarget.init();
 
-			messageResult = MessageResult.newInstance();
+			messageResult = new MessageResult();
 			messagingTarget.execute(messageEnvelope, messageResult, new ExecutionContext());
 
 			// output the modified input graph

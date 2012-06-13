@@ -108,7 +108,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			// parse the message envelope
 
-			messageEnvelope = MessageEnvelope.newInstance();
+			messageEnvelope = new MessageEnvelope();
 
 			xdiReader.read(messageEnvelope.getGraph(), new StringReader(input), null);
 

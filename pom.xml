@@ -16,6 +16,7 @@
 		<module>server</module>
 		<module>p2p</module>
 		<module>webtools</module>
+		<module>xri2xdi</module>
 	</modules>
 
 	<issueManagement>

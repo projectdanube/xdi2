@@ -47,7 +47,7 @@ public class XDIHttpClient implements XDIClient {
 
 	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json";
 	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json";
-	public static final String DEFAULT_USERAGENT = "XDI Squared";
+	public static final String DEFAULT_USERAGENT = "XDI^2 Java Library";
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
 
@@ -177,7 +177,7 @@ public class XDIHttpClient implements XDIClient {
 		// send the message envelope
 
 		log.debug("Sending message envelope with " + messageEnvelope.getMessageCount() + " messages.");
-		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
+		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(null, null));
 
 		int responseCode;
 		String responseMessage;
@@ -227,7 +227,7 @@ public class XDIHttpClient implements XDIClient {
 
 		// read the message result and close connection
 
-		if (messageResult == null) messageResult = MessageResult.newInstance();
+		if (messageResult == null) messageResult = new MessageResult();
 
 		try {
 
@@ -258,7 +258,7 @@ public class XDIHttpClient implements XDIClient {
 
 		log.debug("Successfully received result, " + messageResult.getGraph().getRootContextNode().getAllStatementCount() + " result statements.");
 
-		return(messageResult);
+		return messageResult;
 	}
 
 	public void close() {
@@ -267,7 +267,7 @@ public class XDIHttpClient implements XDIClient {
 
 	public URL getUrl() {
 
-		return(this.url);
+		return this.url;
 	}
 
 	public void setUrl(URL url) {
@@ -277,7 +277,7 @@ public class XDIHttpClient implements XDIClient {
 
 	public String getSendFormat() {
 
-		return(this.sendFormat);
+		return this.sendFormat;
 	}
 
 	public void setSendFormat(String sendFormat) {
@@ -287,11 +287,21 @@ public class XDIHttpClient implements XDIClient {
 
 	public String getRecvFormat() {
 
-		return(this.recvFormat);
+		return this.recvFormat;
 	}
 
 	public void setRecvFormat(String recvFormat) {
 
 		this.recvFormat = recvFormat;
+	}
+
+	public String getUserAgent() {
+
+		return this.userAgent;
+	}
+
+	public void setUserAgent(String userAgent) {
+
+		this.userAgent = userAgent;
 	}
 }

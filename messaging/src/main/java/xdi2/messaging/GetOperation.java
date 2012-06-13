@@ -8,7 +8,7 @@ import xdi2.messaging.util.XDIMessagingConstants;
  * 
  * @author markus
  */
-public class GetOperation extends Operation {
+public final class GetOperation extends Operation {
 
 	private static final long serialVersionUID = -1452297650590584104L;
 
@@ -39,10 +39,10 @@ public class GetOperation extends Operation {
 	 * @param relation The relation that is an XDI $get operation.
 	 * @return The XDI $get operation.
 	 */
-	public static GetOperation fromRelation(Relation relation) {
+	public static GetOperation fromMessageAndRelation(Message message, Relation relation) {
 
 		if (! isValid(relation)) return null;
 
-		return new GetOperation(null, relation);
+		return new GetOperation(message, relation);
 	}
 }

@@ -15,6 +15,7 @@ A sample deployment of XDI² is available at http://xdi2.projectdanube.org.
 * [xdi2-server-logic](https://github.com/peacekeeper/xdi2/wiki/xdi2-server-logic)
 * [xdi2-server](https://github.com/peacekeeper/xdi2/wiki/xdi2-server)
 * [xdi2-webtools](https://github.com/peacekeeper/xdi2/wiki/xdi2-webtools)
+* [xdi2-xri2xdi](https://github.com/peacekeeper/xdi2/wiki/xdi2-xri2xdi)
 * [xdi2-p2p](https://github.com/peacekeeper/xdi2/wiki/xdi2-p2p)
 
 ### How to build

@@ -8,7 +8,7 @@ import xdi2.messaging.util.XDIMessagingConstants;
  * 
  * @author markus
  */
-public class AddOperation extends Operation {
+public final class AddOperation extends Operation {
 
 	private static final long serialVersionUID = 4228081189426184704L;
 
@@ -39,10 +39,10 @@ public class AddOperation extends Operation {
 	 * @param relation The relation that is an XDI $add operation.
 	 * @return The XDI $add operation.
 	 */
-	public static AddOperation fromRelation(Relation relation) {
+	public static AddOperation fromMessageAndRelation(Message message, Relation relation) {
 
 		if (! isValid(relation)) return null;
 
-		return new AddOperation(null, relation);
+		return new AddOperation(message, relation);
 	}
 }
