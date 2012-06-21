@@ -44,6 +44,10 @@
 	XDI Grapher
 	</p>
 
+	<p class="subheader">Google Group</p>
+
+	<a href="http://groups.google.com/group/xdi2">http://groups.google.com/group/xdi2</a>
+
 	<p class="subheader">XDI</p>
 	
 	<p><a href="http://en.wikipedia.org/wiki/XDI">XDI on Wikipedia</a></p>
