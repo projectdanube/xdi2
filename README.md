@@ -40,6 +40,14 @@ Then go to
     mvn javadoc:javadoc
     cd target/site/apidocs
 
+### Community
+
+Google Group: http://groups.google.com/group/xdi2
+
+Changelog: https://github.com/peacekeeper/xdi2/blob/master/CHANGELOG
+
+Todo: http://projectdanube.pbworks.com/w/page/54706559/XDI2%20TODO
+
 ### Tests
 
 See [Testing](https://github.com/peacekeeper/xdi2/wiki/Testing) for a description of unit tests, etc.
