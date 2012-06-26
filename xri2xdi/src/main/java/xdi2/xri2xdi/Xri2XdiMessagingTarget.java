@@ -3,7 +3,7 @@ package xdi2.xri2xdi;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2MessagingException;
-import xdi2.core.util.remoteroots.RemoteRoots;
+import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.MessageResult;
@@ -26,18 +26,18 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public boolean executeGetOperation(XRI3Segment targetXri, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnAddress(XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// is this a remote root context XRI?
 
 		XRI3Segment xri;
 
-		if (RemoteRoots.isRemoteRootXri(targetXri)) {
+		if (RemoteRoots.isRemoteRootXri(targetAddress)) {
 
-			xri = RemoteRoots.getXriOfRemoteRootXri(targetXri);
+			xri = RemoteRoots.getXriOfRemoteRootXri(targetAddress);
 		} else {
 
-			xri = targetXri;
+			xri = targetAddress;
 		}
 
 		// resolve the XRI

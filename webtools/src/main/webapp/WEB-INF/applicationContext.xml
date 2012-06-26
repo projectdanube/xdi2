@@ -14,6 +14,11 @@
 
 	<bean name="/mem-graph" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
 		<property name="graph" ref="graph1" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+			</util:list>
+		</property>
 	</bean>
 
 	<!-- Set up a MessagingTarget exposing a native BDB-backed XDI graph -->
@@ -25,6 +30,11 @@
 
 	<bean name="/bdb-graph" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
 		<property name="graph" ref="graph2" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+			</util:list>
+		</property>
 	</bean>
 
 	<!-- Set up a MessagingTarget exposing an XDI graph file -->
@@ -32,6 +42,11 @@
 	<bean name="/file-graph" class="xdi2.messaging.target.impl.file.FileMessagingTarget">
 		<property name="filename" value="./xdi2-file/graph.xdi" />
 		<property name="format" value="XDI/JSON" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+			</util:list>
+		</property>
 	</bean>
 	
 </beans>

@@ -1,6 +1,5 @@
 package xdi2.core.util.iterators;
 
-
 /**
  * An iterator that contains only a single item.
  * 

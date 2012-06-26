@@ -2,7 +2,7 @@ package xdi2.core.impl.keyvalue;
 
 import java.util.Iterator;
 
-import xdi2.core.util.iterators.FirstIteratorItem;
+import xdi2.core.util.iterators.IteratorFirstItem;
 import xdi2.core.util.iterators.IteratorCounter;
 
 /**
@@ -23,7 +23,7 @@ public abstract class AbstractKeyValueStore implements KeyValueStore {
 
 	public String getOne(String key) {
 
-		return new FirstIteratorItem<String> (this.getAll(key)).item();
+		return new IteratorFirstItem<String> (this.getAll(key)).item();
 	}
 
 	public boolean contains(String key) {

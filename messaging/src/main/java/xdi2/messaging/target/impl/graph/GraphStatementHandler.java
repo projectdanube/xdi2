@@ -11,10 +11,10 @@ import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIConstants;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.variables.VariablesUtil;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
@@ -77,7 +77,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.graph.findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) return true;
 
-		boolean isRelationXriVariable = VariablesUtil.isVariable(relationStatement.getObject());
+		boolean isRelationXriVariable = Variables.isVariable(relationStatement.getObject());
 
 		if (relationStatement.getPredicate().equals(XDIConstants.XRI_S_LITERAL)) {
 
@@ -112,7 +112,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.graph.findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement);
 
-		if (VariablesUtil.isVariable(relationStatement.getObject())) {
+		if (Variables.isVariable(relationStatement.getObject())) {
 			
 			Iterator<Relation> relations = contextNode.getRelations(relationStatement.getPredicate());
 			if (! relations.hasNext()) throw new Xdi2MessagingException("Relations not found: " + relationStatement);

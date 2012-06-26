@@ -98,7 +98,7 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 		Iterator<Message> messages = this.getMessages();
 		if (messages.hasNext()) return messages.next();
 
-		ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXXRefSubSegment('!'));
+		ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXXRefSubSegment("$", "!"));
 		contextNode.createContextNode(XDIMessagingConstants.XRI_SS_DO);
 
 		return new Message(this, contextNode);

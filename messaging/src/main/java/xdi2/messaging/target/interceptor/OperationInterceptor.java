@@ -5,7 +5,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.target.ExecutionContext;
 
-public interface OperationInterceptor {
+public interface OperationInterceptor extends Interceptor {
 
 	/**
 	 * Run before an operation is executed.

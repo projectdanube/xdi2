@@ -15,7 +15,7 @@ import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.core.util.XDIConstants;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.DescendingIterator;
-import xdi2.core.util.iterators.FirstIteratorItem;
+import xdi2.core.util.iterators.IteratorFirstItem;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.SelectingIterator;
@@ -123,7 +123,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			}
 		};
 
-		return new FirstIteratorItem<ContextNode> (selectingIterator).item();
+		return new IteratorFirstItem<ContextNode> (selectingIterator).item();
 	}
 
 	public Iterator<ContextNode> getAllContextNodes() {
@@ -195,12 +195,12 @@ public abstract class AbstractContextNode implements ContextNode {
 			}
 		};
 
-		return new FirstIteratorItem<Relation> (selectingIterator).item();
+		return new IteratorFirstItem<Relation> (selectingIterator).item();
 	}
 
 	public Relation getRelation(XRI3Segment arcXri) {
 
-		return new FirstIteratorItem<Relation> (this.getRelations(arcXri)).item();
+		return new IteratorFirstItem<Relation> (this.getRelations(arcXri)).item();
 	}
 
 	public Iterator<Relation> getRelations(final XRI3Segment arcXri) {

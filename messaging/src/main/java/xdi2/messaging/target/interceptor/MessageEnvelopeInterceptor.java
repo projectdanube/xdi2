@@ -5,7 +5,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.ExecutionContext;
 
-public interface MessageEnvelopeInterceptor {
+public interface MessageEnvelopeInterceptor extends Interceptor {
 
 	/**
 	 * Run before a message envelope is executed.

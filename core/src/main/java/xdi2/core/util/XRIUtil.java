@@ -23,41 +23,41 @@ public final class XRIUtil {
 
 	private XRIUtil() { }
 
-	public static XRI3SubSegment randomUUIDSubSegment(char lcs) {
+	public static XRI3SubSegment randomUUIDSubSegment(String prefix) {
 
-		return new XRI3SubSegment(lcs + UUID.randomUUID().toString().replace("-", "."));
+		return new XRI3SubSegment(prefix + UUID.randomUUID().toString().replace("-", "."));
 	}
 
-	public static XRI3SubSegment randomHEXSubSegment(char lcs) {
+	public static XRI3SubSegment randomHEXSubSegment(String subSegmentPrefix) {
 
 		final String hex = "0123456789abcdef";
-		StringBuilder inumber = new StringBuilder();
-		inumber.append(lcs);
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
-		inumber.append('.');
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
-		inumber.append('.');
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
-		inumber.append('.');
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
+		StringBuilder subSegment = new StringBuilder();
+		subSegment.append(subSegmentPrefix);
+		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
+		subSegment.append('.');
+		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
+		subSegment.append('.');
+		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
+		subSegment.append('.');
+		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
 
-		return new XRI3SubSegment(inumber.toString());
+		return new XRI3SubSegment(subSegment.toString());
 	}
 
-	public static XRI3SubSegment randomHEXXRefSubSegment(char lcs) {
+	public static XRI3SubSegment randomHEXXRefSubSegment(String xrefPrefix, String subSegmentPrefix) {
 
 		final String hex = "0123456789abcdef";
-		StringBuilder inumber = new StringBuilder();
-		inumber.append(lcs);
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
-		inumber.append('.');
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
-		inumber.append('.');
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
-		inumber.append('.');
-		for (int i=0; i<4; i++) inumber.append(hex.charAt(random.nextInt(hex.length())));
+		StringBuilder subSegment = new StringBuilder();
+		subSegment.append(subSegmentPrefix);
+		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
+		subSegment.append('.');
+		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
+		subSegment.append('.');
+		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
+		subSegment.append('.');
+		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
 
-		return new XRI3SubSegment("(" + inumber.toString() + ")");
+		return new XRI3SubSegment(xrefPrefix + "(" + subSegment.toString() + ")");
 	}
 
 	public static XRI3 extractParentXri(XRI3 xri) {

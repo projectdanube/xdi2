@@ -7,12 +7,12 @@ import java.util.Iterator;
  * 
  * @author markus
  */
-public class FirstIteratorItem<T> {
+public final class IteratorFirstItem<T> {
 
 	private T item;
 	private Iterator<T> iterator;
 
-	public FirstIteratorItem(Iterator<T> iterator) {
+	public IteratorFirstItem(Iterator<T> iterator) {
 
 		if (iterator == null) throw new NullPointerException();
 

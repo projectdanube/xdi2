@@ -1,4 +1,4 @@
-package xdi2.core.variables;
+package xdi2.core.features.variables;
 
 import xdi2.core.xri3.impl.XRI3Authority;
 import xdi2.core.xri3.impl.XRI3Reference;
@@ -6,9 +6,11 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.core.xri3.impl.XRI3XRef;
 
-public class VariablesUtil {
+public class Variables {
 
-	private VariablesUtil() { }
+	private Variables() {
+		
+	}
 
 	public static boolean isVariable(XRI3Segment xri) {
 
@@ -19,6 +21,9 @@ public class VariablesUtil {
 
 	public static boolean isVariable(XRI3SubSegment xri) {
 
+		if (xri.hasGCS()) return false;
+		if (xri.hasLCS()) return false;
+		
 		if (xri.hasLiteral()) return false;
 		if (! xri.hasXRef()) return false;
 

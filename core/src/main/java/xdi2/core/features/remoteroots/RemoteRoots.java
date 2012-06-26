@@ -1,4 +1,4 @@
-package xdi2.core.util.remoteroots;
+package xdi2.core.features.remoteroots;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;

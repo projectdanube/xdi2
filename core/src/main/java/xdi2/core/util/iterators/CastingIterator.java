@@ -7,11 +7,11 @@ import java.util.Iterator;
  *  
  * @author markus
  */
-public class CastingIterator<T> implements Iterator<T> {
+public class CastingIterator<I, O> implements Iterator<O> {
 
-	protected Iterator<?> iterator;
+	private Iterator<I> iterator;
 
-	public CastingIterator(Iterator<?> iterator) {
+	public CastingIterator(Iterator<I> iterator) {
 
 		this.iterator = iterator;
 	}
@@ -22,9 +22,9 @@ public class CastingIterator<T> implements Iterator<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public T next() {
+	public O next() {
 
-		return (T) this.iterator.next();
+		return (O) this.iterator.next();
 	}
 
 	public void remove() {

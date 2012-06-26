@@ -9,9 +9,6 @@ import java.util.Iterator;
  * In order for the hasNext() function to behave correctly, the iterator always looks ahead one
  * element.
  * 
- * I is the type of elements read by the iterator.
- * O is the type of elements returned by the iterator.
- *  
  * @author markus
  */
 public abstract class SelectingMappingIterator<I, O> extends ReadOnlyIterator<O> {
@@ -22,7 +19,7 @@ public abstract class SelectingMappingIterator<I, O> extends ReadOnlyIterator<O>
 	public SelectingMappingIterator(Iterator<I> iterator) {
 
 		this.iterator = iterator;
-		
+
 		this.lookahead();
 	}
 

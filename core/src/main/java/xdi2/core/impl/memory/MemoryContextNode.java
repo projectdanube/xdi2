@@ -83,7 +83,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 	public Iterator<ContextNode> getContextNodes() {
 
-		return new CastingIterator<ContextNode> (this.contextNodes.values().iterator());
+		return new CastingIterator<MemoryContextNode, ContextNode> (this.contextNodes.values().iterator());
 	}
 
 	@Override
@@ -142,6 +142,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return relation;
 	}
 
+	@Override
 	public Relation getRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
@@ -150,12 +151,13 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return relations.get(relationXri);
 	}
 
+	@Override
 	public Iterator<Relation> getRelations(XRI3Segment arcXri) {
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) return new EmptyIterator<Relation> ();
 
-		return new CastingIterator<Relation> (relations.values().iterator());
+		return new CastingIterator<MemoryRelation, Relation> (relations.values().iterator());
 	}
 
 	public Iterator<Relation> getRelations() {
@@ -169,9 +171,10 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 			}
 		};
 
-		return new CastingIterator<Relation> (descendingIterator);
+		return new CastingIterator<MemoryRelation, Relation> (descendingIterator);
 	}
 
+	@Override
 	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
@@ -180,6 +183,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return relations.containsKey(relationXri);
 	}
 
+	@Override
 	public boolean containsRelations(XRI3Segment arcXri) {
 
 		return this.relations.containsKey(arcXri);

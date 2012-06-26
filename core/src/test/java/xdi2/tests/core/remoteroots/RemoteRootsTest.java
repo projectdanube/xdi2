@@ -2,8 +2,8 @@ package xdi2.tests.core.remoteroots;
 
 import junit.framework.TestCase;
 import xdi2.core.Graph;
+import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.util.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 public class RemoteRootsTest extends TestCase {

@@ -49,4 +49,49 @@ public final class ExecutionContext implements Serializable {
 
 		return this.operationAttributes;
 	}
+
+	public Object getMessageEnvelopeAttribute(String key) {
+
+		return this.messageEnvelopeAttributes.get(key);
+	}
+
+	public void setMessageEnvelopeAttribute(String key, Object value) {
+
+		this.messageEnvelopeAttributes.put(key, value);
+	}
+
+	public void clearMessageEnvelopeAttributes() {
+
+		this.messageEnvelopeAttributes.clear();
+	}
+
+	public Object getMessageAttribute(String key) {
+
+		return this.messageAttributes.get(key);
+	}
+
+	public void setMessageAttribute(String key, Object value) {
+
+		this.messageAttributes.put(key, value);
+	}
+
+	public void clearMessageAttributes() {
+
+		this.messageAttributes.clear();
+	}
+
+	public Object getOperationAttribute(String key) {
+
+		return this.operationAttributes.get(key);
+	}
+
+	public void setOperationAttribute(String key, Object value) {
+
+		this.operationAttributes.put(key, value);
+	}
+
+	public void clearOperationAttributes() {
+
+		this.operationAttributes.clear();
+	}
 }

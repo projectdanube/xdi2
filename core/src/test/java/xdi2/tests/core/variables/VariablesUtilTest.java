@@ -1,7 +1,7 @@
 package xdi2.tests.core.variables;
 
 import junit.framework.TestCase;
-import xdi2.core.variables.VariablesUtil;
+import xdi2.core.features.variables.Variables;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -30,9 +30,9 @@ public class VariablesUtilTest extends TestCase {
 				true,
 				true,
 				true,
-				true,
-				true,
-				true,
+				false,
+				false,
+				false,
 				false,
 				false,
 				false,
@@ -49,12 +49,12 @@ public class VariablesUtilTest extends TestCase {
 
 			if (isVariable[i]) {
 
-				assertTrue(VariablesUtil.isVariable(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertTrue(VariablesUtil.isVariable((XRI3SubSegment) xriSegments[i].getFirstSubSegment()));
+				assertTrue(Variables.isVariable(xriSegments[i]));
+				if (xriSegments[i].getNumSubSegments() == 1) assertTrue(Variables.isVariable((XRI3SubSegment) xriSegments[i].getFirstSubSegment()));
 			} else {
 
-				assertFalse(VariablesUtil.isVariable(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertFalse(VariablesUtil.isVariable((XRI3SubSegment) xriSegments[i].getFirstSubSegment()));
+				assertFalse(Variables.isVariable(xriSegments[i]));
+				if (xriSegments[i].getNumSubSegments() == 1) assertFalse(Variables.isVariable((XRI3SubSegment) xriSegments[i].getFirstSubSegment()));
 			}
 		}
 	}

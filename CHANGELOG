@@ -1,6 +1,17 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-06-26:
+------------------------
+
+*** Worked on mechanism for interceptors (TargetInterceptor, ResultInterceptor)
+
+*** Added support for versioning
+
+*** Adjusted XDI Local Messenger web tool to support versioning, and added a new sample
+
+*** Some reorganization of XDI messaging and the server logic
+
 2012-06-13:
 ------------------------
 

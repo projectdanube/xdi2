@@ -1,13 +1,12 @@
 package xdi2.messaging.target.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -17,6 +16,7 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.ResultInterceptor;
+import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
  * A messaging target that can combine multiple other messaging targets.
@@ -27,8 +27,6 @@ import xdi2.messaging.target.interceptor.ResultInterceptor;
  * @author markus
  */
 public class CompoundMessagingTarget extends AbstractMessagingTarget {
-
-	private static final Log log = LogFactory.getLog(CompoundMessagingTarget.class);
 
 	public static final String MODE_ALL = "all";
 	public static final String MODE_FIRST_HANDLED = "first-handled";
@@ -50,10 +48,11 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 		// add compound interceptors
 
-		this.getMessageEnvelopeInterceptors().add(new CompoundMessageEnvelopeInterceptor());
-		this.getMessageInterceptors().add(new CompoundMessageInterceptor());
-		this.getOperationInterceptors().add(new CompoundOperationInterceptor());
-		this.getResultInterceptors().add(new CompoundResultInterceptor());
+		this.getInterceptors().add(new CompoundMessageEnvelopeInterceptor());
+		this.getInterceptors().add(new CompoundMessageInterceptor());
+		this.getInterceptors().add(new CompoundOperationInterceptor());
+		this.getInterceptors().add(new CompoundTargetInterceptor());
+		this.getInterceptors().add(new CompoundResultInterceptor());
 	}
 
 	/**
@@ -116,15 +115,10 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
 
-				for (MessageEnvelopeInterceptor messageEnvelopeInterceptor : messagingTarget.getMessageEnvelopeInterceptors()) {
+				for (Iterator<MessageEnvelopeInterceptor> messageEnvelopeInterceptors = messagingTarget.getMessageEnvelopeInterceptors(); messageEnvelopeInterceptors.hasNext(); ) {
 
-					if (log.isDebugEnabled()) log.debug("Executing message envelope interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + " (before).");
-
-					if (messageEnvelopeInterceptor.before(messageEnvelope, messageResult, executionContext)) {
-
-						if (log.isDebugEnabled()) log.debug("Message envelope has been fully handled by interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + ".");
-						return true;
-					}
+					MessageEnvelopeInterceptor messageEnvelopeInterceptor = messageEnvelopeInterceptors.next();
+					if (messageEnvelopeInterceptor.before(messageEnvelope, messageResult, executionContext)) return true;
 				}
 			}
 
@@ -139,15 +133,10 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
 
-				for (MessageEnvelopeInterceptor messageEnvelopeInterceptor : messagingTarget.getMessageEnvelopeInterceptors()) {
+				for (Iterator<MessageEnvelopeInterceptor> messageEnvelopeInterceptors = messagingTarget.getMessageEnvelopeInterceptors(); messageEnvelopeInterceptors.hasNext(); ) {
 
-					if (log.isDebugEnabled()) log.debug("Executing message envelope interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + " (after).");
-
-					if (messageEnvelopeInterceptor.after(messageEnvelope, messageResult, executionContext)) {
-
-						if (log.isDebugEnabled()) log.debug("Message envelope has been fully handled by interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + ".");
-						return true;
-					}
+					MessageEnvelopeInterceptor messageEnvelopeInterceptor = messageEnvelopeInterceptors.next();
+					if (messageEnvelopeInterceptor.after(messageEnvelope, messageResult, executionContext)) return true;
 				}
 			}
 
@@ -162,10 +151,9 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
 
-				for (MessageEnvelopeInterceptor messageEnvelopeInterceptor : messagingTarget.getMessageEnvelopeInterceptors()) {
+				for (Iterator<MessageEnvelopeInterceptor> messageEnvelopeInterceptors = messagingTarget.getMessageEnvelopeInterceptors(); messageEnvelopeInterceptors.hasNext(); ) {
 
-					if (log.isDebugEnabled()) log.debug("Executing message envelope interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + " (exception).");
-
+					MessageEnvelopeInterceptor messageEnvelopeInterceptor = messageEnvelopeInterceptors.next();
 					messageEnvelopeInterceptor.exception(messageEnvelope, messageResult, executionContext, ex);
 				}
 			}
@@ -182,15 +170,11 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
 
-				for (MessageInterceptor messageInterceptor : messagingTarget.getMessageInterceptors()) {
+				for (Iterator<MessageInterceptor> messageInterceptors = messagingTarget.getMessageInterceptors(); messageInterceptors.hasNext(); ) {
 
-					if (log.isDebugEnabled()) log.debug("Executing message interceptor " + messageInterceptor.getClass().getSimpleName() + " (before).");
+					MessageInterceptor messageInterceptor = messageInterceptors.next();
 
-					if (messageInterceptor.before(message, messageResult, executionContext)) {
-
-						if (log.isDebugEnabled()) log.debug("Message has been fully handled by interceptor " + messageInterceptor.getClass().getSimpleName() + ".");
-						return true;
-					}
+					if (messageInterceptor.before(message, messageResult, executionContext)) return true;
 				}
 			}
 
@@ -205,15 +189,11 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
 
-				for (MessageInterceptor messageInterceptor : messagingTarget.getMessageInterceptors()) {
+				for (Iterator<MessageInterceptor> messageInterceptors = messagingTarget.getMessageInterceptors(); messageInterceptors.hasNext(); ) {
 
-					if (log.isDebugEnabled()) log.debug("Executing message interceptor " + messageInterceptor.getClass().getSimpleName() + " (after).");
+					MessageInterceptor messageInterceptor = messageInterceptors.next();
 
-					if (messageInterceptor.after(message, messageResult, executionContext)) {
-
-						if (log.isDebugEnabled()) log.debug("Message has been fully handled by interceptor " + messageInterceptor.getClass().getSimpleName() + ".");
-						return true;
-					}
+					if (messageInterceptor.after(message, messageResult, executionContext)) return true;
 				}
 			}
 
@@ -231,15 +211,10 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
 
-				for (OperationInterceptor operationInterceptor : messagingTarget.getOperationInterceptors()) {
+				for (Iterator<OperationInterceptor> operationInterceptors = messagingTarget.getOperationInterceptors(); operationInterceptors.hasNext(); ) {
 
-					if (log.isDebugEnabled()) log.debug("Executing operation interceptor " + operationInterceptor.getClass().getSimpleName() + " (before).");
-
-					if (operationInterceptor.before(operation, messageResult, executionContext)) {
-
-						if (log.isDebugEnabled()) log.debug("Operation has been fully handled by interceptor " + operationInterceptor.getClass().getSimpleName() + ".");
-						return true;
-					}
+					OperationInterceptor operationInterceptor = operationInterceptors.next();
+					if (operationInterceptor.before(operation, messageResult, executionContext)) return true;
 				}
 			}
 
@@ -254,15 +229,10 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
 
-				for (OperationInterceptor operationInterceptor : messagingTarget.getOperationInterceptors()) {
+				for (Iterator<OperationInterceptor> operationInterceptors = messagingTarget.getOperationInterceptors(); operationInterceptors.hasNext(); ) {
 
-					if (log.isDebugEnabled()) log.debug("Executing operation interceptor " + operationInterceptor.getClass().getSimpleName() + " (after).");
-
-					if (operationInterceptor.after(operation, messageResult, executionContext)) {
-
-						if (log.isDebugEnabled()) log.debug("Operation has been fully handled by interceptor " + operationInterceptor.getClass().getSimpleName() + ".");
-						return true;
-					}
+					OperationInterceptor operationInterceptor = operationInterceptors.next();
+					if (operationInterceptor.after(operation, messageResult, executionContext)) return true;
 				}
 			}
 
@@ -270,9 +240,48 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 		}
 	}
 
+	private class CompoundTargetInterceptor implements TargetInterceptor {
+
+		public Statement targetStatement(Operation operation, Statement targetStatement, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+			// execute all target interceptors
+
+			for (int i=0; i<CompoundMessagingTarget.this.messagingTargets.size(); i++) {
+
+				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
+
+				for (Iterator<TargetInterceptor> targetInterceptors = messagingTarget.getTargetInterceptors(); targetInterceptors.hasNext(); ) {
+
+					TargetInterceptor targetInterceptor = targetInterceptors.next();
+					targetStatement = targetInterceptor.targetStatement(operation, targetStatement, executionContext);
+				}
+			}
+
+			return targetStatement;
+		}
+
+		public XRI3Segment targetAddress(Operation operation, XRI3Segment targetAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+			// execute all target interceptors
+
+			for (int i=0; i<CompoundMessagingTarget.this.messagingTargets.size(); i++) {
+
+				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
+
+				for (Iterator<TargetInterceptor> targetInterceptors = messagingTarget.getTargetInterceptors(); targetInterceptors.hasNext(); ) {
+
+					TargetInterceptor targetInterceptor = targetInterceptors.next();
+					targetAddress = targetInterceptor.targetAddress(operation, targetAddress, executionContext);
+				}
+			}
+
+			return targetAddress;
+		}
+	}
+
 	private class CompoundResultInterceptor implements ResultInterceptor {
 
-		public boolean exclude(Statement statement, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public void finish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all result interceptors
 
@@ -280,19 +289,13 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 				AbstractMessagingTarget messagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
 
-				for (ResultInterceptor resultInterceptor : messagingTarget.getResultInterceptors()) {
+				for (Iterator<ResultInterceptor> resultInterceptors = messagingTarget.getResultInterceptors(); resultInterceptors.hasNext(); ) {
 
-					if (log.isDebugEnabled()) log.debug("Executing result interceptor " + resultInterceptor.getClass().getSimpleName() + " on address " + statement + ".");
+					ResultInterceptor resultInterceptor = resultInterceptors.next();
 
-					if (resultInterceptor.exclude(statement, executionContext)) {
-
-						if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Result " + statement + " has been excluded by interceptor " + resultInterceptor.getClass().getSimpleName() + ".");
-						return true;
-					}
+					resultInterceptor.finish(messageResult, executionContext);
 				}
 			}
-
-			return false;
 		}
 	}
 

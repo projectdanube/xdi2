@@ -3,10 +3,7 @@ package xdi2.core.util.iterators;
 import java.util.Iterator;
 
 /**
- * An iterator that reads elements from another iterator and maps them to its own elements.
- * 
- * I is the type of elements read by the iterator.
- * O is the type of elements returned by the iterator.
+ * An iterator that reads elements from one iterator and maps them to other elements.
  * 
  * @author markus
  */

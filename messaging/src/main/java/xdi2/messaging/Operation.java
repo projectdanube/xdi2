@@ -120,10 +120,10 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the target XRI of the operation.
-	 * @return The target XRI of the operation.
+	 * Returns the target of the operation.
+	 * @return The target of the operation.
 	 */
-	public XRI3Segment getTargetXri() {
+	public XRI3Segment getTarget() {
 
 		return this.getRelation().getRelationXri();
 	}

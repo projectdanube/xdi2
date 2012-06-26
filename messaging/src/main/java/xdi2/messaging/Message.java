@@ -175,75 +175,6 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Finds an operation with a given operation XRI in this XDI message.
-	 * @param operationXri The operation XRI of the new operation.
-	 * @return The operation, or null.
-	 */
-	public Operation getOperation(XRI3Segment operationXri) {
-
-		Relation relation = this.getOperationsContextNode().getRelation(operationXri);
-		if (relation == null) return null;
-
-		return Operation.fromMessageAndRelation(this, relation);
-	}
-
-	/**
-	 * Returns the $get operation in this XDI message.
-	 * @return The $get operation, or null.
-	 */
-	public GetOperation getGetOperation() {
-
-		// look for a valid $get relation
-
-		Relation relation = this.getOperationsContextNode().getRelation(XDIMessagingConstants.XRI_S_GET);
-		if (relation == null) return null; 
-
-		return GetOperation.fromMessageAndRelation(this, relation);
-	}
-
-	/**
-	 * Returns the $add operation in this XDI message.
-	 * @return The $add operation, or null.
-	 */
-	public AddOperation getAddOperation() {
-
-		// look for a valid $add relation
-
-		Relation relation = this.getOperationsContextNode().getRelation(XDIMessagingConstants.XRI_S_ADD);
-		if (relation == null) return null; 
-
-		return AddOperation.fromMessageAndRelation(this, relation);
-	}
-
-	/**
-	 * Returns the $mod operation in this XDI message.
-	 * @return The $mod operation, or null.
-	 */
-	public ModOperation getModOperation() {
-
-		// look for a valid $mod relation
-
-		Relation relation = this.getOperationsContextNode().getRelation(XDIMessagingConstants.XRI_S_MOD);
-		if (relation == null) return null; 
-
-		return ModOperation.fromMessageAndRelation(this, relation);
-	}
-
-	/**
-	 * Returns the $del operation in this XDI message.
-	 * @return The $del operation, or null.
-	 */
-	public DelOperation getDelOperation() {
-
-		// look for a valid $del relation
-
-		Relation relation = this.getOperationsContextNode().getRelation(XDIMessagingConstants.XRI_S_DEL);
-		if (relation == null) return null; 
-
-		return DelOperation.fromMessageAndRelation(this, relation);
-	}
-
-	/**
 	 * Returns all XDI operations in this XDI message.
 	 * @return An iterator over all XDI operations.
 	 */
@@ -265,6 +196,136 @@ public final class Message implements Serializable, Comparable<Message> {
 			public Operation map(Relation relation) {
 
 				return Operation.fromMessageAndRelation(Message.this, relation);
+			}
+		};
+	}
+
+	/**
+	 * Returns all XDI operations with a given operation XRI in this XDI message.
+	 * @return An iterator over all XDI operations.
+	 */
+	public Iterator<Operation> getOperations(XRI3Segment operationXri) {
+
+		// look for valid relations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(operationXri);
+
+		return new SelectingMappingIterator<Relation, Operation> (relations) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return Operation.isValid(relation);
+			}
+
+			@Override
+			public Operation map(Relation relation) {
+
+				return Operation.fromMessageAndRelation(Message.this, relation);
+			}
+		};
+	}
+
+	/**
+	 * Returns all XDI $get operations in this XDI message.
+	 * @return An iterator over all XDI $get operations.
+	 */
+	public Iterator<GetOperation> getGetOperations() {
+
+		// look for valid relations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_GET);
+
+		return new SelectingMappingIterator<Relation, GetOperation> (relations) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return GetOperation.isValid(relation);
+			}
+
+			@Override
+			public GetOperation map(Relation relation) {
+
+				return GetOperation.fromMessageAndRelation(Message.this, relation);
+			}
+		};
+	}
+
+	/**
+	 * Returns all XDI $add operations in this XDI message.
+	 * @return An iterator over all XDI $add operations.
+	 */
+	public Iterator<AddOperation> getAddOperations() {
+
+		// look for valid relations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_ADD);
+
+		return new SelectingMappingIterator<Relation, AddOperation> (relations) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return AddOperation.isValid(relation);
+			}
+
+			@Override
+			public AddOperation map(Relation relation) {
+
+				return AddOperation.fromMessageAndRelation(Message.this, relation);
+			}
+		};
+	}
+
+	/**
+	 * Returns all XDI $mod operations in this XDI message.
+	 * @return An iterator over all XDI $mod operations.
+	 */
+	public Iterator<ModOperation> getModOperations() {
+
+		// look for valid relations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_MOD);
+
+		return new SelectingMappingIterator<Relation, ModOperation> (relations) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return ModOperation.isValid(relation);
+			}
+
+			@Override
+			public ModOperation map(Relation relation) {
+
+				return ModOperation.fromMessageAndRelation(Message.this, relation);
+			}
+		};
+	}
+
+	/**
+	 * Returns all XDI $del operations in this XDI message.
+	 * @return An iterator over all XDI $del operations.
+	 */
+	public Iterator<DelOperation> getDelOperations() {
+
+		// look for valid relations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_DEL);
+
+		return new SelectingMappingIterator<Relation, DelOperation> (relations) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return DelOperation.isValid(relation);
+			}
+
+			@Override
+			public DelOperation map(Relation relation) {
+
+				return DelOperation.fromMessageAndRelation(Message.this, relation);
 			}
 		};
 	}

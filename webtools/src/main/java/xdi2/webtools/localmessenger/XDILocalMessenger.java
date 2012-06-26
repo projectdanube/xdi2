@@ -27,6 +27,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
 /**
  * Servlet implementation class for Servlet: XDILocalMessenger
@@ -94,6 +95,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
+		request.setAttribute("variablesSupport", "on");
+		request.setAttribute("versioningSupport", null);
+		request.setAttribute("linkContractSupport", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("message", sampleMessages.get(Integer.parseInt(sample) - 1));
@@ -103,6 +107,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String variablesSupport = request.getParameter("variablesSupport");
 		String versioningSupport = request.getParameter("versioningSupport");
 		String linkContractSupport = request.getParameter("linkContractSupport");
 		String to = request.getParameter("to");
@@ -138,6 +143,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 			messagingTarget.setGraph(graphInput);
+
+			if ("on".equals(variablesSupport)) {
+
+				VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
+				messagingTarget.getInterceptors().add(variablesInterceptor);
+			}
 
 			if ("on".equals(versioningSupport))
 				//				messagingTarget.getOperationInterceptors().add(new SubjectVersioningOperationInterceptor());
@@ -185,6 +196,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("variablesSupport", variablesSupport);
 		request.setAttribute("versioningSupport", versioningSupport);
 		request.setAttribute("linkContractSupport", linkContractSupport);
 		request.setAttribute("to", to);

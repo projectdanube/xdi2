@@ -1,16 +1,16 @@
 package xdi2.messaging.target.interceptor;
 
-import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.ExecutionContext;
 
-public interface ResultInterceptor {
+public interface ResultInterceptor extends Interceptor {
 
 	/**
-	 * Run on all statements after a message result is complete.
-	 * @param statement The statement to process.
+	 * Run on the message result after it is complete for final adjustments.
+	 * @param messageResult The message result.
 	 * @param executionContext The current execution context.
-	 * @return true, if the statement is to be excluded from the result.
+	 * @param executionContext
 	 */
-	public boolean exclude(Statement statement, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public void finish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }
