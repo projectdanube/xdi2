@@ -28,6 +28,8 @@ public class VariablesInterceptor implements TargetInterceptor, ResultIntercepto
 		XRI3Segment predicate = substituteSegment(targetStatement.getPredicate(), executionContext);
 		XRI3Segment object = substituteSegment(targetStatement.getObject(), executionContext);
 
+		if (subject == targetStatement.getSubject() && predicate == targetStatement.getPredicate() && object == targetStatement.getObject()) return targetStatement;
+
 		return AbstractStatement.fromComponents(subject, predicate, object);
 	}
 

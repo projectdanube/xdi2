@@ -5,7 +5,7 @@ import xdi2.core.features.variables.Variables;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
-public class VariablesUtilTest extends TestCase {
+public class VariablesTest extends TestCase {
 
 	public void testVariables() throws Exception {
 

@@ -12,7 +12,7 @@ import xdi2.tests.core.impl.keyvalue.PropertiesKeyValueTest;
 import xdi2.tests.core.io.IOTest;
 import xdi2.tests.core.remoteroots.RemoteRootsTest;
 import xdi2.tests.core.util.XDIUtilTest;
-import xdi2.tests.core.variables.VariablesUtilTest;
+import xdi2.tests.core.variables.VariablesTest;
 
 public class AllTests {
 
@@ -27,7 +27,7 @@ public class AllTests {
 		suite.addTestSuite(PropertiesKeyValueTest.class);
 		suite.addTestSuite(BDBKeyValueTest.class);
 		suite.addTestSuite(IOTest.class);
-		suite.addTestSuite(VariablesUtilTest.class);
+		suite.addTestSuite(VariablesTest.class);
 		suite.addTestSuite(RemoteRootsTest.class);
 		suite.addTestSuite(XDIUtilTest.class);
 		//$JUnit-END$
