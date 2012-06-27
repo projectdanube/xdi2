@@ -33,10 +33,52 @@ public class BasicTest extends TestCase {
 
 	public void testMessaging() throws Exception {
 
+		// create a message envelope
+		
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		
+		assertFalse(messageEnvelope.getMessageContainers().hasNext());
+		assertNull(messageEnvelope.getMessageContainer(SENDER, false));
+		assertEquals(messageEnvelope.getMessageContainerCount(), 0);
+		assertFalse(messageEnvelope.getMessages().hasNext());
+		assertFalse(messageEnvelope.getMessages(SENDER).hasNext());
+		assertNull(messageEnvelope.getMessage(SENDER, false));
+		assertEquals(messageEnvelope.getMessageCount(), 0);
+
+		// create a message container
+		
 		MessageContainer messageContainer = messageEnvelope.getMessageContainer(SENDER, true);
+
+		assertTrue(messageEnvelope.getMessageContainers().hasNext());
+		assertNotNull(messageEnvelope.getMessageContainer(SENDER, false));
+		assertEquals(messageEnvelope.getMessageContainerCount(), 1);
+		assertFalse(messageEnvelope.getMessages().hasNext());
+		assertFalse(messageEnvelope.getMessages(SENDER).hasNext());
+		assertNull(messageEnvelope.getMessage(SENDER, false));
+		assertEquals(messageEnvelope.getMessageCount(), 0);
+
+		assertFalse(messageContainer.getMessages().hasNext());
+		assertNull(messageContainer.getMessage(false));
+		assertEquals(messageContainer.getMessageCount(), 0);
+		
+		// create a message
+		
 		Message message = messageContainer.getMessage(true);
 
+		assertTrue(messageEnvelope.getMessageContainers().hasNext());
+		assertNotNull(messageEnvelope.getMessageContainer(SENDER, false));
+		assertEquals(messageEnvelope.getMessageContainerCount(), 1);
+		assertTrue(messageEnvelope.getMessages().hasNext());
+		assertTrue(messageEnvelope.getMessages(SENDER).hasNext());
+		assertNotNull(messageEnvelope.getMessage(SENDER, false));
+		assertEquals(messageEnvelope.getMessageCount(), 1);
+
+		assertTrue(messageContainer.getMessages().hasNext());
+		assertNotNull(messageContainer.getMessage(false));
+		assertEquals(messageContainer.getMessageCount(), 1);
+
+		// create some operations
+		
 		ContextNode[] contextNodes = new ContextNode[CONTEXTNODEXRIS.length]; 
 		for (int i=0; i<CONTEXTNODEXRIS.length; i++) contextNodes[i] = messageEnvelope.getGraph().findContextNode(CONTEXTNODEXRIS[i], true);
 

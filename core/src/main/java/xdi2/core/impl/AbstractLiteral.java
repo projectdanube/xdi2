@@ -110,7 +110,7 @@ public abstract class AbstractLiteral implements Literal {
 
 		public XRI3Segment getObject() {
 
-			return XDIUtil.stringToDataXriSegment(AbstractLiteral.this.getLiteralData());
+			return XDIUtil.stringToDataXriSegment(AbstractLiteral.this.getLiteralData(), false);
 		}
 
 		@Override

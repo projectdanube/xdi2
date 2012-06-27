@@ -1,6 +1,5 @@
 package xdi2.core.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +17,7 @@ public class XDIUtil {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIUtil.class);
 
-	private static final Pattern PATTERN_DATA_URI = Pattern.compile("^data:(.*?),(.*)$");
+	private static final Pattern PATTERN_DATA_URI = Pattern.compile("^(.*?),(.*)$");
 
 	private XDIUtil() { }
 
@@ -35,8 +34,11 @@ public class XDIUtil {
 		String iri = xRef.getIRI();		
 		if (iri == null) throw new Xdi2RuntimeException("Invalid data URI (no iri): " + xriSubSegment);
 
-		Matcher matcher = PATTERN_DATA_URI.matcher(iri);
-		if (! matcher.matches()) throw new Xdi2RuntimeException("Invalid data URI: " + iri);
+		URI uri = URI.create(iri);
+		if (! uri.getScheme().equals("data")) throw new Xdi2RuntimeException("Invalid data URI scheme: " + uri);
+
+		Matcher matcher = PATTERN_DATA_URI.matcher(uri.getSchemeSpecificPart());
+		if (! matcher.matches()) throw new Xdi2RuntimeException("Invalid data URI: " + uri);
 
 		String typeEncodingBase64 = matcher.group(1);
 		String data = matcher.group(2);
@@ -50,36 +52,32 @@ public class XDIUtil {
 
 				return data;
 			}
-		} catch (UnsupportedEncodingException ex) {
+		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException(ex);
 		}
 	}
 
-	public static XRI3Segment stringToDataXriSegment(String string) {
+	public static XRI3Segment stringToDataXriSegment(String string, boolean base64) {
 
 		if (log.isDebugEnabled()) log.debug("Converting to data URI: " + string);
 
-		StringBuilder builder = new StringBuilder("data:");
+		URI uri;
 
 		try {
 
-			try {
+			if (base64) {
 
-				URI.create("data:," + string);
+				uri = new URI("data", ";base64," + new String(Base64.encodeBase64(string.getBytes("UTF-8")), "UTF-8"), null);
+			} else {
 
-				builder.append(",");
-				builder.append(string);
-			} catch (IllegalArgumentException ex) {
-
-				builder.append(";base64,");
-				builder.append(new String(Base64.encodeBase64(string.getBytes("UTF-8")), "UTF-8"));
+				uri = new URI("data", "," + string, null);
 			}
-		} catch (UnsupportedEncodingException ex) {
+		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException(ex);
 		}
 
-		return new XRI3Segment("(" + builder.toString() + ")");
+		return new XRI3Segment("(" + uri.toString() + ")");
 	}
 }

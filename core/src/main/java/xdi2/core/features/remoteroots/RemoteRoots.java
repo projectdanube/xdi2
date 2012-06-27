@@ -9,9 +9,7 @@ import xdi2.core.xri3.impl.XRI3XRef;
 
 public class RemoteRoots {
 
-	private RemoteRoots() {
-
-	}
+	private RemoteRoots() { }
 
 	/**
 	 * Given a graph, finds and returns a remote root context node for an XRI.

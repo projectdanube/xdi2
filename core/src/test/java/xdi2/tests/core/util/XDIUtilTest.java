@@ -14,6 +14,7 @@ public class XDIUtilTest extends TestCase {
 				new XRI3Segment("(data:,2010J10J10T11:12:13Z)"),
 				new XRI3Segment("(data:,+1.206.555.1111)"),
 				new XRI3Segment("(data:,Canada)"),
+				new XRI3Segment("(data:,New%20Zealand)"),
 				new XRI3Segment("(data:,987654321)")
 		};
 
@@ -23,6 +24,7 @@ public class XDIUtilTest extends TestCase {
 				"2010J10J10T11:12:13Z",
 				"+1.206.555.1111",
 				"Canada",
+				"New Zealand",
 				"987654321"
 		};
 
@@ -30,7 +32,7 @@ public class XDIUtilTest extends TestCase {
 
 		for (int i=0; i<dataXriSegments.length; i++) {
 
-			assertEquals(dataXriSegments[i], XDIUtil.stringToDataXriSegment(strings[i]));
+			assertEquals(dataXriSegments[i], XDIUtil.stringToDataXriSegment(strings[i], false));
 			assertEquals(strings[i], XDIUtil.dataXriSegmentToString(dataXriSegments[i]));
 		}
 	}

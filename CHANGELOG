@@ -1,6 +1,13 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-06-27:
+------------------------
+
+*** Skeleton for link contracts functionality
+
+*** Better encoding of data: URIs in literal statements
+
 2012-06-26:
 ------------------------
 

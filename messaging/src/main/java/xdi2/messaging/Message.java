@@ -47,10 +47,13 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Factory method that creates an XDI message bound to a given context node.
+	 * @param messageContainer The XDI message container to which this XDI message belongs.
 	 * @param contextNode The context node that is an XDI message.
 	 * @return The XDI message.
 	 */
 	public static Message fromMessageContainerAndContextNode(MessageContainer messageContainer, ContextNode contextNode) {
+
+		if (! isValid(contextNode)) return null;
 
 		return new Message(messageContainer, contextNode);
 	}
@@ -60,8 +63,8 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 
 	/**
-	 * Returns the message container to which this message belongs.
-	 * @return A message container.
+	 * Returns the XDI message container to which this XDI message belongs.
+	 * @return An XDI message container.
 	 */
 	public MessageContainer getMessageContainer() {
 

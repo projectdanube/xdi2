@@ -115,7 +115,7 @@ public abstract class AbstractStatement implements Statement {
 			if (reference.hasAuthority()) {
 
 				if (reference.getPath().getNumSegments() != 2) throw new Xdi2ParseException("Invalid number of segments.");
-				
+
 				subject = new XRI3Segment(reference.getAuthority().toString());
 				predicate = new XRI3Segment(reference.getPath().getSegment(0).toString());
 				object = new XRI3Segment(reference.getPath().getSegment(1).toString());

@@ -45,6 +45,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Factory method that creates an XDI operation bound to a given relation.
+	 * @param message The XDI message to which this XDI operation belongs.
 	 * @param relation The relation that is an XDI operation.
 	 * @return The XDI operation.
 	 */
@@ -75,8 +76,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 
 	/**
-	 * Returns the message to which this operation belongs.
-	 * @return A message.
+	 * Returns the XDI message to which this XDI operation belongs.
+	 * @return An XDI message.
 	 */
 	public Message getMessage() {
 
@@ -84,8 +85,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the message container to which this operation belongs.
-	 * @return A message container.
+	 * Returns the XDI message container to which this XDI operation belongs.
+	 * @return An XDI message container.
 	 */
 	public MessageContainer getMessageContainer() {
 
@@ -93,8 +94,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the message envelope to which this operation belongs.
-	 * @return A message envelope.
+	 * Returns the XDI message envelope to which this XDI operation belongs.
+	 * @return An XDI message envelope.
 	 */
 	public MessageEnvelope getMessageEnvelope() {
 

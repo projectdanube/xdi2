@@ -47,7 +47,8 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 
 	/**
 	 * Factory method that creates an XDI message container bound to a given context node.
-	 * @param contextNode The context node that is an XDI container.
+	 * @param messageEnvelope The XDI message envelope to which this XDI message container belongs.
+	 * @param contextNode The context node that is an XDI message container.
 	 * @return The XDI message container.
 	 */
 	public static MessageContainer fromMessageEnvelopeAndContextNode(MessageEnvelope messageEnvelope, ContextNode contextNode) {
@@ -62,8 +63,8 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	 */
 
 	/**
-	 * Returns the message envelope to which this message container belongs.
-	 * @return A message envelope.
+	 * Returns the XDI message envelope to which this XDI message container belongs.
+	 * @return An XDI message envelope.
 	 */
 	public MessageEnvelope getMessageEnvelope() {
 
@@ -89,19 +90,25 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	}
 
 	/**
-	 * Returns or creates a new XDI message in this XDI message container.
-	 * @param create Whether to create a message if it does not exist.
-	 * @return The newly created XDI message.
+	 * Returns an existing XDI message in this XDI message container, or creates a new one.
+	 * @param create Whether to create an XDI message if it does not exist.
+	 * @return The existing or newly created XDI message.
 	 */
 	public Message getMessage(boolean create) {
 
 		Iterator<Message> messages = this.getMessages();
 		if (messages.hasNext()) return messages.next();
 
-		ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXXRefSubSegment("$", "!"));
-		contextNode.createContextNode(XDIMessagingConstants.XRI_SS_DO);
+		if (create) {
 
-		return new Message(this, contextNode);
+			ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXXRefSubSegment("$", "!"));
+			contextNode.createContextNode(XDIMessagingConstants.XRI_SS_DO);
+	
+			return new Message(this, contextNode);
+		} else {
+			
+			return null;
+		}
 	}
 
 	/**

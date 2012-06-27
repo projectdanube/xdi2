@@ -36,7 +36,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		this(graphFactory.openGraph());
 	}
-	
+
 	/*
 	 * Static methods
 	 */
@@ -131,6 +131,22 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	}
 
 	/**
+	 * Returns an existing XDI message container in this XDI message envelope, or creates a new one.
+	 * @param senderXri The sender.
+	 * @param create Whether to create an XDI message container if it does not exist.
+	 * @return The existing or newly created XDI message container.
+	 */
+	public MessageContainer getMessageContainer(XRI3Segment senderXri, boolean create) {
+
+		XRI3Segment messageContainerXri = new XRI3Segment(senderXri.toString() + XDIMessagingConstants.XRI_SS_MSG.toString());
+		ContextNode contextNode = this.getGraph().findContextNode(messageContainerXri, create);
+
+		if (contextNode == null) return null;
+
+		return new MessageContainer(this, contextNode);
+	}
+
+	/**
 	 * Returns all message containers in this message envelope.
 	 * @return All message containers in the envelope.
 	 */
@@ -154,20 +170,6 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 				return MessageContainer.fromMessageEnvelopeAndContextNode(MessageEnvelope.this, contextNode);
 			}
 		};
-	}
-
-	/**
-	 * Returns or creates a new XDI message container in this XDI message envelope.
-	 * @param senderXri The sender.
-	 * @param create Whether to create a message container if it does not exist.
-	 * @return The newly created XDI message container.
-	 */
-	public MessageContainer getMessageContainer(XRI3Segment senderXri, boolean create) {
-
-		XRI3Segment messageXri = new XRI3Segment(senderXri.toString() + XDIMessagingConstants.XRI_SS_MSG.toString());
-		ContextNode contextNode = this.getGraph().findContextNode(messageXri, true);
-
-		return new MessageContainer(this, contextNode);
 	}
 
 	/**
@@ -195,7 +197,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		MessageContainer messageContainer = this.getMessageContainer(senderXri, false);
 		if (messageContainer == null) return new EmptyIterator<Message> ();
-		
+
 		return messageContainer.getMessages();
 	}
 
@@ -215,6 +217,16 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		};
 
 		return descendingOperator;
+	}
+
+	/**
+	 * Returns the number of message containers in the message envelope.
+	 */
+	public int getMessageContainerCount() {
+
+		Iterator<MessageContainer> iterator = this.getMessageContainers();
+
+		return new IteratorCounter(iterator).count();
 	}
 
 	/**

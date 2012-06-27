@@ -8,9 +8,7 @@ import xdi2.core.xri3.impl.XRI3XRef;
 
 public class Variables {
 
-	private Variables() {
-		
-	}
+	private Variables() { }
 
 	public static boolean isVariable(XRI3Segment xri) {
 

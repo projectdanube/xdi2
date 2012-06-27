@@ -5,9 +5,7 @@ import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public class Multiplicity {
 
-	private Multiplicity() {
-
-	}
+	private Multiplicity() { }
 
 	public static XRI3SubSegment makeValueIndexSubSegment(int i) {
 
