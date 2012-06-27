@@ -51,7 +51,8 @@
 	<p class="subheader">XDI</p>
 	
 	<p><a href="http://en.wikipedia.org/wiki/XDI">XDI on Wikipedia</a></p>
-	<p><a href="http://wiki.oasis-open.org/xdi/">OASIS XDI TC</a></p>
+	<p><a href="http://www.oasis-open.org/committees/xdi/">OASIS XDI TC</a></p>
+	<p><a href="http://wiki.oasis-open.org/xdi/">OASIS XDI TC Wiki</a></p>
 
 	<p class="subheader">Contact</p>
 
