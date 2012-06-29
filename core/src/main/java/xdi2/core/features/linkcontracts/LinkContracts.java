@@ -5,23 +5,13 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
+import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
+
 
 public class LinkContracts {
 
-	/*
-	 * //this map will hold tuples of source context nodes and LC objects
-	 * created on a source context node. These are outgoing $do contextual arcs
-	 * from a node. private Map<Graph, Map<ContextNode,LinkContract>>
-	 * ownedLinkContracts = new LinkedHashMap<Graph,
-	 * Map<ContextNode,LinkContract>>();
-	 * 
-	 * //this map will hold tuples of source context nodes and LC objects
-	 * assigned from a source context node. These are incoming $is$do contextual
-	 * arcs from a node.
-	 * 
-	 * private Map<Graph, Map<ContextNode,LinkContract>> assignedLinkContracts;
-	 */
+
 	private LinkContracts() {
 	}
 
@@ -34,7 +24,22 @@ public class LinkContracts {
 	 */
 	public static Iterator<LinkContract> getAllLinkContracts(Graph graph) {
 
-		return null;
+		ContextNode root = graph.getRootContextNode();
+		Iterator<ContextNode> allContextNodes = root.getAllContextNodes();
+		return new SelectingMappingIterator<ContextNode, LinkContract> (allContextNodes) {
+
+			@Override
+			public boolean select(ContextNode contextNode) {
+
+				return LinkContract.isValid(contextNode);
+			}
+
+			@Override
+			public LinkContract map(ContextNode contextNode) {
+
+				return LinkContract.fromContextNode(contextNode);
+			}
+		};		
 	}
 
 	/**
@@ -70,6 +75,18 @@ public class LinkContracts {
 	public static LinkContract findLinkContractByAddress(Graph graph,
 			XRI3Segment address) {
 
+		ContextNode root = graph.getRootContextNode();
+		
+		for(Iterator<ContextNode> cIter =   root.getAllContextNodes() ; cIter.hasNext();){
+			
+			ContextNode c = cIter.next();
+			if(LinkContract.isValid(c)){
+				if(c.getXri().equals(address)){
+					return LinkContract.fromContextNode(c);
+				}
+			}
+			
+		}
 		return null;
 	}
 
