@@ -1,16 +1,24 @@
 package xdi2.core.features.linkcontracts;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Relation;
 import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
+import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
  * An XDI link contract, represented as a context node.
  * 
  * @author markus
  */
-public final class LinkContract implements Serializable, Comparable<LinkContract> {
+public final class LinkContract implements Serializable,
+		Comparable<LinkContract> {
 
 	private static final long serialVersionUID = 1604380462449272148L;
 
@@ -18,8 +26,9 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 
 	protected LinkContract(ContextNode contextNode) {
 
-		if (contextNode == null) throw new NullPointerException();
-		
+		if (contextNode == null)
+			throw new NullPointerException();
+
 		this.contextNode = contextNode;
 	}
 
@@ -29,22 +38,29 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 
 	/**
 	 * Checks if a context node is a valid XDI link contract.
-	 * @param contextNode The context node to check.
+	 * 
+	 * @param contextNode
+	 *            The context node to check.
 	 * @return True if the context node is a valid XDI link contract.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return XDILinkContractConstants.XRI_SS_DO.equals(contextNode.getArcXri());
+		return XDILinkContractConstants.XRI_SS_DO.equals(contextNode
+				.getArcXri());
 	}
 
 	/**
-	 * Factory method that creates an XDI link contract bound to a given context node.
-	 * @param contextNode The context node that is an XDI link contract.
+	 * Factory method that creates an XDI link contract bound to a given context
+	 * node.
+	 * 
+	 * @param contextNode
+	 *            The context node that is an XDI link contract.
 	 * @return The XDI link contract.
 	 */
 	public static LinkContract fromContextNode(ContextNode contextNode) {
 
-		if (! isValid(contextNode)) return null;
+		if (!isValid(contextNode))
+			return null;
 
 		return new LinkContract(contextNode);
 	}
@@ -54,7 +70,9 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 
 	/**
-	 * Returns the underlying context node to which this XDI link contract is bound.
+	 * Returns the underlying context node to which this XDI link contract is
+	 * bound.
+	 * 
 	 * @return A context node that represents the XDI link contract.
 	 */
 	public ContextNode getContextNode() {
@@ -68,43 +86,254 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	// ...
 
 	/**
-	 * Returns an existing XDI policy in this XDI link contract, or creates a new one.
-	 * @param create Whether to create an XDI policy if it does not exist.
+	 * Returns an existing XDI policy in this XDI link contract, or creates a
+	 * new one.
+	 * 
+	 * @param create
+	 *            Whether to create an XDI policy if it does not exist.
 	 * @return The existing or newly created XDI policy.
 	 */
 	public Policy getPolicy(boolean create) {
 
-		ContextNode contextNode = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_IF);
-		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDILinkContractConstants.XRI_SS_IF); 
-		if (contextNode == null) return null;
+		ContextNode contextNode = this.getContextNode().getContextNode(
+				XDILinkContractConstants.XRI_SS_IF);
+		if (contextNode == null && create)
+			contextNode = this.getContextNode().createContextNode(
+					XDILinkContractConstants.XRI_SS_IF);
+		if (contextNode == null)
+			return null;
 
 		return new Policy(this, contextNode);
 	}
 
-	public void addAssignee(ContextNode assignee) {
-		
-	}
-	
-	public void removeAssignee(ContextNode assignee) {
-		
+	/**
+	 * Adds a assignment relationship of a LinkContract to a target assignee
+	 * node
+	 * 
+	 * @param assignee
+	 *            The context node to whom this LinkContract is being assigned
+	 *            to
+	 * @return NONE
+	 */
+
+	public boolean addAssignee(ContextNode assignee) {
+		boolean status = false;
+		if (assignee == null) {
+			// TBD
+			// write error in debug log
+			return status;
+		}
+
+		if (contextNode.createRelation(XDILinkContractConstants.XRI_S_IS_DO,
+				assignee) != null) {
+
+			status = true;
+		} else {
+			// TBD
+			// write error in debug log
+
+		}
+		return status;
 	}
 
-	public void getAssignees() {
-		
+	/**
+	 * Removes an assignment relationship of a LinkContract from an assignee
+	 * node
+	 * 
+	 * @param assignee
+	 *            The context node who will not longer have access to this
+	 *            LinkContract
+	 * @return NONE
+	 */
+	public boolean removeAssignee(ContextNode assignee) {
+		boolean status = false;
+		if (assignee == null) {
+			// TBD
+			// write error in debug log
+			return status;
+		}
+		Iterator<Relation> allRelations = contextNode.getRelations();
+		for (; allRelations.hasNext();) {
+			Relation r = allRelations.next();
+			ContextNode target = r.follow();
+			if (target.equals(assignee)) {
+				contextNode.deleteRelation(
+						XDILinkContractConstants.XRI_S_IS_DO,
+						r.getRelationXri());
+				// write debug log with information about the relation XRI that
+				// is removed
+				// TBD
+				status = true;
+				break;
+			}
+		}
+		return status;
 	}
-	
-	public void addPermission() {
-		
+
+	/**
+	 * Gets all assignees of this Link Contract node
+	 * 
+	 * @return an iterator over the list of assignees
+	 */
+
+	public List<ContextNode> getAssignees() {
+
+		List<ContextNode> assignees = new ArrayList<ContextNode>();
+		Iterator<Relation> allRelations = contextNode.getRelations();
+		for (; allRelations.hasNext();) {
+			Relation r = allRelations.next();
+			if (r.getRelationXri()
+					.toString()
+					.equalsIgnoreCase(
+							XDILinkContractConstants.XRI_S_IS_DO.toString())) {
+				ContextNode assignee = r.follow();
+				assignees.add(assignee);
+			}
+		}
+		return assignees;
+
 	}
-	
-	public void removePermission() {
-		
+
+	/**
+	 * Adds a permission (one of GET, ADD, MOD, DEL, COPY , MOVE , ALL) from
+	 * this Link Contract node to a target node
+	 * 
+	 * @param permission
+	 *            The enum value of permission
+	 * @param targetNode
+	 *            The target node where the permission relation arc will
+	 *            terminate
+	 * @return NONE
+	 */
+	public boolean addPermission(XDILinkContractPermission permission,
+			ContextNode targetNode) {
+		boolean status = false;
+		XRI3Segment perm = null;
+		switch (permission) {
+		case LC_OP_GET:
+			perm = XDILinkContractConstants.XRI_S_GET;
+			break;
+		case LC_OP_ADD:
+			perm = XDILinkContractConstants.XRI_S_ADD;
+			break;
+		case LC_OP_MOD:
+			perm = XDILinkContractConstants.XRI_S_MOD;
+			break;
+		case LC_OP_DEL:
+			perm = XDILinkContractConstants.XRI_S_DEL;
+			break;
+		case LC_OP_ALL:
+			perm = XDILinkContractConstants.XRI_S_ALL;
+			break;
+
+		default:
+			// TBD
+			// debug log
+			break;
+
+		}
+		if (null != perm) {
+			if ( null != contextNode.createRelation(perm, targetNode)){
+				status = true;
+			}
+		}
+		return status;
+
 	}
-	
-	public void getPermissions() {
-		
+
+	public boolean removePermission(XDILinkContractPermission permission,
+			ContextNode targetNode) {
+		boolean status = false;
+		XRI3Segment perm = null;
+		switch (permission) {
+		case LC_OP_GET:
+			perm = XDILinkContractConstants.XRI_S_GET;
+			break;
+		case LC_OP_ADD:
+			perm = XDILinkContractConstants.XRI_S_ADD;
+			break;
+		case LC_OP_MOD:
+			perm = XDILinkContractConstants.XRI_S_MOD;
+			break;
+		case LC_OP_DEL:
+			perm = XDILinkContractConstants.XRI_S_DEL;
+			break;
+		case LC_OP_ALL:
+			perm = XDILinkContractConstants.XRI_S_ALL;
+			break;
+
+		default:
+			// TBD
+			// debug log
+			break;
+
+		}
+		if(null == perm){
+			return status;
+		}
+		Iterator<Relation> allRelations = contextNode.getRelations();
+		for (; allRelations.hasNext();) {
+			Relation r = allRelations.next();
+			if (r.getRelationXri()
+					.toString()
+					.equalsIgnoreCase(
+							perm.toString())) {
+				ContextNode nodeWithPermission = r.follow();
+				if(nodeWithPermission.equals(targetNode)){
+					status = true;
+					break;
+				}
+				
+			}
+		}
+		return status;
+
 	}
-	
+
+	public List <ContextNode> getNodesWithPermission(XDILinkContractPermission permission) {
+
+		List<ContextNode> nodesWithPermission = new ArrayList<ContextNode>();
+		XRI3Segment perm = null;
+		switch (permission) {
+		case LC_OP_GET:
+			perm = XDILinkContractConstants.XRI_S_GET;
+			break;
+		case LC_OP_ADD:
+			perm = XDILinkContractConstants.XRI_S_ADD;
+			break;
+		case LC_OP_MOD:
+			perm = XDILinkContractConstants.XRI_S_MOD;
+			break;
+		case LC_OP_DEL:
+			perm = XDILinkContractConstants.XRI_S_DEL;
+			break;
+		case LC_OP_ALL:
+			perm = XDILinkContractConstants.XRI_S_ALL;
+			break;
+
+		default:
+			// TBD
+			// debug log
+			break;
+
+		}
+		if(null == perm){
+			return nodesWithPermission;
+		}
+		Iterator<Relation> allRelations = contextNode.getRelations();
+		for (; allRelations.hasNext();) {
+			Relation r = allRelations.next();
+			if (r.getRelationXri()
+					.toString()
+					.equalsIgnoreCase(
+							perm.toString())) {
+				ContextNode nodeWithPermission = r.follow();
+				nodesWithPermission.add(nodeWithPermission);
+			}
+		}
+		return nodesWithPermission;
+	}
+
 	/*
 	 * Object methods
 	 */
@@ -118,8 +347,10 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	@Override
 	public boolean equals(Object object) {
 
-		if (object == null || ! (object instanceof LinkContract)) return false;
-		if (object == this) return true;
+		if (object == null || !(object instanceof LinkContract))
+			return false;
+		if (object == this)
+			return true;
 
 		LinkContract other = (LinkContract) object;
 
@@ -138,7 +369,8 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 
 	public int compareTo(LinkContract other) {
 
-		if (other == this || other == null) return 0;
+		if (other == this || other == null)
+			return 0;
 
 		return this.getContextNode().compareTo(other.getContextNode());
 	}
