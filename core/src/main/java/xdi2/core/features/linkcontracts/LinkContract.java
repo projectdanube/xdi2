@@ -8,6 +8,7 @@ import java.util.Map;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
+import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -75,7 +76,7 @@ public final class LinkContract implements Serializable,
 	 * 
 	 * @return A context node that represents the XDI link contract.
 	 */
-	public ContextNode getContextNode() {
+	protected ContextNode getContextNode() {
 
 		return this.contextNode;
 	}
@@ -123,14 +124,24 @@ public final class LinkContract implements Serializable,
 			// write error in debug log
 			return status;
 		}
+		
+		//one cannot add this Link Contract node as assignee to itself
+		
+		if(assignee.equals(contextNode)){
+			return false;
+		}
 
-		if (contextNode.createRelation(XDILinkContractConstants.XRI_S_IS_DO,
-				assignee) != null) {
+		try {
+			if (contextNode.createRelation(
+					XDILinkContractConstants.XRI_S_IS_DO, assignee) != null) {
 
-			status = true;
-		} else {
-			// TBD
-			// write error in debug log
+				status = true;
+			} else {
+				// TBD
+				// write error in debug log
+
+			}
+		} catch (Xdi2GraphException relationExists) {
 
 		}
 		return status;
@@ -153,19 +164,23 @@ public final class LinkContract implements Serializable,
 			return status;
 		}
 		Iterator<Relation> allRelations = contextNode.getRelations();
+		Relation r = null;
 		for (; allRelations.hasNext();) {
-			Relation r = allRelations.next();
+			r = allRelations.next();
 			ContextNode target = r.follow();
 			if (target.equals(assignee)) {
-				contextNode.deleteRelation(
-						XDILinkContractConstants.XRI_S_IS_DO,
-						r.getRelationXri());
+				
 				// write debug log with information about the relation XRI that
 				// is removed
 				// TBD
 				status = true;
 				break;
 			}
+		}
+		if(status){
+			contextNode.deleteRelation(
+					XDILinkContractConstants.XRI_S_IS_DO,
+					r.getRelationXri());
 		}
 		return status;
 	}
@@ -209,6 +224,38 @@ public final class LinkContract implements Serializable,
 			ContextNode targetNode) {
 		boolean status = false;
 		XRI3Segment perm = null;
+		
+		//one cannot add an authorization permission to the Link Contract Node itself
+		
+		if(targetNode.equals(contextNode)){
+				return false;
+		}
+		
+		//if the same permission arc exists for the same target node, then a new arc should not be added
+		List<ContextNode> nodesWithSamePermission = this.getNodesWithPermission(permission);
+		for(Iterator<ContextNode> iter = nodesWithSamePermission.iterator();iter.hasNext();){
+			ContextNode t = iter.next();
+			if(t.equals(targetNode)){
+				return true;
+			}
+		}
+		
+		//if an arc to the given target node exists with $all, then no other permission arc should be allowed
+		List<ContextNode> nodesWithAllPermission = this.getNodesWithPermission(XDILinkContractPermission.LC_OP_ALL);
+		for(Iterator<ContextNode> iter = nodesWithAllPermission.iterator();iter.hasNext();){
+			ContextNode t = iter.next();
+			if(t.equals(targetNode)){
+				return true;
+			}
+		}
+		//if a $all permission is added to the target node then all other permission arcs should be deleted
+		if(permission == XDILinkContractPermission.LC_OP_ALL){
+				this.removePermission(XDILinkContractPermission.LC_OP_GET, targetNode);
+				this.removePermission(XDILinkContractPermission.LC_OP_ADD, targetNode);
+				this.removePermission(XDILinkContractPermission.LC_OP_MOD, targetNode);
+				this.removePermission(XDILinkContractPermission.LC_OP_DEL, targetNode);
+		}
+		
 		switch (permission) {
 		case LC_OP_GET:
 			perm = XDILinkContractConstants.XRI_S_GET;
@@ -233,8 +280,12 @@ public final class LinkContract implements Serializable,
 
 		}
 		if (null != perm) {
-			if ( null != contextNode.createRelation(perm, targetNode)){
-				status = true;
+			try {
+				if (null != contextNode.createRelation(perm, targetNode)) {
+					status = true;
+				}
+			} catch (Xdi2GraphException relationExists) {
+
 			}
 		}
 		return status;
@@ -268,29 +319,35 @@ public final class LinkContract implements Serializable,
 			break;
 
 		}
-		if(null == perm){
+		if (null == perm) {
 			return status;
 		}
 		Iterator<Relation> allRelations = contextNode.getRelations();
+		Relation r = null;
 		for (; allRelations.hasNext();) {
-			Relation r = allRelations.next();
-			if (r.getRelationXri()
-					.toString()
-					.equalsIgnoreCase(
-							perm.toString())) {
+			r = allRelations.next();
+			// System.out.println("Arc XRI=" + r.getArcXri());
+			// System.out.println("Relation XRI=" + r.getRelationXri());
+			// System.out.println("Context Node=" + r.getContextNode());
+			// System.out.println("XDI Statement=" + r.getStatement());
+			if (r.getArcXri().equals(perm)) {
 				ContextNode nodeWithPermission = r.follow();
-				if(nodeWithPermission.equals(targetNode)){
+				if (nodeWithPermission.equals(targetNode)) {
 					status = true;
 					break;
 				}
-				
+
 			}
+		}
+		if (status) {
+			contextNode.deleteRelation(r.getArcXri(), r.getRelationXri());
 		}
 		return status;
 
 	}
 
-	public List <ContextNode> getNodesWithPermission(XDILinkContractPermission permission) {
+	public List<ContextNode> getNodesWithPermission(
+			XDILinkContractPermission permission) {
 
 		List<ContextNode> nodesWithPermission = new ArrayList<ContextNode>();
 		XRI3Segment perm = null;
@@ -317,16 +374,13 @@ public final class LinkContract implements Serializable,
 			break;
 
 		}
-		if(null == perm){
+		if (null == perm) {
 			return nodesWithPermission;
 		}
 		Iterator<Relation> allRelations = contextNode.getRelations();
 		for (; allRelations.hasNext();) {
 			Relation r = allRelations.next();
-			if (r.getRelationXri()
-					.toString()
-					.equalsIgnoreCase(
-							perm.toString())) {
+			if (r.getArcXri().equals(perm)) {
 				ContextNode nodeWithPermission = r.follow();
 				nodesWithPermission.add(nodeWithPermission);
 			}
