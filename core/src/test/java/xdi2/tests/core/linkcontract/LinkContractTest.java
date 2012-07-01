@@ -9,10 +9,13 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
-import xdi2.core.Relation;
+import xdi2.core.features.linkcontracts.AndExpression;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
+import xdi2.core.features.linkcontracts.NotExpression;
+import xdi2.core.features.linkcontracts.OrExpression;
+import xdi2.core.features.linkcontracts.Policy;
+import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -35,7 +38,7 @@ public class LinkContractTest extends TestCase {
 		linkContract.addAssignee(animesh);
 		// ..do things with the link contract here..
 
-		//Policy policy = linkContract.getPolicy(true);
+		
 		// ..do things with the policy here..
 		System.out.println("Display the graph\n");		
 		System.out.println(graph);
@@ -48,7 +51,7 @@ public class LinkContractTest extends TestCase {
 		LinkContract aLC = LinkContracts.findLinkContractByAddress(graph, new XRI3Segment("=markus$do"));
 		System.out.println(aLC);
 		System.out.println("Remove assignee");
-		linkContract.removeAssignee(animesh);
+		//linkContract.removeAssignee(animesh);
 		System.out.println("Display the graph");
 		System.out.println(graph);
 		//try to remove permission arcs which do not exist
@@ -67,6 +70,25 @@ public class LinkContractTest extends TestCase {
 		//linkContract.removeAssignee(markus);
 		System.out.println("Display the graph");
 		System.out.println(graph);
+		Policy policy = linkContract.getPolicy(true);
+		// ((b & c ) & ( d or e) & !f)
+		AndExpression andN = policy.getAndNode(true);
+
+		andN.getLiteralNode(true).addExpression("a");
+		andN.getLiteralNode(true).addExpression("b");
+		andN.getLiteralNode(true).addExpression("c");
+		andN.getLiteralNode(true).removeExpression("a");
+		OrExpression andNOr1 = andN.getOrNode(true);
+		andNOr1.getLiteralNode(true).addExpression("d");
+		andNOr1.getLiteralNode(true).addExpression("e");
+		NotExpression notN = andN.getNotNode(true);
+		notN.getLiteralNode(true).addExpression("f");
+		
+		
+		System.out.println("Display the graph");
+		System.out.println(graph);
+		System.out.println("Logic Expr:" + andN.getLogicExpression());
+		
 
 	}
 	

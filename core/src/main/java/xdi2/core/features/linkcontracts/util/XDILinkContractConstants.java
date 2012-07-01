@@ -25,6 +25,8 @@ public final class XDILinkContractConstants {
 	public static final XRI3Segment XRI_S_MOD = new XRI3Segment("$mod");
 	
 	public static final XRI3Segment XRI_S_DEL = new XRI3Segment("$del");
+	public static final XRI3Segment XRI_S_VARIABLE_REF = new XRI3Segment("($)");
+	public static final XRI3SubSegment XRI_S_LITERAL_EXP = new XRI3SubSegment("$*(+literal)");
 	
 
 	public static final XRI3SubSegment XRI_SS_GET = new XRI3SubSegment("$get");
@@ -33,5 +35,16 @@ public final class XDILinkContractConstants {
 	public static final XRI3SubSegment XRI_SS_MOD = new XRI3SubSegment("$mod");
 	public static final XRI3SubSegment XRI_SS_DEL = new XRI3SubSegment("$del");
 	
+	public static final XRI3Segment XRI_S_AND = new XRI3Segment("$and");
+	public static final XRI3SubSegment XRI_SS_AND = new XRI3SubSegment("$and");
+
+	public static final XRI3Segment XRI_S_OR = new XRI3Segment("$or");
+	public static final XRI3SubSegment XRI_SS_OR = new XRI3SubSegment("$or");
+
+	public static final XRI3Segment XRI_S_NOT = new XRI3Segment("$not");
+	public static final XRI3SubSegment XRI_SS_NOT = new XRI3SubSegment("$not");
+	public static final XRI3SubSegment XRI_SS_VARIABLE_REF = new XRI3SubSegment("($)");
+	public static final XRI3SubSegment XRI_SS_LITERAL_EXP = new XRI3SubSegment("$*(+literal)");
+
 	private XDILinkContractConstants() { }
 }
