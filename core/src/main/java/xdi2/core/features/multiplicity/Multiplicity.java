@@ -14,11 +14,15 @@ public class Multiplicity {
 
 	public static int lastValueIndex(ContextNode contextNode) {
 
-		int valueIndex = 0;
+		int valueIndex = contextNode.getAllContextNodeCount();
+		if(valueIndex == 0 ){
+			valueIndex = 1;
+		}
 
 		while (true) {
 
 			XRI3SubSegment valueIndexSubSegment = makeValueIndexSubSegment(valueIndex);
+			
 			if (! contextNode.containsContextNode(valueIndexSubSegment)) return valueIndex;
 
 			valueIndex++;
@@ -29,6 +33,6 @@ public class Multiplicity {
 
 		int lastValueIndex = lastValueIndex(contextNode);
 
-		return contextNode.createContextNode(makeValueIndexSubSegment(lastValueIndex + 1));
+		return contextNode.createContextNode(makeValueIndexSubSegment(lastValueIndex));
 	}
 }

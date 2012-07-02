@@ -3,6 +3,7 @@ package xdi2.core.features.linkcontracts;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Literal;
 import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
 
 public class OrExpression extends PolicyExpressionComponent {
@@ -44,9 +45,11 @@ private static final long serialVersionUID = 5732150401265911411L;
 				NotExpression notChild = NotExpression.fromContextNode(childNode);
 				expr.append(notChild.getLogicExpression());
 			}
-			else if(LiteralExpression.isValid(childNode)){
-				LiteralExpression literalChild = LiteralExpression.fromContextNode(childNode);
-				expr.append(literalChild.getLogicExpression("or"));
+			else if(childNode.getLiteral() != null){
+				expr.append("(");
+				String literalValue = childNode.getLiteral().getLiteralData();
+				expr.append(literalValue);
+				expr.append(")");
 			}
 			if(allChildrenNodes.hasNext()){
 			expr.append(" or ");

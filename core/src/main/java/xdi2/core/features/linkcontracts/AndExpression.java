@@ -44,13 +44,16 @@ public class AndExpression extends PolicyExpressionComponent {
 				NotExpression notChild = NotExpression.fromContextNode(childNode);
 				expr.append(notChild.getLogicExpression());
 			}
-			else if(LiteralExpression.isValid(childNode)){
-				LiteralExpression literalChild = LiteralExpression.fromContextNode(childNode);
-				expr.append(literalChild.getLogicExpression("and"));
+			else if(childNode.getLiteral() != null){
+				expr.append("(");
+				String literalValue = childNode.getLiteral().getLiteralData();
+				expr.append(literalValue);
+				expr.append(")");
 			}
 			if(allChildrenNodes.hasNext()){
 			expr.append(" and ");
 			}
+			
 		}
 		expr.append(")");
 		return expr.toString();

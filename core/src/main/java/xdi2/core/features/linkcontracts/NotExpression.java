@@ -10,7 +10,7 @@ public class NotExpression extends PolicyExpressionComponent {
 	private static final long serialVersionUID = 5732150467865911411L;
 	
 	public NotExpression(ContextNode c){
-		super(c);
+		super(c);		
 	}
 	
 	public static boolean isValid(ContextNode node){
@@ -45,9 +45,9 @@ public class NotExpression extends PolicyExpressionComponent {
 				NotExpression notChild = NotExpression.fromContextNode(childNode);
 				expr.append(notChild.getLogicExpression());
 			}
-			else if(LiteralExpression.isValid(childNode)){
-				LiteralExpression literalChild = LiteralExpression.fromContextNode(childNode);
-				expr.append(literalChild.getLogicExpression(""));
+			else if(childNode.getLiteral() != null){
+				String literalValue = childNode.getLiteral().getLiteralData();
+				expr.append(literalValue);
 			}
 			
 		}

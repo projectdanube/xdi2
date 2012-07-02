@@ -1,15 +1,18 @@
 package xdi2.core.features.linkcontracts;
 
 import java.io.Serializable;
+import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Literal;
 import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.util.XDIPolicyExpression;
+import xdi2.core.features.multiplicity.Multiplicity;
 
 public abstract class PolicyExpressionComponent implements Serializable,
 		Comparable<PolicyExpressionComponent> {
 	protected ContextNode contextNode;
 	private static final long serialVersionUID = 1604380462449272149L;
+
 
 	protected PolicyExpressionComponent(ContextNode contextNode) {
 
@@ -18,7 +21,7 @@ public abstract class PolicyExpressionComponent implements Serializable,
 
 		this.contextNode = contextNode;
 	}
-
+	
 	/**
 	 * Checks if a context node is a valid PolicyExpression.
 	 * 
@@ -29,7 +32,7 @@ public abstract class PolicyExpressionComponent implements Serializable,
 	public static boolean isValid(ContextNode c) {
 
 		if (AndExpression.isValid(c) || OrExpression.isValid(c)
-				|| NotExpression.isValid(c) || LiteralExpression.isValid(c)) {
+				|| NotExpression.isValid(c) ) {
 			return true;
 
 		} else {
@@ -105,27 +108,29 @@ public abstract class PolicyExpressionComponent implements Serializable,
 		return notNode;
 	}
 
-	public LiteralExpression getLiteralNode(boolean create) {
-
-		LiteralExpression literalNode = null;
-		ContextNode nodeExists = this.getContextNode().getContextNode(
-				XDILinkContractConstants.XRI_SS_LITERAL_EXP);
-		if (null != nodeExists) {
-			literalNode = LiteralExpression.fromContextNode(nodeExists);
-			return literalNode;
-		}
-
-		if (!this.getContextNode().containsContextNode(
-				XDILinkContractConstants.XRI_SS_LITERAL_EXP)) {
-			literalNode = LiteralExpression.fromContextNode(this
-					.getContextNode().createContextNode(
-							XDILinkContractConstants.XRI_SS_LITERAL_EXP));
-
-		}
-
-		return literalNode;
+	public void addLiteralExpression(String expr){
+		ContextNode c = Multiplicity.createMultiValueContextNode(contextNode);
+		c.createLiteral(expr);
 	}
 	
+	public void removeLiteralExpression(String str){
+		Iterator<Literal> allLiterals = contextNode.getAllLiterals();
+		Literal toDelete = null;
+		for(;allLiterals.hasNext();){
+			Literal l = allLiterals.next();
+			if(l.getLiteralData().equalsIgnoreCase(str)){
+				toDelete = l;
+				break;
+			}
+		}
+		if(toDelete != null){		
+			toDelete.delete();
+			toDelete.getContextNode().delete();
+			
+		}
+		
+	}
+
 	public  String getLogicExpression(){
 		return "()";
 	}

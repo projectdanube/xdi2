@@ -1,5 +1,8 @@
 package xdi2.tests.core.linkcontract;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
@@ -15,9 +18,12 @@ import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.NotExpression;
 import xdi2.core.features.linkcontracts.OrExpression;
 import xdi2.core.features.linkcontracts.Policy;
-import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.io.XDIReader;
+import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.io.XDIWriter;
+import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -72,24 +78,39 @@ public class LinkContractTest extends TestCase {
 		System.out.println(graph);
 		Policy policy = linkContract.getPolicy(true);
 		// ((b & c ) & ( d or e) & !f)
-//		AndExpression andN = policy.getAndNode(true);
-//
-//		andN.getLiteralNode(true).addExpression("a");
-//		andN.getLiteralNode(true).addExpression("b");
-//		andN.getLiteralNode(true).addExpression("c");
+		AndExpression andN = policy.getAndNode(true);
+
+		andN.addLiteralExpression("a");
+		andN.addLiteralExpression("b");
+		andN.addLiteralExpression("c");
+		andN.addLiteralExpression("d");
 //		//andN.getLiteralNode(true).removeExpression("a");
-//		OrExpression andNOr1 = andN.getOrNode(true);
-//		andNOr1.getLiteralNode(true).addExpression("d");
-//		andNOr1.getLiteralNode(true).addExpression("e");
-//		NotExpression notN = andN.getNotNode(true);
-//		notN.getLiteralNode(true).addExpression("f");
-		
-		policy.setLiteralExpression("a+b+c");
-		System.out.println("Literal Expression="+policy.getLiteralExpression());
+		OrExpression andNOr1 = andN.getOrNode(true);
+		andNOr1.addLiteralExpression("d");
+		andNOr1.addLiteralExpression("e");
+		andNOr1.addLiteralExpression("g");
+		andN.removeLiteralExpression("a");
+		NotExpression notN = andN.getNotNode(true);
+		notN.addLiteralExpression("f");
+		//notN.getLiteralNode(true).addExpression("g");
+		//policy.setLiteralExpression("a+b+c");
+		//System.out.println("Literal Expression="+policy.getLiteralExpression());
 		System.out.println("Display the graph");
 		System.out.println(graph);
-		//System.out.println("Logic Expr:" + andN.getLogicExpression());
+		System.out.println("Logic Expr:" + andN.getLogicExpression());
 		
+
+		//XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS");
+		XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS_WITH_CONTEXT_STATEMENTS");
+		//XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON_WITH_CONTEXT_STATEMENTS");
+		//XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
+		writer.write(graph, new FileWriter(new File("C:\\identity\\lctest.out")), null).close();
+		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
+		XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");		
+		//XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
+		reader.read(graph2, new FileReader(new File("C:\\identity\\lctest.out")), null).close();
+		//System.out.println("Display the graph");
+		//System.out.println(graph2);
 
 	}
 	
