@@ -84,15 +84,15 @@ public class LinkContractTest extends TestCase {
 		andN.addLiteralExpression("b");
 		andN.addLiteralExpression("c");
 		andN.addLiteralExpression("d");
-//		//andN.getLiteralNode(true).removeExpression("a");
+
 		OrExpression andNOr1 = andN.getOrNode(true);
 		andNOr1.addLiteralExpression("d");
 		andNOr1.addLiteralExpression("e");
 		andNOr1.addLiteralExpression("g");
-		andN.removeLiteralExpression("a");
+		//andN.removeLiteralExpression("a");
 		NotExpression notN = andN.getNotNode(true);
 		notN.addLiteralExpression("f");
-		//notN.getLiteralNode(true).addExpression("g");
+
 		//policy.setLiteralExpression("a+b+c");
 		//System.out.println("Literal Expression="+policy.getLiteralExpression());
 		System.out.println("Display the graph");

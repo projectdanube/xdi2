@@ -14,10 +14,7 @@ public class Multiplicity {
 
 	public static int lastValueIndex(ContextNode contextNode) {
 
-		int valueIndex = contextNode.getAllContextNodeCount();
-		if(valueIndex == 0 ){
-			valueIndex = 1;
-		}
+		int valueIndex = 1; //contextNode.getAllContextNodeCount();
 
 		while (true) {
 
