@@ -72,22 +72,23 @@ public class LinkContractTest extends TestCase {
 		System.out.println(graph);
 		Policy policy = linkContract.getPolicy(true);
 		// ((b & c ) & ( d or e) & !f)
-		AndExpression andN = policy.getAndNode(true);
-
-		andN.getLiteralNode(true).addExpression("a");
-		andN.getLiteralNode(true).addExpression("b");
-		andN.getLiteralNode(true).addExpression("c");
-		andN.getLiteralNode(true).removeExpression("a");
-		OrExpression andNOr1 = andN.getOrNode(true);
-		andNOr1.getLiteralNode(true).addExpression("d");
-		andNOr1.getLiteralNode(true).addExpression("e");
-		NotExpression notN = andN.getNotNode(true);
-		notN.getLiteralNode(true).addExpression("f");
+//		AndExpression andN = policy.getAndNode(true);
+//
+//		andN.getLiteralNode(true).addExpression("a");
+//		andN.getLiteralNode(true).addExpression("b");
+//		andN.getLiteralNode(true).addExpression("c");
+//		//andN.getLiteralNode(true).removeExpression("a");
+//		OrExpression andNOr1 = andN.getOrNode(true);
+//		andNOr1.getLiteralNode(true).addExpression("d");
+//		andNOr1.getLiteralNode(true).addExpression("e");
+//		NotExpression notN = andN.getNotNode(true);
+//		notN.getLiteralNode(true).addExpression("f");
 		
-		
+		policy.setLiteralExpression("a+b+c");
+		System.out.println("Literal Expression="+policy.getLiteralExpression());
 		System.out.println("Display the graph");
 		System.out.println(graph);
-		System.out.println("Logic Expr:" + andN.getLogicExpression());
+		//System.out.println("Logic Expr:" + andN.getLogicExpression());
 		
 
 	}

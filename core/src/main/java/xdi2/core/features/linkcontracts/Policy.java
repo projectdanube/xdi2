@@ -20,7 +20,7 @@ public final class Policy implements Serializable, Comparable<Policy> {
 
 	private LinkContract linkContract;
 	private ContextNode contextNode;
-	
+
 	private XDIPolicyExpression policyType = XDIPolicyExpression.LC_POL_EMPTY;
 
 	protected Policy(LinkContract linkContract, ContextNode contextNode) {
@@ -113,19 +113,21 @@ public final class Policy implements Serializable, Comparable<Policy> {
 
 	public AndExpression getAndNode(boolean create) {
 		AndExpression andNode = null;
-		ContextNode nodeExists = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_AND);
-		if ( null != nodeExists){
+		ContextNode nodeExists = this.getContextNode().getContextNode(
+				XDILinkContractConstants.XRI_SS_AND);
+		if (null != nodeExists) {
 			andNode = AndExpression.fromContextNode(nodeExists);
 			return andNode;
 		}
 
-		
 		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
 				|| policyType == XDIPolicyExpression.LC_POL_AND) {
 			if (!this.getContextNode().containsContextNode(
 					XDILinkContractConstants.XRI_SS_AND)) {
-					andNode = AndExpression.fromContextNode(this.getContextNode().createContextNode(
-						XDILinkContractConstants.XRI_SS_AND));
+				andNode = AndExpression
+						.fromContextNode(this.getContextNode()
+								.createContextNode(
+										XDILinkContractConstants.XRI_SS_AND));
 				policyType = XDIPolicyExpression.LC_POL_AND;
 			}
 		}
@@ -136,19 +138,19 @@ public final class Policy implements Serializable, Comparable<Policy> {
 	public OrExpression getOrNode(boolean create) {
 
 		OrExpression orNode = null;
-		ContextNode nodeExists = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_OR);
-		if ( null != nodeExists){
+		ContextNode nodeExists = this.getContextNode().getContextNode(
+				XDILinkContractConstants.XRI_SS_OR);
+		if (null != nodeExists) {
 			orNode = OrExpression.fromContextNode(nodeExists);
 			return orNode;
 		}
 
-		
 		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
 				|| policyType == XDIPolicyExpression.LC_POL_OR) {
 			if (!this.getContextNode().containsContextNode(
 					XDILinkContractConstants.XRI_SS_OR)) {
-				orNode = OrExpression.fromContextNode(this.getContextNode().createContextNode(
-						XDILinkContractConstants.XRI_SS_OR));
+				orNode = OrExpression.fromContextNode(this.getContextNode()
+						.createContextNode(XDILinkContractConstants.XRI_SS_OR));
 				policyType = XDIPolicyExpression.LC_POL_OR;
 			}
 		}
@@ -159,43 +161,60 @@ public final class Policy implements Serializable, Comparable<Policy> {
 	public NotExpression getNotNode(boolean create) {
 
 		NotExpression notNode = null;
-		ContextNode nodeExists = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_NOT);
-		if ( null != nodeExists){
+		ContextNode nodeExists = this.getContextNode().getContextNode(
+				XDILinkContractConstants.XRI_SS_NOT);
+		if (null != nodeExists) {
 			notNode = NotExpression.fromContextNode(nodeExists);
 			return notNode;
 		}
 
-		
 		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
 				|| policyType == XDIPolicyExpression.LC_POL_NOT) {
 			if (!this.getContextNode().containsContextNode(
 					XDILinkContractConstants.XRI_SS_NOT)) {
-				notNode = NotExpression.fromContextNode(this.getContextNode().createContextNode(
-						XDILinkContractConstants.XRI_SS_NOT));
+				notNode = NotExpression
+						.fromContextNode(this.getContextNode()
+								.createContextNode(
+										XDILinkContractConstants.XRI_SS_NOT));
 				policyType = XDIPolicyExpression.LC_POL_NOT;
 			}
 		}
 
 		return notNode;
 	}
-	
-	public Literal getLiteral(String literalData){
-		Literal literal = this.getContextNode().getLiteral();
-		if(literal != null){
-			return literal;
+
+	public void setLiteralExpression(String literalData) {
+		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
+				|| policyType == XDIPolicyExpression.LC_POL_SINGLETON) {
+			Literal literal = this.getContextNode().getLiteral();
+			if (literal == null) {
+				literal = this.getContextNode().createLiteral(literalData);
+			} else {
+				literal.setLiteralData(literalData);
+			}
+			policyType = XDIPolicyExpression.LC_POL_SINGLETON;
 		}
-		literal = this.getContextNode().createLiteral(literalData);
-		return literal;
-		
 	}
-	public Relation getRuleReference(ContextNode target){
-		Relation relation = this.getContextNode().getRelation(XDILinkContractConstants.XRI_S_VARIABLE_REF);
-		if(relation != null){
+
+	public String getLiteralExpression() {
+		String str = "";
+		Literal literal = this.getContextNode().getLiteral();
+		if (literal != null) {
+			str = literal.getLiteralData();
+		}
+		return str;
+	}
+
+	public Relation getRuleReference(ContextNode target) {
+		Relation relation = this.getContextNode().getRelation(
+				XDILinkContractConstants.XRI_S_VARIABLE_REF);
+		if (relation != null) {
 			return relation;
 		}
-		
-		relation = this.getContextNode().createRelation(XDILinkContractConstants.XRI_S_VARIABLE_REF, target);
-		
+
+		relation = this.getContextNode().createRelation(
+				XDILinkContractConstants.XRI_S_VARIABLE_REF, target);
+
 		return relation;
 	}
 
