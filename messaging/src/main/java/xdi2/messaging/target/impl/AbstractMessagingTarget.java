@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Statement;
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.AbstractStatement;
 import xdi2.core.util.iterators.SelectingClassIterator;
@@ -21,6 +20,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
@@ -161,7 +161,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			String reason = ex.getMessage();
 			if (reason == null || reason.equals("null")) reason = ex.getClass().getSimpleName();
 
-			throw new Xdi2MessagingException("Exception while executing message envelope at message " + i + ": " + reason, ex);
+			throw new Xdi2MessagingException("Exception while executing message envelope at message " + i + ": " + reason, ex, null);
 		}
 
 		// done
@@ -186,13 +186,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		int i = 0;
 		int operationCount = message.getOperationCount();
 
-		try {
+		for (Iterator<Operation> operations = message.getOperations(); operations.hasNext(); ) {
 
-			for (Iterator<Operation> operations = message.getOperations(); operations.hasNext(); ) {
+			i++;
+			Operation operation = operations.next();
+			operation = Operation.castOperation(operation);
 
-				i++;
-				Operation operation = operations.next();
-				operation = Operation.castOperation(operation);
+			try {
 
 				// before operation
 
@@ -223,13 +223,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				// after operation
 
 				this.after(operation, executionContext);
+			} catch (Exception ex) {
+
+				String reason = ex.getMessage();
+				if (reason == null || reason.equals("null")) reason = ex.getClass().getSimpleName();
+
+				throw new Xdi2MessagingException("Exception while executing message at operation " + i + ": " + reason, ex, operation);
 			}
-		} catch (Exception ex) {
-
-			String reason = ex.getMessage();
-			if (reason == null || reason.equals("null")) reason = ex.getClass().getSimpleName();
-
-			throw new Xdi2MessagingException("Exception while executing message at operation " + i + ": " + reason, ex);
 		}
 
 		// done
@@ -295,37 +295,37 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	private final boolean executeOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			return this.executeGetOnAddress(targetAddress, messageResult, executionContext);
+			return this.executeGetOnAddress(targetAddress, operation, messageResult, executionContext);
 		else if (operation instanceof AddOperation)
-			return this.executeAddOnAddress(targetAddress, messageResult, executionContext);
+			return this.executeAddOnAddress(targetAddress, operation, messageResult, executionContext);
 		else if (operation instanceof ModOperation)
-			return this.executeModOnAddress(targetAddress, messageResult, executionContext);
+			return this.executeModOnAddress(targetAddress, operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
-			return this.executeDelOnAddress(targetAddress, messageResult, executionContext);
+			return this.executeDelOnAddress(targetAddress, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri());
+			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), operation);
 	}
 
 	/*
 	 * These are for being overridden by subclasses
 	 */
 
-	public boolean executeGetOnAddress(XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeAddOnAddress(XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeAddOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeModOnAddress(XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeModOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean executeDelOnAddress(XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}

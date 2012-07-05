@@ -1,4 +1,4 @@
-package xdi2.tests.core.remoteroots;
+package xdi2.tests.core.features.remoteroots;
 
 import junit.framework.TestCase;
 import xdi2.core.Graph;

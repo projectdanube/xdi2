@@ -6,15 +6,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 import xdi2.core.Graph;
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.io.AutoReader;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.io.readers.AutoReader;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
@@ -60,7 +60,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 	private Graph readGraph() throws Xdi2MessagingException {
 
 		XDIReader xdiReader = XDIReaderRegistry.forFormat(this.format);
-		if (xdiReader == null) throw new Xdi2MessagingException("Cannot read this format: " + this.format);
+		if (xdiReader == null) throw new Xdi2MessagingException("Cannot read this format: " + this.format, null);
 
 		Graph graph = graphFactory.openGraph();
 
@@ -76,7 +76,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot read file: " + ex.getMessage(), ex);
+			throw new Xdi2MessagingException("Cannot read file: " + ex.getMessage(), ex, null);
 		} finally {
 
 			if (reader != null) {
@@ -97,7 +97,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 	private void writeGraph(Graph graph) throws Xdi2MessagingException {
 
 		XDIWriter xdiWriter = XDIWriterRegistry.forFormat(this.format);
-		if (xdiWriter == null) throw new Xdi2MessagingException("Cannot write this format: " + this.format);
+		if (xdiWriter == null) throw new Xdi2MessagingException("Cannot write this format: " + this.format, null);
 
 		FileWriter writer = null;
 
@@ -110,7 +110,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 			writer.close();
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot write file: " + ex.getMessage(), ex);
+			throw new Xdi2MessagingException("Cannot write file: " + ex.getMessage(), ex, null);
 		} finally {
 
 			try {

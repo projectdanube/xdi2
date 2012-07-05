@@ -1,7 +1,12 @@
-package xdi2.core.util;
+package xdi2.core.constants;
 
 import xdi2.core.xri3.impl.XRI3Segment;
 
+/**
+ * General XDI constants.
+ * 
+ * @author markus
+ */
 public class XDIConstants {
 
 	public static final XRI3Segment XRI_S_CONTEXT = new XRI3Segment("()");

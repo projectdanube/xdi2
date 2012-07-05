@@ -5,12 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.Statement;
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
@@ -78,7 +78,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 				if (ex instanceof Xdi2MessagingException) 
 					throw (Xdi2MessagingException) ex;
 				else 
-					throw new Xdi2MessagingException(ex);
+					throw new Xdi2MessagingException(ex, null);
 			}
 		}
 

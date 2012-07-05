@@ -3,7 +3,7 @@ package xdi2.core.features.linkcontracts;
 import java.io.Serializable;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
+import xdi2.core.constants.XDILinkContractConstants;
 
 /**
  * An XDI link contract, represented as a context node.

@@ -1,15 +1,18 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
+import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
-import xdi2.messaging.util.XDIMessagingConstants;
+import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
  * An XDI message, represented as a context node.
@@ -26,7 +29,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	protected Message(MessageContainer messageContainer, ContextNode contextNode) {
 
 		if (messageContainer == null || contextNode == null) throw new NullPointerException();
-		
+
 		this.messageContainer = messageContainer;
 		this.contextNode = contextNode;
 	}
@@ -105,6 +108,30 @@ public final class Message implements Serializable, Comparable<Message> {
 	public XRI3Segment getSender() {
 
 		return this.getMessageContainer().getSender();
+	}
+
+	/**
+	 * Returns the timestamp.
+	 * @ The timestamp.
+	 */
+	public Date getTimestamp() {
+
+		return Timestamps.getContextNodeTimestamp(this.getContextNode());
+	}
+
+	/**
+	 * Returns the link contract XRI.
+	 * @return The link contract XRI.
+	 */
+	public XRI3Segment getLinkContractXri() {
+
+		ContextNode operationsContextNode = this.getOperationsContextNode();
+		if (operationsContextNode == null) return null;
+
+		Relation linkContractRelation = operationsContextNode.getRelation(XDILinkContractConstants.XRI_S_DO);
+		if (linkContractRelation == null) return null;
+
+		return linkContractRelation.getRelationXri();
 	}
 
 	/**

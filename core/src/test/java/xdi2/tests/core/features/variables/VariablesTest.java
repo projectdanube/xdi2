@@ -1,4 +1,4 @@
-package xdi2.tests.core.variables;
+package xdi2.tests.core.features.variables;
 
 import junit.framework.TestCase;
 import xdi2.core.features.variables.Variables;

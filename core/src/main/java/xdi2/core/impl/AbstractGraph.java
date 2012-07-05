@@ -16,14 +16,12 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.util.XDIConstants;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.impl.XRI3;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -124,24 +122,6 @@ public abstract class AbstractGraph implements Graph {
 		}
 
 		return buffer.toString();
-	}
-
-	/*
-	 * Methods related to messages
-	 */
-
-	public Graph applyOperation(Graph operationGraph, XRI3Segment operationXri) throws Xdi2MessagingException {
-
-		// TODO
-
-		return null;
-	}
-
-	public Graph applyOperation(XRI3 address, XRI3Segment operationXri) throws Xdi2MessagingException {
-
-		// TODO
-
-		return null;
 	}
 
 	/*

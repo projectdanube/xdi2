@@ -16,16 +16,17 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.local.XDILocalClient;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.io.AutoReader;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.io.readers.AutoReader;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
@@ -139,7 +140,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			xdiReader.read(messageEnvelope.getGraph(), new StringReader(message), null);
 
-			// apply the message envelope and read result
+			// prepare the messaging target
 
 			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 			messagingTarget.setGraph(graphInput);
@@ -162,8 +163,11 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			messagingTarget.init();
 
-			messageResult = new MessageResult();
-			messagingTarget.execute(messageEnvelope, messageResult, new ExecutionContext());
+			// send the message envelope and read result
+
+			XDILocalClient client = new XDILocalClient(messagingTarget);
+
+			messageResult = client.send(messageEnvelope, null);
 
 			// output the modified input graph
 
@@ -179,6 +183,17 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			xdiResultWriter.write(messageResult.getGraph(), writer2, null);
 			output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 		} catch (Exception ex) {
+
+			if (ex instanceof Xdi2ClientException) {
+				
+				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+
+				// output the message result
+
+				StringWriter writer2 = new StringWriter();
+				xdiResultWriter.write(messageResult.getGraph(), writer2, null);
+				output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+			}
 
 			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();

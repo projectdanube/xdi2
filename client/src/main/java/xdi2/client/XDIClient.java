@@ -1,6 +1,6 @@
 package xdi2.client;
 
-import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 
@@ -18,7 +18,7 @@ public interface XDIClient {
 	 * a new message result will be created.
 	 * @return The message result.
 	 */
-	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2MessagingException;
+	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException;
 
 	/**
 	 * Shuts down the client.

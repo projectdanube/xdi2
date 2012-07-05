@@ -1,4 +1,4 @@
-package xdi2.core.io;
+package xdi2.core.io.writers;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -14,18 +14,20 @@ import xdi2.core.impl.keyvalue.map.MapFactory;
 import xdi2.core.impl.keyvalue.map.MapGraphFactory;
 import xdi2.core.impl.keyvalue.map.MapKeyValueStore;
 import xdi2.core.impl.keyvalue.map.SetFactory;
+import xdi2.core.io.AbstractXDIWriter;
+import xdi2.core.io.MimeType;
 import xdi2.core.util.CopyUtil;
 
 public class XDIKeyValueWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = 4377123541696335486L;
 
+	public static final String FORMAT_NAME = "KEYVALUE";
+	public static final String FILE_EXTENSION = null;
+	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/plain") };
+
 	public static final String PARAMETER_SORTED = "sorted";
 	public static final String DEFAULT_SORTED = "true";
-
-	public static final String FORMAT_NAME = "KEYVALUE";
-	public static final String MIME_TYPE = null;
-	public static final String DEFAULT_FILE_EXTENSION = "keyvalue";
 
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
 

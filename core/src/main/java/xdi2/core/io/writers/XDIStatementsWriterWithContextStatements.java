@@ -1,18 +1,19 @@
-package xdi2.core.io;
+package xdi2.core.io.writers;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Properties;
 
 import xdi2.core.Graph;
+import xdi2.core.io.MimeType;
 
 public class XDIStatementsWriterWithContextStatements extends XDIStatementsWriter {
 
 	private static final long serialVersionUID = -8401736205910361341L;
 
 	public static final String FORMAT_NAME = "STATEMENTS_WITH_CONTEXT_STATEMENTS";
-	public static final String MIME_TYPE = "text/plain";
-	public static final String DEFAULT_FILE_EXTENSION = "xdi";
+	public static final String FILE_EXTENSION = "xdi";
+	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi;contexts=1") };
 
 	@Override
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {

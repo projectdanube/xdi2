@@ -1,4 +1,4 @@
-package xdi2.core.io;
+package xdi2.core.io.writers;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.io.AbstractXDIWriter;
+import xdi2.core.io.MimeType;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 
@@ -27,12 +29,12 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIJSONWriter.class);
 
+	public static final String FORMAT_NAME = "XDI/JSON";
+	public static final String FILE_EXTENSION = "json";
+	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0") };
+
 	public static final String PARAMETER_WRITE_CONTEXT_STATEMENTS = "writeContextStatements";
 	public static final String DEFAULT_WRITE_CONTEXT_STATEMENTS = "false";
-
-	public static final String FORMAT_NAME = "XDI/JSON";
-	public static final String MIME_TYPE = "application/xdi+json";
-	public static final String DEFAULT_FILE_EXTENSION = "json";
 
 	private static class State {
 

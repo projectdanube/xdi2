@@ -32,32 +32,58 @@ public abstract class AbstractXDIReader implements XDIReader {
 		return stream;
 	}
 
-	private final String getFieldValue(String fieldName) {
+	private final Object getFieldValue(String fieldName) {
 		
 		Field field;
 
 		try {
 
 			field = this.getClass().getField(fieldName);
-			return (String) field.get(null);
+			return field.get(null);
 		} catch (Exception ex) {
 			
 			throw new RuntimeException("Class " + this.getClass().getCanonicalName() + " must define the static field '" + fieldName + "' of type String (" + ex.getMessage() + ")");
 		}
 	}
-	
+
 	public final String getFormat() {
 
-		return getFieldValue("FORMAT_NAME");
+		String format = (String) getFieldValue("FORMAT_NAME");
+
+		return format;
 	}
 
-	public final String getMimeType() {
+	public final String getFileExtension() {
 
-		return getFieldValue("MIME_TYPE");
+		String FileExtension = (String) getFieldValue("FILE_EXTENSION");
+
+		return FileExtension;
 	}
 
-	public final String getDefaultFileExtension() {
+	public final MimeType[] getMimeTypes() {
 
-		return getFieldValue("DEFAULT_FILE_EXTENSION");
+		MimeType[] mimeTypes = (MimeType[]) getFieldValue("MIME_TYPES");
+
+		return mimeTypes;
+	}
+
+	public boolean supportsFormat(String format) {
+
+		return this.getFormat().equals(format);
+	}
+
+	public boolean supportsFileExtension(String fileExtension) {
+
+		return this.getFileExtension().equals(fileExtension);
+	}
+
+	public boolean supportsMimeType(MimeType mimeType) {
+
+		for (MimeType thisMimeType : this.getMimeTypes()) {
+
+			if (thisMimeType.equals(mimeType)) return true;
+		}
+
+		return false;
 	}
 }

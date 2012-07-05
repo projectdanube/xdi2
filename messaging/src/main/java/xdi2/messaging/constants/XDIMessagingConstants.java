@@ -1,10 +1,10 @@
-package xdi2.messaging.util;
+package xdi2.messaging.constants;
 
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
 /**
- * A class that provides various constants for XDI messaging.
+ * Constants for XDI messaging.
  * 
  * @author markus
  */

@@ -1,10 +1,10 @@
-package xdi2.core.dictionary.util;
+package xdi2.core.constants;
 
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
 /**
- * A class that provides various constants for XDI dictionaries.
+ * Constants for XDI dictionaries.
  * 
  * @author markus
  */

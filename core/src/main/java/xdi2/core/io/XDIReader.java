@@ -1,6 +1,7 @@
 package xdi2.core.io;
 
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -54,23 +55,40 @@ public interface XDIReader extends Serializable {
 	public String getFormat();
 
 	/**
-	 * Returns the mime type this XDIReader can read, e.g.
+	 * Returns the file extension of this XDIReader, e.g.
+	 * <ul>
+	 * <li>.xdi</li>
+	 * <li>.json</li>
+	 * </ul>
+	 * @return The file extension of this XDIReader.
+	 */
+	public String getFileExtension();
+
+	/**
+	 * Returns the mime types this XDIReader can read, e.g.
 	 * <ul>
 	 * <li>text/plain</li>
 	 * <li>application/xdi+json</li>
 	 * </ul>
-	 * @return The mime type of this XDIReader.
+	 * @return The mime types of this XDIReader.
 	 */
-	public String getMimeType();
+	public MimeType[] getMimeTypes();
 
 	/**
-	 * Returns the default file extension of this XDIReader, e.g.
-	 * <ul>
-	 * <li>.xml</li>
-	 * <li>.x3</li>
-	 * <li>.txt</li>
-	 * </ul>
-	 * @return The default file extension of this XDIReader.
+	 * Checks if a given format is supported.
+	 * @return True, if supported.
 	 */
-	public String getDefaultFileExtension();
+	public boolean supportsFormat(String format);
+
+	/**
+	 * Checks if a given file extension is supported.
+	 * @return True, if supported.
+	 */
+	public boolean supportsFileExtension(String fileExtension);
+
+	/**
+	 * Checks if a given mime type is supported.
+	 * @return True, if supported.
+	 */
+	public boolean supportsMimeType(MimeType mimeType);
 }

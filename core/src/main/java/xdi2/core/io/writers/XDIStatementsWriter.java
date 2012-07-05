@@ -1,4 +1,5 @@
-package xdi2.core.io;
+package xdi2.core.io.writers;
+
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,6 +16,8 @@ import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.io.AbstractXDIWriter;
+import xdi2.core.io.MimeType;
 import xdi2.core.util.CopyUtil;
 
 public class XDIStatementsWriter extends AbstractXDIWriter {
@@ -23,9 +26,9 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIStatementsWriter.class);
 
-	private static final String HTML_COLOR_CONTEXTNODE = "#000000";
-	private static final String HTML_COLOR_RELATION = "#ff8888";
-	private static final String HTML_COLOR_LITERAL = "#8888ff";
+	public static final String FORMAT_NAME = "STATEMENTS";
+	public static final String FILE_EXTENSION = "xdi";
+	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0") };
 
 	public static final String PARAMETER_WRITE_CONTEXT_STATEMENTS = "writeContextStatements";
 	public static final String PARAMETER_WRITE_HTML = "writeHtml";
@@ -34,9 +37,9 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 	public static final String DEFAULT_WRITE_HTML = "false";
 	public static final String DEFAULT_WRITE_ORDERED = "false";
 
-	public static final String FORMAT_NAME = "STATEMENTS";
-	public static final String MIME_TYPE = "text/plain";
-	public static final String DEFAULT_FILE_EXTENSION = "xdi";
+	private static final String HTML_COLOR_CONTEXTNODE = "#000000";
+	private static final String HTML_COLOR_RELATION = "#ff8888";
+	private static final String HTML_COLOR_LITERAL = "#8888ff";
 
 	public static void write(Graph graph, BufferedWriter bufferedWriter, Properties parameters) throws IOException {
 

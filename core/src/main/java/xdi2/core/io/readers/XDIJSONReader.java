@@ -1,4 +1,4 @@
-package xdi2.core.io;
+package xdi2.core.io.readers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.io.AbstractXDIReader;
+import xdi2.core.io.MimeType;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.core.xri3.impl.parser.ParserException;
@@ -27,8 +29,8 @@ public class XDIJSONReader extends AbstractXDIReader {
 	private static final long serialVersionUID = 1450041480967749122L;
 
 	public static final String FORMAT_NAME = "XDI/JSON";
-	public static final String MIME_TYPE = "application/xdi+json";
-	public static final String DEFAULT_FILE_EXTENSION = "json";
+	public static final String FILE_EXTENSION = "json";
+	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1") };
 
 	private static final Logger log = LoggerFactory.getLogger(XDIJSONReader.class);
 

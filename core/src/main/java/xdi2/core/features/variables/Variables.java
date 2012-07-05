@@ -21,7 +21,7 @@ public class Variables {
 
 		if (xri.hasGCS()) return false;
 		if (xri.hasLCS()) return false;
-		
+
 		if (xri.hasLiteral()) return false;
 		if (! xri.hasXRef()) return false;
 

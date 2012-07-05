@@ -1,4 +1,4 @@
-package xdi2.core.io;
+package xdi2.core.io.readers;
 
 
 import java.io.BufferedInputStream;
@@ -15,6 +15,8 @@ import java.util.Properties;
 
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.io.AbstractXDIReader;
+import xdi2.core.io.XDIReader;
 
 /**
  * A reader that will try all known other readers to parse data.
@@ -67,7 +69,9 @@ public class AutoReader extends AbstractXDIReader {
 
 	private XDIReader lastSuccessfulReader;
 
-	AutoReader() { }
+	public AutoReader() { 
+		
+	}
 
 	@Override
 	public synchronized void read(Graph graph, String string, Properties parameters) throws IOException, Xdi2ParseException {

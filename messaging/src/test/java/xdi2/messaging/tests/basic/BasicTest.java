@@ -16,7 +16,7 @@ import xdi2.messaging.MessageContainer;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
-import xdi2.messaging.util.XDIMessagingConstants;
+import xdi2.messaging.constants.XDIMessagingConstants;
 
 public class BasicTest extends TestCase {
 
