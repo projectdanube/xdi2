@@ -45,13 +45,19 @@ public class NotExpression extends PolicyExpressionComponent {
 				NotExpression notChild = NotExpression.fromContextNode(childNode);
 				expr.append(notChild.getLogicExpression());
 			}
-			else if(childNode.getLiteral() != null){
-				String literalValue = childNode.getLiteral().getLiteralData();
-				expr.append(literalValue);
-			}
+		
 			
 		}
+		
+		if(contextNode.getLiteral() != null){
+			expr.append(contextNode.getLiteral().getLiteralData());
+		}
+			
 		expr.append(")");
 		return expr.toString();
 	}
+	public void addLiteralExpression(String expr){
+		contextNode.createLiteral(expr);
+	}
+	
 }

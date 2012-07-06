@@ -96,7 +96,8 @@ public class LinkContractTest extends TestCase {
 		//policy.setLiteralExpression("a+b+c");
 		//System.out.println("Literal Expression="+policy.getLiteralExpression());
 		System.out.println("Display the graph");
-		System.out.println(graph);
+		//System.out.println(graph);
+		
 		System.out.println("Logic Expr:" + andN.getLogicExpression());
 		
 
@@ -110,7 +111,9 @@ public class LinkContractTest extends TestCase {
 		//XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
 		reader.read(graph2, new FileReader(new File("C:\\identity\\lctest.out")), null).close();
 		//System.out.println("Display the graph");
-		//System.out.println(graph2);
+		System.out.println(graph2.toString("STATEMENTS_WITH_CONTEXT_STATEMENTS"));
+		  
+		 
 
 	}
 	
