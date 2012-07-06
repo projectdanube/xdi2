@@ -21,46 +21,13 @@ public class Xdi2MessagingException extends Xdi2Exception {
 		this.operation = operation;
 	}
 
-	public Xdi2MessagingException(String message, Operation operation) {
-
-		super(message);
-
-		this.operation = operation;
-	}
-
-	public Xdi2MessagingException(Throwable ex, Operation operation) {
-
-		super(ex);
-
-		this.operation = operation;
-	}
-
 	public Operation getOperation() {
 
 		return this.operation;
 	}
 
-	/**
-	 * Checks if an Operation can be found somewhere in a chain of throwables.
-	 * @param ex The throwable to look at.
-	 * @return The Operation, or null.
-	 */
-	public static Operation findOperation(Throwable ex) {
+	public void setOperation(Operation operation) {
 
-		Operation operation = null;
-
-		while (true) {
-
-			if (ex instanceof Xdi2MessagingException && ((Xdi2MessagingException) ex).getOperation() != null) {
-
-				operation = ((Xdi2MessagingException) ex).getOperation();
-				break;
-			}
-
-			ex = ex.getCause();
-			if (ex == null) break;
-		}
-
-		return operation;
+		this.operation = operation;
 	}
 }

@@ -9,7 +9,7 @@ VERSION 0.1-SNAPSHOT
 application/xdi+json
 application/xdi+json;contexts=1
 text/xdi
-test/xdi;contexts=1
+text/xdi;contexts=1
 
 *** Better error reporting:
 

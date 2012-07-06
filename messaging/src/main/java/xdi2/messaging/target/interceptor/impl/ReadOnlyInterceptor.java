@@ -40,7 +40,7 @@ public class ReadOnlyInterceptor implements TargetInterceptor {
 
 			if (readOnlyAddress == null || startsWith(address, readOnlyAddress)) {
 
-				throw new Xdi2MessagingException("This address is read-only: " + address, operation);
+				throw new Xdi2MessagingException("This address is read-only: " + address, null, operation);
 			}
 		}
 	}

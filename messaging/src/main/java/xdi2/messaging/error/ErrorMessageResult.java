@@ -27,12 +27,12 @@ public class ErrorMessageResult extends MessageResult {
 	public ErrorMessageResult() {
 
 		super();
-		
+
 		this.graph.findContextNode(XRI_S_ERRORCODE, true).createLiteral(DEFAULT_ERRORCODE.toString());
 		this.graph.findContextNode(XRI_S_ERRORSTRING, true).createLiteral(DEFAULT_ERRORSTRING);
 		this.graph.findContextNode(XRI_S_ERROROPERATION, true).createLiteral(DEFAULT_ERROROPERATION);
 	}
-	
+
 	/*
 	 * Static methods
 	 */
@@ -70,29 +70,34 @@ public class ErrorMessageResult extends MessageResult {
 	 * @param graph The exception.
 	 * @return The XDI error message result.
 	 */
-	public static ErrorMessageResult fromException(Throwable ex) {
-		
-		// determine error code, error string, and error operation (if any)
+	public static ErrorMessageResult fromException(Exception ex) {
+
+		// determine error code, error string
 
 		Integer errorCode = new Integer(0);
 
 		String errorString = ex.getMessage();
 		if (errorString == null) errorString = ex.getClass().getName();
 
-		Operation errorOperation = Xdi2MessagingException.findOperation(ex);
-
 		// build an error result
 
 		ErrorMessageResult errorMessageResult = new ErrorMessageResult();
 		if (errorCode != null) errorMessageResult.setErrorCode(errorCode.toString());
 		if (errorString != null) errorMessageResult.setErrorString(errorString);
-		if (errorOperation != null) errorMessageResult.setErrorOperation(errorOperation.getRelation().getStatement().toString());
+
+		// information specific to messaging
+
+		if (ex instanceof Xdi2MessagingException) {
+
+			Operation operation = ((Xdi2MessagingException) ex).getOperation();
+			if (operation != null) errorMessageResult.setErrorOperation(operation.getRelation().getStatement().toString());
+		}
 
 		// done
-		
+
 		return errorMessageResult;
 	}
-	
+
 	/*
 	 * Instance methods
 	 */

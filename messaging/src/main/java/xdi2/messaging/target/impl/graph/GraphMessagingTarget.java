@@ -66,7 +66,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public boolean executeDelOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + targetAddress, operation);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + targetAddress, null, operation);
 
 		contextNode.delete();
 

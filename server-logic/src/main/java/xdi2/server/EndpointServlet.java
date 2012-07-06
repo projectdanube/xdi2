@@ -23,7 +23,6 @@ import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import xdi2.core.Graph;
-import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
@@ -33,10 +32,8 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.error.ErrorMessageResult;
-import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.http.AcceptHeader;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
@@ -463,7 +460,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			reader.read(graph, inputStream, null);
 			messageEnvelope = MessageEnvelope.fromGraph(graph);
 			messageCount = messageEnvelope.getMessageCount();
-		} catch (Xdi2ParseException ex) {
+		} catch (Exception ex) {
 
 			log.error("Cannot parse XDI graph: " + ex.getMessage(), ex);
 			this.handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
@@ -497,7 +494,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		} catch (Exception ex) {
 
 			log.error("Exception: " + ex.getMessage(), ex);
-			this.handleException(request, response, new Exception("Exception: " + ex.getMessage(), ex));
+			this.handleException(request, response, ex);
 			return null;
 		}
 
@@ -553,7 +550,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 	protected void handleException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
 
 		// send error result
-		
+
 		ErrorMessageResult errorMessageResult = ErrorMessageResult.fromException(ex);
 
 		if (log.isDebugEnabled()) log.debug("ErrorMessageResult: " + errorMessageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));

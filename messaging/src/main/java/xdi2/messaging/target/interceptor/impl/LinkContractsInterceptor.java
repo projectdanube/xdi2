@@ -9,6 +9,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
@@ -47,13 +48,13 @@ public class LinkContractsInterceptor implements MessageInterceptor, TargetInter
 		// read the referenced link contract from the execution context
 
 		LinkContract linkContract = getLinkContract(executionContext);
-		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", operation);
+		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, operation);
 
 		// check if the current operation and target statement are allowed under this link contract
 
 		// ...
 
-		if (Math.random() > 0.5f) throw new Xdi2MessagingException("Link contract violation:  " + operation.getOperationXri() + " on statement " + targetStatement, operation);
+		if (Math.random() > 0.5f) throw new Xdi2NotAuthorizedException("Not authorized:  " + operation.getOperationXri() + " on statement " + targetStatement, null, operation);
 
 		// done
 
@@ -66,13 +67,13 @@ public class LinkContractsInterceptor implements MessageInterceptor, TargetInter
 		// read the referenced link contract from the execution context
 
 		LinkContract linkContract = getLinkContract(executionContext);
-		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", operation);
+		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, operation);
 
 		// check if the current operation and target statement are allowed under this link contract
 
 		// ...
 
-		if (Math.random() > 0.5f) throw new Xdi2MessagingException("Link contract violation:  " + operation.getOperationXri() + " on address " + targetAddress, operation);
+		if (Math.random() > 0.5f) throw new Xdi2NotAuthorizedException("Not authorized:  " + operation.getOperationXri() + " on address " + targetAddress, null, operation);
 
 		// done
 

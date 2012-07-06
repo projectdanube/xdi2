@@ -152,16 +152,20 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			this.executeResultInterceptorsFinish(messageResult, executionContext);
 		} catch (Exception ex) {
 
-			// execute message envelope interceptors (after)
+			// check exception
+
+			if (! (ex instanceof Xdi2MessagingException)) {
+
+				ex = new Xdi2MessagingException(ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage(), ex, null);
+			}
+
+			// execute message envelope interceptors (exception)
 
 			this.executeMessageEnvelopeInterceptorsException(messageEnvelope, messageResult, executionContext, ex);
 
 			// throw it
 
-			String reason = ex.getMessage();
-			if (reason == null || reason.equals("null")) reason = ex.getClass().getSimpleName();
-
-			throw new Xdi2MessagingException("Exception while executing message envelope at message " + i + ": " + reason, ex, null);
+			throw (Xdi2MessagingException) ex;
 		}
 
 		// done
@@ -225,10 +229,16 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				this.after(operation, executionContext);
 			} catch (Exception ex) {
 
-				String reason = ex.getMessage();
-				if (reason == null || reason.equals("null")) reason = ex.getClass().getSimpleName();
+				// check exception
 
-				throw new Xdi2MessagingException("Exception while executing message at operation " + i + ": " + reason, ex, operation);
+				if (! (ex instanceof Xdi2MessagingException)) {
+
+					ex = new Xdi2MessagingException(ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage(), ex, operation);
+				}
+
+				// throw it
+
+				throw (Xdi2MessagingException) ex;
 			}
 		}
 
@@ -303,7 +313,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		else if (operation instanceof DelOperation)
 			return this.executeDelOnAddress(targetAddress, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), operation);
+			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, operation);
 	}
 
 	/*

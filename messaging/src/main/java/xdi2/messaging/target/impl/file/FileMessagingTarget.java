@@ -46,6 +46,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 
 	}
 
+	@Override
 	public boolean execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		this.setGraph(this.readGraph());
@@ -60,7 +61,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 	private Graph readGraph() throws Xdi2MessagingException {
 
 		XDIReader xdiReader = XDIReaderRegistry.forFormat(this.format);
-		if (xdiReader == null) throw new Xdi2MessagingException("Cannot read this format: " + this.format, null);
+		if (xdiReader == null) throw new Xdi2MessagingException("Cannot read this format: " + this.format, null, null);
 
 		Graph graph = graphFactory.openGraph();
 
@@ -97,7 +98,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 	private void writeGraph(Graph graph) throws Xdi2MessagingException {
 
 		XDIWriter xdiWriter = XDIWriterRegistry.forFormat(this.format);
-		if (xdiWriter == null) throw new Xdi2MessagingException("Cannot write this format: " + this.format, null);
+		if (xdiWriter == null) throw new Xdi2MessagingException("Cannot write this format: " + this.format, null, null);
 
 		FileWriter writer = null;
 

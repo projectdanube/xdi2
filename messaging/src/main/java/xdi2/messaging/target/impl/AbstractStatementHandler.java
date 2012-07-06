@@ -33,7 +33,7 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 		else if (operation instanceof DelOperation)
 			return this.executeDelOnStatement(targetStatement, (DelOperation) operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), operation);
+			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, operation);
 	}
 
 	public boolean executeGetOnStatement(Statement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -45,7 +45,7 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 		else if (targetStatement instanceof LiteralStatement)
 			return this.executeGetOnLiteralStatement((LiteralStatement) targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), operation);
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, operation);
 	}
 
 	public boolean executeAddOnStatement(Statement targetStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -57,7 +57,7 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 		else if (targetStatement instanceof LiteralStatement)
 			return this.executeAddOnLiteralStatement((LiteralStatement) targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), operation);
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, operation);
 	}
 
 	public boolean executeModOnStatement(Statement targetStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -69,7 +69,7 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 		else if (targetStatement instanceof LiteralStatement)
 			return this.executeModOnLiteralStatement((LiteralStatement) targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), operation);
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, operation);
 	}
 
 	public boolean executeDelOnStatement(Statement targetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -81,7 +81,7 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 		else if (targetStatement instanceof LiteralStatement)
 			return this.executeDelOnLiteralStatement((LiteralStatement) targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), operation);
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, operation);
 	}
 
 	/*

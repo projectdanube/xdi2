@@ -75,10 +75,16 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 				if (handled && this.mode.equalsIgnoreCase(MODE_FIRST_HANDLED)) break;
 			} catch (Exception ex) { 
 
-				if (ex instanceof Xdi2MessagingException) 
-					throw (Xdi2MessagingException) ex;
-				else 
-					throw new Xdi2MessagingException(ex, null);
+				// check exception
+
+				if (! (ex instanceof Xdi2MessagingException)) {
+
+					ex = new Xdi2MessagingException(ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage(), ex, operation);
+				}
+
+				// throw it
+
+				throw (Xdi2MessagingException) ex;
 			}
 		}
 

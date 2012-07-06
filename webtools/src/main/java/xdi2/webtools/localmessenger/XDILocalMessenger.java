@@ -185,7 +185,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
-				
+
 				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
 
 				// output the message result
