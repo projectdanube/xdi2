@@ -3,8 +3,7 @@ package xdi2.core.features.linkcontracts;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
-import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
+import xdi2.core.constants.XDILinkContractConstants;
 
 public class OrExpression extends PolicyExpressionComponent {
 private static final long serialVersionUID = 5732150401265911411L;

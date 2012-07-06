@@ -4,6 +4,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.Operation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 public class ErrorMessageResult extends MessageResult {
 
@@ -11,9 +13,11 @@ public class ErrorMessageResult extends MessageResult {
 
 	public static final XRI3Segment XRI_S_ERRORCODE = new XRI3Segment("$false$integer");
 	public static final XRI3Segment XRI_S_ERRORSTRING = new XRI3Segment("$false$string");
+	public static final XRI3Segment XRI_S_ERROROPERATION = new XRI3Segment("$false$operation");
 
-	public static final Integer DEFAULT_ERRORCODE = Integer.valueOf(-1);
+	public static final String DEFAULT_ERRORCODE = "-1";
 	public static final String DEFAULT_ERRORSTRING = "XDI error.";
+	public static final String DEFAULT_ERROROPERATION = "";
 
 	protected ErrorMessageResult(Graph graph) {
 
@@ -23,11 +27,12 @@ public class ErrorMessageResult extends MessageResult {
 	public ErrorMessageResult() {
 
 		super();
-		
+
 		this.graph.findContextNode(XRI_S_ERRORCODE, true).createLiteral(DEFAULT_ERRORCODE.toString());
 		this.graph.findContextNode(XRI_S_ERRORSTRING, true).createLiteral(DEFAULT_ERRORSTRING);
+		this.graph.findContextNode(XRI_S_ERROROPERATION, true).createLiteral(DEFAULT_ERROROPERATION);
 	}
-	
+
 	/*
 	 * Static methods
 	 */
@@ -43,6 +48,7 @@ public class ErrorMessageResult extends MessageResult {
 
 		if (! graph.containsContextNode(XRI_S_ERRORCODE)) return false;
 		if (! graph.containsContextNode(XRI_S_ERRORSTRING)) return false;
+		if (! graph.containsContextNode(XRI_S_ERROROPERATION)) return false;
 
 		return true;
 	}
@@ -59,19 +65,52 @@ public class ErrorMessageResult extends MessageResult {
 		return new ErrorMessageResult(graph);
 	}
 
+	/**
+	 * Factory method that creates an XDI error message from an exception.
+	 * @param graph The exception.
+	 * @return The XDI error message result.
+	 */
+	public static ErrorMessageResult fromException(Exception ex) {
+
+		// determine error code, error string
+
+		Integer errorCode = new Integer(0);
+
+		String errorString = ex.getMessage();
+		if (errorString == null) errorString = ex.getClass().getName();
+
+		// build an error result
+
+		ErrorMessageResult errorMessageResult = new ErrorMessageResult();
+		if (errorCode != null) errorMessageResult.setErrorCode(errorCode.toString());
+		if (errorString != null) errorMessageResult.setErrorString(errorString);
+
+		// information specific to messaging
+
+		if (ex instanceof Xdi2MessagingException) {
+
+			Operation operation = ((Xdi2MessagingException) ex).getOperation();
+			if (operation != null) errorMessageResult.setErrorOperation(operation.getRelation().getStatement().toString());
+		}
+
+		// done
+
+		return errorMessageResult;
+	}
+
 	/*
 	 * Instance methods
 	 */
 
-	public Integer getErrorCode() {
+	public String getErrorCode() {
 
 		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERRORCODE, false);
 		if (contextNode == null || ! contextNode.containsLiteral()) return null;
 
-		return new Integer(contextNode.getLiteral().getLiteralData());
+		return contextNode.getLiteral().getLiteralData();
 	}
 
-	public void setErrorCode(Integer errorCode) {
+	public void setErrorCode(String errorCode) {
 
 		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERRORCODE, true);
 
@@ -80,16 +119,16 @@ public class ErrorMessageResult extends MessageResult {
 			contextNode.getLiteral().setLiteralData(errorCode.toString());
 		} else {
 
-			contextNode.createLiteral(errorCode.toString());
+			contextNode.createLiteral(errorCode);
 		}
 	}
 
 	public String getErrorString() {
 
-		ContextNode errorCodeContextNode = this.graph.findContextNode(XRI_S_ERRORSTRING, false);
-		if (errorCodeContextNode == null || ! errorCodeContextNode.containsLiteral()) return null;
+		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERRORSTRING, false);
+		if (contextNode == null || ! contextNode.containsLiteral()) return null;
 
-		return errorCodeContextNode.getLiteral().getLiteralData();
+		return contextNode.getLiteral().getLiteralData();
 	}
 
 	public void setErrorString(String errorString) {
@@ -102,6 +141,27 @@ public class ErrorMessageResult extends MessageResult {
 		} else {
 
 			contextNode.createLiteral(errorString);
+		}
+	}
+
+	public String getErrorOperation() {
+
+		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERROROPERATION, false);
+		if (contextNode == null || ! contextNode.containsLiteral()) return null;
+
+		return contextNode.getLiteral().getLiteralData();
+	}
+
+	public void setErrorOperation(String errorOperation) {
+
+		ContextNode contextNode = this.graph.findContextNode(XRI_S_ERROROPERATION, true);
+
+		if (contextNode.containsLiteral()) {
+
+			contextNode.getLiteral().setLiteralData(errorOperation);
+		} else {
+
+			contextNode.createLiteral(errorOperation);
 		}
 	}
 }

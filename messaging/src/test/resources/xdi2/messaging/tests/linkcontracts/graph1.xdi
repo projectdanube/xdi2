@@ -1,0 +1,8 @@
+=markus+name/!/(data:,MarkusSabadello)
+=markus+email/!/(data:,markus.sabadello@gmail.com)
+=markus/+friend/=drummond
+
+=markus$do/$is$do/=sender
+=markus$do/$get/=markus
+=markus$do/$add/=markus
+=markus$do/$mod/=markus+email

@@ -1,21 +1,15 @@
 package xdi2.messaging.target.impl.graph;
 
-import java.util.HashMap;
-
-import javax.security.auth.Subject;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.xri3.impl.XRI3;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.impl.StatementHandler;
@@ -56,7 +50,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public boolean executeGetOnAddress(XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
 
@@ -69,10 +63,10 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public boolean executeDelOnAddress(XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + targetAddress);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + targetAddress, null, operation);
 
 		contextNode.delete();
 
@@ -100,9 +94,6 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public void before(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		super.before(messageEnvelope, executionContext);
-
-		GraphExecutionContext.setAffectedSubjectsPerMessageEnvelope(executionContext, new HashMap<XRI3, Subject> ());
-		GraphExecutionContext.setVariablesPerMessageEnvelope(executionContext, new HashMap<XRI3SubSegment, XRI3SubSegment> ());
 	}
 
 	@Override
@@ -115,8 +106,6 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public void before(Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		super.before(operation, executionContext);
-
-		GraphExecutionContext.setAffectedSubjectsPerOperation(executionContext, new HashMap<XRI3, Subject> ());
 	}
 
 	private class TransactionMessageEnvelopeInterceptor implements MessageEnvelopeInterceptor {

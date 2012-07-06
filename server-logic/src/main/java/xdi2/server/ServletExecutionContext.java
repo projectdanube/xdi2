@@ -21,9 +21,9 @@ public class ServletExecutionContext {
 		return (EndpointServlet) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_ENDPOINTSERVLET);
 	}
 
-	public static void setEndpointServlet(ExecutionContext executionContext, EndpointServlet endpointServlet) {
+	public static void putEndpointServlet(ExecutionContext executionContext, EndpointServlet endpointServlet) {
 
-		executionContext.setMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_ENDPOINTSERVLET, endpointServlet);
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_ENDPOINTSERVLET, endpointServlet);
 	}	
 
 	public static HttpServletRequest getHttpServletRequest(ExecutionContext executionContext) {
@@ -31,9 +31,9 @@ public class ServletExecutionContext {
 		return (HttpServletRequest) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPSERVLETREQUEST);
 	}
 
-	public static void setHttpServletRequest(ExecutionContext executionContext, HttpServletRequest request) {
+	public static void putHttpServletRequest(ExecutionContext executionContext, HttpServletRequest request) {
 
-		executionContext.setMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPSERVLETREQUEST, request);
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPSERVLETREQUEST, request);
 	}	
 
 	public static HttpServletResponse getHttpServletResponse(ExecutionContext executionContext) {
@@ -41,8 +41,8 @@ public class ServletExecutionContext {
 		return (HttpServletResponse) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPSERVLETRESPONSE);
 	}
 
-	public static void setHttpServletResponse(ExecutionContext executionContext, HttpServletResponse response) {
+	public static void putHttpServletResponse(ExecutionContext executionContext, HttpServletResponse response) {
 
-		executionContext.setMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPSERVLETRESPONSE, response);
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPSERVLETRESPONSE, response);
 	}	
 }

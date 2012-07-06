@@ -1,6 +1,7 @@
 package xdi2.core.io;
 
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,10 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xdi2.core.io.readers.AutoReader;
+import xdi2.core.io.readers.XDIJSONReader;
+import xdi2.core.io.readers.XDIStatementsReader;
 
 /**
  * Provides an appropriate XDIReader for a given type.
@@ -24,18 +29,18 @@ public final class XDIReaderRegistry {
 		XDIStatementsReader.class.getName()
 	};
 
-	private static List<Class<XDIReader> > readerClasses;
+	private static List<Class<XDIReader>> readerClasses;
 
-	private static Map<String, Class<XDIReader> > readerClassesByFormat;
-	private static Map<String, Class<XDIReader> > readerClassesByMimeType;
-	private static Map<String, Class<XDIReader> > readerClassesByDefaultFileExtension;
+	private static Map<String, Class<XDIReader>> readerClassesByFormat;
+	private static Map<String, Class<XDIReader>> readerClassesByFileExtension;
+	private static Map<MimeType, Class<XDIReader>> readerClassesByMimeType;
 
 	static {
 
-		readerClasses = new ArrayList<Class<XDIReader> > ();
-		readerClassesByFormat = new HashMap<String, Class<XDIReader> >();
-		readerClassesByMimeType = new HashMap<String, Class<XDIReader> >();
-		readerClassesByDefaultFileExtension = new HashMap<String, Class<XDIReader> >();
+		readerClasses = new ArrayList<Class<XDIReader>>();
+		readerClassesByFormat = new HashMap<String, Class<XDIReader>>();
+		readerClassesByFileExtension = new HashMap<String, Class<XDIReader>>();
+		readerClassesByMimeType = new HashMap<MimeType, Class<XDIReader>>();
 
 		for (String readerClassName : readerClassNames) {
 
@@ -64,9 +69,13 @@ public final class XDIReaderRegistry {
 				throw new RuntimeException(ex);
 			}
 
-			if (reader.getFormat() != null) readerClassesByFormat.put(reader.getFormat(), readerClass);
-			if (reader.getMimeType() != null) readerClassesByMimeType.put(reader.getMimeType(), readerClass);
-			if (reader.getDefaultFileExtension() != null) readerClassesByDefaultFileExtension.put(reader.getDefaultFileExtension(), readerClass);
+			String format = reader.getFormat();
+			String fileExtension = reader.getFileExtension();
+			MimeType[] mimeTypes = reader.getMimeTypes();
+
+			if (format != null) readerClassesByFormat.put(format, readerClass);
+			if (fileExtension != null) readerClassesByFileExtension.put(fileExtension, readerClass);
+			if (mimeTypes != null) for (MimeType mimeType : mimeTypes) readerClassesByMimeType.put(mimeType, readerClass);
 		}
 	}
 
@@ -109,7 +118,7 @@ public final class XDIReaderRegistry {
 	 * @param mimeType The desired mime type.
 	 * @return An XDIReader, or null if no appropriate implementation could be found.
 	 */
-	public static XDIReader forMimeType(String mimeType) {
+	public static XDIReader forMimeType(MimeType mimeType) {
 
 		Class<XDIReader> readerClass = readerClassesByMimeType.get(mimeType);
 		if (readerClass == null) return null;
@@ -135,7 +144,7 @@ public final class XDIReaderRegistry {
 	 */
 	public static XDIReader forFileExtension(String fileExtension) {
 
-		Class<XDIReader> readerClass = readerClassesByDefaultFileExtension.get(fileExtension);
+		Class<XDIReader> readerClass = readerClassesByFileExtension.get(fileExtension);
 		if (readerClass == null) return null;
 
 		try {
@@ -200,8 +209,8 @@ public final class XDIReaderRegistry {
 	 * Returns all mime types for which XDIReader implementations exist.
 	 * @return A string array of mime types.
 	 */
-	public static String[] getMimeTypes() {
+	public static MimeType[] getMimeTypes() {
 
-		return readerClassesByMimeType.keySet().toArray(new String[readerClassesByMimeType.size()]);
+		return readerClassesByMimeType.keySet().toArray(new MimeType[readerClassesByMimeType.size()]);
 	}
 }

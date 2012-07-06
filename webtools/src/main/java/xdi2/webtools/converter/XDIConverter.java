@@ -17,11 +17,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.io.AutoReader;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.io.readers.AutoReader;
 
 /**
  * Servlet implementation class for Servlet: XDIConverter

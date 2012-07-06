@@ -1,9 +1,9 @@
 package xdi2.messaging.target.interceptor;
 
 import xdi2.core.Statement;
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Operation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 
 public abstract class AbstractTargetInterceptor implements TargetInterceptor {

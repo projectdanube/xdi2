@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Properties;
 
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.exceptions.Xdi2ParseException;
-import xdi2.core.xri3.impl.XRI3;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
@@ -97,22 +95,6 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @param parameters Parameters for the serialization.
 	 */
 	public String toString(String format, Properties parameters);
-
-	/*
-	 * Methods related to messages
-	 */
-
-	/**
-	 * A simple way to apply an XDI operation to this graph,
-	 * based on a given input graph.
-	 */
-	public Graph applyOperation(Graph operationGraph, XRI3Segment operationXri) throws Xdi2MessagingException;
-
-	/**
-	 * A simple way to apply an XDI operation to this graph,
-	 * based on a given input address.
-	 */
-	public Graph applyOperation(XRI3 address, XRI3Segment operationXri) throws Xdi2MessagingException;
 
 	/*
 	 * Methods related to statements

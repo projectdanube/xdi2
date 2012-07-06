@@ -2,13 +2,13 @@ package xdi2.resolution;
 
 import java.net.URL;
 
+import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.util.XDIMessagingConstants;
+import xdi2.messaging.constants.XDIMessagingConstants;
 
 public class XdiResolver {
 
@@ -28,7 +28,7 @@ public class XdiResolver {
 		this(DEFAULT_XDI_PROXY, new XDIHttpClient());
 	}
 
-	public XdiResolutionResult resolve(String xri) throws Xdi2MessagingException {
+	public XdiResolutionResult resolve(String xri) throws Xdi2ClientException {
 
 		// prepare message envelope
 
@@ -45,12 +45,12 @@ public class XdiResolver {
 			this.xdiClient.setUrl(new URL(this.xdiProxy));
 			MessageResult messageResult = this.xdiClient.send(messageEnvelope, null);
 			resolutionResult = XdiResolutionResult.fromXriAndMessageResult(xri, messageResult);
-		} catch (Xdi2MessagingException ex) {
+		} catch (Xdi2ClientException ex) {
 
 			throw ex;
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot send XDI message: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot send XDI message: " + ex.getMessage(), ex, null);
 		}
 
 		// done

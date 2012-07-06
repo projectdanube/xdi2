@@ -4,8 +4,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Statement.LiteralStatement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
-import xdi2.core.util.XDIConstants;
 import xdi2.core.util.XDIUtil;
 import xdi2.core.xri3.impl.XRI3Segment;
 

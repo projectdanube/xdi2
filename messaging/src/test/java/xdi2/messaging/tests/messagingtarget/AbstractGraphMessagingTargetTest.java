@@ -13,8 +13,8 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.util.XDIMessagingConstants;
 
 public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 

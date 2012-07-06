@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
+import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
@@ -127,6 +128,17 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 		} catch (Exception ex) {
 
+			if (ex instanceof Xdi2ClientException) {
+				
+				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+
+				// output the message result
+
+				StringWriter writer2 = new StringWriter();
+				xdiWriter.write(messageResult.getGraph(), writer2, null);
+				output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+			}
+			
 			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();

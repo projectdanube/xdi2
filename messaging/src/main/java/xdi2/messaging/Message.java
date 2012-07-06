@@ -1,15 +1,18 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
+import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
-import xdi2.messaging.util.XDIMessagingConstants;
+import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
  * An XDI message, represented as a context node.
@@ -20,14 +23,14 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	private static final long serialVersionUID = 7063040731631258931L;
 
-	private MessageContainer messageContainer;
+	private MessageCollection messageCollection;
 	private ContextNode contextNode;
 
-	protected Message(MessageContainer messageContainer, ContextNode contextNode) {
+	protected Message(MessageCollection messageCollection, ContextNode contextNode) {
 
-		if (messageContainer == null || contextNode == null) throw new NullPointerException();
-		
-		this.messageContainer = messageContainer;
+		if (messageCollection == null || contextNode == null) throw new NullPointerException();
+
+		this.messageCollection = messageCollection;
 		this.contextNode = contextNode;
 	}
 
@@ -47,15 +50,15 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Factory method that creates an XDI message bound to a given context node.
-	 * @param messageContainer The XDI message container to which this XDI message belongs.
+	 * @param messageCollection The XDI message collection to which this XDI message belongs.
 	 * @param contextNode The context node that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageContainerAndContextNode(MessageContainer messageContainer, ContextNode contextNode) {
+	public static Message fromMessageCollectionAndContextNode(MessageCollection messageCollection, ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new Message(messageContainer, contextNode);
+		return new Message(messageCollection, contextNode);
 	}
 
 	/*
@@ -63,12 +66,12 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 
 	/**
-	 * Returns the XDI message container to which this XDI message belongs.
-	 * @return An XDI message container.
+	 * Returns the XDI message collection to which this XDI message belongs.
+	 * @return An XDI message collection.
 	 */
-	public MessageContainer getMessageContainer() {
+	public MessageCollection getMessageCollection() {
 
-		return this.messageContainer;
+		return this.messageCollection;
 	}
 
 	/**
@@ -77,7 +80,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public MessageEnvelope getMessageEnvelope() {
 
-		return this.getMessageContainer().getMessageEnvelope();
+		return this.getMessageCollection().getMessageEnvelope();
 	}
 
 	/**
@@ -99,12 +102,36 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns the sender of the message's message container.
-	 * @return The sender of the message's message container.
+	 * Returns the sender of the message's message collection.
+	 * @return The sender of the message's message collection.
 	 */
 	public XRI3Segment getSender() {
 
-		return this.getMessageContainer().getSender();
+		return this.getMessageCollection().getSender();
+	}
+
+	/**
+	 * Returns the timestamp.
+	 * @return The timestamp.
+	 */
+	public Date getTimestamp() {
+
+		return Timestamps.getContextNodeTimestamp(this.getContextNode());
+	}
+
+	/**
+	 * Returns the link contract XRI.
+	 * @return The link contract XRI.
+	 */
+	public XRI3Segment getLinkContractXri() {
+
+		ContextNode operationsContextNode = this.getOperationsContextNode();
+		if (operationsContextNode == null) return null;
+
+		Relation linkContractRelation = operationsContextNode.getRelation(XDILinkContractConstants.XRI_S_DO);
+		if (linkContractRelation == null) return null;
+
+		return linkContractRelation.getRelationXri();
 	}
 
 	/**

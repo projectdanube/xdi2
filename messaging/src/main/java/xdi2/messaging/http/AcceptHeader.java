@@ -1,24 +1,26 @@
 package xdi2.messaging.http;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.io.XDIWriterRegistry;
 
 /**
  * A helper class that can parse and produce HTTP Accept: headers.
  * 
  * @author markus
  */
-public class AcceptHeader {
+public class AcceptHeader implements Serializable, Comparable<AcceptHeader> {
 
-	protected static final String ENTRY_SEPARATOR = ",";
+	private static final long serialVersionUID = 400811467881181917L;
 
-	protected List<AcceptEntry> entries = new ArrayList<AcceptEntry>();
+	protected List<MimeType> mimeTypes = new ArrayList<MimeType>();
 
 	public AcceptHeader() {
 
@@ -26,7 +28,9 @@ public class AcceptHeader {
 
 	public AcceptHeader(String header) {
 
-		if (header != null) this.parse(header);
+		String[] strings = header.split(",");
+
+		for (String string : strings) if (! string.trim().isEmpty()) this.mimeTypes.add(new MimeType(string));
 	}
 
 	/**
@@ -35,150 +39,120 @@ public class AcceptHeader {
 	 * @param preferredMimeType The preferred mime type.
 	 * @return The Accept: header
 	 */
-	public static AcceptHeader create(String preferredMimeType) {
+	public static AcceptHeader create(MimeType preferredMimeType) {
 
 		AcceptHeader acceptHeader = new AcceptHeader();
 
-		for (String mimeType : XDIReaderRegistry.getMimeTypes()) {
+		for (MimeType mimeType : XDIReaderRegistry.getMimeTypes()) {
 
 			if (mimeType.equals(preferredMimeType)) continue;
 
-			acceptHeader.addEntry(new AcceptEntry(0.5f, mimeType));
+			acceptHeader.addMimeType(new MimeType(mimeType + ";q=0.5"));
 		}
 
 		if (preferredMimeType != null) {
 
-			acceptHeader.addEntry(new AcceptEntry(1, preferredMimeType));
+			acceptHeader.addMimeType(new MimeType(preferredMimeType + ";q=1"));
 		}
 
 		return acceptHeader;
 	}
 
-	public void addEntry(AcceptEntry entry) {
+	/**
+	 * Returns a MimeType that we can satisfy for this Accept header. 
+	 * @return A MimeType, or null if no appropriate implementation could be found.
+	 */
+	public MimeType bestMimeType() {
 
-		this.entries.add(entry);
-		this.sort();
-	}
+		for (MimeType mimeType : this.getMimeTypesSortedByQuality()) {
 
-	public boolean containsMimeType(String mimeType) {
+			MimeType mimeTypeWithoutQuality = mimeType.mimeTypeWithoutQuality();
 
-		for (AcceptEntry entry : this.entries) {
-
-			if (entry.getMimeType().equals(mimeType)) return true;
+			if ((XDIWriterRegistry.forMimeType(mimeTypeWithoutQuality)) != null) return mimeTypeWithoutQuality;
 		}
 
-		return false;
+		return null;
 	}
 
-	protected void parse(String header) {
+	public List<MimeType> getMimeTypes() {
 
-		this.entries.clear();
-
-		String[] strEntries = header.split(ENTRY_SEPARATOR);
-
-		for (String strEntry : strEntries) {
-
-			AcceptEntry entry;
-
-			try {
-
-				entry = new AcceptEntry(strEntry);
-			} catch(Exception ex) {
-
-				continue;
-			}
-
-			this.entries.add(entry);
-		}
-
-		this.sort();
+		return this.mimeTypes;
 	}
 
-	protected void sort() {
+	public List<MimeType> getMimeTypesSortedByQuality() {
 
-		Collections.sort(this.entries);
-		Collections.reverse(this.entries);
+		List<MimeType> sortedMimeTypes = new ArrayList<MimeType> (this.mimeTypes);
+		Collections.sort(sortedMimeTypes, qualityComparator);
+
+		return sortedMimeTypes;
 	}
 
-	public List<AcceptEntry> getEntries() {
+	public void addMimeType(MimeType mimeType) {
 
-		return this.entries;
+		this.mimeTypes.add(mimeType);
 	}
+
+	public boolean containsMimeType(MimeType mimeType) {
+
+		return this.mimeTypes.contains(mimeType);
+	}
+
+
+	/*
+	 * Object methods
+	 */
 
 	@Override
 	public String toString() {
 
 		StringBuffer header = new StringBuffer();
 
-		for (Iterator<AcceptEntry> entries = this.entries.iterator(); entries.hasNext(); ) {
+		for (Iterator<MimeType> mimeTypes = this.getMimeTypesSortedByQuality().iterator(); mimeTypes.hasNext(); ) {
 
-			AcceptEntry entry = entries.next();
+			MimeType mimeType = mimeTypes.next();
 
-			header.append(entry.toString());
-			if (entries.hasNext()) header.append(ENTRY_SEPARATOR);
+			header.append(mimeType.toString());
+			if (mimeTypes.hasNext()) header.append(",");
 		}
 
 		return header.toString();
 	}
 
-	/**
-	 * A class representing one entry in an HTTP accept header.
-	 * 
-	 * @author markus
-	 */
-	public static class AcceptEntry implements Comparable<AcceptEntry> {
+	@Override
+	public boolean equals(Object object) {
 
-		protected static final Float DEFAULT_Q = new Float(1);
-		protected static final Pattern PATTERN_ACCEPT_Q = Pattern.compile("^\\s*(.+)\\s*;\\s*[qQ]=(.+)\\s*$");
-		protected static final Pattern PATTERN_ACCEPT = Pattern.compile("^\\s*(.+)\\s*$");
-		protected static final String ENTRY_SEPARATOR = ";";
+		if (object == null || ! (object instanceof MimeType)) return false;
+		if (object == this) return true;
 
-		private Float q;
-		private String mimeType;
+		MimeType other = (MimeType) object;
 
-		public AcceptEntry(float q, String mimeType) {
+		return this.toString().equals(other.toString());
+	}
 
-			this.q = new Float(q);
-			this.mimeType = mimeType;
-		}
+	@Override
+	public int hashCode() {
 
-		private AcceptEntry(String entry) {
+		return this.toString().hashCode();
+	}
 
-			Matcher matcher;
+	public int compareTo(AcceptHeader other) {
 
-			if ((matcher = PATTERN_ACCEPT_Q.matcher(entry)).matches()) {
+		if (other == null || other == this) return 0;
 
-				this.q = new Float(matcher.group(2));
-				this.mimeType = matcher.group(1);
-			} else if ((matcher = PATTERN_ACCEPT.matcher(entry)).matches()) {
+		return this.toString().compareTo(other.toString());
+	}
 
-				this.q = DEFAULT_Q;
-				this.mimeType = matcher.group(1);
-			} else {
-
-				throw new IllegalArgumentException();
-			}
-		}
-
-		public float getQ() {
-
-			return(this.q.floatValue());
-		}
-
-		public String getMimeType() {
-
-			return(this.mimeType);
-		}
+	private static Comparator<? super MimeType> qualityComparator = new Comparator<MimeType>() {
 
 		@Override
-		public String toString() {
+		public int compare(MimeType mimeType1, MimeType mimeType2) {
 
-			return(this.mimeType + ENTRY_SEPARATOR + "q=" + this.q);
+			float q1 = Float.parseFloat(mimeType1.getParameterValue("q"));
+			float q2 = Float.parseFloat(mimeType2.getParameterValue("q"));
+
+			if (q1 > q2) return -1;
+			if (q1 < q2) return 1;
+			return mimeType1.compareTo(mimeType2);
 		}
-
-		public int compareTo(AcceptEntry other) {
-
-			return(this.q.compareTo(other.q));
-		}
-	}
+	};
 }

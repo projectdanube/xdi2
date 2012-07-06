@@ -1,6 +1,7 @@
 package xdi2.core.util;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,22 +63,30 @@ public class XDIUtil {
 
 		if (log.isDebugEnabled()) log.debug("Converting to data URI: " + string);
 
-		URI uri;
+		String dataUri;
 
 		try {
 
 			if (base64) {
 
-				uri = new URI("data", ";base64," + new String(Base64.encodeBase64(string.getBytes("UTF-8")), "UTF-8"), null);
+				dataUri = makeDataUri(";base64," + new String(Base64.encodeBase64(string.getBytes("UTF-8")), "UTF-8"));
 			} else {
 
-				uri = new URI("data", "," + string, null);
+				dataUri = makeDataUri("," + string);
 			}
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException(ex);
 		}
 
-		return new XRI3Segment("(" + uri.toString() + ")");
+		return new XRI3Segment("(" + dataUri + ")");
+	}
+
+	private static String makeDataUri(String string) throws URISyntaxException {
+		
+		return 
+				new URI("data", string, null).toString()
+				.replace("(", "%28")
+				.replace(")", "%29");
 	}
 }

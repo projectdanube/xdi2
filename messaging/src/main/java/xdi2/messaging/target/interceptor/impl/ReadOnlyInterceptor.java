@@ -1,9 +1,9 @@
 package xdi2.messaging.target.interceptor.impl;
 
 import xdi2.core.Statement;
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Operation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
@@ -40,7 +40,7 @@ public class ReadOnlyInterceptor implements TargetInterceptor {
 
 			if (readOnlyAddress == null || startsWith(address, readOnlyAddress)) {
 
-				throw new Xdi2MessagingException("This address is read-only: " + address);
+				throw new Xdi2MessagingException("This address is read-only: " + address, null, operation);
 			}
 		}
 	}

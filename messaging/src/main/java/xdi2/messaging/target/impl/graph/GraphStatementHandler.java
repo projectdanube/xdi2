@@ -10,10 +10,9 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.XDIConstants;
 import xdi2.core.util.XDIUtil;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.AddOperation;
@@ -21,6 +20,7 @@ import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractStatementHandler;
 
@@ -42,7 +42,13 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public boolean executeAddOnStatement(Statement statement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		this.graph.addStatement(statement);
+		try {
+
+			this.graph.addStatement(statement);
+		} catch (Exception ex) {
+
+			throw new Xdi2MessagingException("Cannot add statement: " + ex.getMessage(), ex, operation);
+		}
 
 		return true;
 	}
@@ -55,7 +61,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	public boolean executeDelOnContextNodeStatement(ContextNodeStatement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.graph.findContextNode(contextNodeStatement.getSubject(), false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, operation);
 
 		for (Object subSegment : contextNodeStatement.getObject().getSubSegments()) {
 
@@ -110,19 +116,19 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	public boolean executeDelOnRelationStatement(RelationStatement relationStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.graph.findContextNode(relationStatement.getSubject(), false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement, null, operation);
 
 		if (Variables.isVariable(relationStatement.getObject())) {
-			
+
 			Iterator<Relation> relations = contextNode.getRelations(relationStatement.getPredicate());
-			if (! relations.hasNext()) throw new Xdi2MessagingException("Relations not found: " + relationStatement);
-			
+			if (! relations.hasNext()) throw new Xdi2MessagingException("Relations not found: " + relationStatement, null, operation);
+
 			while (relations.hasNext()) relations.next().delete();
 		} else {
-			
+
 			Relation relation = contextNode.getRelation(relationStatement.getPredicate(), relationStatement.getObject());
-			if (relation == null) throw new Xdi2MessagingException("Relation not found: " + relationStatement);
-			
+			if (relation == null) throw new Xdi2MessagingException("Relation not found: " + relationStatement, null, operation);
+
 			relation.delete();
 		}
 
@@ -154,10 +160,10 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	public boolean executeModOnLiteralStatement(LiteralStatement literalStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.graph.findContextNode(literalStatement.getSubject(), false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + literalStatement);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + literalStatement, null, operation);
 
 		Literal literal = contextNode.getLiteral();
-		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement);
+		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, operation);
 
 		literal.setLiteralData(XDIUtil.dataXriSegmentToString(literalStatement.getObject()));
 

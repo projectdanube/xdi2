@@ -5,14 +5,15 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.util.XDIConstants;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.messaging.util.XDIMessagingConstants;
+import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
  * An XDI message envelope, represented as a graph.
@@ -131,43 +132,43 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	}
 
 	/**
-	 * Returns an existing XDI message container in this XDI message envelope, or creates a new one.
+	 * Returns an existing XDI message collection in this XDI message envelope, or creates a new one.
 	 * @param senderXri The sender.
-	 * @param create Whether to create an XDI message container if it does not exist.
-	 * @return The existing or newly created XDI message container.
+	 * @param create Whether to create an XDI message collection if it does not exist.
+	 * @return The existing or newly created XDI message collection.
 	 */
-	public MessageContainer getMessageContainer(XRI3Segment senderXri, boolean create) {
+	public MessageCollection getMessageCollection(XRI3Segment senderXri, boolean create) {
 
-		XRI3Segment messageContainerXri = new XRI3Segment(senderXri.toString() + XDIMessagingConstants.XRI_SS_MSG.toString());
-		ContextNode contextNode = this.getGraph().findContextNode(messageContainerXri, create);
+		XRI3Segment messageCollectionXri = new XRI3Segment(senderXri.toString() + Multiplicity.entityCollectionArcXri(XDIMessagingConstants.XRI_SS_MSG.toString()));
+		ContextNode contextNode = this.getGraph().findContextNode(messageCollectionXri, create);
 
 		if (contextNode == null) return null;
 
-		return new MessageContainer(this, contextNode);
+		return new MessageCollection(this, contextNode);
 	}
 
 	/**
-	 * Returns all message containers in this message envelope.
-	 * @return All message containers in the envelope.
+	 * Returns all message collections in this message envelope.
+	 * @return All message collections in the envelope.
 	 */
-	public Iterator<MessageContainer> getMessageContainers() {
+	public Iterator<MessageCollection> getMessageCollections() {
 
-		// get all context nodes that are valid XDI message containers
+		// get all context nodes that are valid XDI message collections
 
 		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode().getAllContextNodes();
 
-		return new SelectingMappingIterator<ContextNode, MessageContainer> (contextNodes) {
+		return new SelectingMappingIterator<ContextNode, MessageCollection> (contextNodes) {
 
 			@Override
 			public boolean select(ContextNode contextNode) {
 
-				return MessageContainer.isValid(contextNode);
+				return MessageCollection.isValid(contextNode);
 			}
 
 			@Override
-			public MessageContainer map(ContextNode contextNode) {
+			public MessageCollection map(ContextNode contextNode) {
 
-				return MessageContainer.fromMessageEnvelopeAndContextNode(MessageEnvelope.this, contextNode);
+				return MessageCollection.fromMessageEnvelopeAndContextNode(MessageEnvelope.this, contextNode);
 			}
 		};
 	}
@@ -178,12 +179,12 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public Iterator<Message> getMessages() {
 
-		return new DescendingIterator<MessageContainer, Message> (this.getMessageContainers()) {
+		return new DescendingIterator<MessageCollection, Message> (this.getMessageCollections()) {
 
 			@Override
-			public Iterator<Message> descend(MessageContainer messageContainer) {
+			public Iterator<Message> descend(MessageCollection messageCollection) {
 
-				return messageContainer.getMessages();
+				return messageCollection.getMessages();
 			}
 		};
 	}
@@ -195,10 +196,10 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public Iterator<Message> getMessages(XRI3Segment senderXri) {
 
-		MessageContainer messageContainer = this.getMessageContainer(senderXri, false);
-		if (messageContainer == null) return new EmptyIterator<Message> ();
+		MessageCollection messageCollection = this.getMessageCollection(senderXri, false);
+		if (messageCollection == null) return new EmptyIterator<Message> ();
 
-		return messageContainer.getMessages();
+		return messageCollection.getMessages();
 	}
 
 	/**
@@ -220,11 +221,11 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	}
 
 	/**
-	 * Returns the number of message containers in the message envelope.
+	 * Returns the number of message collections in the message envelope.
 	 */
-	public int getMessageContainerCount() {
+	public int getMessageCollectionCount() {
 
-		Iterator<MessageContainer> iterator = this.getMessageContainers();
+		Iterator<MessageCollection> iterator = this.getMessageCollections();
 
 		return new IteratorCounter(iterator).count();
 	}
@@ -256,12 +257,12 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Returns or creates a new XDI message in this XDI message envelope for a given sender.
 	 * @param senderXri The sender.
-	 * @param create Whether to create a message container if it does not exist.
-	 * @return The newly created XDI message container.
+	 * @param create Whether to create a message collection if it does not exist.
+	 * @return The newly created XDI message collection.
 	 */
 	public Message getMessage(XRI3Segment senderXri, boolean create) {
 
-		return this.getMessageContainer(senderXri, true).getMessage(create);
+		return this.getMessageCollection(senderXri, true).getMessage(create);
 	}
 
 	/*

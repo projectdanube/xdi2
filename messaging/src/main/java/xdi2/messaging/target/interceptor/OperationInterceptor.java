@@ -1,8 +1,8 @@
 package xdi2.messaging.target.interceptor;
 
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 
 public interface OperationInterceptor extends Interceptor {
@@ -12,7 +12,7 @@ public interface OperationInterceptor extends Interceptor {
 	 * @param operation The operation to process.
 	 * @param messageResult The message result.
 	 * @param executionContext The current execution context.
-	 * @return true, if the operation has been fully handled.
+	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
 	public boolean before(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
@@ -21,7 +21,7 @@ public interface OperationInterceptor extends Interceptor {
 	 * @param operation The operation to process.
 	 * @param messageResult The message result.
 	 * @param executionContext The current execution context.
-	 * @return true, if the operation has been fully handled.
+	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
 	public boolean after(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

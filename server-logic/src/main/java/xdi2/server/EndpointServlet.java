@@ -1,5 +1,6 @@
 package xdi2.server;
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,22 +23,20 @@ import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import xdi2.core.Graph;
-import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.http.AcceptHeader;
-import xdi2.messaging.http.AcceptHeader.AcceptEntry;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.util.XDIMessagingConstants;
 import xdi2.server.interceptor.EndpointServletInterceptor;
 
 /**
@@ -139,6 +138,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			this.processGetRequest(request, response);
 		} catch (Exception ex) {
 
+			log.error("Unexpected exception: " + ex.getMessage(), ex);
 			this.handleInternalException(request, response, ex);
 			return;
 		}
@@ -162,6 +162,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			this.processPostRequest(request, response);
 		} catch (Exception ex) {
 
+			log.error("Unexpected exception: " + ex.getMessage(), ex);
 			this.handleInternalException(request, response, ex);
 			return;
 		}
@@ -185,6 +186,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			this.processPutRequest(request, response);
 		} catch (Exception ex) {
 
+			log.error("Unexpected exception: " + ex.getMessage(), ex);
 			this.handleInternalException(request, response, ex);
 			return;
 		}
@@ -208,6 +210,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			this.processDeleteRequest(request, response);
 		} catch (Exception ex) {
 
+			log.error("Unexpected exception: " + ex.getMessage(), ex);
 			this.handleInternalException(request, response, ex);
 			return;
 		}
@@ -413,10 +416,10 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			try {
 
 				contextNodeXri = new XRI3Segment(addr);
-			} catch (ParserException ex) {
+			} catch (Exception ex) {
 
-				log.warn("Cannot parse XDI address. Sending " + HttpServletResponse.SC_BAD_REQUEST + ".", ex);
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Cannot parse XDI address: " + ex.getMessage());
+				log.error("Cannot parse XDI address: " + ex.getMessage(), ex);
+				this.handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
 				return null;
 			}
 		}
@@ -436,14 +439,15 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		XDIReader reader = null;
 
-		String inputMimeType = request.getContentType();
-		reader = XDIReaderRegistry.forMimeType(inputMimeType);
+		String contentType = request.getContentType();
+		MimeType recvMimeType = contentType != null ? new MimeType(contentType) : null;
+		reader = recvMimeType != null ? XDIReaderRegistry.forMimeType(recvMimeType) : null;
 
 		if (reader == null) reader = XDIReaderRegistry.getDefault();
 
 		// read everything into an in-memory XDI graph (a message envelope)
 
-		log.debug("Reading message in " + reader.getFormat() + " format.");
+		log.debug("Reading message in " + recvMimeType + " with reader " + reader.getClass().getSimpleName() + ".");
 
 		Graph graph = graphFactory.openGraph();
 		MessageEnvelope messageEnvelope;
@@ -456,15 +460,10 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			reader.read(graph, inputStream, null);
 			messageEnvelope = MessageEnvelope.fromGraph(graph);
 			messageCount = messageEnvelope.getMessageCount();
-		} catch (Xdi2ParseException ex) {
-
-			log.warn("Cannot parse XDI graph. Sending " + HttpServletResponse.SC_BAD_REQUEST + ".", ex);
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Cannot parse XDI graph: " + ex.getMessage());
-			return null;
 		} catch (Exception ex) {
 
-			log.error("Cannot read message envelope. Sending " + HttpServletResponse.SC_INTERNAL_SERVER_ERROR + ".", ex);
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Cannot read message envelope: " + ex.getMessage());
+			log.error("Cannot parse XDI graph: " + ex.getMessage(), ex);
+			this.handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
 			return null;
 		}
 
@@ -479,9 +478,9 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		ExecutionContext executionContext = new ExecutionContext();
 
-		ServletExecutionContext.setEndpointServlet(executionContext, this);
-		ServletExecutionContext.setHttpServletRequest(executionContext, request);
-		ServletExecutionContext.setHttpServletResponse(executionContext, response);
+		ServletExecutionContext.putEndpointServlet(executionContext, this);
+		ServletExecutionContext.putHttpServletRequest(executionContext, request);
+		ServletExecutionContext.putHttpServletResponse(executionContext, response);
 
 		// execute the messages and operations against our message target, save result
 
@@ -494,7 +493,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 		} catch (Exception ex) {
 
-			this.handleMessagingTargetException(request, response, ex);
+			log.error("Exception: " + ex.getMessage(), ex);
+			this.handleException(request, response, ex);
 			return null;
 		}
 
@@ -511,24 +511,21 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		XDIWriter writer = null;
 
-		AcceptHeader acceptHeader = new AcceptHeader(request.getHeader("Accept"));
-
-		for (AcceptEntry entry : acceptHeader.getEntries()) {
-
-			if ((writer = XDIWriterRegistry.forMimeType(entry.getMimeType())) != null) break;
-		}
+		String acceptHeader = request.getHeader("Accept");
+		MimeType sendMimeType = acceptHeader != null ? new AcceptHeader(acceptHeader).bestMimeType() : null;
+		writer = sendMimeType != null ? XDIWriterRegistry.forMimeType(sendMimeType) : null;
 
 		if (writer == null) writer = XDIWriterRegistry.getDefault();
 
 		// send out the message result
 
-		log.debug("Sending result in " + writer.getFormat() + " format.");
+		log.debug("Sending result in " + sendMimeType + " with writer " + writer.getClass().getSimpleName() + ".");
 
 		OutputStream outputStream = response.getOutputStream();
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
 		writer.write(messageResult.getGraph(), buffer, null);
-		response.setContentType(writer.getMimeType());
+		response.setContentType(writer.getMimeTypes()[0].toString());
 		response.setContentLength(buffer.size());
 
 		if (buffer.size() > 0) {
@@ -544,28 +541,19 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	protected void handleInternalException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
 
-		log.error("Unexpected exception: " + ex.getMessage(), ex);
-		if (! response.isCommitted()) response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected exception: " + ex.getMessage());
+		if (! response.isCommitted()) {
+
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected exception: " + ex.getMessage());
+		}
 	}
 
-	protected void handleMessagingTargetException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
+	protected void handleException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
 
-		log.error("Cannot execute message envelope. Sending error document: " + ex.getMessage(), ex);
+		// send error result
 
-		// make an error result
+		ErrorMessageResult errorMessageResult = ErrorMessageResult.fromException(ex);
 
-		Integer errorCode = new Integer(0);
-
-		String errorString = ex.getMessage();
-		if (errorString == null) errorString = ex.getClass().getName();
-
-		ErrorMessageResult errorMessageResult = new ErrorMessageResult();
-		errorMessageResult.setErrorCode(errorCode);
-		errorMessageResult.setErrorString(errorString);
-
-		// and send it
-
-		log.debug("Sending error result: " + errorCode + " (" + errorString + ")");
+		if (log.isDebugEnabled()) log.debug("ErrorMessageResult: " + errorMessageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 
 		this.sendResult(errorMessageResult, request, response);
 	}

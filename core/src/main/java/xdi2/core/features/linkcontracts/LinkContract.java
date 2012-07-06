@@ -9,7 +9,7 @@ import java.util.Map;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2GraphException;
-import xdi2.core.features.linkcontracts.util.XDILinkContractConstants;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.xri3.impl.XRI3Segment;
 

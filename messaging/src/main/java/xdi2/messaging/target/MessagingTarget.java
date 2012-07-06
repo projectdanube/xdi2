@@ -1,8 +1,8 @@
 package xdi2.messaging.target;
 
-import xdi2.core.exceptions.Xdi2MessagingException;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 /**
  * A MessagingGraph can process XDI messages and produce a result graph.

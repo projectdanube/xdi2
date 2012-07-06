@@ -1,5 +1,6 @@
 package xdi2.core.io;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,13 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xdi2.core.io.writers.XDIJSONWriter;
+import xdi2.core.io.writers.XDIJSONWriterWithContextStatements;
+import xdi2.core.io.writers.XDIKeyValueWriter;
+import xdi2.core.io.writers.XDIStatementsWriter;
+import xdi2.core.io.writers.XDIStatementsWriterHTML;
+import xdi2.core.io.writers.XDIStatementsWriterWithContextStatements;
 
 /**
  * Provides an appropriate XDIWriter for a given type.
@@ -19,28 +27,28 @@ public final class XDIWriterRegistry {
 
 	private static String writerClassNames[] = {
 
-		XDIStatementsWriterWithContextStatements.class.getName(),  // first one in the array is the default
+		XDIJSONWriter.class.getName(),// first one in the array is the default
+		XDIJSONWriterWithContextStatements.class.getName(),
+		XDIStatementsWriterWithContextStatements.class.getName(),
 		XDIStatementsWriter.class.getName(),
 		XDIStatementsWriterHTML.class.getName(),
-		XDIJSONWriterWithContextStatements.class.getName(),
-		XDIJSONWriter.class.getName(),
 		XDIKeyValueWriter.class.getName()
 	};
 
-	private static List<Class<XDIWriter> > writerClasses;
+	private static List<Class<XDIWriter>> writerClasses;
 
 	private static Class<XDIWriter> defaultWriterClass;
 
-	private static Map<String, Class<XDIWriter> > writerClassesByFormat;
-	private static Map<String, Class<XDIWriter> > writerClassesByMimeType;
-	private static Map<String, Class<XDIWriter> > writerClassesByDefaultFileExtension;
+	private static Map<String, Class<XDIWriter>> writerClassesByFormat;
+	private static Map<String, Class<XDIWriter>> writerClassesByFileExtension;
+	private static Map<MimeType, Class<XDIWriter>> writerClassesByMimeType;
 
 	static {
 
-		writerClasses = new ArrayList<Class<XDIWriter> > ();
-		writerClassesByFormat = new HashMap<String, Class<XDIWriter> >();
-		writerClassesByMimeType = new HashMap<String, Class<XDIWriter> >();
-		writerClassesByDefaultFileExtension = new HashMap<String, Class<XDIWriter> >();
+		writerClasses = new ArrayList<Class<XDIWriter>>();
+		writerClassesByFormat = new HashMap<String, Class<XDIWriter>>();
+		writerClassesByFileExtension = new HashMap<String, Class<XDIWriter>>();
+		writerClassesByMimeType = new HashMap<MimeType, Class<XDIWriter>>();
 
 		for (String writerClassName : writerClassNames) {
 
@@ -69,9 +77,13 @@ public final class XDIWriterRegistry {
 				throw new RuntimeException(ex);
 			}
 
-			if (writer.getFormat() != null) writerClassesByFormat.put(writer.getFormat(), writerClass);
-			if (writer.getMimeType() != null) writerClassesByMimeType.put(writer.getMimeType(), writerClass);
-			if (writer.getDefaultFileExtension() != null) writerClassesByDefaultFileExtension.put(writer.getDefaultFileExtension(), writerClass);
+			String format = writer.getFormat();
+			String fileExtension = writer.getFileExtension();
+			MimeType[] mimeTypes = writer.getMimeTypes();
+
+			if (format != null) writerClassesByFormat.put(format, writerClass);
+			if (fileExtension != null) writerClassesByFileExtension.put(fileExtension, writerClass);
+			if (mimeTypes != null) for (MimeType mimeType : mimeTypes) writerClassesByMimeType.put(mimeType, writerClass);
 		}
 
 		defaultWriterClass = writerClasses.get(0);
@@ -119,7 +131,7 @@ public final class XDIWriterRegistry {
 	 * @param mimeType The desired mime type.
 	 * @return An XDIWriter, or null if no appropriate implementation could be found.
 	 */
-	public static XDIWriter forMimeType(String mimeType) {
+	public static XDIWriter forMimeType(MimeType mimeType) {
 
 		Class<XDIWriter> writerClass = writerClassesByMimeType.get(mimeType);
 		if (writerClass == null) return null;
@@ -145,7 +157,7 @@ public final class XDIWriterRegistry {
 	 */
 	public static XDIWriter forFileExtension(String fileExtension) {
 
-		Class<XDIWriter> writerClass = writerClassesByDefaultFileExtension.get(fileExtension);
+		Class<XDIWriter> writerClass = writerClassesByFileExtension.get(fileExtension);
 		if (writerClass == null) return null;
 
 		try {

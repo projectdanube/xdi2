@@ -12,7 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
-import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
@@ -27,14 +28,10 @@ import xdi2.messaging.http.AcceptHeader;
  * It supports the following parameters (passed to the init method):
  * <ul>
  * <li>url - The URL of the XDI endpoint to talk to.</li>
- * <li>sendformat - The format to use to send the XDI messages to the endpoint (default: XDI/JSON). This can be
- * either the name of the format or the mime type. In any case, the Content-type header will be set accordingly.</li>
- * <li>recvformat - The format in which we want to receive the results from the endpoint (default: XDI/JSON). This
- * can be either the name of the format or the mime type. In any case, The Accept header will be set accordingly.
- * If the endpoint replies in some other format than requested, we will still try to read it.</li>
+ * <li>sendMimeType - The mime type to use to send the XDI messages to the endpoint. The Content-type header will be set accordingly.</li>
+ * <li>recvMimeType - The mime type in which we want to receive the results from the endpoint. The Accept header will be set accordingly.
+ * If the endpoint replies in some other mime type than requested, we will still try to read it.</li>
  * </ul> 
- * Supported formats for both sending and receiving are: XDI/JSON, STATEMENTS
- * The corresponding mime types are: application/xdi+json, text/plain
  * 
  * @author markus
  */
@@ -45,22 +42,22 @@ public class XDIHttpClient implements XDIClient {
 	public static final String KEY_RECVMIMETYPE = "recvmimetype";
 	public static final String KEY_USERAGENT = "useragent";
 
-	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json";
-	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json";
+	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;contexts=0";
+	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json;contexts=0";
 	public static final String DEFAULT_USERAGENT = "XDI^2 Java Library";
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
 
 	protected URL url;
-	protected String sendFormat;
-	protected String recvFormat;
+	protected MimeType sendMimeType;
+	protected MimeType recvMimeType;
 	protected String userAgent;
 
 	public XDIHttpClient() {
 
 		this.url = null;
-		this.sendFormat = DEFAULT_SENDMIMETYPE;
-		this.recvFormat = DEFAULT_RECVMIMETYPE;
+		this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
+		this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
 		this.userAgent = DEFAULT_USERAGENT;
 	}
 
@@ -74,12 +71,12 @@ public class XDIHttpClient implements XDIClient {
 			throw new IllegalArgumentException(ex.getMessage(), ex);
 		}
 
-		this.sendFormat = DEFAULT_SENDMIMETYPE;
-		this.recvFormat = DEFAULT_RECVMIMETYPE;
+		this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
+		this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
 		this.userAgent = DEFAULT_USERAGENT;
 	}
 
-	public XDIHttpClient(String url, String sendFormat, String recvFormat, String userAgent) {
+	public XDIHttpClient(String url, MimeType sendMimeType, MimeType recvMimeType, String userAgent) {
 
 		try {
 
@@ -89,8 +86,8 @@ public class XDIHttpClient implements XDIClient {
 			throw new IllegalArgumentException(ex.getMessage(), ex);
 		}
 
-		this.sendFormat = (sendFormat != null) ? sendFormat : DEFAULT_SENDMIMETYPE;
-		this.recvFormat = (recvFormat != null) ? recvFormat : DEFAULT_RECVMIMETYPE;
+		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
+		this.recvMimeType = (recvMimeType != null) ? recvMimeType : new MimeType(DEFAULT_RECVMIMETYPE);
 		this.userAgent = (userAgent != null) ? userAgent : DEFAULT_USERAGENT;
 	}
 
@@ -99,47 +96,57 @@ public class XDIHttpClient implements XDIClient {
 		if (parameters == null) {
 
 			this.url = null;
-			this.sendFormat = DEFAULT_SENDMIMETYPE;
-			this.recvFormat = DEFAULT_RECVMIMETYPE;
-			this.recvFormat = DEFAULT_USERAGENT;
+			this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
+			this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
+			this.userAgent = DEFAULT_USERAGENT;
 		} else {
 
 			this.url = new URL(parameters.getProperty(KEY_URL, null));
-			this.sendFormat = parameters.getProperty(KEY_SENDMIMETYPE, DEFAULT_SENDMIMETYPE);
-			this.recvFormat = parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_RECVMIMETYPE);
+			this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE, DEFAULT_SENDMIMETYPE));
+			this.recvMimeType = new MimeType(parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_RECVMIMETYPE));
 			this.userAgent = parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_USERAGENT);
 
 			log.debug("Initialized with " + parameters.toString() + ".");
 		}
 	}
 
-	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2MessagingException {
+	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException {
 
-		if (this.url == null) throw new Xdi2MessagingException("No URL set.");
+		if (this.url == null) throw new Xdi2ClientException("No URL set.", null);
 
 		// find out which XDIWriter we want to use
 
-		XDIWriter writer = XDIWriterRegistry.forFormat(this.sendFormat);
-		if (writer == null) writer = XDIWriterRegistry.forMimeType(this.sendFormat);
-		if (writer == null) writer = XDIWriterRegistry.forMimeType(DEFAULT_SENDMIMETYPE);
-		if (writer == null) writer = XDIWriterRegistry.getDefault();
-		if (writer == null) throw new Xdi2MessagingException("Cannot find a suitable XDI writer.");
+		MimeType sendMimeType = this.sendMimeType;
+		XDIWriter writer = XDIWriterRegistry.forMimeType(sendMimeType);
+
+		if (writer == null) {
+
+			sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
+			writer = XDIWriterRegistry.forMimeType(sendMimeType);
+		}
+
+		if (writer == null) throw new Xdi2ClientException("Cannot find a suitable XDI writer.", null);
 
 		log.debug("Using writer " + writer.getClass().getName() + ".");
 
 		// find out which XDIReader we want to use
 
-		XDIReader reader = XDIReaderRegistry.forFormat(this.recvFormat);
-		if (reader == null) reader = XDIReaderRegistry.forMimeType(this.recvFormat);
-		if (reader == null) reader = XDIReaderRegistry.forMimeType(DEFAULT_RECVMIMETYPE);
-		if (reader == null) reader = XDIReaderRegistry.getDefault();
-		if (reader == null) throw new Xdi2MessagingException("Cannot find a suitable XDI reader.");
+		MimeType recvMimeType = this.recvMimeType;
+		XDIReader reader = XDIReaderRegistry.forMimeType(recvMimeType);
+
+		if (reader == null) {
+
+			recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
+			reader = XDIReaderRegistry.forMimeType(recvMimeType);
+		}
+
+		if (reader == null) throw new Xdi2ClientException("Cannot find a suitable XDI reader.", null);
 
 		log.debug("Using reader " + reader.getClass().getName() + ".");
 
 		// prepare Accept: header
 
-		AcceptHeader acceptHeader = AcceptHeader.create(reader.getMimeType());
+		AcceptHeader acceptHeader = AcceptHeader.create(recvMimeType);
 
 		log.debug("Using Accept header " + acceptHeader.toString() + ".");
 
@@ -154,10 +161,10 @@ public class XDIHttpClient implements XDIClient {
 			connection = this.url.openConnection();
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot open connection: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot open connection: " + ex.getMessage(), ex, null);
 		}
 
-		if (! (connection instanceof HttpURLConnection)) throw new Xdi2MessagingException("Can only work with HTTP(S) URLs.");
+		if (! (connection instanceof HttpURLConnection)) throw new Xdi2ClientException("Can only work with HTTP(S) URLs.", null);
 
 		HttpURLConnection http = (HttpURLConnection) connection;
 
@@ -165,18 +172,17 @@ public class XDIHttpClient implements XDIClient {
 
 			http.setDoInput(true);
 			http.setDoOutput(true);
-			http.setRequestProperty("Content-Type", writer.getMimeType());
+			http.setRequestProperty("Content-Type", sendMimeType.toString());
 			http.setRequestProperty("Accept", acceptHeader.toString());
 			http.setRequestProperty("User-Agent", this.userAgent);
 			http.setRequestMethod("POST");
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot initialize HTTP transport: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot initialize HTTP transport: " + ex.getMessage(), ex, null);
 		}
 
 		// send the message envelope
 
-		log.debug("Sending message envelope with " + messageEnvelope.getMessageCount() + " messages.");
 		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(null, null));
 
 		int responseCode;
@@ -193,14 +199,14 @@ public class XDIHttpClient implements XDIClient {
 			responseMessage = http.getResponseMessage();
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot send message envelope: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot send message envelope: " + ex.getMessage(), ex, null);
 		}
 
 		// check response code
 
 		if (responseCode >= 300) {
 
-			throw new Xdi2MessagingException("HTTP code " + responseCode + " received: " + responseMessage);
+			throw new Xdi2ClientException("HTTP code " + responseCode + " received: " + responseMessage, null);
 		}
 
 		// check in which format we receive the result
@@ -212,7 +218,7 @@ public class XDIHttpClient implements XDIClient {
 
 		if (contentType != null) {
 
-			reader = XDIReaderRegistry.forMimeType(contentType);
+			reader = XDIReaderRegistry.forMimeType(new MimeType(contentType));
 
 			if (reader == null) {
 
@@ -236,7 +242,7 @@ public class XDIHttpClient implements XDIClient {
 			inputStream.close();
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot read message result: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot read message result: " + ex.getMessage(), ex, null);
 		}
 
 		http.disconnect();
@@ -251,12 +257,10 @@ public class XDIHttpClient implements XDIClient {
 
 			log.debug("Error message result received: " + "(" + errorMessageResult.getErrorCode().toString() + ") " + errorMessageResult.getErrorString());
 
-			throw new Xdi2MessagingException("Error message result received: " + "(" + errorMessageResult.getErrorCode().toString() + ") " + errorMessageResult.getErrorString());
+			throw new Xdi2ClientException("Error message result received: " + "(" + errorMessageResult.getErrorCode().toString() + ") " + errorMessageResult.getErrorString(), null, errorMessageResult);
 		}
 
 		// done
-
-		log.debug("Successfully received result, " + messageResult.getGraph().getRootContextNode().getAllStatementCount() + " result statements.");
 
 		return messageResult;
 	}
@@ -275,24 +279,24 @@ public class XDIHttpClient implements XDIClient {
 		this.url = url;
 	}
 
-	public String getSendFormat() {
+	public MimeType getSendFormat() {
 
-		return this.sendFormat;
+		return this.sendMimeType;
 	}
 
-	public void setSendFormat(String sendFormat) {
+	public void setSendFormat(MimeType sendMimeType) {
 
-		this.sendFormat = sendFormat;
+		this.sendMimeType = sendMimeType;
 	}
 
-	public String getRecvFormat() {
+	public MimeType getRecvFormat() {
 
-		return this.recvFormat;
+		return this.recvMimeType;
 	}
 
-	public void setRecvFormat(String recvFormat) {
+	public void setRecvMimeType(MimeType recvMimeFormat) {
 
-		this.recvFormat = recvFormat;
+		this.recvMimeType = recvMimeFormat;
 	}
 
 	public String getUserAgent() {

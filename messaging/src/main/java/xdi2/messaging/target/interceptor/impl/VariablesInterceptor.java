@@ -1,25 +1,56 @@
 package xdi2.messaging.target.interceptor.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import xdi2.core.Statement;
-import xdi2.core.dictionary.util.XDIDictionaryConstants;
-import xdi2.core.exceptions.Xdi2MessagingException;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.impl.AbstractStatement;
 import xdi2.core.util.XRIUtil;
+import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.impl.graph.GraphExecutionContext;
+import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.ResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
-public class VariablesInterceptor implements TargetInterceptor, ResultInterceptor {
+public class VariablesInterceptor implements MessageEnvelopeInterceptor, TargetInterceptor, ResultInterceptor {
+
+	/*
+	 * MessageEnvelopeInterceptor
+	 */
+
+	@Override
+	public boolean before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		resetVariables(executionContext);
+
+		return false;
+	}
+
+	@Override
+	public boolean after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		return false;
+	}
+
+	@Override
+	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
+
+	}
+
+	/*
+	 * TargetInterceptor
+	 */
 
 	@Override
 	public Statement targetStatement(Operation operation, Statement targetStatement, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -44,7 +75,7 @@ public class VariablesInterceptor implements TargetInterceptor, ResultIntercepto
 
 		// add $is statements for all the substituted variables
 
-		for (Entry<XRI3SubSegment, XRI3SubSegment> entry : GraphExecutionContext.getVariablesPerMessageEnvelope(executionContext).entrySet()) {
+		for (Entry<XRI3SubSegment, XRI3SubSegment> entry : getVariables(executionContext).entrySet()) {
 
 			XRI3Segment subject = new XRI3Segment(entry.getKey().toString());
 			XRI3Segment predicate = XDIDictionaryConstants.XRI_S_IS;
@@ -92,14 +123,41 @@ public class VariablesInterceptor implements TargetInterceptor, ResultIntercepto
 
 	private static XRI3SubSegment substituteSubSegment(XRI3SubSegment subSegment, ExecutionContext executionContext) {
 
-		XRI3SubSegment newSubSegment = GraphExecutionContext.getVariablesPerMessageEnvelope(executionContext).get(subSegment);
+		XRI3SubSegment newSubSegment = getVariable(executionContext, subSegment);
 
 		if (newSubSegment == null) {
 
-			newSubSegment = XRIUtil.randomHEXSubSegment("$!");
-			GraphExecutionContext.getVariablesPerMessageEnvelope(executionContext).put(subSegment, newSubSegment);
+			newSubSegment = XRIUtil.randomSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG);
+			putVariable(executionContext, subSegment, newSubSegment);
 		}
 
 		return newSubSegment;
+	}
+
+	/*
+	 * ExecutionContext helper methods
+	 */
+
+	private static final String EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE = VariablesInterceptor.class.getCanonicalName() + "#variablespermessageenvelope";
+
+	@SuppressWarnings("unchecked")
+	private static Map<XRI3SubSegment, XRI3SubSegment> getVariables(ExecutionContext executionContext) {
+
+		return (Map<XRI3SubSegment, XRI3SubSegment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE);
+	}
+
+	private static XRI3SubSegment getVariable(ExecutionContext executionContext, XRI3SubSegment key) {
+
+		return getVariables(executionContext).get(key);
+	}
+
+	private static XRI3SubSegment putVariable(ExecutionContext executionContext, XRI3SubSegment key, XRI3SubSegment value) {
+
+		return getVariables(executionContext).put(key, value);
+	}
+
+	private static void resetVariables(ExecutionContext executionContext) {
+
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE, new HashMap<XRI3SubSegment, XRI3SubSegment> ());
 	}
 }

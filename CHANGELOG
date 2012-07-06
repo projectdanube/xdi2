@@ -1,6 +1,34 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-07-05:
+------------------------
+
+*** Better support for MIME Types, e.g.:
+
+application/xdi+json
+application/xdi+json;contexts=1
+text/xdi
+text/xdi;contexts=1
+
+*** Better error reporting:
+
+No more HTTP BAD REQUEST, instead, always XDI error results.
+
+Error results include the operation that caused the error.
+
+*** XDI Messenger and XDI Local Messenger show error results.
+
+*** Adjusted VariablesInterceptor
+
+*** Added timestamps support
+
+*** Began work on multiplicity support
+
+*** Unit tests for multiplicity, timestamps
+
+*** Skeleton for LinkContractsInterceptor
+
 2012-06-27:
 ------------------------
 
