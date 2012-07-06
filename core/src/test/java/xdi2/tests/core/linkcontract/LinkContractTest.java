@@ -81,14 +81,14 @@ public class LinkContractTest extends TestCase {
 		AndExpression andN = policy.getAndNode(true);
 
 		andN.addLiteralExpression("a");
-		andN.addLiteralExpression("b");
-		andN.addLiteralExpression("c");
-		andN.addLiteralExpression("d");
+		//andN.addLiteralExpression("b");
+		//andN.addLiteralExpression("c");
+		//andN.addLiteralExpression("d");
 
 		OrExpression andNOr1 = andN.getOrNode(true);
 		andNOr1.addLiteralExpression("d");
 		andNOr1.addLiteralExpression("e");
-		andNOr1.addLiteralExpression("g");
+		//andNOr1.addLiteralExpression("g");
 		//andN.removeLiteralExpression("a");
 		NotExpression notN = andN.getNotNode(true);
 		notN.addLiteralExpression("f");
