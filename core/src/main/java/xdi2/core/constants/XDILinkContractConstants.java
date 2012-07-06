@@ -1,5 +1,6 @@
 package xdi2.core.constants;
 
+import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -27,22 +28,15 @@ public final class XDILinkContractConstants {
 	public static final XRI3Segment XRI_S_DEL = new XRI3Segment("$del");
 	public static final XRI3Segment XRI_S_VARIABLE_REF = new XRI3Segment("($)");
 	
-	
-
 	public static final XRI3SubSegment XRI_SS_GET = new XRI3SubSegment("$get");
 	public static final XRI3SubSegment XRI_SS_ALL = new XRI3SubSegment("$all");
 	public static final XRI3SubSegment XRI_SS_ADD = new XRI3SubSegment("$add");
 	public static final XRI3SubSegment XRI_SS_MOD = new XRI3SubSegment("$mod");
 	public static final XRI3SubSegment XRI_SS_DEL = new XRI3SubSegment("$del");
 	
-	public static final XRI3Segment XRI_S_AND = new XRI3Segment("$*($and)");
-	public static final XRI3SubSegment XRI_SS_AND = new XRI3SubSegment("$*($and)");
-
-	public static final XRI3Segment XRI_S_OR = new XRI3Segment("$*($or)");
-	public static final XRI3SubSegment XRI_SS_OR = new XRI3SubSegment("$*($or)");
-
-	public static final XRI3Segment XRI_S_NOT = new XRI3Segment("$!($not)");
-	public static final XRI3SubSegment XRI_SS_NOT = new XRI3SubSegment("$!($not)");
+	public static final XRI3SubSegment XRI_SS_AND = Multiplicity.attributeCollectionArcXri("$and");
+	public static final XRI3SubSegment XRI_SS_OR = Multiplicity.attributeCollectionArcXri("$or");
+	public static final XRI3SubSegment XRI_SS_NOT = Multiplicity.attributeSingletonArcXri("$not");
 	public static final XRI3SubSegment XRI_SS_VARIABLE_REF = new XRI3SubSegment("($)");
 	
 
