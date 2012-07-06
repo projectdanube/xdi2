@@ -1,6 +1,5 @@
 package xdi2.core.util;
 
-import java.util.Random;
 import java.util.UUID;
 
 import xdi2.core.xri3.impl.XRI3;
@@ -14,50 +13,16 @@ import xdi2.core.xri3.impl.XRI3SubSegment;
  */
 public final class XRIUtil {
 
-	private static final Random random;
-
-	static {
-
-		random = new Random();
-	}
-
 	private XRIUtil() { }
 
-	public static XRI3SubSegment randomUUIDSubSegment(String prefix) {
+	public static XRI3SubSegment randomSubSegment(String prefix) {
 
-		return new XRI3SubSegment(prefix + UUID.randomUUID().toString().replace("-", "."));
+		return new XRI3SubSegment(prefix + UUID.randomUUID().toString());
 	}
 
-	public static XRI3SubSegment randomHEXSubSegment(String subSegmentPrefix) {
+	public static XRI3SubSegment randomXRefSubSegment(String outerPrefix, String innerPrefix) {
 
-		final String hex = "0123456789abcdef";
-		StringBuilder subSegment = new StringBuilder();
-		subSegment.append(subSegmentPrefix);
-		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
-		subSegment.append('.');
-		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
-		subSegment.append('.');
-		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
-		subSegment.append('.');
-		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
-
-		return new XRI3SubSegment(subSegment.toString());
-	}
-
-	public static XRI3SubSegment randomHEXXRefSubSegment(String xrefPrefix, String subSegmentPrefix) {
-
-		final String hex = "0123456789abcdef";
-		StringBuilder subSegment = new StringBuilder();
-		subSegment.append(subSegmentPrefix);
-		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
-		subSegment.append('.');
-		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
-		subSegment.append('.');
-		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
-		subSegment.append('.');
-		for (int i=0; i<4; i++) subSegment.append(hex.charAt(random.nextInt(hex.length())));
-
-		return new XRI3SubSegment(xrefPrefix + "(" + subSegment.toString() + ")");
+		return new XRI3SubSegment(outerPrefix + "(" + innerPrefix + UUID.randomUUID().toString() + ")");
 	}
 
 	public static XRI3 extractParentXri(XRI3 xri) {

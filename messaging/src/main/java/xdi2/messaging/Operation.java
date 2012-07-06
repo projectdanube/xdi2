@@ -85,12 +85,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the XDI message container to which this XDI operation belongs.
-	 * @return An XDI message container.
+	 * Returns the XDI message collection to which this XDI operation belongs.
+	 * @return An XDI message collection.
 	 */
-	public MessageContainer getMessageContainer() {
+	public MessageCollection getMessageCollection() {
 
-		return this.getMessage().getMessageContainer();
+		return this.getMessage().getMessageCollection();
 	}
 
 	/**
@@ -99,7 +99,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public MessageEnvelope getMessageEnvelope() {
 
-		return this.getMessageContainer().getMessageEnvelope();
+		return this.getMessageCollection().getMessageEnvelope();
 	}
 
 	/**
@@ -130,12 +130,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the sender of the message's message container.
-	 * @return The sender of the message's message container.
+	 * Returns the sender of the message's message collection.
+	 * @return The sender of the message's message collection.
 	 */
 	public XRI3Segment getSender() {
 
-		return this.getMessage().getMessageContainer().getSender();
+		return this.getMessage().getMessageCollection().getSender();
 	}
 
 	/**

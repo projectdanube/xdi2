@@ -11,6 +11,7 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.impl.AbstractStatement;
 import xdi2.core.util.XRIUtil;
+import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.MessageEnvelope;
@@ -126,7 +127,7 @@ public class VariablesInterceptor implements MessageEnvelopeInterceptor, TargetI
 
 		if (newSubSegment == null) {
 
-			newSubSegment = XRIUtil.randomHEXSubSegment("$!");
+			newSubSegment = XRIUtil.randomSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG);
 			putVariable(executionContext, subSegment, newSubSegment);
 		}
 

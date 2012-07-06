@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.SelectingMappingIterator;
@@ -12,18 +12,18 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
- * An XDI message container, represented as a context node.
+ * An XDI message collection, represented as a context node.
  * 
  * @author markus
  */
-public final class MessageContainer implements Serializable, Comparable<MessageContainer> {
+public final class MessageCollection implements Serializable, Comparable<MessageCollection> {
 
 	private static final long serialVersionUID = -7493408194946194153L;
 
 	private MessageEnvelope messageEnvelope;
 	private ContextNode contextNode;
 
-	protected MessageContainer(MessageEnvelope messageEnvelope, ContextNode contextNode) {
+	protected MessageCollection(MessageEnvelope messageEnvelope, ContextNode contextNode) {
 
 		if (messageEnvelope == null || contextNode == null) throw new NullPointerException();
 
@@ -36,26 +36,26 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI message container.
+	 * Checks if a context node is a valid XDI message collection.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI message container.
+	 * @return True if the context node is a valid XDI message collection.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return XDIMessagingConstants.XRI_SS_MSG.equals(contextNode.getArcXri());
+		return Multiplicity.entityCollectionArcXri(XDIMessagingConstants.XRI_SS_MSG.toString()).equals(contextNode.getArcXri());
 	}
 
 	/**
-	 * Factory method that creates an XDI message container bound to a given context node.
-	 * @param messageEnvelope The XDI message envelope to which this XDI message container belongs.
-	 * @param contextNode The context node that is an XDI message container.
-	 * @return The XDI message container.
+	 * Factory method that creates an XDI message collection bound to a given context node.
+	 * @param messageEnvelope The XDI message envelope to which this XDI message collection belongs.
+	 * @param contextNode The context node that is an XDI message collection.
+	 * @return The XDI message collection.
 	 */
-	public static MessageContainer fromMessageEnvelopeAndContextNode(MessageEnvelope messageEnvelope, ContextNode contextNode) {
+	public static MessageCollection fromMessageEnvelopeAndContextNode(MessageEnvelope messageEnvelope, ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new MessageContainer(messageEnvelope, contextNode);
+		return new MessageCollection(messageEnvelope, contextNode);
 	}
 
 	/*
@@ -63,7 +63,7 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	 */
 
 	/**
-	 * Returns the XDI message envelope to which this XDI message container belongs.
+	 * Returns the XDI message envelope to which this XDI message collection belongs.
 	 * @return An XDI message envelope.
 	 */
 	public MessageEnvelope getMessageEnvelope() {
@@ -72,8 +72,8 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	}
 
 	/**
-	 * Returns the underlying context node to which this XDI message container is bound.
-	 * @return A context node that represents the XDI message container.
+	 * Returns the underlying context node to which this XDI message collection is bound.
+	 * @return A context node that represents the XDI message collection.
 	 */
 	public ContextNode getContextNode() {
 
@@ -81,8 +81,8 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	}
 
 	/**
-	 * Returns the sender of the message container.
-	 * @return The sender of the message container.
+	 * Returns the sender of the message collection.
+	 * @return The sender of the message collection.
 	 */
 	public XRI3Segment getSender() {
 
@@ -90,7 +90,7 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	}
 
 	/**
-	 * Returns an existing XDI message in this XDI message container, or creates a new one.
+	 * Returns an existing XDI message in this XDI message collection, or creates a new one.
 	 * @param create Whether to create an XDI message if it does not exist.
 	 * @return The existing or newly created XDI message.
 	 */
@@ -101,7 +101,7 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 
 		if (create) {
 
-			ContextNode contextNode = this.getContextNode().createContextNode(XRIUtil.randomHEXXRefSubSegment("$", "!"));
+			ContextNode contextNode = Multiplicity.createEntityMember(this.getContextNode());
 			contextNode.createContextNode(XDIMessagingConstants.XRI_SS_DO);
 	
 			return new Message(this, contextNode);
@@ -112,8 +112,8 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	}
 
 	/**
-	 * Returns all messages in this message container.
-	 * @return All messages contained in the container.
+	 * Returns all messages in this message collection.
+	 * @return All messages contained in the collection.
 	 */
 	public Iterator<Message> getMessages() {
 
@@ -132,14 +132,14 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 			@Override
 			public Message map(ContextNode contextNode) {
 
-				return Message.fromMessageContainerAndContextNode(MessageContainer.this, contextNode);
+				return Message.fromMessageCollectionAndContextNode(MessageCollection.this, contextNode);
 			}
 		};
 	}
 
 	/**
-	 * Returns all operations in this message container.
-	 * @return All operations contained in the container.
+	 * Returns all operations in this message collection.
+	 * @return All operations contained in the collection.
 	 */
 	public Iterator<Operation> getOperations() {
 
@@ -154,7 +154,7 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	}
 
 	/**
-	 * Returns the number of messages in the message container.
+	 * Returns the number of messages in the message collection.
 	 */
 	public int getMessageCount() {
 
@@ -182,10 +182,10 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 	@Override
 	public boolean equals(Object object) {
 
-		if (object == null || ! (object instanceof MessageContainer)) return false;
+		if (object == null || ! (object instanceof MessageCollection)) return false;
 		if (object == this) return true;
 
-		MessageContainer other = (MessageContainer) object;
+		MessageCollection other = (MessageCollection) object;
 
 		return this.getContextNode().equals(other.getContextNode());
 	}
@@ -200,7 +200,7 @@ public final class MessageContainer implements Serializable, Comparable<MessageC
 		return hashCode;
 	}
 
-	public int compareTo(MessageContainer other) {
+	public int compareTo(MessageCollection other) {
 
 		if (other == this || other == null) return(0);
 

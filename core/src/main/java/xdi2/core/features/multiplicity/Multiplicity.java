@@ -1,7 +1,10 @@
 package xdi2.core.features.multiplicity;
 
+import java.util.Iterator;
+
 import xdi2.core.ContextNode;
 import xdi2.core.util.XRIUtil;
+import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -33,9 +36,14 @@ public class Multiplicity {
 		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
 
-	public static XRI3SubSegment elementArcXri() {
+	public static XRI3SubSegment attributeMemberArcXri() {
 
-		return XRIUtil.randomHEXSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG);
+		return XRIUtil.randomSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG);
+	}
+
+	public static XRI3SubSegment entityMemberArcXri() {
+
+		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR, "" + XRI3Constants.LCS_BANG);
 	}
 
 	public static boolean isAttributeSingletonArcXri(XRI3SubSegment arcXri) {
@@ -72,11 +80,26 @@ public class Multiplicity {
 		return true;
 	}
 
-	public static boolean isElementArcXri(XRI3SubSegment arcXri) {
+	public static boolean isAttributeMemberArcXri(XRI3SubSegment arcXri) {
 
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (arcXri.hasXRef()) return false;
+
+		return true;
+	}
+
+	public static boolean isEntityMemberArcXri(XRI3SubSegment arcXri) {
+
+		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
+		if (arcXri.hasLCS()) return false;
+		if (! arcXri.hasXRef()) return false;
+		if (! arcXri.getXRef().hasXRIReference()) return false;
+		if (! arcXri.getXRef().getXRIReference().hasPath()) return false;
+		if (arcXri.getXRef().getXRIReference().getPath().getNumSegments() <= 0) return false;
+		if (arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getNumSubSegments() <= 0) return false;
+		if (arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getFirstSubSegment().hasGCS()) return false;
+		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getFirstSubSegment().getLCS())) return false;
 
 		return true;
 	}
@@ -105,12 +128,39 @@ public class Multiplicity {
 		return isEntityCollectionArcXri(contextNode.getArcXri());
 	}
 
+	public static boolean isAttributeMember(ContextNode contextNode) {
+
+		return isAttributeMemberArcXri(contextNode.getArcXri());
+	}
+
+	public static boolean isEntityMember(ContextNode contextNode) {
+
+		return isEntityMemberArcXri(contextNode.getArcXri());
+	}
+
 	/*
 	 * Methods for elements of a collection.
 	 */
 
-	public static ContextNode createCollectionElement(ContextNode contextNode) {
+	public static ContextNode createAttributeMember(ContextNode contextNode) {
 
-		return contextNode.createContextNode(XRIUtil.randomHEXSubSegment("$!"));
+		return contextNode.createContextNode(attributeMemberArcXri());
+	}
+
+	public static ContextNode createEntityMember(ContextNode contextNode) {
+
+		return contextNode.createContextNode(entityMemberArcXri());
+	}
+
+	public static Iterator<ContextNode> getEntityMembers(ContextNode contextNode) {
+
+		return new SelectingIterator<ContextNode> (contextNode.getContextNodes()) {
+
+			@Override
+			public boolean select(ContextNode contextNode) {
+
+				return Multiplicity.isEntityMember(contextNode);
+			}
+		};
 	}
 }

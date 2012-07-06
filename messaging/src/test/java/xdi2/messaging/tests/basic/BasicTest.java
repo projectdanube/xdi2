@@ -12,7 +12,7 @@ import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
-import xdi2.messaging.MessageContainer;
+import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
@@ -36,46 +36,55 @@ public class BasicTest extends TestCase {
 		// create a message envelope
 		
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
+
+		assertTrue(MessageEnvelope.isValid(messageEnvelope.getGraph()));
 		
-		assertFalse(messageEnvelope.getMessageContainers().hasNext());
-		assertNull(messageEnvelope.getMessageContainer(SENDER, false));
-		assertEquals(messageEnvelope.getMessageContainerCount(), 0);
+		assertFalse(messageEnvelope.getMessageCollections().hasNext());
+		assertNull(messageEnvelope.getMessageCollection(SENDER, false));
+		assertEquals(messageEnvelope.getMessageCollectionCount(), 0);
+		assertFalse(messageEnvelope.getMessages().hasNext());
+		assertFalse(messageEnvelope.getMessages(SENDER).hasNext());
+		assertNull(messageEnvelope.getMessage(SENDER, false));
+		assertEquals(messageEnvelope.getMessageCount(), 0);
+		
+		// create a message collection
+		
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, true);
+
+		assertTrue(MessageCollection.isValid(messageCollection.getContextNode()));
+
+		assertTrue(messageEnvelope.getMessageCollections().hasNext());
+		assertNotNull(messageEnvelope.getMessageCollection(SENDER, false));
+		assertEquals(messageEnvelope.getMessageCollectionCount(), 1);
 		assertFalse(messageEnvelope.getMessages().hasNext());
 		assertFalse(messageEnvelope.getMessages(SENDER).hasNext());
 		assertNull(messageEnvelope.getMessage(SENDER, false));
 		assertEquals(messageEnvelope.getMessageCount(), 0);
 
-		// create a message container
-		
-		MessageContainer messageContainer = messageEnvelope.getMessageContainer(SENDER, true);
-
-		assertTrue(messageEnvelope.getMessageContainers().hasNext());
-		assertNotNull(messageEnvelope.getMessageContainer(SENDER, false));
-		assertEquals(messageEnvelope.getMessageContainerCount(), 1);
-		assertFalse(messageEnvelope.getMessages().hasNext());
-		assertFalse(messageEnvelope.getMessages(SENDER).hasNext());
-		assertNull(messageEnvelope.getMessage(SENDER, false));
-		assertEquals(messageEnvelope.getMessageCount(), 0);
-
-		assertFalse(messageContainer.getMessages().hasNext());
-		assertNull(messageContainer.getMessage(false));
-		assertEquals(messageContainer.getMessageCount(), 0);
+		assertFalse(messageCollection.getMessages().hasNext());
+		assertNull(messageCollection.getMessage(false));
+		assertEquals(messageCollection.getMessageCount(), 0);
 		
 		// create a message
 		
-		Message message = messageContainer.getMessage(true);
+		Message message = messageCollection.getMessage(true);
 
-		assertTrue(messageEnvelope.getMessageContainers().hasNext());
-		assertNotNull(messageEnvelope.getMessageContainer(SENDER, false));
-		assertEquals(messageEnvelope.getMessageContainerCount(), 1);
+		assertTrue(Message.isValid(message.getContextNode()));
+
+		assertTrue(messageEnvelope.getMessageCollections().hasNext());
+		assertNotNull(messageEnvelope.getMessageCollection(SENDER, false));
+		assertEquals(messageEnvelope.getMessageCollectionCount(), 1);
 		assertTrue(messageEnvelope.getMessages().hasNext());
 		assertTrue(messageEnvelope.getMessages(SENDER).hasNext());
 		assertNotNull(messageEnvelope.getMessage(SENDER, false));
 		assertEquals(messageEnvelope.getMessageCount(), 1);
 
-		assertTrue(messageContainer.getMessages().hasNext());
-		assertNotNull(messageContainer.getMessage(false));
-		assertEquals(messageContainer.getMessageCount(), 1);
+		assertTrue(messageCollection.getMessages().hasNext());
+		assertNotNull(messageCollection.getMessage(false));
+		assertEquals(messageCollection.getMessageCount(), 1);
+
+		assertFalse(message.getOperations().hasNext());
+		assertEquals(message.getOperationCount(), 0);
 
 		// create some operations
 		
@@ -87,8 +96,8 @@ public class BasicTest extends TestCase {
 		Operation modOperation = message.createModOperation(contextNodes[3].getXri());
 		Operation delOperation = message.createDelOperation(contextNodes[2].getXri());
 
-		assertTrue(messageContainer.equals(messageEnvelope.getMessageContainer(SENDER, false)));
-		assertTrue(message.equals(messageContainer.getMessages().next()));
+		assertTrue(messageCollection.equals(messageEnvelope.getMessageCollection(SENDER, false)));
+		assertTrue(message.equals(messageCollection.getMessages().next()));
 		assertTrue(addOperation.equals(message.getAddOperations().next()));
 		assertTrue(getOperation.equals(message.getGetOperations().next()));
 		assertTrue(modOperation.equals(message.getModOperations().next()));
@@ -96,10 +105,10 @@ public class BasicTest extends TestCase {
 
 		assertEquals(messageEnvelope.getMessageCount(), 1);
 		assertEquals(messageEnvelope.getOperationCount(), 4);
-		assertEquals(messageContainer.getMessageCount(), 1);
-		assertEquals(messageContainer.getOperationCount(), 4);
+		assertEquals(messageCollection.getMessageCount(), 1);
+		assertEquals(messageCollection.getOperationCount(), 4);
 		assertEquals(message.getOperationCount(), 4);
-		assertEquals(messageContainer.getSender(), SENDER);
+		assertEquals(messageCollection.getSender(), SENDER);
 		assertEquals(message.getSender(), SENDER);
 		assertEquals(addOperation.getSender(), SENDER);
 		assertEquals(getOperation.getSender(), SENDER);
@@ -114,16 +123,16 @@ public class BasicTest extends TestCase {
 	public void testMessaging2() throws Exception {
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_ADD, TARGET);
-		MessageContainer messageContainer = messageEnvelope.getMessageContainer(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
-		Message message = messageContainer.getMessages().next();
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
+		Message message = messageCollection.getMessages().next();
 		Operation operation = message.getAddOperations().next();
 
 		assertEquals(messageEnvelope.getMessageCount(), 1);
 		assertEquals(messageEnvelope.getOperationCount(), 1);
-		assertEquals(messageContainer.getMessageCount(), 1);
-		assertEquals(messageContainer.getOperationCount(), 1);
+		assertEquals(messageCollection.getMessageCount(), 1);
+		assertEquals(messageCollection.getOperationCount(), 1);
 		assertEquals(message.getOperationCount(), 1);
-		assertEquals(messageContainer.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
+		assertEquals(messageCollection.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
 		assertEquals(message.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
 		assertEquals(operation.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
 		assertEquals(operation.getOperationXri(), XDIMessagingConstants.XRI_S_ADD);
@@ -138,15 +147,15 @@ public class BasicTest extends TestCase {
 		XDIReaderRegistry.forFormat("XDI/JSON").read(graph, new StringReader(string), null);
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph);
-		MessageContainer messageContainer = messageEnvelope.getMessageContainer(SENDER, false);
-		Message message = messageContainer.getMessage(false);
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, false);
+		Message message = messageCollection.getMessage(false);
 		Operation addOperation = message.getAddOperations().next();
 		Operation getOperation = message.getGetOperations().next();
 		Operation modOperation = message.getModOperations().next();
 		Operation delOperation = message.getDelOperations().next();
 
-		assertTrue(messageContainer.equals(messageEnvelope.getMessageContainer(SENDER, false)));
-		assertTrue(message.equals(messageContainer.getMessages().next()));
+		assertTrue(messageCollection.equals(messageEnvelope.getMessageCollection(SENDER, false)));
+		assertTrue(message.equals(messageCollection.getMessages().next()));
 		assertTrue(addOperation.equals(message.getAddOperations().next()));
 		assertTrue(getOperation.equals(message.getGetOperations().next()));
 		assertTrue(modOperation.equals(message.getModOperations().next()));
@@ -154,10 +163,10 @@ public class BasicTest extends TestCase {
 
 		assertEquals(messageEnvelope.getMessageCount(), 1);
 		assertEquals(messageEnvelope.getOperationCount(), 4);
-		assertEquals(messageContainer.getMessageCount(), 1);
-		assertEquals(messageContainer.getOperationCount(), 4);
+		assertEquals(messageCollection.getMessageCount(), 1);
+		assertEquals(messageCollection.getOperationCount(), 4);
 		assertEquals(message.getOperationCount(), 4);
-		assertEquals(messageContainer.getSender(), SENDER);
+		assertEquals(messageCollection.getSender(), SENDER);
 		assertEquals(message.getSender(), SENDER);
 		assertEquals(addOperation.getSender(), SENDER);
 		assertEquals(getOperation.getSender(), SENDER);
