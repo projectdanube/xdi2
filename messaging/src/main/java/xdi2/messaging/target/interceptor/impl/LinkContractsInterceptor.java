@@ -69,7 +69,7 @@ public class LinkContractsInterceptor implements MessageInterceptor, TargetInter
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, operation);
 
-		// check if the current operation and target statement are allowed under this link contract
+		// check if the current operation and target address are allowed under this link contract
 
 		// ...
 
