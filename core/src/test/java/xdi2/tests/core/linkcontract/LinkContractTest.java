@@ -92,11 +92,13 @@ public class LinkContractTest extends TestCase {
 		//andN.removeLiteralExpression("a");
 		NotExpression notN = andN.getNotNode(true);
 		notN.addLiteralExpression("f");
+		notN.addLiteralExpression("g");
+		notN.setLiteralExpression("h");
 
 		//policy.setLiteralExpression("a+b+c");
 		//System.out.println("Literal Expression="+policy.getLiteralExpression());
-		System.out.println("Display the graph");
-		//System.out.println(graph);
+		System.out.println("Display the graph-1");
+		System.out.println(graph.toString("STATEMENTS_WITH_CONTEXT_STATEMENTS"));
 		
 		System.out.println("Logic Expr:" + andN.getLogicExpression());
 		
@@ -110,8 +112,10 @@ public class LinkContractTest extends TestCase {
 		XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");		
 		//XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
 		reader.read(graph2, new FileReader(new File("C:\\identity\\lctest.out")), null).close();
-		//System.out.println("Display the graph");
+		System.out.println("Display the graph-2");
 		System.out.println(graph2.toString("STATEMENTS_WITH_CONTEXT_STATEMENTS"));
+		
+		//Graph graph3 = MemoryGraphFactory.getInstance().openGraph();
 		  
 		 
 

@@ -197,7 +197,8 @@ public final class LinkContract implements Serializable,
 		Iterator<Relation> allRelations = contextNode.getRelations();
 		for (; allRelations.hasNext();) {
 			Relation r = allRelations.next();
-			if (r.getRelationXri()
+			
+			if (r.getArcXri()
 					.toString()
 					.equalsIgnoreCase(
 							XDILinkContractConstants.XRI_S_IS_DO.toString())) {

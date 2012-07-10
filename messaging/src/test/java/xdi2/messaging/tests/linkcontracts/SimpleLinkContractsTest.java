@@ -28,7 +28,7 @@ public class SimpleLinkContractsTest extends TestCase {
 		
 	}
 	
-	public void xxxtestLinkContracts() throws Exception {
+	public void testLinkContracts() throws Exception {
 
 		int i=1, ii;
 
@@ -56,7 +56,9 @@ public class SimpleLinkContractsTest extends TestCase {
 
 				LinkContractsInterceptor linkContractsInterceptor = new LinkContractsInterceptor();
 				linkContractsInterceptor.setLinkContractsGraph(graph);
+				System.out.println("------------Graph---------------");
 
+				System.out.println(graph.toString("STATEMENTS_WITH_CONTEXT_STATEMENTS"));
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 				graphMessagingTarget.setGraph(graph);
 				graphMessagingTarget.getInterceptors().add(linkContractsInterceptor);
@@ -67,6 +69,9 @@ public class SimpleLinkContractsTest extends TestCase {
 				try {
 
 					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+					System.out.println("------------Graph---------------");
+
+					System.out.println(graph.toString("STATEMENTS_WITH_CONTEXT_STATEMENTS"));
 				} catch (Xdi2NotAuthorizedException ex) {
 
 					fail(ex.getMessage());
