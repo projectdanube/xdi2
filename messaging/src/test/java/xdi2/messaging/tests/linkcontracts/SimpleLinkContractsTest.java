@@ -1,10 +1,6 @@
 package xdi2.messaging.tests.linkcontracts;
 
 import junit.framework.TestCase;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.linkcontracts.LinkContract;
@@ -15,7 +11,6 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.messaging.tests.messagingtarget.AbstractGraphMessagingTargetTest;
 
 public class SimpleLinkContractsTest extends TestCase {
 
