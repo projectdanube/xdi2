@@ -73,8 +73,7 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 		if (! xri.equals(inumber)) {
 
-			ContextNode xriRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, xri, true);
-			xriRemoteRootContextNode.createRelation(new XRI3Segment("$is"), inumberRemoteRootContextNode);
+			RemoteRoots.findRemoteRootContextNode(graph, xri, true);
 		}
 
 		// add I-Number and original XRI

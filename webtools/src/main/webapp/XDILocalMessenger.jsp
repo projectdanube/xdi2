@@ -39,7 +39,7 @@
 
 		<% String variablesSupport = (String) request.getAttribute("variablesSupport"); if (variablesSupport == null) variablesSupport = ""; %>
 		<% String versioningSupport = (String) request.getAttribute("versioningSupport"); if (versioningSupport == null) versioningSupport = ""; %>
-		<% String linkContractSupport = (String) request.getAttribute("linkContractSupport"); if (linkContractSupport == null) linkContractSupport = ""; %>
+		<% String linkContractsSupport = (String) request.getAttribute("linkContractsSupport"); if (linkContractsSupport == null) linkContractsSupport = ""; %>
 		<% String to = (String) request.getAttribute("to"); if (to == null) to = ""; %>
 
 		Result Format:
@@ -54,8 +54,8 @@
 		<input name="variablesSupport" type="checkbox" <%= variablesSupport.equals("on") ? "checked" : "" %>>Variables
 <!-- 
 		<input name="versioningSupport" type="checkbox" <%= versioningSupport.equals("on") ? "checked" : "" %>>Versioning
-		<input name="linkContractSupport" type="checkbox" <%= linkContractSupport.equals("on") ? "checked" : "" %>>Link Contracts&nbsp;
 -->
+		<input name="linkContractsSupport" type="checkbox" <%= linkContractsSupport.equals("on") ? "checked" : "" %>>Link Contracts&nbsp;
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDILocalMessengerHelp.jsp">What can I do here?</a>
 

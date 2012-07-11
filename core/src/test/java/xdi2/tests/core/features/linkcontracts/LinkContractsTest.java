@@ -1,8 +1,7 @@
-package xdi2.tests.core.linkcontract;
+package xdi2.tests.core.features.linkcontracts;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
@@ -28,9 +27,9 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
 
-public class LinkContractTest extends TestCase {
+public class LinkContractsTest extends TestCase {
 	
-	private static final Logger log = LoggerFactory.getLogger(LinkContractTest.class);
+	private static final Logger log = LoggerFactory.getLogger(LinkContractsTest.class);
 	private MemoryGraphFactory graphFactory = new MemoryGraphFactory();
 	
 	public void testCreateLinkContract() throws Exception{
@@ -81,14 +80,14 @@ public class LinkContractTest extends TestCase {
 		AndExpression andN = policy.getAndNode(true);
 
 		andN.addLiteralExpression("a");
-		andN.addLiteralExpression("b");
-		andN.addLiteralExpression("c");
-		andN.addLiteralExpression("d");
+		//andN.addLiteralExpression("b");
+		//andN.addLiteralExpression("c");
+		//andN.addLiteralExpression("d");
 
 		OrExpression andNOr1 = andN.getOrNode(true);
 		andNOr1.addLiteralExpression("d");
 		andNOr1.addLiteralExpression("e");
-		andNOr1.addLiteralExpression("g");
+		//andNOr1.addLiteralExpression("g");
 		//andN.removeLiteralExpression("a");
 		NotExpression notN = andN.getNotNode(true);
 		notN.addLiteralExpression("f");
@@ -100,22 +99,24 @@ public class LinkContractTest extends TestCase {
 		System.out.println("Logic Expr:" + andN.getLogicExpression());
 		
 
+		StringWriter buffer = new StringWriter();
+		
 		//XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS");
 		XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS_WITH_CONTEXT_STATEMENTS");
 		//XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON_WITH_CONTEXT_STATEMENTS");
 		//XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
-		writer.write(graph, new FileWriter(new File("C:\\identity\\lctest.out")), null).close();
+		writer.write(graph, buffer, null).close();
 		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
 		XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");		
 		//XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
-		reader.read(graph2, new FileReader(new File("C:\\identity\\lctest.out")), null).close();
+		reader.read(graph2, new StringReader(buffer.getBuffer().toString()), null).close();
 		//System.out.println("Display the graph");
 		//System.out.println(graph2);
 
 	}
 	
 	public static void main(String args[]){
-		LinkContractTest lcTest = new LinkContractTest();
+		LinkContractsTest lcTest = new LinkContractsTest();
 		try {
 			lcTest.testCreateLinkContract();
 		} catch (Exception e) {

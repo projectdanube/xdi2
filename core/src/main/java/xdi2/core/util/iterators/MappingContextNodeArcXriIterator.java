@@ -10,9 +10,9 @@ import xdi2.core.xri3.impl.XRI3SubSegment;
  * 
  * @author markus
  */
-public class MappingContextNodeArcXrisIterator extends MappingIterator<ContextNode, XRI3SubSegment> {
+public class MappingContextNodeArcXriIterator extends MappingIterator<ContextNode, XRI3SubSegment> {
 
-	public MappingContextNodeArcXrisIterator(Iterator<ContextNode> contextNodes) {
+	public MappingContextNodeArcXriIterator(Iterator<ContextNode> contextNodes) {
 
 		super(contextNodes);
 	}
