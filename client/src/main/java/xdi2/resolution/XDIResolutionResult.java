@@ -9,7 +9,7 @@ import xdi2.core.xri3.impl.XRI3;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageResult;
 
-public class XdiResolutionResult implements Serializable {
+public class XDIResolutionResult implements Serializable {
 
 	private static final long serialVersionUID = -1141807747864855392L;
 
@@ -18,7 +18,7 @@ public class XdiResolutionResult implements Serializable {
 	private String inumber;
 	private String uri;
 
-	private XdiResolutionResult(String xri, MessageResult messageResult, String inumber, String uri) {
+	private XDIResolutionResult(String xri, MessageResult messageResult, String inumber, String uri) {
 
 		this.xri = xri;
 		this.messageResult = messageResult;
@@ -30,7 +30,7 @@ public class XdiResolutionResult implements Serializable {
 	 * Parses a XdiResolutionResult from an XDI^2 message result.
 	 * @return The XdiResolutionResult.
 	 */
-	public static XdiResolutionResult fromXriAndMessageResult(String xri, MessageResult messageResult) {
+	public static XDIResolutionResult fromXriAndMessageResult(String xri, MessageResult messageResult) {
 
 		Graph graph = messageResult.getGraph();
 
@@ -75,7 +75,7 @@ public class XdiResolutionResult implements Serializable {
 
 		// done
 
-		return new XdiResolutionResult(xri, messageResult, inumber, uri);
+		return new XDIResolutionResult(xri, messageResult, inumber, uri);
 	}
 
 	public String getXri() {

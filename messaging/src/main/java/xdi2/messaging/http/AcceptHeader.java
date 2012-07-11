@@ -26,18 +26,11 @@ public class AcceptHeader implements Serializable, Comparable<AcceptHeader> {
 
 	}
 
-	public AcceptHeader(String header) {
-
-		String[] strings = header.split(",");
-
-		for (String string : strings) if (! string.trim().isEmpty()) this.mimeTypes.add(new MimeType(string));
-	}
-
 	/**
-	 * Creates an Accept: header with all the mime types we understand.
+	 * Creates an Accept: header with all the XDI mime types we understand,
 	 * and optionally with a "preferred" one.
 	 * @param preferredMimeType The preferred mime type.
-	 * @return The Accept: header
+	 * @return The Accept: header.
 	 */
 	public static AcceptHeader create(MimeType preferredMimeType) {
 
@@ -54,6 +47,22 @@ public class AcceptHeader implements Serializable, Comparable<AcceptHeader> {
 
 			acceptHeader.addMimeType(new MimeType(preferredMimeType + ";q=1"));
 		}
+
+		return acceptHeader;
+	}
+
+	/**
+	 * Creates an Accept: header from a header string.
+	 * @param header The header string.
+	 * @return The Accept: header.
+	 */
+	public static AcceptHeader parse(String header) {
+
+		String[] strings = header.split(",");
+
+		AcceptHeader acceptHeader = new AcceptHeader();
+
+		for (String string : strings) if (! string.trim().isEmpty()) acceptHeader.mimeTypes.add(new MimeType(string));
 
 		return acceptHeader;
 	}
@@ -147,8 +156,11 @@ public class AcceptHeader implements Serializable, Comparable<AcceptHeader> {
 		@Override
 		public int compare(MimeType mimeType1, MimeType mimeType2) {
 
-			float q1 = Float.parseFloat(mimeType1.getParameterValue("q"));
-			float q2 = Float.parseFloat(mimeType2.getParameterValue("q"));
+			String q1str = mimeType1.getParameterValue("q");
+			String q2str = mimeType2.getParameterValue("q");
+
+			float q1 = q1str == null ? 1.0f : Float.parseFloat(q1str);
+			float q2 = q2str == null ? 1.0f : Float.parseFloat(q2str);
 
 			if (q1 > q2) return -1;
 			if (q1 < q2) return 1;

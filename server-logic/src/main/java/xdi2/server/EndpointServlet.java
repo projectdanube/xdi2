@@ -512,7 +512,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		XDIWriter writer = null;
 
 		String acceptHeader = request.getHeader("Accept");
-		MimeType sendMimeType = acceptHeader != null ? new AcceptHeader(acceptHeader).bestMimeType() : null;
+		MimeType sendMimeType = acceptHeader != null ? AcceptHeader.parse(acceptHeader).bestMimeType() : null;
 		writer = sendMimeType != null ? XDIWriterRegistry.forMimeType(sendMimeType) : null;
 
 		if (writer == null) writer = XDIWriterRegistry.getDefault();

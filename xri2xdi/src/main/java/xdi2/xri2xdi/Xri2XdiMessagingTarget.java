@@ -71,11 +71,6 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 		ContextNode inumberRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, inumber, true);
 		inumberRemoteRootContextNode.createContextNode(new XRI3SubSegment("$!($uri)")).createLiteral(uri);
 
-		if (! xri.equals(inumber)) {
-
-			RemoteRoots.findRemoteRootContextNode(graph, xri, true);
-		}
-
 		// add I-Number and original XRI
 
 		ContextNode inumberContextNode = graph.findContextNode(inumber, true);

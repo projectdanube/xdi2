@@ -1,7 +1,5 @@
 package xdi2.resolution;
 
-import java.net.URL;
-
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -10,25 +8,23 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
-public class XdiResolver {
+public class XDIResolver {
 
-	public static final String DEFAULT_XDI_PROXY = "http://xri2xdi.net/";
+	public static final XDIHttpClient DEFAULT_XDI_CLIENT = new XDIHttpClient("http://xri2xdi.net/");
 
 	private XDIHttpClient xdiClient;
-	private String xdiProxy;
 
-	public XdiResolver(String xdiProxy, XDIHttpClient xdiClient) {
+	public XDIResolver(XDIHttpClient xdiClient) {
 
-		this.xdiProxy = xdiProxy;
 		this.xdiClient = xdiClient;
 	}
 
-	public XdiResolver() {
+	public XDIResolver() {
 
-		this(DEFAULT_XDI_PROXY, new XDIHttpClient());
+		this(DEFAULT_XDI_CLIENT);
 	}
 
-	public XdiResolutionResult resolve(String xri) throws Xdi2ClientException {
+	public XDIResolutionResult resolve(String xri) throws Xdi2ClientException {
 
 		// prepare message envelope
 
@@ -38,13 +34,12 @@ public class XdiResolver {
 
 		// send the message
 
-		XdiResolutionResult resolutionResult;
+		XDIResolutionResult resolutionResult;
 
 		try {
 
-			this.xdiClient.setUrl(new URL(this.xdiProxy));
 			MessageResult messageResult = this.xdiClient.send(messageEnvelope, null);
-			resolutionResult = XdiResolutionResult.fromXriAndMessageResult(xri, messageResult);
+			resolutionResult = XDIResolutionResult.fromXriAndMessageResult(xri, messageResult);
 		} catch (Xdi2ClientException ex) {
 
 			throw ex;
@@ -66,15 +61,5 @@ public class XdiResolver {
 	public void setXdiClient(XDIHttpClient xdiClient) {
 
 		this.xdiClient = xdiClient;
-	}
-
-	public String getXdiProxy() {
-
-		return this.xdiProxy;
-	}
-
-	public void setXdiProxy(String xdiProxy) {
-
-		this.xdiProxy = xdiProxy;
 	}
 }

@@ -1,13 +1,14 @@
 package xdi2.messaging.tests.http;
 
 import junit.framework.TestCase;
+import xdi2.core.io.MimeType;
 import xdi2.core.io.readers.XDIJSONReader;
 import xdi2.core.io.readers.XDIStatementsReader;
 import xdi2.messaging.http.AcceptHeader;
 
 public class AcceptHeaderTest extends TestCase {
 
-	public void testAcceptHeader() throws Exception {
+	public void testCreateAcceptHeader() throws Exception {
 
 		AcceptHeader acceptHeader;
 
@@ -21,5 +22,19 @@ public class AcceptHeaderTest extends TestCase {
 
 		acceptHeader = AcceptHeader.create(null);
 		assertEquals(acceptHeader.toString(), "application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,application/xdi+json;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5,text/xdi;q=0.5");
+	}
+
+	public void testParseAcceptHeader() throws Exception {
+
+		AcceptHeader acceptHeader;
+
+		acceptHeader = AcceptHeader.parse("application/xdi+json;q=1,application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5,text/xdi;q=0.5");
+		assertEquals(acceptHeader.bestMimeType(), XDIJSONReader.MIME_TYPES[0]);
+
+		acceptHeader = AcceptHeader.parse("text/xdi;q=1,application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,application/xdi+json;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5");
+		assertEquals(acceptHeader.bestMimeType(), XDIStatementsReader.MIME_TYPES[0]);
+
+		acceptHeader = AcceptHeader.parse("application/xml;q=0.9,text/html,*/*;q=0.8");
+		assertEquals(acceptHeader.bestMimeType(), new MimeType("text/html"));
 	}
 }
