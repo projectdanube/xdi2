@@ -1,0 +1,5 @@
+$secret$!($token)/!/(data:,mysecret)
+=animesh+name/!/(data:,AnimeshC)
+=animesh$do$if$*($and)$!1/!/(data:,hasValidSecret%28msg%29)
+=animesh$do/$is$do/=markus
+=animesh$do/$get/=animesh
