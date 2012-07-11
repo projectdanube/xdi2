@@ -1,8 +1,8 @@
 =markus+name/!/(data:,MarkusSabadello)
 =markus+email/!/(data:,markus.sabadello@gmail.com)
 =markus/+friend/=drummond
-
-=markus$do/$is$do/=sender
+=markus$do/$is$do/=drummond
+=markus$do/$is$do/=markus
 =markus$do/$get/=markus
-=markus$do/$add/=markus
 =markus$do/$mod/=markus+email
+=markus$do/$add/=markus

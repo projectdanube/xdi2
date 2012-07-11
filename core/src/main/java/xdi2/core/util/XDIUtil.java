@@ -86,6 +86,7 @@ public class XDIUtil {
 		
 		return 
 				new URI("data", string, null).toString()
+				.replace("/", "%2F")
 				.replace("(", "%28")
 				.replace(")", "%29");
 	}

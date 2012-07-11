@@ -6,7 +6,7 @@ import xdi2.core.Relation;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
- * A MappingIterator that maps XDI relations to their relation XRIs.
+ * A MappingIterator that maps XDI relations to their arc XRIs.
  * 
  * @author markus
  */
@@ -20,6 +20,6 @@ public class MappingRelationArcXriIterator extends MappingIterator<Relation, XRI
 	@Override
 	public XRI3Segment map(Relation relation) {
 
-		return relation.getRelationXri();
+		return relation.getArcXri();
 	}
 }
