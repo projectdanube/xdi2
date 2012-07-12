@@ -17,6 +17,7 @@ A sample deployment of XDI² is available at http://xdi2.projectdanube.org.
 * [xdi2-webtools](https://github.com/peacekeeper/xdi2/wiki/xdi2-webtools)
 * [xdi2-xri2xdi](https://github.com/peacekeeper/xdi2/wiki/xdi2-xri2xdi)
 * [xdi2-p2p](https://github.com/peacekeeper/xdi2/wiki/xdi2-p2p)
+* [xdi2-samples](https://github.com/peacekeeper/xdi2/wiki/xdi2-samples)
 
 ### How to build
 
@@ -49,7 +50,3 @@ Changelog: https://github.com/peacekeeper/xdi2/blob/master/CHANGELOG
 ### Tests
 
 See [Testing](https://github.com/peacekeeper/xdi2/wiki/Testing) for a description of unit tests, etc.
-
-### Special Topics
-
-* [Multiplicity](https://github.com/peacekeeper/xdi2/wiki/Multiplicity) - Sample code on how to work with multiplicity syntax using the xdi2-core component.
