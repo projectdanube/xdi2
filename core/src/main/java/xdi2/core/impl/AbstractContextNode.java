@@ -48,7 +48,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	public boolean isRootContextNode() {
 
-		return this.getGraph().getRootContextNode().equals(this);
+		return this.getContextNode() == null;
 	}
 
 	public boolean isLeafContextNode() {

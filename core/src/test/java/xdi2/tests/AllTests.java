@@ -2,7 +2,10 @@ package xdi2.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import xdi2.tests.core.features.linkcontracts.LinkContractsTest;
+import xdi2.tests.core.features.multiplicity.MultiplicityTest;
 import xdi2.tests.core.features.remoteroots.RemoteRootsTest;
+import xdi2.tests.core.features.timestamps.TimestampsTest;
 import xdi2.tests.core.features.variables.VariablesTest;
 import xdi2.tests.core.graph.BDBGraphTest;
 import xdi2.tests.core.graph.MapGraphTest;
@@ -26,9 +29,12 @@ public class AllTests {
 		suite.addTestSuite(MapKeyValueTest.class);
 		suite.addTestSuite(PropertiesKeyValueTest.class);
 		suite.addTestSuite(BDBKeyValueTest.class);
-		suite.addTestSuite(IOTest.class);
-		suite.addTestSuite(VariablesTest.class);
+		suite.addTestSuite(LinkContractsTest.class);
+		suite.addTestSuite(MultiplicityTest.class);
 		suite.addTestSuite(RemoteRootsTest.class);
+		suite.addTestSuite(TimestampsTest.class);
+		suite.addTestSuite(VariablesTest.class);
+		suite.addTestSuite(IOTest.class);
 		suite.addTestSuite(XDIUtilTest.class);
 		//$JUnit-END$
 		return suite;
