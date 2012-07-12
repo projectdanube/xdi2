@@ -2,9 +2,12 @@ package xdi2.xri2xdi;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
+import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.features.dictionary.Dictionary;
+import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -16,6 +19,9 @@ import xdi2.xri2xdi.resolution.XriResolver;
 
 public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
+	public static final String XRI_URI = "$uri";
+	public static final XRI3Segment XRI_TYPE_XDI = new XRI3Segment("$xdi$*($v)$!1");
+	
 	private XriResolver xriResolver;
 
 	@Override
@@ -63,13 +69,18 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 		// add "self" remote root context nodes
 
-		ContextNode selfRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, new XRI3Segment("()"), true);
-		selfRemoteRootContextNode.createRelation(new XRI3Segment("$is"), rootContextNode);
+		ContextNode selfRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, XDIConstants.XRI_S_ROOT, true);
+		selfRemoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, rootContextNode);
 
-		// add I-Number and original XRI remote root context nodes
+		// add I-Number remote root context nodes
 
 		ContextNode inumberRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, inumber, true);
-		inumberRemoteRootContextNode.createContextNode(new XRI3SubSegment("$!($uri)")).createLiteral(uri);
+
+		// add URIs
+		
+		ContextNode uriCollection = inumberRemoteRootContextNode.createContextNode(Multiplicity.attributeCollectionArcXri(XRI_URI));
+		Dictionary.addContextNodeType(uriCollection, XRI_TYPE_XDI);
+		Multiplicity.createAttributeMember(uriCollection)
 
 		// add I-Number and original XRI
 
@@ -78,7 +89,7 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 		if (! xri.equals(inumber)) {
 
 			ContextNode xriContextNode = graph.findContextNode(xri, true);
-			xriContextNode.createRelation(new XRI3Segment("$is"), inumberContextNode);
+			xriContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, inumberContextNode);
 		}
 
 		// done

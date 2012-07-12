@@ -123,7 +123,7 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
 
 		// check parameters
-		
+
 		if (parameters == null) parameters = new Properties();
 
 		boolean writeContextStatements = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_CONTEXT_STATEMENTS, DEFAULT_WRITE_CONTEXT_STATEMENTS));
@@ -133,7 +133,7 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 		log.debug("Parameters: writeContextStatements=" + writeContextStatements + ", writeHtml=" + writeHtml + ", writeOrdered=" + writeOrdered);
 
 		// write
-		
+
 		write(graph, new BufferedWriter(writer), writeContextStatements, writeHtml, writeOrdered);
 		writer.flush();
 

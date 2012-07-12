@@ -2,6 +2,7 @@ package xdi2.tests.core.features.remoteroots;
 
 import junit.framework.TestCase;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -22,6 +23,6 @@ public class RemoteRootsTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		assertEquals(RemoteRoots.findRemoteRootContextNode(graph, new XRI3Segment("=web*markus"), true).getXri(), new XRI3Segment("(=web*markus)"));
 		assertEquals(RemoteRoots.findRemoteRootContextNode(graph, new XRI3Segment("=!91F2.8153.F600.AE24"), true).getXri(), new XRI3Segment("(=!91F2.8153.F600.AE24)"));
-		assertEquals(RemoteRoots.findRemoteRootContextNode(graph, new XRI3Segment("()"), true).getXri(), new XRI3Segment("(())"));
+		assertEquals(RemoteRoots.findRemoteRootContextNode(graph, XDIConstants.XRI_S_ROOT, true).getXri(), new XRI3Segment("(())"));
 	}
 }

@@ -46,9 +46,10 @@ Google Group: http://groups.google.com/group/xdi2
 
 Changelog: https://github.com/peacekeeper/xdi2/blob/master/CHANGELOG
 
-Todo: http://projectdanube.pbworks.com/w/page/54706559/XDI2%20TODO
-
 ### Tests
 
 See [Testing](https://github.com/peacekeeper/xdi2/wiki/Testing) for a description of unit tests, etc.
 
+### Special Topics
+
+* [Multiplicity](https://github.com/peacekeeper/xdi2/wiki/Multiplicity) - Sample code on how to work with multiplicity syntax using the xdi2-core component.
