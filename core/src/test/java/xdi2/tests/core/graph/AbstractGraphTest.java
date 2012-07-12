@@ -168,6 +168,10 @@ public abstract class AbstractGraphTest extends TestCase {
 		Graph graph13 = this.openNewGraph(this.getClass().getName() + "-graph-13");
 		ContextNode rootContextNode = graph13.getRootContextNode();
 
+		assertEquals(rootContextNode.getXri(), XDIConstants.XRI_S_ROOT);
+		assertNull(rootContextNode.getContextNode());
+		assertTrue(rootContextNode.isRootContextNode());
+		
 		assertTrue(rootContextNode.isEmpty());
 		assertFalse(rootContextNode.containsContextNodes());
 		assertFalse(rootContextNode.containsRelations());
