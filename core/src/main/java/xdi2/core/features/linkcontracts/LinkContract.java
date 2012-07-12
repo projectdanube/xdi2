@@ -11,6 +11,9 @@ import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
+import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.util.iterators.EmptyIterator;
+import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
@@ -191,7 +194,7 @@ public final class LinkContract implements Serializable,
 	 * @return an iterator over the list of assignees
 	 */
 
-	public List<ContextNode> getAssignees() {
+	public Iterator<ContextNode> getAssignees() {
 
 		List<ContextNode> assignees = new ArrayList<ContextNode>();
 		Iterator<Relation> allRelations = contextNode.getRelations();
@@ -199,14 +202,25 @@ public final class LinkContract implements Serializable,
 			Relation r = allRelations.next();
 			
 			if (r.getArcXri()
-					.toString()
-					.equalsIgnoreCase(
-							XDILinkContractConstants.XRI_S_IS_DO.toString())) {
+					.equals(
+							XDILinkContractConstants.XRI_S_IS_DO)) {
 				ContextNode assignee = r.follow();
 				assignees.add(assignee);
 			}
 		}
-		return assignees;
+		if(assignees.isEmpty()){
+			return new EmptyIterator<ContextNode> ();
+		}
+		else{
+		return new SelectingIterator<ContextNode> (assignees.iterator()) {
+
+			@Override
+			public boolean select(ContextNode contextNode) {
+
+				return true;
+			}
+		};
+		}
 
 	}
 
@@ -233,8 +247,8 @@ public final class LinkContract implements Serializable,
 		}
 		
 		//if the same permission arc exists for the same target node, then a new arc should not be added
-		List<ContextNode> nodesWithSamePermission = this.getNodesWithPermission(permission);
-		for(Iterator<ContextNode> iter = nodesWithSamePermission.iterator();iter.hasNext();){
+		
+		for(Iterator<ContextNode> iter = this.getNodesWithPermission(permission);iter.hasNext();){
 			ContextNode t = iter.next();
 			if(t.equals(targetNode)){
 				return true;
@@ -242,8 +256,8 @@ public final class LinkContract implements Serializable,
 		}
 		
 		//if an arc to the given target node exists with $all, then no other permission arc should be allowed
-		List<ContextNode> nodesWithAllPermission = this.getNodesWithPermission(XDILinkContractPermission.LC_OP_ALL);
-		for(Iterator<ContextNode> iter = nodesWithAllPermission.iterator();iter.hasNext();){
+		
+		for(Iterator<ContextNode> iter = this.getNodesWithPermission(XDILinkContractPermission.LC_OP_ALL);iter.hasNext();){
 			ContextNode t = iter.next();
 			if(t.equals(targetNode)){
 				return true;
@@ -347,7 +361,7 @@ public final class LinkContract implements Serializable,
 
 	}
 
-	public List<ContextNode> getNodesWithPermission(
+	public Iterator<ContextNode> getNodesWithPermission(
 			XDILinkContractPermission permission) {
 
 		List<ContextNode> nodesWithPermission = new ArrayList<ContextNode>();
@@ -376,9 +390,11 @@ public final class LinkContract implements Serializable,
 
 		}
 		if (null == perm) {
-			return nodesWithPermission;
+			return new EmptyIterator<ContextNode> ();
 		}
 		Iterator<Relation> allRelations = contextNode.getRelations();
+		
+		
 		for (; allRelations.hasNext();) {
 			Relation r = allRelations.next();
 			if (r.getArcXri().equals(perm)) {
@@ -386,7 +402,15 @@ public final class LinkContract implements Serializable,
 				nodesWithPermission.add(nodeWithPermission);
 			}
 		}
-		return nodesWithPermission;
+		return new SelectingIterator<ContextNode> (nodesWithPermission.iterator()) {
+
+			@Override
+			public boolean select(ContextNode contextNode) {
+
+				return true;
+			}
+		};
+		
 	}
 
 	/*
