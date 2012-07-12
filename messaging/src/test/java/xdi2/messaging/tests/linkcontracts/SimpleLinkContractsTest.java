@@ -21,6 +21,7 @@ public class SimpleLinkContractsTest extends TestCase {
 	public void testSimpleLinkContracts() throws Exception {
 
 		Graph graph = graphFactory.openGraph();
+
 		autoReader.read(graph, this.getClass().getResourceAsStream("simple.xdi"), null);
 		ContextNode contextNode1111_1 = graph.findContextNode(new XRI3Segment("$(=!1111)$(!1)"), false);
 		ContextNode contextNode1111_2 = graph.findContextNode(new XRI3Segment("$(=!1111)$(!2)"), false);
