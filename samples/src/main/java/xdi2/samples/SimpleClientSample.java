@@ -12,7 +12,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 
-public class SimpleClientExample {
+public class SimpleClientSample {
 
     static XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
 
