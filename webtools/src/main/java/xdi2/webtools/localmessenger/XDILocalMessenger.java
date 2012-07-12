@@ -99,7 +99,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		request.setAttribute("variablesSupport", "on");
 		request.setAttribute("versioningSupport", null);
-		request.setAttribute("linkContractsSupport", "on");
+		request.setAttribute("linkContractsSupport", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("message", sampleMessages.get(Integer.parseInt(sample) - 1));

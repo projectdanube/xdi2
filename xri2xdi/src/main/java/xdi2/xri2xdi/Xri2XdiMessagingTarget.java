@@ -5,7 +5,7 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.dictionary.Dictionary;
-import xdi2.core.features.multiplicity.AttributeCollection;
+import xdi2.core.features.multiplicity.AttributeSingleton;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -79,9 +79,9 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 		// add URIs
 	
-		AttributeCollection uriAttributeCollection = Multiplicity.getAttributeCollection(inumberRemoteRootContextNode, XRI_URI, true);
-		Dictionary.addContextNodeType(uriAttributeCollection.getContextNode(), XRI_TYPE_XDI);
-		uriAttributeCollection.createMember().createLiteral(uri);
+		AttributeSingleton uriAttributeSingleton = Multiplicity.getAttributeSingleton(inumberRemoteRootContextNode, XRI_URI, true);
+		Dictionary.addContextNodeType(uriAttributeSingleton.getContextNode(), XRI_TYPE_XDI);
+		uriAttributeSingleton.getContextNode().createLiteral(uri);
 
 		// add I-Number and original XRI
 
