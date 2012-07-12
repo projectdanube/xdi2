@@ -1,7 +1,5 @@
 package xdi2.samples;
 
-import java.io.FileReader;
-
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
@@ -19,13 +17,13 @@ public class SimpleMessagingSample {
 
     public static void main(String[] args) throws Exception {
 
-        XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
+        XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");
         XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
 
         // load an XDI graph and create a messaging target
 
         Graph graph = MemoryGraphFactory.getInstance().openGraph();
-        reader.read(graph, new FileReader("test.json"), null);
+        reader.read(graph, SimpleMessagingSample.class.getResourceAsStream("simple.xdi"), null);
         GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
         graphMessagingTarget.setGraph(graph);
 

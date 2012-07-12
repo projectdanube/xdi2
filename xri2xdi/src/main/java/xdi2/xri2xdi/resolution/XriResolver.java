@@ -109,7 +109,7 @@ public class XriResolver {
 
 		log.debug("Status: (" + resolutionResult.getStatusCode() + ") " + resolutionResult.getStatus());
 
-		if (resolutionResult.getStatusCode() != 100) {
+		if (resolutionResult.getStatusCode() != 100 && resolutionResult.getStatusCode() != 241) {
 
 			throw new XriResolutionException(resolutionResult.getStatus());
 		}

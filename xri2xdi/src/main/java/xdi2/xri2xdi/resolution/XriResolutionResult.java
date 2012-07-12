@@ -16,21 +16,24 @@ public class XriResolutionResult implements Serializable {
 	private static final QName QNAME_CANONICALID = new QName("CanonicalID", NAMESPACE_XRD);
 	private static final QName QNAME_SERVICE = new QName("Service", NAMESPACE_XRD);
 	private static final QName QNAME_URI = new QName("URI", NAMESPACE_XRD);
+	private static final QName QNAME_TYPE = new QName("Type", NAMESPACE_XRD);
 	private static final String ATTRIBUTE_CODE = "code";
+
+	public static final String STRING_TYPE_XDI = "xri://$xdi!($v!1)";
 
 	private String xri;
 	private String status;
 	private int statusCode;
 	private String inumber;
-	private String uri;
+	private String xdiUri;
 
-	private XriResolutionResult(String xri, String status, int statusCode, String inumber, String uri) {
+	private XriResolutionResult(String xri, String status, int statusCode, String inumber, String xdiUri) {
 
 		this.xri = xri;
 		this.status = status;
 		this.statusCode = statusCode;
 		this.inumber = inumber;
-		this.uri = uri;
+		this.xdiUri = xdiUri;
 	}
 
 	/**
@@ -50,9 +53,13 @@ public class XriResolutionResult implements Serializable {
 
 		Element serviceElement = rootElement.element(QNAME_SERVICE);
 		Element uriElement = serviceElement == null ? null : serviceElement.element(QNAME_URI);
+		Element typeElement = serviceElement == null ? null : serviceElement.element(QNAME_TYPE);
 		String uri = uriElement == null ? null : uriElement.getTextTrim();
+		String type = typeElement == null ? null : typeElement.getTextTrim();
 
-		return new XriResolutionResult(xri, status, statusCode, inumber, uri);
+		String xdiUri = STRING_TYPE_XDI.equals(type) ? uri : null;
+
+		return new XriResolutionResult(xri, status, statusCode, inumber, xdiUri);
 	}
 
 	public String getXri() {
@@ -75,14 +82,14 @@ public class XriResolutionResult implements Serializable {
 		return this.inumber;
 	}
 
-	public String getUri() {
+	public String getXdiUri() {
 
-		return this.uri;
+		return this.xdiUri;
 	}
 
 	@Override
 	public String toString() {
 
-		return this.inumber + " / " + this.uri;
+		return this.inumber + " / " + this.xdiUri;
 	}
 }

@@ -11,6 +11,6 @@ public class XriResolverTest extends TestCase {
 		XriResolutionResult resolutionResult = xriResolver.resolve("=markus");
 		
 		assertEquals("=!91F2.8153.F600.AE24", resolutionResult.getInumber());
-		assertEquals("https://xdi.fullxri.com/=!91F2.8153.F600.AE24/", resolutionResult.getUri());
+		assertEquals("https://xdi.fullxri.com/=!91F2.8153.F600.AE24/", resolutionResult.getXdiUri());
 	}
 }

@@ -21,8 +21,9 @@ import xdi2.xri2xdi.resolution.XriResolver;
 public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 	public static final String XRI_URI = "$uri";
-	public static final XRI3Segment XRI_TYPE_XDI = new XRI3Segment("$xdi$*($v)$!1");
-	
+	public static final String STRING_TYPE_XDI = "$xdi$*($v)$!1";
+	public static final XRI3Segment XRI_TYPE_XDI = new XRI3Segment(STRING_TYPE_XDI);
+
 	private XriResolver xriResolver;
 
 	@Override
@@ -57,7 +58,7 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 			XriResolutionResult resolutionResult = this.xriResolver.resolve(xri.toString());
 			inumber = new XRI3Segment(resolutionResult.getInumber());
-			uri = resolutionResult.getUri();
+			uri = resolutionResult.getXdiUri();
 		} catch (XriResolutionException ex) {
 
 			throw new Xdi2MessagingException("XRI Resolution error: " + ex.getMessage(), ex, null);
@@ -78,10 +79,13 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 		ContextNode inumberRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, inumber, true);
 
 		// add URIs
-	
-		AttributeSingleton uriAttributeSingleton = Multiplicity.getAttributeSingleton(inumberRemoteRootContextNode, XRI_URI, true);
-		Dictionary.addContextNodeType(uriAttributeSingleton.getContextNode(), XRI_TYPE_XDI);
-		uriAttributeSingleton.getContextNode().createLiteral(uri);
+
+		if (uri != null) {
+
+			AttributeSingleton uriAttributeSingleton = Multiplicity.getAttributeSingleton(inumberRemoteRootContextNode, XRI_URI, true);
+			Dictionary.addContextNodeType(uriAttributeSingleton.getContextNode(), XRI_TYPE_XDI);
+			uriAttributeSingleton.getContextNode().createLiteral(uri);
+		}
 
 		// add I-Number and original XRI
 
