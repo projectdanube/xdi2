@@ -57,10 +57,10 @@ public class LinkContractsInterceptor implements MessageInterceptor, TargetInter
 		XRI3Segment sender = operation.getSender();
 		LinkContract linkContract = getLinkContract(executionContext);
 		//check if sender has been assigned the link contract
-		List<ContextNode> assignees = linkContract.getAssignees();
-		for(Iterator<ContextNode> iter = assignees.iterator();iter.hasNext();){
+		
+		for(Iterator<ContextNode> iter = linkContract.getAssignees();iter.hasNext();){
 			ContextNode assignee = iter.next();
-			if(assignee.toString().equalsIgnoreCase(sender.toString())){
+			if(assignee.getXri().equals(sender)){
 				senderIsAssigned = true;
 				break;
 			}
@@ -89,17 +89,31 @@ public class LinkContractsInterceptor implements MessageInterceptor, TargetInter
 		ContextNode targetNode = this.linkContractsGraph.findContextNode(targetAddress, false);
 		
 		if(targetNode != null){
-			List<ContextNode> nodesWithRequestedOp = linkContract.getNodesWithPermission( lcPermission);
-			if(nodesWithRequestedOp == null || nodesWithRequestedOp.isEmpty()){
+			Iterator<ContextNode> nodesWithRequestedOp = linkContract.getNodesWithPermission( lcPermission);
+			if(!nodesWithRequestedOp.hasNext()){
 				nodesWithRequestedOp = linkContract.getNodesWithPermission( XDILinkContractPermission.LC_OP_ALL);
 			}
-			for(Iterator<ContextNode> iter = nodesWithRequestedOp.iterator();iter.hasNext();){
+			for(Iterator<ContextNode> iter = nodesWithRequestedOp;iter.hasNext();){
 				ContextNode c = iter.next();
-				if(c.toString().equalsIgnoreCase(targetNode.toString()) || c.containsContextNode(targetNode.getArcXri()) ){
+				//if the requested permission is given directly to the target node 
+				if(c.getXri().equals(targetNode.getXri()) ){
 					operationAllowed = true;
 					break;
 				}
-				
+				//if the requested permission is given to a node which is a parent of the target node
+				ContextNode parentNodeOfTargetNode = targetNode.getContextNode();
+				ContextNode tempTargetNode = targetNode;
+				while(parentNodeOfTargetNode != null){
+					if(c.getXri().equals(parentNodeOfTargetNode.getXri()) ){
+						operationAllowed = true;
+						break;
+					}				
+					tempTargetNode = parentNodeOfTargetNode;
+					parentNodeOfTargetNode = tempTargetNode.getContextNode();
+				}
+				if(operationAllowed){
+					break;
+				}
 			}
 		}
 		if(!operationAllowed){
@@ -117,9 +131,6 @@ public class LinkContractsInterceptor implements MessageInterceptor, TargetInter
 		
 		XRI3Segment targetAddress = targetStatement.getSubject();
 
-		//if (Math.random() > 0.5f) throw new Xdi2NotAuthorizedException("Not authorized:  " + operation.getOperationXri() + " on statement " + targetStatement, null, operation);
-		
-		// done
 		checkLinkContractAuthorization(operation,targetAddress, executionContext);
 		return targetStatement;
 	}
@@ -134,14 +145,6 @@ public class LinkContractsInterceptor implements MessageInterceptor, TargetInter
 
 		// check if the current operation and target statement are allowed under this link contract
 		checkLinkContractAuthorization(operation,targetAddress, executionContext);
-
-		// ...
-
-		//if (Math.random() > 0.5f) throw new Xdi2NotAuthorizedException("Not authorized:  " + operation.getOperationXri() + " on address " + targetAddress, null, operation);
-		
-		
-
-		// done
 
 		return targetAddress;
 	}

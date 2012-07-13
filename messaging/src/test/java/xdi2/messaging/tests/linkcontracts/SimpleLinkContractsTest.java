@@ -33,9 +33,7 @@ public class SimpleLinkContractsTest extends TestCase {
 		assertNotNull(LinkContracts.findLinkContractByAddress(graph, new XRI3Segment("$(=!1111)$(!2)$do")));
 
 		LinkContract linkContract = LinkContracts.getLinkContract(contextNode1111_2, false);
-		assertEquals(linkContract.getNodesWithPermission(XDILinkContractPermission.LC_OP_GET).size(), 1);
-		assertEquals(linkContract.getNodesWithPermission(XDILinkContractPermission.LC_OP_GET).iterator().next(), contextNode1111_2);
-		assertEquals(linkContract.getAssignees().size(), 1);
-		assertEquals(linkContract.getAssignees().iterator().next(), contextNode4444);
+		assertEquals(linkContract.getNodesWithPermission(XDILinkContractPermission.LC_OP_GET).next(), contextNode1111_2);
+		assertEquals(linkContract.getAssignees().next(), contextNode4444);
 	}
 }

@@ -20,7 +20,7 @@ public interface MessagingTarget {
 	 * This method gets called when the messaging target is no longer needed.
 	 */
 	public void shutdown() throws Exception;
-	
+
 	/**
 	 * Executes all messages in an XDI messaging envelope against this messaging target.
 	 * @param messageEnvelope The XDI message envelope containing XDI messages to be executed.
