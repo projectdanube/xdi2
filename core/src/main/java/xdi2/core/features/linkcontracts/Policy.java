@@ -22,6 +22,7 @@ public final class Policy implements Serializable, Comparable<Policy> {
 	private ContextNode contextNode;
 
 	private XDIPolicyExpression policyType = XDIPolicyExpression.LC_POL_EMPTY;
+	private PolicyExpressionComponent policyComp = null;
 
 	protected Policy(LinkContract linkContract, ContextNode contextNode) {
 
@@ -119,7 +120,9 @@ public final class Policy implements Serializable, Comparable<Policy> {
 			andNode = AndExpression.fromContextNode(nodeExists);
 			return andNode;
 		}
-
+		else if(!create){
+			return null;
+		}
 		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
 				|| policyType == XDIPolicyExpression.LC_POL_AND) {
 			if (!this.getContextNode().containsContextNode(
@@ -129,6 +132,7 @@ public final class Policy implements Serializable, Comparable<Policy> {
 								.createContextNode(
 										XDILinkContractConstants.XRI_SS_AND));
 				policyType = XDIPolicyExpression.LC_POL_AND;
+				policyComp = andNode;
 			}
 		}
 
@@ -144,7 +148,9 @@ public final class Policy implements Serializable, Comparable<Policy> {
 			orNode = OrExpression.fromContextNode(nodeExists);
 			return orNode;
 		}
-
+		else if(!create){
+			return null;
+		}
 		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
 				|| policyType == XDIPolicyExpression.LC_POL_OR) {
 			if (!this.getContextNode().containsContextNode(
@@ -152,6 +158,7 @@ public final class Policy implements Serializable, Comparable<Policy> {
 				orNode = OrExpression.fromContextNode(this.getContextNode()
 						.createContextNode(XDILinkContractConstants.XRI_SS_OR));
 				policyType = XDIPolicyExpression.LC_POL_OR;
+				policyComp = orNode;
 			}
 		}
 
@@ -167,7 +174,9 @@ public final class Policy implements Serializable, Comparable<Policy> {
 			notNode = NotExpression.fromContextNode(nodeExists);
 			return notNode;
 		}
-
+		else if(!create){
+			return null;
+		}
 		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
 				|| policyType == XDIPolicyExpression.LC_POL_NOT) {
 			if (!this.getContextNode().containsContextNode(
@@ -177,6 +186,7 @@ public final class Policy implements Serializable, Comparable<Policy> {
 								.createContextNode(
 										XDILinkContractConstants.XRI_SS_NOT));
 				policyType = XDIPolicyExpression.LC_POL_NOT;
+				policyComp = notNode;
 			}
 		}
 
@@ -257,5 +267,9 @@ public final class Policy implements Serializable, Comparable<Policy> {
 			return 0;
 
 		return this.getContextNode().compareTo(other.getContextNode());
+	}
+	public PolicyExpressionComponent getPolicyExpressionComponent(){
+		
+		return policyComp;
 	}
 }
