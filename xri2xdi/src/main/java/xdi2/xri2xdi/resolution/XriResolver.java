@@ -15,7 +15,7 @@ public class XriResolver {
 	public static final String DEFAULT_XRI_PROXY = "https://xri.net/";
 	public static final String DEFAULT_USER_AGENT = "XDI^2 Java library";
 
-	private static final String QUERY = "_xrd_r=application/xrd+xml;sep=true&_xrd_t=xri://$xdi!($v!1)";
+	private static final String QUERY = "_xrd_r=application/xrd+xml;sep=true;nodefault_t=true&_xrd_t=xri://$xdi!($v!1)";
 
 	private static final Logger log = LoggerFactory.getLogger(XriResolver.class);
 	private static final SAXReader saxReader = new SAXReader();
@@ -109,7 +109,7 @@ public class XriResolver {
 
 		log.debug("Status: (" + resolutionResult.getStatusCode() + ") " + resolutionResult.getStatus());
 
-		if (resolutionResult.getStatusCode() != 100) {
+		if (resolutionResult.getStatusCode() != 100 && resolutionResult.getStatusCode() != 241) {
 
 			throw new XriResolutionException(resolutionResult.getStatus());
 		}

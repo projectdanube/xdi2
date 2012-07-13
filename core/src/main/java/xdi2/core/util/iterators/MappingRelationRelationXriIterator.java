@@ -10,9 +10,9 @@ import xdi2.core.xri3.impl.XRI3Segment;
  * 
  * @author markus
  */
-public class MappingRelationArcXrisIterator extends MappingIterator<Relation, XRI3Segment> {
+public class MappingRelationRelationXriIterator extends MappingIterator<Relation, XRI3Segment> {
 
-	public MappingRelationArcXrisIterator(Iterator<Relation> relations) {
+	public MappingRelationRelationXriIterator(Iterator<Relation> relations) {
 
 		super(relations);
 	}

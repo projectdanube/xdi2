@@ -17,6 +17,7 @@ A sample deployment of XDI² is available at http://xdi2.projectdanube.org.
 * [xdi2-webtools](https://github.com/peacekeeper/xdi2/wiki/xdi2-webtools)
 * [xdi2-xri2xdi](https://github.com/peacekeeper/xdi2/wiki/xdi2-xri2xdi)
 * [xdi2-p2p](https://github.com/peacekeeper/xdi2/wiki/xdi2-p2p)
+* [xdi2-samples](https://github.com/peacekeeper/xdi2/wiki/xdi2-samples)
 
 ### How to build
 
@@ -46,9 +47,6 @@ Google Group: http://groups.google.com/group/xdi2
 
 Changelog: https://github.com/peacekeeper/xdi2/blob/master/CHANGELOG
 
-Todo: http://projectdanube.pbworks.com/w/page/54706559/XDI2%20TODO
-
 ### Tests
 
 See [Testing](https://github.com/peacekeeper/xdi2/wiki/Testing) for a description of unit tests, etc.
-

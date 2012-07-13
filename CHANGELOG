@@ -1,6 +1,29 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-07-12:
+------------------------
+
+*** Better support for multiplicity
+
+*** Added samples project
+
+2012-07-11:
+------------------------
+
+*** Added support for link contracts to XDI Local Messenger webtool
+
+*** Small updates to iterators
+
+*** Updated ordering support in XDIStatementsWriter
+
+*** Updated xri2xdi.net service
+
+2012-07-06:
+------------------------
+
+*** Merged Animesh' link contracts implementation
+
 2012-07-05:
 ------------------------
 

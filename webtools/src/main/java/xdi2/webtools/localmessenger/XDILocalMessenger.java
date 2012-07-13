@@ -28,6 +28,7 @@ import xdi2.core.io.readers.AutoReader;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
 /**
@@ -98,7 +99,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		request.setAttribute("variablesSupport", "on");
 		request.setAttribute("versioningSupport", null);
-		request.setAttribute("linkContractSupport", null);
+		request.setAttribute("linkContractsSupport", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("message", sampleMessages.get(Integer.parseInt(sample) - 1));
@@ -110,7 +111,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		String variablesSupport = request.getParameter("variablesSupport");
 		String versioningSupport = request.getParameter("versioningSupport");
-		String linkContractSupport = request.getParameter("linkContractSupport");
+		String linkContractsSupport = request.getParameter("linkContractsSupport");
 		String to = request.getParameter("to");
 		String input = request.getParameter("input");
 		String message = request.getParameter("message");
@@ -151,15 +152,15 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 				messagingTarget.getInterceptors().add(variablesInterceptor);
 			}
 
-			if ("on".equals(versioningSupport))
-				//				messagingTarget.getOperationInterceptors().add(new SubjectVersioningOperationInterceptor());
+			//if ("on".equals(versioningSupport))
+			//				messagingTarget.getOperationInterceptors().add(new SubjectVersioningOperationInterceptor());
 
-				if ("on".equals(linkContractSupport)) {
+			if ("on".equals(linkContractsSupport)) {
 
-					/*				LinkContractAddressInterceptor linkContractAddressInterceptor = new LinkContractAddressInterceptor();
-				linkContractAddressInterceptor.setLinkContractGraph(graphInput);
-				messagingTarget.getAddressInterceptors().add(linkContractAddressInterceptor);*/
-				}
+				LinkContractsInterceptor linkContractsInterceptor = new LinkContractsInterceptor();
+				linkContractsInterceptor.setLinkContractsGraph(graphInput);
+				messagingTarget.getInterceptors().add(linkContractsInterceptor);
+			}
 
 			messagingTarget.init();
 
@@ -213,7 +214,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("variablesSupport", variablesSupport);
 		request.setAttribute("versioningSupport", versioningSupport);
-		request.setAttribute("linkContractSupport", linkContractSupport);
+		request.setAttribute("linkContractsSupport", linkContractsSupport);
 		request.setAttribute("to", to);
 		request.setAttribute("input", input);
 		request.setAttribute("message", message);
