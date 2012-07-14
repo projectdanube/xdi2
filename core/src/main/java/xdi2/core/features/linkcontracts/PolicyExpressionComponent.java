@@ -7,6 +7,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.multiplicity.AttributeCollection;
+import xdi2.core.features.multiplicity.Multiplicity;
 
 public abstract class PolicyExpressionComponent implements Serializable,
 		Comparable<PolicyExpressionComponent> {

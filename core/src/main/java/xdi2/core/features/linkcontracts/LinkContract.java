@@ -1,20 +1,27 @@
 package xdi2.core.features.linkcontracts;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Function;
+import org.mozilla.javascript.Scriptable;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
-import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XRI3SubSegment;
 
 /**
  * An XDI link contract, represented as a context node.
@@ -127,10 +134,10 @@ public final class LinkContract implements Serializable,
 			// write error in debug log
 			return status;
 		}
-		
-		//one cannot add this Link Contract node as assignee to itself
-		
-		if(assignee.equals(contextNode)){
+
+		// one cannot add this Link Contract node as assignee to itself
+
+		if (assignee.equals(contextNode)) {
 			return false;
 		}
 
@@ -172,7 +179,7 @@ public final class LinkContract implements Serializable,
 			r = allRelations.next();
 			ContextNode target = r.follow();
 			if (target.equals(assignee)) {
-				
+
 				// write debug log with information about the relation XRI that
 				// is removed
 				// TBD
@@ -180,9 +187,8 @@ public final class LinkContract implements Serializable,
 				break;
 			}
 		}
-		if(status){
-			contextNode.deleteRelation(
-					XDILinkContractConstants.XRI_S_IS_DO,
+		if (status) {
+			contextNode.deleteRelation(XDILinkContractConstants.XRI_S_IS_DO,
 					r.getRelationXri());
 		}
 		return status;
@@ -200,26 +206,23 @@ public final class LinkContract implements Serializable,
 		Iterator<Relation> allRelations = contextNode.getRelations();
 		for (; allRelations.hasNext();) {
 			Relation r = allRelations.next();
-			
-			if (r.getArcXri()
-					.equals(
-							XDILinkContractConstants.XRI_S_IS_DO)) {
+
+			if (r.getArcXri().equals(XDILinkContractConstants.XRI_S_IS_DO)) {
 				ContextNode assignee = r.follow();
 				assignees.add(assignee);
 			}
 		}
-		if(assignees.isEmpty()){
-			return new EmptyIterator<ContextNode> ();
-		}
-		else{
-		return new SelectingIterator<ContextNode> (assignees.iterator()) {
+		if (assignees.isEmpty()) {
+			return new EmptyIterator<ContextNode>();
+		} else {
+			return new SelectingIterator<ContextNode>(assignees.iterator()) {
 
-			@Override
-			public boolean select(ContextNode contextNode) {
+				@Override
+				public boolean select(ContextNode contextNode) {
 
-				return true;
-			}
-		};
+					return true;
+				}
+			};
 		}
 
 	}
@@ -239,38 +242,49 @@ public final class LinkContract implements Serializable,
 			ContextNode targetNode) {
 		boolean status = false;
 		XRI3Segment perm = null;
-		
-		//one cannot add an authorization permission to the Link Contract Node itself
-		
-		if(targetNode.equals(contextNode)){
-				return false;
+
+		// one cannot add an authorization permission to the Link Contract Node
+		// itself
+
+		if (targetNode.equals(contextNode)) {
+			return false;
 		}
-		
-		//if the same permission arc exists for the same target node, then a new arc should not be added
-		
-		for(Iterator<ContextNode> iter = this.getNodesWithPermission(permission);iter.hasNext();){
+
+		// if the same permission arc exists for the same target node, then a
+		// new arc should not be added
+
+		for (Iterator<ContextNode> iter = this
+				.getNodesWithPermission(permission); iter.hasNext();) {
 			ContextNode t = iter.next();
-			if(t.equals(targetNode)){
+			if (t.equals(targetNode)) {
 				return true;
 			}
 		}
-		
-		//if an arc to the given target node exists with $all, then no other permission arc should be allowed
-		
-		for(Iterator<ContextNode> iter = this.getNodesWithPermission(XDILinkContractPermission.LC_OP_ALL);iter.hasNext();){
+
+		// if an arc to the given target node exists with $all, then no other
+		// permission arc should be allowed
+
+		for (Iterator<ContextNode> iter = this
+				.getNodesWithPermission(XDILinkContractPermission.LC_OP_ALL); iter
+				.hasNext();) {
 			ContextNode t = iter.next();
-			if(t.equals(targetNode)){
+			if (t.equals(targetNode)) {
 				return true;
 			}
 		}
-		//if a $all permission is added to the target node then all other permission arcs should be deleted
-		if(permission == XDILinkContractPermission.LC_OP_ALL){
-				this.removePermission(XDILinkContractPermission.LC_OP_GET, targetNode);
-				this.removePermission(XDILinkContractPermission.LC_OP_ADD, targetNode);
-				this.removePermission(XDILinkContractPermission.LC_OP_MOD, targetNode);
-				this.removePermission(XDILinkContractPermission.LC_OP_DEL, targetNode);
+		// if a $all permission is added to the target node then all other
+		// permission arcs should be deleted
+		if (permission == XDILinkContractPermission.LC_OP_ALL) {
+			this.removePermission(XDILinkContractPermission.LC_OP_GET,
+					targetNode);
+			this.removePermission(XDILinkContractPermission.LC_OP_ADD,
+					targetNode);
+			this.removePermission(XDILinkContractPermission.LC_OP_MOD,
+					targetNode);
+			this.removePermission(XDILinkContractPermission.LC_OP_DEL,
+					targetNode);
 		}
-		
+
 		switch (permission) {
 		case LC_OP_GET:
 			perm = XDILinkContractConstants.XRI_S_GET;
@@ -390,11 +404,10 @@ public final class LinkContract implements Serializable,
 
 		}
 		if (null == perm) {
-			return new EmptyIterator<ContextNode> ();
+			return new EmptyIterator<ContextNode>();
 		}
 		Iterator<Relation> allRelations = contextNode.getRelations();
-		
-		
+
 		for (; allRelations.hasNext();) {
 			Relation r = allRelations.next();
 			if (r.getArcXri().equals(perm)) {
@@ -402,7 +415,8 @@ public final class LinkContract implements Serializable,
 				nodesWithPermission.add(nodeWithPermission);
 			}
 		}
-		return new SelectingIterator<ContextNode> (nodesWithPermission.iterator()) {
+		return new SelectingIterator<ContextNode>(
+				nodesWithPermission.iterator()) {
 
 			@Override
 			public boolean select(ContextNode contextNode) {
@@ -410,7 +424,7 @@ public final class LinkContract implements Serializable,
 				return true;
 			}
 		};
-		
+
 	}
 
 	/*
@@ -452,5 +466,82 @@ public final class LinkContract implements Serializable,
 			return 0;
 
 		return this.getContextNode().compareTo(other.getContextNode());
+	}
+
+	public void addAuthenticationFunction() {
+		Policy policy = getPolicy(true);
+		try {
+			policy.setLiteralExpression(URLEncoder
+					.encode("function compareSecrets(userSecret,graphSecret) { if(userSecret == graphSecret){ return true; }else {return false;};}",
+							"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// This should never happen
+		}
+	}
+
+	public boolean authenticate(String userSecret) {
+		// If no policy is set then return true
+		String graphSecret;
+		Policy lcPolicy = null;
+		String policyExpression = "";
+		boolean evalResult = false;
+		// Get the graph secret which is assumed to be a literal node named
+		// "sharedSecret" hanging off of root context of a graph
+		ContextNode root = contextNode;
+
+		while (root.getContextNode() != null) {
+			root = root.getContextNode();
+
+		}
+		Literal sharedSecretLiteral = root
+				.getLiteralInContextNode(XDILinkContractConstants.XRI_SS_SHAREDSECRET_LITERAL);
+		if (sharedSecretLiteral != null) {
+			graphSecret = sharedSecretLiteral.getLiteralData();
+		} else {
+			return true;
+		}
+		if ((lcPolicy = getPolicy(false)) == null) {
+			return true;
+		} else {
+			Context cx = Context.enter();
+			try {
+				// evaluate the policy expression literal or the policy
+				// expression tree
+				try {
+					policyExpression = URLDecoder.decode(
+							lcPolicy.getLiteralExpression(), "UTF-8");
+				} catch (UnsupportedEncodingException unSupEx) {
+
+				}
+				if (policyExpression != null && !policyExpression.isEmpty()) {
+					// Initialize the standard objects (Object, Function, etc.)
+					// This must be done before scripts can be executed. Returns
+					// a scope object that we use in later calls.
+					Scriptable scope = cx.initStandardObjects();
+					cx.evaluateString(scope, policyExpression,
+							"policyExpression", 1, null);
+
+					// Now evaluate the string we've collected.
+					Object fObj = scope.get("compareSecrets", scope);
+					Object functionArgs[] = { userSecret, graphSecret };
+					Function f = (Function) fObj;
+					Object result = f.call(cx, scope, scope, functionArgs);
+
+					if (result != null
+							&& Context.toString(result).equals("true")) {
+						evalResult = true;
+					}
+
+				} else {
+					evalResult = true;
+				}
+
+			} finally {
+				// Exit from the context.
+				Context.exit();
+			}
+		}
+		return evalResult;
+
 	}
 }
