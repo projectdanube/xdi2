@@ -10,6 +10,7 @@ import xdi2.core.io.XDIReaderRegistry;
 
 public abstract class AbstractGraphFactory implements GraphFactory {
 
+	@Override
 	public Graph parseGraph(String string) throws IOException, Xdi2ParseException {
 
 		Graph graph = this.openGraph();
@@ -18,6 +19,7 @@ public abstract class AbstractGraphFactory implements GraphFactory {
 		return graph;
 	}
 
+	@Override
 	public Graph parseGraph(String string, String format, Properties parameters) throws IOException, Xdi2ParseException {
 
 		Graph graph = this.openGraph();

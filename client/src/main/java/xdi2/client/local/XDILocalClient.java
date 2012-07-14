@@ -45,6 +45,7 @@ public class XDILocalClient implements XDIClient {
 		}
 	}
 
+	@Override
 	public void close() {
 
 		try {
@@ -56,6 +57,7 @@ public class XDILocalClient implements XDIClient {
 		}
 	}
 
+	@Override
 	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException {
 
 		if (messageResult == null) messageResult = new MessageResult();

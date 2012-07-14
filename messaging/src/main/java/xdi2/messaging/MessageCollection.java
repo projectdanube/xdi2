@@ -203,6 +203,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(MessageCollection other) {
 
 		if (other == this || other == null) return(0);

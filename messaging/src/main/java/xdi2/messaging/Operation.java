@@ -28,7 +28,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	/*
 	 * Static methods
 	 */
-	
+
 	/**
 	 * Checks if an relation is a valid XDI operation.
 	 * @param relation The relation to check.
@@ -163,7 +163,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	/*
 	 * Object methods
 	 */
-	
+
 	@Override
 	public String toString() {
 
@@ -191,6 +191,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(Operation other) {
 
 		if (other == this || other == null) return(0);

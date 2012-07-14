@@ -35,6 +35,7 @@ public abstract class AbstractGraph implements Graph {
 	 * General methods
 	 */
 
+	@Override
 	public ContextNode findContextNode(XRI3Segment xri, boolean create) {
 
 		ContextNode contextNode = this.getRootContextNode();
@@ -62,6 +63,7 @@ public abstract class AbstractGraph implements Graph {
 		return contextNode;
 	}
 
+	@Override
 	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri) {
 
 		ContextNode contextNode = this.findContextNode(xri, false);
@@ -70,6 +72,7 @@ public abstract class AbstractGraph implements Graph {
 		return contextNode.getRelation(arcXri);
 	}
 
+	@Override
 	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri) {
 
 		ContextNode contextNode = this.findContextNode(xri, false);
@@ -78,6 +81,7 @@ public abstract class AbstractGraph implements Graph {
 		return contextNode.getRelations(arcXri);
 	}
 
+	@Override
 	public Literal findLiteral(XRI3Segment xri) {
 
 		ContextNode contextNode = this.findContextNode(xri, false);
@@ -86,26 +90,31 @@ public abstract class AbstractGraph implements Graph {
 		return contextNode.getLiteral();
 	}
 
+	@Override
 	public boolean containsContextNode(XRI3Segment xri) {
 
 		return this.findContextNode(xri, false) != null;
 	}
 
+	@Override
 	public boolean containsRelations(XRI3Segment xri, XRI3Segment arcXri) {
 
 		return this.findRelation(xri, arcXri) != null;
 	}
 
+	@Override
 	public boolean containsLiteral(XRI3Segment xri) {
 
 		return this.findLiteral(xri) != null;
 	}
 
+	@Override
 	public String toString(String format) {
 
 		return this.toString(format, null);
 	}
 
+	@Override
 	public String toString(String format, Properties parameters) {
 
 		if (format == null) format = XDIWriterRegistry.getDefault().getFormat();
@@ -128,6 +137,7 @@ public abstract class AbstractGraph implements Graph {
 	 * Methods related to statements
 	 */
 
+	@Override
 	public Statement addStatement(Statement statement) {
 
 		XRI3Segment subject = statement.getSubject();
@@ -160,6 +170,7 @@ public abstract class AbstractGraph implements Graph {
 		}
 	}
 
+	@Override
 	public Statement addStatement(String statement) throws Xdi2ParseException {
 
 		return this.addStatement(AbstractStatement.fromString(statement));
@@ -169,14 +180,17 @@ public abstract class AbstractGraph implements Graph {
 	 * Methods related to transactions.
 	 */
 
+	@Override
 	public void beginTransaction() {
 
 	}
 
+	@Override
 	public void commitTransaction() {
 
 	}
 
+	@Override
 	public void rollbackTransaction() {
 
 	}
@@ -216,6 +230,7 @@ public abstract class AbstractGraph implements Graph {
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(Graph other) {
 
 		if (other == null || other == this) return 0;

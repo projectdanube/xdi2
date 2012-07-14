@@ -24,10 +24,10 @@ public final class CopyUtil {
 	 * @param copyStrategy The strategy to determine what to copy.
 	 */
 	public static void copyGraph(Graph graph, Graph targetGraph, CopyStrategy copyStrategy) {
-		
+
 		copyContextNodeContents(graph.getRootContextNode(), targetGraph.getRootContextNode(), copyStrategy);
 	}
-	
+
 	/**
 	 * Copies a context node into another graph.
 	 * @param contextNode A context node from any graph.
@@ -186,30 +186,21 @@ public final class CopyUtil {
 		 * @param contextNode The original context node.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public ContextNode replaceContextNode(ContextNode contextNode) {
-
-			return contextNode;
-		}
+		public abstract ContextNode replaceContextNode(ContextNode contextNode);
 
 		/**
 		 * Strategies can replace a relation that is being copied.
 		 * @param relation The original relation.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public Relation replaceRelation(Relation relation) {
-
-			return relation;
-		}
+		public abstract Relation replaceRelation(Relation relation);
 
 		/**
 		 * Strategies can replace a literal that is being copied.
 		 * @param literal The original literal.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public Literal replaceLiteral(Literal literal) {
-
-			return literal;
-		}
+		public abstract Literal replaceLiteral(Literal literal);
 	}
 
 	/**
@@ -218,5 +209,22 @@ public final class CopyUtil {
 	 */
 	public static final CopyStrategy ALLCOPYSTRATEGY = new CopyStrategy() {
 
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			return contextNode;
+		}
+
+		@Override
+		public Relation replaceRelation(Relation relation) {
+
+			return relation;
+		}
+
+		@Override
+		public Literal replaceLiteral(Literal literal) {
+
+			return literal;
+		}
 	};
 }

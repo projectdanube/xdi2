@@ -21,16 +21,19 @@ import xdi2.core.util.iterators.IteratorCounter;
  */
 public abstract class AbstractKeyValueStore implements KeyValueStore {
 
+	@Override
 	public String getOne(String key) {
 
 		return new IteratorFirstItem<String> (this.getAll(key)).item();
 	}
 
+	@Override
 	public boolean contains(String key) {
 
 		return this.getAll(key).hasNext();
 	}
 
+	@Override
 	public boolean contains(String key, String value) {
 
 		for (Iterator<String> values = this.getAll(key); values.hasNext(); ) {
@@ -43,6 +46,7 @@ public abstract class AbstractKeyValueStore implements KeyValueStore {
 		return false;
 	}
 
+	@Override
 	public void delete(String key) {
 
 		for (Iterator<String> values = this.getAll(key); values.hasNext(); ) {
@@ -53,25 +57,30 @@ public abstract class AbstractKeyValueStore implements KeyValueStore {
 		}
 	}
 
+	@Override
 	public void replace(String key, String value) {
 
 		this.delete(key);
 		if (value != null) this.put(key, value);
 	}
 
+	@Override
 	public int count(String key) {
 
 		return new IteratorCounter(this.getAll(key)).count();
 	}
 
+	@Override
 	public void beginTransaction() {
 
 	}
 
+	@Override
 	public void commitTransaction() {
 
 	}
 
+	@Override
 	public void rollbackTransaction() {
 
 	}

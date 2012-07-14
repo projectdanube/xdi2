@@ -21,6 +21,7 @@ public abstract class AbstractKeyValueGraphFactory extends AbstractGraphFactory 
 		this.supportGetRelations = supportGetRelations;
 	}
 
+	@Override
 	public final KeyValueGraph openGraph() throws IOException {
 
 		KeyValueStore keyValueStore = this.openKeyValueStore();

@@ -19,7 +19,7 @@ public class XDIStatementsReader extends AbstractXDIReader {
 	public static final String FILE_EXTENSION = "xdi";
 	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0"), new MimeType("text/xdi;contexts=1") };
 
-	private void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException {
+	private static void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException {
 
 		String statement;
 		int lineNr = 0;
@@ -40,9 +40,10 @@ public class XDIStatementsReader extends AbstractXDIReader {
 		}
 	}
 
+	@Override
 	public Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException {
 
-		this.read(graph, new BufferedReader(reader));
+		read(graph, new BufferedReader(reader));
 
 		return reader;
 	}

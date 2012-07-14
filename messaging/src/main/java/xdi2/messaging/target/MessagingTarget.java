@@ -12,7 +12,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 public interface MessagingTarget {
 
 	/**
-	 * This method gets called when the messaging target gets initialized.
+	 * This method gets called when the messaging target is initialized.
 	 */
 	public void init() throws Exception;
 

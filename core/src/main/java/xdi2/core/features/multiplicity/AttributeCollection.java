@@ -135,6 +135,7 @@ public final class AttributeCollection implements Serializable, Comparable<Attri
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(AttributeCollection other) {
 
 		if (other == this || other == null) return 0;

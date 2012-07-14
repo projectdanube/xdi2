@@ -19,6 +19,7 @@ public abstract class DescendingIterator<D, T> extends ReadOnlyIterator<T> {
 		this.t = null;
 	}
 
+	@Override
 	public boolean hasNext() {
 
 		while (this.t == null || ! this.t.hasNext()) {
@@ -30,6 +31,7 @@ public abstract class DescendingIterator<D, T> extends ReadOnlyIterator<T> {
 		return true;
 	}
 
+	@Override
 	public T next() {
 
 		while (this.t == null || ! this.t.hasNext()) {

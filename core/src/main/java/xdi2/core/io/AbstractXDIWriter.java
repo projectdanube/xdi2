@@ -18,6 +18,7 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 
 	private static final long serialVersionUID = -4120729667091454408L;
 
+	@Override
 	public synchronized OutputStream write(Graph graph, OutputStream stream, Properties parameters) throws IOException {
 
 		this.write(graph, new OutputStreamWriter(stream), parameters);
@@ -40,6 +41,7 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 		}
 	}
 
+	@Override
 	public final String getFormat() {
 
 		String format = (String) getFieldValue("FORMAT_NAME");
@@ -47,6 +49,7 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 		return format;
 	}
 
+	@Override
 	public final String getFileExtension() {
 
 		String FileExtension = (String) getFieldValue("FILE_EXTENSION");
@@ -54,6 +57,7 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 		return FileExtension;
 	}
 
+	@Override
 	public final MimeType[] getMimeTypes() {
 
 		MimeType[] mimeTypes = (MimeType[]) getFieldValue("MIME_TYPES");
@@ -61,16 +65,19 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 		return mimeTypes;
 	}
 
+	@Override
 	public boolean supportsFormat(String format) {
 
 		return this.getFormat().equals(format);
 	}
 
+	@Override
 	public boolean supportsFileExtension(String fileExtension) {
 
 		return this.getFileExtension().equals(fileExtension);
 	}
 
+	@Override
 	public boolean supportsMimeType(MimeType mimeType) {
 
 		for (MimeType thisMimeType : this.getMimeTypes()) {

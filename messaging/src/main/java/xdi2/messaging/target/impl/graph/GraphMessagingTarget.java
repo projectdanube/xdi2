@@ -110,4 +110,3 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 		this.graphStatementHandler = new GraphStatementHandler(graph);
 	}
 }
-

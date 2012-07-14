@@ -15,11 +15,13 @@ public abstract class RangeIterator<T> extends ReadOnlyIterator<T> {
 		this.to = to;
 	}
 
+	@Override
 	public boolean hasNext() {
 
 		return this.current <= this.to;
 	}
 
+	@Override
 	public T next() {
 
 		return this.get(this.current++);

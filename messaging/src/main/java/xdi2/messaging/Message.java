@@ -401,6 +401,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(Message other) {
 
 		if (other == this || other == null) return 0;

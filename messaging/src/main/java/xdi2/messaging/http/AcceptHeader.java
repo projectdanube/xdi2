@@ -144,6 +144,7 @@ public class AcceptHeader implements Serializable, Comparable<AcceptHeader> {
 		return this.toString().hashCode();
 	}
 
+	@Override
 	public int compareTo(AcceptHeader other) {
 
 		if (other == null || other == this) return 0;

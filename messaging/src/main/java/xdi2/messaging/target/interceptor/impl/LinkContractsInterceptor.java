@@ -1,7 +1,6 @@
 package xdi2.messaging.target.interceptor.impl;
 
 import java.util.Iterator;
-import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
@@ -19,10 +18,11 @@ import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
-public class LinkContractsInterceptor implements MessageInterceptor, TargetInterceptor {
+public class LinkContractsInterceptor extends AbstractInterceptor implements MessageInterceptor, TargetInterceptor {
 
 	private Graph linkContractsGraph;
 

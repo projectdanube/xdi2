@@ -134,6 +134,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		log.debug("Rolled back transaction...");
 	}
 
+	@Override
 	public void put(String key, String value) {
 
 		log.trace("put(" + key + "," + value + ")");
@@ -183,6 +184,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		}
 	}
 
+	@Override
 	public Iterator<String> getAll(String key) {
 
 		log.trace("getAll(" + key + ")");
@@ -279,6 +281,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		}
 	}
 
+	@Override
 	public void delete(String key, String value) {
 
 		log.trace("delete(" + key + "," + value + ")");
@@ -311,6 +314,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		}
 	}
 
+	@Override
 	public void clear() {
 
 		log.trace("clear()");
@@ -339,6 +343,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		}
 	}
 
+	@Override
 	public void close() {
 
 		log.trace("close()");
@@ -371,11 +376,13 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			}
 		}
 
+		@Override
 		public boolean hasNext() {
 
 			return(this.status.equals(OperationStatus.SUCCESS));
 		}
 
+		@Override
 		public String next() {
 
 			log.trace("CursorDuplicatesIterator.next()");

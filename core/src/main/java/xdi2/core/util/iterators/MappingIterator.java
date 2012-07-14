@@ -16,16 +16,19 @@ public abstract class MappingIterator<I, O> implements Iterator<O> {
 		this.iterator = iterator;
 	}
 
+	@Override
 	public boolean hasNext() {
 
 		return this.iterator.hasNext();
 	}
 
+	@Override
 	public O next() {
 
 		return this.map(this.iterator.next());
 	}
 
+	@Override
 	public void remove() {
 
 		this.iterator.remove();

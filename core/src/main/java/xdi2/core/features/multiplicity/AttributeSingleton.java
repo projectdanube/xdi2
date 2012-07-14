@@ -92,6 +92,7 @@ public final class AttributeSingleton implements Serializable, Comparable<Attrib
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(AttributeSingleton other) {
 
 		if (other == this || other == null) return 0;

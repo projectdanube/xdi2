@@ -72,7 +72,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void deleteRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+	public void deleteRelation(XRI3Segment arcXri, ContextNode contextNode) {
 
 		throw new Xdi2RuntimeException("Not supported");
 	}

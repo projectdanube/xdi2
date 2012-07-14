@@ -96,6 +96,7 @@ public class AutoReader extends AbstractXDIReader {
 		throw new Xdi2ParseException("Unknown serialization format.");
 	}
 
+	@Override
 	public synchronized Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException {
 
 		StringWriter stringWriter = new StringWriter();

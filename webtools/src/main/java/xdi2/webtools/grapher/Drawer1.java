@@ -49,6 +49,7 @@ public class Drawer1 implements Drawer {
 		this.legend = legend;
 	}
 
+	@Override
 	public Point draw(Graphics2D graphics, Graph graph, Point size) {
 
 		if (graphics != null) graphics.setBackground(Color.WHITE);
@@ -261,7 +262,7 @@ public class Drawer1 implements Drawer {
 		graphics.drawString(text, posX, posY + fontMetrics.getAscent());
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "unchecked" })
 	private static List<String> getAllSubSegments(List<XRI3SubSegment> subSegments) {
 
 		List<String> list = new ArrayList<String> ();

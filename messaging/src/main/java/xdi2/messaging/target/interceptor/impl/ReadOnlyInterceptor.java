@@ -5,9 +5,10 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
-public class ReadOnlyInterceptor implements TargetInterceptor {
+public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetInterceptor {
 
 	private XRI3Segment[] readOnlyAddresses;
 
@@ -20,7 +21,7 @@ public class ReadOnlyInterceptor implements TargetInterceptor {
 	public Statement targetStatement(Operation operation, Statement targetStatement, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		this.checkReadOnly(operation, targetStatement.getSubject());
-		
+
 		return targetStatement;
 	}
 
@@ -28,7 +29,7 @@ public class ReadOnlyInterceptor implements TargetInterceptor {
 	public XRI3Segment targetAddress(Operation operation, XRI3Segment targetAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		this.checkReadOnly(operation, targetAddress);
-		
+
 		return targetAddress;
 	}
 
@@ -65,5 +66,11 @@ public class ReadOnlyInterceptor implements TargetInterceptor {
 	public void setReadOnlyAddresses(XRI3Segment[] readOnlyAddresses) {
 
 		this.readOnlyAddresses = readOnlyAddresses;
+	}
+
+	public void setReadOnlyAddresses(String[] readOnlyAddresses) {
+
+		this.readOnlyAddresses = new XRI3Segment[readOnlyAddresses.length];
+		for (int i=0; i<this.readOnlyAddresses.length; i++) this.readOnlyAddresses[i] = new XRI3Segment(readOnlyAddresses[i]);
 	}
 }

@@ -53,7 +53,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		return string.replace("\\", "\\\\");
 	}
 
-	private void startItem(BufferedWriter bufferedWriter, State state) throws IOException {
+	private static void startItem(BufferedWriter bufferedWriter, State state) throws IOException {
 
 		if (state.first) {
 
@@ -64,18 +64,18 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		}
 	}
 
-	private void finishItem(BufferedWriter bufferedWriter, State state) throws IOException {
+	private static void finishItem(BufferedWriter bufferedWriter, State state) throws IOException {
 
 	}
 
-	private void startGraph(BufferedWriter bufferedWriter, State state) throws IOException {
+	private static void startGraph(BufferedWriter bufferedWriter, State state) throws IOException {
 
 		state.first = true;
 
 		bufferedWriter.write("{\n");
 	}
 
-	private void finishGraph(BufferedWriter bufferedWriter, State state) throws IOException {
+	private static void finishGraph(BufferedWriter bufferedWriter, State state) throws IOException {
 
 		bufferedWriter.write("\n");
 		bufferedWriter.write("}\n");
@@ -108,7 +108,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 			if (needWriteContextStatements.hasNext()) {
 
-				this.startItem(bufferedWriter, state);
+				startItem(bufferedWriter, state);
 				bufferedWriter.write(state.indent + "\"" + xri + "/()\": [\n");
 				for (; needWriteContextStatements.hasNext(); ) {
 
@@ -116,7 +116,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 					bufferedWriter.write(state.indent + "   \"" + innerContextNode.getArcXri().toString() + "\"" + (needWriteContextStatements.hasNext() ? "," : "") + "\n");
 				}
 				bufferedWriter.write(state.indent + "]");
-				this.finishItem(bufferedWriter, state);
+				finishItem(bufferedWriter, state);
 			}
 
 			for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
@@ -150,7 +150,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 			XRI3Segment relationArcXri = entry.getKey();
 			List<Relation> relationsList = entry.getValue();
 
-			this.startItem(bufferedWriter, state);
+			startItem(bufferedWriter, state);
 			bufferedWriter.write(state.indent + "\"" + xri + "/" + relationArcXri + "\" : [ ");
 
 			for (int i=0; i<relationsList.size(); i++) {
@@ -160,7 +160,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 			}
 
 			bufferedWriter.write(" ]");
-			this.finishItem(bufferedWriter, state);
+			finishItem(bufferedWriter, state);
 		}
 
 		// write literal
@@ -169,9 +169,9 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		if (literal != null) {
 
-			this.startItem(bufferedWriter, state);
+			startItem(bufferedWriter, state);
 			bufferedWriter.write(state.indent + "\"" + xri + "/!\" : [ \"" + escape(literal.getLiteralData()) + "\" ]");
-			this.finishItem(bufferedWriter, state);
+			finishItem(bufferedWriter, state);
 		}
 	}
 
@@ -179,13 +179,14 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		State state = new State();
 
-		this.startGraph(bufferedWriter, state);
+		startGraph(bufferedWriter, state);
 		this.writeContextNode(graph.getRootContextNode(), bufferedWriter, writeContextStatements, state);
-		this.finishGraph(bufferedWriter, state);
+		finishGraph(bufferedWriter, state);
 
 		bufferedWriter.flush();
 	}
 
+	@Override
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
 
 		// check parameters

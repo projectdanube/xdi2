@@ -160,18 +160,26 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Creates a new relation and adds it to this context node.
 	 * @param arcXri The arc XRI of the relation.
+	 * @param contextNode The context node the relation points to.
+	 * @return The newly created relation.
+	 */
+	public Relation createRelation(XRI3Segment arcXri, ContextNode contextNode);
+
+	/**
+	 * Creates a new relation and adds it to this context node.
+	 * @param arcXri The arc XRI of the relation.
 	 * @param relationXri The relation XRI of the relation.
 	 * @return The newly created relation.
 	 */
 	public Relation createRelation(XRI3Segment arcXri, XRI3Segment relationXri);
 
 	/**
-	 * Creates a new relation and adds it to this context node.
-	 * @param arcXri The arc XRI of the relation.
-	 * @param contextNode The context node it points to.
-	 * @return The newly created relation.
+	 * Finds and returns a relation with a given context node. 
+	 * @param arcXri The arc XRI to look for. 
+	 * @param contextNode The context node the relation points to.
+	 * @return The relation with the given arc XRI, or null.
 	 */
-	public Relation createRelation(XRI3Segment arcXri, ContextNode contextNode);
+	public Relation getRelation(XRI3Segment arcXri, ContextNode contextNode);
 
 	/**
 	 * Finds and returns a relation with a given arc XRI. 
@@ -210,6 +218,14 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Checks if a relation with a given arc XRI exists in this context node.
 	 * @param arcXri The arc XRI to look for. 
+	 * @param contextNode The context node the relation points to.
+	 * @return True if this context nod has a relation with the given arc XRI.
+	 */
+	public boolean containsRelation(XRI3Segment arcXri, ContextNode contextNode);
+
+	/**
+	 * Checks if a relation with a given arc XRI exists in this context node.
+	 * @param arcXri The arc XRI to look for. 
 	 * @param relationXri The relation XRI of the relation.
 	 * @return True if this context nod has a relation with the given arc XRI.
 	 */
@@ -227,6 +243,13 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return True if this context node has relations.
 	 */
 	public boolean containsRelations();
+
+	/**
+	 * Deletes the relation with a given arc XRI from this context node.
+	 * @param arcXri The arc XRI of the relation.
+	 * @param contextNode The context node the relation points to.
+	 */
+	public void deleteRelation(XRI3Segment arcXri, ContextNode contextNode);
 
 	/**
 	 * Deletes the relation with a given arc XRI from this context node.

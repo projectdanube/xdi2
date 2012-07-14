@@ -21,16 +21,19 @@ public abstract class AbstractRelation implements Relation {
 		this.contextNode = contextNode;
 	}
 
+	@Override
 	public Graph getGraph() {
 
 		return this.graph;
 	}
 
+	@Override
 	public ContextNode getContextNode() {
 
 		return this.contextNode;
 	}
 
+	@Override
 	public synchronized void delete() {
 
 		this.getContextNode().deleteRelation(this.getArcXri(), this.getRelationXri());
@@ -40,6 +43,7 @@ public abstract class AbstractRelation implements Relation {
 	 * Methods for following the relation
 	 */
 
+	@Override
 	public ContextNode follow() {
 
 		XRI3Segment relationXri = this.getRelationXri();
@@ -51,6 +55,7 @@ public abstract class AbstractRelation implements Relation {
 	 * Methods related to statements
 	 */
 
+	@Override
 	public RelationStatement getStatement() {
 
 		return this.statement;
@@ -89,6 +94,7 @@ public abstract class AbstractRelation implements Relation {
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(Relation other) {
 
 		if (other == null || other == this) return 0;
@@ -104,16 +110,19 @@ public abstract class AbstractRelation implements Relation {
 
 		private static final long serialVersionUID = 1937380243537401799L;
 
+		@Override
 		public XRI3Segment getSubject() {
 
 			return AbstractRelation.this.getContextNode().getXri();
 		}
 
+		@Override
 		public XRI3Segment getPredicate() {
 
 			return AbstractRelation.this.getArcXri();
 		}
 
+		@Override
 		public XRI3Segment getObject() {
 
 			return AbstractRelation.this.getRelationXri();

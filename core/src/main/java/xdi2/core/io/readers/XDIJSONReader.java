@@ -130,6 +130,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 		this.read(graph, new JSONObject(graphString.toString()));
 	}
 
+	@Override
 	public synchronized Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException {
 
 		this.lastXriString = null;

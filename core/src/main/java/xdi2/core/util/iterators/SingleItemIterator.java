@@ -14,11 +14,13 @@ public class SingleItemIterator<T> extends ReadOnlyIterator<T> {
 		this.item = item;
 	}
 
+	@Override
 	public boolean hasNext() {
 
 		return this.item != null;
 	}
 
+	@Override
 	public T next() {
 
 		T item = this.item;

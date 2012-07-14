@@ -26,6 +26,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
+import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.ResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
@@ -50,19 +51,33 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
-	protected List<Interceptor> interceptors;
+	private List<Interceptor> interceptors;
 
 	public AbstractMessagingTarget() {
 
 		this.interceptors = new ArrayList<Interceptor> ();
 	}
 
+	@Override
 	public void init() throws Exception {
 
+		for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = this.getMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
+
+			MessagingTargetInterceptor messagingTargetInterceptor = messagingTargetInterceptors.next();
+
+			messagingTargetInterceptor.init(this);
+		}
 	}
 
+	@Override
 	public void shutdown() throws Exception {
 
+		for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = this.getMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
+
+			MessagingTargetInterceptor messagingTargetInterceptor = messagingTargetInterceptors.next();
+
+			messagingTargetInterceptor.shutdown(this);
+		}
 	}
 
 	/**
@@ -73,6 +88,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * execution of the message envelope begins and that will be passed into every execute() method.
 	 * @return True, if the message envelope has been handled.
 	 */
+	@Override
 	public boolean execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (messageEnvelope == null) throw new NullPointerException();
@@ -588,6 +604,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	public void setInterceptors(List<Interceptor> interceptors) {
 
 		this.interceptors = interceptors;
+	}
+
+	public Iterator<MessagingTargetInterceptor> getMessagingTargetInterceptors() {
+
+		return new SelectingClassIterator<Interceptor, MessagingTargetInterceptor> (this.interceptors.iterator(), MessagingTargetInterceptor.class);
 	}
 
 	public Iterator<MessageEnvelopeInterceptor> getMessageEnvelopeInterceptors() {

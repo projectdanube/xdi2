@@ -97,6 +97,7 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 		return this.toString().hashCode();
 	}
 
+	@Override
 	public int compareTo(MimeType other) {
 
 		if (other == null || other == this) return 0;

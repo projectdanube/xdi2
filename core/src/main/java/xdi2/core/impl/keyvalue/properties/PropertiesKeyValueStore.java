@@ -39,6 +39,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		this.properties = null;
 	}
 
+	@Override
 	public void put(String key, String value) {
 
 		String hash = hash(value);
@@ -91,6 +92,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		return super.getOne(key);
 	}
 
+	@Override
 	public Iterator<String> getAll(String key) {
 
 		// find index list
@@ -191,6 +193,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		if (this.autoSave) this.save();
 	}
 
+	@Override
 	public void delete(String key, String value) {
 
 		String hash = hash(value);
@@ -243,6 +246,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		if (this.autoSave) this.save();
 	}
 
+	@Override
 	public void clear() {
 
 		this.properties.clear();
@@ -250,6 +254,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		if (this.autoSave) this.save();
 	}
 
+	@Override
 	public void close() {
 
 		this.save();

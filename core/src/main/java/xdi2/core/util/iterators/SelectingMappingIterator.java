@@ -23,11 +23,13 @@ public abstract class SelectingMappingIterator<I, O> extends ReadOnlyIterator<O>
 		this.lookahead();
 	}
 
+	@Override
 	public boolean hasNext() {
 
 		return this.nextElement != null;
 	}
 
+	@Override
 	public O next() {
 
 		O element = this.nextElement;

@@ -61,6 +61,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 * Methods related to context nodes of this context node
 	 */
 
+	@Override
 	public synchronized ContextNode createContextNode(XRI3SubSegment arcXri) {
 
 		if (arcXri == null) throw new NullPointerException();
@@ -81,6 +82,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return this.contextNodes.get(arcXri);
 	}
 
+	@Override
 	public Iterator<ContextNode> getContextNodes() {
 
 		return new CastingIterator<MemoryContextNode, ContextNode> (this.contextNodes.values().iterator());
@@ -98,11 +100,13 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return ! this.contextNodes.isEmpty();
 	}
 
+	@Override
 	public synchronized void deleteContextNode(XRI3SubSegment arcXri) {
 
 		this.contextNodes.remove(arcXri);
 	}
 
+	@Override
 	public synchronized void deleteContextNodes() {
 
 		this.contextNodes.clear();
@@ -112,6 +116,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 * Methods related to relations of this context node
 	 */
 
+	@Override
 	public synchronized Relation createRelation(XRI3Segment arcXri, ContextNode contextNode) {
 
 		if (arcXri == null) throw new NullPointerException();
@@ -119,7 +124,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		XRI3Segment relationXri = contextNode.getXri();
 
-		if (this.containsRelation(arcXri, relationXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
+		if (this.containsRelation(arcXri, contextNode)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) {
@@ -145,6 +150,12 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
+	public Relation getRelation(XRI3Segment arcXri, ContextNode contextNode) {
+
+		return this.getRelation(arcXri, contextNode.getXri());
+	}
+
+	@Override
 	public Relation getRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
@@ -162,6 +173,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return new CastingIterator<MemoryRelation, Relation> (relations.values().iterator());
 	}
 
+	@Override
 	public Iterator<Relation> getRelations() {
 
 		Iterator<MemoryRelation> descendingIterator = new DescendingIterator<Entry<XRI3Segment, Map<XRI3Segment, MemoryRelation>>, MemoryRelation> (this.relations.entrySet().iterator()) {
@@ -174,6 +186,12 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		};
 
 		return new CastingIterator<MemoryRelation, Relation> (descendingIterator);
+	}
+
+	@Override
+	public boolean containsRelation(XRI3Segment arcXri, ContextNode contextNode) {
+
+		return this.containsRelation(arcXri, contextNode.getXri());
 	}
 
 	@Override
@@ -197,6 +215,13 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return ! this.relations.isEmpty();
 	}
 
+	@Override
+	public synchronized void deleteRelation(XRI3Segment arcXri, ContextNode contextNode) {
+
+		this.deleteRelation(arcXri, contextNode.getXri());
+	}
+
+	@Override
 	public synchronized void deleteRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
@@ -210,11 +235,13 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		}
 	}
 
+	@Override
 	public synchronized void deleteRelations(XRI3Segment arcXri) {
 
 		this.relations.remove(arcXri);
 	}
 
+	@Override
 	public synchronized void deleteRelations() {
 
 		this.relations.clear();
@@ -224,6 +251,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 * Methods related to literals of this context node
 	 */
 
+	@Override
 	public synchronized Literal createLiteral(String literalData) {
 
 		if (literalData == null) throw new NullPointerException();
@@ -236,6 +264,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return literal;
 	}
 
+	@Override
 	public Literal getLiteral() {
 
 		return this.literal;
@@ -247,6 +276,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		return this.literal != null;
 	}
 
+	@Override
 	public synchronized void deleteLiteral() {
 
 		this.literal = null;

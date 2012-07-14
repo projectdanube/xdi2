@@ -22,16 +22,19 @@ public abstract class AbstractLiteral implements Literal {
 		this.contextNode = contextNode;
 	}
 
+	@Override
 	public Graph getGraph() {
 
 		return this.graph;
 	}
 
+	@Override
 	public ContextNode getContextNode() {
 
 		return this.contextNode;
 	}
 
+	@Override
 	public void delete() {
 
 		this.getContextNode().deleteLiteral();
@@ -41,6 +44,7 @@ public abstract class AbstractLiteral implements Literal {
 	 * Methods related to statements
 	 */
 
+	@Override
 	public LiteralStatement getStatement() {
 
 		return this.statement;
@@ -83,6 +87,7 @@ public abstract class AbstractLiteral implements Literal {
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(Literal other) {
 
 		if (other == null || other == this) return 0;
@@ -98,16 +103,19 @@ public abstract class AbstractLiteral implements Literal {
 
 		private static final long serialVersionUID = -8290065911553369697L;
 
+		@Override
 		public XRI3Segment getSubject() {
 
 			return AbstractLiteral.this.getContextNode().getXri();
 		}
 
+		@Override
 		public XRI3Segment getPredicate() {
 
 			return XDIConstants.XRI_S_LITERAL;
 		}
 
+		@Override
 		public XRI3Segment getObject() {
 
 			return XDIUtil.stringToDataXriSegment(AbstractLiteral.this.getLiteralData(), false);

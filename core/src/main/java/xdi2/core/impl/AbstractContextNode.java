@@ -36,26 +36,31 @@ public abstract class AbstractContextNode implements ContextNode {
 		this.contextNode = contextNode;
 	}
 
+	@Override
 	public Graph getGraph() {
 
 		return this.graph;
 	}
 
+	@Override
 	public ContextNode getContextNode() {
 
 		return this.contextNode;
 	}
 
+	@Override
 	public boolean isRootContextNode() {
 
 		return this.getContextNode() == null;
 	}
 
+	@Override
 	public boolean isLeafContextNode() {
 
 		return ! this.containsContextNodes();
 	}
 
+	@Override
 	public synchronized void delete() {
 
 		if (this.isRootContextNode()) {
@@ -67,6 +72,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		}
 	}
 
+	@Override
 	public synchronized void clear() {
 
 		this.deleteContextNodes();
@@ -74,6 +80,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		this.deleteLiteral();
 	}
 
+	@Override
 	public boolean isEmpty() {
 
 		return ! (this.containsContextNodes() || this.containsRelations() || this.containsLiteral());
@@ -85,7 +92,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		if (this.isRootContextNode()) return XDIConstants.XRI_S_CONTEXT;
 
 		StringBuilder xri = new StringBuilder();
-		
+
 		xri.append(this.getArcXri().toString());
 
 		for (ContextNode contextNode = this.getContextNode(); 
@@ -102,6 +109,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to context nodes of this context node
 	 */
 
+	@Override
 	public ContextNode createContextNodes(XRI3Segment arcXri) {
 
 		ContextNode contextNode = this;
@@ -114,6 +122,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode;
 	}
 
+	@Override
 	public ContextNode getContextNode(final XRI3SubSegment arcXri) {
 
 		Iterator<ContextNode> selectingIterator = new SelectingIterator<ContextNode> (this.getContextNodes()) {
@@ -128,6 +137,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new IteratorFirstItem<ContextNode> (selectingIterator).item();
 	}
 
+	@Override
 	public Iterator<ContextNode> getAllContextNodes() {
 
 		DescendingIterator<ContextNode, ContextNode> descendingIterator = new DescendingIterator<ContextNode, ContextNode> (this.getContextNodes()) {
@@ -146,10 +156,12 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new CompositeIterator<ContextNode> (list.iterator());
 	}
 
+	@Override
 	public Iterator<ContextNode> getAllLeafContextNodes() {
 
 		return new SelectingIterator<ContextNode> (this.getAllContextNodes()) {
 
+			@Override
 			public boolean select(ContextNode contextNode) {
 
 				return contextNode.isEmpty();
@@ -157,21 +169,25 @@ public abstract class AbstractContextNode implements ContextNode {
 		};
 	}
 
+	@Override
 	public boolean containsContextNode(XRI3SubSegment arcXri) {
 
 		return this.getContextNode(arcXri) != null;
 	}
 
+	@Override
 	public boolean containsContextNodes() {
 
 		return this.getContextNodeCount() > 0;
 	}
 
+	@Override
 	public int getContextNodeCount() {
 
 		return new IteratorCounter(this.getContextNodes()).count();
 	}
 
+	@Override
 	public int getAllContextNodeCount() {
 
 		return new IteratorCounter(this.getAllContextNodes()).count();
@@ -181,6 +197,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to relations of this context node
 	 */
 
+	@Override
 	public Relation createRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
 
 		ContextNode contextNode = this.getGraph().findContextNode(relationXri, true);
@@ -188,6 +205,13 @@ public abstract class AbstractContextNode implements ContextNode {
 		return this.createRelation(arcXri, contextNode);
 	}
 
+	@Override
+	public Relation getRelation(XRI3Segment arcXri, ContextNode contextNode) {
+
+		return this.getRelation(arcXri, contextNode.getXri());
+	}
+
+	@Override
 	public Relation getRelation(XRI3Segment arcXri, final XRI3Segment relationXri) {
 
 		Iterator<Relation> selectingIterator = new SelectingIterator<Relation> (this.getRelations(arcXri)) {
@@ -202,11 +226,13 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new IteratorFirstItem<Relation> (selectingIterator).item();
 	}
 
+	@Override
 	public Relation getRelation(XRI3Segment arcXri) {
 
 		return new IteratorFirstItem<Relation> (this.getRelations(arcXri)).item();
 	}
 
+	@Override
 	public Iterator<Relation> getRelations(final XRI3Segment arcXri) {
 
 		return new SelectingIterator<Relation> (this.getRelations()) {
@@ -219,6 +245,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		};
 	}
 
+	@Override
 	public Iterator<Relation> getAllRelations() {
 
 		DescendingIterator<ContextNode, Relation> descendingIterator = new DescendingIterator<ContextNode, Relation> (this.getContextNodes()) {
@@ -237,31 +264,52 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new CompositeIterator<Relation> (list.iterator());
 	}
 
+	@Override
+	public boolean containsRelation(XRI3Segment arcXri, ContextNode contextNode) {
+
+		return this.getRelation(arcXri, contextNode) != null;
+	}
+
+	@Override
 	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
 
 		return this.getRelation(arcXri, relationXri) != null;
 	}
 
+	@Override
 	public boolean containsRelations(XRI3Segment arcXri) {
 
 		return this.getRelation(arcXri) != null;
 	}
 
+	@Override
 	public boolean containsRelations() {
 
 		return this.getRelationCount() > 0;
 	}
 
+	@Override
+	public void deleteRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+
+		ContextNode contextNode = this.getGraph().findContextNode(relationXri, false);
+		if (contextNode == null) return;
+
+		this.deleteRelation(arcXri, contextNode);
+	}
+
+	@Override
 	public int getRelationCount(XRI3Segment arcXri) {
 
 		return new IteratorCounter(this.getRelations(arcXri)).count();
 	}
 
+	@Override
 	public int getRelationCount() {
 
 		return new IteratorCounter(this.getRelations()).count();
 	}
 
+	@Override
 	public int getAllRelationCount() {
 
 		return new IteratorCounter(this.getAllRelations()).count();
@@ -271,6 +319,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to literals of this context node
 	 */
 
+	@Override
 	public Literal createLiteralInContextNode(XRI3SubSegment arcXri, String literalData) {
 
 		ContextNode contextNode = this.getContextNode(arcXri);
@@ -279,6 +328,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode.createLiteral(literalData);
 	}
 
+	@Override
 	public Literal getLiteralInContextNode(XRI3SubSegment arcXri) {
 
 		ContextNode contextNode = this.getContextNode(arcXri);
@@ -287,6 +337,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode.getLiteral();
 	}
 
+	@Override
 	public Iterator<Literal> getAllLiterals() {
 
 		DescendingIterator<ContextNode, Literal> descendingIterator = new DescendingIterator<ContextNode, Literal> (this.getContextNodes()) {
@@ -305,16 +356,19 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new CompositeIterator<Literal> (list.iterator());
 	}
 
+	@Override
 	public boolean containsLiteral() {
 
 		return this.getLiteral() != null;
 	}
 
+	@Override
 	public boolean containsLiteralInContextNode(XRI3SubSegment arcXri) {
 
 		return this.getLiteralInContextNode(arcXri)  != null;
 	}
 
+	@Override
 	public int getAllLiteralCount() {
 
 		return new IteratorCounter(this.getAllLiterals()).count();
@@ -324,6 +378,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to statements
 	 */
 
+	@Override
 	public Statement getStatement() {
 
 		if (this.isRootContextNode()) {
@@ -335,6 +390,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		}
 	}
 
+	@Override
 	public Iterator<Statement> getAllStatements() {
 
 		Iterator<Statement> contextNodeStatement = null;
@@ -351,6 +407,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 			contextNodesStatements = new DescendingIterator<ContextNode, Statement> (this.getContextNodes()) {
 
+				@Override
 				public Iterator<Statement> descend(ContextNode contextNode) {
 
 					return contextNode.getAllStatements();
@@ -362,6 +419,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 			relationsStatements = new MappingIterator<Relation, Statement> (this.getRelations()) {
 
+				@Override
 				public Statement map(Relation relation) {
 
 					return relation.getStatement();
@@ -383,6 +441,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new CompositeIterator<Statement> (list.iterator());
 	}
 
+	@Override
 	public int getAllStatementCount() {
 
 		return new IteratorCounter(this.getAllStatements()).count();
@@ -421,6 +480,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(ContextNode other) {
 
 		if (other == null || other == this) return 0;
@@ -436,16 +496,19 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		private static final long serialVersionUID = 5008355182847367563L;
 
+		@Override
 		public XRI3Segment getSubject() {
 
 			return AbstractContextNode.this.getContextNode().getXri();
 		}
 
+		@Override
 		public XRI3Segment getPredicate() {
 
 			return XDIConstants.XRI_S_CONTEXT;
 		}
 
+		@Override
 		public XRI3Segment getObject() {
 
 			return new XRI3Segment(AbstractContextNode.this.getArcXri().toString());

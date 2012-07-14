@@ -16,17 +16,20 @@ public class CastingIterator<I, O> implements Iterator<O> {
 		this.iterator = iterator;
 	}
 
+	@Override
 	public boolean hasNext() {
 
 		return this.iterator.hasNext();
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public O next() {
 
 		return (O) this.iterator.next();
 	}
 
+	@Override
 	public void remove() {
 
 		this.iterator.remove();

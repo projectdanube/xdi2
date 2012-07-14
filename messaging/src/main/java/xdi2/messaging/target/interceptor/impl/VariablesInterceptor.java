@@ -19,14 +19,15 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.ResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
-public class VariablesInterceptor implements MessageEnvelopeInterceptor, TargetInterceptor, ResultInterceptor {
+public class VariablesInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, TargetInterceptor, ResultInterceptor {
 
 	/*
-	 * MessageEnvelopeInterceptor
+	 * Interceptor
 	 */
 
 	@Override

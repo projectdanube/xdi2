@@ -38,10 +38,12 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 		this.format = XDIReaderRegistry.getDefault().getFormat();
 	}
 
+	@Override
 	public void init() throws Exception {
 
 	}
 
+	@Override
 	public void shutdown() throws Exception {
 
 	}

@@ -107,6 +107,7 @@ public class MessageResult implements Serializable, Comparable<MessageResult> {
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(MessageResult other) {
 
 		if (other == this || other == null) return(0);

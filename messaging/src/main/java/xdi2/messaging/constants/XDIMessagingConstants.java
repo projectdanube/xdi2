@@ -11,7 +11,6 @@ import xdi2.core.xri3.impl.XRI3SubSegment;
 public final class XDIMessagingConstants {
 
 	public static final XRI3Segment XRI_S_ANONYMOUS = new XRI3Segment("$");
-	public static final XRI3Segment XRI_S_SELF = new XRI3Segment("$");
 
 	public static final XRI3Segment XRI_S_MSG = new XRI3Segment("$msg");
 	public static final XRI3Segment XRI_S_GET = new XRI3Segment("$get");

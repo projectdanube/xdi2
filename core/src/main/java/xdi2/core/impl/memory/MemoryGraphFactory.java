@@ -31,6 +31,7 @@ public class MemoryGraphFactory extends AbstractGraphFactory implements GraphFac
 		return instance;
 	}
 
+	@Override
 	public Graph openGraph() {
 
 		// create new graph

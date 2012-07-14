@@ -25,6 +25,7 @@ public class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		this.setFactory = setFactory;
 	}
 
+	@Override
 	public void put(String key, String value) {
 
 		Set<String> set = this.map.get(key);
@@ -47,6 +48,7 @@ public class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		return set.iterator().next();
 	}
 
+	@Override
 	public Iterator<String> getAll(String key) {
 
 		Set<String> set = this.map.get(key);
@@ -76,6 +78,7 @@ public class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		this.map.remove(key);
 	}
 
+	@Override
 	public void delete(String key, String value) {
 
 		Set<String> set = this.map.get(key);
@@ -85,11 +88,13 @@ public class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		if (set.isEmpty()) this.map.remove(key);
 	}
 
+	@Override
 	public void clear() {
 
 		this.map.clear();
 	}
 
+	@Override
 	public void close() {
 
 		this.map.clear();

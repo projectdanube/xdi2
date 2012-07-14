@@ -118,6 +118,7 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 		bufferedWriter.flush();
 	}
 
+	@Override
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
 
 		// check parameters

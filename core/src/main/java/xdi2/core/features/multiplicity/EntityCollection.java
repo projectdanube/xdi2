@@ -70,7 +70,7 @@ public final class EntityCollection implements Serializable, Comparable<EntityCo
 	 * @return The newly created member.
 	 */
 	public ContextNode createMember() {
-		
+
 		return this.getContextNode().createContextNode(Multiplicity.entityMemberArcXri());
 	}
 
@@ -135,6 +135,7 @@ public final class EntityCollection implements Serializable, Comparable<EntityCo
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(EntityCollection other) {
 
 		if (other == this || other == null) return 0;

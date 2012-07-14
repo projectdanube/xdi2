@@ -12,14 +12,17 @@ public class NullMessagingTarget implements MessagingTarget {
 
 	}
 
+	@Override
 	public void init() throws Exception {
 
 	}
 
+	@Override
 	public void shutdown() {
 
 	}
 
+	@Override
 	public boolean execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;

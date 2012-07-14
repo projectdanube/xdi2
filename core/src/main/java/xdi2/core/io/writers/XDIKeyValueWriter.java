@@ -29,6 +29,7 @@ public class XDIKeyValueWriter extends AbstractXDIWriter {
 	public static final String PARAMETER_SORTED = "sorted";
 	public static final String DEFAULT_SORTED = "true";
 
+	@Override
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
 
 		if (parameters == null) parameters = new Properties();

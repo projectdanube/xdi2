@@ -296,6 +296,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(MessageEnvelope other) {
 
 		if (other == this || other == null) return 0;

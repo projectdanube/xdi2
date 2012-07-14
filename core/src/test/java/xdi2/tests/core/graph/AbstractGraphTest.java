@@ -43,6 +43,8 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		makeGraph(graph1);
 		testGraph(graph1);
+
+		graph1.close();
 	}
 
 	public void testReopenGraph() throws Exception {
@@ -52,6 +54,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		makeGraph(graph2);
 		graph2 = this.reopenGraph(graph2, this.getClass().getName() + "-graph-2");
 		testGraph(graph2);
+
+		graph2.close();
 	}
 
 	public void testReadJson() throws Exception {
@@ -65,6 +69,8 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		graph3.getRootContextNode().clear();
 		reader.read(graph3, this.getClass().getResourceAsStream("test-simple.json"), null).close();
+
+		graph3.close();
 	}
 
 	public void testReadWriteFormats() throws Exception {
@@ -90,6 +96,9 @@ public abstract class AbstractGraphTest extends TestCase {
 
 			testGraph(graph5);
 			testGraphsEqual(graph4, graph5);
+
+			graph4.close();
+			graph5.close();
 		}
 	}
 
@@ -100,6 +109,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		makeGraph(graph8);
 		manipulateGraph(graph8);
 		testManipulatedGraph(graph8);
+
+		graph8.close();
 	}
 
 	public void testManipulateAndReopenGraph() throws Exception {
@@ -111,6 +122,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		manipulateGraph(graph9);
 		graph9 = this.reopenGraph(graph9, this.getClass().getName() + "-graph-9");
 		testManipulatedGraph(graph9);
+
+		graph9.close();
 	}
 
 	public void testCopy() throws Exception {
@@ -121,6 +134,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		makeGraph(graph10);
 		CopyUtil.copyContextNode(graph10.getRootContextNode(), graph11, null);
 		testGraph(graph11);
+
+		graph10.close();
+		graph11.close();
 	}
 
 	public void testFindAndDelete() throws Exception {
@@ -161,77 +177,83 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(graph12.findContextNode(new XRI3Segment("=markus+name+last"), false));
 		assertNull(graph12.findLiteral(new XRI3Segment("=markus+name+last")));
 		assertNull(graph12.findRelation(new XRI3Segment("=markus+name+relation"), new XRI3Segment("+rel")));
+
+		graph12.close();
 	}
 
 	public void testRoot() throws Exception {
 
 		Graph graph13 = this.openNewGraph(this.getClass().getName() + "-graph-13");
-		ContextNode rootContextNode = graph13.getRootContextNode();
+		ContextNode root = graph13.getRootContextNode();
 
-		assertEquals(rootContextNode.getXri(), XDIConstants.XRI_S_ROOT);
-		assertNull(rootContextNode.getContextNode());
-		assertTrue(rootContextNode.isRootContextNode());
+		assertEquals(root.getXri(), XDIConstants.XRI_S_ROOT);
+		assertNull(root.getContextNode());
+		assertTrue(root.isRootContextNode());
 		
-		assertTrue(rootContextNode.isEmpty());
-		assertFalse(rootContextNode.containsContextNodes());
-		assertFalse(rootContextNode.containsRelations());
-		assertFalse(rootContextNode.containsLiteral());
-		assertFalse(rootContextNode.getContextNodes().hasNext());
-		assertFalse(rootContextNode.getRelations().hasNext());
-		assertNull(rootContextNode.getLiteral());
-		assertEquals(rootContextNode.getContextNodeCount(), 0);
-		assertEquals(rootContextNode.getRelationCount(), 0);
+		assertTrue(root.isEmpty());
+		assertFalse(root.containsContextNodes());
+		assertFalse(root.containsRelations());
+		assertFalse(root.containsLiteral());
+		assertFalse(root.getContextNodes().hasNext());
+		assertFalse(root.getRelations().hasNext());
+		assertNull(root.getLiteral());
+		assertEquals(root.getContextNodeCount(), 0);
+		assertEquals(root.getRelationCount(), 0);
 
-		rootContextNode.createRelation(new XRI3Segment("*arc"), new XRI3Segment("=target"));
-		rootContextNode.createLiteral("test");
+		root.createRelation(new XRI3Segment("*arc"), new XRI3Segment("=target"));
+		root.createLiteral("test");
 
-		assertFalse(rootContextNode.isEmpty());
-		assertFalse(rootContextNode.containsContextNodes());
-		assertTrue(rootContextNode.containsRelations());
-		assertTrue(rootContextNode.containsLiteral());
-		assertFalse(rootContextNode.getContextNodes().hasNext());
-		assertTrue(rootContextNode.getRelations().hasNext());
-		assertNotNull(rootContextNode.getLiteral());
-		assertEquals(rootContextNode.getContextNodeCount(), 0);
-		assertEquals(rootContextNode.getRelationCount(), 1);
+		assertFalse(root.isEmpty());
+		assertTrue(root.containsContextNodes());
+		assertTrue(root.containsRelations());
+		assertTrue(root.containsLiteral());
+		assertTrue(root.getContextNodes().hasNext());
+		assertTrue(root.getRelations().hasNext());
+		assertNotNull(root.getRelations().next().follow());
+		assertNotNull(root.getLiteral());
+		assertEquals(root.getContextNodeCount(), 1);
+		assertEquals(root.getRelationCount(), 1);
 
-		rootContextNode.createContextNode(new XRI3SubSegment("+name"));
-		rootContextNode.createContextNode(new XRI3SubSegment("+email"));
+		root.createContextNode(new XRI3SubSegment("+name"));
+		root.createContextNode(new XRI3SubSegment("+email"));
 
-		assertFalse(rootContextNode.isEmpty());
-		assertTrue(rootContextNode.containsContextNodes());
-		assertTrue(rootContextNode.containsRelations());
-		assertTrue(rootContextNode.containsLiteral());
-		assertTrue(rootContextNode.getContextNodes().hasNext());
-		assertTrue(rootContextNode.getRelations().hasNext());
-		assertNotNull(rootContextNode.getLiteral());
-		assertEquals(rootContextNode.getContextNodeCount(), 2);
-		assertEquals(rootContextNode.getRelationCount(), 1);
+		assertFalse(root.isEmpty());
+		assertTrue(root.containsContextNodes());
+		assertTrue(root.containsRelations());
+		assertTrue(root.containsLiteral());
+		assertTrue(root.getContextNodes().hasNext());
+		assertTrue(root.getRelations().hasNext());
+		assertNotNull(root.getLiteral());
+		assertEquals(root.getContextNodeCount(), 3);
+		assertEquals(root.getRelationCount(), 1);
 
-		rootContextNode.getContextNodes().next().delete();
-		rootContextNode.getContextNodes().next().delete();
-		rootContextNode.getRelations().next().delete();
-		rootContextNode.getLiteral().delete();
+		root.getRelations().next().follow().delete();
+		root.getRelations().next().delete();
+		root.getContextNodes().next().delete();
+		root.getContextNodes().next().delete();
+		root.getLiteral().delete();
 
-		assertTrue(rootContextNode.isEmpty());
-		assertFalse(rootContextNode.containsContextNodes());
-		assertFalse(rootContextNode.containsRelations());
-		assertFalse(rootContextNode.containsLiteral());
-		assertFalse(rootContextNode.getContextNodes().hasNext());
-		assertFalse(rootContextNode.getRelations().hasNext());
-		assertNull(rootContextNode.getLiteral());
-		assertEquals(rootContextNode.getContextNodeCount(), 0);
-		assertEquals(rootContextNode.getRelationCount(), 0);
+		assertTrue(root.isEmpty());
+		assertFalse(root.containsContextNodes());
+		assertFalse(root.containsRelations());
+		assertFalse(root.containsLiteral());
+		assertFalse(root.getContextNodes().hasNext());
+		assertFalse(root.getRelations().hasNext());
+		assertNull(root.getLiteral());
+		assertEquals(root.getContextNodeCount(), 0);
+		assertEquals(root.getRelationCount(), 0);
+
+		graph13.close();
 	}
 
 	public void testRelations() throws Exception {
 
-		Graph graph13 = this.openNewGraph(this.getClass().getName() + "-graph-13");
-		ContextNode root = graph13.getRootContextNode();
-		ContextNode markus = graph13.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
-		ContextNode target1 = graph13.getRootContextNode().createContextNode(new XRI3SubSegment("=test")).createContextNode(new XRI3SubSegment("*target1"));
-		ContextNode target2 = graph13.getRootContextNode().getContextNode(new XRI3SubSegment("=test")).createContextNode(new XRI3SubSegment("*target2"));
-		ContextNode target3 = graph13.getRootContextNode().getContextNode(new XRI3SubSegment("=test")).createContextNode(new XRI3SubSegment("*target3"));
+		Graph graph14 = this.openNewGraph(this.getClass().getName() + "-graph-14");
+		ContextNode root = graph14.getRootContextNode();
+		ContextNode markus = root.createContextNode(new XRI3SubSegment("=markus"));
+		ContextNode target1 = root.createContextNode(new XRI3SubSegment("=test")).createContextNode(new XRI3SubSegment("*target1"));
+		ContextNode target2 = root.getContextNode(new XRI3SubSegment("=test")).createContextNode(new XRI3SubSegment("*target2"));
+		ContextNode target3 = root.getContextNode(new XRI3SubSegment("=test")).createContextNode(new XRI3SubSegment("*target3"));
 
 		markus.createRelation(new XRI3Segment("+friend"), target1);
 		markus.createRelation(new XRI3Segment("+friend"), target2);
@@ -298,12 +320,14 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new IteratorCounter(markus.getRelations(new XRI3Segment("+friend"))).count(), 0);
 		assertEquals(new IteratorCounter(markus.getRelations(new XRI3Segment("+brother"))).count(), 0);
 		assertEquals(new IteratorCounter(markus.getRelations()).count(), 0);
+
+		graph14.close();
 	}
 
 	public void testMisc() throws Exception {
 
-		Graph graph14 = this.openNewGraph(this.getClass().getName() + "-graph-14");
-		ContextNode root = graph14.getRootContextNode();
+		Graph graph15 = this.openNewGraph(this.getClass().getName() + "-graph-15");
+		ContextNode root = graph15.getRootContextNode();
 
 		ContextNode c = root.createContextNodes(new XRI3Segment("+a+b+c"));
 		ContextNode b = c.getContextNode();
@@ -331,6 +355,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(c.getArcXri(), new XRI3Segment("+c"));
 		assertEquals(d.getArcXri(), new XRI3Segment("+d"));
 		assertEquals(e.getArcXri(), new XRI3Segment("+e"));
+
+		graph15.close();
 	}
 
 	@SuppressWarnings("unused")

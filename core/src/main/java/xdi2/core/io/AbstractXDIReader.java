@@ -20,11 +20,13 @@ public abstract class AbstractXDIReader implements XDIReader {
 
 	private static final long serialVersionUID = -3924954880534200486L;
 
+	@Override
 	public void read(Graph graph, String string, Properties parameters) throws IOException, Xdi2ParseException {
 
 		this.read(graph, new StringReader(string), parameters);
 	}
 
+	@Override
 	public InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, Xdi2ParseException {
 
 		this.read(graph, new InputStreamReader(stream), parameters);
@@ -46,6 +48,7 @@ public abstract class AbstractXDIReader implements XDIReader {
 		}
 	}
 
+	@Override
 	public final String getFormat() {
 
 		String format = (String) getFieldValue("FORMAT_NAME");
@@ -53,6 +56,7 @@ public abstract class AbstractXDIReader implements XDIReader {
 		return format;
 	}
 
+	@Override
 	public final String getFileExtension() {
 
 		String FileExtension = (String) getFieldValue("FILE_EXTENSION");
@@ -60,6 +64,7 @@ public abstract class AbstractXDIReader implements XDIReader {
 		return FileExtension;
 	}
 
+	@Override
 	public final MimeType[] getMimeTypes() {
 
 		MimeType[] mimeTypes = (MimeType[]) getFieldValue("MIME_TYPES");
@@ -67,16 +72,19 @@ public abstract class AbstractXDIReader implements XDIReader {
 		return mimeTypes;
 	}
 
+	@Override
 	public boolean supportsFormat(String format) {
 
 		return this.getFormat().equals(format);
 	}
 
+	@Override
 	public boolean supportsFileExtension(String fileExtension) {
 
 		return this.getFileExtension().equals(fileExtension);
 	}
 
+	@Override
 	public boolean supportsMimeType(MimeType mimeType) {
 
 		for (MimeType thisMimeType : this.getMimeTypes()) {

@@ -22,11 +22,13 @@ public abstract class SelectingIterator<T> extends ReadOnlyIterator<T> {
 		this.lookahead();
 	}
 
+	@Override
 	public boolean hasNext() {
 
 		return this.nextElement != null;
 	}
 
+	@Override
 	public T next() {
 
 		T element = this.nextElement;

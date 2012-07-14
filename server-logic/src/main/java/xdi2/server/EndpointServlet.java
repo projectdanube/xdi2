@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -29,6 +30,7 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.util.iterators.SelectingClassIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -37,6 +39,7 @@ import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.http.AcceptHeader;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.server.interceptor.EndpointServletInterceptor;
 
 /**
@@ -56,7 +59,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
 	private EndpointRegistry endpointRegistry;
-	private List<EndpointServletInterceptor> endpointServletInterceptors;
+	private List<Interceptor> interceptors;
 	private boolean supportGet, supportPost, supportPut, supportDelete;
 
 	public EndpointServlet() {
@@ -64,7 +67,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		super();
 
 		this.endpointRegistry = null;
-		this.endpointServletInterceptors = new ArrayList<EndpointServletInterceptor> ();
+		this.interceptors = new ArrayList<Interceptor> ();
 		this.supportGet = true;
 		this.supportPost = true;
 		this.supportPut = true;
@@ -77,6 +80,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		this.endpointRegistry.init(applicationContext);
 	}
 
+	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		this.service(request, response);
@@ -84,6 +88,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	private ApplicationContext applicationContext;
 
+	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
 		log.debug("Setting application context.");
@@ -139,7 +144,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		} catch (Exception ex) {
 
 			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			this.handleInternalException(request, response, ex);
+			handleInternalException(request, response, ex);
 			return;
 		}
 
@@ -163,7 +168,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		} catch (Exception ex) {
 
 			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			this.handleInternalException(request, response, ex);
+			handleInternalException(request, response, ex);
 			return;
 		}
 
@@ -187,7 +192,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		} catch (Exception ex) {
 
 			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			this.handleInternalException(request, response, ex);
+			handleInternalException(request, response, ex);
 			return;
 		}
 
@@ -211,7 +216,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		} catch (Exception ex) {
 
 			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			this.handleInternalException(request, response, ex);
+			handleInternalException(request, response, ex);
 			return;
 		}
 
@@ -222,14 +227,16 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// check which messaging target this request applies to
 
-		String path = this.findPath(request);
+		String path = findPath(request);
 		String messagingTargetPath = this.findMessagingTargetPath(request, response, path);
 		if (messagingTargetPath == null) return;
 		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
 		// check interceptors
 
-		for (EndpointServletInterceptor endpointServletInterceptor : this.endpointServletInterceptors) {
+		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
+
+			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (GET).");
 
@@ -242,7 +249,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = this.readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_GET);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_GET);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -252,21 +259,23 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// send out result
 
-		this.sendResult(messageResult, request, response);
+		sendResult(messageResult, request, response);
 	}
 
 	protected void processPostRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// check which messaging target this request applies to
 
-		String path = this.findPath(request);
+		String path = findPath(request);
 		String messagingTargetPath = this.findMessagingTargetPath(request, response, path);
 		if (messagingTargetPath == null) return;
 		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
 		// check interceptors
 
-		for (EndpointServletInterceptor endpointServletInterceptor : this.endpointServletInterceptors) {
+		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
+
+			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (POST).");
 
@@ -279,7 +288,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// construct message envelope from body
 
-		MessageEnvelope messageEnvelope = this.readFromBody(request, response);
+		MessageEnvelope messageEnvelope = readFromBody(request, response);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -289,21 +298,23 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// send out result
 
-		this.sendResult(messageResult, request, response);
+		sendResult(messageResult, request, response);
 	}
 
 	protected void processPutRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// check which messaging target this request applies to
 
-		String path = this.findPath(request);
+		String path = findPath(request);
 		String messagingTargetPath = this.findMessagingTargetPath(request, response, path);
 		if (messagingTargetPath == null) return;
 		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
 		// check interceptors
 
-		for (EndpointServletInterceptor endpointServletInterceptor : this.endpointServletInterceptors) {
+		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
+
+			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (PUT).");
 
@@ -315,7 +326,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		}
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = this.readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_ADD);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_ADD);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -325,21 +336,23 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// send out result
 
-		this.sendResult(messageResult, request, response);
+		sendResult(messageResult, request, response);
 	}
 
 	protected void processDeleteRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// check which messaging target this request applies to
 
-		String path = this.findPath(request);
+		String path = findPath(request);
 		String messagingTargetPath = this.findMessagingTargetPath(request, response, path);
 		if (messagingTargetPath == null) return;
 		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
 		// check interceptors
 
-		for (EndpointServletInterceptor endpointServletInterceptor : this.endpointServletInterceptors) {
+		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
+
+			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (DELETE).");
 
@@ -352,7 +365,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = this.readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_DEL);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_DEL);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -362,10 +375,10 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// send out result
 
-		this.sendResult(messageResult, request, response);
+		sendResult(messageResult, request, response);
 	}
 
-	protected String findPath(HttpServletRequest request) {
+	protected static String findPath(HttpServletRequest request) {
 
 		String requestUri = request.getRequestURI();
 		String contextPath = request.getContextPath(); 
@@ -397,7 +410,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		return messagingTargetPath;
 	}
 
-	private MessageEnvelope readFromUrl(HttpServletRequest request, HttpServletResponse response, String path, String messagingTargetPath, XRI3Segment operationXri) throws IOException {
+	private static MessageEnvelope readFromUrl(HttpServletRequest request, HttpServletResponse response, String path, String messagingTargetPath, XRI3Segment operationXri) throws IOException {
 
 		// parse an XDI address from the request path
 
@@ -419,7 +432,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			} catch (Exception ex) {
 
 				log.error("Cannot parse XDI address: " + ex.getMessage(), ex);
-				this.handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
+				handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
 				return null;
 			}
 		}
@@ -433,7 +446,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		return messageEnvelope;
 	}
 
-	private MessageEnvelope readFromBody(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private static MessageEnvelope readFromBody(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		// try to find an appropriate reader for the provided mime type
 
@@ -463,7 +476,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		} catch (Exception ex) {
 
 			log.error("Cannot parse XDI graph: " + ex.getMessage(), ex);
-			this.handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
+			handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
 			return null;
 		}
 
@@ -494,7 +507,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		} catch (Exception ex) {
 
 			log.error("Exception: " + ex.getMessage(), ex);
-			this.handleException(request, response, ex);
+			handleException(request, response, ex);
 			return null;
 		}
 
@@ -503,7 +516,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		return messageResult;
 	}
 
-	private void sendResult(MessageResult messageResult, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private static void sendResult(MessageResult messageResult, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		// find a suitable writer based on accept headers
 
@@ -539,7 +552,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		log.debug("Output complete.");
 	}
 
-	protected void handleInternalException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
+	protected static void handleInternalException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
 
 		if (! response.isCommitted()) {
 
@@ -547,7 +560,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		}
 	}
 
-	protected void handleException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
+	protected static void handleException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
 
 		// send error result
 
@@ -555,8 +568,12 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		if (log.isDebugEnabled()) log.debug("ErrorMessageResult: " + errorMessageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 
-		this.sendResult(errorMessageResult, request, response);
+		sendResult(errorMessageResult, request, response);
 	}
+
+	/*
+	 * Getters and setters
+	 */
 
 	public EndpointRegistry getEndpointRegistry() {
 
@@ -568,14 +585,19 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		this.endpointRegistry = endpointRegistry;
 	}
 
-	public List<EndpointServletInterceptor> getEndpointServletInterceptors() {
+	public List<Interceptor> getInterceptors() {
 
-		return this.endpointServletInterceptors;
+		return this.interceptors;
 	}
 
-	public void setEndpointServletInterceptors(List<EndpointServletInterceptor> endpointServletInterceptors) {
+	public void setInterceptors(List<Interceptor> interceptors) {
 
-		this.endpointServletInterceptors = endpointServletInterceptors;
+		this.interceptors = interceptors;
+	}
+
+	public Iterator<EndpointServletInterceptor> getEndpointServletInterceptors() {
+
+		return new SelectingClassIterator<Interceptor, EndpointServletInterceptor> (this.interceptors.iterator(), EndpointServletInterceptor.class);
 	}
 
 	public boolean getSupportGet() {

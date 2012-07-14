@@ -168,6 +168,7 @@ public abstract class AbstractStatement implements Statement {
 	 * Instance methods
 	 */
 
+	@Override
 	public XRI3 getXRI3() {
 
 		return new XRI3(this.toString());
@@ -231,6 +232,7 @@ public abstract class AbstractStatement implements Statement {
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(Statement other) {
 
 		if (other == null || other == this) return(0);
@@ -274,6 +276,7 @@ public abstract class AbstractStatement implements Statement {
 
 		private static final long serialVersionUID = -2393268622327844933L;
 
+		@Override
 		public Relation getRelation() {
 
 			return null;
@@ -284,6 +287,7 @@ public abstract class AbstractStatement implements Statement {
 
 		private static final long serialVersionUID = -7876412291137305476L;
 
+		@Override
 		public Literal getLiteral() {
 
 			return null;

@@ -110,6 +110,7 @@ public class XDIHttpClient implements XDIClient {
 		}
 	}
 
+	@Override
 	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException {
 
 		if (this.url == null) throw new Xdi2ClientException("No URL set.", null);
@@ -265,6 +266,7 @@ public class XDIHttpClient implements XDIClient {
 		return messageResult;
 	}
 
+	@Override
 	public void close() {
 
 	}

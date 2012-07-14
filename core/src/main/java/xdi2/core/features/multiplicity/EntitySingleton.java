@@ -92,6 +92,7 @@ public final class EntitySingleton implements Serializable, Comparable<EntitySin
 		return hashCode;
 	}
 
+	@Override
 	public int compareTo(EntitySingleton other) {
 
 		if (other == this || other == null) return 0;

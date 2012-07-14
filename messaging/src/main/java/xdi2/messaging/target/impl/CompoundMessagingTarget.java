@@ -12,8 +12,10 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
+import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.ResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
@@ -48,6 +50,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 		// add compound interceptors
 
+		this.getInterceptors().add(new CompoundMessagingTargetInterceptor());
 		this.getInterceptors().add(new CompoundMessageEnvelopeInterceptor());
 		this.getInterceptors().add(new CompoundMessageInterceptor());
 		this.getInterceptors().add(new CompoundOperationInterceptor());
@@ -111,8 +114,46 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 		this.messagingTargets = messagingTargets;
 	}
 
+	private class CompoundMessagingTargetInterceptor implements MessagingTargetInterceptor {
+
+		@Override
+		public void init(MessagingTarget messagingTarget) throws Exception {
+
+			// execute all messaging target interceptors
+
+			for (int i=0; i<CompoundMessagingTarget.this.messagingTargets.size(); i++) {
+
+				AbstractMessagingTarget abstractMessagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
+
+				for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = abstractMessagingTarget.getMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
+
+					MessagingTargetInterceptor messagingTargetInterceptor = messagingTargetInterceptors.next();
+					messagingTargetInterceptor.init(messagingTarget);
+				}
+			}
+		}
+
+		@Override
+		public void shutdown(MessagingTarget messagingTarget) throws Exception {
+
+			// execute all messaging target interceptors
+
+			for (int i=0; i<CompoundMessagingTarget.this.messagingTargets.size(); i++) {
+
+				AbstractMessagingTarget abstractMessagingTarget = CompoundMessagingTarget.this.messagingTargets.get(i);
+
+				for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = abstractMessagingTarget.getMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
+
+					MessagingTargetInterceptor messagingTargetInterceptor = messagingTargetInterceptors.next();
+					messagingTargetInterceptor.shutdown(messagingTarget);
+				}
+			}
+		}
+	}
+
 	private class CompoundMessageEnvelopeInterceptor implements MessageEnvelopeInterceptor {
 
+		@Override
 		public boolean before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all message envelope interceptors
@@ -131,6 +172,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 			return false;
 		}
 
+		@Override
 		public boolean after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all message envelope interceptors
@@ -149,6 +191,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 			return false;
 		}
 
+		@Override
 		public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
 
 			// execute all message envelope interceptors
@@ -168,6 +211,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 	private class CompoundMessageInterceptor implements MessageInterceptor {
 
+		@Override
 		public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all message interceptors
@@ -187,6 +231,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 			return false;
 		}
 
+		@Override
 		public boolean after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all message interceptors
@@ -209,6 +254,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 	private class CompoundOperationInterceptor implements OperationInterceptor {
 
+		@Override
 		public boolean before(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all operation interceptors
@@ -227,6 +273,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 			return false;
 		}
 
+		@Override
 		public boolean after(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all operation interceptors
@@ -248,6 +295,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 	private class CompoundTargetInterceptor implements TargetInterceptor {
 
+		@Override
 		public Statement targetStatement(Operation operation, Statement targetStatement, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all target interceptors
@@ -266,6 +314,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 			return targetStatement;
 		}
 
+		@Override
 		public XRI3Segment targetAddress(Operation operation, XRI3Segment targetAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all target interceptors
@@ -287,6 +336,7 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 
 	private class CompoundResultInterceptor implements ResultInterceptor {
 
+		@Override
 		public void finish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// execute all result interceptors

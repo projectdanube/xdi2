@@ -12,11 +12,13 @@ public class EmptyIterator<T> extends ReadOnlyIterator<T> {
 
 	}
 
+	@Override
 	public boolean hasNext() {
 
 		return false;
 	}
 
+	@Override
 	public T next() {
 
 		return null;

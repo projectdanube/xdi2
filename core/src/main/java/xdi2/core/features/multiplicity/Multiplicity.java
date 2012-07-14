@@ -102,9 +102,16 @@ public class Multiplicity {
 	}
 
 	/*
-	 * Methods for creating collections.
+	 * Methods for creating collections and singletons.
 	 */
 
+	/**
+	 * Gets or returns an attribute singleton under a context node.
+	 * @param contextNode A context node.
+	 * @param arcXri The "base" arc XRI of the attribute singleton, without multiplicity syntax.
+	 * @param create Whether or not to create the context node if it doesn't exist.
+	 * @return The attribute singleton.
+	 */
 	public static AttributeSingleton getAttributeSingleton(ContextNode contextNode, String arcXri, boolean create) {
 
 		XRI3SubSegment attributeSingletonArcXri = attributeSingletonArcXri(arcXri);
@@ -114,6 +121,13 @@ public class Multiplicity {
 		return new AttributeSingleton(attributeSingletonContextNode);
 	}
 
+	/**
+	 * Gets or returns an attribute collection under a context node.
+	 * @param contextNode A context node.
+	 * @param arcXri The "base" arc XRI of the attribute collection, without multiplicity syntax.
+	 * @param create Whether or not to create the context node if it doesn't exist.
+	 * @return The attribute collection.
+	 */
 	public static AttributeCollection getAttributeCollection(ContextNode contextNode, String arcXri, boolean create) {
 
 		XRI3SubSegment attributeCollectionArcXri = attributeCollectionArcXri(arcXri);
@@ -123,6 +137,13 @@ public class Multiplicity {
 		return new AttributeCollection(attributeCollectionContextNode);
 	}
 
+	/**
+	 * Gets or returns an entity singleton under a context node.
+	 * @param contextNode A context node.
+	 * @param arcXri The "base" arc XRI of the entity singleton, without multiplicity syntax.
+	 * @param create Whether or not to create the context node if it doesn't exist.
+	 * @return The entity singleton.
+	 */
 	public static EntitySingleton getEntitySingleton(ContextNode contextNode, String arcXri, boolean create) {
 
 		XRI3SubSegment entitySingletonArcXri = entitySingletonArcXri(arcXri);
@@ -132,6 +153,13 @@ public class Multiplicity {
 		return new EntitySingleton(entitySingletonContextNode);
 	}
 
+	/**
+	 * Gets or returns an entity collection under a context node.
+	 * @param contextNode A context node.
+	 * @param arcXri The "base" arc XRI of the entity collection, without multiplicity syntax.
+	 * @param create Whether or not to create the context node if it doesn't exist.
+	 * @return The entity collection.
+	 */
 	public static EntityCollection getEntityCollection(ContextNode contextNode, String arcXri, boolean create) {
 
 		XRI3SubSegment entityCollectionArcXri = entityCollectionArcXri(arcXri);

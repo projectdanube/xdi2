@@ -27,11 +27,13 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 		this.relationXri = relationXri;
 	}
 
+	@Override
 	public XRI3Segment getArcXri() {
 
 		return this.arcXri;
 	}
 
+	@Override
 	public XRI3Segment getRelationXri() {
 
 		return this.relationXri;

@@ -18,15 +18,17 @@ public abstract class TerminatingIterator<T> implements Iterator<T> {
 	public TerminatingIterator(Iterator<T> iterator) {
 
 		this.iterator = iterator;
-		
+
 		this.lookahead();
 	}
 
+	@Override
 	public boolean hasNext() {
 
 		return this.nextElement != null;
 	}
 
+	@Override
 	public T next() {
 
 		T element = this.nextElement;
@@ -36,6 +38,7 @@ public abstract class TerminatingIterator<T> implements Iterator<T> {
 		return element;
 	}
 
+	@Override
 	public void remove() {
 
 		throw new RuntimeException("Removing not supported.");
@@ -46,7 +49,7 @@ public abstract class TerminatingIterator<T> implements Iterator<T> {
 		this.nextElement = null;
 
 		if (! this.iterator.hasNext()) return;
-		
+
 		T element = this.iterator.next();
 		if (this.terminate(element)) return;
 
