@@ -87,6 +87,10 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		try {
 
+			// clear execution context
+
+			executionContext.clearMessageEnvelopeAttributes();
+
 			// before message envelope
 
 			this.before(messageEnvelope, executionContext);
@@ -104,6 +108,10 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				i++;
 				Message message = messages.next();
+
+				// clear execution context
+
+				executionContext.clearMessageAttributes();
 
 				// before message
 
@@ -163,6 +171,10 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			this.executeMessageEnvelopeInterceptorsException(messageEnvelope, messageResult, executionContext, ex);
 
+			// exception in message envelope
+
+			this.exception(messageEnvelope, executionContext, ex);
+
 			// throw it
 
 			throw (Xdi2MessagingException) ex;
@@ -197,6 +209,10 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			operation = Operation.castOperation(operation);
 
 			try {
+
+				// clear execution context
+
+				executionContext.clearOperationAttributes();
 
 				// before operation
 
@@ -319,6 +335,34 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	/*
 	 * These are for being overridden by subclasses
 	 */
+
+	public void before(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void before(Message message, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void before(Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void after(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void after(Message message, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void after(Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, Exception ex) throws Xdi2MessagingException {
+
+	}
 
 	public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
@@ -533,35 +577,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	}
 
 	/*
-	 * Misc methods
+	 * Getters and setters
 	 */
-
-	public void before(Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		executionContext.clearOperationAttributes();
-	}
-
-	public void before(Message message, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		executionContext.clearMessageAttributes();
-	}
-
-	public void before(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		executionContext.clearMessageEnvelopeAttributes();
-	}
-
-	public void after(Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
-	public void after(Message message, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
-	public void after(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
 
 	public List<Interceptor> getInterceptors() {
 
