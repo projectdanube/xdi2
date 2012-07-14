@@ -120,7 +120,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 	private synchronized void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException, JSONException {
 
 		String line;
-		StringBuffer graphString = new StringBuffer();
+		StringBuilder graphString = new StringBuilder();
 
 		while ((line = bufferedReader.readLine()) != null) {
 

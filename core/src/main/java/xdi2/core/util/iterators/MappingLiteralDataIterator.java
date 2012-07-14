@@ -5,7 +5,7 @@ import java.util.Iterator;
 import xdi2.core.Literal;
 
 /**
- * A MappingIterator that maps XDI literal to their literal data.
+ * A MappingIterator that maps XDI literals to their literal datas.
  * 
  * @author markus
  */

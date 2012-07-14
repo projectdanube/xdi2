@@ -9,6 +9,7 @@ import xdi2.core.xri3.impl.XRI3Segment;
  */
 public class XDIConstants {
 
+	public static final XRI3Segment XRI_S_ROOT = new XRI3Segment("()");
 	public static final XRI3Segment XRI_S_CONTEXT = new XRI3Segment("()");
 	public static final XRI3Segment XRI_S_LITERAL = new XRI3Segment("!");
 

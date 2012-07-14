@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.features.multiplicity.EntityCollection;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -22,6 +23,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 	private MessageEnvelope messageEnvelope;
 	private ContextNode contextNode;
+	private EntityCollection entityCollection;
 
 	protected MessageCollection(MessageEnvelope messageEnvelope, ContextNode contextNode) {
 
@@ -29,6 +31,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		this.messageEnvelope = messageEnvelope;
 		this.contextNode = contextNode;
+		this.entityCollection = EntityCollection.fromContextNode(contextNode);
 	}
 
 	/*
@@ -101,7 +104,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		if (create) {
 
-			ContextNode contextNode = Multiplicity.createEntityMember(this.getContextNode());
+			ContextNode contextNode = this.entityCollection.createMember();
 			contextNode.createContextNode(XDIMessagingConstants.XRI_SS_DO);
 	
 			return new Message(this, contextNode);

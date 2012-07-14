@@ -1,10 +1,7 @@
 package xdi2.core.features.multiplicity;
 
-import java.util.Iterator;
-
 import xdi2.core.ContextNode;
 import xdi2.core.util.XRIUtil;
-import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -105,62 +102,42 @@ public class Multiplicity {
 	}
 
 	/*
-	 * Methods for context nodes.
+	 * Methods for creating collections.
 	 */
 
-	public static boolean isAttributeSingleton(ContextNode contextNode) {
+	public static AttributeSingleton getAttributeSingleton(ContextNode contextNode, String arcXri, boolean create) {
 
-		return isAttributeSingletonArcXri(contextNode.getArcXri());
+		XRI3SubSegment attributeSingletonArcXri = attributeSingletonArcXri(arcXri);
+		ContextNode attributeSingletonContextNode = contextNode.getContextNode(attributeSingletonArcXri);
+		if (attributeSingletonContextNode == null) attributeSingletonContextNode = contextNode.createContextNode(attributeSingletonArcXri);
+
+		return new AttributeSingleton(attributeSingletonContextNode);
 	}
 
-	public static boolean isAttributeCollection(ContextNode contextNode) {
+	public static AttributeCollection getAttributeCollection(ContextNode contextNode, String arcXri, boolean create) {
 
-		return isAttributeCollectionArcXri(contextNode.getArcXri());
+		XRI3SubSegment attributeCollectionArcXri = attributeCollectionArcXri(arcXri);
+		ContextNode attributeCollectionContextNode = contextNode.getContextNode(attributeCollectionArcXri);
+		if (attributeCollectionContextNode == null) attributeCollectionContextNode = contextNode.createContextNode(attributeCollectionArcXri);
+
+		return new AttributeCollection(attributeCollectionContextNode);
 	}
 
-	public static boolean isEntitySingleton(ContextNode contextNode) {
+	public static EntitySingleton getEntitySingleton(ContextNode contextNode, String arcXri, boolean create) {
 
-		return isEntitySingletonArcXri(contextNode.getArcXri());
+		XRI3SubSegment entitySingletonArcXri = entitySingletonArcXri(arcXri);
+		ContextNode entitySingletonContextNode = contextNode.getContextNode(entitySingletonArcXri);
+		if (entitySingletonContextNode == null) entitySingletonContextNode = contextNode.createContextNode(entitySingletonArcXri);
+
+		return new EntitySingleton(entitySingletonContextNode);
 	}
 
-	public static boolean isEntityCollection(ContextNode contextNode) {
+	public static EntityCollection getEntityCollection(ContextNode contextNode, String arcXri, boolean create) {
 
-		return isEntityCollectionArcXri(contextNode.getArcXri());
-	}
+		XRI3SubSegment entityCollectionArcXri = entityCollectionArcXri(arcXri);
+		ContextNode entityCollectionContextNode = contextNode.getContextNode(entityCollectionArcXri);
+		if (entityCollectionContextNode == null) entityCollectionContextNode = contextNode.createContextNode(entityCollectionArcXri);
 
-	public static boolean isAttributeMember(ContextNode contextNode) {
-
-		return isAttributeMemberArcXri(contextNode.getArcXri());
-	}
-
-	public static boolean isEntityMember(ContextNode contextNode) {
-
-		return isEntityMemberArcXri(contextNode.getArcXri());
-	}
-
-	/*
-	 * Methods for elements of a collection.
-	 */
-
-	public static ContextNode createAttributeMember(ContextNode contextNode) {
-
-		return contextNode.createContextNode(attributeMemberArcXri());
-	}
-
-	public static ContextNode createEntityMember(ContextNode contextNode) {
-
-		return contextNode.createContextNode(entityMemberArcXri());
-	}
-
-	public static Iterator<ContextNode> getEntityMembers(ContextNode contextNode) {
-
-		return new SelectingIterator<ContextNode> (contextNode.getContextNodes()) {
-
-			@Override
-			public boolean select(ContextNode contextNode) {
-
-				return Multiplicity.isEntityMember(contextNode);
-			}
-		};
+		return new EntityCollection(entityCollectionContextNode);
 	}
 }

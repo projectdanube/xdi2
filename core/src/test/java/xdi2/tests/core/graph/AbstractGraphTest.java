@@ -73,11 +73,11 @@ public abstract class AbstractGraphTest extends TestCase {
 		String[] readerFormats = new String[] { "XDI/JSON", "STATEMENTS", "XDI/JSON", "STATEMENTS" };
 
 		assertEquals(writerFormats.length, readerFormats.length);
-		
+
 		for (int i=0; i<readerFormats.length; i++) {
 
 			log.info("#" + i + " Write: " + writerFormats[i] + ", Read: " + readerFormats[i]);
-			
+
 			Graph graph4 = this.openNewGraph(this.getClass().getName() + "-graph-4" + "-" + i);
 			Graph graph5 = this.openNewGraph(this.getClass().getName() + "-graph-5" + "-" + i);
 
@@ -168,6 +168,10 @@ public abstract class AbstractGraphTest extends TestCase {
 		Graph graph13 = this.openNewGraph(this.getClass().getName() + "-graph-13");
 		ContextNode rootContextNode = graph13.getRootContextNode();
 
+		assertEquals(rootContextNode.getXri(), XDIConstants.XRI_S_ROOT);
+		assertNull(rootContextNode.getContextNode());
+		assertTrue(rootContextNode.isRootContextNode());
+		
 		assertTrue(rootContextNode.isEmpty());
 		assertFalse(rootContextNode.containsContextNodes());
 		assertFalse(rootContextNode.containsRelations());
@@ -386,6 +390,11 @@ public abstract class AbstractGraphTest extends TestCase {
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(new XRI3Segment("*2"));
 		Relation abcRelation1 = abcContextNode.getRelation(new XRI3Segment("+rel"), new XRI3Segment("=abc+passport!1"));
 		Relation abcRelation2 = abcContextNode.getRelation(new XRI3Segment("+rel"), new XRI3Segment("=abc+passport!2"));
+
+		assertEquals(rootContextNode.getXri(), XDIConstants.XRI_S_ROOT);
+		assertEquals(abcContextNode.getXri(), new XRI3Segment("=abc"));
+		assertEquals(abcPassportContextNode.getXri(), new XRI3Segment("=abc+passport"));
+		assertEquals(abcPassportVContextNode.getXri(), new XRI3Segment("=abc+passport$v"));
 
 		assertTrue(rootContextNode.containsContextNode(new XRI3SubSegment("=abc")));
 		assertTrue(abcContextNode.containsContextNode(new XRI3SubSegment("+passport")));

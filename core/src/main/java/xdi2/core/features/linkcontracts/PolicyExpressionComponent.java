@@ -6,6 +6,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.multiplicity.AttributeCollection;
 import xdi2.core.features.multiplicity.Multiplicity;
 
 public abstract class PolicyExpressionComponent implements Serializable,
@@ -109,7 +110,7 @@ public abstract class PolicyExpressionComponent implements Serializable,
 	}
 
 	public void addLiteralExpression(String expr){
-		ContextNode c = Multiplicity.createAttributeMember(contextNode);
+		ContextNode c = AttributeCollection.fromContextNode(contextNode).createMember();
 		c.createLiteral(expr);
 	}
 	

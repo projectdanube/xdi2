@@ -81,11 +81,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		bufferedWriter.write("}\n");
 	}
 
-	private void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, Properties parameters, State state) throws IOException {
-
-		boolean writeContextStatements = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_CONTEXT_STATEMENTS, DEFAULT_WRITE_CONTEXT_STATEMENTS));
-
-		log.debug("Parameters: writeContextStatements=" + writeContextStatements);
+	private void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, boolean writeContextStatements, State state) throws IOException {
 
 		String xri = contextNode.getXri().toString();
 
@@ -126,7 +122,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 			for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
 
 				ContextNode innerContextNode = innerContextNodes.next();
-				this.writeContextNode(innerContextNode, bufferedWriter, parameters, state);
+				this.writeContextNode(innerContextNode, bufferedWriter, writeContextStatements, state);
 			}
 		}
 
@@ -179,12 +175,12 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		}
 	}
 
-	private void write(Graph graph, BufferedWriter bufferedWriter, Properties parameters) throws IOException {
+	private void write(Graph graph, BufferedWriter bufferedWriter, boolean writeContextStatements) throws IOException {
 
 		State state = new State();
 
 		this.startGraph(bufferedWriter, state);
-		this.writeContextNode(graph.getRootContextNode(), bufferedWriter, parameters, state);
+		this.writeContextNode(graph.getRootContextNode(), bufferedWriter, writeContextStatements, state);
 		this.finishGraph(bufferedWriter, state);
 
 		bufferedWriter.flush();
@@ -192,9 +188,17 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
 
+		// check parameters
+		
 		if (parameters == null) parameters = new Properties();
 
-		this.write(graph, new BufferedWriter(writer), parameters);
+		boolean writeContextStatements = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_CONTEXT_STATEMENTS, DEFAULT_WRITE_CONTEXT_STATEMENTS));
+
+		log.debug("Parameters: writeContextStatements=" + writeContextStatements);
+
+		// write
+		
+		this.write(graph, new BufferedWriter(writer), writeContextStatements);
 		writer.flush();
 
 		return writer;

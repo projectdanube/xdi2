@@ -1,10 +1,11 @@
 package xdi2.core.io.writers;
 
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -19,6 +20,10 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.iterators.CompositeIterator;
+import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
+import xdi2.core.util.iterators.MappingLiteralStatementIterator;
+import xdi2.core.util.iterators.MappingRelationStatementIterator;
 
 public class XDIStatementsWriter extends AbstractXDIWriter {
 
@@ -41,13 +46,15 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 	private static final String HTML_COLOR_RELATION = "#ff8888";
 	private static final String HTML_COLOR_LITERAL = "#8888ff";
 
-	public static void write(Graph graph, BufferedWriter bufferedWriter, Properties parameters) throws IOException {
+	public static void write(Graph graph, BufferedWriter bufferedWriter, boolean writeContextStatements, boolean writeHtml, boolean writeOrdered) throws IOException {
 
-		boolean writeContextStatements = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_CONTEXT_STATEMENTS, DEFAULT_WRITE_CONTEXT_STATEMENTS));
-		boolean writeHtml = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_HTML, DEFAULT_WRITE_HTML));
-		boolean writeOrdered = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_ORDERED, DEFAULT_WRITE_ORDERED));
+		if (writeHtml) {
 
-		log.debug("Parameters: writeContextStatements=" + writeContextStatements + ", writeHtml=" + writeHtml + ", writeOrdered=" + writeOrdered);
+			bufferedWriter.write("<html><head><title>XDI Graph</title></head>\n");
+			bufferedWriter.write("<body style=\"font-family:monospace;font-size:14pt;font-weight:bold;\">\n");
+		}
+
+		Iterator<Statement> statements;
 
 		if (writeOrdered) {
 
@@ -56,15 +63,19 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 			Graph orderedGraph = memoryGraphFactory.openGraph();
 			CopyUtil.copyGraph(graph, orderedGraph, null);
 			graph = orderedGraph;
+
+			List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+			list.add(new MappingContextNodeStatementIterator(graph.getRootContextNode().getAllContextNodes()));
+			list.add(new MappingRelationStatementIterator(graph.getRootContextNode().getAllRelations()));
+			list.add(new MappingLiteralStatementIterator(graph.getRootContextNode().getAllLiterals()));
+
+			statements = new CompositeIterator<Statement> (list.iterator());
+		} else {
+
+			statements = graph.getRootContextNode().getAllStatements();
 		}
 
-		if (writeHtml) {
-
-			bufferedWriter.write("<html><head><title>XDI Graph</title></head>\n");
-			bufferedWriter.write("<body style=\"font-family:monospace;font-size:14pt;font-weight:bold;\">\n");
-		}
-
-		for (Iterator<Statement> statements = graph.getRootContextNode().getAllStatements(); statements.hasNext(); ) {
+		while (statements.hasNext()) {
 
 			Statement statement = statements.next();
 
@@ -109,9 +120,19 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 
 	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
 
+		// check parameters
+
 		if (parameters == null) parameters = new Properties();
 
-		write(graph, new BufferedWriter(writer), parameters);
+		boolean writeContextStatements = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_CONTEXT_STATEMENTS, DEFAULT_WRITE_CONTEXT_STATEMENTS));
+		boolean writeHtml = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_HTML, DEFAULT_WRITE_HTML));
+		boolean writeOrdered = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_ORDERED, DEFAULT_WRITE_ORDERED));
+
+		log.debug("Parameters: writeContextStatements=" + writeContextStatements + ", writeHtml=" + writeHtml + ", writeOrdered=" + writeOrdered);
+
+		// write
+
+		write(graph, new BufferedWriter(writer), writeContextStatements, writeHtml, writeOrdered);
 		writer.flush();
 
 		return writer;

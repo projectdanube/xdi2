@@ -1,129 +1,39 @@
 package xdi2.messaging.tests.linkcontracts;
 
 import junit.framework.TestCase;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.linkcontracts.LinkContract;
+import xdi2.core.features.linkcontracts.LinkContracts;
+import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
-import xdi2.messaging.tests.messagingtarget.AbstractGraphMessagingTargetTest;
+import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.xri3.impl.XRI3Segment;
 
 public class SimpleLinkContractsTest extends TestCase {
-
-	private static final Logger log = LoggerFactory.getLogger(AbstractGraphMessagingTargetTest.class);
 
 	private static final XDIReader autoReader = XDIReaderRegistry.getAuto();
 
 	private static MemoryGraphFactory graphFactory = new MemoryGraphFactory();
 
-	public void testDummy() {
-		
-	}
-	
-	public void testLinkContracts() throws Exception {
+	public void testSimpleLinkContracts() throws Exception {
 
-		int i=1, ii;
+		Graph graph = graphFactory.openGraph();
 
-		while (true) {
+		autoReader.read(graph, this.getClass().getResourceAsStream("simple.xdi"), null);
+		ContextNode contextNode1111_1 = graph.findContextNode(new XRI3Segment("$(=!1111)$(!1)"), false);
+		ContextNode contextNode1111_2 = graph.findContextNode(new XRI3Segment("$(=!1111)$(!2)"), false);
+		ContextNode contextNode4444 = graph.findContextNode(new XRI3Segment("@!4444"), false);
 
-			if (this.getClass().getResourceAsStream("graph" + i + ".xdi") == null) break;
+		assertEquals(new IteratorCounter(LinkContracts.getAllLinkContracts(graph)).count(), 1);
+		assertNull(LinkContracts.getLinkContract(contextNode1111_1, false));
+		assertNotNull(LinkContracts.getLinkContract(contextNode1111_2, false));
+		assertNotNull(LinkContracts.findLinkContractByAddress(graph, new XRI3Segment("$(=!1111)$(!2)$do")));
 
-			Graph graph = graphFactory.openGraph(); 
-			autoReader.read(graph, this.getClass().getResourceAsStream("graph" + i + ".xdi"), null).close();
-
-			log.info("Graph " + i);
-
-			// check authorized
-
-			ii = 1;
-
-			while (true) {
-
-				if (this.getClass().getResourceAsStream("authorized" + i + "." + ii + ".xdi") == null) break;
-
-				Graph authorized = graphFactory.openGraph(); 
-				autoReader.read(authorized, this.getClass().getResourceAsStream("authorized" + i + "." + ii + ".xdi"), null).close();
-
-				log.info("Authorized " + i + "." + ii);
-
-				LinkContractsInterceptor linkContractsInterceptor = new LinkContractsInterceptor();
-				linkContractsInterceptor.setLinkContractsGraph(graph);
-				System.out.println("------------Graph---------------");
-
-				System.out.println(graph.toString("STATEMENTS_WITH_CONTEXT_STATEMENTS"));
-				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
-				graphMessagingTarget.setGraph(graph);
-				graphMessagingTarget.getInterceptors().add(linkContractsInterceptor);
-
-				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(authorized);
-				MessageResult messageResult = new MessageResult();
-
-				try {
-
-					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
-					System.out.println("------------Graph---------------");
-
-					System.out.println(graph.toString("STATEMENTS_WITH_CONTEXT_STATEMENTS"));
-				} catch (Xdi2NotAuthorizedException ex) {
-
-					fail(ex.getMessage());
-				} finally {
-
-					ii++;
-				}
-			}
-
-			// check not authorized
-
-			ii = 1;
-
-			while (true) {
-
-				if (this.getClass().getResourceAsStream("notauthorized" + i + "." + ii + ".xdi") == null) break;
-
-				Graph notauthorized = graphFactory.openGraph(); 
-				autoReader.read(notauthorized, this.getClass().getResourceAsStream("notauthorized" + i + "." + ii + ".xdi"), null).close();
-
-				log.info("Not Authorized " + i + "." + ii);
-
-				LinkContractsInterceptor linkContractsInterceptor = new LinkContractsInterceptor();
-				linkContractsInterceptor.setLinkContractsGraph(graph);
-
-				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
-				graphMessagingTarget.setGraph(graph);
-				graphMessagingTarget.getInterceptors().add(linkContractsInterceptor);
-
-				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(notauthorized);
-				MessageResult messageResult = new MessageResult();
-
-				try {
-
-					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
-					fail();
-				} catch (Xdi2NotAuthorizedException ex) {
-
-					continue;
-				} finally {
-
-					ii++;
-				}
-			}
-
-			assertTrue(ii > 1);
-
-			i++;
-		}
-
-		log.info("Done.");
-
-		assertTrue(i > 1);
+		LinkContract linkContract = LinkContracts.getLinkContract(contextNode1111_2, false);
+		assertEquals(linkContract.getNodesWithPermission(XDILinkContractPermission.LC_OP_GET).next(), contextNode1111_2);
+		assertEquals(linkContract.getAssignees().next(), contextNode4444);
 	}
 }
