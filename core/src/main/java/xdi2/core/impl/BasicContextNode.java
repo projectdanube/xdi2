@@ -60,7 +60,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public Relation createRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+	public Relation createRelation(XRI3Segment arcXri, ContextNode contextNode) {
 
 		throw new Xdi2RuntimeException("Not supported");
 	}

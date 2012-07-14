@@ -84,16 +84,18 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		if (this.isRootContextNode()) return XDIConstants.XRI_S_CONTEXT;
 
-		String xri = this.getArcXri().toString();
+		StringBuilder xri = new StringBuilder();
+		
+		xri.append(this.getArcXri().toString());
 
 		for (ContextNode contextNode = this.getContextNode(); 
 				contextNode != null && ! contextNode.isRootContextNode(); 
 				contextNode = contextNode.getContextNode()) {
 
-			xri = contextNode.getArcXri() + xri;
+			xri.insert(0, contextNode.getArcXri());
 		}
 
-		return new XRI3Segment(xri);
+		return new XRI3Segment(xri.toString());
 	}
 
 	/*
@@ -179,9 +181,11 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to relations of this context node
 	 */
 
-	public Relation createRelation(XRI3Segment arcXri, ContextNode contextNode) {
+	public Relation createRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
 
-		return this.createRelation(arcXri, new XRI3Segment(contextNode.getXri().toString()));
+		ContextNode contextNode = this.getGraph().findContextNode(relationXri, true);
+
+		return this.createRelation(arcXri, contextNode);
 	}
 
 	public Relation getRelation(XRI3Segment arcXri, final XRI3Segment relationXri) {

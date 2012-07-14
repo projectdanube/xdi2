@@ -114,7 +114,7 @@ public class AcceptHeader implements Serializable, Comparable<AcceptHeader> {
 	@Override
 	public String toString() {
 
-		StringBuffer header = new StringBuffer();
+		StringBuilder header = new StringBuilder();
 
 		for (Iterator<MimeType> mimeTypes = this.getMimeTypesSortedByQuality().iterator(); mimeTypes.hasNext(); ) {
 

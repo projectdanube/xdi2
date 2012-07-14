@@ -27,7 +27,7 @@ public final class XRIUtil {
 
 	public static XRI3 extractParentXri(XRI3 xri) {
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		if (xri.hasPath()) {
 
@@ -48,7 +48,7 @@ public final class XRIUtil {
 
 	public static XRI3Segment extractParentXriSegment(XRI3Segment xri) {
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		if (xri.getNumSubSegments() > 1) {
 

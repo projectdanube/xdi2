@@ -142,11 +142,13 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	 * Methods related to relations of this context node
 	 */
 
-	public synchronized Relation createRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+	public synchronized Relation createRelation(XRI3Segment arcXri, ContextNode contextNode) {
 
 		if (arcXri == null) throw new NullPointerException();
-		if (relationXri == null) throw new NullPointerException();
+		if (contextNode == null) throw new NullPointerException();
 
+		XRI3Segment relationXri = contextNode.getXri();
+		
 		if (this.containsRelation(arcXri, relationXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
 
 		String relationsKey = this.getRelationsKey();
