@@ -8,6 +8,9 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Graph;
 import xdi2.core.impl.keyvalue.KeyValueGraph;
 import xdi2.core.impl.keyvalue.map.MapFactory;
@@ -16,29 +19,43 @@ import xdi2.core.impl.keyvalue.map.MapKeyValueStore;
 import xdi2.core.impl.keyvalue.map.SetFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
+import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
 
 public class XDIKeyValueWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = 4377123541696335486L;
 
+	private static final Logger log = LoggerFactory.getLogger(XDIKeyValueWriter.class);
+
 	public static final String FORMAT_NAME = "KEYVALUE";
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/plain") };
 
-	public static final String PARAMETER_SORTED = "sorted";
-	public static final String DEFAULT_SORTED = "true";
+	private boolean writeOrdered;
+
+	public XDIKeyValueWriter(Properties parameters) {
+
+		super(parameters == null ? new Properties() : parameters);
+
+		// check parameters
+
+		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
+
+		log.debug("writeOrdered=" + this.writeOrdered);
+	}
+
+	public XDIKeyValueWriter() {
+
+		this(new Properties());
+	}
 
 	@Override
-	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
-
-		if (parameters == null) parameters = new Properties();
-
-		boolean sorted = Boolean.parseBoolean(parameters.getProperty(PARAMETER_SORTED, DEFAULT_SORTED));
+	public Writer write(Graph graph, Writer writer) throws IOException {
 
 		MapGraphFactory mapGraphFactory = new MapGraphFactory();
 
-		if (sorted) {
+		if (this.writeOrdered) {
 
 			mapGraphFactory.setMapFactory(new MapFactory() {
 

@@ -28,6 +28,8 @@
 
 		<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 
+		<% String writeContextStatements = (String) request.getAttribute("writeContextStatements"); if (writeContextStatements == null) writeContextStatements = ""; %>
+		<% String writeOrdered = (String) request.getAttribute("writeOrdered"); if (writeOrdered == null) writeOrdered = ""; %>
 		<% String from = (String) request.getAttribute("from"); if (from == null) from = ""; %>
 		<% String to = (String) request.getAttribute("to"); if (to == null) to = ""; %>
 
@@ -40,13 +42,15 @@
 		to:
 		<select name="to">
 		<option value="XDI/JSON" <%= to.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
-		<option value="XDI/JSON_WITH_CONTEXT_STATEMENTS" <%= to.equals("XDI/JSON_WITH_CONTEXT_STATEMENTS") ? "selected" : "" %>>XDI/JSON_WITH_CONTEXT_STATEMENTS</option>
 		<option value="STATEMENTS" <%= to.equals("STATEMENTS") ? "selected" : "" %>>STATEMENTS</option>
-		<option value="STATEMENTS_WITH_CONTEXT_STATEMENTS" <%= to.equals("STATEMENTS_WITH_CONTEXT_STATEMENTS") ? "selected" : "" %>>STATEMENTS_WITH_CONTEXT_STATEMENTS</option>
 		<option value="KEYVALUE" <%= to.equals("KEYVALUE") ? "selected" : "" %>>KEYVALUE</option>
 		</select>
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIConverterHelp.jsp">What can I do here?</a>
+
+		<input name="writeContextStatements" type="checkbox" <%= writeContextStatements.equals("on") ? "checked" : "" %>>Write Context Statements
+
+		<input name="writeOrdered" type="checkbox" <%= writeOrdered.equals("on") ? "checked" : "" %>>Write Ordered
 
 		<% if (request.getAttribute("stats") != null) { %>
 			<p>

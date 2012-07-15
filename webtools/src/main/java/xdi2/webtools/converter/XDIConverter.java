@@ -3,9 +3,11 @@ package xdi2.webtools.converter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -80,6 +82,8 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
+		request.setAttribute("writeContextStatements", "on");
+		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.getRequestDispatcher("/XDIConverter.jsp").forward(request, response);
@@ -88,6 +92,8 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String writeContextStatements = request.getParameter("writeContextStatements");
+		String writeOrdered = request.getParameter("writeOrdered");
 		String from = request.getParameter("from");
 		String to = request.getParameter("to");
 		String input = request.getParameter("input");
@@ -95,16 +101,22 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		String stats = "-1";
 		String error = null;
 
-		XDIReader xdiReader = XDIReaderRegistry.forFormat(from);
-		XDIWriter xdiWriter = XDIWriterRegistry.forFormat(to);
+		Properties xdiWriterParameters = new Properties();
+
+		if ("on".equals(writeContextStatements)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
+		if ("on".equals(writeOrdered)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
+
+		XDIReader xdiReader = XDIReaderRegistry.forFormat(from, null);
+		XDIWriter xdiWriter = XDIWriterRegistry.forFormat(to, xdiWriterParameters);
 		Graph graph = graphFactory.openGraph();
 
 		try {
 
+			StringReader reader = new StringReader(input);
 			StringWriter writer = new StringWriter();
 
-			xdiReader.read(graph, input, null);
-			xdiWriter.write(graph, writer, null);
+			xdiReader.read(graph, reader);
+			xdiWriter.write(graph, writer);
 
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 		} catch (Exception ex) {
@@ -126,6 +138,8 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("writeContextStatements", writeContextStatements);
+		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("from", from);
 		request.setAttribute("to", to);
 		request.setAttribute("input", input);

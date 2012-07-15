@@ -14,7 +14,7 @@ import xdi2.messaging.MessageResult;
 
 public class SimpleClientSample {
 
-    static XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
+    static XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON", null);
 
     static XDIClient client = new XDIHttpClient("http://localhost:8080/xdi/mem-graph");
 
@@ -35,7 +35,7 @@ public class SimpleClientSample {
 
         MessageResult messageResult = new MessageResult();
         client.send(messageEnvelope, messageResult);
-        writer.write(messageResult.getGraph(), System.out, null);
+        writer.write(messageResult.getGraph(), System.out);
     }
 
     static void doDel() throws Exception {

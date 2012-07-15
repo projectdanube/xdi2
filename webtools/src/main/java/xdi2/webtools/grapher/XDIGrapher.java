@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -107,8 +108,8 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 			if (type.equals("stdl")) drawer = new Drawer1(true);
 			if (type.equals("std")) drawer = new Drawer1(false);
 			if (drawer == null) return;
-			
-			xdiReader.read(graph, input, null);
+
+			xdiReader.read(graph, new StringReader(input));
 
 			Point size = drawer.draw(null, graph, null);
 
@@ -128,7 +129,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		}
 
 		long stop = System.currentTimeMillis();
-		
+
 		stats = "";
 		stats += Long.toString(stop - start) + " ms time. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllContextNodeCount()) + " context nodes. ";

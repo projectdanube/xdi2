@@ -3,6 +3,7 @@ package xdi2.webtools.validator;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,12 +91,12 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 		String stats = "-1";
 		String error = null;
 
-		XDIReader xdiReader = XDIReaderRegistry.forFormat(from);
+		XDIReader xdiReader = XDIReaderRegistry.forFormat(from, null);
 		Graph graph = graphFactory.openGraph();
 
 		try {
 
-			xdiReader.read(graph, input, null);
+			xdiReader.read(graph, new StringReader(input));
 
 			output = "Success!\n";
 /*			output += Integer.toString(Constraints.getAllConstraintCount(graph)) + " constraints found.\n";

@@ -192,7 +192,7 @@ public class XDIHttpClient implements XDIClient {
 		try {
 
 			OutputStream outputStream = http.getOutputStream();
-			writer.write(messageEnvelope.getGraph(), outputStream, null);
+			writer.write(messageEnvelope.getGraph(), outputStream);
 			outputStream.flush();
 			outputStream.close();
 
@@ -239,7 +239,7 @@ public class XDIHttpClient implements XDIClient {
 		try {
 
 			InputStream inputStream = http.getInputStream();
-			reader.read(messageResult.getGraph(), inputStream, null);
+			reader.read(messageResult.getGraph(), inputStream);
 			inputStream.close();
 		} catch (Exception ex) {
 

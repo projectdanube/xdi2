@@ -50,7 +50,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 			if (this.getClass().getResourceAsStream("graph" + i + ".xdi") == null) break;
 
 			Graph graph = this.openNewGraph(this.getClass().getName() + "-graph-" + i); 
-			autoReader.read(graph, this.getClass().getResourceAsStream("graph" + i + ".xdi"), null).close();
+			autoReader.read(graph, this.getClass().getResourceAsStream("graph" + i + ".xdi")).close();
 
 			log.info("Graph " + i);
 
@@ -63,7 +63,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				if (this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi") == null) break;
 
 				Graph message = this.openNewGraph(this.getClass().getName() + "-message-" + i + "-" + ii); 
-				autoReader.read(message, this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi"), null).close();
+				autoReader.read(message, this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi")).close();
 
 				log.info("Message " + i + "." + ii);
 
@@ -87,7 +87,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				if (this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi") == null) break;
 
 				Graph positive = this.openNewGraph(this.getClass().getName() + "-positive-" + i + "-" + ii); 
-				autoReader.read(positive, this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi"), null).close();
+				autoReader.read(positive, this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi")).close();
 
 				log.info("Positive " + i + "." + ii);
 
@@ -113,7 +113,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				if (this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi") == null) break;
 
 				Graph negative = this.openNewGraph(this.getClass().getName() + "-negative-" + i + "-" + ii); 
-				autoReader.read(negative, this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi"), null).close();
+				autoReader.read(negative, this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi")).close();
 
 				log.info("Negative " + i + "." + ii);
 

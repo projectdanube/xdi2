@@ -19,6 +19,7 @@ import xdi2.core.Statement.RelationStatement;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
+import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
@@ -35,20 +36,35 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 	public static final String FILE_EXTENSION = "xdi";
 	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0") };
 
-	public static final String PARAMETER_WRITE_CONTEXT_STATEMENTS = "writeContextStatements";
-	public static final String PARAMETER_WRITE_HTML = "writeHtml";
-	public static final String PARAMETER_WRITE_ORDERED = "writeOrdered";
-	public static final String DEFAULT_WRITE_CONTEXT_STATEMENTS = "false";
-	public static final String DEFAULT_WRITE_HTML = "false";
-	public static final String DEFAULT_WRITE_ORDERED = "false";
-
 	private static final String HTML_COLOR_CONTEXTNODE = "#000000";
 	private static final String HTML_COLOR_RELATION = "#ff8888";
 	private static final String HTML_COLOR_LITERAL = "#8888ff";
 
-	public static void write(Graph graph, BufferedWriter bufferedWriter, boolean writeContextStatements, boolean writeHtml, boolean writeOrdered) throws IOException {
+	private boolean writeContextStatements;
+	private boolean writeHtml;
+	private boolean writeOrdered;
 
-		if (writeHtml) {
+	public XDIStatementsWriter(Properties parameters) {
+
+		super(parameters == null ? new Properties() : parameters);
+
+		// check parameters
+
+		this.writeContextStatements = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
+		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
+		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
+
+		log.debug("Parameters: writeContextStatements=" + this.writeContextStatements + ", writeHtml=" + this.writeHtml + ", writeOrdered=" + this.writeOrdered);
+	}
+
+	public XDIStatementsWriter() {
+
+		this(new Properties());
+	}
+
+	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
+
+		if (this.writeHtml) {
 
 			bufferedWriter.write("<html><head><title>XDI Graph</title></head>\n");
 			bufferedWriter.write("<body style=\"font-family:monospace;font-size:14pt;font-weight:bold;\">\n");
@@ -56,7 +72,7 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 
 		Iterator<Statement> statements;
 
-		if (writeOrdered) {
+		if (this.writeOrdered) {
 
 			MemoryGraphFactory memoryGraphFactory = new MemoryGraphFactory();
 			memoryGraphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ALPHA);
@@ -79,14 +95,18 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 
 			Statement statement = statements.next();
 
-			if ((! writeContextStatements) &&
+			// ignore implied context nodes
+
+			if ((! this.writeContextStatements) &&
 					(statement instanceof ContextNodeStatement) &&
 					(! ((ContextNodeStatement) statement).getContextNode().isEmpty())) {
 
 				continue;
 			}
 
-			if (writeHtml) {
+			// HTML output
+
+			if (this.writeHtml) {
 
 				if (statement instanceof ContextNodeStatement) {
 
@@ -110,7 +130,7 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 			}
 		}
 
-		if (writeHtml) {
+		if (this.writeHtml) {
 
 			bufferedWriter.write("</body></html>\n");
 		}
@@ -119,21 +139,11 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 	}
 
 	@Override
-	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException {
-
-		// check parameters
-
-		if (parameters == null) parameters = new Properties();
-
-		boolean writeContextStatements = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_CONTEXT_STATEMENTS, DEFAULT_WRITE_CONTEXT_STATEMENTS));
-		boolean writeHtml = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_HTML, DEFAULT_WRITE_HTML));
-		boolean writeOrdered = Boolean.parseBoolean(parameters.getProperty(PARAMETER_WRITE_ORDERED, DEFAULT_WRITE_ORDERED));
-
-		log.debug("Parameters: writeContextStatements=" + writeContextStatements + ", writeHtml=" + writeHtml + ", writeOrdered=" + writeOrdered);
+	public Writer write(Graph graph, Writer writer) throws IOException {
 
 		// write
 
-		write(graph, new BufferedWriter(writer), writeContextStatements, writeHtml, writeOrdered);
+		this.write(graph, new BufferedWriter(writer));
 		writer.flush();
 
 		return writer;

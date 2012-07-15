@@ -1,6 +1,5 @@
 package xdi2.core.io;
 
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -18,10 +17,17 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 
 	private static final long serialVersionUID = -4120729667091454408L;
 
-	@Override
-	public synchronized OutputStream write(Graph graph, OutputStream stream, Properties parameters) throws IOException {
+	protected Properties parameters;
 
-		this.write(graph, new OutputStreamWriter(stream), parameters);
+	public AbstractXDIWriter(Properties parameters) {
+
+		this.parameters = parameters;
+	}
+
+	@Override
+	public OutputStream write(Graph graph, OutputStream stream) throws IOException {
+
+		this.write(graph, new OutputStreamWriter(stream));
 		stream.flush();
 
 		return stream;

@@ -37,6 +37,8 @@
 		</tr>
 		</table>
 
+		<% String writeContextStatements = (String) request.getAttribute("writeContextStatements"); if (writeContextStatements == null) writeContextStatements = ""; %>
+		<% String writeOrdered = (String) request.getAttribute("writeOrdered"); if (writeOrdered == null) writeOrdered = ""; %>
 		<% String variablesSupport = (String) request.getAttribute("variablesSupport"); if (variablesSupport == null) variablesSupport = ""; %>
 		<% String versioningSupport = (String) request.getAttribute("versioningSupport"); if (versioningSupport == null) versioningSupport = ""; %>
 		<% String linkContractsSupport = (String) request.getAttribute("linkContractsSupport"); if (linkContractsSupport == null) linkContractsSupport = ""; %>
@@ -45,11 +47,15 @@
 		Result Format:
 		<select name="to">
 		<option value="XDI/JSON" <%= to.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
-		<option value="XDI/JSON_WITH_CONTEXT_STATEMENTS" <%= to.equals("XDI/JSON_WITH_CONTEXT_STATEMENTS") ? "selected" : "" %>>XDI/JSON_WITH_CONTEXT_STATEMENTS</option>
 		<option value="STATEMENTS" <%= to.equals("STATEMENTS") ? "selected" : "" %>>STATEMENTS</option>
-		<option value="STATEMENTS_WITH_CONTEXT_STATEMENTS" <%= to.equals("STATEMENTS_WITH_CONTEXT_STATEMENTS") ? "selected" : "" %>>STATEMENTS_WITH_CONTEXT_STATEMENTS</option>
 		</select>
 		&nbsp;
+
+		<input name="writeContextStatements" type="checkbox" <%= writeContextStatements.equals("on") ? "checked" : "" %>>Write Context Statements
+
+		<input name="writeOrdered" type="checkbox" <%= writeOrdered.equals("on") ? "checked" : "" %>>Write Ordered
+
+		|
 
 		<input name="variablesSupport" type="checkbox" <%= variablesSupport.equals("on") ? "checked" : "" %>>Variables
 <!-- 

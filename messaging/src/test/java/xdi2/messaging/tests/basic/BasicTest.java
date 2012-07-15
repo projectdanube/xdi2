@@ -144,7 +144,7 @@ public class BasicTest extends TestCase {
 
 		String string = "{\"=markus/()\": [   \"+email\",   \"+friends\"],\"=markus+name/()\": [   \"+last\"],\"=sender$($msg)$(!1e21.d620.fdca.95f4)$do/$mod\" : [ \"=markus+name+last\" ],\"=sender$($msg)$(!1e21.d620.fdca.95f4)$do/$add\" : [ \"=markus+email\" ],\"=sender$($msg)$(!1e21.d620.fdca.95f4)$do/$get\" : [ \"=markus\" ],\"=sender$($msg)$(!1e21.d620.fdca.95f4)$do/$del\" : [ \"=markus+friends\" ]}";
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		XDIReaderRegistry.forFormat("XDI/JSON").read(graph, new StringReader(string), null);
+		XDIReaderRegistry.forFormat("XDI/JSON", null).read(graph, new StringReader(string));
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph);
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, false);

@@ -75,7 +75,9 @@
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean
-					class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor" />
+					class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
+					<property name="linkContractsGraph" ref="graph4" />
+				</bean>
 			</util:list>
 		</property>
 	</bean>

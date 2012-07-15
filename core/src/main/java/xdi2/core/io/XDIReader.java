@@ -1,12 +1,9 @@
 package xdi2.core.io;
 
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.Serializable;
-import java.util.Properties;
 
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2ParseException;
@@ -19,30 +16,20 @@ import xdi2.core.exceptions.Xdi2ParseException;
 public interface XDIReader extends Serializable {
 
 	/**
-	 * Reads an XDI graph from a string.
-	 * @param graph A graph that will hold the read data.
-	 * @param string A string from which to read.
-	 * @param parameters Optional parameters for the reader.
-	 */
-	public void read(Graph graph, String string, Properties parameters) throws IOException, Xdi2ParseException;
-
-	/**
 	 * Reads an XDI graph from a character stream.
 	 * @param graph A graph that will hold the read data.
 	 * @param reader A character stream from which to read.
-	 * @param parameters Optional parameters for the reader.
 	 * @return The character stream.
 	 */
-	public Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException;
+	public Reader read(Graph graph, Reader reader) throws IOException, Xdi2ParseException;
 
 	/**
 	 * Reads an XDI graph from a byte stream.
 	 * @param graph A graph that will hold the read data.
 	 * @param stream A byte stream from which to read.
-	 * @param parameters Optional parameters for the reader.
 	 * @return The byte stream.
 	 */
-	public InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, Xdi2ParseException;
+	public InputStream read(Graph graph, InputStream stream) throws IOException, Xdi2ParseException;
 
 	/**
 	 * Returns the format this XDIReader can read, e.g.

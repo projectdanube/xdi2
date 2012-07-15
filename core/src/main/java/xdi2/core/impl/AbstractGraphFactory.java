@@ -1,6 +1,7 @@
 package xdi2.core.impl;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.Properties;
 
 import xdi2.core.Graph;
@@ -14,7 +15,7 @@ public abstract class AbstractGraphFactory implements GraphFactory {
 	public Graph parseGraph(String string) throws IOException, Xdi2ParseException {
 
 		Graph graph = this.openGraph();
-		XDIReaderRegistry.getAuto().read(graph, string, null);
+		XDIReaderRegistry.getAuto().read(graph, new StringReader(string));
 
 		return graph;
 	}
@@ -23,7 +24,7 @@ public abstract class AbstractGraphFactory implements GraphFactory {
 	public Graph parseGraph(String string, String format, Properties parameters) throws IOException, Xdi2ParseException {
 
 		Graph graph = this.openGraph();
-		XDIReaderRegistry.forFormat(format).read(graph, string, null);
+		XDIReaderRegistry.forFormat(format, parameters).read(graph, new StringReader(string));
 
 		return graph;
 	}

@@ -17,13 +17,13 @@ public class SimpleMessagingSample {
 
     public static void main(String[] args) throws Exception {
 
-        XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");
-        XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
+        XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS", null);
+        XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON", null);
 
         // load an XDI graph and create a messaging target
 
         Graph graph = MemoryGraphFactory.getInstance().openGraph();
-        reader.read(graph, SimpleMessagingSample.class.getResourceAsStream("simple.xdi"), null);
+        reader.read(graph, SimpleMessagingSample.class.getResourceAsStream("simple.xdi"));
         GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
         graphMessagingTarget.setGraph(graph);
 
@@ -41,6 +41,6 @@ public class SimpleMessagingSample {
 
         // serialize the result
 
-        writer.write(messageResult.getGraph(), System.out, null);
+        writer.write(messageResult.getGraph(), System.out);
     }
 }

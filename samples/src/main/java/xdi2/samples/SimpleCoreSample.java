@@ -20,10 +20,10 @@ public class SimpleCoreSample {
         email.createLiteral("markus.sabadello@gmail.com");
 
         System.out.println("Serialization in XDI/JSON: \n");
-        XDIWriterRegistry.forFormat("XDI/JSON").write(graph, System.out, null);
+        XDIWriterRegistry.forFormat("XDI/JSON", null).write(graph, System.out);
         System.out.println();
 
         System.out.println("Serialization in XDI statements:\n");
-        XDIWriterRegistry.forFormat("STATEMENTS").write(graph, System.out, null);
+        XDIWriterRegistry.forFormat("STATEMENTS", null).write(graph, System.out);
     }
 }

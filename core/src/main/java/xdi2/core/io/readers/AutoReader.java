@@ -69,12 +69,17 @@ public class AutoReader extends AbstractXDIReader {
 
 	private XDIReader lastSuccessfulReader;
 
-	public AutoReader() { 
-		
+	public AutoReader(Properties parameters) { 
+
+		super(parameters);
 	}
 
-	@Override
-	public synchronized void read(Graph graph, String string, Properties parameters) throws IOException, Xdi2ParseException {
+	public AutoReader() { 
+
+		this(new Properties());
+	}
+
+	private synchronized void read(Graph graph, String string) throws IOException, Xdi2ParseException {
 
 		for (XDIReader xdiReader : readers) {
 
@@ -82,7 +87,7 @@ public class AutoReader extends AbstractXDIReader {
 
 			try {
 
-				xdiReader.read(graph, new StringReader(string), parameters);
+				xdiReader.read(graph, new StringReader(string));
 				this.lastSuccessfulReader = xdiReader;
 				return;
 			} catch(Exception ex) {
@@ -97,7 +102,7 @@ public class AutoReader extends AbstractXDIReader {
 	}
 
 	@Override
-	public synchronized Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException {
+	public synchronized Reader read(Graph graph, Reader reader) throws IOException, Xdi2ParseException {
 
 		StringWriter stringWriter = new StringWriter();
 		BufferedReader bufferedReader = new BufferedReader(reader);
@@ -105,13 +110,13 @@ public class AutoReader extends AbstractXDIReader {
 
 		while ((line = bufferedReader.readLine()) != null) stringWriter.write(line + "\n");
 
-		this.read(graph, stringWriter.getBuffer().toString(), parameters);
-		
+		this.read(graph, stringWriter.getBuffer().toString());
+
 		return reader;
 	}
 
 	@Override
-	public synchronized InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, Xdi2ParseException {
+	public synchronized InputStream read(Graph graph, InputStream stream) throws IOException, Xdi2ParseException {
 
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		BufferedInputStream bufferedInputStream = new BufferedInputStream(stream);
@@ -119,8 +124,8 @@ public class AutoReader extends AbstractXDIReader {
 
 		while ((b = bufferedInputStream.read()) != -1) byteArrayOutputStream.write(b);
 
-		this.read(graph, new String(byteArrayOutputStream.toByteArray()), parameters);
-		
+		this.read(graph, new String(byteArrayOutputStream.toByteArray(), "UTF-8"));
+
 		return stream;
 	}
 

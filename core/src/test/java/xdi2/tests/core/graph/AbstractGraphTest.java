@@ -62,13 +62,13 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		Graph graph3 = this.openNewGraph(this.getClass().getName() + "-graph-3");
 
-		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
+		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON", null);
 
-		reader.read(graph3, this.getClass().getResourceAsStream("test.json"), null).close();
+		reader.read(graph3, this.getClass().getResourceAsStream("test.json")).close();
 		testGraph(graph3);
 
 		graph3.getRootContextNode().clear();
-		reader.read(graph3, this.getClass().getResourceAsStream("test-simple.json"), null).close();
+		reader.read(graph3, this.getClass().getResourceAsStream("test-simple.json")).close();
 
 		graph3.close();
 	}
@@ -87,12 +87,12 @@ public abstract class AbstractGraphTest extends TestCase {
 			Graph graph4 = this.openNewGraph(this.getClass().getName() + "-graph-4" + "-" + i);
 			Graph graph5 = this.openNewGraph(this.getClass().getName() + "-graph-5" + "-" + i);
 
-			XDIWriter writer = XDIWriterRegistry.forFormat(writerFormats[i]);
-			XDIReader reader = XDIReaderRegistry.forFormat(readerFormats[i]);
+			XDIWriter writer = XDIWriterRegistry.forFormat(writerFormats[i], null);
+			XDIReader reader = XDIReaderRegistry.forFormat(readerFormats[i], null);
 
 			makeGraph(graph4);
-			writer.write(graph4, new FileWriter(new File("test." + i + ".out")), null).close();
-			reader.read(graph5, new FileReader(new File("test." + i + ".out")), null).close();
+			writer.write(graph4, new FileWriter(new File("test." + i + ".out"))).close();
+			reader.read(graph5, new FileReader(new File("test." + i + ".out"))).close();
 
 			testGraph(graph5);
 			testGraphsEqual(graph4, graph5);
@@ -189,7 +189,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(root.getXri(), XDIConstants.XRI_S_ROOT);
 		assertNull(root.getContextNode());
 		assertTrue(root.isRootContextNode());
-		
+
 		assertTrue(root.isEmpty());
 		assertFalse(root.containsContextNodes());
 		assertFalse(root.containsRelations());

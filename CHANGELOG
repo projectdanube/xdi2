@@ -1,6 +1,13 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-07-14:
+------------------------
+
+*** Major code cleanup
+
+*** XDI Converter now has option for ordering statements
+
 2012-07-12:
 ------------------------
 

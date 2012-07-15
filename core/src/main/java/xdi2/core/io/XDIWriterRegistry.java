@@ -1,20 +1,18 @@
 package xdi2.core.io;
 
-
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.io.writers.XDIJSONWriter;
-import xdi2.core.io.writers.XDIJSONWriterWithContextStatements;
 import xdi2.core.io.writers.XDIKeyValueWriter;
 import xdi2.core.io.writers.XDIStatementsWriter;
-import xdi2.core.io.writers.XDIStatementsWriterHTML;
-import xdi2.core.io.writers.XDIStatementsWriterWithContextStatements;
 
 /**
  * Provides an appropriate XDIWriter for a given type.
@@ -25,13 +23,17 @@ public final class XDIWriterRegistry {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIWriterRegistry.class);
 
+	public static final String PARAMETER_CONTEXTS = "contexts";
+	public static final String PARAMETER_HTML = "html";
+	public static final String PARAMETER_ORDERED = "ordered";
+	public static final String DEFAULT_CONTEXTS = "0";
+	public static final String DEFAULT_HTML = "0";
+	public static final String DEFAULT_ORDERED = "0";
+
 	private static String writerClassNames[] = {
 
 		XDIJSONWriter.class.getName(),// first one in the array is the default
-		XDIJSONWriterWithContextStatements.class.getName(),
-		XDIStatementsWriterWithContextStatements.class.getName(),
 		XDIStatementsWriter.class.getName(),
-		XDIStatementsWriterHTML.class.getName(),
 		XDIKeyValueWriter.class.getName()
 	};
 
@@ -41,14 +43,14 @@ public final class XDIWriterRegistry {
 
 	private static Map<String, Class<XDIWriter>> writerClassesByFormat;
 	private static Map<String, Class<XDIWriter>> writerClassesByFileExtension;
-	private static Map<MimeType, Class<XDIWriter>> writerClassesByMimeType;
+	private static Map<String, Class<XDIWriter>> writerClassesByMimeType;
 
 	static {
 
 		writerClasses = new ArrayList<Class<XDIWriter>>();
 		writerClassesByFormat = new HashMap<String, Class<XDIWriter>>();
 		writerClassesByFileExtension = new HashMap<String, Class<XDIWriter>>();
-		writerClassesByMimeType = new HashMap<MimeType, Class<XDIWriter>>();
+		writerClassesByMimeType = new HashMap<String, Class<XDIWriter>>();
 
 		for (String writerClassName : writerClassNames) {
 
@@ -71,7 +73,8 @@ public final class XDIWriterRegistry {
 
 			try {
 
-				writer = writerClass.newInstance();
+				Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
+				writer = constructor.newInstance((Properties) null);
 			} catch (Exception ex) {
 
 				throw new RuntimeException(ex);
@@ -83,7 +86,7 @@ public final class XDIWriterRegistry {
 
 			if (format != null) writerClassesByFormat.put(format, writerClass);
 			if (fileExtension != null) writerClassesByFileExtension.put(fileExtension, writerClass);
-			if (mimeTypes != null) for (MimeType mimeType : mimeTypes) writerClassesByMimeType.put(mimeType, writerClass);
+			if (mimeTypes != null) for (MimeType mimeType : mimeTypes) writerClassesByMimeType.put(mimeType.getMimeType(), writerClass);
 		}
 
 		defaultWriterClass = writerClasses.get(0);
@@ -100,21 +103,21 @@ public final class XDIWriterRegistry {
 	/**
 	 * Returns an XDIWriter for the specified format, e.g.
 	 * <ul>
-	 * <li>X3</li>
-	 * <li>X-TRIPLES</li>
-	 * <li>XDI/XML</li>
+	 * <li>XDI/JSON</li>
+	 * <li>STATEMENTS</li>
 	 * </ul>
 	 * @param format The desired format.
 	 * @return An XDIWriter, or null if no appropriate implementation could be found.
 	 */
-	public static XDIWriter forFormat(String format) {
+	public static XDIWriter forFormat(String format, Properties parameters) {
 
 		Class<XDIWriter> writerClass = writerClassesByFormat.get(format);
 		if (writerClass == null) return null;
 
 		try {
 
-			return writerClass.newInstance();
+			Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
+			return constructor.newInstance(parameters);
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -124,21 +127,21 @@ public final class XDIWriterRegistry {
 	/**
 	 * Returns an XDIWriter for the specified mime type, e.g.
 	 * <ul>
-	 * <li>text/xdi+x3</li>
-	 * <li>text/plain</li>
-	 * <li>application/xdi+xml</li>
+	 * <li>application/xdi+json</li>
+	 * <li>text/xdi</li>
 	 * </ul>
 	 * @param mimeType The desired mime type.
 	 * @return An XDIWriter, or null if no appropriate implementation could be found.
 	 */
 	public static XDIWriter forMimeType(MimeType mimeType) {
 
-		Class<XDIWriter> writerClass = writerClassesByMimeType.get(mimeType);
+		Class<XDIWriter> writerClass = writerClassesByMimeType.get(mimeType.getMimeType());
 		if (writerClass == null) return null;
 
 		try {
 
-			return writerClass.newInstance();
+			Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
+			return constructor.newInstance(mimeType.getParameters());
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -148,47 +151,25 @@ public final class XDIWriterRegistry {
 	/**
 	 * Returns an XDIWriter for the specified file extension, e.g.
 	 * <ul>
-	 * <li>.xml</li>
-	 * <li>.x3</li>
-	 * <li>.txt</li>
+	 * <li>.json</li>
+	 * <li>.xdi</li>
 	 * </ul>
 	 * @param fileExtension The desired file extension.
 	 * @return An XDIWriter, or null if no appropriate implementation could be found.
 	 */
-	public static XDIWriter forFileExtension(String fileExtension) {
+	public static XDIWriter forFileExtension(String fileExtension, Properties parameters) {
 
 		Class<XDIWriter> writerClass = writerClassesByFileExtension.get(fileExtension);
 		if (writerClass == null) return null;
 
 		try {
 
-			return writerClass.newInstance();
+			Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
+			return constructor.newInstance(parameters);
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
 		}
-	}
-
-	/**
-	 * Returns a list of all available XDIWriters.
-	 * @return All XDIWriters this factory knows of.
-	 */
-	public static XDIWriter[] getWriters() {
-
-		XDIWriter[] writers = new XDIWriter[writerClasses.size()];
-
-		for (int i=0; i<writerClasses.size(); i++) {
-
-			try {
-
-				writers[i] = writerClasses.get(i).newInstance();
-			} catch (Exception ex) {
-
-				throw new RuntimeException(ex);
-			}
-		}
-
-		return writers;
 	}
 
 	/**
@@ -215,6 +196,15 @@ public final class XDIWriterRegistry {
 	public static String[] getFormats() {
 
 		return writerClassesByFormat.keySet().toArray(new String[writerClassesByFormat.size()]);
+	}
+
+	/**
+	 * Returns all file extensions for which XDIWriter implementations exist.
+	 * @return A string array of file extensions.
+	 */
+	public static String[] getFileExtensions() {
+
+		return writerClassesByFileExtension.keySet().toArray(new String[writerClassesByFileExtension.size()]);
 	}
 
 	/**

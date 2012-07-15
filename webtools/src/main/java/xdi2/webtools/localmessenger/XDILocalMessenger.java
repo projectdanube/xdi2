@@ -7,6 +7,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -97,8 +98,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
+		request.setAttribute("writeContextStatements", "on");
+		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("variablesSupport", "on");
-		request.setAttribute("versioningSupport", null);
 		request.setAttribute("linkContractsSupport", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
@@ -109,8 +111,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String writeContextStatements = request.getParameter("writeContextStatements");
+		String writeOrdered = request.getParameter("writeOrdered");
 		String variablesSupport = request.getParameter("variablesSupport");
-		String versioningSupport = request.getParameter("versioningSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
 		String to = request.getParameter("to");
 		String input = request.getParameter("input");
@@ -119,9 +122,14 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String stats = "-1";
 		String error = null;
 
+		Properties xdiResultWriterParameters = new Properties();
+
+		if ("on".equals(writeContextStatements)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
+		if ("on".equals(writeOrdered)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
+		
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiInputWriter;
-		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(to);
+		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(to, xdiResultWriterParameters);
 		MessageEnvelope messageEnvelope = null;
 		MessageResult messageResult = null;
 		Graph graphInput = graphFactory.openGraph();
@@ -132,14 +140,14 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			// parse the input graph and remember its format
 
-			xdiReader.read(graphInput, new StringReader(input), null);
+			xdiReader.read(graphInput, new StringReader(input));
 			String inputFormat = ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat();
 
 			// parse the message envelope
 
 			messageEnvelope = new MessageEnvelope();
 
-			xdiReader.read(messageEnvelope.getGraph(), new StringReader(message), null);
+			xdiReader.read(messageEnvelope.getGraph(), new StringReader(message));
 
 			// prepare the messaging target
 
@@ -151,9 +159,6 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 				VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
 				messagingTarget.getInterceptors().add(variablesInterceptor);
 			}
-
-			//if ("on".equals(versioningSupport))
-			//				messagingTarget.getOperationInterceptors().add(new SubjectVersioningOperationInterceptor());
 
 			if ("on".equals(linkContractsSupport)) {
 
@@ -172,16 +177,16 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			// output the modified input graph
 
-			xdiInputWriter = XDIWriterRegistry.forFormat(inputFormat);
+			xdiInputWriter = XDIWriterRegistry.forFormat(inputFormat, null);
 
 			StringWriter writer1 = new StringWriter();
-			xdiInputWriter.write(graphInput, writer1, null);
+			xdiInputWriter.write(graphInput, writer1);
 			input = StringEscapeUtils.escapeHtml(writer1.getBuffer().toString());
 
 			// output the message result
 
 			StringWriter writer2 = new StringWriter();
-			xdiResultWriter.write(messageResult.getGraph(), writer2, null);
+			xdiResultWriter.write(messageResult.getGraph(), writer2);
 			output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 		} catch (Exception ex) {
 
@@ -191,9 +196,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 				// output the message result
 
-				StringWriter writer2 = new StringWriter();
-				xdiResultWriter.write(messageResult.getGraph(), writer2, null);
-				output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+				if (messageResult != null) {
+
+					StringWriter writer2 = new StringWriter();
+					xdiResultWriter.write(messageResult.getGraph(), writer2);
+					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+				}
 			}
 
 			log.error(ex.getMessage(), ex);
@@ -212,8 +220,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("writeContextStatements", writeContextStatements);
+		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("variablesSupport", variablesSupport);
-		request.setAttribute("versioningSupport", versioningSupport);
 		request.setAttribute("linkContractsSupport", linkContractsSupport);
 		request.setAttribute("to", to);
 		request.setAttribute("input", input);

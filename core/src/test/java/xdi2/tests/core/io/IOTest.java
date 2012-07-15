@@ -11,10 +11,10 @@ public class IOTest extends TestCase {
 
 		String[] formats = new String[] { "XDI/JSON", "STATEMENTS" };
 		String[] fileExtensions = new String[] { "json", "xdi" };
-		MimeType[] mimeTypes = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1"), new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1") };
+		MimeType[] mimeTypes = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("text/xdi") };
 
-		for (String format : formats) assertTrue(XDIReaderRegistry.forFormat(format).supportsFormat(format));
-		for (String fileExtension : fileExtensions) assertTrue(XDIReaderRegistry.forFileExtension(fileExtension).supportsFileExtension(fileExtension));
+		for (String format : formats) assertTrue(XDIReaderRegistry.forFormat(format, null).supportsFormat(format));
+		for (String fileExtension : fileExtensions) assertTrue(XDIReaderRegistry.forFileExtension(fileExtension, null).supportsFileExtension(fileExtension));
 		for (MimeType mimeType : mimeTypes) assertTrue(XDIReaderRegistry.forMimeType(mimeType).supportsMimeType(mimeType));
 	}
 
@@ -22,10 +22,10 @@ public class IOTest extends TestCase {
 
 		String[] formats = new String[] { "XDI/JSON", "XDI/JSON_WITH_CONTEXT_STATEMENTS", "STATEMENTS", "STATEMENTS_WITH_CONTEXT_STATEMENTS", "STATEMENTS_HTML", "KEYVALUE" };
 		String[] fileExtensions = new String[] { "json", "xdi", "html" };
-		MimeType[] mimeTypes = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1"), new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1"), new MimeType("text/html") };
+		MimeType[] mimeTypes = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("text/xdi") };
 
-		for (String format : formats) assertTrue(XDIWriterRegistry.forFormat(format).supportsFormat(format));
-		for (String fileExtension : fileExtensions) assertTrue(XDIWriterRegistry.forFileExtension(fileExtension).supportsFileExtension(fileExtension));
+		for (String format : formats) assertTrue(XDIWriterRegistry.forFormat(format, null).supportsFormat(format));
+		for (String fileExtension : fileExtensions) assertTrue(XDIWriterRegistry.forFileExtension(fileExtension, null).supportsFileExtension(fileExtension));
 		for (MimeType mimeType : mimeTypes) assertTrue(XDIWriterRegistry.forMimeType(mimeType).supportsMimeType(mimeType));
 	}
 }

@@ -7,6 +7,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -82,6 +83,8 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
+		request.setAttribute("writeContextStatements", "on");
+		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("endpoint", request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")) + sampleEndpoint);
@@ -91,14 +94,21 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String writeContextStatements = request.getParameter("writeContextStatements");
+		String writeOrdered = request.getParameter("writeOrdered");
 		String input = request.getParameter("input");
 		String endpoint = request.getParameter("endpoint");
 		String output = "";
 		String stats = "-1";
 		String error = null;
 
+		Properties xdiWriterParameters = new Properties();
+
+		if ("on".equals(writeContextStatements)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
+		if ("on".equals(writeOrdered)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
+
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
-		XDIWriter xdiWriter = XDIWriterRegistry.forFormat("XDI/JSON");
+		XDIWriter xdiWriter = XDIWriterRegistry.forFormat("XDI/JSON", xdiWriterParameters);
 
 		MessageEnvelope messageEnvelope = null;
 		MessageResult messageResult = null;
@@ -111,7 +121,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			messageEnvelope = new MessageEnvelope();
 
-			xdiReader.read(messageEnvelope.getGraph(), new StringReader(input), null);
+			xdiReader.read(messageEnvelope.getGraph(), new StringReader(input));
 
 			// send the message envelope and read result
 
@@ -123,22 +133,25 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			StringWriter writer = new StringWriter();
 
-			xdiWriter.write(messageResult.getGraph(), writer, null);
+			xdiWriter.write(messageResult.getGraph(), writer);
 
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
-				
+
 				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
 
 				// output the message result
 
-				StringWriter writer2 = new StringWriter();
-				xdiWriter.write(messageResult.getGraph(), writer2, null);
-				output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+				if (messageResult != null) {
+
+					StringWriter writer2 = new StringWriter();
+					xdiWriter.write(messageResult.getGraph(), writer2);
+					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+				}
 			}
-			
+
 			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
@@ -155,6 +168,8 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("writeContextStatements", writeContextStatements);
+		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("input", input);
 		request.setAttribute("endpoint", endpoint);
 		request.setAttribute("output", output);

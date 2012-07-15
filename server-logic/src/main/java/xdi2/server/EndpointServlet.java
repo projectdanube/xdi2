@@ -470,7 +470,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			InputStream inputStream = request.getInputStream();
 
-			reader.read(graph, inputStream, null);
+			reader.read(graph, inputStream);
 			messageEnvelope = MessageEnvelope.fromGraph(graph);
 			messageCount = messageEnvelope.getMessageCount();
 		} catch (Exception ex) {
@@ -537,7 +537,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		OutputStream outputStream = response.getOutputStream();
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-		writer.write(messageResult.getGraph(), buffer, null);
+		writer.write(messageResult.getGraph(), buffer);
 		response.setContentType(writer.getMimeTypes()[0].toString());
 		response.setContentLength(buffer.size());
 

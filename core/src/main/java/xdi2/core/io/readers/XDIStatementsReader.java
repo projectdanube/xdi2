@@ -5,11 +5,16 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Properties;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Statement;
+import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.exceptions.Xdi2Exception;
 import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.impl.AbstractStatement;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
+import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public class XDIStatementsReader extends AbstractXDIReader {
 
@@ -19,18 +24,36 @@ public class XDIStatementsReader extends AbstractXDIReader {
 	public static final String FILE_EXTENSION = "xdi";
 	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0"), new MimeType("text/xdi;contexts=1") };
 
+	public XDIStatementsReader(Properties parameters) {
+
+		super(parameters == null ? new Properties() : parameters);
+	}
+
 	private static void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException {
 
-		String statement;
+		String line;
 		int lineNr = 0;
 
-		while ((statement = bufferedReader.readLine()) != null) {
+		while ((line = bufferedReader.readLine()) != null) {
 
 			lineNr++;
 
-			if (statement.trim().isEmpty()) continue;
+			if (line.trim().isEmpty()) continue;
 
 			try {
+
+				Statement statement = AbstractStatement.fromString(line);
+
+				// ignore implied context nodes
+
+				if (statement instanceof ContextNodeStatement) {
+
+					ContextNode contextNode = graph.findContextNode(statement.getSubject(), false);
+
+					if (contextNode != null && contextNode.containsContextNode(new XRI3SubSegment(statement.getObject().toString()))) continue;
+				}
+
+				// add the statement to the graph
 
 				graph.addStatement(statement);
 			} catch (Xdi2Exception ex) {
@@ -41,7 +64,7 @@ public class XDIStatementsReader extends AbstractXDIReader {
 	}
 
 	@Override
-	public Reader read(Graph graph, Reader reader, Properties parameters) throws IOException, Xdi2ParseException {
+	public Reader read(Graph graph, Reader reader) throws IOException, Xdi2ParseException {
 
 		read(graph, new BufferedReader(reader));
 

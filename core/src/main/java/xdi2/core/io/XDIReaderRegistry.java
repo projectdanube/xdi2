@@ -2,10 +2,12 @@ package xdi2.core.io;
 
 
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +65,8 @@ public final class XDIReaderRegistry {
 
 			try {
 
-				reader = readerClass.newInstance();
+				Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
+				reader = constructor.newInstance((Properties) null);
 			} catch (Exception ex) {
 
 				throw new RuntimeException(ex);
@@ -88,11 +91,14 @@ public final class XDIReaderRegistry {
 	private XDIReaderRegistry() { }
 
 	/**
-	 * Returns an XDIReader for the specified format.
-	 * @param format The desired format.
+	 * Returns an XDIReader for the specified format, e.g.
+	 * <ul>
+	 * <li>XDI/JSON</li>
+	 * <li>STATEMENTS</li>
+	 * </ul>
 	 * @return An XDIReader, or null if no appropriate implementation could be found.
 	 */
-	public static XDIReader forFormat(String format) {
+	public static XDIReader forFormat(String format, Properties parameters) {
 
 		if (AutoReader.FORMAT_NAME.equalsIgnoreCase(format)) return getAuto();
 
@@ -101,7 +107,8 @@ public final class XDIReaderRegistry {
 
 		try {
 
-			return readerClass.newInstance();
+			Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
+			return constructor.newInstance(parameters);
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -111,9 +118,8 @@ public final class XDIReaderRegistry {
 	/**
 	 * Returns an XDIReader for the specified mime type, e.g.
 	 * <ul>
-	 * <li>text/xdi+x3</li>
-	 * <li>text/plain</li>
-	 * <li>application/xdi+xml</li>
+	 * <li>application/xdi+json</li>
+	 * <li>text/xdi</li>
 	 * </ul>
 	 * @param mimeType The desired mime type.
 	 * @return An XDIReader, or null if no appropriate implementation could be found.
@@ -125,7 +131,8 @@ public final class XDIReaderRegistry {
 
 		try {
 
-			return readerClass.newInstance();
+			Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
+			return constructor.newInstance(mimeType.getParameters());
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -135,47 +142,27 @@ public final class XDIReaderRegistry {
 	/**
 	 * Returns an XDIReader for the specified file extension, e.g.
 	 * <ul>
-	 * <li>.xml</li>
-	 * <li>.x3</li>
-	 * <li>.txt</li>
+	 * <ul>
+	 * <li>.json</li>
+	 * <li>.xdi</li>
+	 * </ul>
 	 * </ul>
 	 * @param fileExtension The desired file extension.
 	 * @return An XDIReader, or null if no appropriate implementation could be found.
 	 */
-	public static XDIReader forFileExtension(String fileExtension) {
+	public static XDIReader forFileExtension(String fileExtension, Properties parameters) {
 
 		Class<XDIReader> readerClass = readerClassesByFileExtension.get(fileExtension);
 		if (readerClass == null) return null;
 
 		try {
 
-			return readerClass.newInstance();
+			Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
+			return constructor.newInstance(parameters);
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
 		}
-	}
-
-	/**
-	 * Returns a list of all available XDIReaders.
-	 * @return All XDIReaders this factory knows of.
-	 */
-	public static XDIReader[] getReaders() {
-
-		XDIReader[] readers = new XDIReader[readerClasses.size()];
-
-		for (int i=0; i<readerClasses.size(); i++) {
-
-			try {
-
-				readers[i] = readerClasses.get(i).newInstance();
-			} catch (Exception ex) {
-
-				throw new RuntimeException(ex);
-			}
-		}
-
-		return readers;
 	}
 
 	/**
@@ -203,6 +190,15 @@ public final class XDIReaderRegistry {
 	public static String[] getFormats() {
 
 		return readerClassesByFormat.keySet().toArray(new String[readerClassesByFormat.size()]);
+	}
+
+	/**
+	 * Returns all file extensions for which XDIReader implementations exist.
+	 * @return A string array of file extensions.
+	 */
+	public static String[] getFileExtensions() {
+
+		return readerClassesByFileExtension.keySet().toArray(new String[readerClassesByFileExtension.size()]);
 	}
 
 	/**

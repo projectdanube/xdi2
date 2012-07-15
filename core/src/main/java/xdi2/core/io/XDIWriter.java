@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.Writer;
-import java.util.Properties;
 
 import xdi2.core.Graph;
 
@@ -21,19 +20,17 @@ public interface XDIWriter extends Serializable {
 	 * Writes an XDI graph to a character stream.
 	 * @param graph A graph that will be written to the stream.
 	 * @param writer The character stream to write to.
-	 * @param parameters Optional parameters for the writer.
 	 * @return The character stream.
 	 */
-	public Writer write(Graph graph, Writer writer, Properties parameters) throws IOException;
+	public Writer write(Graph graph, Writer writer) throws IOException;
 
 	/**
 	 * Writes an XDI graph to a byte stream.
 	 * @param graph A graph that will be written to the stream.
 	 * @param stream The byte stream to write to.
-	 * @param parameters Optional parameters for the writer.
 	 * @return The byte stream.
 	 */
-	public OutputStream write(Graph graph, OutputStream stream, Properties parameters) throws IOException;
+	public OutputStream write(Graph graph, OutputStream stream) throws IOException;
 
 	/**
 	 * Returns the format this XDIWriter can write, e.g.

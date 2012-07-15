@@ -1,10 +1,8 @@
 package xdi2.core.io;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.util.Properties;
 
@@ -20,22 +18,23 @@ public abstract class AbstractXDIReader implements XDIReader {
 
 	private static final long serialVersionUID = -3924954880534200486L;
 
-	@Override
-	public void read(Graph graph, String string, Properties parameters) throws IOException, Xdi2ParseException {
+	protected Properties parameters;
 
-		this.read(graph, new StringReader(string), parameters);
+	public AbstractXDIReader(Properties parameters) {
+
+		this.parameters = parameters;
 	}
 
 	@Override
-	public InputStream read(Graph graph, InputStream stream, Properties parameters) throws IOException, Xdi2ParseException {
+	public InputStream read(Graph graph, InputStream stream) throws IOException, Xdi2ParseException {
 
-		this.read(graph, new InputStreamReader(stream), parameters);
+		this.read(graph, new InputStreamReader(stream));
 
 		return stream;
 	}
 
 	private final Object getFieldValue(String fieldName) {
-		
+
 		Field field;
 
 		try {
@@ -43,7 +42,7 @@ public abstract class AbstractXDIReader implements XDIReader {
 			field = this.getClass().getField(fieldName);
 			return field.get(null);
 		} catch (Exception ex) {
-			
+
 			throw new RuntimeException("Class " + this.getClass().getCanonicalName() + " must define the static field '" + fieldName + "' of type String (" + ex.getMessage() + ")");
 		}
 	}

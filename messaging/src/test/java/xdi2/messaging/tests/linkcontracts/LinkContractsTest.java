@@ -37,7 +37,7 @@ public class LinkContractsTest extends TestCase {
 			if (this.getClass().getResourceAsStream("graph" + i + ".xdi") == null) break;
 
 			Graph graph = graphFactory.openGraph(); 
-			autoReader.read(graph, this.getClass().getResourceAsStream("graph" + i + ".xdi"), null).close();
+			autoReader.read(graph, this.getClass().getResourceAsStream("graph" + i + ".xdi")).close();
 
 			log.info("Graph " + i);
 
@@ -50,7 +50,7 @@ public class LinkContractsTest extends TestCase {
 				if (this.getClass().getResourceAsStream("authorized" + i + "." + ii + ".xdi") == null) break;
 
 				Graph authorized = graphFactory.openGraph(); 
-				autoReader.read(authorized, this.getClass().getResourceAsStream("authorized" + i + "." + ii + ".xdi"), null).close();
+				autoReader.read(authorized, this.getClass().getResourceAsStream("authorized" + i + "." + ii + ".xdi")).close();
 
 				log.info("Authorized " + i + "." + ii);
 
@@ -85,7 +85,7 @@ public class LinkContractsTest extends TestCase {
 				if (this.getClass().getResourceAsStream("notauthorized" + i + "." + ii + ".xdi") == null) break;
 
 				Graph notauthorized = graphFactory.openGraph(); 
-				autoReader.read(notauthorized, this.getClass().getResourceAsStream("notauthorized" + i + "." + ii + ".xdi"), null).close();
+				autoReader.read(notauthorized, this.getClass().getResourceAsStream("notauthorized" + i + "." + ii + ".xdi")).close();
 
 				log.info("Not Authorized " + i + "." + ii);
 

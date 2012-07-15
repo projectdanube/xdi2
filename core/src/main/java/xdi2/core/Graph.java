@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Properties;
 
-import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
@@ -104,11 +103,6 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * A simple way to add a statement to this graph.
 	 */
 	public Statement addStatement(Statement statement);
-
-	/**
-	 * A simple way to add a statement to this graph.
-	 */
-	public Statement addStatement(String statement) throws Xdi2ParseException;
 
 	/*
 	 * Methods related to transactions

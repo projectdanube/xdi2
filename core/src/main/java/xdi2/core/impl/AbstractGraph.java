@@ -17,7 +17,6 @@ import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
@@ -119,12 +118,12 @@ public abstract class AbstractGraph implements Graph {
 
 		if (format == null) format = XDIWriterRegistry.getDefault().getFormat();
 
-		XDIWriter writer = XDIWriterRegistry.forFormat(format);
+		XDIWriter writer = XDIWriterRegistry.forFormat(format, parameters);
 		StringWriter buffer = new StringWriter();
 
 		try {
 
-			writer.write(this, buffer, parameters);
+			writer.write(this, buffer);
 		} catch (IOException ex) {
 
 			return "[Exception: " + ex.getMessage() + "]";
@@ -168,12 +167,6 @@ public abstract class AbstractGraph implements Graph {
 
 			throw new Xdi2RuntimeException("Unknown statement type: " + statement.getClass().getCanonicalName());
 		}
-	}
-
-	@Override
-	public Statement addStatement(String statement) throws Xdi2ParseException {
-
-		return this.addStatement(AbstractStatement.fromString(statement));
 	}
 
 	/*

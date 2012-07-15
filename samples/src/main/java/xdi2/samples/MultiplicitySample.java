@@ -1,5 +1,6 @@
 package xdi2.samples;
 
+import java.io.StringReader;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
@@ -29,7 +30,7 @@ public class MultiplicitySample {
 		// write and re-read the graph, then find and print the members of the attribute collection
 
 		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
-		XDIReaderRegistry.getAuto().read(graph2, graph.toString(), null);
+		XDIReaderRegistry.getAuto().read(graph2, new StringReader(graph.toString()));
 		ContextNode contextNode2 = graph.findContextNode(new XRI3Segment("=markus"), false);
 
 		AttributeCollection telAttributeCollection2 = Multiplicity.getAttributeCollection(contextNode2, "+tel", false);
