@@ -1,17 +1,18 @@
 package xdi2.core.io;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Properties;
 
 public class MimeType implements Serializable, Comparable<MimeType> {
 
 	private static final long serialVersionUID = 7537512421170282104L;
 
 	private String mimeType;
-	private Map<String, String> parameters;
+	private Properties parameters;
 
-	public MimeType(String string, Map<String, String> parameters) {
+	public MimeType(String string, Properties parameters) {
 
 		this(string);
 
@@ -23,7 +24,7 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 		String[] parts = string.split(";");
 
 		String mimeType = parts[0];
-		Map<String, String> parameters = new TreeMap<String, String> ();
+		Properties parameters = new Properties();
 
 		for (int i=1; i<parts.length; i++) {
 
@@ -40,7 +41,7 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 	public MimeType mimeTypeWithoutQuality() {
 
 		String mimeType = this.getMimeType();
-		Map<String, String> parameters = new TreeMap<String, String> (this.getParameters());
+		Properties parameters = new Properties(this.getParameters());
 		parameters.remove("q");
 
 		return new MimeType(mimeType, parameters);
@@ -51,14 +52,14 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 		return this.mimeType;
 	}
 
-	public Map<String, String> getParameters() {
+	public Properties getParameters() {
 
 		return this.parameters;
 	}
 
 	public String getParameterValue(String key) {
 
-		return this.parameters.get(key);
+		return this.parameters.getProperty(key);
 	}
 
 	/*
@@ -72,6 +73,8 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 
 		buffer.append(this.getMimeType());
 
+		List<String> list = new SortedList<String> (this.getParameters().stringPropertyNames());
+		
 		for (Map.Entry<String, String> parameter : this.getParameters().entrySet()) {
 
 			buffer.append(";" + parameter.getKey() + "=" + parameter.getValue());

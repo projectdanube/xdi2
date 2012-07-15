@@ -75,8 +75,8 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testReadWriteFormats() throws Exception {
 
-		String[] writerFormats = new String[] { "XDI/JSON_WITH_CONTEXT_STATEMENTS", "STATEMENTS_WITH_CONTEXT_STATEMENTS", "XDI/JSON", "STATEMENTS" };
-		String[] readerFormats = new String[] { "XDI/JSON", "STATEMENTS", "XDI/JSON", "STATEMENTS" };
+		String[] writerFormats = new String[] { "XDI/JSON", "STATEMENTS" };
+		String[] readerFormats = new String[] { "XDI/JSON", "STATEMENTS" };
 
 		assertEquals(writerFormats.length, readerFormats.length);
 
