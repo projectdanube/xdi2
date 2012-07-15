@@ -131,7 +131,14 @@ public class LinkContractsInterceptor implements MessageInterceptor, TargetInter
 		
 		XRI3Segment targetAddress = targetStatement.getSubject();
 
+		try{
 		checkLinkContractAuthorization(operation,targetAddress, executionContext);
+		}
+		catch(Xdi2NotAuthorizedException notAuthEx){
+			throw new Xdi2MessagingException("Link contract violation:  " + operation.getOperationXri() + " on statement " + targetStatement, notAuthEx,operation);
+
+		}
+		
 		return targetStatement;
 	}
 
@@ -143,8 +150,13 @@ public class LinkContractsInterceptor implements MessageInterceptor, TargetInter
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, operation);
 
+		try{
 		// check if the current operation and target statement are allowed under this link contract
 		checkLinkContractAuthorization(operation,targetAddress, executionContext);
+		}catch(Xdi2NotAuthorizedException notAuthEx){
+			throw new Xdi2MessagingException("Link contract violation:  " + operation.getOperationXri() + " on address " + targetAddress, notAuthEx,operation);
+
+		}
 
 		return targetAddress;
 	}
