@@ -30,15 +30,15 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	public void close();
 
 	/**
-	 * Finds a context node in this graph.
+	 * Finds a context node at any depth in this graph.
 	 * @param xri The XRI of the context node.
 	 * @param create Whether or not to create context nodes if they don't exist.
-	 * @return A context node with the given XRI.
+	 * @return A context node or null
 	 */
 	public ContextNode findContextNode(XRI3Segment xri, boolean create);
 
 	/**
-	 * Finds a relation in this graph.
+	 * Finds a relation at any depth in this graph.
 	 * @param xri The XRI of the context node containing the relation.
 	 * @param arcXri The arc XRI of the relation.
 	 * @return A relation or null.
@@ -46,15 +46,15 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri);
 
 	/**
-	 * Finds relations in this graph.
-	 * @param xri The XRI of the context node containing the relation.
+	 * Finds relations at any depth in this graph.
+	 * @param xri The XRI of the context node containing the relations.
 	 * @param arcXri The arc XRI of the relations.
 	 * @return An iterator over relations.
 	 */
 	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri);
 
 	/**
-	 * Finds a literal in this graph.
+	 * Finds a literal at any depth in this graph.
 	 * @param xri The XRI of the context node containing the literal.
 	 * @return A literal or null.
 	 */

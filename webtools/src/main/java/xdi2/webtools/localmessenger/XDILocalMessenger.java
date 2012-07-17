@@ -98,7 +98,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
-		request.setAttribute("writeContexts", "on");
+		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("variablesSupport", "on");
 		request.setAttribute("linkContractsSupport", null);

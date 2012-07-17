@@ -16,7 +16,6 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
@@ -37,56 +36,25 @@ public abstract class AbstractGraph implements Graph {
 	@Override
 	public ContextNode findContextNode(XRI3Segment xri, boolean create) {
 
-		ContextNode contextNode = this.getRootContextNode();
-		if (XDIConstants.XRI_S_CONTEXT.equals(xri)) return contextNode;
-
-		for (Iterator<?> arcXris = xri.getSubSegments().iterator(); arcXris.hasNext(); ) {
-
-			XRI3SubSegment arcXri = (XRI3SubSegment) arcXris.next();
-
-			ContextNode innerContextNode = contextNode.getContextNode(arcXri);
-			if (innerContextNode == null) {
-
-				if (create) {
-
-					innerContextNode = contextNode.createContextNode(arcXri);
-				} else {
-
-					return null;
-				}
-			}
-
-			contextNode = innerContextNode;
-		}
-
-		return contextNode;
+		return this.getRootContextNode().findContextNode(xri, create);
 	}
 
 	@Override
 	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri) {
 
-		ContextNode contextNode = this.findContextNode(xri, false);
-		if (contextNode == null) return null;
-
-		return contextNode.getRelation(arcXri);
+		return this.findRelation(xri, arcXri);
 	}
 
 	@Override
 	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri) {
 
-		ContextNode contextNode = this.findContextNode(xri, false);
-		if (contextNode == null) return null;
-
-		return contextNode.getRelations(arcXri);
+		return this.getRootContextNode().findRelations(xri, arcXri);
 	}
 
 	@Override
 	public Literal findLiteral(XRI3Segment xri) {
 
-		ContextNode contextNode = this.findContextNode(xri, false);
-		if (contextNode == null) return null;
-
-		return contextNode.getLiteral();
+		return this.getRootContextNode().findLiteral(xri);
 	}
 
 	@Override

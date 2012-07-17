@@ -93,7 +93,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ContextNode createContextNodes(XRI3Segment arcXri);
 
 	/**
-	 * Finds and returns a context node with a given arc XRI. 
+	 * Returns a context node with a given arc XRI. 
 	 * @param arcXri The arc XRI to look for. 
 	 * @return The context node with the given arc XRI, or null.
 	 */
@@ -116,6 +116,14 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return An iterator over leaf context nodes.
 	 */
 	public Iterator<ContextNode> getAllLeafContextNodes();
+
+	/**
+	 * Finds a context node at any depth under this context node.
+	 * @param xri The relative XRI of the context node.
+	 * @param create Whether or not to create context nodes if they don't exist.
+	 * @return A context node or null.
+	 */
+	public ContextNode findContextNode(XRI3Segment xri, boolean create);
 
 	/**
 	 * Checks if a context node with a given arc XRI exists in this context node.
@@ -174,7 +182,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation createRelation(XRI3Segment arcXri, XRI3Segment relationXri);
 
 	/**
-	 * Finds and returns a relation with a given context node. 
+	 * Returns a relation with a given context node. 
 	 * @param arcXri The arc XRI to look for. 
 	 * @param contextNode The context node the relation points to.
 	 * @return The relation with the given arc XRI, or null.
@@ -182,7 +190,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation getRelation(XRI3Segment arcXri, ContextNode contextNode);
 
 	/**
-	 * Finds and returns a relation with a given arc XRI. 
+	 * Returns a relation with a given arc XRI. 
 	 * @param arcXri The arc XRI to look for. 
 	 * @param relationXri The relation XRI of the relation.
 	 * @return The relation with the given arc XRI, or null.
@@ -190,14 +198,14 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation getRelation(XRI3Segment arcXri, XRI3Segment relationXri);
 
 	/**
-	 * Finds and returns a relation with a given arc XRI. 
+	 * Returns a relation with a given arc XRI. 
 	 * @param arcXri The arc XRI to look for. 
 	 * @return The relation with the given arc XRI, or null.
 	 */
 	public Relation getRelation(XRI3Segment arcXri);
 
 	/**
-	 * Finds and returns the relations with a given arc XRI. 
+	 * Returns the relations with a given arc XRI. 
 	 * @param arcXri The arc XRI to look for. 
 	 * @return The relations with the given arc XRI, or null.
 	 */
@@ -214,6 +222,22 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return An iterator over relations.
 	 */
 	public Iterator<Relation> getAllRelations();
+
+	/**
+	 * Finds a relation at any depth under this context node.
+	 * @param xri The relation XRI of the context node containing the relation.
+	 * @param arcXri The arc XRI of the relation.
+	 * @return A relation or null.
+	 */
+	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri);
+
+	/**
+	 * Finds relations at any depth under this context node.
+	 * @param xri The relative XRI of the context node containing the relations.
+	 * @param arcXri The arc XRI of the relations.
+	 * @return An iterator over relations.
+	 */
+	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri);
 
 	/**
 	 * Checks if a relation with a given arc XRI exists in this context node.
@@ -325,6 +349,13 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return An iterator over literals.
 	 */
 	public Iterator<Literal> getAllLiterals();
+
+	/**
+	 * Finds a literal at any depth under this context node.
+	 * @param xri The relative XRI of the context node containing the literal.
+	 * @return The literal or null.
+	 */
+	public Literal findLiteral(XRI3Segment xri);
 
 	/**
 	 * Checks if this context node has a literal.
