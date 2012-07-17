@@ -26,7 +26,12 @@ public class XDIStatementsReader extends AbstractXDIReader {
 
 	public XDIStatementsReader(Properties parameters) {
 
-		super(parameters == null ? new Properties() : parameters);
+		super(parameters);
+	}
+
+	@Override
+	protected void init() {
+		
 	}
 
 	private static void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException {

@@ -36,39 +36,13 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	public XDIJSONReader(Properties parameters) {
 
-		super(parameters == null ? new Properties() : parameters);
+		super(parameters);
 	}
 
-	private static XRI3Segment makeXRI3Segment(String xriString, State state) {
-
-		state.lastXriString = xriString;
-		return new XRI3Segment(xriString);
+	@Override
+	protected void init() {
+		
 	}
-
-	private static XRI3SubSegment makeXRI3SubSegment(String xriString, State state) {
-
-		state.lastXriString = xriString;
-		return new XRI3SubSegment(xriString);
-	}
-
-	/*	private void readContextNode(ContextNode contextNode, JSONObject graphObject) throws IOException, Xdi2ParseException, JSONException {
-
-		String contextNodeXri = contextNode.getXri().toString();
-
-		String key = contextNodeXri + "/()";
-		if (! graphObject.has(key)) return;
-		JSONArray jsonArray = graphObject.getJSONArray(key);
-		graphObject.remove(key);
-
-		for (int i=0; i<jsonArray.length(); i++) {
-
-			String arcXri = jsonArray.getString(i);
-			ContextNode innerContextNode = contextNode.createContextNode(this.makeXRI3SubSegment(arcXri));
-			if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
-
-			this.readContextNode(innerContextNode, graphObject);
-		}
-	}*/
 
 	public void read(Graph graph, JSONObject graphObject, State state) throws IOException, Xdi2ParseException, JSONException {
 
@@ -170,5 +144,17 @@ public class XDIJSONReader extends AbstractXDIReader {
 	private static class State {
 
 		private String lastXriString;
+	}
+	
+	private static XRI3Segment makeXRI3Segment(String xriString, State state) {
+
+		state.lastXriString = xriString;
+		return new XRI3Segment(xriString);
+	}
+
+	private static XRI3SubSegment makeXRI3SubSegment(String xriString, State state) {
+
+		state.lastXriString = xriString;
+		return new XRI3SubSegment(xriString);
 	}
 }

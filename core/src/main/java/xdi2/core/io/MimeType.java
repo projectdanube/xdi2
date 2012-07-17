@@ -1,8 +1,9 @@
 package xdi2.core.io;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 public class MimeType implements Serializable, Comparable<MimeType> {
@@ -16,7 +17,7 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 
 		this(string);
 
-		this.parameters.putAll(parameters);
+		if (parameters != null) this.parameters.putAll(parameters);
 	}
 
 	public MimeType(String string) {
@@ -62,6 +63,11 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 		return this.parameters.getProperty(key);
 	}
 
+	public boolean containsParameter(String key) {
+		
+		return this.parameters.containsKey(key);
+	}
+	
 	/*
 	 * Object methods
 	 */
@@ -73,11 +79,12 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 
 		buffer.append(this.getMimeType());
 
-		List<String> list = new SortedList<String> (this.getParameters().stringPropertyNames());
+		List<String> list = new ArrayList<String> (this.getParameters().stringPropertyNames());
+		Collections.sort(list);
 		
-		for (Map.Entry<String, String> parameter : this.getParameters().entrySet()) {
+		for (String key : list) {
 
-			buffer.append(";" + parameter.getKey() + "=" + parameter.getValue());
+			buffer.append(";" + key + "=" + this.getParameterValue(key));
 		}
 
 		return buffer.toString();

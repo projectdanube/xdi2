@@ -10,6 +10,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.io.writers.XDIHTMLWriter;
 import xdi2.core.io.writers.XDIJSONWriter;
 import xdi2.core.io.writers.XDIKeyValueWriter;
 import xdi2.core.io.writers.XDIStatementsWriter;
@@ -24,17 +25,18 @@ public final class XDIWriterRegistry {
 	private static final Logger log = LoggerFactory.getLogger(XDIWriterRegistry.class);
 
 	public static final String PARAMETER_CONTEXTS = "contexts";
-	public static final String PARAMETER_HTML = "html";
 	public static final String PARAMETER_ORDERED = "ordered";
+	public static final String PARAMETER_HTML = "html";
 	public static final String DEFAULT_CONTEXTS = "0";
-	public static final String DEFAULT_HTML = "0";
 	public static final String DEFAULT_ORDERED = "0";
+	public static final String DEFAULT_HTML = "0";
 
 	private static String writerClassNames[] = {
 
 		XDIJSONWriter.class.getName(),// first one in the array is the default
 		XDIStatementsWriter.class.getName(),
-		XDIKeyValueWriter.class.getName()
+		XDIKeyValueWriter.class.getName(),
+		XDIHTMLWriter.class.getName()
 	};
 
 	private static List<Class<XDIWriter>> writerClasses;
@@ -43,14 +45,14 @@ public final class XDIWriterRegistry {
 
 	private static Map<String, Class<XDIWriter>> writerClassesByFormat;
 	private static Map<String, Class<XDIWriter>> writerClassesByFileExtension;
-	private static Map<String, Class<XDIWriter>> writerClassesByMimeType;
+	private static Map<MimeType, Class<XDIWriter>> writerClassesByMimeType;
 
 	static {
 
 		writerClasses = new ArrayList<Class<XDIWriter>>();
 		writerClassesByFormat = new HashMap<String, Class<XDIWriter>>();
 		writerClassesByFileExtension = new HashMap<String, Class<XDIWriter>>();
-		writerClassesByMimeType = new HashMap<String, Class<XDIWriter>>();
+		writerClassesByMimeType = new HashMap<MimeType, Class<XDIWriter>>();
 
 		for (String writerClassName : writerClassNames) {
 
@@ -86,7 +88,7 @@ public final class XDIWriterRegistry {
 
 			if (format != null) writerClassesByFormat.put(format, writerClass);
 			if (fileExtension != null) writerClassesByFileExtension.put(fileExtension, writerClass);
-			if (mimeTypes != null) for (MimeType mimeType : mimeTypes) writerClassesByMimeType.put(mimeType.getMimeType(), writerClass);
+			if (mimeTypes != null) for (MimeType mimeType : mimeTypes) writerClassesByMimeType.put(mimeType, writerClass);
 		}
 
 		defaultWriterClass = writerClasses.get(0);
@@ -135,7 +137,7 @@ public final class XDIWriterRegistry {
 	 */
 	public static XDIWriter forMimeType(MimeType mimeType) {
 
-		Class<XDIWriter> writerClass = writerClassesByMimeType.get(mimeType.getMimeType());
+		Class<XDIWriter> writerClass = writerClassesByMimeType.get(mimeType);
 		if (writerClass == null) return null;
 
 		try {
@@ -178,11 +180,10 @@ public final class XDIWriterRegistry {
 	 */
 	public static XDIWriter getDefault() {
 
-		Class<XDIWriter> writerClass = defaultWriterClass;
-
 		try {
 
-			return writerClass.newInstance();
+			Constructor<XDIWriter> constructor = defaultWriterClass.getConstructor(Properties.class);
+			return constructor.newInstance((Properties) null);
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);
@@ -211,8 +212,38 @@ public final class XDIWriterRegistry {
 	 * Returns all mime types for which XDIWriter implementations exist.
 	 * @return A string array of mime types.
 	 */
-	public static String[] getMimeTypes() {
+	public static MimeType[] getMimeTypes() {
 
-		return writerClassesByMimeType.keySet().toArray(new String[writerClassesByMimeType.size()]);
+		return writerClassesByMimeType.keySet().toArray(new MimeType[writerClassesByMimeType.size()]);
+	}
+
+	/**
+	 * Checks if we have an XDIWriter that supports this format.
+	 * @param format The desired format.
+	 * @return True, if supported.
+	 */
+	public static boolean supportsFormat(String format) {
+
+		return writerClassesByMimeType.containsKey(format);
+	}
+
+	/**
+	 * Checks if we have an XDIWriter that supports this file extension.
+	 * @param fileExtension The desired file extension.
+	 * @return True, if supported.
+	 */
+	public static boolean supportsFileExtension(MimeType fileExtension) {
+
+		return writerClassesByFileExtension.containsKey(fileExtension);
+	}
+
+	/**
+	 * Checks if we have an XDIWriter that supports this MIME type.
+	 * @param mimeType The desired mime type.
+	 * @return True, if supported.
+	 */
+	public static boolean supportsMimeType(MimeType mimeType) {
+
+		return writerClassesByMimeType.containsKey(mimeType);
 	}
 }

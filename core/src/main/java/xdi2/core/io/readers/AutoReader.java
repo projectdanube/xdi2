@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -51,7 +52,9 @@ public class AutoReader extends AbstractXDIReader {
 
 				Class<XDIReader> readerClass = forName(readerClassName);
 				if (readerClass.equals(AutoReader.class)) continue;
-				readers.add(readerClass.newInstance());
+
+				Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
+				readers.add(constructor.newInstance((Properties) null));
 			} catch (Throwable ex) {
 
 				throw new RuntimeException(ex);
@@ -74,9 +77,9 @@ public class AutoReader extends AbstractXDIReader {
 		super(parameters);
 	}
 
-	public AutoReader() { 
-
-		this(new Properties());
+	@Override
+	protected void init() {
+		
 	}
 
 	private synchronized void read(Graph graph, String string) throws IOException, Xdi2ParseException {

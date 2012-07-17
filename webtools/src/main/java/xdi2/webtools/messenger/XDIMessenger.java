@@ -83,7 +83,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
-		request.setAttribute("writeContextStatements", "on");
+		request.setAttribute("writeContexts", "on");
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
@@ -94,7 +94,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String writeContextStatements = request.getParameter("writeContextStatements");
+		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
 		String input = request.getParameter("input");
 		String endpoint = request.getParameter("endpoint");
@@ -104,7 +104,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 		Properties xdiWriterParameters = new Properties();
 
-		if ("on".equals(writeContextStatements)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
+		if ("on".equals(writeContexts)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
 		if ("on".equals(writeOrdered)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
 
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
@@ -168,7 +168,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
-		request.setAttribute("writeContextStatements", writeContextStatements);
+		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("input", input);
 		request.setAttribute("endpoint", endpoint);

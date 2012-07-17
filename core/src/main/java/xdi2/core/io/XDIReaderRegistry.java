@@ -1,7 +1,5 @@
 package xdi2.core.io;
 
-
-
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -171,7 +169,7 @@ public final class XDIReaderRegistry {
 	 */
 	public static XDIReader getDefault() {
 
-		return new AutoReader();
+		return new AutoReader(null);
 	}
 
 	/**
@@ -180,7 +178,7 @@ public final class XDIReaderRegistry {
 	 */
 	public static AutoReader getAuto() {
 
-		return new AutoReader();
+		return new AutoReader(null);
 	}
 
 	/**
@@ -208,5 +206,35 @@ public final class XDIReaderRegistry {
 	public static MimeType[] getMimeTypes() {
 
 		return readerClassesByMimeType.keySet().toArray(new MimeType[readerClassesByMimeType.size()]);
+	}
+
+	/**
+	 * Checks if we have an XDIReader that supports this format.
+	 * @param format The desired format.
+	 * @return True, if supported.
+	 */
+	public static boolean supportsFormat(String format) {
+
+		return readerClassesByMimeType.containsKey(format);
+	}
+
+	/**
+	 * Checks if we have an XDIReader that supports this file extension.
+	 * @param fileExtension The desired file extension.
+	 * @return True, if supported.
+	 */
+	public static boolean supportsFileExtension(MimeType fileExtension) {
+
+		return readerClassesByFileExtension.containsKey(fileExtension);
+	}
+
+	/**
+	 * Checks if we have an XDIReader that supports this MIME type.
+	 * @param mimeType The desired mime type.
+	 * @return True, if supported.
+	 */
+	public static boolean supportsMimeType(MimeType mimeType) {
+
+		return readerClassesByMimeType.containsKey(mimeType);
 	}
 }

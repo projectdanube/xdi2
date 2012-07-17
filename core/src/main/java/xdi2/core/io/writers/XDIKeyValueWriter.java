@@ -36,18 +36,17 @@ public class XDIKeyValueWriter extends AbstractXDIWriter {
 
 	public XDIKeyValueWriter(Properties parameters) {
 
-		super(parameters == null ? new Properties() : parameters);
+		super(parameters);
+	}
+
+	@Override
+	protected void init() {
 
 		// check parameters
 
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
 
 		log.debug("writeOrdered=" + this.writeOrdered);
-	}
-
-	public XDIKeyValueWriter() {
-
-		this(new Properties());
 	}
 
 	@Override

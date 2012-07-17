@@ -68,16 +68,24 @@ public class AcceptHeader implements Serializable, Comparable<AcceptHeader> {
 	}
 
 	/**
-	 * Returns a MimeType that we can satisfy for this Accept header. 
+	 * Returns a MimeType that we can support for this Accept header. 
+	 * @param canRead If true, only return MimeTypes we can read.
+	 * @param canWrite If true, only return MimeTypes we can write.
 	 * @return A MimeType, or null if no appropriate implementation could be found.
 	 */
-	public MimeType bestMimeType() {
+	public MimeType bestMimeType(boolean canRead, boolean canWrite) {
 
-		for (MimeType mimeType : this.getMimeTypesSortedByQuality()) {
+		List<MimeType> mimeTypes = this.getMimeTypesSortedByQuality();
+		if ((! canRead) && (! canWrite)) return mimeTypes.get(0).mimeTypeWithoutQuality();
+
+		for (MimeType mimeType : mimeTypes) {
 
 			MimeType mimeTypeWithoutQuality = mimeType.mimeTypeWithoutQuality();
 
-			if ((XDIWriterRegistry.forMimeType(mimeTypeWithoutQuality)) != null) return mimeTypeWithoutQuality;
+			if (canRead && (! XDIReaderRegistry.supportsMimeType(mimeTypeWithoutQuality))) continue;
+			if (canWrite && (! XDIWriterRegistry.supportsMimeType(mimeTypeWithoutQuality))) continue;
+
+			return mimeTypeWithoutQuality;
 		}
 
 		return null;

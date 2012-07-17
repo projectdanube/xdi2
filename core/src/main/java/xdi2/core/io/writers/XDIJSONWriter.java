@@ -32,13 +32,17 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 	public static final String FORMAT_NAME = "XDI/JSON";
 	public static final String FILE_EXTENSION = "json";
-	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0") };
+	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1") };
 
 	private boolean writeContexts;
 
 	public XDIJSONWriter(Properties parameters) {
 
-		super(parameters == null ? new Properties() : parameters);
+		super(parameters);
+	}
+
+	@Override
+	protected void init() {
 
 		// check parameters
 

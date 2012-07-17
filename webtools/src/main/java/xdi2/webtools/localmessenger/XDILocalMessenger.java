@@ -98,7 +98,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
-		request.setAttribute("writeContextStatements", "on");
+		request.setAttribute("writeContexts", "on");
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("variablesSupport", "on");
 		request.setAttribute("linkContractsSupport", null);
@@ -111,7 +111,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String writeContextStatements = request.getParameter("writeContextStatements");
+		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
 		String variablesSupport = request.getParameter("variablesSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
@@ -124,7 +124,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		Properties xdiResultWriterParameters = new Properties();
 
-		if ("on".equals(writeContextStatements)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
+		if ("on".equals(writeContexts)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
 		if ("on".equals(writeOrdered)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
 		
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
@@ -220,7 +220,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
-		request.setAttribute("writeContextStatements", writeContextStatements);
+		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("variablesSupport", variablesSupport);
 		request.setAttribute("linkContractsSupport", linkContractsSupport);

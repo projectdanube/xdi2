@@ -34,32 +34,31 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 
 	public static final String FORMAT_NAME = "STATEMENTS";
 	public static final String FILE_EXTENSION = "xdi";
-	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0") };
+	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0"), new MimeType("text/xdi;contexts=1") };
 
 	private static final String HTML_COLOR_CONTEXTNODE = "#000000";
 	private static final String HTML_COLOR_RELATION = "#ff8888";
 	private static final String HTML_COLOR_LITERAL = "#8888ff";
 
 	private boolean writeContextStatements;
-	private boolean writeHtml;
 	private boolean writeOrdered;
+	private boolean writeHtml;
 
 	public XDIStatementsWriter(Properties parameters) {
 
-		super(parameters == null ? new Properties() : parameters);
+		super(parameters);
+	}
+
+	@Override
+	protected void init() {
 
 		// check parameters
 
 		this.writeContextStatements = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
-		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
+		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
 
-		log.debug("Parameters: writeContextStatements=" + this.writeContextStatements + ", writeHtml=" + this.writeHtml + ", writeOrdered=" + this.writeOrdered);
-	}
-
-	public XDIStatementsWriter() {
-
-		this(new Properties());
+		log.debug("Parameters: writeContextStatements=" + this.writeContextStatements + ", writeOrdered=" + this.writeOrdered + ", writeHtml=" + this.writeHtml);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {

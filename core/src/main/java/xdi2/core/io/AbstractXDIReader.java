@@ -22,8 +22,12 @@ public abstract class AbstractXDIReader implements XDIReader {
 
 	public AbstractXDIReader(Properties parameters) {
 
-		this.parameters = parameters;
+		this.parameters = parameters != null ? parameters : new Properties();
+
+		this.init();
 	}
+
+	protected abstract void init();
 
 	@Override
 	public InputStream read(Graph graph, InputStream stream) throws IOException, Xdi2ParseException {

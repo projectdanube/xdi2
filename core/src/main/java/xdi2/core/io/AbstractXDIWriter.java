@@ -21,8 +21,12 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 
 	public AbstractXDIWriter(Properties parameters) {
 
-		this.parameters = parameters;
+		this.parameters = parameters != null ? parameters : new Properties();
+
+		this.init();
 	}
+
+	protected abstract void init();
 
 	@Override
 	public OutputStream write(Graph graph, OutputStream stream) throws IOException {
