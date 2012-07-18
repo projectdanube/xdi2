@@ -42,7 +42,7 @@ public abstract class AbstractGraph implements Graph {
 	@Override
 	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri) {
 
-		return this.findRelation(xri, arcXri);
+		return this.getRootContextNode().findRelation(xri, arcXri);
 	}
 
 	@Override

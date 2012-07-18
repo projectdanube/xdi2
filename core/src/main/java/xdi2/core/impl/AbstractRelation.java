@@ -81,7 +81,10 @@ public abstract class AbstractRelation implements Relation {
 
 		// two relations are equal if their XRIs are equal
 
-		return this.getArcXri().equals(other.getArcXri()) && this.getRelationXri().equals(other.getRelationXri());
+		return 
+				this.getContextNode().getXri().equals(other.getContextNode().getXri()) &&
+				this.getArcXri().equals(other.getArcXri()) && 
+				this.getRelationXri().equals(other.getRelationXri());
 	}
 
 	@Override
@@ -89,7 +92,9 @@ public abstract class AbstractRelation implements Relation {
 
 		int hashCode = 1;
 
-		hashCode = (hashCode * 31) + (this.getRelationXri() == null ? 0 : this.getRelationXri().hashCode());
+		hashCode = (hashCode * 31) + this.getContextNode().getXri().hashCode();
+		hashCode = (hashCode * 31) + this.getArcXri().hashCode();
+		hashCode = (hashCode * 31) + this.getRelationXri().hashCode();
 
 		return hashCode;
 	}

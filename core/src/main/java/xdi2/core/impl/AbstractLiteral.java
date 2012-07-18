@@ -68,13 +68,11 @@ public abstract class AbstractLiteral implements Literal {
 
 		Literal other = (Literal) object;
 
-		// two references are equal if their XRIs are equal
+		// two literals are equal if their XRIs and their data are equal
 
-		if (this.getLiteralData() == null && other.getLiteralData() != null) return false;
-		if (this.getLiteralData() != null && other.getLiteralData() == null) return false;
-		if (this.getLiteralData() != null && other.getLiteralData() != null && ! this.getLiteralData().equals(other.getLiteralData())) return false;
-
-		return true;
+		return 
+				this.getContextNode().getXri().equals(other.getContextNode().getXri()) &&
+				this.getLiteralData().equals(other.getLiteralData());
 	}
 
 	@Override
@@ -82,6 +80,7 @@ public abstract class AbstractLiteral implements Literal {
 
 		int hashCode = 1;
 
+		hashCode = (hashCode * 31) + this.getContextNode().getXri().hashCode();
 		hashCode = (hashCode * 31) + this.getLiteralData().hashCode();
 
 		return hashCode;

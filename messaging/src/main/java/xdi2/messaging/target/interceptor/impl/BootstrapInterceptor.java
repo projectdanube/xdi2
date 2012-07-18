@@ -92,7 +92,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 				Policy policy = bootstrapLinkContract.getPolicy(true);
 				AndExpression andExpression = policy.getAndNode(true);
-				andExpression.addLiteralExpression("hasValidSecret(message)");
+				andExpression.addLiteralExpression("hasgetGraphValue('$secret$!($token)') == getMessageProperty('$secret$!($token)')");
 			}
 		}
 	}

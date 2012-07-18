@@ -324,7 +324,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		graph14.close();
 	}
 
-	public void testMisc() throws Exception {
+	public void testContextNodeXris() throws Exception {
 
 		Graph graph15 = this.openNewGraph(this.getClass().getName() + "-graph-15");
 		ContextNode root = graph15.getRootContextNode();
@@ -336,6 +336,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode e = c.createContextNodes(new XRI3Segment("+d+e"));
 		ContextNode d = e.getContextNode();
 
+		Relation r = c.createRelation(new XRI3Segment("+x+y"), b);
+		Literal l = e.createLiteral("test");
+		
 		assertTrue(a.getContextNode().isRootContextNode());
 		assertNull(a.getContextNode().getContextNode());
 
@@ -356,6 +359,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(d.getArcXri(), new XRI3Segment("+d"));
 		assertEquals(e.getArcXri(), new XRI3Segment("+e"));
 
+		assertEquals(graph15.findContextNode(new XRI3Segment("+a+b+c+d"), false), d);
+		assertEquals(a.findContextNode(new XRI3Segment("+b+c+d"), false), d);
+		assertEquals(b.findContextNode(new XRI3Segment("+c+d"), false), d);
+		assertEquals(graph15.findRelation(new XRI3Segment("+a+b+c"), new XRI3Segment("+x+y")), r);
+		assertEquals(a.findRelation(new XRI3Segment("+b+c"), new XRI3Segment("+x+y")), r);
+		assertEquals(b.findRelation(new XRI3Segment("+c"), new XRI3Segment("+x+y")), r);
+		assertEquals(graph15.findLiteral(new XRI3Segment("+a+b+c+d+e")), l);
+		assertEquals(a.findLiteral(new XRI3Segment("+b+c+d+e")), l);
+		assertEquals(b.findLiteral(new XRI3Segment("+c+d+e")), l);
+		
 		graph15.close();
 	}
 
