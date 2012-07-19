@@ -125,10 +125,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public XRI3Segment getLinkContractXri() {
 
-		ContextNode operationsContextNode = this.getOperationsContextNode();
-		if (operationsContextNode == null) return null;
-
-		Relation linkContractRelation = operationsContextNode.getRelation(XDILinkContractConstants.XRI_S_DO);
+		Relation linkContractRelation = this.getContextNode().getRelation(XDILinkContractConstants.XRI_S_DO);
 		if (linkContractRelation == null) return null;
 
 		return linkContractRelation.getRelationXri();
