@@ -489,7 +489,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// create an execution context
 
-		ExecutionContext executionContext = new ExecutionContext();
+		ExecutionContext executionContext = new ExecutionContext(messagingTarget);
 
 		ServletExecutionContext.putEndpointServlet(executionContext, this);
 		ServletExecutionContext.putHttpServletRequest(executionContext, request);

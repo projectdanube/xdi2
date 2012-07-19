@@ -111,10 +111,10 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Return the "from-graph" XRI.
+	 * Return the sender authority.
 	 * TODO: This is inefficient because it enumerates all relations in the graph.
 	 */
-	public XRI3Segment getFromGraphXri() {
+	public XRI3Segment getSenderAuthority() {
 
 		for (Iterator<Relation> relations = this.getMessageEnvelope().getGraph().getRootContextNode().getAllRelations(); relations.hasNext(); ) {
 
@@ -130,9 +130,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Return the "to-graph" XRI.
+	 * Return the recipient authority.
 	 */
-	public XRI3Segment getToGraphXri() {
+	public XRI3Segment getRecipientAuthority() {
 
 		Relation toGraphXriRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_GRAPH);
 		if (toGraphXriRelation == null) return null;

@@ -35,6 +35,12 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
+	public XRI3Segment getOwner() {
+
+		return null;
+	}
+
+	@Override
 	public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// is this a remote root context XRI?

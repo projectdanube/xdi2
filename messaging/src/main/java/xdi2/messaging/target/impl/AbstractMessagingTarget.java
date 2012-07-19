@@ -93,7 +93,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		if (messageEnvelope == null) throw new NullPointerException();
 		if (messageResult == null) throw new NullPointerException();
-		if (executionContext == null) executionContext = new ExecutionContext();
+		if (executionContext == null) executionContext = new ExecutionContext(this);
 
 		boolean handled = false;
 

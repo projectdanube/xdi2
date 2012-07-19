@@ -199,8 +199,8 @@ public class BasicTest extends TestCase {
 		assertNotNull(linkContract);
 		assertEquals(linkContract.getAssignees().next().getXri(), sender);
 
-		assertEquals(message.getFromGraphXri(), new XRI3Segment("(=!1111)(!3)"));
-		assertEquals(message.getToGraphXri(), new XRI3Segment("(=!2222)"));
+		assertEquals(message.getSenderAuthority(), new XRI3Segment("(=!1111)(!3)"));
+		assertEquals(message.getRecipientAuthority(), new XRI3Segment("(=!2222)"));
 		assertEquals(message.getTimestamp(), calendar.getTime());
 	}
 }
