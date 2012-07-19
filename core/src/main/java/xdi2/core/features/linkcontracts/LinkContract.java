@@ -2,18 +2,12 @@ package xdi2.core.features.linkcontracts;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Function;
-import org.mozilla.javascript.Scriptable;
-
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
@@ -21,7 +15,6 @@ import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
 
 /**
  * An XDI link contract, represented as a context node.
