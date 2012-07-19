@@ -427,21 +427,6 @@ public final class Message implements Serializable, Comparable<Message> {
 		return new IteratorCounter(iterator).count();
 	}
 
-	/**
-	 * Returns the Authentication token if it is there in the message. The token
-	 * has to be of the form
-	 * =!91F2.8153.F600.AE24$($msg)$(!1)$do$secret$!($token)/!/(data:,s3cret)
-	 */
-	public String getAuthenticationToken() {
-		Literal sharedSecretLiteral = this.getContextNode().findLiteral(
-				XDIMessagingConstants.XRI_S_SHAREDSECRET_LITERAL);
-		if (sharedSecretLiteral != null) {
-			return sharedSecretLiteral.getLiteralData();
-		}
-		return "";
-	}
-
-	
 
 	/*
 	 * Object methods
