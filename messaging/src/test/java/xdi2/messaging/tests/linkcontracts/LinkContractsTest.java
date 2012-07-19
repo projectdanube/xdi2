@@ -13,6 +13,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.impl.LinkContractAuthenticationInterceptor;
 import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
 import xdi2.messaging.tests.messagingtarget.AbstractGraphMessagingTargetTest;
 
@@ -63,6 +64,9 @@ public class LinkContractsTest extends TestCase {
 
 				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(authorized);
 				MessageResult messageResult = new MessageResult();
+			
+				LinkContractAuthenticationInterceptor lcauth = new LinkContractAuthenticationInterceptor();
+				graphMessagingTarget.getInterceptors().add(lcauth);
 
 				try {
 

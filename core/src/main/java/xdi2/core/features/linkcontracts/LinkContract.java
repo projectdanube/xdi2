@@ -2,18 +2,12 @@ package xdi2.core.features.linkcontracts;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Function;
-import org.mozilla.javascript.Scriptable;
-
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
@@ -21,7 +15,6 @@ import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
 
 /**
  * An XDI link contract, represented as a context node.
@@ -41,6 +34,7 @@ public final class LinkContract implements Serializable,
 			throw new NullPointerException();
 
 		this.contextNode = contextNode;
+		addAuthenticationFunction();
 	}
 
 	/*
@@ -86,7 +80,7 @@ public final class LinkContract implements Serializable,
 	 * 
 	 * @return A context node that represents the XDI link contract.
 	 */
-	protected ContextNode getContextNode() {
+	public ContextNode getContextNode() {
 
 		return this.contextNode;
 	}
@@ -471,77 +465,15 @@ public final class LinkContract implements Serializable,
 	public void addAuthenticationFunction() {
 		Policy policy = getPolicy(true);
 		try {
+//			policy.setLiteralExpression(URLEncoder
+//					.encode("function compareSecrets(userSecret,graphSecret) { if(userSecret == graphSecret){ return true; }else {return false;};}",
+//							"UTF-8"));
 			policy.setLiteralExpression(URLEncoder
-					.encode("function compareSecrets(userSecret,graphSecret) { if(userSecret == graphSecret){ return true; }else {return false;};}",
-							"UTF-8"));
+			.encode("function f() { if ( myPolicyExpressionHelper.getGraphValue(\"$secret$!($token)\") == myPolicyExpressionHelper.getMessageProperty(\"$do$secret$!($token)\")) {return true ;} else {return false ;}  } " ,
+					"UTF-8"));		
 		} catch (UnsupportedEncodingException e) {
 			// This should never happen
 		}
 	}
 
-	public boolean authenticate(String userSecret) {
-		// If no policy is set then return true
-		String graphSecret;
-		Policy lcPolicy = null;
-		String policyExpression = "";
-		boolean evalResult = false;
-		// Get the graph secret which is assumed to be a literal node named
-		// "sharedSecret" hanging off of root context of a graph
-		ContextNode root = contextNode;
-
-		while (root.getContextNode() != null) {
-			root = root.getContextNode();
-
-		}
-		Literal sharedSecretLiteral = root
-				.getLiteralInContextNode(XDILinkContractConstants.XRI_SS_SHAREDSECRET_LITERAL);
-		if (sharedSecretLiteral != null) {
-			graphSecret = sharedSecretLiteral.getLiteralData();
-		} else {
-			return true;
-		}
-		if ((lcPolicy = getPolicy(false)) == null) {
-			return true;
-		} else {
-			Context cx = Context.enter();
-			try {
-				// evaluate the policy expression literal or the policy
-				// expression tree
-				try {
-					policyExpression = URLDecoder.decode(
-							lcPolicy.getLiteralExpression(), "UTF-8");
-				} catch (UnsupportedEncodingException unSupEx) {
-
-				}
-				if (policyExpression != null && !policyExpression.isEmpty()) {
-					// Initialize the standard objects (Object, Function, etc.)
-					// This must be done before scripts can be executed. Returns
-					// a scope object that we use in later calls.
-					Scriptable scope = cx.initStandardObjects();
-					cx.evaluateString(scope, policyExpression,
-							"policyExpression", 1, null);
-
-					// Now evaluate the string we've collected.
-					Object fObj = scope.get("compareSecrets", scope);
-					Object functionArgs[] = { userSecret, graphSecret };
-					Function f = (Function) fObj;
-					Object result = f.call(cx, scope, scope, functionArgs);
-
-					if (result != null
-							&& Context.toString(result).equals("true")) {
-						evalResult = true;
-					}
-
-				} else {
-					evalResult = true;
-				}
-
-			} finally {
-				// Exit from the context.
-				Context.exit();
-			}
-		}
-		return evalResult;
-
-	}
 }
