@@ -24,7 +24,7 @@ public class LinkContractsTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode markus = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
 		ContextNode animesh = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=animesh"));
-		graph.getRootContextNode().createLiteralInContextNode(XDILinkContractConstants.XRI_SS_SHAREDSECRET_LITERAL,"Hello");
+		graph.findContextNode(XDILinkContractConstants.XRI_S_SHAREDSECRET_LITERAL,true).createLiteral("Hello");
 		LinkContract linkContract = LinkContracts.getLinkContract(markus, true);
 		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL, graph.getRootContextNode());
 		//try adding the same assignee multiple times
@@ -32,17 +32,17 @@ public class LinkContractsTest extends TestCase {
 		linkContract.addAssignee(animesh);
 		//Policy policy = linkContract.getPolicy(true);
 		//policy.setLiteralExpression(URLEncoder.encode("function compareSecrets(userSecret,graphSecret) { if(userSecret == graphSecret){ return true; }else {return false;};}","UTF-8"));
-		linkContract.addAuthenticationFunction();
+		//linkContract.addAuthenticationFunction();
 //System.out.println("Policy Expression = " + URLDecoder.decode(policy.getLiteralExpression(),"UTF-8"));
 System.out.println("Display the graph");
 System.out.println(graph);
 		
-		if(linkContract.authenticate("Hello")){
-			System.out.println("UserSecret and GraphSecrets match!");
-		}
-		else{
-			System.out.println("UserSecret and GraphSecrets do NOT match!");
-		}
+//		if(linkContract.authenticate("Hello")){
+//			System.out.println("UserSecret and GraphSecrets match!");
+//		}
+//		else{
+//			System.out.println("UserSecret and GraphSecrets do NOT match!");
+//		}
 		
 
 		// ..do things with the link contract here..

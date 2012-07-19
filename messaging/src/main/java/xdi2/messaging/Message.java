@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.timestamps.Timestamps;
@@ -26,9 +27,11 @@ public final class Message implements Serializable, Comparable<Message> {
 	private MessageCollection messageCollection;
 	private ContextNode contextNode;
 
-	protected Message(MessageCollection messageCollection, ContextNode contextNode) {
+	protected Message(MessageCollection messageCollection,
+			ContextNode contextNode) {
 
-		if (messageCollection == null || contextNode == null) throw new NullPointerException();
+		if (messageCollection == null || contextNode == null)
+			throw new NullPointerException();
 
 		this.messageCollection = messageCollection;
 		this.contextNode = contextNode;
@@ -40,7 +43,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Checks if a context node is a valid XDI message.
-	 * @param contextNode The context node to check.
+	 * 
+	 * @param contextNode
+	 *            The context node to check.
 	 * @return True if the context node is a valid XDI message.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
@@ -50,13 +55,18 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Factory method that creates an XDI message bound to a given context node.
-	 * @param messageCollection The XDI message collection to which this XDI message belongs.
-	 * @param contextNode The context node that is an XDI message.
+	 * 
+	 * @param messageCollection
+	 *            The XDI message collection to which this XDI message belongs.
+	 * @param contextNode
+	 *            The context node that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageCollectionAndContextNode(MessageCollection messageCollection, ContextNode contextNode) {
+	public static Message fromMessageCollectionAndContextNode(
+			MessageCollection messageCollection, ContextNode contextNode) {
 
-		if (! isValid(contextNode)) return null;
+		if (!isValid(contextNode))
+			return null;
 
 		return new Message(messageCollection, contextNode);
 	}
@@ -67,6 +77,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Returns the XDI message collection to which this XDI message belongs.
+	 * 
 	 * @return An XDI message collection.
 	 */
 	public MessageCollection getMessageCollection() {
@@ -76,6 +87,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Returns the message envelope to which this message belongs.
+	 * 
 	 * @return A message envelope.
 	 */
 	public MessageEnvelope getMessageEnvelope() {
@@ -85,6 +97,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Returns the underlying context node to which this XDI message is bound.
+	 * 
 	 * @return A context node that represents the XDI message.
 	 */
 	public ContextNode getContextNode() {
@@ -94,6 +107,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Returns the ID of the message.
+	 * 
 	 * @return The ID of the message.
 	 */
 	public XRI3SubSegment getID() {
@@ -103,6 +117,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Returns the sender of the message's message collection.
+	 * 
 	 * @return The sender of the message's message collection.
 	 */
 	public XRI3Segment getSender() {
@@ -112,6 +127,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Returns the timestamp.
+	 * 
 	 * @return The timestamp.
 	 */
 	public Date getTimestamp() {
@@ -121,100 +137,126 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Returns the link contract XRI.
+	 * 
 	 * @return The link contract XRI.
 	 */
 	public XRI3Segment getLinkContractXri() {
 
 		ContextNode operationsContextNode = this.getOperationsContextNode();
-		if (operationsContextNode == null) return null;
+		if (operationsContextNode == null)
+			return null;
 
-		Relation linkContractRelation = operationsContextNode.getRelation(XDILinkContractConstants.XRI_S_DO);
-		if (linkContractRelation == null) return null;
+		Relation linkContractRelation = operationsContextNode
+				.getRelation(XDILinkContractConstants.XRI_S_DO);
+		if (linkContractRelation == null)
+			return null;
 
 		return linkContractRelation.getRelationXri();
 	}
 
 	/**
 	 * Returns the context node with XDI operations.
+	 * 
 	 * @return A context node with XDI operations.
 	 */
 	public ContextNode getOperationsContextNode() {
 
-		return this.getContextNode().getContextNode(XDIMessagingConstants.XRI_SS_DO);
+		return this.getContextNode().getContextNode(
+				XDIMessagingConstants.XRI_SS_DO);
 	}
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param targetXri The target XRI to which the operation applies.
-	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 * 
+	 * @param operationXri
+	 *            The operation XRI to use for the new operation.
+	 * @param targetXri
+	 *            The target XRI to which the operation applies.
+	 * @return The newly created, empty operation, or null if the operation XRI
+	 *         is not valid.
 	 */
-	public Operation createOperation(XRI3Segment operationXri, XRI3Segment targetXri) {
+	public Operation createOperation(XRI3Segment operationXri,
+			XRI3Segment targetXri) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(
+				operationXri, targetXri);
 
 		return Operation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * 
+	 * @param targetXri
+	 *            The target XRI to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
 	public GetOperation createGetOperation(XRI3Segment targetXri) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(
+				XDIMessagingConstants.XRI_S_GET, targetXri);
 
 		return GetOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $add operation and adds it to this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * 
+	 * @param targetXri
+	 *            The target XRI to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
 	public AddOperation createAddOperation(XRI3Segment targetXri) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(
+				XDIMessagingConstants.XRI_S_ADD, targetXri);
 
 		return AddOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $mod operation and adds it to this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * 
+	 * @param targetXri
+	 *            The target XRI to which the operation applies.
 	 * @return The newly created $mod operation.
 	 */
 	public ModOperation createModOperation(XRI3Segment targetXri) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(
+				XDIMessagingConstants.XRI_S_MOD, targetXri);
 
 		return ModOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $del operation and adds it to this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * 
+	 * @param targetXri
+	 *            The target XRI to which the operation applies.
 	 * @return The newly created $del operation.
 	 */
 	public DelOperation createDelOperation(XRI3Segment targetXri) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(
+				XDIMessagingConstants.XRI_S_DEL, targetXri);
 
 		return DelOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Returns all XDI operations in this XDI message.
+	 * 
 	 * @return An iterator over all XDI operations.
 	 */
 	public Iterator<Operation> getOperations() {
 
 		// look for valid relations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
+		Iterator<Relation> relations = this.getOperationsContextNode()
+				.getRelations();
 
-		return new SelectingMappingIterator<Relation, Operation> (relations) {
+		return new SelectingMappingIterator<Relation, Operation>(relations) {
 
 			@Override
 			public boolean select(Relation relation) {
@@ -231,16 +273,19 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns all XDI operations with a given operation XRI in this XDI message.
+	 * Returns all XDI operations with a given operation XRI in this XDI
+	 * message.
+	 * 
 	 * @return An iterator over all XDI operations.
 	 */
 	public Iterator<Operation> getOperations(XRI3Segment operationXri) {
 
 		// look for valid relations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(operationXri);
+		Iterator<Relation> relations = this.getOperationsContextNode()
+				.getRelations(operationXri);
 
-		return new SelectingMappingIterator<Relation, Operation> (relations) {
+		return new SelectingMappingIterator<Relation, Operation>(relations) {
 
 			@Override
 			public boolean select(Relation relation) {
@@ -258,15 +303,17 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Returns all XDI $get operations in this XDI message.
+	 * 
 	 * @return An iterator over all XDI $get operations.
 	 */
 	public Iterator<GetOperation> getGetOperations() {
 
 		// look for valid relations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_GET);
+		Iterator<Relation> relations = this.getOperationsContextNode()
+				.getRelations(XDIMessagingConstants.XRI_S_GET);
 
-		return new SelectingMappingIterator<Relation, GetOperation> (relations) {
+		return new SelectingMappingIterator<Relation, GetOperation>(relations) {
 
 			@Override
 			public boolean select(Relation relation) {
@@ -277,22 +324,25 @@ public final class Message implements Serializable, Comparable<Message> {
 			@Override
 			public GetOperation map(Relation relation) {
 
-				return GetOperation.fromMessageAndRelation(Message.this, relation);
+				return GetOperation.fromMessageAndRelation(Message.this,
+						relation);
 			}
 		};
 	}
 
 	/**
 	 * Returns all XDI $add operations in this XDI message.
+	 * 
 	 * @return An iterator over all XDI $add operations.
 	 */
 	public Iterator<AddOperation> getAddOperations() {
 
 		// look for valid relations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_ADD);
+		Iterator<Relation> relations = this.getOperationsContextNode()
+				.getRelations(XDIMessagingConstants.XRI_S_ADD);
 
-		return new SelectingMappingIterator<Relation, AddOperation> (relations) {
+		return new SelectingMappingIterator<Relation, AddOperation>(relations) {
 
 			@Override
 			public boolean select(Relation relation) {
@@ -303,22 +353,25 @@ public final class Message implements Serializable, Comparable<Message> {
 			@Override
 			public AddOperation map(Relation relation) {
 
-				return AddOperation.fromMessageAndRelation(Message.this, relation);
+				return AddOperation.fromMessageAndRelation(Message.this,
+						relation);
 			}
 		};
 	}
 
 	/**
 	 * Returns all XDI $mod operations in this XDI message.
+	 * 
 	 * @return An iterator over all XDI $mod operations.
 	 */
 	public Iterator<ModOperation> getModOperations() {
 
 		// look for valid relations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_MOD);
+		Iterator<Relation> relations = this.getOperationsContextNode()
+				.getRelations(XDIMessagingConstants.XRI_S_MOD);
 
-		return new SelectingMappingIterator<Relation, ModOperation> (relations) {
+		return new SelectingMappingIterator<Relation, ModOperation>(relations) {
 
 			@Override
 			public boolean select(Relation relation) {
@@ -329,22 +382,25 @@ public final class Message implements Serializable, Comparable<Message> {
 			@Override
 			public ModOperation map(Relation relation) {
 
-				return ModOperation.fromMessageAndRelation(Message.this, relation);
+				return ModOperation.fromMessageAndRelation(Message.this,
+						relation);
 			}
 		};
 	}
 
 	/**
 	 * Returns all XDI $del operations in this XDI message.
+	 * 
 	 * @return An iterator over all XDI $del operations.
 	 */
 	public Iterator<DelOperation> getDelOperations() {
 
 		// look for valid relations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_DEL);
+		Iterator<Relation> relations = this.getOperationsContextNode()
+				.getRelations(XDIMessagingConstants.XRI_S_DEL);
 
-		return new SelectingMappingIterator<Relation, DelOperation> (relations) {
+		return new SelectingMappingIterator<Relation, DelOperation>(relations) {
 
 			@Override
 			public boolean select(Relation relation) {
@@ -355,7 +411,8 @@ public final class Message implements Serializable, Comparable<Message> {
 			@Override
 			public DelOperation map(Relation relation) {
 
-				return DelOperation.fromMessageAndRelation(Message.this, relation);
+				return DelOperation.fromMessageAndRelation(Message.this,
+						relation);
 			}
 		};
 	}
@@ -370,6 +427,22 @@ public final class Message implements Serializable, Comparable<Message> {
 		return new IteratorCounter(iterator).count();
 	}
 
+	/**
+	 * Returns the Authentication token if it is there in the message. The token
+	 * has to be of the form
+	 * =!91F2.8153.F600.AE24$($msg)$(!1)$do$secret$!($token)/!/(data:,s3cret)
+	 */
+	public String getAuthenticationToken() {
+		Literal sharedSecretLiteral = this.getContextNode().findLiteral(
+				XDIMessagingConstants.XRI_S_SHAREDSECRET_LITERAL);
+		if (sharedSecretLiteral != null) {
+			return sharedSecretLiteral.getLiteralData();
+		}
+		return "";
+	}
+
+	
+
 	/*
 	 * Object methods
 	 */
@@ -383,8 +456,10 @@ public final class Message implements Serializable, Comparable<Message> {
 	@Override
 	public boolean equals(Object object) {
 
-		if (object == null || ! (object instanceof Message)) return false;
-		if (object == this) return true;
+		if (object == null || !(object instanceof Message))
+			return false;
+		if (object == this)
+			return true;
 
 		Message other = (Message) object;
 
@@ -404,7 +479,8 @@ public final class Message implements Serializable, Comparable<Message> {
 	@Override
 	public int compareTo(Message other) {
 
-		if (other == this || other == null) return 0;
+		if (other == this || other == null)
+			return 0;
 
 		return this.getContextNode().compareTo(other.getContextNode());
 	}

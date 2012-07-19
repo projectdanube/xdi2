@@ -1,11 +1,24 @@
 package xdi2.messaging.target.interceptor.impl;
 
+
+
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URLDecoder;
 import java.util.Iterator;
+
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Function;
+import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Literal;
 import xdi2.core.Statement;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContract;
+import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.AddOperation;
@@ -51,7 +64,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 		return false;
 	}
 
-	private void checkLinkContractAuthorization(Operation operation, XRI3Segment targetAddress, ExecutionContext executionContext) throws Xdi2NotAuthorizedException{
+	private boolean checkLinkContractAuthorization(Operation operation, XRI3Segment targetAddress, ExecutionContext executionContext) throws Xdi2NotAuthorizedException{
 		
 		boolean operationAllowed = false , senderIsAssigned = false;
 		XRI3Segment sender = operation.getSender();
@@ -66,7 +79,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 			}
 		}
 		if(!senderIsAssigned){
-			throw new Xdi2NotAuthorizedException("Not authorized:  " + operation.getOperationXri() + " on statement " + targetAddress, null, operation);
+			return operationAllowed;
 		}
 		XDILinkContractPermission lcPermission = null;
 		if(GetOperation.isValid(operation.getRelation())){
@@ -116,9 +129,12 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 				}
 			}
 		}
-		if(!operationAllowed){
-			throw new Xdi2NotAuthorizedException("Not authorized:  " + operation.getOperationXri() + " on statement " + targetAddress, null, operation);
+		if(operationAllowed){
+			operationAllowed = this.evaluatePolicyExpressions(linkContract,operation.getMessage());
 		}
+			
+		
+		return operationAllowed;
 	}
 	@Override
 	public Statement targetStatement(Operation operation, Statement targetStatement, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -131,14 +147,11 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 		
 		XRI3Segment targetAddress = targetStatement.getSubject();
 
-		try{
-		checkLinkContractAuthorization(operation,targetAddress, executionContext);
-		}
-		catch(Xdi2NotAuthorizedException notAuthEx){
-			throw new Xdi2MessagingException("Link contract violation:  " + operation.getOperationXri() + " on statement " + targetStatement, notAuthEx,operation);
-
-		}
 		
+		if(!checkLinkContractAuthorization(operation,targetAddress, executionContext)){
+			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.toString() + " on target statement:"+ targetStatement.toString(), null, operation);
+		}
+				
 		return targetStatement;
 	}
 
@@ -150,12 +163,8 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, operation);
 
-		try{
-		// check if the current operation and target statement are allowed under this link contract
-		checkLinkContractAuthorization(operation,targetAddress, executionContext);
-		}catch(Xdi2NotAuthorizedException notAuthEx){
-			throw new Xdi2MessagingException("Link contract violation:  " + operation.getOperationXri() + " on address " + targetAddress, notAuthEx,operation);
-
+		if(!checkLinkContractAuthorization(operation,targetAddress, executionContext)){
+			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.toString() + " on target address:" + targetAddress.toString(), null, operation);
 		}
 
 		return targetAddress;
@@ -170,7 +179,77 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 
 		this.linkContractsGraph = linkContractsGraph;
 	}
+	
+	public boolean evaluatePolicyExpressions(LinkContract lc , Message message) {
+		// If no policy is set then return true
+		
+		Policy lcPolicy = null;
+		String policyExpression = "";
+		boolean evalResult = false;
+		if ((lcPolicy = lc.getPolicy(false)) == null) {
+			return true;
+		} else {
+			Context cx = Context.enter();
+			
+			try {
+				// evaluate the policy expression
+				try {
+					policyExpression = URLDecoder.decode(
+							lcPolicy.getLiteralExpression(), "UTF-8");
+				} catch (UnsupportedEncodingException unSupEx) {
 
+				}
+				if (policyExpression != null && !policyExpression.isEmpty()) {
+					// Initialize the standard objects (Object, Function, etc.)
+					// This must be done before scripts can be executed. Returns
+					// a scope object that we use in later calls.
+					Scriptable scope = cx.initStandardObjects();
+					
+					ScriptableObject.putProperty(scope,"linkContract",lc);
+					ScriptableObject.putProperty(scope, "message", message);
+					ScriptableObject.defineClass(scope, JSPolicyExpressionHelper.class);
+					Object[] arg = { lc, message};
+					Scriptable policyExpressionHelper = cx.newObject(scope, "JSPolicyExpressionHelper", arg);
+				
+					scope.put("myPolicyExpressionHelper", scope, policyExpressionHelper);
+					cx.evaluateString(scope, policyExpression,
+							"policyExpression", 1, null);
+
+					// Now evaluate the string we've collected.
+					Object fObj = scope.get("f", scope);
+					Object functionArgs[] = {  };
+					Function f = (Function) fObj;
+					Object result = f.call(cx, scope, scope, functionArgs);
+
+					if (result != null
+							&& Context.toString(result).equals("true")) {
+						evalResult = true;
+					}
+
+				} else {
+					evalResult = true;
+				}
+
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch(Exception e){
+				e.printStackTrace();
+			} finally {
+			
+				// Exit from the context.
+				Context.exit();
+			}
+		}
+		return evalResult;
+
+	}
 	/*
 	 * ExecutionContext helper methods
 	 */
