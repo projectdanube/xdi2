@@ -149,7 +149,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 
 		
 		if(!checkLinkContractAuthorization(operation,targetAddress, executionContext)){
-			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.toString() + " on target statement:"+ targetStatement.toString(), null, operation);
+			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target statement: "+ targetStatement.toString(), null, operation);
 		}
 				
 		return targetStatement;
@@ -164,7 +164,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, operation);
 
 		if(!checkLinkContractAuthorization(operation,targetAddress, executionContext)){
-			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.toString() + " on target address:" + targetAddress.toString(), null, operation);
+			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target address: " + targetAddress.toString(), null, operation);
 		}
 
 		return targetAddress;

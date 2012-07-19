@@ -75,19 +75,10 @@ public class LinkContracts {
 	public static LinkContract findLinkContractByAddress(Graph graph,
 			XRI3Segment address) {
 
-		ContextNode root = graph.getRootContextNode();
+		ContextNode contextNode = graph.findContextNode(address, false);
+		if (contextNode == null) return null;
 		
-		for(Iterator<ContextNode> cIter =   root.getAllContextNodes() ; cIter.hasNext();){
-			
-			ContextNode c = cIter.next();
-			if(LinkContract.isValid(c)){
-				if(c.getXri().equals(address)){
-					return LinkContract.fromContextNode(c);
-				}
-			}
-			
-		}
-		return null;
+		return LinkContract.fromContextNode(contextNode);
 	}
 
 }
