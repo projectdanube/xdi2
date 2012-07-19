@@ -17,7 +17,7 @@ public class SimpleMessagingSample {
 
     public static void main(String[] args) throws Exception {
 
-        XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS", null);
+        XDIReader reader = XDIReaderRegistry.forFormat("XDI DISPLAY", null);
         XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON", null);
 
         // load an XDI graph and create a messaging target

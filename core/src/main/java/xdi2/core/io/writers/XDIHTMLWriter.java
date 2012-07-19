@@ -5,7 +5,7 @@ import java.util.Properties;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
 
-public class XDIHTMLWriter extends XDIStatementsWriter {
+public class XDIHTMLWriter extends XDIDisplayWriter {
 
 	private static final long serialVersionUID = 6165681888411006041L;
 

@@ -18,6 +18,8 @@ public final class XDIMessagingConstants {
 	public static final XRI3Segment XRI_S_MOD = new XRI3Segment("$mod");
 	public static final XRI3Segment XRI_S_DEL = new XRI3Segment("$del");
 	public static final XRI3Segment XRI_S_DO = new XRI3Segment("$do");
+	public static final XRI3Segment XRI_S_FROM_GRAPH = new XRI3Segment("$add");
+	public static final XRI3Segment XRI_S_TO_GRAPH = new XRI3Segment("$is()");
 	public static final XRI3Segment XRI_S_SHAREDSECRET_LITERAL = new XRI3Segment("$secret$!($token)");
 
 	public static final XRI3SubSegment XRI_SS_MSG = new XRI3SubSegment("$msg");

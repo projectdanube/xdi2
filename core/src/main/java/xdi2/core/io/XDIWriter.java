@@ -36,7 +36,7 @@ public interface XDIWriter extends Serializable {
 	 * Returns the format this XDIWriter can write, e.g.
 	 * <ul>
 	 * <li>XDI/JSON</li>
-	 * <li>STATEMENTS</li>
+	 * <li>XDI DISPLAY</li>
 	 * </ul>
 	 * @return The format of this XDIWriter.
 	 */
@@ -45,9 +45,8 @@ public interface XDIWriter extends Serializable {
 	/**
 	 * Returns the file extension of this XDIWriter, e.g.
 	 * <ul>
-	 * <li>.xml</li>
-	 * <li>.x3</li>
-	 * <li>.txt</li>
+	 * <li>.json</li>
+	 * <li>.xdi</li>
 	 * </ul>
 	 * @return The file extension of this XDIWriter.
 	 */
@@ -56,7 +55,7 @@ public interface XDIWriter extends Serializable {
 	/**
 	 * Returns the mime types this XDIWriter can write, e.g.
 	 * <ul>
-	 * <li>text/xdi</li>
+	 * <li>text/plain</li>
 	 * <li>application/xdi+json</li>
 	 * </ul>
 	 * @return The mime types of this XDIWriter.

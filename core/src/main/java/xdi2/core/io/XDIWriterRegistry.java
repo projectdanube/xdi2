@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.io.writers.XDIHTMLWriter;
 import xdi2.core.io.writers.XDIJSONWriter;
 import xdi2.core.io.writers.XDIKeyValueWriter;
-import xdi2.core.io.writers.XDIStatementsWriter;
+import xdi2.core.io.writers.XDIDisplayWriter;
 
 /**
  * Provides an appropriate XDIWriter for a given type.
@@ -34,7 +34,7 @@ public final class XDIWriterRegistry {
 	private static String writerClassNames[] = {
 
 		XDIJSONWriter.class.getName(),// first one in the array is the default
-		XDIStatementsWriter.class.getName(),
+		XDIDisplayWriter.class.getName(),
 		XDIKeyValueWriter.class.getName(),
 		XDIHTMLWriter.class.getName()
 	};
@@ -106,7 +106,7 @@ public final class XDIWriterRegistry {
 	 * Returns an XDIWriter for the specified format, e.g.
 	 * <ul>
 	 * <li>XDI/JSON</li>
-	 * <li>STATEMENTS</li>
+	 * <li>XDI DISPLAY</li>
 	 * </ul>
 	 * @param format The desired format.
 	 * @return An XDIWriter, or null if no appropriate implementation could be found.

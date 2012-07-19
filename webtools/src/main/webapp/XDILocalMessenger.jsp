@@ -47,7 +47,7 @@
 		Result Format:
 		<select name="to">
 		<option value="XDI/JSON" <%= to.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
-		<option value="STATEMENTS" <%= to.equals("STATEMENTS") ? "selected" : "" %>>STATEMENTS</option>
+		<option value="XDI DISPLAY" <%= to.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
 		</select>
 		&nbsp;
 

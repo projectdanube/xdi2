@@ -111,6 +111,36 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Return the "from-graph" XRI.
+	 * TODO: This is inefficient because it enumerates all relations in the graph.
+	 */
+	public XRI3Segment getFromGraphXri() {
+
+		for (Iterator<Relation> relations = this.getMessageEnvelope().getGraph().getRootContextNode().getAllRelations(); relations.hasNext(); ) {
+
+			Relation relation = relations.next();
+
+			if (this.getContextNode().equals(relation.follow())) {
+
+				return relation.getContextNode().getXri();
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Return the "to-graph" XRI.
+	 */
+	public XRI3Segment getToGraphXri() {
+
+		Relation toGraphXriRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_GRAPH);
+		if (toGraphXriRelation == null) return null;
+
+		return toGraphXriRelation.getRelationXri();
+	}
+
+	/**
 	 * Returns the timestamp.
 	 * @return The timestamp.
 	 */

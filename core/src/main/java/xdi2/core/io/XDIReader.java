@@ -35,7 +35,7 @@ public interface XDIReader extends Serializable {
 	 * Returns the format this XDIReader can read, e.g.
 	 * <ul>
 	 * <li>XDI/JSON</li>
-	 * <li>STATEMENTS</li>
+	 * <li>XDI DISPLAY</li>
 	 * </ul>
 	 * @return The format of this XDIReader.
 	 */

@@ -1,10 +1,13 @@
 package xdi2.messaging.tests.basic;
 
-import java.io.StringReader;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import junit.framework.TestCase;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.linkcontracts.LinkContract;
+import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -31,14 +34,14 @@ public class BasicTest extends TestCase {
 		new XRI3Segment("=markus+name+last")
 	};
 
-	public void testMessaging() throws Exception {
+	public void testMessagingOverview() throws Exception {
 
 		// create a message envelope
-		
+
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 
 		assertTrue(MessageEnvelope.isValid(messageEnvelope.getGraph()));
-		
+
 		assertFalse(messageEnvelope.getMessageCollections().hasNext());
 		assertNull(messageEnvelope.getMessageCollection(SENDER, false));
 		assertEquals(messageEnvelope.getMessageCollectionCount(), 0);
@@ -46,9 +49,9 @@ public class BasicTest extends TestCase {
 		assertFalse(messageEnvelope.getMessages(SENDER).hasNext());
 		assertNull(messageEnvelope.getMessage(SENDER, false));
 		assertEquals(messageEnvelope.getMessageCount(), 0);
-		
+
 		// create a message collection
-		
+
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, true);
 
 		assertTrue(MessageCollection.isValid(messageCollection.getContextNode()));
@@ -64,9 +67,9 @@ public class BasicTest extends TestCase {
 		assertFalse(messageCollection.getMessages().hasNext());
 		assertNull(messageCollection.getMessage(false));
 		assertEquals(messageCollection.getMessageCount(), 0);
-		
+
 		// create a message
-		
+
 		Message message = messageCollection.getMessage(true);
 
 		assertTrue(Message.isValid(message.getContextNode()));
@@ -87,7 +90,7 @@ public class BasicTest extends TestCase {
 		assertEquals(message.getOperationCount(), 0);
 
 		// create some operations
-		
+
 		ContextNode[] contextNodes = new ContextNode[CONTEXTNODEXRIS.length]; 
 		for (int i=0; i<CONTEXTNODEXRIS.length; i++) contextNodes[i] = messageEnvelope.getGraph().findContextNode(CONTEXTNODEXRIS[i], true);
 
@@ -120,7 +123,7 @@ public class BasicTest extends TestCase {
 		assertTrue(delOperation instanceof DelOperation);
 	}
 
-	public void testMessaging2() throws Exception {
+	public void testMessagingFromOperationXriAndTargetXri() throws Exception {
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_ADD, TARGET);
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
@@ -140,11 +143,10 @@ public class BasicTest extends TestCase {
 		assertTrue(operation instanceof AddOperation);
 	}
 
-	public void testMessaging3() throws Exception {
+	public void testMessagingSimple1() throws Exception {
 
-		String string = "{\"=markus/()\": [   \"+email\",   \"+friends\"],\"=markus+name/()\": [   \"+last\"],\"=sender$($msg)$(!1e21.d620.fdca.95f4)$do/$mod\" : [ \"=markus+name+last\" ],\"=sender$($msg)$(!1e21.d620.fdca.95f4)$do/$add\" : [ \"=markus+email\" ],\"=sender$($msg)$(!1e21.d620.fdca.95f4)$do/$get\" : [ \"=markus\" ],\"=sender$($msg)$(!1e21.d620.fdca.95f4)$do/$del\" : [ \"=markus+friends\" ]}";
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		XDIReaderRegistry.forFormat("XDI/JSON", null).read(graph, new StringReader(string));
+		XDIReaderRegistry.getAuto().read(graph, this.getClass().getResourceAsStream("simple.1.xdi")).close();
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph);
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, false);
@@ -176,5 +178,29 @@ public class BasicTest extends TestCase {
 		assertTrue(getOperation instanceof GetOperation);
 		assertTrue(modOperation instanceof ModOperation);
 		assertTrue(delOperation instanceof DelOperation);
+	}
+
+	public void testMessagingSimple2() throws Exception {
+
+		XRI3Segment sender = new XRI3Segment("=!1111");
+
+		GregorianCalendar calendar = new GregorianCalendar(2010, 11, 22, 22, 22, 22);
+		calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+		Graph graph = MemoryGraphFactory.getInstance().openGraph();
+		XDIReaderRegistry.getAuto().read(graph, this.getClass().getResourceAsStream("simple.2.xdi")).close();
+
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph);
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(sender, false);
+		Message message = messageCollection.getMessage(false);
+
+		assertEquals(message.getLinkContractXri(), new XRI3Segment("$(=!2222)$(!1)$do"));
+		LinkContract linkContract = LinkContracts.findLinkContractByAddress(messageEnvelope.getGraph(), message.getLinkContractXri());
+		assertNotNull(linkContract);
+		assertEquals(linkContract.getAssignees().next().getXri(), sender);
+
+		assertEquals(message.getFromGraphXri(), new XRI3Segment("(=!1111)(!3)"));
+		assertEquals(message.getToGraphXri(), new XRI3Segment("(=!2222)"));
+		assertEquals(message.getTimestamp(), calendar.getTime());
 	}
 }

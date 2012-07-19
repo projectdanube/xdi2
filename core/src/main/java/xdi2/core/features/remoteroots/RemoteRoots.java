@@ -1,7 +1,10 @@
 package xdi2.core.features.remoteroots;
 
+import java.util.Iterator;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Reference;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
@@ -23,6 +26,24 @@ public class RemoteRoots {
 		return graph.findContextNode(getRemoteRootXri(xri), create);
 	}
 
+	/**
+	 * Given a graph, lists all remote root context nodes.
+	 * TODO: This is inefficient because it enumerates all context nodes in the graph.
+	 * @param graph The graph.
+	 * @return An iterator over remote root context nodes.
+	 */
+	public static Iterator<ContextNode> getAllRemoteRootContextNodes(Graph graph) {
+
+		return new SelectingIterator<ContextNode> (graph.getRootContextNode().getAllContextNodes()) {
+
+			@Override
+			public boolean select(ContextNode contextNode) {
+				
+				return isRemoteRootXri(contextNode.getXri());
+			}
+		};
+	}
+	
 	/**
 	 * Returns the remote root XRI of an XRI.
 	 * @param xri An XRI.
