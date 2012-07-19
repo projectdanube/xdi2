@@ -469,7 +469,7 @@ public final class LinkContract implements Serializable,
 //					.encode("function compareSecrets(userSecret,graphSecret) { if(userSecret == graphSecret){ return true; }else {return false;};}",
 //							"UTF-8"));
 			policy.setLiteralExpression(URLEncoder
-			.encode("function f() { if ( myPolicyExpressionHelper.getGraphValue(\"$secret$!($token)\") == myPolicyExpressionHelper.getMessageProperty(\"$do$secret$!($token)\")) {return true ;} else {return false ;}  } " ,
+			.encode("function f() { if ( myPolicyExpressionHelper.getGraphValue(\"$secret$!($token)\") == myPolicyExpressionHelper.getMessageProperty(\"$secret$!($token)\")) {return true ;} else {return false ;}  } " ,
 					"UTF-8"));		
 		} catch (UnsupportedEncodingException e) {
 			// This should never happen
