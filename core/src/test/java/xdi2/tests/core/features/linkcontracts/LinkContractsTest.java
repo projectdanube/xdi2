@@ -8,8 +8,12 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.AndExpression;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
+import xdi2.core.features.linkcontracts.NotExpression;
+import xdi2.core.features.linkcontracts.OrExpression;
+import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.impl.XRI3SubSegment;
@@ -30,8 +34,19 @@ public class LinkContractsTest extends TestCase {
 		//try adding the same assignee multiple times
 		//linkContract.addAssignee(animesh);
 		linkContract.addAssignee(animesh);
-		//Policy policy = linkContract.getPolicy(true);
-		//policy.setLiteralExpression(URLEncoder.encode("function compareSecrets(userSecret,graphSecret) { if(userSecret == graphSecret){ return true; }else {return false;};}","UTF-8"));
+		Policy policy = linkContract.getPolicy(true);
+		//policy.setSingletonLiteralArc("2 == 2");
+		AndExpression andN = policy.getAndNode(true);
+
+		andN.addLiteralExpression("2 == 2");
+//		NotExpression notN = andN.getNotNode(true);
+//		notN.addLiteralExpression("5 < 6");
+//		OrExpression orN = andN.getOrNode(true);
+//		orN.addLiteralExpression("2 == 2");
+//		orN.addLiteralExpression("2 == 3");
+		//boolean result = JSPolicyExpressionUtil.evaluateJSExpression(policy.getSingletonLiteralArc());
+		boolean result = policy.getPolicyExpressionComponent().evaluate();
+		System.out.println("Expression eval result="+result);
 		//linkContract.addAuthenticationFunction();
 //System.out.println("Policy Expression = " + URLDecoder.decode(policy.getLiteralExpression(),"UTF-8"));
 System.out.println("Display the graph");

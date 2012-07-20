@@ -28,13 +28,8 @@ public final class LinkContract implements Serializable,
 
 	private ContextNode contextNode;
 
-	protected LinkContract(ContextNode contextNode) {
-
-		if (contextNode == null)
-			throw new NullPointerException();
-
-		this.contextNode = contextNode;
-		addAuthenticationFunction();
+	private LinkContract(ContextNode contextNode) {
+		this.contextNode = contextNode;	
 	}
 
 	/*
@@ -50,6 +45,7 @@ public final class LinkContract implements Serializable,
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if(null == contextNode ){ return false;};
 		return XDILinkContractConstants.XRI_SS_DO.equals(contextNode
 				.getArcXri());
 	}
@@ -67,7 +63,9 @@ public final class LinkContract implements Serializable,
 		if (!isValid(contextNode))
 			return null;
 
-		return new LinkContract(contextNode);
+		LinkContract lc = new LinkContract(contextNode);
+		lc.addAuthenticationFunction();
+		return lc;
 	}
 
 	/*
@@ -465,11 +463,8 @@ public final class LinkContract implements Serializable,
 	public void addAuthenticationFunction() {
 		Policy policy = getPolicy(true);
 		try {
-//			policy.setLiteralExpression(URLEncoder
-//					.encode("function compareSecrets(userSecret,graphSecret) { if(userSecret == graphSecret){ return true; }else {return false;};}",
-//							"UTF-8"));
-			policy.setLiteralExpression(URLEncoder
-			.encode("function f() { if ( myPolicyExpressionHelper.getGraphValue(\"$secret$!($token)\") == myPolicyExpressionHelper.getMessageProperty(\"$do$secret$!($token)\")) {return true ;} else {return false ;}  } " ,
+			policy.setSingletonLiteralArc(URLEncoder
+			.encode("GlobalFunctions.getGraphValue(\"$secret$!($token)\") == GlobalFunctions.getMessageProperty(\"$do$secret$!($token)\")" ,
 					"UTF-8"));		
 		} catch (UnsupportedEncodingException e) {
 			// This should never happen

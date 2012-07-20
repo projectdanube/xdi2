@@ -132,8 +132,8 @@ public abstract class PolicyExpressionComponent implements Serializable,
 		
 	}
 
-	public  String getLogicExpression(){
-		return "()";
+	public  boolean evaluate(){
+		return true;
 	}
 
 	@Override

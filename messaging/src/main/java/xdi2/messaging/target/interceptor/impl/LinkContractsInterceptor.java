@@ -8,16 +8,14 @@ import java.net.URLDecoder;
 import java.util.Iterator;
 
 import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
 import xdi2.core.Statement;
-import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContract;
+import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -34,6 +32,7 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
+import xdi2.messaging.util.JSPolicyExpressionHelper;
 
 public class LinkContractsInterceptor extends AbstractInterceptor implements MessageInterceptor, TargetInterceptor {
 
@@ -189,63 +188,11 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 		if ((lcPolicy = lc.getPolicy(false)) == null) {
 			return true;
 		} else {
-			Context cx = Context.enter();
-			
 			try {
-				// evaluate the policy expression
-				try {
-					policyExpression = URLDecoder.decode(
-							lcPolicy.getLiteralExpression(), "UTF-8");
-				} catch (UnsupportedEncodingException unSupEx) {
-
-				}
-				if (policyExpression != null && !policyExpression.isEmpty()) {
-					// Initialize the standard objects (Object, Function, etc.)
-					// This must be done before scripts can be executed. Returns
-					// a scope object that we use in later calls.
-					Scriptable scope = cx.initStandardObjects();
-					
-					ScriptableObject.putProperty(scope,"linkContract",lc);
-					ScriptableObject.putProperty(scope, "message", message);
-					ScriptableObject.defineClass(scope, JSPolicyExpressionHelper.class);
-					Object[] arg = { lc, message};
-					Scriptable policyExpressionHelper = cx.newObject(scope, "JSPolicyExpressionHelper", arg);
-				
-					scope.put("myPolicyExpressionHelper", scope, policyExpressionHelper);
-					cx.evaluateString(scope, policyExpression,
-							"policyExpression", 1, null);
-
-					// Now evaluate the string we've collected.
-					Object fObj = scope.get("f", scope);
-					Object functionArgs[] = {  };
-					Function f = (Function) fObj;
-					Object result = f.call(cx, scope, scope, functionArgs);
-
-					if (result != null
-							&& Context.toString(result).equals("true")) {
-						evalResult = true;
-					}
-
-				} else {
-					evalResult = true;
-				}
-
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch(Exception e){
-				e.printStackTrace();
-			} finally {
-			
-				// Exit from the context.
-				Context.exit();
-			}
+				policyExpression = URLDecoder.decode(
+						lcPolicy.getSingletonLiteralArc(), "UTF-8");
+			} catch (UnsupportedEncodingException unSupEx) {}
+			evalResult= JSPolicyExpressionHelper.evaluateJSExpression(policyExpression);
 		}
 		return evalResult;
 

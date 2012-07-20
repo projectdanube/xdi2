@@ -193,20 +193,22 @@ public final class Policy implements Serializable, Comparable<Policy> {
 		return notNode;
 	}
 
-	public void setLiteralExpression(String literalData) {
+	public void setSingletonLiteralArc(String literalData) {
 		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
 				|| policyType == XDIPolicyExpression.LC_POL_SINGLETON) {
-			Literal literal = this.getContextNode().getLiteral();
-			if (literal == null) {
-				literal = this.getContextNode().createLiteral(literalData);
+			
+			Literal singletonLiteral = this.getContextNode().getLiteral();
+			
+			if (singletonLiteral == null) {
+				singletonLiteral = this.getContextNode().createLiteral(literalData);
 			} else {
-				literal.setLiteralData(literalData);
+				singletonLiteral.setLiteralData(literalData);
 			}
 			policyType = XDIPolicyExpression.LC_POL_SINGLETON;
 		}
 	}
 
-	public String getLiteralExpression() {
+	public String getSingletonLiteralArc() {
 		String str = "";
 		Literal literal = this.getContextNode().getLiteral();
 		if (literal != null) {

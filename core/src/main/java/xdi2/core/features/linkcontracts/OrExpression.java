@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
 
 public class OrExpression extends PolicyExpressionComponent {
 private static final long serialVersionUID = 5732150401265911411L;
@@ -23,38 +24,42 @@ private static final long serialVersionUID = 5732150401265911411L;
 		}
 		return new OrExpression(c);
 	}
-	public String getLogicExpression(){
-		StringBuffer expr = new StringBuffer("(");
+	public boolean evaluate(){
+		boolean evalResult = true;
 		Iterator<ContextNode> allChildrenNodes = contextNode.getContextNodes();
-		
-		for(;allChildrenNodes.hasNext();){
-			
+
+		for (; allChildrenNodes.hasNext();) {
+
+			boolean childExprEvalResult = true;
+
 			ContextNode childNode = allChildrenNodes.next();
-			
-			if(AndExpression.isValid(childNode)){
-				AndExpression andChild = AndExpression.fromContextNode(childNode);
-				expr.append(andChild.getLogicExpression());		
-				
-			}
-			else if(OrExpression.isValid(childNode)){
+
+			if (AndExpression.isValid(childNode)) {
+				AndExpression andChild = AndExpression
+						.fromContextNode(childNode);
+
+				childExprEvalResult = andChild.evaluate();
+
+			} else if (OrExpression.isValid(childNode)) {
 				OrExpression orChild = OrExpression.fromContextNode(childNode);
-				expr.append(orChild.getLogicExpression());
-			}
-			else if(NotExpression.isValid(childNode)){
-				NotExpression notChild = NotExpression.fromContextNode(childNode);
-				expr.append(notChild.getLogicExpression());
-			}
-			else if(childNode.getLiteral() != null){
-				expr.append("(");
+
+				childExprEvalResult = orChild.evaluate();
+			} else if (NotExpression.isValid(childNode)) {
+				NotExpression notChild = NotExpression
+						.fromContextNode(childNode);
+
+				childExprEvalResult = notChild.evaluate();
+			} else if (childNode.getLiteral() != null) {
+
 				String literalValue = childNode.getLiteral().getLiteralData();
-				expr.append(literalValue);
-				expr.append(")");
+
+				childExprEvalResult = JSPolicyExpressionUtil
+						.evaluateJSExpression(literalValue);
+
 			}
-			if(allChildrenNodes.hasNext()){
-			expr.append(" or ");
-			}
+			evalResult = evalResult || childExprEvalResult;
 		}
-		expr.append(")");
-		return expr.toString();
+		return evalResult;
+
 	}
 }

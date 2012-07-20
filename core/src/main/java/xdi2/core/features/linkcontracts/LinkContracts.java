@@ -61,8 +61,7 @@ public class LinkContracts {
 		if (linkContractContextNode == null)
 			return null;
 
-		LinkContract lc = new LinkContract(linkContractContextNode);
-
+		LinkContract lc = LinkContract.fromContextNode(linkContractContextNode);
 		return lc;
 	}
 	/**

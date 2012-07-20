@@ -38,7 +38,7 @@ public final class XDILinkContractConstants {
 	
 	public static final XRI3SubSegment XRI_SS_AND = Multiplicity.attributeCollectionArcXri("$and");
 	public static final XRI3SubSegment XRI_SS_OR = Multiplicity.attributeCollectionArcXri("$or");
-	public static final XRI3SubSegment XRI_SS_NOT = Multiplicity.attributeSingletonArcXri("$not");
+	public static final XRI3SubSegment XRI_SS_NOT = Multiplicity.attributeCollectionArcXri("$not");
 	public static final XRI3SubSegment XRI_SS_VARIABLE_REF = new XRI3SubSegment("($)");
 
 	
