@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
 
 public class AndExpression extends PolicyExpressionComponent {
 	private static final long serialVersionUID = 5732150498065911411L;
@@ -29,34 +28,8 @@ public class AndExpression extends PolicyExpressionComponent {
 		Iterator<ContextNode> allChildrenNodes = contextNode.getContextNodes();
 
 		for (; allChildrenNodes.hasNext();) {
-
-			boolean childExprEvalResult = true;
-
 			ContextNode childNode = allChildrenNodes.next();
-
-			if (AndExpression.isValid(childNode)) {
-				AndExpression andChild = AndExpression
-						.fromContextNode(childNode);
-
-				childExprEvalResult = andChild.evaluate();
-
-			} else if (OrExpression.isValid(childNode)) {
-				OrExpression orChild = OrExpression.fromContextNode(childNode);
-
-				childExprEvalResult = orChild.evaluate();
-			} else if (NotExpression.isValid(childNode)) {
-				NotExpression notChild = NotExpression
-						.fromContextNode(childNode);
-
-				childExprEvalResult = notChild.evaluate();
-			} else if (childNode.getLiteral() != null) {
-
-				String literalValue = childNode.getLiteral().getLiteralData();
-
-				childExprEvalResult = JSPolicyExpressionUtil
-						.evaluateJSExpression(literalValue);
-
-			}
+			boolean childExprEvalResult = evaluateChildBranch(childNode);
 			evalResult = evalResult && childExprEvalResult;
 		}
 		return evalResult;

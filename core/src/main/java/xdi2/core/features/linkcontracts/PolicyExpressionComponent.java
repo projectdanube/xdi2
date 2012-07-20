@@ -6,6 +6,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
 import xdi2.core.features.multiplicity.AttributeCollection;
 import xdi2.core.features.multiplicity.Multiplicity;
 
@@ -134,6 +135,34 @@ public abstract class PolicyExpressionComponent implements Serializable,
 
 	public  boolean evaluate(){
 		return true;
+	}
+	
+	protected boolean evaluateChildBranch(ContextNode childNode){
+		boolean childExprEvalResult = false;
+		if (AndExpression.isValid(childNode)) {
+			AndExpression andChild = AndExpression
+					.fromContextNode(childNode);
+
+			childExprEvalResult = andChild.evaluate();
+
+		} else if (OrExpression.isValid(childNode)) {
+			OrExpression orChild = OrExpression.fromContextNode(childNode);
+
+			childExprEvalResult = orChild.evaluate();
+		} else if (NotExpression.isValid(childNode)) {
+			NotExpression notChild = NotExpression
+					.fromContextNode(childNode);
+
+			childExprEvalResult = notChild.evaluate();
+		} else if (childNode.getLiteral() != null) {
+
+			String literalValue = childNode.getLiteral().getLiteralData();
+
+			childExprEvalResult = JSPolicyExpressionUtil
+					.evaluateJSExpression(literalValue);
+
+		}
+		return childExprEvalResult;
 	}
 
 	@Override

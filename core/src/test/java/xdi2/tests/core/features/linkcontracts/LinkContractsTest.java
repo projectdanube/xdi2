@@ -39,11 +39,11 @@ public class LinkContractsTest extends TestCase {
 		AndExpression andN = policy.getAndNode(true);
 
 		andN.addLiteralExpression("2 == 2");
-//		NotExpression notN = andN.getNotNode(true);
-//		notN.addLiteralExpression("5 < 6");
-//		OrExpression orN = andN.getOrNode(true);
-//		orN.addLiteralExpression("2 == 2");
-//		orN.addLiteralExpression("2 == 3");
+		NotExpression notN = andN.getNotNode(true);
+		notN.addLiteralExpression("5 > 6");
+		OrExpression orN = andN.getOrNode(true);
+		orN.addLiteralExpression("2 == 2");
+		orN.addLiteralExpression("2 == 2");
 		//boolean result = JSPolicyExpressionUtil.evaluateJSExpression(policy.getSingletonLiteralArc());
 		boolean result = policy.getPolicyExpressionComponent().evaluate();
 		System.out.println("Expression eval result="+result);
