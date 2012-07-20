@@ -1,14 +1,13 @@
 package xdi2.core.features.linkcontracts;
 
 import java.io.Serializable;
-import java.util.Iterator;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
 import xdi2.core.features.multiplicity.AttributeCollection;
-import xdi2.core.features.multiplicity.Multiplicity;
 
 public abstract class PolicyExpressionComponent implements Serializable,
 		Comparable<PolicyExpressionComponent> {
@@ -17,11 +16,8 @@ public abstract class PolicyExpressionComponent implements Serializable,
 
 
 	protected PolicyExpressionComponent(ContextNode contextNode) {
-
-		if (contextNode == null)
-			throw new NullPointerException();
-
 		this.contextNode = contextNode;
+		
 	}
 	
 	/**
@@ -110,28 +106,38 @@ public abstract class PolicyExpressionComponent implements Serializable,
 		return notNode;
 	}
 
-	public void addLiteralExpression(String expr){
+	public void addLiteralExpression(String exprX){
+		if(null == exprX || exprX.isEmpty()){
+			return;
+		}
+		String expr = "";
+		try {
+			expr = URLEncoder.encode(exprX, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ContextNode c = AttributeCollection.fromContextNode(contextNode).createMember();
 		c.createLiteral(expr);
 	}
-	
-	public void removeLiteralExpression(String str){
-		Iterator<Literal> allLiterals = contextNode.getAllLiterals();
-		Literal toDelete = null;
-		for(;allLiterals.hasNext();){
-			Literal l = allLiterals.next();
-			if(l.getLiteralData().equalsIgnoreCase(str)){
-				toDelete = l;
-				break;
-			}
-		}
-		if(toDelete != null){		
-			toDelete.delete();
-			toDelete.getContextNode().delete();
-			
-		}
-		
-	}
+	// TODO : Add remove function. Consider URL decoding before comparing.
+//	public void removeLiteralExpression(String str){
+//		Iterator<Literal> allLiterals = contextNode.getAllLiterals();
+//		Literal toDelete = null;
+//		for(;allLiterals.hasNext();){
+//			Literal l = allLiterals.next();
+//			if(l.getLiteralData().equalsIgnoreCase(str)){
+//				toDelete = l;
+//				break;
+//			}
+//		}
+//		if(toDelete != null){		
+//			toDelete.delete();
+//			toDelete.getContextNode().delete();
+//			
+//		}
+//		
+//	}
 
 	public  boolean evaluate(){
 		return true;
@@ -139,6 +145,7 @@ public abstract class PolicyExpressionComponent implements Serializable,
 	
 	protected boolean evaluateChildBranch(ContextNode childNode){
 		boolean childExprEvalResult = false;
+		
 		if (AndExpression.isValid(childNode)) {
 			AndExpression andChild = AndExpression
 					.fromContextNode(childNode);

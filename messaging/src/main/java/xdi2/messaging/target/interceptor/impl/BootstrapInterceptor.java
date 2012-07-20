@@ -90,9 +90,9 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 				bootstrapLinkContract.addAssignee(bootstrapOwnerContextNode);
 				bootstrapLinkContract.addPermission(XDILinkContractPermission.LC_OP_ALL, rootContextNode);
 
-				Policy policy = bootstrapLinkContract.getPolicy(true);
-				AndExpression andExpression = policy.getAndNode(true);
-				andExpression.addLiteralExpression("hasgetGraphValue('$secret$!($token)') == getMessageProperty('$secret$!($token)')");
+//				Policy policy = bootstrapLinkContract.getPolicy(true);
+//				AndExpression andExpression = policy.getAndNode(true);
+//				andExpression.addLiteralExpression("hasgetGraphValue('$secret$!($token)') == getMessageProperty('$secret$!($token)')");
 			}
 		}
 	}

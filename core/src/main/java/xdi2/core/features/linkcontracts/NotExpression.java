@@ -1,9 +1,13 @@
 package xdi2.core.features.linkcontracts;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
+import xdi2.core.features.multiplicity.AttributeSingleton;
 
 public class NotExpression extends PolicyExpressionComponent {
 	private static final long serialVersionUID = 5732150467865911411L;
@@ -25,31 +29,41 @@ public class NotExpression extends PolicyExpressionComponent {
 
 	public boolean evaluate() {
 		boolean evalResult = false;
-		Iterator<ContextNode> allChildrenNodes = contextNode.getContextNodes();
+		if (this.getContextNode().getLiteral() != null) {
+			String literalValue = this.getContextNode().getLiteral()
+					.getLiteralData();
+			evalResult = !(JSPolicyExpressionUtil
+					.evaluateJSExpression(literalValue));
+		}
+		{
+			Iterator<ContextNode> allChildrenNodes = contextNode
+					.getContextNodes();
 
-		for (; allChildrenNodes.hasNext();) {
-			ContextNode childNode = allChildrenNodes.next();
-			boolean childExprEvalResult = evaluateChildBranch(childNode);
-			evalResult = !childExprEvalResult;
+			for (; allChildrenNodes.hasNext();) {
+				ContextNode childNode = allChildrenNodes.next();
+				boolean childExprEvalResult = evaluateChildBranch(childNode);
+				evalResult = !childExprEvalResult;
+			}
+
 		}
 		return evalResult;
 
 	}
 
-//	public void addLiteralExpression(String expr) {
-//		if(contextNode.getLiteral() != null){
-//			contextNode.deleteLiteral();
-//		}
-//		contextNode.createLiteral(expr);
-//	}
-//
-//	public void setLiteralExpression(String expr) {
-//		Literal literal = null;
-//		if ((literal = contextNode.getLiteral()) == null) {
-//			literal = contextNode.createLiteral(expr);
-//		} else {
-//			literal.setLiteralData(expr);
-//		}
-//	}
-
+	@Override
+	public void addLiteralExpression(String exprX) {
+		if(null == exprX || exprX.isEmpty()){
+			return;
+		}
+		String expr = "";
+		try {
+			expr = URLEncoder.encode(exprX, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ContextNode c = AttributeSingleton.fromContextNode(contextNode)
+				.getContextNode();
+		c.createLiteral(expr);
+	}
 }

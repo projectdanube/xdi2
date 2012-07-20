@@ -14,6 +14,7 @@ import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.NotExpression;
 import xdi2.core.features.linkcontracts.OrExpression;
 import xdi2.core.features.linkcontracts.Policy;
+import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.impl.XRI3SubSegment;
@@ -29,7 +30,7 @@ public class LinkContractsTest extends TestCase {
 		ContextNode markus = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
 		ContextNode animesh = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=animesh"));
 		graph.findContextNode(XDILinkContractConstants.XRI_S_SHAREDSECRET_LITERAL,true).createLiteral("Hello");
-		LinkContract linkContract = LinkContracts.getLinkContract(markus, true);
+		LinkContract linkContract = LinkContracts.getLinkContract(markus, true,false);
 		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL, graph.getRootContextNode());
 		//try adding the same assignee multiple times
 		//linkContract.addAssignee(animesh);
@@ -47,6 +48,7 @@ public class LinkContractsTest extends TestCase {
 		//boolean result = JSPolicyExpressionUtil.evaluateJSExpression(policy.getSingletonLiteralArc());
 		boolean result = policy.getPolicyExpressionComponent().evaluate();
 		System.out.println("Expression eval result="+result);
+		JSPolicyExpressionUtil.cleanup();
 		//linkContract.addAuthenticationFunction();
 //System.out.println("Policy Expression = " + URLDecoder.decode(policy.getLiteralExpression(),"UTF-8"));
 System.out.println("Display the graph");

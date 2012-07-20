@@ -3,10 +3,8 @@ package xdi2.core.features.linkcontracts;
 import java.io.Serializable;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.util.XDIPolicyExpression;
 
 /**
  * An XDI policy belonging to an XDI link contract, represented as a context
@@ -20,8 +18,6 @@ public final class Policy implements Serializable, Comparable<Policy> {
 
 	private LinkContract linkContract;
 	private ContextNode contextNode;
-
-	private XDIPolicyExpression policyType = XDIPolicyExpression.LC_POL_EMPTY;
 	private PolicyExpressionComponent policyComp = null;
 
 	protected Policy(LinkContract linkContract, ContextNode contextNode) {
@@ -31,16 +27,20 @@ public final class Policy implements Serializable, Comparable<Policy> {
 
 		this.linkContract = linkContract;
 		this.contextNode = contextNode;
-	}
-
-	public XDIPolicyExpression getPolicyType() {
-
-		return policyType;
-	}
-
-	public void setPolicyType(XDIPolicyExpression polType) {
-
-		policyType = polType;
+		ContextNode child = null;
+		if ((child = contextNode
+				.getContextNode(XDILinkContractConstants.XRI_SS_AND)) != null) {
+			AndExpression andN = AndExpression.fromContextNode(child);
+			policyComp = andN;
+		} else if ((child = contextNode
+				.getContextNode(XDILinkContractConstants.XRI_SS_OR)) != null) {
+			OrExpression orN = OrExpression.fromContextNode(child);
+			policyComp = orN;
+		} else if ((child = contextNode
+				.getContextNode(XDILinkContractConstants.XRI_SS_NOT)) != null) {
+			NotExpression notN = NotExpression.fromContextNode(child);
+			policyComp = notN;
+		}
 	}
 
 	/*
@@ -56,7 +56,7 @@ public final class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return XDILinkContractConstants.XRI_SS_IF.equals(contextNode
+		return XDILinkContractConstants.XRI_SS_IF_MULT.equals(contextNode
 				.getArcXri());
 	}
 
@@ -118,22 +118,17 @@ public final class Policy implements Serializable, Comparable<Policy> {
 				XDILinkContractConstants.XRI_SS_AND);
 		if (null != nodeExists) {
 			andNode = AndExpression.fromContextNode(nodeExists);
+			policyComp = andNode;
 			return andNode;
-		}
-		else if(!create){
+		} else if (!create) {
 			return null;
 		}
-		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
-				|| policyType == XDIPolicyExpression.LC_POL_AND) {
-			if (!this.getContextNode().containsContextNode(
-					XDILinkContractConstants.XRI_SS_AND)) {
-				andNode = AndExpression
-						.fromContextNode(this.getContextNode()
-								.createContextNode(
-										XDILinkContractConstants.XRI_SS_AND));
-				policyType = XDIPolicyExpression.LC_POL_AND;
-				policyComp = andNode;
-			}
+		if (!this.getContextNode().containsContextNode(
+				XDILinkContractConstants.XRI_SS_AND)) {
+			andNode = AndExpression.fromContextNode(this.getContextNode()
+					.createContextNode(XDILinkContractConstants.XRI_SS_AND));
+
+			policyComp = andNode;
 		}
 
 		return andNode;
@@ -146,20 +141,17 @@ public final class Policy implements Serializable, Comparable<Policy> {
 				XDILinkContractConstants.XRI_SS_OR);
 		if (null != nodeExists) {
 			orNode = OrExpression.fromContextNode(nodeExists);
+			policyComp = orNode;
 			return orNode;
-		}
-		else if(!create){
+		} else if (!create) {
 			return null;
 		}
-		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
-				|| policyType == XDIPolicyExpression.LC_POL_OR) {
-			if (!this.getContextNode().containsContextNode(
-					XDILinkContractConstants.XRI_SS_OR)) {
-				orNode = OrExpression.fromContextNode(this.getContextNode()
-						.createContextNode(XDILinkContractConstants.XRI_SS_OR));
-				policyType = XDIPolicyExpression.LC_POL_OR;
-				policyComp = orNode;
-			}
+
+		if (!this.getContextNode().containsContextNode(
+				XDILinkContractConstants.XRI_SS_OR)) {
+			orNode = OrExpression.fromContextNode(this.getContextNode()
+					.createContextNode(XDILinkContractConstants.XRI_SS_OR));
+			policyComp = orNode;
 		}
 
 		return orNode;
@@ -172,50 +164,44 @@ public final class Policy implements Serializable, Comparable<Policy> {
 				XDILinkContractConstants.XRI_SS_NOT);
 		if (null != nodeExists) {
 			notNode = NotExpression.fromContextNode(nodeExists);
+			policyComp = notNode;
 			return notNode;
-		}
-		else if(!create){
+		} else if (!create) {
 			return null;
 		}
-		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
-				|| policyType == XDIPolicyExpression.LC_POL_NOT) {
-			if (!this.getContextNode().containsContextNode(
-					XDILinkContractConstants.XRI_SS_NOT)) {
-				notNode = NotExpression
-						.fromContextNode(this.getContextNode()
-								.createContextNode(
-										XDILinkContractConstants.XRI_SS_NOT));
-				policyType = XDIPolicyExpression.LC_POL_NOT;
-				policyComp = notNode;
-			}
+		if (!this.getContextNode().containsContextNode(
+				XDILinkContractConstants.XRI_SS_NOT)) {
+			notNode = NotExpression.fromContextNode(this.getContextNode()
+					.createContextNode(XDILinkContractConstants.XRI_SS_NOT));
+			policyComp = notNode;
 		}
 
 		return notNode;
 	}
 
-	public void setSingletonLiteralArc(String literalData) {
-		if (policyType == XDIPolicyExpression.LC_POL_EMPTY
-				|| policyType == XDIPolicyExpression.LC_POL_SINGLETON) {
-			
-			Literal singletonLiteral = this.getContextNode().getLiteral();
-			
-			if (singletonLiteral == null) {
-				singletonLiteral = this.getContextNode().createLiteral(literalData);
-			} else {
-				singletonLiteral.setLiteralData(literalData);
-			}
-			policyType = XDIPolicyExpression.LC_POL_SINGLETON;
-		}
-	}
-
-	public String getSingletonLiteralArc() {
-		String str = "";
-		Literal literal = this.getContextNode().getLiteral();
-		if (literal != null) {
-			str = literal.getLiteralData();
-		}
-		return str;
-	}
+	// public void setSingletonLiteralArc(String literalData) {
+	// if (policyType == XDIPolicyExpression.LC_POL_EMPTY
+	// || policyType == XDIPolicyExpression.LC_POL_SINGLETON) {
+	//
+	// Literal singletonLiteral = this.getContextNode().getLiteral();
+	//
+	// if (singletonLiteral == null) {
+	// singletonLiteral = this.getContextNode().createLiteral(literalData);
+	// } else {
+	// singletonLiteral.setLiteralData(literalData);
+	// }
+	// policyType = XDIPolicyExpression.LC_POL_SINGLETON;
+	// }
+	// }
+	//
+	// public String getSingletonLiteralArc() {
+	// String str = "";
+	// Literal literal = this.getContextNode().getLiteral();
+	// if (literal != null) {
+	// str = literal.getLiteralData();
+	// }
+	// return str;
+	// }
 
 	public Relation getRuleReference(ContextNode target) {
 		Relation relation = this.getContextNode().getRelation(
@@ -270,8 +256,9 @@ public final class Policy implements Serializable, Comparable<Policy> {
 
 		return this.getContextNode().compareTo(other.getContextNode());
 	}
-	public PolicyExpressionComponent getPolicyExpressionComponent(){
-		
+
+	public PolicyExpressionComponent getPolicyExpressionComponent() {
+
 		return policyComp;
 	}
 }

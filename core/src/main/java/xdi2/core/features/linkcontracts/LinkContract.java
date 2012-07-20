@@ -29,7 +29,7 @@ public final class LinkContract implements Serializable,
 	private ContextNode contextNode;
 
 	private LinkContract(ContextNode contextNode) {
-		this.contextNode = contextNode;	
+		this.contextNode = contextNode;
 	}
 
 	/*
@@ -45,7 +45,10 @@ public final class LinkContract implements Serializable,
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if(null == contextNode ){ return false;};
+		if (null == contextNode) {
+			return false;
+		}
+		;
 		return XDILinkContractConstants.XRI_SS_DO.equals(contextNode
 				.getArcXri());
 	}
@@ -65,6 +68,27 @@ public final class LinkContract implements Serializable,
 
 		LinkContract lc = new LinkContract(contextNode);
 		lc.addAuthenticationFunction();
+		return lc;
+	}
+
+	/**
+	 * Factory method that creates an XDI link contract bound to a given context
+	 * node.
+	 * 
+	 * @param contextNode
+	 *            The context node that is an XDI link contract.
+	 * @return The XDI link contract.
+	 */
+	public static LinkContract fromContextNode(ContextNode contextNode,
+			boolean withAuthFunc) {
+
+		if (!isValid(contextNode))
+			return null;
+
+		LinkContract lc = new LinkContract(contextNode);
+		if (withAuthFunc) {
+			lc.addAuthenticationFunction();
+		}
 		return lc;
 	}
 
@@ -99,10 +123,10 @@ public final class LinkContract implements Serializable,
 	public Policy getPolicy(boolean create) {
 
 		ContextNode contextNode = this.getContextNode().getContextNode(
-				XDILinkContractConstants.XRI_SS_IF);
+				XDILinkContractConstants.XRI_SS_IF_MULT);
 		if (contextNode == null && create)
 			contextNode = this.getContextNode().createContextNode(
-					XDILinkContractConstants.XRI_SS_IF);
+					XDILinkContractConstants.XRI_SS_IF_MULT);
 		if (contextNode == null)
 			return null;
 
@@ -462,13 +486,9 @@ public final class LinkContract implements Serializable,
 
 	public void addAuthenticationFunction() {
 		Policy policy = getPolicy(true);
-		try {
-			policy.setSingletonLiteralArc(URLEncoder
-			.encode("GlobalFunctions.getGraphValue(\"$secret$!($token)\") == GlobalFunctions.getMessageProperty(\"$do$secret$!($token)\")" ,
-					"UTF-8"));		
-		} catch (UnsupportedEncodingException e) {
-			// This should never happen
-		}
+		AndExpression andN = policy.getAndNode(true);		
+		andN.addLiteralExpression("GlobalFunctions.getGraphValue(\"$secret$!($token)\") == GlobalFunctions.getMessageProperty(\"$do$secret$!($token)\")");
+		
 	}
 
 }

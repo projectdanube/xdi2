@@ -74,8 +74,8 @@ public class LinkContractsTest extends TestCase {
 				} catch (Xdi2NotAuthorizedException ex) {
 
 					fail(ex.getMessage());
-				} finally {
-
+				} 				
+				finally {
 					ii++;
 				}
 			}

@@ -65,6 +65,28 @@ public class LinkContracts {
 		return lc;
 	}
 	/**
+	 * Returns an existing XDI link contract under a context node, or creates a
+	 * new one.
+	 * 
+	 * @param create
+	 *            Whether to create an XDI link contract if it does not exist.
+	 * @return The existing or newly created XDI link contract.
+	 */
+	public static LinkContract getLinkContract(ContextNode contextNode,
+			boolean create , boolean withAuthFunc) {
+
+		ContextNode linkContractContextNode = contextNode
+				.getContextNode(XDILinkContractConstants.XRI_SS_DO);
+		if (linkContractContextNode == null && create)
+			linkContractContextNode = contextNode
+					.createContextNode(XDILinkContractConstants.XRI_SS_DO);
+		if (linkContractContextNode == null)
+			return null;
+
+		LinkContract lc = LinkContract.fromContextNode(linkContractContextNode,withAuthFunc);
+		return lc;
+	}
+	/**
 	 * Find a Link Contract object given a graph and the XRI of the object
 	 * @param graph The graph where this Link Contract is supposed to exist
 	 * @param address The fully qualified XRI of the Link Contract object

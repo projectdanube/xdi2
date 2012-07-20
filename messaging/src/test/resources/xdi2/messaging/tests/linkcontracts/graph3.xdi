@@ -3,7 +3,7 @@
    "=!91F2.8153.F600.AE24"
 ],
 "(=!91F2.8153.F600.AE24)/$is" : [ "()" ],
-"$do$if$*($and)$!2db39321-f1af-4228-903c-3628b89de1cb/!" : [ "getGraphValue('$secret$!($token)') == getMessageProperty('$secret$!($token)')" ],
+"$do$if$*($and)$!2db39321-f1af-4228-903c-3628b89de1cb/!" : [ "GlobalFunctions.getGraphValue('$secret$!($token)') == GlobalFunctions.getMessageProperty('$do$secret$!($token)')" ],
 "$do/$all" : [ "()" ],
 "$do/$is$do" : [ "=!91F2.8153.F600.AE24" ],
 "$secret$!($token)/!" : [ "s3cret" ],
