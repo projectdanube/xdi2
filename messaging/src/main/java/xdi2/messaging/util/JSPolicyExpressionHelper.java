@@ -58,7 +58,7 @@ public class JSPolicyExpressionHelper extends ScriptableObject {
 		}
 		Literal literal = linkContract.getContextNode().getGraph()
 				.findLiteral(new XRI3Segment(address));
-		return literal == null ? null : literal.getLiteralData();
+		return literal == null ? "" : literal.getLiteralData();
 
 	}
 
@@ -71,7 +71,7 @@ public class JSPolicyExpressionHelper extends ScriptableObject {
 		}
 		Literal literal = message.getContextNode().findLiteral(
 				new XRI3Segment(property));
-		return literal == null ? null : literal.getLiteralData();
+		return literal == null ? "" : literal.getLiteralData();
 	}
 
 	public static void initialize(){
