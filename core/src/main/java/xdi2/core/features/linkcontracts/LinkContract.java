@@ -45,10 +45,6 @@ public final class LinkContract implements Serializable,
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (null == contextNode) {
-			return false;
-		}
-		;
 		return XDILinkContractConstants.XRI_SS_DO.equals(contextNode
 				.getArcXri());
 	}
@@ -487,8 +483,7 @@ public final class LinkContract implements Serializable,
 	public void addAuthenticationFunction() {
 		Policy policy = getPolicy(true);
 		AndExpression andN = policy.getAndNode(true);		
-		andN.addLiteralExpression("GlobalFunctions.getGraphValue(\"$secret$!($token)\") == GlobalFunctions.getMessageProperty(\"$do$secret$!($token)\")");
-		
+		andN.addLiteralExpression("GlobalFunctions.getGraphValue(\"$secret$!($token)\") == GlobalFunctions.getMessageProperty(\"$secret$!($token)\")");
 	}
 
 }

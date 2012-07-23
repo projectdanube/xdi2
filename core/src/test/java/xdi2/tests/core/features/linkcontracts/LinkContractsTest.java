@@ -122,13 +122,13 @@ System.out.println(graph);
 
 		StringWriter buffer = new StringWriter();
 		
-		//XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS");
+		//XDIWriter writer = XDIWriterRegistry.forFormat("XDI DISPLAY");
 		XDIWriter writer = XDIWriterRegistry.forFormat("STATEMENTS_WITH_CONTEXT_STATEMENTS");
 		//XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON_WITH_CONTEXT_STATEMENTS");
 		//XDIWriter writer = XDIWriterRegistry.forFormat("XDI/JSON");
 		writer.write(graph, buffer, null).close();
 		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
-		XDIReader reader = XDIReaderRegistry.forFormat("STATEMENTS");		
+		XDIReader reader = XDIReaderRegistry.forFormat("XDI DISPLAY");		
 		//XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON");
 		reader.read(graph2, new StringReader(buffer.getBuffer().toString()), null).close();
 		//System.out.println("Display the graph");

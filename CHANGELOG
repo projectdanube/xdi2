@@ -1,6 +1,22 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-07-19:
+------------------------
+
+*** Renamed "STATEMENTS" serialization format to "XDI DISPLAY"
+
+*** Implemented support for "from-graph" and "to-graph" in messages
+
+2012-07-18:
+------------------------
+
+*** Added BootstrapInterceptor to initialize new graphs
+
+*** Added LICENSE
+
+*** (Animesh) Added much new link contract functionality
+
 2012-07-14:
 ------------------------
 

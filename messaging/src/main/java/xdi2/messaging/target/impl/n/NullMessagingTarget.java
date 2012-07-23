@@ -1,5 +1,6 @@
 package xdi2.messaging.target.impl.n;
 
+import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -20,6 +21,12 @@ public class NullMessagingTarget implements MessagingTarget {
 	@Override
 	public void shutdown() {
 
+	}
+
+	@Override
+	public XRI3Segment getOwner() {
+
+		return null;
 	}
 
 	@Override

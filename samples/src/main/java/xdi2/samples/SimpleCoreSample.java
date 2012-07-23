@@ -24,6 +24,6 @@ public class SimpleCoreSample {
         System.out.println();
 
         System.out.println("Serialization in XDI statements:\n");
-        XDIWriterRegistry.forFormat("STATEMENTS", null).write(graph, System.out);
+        XDIWriterRegistry.forFormat("XDI DISPLAY", null).write(graph, System.out);
     }
 }

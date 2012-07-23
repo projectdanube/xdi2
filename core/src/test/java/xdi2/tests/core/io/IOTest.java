@@ -15,7 +15,7 @@ public class IOTest extends TestCase {
 
 	public void testReaders() throws Exception {
 
-		String[] formats = new String[] { "XDI/JSON", "STATEMENTS" };
+		String[] formats = new String[] { "XDI/JSON", "XDI DISPLAY" };
 		String[] fileExtensions = new String[] { "json", "xdi" };
 		MimeType[] mimeTypes = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1"), new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0"), new MimeType("text/xdi;contexts=1") };
 
@@ -26,7 +26,7 @@ public class IOTest extends TestCase {
 
 	public void testWriters() throws Exception {
 
-		String[] formats = new String[] { "XDI/JSON", "STATEMENTS", "KEYVALUE" };
+		String[] formats = new String[] { "XDI/JSON", "XDI DISPLAY", "KEYVALUE" };
 		String[] fileExtensions = new String[] { "json", "xdi" };
 		MimeType[] mimeTypes = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1"), new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0"), new MimeType("text/xdi;contexts=1") };
 

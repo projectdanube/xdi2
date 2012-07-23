@@ -14,6 +14,11 @@ public final class ExecutionContext implements Serializable {
 	private static final long serialVersionUID = 3238581605986543950L;
 
 	/**
+	 * The messaging target on which a message envelope is being executed.
+	 */
+	private MessagingTarget messagingTarget;
+
+	/**
 	 * This map is preserved during the entire execution of a MessageEnvelope.
 	 */
 	private Map<String, Object> messageEnvelopeAttributes;
@@ -28,11 +33,18 @@ public final class ExecutionContext implements Serializable {
 	 */
 	private Map<String, Object> operationAttributes;
 
-	public ExecutionContext() { 
+	public ExecutionContext(MessagingTarget messagingTarget) { 
+
+		this.messagingTarget = messagingTarget;
 
 		this.messageEnvelopeAttributes = new HashMap<String, Object> ();
 		this.messageAttributes = new HashMap<String, Object> ();
 		this.operationAttributes = new HashMap<String, Object> ();
+	}
+
+	public MessagingTarget getMessagingTarget() {
+	
+		return this.messagingTarget;
 	}
 
 	public Object getMessageEnvelopeAttribute(String key) {

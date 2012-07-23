@@ -169,8 +169,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 					"Link contract violation for operation: "
 							+ operation.toString() + " on target statement:"
 							+ targetStatement.toString(), null, operation);
-		}
-
+}
 		return targetStatement;
 	}
 

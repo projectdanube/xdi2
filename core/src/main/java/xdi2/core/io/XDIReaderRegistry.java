@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.io.readers.AutoReader;
 import xdi2.core.io.readers.XDIJSONReader;
-import xdi2.core.io.readers.XDIStatementsReader;
+import xdi2.core.io.readers.XDIDisplayReader;
 
 /**
  * Provides an appropriate XDIReader for a given type.
@@ -26,7 +26,7 @@ public final class XDIReaderRegistry {
 	private static String readerClassNames[] = {
 
 		XDIJSONReader.class.getName(),
-		XDIStatementsReader.class.getName()
+		XDIDisplayReader.class.getName()
 	};
 
 	private static List<Class<XDIReader>> readerClasses;
@@ -92,7 +92,7 @@ public final class XDIReaderRegistry {
 	 * Returns an XDIReader for the specified format, e.g.
 	 * <ul>
 	 * <li>XDI/JSON</li>
-	 * <li>STATEMENTS</li>
+	 * <li>XDI DISPLAY</li>
 	 * </ul>
 	 * @return An XDIReader, or null if no appropriate implementation could be found.
 	 */

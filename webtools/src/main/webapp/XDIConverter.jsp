@@ -37,12 +37,12 @@
 		<select name="from">
 		<option value="AUTO" <%= from.equals("AUTO") ? "selected" : "" %>>auto-detect</option>
 		<option value="XDI/JSON" <%= from.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
-		<option value="STATEMENTS" <%= from.equals("STATEMENTS") ? "selected" : "" %>>STATEMENTS</option>
+		<option value="XDI DISPLAY" <%= from.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
 		</select>
 		to:
 		<select name="to">
 		<option value="XDI/JSON" <%= to.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
-		<option value="STATEMENTS" <%= to.equals("STATEMENTS") ? "selected" : "" %>>STATEMENTS</option>
+		<option value="XDI DISPLAY" <%= to.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
 		<option value="KEYVALUE" <%= to.equals("KEYVALUE") ? "selected" : "" %>>KEYVALUE</option>
 		</select>
 

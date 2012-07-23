@@ -38,7 +38,7 @@
 	<p><b>XDI/JSON</b><br>
 	JSON serialization of an XDI graph (default format).</p>
 
-	<p><b>STATEMENTS</b><br>
+	<p><b>XDI DISPLAY</b><br>
 	An enumeration of XDI statements in the graph.</p>
 
 	</div>

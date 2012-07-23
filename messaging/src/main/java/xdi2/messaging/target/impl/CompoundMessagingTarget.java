@@ -58,6 +58,17 @@ public class CompoundMessagingTarget extends AbstractMessagingTarget {
 		this.getInterceptors().add(new CompoundResultInterceptor());
 	}
 
+	@Override
+	public XRI3Segment getOwner() {
+
+		// return owner of the first messaging target
+
+		MessagingTarget messagingTarget = this.messagingTargets.get(0);
+		if (messagingTarget == null) return null;
+
+		return messagingTarget.getOwner();
+	}
+
 	/**
 	 * We execute an operation by letting all our individual messaging targets
 	 * execute it.

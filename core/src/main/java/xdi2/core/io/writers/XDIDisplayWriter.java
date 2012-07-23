@@ -26,13 +26,13 @@ import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
 
-public class XDIStatementsWriter extends AbstractXDIWriter {
+public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -1653073796384849940L;
 
-	private static final Logger log = LoggerFactory.getLogger(XDIStatementsWriter.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIDisplayWriter.class);
 
-	public static final String FORMAT_NAME = "STATEMENTS";
+	public static final String FORMAT_NAME = "XDI DISPLAY";
 	public static final String FILE_EXTENSION = "xdi";
 	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0"), new MimeType("text/xdi;contexts=1") };
 
@@ -44,7 +44,7 @@ public class XDIStatementsWriter extends AbstractXDIWriter {
 	private boolean writeOrdered;
 	private boolean writeHtml;
 
-	public XDIStatementsWriter(Properties parameters) {
+	public XDIDisplayWriter(Properties parameters) {
 
 		super(parameters);
 	}

@@ -2,7 +2,9 @@ package xdi2.messaging.target.impl.graph;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Relation;
 import xdi2.core.Statement;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
@@ -43,6 +45,15 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 		super.shutdown();
 
 		this.graph.close();
+	}
+
+	@Override
+	public XRI3Segment getOwner() {
+
+		Relation relation = this.getGraph().getRootContextNode().getRelation(XDIDictionaryConstants.XRI_S_IS_IS);
+		if (relation == null) return null;
+
+		return relation.getRelationXri();
 	}
 
 	@Override

@@ -16,15 +16,15 @@ import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
-public class XDIStatementsReader extends AbstractXDIReader {
+public class XDIDisplayReader extends AbstractXDIReader {
 
 	private static final long serialVersionUID = 1450041480967749122L;
 
-	public static final String FORMAT_NAME = "STATEMENTS";
+	public static final String FORMAT_NAME = "XDI DISPLAY";
 	public static final String FILE_EXTENSION = "xdi";
 	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0"), new MimeType("text/xdi;contexts=1") };
 
-	public XDIStatementsReader(Properties parameters) {
+	public XDIDisplayReader(Properties parameters) {
 
 		super(parameters);
 	}
