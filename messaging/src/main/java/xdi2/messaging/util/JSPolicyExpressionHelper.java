@@ -84,7 +84,7 @@ public class JSPolicyExpressionHelper extends ScriptableObject {
 			Scriptable policyExpressionHelper = cx.newObject(scope,
 					"JSPolicyExpressionHelper", arg);
 
-			scope.put("GlobalFunctions", scope, policyExpressionHelper);
+			scope.put("xdi", scope, policyExpressionHelper);
 			
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
@@ -111,7 +111,7 @@ public class JSPolicyExpressionHelper extends ScriptableObject {
 			Scriptable policyExpressionHelper = cx.newObject(scope,
 					"JSPolicyExpressionHelper", arg);
 
-			scope.put("GlobalFunctions", scope, policyExpressionHelper);
+			scope.put("xdi", scope, policyExpressionHelper);
 
 			Object result = cx.evaluateString(scope, expr, "policyExpression",
 					1, null);

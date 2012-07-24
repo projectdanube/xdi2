@@ -483,7 +483,7 @@ public final class LinkContract implements Serializable,
 	public void addAuthenticationFunction() {
 		Policy policy = getPolicy(true);
 		AndExpression andN = policy.getAndNode(true);		
-		andN.addLiteralExpression("GlobalFunctions.getGraphValue(\"$secret$!($token)\") == GlobalFunctions.getMessageProperty(\"$secret$!($token)\")");
+		andN.addLiteralExpression("xdi.getGraphValue(\"$secret$!($token)\") == xdi.getMessageProperty(\"$secret$!($token)\")");
 	}
 
 }
