@@ -62,14 +62,16 @@ public class XDILocalClient implements XDIClient {
 
 		if (messageResult == null) messageResult = new MessageResult();
 
+		// create an execution context
+
+		ExecutionContext executionContext = new ExecutionContext(this.messagingTarget);
+
 		// send the message envelope
 
 		try {
 
 			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
-
-			this.messagingTarget.execute(messageEnvelope, messageResult, new ExecutionContext(this.messagingTarget));
-
+			this.messagingTarget.execute(messageEnvelope, messageResult, executionContext);
 			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
 		} catch (Exception ex) {
 
