@@ -1,15 +1,18 @@
 package xdi2.messaging.target.impl.graph;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.MessageResult;
+import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
-import xdi2.messaging.target.impl.AddressHandler;
 import xdi2.messaging.target.impl.StatementHandler;
 
 /**
@@ -20,7 +23,6 @@ import xdi2.messaging.target.impl.StatementHandler;
 public class GraphMessagingTarget extends AbstractMessagingTarget {
 
 	private Graph graph;
-	private GraphAddressHandler graphAddressHandler;
 	private GraphStatementHandler graphStatementHandler;
 
 	public GraphMessagingTarget() {
@@ -28,7 +30,6 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 		super();
 
 		this.graph = null;
-		this.graphAddressHandler = null;
 		this.graphStatementHandler = null;
 	}
 
@@ -80,9 +81,27 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public AddressHandler getAddressHandler(XRI3Segment address) throws Xdi2MessagingException {
+	public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return this.graphAddressHandler;
+		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
+
+		if (contextNode != null) {
+
+			CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean executeDelOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + targetAddress, null, operation);
+
+		contextNode.delete();
+
+		return true;
 	}
 
 	@Override
@@ -99,7 +118,6 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
-		this.graphAddressHandler = new GraphAddressHandler(graph);
 		this.graphStatementHandler = new GraphStatementHandler(graph);
 	}
 }
