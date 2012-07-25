@@ -37,7 +37,7 @@ public class LinkContracts {
 			@Override
 			public LinkContract map(ContextNode contextNode) {
 
-				return LinkContract.fromContextNode(contextNode);
+				return LinkContract.fromContextNode(contextNode,false);
 			}
 		};		
 	}
@@ -61,7 +61,7 @@ public class LinkContracts {
 		if (linkContractContextNode == null)
 			return null;
 
-		LinkContract lc = LinkContract.fromContextNode(linkContractContextNode);
+		LinkContract lc = LinkContract.fromContextNode(linkContractContextNode,false);
 		return lc;
 	}
 	/**
@@ -103,7 +103,7 @@ public class LinkContracts {
 			ContextNode c = cIter.next();
 			if(LinkContract.isValid(c)){
 				if(c.getXri().equals(address)){
-					return LinkContract.fromContextNode(c);
+					return LinkContract.fromContextNode(c,false);
 				}
 			}
 			

@@ -50,7 +50,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 				: this.linkContractsGraph.findContextNode(linkContractXri,
 						false);
 		LinkContract linkContract = (linkContractContextNode == null) ? null
-				: LinkContract.fromContextNode(linkContractContextNode);
+				: LinkContract.fromContextNode(linkContractContextNode,false);
 
 		if (linkContract != null) {
 			putLinkContract(executionContext, linkContract);
