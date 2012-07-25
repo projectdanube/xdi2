@@ -182,7 +182,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation createRelation(XRI3Segment arcXri, XRI3Segment relationXri);
 
 	/**
-	 * Returns a relation with a given context node. 
+	 * Returns a relation with a given arc XRI and context node. 
 	 * @param arcXri The arc XRI to look for. 
 	 * @param contextNode The context node the relation points to.
 	 * @return The relation with the given arc XRI, or null.
@@ -190,7 +190,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation getRelation(XRI3Segment arcXri, ContextNode contextNode);
 
 	/**
-	 * Returns a relation with a given arc XRI. 
+	 * Returns a relation with a given arc XRI and relation XRI.
 	 * @param arcXri The arc XRI to look for. 
 	 * @param relationXri The relation XRI of the relation.
 	 * @return The relation with the given arc XRI, or null.

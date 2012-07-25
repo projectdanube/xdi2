@@ -12,13 +12,9 @@ import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.AbstractStatement;
 import xdi2.core.util.iterators.SelectingClassIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.messaging.AddOperation;
-import xdi2.messaging.DelOperation;
-import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
@@ -322,30 +318,18 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			targetAddress = this.executeTargetInterceptorsAddress(operation, targetAddress, executionContext);
 			if (targetAddress == null) return true;
 
-			// execute on the address
+			// get an address handler, and execute on the address
 
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on address " + targetAddress + " (" + this.getClass().getName() + ").");
+			AddressHandler addressHandler = this.getAddressHandler(targetAddress);
 
-			if (this.executeOnAddress(targetAddress, operation, messageResult, executionContext)) handled = true;
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
+
+			if (addressHandler.executeOnAddress(targetAddress, operation, messageResult, executionContext)) handled = true;
 		}
 
 		// done
 
 		return handled;
-	}
-
-	private final boolean executeOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		if (operation instanceof GetOperation)
-			return this.executeGetOnAddress(targetAddress, operation, messageResult, executionContext);
-		else if (operation instanceof AddOperation)
-			return this.executeAddOnAddress(targetAddress, operation, messageResult, executionContext);
-		else if (operation instanceof ModOperation)
-			return this.executeModOnAddress(targetAddress, operation, messageResult, executionContext);
-		else if (operation instanceof DelOperation)
-			return this.executeDelOnAddress(targetAddress, operation, messageResult, executionContext);
-		else
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, operation);
 	}
 
 	/*
@@ -380,24 +364,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	}
 
-	public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public AddressHandler getAddressHandler(XRI3Segment targetAddress) throws Xdi2MessagingException {
 
-		return false;
-	}
-
-	public boolean executeAddOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
-	}
-
-	public boolean executeModOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
-	}
-
-	public boolean executeDelOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
+		return null;
 	}
 
 	public StatementHandler getStatementHandler(Statement targetStatement) throws Xdi2MessagingException {
