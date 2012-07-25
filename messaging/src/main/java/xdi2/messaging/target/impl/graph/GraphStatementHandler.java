@@ -35,6 +35,11 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		this.graph = graph;
 	}
 
+	public Graph getGraph() {
+
+		return this.graph;
+	}
+
 	/*
 	 * Operations on all types of statements
 	 */
@@ -44,7 +49,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 
 		try {
 
-			this.graph.addStatement(statement);
+			this.getGraph().addStatement(statement);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Cannot add statement: " + ex.getMessage(), ex, operation);
@@ -60,7 +65,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public boolean executeDelOnContextNodeStatement(ContextNodeStatement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.graph.findContextNode(contextNodeStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, operation);
 
 		for (Object subSegment : contextNodeStatement.getObject().getSubSegments()) {
@@ -80,7 +85,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public boolean executeGetOnRelationStatement(RelationStatement relationStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.graph.findContextNode(relationStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) return true;
 
 		boolean isRelationXriVariable = Variables.isVariable(relationStatement.getObject());
@@ -115,7 +120,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public boolean executeDelOnRelationStatement(RelationStatement relationStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.graph.findContextNode(relationStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement, null, operation);
 
 		if (Variables.isVariable(relationStatement.getObject())) {
@@ -142,7 +147,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public boolean executeGetOnLiteralStatement(LiteralStatement literalStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.graph.findContextNode(literalStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), false);
 		if (contextNode == null) return true;
 
 		Literal literal = contextNode.getLiteral();
@@ -159,7 +164,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public boolean executeModOnLiteralStatement(LiteralStatement literalStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.graph.findContextNode(literalStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + literalStatement, null, operation);
 
 		Literal literal = contextNode.getLiteral();
