@@ -4,6 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
 
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
+
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
@@ -26,14 +29,14 @@ public class NotExpression extends PolicyExpressionComponent {
 		}
 		return new NotExpression(c);
 	}
-
-	public boolean evaluate() {
+@Override
+	public boolean evaluate(Context cx , Scriptable scope) {
 		boolean evalResult = false;
 		if (this.getContextNode().getLiteral() != null) {
 			String literalValue = this.getContextNode().getLiteral()
 					.getLiteralData();
 			evalResult = !(JSPolicyExpressionUtil
-					.evaluateJSExpression(literalValue));
+					.evaluateJSExpression(literalValue, cx, scope));
 		}
 		{
 			Iterator<ContextNode> allChildrenNodes = contextNode
@@ -41,7 +44,7 @@ public class NotExpression extends PolicyExpressionComponent {
 
 			for (; allChildrenNodes.hasNext();) {
 				ContextNode childNode = allChildrenNodes.next();
-				boolean childExprEvalResult = evaluateChildBranch(childNode);
+				boolean childExprEvalResult = evaluateChildBranch(childNode,cx, scope);
 				evalResult = !childExprEvalResult;
 			}
 
@@ -51,16 +54,9 @@ public class NotExpression extends PolicyExpressionComponent {
 	}
 
 	@Override
-	public void addLiteralExpression(String exprX) {
-		if(null == exprX || exprX.isEmpty()){
+	public void addLiteralExpression(String expr) {
+		if(null == expr || expr.isEmpty()){
 			return;
-		}
-		String expr = "";
-		try {
-			expr = URLEncoder.encode(exprX, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		ContextNode c = AttributeSingleton.fromContextNode(contextNode)
 				.getContextNode();

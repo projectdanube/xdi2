@@ -2,6 +2,9 @@ package xdi2.core.features.linkcontracts;
 
 import java.util.Iterator;
 
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
+
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 
@@ -23,13 +26,14 @@ private static final long serialVersionUID = 5732150401265911411L;
 		}
 		return new OrExpression(c);
 	}
-	public boolean evaluate(){
+	@Override
+	public boolean evaluate(Context cx, Scriptable scope){
 		boolean evalResult = false;
 		Iterator<ContextNode> allChildrenNodes = contextNode.getContextNodes();
 
 		for (; allChildrenNodes.hasNext();) {			
 			ContextNode childNode = allChildrenNodes.next();
-			boolean childExprEvalResult = evaluateChildBranch(childNode);
+			boolean childExprEvalResult = evaluateChildBranch(childNode,cx,scope);
 			evalResult = evalResult || childExprEvalResult;
 		}
 		return evalResult;

@@ -1,8 +1,9 @@
 package xdi2.core.features.linkcontracts;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
@@ -106,17 +107,11 @@ public abstract class PolicyExpressionComponent implements Serializable,
 		return notNode;
 	}
 
-	public void addLiteralExpression(String exprX){
-		if(null == exprX || exprX.isEmpty()){
+	public void addLiteralExpression(String expr){
+		if(null == expr || expr.isEmpty()){
 			return;
 		}
-		String expr = "";
-		try {
-			expr = URLEncoder.encode(exprX, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		ContextNode c = AttributeCollection.fromContextNode(contextNode).createMember();
 		c.createLiteral(expr);
 	}
@@ -139,34 +134,35 @@ public abstract class PolicyExpressionComponent implements Serializable,
 //		
 //	}
 
-	public  boolean evaluate(){
+	public  boolean evaluate(Context cx , Scriptable scope){
 		return true;
 	}
 	
-	protected boolean evaluateChildBranch(ContextNode childNode){
+	protected boolean evaluateChildBranch(ContextNode childNode , Context cx , Scriptable scope){
 		boolean childExprEvalResult = false;
 		
 		if (AndExpression.isValid(childNode)) {
 			AndExpression andChild = AndExpression
 					.fromContextNode(childNode);
 
-			childExprEvalResult = andChild.evaluate();
+			childExprEvalResult = andChild.evaluate(cx,scope);
 
 		} else if (OrExpression.isValid(childNode)) {
 			OrExpression orChild = OrExpression.fromContextNode(childNode);
 
-			childExprEvalResult = orChild.evaluate();
+			childExprEvalResult = orChild.evaluate(cx,scope);
 		} else if (NotExpression.isValid(childNode)) {
 			NotExpression notChild = NotExpression
 					.fromContextNode(childNode);
 
-			childExprEvalResult = notChild.evaluate();
+			childExprEvalResult = notChild.evaluate(cx,scope);
 		} else if (childNode.getLiteral() != null) {
 
+			
 			String literalValue = childNode.getLiteral().getLiteralData();
 
 			childExprEvalResult = JSPolicyExpressionUtil
-					.evaluateJSExpression(literalValue);
+					.evaluateJSExpression(literalValue, cx,scope);
 
 		}
 		return childExprEvalResult;

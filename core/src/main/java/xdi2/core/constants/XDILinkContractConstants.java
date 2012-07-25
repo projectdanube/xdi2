@@ -16,7 +16,8 @@ public final class XDILinkContractConstants {
 	public static final XRI3Segment XRI_S_IS_DO = new XRI3Segment("$is$do");
 
 	public static final XRI3SubSegment XRI_SS_DO = new XRI3SubSegment("$do");
-	public static final XRI3SubSegment XRI_SS_IF_MULT = Multiplicity.attributeSingletonArcXri("$if");
+	//public static final XRI3SubSegment XRI_SS_IF_MULT = Multiplicity.attributeSingletonArcXri("$if");
+	public static final XRI3SubSegment XRI_SS_IF_MULT = new XRI3SubSegment("$if");
 	public static final XRI3Segment XRI_SS_IS_DO = new XRI3Segment("$is$do");
 	
 	public static final XRI3Segment XRI_S_GET = new XRI3Segment("$get");

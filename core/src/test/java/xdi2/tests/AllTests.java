@@ -2,12 +2,12 @@ package xdi2.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import xdi2.tests.core.features.linkcontracts.LinkContractsTest;
 import xdi2.tests.core.features.multiplicity.MultiplicityTest;
 import xdi2.tests.core.features.remoteroots.RemoteRootsTest;
 import xdi2.tests.core.features.timestamps.TimestampsTest;
 import xdi2.tests.core.features.variables.VariablesTest;
 import xdi2.tests.core.graph.BDBGraphTest;
-import xdi2.tests.core.graph.LinkContractsTest;
 import xdi2.tests.core.graph.MapGraphTest;
 import xdi2.tests.core.graph.MemoryGraphTest;
 import xdi2.tests.core.graph.PropertiesGraphTest;
