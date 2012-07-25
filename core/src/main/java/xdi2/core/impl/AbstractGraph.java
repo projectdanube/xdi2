@@ -58,24 +58,6 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
-	public boolean containsContextNode(XRI3Segment xri) {
-
-		return this.findContextNode(xri, false) != null;
-	}
-
-	@Override
-	public boolean containsRelations(XRI3Segment xri, XRI3Segment arcXri) {
-
-		return this.findRelation(xri, arcXri) != null;
-	}
-
-	@Override
-	public boolean containsLiteral(XRI3Segment xri) {
-
-		return this.findLiteral(xri) != null;
-	}
-
-	@Override
 	public String toString(String format) {
 
 		return this.toString(format, null);

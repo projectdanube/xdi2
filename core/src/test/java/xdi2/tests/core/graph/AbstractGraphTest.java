@@ -338,7 +338,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		Relation r = c.createRelation(new XRI3Segment("+x+y"), b);
 		Literal l = e.createLiteral("test");
-		
+
 		assertTrue(a.getContextNode().isRootContextNode());
 		assertNull(a.getContextNode().getContextNode());
 
@@ -368,7 +368,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(graph15.findLiteral(new XRI3Segment("+a+b+c+d+e")), l);
 		assertEquals(a.findLiteral(new XRI3Segment("+b+c+d+e")), l);
 		assertEquals(b.findLiteral(new XRI3Segment("+c+d+e")), l);
-		
+
 		graph15.close();
 	}
 
@@ -560,7 +560,10 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(contextNodesArray.length, relationArcXrisArray.length);
 		assertEquals(contextNodesArray.length, literalsArray.length);
 
-		for (ContextNode contextNode : contextNodesArray) if (contextNode != null) assertTrue(contextNode.getGraph().containsContextNode(contextNode.getXri()));
+		for (ContextNode contextNode : contextNodesArray) if (contextNode != null) {
+
+			assertEquals(contextNode.getGraph().findContextNode(contextNode.getXri(), false), contextNode);
+		}
 
 		for (int i=0; i<contextNodesArray.length; i++) {
 
@@ -578,7 +581,7 @@ public abstract class AbstractGraphTest extends TestCase {
 			if (contextNodesArray[i] == null) { assertNull(relationArcXrisArray[i]); continue; } else assertNotNull(relationArcXrisArray[i]);
 
 			List<XRI3Segment> arcXris = new ArrayList<XRI3Segment> (Arrays.asList(relationArcXrisArray[i]));
-			for (Iterator<XRI3Segment> it = arcXris.iterator(); it.hasNext(); ) assertTrue(contextNodesArray[i].getGraph().containsRelations(contextNodesArray[i].getXri(), it.next()));
+			for (Iterator<XRI3Segment> it = arcXris.iterator(); it.hasNext(); ) assertNotNull(contextNodesArray[i].getGraph().findRelation(contextNodesArray[i].getXri(), it.next()));
 			assertEquals(arcXris.size(), contextNodesArray[i].getRelationCount());
 			assertEquals(arcXris.size(), new IteratorCounter(contextNodesArray[i].getRelations()).count());
 			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcXris.remove(it.next().getArcXri()));
@@ -589,7 +592,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 			if (contextNodesArray[i] == null) { assertNull(literalsArray[i]); continue; } else assertNotNull(literalsArray[i]);
 
-			assertEquals(contextNodesArray[i].getGraph().containsLiteral(contextNodesArray[i].getXri()), literalsArray[i].booleanValue());
+			assertEquals(contextNodesArray[i].getGraph().findLiteral(contextNodesArray[i].getXri()) != null, literalsArray[i].booleanValue());
 
 			assertEquals(contextNodesArray[i].containsLiteral(), literalsArray[i].booleanValue());
 		}
@@ -838,7 +841,10 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(contextNodesArray.length, relationArcXrisArray.length);
 		assertEquals(contextNodesArray.length, literalsArray.length);
 
-		for (ContextNode contextNode : contextNodesArray) if (contextNode != null) assertTrue(contextNode.getGraph().containsContextNode(contextNode.getXri()));
+		for (ContextNode contextNode : contextNodesArray) if (contextNode != null) {
+
+			assertEquals(contextNode.getGraph().findContextNode(contextNode.getXri(), false), contextNode);
+		}
 
 		for (int i=0; i<contextNodesArray.length; i++) {
 
@@ -856,7 +862,7 @@ public abstract class AbstractGraphTest extends TestCase {
 			if (contextNodesArray[i] == null) { assertNull(relationArcXrisArray[i]); continue; } else assertNotNull(relationArcXrisArray[i]);
 
 			List<XRI3Segment> arcXris = new ArrayList<XRI3Segment> (Arrays.asList(relationArcXrisArray[i]));
-			for (Iterator<XRI3Segment> it = arcXris.iterator(); it.hasNext(); ) assertTrue(contextNodesArray[i].getGraph().containsRelations(contextNodesArray[i].getXri(), it.next()));
+			for (Iterator<XRI3Segment> it = arcXris.iterator(); it.hasNext(); ) assertNotNull(contextNodesArray[i].getGraph().findRelation(contextNodesArray[i].getXri(), it.next()));
 			assertEquals(arcXris.size(), contextNodesArray[i].getRelationCount());
 			assertEquals(arcXris.size(), new IteratorCounter(contextNodesArray[i].getRelations()).count());
 			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcXris.remove(it.next().getArcXri()));
@@ -866,6 +872,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		for (int i=0; i<contextNodesArray.length; i++) {
 
 			if (contextNodesArray[i] == null) { assertNull(literalsArray[i]); continue; } else assertNotNull(literalsArray[i]);
+
+			assertEquals(contextNodesArray[i].getGraph().findLiteral(contextNodesArray[i].getXri()) != null, literalsArray[i].booleanValue());
 
 			assertEquals(contextNodesArray[i].containsLiteral(), literalsArray[i].booleanValue());
 		}
