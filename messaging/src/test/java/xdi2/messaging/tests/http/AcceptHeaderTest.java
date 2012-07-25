@@ -12,16 +12,16 @@ public class AcceptHeaderTest extends TestCase {
 
 		AcceptHeader acceptHeader;
 
-		acceptHeader = AcceptHeader.create(XDIJSONReader.MIME_TYPES[0]);
-		assertEquals(acceptHeader.toString(), "application/xdi+json;q=1,application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5,text/xdi;q=0.5");
-		assertEquals(acceptHeader.bestMimeType(true, false), XDIJSONReader.MIME_TYPES[0]);
+		acceptHeader = AcceptHeader.create(XDIJSONReader.MIME_TYPE);
+		assertEquals(acceptHeader.toString(), "application/xdi+json;q=1,text/xdi;q=0.5");
+		assertEquals(acceptHeader.bestMimeType(true, false), XDIJSONReader.MIME_TYPE);
 
-		acceptHeader = AcceptHeader.create(XDIDisplayReader.MIME_TYPES[0]);
-		assertEquals(acceptHeader.toString(), "text/xdi;q=1,application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,application/xdi+json;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5");
-		assertEquals(acceptHeader.bestMimeType(true, false), XDIDisplayReader.MIME_TYPES[0]);
+		acceptHeader = AcceptHeader.create(XDIDisplayReader.MIME_TYPE);
+		assertEquals(acceptHeader.toString(), "text/xdi;q=1,application/xdi+json;q=0.5");
+		assertEquals(acceptHeader.bestMimeType(true, false), XDIDisplayReader.MIME_TYPE);
 
 		acceptHeader = AcceptHeader.create(null);
-		assertEquals(acceptHeader.toString(), "application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,application/xdi+json;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5,text/xdi;q=0.5");
+		assertEquals(acceptHeader.toString(), "application/xdi+json;q=0.5,text/xdi;q=0.5");
 	}
 
 	public void testParseAcceptHeader() throws Exception {
@@ -29,10 +29,10 @@ public class AcceptHeaderTest extends TestCase {
 		AcceptHeader acceptHeader;
 
 		acceptHeader = AcceptHeader.parse("application/xdi+json;q=1,application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5,text/xdi;q=0.5");
-		assertEquals(acceptHeader.bestMimeType(true, false), XDIJSONReader.MIME_TYPES[0]);
+		assertEquals(acceptHeader.bestMimeType(true, false), XDIJSONReader.MIME_TYPE);
 
 		acceptHeader = AcceptHeader.parse("text/xdi;q=1,application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,application/xdi+json;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5");
-		assertEquals(acceptHeader.bestMimeType(true, false), XDIDisplayReader.MIME_TYPES[0]);
+		assertEquals(acceptHeader.bestMimeType(true, false), XDIDisplayReader.MIME_TYPE);
 
 		acceptHeader = AcceptHeader.parse("application/xml;q=1.1,text/html,text/xdi;q=0.7,*/*;q=0.8");
 		assertEquals(acceptHeader.bestMimeType(false, false), new MimeType("application/xml"));

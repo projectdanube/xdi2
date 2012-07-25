@@ -27,8 +27,8 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	private static final long serialVersionUID = 7937255194345376190L;
 
-	protected Graph graph;
-	protected ContextNode contextNode;
+	private Graph graph;
+	private ContextNode contextNode;
 
 	public AbstractContextNode(Graph graph, ContextNode contextNode) {
 
@@ -87,6 +87,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	/*
+	 * TODO: This is inefficient for nodes deep down in the tree.
+	 */
 	public XRI3Segment getXri() {
 
 		if (this.isRootContextNode()) return XDIConstants.XRI_S_CONTEXT;
@@ -170,6 +173,18 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	public boolean containsContextNode(XRI3SubSegment arcXri) {
+
+		return this.getContextNode(arcXri) != null;
+	}
+
+	@Override
+	public boolean containsContextNodes() {
+
+		return this.getContextNodeCount() > 0;
+	}
+
+	@Override
 	public ContextNode findContextNode(XRI3Segment xri, boolean create) {
 
 		ContextNode contextNode = this;
@@ -198,18 +213,6 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public boolean containsContextNode(XRI3SubSegment arcXri) {
-
-		return this.getContextNode(arcXri) != null;
-	}
-
-	@Override
-	public boolean containsContextNodes() {
-
-		return this.getContextNodeCount() > 0;
-	}
-
-	@Override
 	public int getContextNodeCount() {
 
 		return new IteratorCounter(this.getContextNodes()).count();
@@ -226,28 +229,22 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 
 	@Override
-	public Relation createRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+	public Relation createRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
 
-		ContextNode contextNode = this.getGraph().findContextNode(relationXri, true);
+		ContextNode targetContextNode = this.getGraph().findContextNode(targetContextNodeXri, true);
 
-		return this.createRelation(arcXri, contextNode);
+		return this.createRelation(arcXri, targetContextNode);
 	}
 
 	@Override
-	public Relation getRelation(XRI3Segment arcXri, ContextNode contextNode) {
-
-		return this.getRelation(arcXri, contextNode.getXri());
-	}
-
-	@Override
-	public Relation getRelation(XRI3Segment arcXri, final XRI3Segment relationXri) {
+	public Relation getRelation(XRI3Segment arcXri, final XRI3Segment targetContextNodeXri) {
 
 		Iterator<Relation> selectingIterator = new SelectingIterator<Relation> (this.getRelations(arcXri)) {
 
 			@Override
 			public boolean select(Relation relation) {
 
-				return relation.getRelationXri().equals(relationXri);
+				return relation.getTargetContextNodeXri().equals(targetContextNodeXri);
 			}
 		};
 
@@ -274,6 +271,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	/*
+	 * TODO: This is inefficient for a large number of context nodes in the graph.
+	 */
 	public ReadOnlyIterator<Relation> getIncomingRelations() {
 
 		return new SelectingIterator<Relation> (this.getGraph().getRootContextNode().getAllRelations()) {
@@ -306,9 +306,21 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public boolean containsRelation(XRI3Segment arcXri, ContextNode contextNode) {
+	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
 
-		return this.getRelation(arcXri, contextNode) != null;
+		return this.getRelation(arcXri, targetContextNodeXri) != null;
+	}
+
+	@Override
+	public boolean containsRelations(XRI3Segment arcXri) {
+
+		return this.getRelation(arcXri) != null;
+	}
+
+	@Override
+	public boolean containsRelations() {
+
+		return this.getRelationCount() > 0;
 	}
 
 	@Override
@@ -327,33 +339,6 @@ public abstract class AbstractContextNode implements ContextNode {
 		if (contextNode == null) return null;
 
 		return contextNode.getRelations(arcXri);
-	}
-
-	@Override
-	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
-
-		return this.getRelation(arcXri, relationXri) != null;
-	}
-
-	@Override
-	public boolean containsRelations(XRI3Segment arcXri) {
-
-		return this.getRelation(arcXri) != null;
-	}
-
-	@Override
-	public boolean containsRelations() {
-
-		return this.getRelationCount() > 0;
-	}
-
-	@Override
-	public void deleteRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
-
-		ContextNode contextNode = this.getGraph().findContextNode(relationXri, false);
-		if (contextNode == null) return;
-
-		this.deleteRelation(arcXri, contextNode);
 	}
 
 	@Override
@@ -416,15 +401,6 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Literal findLiteral(XRI3Segment xri) {
-
-		ContextNode contextNode = this.findContextNode(xri, false);
-		if (contextNode == null) return null;
-
-		return contextNode.getLiteral();
-	}
-
-	@Override
 	public boolean containsLiteral() {
 
 		return this.getLiteral() != null;
@@ -434,6 +410,15 @@ public abstract class AbstractContextNode implements ContextNode {
 	public boolean containsLiteralInContextNode(XRI3SubSegment arcXri) {
 
 		return this.getLiteralInContextNode(arcXri)  != null;
+	}
+
+	@Override
+	public Literal findLiteral(XRI3Segment xri) {
+
+		ContextNode contextNode = this.findContextNode(xri, false);
+		if (contextNode == null) return null;
+
+		return contextNode.getLiteral();
 	}
 
 	@Override
@@ -522,7 +507,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public String toString() {
 
-		return this.getXri().toString();
+		return this.getStatement().toString();
 	}
 
 	@Override

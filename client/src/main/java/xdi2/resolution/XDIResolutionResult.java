@@ -40,9 +40,9 @@ public class XDIResolutionResult implements Serializable {
 
 		Relation relation = graph.findRelation(new XRI3Segment(xri), new XRI3Segment("$is"));		
 
-		if (relation != null && isInumber(relation.getRelationXri().toString())) { 
+		if (relation != null && isInumber(relation.getTargetContextNodeXri().toString())) { 
 
-			inumber = relation.getRelationXri().toString();
+			inumber = relation.getTargetContextNodeXri().toString();
 		} else if (isInumber(xri)) {
 
 			inumber = xri;

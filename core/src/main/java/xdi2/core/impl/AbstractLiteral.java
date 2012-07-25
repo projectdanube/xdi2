@@ -13,8 +13,8 @@ public abstract class AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = -3376866498591508078L;
 
-	protected Graph graph;
-	protected ContextNode contextNode;
+	private Graph graph;
+	private ContextNode contextNode;
 
 	public AbstractLiteral(Graph graph, ContextNode contextNode) {
 
@@ -57,7 +57,7 @@ public abstract class AbstractLiteral implements Literal {
 	@Override
 	public String toString() {
 
-		return this.getLiteralData();
+		return this.getStatement().toString();
 	}
 
 	@Override
@@ -68,10 +68,10 @@ public abstract class AbstractLiteral implements Literal {
 
 		Literal other = (Literal) object;
 
-		// two literals are equal if their XRIs and their data are equal
+		// two literals are equal if their context nodes and their data are equal
 
-		return 
-				this.getContextNode().getXri().equals(other.getContextNode().getXri()) &&
+		return
+				this.getContextNode().equals(other.getContextNode()) &&
 				this.getLiteralData().equals(other.getLiteralData());
 	}
 
@@ -91,7 +91,12 @@ public abstract class AbstractLiteral implements Literal {
 
 		if (other == null || other == this) return 0;
 
-		return this.getLiteralData().compareTo(other.getLiteralData());
+		int compare;
+
+		if ((compare = this.getContextNode().compareTo(other.getContextNode())) != 0) return compare;
+		if ((compare = this.getLiteralData().compareTo(other.getLiteralData())) != 0) return compare;
+
+		return 0;
 	}
 
 	/**

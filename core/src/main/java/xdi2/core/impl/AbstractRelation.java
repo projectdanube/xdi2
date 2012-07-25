@@ -1,6 +1,5 @@
 package xdi2.core.impl;
 
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
@@ -12,8 +11,8 @@ public abstract class AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = -9055773010138710261L;
 
-	protected Graph graph;
-	protected ContextNode contextNode;
+	private Graph graph;
+	private ContextNode contextNode;
 
 	public AbstractRelation(Graph graph, ContextNode contextNode) {
 
@@ -36,19 +35,13 @@ public abstract class AbstractRelation implements Relation {
 	@Override
 	public synchronized void delete() {
 
-		this.getContextNode().deleteRelation(this.getArcXri(), this.getRelationXri());
+		this.getContextNode().deleteRelation(this.getArcXri(), this.getTargetContextNodeXri());
 	}
-
-	/*
-	 * Methods for following the relation
-	 */
 
 	@Override
 	public ContextNode follow() {
 
-		XRI3Segment relationXri = this.getRelationXri();
-
-		return this.getGraph().findContextNode(relationXri, false);
+		return this.getGraph().findContextNode(this.getTargetContextNodeXri(), false);
 	}
 
 	/*
@@ -68,7 +61,7 @@ public abstract class AbstractRelation implements Relation {
 	@Override
 	public String toString() {
 
-		return this.getRelationXri().toString();
+		return this.getStatement().toString();
 	}
 
 	@Override
@@ -79,12 +72,12 @@ public abstract class AbstractRelation implements Relation {
 
 		Relation other = (Relation) object;
 
-		// two relations are equal if their XRIs are equal
+		// two relations are equal if their context nodes, arc XRIs, and target context node XRIs are equal
 
 		return 
-				this.getContextNode().getXri().equals(other.getContextNode().getXri()) &&
+				this.getContextNode().equals(other.getContextNode()) &&
 				this.getArcXri().equals(other.getArcXri()) && 
-				this.getRelationXri().equals(other.getRelationXri());
+				this.getTargetContextNodeXri().equals(other.getTargetContextNodeXri());
 	}
 
 	@Override
@@ -92,9 +85,9 @@ public abstract class AbstractRelation implements Relation {
 
 		int hashCode = 1;
 
-		hashCode = (hashCode * 31) + this.getContextNode().getXri().hashCode();
+		hashCode = (hashCode * 31) + this.getContextNode().hashCode();
 		hashCode = (hashCode * 31) + this.getArcXri().hashCode();
-		hashCode = (hashCode * 31) + this.getRelationXri().hashCode();
+		hashCode = (hashCode * 31) + this.getTargetContextNodeXri().hashCode();
 
 		return hashCode;
 	}
@@ -104,7 +97,13 @@ public abstract class AbstractRelation implements Relation {
 
 		if (other == null || other == this) return 0;
 
-		return this.getRelationXri().compareTo(other.getRelationXri());
+		int compare;
+
+		if ((compare = this.getContextNode().compareTo(other.getContextNode())) != 0) return compare;
+		if ((compare = this.getArcXri().compareTo(other.getArcXri())) != 0) return compare;
+		if ((compare = this.getTargetContextNodeXri().compareTo(other.getTargetContextNodeXri())) != 0) return compare;
+
+		return 0;
 	}
 
 	/**
@@ -130,7 +129,7 @@ public abstract class AbstractRelation implements Relation {
 		@Override
 		public XRI3Segment getObject() {
 
-			return AbstractRelation.this.getRelationXri();
+			return AbstractRelation.this.getTargetContextNodeXri();
 		}
 
 		@Override

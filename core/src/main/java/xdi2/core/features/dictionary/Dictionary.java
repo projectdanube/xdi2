@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.util.iterators.MappingRelationRelationXriIterator;
+import xdi2.core.util.iterators.MappingRelationTargetContextNodeXriIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 public class Dictionary {
@@ -17,12 +17,12 @@ public class Dictionary {
 
 	public static Iterator<XRI3Segment> getContextNodeTypes(ContextNode contextNode) {
 
-		return new MappingRelationRelationXriIterator(contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE));
+		return new MappingRelationTargetContextNodeXriIterator(contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE));
 	}
 
 	public static XRI3Segment getContextNodeType(ContextNode contextNode) {
 
-		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_TYPE).getRelationXri();
+		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_TYPE).getTargetContextNodeXri();
 	}
 
 	public static boolean isContextNodeType(ContextNode contextNode, XRI3Segment type) {

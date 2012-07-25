@@ -14,9 +14,9 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 	private String key;
 
 	private XRI3Segment arcXri;
-	private XRI3Segment relationXri;
+	private XRI3Segment targetContextNodeXri;
 
-	KeyValueRelation(Graph graph, ContextNode contextNode, KeyValueStore keyValueStore, String key, XRI3Segment arcXri, XRI3Segment relationXri) {
+	KeyValueRelation(Graph graph, ContextNode contextNode, KeyValueStore keyValueStore, String key, XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
 
 		super(graph, contextNode);
 
@@ -24,7 +24,7 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 		this.key = key;
 
 		this.arcXri = arcXri;
-		this.relationXri = relationXri;
+		this.targetContextNodeXri = targetContextNodeXri;
 	}
 
 	@Override
@@ -34,9 +34,9 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 	}
 
 	@Override
-	public XRI3Segment getRelationXri() {
+	public XRI3Segment getTargetContextNodeXri() {
 
-		return this.relationXri;
+		return this.targetContextNodeXri;
 	}
 
 	/*

@@ -248,7 +248,7 @@ public class XDIHttpClient implements XDIClient {
 
 		http.disconnect();
 
-		if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
+		if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 
 		// see if it is an error message result
 

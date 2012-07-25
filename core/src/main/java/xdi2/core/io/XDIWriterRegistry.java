@@ -84,11 +84,11 @@ public final class XDIWriterRegistry {
 
 			String format = writer.getFormat();
 			String fileExtension = writer.getFileExtension();
-			MimeType[] mimeTypes = writer.getMimeTypes();
+			MimeType mimeType = writer.getMimeType();
 
 			if (format != null) writerClassesByFormat.put(format, writerClass);
 			if (fileExtension != null) writerClassesByFileExtension.put(fileExtension, writerClass);
-			if (mimeTypes != null) for (MimeType mimeType : mimeTypes) writerClassesByMimeType.put(mimeType, writerClass);
+			if (mimeType != null) writerClassesByMimeType.put(mimeType, writerClass);
 		}
 
 		defaultWriterClass = writerClasses.get(0);
@@ -127,30 +127,6 @@ public final class XDIWriterRegistry {
 	}
 
 	/**
-	 * Returns an XDIWriter for the specified mime type, e.g.
-	 * <ul>
-	 * <li>application/xdi+json</li>
-	 * <li>text/xdi</li>
-	 * </ul>
-	 * @param mimeType The desired mime type.
-	 * @return An XDIWriter, or null if no appropriate implementation could be found.
-	 */
-	public static XDIWriter forMimeType(MimeType mimeType) {
-
-		Class<XDIWriter> writerClass = writerClassesByMimeType.get(mimeType);
-		if (writerClass == null) return null;
-
-		try {
-
-			Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
-			return constructor.newInstance(mimeType.getParameters());
-		} catch (Exception ex) {
-
-			throw new RuntimeException(ex);
-		}
-	}
-
-	/**
 	 * Returns an XDIWriter for the specified file extension, e.g.
 	 * <ul>
 	 * <li>.json</li>
@@ -168,6 +144,30 @@ public final class XDIWriterRegistry {
 
 			Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
 			return constructor.newInstance(parameters);
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/**
+	 * Returns an XDIWriter for the specified mime type, e.g.
+	 * <ul>
+	 * <li>application/xdi+json</li>
+	 * <li>text/xdi</li>
+	 * </ul>
+	 * @param mimeType The desired mime type.
+	 * @return An XDIWriter, or null if no appropriate implementation could be found.
+	 */
+	public static XDIWriter forMimeType(MimeType mimeType) {
+
+		Class<XDIWriter> writerClass = writerClassesByMimeType.get(mimeType.mimeTypeWithoutParameters());
+		if (writerClass == null) return null;
+
+		try {
+
+			Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
+			return constructor.newInstance(mimeType.getParameters());
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);

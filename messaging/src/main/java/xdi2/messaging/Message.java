@@ -138,7 +138,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		Relation toGraphXriRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_GRAPH);
 		if (toGraphXriRelation == null) return null;
 
-		return toGraphXriRelation.getRelationXri();
+		return toGraphXriRelation.getTargetContextNodeXri();
 	}
 
 	/**
@@ -159,7 +159,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		Relation linkContractRelation = this.getContextNode().getRelation(XDILinkContractConstants.XRI_S_DO);
 		if (linkContractRelation == null) return null;
 
-		return linkContractRelation.getRelationXri();
+		return linkContractRelation.getTargetContextNodeXri();
 	}
 
 	/**

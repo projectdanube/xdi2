@@ -22,7 +22,7 @@ public class XDIDisplayReader extends AbstractXDIReader {
 
 	public static final String FORMAT_NAME = "XDI DISPLAY";
 	public static final String FILE_EXTENSION = "xdi";
-	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0"), new MimeType("text/xdi;contexts=1") };
+	public static final MimeType MIME_TYPE = new MimeType("text/xdi");
 
 	public XDIDisplayReader(Properties parameters) {
 

@@ -33,12 +33,12 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationXriAndStatement(XDIMessagingConstants.XRI_S_ADD, "=markus/+friend/=giovanni");
 		MessageResult messageResult1 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope1, messageResult1, null);
-		assertEquals(graph.findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")).getRelationXri(), new XRI3Segment("=giovanni"));
+		assertEquals(graph.findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")).getTargetContextNodeXri(), new XRI3Segment("=giovanni"));
 
 		MessageEnvelope messageEnvelope2 = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_GET, new XRI3Segment("=markus"));
 		MessageResult messageResult2 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope2, messageResult2, null);
-		assertEquals(messageResult2.getGraph().findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")).getRelationXri(), new XRI3Segment("=giovanni"));
+		assertEquals(messageResult2.getGraph().findRelation(new XRI3Segment("=markus"), new XRI3Segment("+friend")).getTargetContextNodeXri(), new XRI3Segment("=giovanni"));
 	}
 
 	public void testGraphMessagingTarget() throws Exception {

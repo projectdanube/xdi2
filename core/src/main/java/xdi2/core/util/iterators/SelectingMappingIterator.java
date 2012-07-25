@@ -17,7 +17,9 @@ public abstract class SelectingMappingIterator<I, O> extends ReadOnlyIterator<O>
 	protected O nextElement;
 
 	public SelectingMappingIterator(Iterator<I> iterator) {
-		
+
+		this.iterator = iterator;
+
 		this.lookahead();
 	}
 

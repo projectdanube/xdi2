@@ -39,6 +39,13 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 		this.parameters = parameters;
 	}
 
+	public MimeType mimeTypeWithoutParameters() {
+
+		String mimeType = this.getMimeType();
+
+		return new MimeType(mimeType, null);
+	}
+
 	public MimeType mimeTypeWithoutQuality() {
 
 		String mimeType = this.getMimeType();

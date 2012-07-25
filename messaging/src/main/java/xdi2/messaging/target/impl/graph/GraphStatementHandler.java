@@ -107,7 +107,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 
 				Relation relation = relations.next();
 
-				if (isRelationXriVariable || relationStatement.getObject().equals(relation.getRelationXri())) {
+				if (isRelationXriVariable || relationStatement.getObject().equals(relation.getTargetContextNodeXri())) {
 
 					CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
 				}

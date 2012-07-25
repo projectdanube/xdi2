@@ -123,11 +123,15 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized void deleteContextNode(XRI3SubSegment arcXri) {
 
+		// delete incoming relations
+
 		ContextNode contextNode = this.getContextNode(arcXri);
 		if (contextNode == null) return;
 
 		for (Iterator<Relation> relations = contextNode.getIncomingRelations(); relations.hasNext(); ) 
 			relations.next().delete();
+
+		// delete this context node
 
 		String contextNodesKey = this.getContextNodesKey();
 
@@ -136,6 +140,14 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 	@Override
 	public synchronized void deleteContextNodes() {
+
+		// delete incoming relations
+
+		for (Iterator<ContextNode> contextNodes = this.getContextNodes(); contextNodes.hasNext(); )
+			for (Iterator<Relation> relations = contextNodes.next().getIncomingRelations(); relations.hasNext(); ) 
+				relations.next().delete();
+
+		// delete context nodes
 
 		String contextNodesKey = this.getContextNodesKey();
 
@@ -155,42 +167,38 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	 */
 
 	@Override
-	public synchronized Relation createRelation(XRI3Segment arcXri, ContextNode contextNode) {
+	public synchronized Relation createRelation(XRI3Segment arcXri, ContextNode targetContextNode) {
 
 		if (arcXri == null) throw new NullPointerException();
-		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
 
-		XRI3Segment relationXri = contextNode.getXri();
+		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
 
-		if (this.containsRelation(arcXri, relationXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
+		if (this.containsRelation(arcXri, targetContextNodeXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNodeXri + ".");
+
+		this.getGraph().findContextNode(targetContextNodeXri, true);
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
 
 		this.keyValueStore.put(relationsKey, arcXri.toString());
-		this.keyValueStore.put(relationKey, relationXri.toString());
+		this.keyValueStore.put(relationKey, targetContextNodeXri.toString());
 
-		KeyValueRelation relation = new KeyValueRelation(this.getGraph(), this, this.keyValueStore, relationKey, arcXri, relationXri);
+		KeyValueRelation relation = new KeyValueRelation(this.getGraph(), this, this.keyValueStore, relationKey, arcXri, targetContextNodeXri);
 
 		return relation;
 	}
 
 	@Override
-	public Relation getRelation(XRI3Segment arcXri, ContextNode contextNode) {
-
-		return this.getRelation(arcXri, contextNode.getXri());
-	}
-
-	@Override
-	public Relation getRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
-
+	public Relation getRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
+		
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
 
 		if (! this.keyValueStore.contains(relationsKey, arcXri.toString())) return null;
-		if (! this.keyValueStore.contains(relationKey, relationXri.toString())) return null;
+		if (! this.keyValueStore.contains(relationKey, targetContextNodeXri.toString())) return null;
 
-		return new KeyValueRelation(this.getGraph(), this, this.keyValueStore, relationKey, arcXri, relationXri);
+		return new KeyValueRelation(this.getGraph(), this, this.keyValueStore, relationKey, arcXri, targetContextNodeXri);
 	}
 
 	@Override
@@ -254,12 +262,12 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
 
-		return this.keyValueStore.contains(relationsKey, arcXri.toString()) && this.keyValueStore.contains(relationKey, relationXri.toString());
+		return this.keyValueStore.contains(relationsKey, arcXri.toString()) && this.keyValueStore.contains(relationKey, targetContextNodeXri.toString());
 	}
 
 	@Override
@@ -280,18 +288,12 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized void deleteRelation(XRI3Segment arcXri, ContextNode contextNode) {
-
-		this.deleteRelation(arcXri, contextNode.getXri());
-	}
-
-	@Override
-	public synchronized void deleteRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+	public synchronized void deleteRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
 
-		this.keyValueStore.delete(relationKey, relationXri.toString());
+		this.keyValueStore.delete(relationKey, targetContextNodeXri.toString());
 
 		if (! this.keyValueStore.contains(relationKey)) {
 

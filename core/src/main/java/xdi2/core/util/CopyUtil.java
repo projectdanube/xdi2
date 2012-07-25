@@ -69,7 +69,7 @@ public final class CopyUtil {
 
 		XRI3Segment parentContextNodeXri = relation.getContextNode().getXri();
 		ContextNode targetParentContextNode = targetGraph.findContextNode(parentContextNodeXri, true);
-		Relation targetRelation = targetParentContextNode.createRelation(relation.getArcXri(), relation.getRelationXri());
+		Relation targetRelation = targetParentContextNode.createRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
 
 		return targetRelation;
 	}
@@ -150,7 +150,7 @@ public final class CopyUtil {
 			Relation relation = relations.next();
 			if ((relation = copyStrategy.replaceRelation(relation)) == null) continue;
 
-			targetContextNode.createRelation(relation.getArcXri(), relation.getRelationXri());
+			targetContextNode.createRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
 		}
 
 		return targetContextNode.getRelations();

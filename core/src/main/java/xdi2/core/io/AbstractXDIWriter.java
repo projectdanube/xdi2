@@ -68,11 +68,11 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 	}
 
 	@Override
-	public final MimeType[] getMimeTypes() {
+	public final MimeType getMimeType() {
 
-		MimeType[] mimeTypes = (MimeType[]) getFieldValue("MIME_TYPES");
+		MimeType mimeType = (MimeType) getFieldValue("MIME_TYPE");
 
-		return mimeTypes;
+		return mimeType;
 	}
 
 	@Override
@@ -90,11 +90,6 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 	@Override
 	public boolean supportsMimeType(MimeType mimeType) {
 
-		for (MimeType thisMimeType : this.getMimeTypes()) {
-
-			if (thisMimeType.equals(mimeType)) return true;
-		}
-
-		return false;
+		return this.getMimeType().equals(mimeType.mimeTypeWithoutParameters());
 	}
 }

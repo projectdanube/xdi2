@@ -32,7 +32,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 	public static final String FORMAT_NAME = "XDI/JSON";
 	public static final String FILE_EXTENSION = "json";
-	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1") };
+	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
 
 	private boolean writeContexts;
 
@@ -71,9 +71,12 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 				needWriteContextStatements = new SelectingIterator<ContextNode> (contextNode.getContextNodes()) {
 
 					@Override
-					public boolean select(ContextNode item) {
+					public boolean select(ContextNode contextNode) {
 
-						return item.isEmpty();
+						if (! contextNode.isEmpty()) return false;
+						if (contextNode.getIncomingRelations().hasNext()) return false;
+
+						return true;
 					}
 				};
 			}
@@ -127,7 +130,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 			for (int i=0; i<relationsList.size(); i++) {
 
-				bufferedWriter.write("\"" + relationsList.get(i).getRelationXri() + "\"");
+				bufferedWriter.write("\"" + relationsList.get(i).getTargetContextNodeXri() + "\"");
 				if (i < relationsList.size() - 1) bufferedWriter.write(", ");
 			}
 

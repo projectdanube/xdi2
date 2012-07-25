@@ -104,11 +104,15 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	@Override
 	public synchronized void deleteContextNode(XRI3SubSegment arcXri) {
 
+		// delete incoming relations
+
 		ContextNode contextNode = this.getContextNode(arcXri);
 		if (contextNode == null) return;
 
 		for (Iterator<Relation> relations = contextNode.getIncomingRelations(); relations.hasNext(); ) 
 			relations.next().delete();
+
+		// delete this context node
 
 		this.contextNodes.remove(arcXri);
 	}
@@ -116,15 +120,15 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	@Override
 	public synchronized void deleteContextNodes() {
 
-		for (Iterator<ContextNode> contextNodes = this.getContextNodes(); contextNodes.hasNext(); ) {
+		// delete incoming relations
 
-			ContextNode contextNode = contextNodes.next();
-
-			for (Iterator<Relation> relations = contextNode.getIncomingRelations(); relations.hasNext(); ) 
+		for (Iterator<ContextNode> contextNodes = this.getContextNodes(); contextNodes.hasNext(); )
+			for (Iterator<Relation> relations = contextNodes.next().getIncomingRelations(); relations.hasNext(); ) 
 				relations.next().delete();
 
-			contextNodes.remove();
-		}
+		// delete context nodes
+
+		this.contextNodes.clear();
 	}
 
 	/*
@@ -132,22 +136,22 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 */
 
 	@Override
-	public synchronized Relation createRelation(XRI3Segment arcXri, ContextNode contextNode) {
+	public synchronized Relation createRelation(XRI3Segment arcXri, ContextNode targetContextNode) {
 
 		if (arcXri == null) throw new NullPointerException();
-		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
 
-		XRI3Segment relationXri = contextNode.getXri();
+		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
 
-		if (this.containsRelation(arcXri, contextNode)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + relationXri + ".");
+		if (this.containsRelation(arcXri, targetContextNodeXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) {
 
-			if (((MemoryGraph) this.graph).getSortMode() == MemoryGraphFactory.SORTMODE_ALPHA) {
+			if (((MemoryGraph) this.getGraph()).getSortMode() == MemoryGraphFactory.SORTMODE_ALPHA) {
 
 				relations = new TreeMap<XRI3Segment, MemoryRelation> ();
-			} else if (((MemoryGraph) this.graph).getSortMode() == MemoryGraphFactory.SORTMODE_ORDER) {
+			} else if (((MemoryGraph) this.getGraph()).getSortMode() == MemoryGraphFactory.SORTMODE_ORDER) {
 
 				relations = new LinkedHashMap<XRI3Segment, MemoryRelation> ();
 			} else {
@@ -158,25 +162,19 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 			this.relations.put(arcXri, relations);
 		}
 
-		MemoryRelation relation = new MemoryRelation(this.getGraph(), this, arcXri, relationXri);
-		relations.put(relationXri, relation);
+		MemoryRelation relation = new MemoryRelation(this.getGraph(), this, arcXri, targetContextNodeXri);
+		relations.put(targetContextNodeXri, relation);
 
 		return relation;
 	}
 
 	@Override
-	public Relation getRelation(XRI3Segment arcXri, ContextNode contextNode) {
-
-		return this.getRelation(arcXri, contextNode.getXri());
-	}
-
-	@Override
-	public Relation getRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+	public Relation getRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) return null;
 
-		return relations.get(relationXri);
+		return relations.get(targetContextNodeXri);
 	}
 
 	@Override
@@ -204,18 +202,12 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public boolean containsRelation(XRI3Segment arcXri, ContextNode contextNode) {
-
-		return this.containsRelation(arcXri, contextNode.getXri());
-	}
-
-	@Override
-	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) return false;
 
-		return relations.containsKey(relationXri);
+		return relations.containsKey(targetContextNodeXri);
 	}
 
 	@Override
@@ -231,18 +223,12 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public synchronized void deleteRelation(XRI3Segment arcXri, ContextNode contextNode) {
-
-		this.deleteRelation(arcXri, contextNode.getXri());
-	}
-
-	@Override
-	public synchronized void deleteRelation(XRI3Segment arcXri, XRI3Segment relationXri) {
+	public synchronized void deleteRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) return;
 
-		relations.remove(relationXri);
+		relations.remove(targetContextNodeXri);
 
 		if (relations.isEmpty()) {
 

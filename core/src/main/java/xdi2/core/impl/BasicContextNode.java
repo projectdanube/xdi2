@@ -58,7 +58,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public Relation createRelation(XRI3Segment arcXri, ContextNode contextNode) {
+	public Relation createRelation(XRI3Segment arcXri, ContextNode targetContextNode) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -70,7 +70,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void deleteRelation(XRI3Segment arcXri, ContextNode contextNode) {
+	public void deleteRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}

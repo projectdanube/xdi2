@@ -501,9 +501,9 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		try {
 
-			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
+			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 			messagingTarget.execute(messageEnvelope, messageResult, executionContext);
-			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
+			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 		} catch (Exception ex) {
 
 			log.error("Exception: " + ex.getMessage(), ex);
@@ -538,7 +538,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
 		writer.write(messageResult.getGraph(), buffer);
-		response.setContentType(writer.getMimeTypes()[0].toString());
+		response.setContentType(writer.getMimeType().toString());
 		response.setContentLength(buffer.size());
 
 		if (buffer.size() > 0) {
@@ -566,7 +566,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		ErrorMessageResult errorMessageResult = ErrorMessageResult.fromException(ex);
 
-		if (log.isDebugEnabled()) log.debug("ErrorMessageResult: " + errorMessageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat()));
+		if (log.isDebugEnabled()) log.debug("ErrorMessageResult: " + errorMessageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 
 		sendResult(errorMessageResult, request, response);
 	}

@@ -82,7 +82,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		log.trace("beginTransaction()");
 
 		if (this.transaction != null) throw new Xdi2RuntimeException("Already have an open transaction.");
-		
+
 		log.debug("Beginning Transaction...");
 
 		try {
@@ -138,7 +138,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	public void put(String key, String value) {
 
 		log.trace("put(" + key + "," + value + ")");
-		
+
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry(value.getBytes());
 
@@ -284,7 +284,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	@Override
 	public void delete(String key, String value) {
 
-		log.trace("delete(" + key + "," + value + ")");
+		log.info("delete(" + key + "," + value + ")");
 
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry(value.getBytes());
@@ -296,14 +296,24 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 		try {
 
-			cursor = this.database.openCursor(transaction, null);
-			cursor.getSearchBoth(dbKey, dbValue, null);
+			OperationStatus status;
 
-			OperationStatus status = cursor.delete();
+			cursor = this.database.openCursor(transaction, null);
+
+			status = cursor.getSearchBoth(dbKey, dbValue, null);
+			if (status.equals(OperationStatus.NOTFOUND)) {
+
+				cursor.close();
+				if (this.transaction == null) transaction.commit();
+				return;
+			}
+			if (! status.equals(OperationStatus.SUCCESS)) throw new Xdi2RuntimeException();
+
+			status = cursor.delete();
 			if (! status.equals(OperationStatus.SUCCESS)) throw new Xdi2RuntimeException();
 
 			cursor.close();
-			
+
 			if (this.transaction == null) transaction.commit();
 		} catch (Exception ex) {
 

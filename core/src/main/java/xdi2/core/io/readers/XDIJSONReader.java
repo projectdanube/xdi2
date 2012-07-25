@@ -32,7 +32,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	public static final String FORMAT_NAME = "XDI/JSON";
 	public static final String FILE_EXTENSION = "json";
-	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("application/xdi+json"), new MimeType("application/xdi+json;contexts=0"), new MimeType("application/xdi+json;contexts=1") };
+	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
 
 	public XDIJSONReader(Properties parameters) {
 
@@ -41,7 +41,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	@Override
 	protected void init() {
-		
+
 	}
 
 	public void read(Graph graph, JSONObject graphObject, State state) throws IOException, Xdi2ParseException, JSONException {
@@ -97,10 +97,10 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				for (int i=0; i<value.length(); i++) {
 
-					XRI3Segment relationXri = makeXRI3Segment(value.getString(i), state);
+					XRI3Segment targetContextNodeXri = makeXRI3Segment(value.getString(i), state);
 
-					Relation relation = contextNode.createRelation(arcXri, relationXri);
-					if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getRelationXri());
+					Relation relation = contextNode.createRelation(arcXri, targetContextNodeXri);
+					if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 				}
 			}
 		}
@@ -123,7 +123,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 	public Reader read(Graph graph, Reader reader) throws IOException, Xdi2ParseException {
 
 		State state = new State();
-		
+
 		try {
 
 			this.read(graph, new BufferedReader(reader), state);
@@ -145,7 +145,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 		private String lastXriString;
 	}
-	
+
 	private static XRI3Segment makeXRI3Segment(String xriString, State state) {
 
 		state.lastXriString = xriString;

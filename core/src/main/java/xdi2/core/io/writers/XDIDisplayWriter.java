@@ -11,6 +11,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
@@ -34,7 +35,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	public static final String FORMAT_NAME = "XDI DISPLAY";
 	public static final String FILE_EXTENSION = "xdi";
-	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/xdi"), new MimeType("text/xdi;contexts=0"), new MimeType("text/xdi;contexts=1") };
+	public static final MimeType MIME_TYPE = new MimeType("text/xdi");
 
 	private static final String HTML_COLOR_CONTEXTNODE = "#000000";
 	private static final String HTML_COLOR_RELATION = "#ff8888";
@@ -96,11 +97,12 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			// ignore implied context nodes
 
-			if ((! this.writeContextStatements) &&
-					(statement instanceof ContextNodeStatement) &&
-					(! ((ContextNodeStatement) statement).getContextNode().isEmpty())) {
+			if ((! this.writeContextStatements) && (statement instanceof ContextNodeStatement)) {
 
-				continue;
+				ContextNode contextNode = ((ContextNodeStatement) statement).getContextNode();
+
+				if (! contextNode.isEmpty()) continue;
+				if (contextNode.getIncomingRelations().hasNext()) continue;
 			}
 
 			// HTML output

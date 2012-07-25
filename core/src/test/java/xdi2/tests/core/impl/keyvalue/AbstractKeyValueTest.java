@@ -32,6 +32,8 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		assertEquals(new IteratorCounter(keyValueStore.getAll("c")).count(), 1);
 
 		keyValueStore.delete("a");
+		keyValueStore.delete("a");
+		keyValueStore.delete("c", "d");
 		keyValueStore.delete("c", "d");
 
 		assertNull(keyValueStore.getOne("a"));

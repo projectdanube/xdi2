@@ -201,7 +201,7 @@ public final class LinkContract implements Serializable,
 		}
 		if (status) {
 			contextNode.deleteRelation(XDILinkContractConstants.XRI_S_IS_DO,
-					r.getRelationXri());
+					r.getTargetContextNodeXri());
 		}
 		return status;
 	}
@@ -381,7 +381,7 @@ public final class LinkContract implements Serializable,
 			}
 		}
 		if (status) {
-			contextNode.deleteRelation(r.getArcXri(), r.getRelationXri());
+			contextNode.deleteRelation(r.getArcXri(), r.getTargetContextNodeXri());
 		}
 		return status;
 

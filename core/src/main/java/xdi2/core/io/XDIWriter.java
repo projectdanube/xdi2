@@ -53,14 +53,14 @@ public interface XDIWriter extends Serializable {
 	public String getFileExtension();
 
 	/**
-	 * Returns the mime types this XDIWriter can write, e.g.
+	 * Returns the mime type this XDIWriter can write, e.g.
 	 * <ul>
 	 * <li>text/plain</li>
 	 * <li>application/xdi+json</li>
 	 * </ul>
-	 * @return The mime types of this XDIWriter.
+	 * @return The mime type of this XDIWriter.
 	 */
-	public MimeType[] getMimeTypes();
+	public MimeType getMimeType();
 
 	/**
 	 * Checks if a given format is supported.

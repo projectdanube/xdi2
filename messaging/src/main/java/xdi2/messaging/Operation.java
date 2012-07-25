@@ -126,7 +126,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public XRI3Segment getTarget() {
 
-		return this.getRelation().getRelationXri();
+		return this.getRelation().getTargetContextNodeXri();
 	}
 
 	/**

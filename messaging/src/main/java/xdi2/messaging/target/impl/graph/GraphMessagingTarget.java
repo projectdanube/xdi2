@@ -52,7 +52,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 		Relation relation = this.getGraph().getRootContextNode().getRelation(XDIDictionaryConstants.XRI_S_IS_IS);
 		if (relation == null) return null;
 
-		return relation.getRelationXri();
+		return relation.getTargetContextNodeXri();
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package xdi2.core;
 import java.io.Serializable;
 import java.util.Properties;
 
+import xdi2.core.io.MimeType;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 
@@ -85,15 +86,15 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	/**
 	 * Converts the graph to a string in the given serialization format.
 	 * @param format The serialization format.
-	 */
-	public String toString(String format);
-
-	/**
-	 * Converts the graph to a string in the given serialization format.
-	 * @param format The serialization format.
 	 * @param parameters Parameters for the serialization.
 	 */
 	public String toString(String format, Properties parameters);
+
+	/**
+	 * Converts the graph to a string in the given MIME type.
+	 * @param mimeType The MIME type.
+	 */
+	public String toString(MimeType mimeType);
 
 	/*
 	 * Methods related to statements

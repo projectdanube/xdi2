@@ -1,6 +1,17 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-07-25:
+------------------------
+
+*** The method getRelationXri() has been renamed to getTargetContextNodeXri().
+
+*** Up until now, it was theoretically possible to have relational arcs that point to a context node that doesn't exist. This is not possible anymore.
+
+*** When a context node is deleted, all the relational arcs pointing to it are deleted as well.
+
+*** There is a new method ContextNode.getIncomingRelations() that returns all relational arcs in the graph that point to the context node.
+
 2012-07-19:
 ------------------------
 

@@ -16,6 +16,7 @@ import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.XDIUtil;
@@ -76,17 +77,30 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
-	public String toString(String format) {
-
-		return this.toString(format, null);
-	}
-
-	@Override
 	public String toString(String format, Properties parameters) {
 
 		if (format == null) format = XDIWriterRegistry.getDefault().getFormat();
 
 		XDIWriter writer = XDIWriterRegistry.forFormat(format, parameters);
+		StringWriter buffer = new StringWriter();
+
+		try {
+
+			writer.write(this, buffer);
+		} catch (IOException ex) {
+
+			return "[Exception: " + ex.getMessage() + "]";
+		}
+
+		return buffer.toString();
+	}
+
+	@Override
+	public String toString(MimeType mimeType) {
+
+		if (mimeType == null) throw new NullPointerException();
+
+		XDIWriter writer = XDIWriterRegistry.forMimeType(mimeType);
 		StringWriter buffer = new StringWriter();
 
 		try {
@@ -128,7 +142,7 @@ public abstract class AbstractGraph implements Graph {
 		} else if (statement instanceof RelationStatement) {
 
 			Relation relation = contextNode.createRelation(predicate, object);
-			if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getRelationXri());
+			if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 
 			return relation.getStatement();
 		} else {
@@ -174,21 +188,17 @@ public abstract class AbstractGraph implements Graph {
 
 		Graph other = (Graph) object;
 
-		// two graphs are equal if all statements in one graph also exist in the other graph
+		// TODO: do this without serializing to string
 
-		// TODO
-
-		return other == this;
+		return this.toString(new MimeType("text/xdi;contexts=1;ordered=1")).equals(other.toString(new MimeType("text/xdi;contexts=1;ordered=1")));
 	}
 
 	@Override
 	public int hashCode() {
 
-		int hashCode = 1;
+		// TODO: do this without serializing to string
 
-		// TODO
-
-		return hashCode;
+		return this.toString(new MimeType("text/xdi;contexts=1;ordered=1")).hashCode();
 	}
 
 	@Override
@@ -196,8 +206,8 @@ public abstract class AbstractGraph implements Graph {
 
 		if (other == null || other == this) return 0;
 
-		// TODO
+		// TODO: do this without serializing to string
 
-		return 0;
+		return this.toString(new MimeType("text/xdi;contexts=1;ordered=1")).compareTo(other.toString(new MimeType("text/xdi;contexts=1;ordered=1")));
 	}
 }

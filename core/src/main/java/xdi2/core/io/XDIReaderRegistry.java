@@ -72,11 +72,11 @@ public final class XDIReaderRegistry {
 
 			String format = reader.getFormat();
 			String fileExtension = reader.getFileExtension();
-			MimeType[] mimeTypes = reader.getMimeTypes();
+			MimeType mimeType = reader.getMimeType();
 
 			if (format != null) readerClassesByFormat.put(format, readerClass);
 			if (fileExtension != null) readerClassesByFileExtension.put(fileExtension, readerClass);
-			if (mimeTypes != null) for (MimeType mimeType : mimeTypes) readerClassesByMimeType.put(mimeType, readerClass);
+			if (mimeType != null) readerClassesByMimeType.put(mimeType, readerClass);
 		}
 	}
 
@@ -114,30 +114,6 @@ public final class XDIReaderRegistry {
 	}
 
 	/**
-	 * Returns an XDIReader for the specified mime type, e.g.
-	 * <ul>
-	 * <li>application/xdi+json</li>
-	 * <li>text/xdi</li>
-	 * </ul>
-	 * @param mimeType The desired mime type.
-	 * @return An XDIReader, or null if no appropriate implementation could be found.
-	 */
-	public static XDIReader forMimeType(MimeType mimeType) {
-
-		Class<XDIReader> readerClass = readerClassesByMimeType.get(mimeType);
-		if (readerClass == null) return null;
-
-		try {
-
-			Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
-			return constructor.newInstance(mimeType.getParameters());
-		} catch (Exception ex) {
-
-			throw new RuntimeException(ex);
-		}
-	}
-
-	/**
 	 * Returns an XDIReader for the specified file extension, e.g.
 	 * <ul>
 	 * <ul>
@@ -157,6 +133,30 @@ public final class XDIReaderRegistry {
 
 			Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
 			return constructor.newInstance(parameters);
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/**
+	 * Returns an XDIReader for the specified mime type, e.g.
+	 * <ul>
+	 * <li>application/xdi+json</li>
+	 * <li>text/xdi</li>
+	 * </ul>
+	 * @param mimeType The desired mime type.
+	 * @return An XDIReader, or null if no appropriate implementation could be found.
+	 */
+	public static XDIReader forMimeType(MimeType mimeType) {
+
+		Class<XDIReader> readerClass = readerClassesByMimeType.get(mimeType.mimeTypeWithoutParameters());
+		if (readerClass == null) return null;
+
+		try {
+
+			Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
+			return constructor.newInstance(mimeType.getParameters());
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex);

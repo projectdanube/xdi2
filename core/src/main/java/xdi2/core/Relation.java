@@ -35,21 +35,22 @@ public interface Relation extends Serializable, Comparable<Relation> {
 	public void delete();
 
 	/**
-	 * Follows the relation to the context node it points to.
-	 */
-	public ContextNode follow();
-
-	/**
 	 * Every relation has an associated arc XRI.
 	 * @return The arc XRI associated with the relation.
 	 */
 	public XRI3Segment getArcXri();
 
 	/**
-	 * Get the relation XRI.
-	 * @return The relation XRI associated with the relation.
+	 * Get the target context node XRI.
+	 * @return The target context node XRI of the relation.
 	 */
-	public XRI3Segment getRelationXri();
+	public XRI3Segment getTargetContextNodeXri();
+
+	/**
+	 * Follows the relation to the target context node.
+	 * @return The target context node of the relation.
+	 */
+	public ContextNode follow();
 
 	/*
 	 * Methods related to statements

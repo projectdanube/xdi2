@@ -11,7 +11,7 @@ public class XDIHTMLWriter extends XDIDisplayWriter {
 
 	public static final String FORMAT_NAME = "HTML";
 	public static final String FILE_EXTENSION = "html";
-	public static final MimeType[] MIME_TYPES = new MimeType[] { new MimeType("text/html") };
+	public static final MimeType MIME_TYPE = new MimeType("text/html");
 
 	public XDIHTMLWriter(Properties parameters) {
 

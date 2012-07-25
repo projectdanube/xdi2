@@ -52,14 +52,14 @@ public interface XDIReader extends Serializable {
 	public String getFileExtension();
 
 	/**
-	 * Returns the mime types this XDIReader can read, e.g.
+	 * Returns the mime type this XDIReader can read, e.g.
 	 * <ul>
 	 * <li>text/plain</li>
 	 * <li>application/xdi+json</li>
 	 * </ul>
-	 * @return The mime types of this XDIReader.
+	 * @return The mime type of this XDIReader.
 	 */
-	public MimeType[] getMimeTypes();
+	public MimeType getMimeType();
 
 	/**
 	 * Checks if a given format is supported.
