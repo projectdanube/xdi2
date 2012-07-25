@@ -16,6 +16,7 @@ import xdi2.core.impl.AbstractContextNode;
 import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -83,9 +84,9 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public Iterator<ContextNode> getContextNodes() {
+	public ReadOnlyIterator<ContextNode> getContextNodes() {
 
-		return new CastingIterator<MemoryContextNode, ContextNode> (this.contextNodes.values().iterator());
+		return new ReadOnlyIterator<ContextNode> (new CastingIterator<MemoryContextNode, ContextNode> (this.contextNodes.values().iterator()));
 	}
 
 	@Override
@@ -103,13 +104,27 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	@Override
 	public synchronized void deleteContextNode(XRI3SubSegment arcXri) {
 
+		ContextNode contextNode = this.getContextNode(arcXri);
+		if (contextNode == null) return;
+
+		for (Iterator<Relation> relations = contextNode.getIncomingRelations(); relations.hasNext(); ) 
+			relations.next().delete();
+
 		this.contextNodes.remove(arcXri);
 	}
 
 	@Override
 	public synchronized void deleteContextNodes() {
 
-		this.contextNodes.clear();
+		for (Iterator<ContextNode> contextNodes = this.getContextNodes(); contextNodes.hasNext(); ) {
+
+			ContextNode contextNode = contextNodes.next();
+
+			for (Iterator<Relation> relations = contextNode.getIncomingRelations(); relations.hasNext(); ) 
+				relations.next().delete();
+
+			contextNodes.remove();
+		}
 	}
 
 	/*
@@ -165,16 +180,16 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public Iterator<Relation> getRelations(XRI3Segment arcXri) {
+	public ReadOnlyIterator<Relation> getRelations(XRI3Segment arcXri) {
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) return new EmptyIterator<Relation> ();
 
-		return new CastingIterator<MemoryRelation, Relation> (relations.values().iterator());
+		return new ReadOnlyIterator<Relation> (new CastingIterator<MemoryRelation, Relation> (relations.values().iterator()));
 	}
 
 	@Override
-	public Iterator<Relation> getRelations() {
+	public ReadOnlyIterator<Relation> getRelations() {
 
 		Iterator<MemoryRelation> descendingIterator = new DescendingIterator<Entry<XRI3Segment, Map<XRI3Segment, MemoryRelation>>, MemoryRelation> (this.relations.entrySet().iterator()) {
 
@@ -185,7 +200,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 			}
 		};
 
-		return new CastingIterator<MemoryRelation, Relation> (descendingIterator);
+		return new ReadOnlyIterator<Relation> (new CastingIterator<MemoryRelation, Relation> (descendingIterator));
 	}
 
 	@Override

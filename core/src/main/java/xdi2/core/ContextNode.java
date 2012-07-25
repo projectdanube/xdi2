@@ -1,8 +1,8 @@
 package xdi2.core;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -103,19 +103,19 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Returns the context nodes of this context node.
 	 * @return An iterator over context nodes.
 	 */
-	public Iterator<ContextNode> getContextNodes();
+	public ReadOnlyIterator<ContextNode> getContextNodes();
 
 	/**
 	 * Returns all context nodes of this context node.
 	 * @return An iterator over context nodes.
 	 */
-	public Iterator<ContextNode> getAllContextNodes();
+	public ReadOnlyIterator<ContextNode> getAllContextNodes();
 
 	/**
 	 * Returns all leaf context nodes of this context node.
 	 * @return An iterator over leaf context nodes.
 	 */
-	public Iterator<ContextNode> getAllLeafContextNodes();
+	public ReadOnlyIterator<ContextNode> getAllLeafContextNodes();
 
 	/**
 	 * Finds a context node at any depth under this context node.
@@ -209,19 +209,25 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI to look for. 
 	 * @return The relations with the given arc XRI, or null.
 	 */
-	public Iterator<Relation> getRelations(XRI3Segment arcXri);
+	public ReadOnlyIterator<Relation> getRelations(XRI3Segment arcXri);
 
 	/**
 	 * Returns the relations of this context node.
 	 * @return An iterator over relations.
 	 */
-	public Iterator<Relation> getRelations();
+	public ReadOnlyIterator<Relation> getRelations();
+
+	/**
+	 * Returns the incoming relations of this context node.
+	 * @return An iterator over relations.
+	 */
+	public ReadOnlyIterator<Relation> getIncomingRelations();
 
 	/**
 	 * Returns all relations of this context node.
 	 * @return An iterator over relations.
 	 */
-	public Iterator<Relation> getAllRelations();
+	public ReadOnlyIterator<Relation> getAllRelations();
 
 	/**
 	 * Finds a relation at any depth under this context node.
@@ -237,7 +243,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI of the relations.
 	 * @return An iterator over relations.
 	 */
-	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri);
+	public ReadOnlyIterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri);
 
 	/**
 	 * Checks if a relation with a given arc XRI exists in this context node.
@@ -348,7 +354,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Returns all literals of this context node.
 	 * @return An iterator over literals.
 	 */
-	public Iterator<Literal> getAllLiterals();
+	public ReadOnlyIterator<Literal> getAllLiterals();
 
 	/**
 	 * Finds a literal at any depth under this context node.
@@ -395,7 +401,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Gets all statements rooted in this context node.
 	 * @return An iterator over statements.
 	 */
-	public Iterator<Statement> getAllStatements();
+	public ReadOnlyIterator<Statement> getAllStatements();
 
 	/**
 	 * Returns the number of all statements of this context node.

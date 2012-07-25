@@ -9,6 +9,7 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
@@ -235,7 +236,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns all XDI operations in this XDI message.
 	 * @return An iterator over all XDI operations.
 	 */
-	public Iterator<Operation> getOperations() {
+	public ReadOnlyIterator<Operation> getOperations() {
 
 		// look for valid relations
 
@@ -261,7 +262,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns all XDI operations with a given operation XRI in this XDI message.
 	 * @return An iterator over all XDI operations.
 	 */
-	public Iterator<Operation> getOperations(XRI3Segment operationXri) {
+	public ReadOnlyIterator<Operation> getOperations(XRI3Segment operationXri) {
 
 		// look for valid relations
 
@@ -287,7 +288,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns all XDI $get operations in this XDI message.
 	 * @return An iterator over all XDI $get operations.
 	 */
-	public Iterator<GetOperation> getGetOperations() {
+	public ReadOnlyIterator<GetOperation> getGetOperations() {
 
 		// look for valid relations
 
@@ -313,7 +314,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns all XDI $add operations in this XDI message.
 	 * @return An iterator over all XDI $add operations.
 	 */
-	public Iterator<AddOperation> getAddOperations() {
+	public ReadOnlyIterator<AddOperation> getAddOperations() {
 
 		// look for valid relations
 
@@ -339,7 +340,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns all XDI $mod operations in this XDI message.
 	 * @return An iterator over all XDI $mod operations.
 	 */
-	public Iterator<ModOperation> getModOperations() {
+	public ReadOnlyIterator<ModOperation> getModOperations() {
 
 		// look for valid relations
 
@@ -365,7 +366,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns all XDI $del operations in this XDI message.
 	 * @return An iterator over all XDI $del operations.
 	 */
-	public Iterator<DelOperation> getDelOperations() {
+	public ReadOnlyIterator<DelOperation> getDelOperations() {
 
 		// look for valid relations
 

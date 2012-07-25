@@ -192,7 +192,7 @@ public class LinkContractsTest extends AbstractGraphTest {
 		assertEquals(false, result);
 		return graph;
 	}
-	public void testLinkContracts() throws Exception {
+	public void xtestLinkContracts() throws Exception {
 		
 		int i = 1;
 

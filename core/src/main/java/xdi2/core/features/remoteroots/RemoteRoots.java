@@ -1,9 +1,8 @@
 package xdi2.core.features.remoteroots;
 
-import java.util.Iterator;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Reference;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -32,7 +31,7 @@ public class RemoteRoots {
 	 * @param graph The graph.
 	 * @return An iterator over remote root context nodes.
 	 */
-	public static Iterator<ContextNode> getAllRemoteRootContextNodes(Graph graph) {
+	public static ReadOnlyIterator<ContextNode> getAllRemoteRootContextNodes(Graph graph) {
 
 		return new SelectingIterator<ContextNode> (graph.getRootContextNode().getAllContextNodes()) {
 

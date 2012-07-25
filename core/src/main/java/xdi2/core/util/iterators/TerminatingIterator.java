@@ -10,7 +10,7 @@ import java.util.Iterator;
  *  
  * @author markus
  */
-public abstract class TerminatingIterator<T> implements Iterator<T> {
+public abstract class TerminatingIterator<T> extends ReadOnlyIterator<T> {
 
 	protected Iterator<T> iterator;
 	protected T nextElement;
@@ -36,12 +36,6 @@ public abstract class TerminatingIterator<T> implements Iterator<T> {
 		this.lookahead();
 
 		return element;
-	}
-
-	@Override
-	public void remove() {
-
-		throw new RuntimeException("Removing not supported.");
 	}
 
 	protected void lookahead() {

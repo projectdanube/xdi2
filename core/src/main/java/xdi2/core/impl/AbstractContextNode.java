@@ -1,6 +1,5 @@
 package xdi2.core.impl;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,9 +14,10 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.DescendingIterator;
-import xdi2.core.util.iterators.IteratorFirstItem;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.IteratorFirstItem;
 import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -138,7 +138,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Iterator<ContextNode> getAllContextNodes() {
+	public ReadOnlyIterator<ContextNode> getAllContextNodes() {
 
 		DescendingIterator<ContextNode, ContextNode> descendingIterator = new DescendingIterator<ContextNode, ContextNode> (this.getContextNodes()) {
 
@@ -157,7 +157,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Iterator<ContextNode> getAllLeafContextNodes() {
+	public ReadOnlyIterator<ContextNode> getAllLeafContextNodes() {
 
 		return new SelectingIterator<ContextNode> (this.getAllContextNodes()) {
 
@@ -261,7 +261,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Iterator<Relation> getRelations(final XRI3Segment arcXri) {
+	public ReadOnlyIterator<Relation> getRelations(final XRI3Segment arcXri) {
 
 		return new SelectingIterator<Relation> (this.getRelations()) {
 
@@ -274,7 +274,20 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Iterator<Relation> getAllRelations() {
+	public ReadOnlyIterator<Relation> getIncomingRelations() {
+
+		return new SelectingIterator<Relation> (this.getGraph().getRootContextNode().getAllRelations()) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return relation.follow().equals(AbstractContextNode.this);
+			}
+		};
+	}
+
+	@Override
+	public ReadOnlyIterator<Relation> getAllRelations() {
 
 		DescendingIterator<ContextNode, Relation> descendingIterator = new DescendingIterator<ContextNode, Relation> (this.getContextNodes()) {
 
@@ -308,7 +321,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri) {
+	public ReadOnlyIterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri) {
 
 		ContextNode contextNode = this.findContextNode(xri, false);
 		if (contextNode == null) return null;
@@ -384,7 +397,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Iterator<Literal> getAllLiterals() {
+	public ReadOnlyIterator<Literal> getAllLiterals() {
 
 		DescendingIterator<ContextNode, Literal> descendingIterator = new DescendingIterator<ContextNode, Literal> (this.getContextNodes()) {
 
@@ -446,7 +459,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Iterator<Statement> getAllStatements() {
+	public ReadOnlyIterator<Statement> getAllStatements() {
 
 		Iterator<Statement> contextNodeStatement = null;
 		Iterator<Statement> contextNodesStatements = null;

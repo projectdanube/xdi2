@@ -18,7 +18,7 @@ public abstract class SelectingIterator<T> extends ReadOnlyIterator<T> {
 	public SelectingIterator(Iterator<T> iterator) {
 
 		this.iterator = iterator;
-		
+
 		this.lookahead();
 	}
 

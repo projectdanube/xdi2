@@ -11,6 +11,7 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -151,7 +152,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * Returns all message collections in this message envelope.
 	 * @return All message collections in the envelope.
 	 */
-	public Iterator<MessageCollection> getMessageCollections() {
+	public ReadOnlyIterator<MessageCollection> getMessageCollections() {
 
 		// get all context nodes that are valid XDI message collections
 
@@ -177,7 +178,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * Returns all messages in this message envelope.
 	 * @return All messages contained in the envelope.
 	 */
-	public Iterator<Message> getMessages() {
+	public ReadOnlyIterator<Message> getMessages() {
 
 		return new DescendingIterator<MessageCollection, Message> (this.getMessageCollections()) {
 
@@ -194,7 +195,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * @param senderXri The sender to look for.
 	 * @return The messages.
 	 */
-	public Iterator<Message> getMessages(XRI3Segment senderXri) {
+	public ReadOnlyIterator<Message> getMessages(XRI3Segment senderXri) {
 
 		MessageCollection messageCollection = this.getMessageCollection(senderXri, false);
 		if (messageCollection == null) return new EmptyIterator<Message> ();
@@ -206,9 +207,9 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * Returns all operations in this message envelope.
 	 * @return All messages contained in the envelope.
 	 */
-	public Iterator<Operation> getOperations() {
+	public ReadOnlyIterator<Operation> getOperations() {
 
-		Iterator<Operation> descendingOperator = new DescendingIterator<Message, Operation>(this.getMessages()) {
+		return new DescendingIterator<Message, Operation>(this.getMessages()) {
 
 			@Override
 			public Iterator<Operation> descend(Message item) {
@@ -216,8 +217,6 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 				return item.getOperations();
 			}
 		};
-
-		return descendingOperator;
 	}
 
 	/**

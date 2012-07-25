@@ -8,6 +8,7 @@ import xdi2.core.features.multiplicity.EntityCollection;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -118,11 +119,11 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Returns all messages in this message collection.
 	 * @return All messages contained in the collection.
 	 */
-	public Iterator<Message> getMessages() {
+	public ReadOnlyIterator<Message> getMessages() {
 
 		// get all context nodes that are valid XDI messages
 
-		Iterator<ContextNode> contextNodes = this.getContextNode().getContextNodes();
+		ReadOnlyIterator<ContextNode> contextNodes = this.getContextNode().getContextNodes();
 
 		return new SelectingMappingIterator<ContextNode, Message> (contextNodes) {
 
@@ -144,7 +145,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Returns all operations in this message collection.
 	 * @return All operations contained in the collection.
 	 */
-	public Iterator<Operation> getOperations() {
+	public ReadOnlyIterator<Operation> getOperations() {
 
 		return new DescendingIterator<Message, Operation> (this.getMessages()) {
 

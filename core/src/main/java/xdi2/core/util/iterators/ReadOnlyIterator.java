@@ -7,11 +7,34 @@ import java.util.Iterator;
  *  
  * @author markus
  */
-public abstract class ReadOnlyIterator<T> implements Iterator<T> {
+public class ReadOnlyIterator<T> implements Iterator<T> {
+
+	private Iterator<T> iterator;
+
+	public ReadOnlyIterator(Iterator<T> iterator) {
+
+		this.iterator = iterator;
+	}
+
+	protected ReadOnlyIterator() {
+
+	}
+
+	@Override
+	public boolean hasNext() {
+
+		return this.iterator.hasNext();
+	}
+
+	@Override
+	public T next() {
+
+		return this.iterator.next();
+	}
 
 	@Override
 	public void remove() {
 
-		throw new RuntimeException("remove() is not supported.");
+		throw new UnsupportedOperationException("remove() is not supported.");
 	}
 }

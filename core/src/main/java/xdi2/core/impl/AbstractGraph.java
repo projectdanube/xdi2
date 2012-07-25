@@ -2,7 +2,6 @@ package xdi2.core.impl;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -20,6 +19,7 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.XDIUtil;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -46,7 +46,7 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
-	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri) {
+	public ReadOnlyIterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri) {
 
 		return this.getRootContextNode().findRelations(xri, arcXri);
 	}

@@ -1,9 +1,9 @@
 package xdi2.core;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.Properties;
 
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
@@ -51,7 +51,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @param arcXri The arc XRI of the relations.
 	 * @return An iterator over relations.
 	 */
-	public Iterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri);
+	public ReadOnlyIterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri);
 
 	/**
 	 * Finds a literal at any depth in this graph.
