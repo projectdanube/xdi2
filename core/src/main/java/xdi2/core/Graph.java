@@ -61,6 +61,28 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	public Literal findLiteral(XRI3Segment xri);
 
 	/**
+	 * Checks if a context node exists in this graph.
+	 * @param xri The XRI of the context node.
+	 * @return True, if the context node exists.
+	 */
+	public boolean containsContextNode(XRI3Segment xri);
+
+	/**
+	 * Checks if relations exists in this graph.
+	 * @param xri The XRI of the context node containing the relation.
+	 * @param arcXri The arc XRI of the relation.
+	 * @return True, if the relation exists.
+	 */
+	public boolean containsRelations(XRI3Segment xri, XRI3Segment arcXri);
+
+	/**
+	 * Checks if a literal exists in this graph.
+	 * @param xri The XRI of the context node containing the literal.
+	 * @return True, if the literal exists.
+	 */
+	public boolean containsLiteral(XRI3Segment xri);
+
+	/**
 	 * Converts the graph to a string in the given serialization format.
 	 * @param format The serialization format.
 	 */
