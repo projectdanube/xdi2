@@ -13,7 +13,9 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.impl.AbstractAddressHandler;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
+import xdi2.messaging.target.impl.AddressHandler;
 import xdi2.xri2xdi.resolution.XriResolutionException;
 import xdi2.xri2xdi.resolution.XriResolutionResult;
 import xdi2.xri2xdi.resolution.XriResolver;
@@ -41,71 +43,9 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public AddressHandler getAddressHandler(XRI3Segment address) throws Xdi2MessagingException {
 
-		// is this a remote root context XRI?
-
-		XRI3Segment xri;
-
-		if (RemoteRoots.isRemoteRootXri(targetAddress)) {
-
-			xri = RemoteRoots.getXriOfRemoteRootXri(targetAddress);
-		} else {
-
-			xri = targetAddress;
-		}
-
-		// resolve the XRI
-
-		XRI3Segment inumber;
-		String uri;
-
-		try {
-
-			XriResolutionResult resolutionResult = this.xriResolver.resolve(xri.toString());
-			inumber = new XRI3Segment(resolutionResult.getInumber());
-			uri = resolutionResult.getXdiUri();
-		} catch (XriResolutionException ex) {
-
-			throw new Xdi2MessagingException("XRI Resolution error: " + ex.getMessage(), ex, null);
-		}
-
-		// prepare result graph
-
-		Graph graph = messageResult.getGraph();
-		ContextNode rootContextNode = graph.getRootContextNode();
-
-		// add "self" remote root context nodes
-
-		ContextNode selfRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, XDIConstants.XRI_S_ROOT, true);
-		selfRemoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, rootContextNode);
-
-		// add I-Number remote root context nodes
-
-		ContextNode inumberRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, inumber, true);
-
-		// add URIs
-
-		if (uri != null) {
-
-			AttributeSingleton uriAttributeSingleton = Multiplicity.getAttributeSingleton(inumberRemoteRootContextNode, XRI_URI, true);
-			Dictionary.addContextNodeType(uriAttributeSingleton.getContextNode(), XRI_TYPE_XDI);
-			uriAttributeSingleton.getContextNode().createLiteral(uri);
-		}
-
-		// add I-Number and original XRI
-
-		ContextNode inumberContextNode = graph.findContextNode(inumber, true);
-
-		if (! xri.equals(inumber)) {
-
-			ContextNode xriContextNode = graph.findContextNode(xri, true);
-			xriContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, inumberContextNode);
-		}
-
-		// done
-
-		return true;
+		return this.addressHandler;
 	}
 
 	public XriResolver getXriResolver() {
@@ -117,4 +57,75 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 		this.xriResolver = xriResolver;
 	}
+
+	private AddressHandler addressHandler = new AbstractAddressHandler() {
+
+		@Override
+		public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+			// is this a remote root context XRI?
+
+			XRI3Segment xri;
+
+			if (RemoteRoots.isRemoteRootXri(targetAddress)) {
+
+				xri = RemoteRoots.getXriOfRemoteRootXri(targetAddress);
+			} else {
+
+				xri = targetAddress;
+			}
+
+			// resolve the XRI
+
+			XRI3Segment inumber;
+			String uri;
+
+			try {
+
+				XriResolutionResult resolutionResult = Xri2XdiMessagingTarget.this.xriResolver.resolve(xri.toString());
+				inumber = new XRI3Segment(resolutionResult.getInumber());
+				uri = resolutionResult.getXdiUri();
+			} catch (XriResolutionException ex) {
+
+				throw new Xdi2MessagingException("XRI Resolution error: " + ex.getMessage(), ex, null);
+			}
+
+			// prepare result graph
+
+			Graph graph = messageResult.getGraph();
+			ContextNode rootContextNode = graph.getRootContextNode();
+
+			// add "self" remote root context nodes
+
+			ContextNode selfRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, XDIConstants.XRI_S_ROOT, true);
+			selfRemoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, rootContextNode);
+
+			// add I-Number remote root context nodes
+
+			ContextNode inumberRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, inumber, true);
+
+			// add URIs
+
+			if (uri != null) {
+
+				AttributeSingleton uriAttributeSingleton = Multiplicity.getAttributeSingleton(inumberRemoteRootContextNode, XRI_URI, true);
+				Dictionary.addContextNodeType(uriAttributeSingleton.getContextNode(), XRI_TYPE_XDI);
+				uriAttributeSingleton.getContextNode().createLiteral(uri);
+			}
+
+			// add I-Number and original XRI
+
+			ContextNode inumberContextNode = graph.findContextNode(inumber, true);
+
+			if (! xri.equals(inumber)) {
+
+				ContextNode xriContextNode = graph.findContextNode(xri, true);
+				xriContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, inumberContextNode);
+			}
+
+			// done
+
+			return true;
+		}
+	};
 }
