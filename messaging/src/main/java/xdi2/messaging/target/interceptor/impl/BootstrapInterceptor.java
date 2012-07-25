@@ -3,8 +3,10 @@ package xdi2.messaging.target.interceptor.impl;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.features.linkcontracts.AndExpression;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
+import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.features.multiplicity.AttributeSingleton;
 import xdi2.core.features.multiplicity.EntitySingleton;
@@ -87,9 +89,9 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 				bootstrapLinkContract.addAssignee(bootstrapOwnerContextNode);
 				bootstrapLinkContract.addPermission(XDILinkContractPermission.LC_OP_ALL, rootContextNode);
 
-//				Policy policy = bootstrapLinkContract.getPolicy(true);
-//				AndExpression andExpression = policy.getAndNode(true);
-//				andExpression.addLiteralExpression("hasgetGraphValue('$secret$!($token)') == getMessageProperty('$secret$!($token)')");
+				Policy policy = bootstrapLinkContract.getPolicy(true);
+				AndExpression andExpression = policy.getAndNode(true);
+				andExpression.addLiteralExpression("xdi.getGraphValue('$secret$!($token)') == xdi.getMessageProperty('$secret$!($token)')");
 			}
 		}
 	}

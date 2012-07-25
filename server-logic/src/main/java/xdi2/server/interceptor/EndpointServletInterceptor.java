@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.interceptor.Interceptor;
 
-public interface EndpointServletInterceptor {
+public interface EndpointServletInterceptor extends Interceptor {
 
 	/**
 	 * Run when the endpoint servlet receives a GET request.

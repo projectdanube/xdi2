@@ -118,7 +118,7 @@ public abstract class PolicyExpressionComponent implements Serializable,
 			e.printStackTrace();
 		}
 		ContextNode c = AttributeCollection.fromContextNode(contextNode).createAttributeSingleton().getContextNode();
-		c.createLiteral(expr);
+		c.createLiteral(exprX);
 	}
 	// TODO : Add remove function. Consider URL decoding before comparing.
 //	public void removeLiteralExpression(String str){
