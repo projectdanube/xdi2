@@ -35,6 +35,12 @@ public abstract class AbstractGraph implements Graph {
 	 */
 
 	@Override
+	public void clear() {
+
+		this.getRootContextNode().clear();
+	}
+
+	@Override
 	public ContextNode findContextNode(XRI3Segment xri, boolean create) {
 
 		return this.getRootContextNode().findContextNode(xri, create);
@@ -208,6 +214,9 @@ public abstract class AbstractGraph implements Graph {
 
 		// TODO: do this without serializing to string
 
-		return this.toString(new MimeType("text/xdi;contexts=1;ordered=1")).compareTo(other.toString(new MimeType("text/xdi;contexts=1;ordered=1")));
+		String string1 = this.toString(new MimeType("text/xdi;contexts=1;ordered=1"));
+		String string2 = other.toString(new MimeType("text/xdi;contexts=1;ordered=1"));
+
+		return string1.compareTo(string2);
 	}
 }

@@ -14,6 +14,7 @@ import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.messaging.AddOperation;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
@@ -56,6 +57,8 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	@Override
 	public Statement targetStatement(Operation operation, Statement targetStatement, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		if (! (operation instanceof AddOperation)) return targetStatement;
+
 		XRI3Segment subject = substituteSegment(targetStatement.getSubject(), executionContext);
 		XRI3Segment predicate = substituteSegment(targetStatement.getPredicate(), executionContext);
 		XRI3Segment object = substituteSegment(targetStatement.getObject(), executionContext);
@@ -68,8 +71,14 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	@Override
 	public XRI3Segment targetAddress(Operation operation, XRI3Segment targetAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		if (! (operation instanceof AddOperation)) return targetAddress;
+
 		return substituteSegment(targetAddress, executionContext);
 	}
+
+	/*
+	 * ResultInterceptor
+	 */
 
 	@Override
 	public void finish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -87,6 +96,10 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 			messageResult.getGraph().addStatement(statement);
 		}
 	}
+
+	/*
+	 * Substitution helper methods
+	 */
 
 	private static XRI3Segment substituteSegment(XRI3Segment segment, ExecutionContext executionContext) {
 

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -139,8 +141,30 @@ public abstract class AbstractGraphTest extends TestCase {
 		CopyUtil.copyGraph(graph10, graph11, null);
 		testGraph(graph11);
 
-		assertEquals(graph10.toString(new MimeType("text/xdi;contexts=1;ordered=1")), graph11.toString(new MimeType("text/xdi;contexts=1;ordered=1")));
 		assertEquals(graph10, graph11);
+		assertEquals(graph10.hashCode(), graph11.hashCode());
+		assertEquals(graph10.compareTo(graph11), 0);
+		assertEquals(graph11.compareTo(graph10), 0);
+
+		StringWriter buffer1 = new StringWriter();
+		StringWriter buffer2 = new StringWriter();
+		XDIWriterRegistry.forFormat("XDI/JSON", null).write(graph10, buffer1);
+		XDIWriterRegistry.forFormat("XDI DISPLAY", null).write(graph11, buffer2);
+		graph10.clear();
+		graph11.clear();
+		XDIReaderRegistry.forFormat("XDI/JSON", null).read(graph10, new StringReader(buffer1.toString()));
+		XDIReaderRegistry.forFormat("XDI DISPLAY", null).read(graph11, new StringReader(buffer2.toString()));
+
+		assertEquals(graph10, graph11);
+		assertEquals(graph10.hashCode(), graph11.hashCode());
+		assertEquals(graph10.compareTo(graph11), 0);
+		assertEquals(graph11.compareTo(graph10), 0);
+
+		graph11.getRootContextNode().createContextNode(new XRI3SubSegment("=xxx"));
+
+		assertNotEquals(graph10, graph11);
+		assertNotEquals(graph10.hashCode(), graph11.hashCode());
+		assertNotEquals(graph10.compareTo(graph11), 0);
 
 		graph10.close();
 		graph11.close();
@@ -1028,5 +1052,15 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(rootContextNode1.getAllContextNodeCount() == rootContextNode2.getAllContextNodeCount());
 		assertTrue(rootContextNode1.getAllRelationCount() == rootContextNode2.getAllRelationCount());
 		assertTrue(rootContextNode1.getAllLiteralCount() == rootContextNode2.getAllLiteralCount());
+	}
+
+	private static void assertNotEquals(Object o1, Object o2) throws Exception {
+
+		assertFalse(o1.equals(o2));
+	}
+
+	private static void assertNotEquals(int i1, int i2) throws Exception {
+
+		assertFalse(i1 == i2);
 	}
 }

@@ -12,6 +12,8 @@ VERSION 0.1-SNAPSHOT
 
 *** There is a new method ContextNode.getIncomingRelations() that returns all relational arcs in the graph that point to the context node.
 
+*** Switched to junit 4.10
+
 2012-07-19:
 ------------------------
 

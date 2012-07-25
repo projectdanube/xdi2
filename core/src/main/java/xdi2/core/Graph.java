@@ -31,6 +31,11 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	public void close();
 
 	/**
+	 * Clears all data from the graph.
+	 */
+	public void clear();
+
+	/**
 	 * Finds a context node at any depth in this graph.
 	 * @param xri The XRI of the context node.
 	 * @param create Whether or not to create context nodes if they don't exist.
