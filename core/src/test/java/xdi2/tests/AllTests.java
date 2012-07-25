@@ -3,6 +3,7 @@ package xdi2.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import xdi2.tests.core.features.multiplicity.MultiplicityTest;
+import xdi2.tests.core.features.multiplicity.OrderingTest;
 import xdi2.tests.core.features.remoteroots.RemoteRootsTest;
 import xdi2.tests.core.features.timestamps.TimestampsTest;
 import xdi2.tests.core.features.variables.VariablesTest;
@@ -31,6 +32,7 @@ public class AllTests {
 		suite.addTestSuite(BDBKeyValueTest.class);
 		suite.addTestSuite(LinkContractsTest.class);
 		suite.addTestSuite(MultiplicityTest.class);
+		suite.addTestSuite(OrderingTest.class);
 		suite.addTestSuite(RemoteRootsTest.class);
 		suite.addTestSuite(TimestampsTest.class);
 		suite.addTestSuite(VariablesTest.class);

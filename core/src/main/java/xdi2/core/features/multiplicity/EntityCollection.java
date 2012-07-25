@@ -1,29 +1,28 @@
 package xdi2.core.features.multiplicity;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import xdi2.core.ContextNode;
+import xdi2.core.util.iterators.CompositeIterator;
+import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
-import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.util.iterators.SelectingIterator;
+import xdi2.core.util.iterators.NoDuplicatesIterator;
+import xdi2.core.util.iterators.SelectingMappingIterator;
 
 /**
  * An XDI entity collection according to the multiplicity pattern, represented as a context node.
  * 
  * @author markus
  */
-public final class EntityCollection implements Serializable, Comparable<EntityCollection> {
+public final class EntityCollection extends AbstractMultiplicityCollection<EntitySingleton> {
 
 	private static final long serialVersionUID = 1455719520426705802L;
 
-	private ContextNode contextNode;
-
 	protected EntityCollection(ContextNode contextNode) {
 
-		if (contextNode == null) throw new NullPointerException();
-
-		this.contextNode = contextNode;
+		super(contextNode);
 	}
 
 	/*
@@ -57,89 +56,77 @@ public final class EntityCollection implements Serializable, Comparable<EntityCo
 	 */
 
 	/**
-	 * Returns the underlying context node to which this XDI entity collection is bound.
-	 * @return A context node that represents the XDI entity collection.
+	 * Creates a new entity singleton and adds it to this XDI entity collection.
+	 * @return The newly created entity singleton.
 	 */
-	public ContextNode getContextNode() {
+	public EntitySingleton createEntitySingleton() {
 
-		return this.contextNode;
+		ContextNode contextNode = this.getContextNode().createContextNode(Multiplicity.entityCollectionMemberArcXri());
+
+		return EntitySingleton.fromContextNode(contextNode);
 	}
 
 	/**
-	 * Creates a new member and adds it to this XDI entity collection.
-	 * @return The newly created member.
+	 * Returns all entity singletons in this XDI entity collection.
+	 * @return An iterator over all entity singletons.
 	 */
-	public ContextNode createMember() {
+	@Override
+	public Iterator<EntitySingleton> iterator() {
 
-		return this.getContextNode().createContextNode(Multiplicity.entityMemberArcXri());
+		return this.iterator(false, true);
 	}
 
 	/**
-	 * Returns all members in this XDI entity collection.
-	 * @return An iterator over all members.
+	 * Returns all entity singletons in this XDI entity collection.
+	 * @return An iterator over all entity singletons.
 	 */
-	public ReadOnlyIterator<ContextNode> getMembers() {
+	public Iterator<EntitySingleton> iterator(boolean ordered, boolean unordered) {
 
-		// look for valid relations
+		// ordered or unordered?
 
-		Iterator<ContextNode> members = this.getContextNode().getContextNodes();
+		Iterator<ContextNode> contextNodes;
 
-		return new SelectingIterator<ContextNode> (members) {
+		if (ordered && (! unordered)) {
+
+			contextNodes = Ordering.getOrderedContextNodes(this.getContextNode());
+		} else if ((! ordered) && unordered) {
+
+			contextNodes = this.getContextNode().getContextNodes();
+		} else if (ordered && unordered) {
+
+			List<Iterator<ContextNode>> iterators = new ArrayList<Iterator<ContextNode>> ();
+			iterators.add(Ordering.getOrderedContextNodes(this.getContextNode()));
+			iterators.add(this.getContextNode().getContextNodes());
+
+			contextNodes = new NoDuplicatesIterator<ContextNode> (new CompositeIterator<ContextNode> (iterators.iterator()));
+		} else {
+
+			return new EmptyIterator<EntitySingleton> ();
+		}
+
+		// look for context nodes that are valid entity singletons
+
+		return new SelectingMappingIterator<ContextNode, EntitySingleton> (contextNodes) {
 
 			@Override
-			public boolean select(ContextNode member) {
+			public boolean select(ContextNode contextNode) {
 
-				return Multiplicity.isEntityMemberArcXri(member.getArcXri());
+				return Multiplicity.isEntityCollectionMemberArcXri(contextNode.getArcXri());
+			}
+
+			@Override
+			public EntitySingleton map(ContextNode contextNode) {
+
+				return EntitySingleton.fromContextNode(contextNode);
 			}
 		};
 	}
 
 	/**
-	 * Returns the number of members in this XDI entity collection.
+	 * Returns the number of entity singletons in this XDI entity collection.
 	 */
-	public int getMemberCount() {
+	public int size() {
 
-		ReadOnlyIterator<ContextNode> iterator = this.getMembers();
-
-		return new IteratorCounter(iterator).count();
-	}
-
-	/*
-	 * Object methods
-	 */
-
-	@Override
-	public String toString() {
-
-		return this.getContextNode().toString();
-	}
-
-	@Override
-	public boolean equals(Object object) {
-
-		if (object == null || ! (object instanceof EntityCollection)) return false;
-		if (object == this) return true;
-
-		EntityCollection other = (EntityCollection) object;
-
-		return this.getContextNode().equals(other.getContextNode());
-	}
-
-	@Override
-	public int hashCode() {
-
-		int hashCode = 1;
-
-		hashCode = (hashCode * 31) + this.getContextNode().hashCode();
-
-		return hashCode;
-	}
-
-	@Override
-	public int compareTo(EntityCollection other) {
-
-		if (other == this || other == null) return 0;
-
-		return this.getContextNode().compareTo(other.getContextNode());
+		return new IteratorCounter(this.iterator()).count();
 	}
 }

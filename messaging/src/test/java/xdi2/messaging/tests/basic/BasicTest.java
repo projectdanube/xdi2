@@ -54,7 +54,7 @@ public class BasicTest extends TestCase {
 
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, true);
 
-		assertTrue(MessageCollection.isValid(messageCollection.getContextNode()));
+		assertTrue(MessageCollection.isValid(messageCollection.getEntityCollection()));
 
 		assertTrue(messageEnvelope.getMessageCollections().hasNext());
 		assertNotNull(messageEnvelope.getMessageCollection(SENDER, false));
@@ -72,7 +72,7 @@ public class BasicTest extends TestCase {
 
 		Message message = messageCollection.getMessage(true);
 
-		assertTrue(Message.isValid(message.getContextNode()));
+		assertTrue(Message.isValid(message.getEntitySingleton()));
 
 		assertTrue(messageEnvelope.getMessageCollections().hasNext());
 		assertNotNull(messageEnvelope.getMessageCollection(SENDER, false));

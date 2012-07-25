@@ -6,7 +6,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.multiplicity.AttributeSingleton;
-import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.features.multiplicity.EntitySingleton;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageResult;
@@ -108,7 +108,7 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 			if (uri != null) {
 
-				AttributeSingleton uriAttributeSingleton = Multiplicity.getAttributeSingleton(inumberRemoteRootContextNode, XRI_URI, true);
+				AttributeSingleton uriAttributeSingleton = EntitySingleton.fromContextNode(inumberRemoteRootContextNode).getAttributeSingleton(XRI_URI, true);
 				Dictionary.addContextNodeType(uriAttributeSingleton.getContextNode(), XRI_TYPE_XDI);
 				uriAttributeSingleton.getContextNode().createLiteral(uri);
 			}

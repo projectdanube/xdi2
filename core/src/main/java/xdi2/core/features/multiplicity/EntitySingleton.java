@@ -1,7 +1,5 @@
 package xdi2.core.features.multiplicity;
 
-import java.io.Serializable;
-
 import xdi2.core.ContextNode;
 
 /**
@@ -9,17 +7,13 @@ import xdi2.core.ContextNode;
  * 
  * @author markus
  */
-public final class EntitySingleton implements Serializable, Comparable<EntitySingleton> {
+public final class EntitySingleton extends AbstractMultiplicitySingleton {
 
 	private static final long serialVersionUID = -1075885367630005576L;
 
-	private ContextNode contextNode;
-
 	protected EntitySingleton(ContextNode contextNode) {
 
-		if (contextNode == null) throw new NullPointerException();
-
-		this.contextNode = contextNode;
+		super(contextNode);
 	}
 
 	/*
@@ -33,7 +27,13 @@ public final class EntitySingleton implements Serializable, Comparable<EntitySin
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return Multiplicity.isEntitySingletonArcXri(contextNode.getArcXri());
+		return 
+				contextNode.isRootContextNode() ||
+				Multiplicity.isEntitySingletonArcXri(contextNode.getArcXri()) ||
+				(
+				Multiplicity.isEntityCollectionMemberArcXri(contextNode.getArcXri()) &&
+				EntityCollection.isValid(contextNode.getContextNode())
+				);
 	}
 
 	/**
@@ -46,57 +46,5 @@ public final class EntitySingleton implements Serializable, Comparable<EntitySin
 		if (! isValid(contextNode)) return null;
 
 		return new EntitySingleton(contextNode);
-	}
-
-	/*
-	 * Instance methods
-	 */
-
-	/**
-	 * Returns the underlying context node to which this XDI entity singleton is bound.
-	 * @return A context node that represents the XDI entity singleton.
-	 */
-	public ContextNode getContextNode() {
-
-		return this.contextNode;
-	}
-
-	/*
-	 * Object methods
-	 */
-
-	@Override
-	public String toString() {
-
-		return this.getContextNode().toString();
-	}
-
-	@Override
-	public boolean equals(Object object) {
-
-		if (object == null || ! (object instanceof EntitySingleton)) return false;
-		if (object == this) return true;
-
-		EntitySingleton other = (EntitySingleton) object;
-
-		return this.getContextNode().equals(other.getContextNode());
-	}
-
-	@Override
-	public int hashCode() {
-
-		int hashCode = 1;
-
-		hashCode = (hashCode * 31) + this.getContextNode().hashCode();
-
-		return hashCode;
-	}
-
-	@Override
-	public int compareTo(EntitySingleton other) {
-
-		if (other == this || other == null) return 0;
-
-		return this.getContextNode().compareTo(other.getContextNode());
 	}
 }

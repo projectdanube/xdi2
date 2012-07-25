@@ -41,8 +41,8 @@ public class MultiplicityTest extends TestCase {
 		assertFalse(Multiplicity.isEntitySingletonArcXri(Multiplicity.entityCollectionArcXri("+passport")));
 		assertTrue(Multiplicity.isEntityCollectionArcXri(Multiplicity.entityCollectionArcXri("+passport")));
 
-		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXri()));
-		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXri()));
+		assertTrue(Multiplicity.isAttributeCollectionMemberArcXri(Multiplicity.attributeCollectionMemberArcXri()));
+		assertTrue(Multiplicity.isEntityCollectionMemberArcXri(Multiplicity.entityCollectionMemberArcXri()));
 	}
 
 	public void testMultiplicity() throws Exception {	
@@ -50,36 +50,36 @@ public class MultiplicityTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
 
-		AttributeSingleton ageAttributeSingleton = Multiplicity.getAttributeSingleton(contextNode, "+age", true);
-		AttributeCollection telAttributeCollection = Multiplicity.getAttributeCollection(contextNode, "+tel", true);
-		EntitySingleton resumeEntitySingleton = Multiplicity.getEntitySingleton(contextNode, "+resume", true);
-		EntityCollection passportEntityCollection = Multiplicity.getEntityCollection(contextNode, "+passport", true);
+		AttributeSingleton ageAttributeSingleton = EntitySingleton.fromContextNode(contextNode).getAttributeSingleton("+age", true);
+		AttributeCollection telAttributeCollection = EntitySingleton.fromContextNode(contextNode).getAttributeCollection("+tel", true);
+		EntitySingleton resumeEntitySingleton = EntitySingleton.fromContextNode(contextNode).getEntitySingleton("+resume", true);
+		EntityCollection passportEntityCollection = EntitySingleton.fromContextNode(contextNode).getEntityCollection("+passport", true);
 
 		assertTrue(Multiplicity.isAttributeSingletonArcXri(ageAttributeSingleton.getContextNode().getArcXri()));
 		assertTrue(Multiplicity.isAttributeCollectionArcXri(telAttributeCollection.getContextNode().getArcXri()));
 		assertTrue(Multiplicity.isEntitySingletonArcXri(resumeEntitySingleton.getContextNode().getArcXri()));
 		assertTrue(Multiplicity.isEntityCollectionArcXri(passportEntityCollection.getContextNode().getArcXri()));
 
-		ContextNode tel1ContextNode = telAttributeCollection.createMember();
-		ContextNode tel2ContextNode = telAttributeCollection.createMember();
-		ContextNode passport1ContextNode = passportEntityCollection.createMember();
-		ContextNode passport2ContextNode = passportEntityCollection.createMember();
+		ContextNode tel1ContextNode = telAttributeCollection.createAttributeSingleton().getContextNode();
+		ContextNode tel2ContextNode = telAttributeCollection.createAttributeSingleton().getContextNode();
+		ContextNode passport1ContextNode = passportEntityCollection.createEntitySingleton().getContextNode();
+		ContextNode passport2ContextNode = passportEntityCollection.createEntitySingleton().getContextNode();
 
-		assertTrue(Multiplicity.isAttributeMemberArcXri(tel1ContextNode.getArcXri()));
-		assertTrue(Multiplicity.isAttributeMemberArcXri(tel2ContextNode.getArcXri()));
-		assertFalse(Multiplicity.isEntityMemberArcXri(tel1ContextNode.getArcXri()));
-		assertFalse(Multiplicity.isEntityMemberArcXri(tel2ContextNode.getArcXri()));
+		assertTrue(Multiplicity.isAttributeCollectionMemberArcXri(tel1ContextNode.getArcXri()));
+		assertTrue(Multiplicity.isAttributeCollectionMemberArcXri(tel2ContextNode.getArcXri()));
+		assertFalse(Multiplicity.isEntityCollectionMemberArcXri(tel1ContextNode.getArcXri()));
+		assertFalse(Multiplicity.isEntityCollectionMemberArcXri(tel2ContextNode.getArcXri()));
 
-		assertFalse(Multiplicity.isAttributeMemberArcXri(passport1ContextNode.getArcXri()));
-		assertFalse(Multiplicity.isAttributeMemberArcXri(passport2ContextNode.getArcXri()));
-		assertTrue(Multiplicity.isEntityMemberArcXri(passport1ContextNode.getArcXri()));
-		assertTrue(Multiplicity.isEntityMemberArcXri(passport2ContextNode.getArcXri()));
+		assertFalse(Multiplicity.isAttributeCollectionMemberArcXri(passport1ContextNode.getArcXri()));
+		assertFalse(Multiplicity.isAttributeCollectionMemberArcXri(passport2ContextNode.getArcXri()));
+		assertTrue(Multiplicity.isEntityCollectionMemberArcXri(passport1ContextNode.getArcXri()));
+		assertTrue(Multiplicity.isEntityCollectionMemberArcXri(passport2ContextNode.getArcXri()));
 
-		assertEquals(telAttributeCollection.getMemberCount(), 2);
-		assertTrue(new IteratorContains(telAttributeCollection.getMembers(), tel1ContextNode).contains());
-		assertTrue(new IteratorContains(telAttributeCollection.getMembers(), tel2ContextNode).contains());
-		assertEquals(passportEntityCollection.getMemberCount(), 2);
-		assertTrue(new IteratorContains(passportEntityCollection.getMembers(), passport1ContextNode).contains());
-		assertTrue(new IteratorContains(passportEntityCollection.getMembers(), passport2ContextNode).contains());
+		assertEquals(telAttributeCollection.size(), 2);
+		assertTrue(new IteratorContains(telAttributeCollection.iterator(), AttributeSingleton.fromContextNode(tel1ContextNode)).contains());
+		assertTrue(new IteratorContains(telAttributeCollection.iterator(), AttributeSingleton.fromContextNode(tel2ContextNode)).contains());
+		assertEquals(passportEntityCollection.size(), 2);
+		assertTrue(new IteratorContains(passportEntityCollection.iterator(), EntitySingleton.fromContextNode(passport1ContextNode)).contains());
+		assertTrue(new IteratorContains(passportEntityCollection.iterator(), EntitySingleton.fromContextNode(passport2ContextNode)).contains());
 	}
 }

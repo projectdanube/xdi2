@@ -3,14 +3,11 @@ package xdi2.messaging.target.interceptor.impl;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.linkcontracts.AndExpression;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
-import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.features.multiplicity.AttributeSingleton;
 import xdi2.core.features.multiplicity.EntitySingleton;
-import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.target.MessagingTarget;
@@ -74,8 +71,8 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 			if (this.bootstrapSharedSecret != null) {
 
-				EntitySingleton entitySingleton = Multiplicity.getEntitySingleton(rootContextNode, "$secret", true);
-				AttributeSingleton attributeSingleton = Multiplicity.getAttributeSingleton(entitySingleton.getContextNode(), "$token", true);
+				EntitySingleton entitySingleton = EntitySingleton.fromContextNode(rootContextNode).getEntitySingleton("$secret", true);
+				AttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton("$token", true);
 
 				attributeSingleton.getContextNode().createLiteral(this.bootstrapSharedSecret);
 			}

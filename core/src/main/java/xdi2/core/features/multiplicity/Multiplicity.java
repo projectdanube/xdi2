@@ -1,6 +1,5 @@
 package xdi2.core.features.multiplicity;
 
-import xdi2.core.ContextNode;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XRI3SubSegment;
@@ -33,12 +32,12 @@ public class Multiplicity {
 		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
 
-	public static XRI3SubSegment attributeMemberArcXri() {
+	public static XRI3SubSegment attributeCollectionMemberArcXri() {
 
 		return XRIUtil.randomSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG);
 	}
 
-	public static XRI3SubSegment entityMemberArcXri() {
+	public static XRI3SubSegment entityCollectionMemberArcXri() {
 
 		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR, "" + XRI3Constants.LCS_BANG);
 	}
@@ -77,7 +76,7 @@ public class Multiplicity {
 		return true;
 	}
 
-	public static boolean isAttributeMemberArcXri(XRI3SubSegment arcXri) {
+	public static boolean isAttributeCollectionMemberArcXri(XRI3SubSegment arcXri) {
 
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
@@ -86,7 +85,7 @@ public class Multiplicity {
 		return true;
 	}
 
-	public static boolean isEntityMemberArcXri(XRI3SubSegment arcXri) {
+	public static boolean isEntityCollectionMemberArcXri(XRI3SubSegment arcXri) {
 
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
@@ -99,73 +98,5 @@ public class Multiplicity {
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getFirstSubSegment().getLCS())) return false;
 
 		return true;
-	}
-
-	/*
-	 * Methods for creating collections and singletons.
-	 */
-
-	/**
-	 * Gets or returns an attribute singleton under a context node.
-	 * @param contextNode A context node.
-	 * @param arcXri The "base" arc XRI of the attribute singleton, without multiplicity syntax.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The attribute singleton.
-	 */
-	public static AttributeSingleton getAttributeSingleton(ContextNode contextNode, String arcXri, boolean create) {
-
-		XRI3SubSegment attributeSingletonArcXri = attributeSingletonArcXri(arcXri);
-		ContextNode attributeSingletonContextNode = contextNode.getContextNode(attributeSingletonArcXri);
-		if (attributeSingletonContextNode == null) attributeSingletonContextNode = contextNode.createContextNode(attributeSingletonArcXri);
-
-		return new AttributeSingleton(attributeSingletonContextNode);
-	}
-
-	/**
-	 * Gets or returns an attribute collection under a context node.
-	 * @param contextNode A context node.
-	 * @param arcXri The "base" arc XRI of the attribute collection, without multiplicity syntax.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The attribute collection.
-	 */
-	public static AttributeCollection getAttributeCollection(ContextNode contextNode, String arcXri, boolean create) {
-
-		XRI3SubSegment attributeCollectionArcXri = attributeCollectionArcXri(arcXri);
-		ContextNode attributeCollectionContextNode = contextNode.getContextNode(attributeCollectionArcXri);
-		if (attributeCollectionContextNode == null) attributeCollectionContextNode = contextNode.createContextNode(attributeCollectionArcXri);
-
-		return new AttributeCollection(attributeCollectionContextNode);
-	}
-
-	/**
-	 * Gets or returns an entity singleton under a context node.
-	 * @param contextNode A context node.
-	 * @param arcXri The "base" arc XRI of the entity singleton, without multiplicity syntax.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The entity singleton.
-	 */
-	public static EntitySingleton getEntitySingleton(ContextNode contextNode, String arcXri, boolean create) {
-
-		XRI3SubSegment entitySingletonArcXri = entitySingletonArcXri(arcXri);
-		ContextNode entitySingletonContextNode = contextNode.getContextNode(entitySingletonArcXri);
-		if (entitySingletonContextNode == null) entitySingletonContextNode = contextNode.createContextNode(entitySingletonArcXri);
-
-		return new EntitySingleton(entitySingletonContextNode);
-	}
-
-	/**
-	 * Gets or returns an entity collection under a context node.
-	 * @param contextNode A context node.
-	 * @param arcXri The "base" arc XRI of the entity collection, without multiplicity syntax.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The entity collection.
-	 */
-	public static EntityCollection getEntityCollection(ContextNode contextNode, String arcXri, boolean create) {
-
-		XRI3SubSegment entityCollectionArcXri = entityCollectionArcXri(arcXri);
-		ContextNode entityCollectionContextNode = contextNode.getContextNode(entityCollectionArcXri);
-		if (entityCollectionContextNode == null) entityCollectionContextNode = contextNode.createContextNode(entityCollectionArcXri);
-
-		return new EntityCollection(entityCollectionContextNode);
 	}
 }

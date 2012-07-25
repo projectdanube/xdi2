@@ -117,7 +117,7 @@ public abstract class PolicyExpressionComponent implements Serializable,
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ContextNode c = AttributeCollection.fromContextNode(contextNode).createMember();
+		ContextNode c = AttributeCollection.fromContextNode(contextNode).createAttributeSingleton().getContextNode();
 		c.createLiteral(expr);
 	}
 	// TODO : Add remove function. Consider URL decoding before comparing.

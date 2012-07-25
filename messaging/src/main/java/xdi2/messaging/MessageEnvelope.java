@@ -6,6 +6,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.multiplicity.EntityCollection;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -145,7 +146,9 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		if (contextNode == null) return null;
 
-		return new MessageCollection(this, contextNode);
+		EntityCollection entityCollection = EntityCollection.fromContextNode(contextNode);
+
+		return new MessageCollection(this, entityCollection);
 	}
 
 	/**
@@ -163,13 +166,13 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 			@Override
 			public boolean select(ContextNode contextNode) {
 
-				return MessageCollection.isValid(contextNode);
+				return EntityCollection.isValid(contextNode) && MessageCollection.isValid(EntityCollection.fromContextNode(contextNode));
 			}
 
 			@Override
 			public MessageCollection map(ContextNode contextNode) {
 
-				return MessageCollection.fromMessageEnvelopeAndContextNode(MessageEnvelope.this, contextNode);
+				return MessageCollection.fromMessageEnvelopeAndEntityCollection(MessageEnvelope.this, EntityCollection.fromContextNode(contextNode));
 			}
 		};
 	}

@@ -7,6 +7,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.multiplicity.EntitySingleton;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.ReadOnlyIterator;
@@ -25,14 +26,14 @@ public final class Message implements Serializable, Comparable<Message> {
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	private MessageCollection messageCollection;
-	private ContextNode contextNode;
+	private EntitySingleton entitySingleton;
 
-	protected Message(MessageCollection messageCollection, ContextNode contextNode) {
+	protected Message(MessageCollection messageCollection, EntitySingleton entitySingleton) {
 
-		if (messageCollection == null || contextNode == null) throw new NullPointerException();
+		if (messageCollection == null || entitySingleton == null) throw new NullPointerException();
 
 		this.messageCollection = messageCollection;
-		this.contextNode = contextNode;
+		this.entitySingleton = entitySingleton;
 	}
 
 	/*
@@ -40,26 +41,26 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI message.
-	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI message.
+	 * Checks if an entity singleton is a valid XDI message.
+	 * @param entitySingleton The entity singleton to check.
+	 * @return True if the entity singleton is a valid XDI message.
 	 */
-	public static boolean isValid(ContextNode contextNode) {
+	public static boolean isValid(EntitySingleton entitySingleton) {
 
-		return contextNode.containsContextNode(XDIMessagingConstants.XRI_SS_DO);
+		return entitySingleton.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
 	}
 
 	/**
 	 * Factory method that creates an XDI message bound to a given context node.
 	 * @param messageCollection The XDI message collection to which this XDI message belongs.
-	 * @param contextNode The context node that is an XDI message.
+	 * @param entitySingleton The context node that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageCollectionAndContextNode(MessageCollection messageCollection, ContextNode contextNode) {
+	public static Message fromMessageCollectionAndEntitySingleton(MessageCollection messageCollection, EntitySingleton entitySingleton) {
 
-		if (! isValid(contextNode)) return null;
+		if (! isValid(entitySingleton)) return null;
 
-		return new Message(messageCollection, contextNode);
+		return new Message(messageCollection, entitySingleton);
 	}
 
 	/*
@@ -85,12 +86,21 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Returns the underlying entity singleton to which this XDI message is bound.
+	 * @return An entity singleton that represents the XDI message.
+	 */
+	public EntitySingleton getEntitySingleton() {
+
+		return this.entitySingleton;
+	}
+
+	/**
 	 * Returns the underlying context node to which this XDI message is bound.
 	 * @return A context node that represents the XDI message.
 	 */
 	public ContextNode getContextNode() {
 
-		return this.contextNode;
+		return this.entitySingleton.getContextNode();
 	}
 
 	/**

@@ -1,19 +1,19 @@
 package xdi2.core.features.multiplicity;
 
 import java.io.Serializable;
+import java.util.AbstractCollection;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.IteratorCounter;
-import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.util.iterators.SelectingIterator;
+import xdi2.core.util.iterators.SelectingMappingIterator;
 
 /**
  * An XDI attribute collection according to the multiplicity pattern, represented as a context node.
  * 
  * @author markus
  */
-public final class AttributeCollection implements Serializable, Comparable<AttributeCollection> {
+public final class AttributeCollection extends AbstractCollection<AttributeSingleton> implements Serializable, Comparable<AttributeCollection> {
 
 	private static final long serialVersionUID = -76507804965389823L;
 
@@ -66,42 +66,50 @@ public final class AttributeCollection implements Serializable, Comparable<Attri
 	}
 
 	/**
-	 * Creates a new member and adds it to this XDI attribute collection.
-	 * @return The newly created member.
+	 * Creates a new attribute singleton and adds it to this XDI attribute collection.
+	 * @return The newly created attribute singleton.
 	 */
-	public ContextNode createMember() {
+	public AttributeSingleton createAttributeSingleton() {
+
+		ContextNode contextNode = this.getContextNode().createContextNode(Multiplicity.attributeCollectionMemberArcXri());
 		
-		return this.getContextNode().createContextNode(Multiplicity.attributeMemberArcXri());
+		return AttributeSingleton.fromContextNode(contextNode);
 	}
 
 	/**
-	 * Returns all members in this XDI attribute collection.
-	 * @return An iterator over all members.
+	 * Returns all attribute singletons in this XDI attribute collection.
+	 * @return An iterator over all attribute singletons.
 	 */
-	public ReadOnlyIterator<ContextNode> getMembers() {
+	@Override
+	public Iterator<AttributeSingleton> iterator() {
 
-		// look for valid relations
+		// look for context nodes that are valid attribute singletons
 
-		Iterator<ContextNode> members = this.getContextNode().getContextNodes();
+		Iterator<ContextNode> contextNodes = this.getContextNode().getContextNodes();
 
-		return new SelectingIterator<ContextNode> (members) {
+		return new SelectingMappingIterator<ContextNode, AttributeSingleton> (contextNodes) {
 
 			@Override
-			public boolean select(ContextNode member) {
+			public boolean select(ContextNode contextNode) {
 
-				return Multiplicity.isAttributeMemberArcXri(member.getArcXri());
+				return Multiplicity.isAttributeCollectionMemberArcXri(contextNode.getArcXri());
+			}
+
+			@Override
+			public AttributeSingleton map(ContextNode contextNode) {
+
+				return AttributeSingleton.fromContextNode(contextNode);
 			}
 		};
 	}
 
 	/**
-	 * Returns the number of members in this XDI attribute collection.
+	 * Returns the number of attribute singletons in this XDI attribute collection.
 	 */
-	public int getMemberCount() {
+	@Override
+	public int size() {
 
-		ReadOnlyIterator<ContextNode> iterator = this.getMembers();
-
-		return new IteratorCounter(iterator).count();
+		return new IteratorCounter(this.iterator()).count();
 	}
 
 	/*

@@ -6,7 +6,8 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.multiplicity.AttributeCollection;
-import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.features.multiplicity.AttributeSingleton;
+import xdi2.core.features.multiplicity.EntitySingleton;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -21,9 +22,9 @@ public class MultiplicitySample {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
 
-		AttributeCollection telAttributeCollection = Multiplicity.getAttributeCollection(contextNode, "+tel", true);
-		telAttributeCollection.createMember().createLiteral("+1.206.555.1111");
-		telAttributeCollection.createMember().createLiteral("+1.206.555.2222");
+		AttributeCollection telAttributeCollection = EntitySingleton.fromContextNode(contextNode).getAttributeCollection("+tel", true);
+		telAttributeCollection.createAttributeSingleton().getContextNode().createLiteral("+1.206.555.1111");
+		telAttributeCollection.createAttributeSingleton().getContextNode().createLiteral("+1.206.555.2222");
 
 		System.out.println(graph);
 
@@ -33,11 +34,11 @@ public class MultiplicitySample {
 		XDIReaderRegistry.getAuto().read(graph2, new StringReader(graph.toString()));
 		ContextNode contextNode2 = graph.findContextNode(new XRI3Segment("=markus"), false);
 
-		AttributeCollection telAttributeCollection2 = Multiplicity.getAttributeCollection(contextNode2, "+tel", false);
+		AttributeCollection telAttributeCollection2 = EntitySingleton.fromContextNode(contextNode2).getAttributeCollection("+tel", false);
 
-		for (Iterator<ContextNode> i = telAttributeCollection2.getMembers(); i.hasNext(); ) {
+		for (Iterator<AttributeSingleton> i = telAttributeCollection2.iterator(); i.hasNext(); ) {
 
-			System.out.println(i.next().getLiteral().getLiteralData());
+			System.out.println(i.next().getContextNode().getLiteral().getLiteralData());
 		}
 	}
 }

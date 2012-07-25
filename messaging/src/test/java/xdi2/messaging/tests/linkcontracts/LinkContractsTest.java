@@ -29,7 +29,7 @@ public class LinkContractsTest extends TestCase {
 		
 	}
 
-	public void testLinkContracts() throws Exception {
+	public void xtestLinkContracts() throws Exception {
 
 		int i=1, ii;
 
