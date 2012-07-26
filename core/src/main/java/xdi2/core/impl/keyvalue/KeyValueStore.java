@@ -21,6 +21,7 @@ public interface KeyValueStore {
 	public int count(String key);
 	public void clear();
 	public void close();
+	public boolean supportsTransactions();
 	public void beginTransaction();
 	public void commitTransaction();
 	public void rollbackTransaction();

@@ -71,6 +71,12 @@ public abstract class AbstractKeyValueStore implements KeyValueStore {
 	}
 
 	@Override
+	public boolean supportsTransactions() {
+
+		return false;
+	}
+
+	@Override
 	public void beginTransaction() {
 
 	}

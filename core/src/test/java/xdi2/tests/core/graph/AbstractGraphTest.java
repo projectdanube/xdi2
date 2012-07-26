@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -294,8 +295,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(root.containsRelation(new XRI3Segment("+rel"), new XRI3Segment("=markus")));
 		assertEquals(root.getRelationCount(), 1);
 		assertEquals(root.getRelationCount(new XRI3Segment("+rel")), 1);
-		assertNotNull(root.getRelation(new XRI3Segment("+rel"), new XRI3Segment("=markus")));
-		assertNotNull(root.getRelation(new XRI3Segment("+rel")));
+		assertEquals(root.getRelation(new XRI3Segment("+rel"), new XRI3Segment("=markus")).follow(), markus);
+		assertEquals(root.getRelation(new XRI3Segment("+rel")).follow(), markus);
 		assertEquals(new IteratorCounter(root.getRelations(new XRI3Segment("+rel"))).count(), 1);
 		assertEquals(new IteratorCounter(root.getRelations()).count(), 1);
 
@@ -487,6 +488,45 @@ public abstract class AbstractGraphTest extends TestCase {
 		try { markus.createRelation(new XRI3Segment("+friend"), les); fail(); } catch (Xdi2GraphException ex) { }
 
 		graph17.close();
+	}
+
+	public void testEmpty() throws Exception {
+
+		Graph graph18 = this.openNewGraph(this.getClass().getName() + "-graph-18");
+
+		ContextNode markus = graph18.findContextNode(new XRI3Segment("=markus"), true);
+
+		assertNull(markus.getLiteral());
+		assertFalse(markus.getContextNodes().hasNext());
+		try { markus.getContextNodes().next(); fail(); } catch (NoSuchElementException ex) { }
+		assertNull(markus.getContextNode(new XRI3SubSegment("*not")));
+		assertFalse(markus.getAllContextNodes().hasNext());
+		try { markus.getAllContextNodes().next(); fail(); } catch (NoSuchElementException ex) { }
+		assertFalse(markus.getAllLeafContextNodes().hasNext());
+		try { markus.getAllLeafContextNodes().next(); fail(); } catch (NoSuchElementException ex) { }
+		assertEquals(markus.getContextNodeCount(), 0);
+		assertEquals(markus.getAllContextNodeCount(), 0);
+
+		assertNull(markus.getRelation(new XRI3Segment("+not"), new XRI3Segment("=not")));
+		assertNull(markus.getRelation(new XRI3Segment("+not")));
+		assertFalse(markus.getRelations(new XRI3Segment("+not")).hasNext());
+		try { markus.getRelations(new XRI3Segment("+not")).next(); fail(); } catch (NoSuchElementException ex) { }
+		assertFalse(markus.getRelations().hasNext());
+		try { markus.getRelations().next(); fail(); } catch (NoSuchElementException ex) { }
+		try { markus.getIncomingRelations().next(); fail(); } catch (NoSuchElementException ex) { }
+		assertFalse(markus.getAllRelations().hasNext());
+		try { markus.getAllRelations().next(); fail(); } catch (NoSuchElementException ex) { }
+		assertEquals(markus.getRelationCount(new XRI3Segment("+not")), 0);
+		assertEquals(markus.getRelationCount(), 0);
+		assertEquals(markus.getAllRelationCount(), 0);
+
+		assertNull(markus.getLiteral());
+		assertNull(markus.getLiteralInContextNode(new XRI3SubSegment("!not")));
+		assertEquals(markus.getAllLiteralCount(), 0);
+
+		assertEquals(markus.getAllStatementCount(), 1);
+
+		graph18.close();
 	}
 
 	@SuppressWarnings("unused")

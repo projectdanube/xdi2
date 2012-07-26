@@ -48,6 +48,8 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		assertFalse(keyValueStore.getAll("c").hasNext());
 		assertEquals(new IteratorCounter(keyValueStore.getAll("a")).count(), 0);
 		assertEquals(new IteratorCounter(keyValueStore.getAll("c")).count(), 0);
+
+		keyValueStore.close();
 	}
 
 	public void testMulti() throws Exception {
@@ -111,6 +113,8 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		assertFalse(keyValueStore.getAll("c").hasNext());
 		assertEquals(new IteratorCounter(keyValueStore.getAll("a")).count(), 0);
 		assertEquals(new IteratorCounter(keyValueStore.getAll("c")).count(), 0);
+
+		keyValueStore.close();
 	}
 
 	public void testClear() throws Exception {
@@ -137,6 +141,8 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		assertFalse(keyValueStore.getAll("c").hasNext());
 		assertEquals(new IteratorCounter(keyValueStore.getAll("a")).count(), 0);
 		assertEquals(new IteratorCounter(keyValueStore.getAll("c")).count(), 0);
+
+		keyValueStore.close();
 	}
 
 	public void testReplace() throws Exception {
@@ -150,6 +156,8 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		keyValueStore.replace("a", "c");
 
 		assertEquals(keyValueStore.getOne("a"), "c");
+
+		keyValueStore.close();
 	}
 
 	public void testDuplicate() throws Exception {
@@ -195,5 +203,54 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		assertEquals(keyValueStore.count("a"), 1);
 		assertEquals(new IteratorCounter(keyValueStore.getAll("a")).count(), 1);
 		buf = ""; for (Iterator<String> i = keyValueStore.getAll("a"); i.hasNext(); ) buf += i.next(); assertEquals(buf, "c");
+
+		keyValueStore.close();
+	}
+
+	public void testTransactions() throws Exception {
+
+		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-6");
+
+		keyValueStore.beginTransaction();
+		keyValueStore.put("a", "b");
+		keyValueStore.rollbackTransaction();
+
+		if (keyValueStore.supportsTransactions()) {
+
+			assertFalse(keyValueStore.contains("a"));
+			assertFalse(keyValueStore.contains("a", "b"));
+			assertNull(keyValueStore.getOne("a"));
+		} else {
+
+			assertTrue(keyValueStore.contains("a"));
+			assertTrue(keyValueStore.contains("a", "b"));
+			assertEquals(keyValueStore.getOne("a"), "b");
+		}
+
+		keyValueStore.beginTransaction();
+		keyValueStore.put("a", "b");
+		keyValueStore.commitTransaction();
+
+		assertTrue(keyValueStore.contains("a"));
+		assertTrue(keyValueStore.contains("a", "b"));
+		assertEquals(keyValueStore.getOne("a"), "b");
+
+		keyValueStore.beginTransaction();
+		keyValueStore.delete("a");
+		keyValueStore.rollbackTransaction();
+
+		if (keyValueStore.supportsTransactions()) {
+
+			assertTrue(keyValueStore.contains("a"));
+			assertTrue(keyValueStore.contains("a", "b"));
+			assertEquals(keyValueStore.getOne("a"), "b");
+		} else {
+
+			assertFalse(keyValueStore.contains("a"));
+			assertFalse(keyValueStore.contains("a", "b"));
+			assertNull(keyValueStore.getOne("a"));
+		}
+
+		keyValueStore.close();
 	}
 }

@@ -3,18 +3,14 @@ package xdi2.core.util.iterators;
 import java.util.Iterator;
 
 /**
- * An iterator that returns only elements of another iterator that satisfy a certain condition.
- * In addition, it maps the elements to other elements.
- * 
- * In order for the hasNext() function to behave correctly, the iterator always looks ahead one
- * element.
+ * An iterator that returns only items of another iterator that satisfy a certain condition.
+ * In addition, it maps the items to other items.
  * 
  * @author markus
  */
-public abstract class SelectingMappingIterator<I, O> extends ReadOnlyIterator<O> {
+public abstract class SelectingMappingIterator<I, O> extends LookaheadIterator<O> {
 
 	protected Iterator<I> iterator;
-	protected O nextElement;
 
 	public SelectingMappingIterator(Iterator<I> iterator) {
 
@@ -24,32 +20,18 @@ public abstract class SelectingMappingIterator<I, O> extends ReadOnlyIterator<O>
 	}
 
 	@Override
-	public boolean hasNext() {
-
-		return this.nextElement != null;
-	}
-
-	@Override
-	public O next() {
-
-		O element = this.nextElement;
-
-		this.lookahead();
-
-		return element;
-	}
-
 	protected void lookahead() {
 
-		this.nextElement = null;
+		this.hasNext = false;
 
 		while (this.iterator.hasNext()) {
 
-			I element = this.iterator.next();
+			I item = this.iterator.next();
 
-			if (this.select(element)) {
+			if (this.select(item)) {
 
-				this.nextElement = this.map(element);
+				this.hasNext = true;
+				this.nextItem = this.map(item);
 				break;
 			}
 		}

@@ -115,6 +115,11 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 */
 
 	/**
+	 * Check if this graph supports transactions.
+	 */
+	public boolean supportsTransactions();
+
+	/**
 	 * Starts a new transaction.
 	 */
 	public void beginTransaction();

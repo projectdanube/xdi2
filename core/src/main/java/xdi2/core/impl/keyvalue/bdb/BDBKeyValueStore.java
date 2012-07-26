@@ -77,6 +77,12 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	}
 
 	@Override
+	public boolean supportsTransactions() {
+
+		return true;
+	}
+
+	@Override
 	public void beginTransaction() {
 
 		log.trace("beginTransaction()");
@@ -106,6 +112,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		try {
 
 			this.transaction.commit();
+			this.transaction = null;
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Cannot commit transaction: " + ex.getMessage(), ex);
@@ -126,6 +133,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		try {
 
 			this.transaction.abort();
+			this.transaction = null;
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Cannot roll back transaction: " + ex.getMessage(), ex);
@@ -172,11 +180,10 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		try {
 
 			OperationStatus status = this.database.get(transaction, dbKey, dbValue, null);
-			if (! status.equals(OperationStatus.SUCCESS)) return(null);
-			String value = new String(dbValue.getData());
+			if ((! status.equals(OperationStatus.SUCCESS)) && (! status.equals(OperationStatus.NOTFOUND))) throw new Xdi2RuntimeException();
 
 			if (this.transaction == null) transaction.commit();
-			return value;
+			return status.equals(OperationStatus.SUCCESS) ? new String(dbValue.getData()) : null;
 		} catch (Exception ex) {
 
 			if (this.transaction == null) transaction.abort();

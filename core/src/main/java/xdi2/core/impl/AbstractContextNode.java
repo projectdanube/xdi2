@@ -393,8 +393,10 @@ public abstract class AbstractContextNode implements ContextNode {
 			}
 		};
 
+		Literal literal = this.getLiteral();
+		
 		List<Iterator<Literal>> list = new ArrayList<Iterator<Literal>> ();
-		list.add(new SingleItemIterator<Literal> (this.getLiteral()));
+		if (literal != null) list.add(new SingleItemIterator<Literal> (literal));
 		list.add(descendingIterator);
 
 		return new CompositeIterator<Literal> (list.iterator());

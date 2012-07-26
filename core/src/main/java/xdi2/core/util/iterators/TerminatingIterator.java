@@ -3,17 +3,15 @@ package xdi2.core.util.iterators;
 import java.util.Iterator;
 
 /**
- * An iterator that returns elements of another iterator until a certain condition is satisfied.
+ * An iterator that returns items of another iterator until a certain condition is satisfied.
  * 
- * In order for the hasNext() function to behave correctly, the iterator always looks ahead one
- * element.
+ * In order for the hasNext() function to behave correctly, the iterator always looks ahead one item.
  *  
  * @author markus
  */
-public abstract class TerminatingIterator<T> extends ReadOnlyIterator<T> {
+public abstract class TerminatingIterator<T> extends LookaheadIterator<T> {
 
 	protected Iterator<T> iterator;
-	protected T nextElement;
 
 	public TerminatingIterator(Iterator<T> iterator) {
 
@@ -23,31 +21,17 @@ public abstract class TerminatingIterator<T> extends ReadOnlyIterator<T> {
 	}
 
 	@Override
-	public boolean hasNext() {
-
-		return this.nextElement != null;
-	}
-
-	@Override
-	public T next() {
-
-		T element = this.nextElement;
-
-		this.lookahead();
-
-		return element;
-	}
-
 	protected void lookahead() {
 
-		this.nextElement = null;
+		this.hasNext = false;
 
 		if (! this.iterator.hasNext()) return;
 
-		T element = this.iterator.next();
-		if (this.terminate(element)) return;
+		T item = this.iterator.next();
+		if (this.terminate(item)) return;
 
-		this.nextElement = element;
+		this.hasNext = true;
+		this.nextItem = item;
 	}
 
 	public abstract boolean terminate(T item);

@@ -17,13 +17,13 @@ public class NoDuplicatesIterator<T> extends SelectingIterator<T> {
 	public NoDuplicatesIterator(Iterator<T> iterator) {
 
 		super(iterator);
-
-		this.items = new HashSet<T> ();
 	}
 
 	@Override
 	public boolean select(T item) {
 
+		if (this.items == null) this.items = new HashSet<T> ();
+		
 		if (this.items.contains(item)) return false;
 
 		this.items.add(item);

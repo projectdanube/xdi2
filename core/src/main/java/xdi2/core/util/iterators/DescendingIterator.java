@@ -1,6 +1,7 @@
 package xdi2.core.util.iterators;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * An iterator that can iterate over D, and for every item in D, an iterator over items of type T is
@@ -36,7 +37,7 @@ public abstract class DescendingIterator<D, T> extends ReadOnlyIterator<T> {
 
 		while (this.t == null || ! this.t.hasNext()) {
 
-			if (! this.d.hasNext()) return null;
+			if (! this.d.hasNext()) throw new NoSuchElementException();
 			this.t = this.descend(this.d.next());
 		}
 

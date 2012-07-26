@@ -162,6 +162,12 @@ public abstract class AbstractGraph implements Graph {
 	 */
 
 	@Override
+	public boolean supportsTransactions() {
+
+		return false;
+	}
+
+	@Override
 	public void beginTransaction() {
 
 	}

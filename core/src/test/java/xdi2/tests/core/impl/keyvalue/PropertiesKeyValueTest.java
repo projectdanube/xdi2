@@ -20,7 +20,7 @@ public class PropertiesKeyValueTest extends AbstractKeyValueTest {
 
 		PropertiesKeyValueStore keyValueStore;
 
-		keyValueStore = new PropertiesKeyValueStore(path, true);
+		keyValueStore = new PropertiesKeyValueStore(path, false);
 		keyValueStore.load();
 
 		// done

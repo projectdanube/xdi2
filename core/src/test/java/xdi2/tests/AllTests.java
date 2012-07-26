@@ -17,6 +17,7 @@ import xdi2.tests.core.impl.keyvalue.MapKeyValueTest;
 import xdi2.tests.core.impl.keyvalue.PropertiesKeyValueTest;
 import xdi2.tests.core.io.IOTest;
 import xdi2.tests.core.util.XDIUtilTest;
+import xdi2.tests.core.util.iterators.IteratorTest;
 
 public class AllTests {
 
@@ -37,8 +38,9 @@ public class AllTests {
 		suite.addTestSuite(TimestampsTest.class);
 		suite.addTestSuite(VariablesTest.class);
 		suite.addTestSuite(IOTest.class);
-		suite.addTestSuite(XDIUtilTest.class);
 		suite.addTestSuite(LinkContractsTest.class);
+		suite.addTestSuite(XDIUtilTest.class);
+		suite.addTestSuite(IteratorTest.class);
 		//$JUnit-END$
 		return suite;
 	}

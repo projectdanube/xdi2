@@ -36,7 +36,6 @@ public class BDBGraphTest extends AbstractGraphTest {
 		graphFactory.setDatabaseName(databaseName);
 
 		Graph graph = graphFactory.openGraph();
-		graph.beginTransaction();
 
 		return graph;
 	}
@@ -51,7 +50,6 @@ public class BDBGraphTest extends AbstractGraphTest {
 		graphFactory.setDatabaseName(databaseName);
 
 		Graph newGraph = graphFactory.openGraph();
-		newGraph.beginTransaction();
 
 		return newGraph;
 	}

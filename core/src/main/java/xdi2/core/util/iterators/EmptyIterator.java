@@ -1,5 +1,7 @@
 package xdi2.core.util.iterators;
 
+import java.util.NoSuchElementException;
+
 
 /**
  * An iterator that has no elements.
@@ -21,6 +23,6 @@ public class EmptyIterator<T> extends ReadOnlyIterator<T> {
 	@Override
 	public T next() {
 
-		return null;
+		throw new NoSuchElementException();
 	}
 }

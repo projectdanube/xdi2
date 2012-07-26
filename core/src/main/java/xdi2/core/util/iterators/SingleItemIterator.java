@@ -1,5 +1,7 @@
 package xdi2.core.util.iterators;
 
+import java.util.NoSuchElementException;
+
 /**
  * An iterator that contains only a single item.
  * 
@@ -7,24 +9,29 @@ package xdi2.core.util.iterators;
  */
 public class SingleItemIterator<T> extends ReadOnlyIterator<T> {
 
+	private boolean hasNext;
 	private T item;
 	
 	public SingleItemIterator(T item) {
 
+		this.hasNext = true;
 		this.item = item;
 	}
 
 	@Override
 	public boolean hasNext() {
 
-		return this.item != null;
+		return this.hasNext;
 	}
 
 	@Override
 	public T next() {
 
+		if (! this.hasNext) throw new NoSuchElementException();
+		
 		T item = this.item;
-		this.item = null;
+
+		this.hasNext = false;
 		
 		return item;
 	}

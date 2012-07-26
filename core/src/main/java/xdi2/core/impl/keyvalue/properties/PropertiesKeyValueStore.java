@@ -264,6 +264,12 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 	}
 
 	@Override
+	public boolean supportsTransactions() {
+
+		return ! this.autoSave;
+	}
+
+	@Override
 	public void beginTransaction() {
 
 		if (this.properties == null) this.load();
