@@ -57,7 +57,7 @@
 			</property>
 		</bean>
 
-	<!-- MESSAGING TARGET at /file-graph -->
+	<!-- MESSAGING TARGET at /=markus -->
 	<!-- MessagingTarget: GraphMessagingTarget backed by a MemoryGraph -->
 	<!-- Interceptors: BootstrapInterceptor, VariablesInterceptor, CheckOwnerInterceptor, LinkContractsInterceptor -->
 
