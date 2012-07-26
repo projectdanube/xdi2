@@ -15,7 +15,7 @@ A sample deployment of XDI² is available at http://xdi2.projectdanube.org.
 * [xdi2-server-logic](https://github.com/peacekeeper/xdi2/wiki/xdi2-server-logic) - An XDI server exposing XDI endpoints that can process incoming XDI messages [.jar]
 * [xdi2-server](https://github.com/peacekeeper/xdi2/wiki/xdi2-server) - An XDI server exposing XDI endpoints that can process incoming XDI messages [.war]
 * [xdi2-webtools](https://github.com/peacekeeper/xdi2/wiki/xdi2-webtools) - A collection of web-based XDI tools for testing [.war]
-* [xdi2-xri2xdi](https://github.com/peacekeeper/xdi2/wiki/xdi2-xri2xdi) - A proxy XDI discovery service based on the XRI registry [.war]
+* [xdi2-xri2xdi](https://github.com/peacekeeper/xdi2/wiki/xdi2-xri2xdi) - A proxy XDI discovery service based on the global XRI registry [.war]
 * [xdi2-p2p](https://github.com/peacekeeper/xdi2/wiki/xdi2-p2p) - Code for peer-to-peer XDI data exchange [.jar]
 * [xdi2-samples](https://github.com/peacekeeper/xdi2/wiki/xdi2-samples) - Various samples on how to work with the XDI² library [.jar]
 
