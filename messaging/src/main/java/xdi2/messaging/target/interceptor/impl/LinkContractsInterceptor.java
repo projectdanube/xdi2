@@ -145,11 +145,6 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 				}
 			}
 		}
-		if (operationAllowed) {
-			operationAllowed = this.evaluatePolicyExpressions(linkContract,
-					operation.getMessage());
-		}
-
 		return operationAllowed;
 	}
 
