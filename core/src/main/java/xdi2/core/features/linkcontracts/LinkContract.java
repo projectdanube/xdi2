@@ -63,7 +63,7 @@ public final class LinkContract implements Serializable,
 			return null;
 
 		LinkContract lc = new LinkContract(contextNode);
-		lc.addAuthenticationFunction();
+		//lc.addAuthenticationFunction();
 		return lc;
 	}
 

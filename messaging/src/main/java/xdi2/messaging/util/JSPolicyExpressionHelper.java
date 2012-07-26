@@ -74,67 +74,67 @@ public class JSPolicyExpressionHelper extends ScriptableObject {
 		return literal == null ? "" : literal.getLiteralData();
 	}
 
-	public static void initialize(){
-		JSPolicyExpressionUtil.initialize();
-		Scriptable scope = JSPolicyExpressionUtil.getJSExpressionScope();
-		Context cx = JSPolicyExpressionUtil.getJSExpressionContext();
-		try {
-			ScriptableObject.defineClass(scope, JSPolicyExpressionHelper.class);
-			Object[] arg = {};
-			Scriptable policyExpressionHelper = cx.newObject(scope,
-					"JSPolicyExpressionHelper", arg);
-
-			scope.put("xdi", scope, policyExpressionHelper);
-			
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public static boolean evaluateJSExpression(String expr) {
-		boolean evalResult = true;
-		if ((null == expr) || (expr.isEmpty())) {
-			return evalResult;
-		}
-		try {
-			Context cx = Context.enter();
-			Scriptable scope = cx.initStandardObjects();
-
-			ScriptableObject.defineClass(scope, JSPolicyExpressionHelper.class);
-			Object[] arg = {};
-			Scriptable policyExpressionHelper = cx.newObject(scope,
-					"JSPolicyExpressionHelper", arg);
-
-			scope.put("xdi", scope, policyExpressionHelper);
-
-			Object result = cx.evaluateString(scope, expr, "policyExpression",
-					1, null);
-			if (result != null && Context.toString(result).equals("true")) {
-				evalResult = true;
-			} else {
-				evalResult = false;
-			}
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			Context.exit();
-		}
-
-		return evalResult;
-
-	}
+//	public static void initialize(){
+//		JSPolicyExpressionUtil.initialize();
+//		Scriptable scope = JSPolicyExpressionUtil.getJSExpressionScope();
+//		Context cx = JSPolicyExpressionUtil.getJSExpressionContext();
+//		try {
+//			ScriptableObject.defineClass(scope, JSPolicyExpressionHelper.class);
+//			Object[] arg = {};
+//			Scriptable policyExpressionHelper = cx.newObject(scope,
+//					"JSPolicyExpressionHelper", arg);
+//
+//			scope.put("xdi", scope, policyExpressionHelper);
+//			
+//		} catch (IllegalAccessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InstantiationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvocationTargetException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	public static boolean evaluateJSExpression(String expr) {
+//		boolean evalResult = true;
+//		if ((null == expr) || (expr.isEmpty())) {
+//			return evalResult;
+//		}
+//		try {
+//			Context cx = Context.enter();
+//			Scriptable scope = cx.initStandardObjects();
+//
+//			ScriptableObject.defineClass(scope, JSPolicyExpressionHelper.class);
+//			Object[] arg = {};
+//			Scriptable policyExpressionHelper = cx.newObject(scope,
+//					"JSPolicyExpressionHelper", arg);
+//
+//			scope.put("xdi", scope, policyExpressionHelper);
+//
+//			Object result = cx.evaluateString(scope, expr, "policyExpression",
+//					1, null);
+//			if (result != null && Context.toString(result).equals("true")) {
+//				evalResult = true;
+//			} else {
+//				evalResult = false;
+//			}
+//		} catch (IllegalAccessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InstantiationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvocationTargetException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			Context.exit();
+//		}
+//
+//		return evalResult;
+//
+//	}
 
 }

@@ -50,10 +50,14 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 				: this.linkContractsGraph.findContextNode(linkContractXri,
 						false);
 		LinkContract linkContract = (linkContractContextNode == null) ? null
-				: LinkContract.fromContextNode(linkContractContextNode,false);
+				: LinkContract.fromContextNode(linkContractContextNode, false);
 
 		if (linkContract != null) {
 			putLinkContract(executionContext, linkContract);
+		}
+		if ((linkContract != null) && !this.evaluatePolicyExpressions(linkContract, message)) {
+			throw new Xdi2NotAuthorizedException(
+					"Link contract policy expression violation for message" , null, null);
 		}
 		// done
 
@@ -169,7 +173,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 					"Link contract violation for operation: "
 							+ operation.toString() + " on target statement:"
 							+ targetStatement.toString(), null, operation);
-}
+		}
 		return targetStatement;
 	}
 
@@ -210,31 +214,44 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 		// If no policy is set then return true
 
 		Policy lcPolicy = null;
-		
+
 		boolean evalResult = false;
 		if ((lcPolicy = lc.getPolicy(false)) == null) {
 			return true;
 		} else {
-			// try {
-			// policyExpression = URLDecoder.decode(
-			// lcPolicy.getSingletonLiteralArc(), "UTF-8");
-			// } catch (UnsupportedEncodingException unSupEx) {}
-			// evalResult=
-			// JSPolicyExpressionHelper.evaluateJSExpression(policyExpression);
 			if (lcPolicy.getPolicyExpressionComponent() != null) {
-				JSPolicyExpressionHelper.initialize();
-				JSPolicyExpressionUtil.getJSExpressionScope().put(
+				Context cx = Context.enter();
+				Scriptable scope = cx.initStandardObjects();
+				try {
+					ScriptableObject.defineClass(scope, JSPolicyExpressionHelper.class);
+					Object[] arg = {};
+					Scriptable policyExpressionHelper = cx.newObject(scope,
+							"JSPolicyExpressionHelper", arg);
+
+					scope.put("xdi", scope, policyExpressionHelper);
+					
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
+				scope.put(
 						"linkContract",
-						JSPolicyExpressionUtil.getJSExpressionScope(), lc);
-				JSPolicyExpressionUtil.getJSExpressionScope().put("message",
-						JSPolicyExpressionUtil.getJSExpressionScope(), message);
-				evalResult = lcPolicy.getPolicyExpressionComponent().evaluate();
-			}
-			else{
+						scope, lc);
+				scope.put("message",
+						scope, message);
+				evalResult = lcPolicy.getPolicyExpressionComponent().evaluate(cx,scope);
+				Context.exit();
+			} else {
 				evalResult = true;
 			}
 		}
-		//JSPolicyExpressionUtil.cleanup();
+		// JSPolicyExpressionUtil.cleanup();
 
 		return evalResult;
 
