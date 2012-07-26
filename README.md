@@ -32,7 +32,7 @@ To build all components.
     cd webtools
     mvn jetty:run
 
-Then go to
+Then go to:
 
     http://localhost:8080/
 
