@@ -18,7 +18,7 @@ public class PropertiesGraphFactory extends AbstractKeyValueGraphFactory impleme
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 
 
 	public static final File DEFAULT_PROPERTIES_FILE = new File(".", "xdi2-graph.properties");
-	public static final boolean DEFAULT_AUTO_SAVE = false;
+	public static final boolean DEFAULT_AUTO_SAVE = true;
 
 	private File file;
 	private boolean autoSave;
