@@ -11,14 +11,16 @@ public class PropertiesKeyValueTest extends AbstractKeyValueTest {
 	@Override
 	protected KeyValueStore getKeyValueStore(String id) throws IOException {
 
-		File file = new File(".", "xdi2-test-graph." + id + ".properties");
-		if (file.exists()) file.delete();
+		String path = "xdi2-test-graph." + id + ".properties";
 
+		File file = new File(path);
+		if (file.exists()) file.delete();
+		
 		// open file
 
 		PropertiesKeyValueStore keyValueStore;
 
-		keyValueStore = new PropertiesKeyValueStore(file, true);
+		keyValueStore = new PropertiesKeyValueStore(path, true);
 		keyValueStore.load();
 
 		// done

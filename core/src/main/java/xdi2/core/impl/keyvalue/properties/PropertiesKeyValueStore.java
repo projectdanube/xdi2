@@ -26,14 +26,14 @@ import xdi2.core.impl.keyvalue.KeyValueStore;
  */
 public class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
-	private File file;
+	private String path;
 	private boolean autoSave;
 
 	private Properties properties;
 
-	public PropertiesKeyValueStore(File file, boolean autoSave) {
+	public PropertiesKeyValueStore(String path, boolean autoSave) {
 
-		this.file = file;
+		this.path = path;
 		this.autoSave = autoSave;
 
 		this.properties = null;
@@ -259,7 +259,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		this.save();
 
-		this.file = null;
+		this.path = null;
 		this.properties = null;
 	}
 
@@ -285,10 +285,12 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		try {
 
-			if (! this.file.exists()) this.file.createNewFile();
+			File file = new File(this.path);
+
+			if (! file.exists()) file.createNewFile();
 
 			this.properties = new Properties();
-			this.properties.load(new FileInputStream(this.file));
+			this.properties.load(new FileInputStream(this.path));
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Cannot load properties file: " + ex.getMessage(), ex);
@@ -299,7 +301,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		try {
 
-			OutputStream stream = new FileOutputStream(this.file);
+			OutputStream stream = new FileOutputStream(this.path);
 
 			this.properties.store(stream, null);
 			stream.close();

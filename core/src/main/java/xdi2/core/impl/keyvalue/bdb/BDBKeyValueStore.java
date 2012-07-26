@@ -31,7 +31,7 @@ import com.sleepycat.je.Transaction;
  */
 public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
-	private final static Logger log = LoggerFactory.getLogger(BDBKeyValueStore.class);
+	private static final Logger log = LoggerFactory.getLogger(BDBKeyValueStore.class);
 
 	private String databasePath;
 	private String databaseName;

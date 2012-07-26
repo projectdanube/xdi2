@@ -17,17 +17,17 @@ public class PropertiesGraphFactory extends AbstractKeyValueGraphFactory impleme
 	public static final boolean DEFAULT_SUPPORT_GET_CONTEXTNODES = true; 
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 
 
-	public static final File DEFAULT_PROPERTIES_FILE = new File(".", "xdi2-graph.properties");
+	public static final String DEFAULT_PROPERTIES_PATH = "xdi2-graph.properties";
 	public static final boolean DEFAULT_AUTO_SAVE = true;
 
-	private File file;
+	private String path;
 	private boolean autoSave;
 
 	public PropertiesGraphFactory() {
 
 		super(DEFAULT_SUPPORT_GET_CONTEXTNODES, DEFAULT_SUPPORT_GET_RELATIONS);
 
-		this.file = DEFAULT_PROPERTIES_FILE;
+		this.path = DEFAULT_PROPERTIES_PATH;
 		this.autoSave = DEFAULT_AUTO_SAVE;
 	}
 
@@ -38,7 +38,7 @@ public class PropertiesGraphFactory extends AbstractKeyValueGraphFactory impleme
 
 		PropertiesKeyValueStore keyValueStore;
 
-		keyValueStore = new PropertiesKeyValueStore(this.file, this.autoSave);
+		keyValueStore = new PropertiesKeyValueStore(this.path, this.autoSave);
 		keyValueStore.load();
 
 		// done
@@ -46,14 +46,14 @@ public class PropertiesGraphFactory extends AbstractKeyValueGraphFactory impleme
 		return keyValueStore;
 	}
 
-	public File getFile() {
+	public String getPath() {
 
-		return this.file;
+		return this.path;
 	}
 
-	public void setFile(File file) {
+	public void setPath(String path) {
 
-		this.file = file;
+		this.path = path;
 	}
 
 	public boolean isAutoSave() {

@@ -33,10 +33,12 @@ public class PropertiesGraphTest extends AbstractGraphTest {
 	@Override
 	protected Graph openNewGraph(String id) throws IOException {
 
-		File file = new File(".", "xdi2-test-graph." + id + ".properties");
+		String path = "xdi2-test-graph." + id + ".properties";
+
+		File file = new File(path);
 		if (file.exists()) file.delete();
 
-		graphFactory.setFile(file);
+		graphFactory.setPath(path);
 		graphFactory.setAutoSave(true);
 
 		return graphFactory.openGraph();
@@ -47,9 +49,9 @@ public class PropertiesGraphTest extends AbstractGraphTest {
 
 		graph.close();
 
-		File file = new File(".", "xdi2-test-graph." + id + ".properties");
+		String path = "xdi2-test-graph." + id + ".properties";
 
-		graphFactory.setFile(file);
+		graphFactory.setPath(path);
 		graphFactory.setAutoSave(true);
 
 		return graphFactory.openGraph();
