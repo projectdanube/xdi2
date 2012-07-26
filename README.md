@@ -18,7 +18,7 @@ A sample deployment of XDI² is available at http://xdi2.projectdanube.org.
 * [xdi2-messaging](https://github.com/peacekeeper/xdi2/wiki/xdi2-messaging) - Implementation of XDI messaging functionality [.jar]
 	* [Overview of XDI messaging]
 	* [Messaging targets]
-	* [Interceptors]
+	* [[Interceptors]]
 	* [Error handling]
 * [xdi2-client](https://github.com/peacekeeper/xdi2/wiki/xdi2-client) - An XDI client that can send messages to an XDI endpoint [.jar]
 	* [How to apply XDI messages to a local XDI graph]
