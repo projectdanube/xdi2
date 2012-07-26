@@ -44,6 +44,7 @@ public class Multiplicity {
 
 	public static boolean isAttributeSingletonArcXri(XRI3SubSegment arcXri) {
 
+		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (! arcXri.hasXRef()) return false;
@@ -53,6 +54,7 @@ public class Multiplicity {
 
 	public static boolean isAttributeCollectionArcXri(XRI3SubSegment arcXri) {
 
+		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_STAR.equals(arcXri.getLCS())) return false;
 		if (! arcXri.hasXRef()) return false;
@@ -62,13 +64,16 @@ public class Multiplicity {
 
 	public static boolean isEntitySingletonArcXri(XRI3SubSegment arcXri) {
 
-		if (arcXri.hasXRef()) return false;
+		if (arcXri == null) return true;
+		if ((! arcXri.hasGCS()) && (! arcXri.hasLCS()) && arcXri.hasXRef()) return true;
+		if (! arcXri.hasXRef()) return true;
 
-		return true;
+		return false;
 	}
 
 	public static boolean isEntityCollectionArcXri(XRI3SubSegment arcXri) {
 
+		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
 		if (! arcXri.hasXRef()) return false;
@@ -78,6 +83,7 @@ public class Multiplicity {
 
 	public static boolean isAttributeCollectionMemberArcXri(XRI3SubSegment arcXri) {
 
+		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (arcXri.hasXRef()) return false;
@@ -87,6 +93,7 @@ public class Multiplicity {
 
 	public static boolean isEntityCollectionMemberArcXri(XRI3SubSegment arcXri) {
 
+		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
 		if (! arcXri.hasXRef()) return false;

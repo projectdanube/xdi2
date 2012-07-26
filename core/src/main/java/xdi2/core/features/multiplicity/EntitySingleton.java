@@ -27,16 +27,12 @@ public final class EntitySingleton extends AbstractMultiplicitySingleton {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return true;
-/*
- * TODO: check this
  			return
-  				contextNode.isRootContextNode() ||
 				Multiplicity.isEntitySingletonArcXri(contextNode.getArcXri()) ||
 				(
 				Multiplicity.isEntityCollectionMemberArcXri(contextNode.getArcXri()) &&
 				EntityCollection.isValid(contextNode.getContextNode())
-				);*/
+				);
 	}
 
 	/**

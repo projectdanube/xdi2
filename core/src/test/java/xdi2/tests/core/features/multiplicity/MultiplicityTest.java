@@ -8,8 +8,10 @@ import xdi2.core.features.multiplicity.AttributeSingleton;
 import xdi2.core.features.multiplicity.EntityCollection;
 import xdi2.core.features.multiplicity.EntitySingleton;
 import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.IteratorContains;
+import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public class MultiplicityTest extends TestCase {
@@ -45,7 +47,19 @@ public class MultiplicityTest extends TestCase {
 		assertTrue(Multiplicity.isEntityCollectionMemberArcXri(Multiplicity.entityCollectionMemberArcXri()));
 	}
 
-	public void testMultiplicity() throws Exception {	
+	public void testEntitySingleton() throws Exception {
+
+		Graph graph = MemoryGraphFactory.getInstance().openGraph();
+		ContextNode root = graph.getRootContextNode();
+		ContextNode markus = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
+		ContextNode remoteRoot = RemoteRoots.findRemoteRootContextNode(graph, new XRI3Segment("=!91F2.8153.F600.AE24"), true);
+
+		assertNotNull(EntitySingleton.fromContextNode(root));
+		assertNotNull(EntitySingleton.fromContextNode(markus));
+		assertNotNull(EntitySingleton.fromContextNode(remoteRoot));
+	}
+
+	public void testContextNodes() throws Exception {	
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
