@@ -1,0 +1,70 @@
+package xdi2.core.impl.file;
+
+import java.io.File;
+
+import xdi2.core.Graph;
+import xdi2.core.GraphFactory;
+import xdi2.core.impl.AbstractGraphFactory;
+import xdi2.core.io.XDIReaderRegistry;
+
+/**
+ * GraphFactory that creates file-based graphs.
+ * 
+ * @author markus
+ */
+public class FileGraphFactory extends AbstractGraphFactory implements GraphFactory {
+
+	public static final int SORTMODE_NONE = 0;
+	public static final int SORTMODE_ORDER = 1;
+	public static final int SORTMODE_ALPHA = 2;
+
+	private String path;
+	private String format;
+	private boolean autoSave;
+
+	public FileGraphFactory() { 
+
+		super();
+
+		this.path = null;
+		this.format = XDIReaderRegistry.getDefault().getFormat();
+	}
+
+	@Override
+	public Graph openGraph() {
+		
+		File file;
+
+		return new FileGraph(file);
+	}
+
+	public String getPath() {
+
+		return this.path;
+	}
+
+	public void setPath(String filename) {
+
+		this.path = filename;
+	}
+
+	public String getFormat() {
+
+		return this.format;
+	}
+
+	public void setFormat(String format) {
+
+		this.format = format;
+	}
+
+	public boolean isAutoSave() {
+
+		return this.autoSave;
+	}
+
+	public void setAutoSave(boolean autoSave) {
+
+		this.autoSave = autoSave;
+	}
+}

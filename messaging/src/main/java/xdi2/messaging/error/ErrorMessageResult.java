@@ -67,7 +67,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	/**
 	 * Factory method that creates an XDI error message from an exception.
-	 * @param graph The exception.
+	 * @param ex The exception.
 	 * @return The XDI error message result.
 	 */
 	public static ErrorMessageResult fromException(Exception ex) {
