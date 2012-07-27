@@ -110,7 +110,20 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			this.applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
 		}
 
+		// init endpoint registry
+
 		this.initEndpointRegistry(this.applicationContext);
+
+		// execute interceptors
+
+		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
+
+			EndpointServletInterceptor endpointServletInterceptorInterceptor = endpointServletInterceptors.next();
+
+			endpointServletInterceptorInterceptor.init(this);
+		}
+
+		// done
 
 		log.info("Initializing complete.");
 	}
@@ -120,7 +133,20 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		log.info("Shutting down.");
 
+		// execute interceptors
+
+		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
+
+			EndpointServletInterceptor endpointServletInterceptorInterceptor = endpointServletInterceptors.next();
+
+			endpointServletInterceptorInterceptor.destroy(this);
+		}
+
+		// shut down endpoint registry
+
 		this.endpointRegistry.shutdown();
+
+		// done
 
 		super.destroy();
 
@@ -232,7 +258,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		if (messagingTargetPath == null) return;
 		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
-		// check interceptors
+		// execute interceptors
 
 		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
 
@@ -271,7 +297,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		if (messagingTargetPath == null) return;
 		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
-		// check interceptors
+		// execute interceptors
 
 		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
 
@@ -310,7 +336,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		if (messagingTargetPath == null) return;
 		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
-		// check interceptors
+		// execute interceptors
 
 		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
 
@@ -324,6 +350,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 				return;
 			}
 		}
+
 		// construct message envelope from url 
 
 		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_ADD);
@@ -348,7 +375,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		if (messagingTargetPath == null) return;
 		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
-		// check interceptors
+		// execute interceptors
 
 		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
 
@@ -489,11 +516,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// create an execution context
 
-		ExecutionContext executionContext = new ExecutionContext(messagingTarget);
-
-		ServletExecutionContext.putEndpointServlet(executionContext, this);
-		ServletExecutionContext.putHttpServletRequest(executionContext, request);
-		ServletExecutionContext.putHttpServletResponse(executionContext, response);
+		ExecutionContext executionContext = this.createExecutionContext(messagingTarget, request, response);
 
 		// execute the messages and operations against our message target, save result
 
@@ -514,6 +537,17 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		log.debug("Message(s) successfully executed (" + messageResult.getGraph().getRootContextNode().getAllStatementCount() + " results).");
 
 		return messageResult;
+	}
+
+	private ExecutionContext createExecutionContext(MessagingTarget messagingTarget, HttpServletRequest request, HttpServletResponse response) {
+
+		ExecutionContext executionContext = new ExecutionContext(messagingTarget);
+
+		ServletExecutionContext.putEndpointServlet(executionContext, this);
+		ServletExecutionContext.putHttpServletRequest(executionContext, request);
+		ServletExecutionContext.putHttpServletResponse(executionContext, response);
+
+		return executionContext;
 	}
 
 	private static void sendResult(MessageResult messageResult, HttpServletRequest request, HttpServletResponse response) throws IOException {

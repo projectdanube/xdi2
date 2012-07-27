@@ -57,6 +57,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	@Override
 	public void init() throws Exception {
 
+		// execute interceptors
+
 		for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = this.getMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
 
 			MessagingTargetInterceptor messagingTargetInterceptor = messagingTargetInterceptors.next();
@@ -67,6 +69,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	@Override
 	public void shutdown() throws Exception {
+
+		// execute interceptors
 
 		for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = this.getMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
 
@@ -293,9 +297,18 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// check if the target is a statement or an address
 
+		Statement targetStatement = null;
+		XRI3Segment targetAddress = null;
+
 		try {
 
-			Statement targetStatement = AbstractStatement.fromXriSegment(target);
+			targetStatement = AbstractStatement.fromXriSegment(target);
+		} catch (Xdi2ParseException ex) {
+
+			targetAddress = target;
+		}
+
+		if (targetStatement != null) {
 
 			// execute target interceptors (statement)
 
@@ -309,9 +322,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
 
 			if (statementHandler.executeOnStatement(targetStatement, operation, messageResult, executionContext)) handled = true;
-		} catch (Xdi2ParseException ex) {
-
-			XRI3Segment targetAddress = target;
+		} else {
 
 			// execute target interceptors (address)
 
