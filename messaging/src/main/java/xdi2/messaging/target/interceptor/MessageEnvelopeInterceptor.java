@@ -5,6 +5,12 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 
+/**
+ * Interceptor that is executed before and after a message envelope is executed,
+ * as well as when an exception occurs while executing the message envelope.
+ * 
+ * @author markus
+ */
 public interface MessageEnvelopeInterceptor extends Interceptor {
 
 	/**

@@ -11,7 +11,7 @@ import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.server.EndpointServlet;
 
 /**
- * Interceptor that is executed when the endpoint servlet is initialized, shut down, or when it receives an incoming HTTP request.
+ * Interceptor that is executed when the EndpointServlet is initialized, destroyed, or when it receives an incoming HTTP request.
  * 
  * @author markus
  */

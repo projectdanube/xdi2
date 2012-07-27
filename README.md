@@ -37,12 +37,9 @@ Then go to:
 
     http://localhost:8080/
 
-### How to generate Javadoc
-
-    mvn javadoc:javadoc
-    cd target/site/apidocs
-
 ### Community
+
+Javadoc: http://peacekeeper.github.com/xdi2/apidocs
 
 Google Group: http://groups.google.com/group/xdi2
 

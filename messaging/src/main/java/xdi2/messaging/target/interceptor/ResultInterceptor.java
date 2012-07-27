@@ -4,6 +4,11 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 
+/**
+ * Interceptor that is executed on a message result after a message envelope has been executed.
+ * 
+ * @author markus
+ */
 public interface ResultInterceptor extends Interceptor {
 
 	/**
