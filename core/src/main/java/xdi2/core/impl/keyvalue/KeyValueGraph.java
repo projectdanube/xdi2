@@ -47,17 +47,20 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 		return this.keyValueStore.supportsTransactions();
 	}
 
-	protected void internalBeginTransaction() {
+	@Override
+	public void beginTransaction() {
 
 		this.keyValueStore.beginTransaction();
 	}
 
-	protected void internalCommitTransaction() {
+	@Override
+	public void commitTransaction() {
 
 		this.keyValueStore.commitTransaction();
 	}
 
-	protected void internalRollbackTransaction() {
+	@Override
+	public void rollbackTransaction() {
 
 		this.keyValueStore.rollbackTransaction();
 	}

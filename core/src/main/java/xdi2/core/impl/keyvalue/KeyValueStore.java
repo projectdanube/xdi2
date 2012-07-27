@@ -1,5 +1,6 @@
 package xdi2.core.impl.keyvalue;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 /**
@@ -9,6 +10,9 @@ import java.util.Iterator;
  * @author markus
  */
 public interface KeyValueStore {
+
+	public void init() throws IOException;
+	public void close();
 
 	public void put(String key, String value);
 	public String getOne(String key);
@@ -20,7 +24,7 @@ public interface KeyValueStore {
 	public void replace(String key, String value);
 	public int count(String key);
 	public void clear();
-	public void close();
+
 	public boolean supportsTransactions();
 	public void beginTransaction();
 	public void commitTransaction();

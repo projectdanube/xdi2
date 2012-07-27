@@ -221,6 +221,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(root.getContextNode());
 		assertTrue(root.isRootContextNode());
 
+		assertTrue(graph13.isEmpty());
 		assertTrue(root.isEmpty());
 		assertFalse(root.containsContextNodes());
 		assertFalse(root.containsRelations());
@@ -490,11 +491,59 @@ public abstract class AbstractGraphTest extends TestCase {
 		graph17.close();
 	}
 
-	public void testEmpty() throws Exception {
+	public void testTransactions() throws Exception {
 
 		Graph graph18 = this.openNewGraph(this.getClass().getName() + "-graph-18");
 
-		ContextNode markus = graph18.findContextNode(new XRI3Segment("=markus"), true);
+		graph18.addStatement(AbstractStatement.fromString("=markus/!/(data:,Markus%20Sabadello)"));
+		graph18.addStatement(AbstractStatement.fromString("=markus/+friend/=neustar*les"));
+
+		ContextNode markus = graph18.findContextNode(new XRI3Segment("=markus"), false);
+
+		graph18.beginTransaction();
+
+		markus.deleteLiteral();
+		markus.deleteRelations(new XRI3Segment("+friend"));
+		markus.createRelation(new XRI3Segment("$is+"), new XRI3Segment("+person"));
+
+		assertFalse(markus.containsLiteral());
+		assertFalse(markus.containsRelations(new XRI3Segment("+friend")));
+		assertTrue(markus.containsRelation(new XRI3Segment("$is+"), new XRI3Segment("+person")));
+
+		graph18.rollbackTransaction();
+
+		if (graph18.supportsTransactions()) {
+
+			assertTrue(markus.containsLiteral());
+			assertTrue(markus.containsRelations(new XRI3Segment("+friend")));
+			assertFalse(markus.containsRelation(new XRI3Segment("$is+"), new XRI3Segment("+person")));
+		} else {
+
+			assertFalse(markus.containsLiteral());
+			assertFalse(markus.containsRelations(new XRI3Segment("+friend")));
+			assertTrue(markus.containsRelation(new XRI3Segment("$is+"), new XRI3Segment("+person")));
+		}
+
+		graph18.beginTransaction();
+		graph18.clear();
+		graph18.rollbackTransaction();
+
+		assertTrue(graph18.supportsTransactions() ? ! graph18.isEmpty() : graph18.isEmpty());
+
+		graph18.beginTransaction();
+		graph18.clear();
+		graph18.commitTransaction();
+
+		assertTrue(graph18.isEmpty());
+
+		graph18.close();
+	}
+
+	public void testEmptyContextNode() throws Exception {
+
+		Graph graph19 = this.openNewGraph(this.getClass().getName() + "-graph-19");
+
+		ContextNode markus = graph19.findContextNode(new XRI3Segment("=markus"), true);
 
 		assertNull(markus.getLiteral());
 		assertFalse(markus.getContextNodes().hasNext());
@@ -526,7 +575,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		assertEquals(markus.getAllStatementCount(), 1);
 
-		graph18.close();
+		graph19.close();
 	}
 
 	@SuppressWarnings("unused")

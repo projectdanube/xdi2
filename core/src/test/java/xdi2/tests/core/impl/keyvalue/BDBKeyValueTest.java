@@ -22,11 +22,11 @@ public class BDBKeyValueTest extends AbstractKeyValueTest {
 
 		File file = new File(DEFAULT_DATABASE_PATH);
 
-		BDBKeyValueStore keyValueStore;
+		KeyValueStore keyValueStore;
 
 		try {
 
-			// open database
+			// open store
 
 			if (! file.exists()) file.mkdir();
 
@@ -41,12 +41,7 @@ public class BDBKeyValueTest extends AbstractKeyValueTest {
 			databaseConfig.setTransactional(true);
 
 			keyValueStore = new BDBKeyValueStore(DEFAULT_DATABASE_PATH, databaseName, environmentConfig, databaseConfig);
-
-			// test it
-
-			keyValueStore.openDatabase();
-			keyValueStore.closeDatabase();
-			keyValueStore.openDatabase();
+			keyValueStore.init();
 		} catch (Exception ex) {
 
 			throw new IOException("Cannot open database: " + ex.getMessage());

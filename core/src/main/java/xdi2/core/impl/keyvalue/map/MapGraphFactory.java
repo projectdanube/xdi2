@@ -1,8 +1,6 @@
 package xdi2.core.impl.keyvalue.map;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
 
 import xdi2.core.GraphFactory;
 import xdi2.core.impl.keyvalue.AbstractKeyValueGraphFactory;
@@ -35,11 +33,10 @@ public final class MapGraphFactory extends AbstractKeyValueGraphFactory implemen
 	@Override
 	protected KeyValueStore openKeyValueStore() throws IOException {
 
-		// open map
+		// open store
 
-		Map<String, Set<String>> map = this.mapFactory.newMap();
-
-		KeyValueStore keyValueStore = new MapKeyValueStore(map, this.setFactory);
+		KeyValueStore keyValueStore = new MapKeyValueStore(this.mapFactory.newMap(), this.setFactory);
+		keyValueStore.init();
 
 		// done
 

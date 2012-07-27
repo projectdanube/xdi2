@@ -1,5 +1,6 @@
 package xdi2.core.impl.keyvalue.map;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -23,6 +24,18 @@ public class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 		this.map = map;
 		this.setFactory = setFactory;
+	}
+
+	@Override
+	public void init() throws IOException {
+
+	}
+
+	@Override
+	public void close() {
+
+		this.map.clear();
+		this.map = null;
 	}
 
 	@Override
@@ -92,13 +105,6 @@ public class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	public void clear() {
 
 		this.map.clear();
-	}
-
-	@Override
-	public void close() {
-
-		this.map.clear();
-		this.map = null;
 	}
 
 	public Map<String, Set<String>> getMap() {

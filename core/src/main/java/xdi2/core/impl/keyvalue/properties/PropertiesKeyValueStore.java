@@ -3,6 +3,7 @@ package xdi2.core.impl.keyvalue.properties;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.Properties;
 import java.util.UUID;
 
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.keyvalue.AbstractKeyValueStore;
@@ -26,16 +29,33 @@ import xdi2.core.impl.keyvalue.KeyValueStore;
  */
 public class PropertiesKeyValueStore extends AbstractKeyValueStore implements KeyValueStore {
 
+	private static final Logger log = LoggerFactory.getLogger(PropertiesKeyValueStore.class);
+
 	private String path;
-	private boolean autoSave;
 
 	private Properties properties;
+	private boolean transaction;
 
-	public PropertiesKeyValueStore(String path, boolean autoSave) {
+	public PropertiesKeyValueStore(String path) {
 
 		this.path = path;
-		this.autoSave = autoSave;
 
+		this.properties = null;
+		this.transaction = false;
+	}
+
+	@Override
+	public void init() throws IOException {
+
+		this.load();
+	}
+
+	@Override
+	public void close() {
+
+		this.save();
+
+		this.path = null;
 		this.properties = null;
 	}
 
@@ -83,7 +103,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		this.properties.setProperty(key + "___" + newindex, value);
 		this.properties.setProperty(key + "___" + hash, newindex);
 
-		if (this.autoSave) this.save();
+		if (! this.transaction) this.save();
 	}
 
 	@Override
@@ -190,7 +210,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		this.properties.remove(key + "___");
 
-		if (this.autoSave) this.save();
+		if (! this.transaction) this.save();
 	}
 
 	@Override
@@ -243,7 +263,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		this.properties.remove(key + "___" + index);
 		this.properties.remove(key + "___" + hash);
 
-		if (this.autoSave) this.save();
+		if (! this.transaction) this.save();
 	}
 
 	@Override
@@ -251,43 +271,75 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		this.properties.clear();
 
-		if (this.autoSave) this.save();
-	}
-
-	@Override
-	public void close() {
-
-		this.save();
-
-		this.path = null;
-		this.properties = null;
+		if (! this.transaction) this.save();
 	}
 
 	@Override
 	public boolean supportsTransactions() {
 
-		return ! this.autoSave;
+		return true;
 	}
 
 	@Override
 	public void beginTransaction() {
 
-		if (this.properties == null) this.load();
+		log.trace("beginTransaction()");
+
+		if (this.transaction) throw new Xdi2RuntimeException("Already have an open transaction.");
+
+		log.debug("Beginning Transaction...");
+
+		try {
+
+			this.load();
+			this.transaction = true;
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Cannot begin transaction: " + ex.getMessage(), ex);
+		}
+
+		log.debug("Began transaction...");
 	}
 
 	@Override
 	public void commitTransaction() {
 
-		this.save();
+		log.trace("commitTransaction()");
+
+		if (! this.transaction) throw new Xdi2RuntimeException("No open transaction.");
+
+		try {
+
+			this.save();
+			this.transaction = false;
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Cannot commit transaction: " + ex.getMessage(), ex);
+		}
+
+		log.debug("Committed transaction...");
 	}
 
 	@Override
 	public void rollbackTransaction() {
 
-		this.load();
+		log.trace("rollbackTransaction()");
+
+		if (! this.transaction) throw new Xdi2RuntimeException("No open transaction.");
+
+
+		try {
+			this.load();
+			this.transaction = false;
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Cannot roll back transaction: " + ex.getMessage(), ex);
+		}
+
+		log.debug("Rolled back transaction...");
 	}
 
-	public void load() {
+	private void load() {
 
 		try {
 
@@ -299,11 +351,11 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 			this.properties.load(new FileInputStream(this.path));
 		} catch (Exception ex) {
 
-			throw new Xdi2RuntimeException("Cannot load properties file: " + ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Cannot load properties file at " + this.path, ex);
 		}
 	}
 
-	public void save() {
+	private void save() {
 
 		try {
 
@@ -313,7 +365,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 			stream.close();
 		} catch (Exception ex) {
 
-			throw new Xdi2RuntimeException("Cannot save properties file: " + ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Cannot save properties file at " + this.path, ex);
 		}
 	}
 

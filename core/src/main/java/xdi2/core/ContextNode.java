@@ -55,7 +55,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public void clear();
 
 	/**
-	 * Checks if the context nodeis empty. 
+	 * Checks if the context node is empty. 
 	 * This is equivalent to calling ! ( containsContextNodes() || containsRelations() || containsLiterals() ).
 	 */
 	public boolean isEmpty();

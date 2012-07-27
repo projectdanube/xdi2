@@ -36,7 +36,6 @@ public class BDBGraphMessagingTargetTest extends AbstractGraphMessagingTargetTes
 		graphFactory.setDatabaseName(databaseName);
 
 		Graph graph = graphFactory.openGraph();
-		graph.beginTransaction();
 
 		return graph;
 	}

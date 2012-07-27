@@ -32,8 +32,15 @@ public interface Graph extends Serializable, Comparable<Graph> {
 
 	/**
 	 * Clears all data from the graph.
+	 * This is equivalent to calling getRootContextNode().clear();
 	 */
 	public void clear();
+
+	/**
+	 * Checks if the graph is empty.
+	 * This is equivalent to calling getRootContextNode().isEmpty();
+	 */
+	public boolean isEmpty();
 
 	/**
 	 * Finds a context node at any depth in this graph.

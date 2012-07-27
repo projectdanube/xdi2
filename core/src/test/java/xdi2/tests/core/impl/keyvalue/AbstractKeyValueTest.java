@@ -14,6 +14,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 	public void testBasic() throws Exception {
 
 		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-1");
+		keyValueStore.clear();
 
 		keyValueStore.put("a", "b");
 		keyValueStore.put("c", "d");
@@ -55,6 +56,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 	public void testMulti() throws Exception {
 
 		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-2");
+		keyValueStore.clear();
 
 		String buf;
 
@@ -120,6 +122,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 	public void testClear() throws Exception {
 
 		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-3");
+		keyValueStore.clear();
 
 		keyValueStore.put("a", "b");
 		keyValueStore.put("a", "bb");
@@ -148,6 +151,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 	public void testReplace() throws Exception {
 
 		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-4");
+		keyValueStore.clear();
 
 		keyValueStore.put("a", "b");
 
@@ -163,6 +167,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 	public void testDuplicate() throws Exception {
 
 		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-5");
+		keyValueStore.clear();
 
 		String buf;
 
@@ -210,6 +215,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 	public void testTransactions() throws Exception {
 
 		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-6");
+		keyValueStore.clear();
 
 		keyValueStore.beginTransaction();
 		keyValueStore.put("a", "b");
@@ -250,6 +256,38 @@ public abstract class AbstractKeyValueTest extends TestCase {
 			assertFalse(keyValueStore.contains("a", "b"));
 			assertNull(keyValueStore.getOne("a"));
 		}
+
+		keyValueStore.beginTransaction();
+		keyValueStore.put("x", "y");
+		keyValueStore.commitTransaction();
+
+		keyValueStore.beginTransaction();
+		keyValueStore.clear();
+		keyValueStore.rollbackTransaction();
+
+		if (keyValueStore.supportsTransactions()) {
+
+			assertTrue(keyValueStore.contains("x"));
+			assertTrue(keyValueStore.contains("x", "y"));
+			assertEquals(keyValueStore.getOne("x"), "y");
+		} else {
+
+			assertFalse(keyValueStore.contains("x"));
+			assertFalse(keyValueStore.contains("x", "y"));
+			assertNull(keyValueStore.getOne("x"));
+		}
+
+		keyValueStore.beginTransaction();
+		keyValueStore.put("x", "y");
+		keyValueStore.commitTransaction();
+
+		keyValueStore.beginTransaction();
+		keyValueStore.clear();
+		keyValueStore.commitTransaction();
+
+		assertFalse(keyValueStore.contains("x"));
+		assertFalse(keyValueStore.contains("x", "y"));
+		assertNull(keyValueStore.getOne("x"));
 
 		keyValueStore.close();
 	}

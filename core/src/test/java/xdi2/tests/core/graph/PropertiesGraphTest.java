@@ -39,7 +39,6 @@ public class PropertiesGraphTest extends AbstractGraphTest {
 		if (file.exists()) file.delete();
 
 		graphFactory.setPath(path);
-		graphFactory.setAutoSave(true);
 
 		return graphFactory.openGraph();
 	}
@@ -52,7 +51,6 @@ public class PropertiesGraphTest extends AbstractGraphTest {
 		String path = "xdi2-test-graph." + id + ".properties";
 
 		graphFactory.setPath(path);
-		graphFactory.setAutoSave(true);
 
 		return graphFactory.openGraph();
 	}

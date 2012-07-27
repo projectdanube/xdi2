@@ -41,6 +41,12 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
+	public boolean isEmpty() {
+
+		return this.getRootContextNode().isEmpty();
+	}
+
+	@Override
 	public ContextNode findContextNode(XRI3Segment xri, boolean create) {
 
 		return this.getRootContextNode().findContextNode(xri, create);

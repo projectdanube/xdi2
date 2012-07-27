@@ -50,11 +50,11 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 
 		File file = new File(this.databasePath);
 
-		BDBKeyValueStore keyValueStore;
+		KeyValueStore keyValueStore;
 
 		try {
 
-			// open database
+			// open store
 
 			if (! file.exists()) file.mkdir();
 
@@ -69,12 +69,7 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 			databaseConfig.setTransactional(true);
 
 			keyValueStore = new BDBKeyValueStore(this.databasePath, this.databaseName, environmentConfig, databaseConfig);
-
-			// test it
-
-			keyValueStore.openDatabase();
-			keyValueStore.closeDatabase();
-			keyValueStore.openDatabase();
+			keyValueStore.init();
 		} catch (Exception ex) {
 
 			throw new IOException("Cannot open database: " + ex.getMessage());

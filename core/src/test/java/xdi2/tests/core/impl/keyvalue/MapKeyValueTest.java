@@ -1,8 +1,6 @@
 package xdi2.tests.core.impl.keyvalue;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
 
 import xdi2.core.impl.keyvalue.KeyValueStore;
 import xdi2.core.impl.keyvalue.map.DefaultMapFactory;
@@ -14,8 +12,14 @@ public class MapKeyValueTest extends AbstractKeyValueTest {
 	@Override
 	protected KeyValueStore getKeyValueStore(String id) throws IOException {
 
-		Map<String, Set<String>> map = new DefaultMapFactory().newMap();
+		// open store
 
-		return new MapKeyValueStore(map, new DefaultSetFactory());
+		KeyValueStore keyValueStore = new MapKeyValueStore(new DefaultMapFactory().newMap(), new DefaultSetFactory());
+		keyValueStore.init();
+
+		// done
+
+		return keyValueStore;
+	
 	}
 }

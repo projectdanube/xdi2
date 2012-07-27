@@ -1,6 +1,7 @@
 package xdi2.core.impl.keyvalue.bdb;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 	private Environment environment;
 	private Database database;
+	private boolean databaseOpenedInTransaction;
+
 	private Transaction transaction;
 
 	public BDBKeyValueStore(String databasePath, String databaseName, EnvironmentConfig environmentConfig, DatabaseConfig databaseConfig) {
@@ -50,17 +53,20 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		this.databaseConfig = databaseConfig;
 	}
 
-	public void openDatabase() throws DatabaseException {
+	@Override
+	public void init() throws IOException {
 
-		log.debug("Opening database...");
+		log.debug("Opening environment and database...");
 
 		this.environment = new Environment(new File(this.databasePath), this.environmentConfig);
 		this.database = this.environment.openDatabase(null, this.databaseName, this.databaseConfig);
+		this.databaseOpenedInTransaction = false;
 	}
 
-	public void closeDatabase() {
+	@Override
+	public void close() {
 
-		log.debug("Closing database...");
+		log.debug("Closing environment and database...");
 
 		try {
 
@@ -68,78 +74,12 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			this.environment.close();
 		} catch (DatabaseException ex) {
 
-			log.error("Cannot close database: " + ex.getMessage(), ex);
+			log.error("Cannot close environment and database: " + ex.getMessage(), ex);
 		} finally {
 
 			this.database = null;
 			this.environment = null;
 		}
-	}
-
-	@Override
-	public boolean supportsTransactions() {
-
-		return true;
-	}
-
-	@Override
-	public void beginTransaction() {
-
-		log.trace("beginTransaction()");
-
-		if (this.transaction != null) throw new Xdi2RuntimeException("Already have an open transaction.");
-
-		log.debug("Beginning Transaction...");
-
-		try {
-
-			this.transaction = this.environment.beginTransaction(null, null);
-		} catch (Exception ex) {
-
-			throw new Xdi2RuntimeException("Cannot begin transaction: " + ex.getMessage(), ex);
-		}
-
-		log.debug("Began transaction...");
-	}
-
-	@Override
-	public void commitTransaction() {
-
-		log.trace("commitTransaction()");
-
-		if (this.transaction == null) throw new Xdi2RuntimeException("No open transaction.");
-
-		try {
-
-			this.transaction.commit();
-			this.transaction = null;
-		} catch (Exception ex) {
-
-			throw new Xdi2RuntimeException("Cannot commit transaction: " + ex.getMessage(), ex);
-		}
-
-		log.debug("Committed transaction...");
-	}
-
-	@Override
-	public void rollbackTransaction() {
-
-		log.trace("rollbackTransaction()");
-
-		if (this.transaction == null) throw new Xdi2RuntimeException("No open transaction.");
-
-		log.debug("Rolling back transaction...");
-
-		try {
-
-			this.transaction.abort();
-			this.transaction = null;
-		} catch (Exception ex) {
-
-			throw new Xdi2RuntimeException("Cannot roll back transaction: " + ex.getMessage(), ex);
-		}
-
-		log.debug("Rolled back transaction...");
 	}
 
 	@Override
@@ -336,36 +276,98 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 		log.trace("clear()");
 
-		if (this.transaction != null) throw new Xdi2RuntimeException("Cannot clear store with an open transaction.");
-
-		this.closeDatabase();
+		Transaction transaction = this.transaction;
+		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
 
-			EnvironmentConfig environmentConfig = new EnvironmentConfig();
-			environmentConfig.setLocking(true);
-			environmentConfig.setTransactional(true);
+			this.database.close();
 
-			Environment environment = new Environment(new File(this.databasePath), environmentConfig);
-			Transaction transaction = environment.beginTransaction(null, null);
-			environment.truncateDatabase(transaction, this.databaseName, false);
-			transaction.commit();
-			environment.close();
+			this.environment.truncateDatabase(transaction, this.databaseName, false);
+
+			if (this.transaction == null) transaction.commit();
 		} catch (Exception ex) {
 
-			throw new Xdi2RuntimeException("Cannot delete and re-create dabatase: " + ex.getMessage(), ex);
+			if (this.transaction == null) transaction.abort();
+			throw new Xdi2RuntimeException("Cannot truncate dabatase: " + ex.getMessage(), ex);
 		} finally {
 
-			this.openDatabase();
+			this.database = this.environment.openDatabase(this.transaction, this.databaseName, this.databaseConfig);
+			this.databaseOpenedInTransaction = (this.transaction != null);
 		}
 	}
 
 	@Override
-	public void close() {
+	public boolean supportsTransactions() {
 
-		log.trace("close()");
+		return true;
+	}
 
-		this.closeDatabase();
+	@Override
+	public void beginTransaction() {
+
+		log.trace("beginTransaction()");
+
+		if (this.transaction != null) throw new Xdi2RuntimeException("Already have an open transaction.");
+
+		log.debug("Beginning Transaction...");
+
+		try {
+
+			this.transaction = this.environment.beginTransaction(null, null);
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Cannot begin transaction: " + ex.getMessage(), ex);
+		}
+
+		log.debug("Began transaction...");
+	}
+
+	@Override
+	public void commitTransaction() {
+
+		log.trace("commitTransaction()");
+
+		if (this.transaction == null) throw new Xdi2RuntimeException("No open transaction.");
+
+		try {
+
+			this.transaction.commit();
+			this.transaction = null;
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Cannot commit transaction: " + ex.getMessage(), ex);
+		}
+
+		log.debug("Committed transaction...");
+	}
+
+	@Override
+	public void rollbackTransaction() {
+
+		log.trace("rollbackTransaction()");
+
+		if (this.transaction == null) throw new Xdi2RuntimeException("No open transaction.");
+
+		log.debug("Rolling back transaction...");
+
+		try {
+
+			this.transaction.abort();
+			this.transaction = null;
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Cannot roll back transaction: " + ex.getMessage(), ex);
+		} finally {
+
+			if (this.databaseOpenedInTransaction) {
+
+				this.database.close();
+				this.database = this.environment.openDatabase(null, this.databaseName, this.databaseConfig);
+			}
+		}
+
+		log.debug("Rolled back transaction...");
 	}
 
 	private class CursorDuplicatesIterator extends ReadOnlyIterator<String> {

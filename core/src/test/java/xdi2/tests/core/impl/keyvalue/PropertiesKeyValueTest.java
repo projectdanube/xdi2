@@ -16,12 +16,12 @@ public class PropertiesKeyValueTest extends AbstractKeyValueTest {
 		File file = new File(path);
 		if (file.exists()) file.delete();
 		
-		// open file
+		// open store
 
-		PropertiesKeyValueStore keyValueStore;
+		KeyValueStore keyValueStore;
 
-		keyValueStore = new PropertiesKeyValueStore(path, false);
-		keyValueStore.load();
+		keyValueStore = new PropertiesKeyValueStore(path);
+		keyValueStore.init();
 
 		// done
 

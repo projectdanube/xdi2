@@ -39,7 +39,6 @@ public class PropertiesGraphMessagingTargetTest extends AbstractGraphMessagingTa
 		if (file.exists()) file.delete();
 
 		graphFactory.setPath(path);
-		graphFactory.setAutoSave(true);
 
 		return graphFactory.openGraph();
 	}
