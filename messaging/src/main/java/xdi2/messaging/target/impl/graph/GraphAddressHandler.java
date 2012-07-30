@@ -4,8 +4,9 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.messaging.DelOperation;
+import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractAddressHandler;
@@ -27,7 +28,7 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 	}
 	
 	@Override
-	public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeGetOnAddress(XRI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
 
@@ -40,7 +41,7 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 	}
 
 	@Override
-	public boolean executeDelOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDelOnAddress(XRI3Segment targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + targetAddress, null, operation);

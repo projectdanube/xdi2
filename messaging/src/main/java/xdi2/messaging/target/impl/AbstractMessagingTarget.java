@@ -47,10 +47,12 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
+	private XRI3Segment owner;
 	private List<Interceptor> interceptors;
 
 	public AbstractMessagingTarget() {
 
+		this.owner = null;
 		this.interceptors = new ArrayList<Interceptor> ();
 	}
 
@@ -575,6 +577,17 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	/*
 	 * Getters and setters
 	 */
+
+	@Override
+	public XRI3Segment getOwner() {
+
+		return this.owner;
+	}
+
+	public void setOwner(XRI3Segment owner) {
+
+		this.owner = owner;
+	}
 
 	public List<Interceptor> getInterceptors() {
 

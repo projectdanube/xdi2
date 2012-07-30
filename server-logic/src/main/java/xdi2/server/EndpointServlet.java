@@ -66,18 +66,12 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		super();
 
-		this.endpointRegistry = null;
+		this.endpointRegistry = new EndpointRegistry();
 		this.interceptors = new ArrayList<Interceptor> ();
 		this.supportGet = true;
 		this.supportPost = true;
 		this.supportPut = true;
 		this.supportDelete = true;
-	}
-
-	private void initEndpointRegistry(ApplicationContext applicationContext) {
-
-		this.endpointRegistry = new EndpointRegistry();
-		this.endpointRegistry.init(applicationContext);
 	}
 
 	@Override
@@ -102,17 +96,19 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		log.info("Initializing...");
 		log.debug("supportGet=" + this.supportGet + ", supportPost=" + this.supportPost + ", supportPut=" + this.supportPut + ", supportDelete=" + this.supportDelete);
 
+		// check application context
+		
 		if (this.applicationContext == null) {
 
 			log.debug("Setting application context using servlet context.");
 
 			ServletContext servletContext = this.getServletContext();
-			this.applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+			this.applicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 		}
 
-		// init endpoint registry
+		// load messaging targets from application context
 
-		this.initEndpointRegistry(this.applicationContext);
+		this.endpointRegistry.loadApplicationContext(this.applicationContext);
 
 		// execute interceptors
 

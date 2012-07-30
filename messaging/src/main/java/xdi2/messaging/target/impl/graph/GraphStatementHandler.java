@@ -14,7 +14,6 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
@@ -68,10 +67,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, operation);
 
-		for (Object subSegment : contextNodeStatement.getObject().getSubSegments()) {
-
-			contextNode = contextNode.getContextNode((XRI3SubSegment) subSegment);
-		}
+		contextNode = contextNode.findContextNode(contextNodeStatement.getObject(), false);
 
 		contextNode.delete();
 

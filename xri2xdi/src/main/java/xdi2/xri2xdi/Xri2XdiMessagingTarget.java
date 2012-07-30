@@ -9,8 +9,8 @@ import xdi2.core.features.multiplicity.AttributeSingleton;
 import xdi2.core.features.multiplicity.EntitySingleton;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractAddressHandler;
@@ -37,12 +37,6 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public XRI3Segment getOwner() {
-
-		return null;
-	}
-
-	@Override
 	public AddressHandler getAddressHandler(XRI3Segment address) throws Xdi2MessagingException {
 
 		return this.addressHandler;
@@ -61,7 +55,7 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 	private AddressHandler addressHandler = new AbstractAddressHandler() {
 
 		@Override
-		public boolean executeGetOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public boolean executeGetOnAddress(XRI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// is this a remote root context XRI?
 

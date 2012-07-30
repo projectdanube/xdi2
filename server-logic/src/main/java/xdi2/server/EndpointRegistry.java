@@ -11,10 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.target.MessagingTarget;
 
 /**
- * Registers all known messaging targets.
+ * Registry to mount and unmount messaging targets.
  * 
  * @author markus
  */
@@ -31,13 +32,19 @@ public class EndpointRegistry {
 		this.messagingTargetsByPath = new HashMap<String, MessagingTarget>();
 	}
 
-	public synchronized void init(ApplicationContext applicationContext) {
+	public synchronized void loadApplicationContext(ApplicationContext applicationContext) {
 
-		log.info("Registering messaging targets...");
+		// no application context?
 
-		this.shutdown();
+		if (applicationContext == null) {
 
-		// look up and register all messaging targets
+			log.info("No application context. No messaging targets loaded.");
+			return;
+		}
+
+		// look up and mount all messaging targets
+
+		log.info("Mounting messaging targets...");
 
 		Map<String, MessagingTarget> messagingTargets = applicationContext.getBeansOfType(MessagingTarget.class);
 
@@ -48,41 +55,25 @@ public class EndpointRegistry {
 
 			if (! path.startsWith("/")) continue;
 
-			try {
-
-				messagingTarget.init();
-			} catch (Exception ex) {
-
-				log.warn("Exception while initializing messaging target " + messagingTarget.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
-			}
-
-			this.registerMessagingTarget(path, messagingTarget);
+			this.mountMessagingTarget(path, messagingTarget);
 		}
 
 		// done
 
-		log.info("Done. " + this.messagingTargets.size() + " messaging targets registered.");
+		log.info("Done. " + this.messagingTargets.size() + " messaging targets mounted.");
 	}
 
 	public synchronized void shutdown() {
 
 		int size = this.messagingTargets.size();
 
-		// shutdown all our messaging targets
+		// unmount all our messaging targets
 
 		List<MessagingTarget> tempList = new ArrayList<MessagingTarget> (this.messagingTargets);
 
 		for (MessagingTarget messagingTarget : tempList) { 
 
-			this.unregisterMessagingTarget(messagingTarget);
-
-			try {
-
-				messagingTarget.shutdown();
-			} catch (Exception ex) {
-
-				log.warn("Exception while shutting down messaging target " + messagingTarget.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
-			}
+			this.unmountMessagingTarget(messagingTarget);
 		}
 
 		tempList.clear();
@@ -92,38 +83,63 @@ public class EndpointRegistry {
 		log.info(size + " messaging targets were shut down.");
 	}
 
-	public synchronized Iterator<MessagingTarget> getMessagingTargets() {
+	public synchronized ReadOnlyIterator<MessagingTarget> getMessagingTargets() {
 
-		return this.messagingTargets.iterator();
+		return new ReadOnlyIterator<MessagingTarget> (this.messagingTargets.iterator());
+	}
+
+	public synchronized int getNumMessagingTargets() {
+
+		return this.messagingTargets.size();
 	}
 
 	/**
-	 * Registers a messaging target in the registry.
-	 * @param messagingTarget The messaging target to register.
+	 * Mount a messaging target in the registry.
+	 * @param messagingTarget The messaging target to mount.
 	 */
-	public synchronized void registerMessagingTarget(String path, MessagingTarget messagingTarget) {
+	public synchronized void mountMessagingTarget(String path, MessagingTarget messagingTarget) {
 
-		if (path == null) throw new NullPointerException("Cannot register a messaging target without path.");
+		if (path == null) throw new NullPointerException("Cannot mount a messaging target without path.");
 
-		// register messaging target
+		// mount messaging target
 
 		while (path.startsWith("/")) path = path.substring(1);
 
 		this.messagingTargets.add(messagingTarget);
 		this.messagingTargetsByPath.put(path, messagingTarget);
 
+		// init messaging target
+
+		try {
+
+			messagingTarget.init();
+		} catch (Exception ex) {
+
+			log.warn("Exception while initializing messaging target " + messagingTarget.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
+		}
+
 		// done
 
-		log.info("Messaging target " + messagingTarget.getClass().getCanonicalName() + " registered at path " + path + ".");
+		log.info("Messaging target " + messagingTarget.getClass().getCanonicalName() + " mounted at path " + path + ".");
 	}
 
 	/**
-	 * Unregisters a messaging target from the registry.
-	 * @param messagingTarget The messaging target to unregister.
+	 * Unmounts a messaging target from the registry.
+	 * @param messagingTarget The messaging target to unmount.
 	 */
-	public synchronized void unregisterMessagingTarget(MessagingTarget messagingTarget) {
+	public synchronized void unmountMessagingTarget(MessagingTarget messagingTarget) {
 
-		// unregister messaging target
+		// shutdown messaging target
+
+		try {
+
+			messagingTarget.shutdown();
+		} catch (Exception ex) {
+
+			log.warn("Exception while shutting down messaging target " + messagingTarget.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
+		}
+
+		// unmount messaging target
 
 		this.messagingTargets.remove(messagingTarget);
 
@@ -145,7 +161,7 @@ public class EndpointRegistry {
 	public synchronized String[] getMessagingTargetPaths(MessagingTarget messagingTarget) {
 
 		List<String> messagingTargetPaths = new ArrayList<String> ();
-		
+
 		for (Entry<String, MessagingTarget> entry : this.messagingTargetsByPath.entrySet()) {
 
 			if (entry.getValue() == messagingTarget) messagingTargetPaths.add(entry.getKey());
@@ -155,7 +171,7 @@ public class EndpointRegistry {
 	}
 
 	public synchronized String findMessagingTargetPath(String path) {
-		
+
 		if (path.startsWith("/")) path = path.substring(1);
 
 		log.info("Finding messaging target for path: " + path);
@@ -175,7 +191,7 @@ public class EndpointRegistry {
 		return longestMessagingTargetPath;
 	}
 
-/*	public synchronized String getRequestPath(MessagingTarget messagingTarget, HttpServletRequest request) {
+	/*	public synchronized String getRequestPath(MessagingTarget messagingTarget, HttpServletRequest request) {
 
 		String requestUri = request.getRequestURI();
 		String contextPath = request.getContextPath(); 
