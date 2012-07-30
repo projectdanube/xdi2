@@ -1,4 +1,4 @@
-package xdi2.samples;
+package xdi2.samples.core;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;

@@ -1,4 +1,4 @@
-package xdi2.samples;
+package xdi2.samples.client;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;

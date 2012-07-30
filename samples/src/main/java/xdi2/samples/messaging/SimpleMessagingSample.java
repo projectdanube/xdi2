@@ -1,4 +1,4 @@
-package xdi2.samples;
+package xdi2.samples.messaging;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;

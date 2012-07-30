@@ -1,4 +1,4 @@
-package xdi2.samples;
+package xdi2.samples.client;
 
 import xdi2.client.http.XDIHttpClient;
 import xdi2.resolution.XDIResolutionResult;

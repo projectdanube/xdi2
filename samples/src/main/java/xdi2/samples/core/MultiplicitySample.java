@@ -1,4 +1,4 @@
-package xdi2.samples;
+package xdi2.samples.core;
 
 import java.io.StringReader;
 import java.util.Iterator;
