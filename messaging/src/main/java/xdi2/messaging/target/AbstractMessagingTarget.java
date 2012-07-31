@@ -396,7 +396,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * Contributors
 	 */
 
-	public boolean executeContributorsAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private boolean executeContributorsAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XRI3Segment contextNodeXri = targetAddress;
 
@@ -417,7 +417,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		return false;
 	}
 
-	public boolean executeContributorsStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private boolean executeContributorsStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XRI3Segment contextNodeXri = targetStatement instanceof ContextNodeStatement ? new XRI3Segment(targetStatement.getSubject().toString() + targetStatement.getObject().toString()) : targetStatement.getSubject();
 

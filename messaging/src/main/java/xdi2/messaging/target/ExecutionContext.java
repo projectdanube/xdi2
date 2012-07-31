@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * MessagingTargets as well as Interceptors can use the ExecutionContext to store
- * and share state. The ExecutionContext is created before a MessageEnvelope is executed,
- * and is deleted when execution of the MessageEnvelope is complete.
+ * MessagingTargets as well as Contributors and Interceptors can use the ExecutionContext
+ * to store and share state. The ExecutionContext is created before a MessageEnvelope is
+ * executed, and is deleted when execution of the MessageEnvelope is complete.
  */
 public final class ExecutionContext implements Serializable {
 
