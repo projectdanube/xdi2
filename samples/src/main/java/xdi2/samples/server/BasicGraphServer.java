@@ -12,18 +12,22 @@ public class BasicGraphServer extends AbstractJettyServer {
 	@Override
 	protected void setup(EndpointServlet endpointServlet) throws Exception {
 
-		// add messaging targets
+		// set up graph messaging target
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 		messagingTarget.setGraph(graph);
 
+		// add interceptor
+		
 		BootstrapInterceptor bi = new BootstrapInterceptor();
 		bi.setBootstrapOwner(new XRI3Segment("=!1111"));
 		bi.setBootstrapSharedSecret("s3cr3t");
 		bi.setBootstrapLinkContract(true);
 
 		messagingTarget.getInterceptors().add(bi);
+
+		// mount messaging target
 
 		endpointServlet.getEndpointRegistry().mountMessagingTarget("/", messagingTarget);
 	}

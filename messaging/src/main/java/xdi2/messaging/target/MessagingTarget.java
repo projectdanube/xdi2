@@ -6,7 +6,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 /**
- * A MessagingGraph can process XDI messages and produce a result graph.
+ * A MessagingTarget can process XDI messages and produce a result graph.
  *
  * @author markus
  */

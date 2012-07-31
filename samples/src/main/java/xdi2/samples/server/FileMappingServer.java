@@ -22,7 +22,7 @@ public class FileMappingServer extends AbstractJettyServer {
 		// add contributor
 
 		messagingTarget.addContributor(new XRI3Segment("=!1111+email"), new MyFileContributor(new File("email.txt")));
-		messagingTarget.addContributor(new XRI3Segment("=!1111+name"), new MyFileContributor(new File("email.txt")));
+		messagingTarget.addContributor(new XRI3Segment("=!1111+name"), new MyFileContributor(new File("name.txt")));
 
 		// mount messaging target
 

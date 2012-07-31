@@ -1,6 +1,7 @@
 package xdi2.messaging.target.contributor;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
@@ -135,7 +136,7 @@ public abstract class AbstractContributor implements Contributor {
 
 		if (this.getFilter()) {
 
-			this.get(targetContextNodeXri, operation, tempMessageResult, executionContext);
+			this.get(contextNodeXri, operation, tempMessageResult, executionContext);
 
 			ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
 			if (tempContextNode == null) return false;
@@ -165,6 +166,23 @@ public abstract class AbstractContributor implements Contributor {
 	}
 
 	public boolean getLiteral(XRI3Segment contextNodeXri, String literalData, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		MessageResult tempMessageResult = new MessageResult();
+
+		if (this.getFilter()) {
+
+			this.get(contextNodeXri, operation, tempMessageResult, executionContext);
+
+			ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
+			if (tempContextNode == null) return false;
+
+			Literal tempLiteral = tempContextNode.getLiteral();
+			if (tempLiteral == null) return false;
+
+			if (! tempLiteral.getLiteralData().equals(literalData)) return false;
+
+			CopyUtil.copyLiteral(tempLiteral, messageResult.getGraph(), null);
+		}
 
 		return false;
 	}
