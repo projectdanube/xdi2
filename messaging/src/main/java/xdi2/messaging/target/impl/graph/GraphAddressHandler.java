@@ -8,8 +8,8 @@ import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.AbstractAddressHandler;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.impl.AbstractAddressHandler;
 
 public class GraphAddressHandler extends AbstractAddressHandler {
 
@@ -37,7 +37,7 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 			CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
 		}
 
-		return true;
+		return false;
 	}
 
 	@Override
@@ -48,6 +48,6 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 
 		contextNode.delete();
 
-		return true;
+		return false;
 	}
 }

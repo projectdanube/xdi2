@@ -82,7 +82,7 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 	/**
 	 * @return True, if this key/value graph supports enumerating contexts.
 	 */
-	public boolean isSupportGetContextNodes() {
+	public boolean getSupportGetContextNodes() {
 
 		return this.supportGetContextNodes;
 	}
@@ -90,7 +90,7 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 	/**
 	 * @return True, if this key/value graph supports enumerating relations.
 	 */
-	public boolean isSupportGetRelations() {
+	public boolean getSupportGetRelations() {
 
 		return this.supportGetRelations;
 	}

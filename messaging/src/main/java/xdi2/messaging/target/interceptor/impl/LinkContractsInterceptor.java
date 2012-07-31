@@ -150,7 +150,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 
 	@Override
 	public Statement targetStatement(Operation operation,
-			Statement targetStatement, ExecutionContext executionContext)
+			Statement targetStatement, MessageResult messageResult, ExecutionContext executionContext)
 			throws Xdi2MessagingException {
 
 		// read the referenced link contract from the execution context
@@ -174,7 +174,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 
 	@Override
 	public XRI3Segment targetAddress(Operation operation,
-			XRI3Segment targetAddress, ExecutionContext executionContext)
+			XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext)
 			throws Xdi2MessagingException {
 
 		// read the referenced link contract from the execution context

@@ -37,5 +37,5 @@ public interface MessagingTarget {
 	 * single execute() method.
 	 * @return True, if the message envelope has been handled.
 	 */
-	public boolean execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

@@ -1,13 +1,16 @@
-package xdi2.messaging.target.impl;
+package xdi2.messaging.target;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Statement;
+import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.AbstractStatement;
 import xdi2.core.util.iterators.SelectingClassIterator;
@@ -17,8 +20,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
@@ -48,11 +50,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
 	private XRI3Segment owner;
+	private Map<XRI3Segment, List<Contributor>> contributors;
 	private List<Interceptor> interceptors;
 
 	public AbstractMessagingTarget() {
 
 		this.owner = null;
+		this.contributors = new HashMap<XRI3Segment, List<Contributor>> ();
 		this.interceptors = new ArrayList<Interceptor> ();
 	}
 
@@ -88,16 +92,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param messageResult The result produced by executing the message envelope.
 	 * @param executionContext An "execution context" object that is created when
 	 * execution of the message envelope begins and that will be passed into every execute() method.
-	 * @return True, if the message envelope has been handled.
 	 */
 	@Override
-	public boolean execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (messageEnvelope == null) throw new NullPointerException();
 		if (messageResult == null) throw new NullPointerException();
 		if (executionContext == null) executionContext = new ExecutionContext(this);
-
-		boolean handled = false;
 
 		int i = 0;
 		int messageCount = messageEnvelope.getMessageCount();
@@ -117,7 +118,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if (this.executeMessageEnvelopeInterceptorsBefore(messageEnvelope, messageResult, executionContext)) {
 
-				return true;
+				return;
 			}
 
 			// execute the message envelope
@@ -139,7 +140,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				if (this.executeMessageInterceptorsBefore(message, messageResult, executionContext)) {
 
-					handled = true;
 					continue;
 				}
 
@@ -147,13 +147,12 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message " + i + "/" + messageCount + " (" + operationCount + " operations).");
 
-				if (this.execute(message, messageResult, executionContext)) handled = true;
+				this.execute(message, messageResult, executionContext);
 
 				// execute message interceptors (after)
 
 				if (this.executeMessageInterceptorsAfter(message, messageResult, executionContext)) {
 
-					handled = true;
 					continue;
 				}
 
@@ -166,7 +165,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if (this.executeMessageEnvelopeInterceptorsAfter(messageEnvelope, messageResult, executionContext)) {
 
-				return true;
+				return;
 			}
 
 			// after message envelope
@@ -197,10 +196,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			throw (Xdi2MessagingException) ex;
 		}
-
-		// done
-
-		return handled;
 	}
 
 	/**
@@ -209,13 +204,10 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param messageResult The result produced by executing the message envelope.
 	 * @param executionContext An "execution context" object that is created when
 	 * execution of the message envelope begins and that will be passed into every execute() method.
-	 * @return True, if the message has been handled.
 	 */
-	public boolean execute(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (message == null) throw new NullPointerException();
-
-		boolean handled = false;
 
 		int i = 0;
 		int operationCount = message.getOperationCount();
@@ -240,7 +232,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				if (this.executeOperationInterceptorsBefore(operation, messageResult, executionContext)) {
 
-					handled = true;
 					continue;
 				}
 
@@ -248,13 +239,12 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation " + i + "/" + operationCount + " (" + operation.getOperationXri() + ").");
 
-				if (this.execute(operation, messageResult, executionContext)) handled = true;
+				this.execute(operation, messageResult, executionContext);
 
 				// execute operation interceptors (after)
 
 				if (this.executeOperationInterceptorsAfter(operation, messageResult, executionContext)) {
 
-					handled = true;
 					continue;
 				}
 
@@ -275,10 +265,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				throw (Xdi2MessagingException) ex;
 			}
 		}
-
-		// done
-
-		return handled;
 	}
 
 	/**
@@ -287,13 +273,10 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param messageResult The result produced by executing the message envelope.
 	 * @param executionContext An "execution context" object that is created when
 	 * execution of the message envelope begins and that will be passed into every execute() method.
-	 * @return True, if the operation has been handled.
 	 */
-	public boolean execute(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation == null) throw new NullPointerException();
-
-		boolean handled = false;
 
 		XRI3Segment target = operation.getTarget();
 
@@ -310,26 +293,23 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			targetAddress = target;
 		}
 
-		if (targetStatement != null) {
+		// execute on address or statement
 
-			// execute target interceptors (statement)
-
-			targetStatement = this.executeTargetInterceptorsStatement(operation, targetStatement, executionContext);
-			if (targetStatement == null) return true;
-
-			// get a statement handler, and execute on the statement
-
-			StatementHandler statementHandler = this.getStatementHandler(targetStatement);
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
-
-			if (statementHandler.executeOnStatement(targetStatement, operation, messageResult, executionContext)) handled = true;
-		} else {
+		if (targetStatement == null) {
 
 			// execute target interceptors (address)
 
-			targetAddress = this.executeTargetInterceptorsAddress(operation, targetAddress, executionContext);
-			if (targetAddress == null) return true;
+			if ((targetAddress = this.executeTargetInterceptorsAddress(operation, targetAddress, messageResult, executionContext)) == null) {
+
+				return;
+			}
+
+			// execute contributors (address)
+
+			if (this.executeContributorsAddress(targetAddress, operation, messageResult, executionContext)) {
+
+				return;
+			}
 
 			// get an address handler, and execute on the address
 
@@ -337,12 +317,37 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
 
-			if (addressHandler.executeOnAddress(targetAddress, operation, messageResult, executionContext)) handled = true;
+			if (addressHandler.executeOnAddress(targetAddress, operation, messageResult, executionContext)) {
+
+				return;
+			}
+		} else {
+
+			// execute target interceptors (statement)
+
+			if ((targetStatement = this.executeTargetInterceptorsStatement(operation, targetStatement, messageResult, executionContext)) == null) {
+
+				return;
+			}
+
+			// execute contributors (statement)
+
+			if (this.executeContributorsStatement(targetStatement, operation, messageResult, executionContext)) {
+
+				return;
+			}
+
+			// get a statement handler, and execute on the statement
+
+			StatementHandler statementHandler = this.getStatementHandler(targetStatement);
+
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
+
+			if (statementHandler.executeOnStatement(targetStatement, operation, messageResult, executionContext)) {
+
+				return;
+			}
 		}
-
-		// done
-
-		return handled;
 	}
 
 	/*
@@ -385,6 +390,52 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	public StatementHandler getStatementHandler(Statement targetStatement) throws Xdi2MessagingException {
 
 		return null;
+	}
+
+	/*
+	 * Contributors
+	 */
+
+	public boolean executeContributorsAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XRI3Segment contextNodeXri = targetAddress;
+
+		List<Contributor> contributors = this.getContributors().get(contextNodeXri);
+		if (contributors == null) return false;
+
+		for (Contributor contributor : contributors) {
+
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing contributor " + contributor.getClass().getSimpleName() + " (address).");
+
+			if (contributor.executeOnAddress(targetAddress, operation, messageResult, executionContext)) {
+
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Address has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean executeContributorsStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XRI3Segment contextNodeXri = targetStatement instanceof ContextNodeStatement ? new XRI3Segment(targetStatement.getSubject().toString() + targetStatement.getObject().toString()) : targetStatement.getSubject();
+
+		List<Contributor> contributors = this.getContributors().get(contextNodeXri);
+		if (contributors == null) return false;
+
+		for (Contributor contributor : contributors) {
+
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing contributor " + contributor.getClass().getSimpleName() + " (statement).");
+
+			if (contributor.executeOnStatement(targetStatement, operation, messageResult, executionContext)) {
+
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Address has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/*
@@ -518,29 +569,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		return false;
 	}
 
-	private Statement executeTargetInterceptorsStatement(Operation operation, Statement targetStatement, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		for (Iterator<TargetInterceptor> targetInterceptors = this.getTargetInterceptors(); targetInterceptors.hasNext(); ) {
-
-			TargetInterceptor targetInterceptor = targetInterceptors.next();
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing target interceptor " + targetInterceptor.getClass().getSimpleName() + " on statement " + targetStatement + ".");
-
-			targetStatement = targetInterceptor.targetStatement(operation, targetStatement, executionContext);
-
-			if (targetStatement == null) {
-
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Statement has been skipped by interceptor " + targetInterceptor.getClass().getSimpleName() + ".");
-				return null;
-			}
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Interceptor " + targetInterceptor.getClass().getSimpleName() + " returned statement: " + targetStatement + ".");
-		}
-
-		return targetStatement;
-	}
-
-	private XRI3Segment executeTargetInterceptorsAddress(Operation operation, XRI3Segment targetAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private XRI3Segment executeTargetInterceptorsAddress(Operation operation, XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		for (Iterator<TargetInterceptor> targetInterceptors = this.getTargetInterceptors(); targetInterceptors.hasNext(); ) {
 
@@ -548,7 +577,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing target interceptor " + targetInterceptor.getClass().getSimpleName() + " on address " + targetAddress + ".");
 
-			targetAddress = targetInterceptor.targetAddress(operation, targetAddress, executionContext);
+			targetAddress = targetInterceptor.targetAddress(operation, targetAddress, messageResult, executionContext);
 
 			if (targetAddress == null) {
 
@@ -560,6 +589,28 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		}
 
 		return targetAddress;
+	}
+
+	private Statement executeTargetInterceptorsStatement(Operation operation, Statement targetStatement, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		for (Iterator<TargetInterceptor> targetInterceptors = this.getTargetInterceptors(); targetInterceptors.hasNext(); ) {
+
+			TargetInterceptor targetInterceptor = targetInterceptors.next();
+
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing target interceptor " + targetInterceptor.getClass().getSimpleName() + " on statement " + targetStatement + ".");
+
+			targetStatement = targetInterceptor.targetStatement(operation, targetStatement, messageResult, executionContext);
+
+			if (targetStatement == null) {
+
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Statement has been skipped by interceptor " + targetInterceptor.getClass().getSimpleName() + ".");
+				return null;
+			}
+
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Interceptor " + targetInterceptor.getClass().getSimpleName() + " returned statement: " + targetStatement + ".");
+		}
+
+		return targetStatement;
 	}
 
 	private void executeResultInterceptorsFinish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -587,6 +638,42 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	public void setOwner(XRI3Segment owner) {
 
 		this.owner = owner;
+	}
+
+	public Map<XRI3Segment, List<Contributor>> getContributors() {
+
+		return this.contributors;
+	}
+
+	public void setContributors(Map<XRI3Segment, List<Contributor>> contributors) {
+
+		this.contributors = contributors;
+	}
+
+	public void addContributor(XRI3Segment xri, Contributor contributor) {
+
+		List<Contributor> contributors = this.contributors.get(xri);
+
+		if (contributors == null) {
+
+			contributors = new ArrayList<Contributor> ();
+			this.contributors.put(xri, contributors);
+		}
+
+		contributors.add(contributor);
+	}
+
+	public void removeContributor(XRI3Segment xri, Contributor contributor) {
+
+		List<Contributor> contributors = this.contributors.get(xri);
+		if (contributors == null) return;
+
+		contributors.remove(contributor);
+
+		if (contributors.isEmpty()) {
+
+			this.contributors.remove(xri);
+		}
 	}
 
 	public List<Interceptor> getInterceptors() {

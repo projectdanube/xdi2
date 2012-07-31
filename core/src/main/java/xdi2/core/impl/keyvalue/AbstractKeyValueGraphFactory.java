@@ -26,12 +26,12 @@ public abstract class AbstractKeyValueGraphFactory extends AbstractGraphFactory 
 
 		KeyValueStore keyValueStore = this.openKeyValueStore();
 
-		return new KeyValueGraph(keyValueStore, this.supportGetContextNodes, this.supportGetRelations);
+		return new KeyValueGraph(keyValueStore, this.getSupportGetContextNodes(), this.getSupportGetRelations());
 	}
 
 	protected abstract KeyValueStore openKeyValueStore() throws IOException;
 
-	public boolean isSupportGetContextNodes() {
+	public boolean getSupportGetContextNodes() {
 
 		return this.supportGetContextNodes;
 	}
@@ -41,7 +41,7 @@ public abstract class AbstractKeyValueGraphFactory extends AbstractGraphFactory 
 		this.supportGetContextNodes = supportGetContextNodes;
 	}
 
-	public boolean isSupportGetRelations() {
+	public boolean getSupportGetRelations() {
 
 		return this.supportGetRelations;
 	}

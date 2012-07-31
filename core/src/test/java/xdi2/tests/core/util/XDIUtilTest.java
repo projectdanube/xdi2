@@ -6,9 +6,9 @@ import xdi2.core.xri3.impl.XRI3Segment;
 
 public class XDIUtilTest extends TestCase {
 
-	public void testVariables() throws Exception {
+	public void testDataXriSegments() throws Exception {
 
-		XRI3Segment dataXriSegments[] = new XRI3Segment [] {
+		XRI3Segment dataXriSegments[] = new XRI3Segment[] {
 				new XRI3Segment("(data:,+1-206-555-1212)"),
 				new XRI3Segment("(data:,33)"),
 				new XRI3Segment("(data:,2010J10J10T11:12:13Z)"),
@@ -18,7 +18,7 @@ public class XDIUtilTest extends TestCase {
 				new XRI3Segment("(data:,987654321)")
 		};
 
-		String strings[] = new String [] {
+		String strings[] = new String[] {
 				"+1-206-555-1212",
 				"33",
 				"2010J10J10T11:12:13Z",
@@ -32,6 +32,7 @@ public class XDIUtilTest extends TestCase {
 
 		for (int i=0; i<dataXriSegments.length; i++) {
 
+			assertTrue(XDIUtil.isDataXriSegment(dataXriSegments[i]));
 			assertEquals(dataXriSegments[i], XDIUtil.stringToDataXriSegment(strings[i], false));
 			assertEquals(strings[i], XDIUtil.dataXriSegmentToString(dataXriSegments[i]));
 		}

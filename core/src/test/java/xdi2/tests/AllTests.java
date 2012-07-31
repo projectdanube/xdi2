@@ -12,6 +12,7 @@ import xdi2.tests.core.graph.BDBGraphTest;
 import xdi2.tests.core.graph.MapGraphTest;
 import xdi2.tests.core.graph.MemoryGraphTest;
 import xdi2.tests.core.graph.PropertiesGraphTest;
+import xdi2.tests.core.impl.AbstractStatementTest;
 import xdi2.tests.core.impl.keyvalue.BDBKeyValueTest;
 import xdi2.tests.core.impl.keyvalue.MapKeyValueTest;
 import xdi2.tests.core.impl.keyvalue.PropertiesKeyValueTest;
@@ -41,6 +42,7 @@ public class AllTests {
 		suite.addTestSuite(LinkContractsTest.class);
 		suite.addTestSuite(XDIUtilTest.class);
 		suite.addTestSuite(IteratorTest.class);
+		suite.addTestSuite(AbstractStatementTest.class);
 		//$JUnit-END$
 		return suite;
 	}

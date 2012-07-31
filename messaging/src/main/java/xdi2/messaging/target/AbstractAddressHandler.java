@@ -1,4 +1,4 @@
-package xdi2.messaging.target.impl;
+package xdi2.messaging.target;
 
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.AddOperation;
@@ -8,7 +8,6 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.ExecutionContext;
 
 public class AbstractAddressHandler implements AddressHandler {
 

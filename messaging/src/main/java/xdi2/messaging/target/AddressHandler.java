@@ -1,10 +1,9 @@
-package xdi2.messaging.target.impl;
+package xdi2.messaging.target;
 
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.ExecutionContext;
 
 /**
  * An AddressHandler can execute an XDI operation against an address.
@@ -22,7 +21,7 @@ public interface AddressHandler {
 	 * @param operation The operation that is being executed.
 	 * @param messageResult The message result to fill.
 	 * @param executionContext An "execution context" object for the entire XDI message envelope.
-	 * @return True, if the operation has been handled.
+	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
 	public boolean executeOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

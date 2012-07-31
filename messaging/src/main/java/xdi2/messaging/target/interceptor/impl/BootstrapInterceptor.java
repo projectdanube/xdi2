@@ -137,7 +137,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 		this.bootstrapSharedSecret = bootstrapSharedSecret;
 	}
 
-	public boolean isBootstrapLinkContract() {
+	public boolean getBootstrapLinkContract() {
 
 		return this.bootstrapLinkContract;
 	}

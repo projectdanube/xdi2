@@ -22,6 +22,19 @@ public class XDIUtil {
 
 	private XDIUtil() { }
 
+	public static boolean isDataXriSegment(XRI3Segment xriSegment) {
+
+		try {
+
+			dataXriSegmentToString(xriSegment);
+		} catch (Exception ex) {
+
+			return false;
+		}
+
+		return true;
+	}
+
 	public static String dataXriSegmentToString(XRI3Segment xriSegment) {
 
 		if (log.isDebugEnabled()) log.debug("Converting from data URI: " + xriSegment.toString());
@@ -83,7 +96,7 @@ public class XDIUtil {
 	}
 
 	private static String makeDataUri(String string) throws URISyntaxException {
-		
+
 		return 
 				new URI("data", string, null).toString()
 				.replace("/", "%2F")

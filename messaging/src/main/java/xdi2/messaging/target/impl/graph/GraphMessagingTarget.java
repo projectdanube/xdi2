@@ -7,10 +7,10 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.AbstractMessagingTarget;
+import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.impl.AbstractMessagingTarget;
-import xdi2.messaging.target.impl.AddressHandler;
-import xdi2.messaging.target.impl.StatementHandler;
+import xdi2.messaging.target.StatementHandler;
 
 /**
  * An XDI messaging target backed by some implementation of the Graph interface.

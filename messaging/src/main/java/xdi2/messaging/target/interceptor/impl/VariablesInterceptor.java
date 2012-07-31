@@ -55,7 +55,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	 */
 
 	@Override
-	public Statement targetStatement(Operation operation, Statement targetStatement, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public Statement targetStatement(Operation operation, Statement targetStatement, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof AddOperation)) return targetStatement;
 
@@ -69,7 +69,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	}
 
 	@Override
-	public XRI3Segment targetAddress(Operation operation, XRI3Segment targetAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XRI3Segment targetAddress(Operation operation, XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof AddOperation)) return targetAddress;
 

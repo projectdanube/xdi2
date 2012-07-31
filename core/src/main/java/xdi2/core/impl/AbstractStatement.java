@@ -7,6 +7,7 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.util.XDIUtil;
 import xdi2.core.xri3.impl.XRI3;
 import xdi2.core.xri3.impl.XRI3Reference;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -50,7 +51,7 @@ public abstract class AbstractStatement implements Statement {
 					return object;
 				}
 			};
-		} else if (XDIConstants.XRI_S_LITERAL.equals(predicate)) {
+		} else if (XDIConstants.XRI_S_LITERAL.equals(predicate) && XDIUtil.isDataXriSegment(object)) {
 
 			return new AbstractLiteralStatement() {
 

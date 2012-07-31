@@ -1,10 +1,9 @@
-package xdi2.messaging.target.impl;
+package xdi2.messaging.target;
 
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
@@ -12,48 +11,14 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.ExecutionContext;
 
-public abstract class ContextHandler implements AddressHandler, StatementHandler {
-
-	/*
-	 * Operations on addresses
-	 */
-
-	@Override
-	public boolean executeOnAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		if (operation instanceof GetOperation)
-			return this.executeGetOnAddress(targetAddress, (GetOperation) operation, messageResult, executionContext);
-		else if (operation instanceof AddOperation)
-			return this.executeAddOnAddress(targetAddress, (AddOperation) operation, messageResult, executionContext);
-		else if (operation instanceof ModOperation)
-			return this.executeModOnAddress(targetAddress, (ModOperation) operation, messageResult, executionContext);
-		else if (operation instanceof DelOperation)
-			return this.executeDelOnAddress(targetAddress, (DelOperation) operation, messageResult, executionContext);
-		else
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, operation);
-	}
-
-	public boolean executeGetOnAddress(XRI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
-	}
-
-	public boolean executeAddOnAddress(XRI3Segment targetAddress, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
-	}
-
-	public boolean executeModOnAddress(XRI3Segment targetAddress, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
-	}
-
-	public boolean executeDelOnAddress(XRI3Segment targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
-	}
+/**
+ * Checks what kind of statement and what kind of operation is being
+ * executed ($add, $get, ...) and calls the appropriate executeXXX() method
+ * 
+ * @author markus
+ */
+public abstract class AbstractStatementHandler implements StatementHandler {
 
 	/*
 	 * Operations on statements

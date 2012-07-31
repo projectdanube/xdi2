@@ -49,15 +49,13 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 	}
 
 	@Override
-	public boolean execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		this.setGraph(this.readGraph());
 
-		boolean handled = super.execute(messageEnvelope, messageResult, executionContext);
+		super.execute(messageEnvelope, messageResult, executionContext);
 
 		this.writeGraph(this.getGraph());
-
-		return handled;
 	}
 
 	private Graph readGraph() throws Xdi2MessagingException {
