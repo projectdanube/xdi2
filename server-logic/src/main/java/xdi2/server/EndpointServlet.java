@@ -32,6 +32,7 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.iterators.SelectingClassIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -287,7 +288,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_GET);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, messagingTarget, XDIMessagingConstants.XRI_S_GET);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -389,7 +390,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_ADD);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, messagingTarget, XDIMessagingConstants.XRI_S_ADD);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -440,7 +441,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, XDIMessagingConstants.XRI_S_DEL);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, messagingTarget, XDIMessagingConstants.XRI_S_DEL);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -469,7 +470,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		return path;
 	}
 
-	private static MessageEnvelope readFromUrl(HttpServletRequest request, HttpServletResponse response, String path, String messagingTargetPath, XRI3Segment operationXri) throws IOException {
+	private static MessageEnvelope readFromUrl(HttpServletRequest request, HttpServletResponse response, String path, String messagingTargetPath, MessagingTarget messagingTarget, XRI3Segment operationXri) throws IOException {
 
 		// parse an XDI address from the request path
 
@@ -501,6 +502,18 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		log.debug("Requested XDI context node: " + contextNodeXri + ".");
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_GET, contextNodeXri);
+
+		// set the recipient authority to the owner of the messaging target
+
+		XRI3Segment owner = messagingTarget.getOwner();
+
+		if (owner != null) {
+
+			Message message = messageEnvelope.getMessages().next();
+			message.getContextNode().createRelation(XDIMessagingConstants.XRI_S_TO_GRAPH, owner);
+		}
+
+		// done
 
 		return messageEnvelope;
 	}

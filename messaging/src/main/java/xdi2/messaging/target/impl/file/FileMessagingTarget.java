@@ -41,29 +41,34 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 	@Override
 	public void init() throws Exception {
 
+		super.init();
+
+		this.setGraph(graphFactory.openGraph());
 	}
 
 	@Override
 	public void shutdown() throws Exception {
 
+		super.shutdown();
 	}
 
 	@Override
 	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		this.setGraph(this.readGraph());
+		this.readGraph();
 
 		super.execute(messageEnvelope, messageResult, executionContext);
 
-		this.writeGraph(this.getGraph());
+		this.writeGraph();
 	}
 
-	private Graph readGraph() throws Xdi2MessagingException {
+	private void readGraph() throws Xdi2MessagingException {
 
 		XDIReader xdiReader = XDIReaderRegistry.forFormat(this.format, null);
 		if (xdiReader == null) throw new Xdi2MessagingException("Cannot read this format: " + this.format, null, null);
 
-		Graph graph = graphFactory.openGraph();
+		Graph graph = this.getGraph();
+		graph.clear();
 
 		FileReader reader = null;
 
@@ -91,15 +96,15 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 
 		if (xdiReader instanceof AutoReader) this.format = ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat();
 		if (this.format == null) this.format = XDIWriterRegistry.getDefault().getFormat();
-
-		return graph;
 	}
 
-	private void writeGraph(Graph graph) throws Xdi2MessagingException {
+	private void writeGraph() throws Xdi2MessagingException {
 
 		XDIWriter xdiWriter = XDIWriterRegistry.forFormat(this.format, null);
 		if (xdiWriter == null) throw new Xdi2MessagingException("Cannot write this format: " + this.format, null, null);
 
+		Graph graph = this.getGraph();
+		
 		FileWriter writer = null;
 
 		try {

@@ -1,6 +1,15 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-08-01:
+------------------------
+
+*** Embedded mode support with Jetty
+
+*** New mechanism "Contributor" for supporting external data sources
+
+*** Debug page for the server
+
 2012-07-27:
 ------------------------
 

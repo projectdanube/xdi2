@@ -37,6 +37,8 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 	@Override
 	public boolean processGetRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
 
+		if (! path.isEmpty()) return false;
+
 		EndpointRegistry endpointRegistry = endpointServlet.getEndpointRegistry();
 
 		// prepare velocity
