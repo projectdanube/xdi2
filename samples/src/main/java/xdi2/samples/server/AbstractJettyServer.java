@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.server.EndpointServlet;
+import xdi2.server.interceptor.impl.DebugEndpointServletInterceptor;
 
 public abstract class AbstractJettyServer {
 
@@ -21,6 +22,7 @@ public abstract class AbstractJettyServer {
 		// create and setup XDI2 endpoint servlet
 
 		EndpointServlet endpointServlet = new EndpointServlet();
+		endpointServlet.getInterceptors().add(new DebugEndpointServletInterceptor());
 
 		this.setup(endpointServlet);
 

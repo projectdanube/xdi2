@@ -33,7 +33,7 @@ public class MyFileContributor extends AbstractContributor {
 		ContextNode contextNode = messageResult.getGraph().findContextNode(contextNodeXri, true);
 		contextNode.createLiteral(string);
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class MyFileContributor extends AbstractContributor {
 
 		this.save(literalData, operation);
 
-		return false;
+		return true;
 	}
 
 	protected String load(Operation operation) throws Xdi2MessagingException {

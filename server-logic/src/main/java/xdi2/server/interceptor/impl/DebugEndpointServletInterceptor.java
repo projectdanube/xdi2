@@ -44,6 +44,7 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 		// prepare velocity
 
 		VelocityContext context = new VelocityContext();
+		context.put("endpointservlet", endpointServlet);
 		context.put("path", path);
 		context.put("messagingtargets", endpointRegistry.getMessagingTargets());
 		context.put("messagingtargetsbypath", endpointRegistry.getMessagingTargetsByPath().entrySet());
@@ -54,6 +55,7 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 		PrintWriter writer = response.getWriter();
 
 		response.setStatus(HttpServletResponse.SC_OK);
+		response.setContentType("text/html");
 		this.velocityEngine.evaluate(context, writer, "debug.vm", reader);
 		writer.close();
 

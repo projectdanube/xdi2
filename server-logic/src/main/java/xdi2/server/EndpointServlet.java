@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,6 +64,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 	private EndpointRegistry endpointRegistry;
 	private List<Interceptor> interceptors;
 	private boolean supportGet, supportPost, supportPut, supportDelete;
+	private Date startup;
 
 	public EndpointServlet() {
 
@@ -73,6 +76,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		this.supportPost = true;
 		this.supportPut = true;
 		this.supportDelete = true;
+		this.startup = null;
 	}
 
 	@Override
@@ -121,6 +125,10 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			endpointServletInterceptor.init(this);
 		}
+
+		// remember startup time
+
+		this.startup = new Date();
 
 		// done
 
@@ -718,5 +726,20 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 	public void setSupportDelete(boolean supportDelete) {
 
 		this.supportDelete = supportDelete;
+	}
+
+	public Date getStartup() {
+
+		return this.startup;
+	}
+
+	public void setStartup(Date startup) {
+
+		this.startup = startup;
+	}
+
+	public String getStartupAsString() {
+
+		return new SimpleDateFormat().format(this.getStartup());
 	}
 }

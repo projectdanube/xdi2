@@ -6,6 +6,7 @@ import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.impl.BootstrapInterceptor;
 import xdi2.server.EndpointServlet;
 
 public class FileMappingServer extends AbstractJettyServer {
@@ -23,6 +24,15 @@ public class FileMappingServer extends AbstractJettyServer {
 
 		messagingTarget.addContributor(new XRI3Segment("=!1111+email"), new MyFileContributor(new File("email.txt")));
 		messagingTarget.addContributor(new XRI3Segment("=!1111+name"), new MyFileContributor(new File("name.txt")));
+
+		// add interceptor
+
+		BootstrapInterceptor bootstrapInterceptor = new BootstrapInterceptor();
+		bootstrapInterceptor.setBootstrapOwner(new XRI3Segment("=!1111"));
+		bootstrapInterceptor.setBootstrapSharedSecret("s3cr3t");
+		bootstrapInterceptor.setBootstrapLinkContract(true);
+
+		messagingTarget.getInterceptors().add(bootstrapInterceptor);
 
 		// mount messaging target
 
