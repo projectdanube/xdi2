@@ -69,6 +69,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			MessagingTargetInterceptor messagingTargetInterceptor = messagingTargetInterceptors.next();
 
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing messaging target interceptor " + messagingTargetInterceptor.getClass().getSimpleName() + " (init).");
+
 			messagingTargetInterceptor.init(this);
 		}
 	}
@@ -81,6 +83,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = this.getMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
 
 			MessagingTargetInterceptor messagingTargetInterceptor = messagingTargetInterceptors.next();
+
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing messaging target interceptor " + messagingTargetInterceptor.getClass().getSimpleName() + " (shutdown).");
 
 			messagingTargetInterceptor.shutdown(this);
 		}

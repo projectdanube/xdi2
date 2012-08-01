@@ -1,0 +1,12 @@
+<html>
+<body>
+<table>
+#foreach($messagingtargetbypath in $messagingtargetsbypath)
+	<tr>
+    <td>$messagingtargetbypath.key</td>
+    <td>$messagingtargetbypath.value</td>
+    </tr>
+#end
+</table>
+</body>
+</html>

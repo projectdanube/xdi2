@@ -97,7 +97,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		log.debug("supportGet=" + this.supportGet + ", supportPost=" + this.supportPost + ", supportPut=" + this.supportPut + ", supportDelete=" + this.supportDelete);
 
 		// check application context
-		
+
 		if (this.applicationContext == null) {
 
 			log.debug("Setting application context using servlet context.");
@@ -114,9 +114,11 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
 
-			EndpointServletInterceptor endpointServletInterceptorInterceptor = endpointServletInterceptors.next();
+			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
 
-			endpointServletInterceptorInterceptor.init(this);
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (init).");
+
+			endpointServletInterceptor.init(this);
 		}
 
 		// done
@@ -133,9 +135,11 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
 
-			EndpointServletInterceptor endpointServletInterceptorInterceptor = endpointServletInterceptors.next();
+			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
 
-			endpointServletInterceptorInterceptor.destroy(this);
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (destroy).");
+
+			endpointServletInterceptor.destroy(this);
 		}
 
 		// shut down endpoint registry
@@ -250,9 +254,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		// check which messaging target this request applies to
 
 		String path = findPath(request);
-		String messagingTargetPath = this.findMessagingTargetPath(request, response, path);
-		if (messagingTargetPath == null) return;
-		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
+		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
+		MessagingTarget messagingTarget = messagingTargetPath == null ? null : this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
 		// execute interceptors
 
@@ -262,11 +265,24 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (GET).");
 
-			if (endpointServletInterceptor.processGetRequest(request, response, path, messagingTarget)) {
+			if (endpointServletInterceptor.processGetRequest(this, request, response, path, messagingTarget)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": GET request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
 				return;
 			}
+		}
+
+		// no messaging target?
+
+		if (messagingTarget == null) {
+
+			if (! response.isCommitted()) {
+
+				log.warn("No XDI messaging target configured at " + path + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + path);
+			}
+
+			return;
 		}
 
 		// construct message envelope from url 
@@ -289,9 +305,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		// check which messaging target this request applies to
 
 		String path = findPath(request);
-		String messagingTargetPath = this.findMessagingTargetPath(request, response, path);
-		if (messagingTargetPath == null) return;
-		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
+		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
+		MessagingTarget messagingTarget = messagingTargetPath == null ? null : this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
 		// execute interceptors
 
@@ -301,11 +316,24 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (POST).");
 
-			if (endpointServletInterceptor.processPostRequest(request, response, path, messagingTarget)) {
+			if (endpointServletInterceptor.processPostRequest(this, request, response, path, messagingTarget)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": POST request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
 				return;
 			}
+		}
+
+		// no messaging target?
+
+		if (messagingTarget == null) {
+
+			if (! response.isCommitted()) {
+
+				log.warn("No XDI messaging target configured at " + path + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + path);
+			}
+
+			return;
 		}
 
 		// construct message envelope from body
@@ -328,9 +356,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		// check which messaging target this request applies to
 
 		String path = findPath(request);
-		String messagingTargetPath = this.findMessagingTargetPath(request, response, path);
-		if (messagingTargetPath == null) return;
-		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
+		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
+		MessagingTarget messagingTarget = messagingTargetPath == null ? null : this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
 		// execute interceptors
 
@@ -340,11 +367,24 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (PUT).");
 
-			if (endpointServletInterceptor.processPutRequest(request, response, path, messagingTarget)) {
+			if (endpointServletInterceptor.processPutRequest(this, request, response, path, messagingTarget)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": PUT request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
 				return;
 			}
+		}
+
+		// no messaging target?
+
+		if (messagingTarget == null) {
+
+			if (! response.isCommitted()) {
+
+				log.warn("No XDI messaging target configured at " + path + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + path);
+			}
+
+			return;
 		}
 
 		// construct message envelope from url 
@@ -367,9 +407,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		// check which messaging target this request applies to
 
 		String path = findPath(request);
-		String messagingTargetPath = this.findMessagingTargetPath(request, response, path);
-		if (messagingTargetPath == null) return;
-		MessagingTarget messagingTarget = this.endpointRegistry.getMessagingTarget(messagingTargetPath);
+		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
+		MessagingTarget messagingTarget = messagingTargetPath == null ? null : this.endpointRegistry.getMessagingTarget(messagingTargetPath);
 
 		// execute interceptors
 
@@ -379,11 +418,24 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (DELETE).");
 
-			if (endpointServletInterceptor.processDeleteRequest(request, response, path, messagingTarget)) {
+			if (endpointServletInterceptor.processDeleteRequest(this, request, response, path, messagingTarget)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": DELETE request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
 				return;
 			}
+		}
+
+		// no messaging target?
+
+		if (messagingTarget == null) {
+
+			if (! response.isCommitted()) {
+
+				log.warn("No XDI messaging target configured at " + path + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + path);
+			}
+
+			return;
 		}
 
 		// construct message envelope from url 
@@ -415,22 +467,6 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		log.debug("path: " + path);
 
 		return path;
-	}
-
-	protected String findMessagingTargetPath(HttpServletRequest request, HttpServletResponse response, String path) throws IOException {
-
-		// check which messaging target this request applies to
-
-		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
-
-		if (messagingTargetPath == null) {
-
-			log.warn("No XDI messaging target configured at " + path + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + path);
-			return null;
-		}
-
-		return messagingTargetPath;
 	}
 
 	private static MessageEnvelope readFromUrl(HttpServletRequest request, HttpServletResponse response, String path, String messagingTargetPath, XRI3Segment operationXri) throws IOException {
@@ -568,6 +604,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
 		writer.write(messageResult.getGraph(), buffer);
+		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType(writer.getMimeType().toString());
 		response.setContentLength(buffer.size());
 

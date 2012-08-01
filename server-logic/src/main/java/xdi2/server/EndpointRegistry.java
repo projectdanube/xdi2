@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
-import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.target.MessagingTarget;
 
 /**
@@ -83,16 +82,6 @@ public class EndpointRegistry {
 		log.info(size + " messaging targets were shut down.");
 	}
 
-	public synchronized ReadOnlyIterator<MessagingTarget> getMessagingTargets() {
-
-		return new ReadOnlyIterator<MessagingTarget> (this.messagingTargets.iterator());
-	}
-
-	public synchronized int getNumMessagingTargets() {
-
-		return this.messagingTargets.size();
-	}
-
 	/**
 	 * Mount a messaging target in the registry.
 	 * @param messagingTarget The messaging target to mount.
@@ -151,6 +140,23 @@ public class EndpointRegistry {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public synchronized List<MessagingTarget> getMessagingTargets() {
+
+		return (List<MessagingTarget>) ((ArrayList<MessagingTarget>) this.messagingTargets).clone();
+	}
+
+	@SuppressWarnings("unchecked")
+	public synchronized Map<String, MessagingTarget> getMessagingTargetsByPath() {
+
+		return (Map<String, MessagingTarget>) ((HashMap<String, MessagingTarget>) this.messagingTargetsByPath).clone();
+	}
+
+	public synchronized int getNumMessagingTargets() {
+
+		return this.messagingTargets.size();
+	}
+
 	public synchronized MessagingTarget getMessagingTarget(String messagingTargetPath) {
 
 		if (messagingTargetPath.startsWith("/")) messagingTargetPath = messagingTargetPath.substring(1);
@@ -164,10 +170,15 @@ public class EndpointRegistry {
 
 		for (Entry<String, MessagingTarget> entry : this.messagingTargetsByPath.entrySet()) {
 
-			if (entry.getValue() == messagingTarget) messagingTargetPaths.add(entry.getKey());
+			if (messagingTarget == null || entry.getValue() == messagingTarget) messagingTargetPaths.add(entry.getKey());
 		}
 
-		return(messagingTargetPaths.toArray(new String[messagingTargetPaths.size()]));
+		return messagingTargetPaths.toArray(new String[messagingTargetPaths.size()]);
+	}
+
+	public synchronized String[] getMessagingTargetPaths() {
+
+		return this.getMessagingTargetPaths(null);
 	}
 
 	public synchronized String findMessagingTargetPath(String path) {

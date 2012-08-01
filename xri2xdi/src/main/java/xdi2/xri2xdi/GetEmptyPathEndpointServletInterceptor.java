@@ -7,12 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.server.EndpointServlet;
 import xdi2.server.interceptor.AbstractEndpointServletInterceptor;
 
 public class GetEmptyPathEndpointServletInterceptor extends AbstractEndpointServletInterceptor {
 
 	@Override
-	public boolean processGetRequest(HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
+	public boolean processGetRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
 
 		if (path.isEmpty()) {
 

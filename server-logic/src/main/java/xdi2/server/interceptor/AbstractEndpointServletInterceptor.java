@@ -22,25 +22,25 @@ public abstract class AbstractEndpointServletInterceptor implements EndpointServ
 	}
 
 	@Override
-	public boolean processGetRequest(HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
+	public boolean processGetRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
 
 		return false;
 	}
 
 	@Override
-	public boolean processPostRequest(HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
+	public boolean processPostRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
 
 		return false;
 	}
 
 	@Override
-	public boolean processPutRequest(HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
+	public boolean processPutRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
 
 		return false;
 	}
 
 	@Override
-	public boolean processDeleteRequest(HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
+	public boolean processDeleteRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
 
 		return false;
 	}
