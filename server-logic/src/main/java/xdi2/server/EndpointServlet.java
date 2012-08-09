@@ -1,6 +1,5 @@
 package xdi2.server;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,6 +43,7 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.server.interceptor.EndpointServletInterceptor;
+import xdi2.server.registry.EndpointRegistry;
 
 /**
  * The XDI endpoint servlet.
@@ -157,8 +157,6 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// done
 
-		super.destroy();
-
 		log.info("Shutting down complete.");
 	}
 
@@ -260,11 +258,11 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	protected void processGetRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// check which messaging target this request applies to
+		// get attributes
 
-		String path = findPath(request);
-		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
-		MessagingTarget messagingTarget = messagingTargetPath == null ? null : this.endpointRegistry.getMessagingTarget(messagingTargetPath);
+		String requestPath = (String) request.getAttribute("requestPath");
+		String messagingTargetPath = (String) request.getAttribute("messagingTargetPath");
+		MessagingTarget messagingTarget = (MessagingTarget) request.getAttribute("MessagingTarget");
 
 		// execute interceptors
 
@@ -274,7 +272,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (GET).");
 
-			if (endpointServletInterceptor.processGetRequest(this, request, response, path, messagingTarget)) {
+			if (endpointServletInterceptor.processGetRequest(this, request, response, requestPath, messagingTarget)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": GET request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
 				return;
@@ -287,8 +285,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (! response.isCommitted()) {
 
-				log.warn("No XDI messaging target configured at " + path + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
-				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + path);
+				log.warn("No XDI messaging target configured at " + requestPath + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + requestPath);
 			}
 
 			return;
@@ -296,7 +294,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, messagingTarget, XDIMessagingConstants.XRI_S_GET);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, requestPath, messagingTargetPath, messagingTarget, XDIMessagingConstants.XRI_S_GET);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -311,11 +309,11 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	protected void processPostRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// check which messaging target this request applies to
+		// get attributes
 
-		String path = findPath(request);
-		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
-		MessagingTarget messagingTarget = messagingTargetPath == null ? null : this.endpointRegistry.getMessagingTarget(messagingTargetPath);
+		String requestPath = (String) request.getAttribute("requestPath");
+		String messagingTargetPath = (String) request.getAttribute("messagingTargetPath");
+		MessagingTarget messagingTarget = (MessagingTarget) request.getAttribute("MessagingTarget");
 
 		// execute interceptors
 
@@ -325,7 +323,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (POST).");
 
-			if (endpointServletInterceptor.processPostRequest(this, request, response, path, messagingTarget)) {
+			if (endpointServletInterceptor.processPostRequest(this, request, response, requestPath, messagingTarget)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": POST request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
 				return;
@@ -338,8 +336,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (! response.isCommitted()) {
 
-				log.warn("No XDI messaging target configured at " + path + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
-				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + path);
+				log.warn("No XDI messaging target configured at " + requestPath + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + requestPath);
 			}
 
 			return;
@@ -362,11 +360,11 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	protected void processPutRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// check which messaging target this request applies to
+		// get attributes
 
-		String path = findPath(request);
-		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
-		MessagingTarget messagingTarget = messagingTargetPath == null ? null : this.endpointRegistry.getMessagingTarget(messagingTargetPath);
+		String requestPath = (String) request.getAttribute("requestPath");
+		String messagingTargetPath = (String) request.getAttribute("messagingTargetPath");
+		MessagingTarget messagingTarget = (MessagingTarget) request.getAttribute("MessagingTarget");
 
 		// execute interceptors
 
@@ -376,7 +374,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (PUT).");
 
-			if (endpointServletInterceptor.processPutRequest(this, request, response, path, messagingTarget)) {
+			if (endpointServletInterceptor.processPutRequest(this, request, response, requestPath, messagingTarget)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": PUT request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
 				return;
@@ -389,8 +387,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (! response.isCommitted()) {
 
-				log.warn("No XDI messaging target configured at " + path + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
-				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + path);
+				log.warn("No XDI messaging target configured at " + requestPath + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + requestPath);
 			}
 
 			return;
@@ -398,7 +396,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, messagingTarget, XDIMessagingConstants.XRI_S_ADD);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, requestPath, messagingTargetPath, messagingTarget, XDIMessagingConstants.XRI_S_ADD);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -413,11 +411,11 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	protected void processDeleteRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// check which messaging target this request applies to
+		// get attributes
 
-		String path = findPath(request);
-		String messagingTargetPath = this.endpointRegistry.findMessagingTargetPath(path);
-		MessagingTarget messagingTarget = messagingTargetPath == null ? null : this.endpointRegistry.getMessagingTarget(messagingTargetPath);
+		String requestPath = (String) request.getAttribute("requestPath");
+		String messagingTargetPath = (String) request.getAttribute("messagingTargetPath");
+		MessagingTarget messagingTarget = (MessagingTarget) request.getAttribute("MessagingTarget");
 
 		// execute interceptors
 
@@ -427,7 +425,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (DELETE).");
 
-			if (endpointServletInterceptor.processDeleteRequest(this, request, response, path, messagingTarget)) {
+			if (endpointServletInterceptor.processDeleteRequest(this, request, response, requestPath, messagingTarget)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": DELETE request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
 				return;
@@ -440,8 +438,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			if (! response.isCommitted()) {
 
-				log.warn("No XDI messaging target configured at " + path + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
-				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + path);
+				log.warn("No XDI messaging target configured at " + requestPath + ". Sending " + HttpServletResponse.SC_NOT_FOUND + ".");
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + requestPath);
 			}
 
 			return;
@@ -449,7 +447,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(request, response, path, messagingTargetPath, messagingTarget, XDIMessagingConstants.XRI_S_DEL);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, requestPath, messagingTargetPath, messagingTarget, XDIMessagingConstants.XRI_S_DEL);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -460,22 +458,6 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		// send out result
 
 		sendResult(messageResult, request, response);
-	}
-
-	protected static String findPath(HttpServletRequest request) {
-
-		String requestUri = request.getRequestURI();
-		String contextPath = request.getContextPath(); 
-		String servletPath = request.getServletPath();
-		String path = requestUri.substring(contextPath.length() + servletPath.length());
-		if (path.startsWith("/")) path = path.substring(1);
-
-		log.debug("requestUri: " + requestUri);
-		log.debug("contextPath: " + contextPath);
-		log.debug("servletPath: " + servletPath);
-		log.debug("path: " + path);
-
-		return path;
 	}
 
 	private static MessageEnvelope readFromUrl(HttpServletRequest request, HttpServletResponse response, String path, String messagingTargetPath, MessagingTarget messagingTarget, XRI3Segment operationXri) throws IOException {

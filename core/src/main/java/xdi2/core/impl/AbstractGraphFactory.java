@@ -12,6 +12,12 @@ import xdi2.core.io.XDIReaderRegistry;
 public abstract class AbstractGraphFactory implements GraphFactory {
 
 	@Override
+	public Graph openGraph() throws IOException {
+
+		return this.openGraph(null);
+	}
+
+	@Override
 	public Graph parseGraph(String string) throws IOException, Xdi2ParseException {
 
 		Graph graph = this.openGraph();

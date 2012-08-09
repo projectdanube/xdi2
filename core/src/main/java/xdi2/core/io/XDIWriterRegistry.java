@@ -113,6 +113,8 @@ public final class XDIWriterRegistry {
 	 */
 	public static XDIWriter forFormat(String format, Properties parameters) {
 
+		if (format == null) return XDIWriterRegistry.getDefault();
+
 		Class<XDIWriter> writerClass = writerClassesByFormat.get(format);
 		if (writerClass == null) return null;
 
@@ -137,6 +139,8 @@ public final class XDIWriterRegistry {
 	 */
 	public static XDIWriter forFileExtension(String fileExtension, Properties parameters) {
 
+		if (fileExtension == null) return XDIWriterRegistry.getDefault();
+
 		Class<XDIWriter> writerClass = writerClassesByFileExtension.get(fileExtension);
 		if (writerClass == null) return null;
 
@@ -160,6 +164,8 @@ public final class XDIWriterRegistry {
 	 * @return An XDIWriter, or null if no appropriate implementation could be found.
 	 */
 	public static XDIWriter forMimeType(MimeType mimeType) {
+
+		if (mimeType == null) return XDIWriterRegistry.getDefault();
 
 		Class<XDIWriter> writerClass = writerClassesByMimeType.get(mimeType.mimeTypeWithoutParameters());
 		if (writerClass == null) return null;

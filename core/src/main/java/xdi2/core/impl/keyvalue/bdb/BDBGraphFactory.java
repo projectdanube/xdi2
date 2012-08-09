@@ -44,7 +44,14 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 	}
 
 	@Override
-	protected KeyValueStore openKeyValueStore() throws IOException {
+	protected KeyValueStore openKeyValueStore(String identifier) throws IOException {
+
+		// check identifier
+
+		if (identifier != null) {
+
+			this.setDatabaseName(identifier);
+		}
 
 		// we use the current working directory
 
@@ -89,7 +96,7 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 		try {
 
 			// open database
-			
+
 			if (! file.exists()) file.mkdir();
 
 			EnvironmentConfig environmentConfig = new EnvironmentConfig();

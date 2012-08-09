@@ -1,6 +1,20 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-08-09:
+------------------------
+
+*** Much work on Contributors
+
+*** Added EndpointFilter to work side-by-side with EndpointServlet
+
+*** Added "messaging target factories"
+
+2012-08-05:
+------------------------
+
+*** Added xdi2.core.impl.file
+
 2012-08-01:
 ------------------------
 

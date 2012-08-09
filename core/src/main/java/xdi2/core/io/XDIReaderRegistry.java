@@ -98,6 +98,8 @@ public final class XDIReaderRegistry {
 	 */
 	public static XDIReader forFormat(String format, Properties parameters) {
 
+		if (format == null) return XDIReaderRegistry.getDefault();
+
 		if (AutoReader.FORMAT_NAME.equalsIgnoreCase(format)) return getAuto();
 
 		Class<XDIReader> readerClass = readerClassesByFormat.get(format);
@@ -126,6 +128,8 @@ public final class XDIReaderRegistry {
 	 */
 	public static XDIReader forFileExtension(String fileExtension, Properties parameters) {
 
+		if (fileExtension == null) return XDIReaderRegistry.getDefault();
+
 		Class<XDIReader> readerClass = readerClassesByFileExtension.get(fileExtension);
 		if (readerClass == null) return null;
 
@@ -149,6 +153,8 @@ public final class XDIReaderRegistry {
 	 * @return An XDIReader, or null if no appropriate implementation could be found.
 	 */
 	public static XDIReader forMimeType(MimeType mimeType) {
+
+		if (mimeType == null) return XDIReaderRegistry.getDefault();
 
 		Class<XDIReader> readerClass = readerClassesByMimeType.get(mimeType.mimeTypeWithoutParameters());
 		if (readerClass == null) return null;

@@ -39,6 +39,12 @@ public class MemoryGraphFactory extends AbstractGraphFactory implements GraphFac
 		return new MemoryGraph(this.sortmode);
 	}
 
+	@Override
+	public Graph openGraph(String identifier) {
+
+		return this.openGraph();
+	}
+
 	public int getSortmode() {
 
 		return this.sortmode;

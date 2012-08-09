@@ -31,7 +31,7 @@ public final class MapGraphFactory extends AbstractKeyValueGraphFactory implemen
 	}
 
 	@Override
-	protected KeyValueStore openKeyValueStore() throws IOException {
+	protected KeyValueStore openKeyValueStore(String identifier) throws IOException {
 
 		// open store
 

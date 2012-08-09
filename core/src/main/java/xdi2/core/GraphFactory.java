@@ -19,6 +19,13 @@ public interface GraphFactory {
 	public Graph openGraph() throws IOException;
 
 	/**
+	 * Creates/opens a graph.
+	 * @param identifier An optional identifier to distinguish graphs from one another.
+	 * @return An already existing or new graph.
+	 */
+	public Graph openGraph(String identifier) throws IOException;
+
+	/**
 	 * Creates/opens a graph and fills it with content in one of the serialization formats.
 	 * @return An already existing or new graph.
 	 */

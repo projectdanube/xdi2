@@ -690,6 +690,16 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		this.interceptors = interceptors;
 	}
 
+	public void addInterceptor(Interceptor interceptor) {
+
+		this.interceptors.add(interceptor);
+	}
+
+	public void removeInterceptor(Interceptor interceptor) {
+
+		this.interceptors.remove(interceptor);
+	}
+
 	public Iterator<MessagingTargetInterceptor> getMessagingTargetInterceptors() {
 
 		return new SelectingClassIterator<Interceptor, MessagingTargetInterceptor> (this.interceptors.iterator(), MessagingTargetInterceptor.class);

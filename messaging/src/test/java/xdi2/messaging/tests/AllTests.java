@@ -7,6 +7,7 @@ import xdi2.messaging.tests.http.AcceptHeaderTest;
 import xdi2.messaging.tests.linkcontracts.LinkContractsTest;
 import xdi2.messaging.tests.linkcontracts.SimpleLinkContractsTest;
 import xdi2.messaging.tests.messagingtarget.BDBGraphMessagingTargetTest;
+import xdi2.messaging.tests.messagingtarget.FileGraphMessagingTargetTest;
 import xdi2.messaging.tests.messagingtarget.MapGraphMessagingTargetTest;
 import xdi2.messaging.tests.messagingtarget.MemoryGraphMessagingTargetTest;
 import xdi2.messaging.tests.messagingtarget.PropertiesGraphMessagingTargetTest;
@@ -22,6 +23,7 @@ public class AllTests {
 		suite.addTestSuite(MapGraphMessagingTargetTest.class);
 		suite.addTestSuite(PropertiesGraphMessagingTargetTest.class);
 		suite.addTestSuite(BDBGraphMessagingTargetTest.class);
+		suite.addTestSuite(FileGraphMessagingTargetTest.class);
 		suite.addTestSuite(SimpleLinkContractsTest.class);
 		suite.addTestSuite(LinkContractsTest.class);
 		//$JUnit-END$

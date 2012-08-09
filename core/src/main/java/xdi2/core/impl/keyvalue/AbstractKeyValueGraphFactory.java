@@ -2,6 +2,7 @@ package xdi2.core.impl.keyvalue;
 
 import java.io.IOException;
 
+import xdi2.core.Graph;
 import xdi2.core.GraphFactory;
 import xdi2.core.impl.AbstractGraphFactory;
 
@@ -22,14 +23,18 @@ public abstract class AbstractKeyValueGraphFactory extends AbstractGraphFactory 
 	}
 
 	@Override
-	public final KeyValueGraph openGraph() throws IOException {
+	public final Graph openGraph(String identifier) throws IOException {
 
-		KeyValueStore keyValueStore = this.openKeyValueStore();
+		KeyValueStore keyValueStore = this.openKeyValueStore(identifier);
 
 		return new KeyValueGraph(keyValueStore, this.getSupportGetContextNodes(), this.getSupportGetRelations());
 	}
 
-	protected abstract KeyValueStore openKeyValueStore() throws IOException;
+	/**
+	 * This must be overridden by subclasses to instantiate the key/value store.
+	 * @param identifier An optional identifier to distinguish key/value stores from one another.
+	 */
+	protected abstract KeyValueStore openKeyValueStore(String identifier) throws IOException;
 
 	public boolean getSupportGetContextNodes() {
 

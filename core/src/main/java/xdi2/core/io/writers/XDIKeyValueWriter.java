@@ -75,7 +75,7 @@ public class XDIKeyValueWriter extends AbstractXDIWriter {
 			});
 		}
 
-		KeyValueGraph mapGraph = mapGraphFactory.openGraph();
+		KeyValueGraph mapGraph = (KeyValueGraph) mapGraphFactory.openGraph();
 		MapKeyValueStore mapKeyValueStore = (MapKeyValueStore) mapGraph.getKeyValueStore();
 		Map<String, Set<String>> map = mapKeyValueStore.getMap();
 

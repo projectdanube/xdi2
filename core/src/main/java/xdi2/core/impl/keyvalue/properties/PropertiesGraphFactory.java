@@ -28,7 +28,14 @@ public class PropertiesGraphFactory extends AbstractKeyValueGraphFactory impleme
 	}
 
 	@Override
-	protected KeyValueStore openKeyValueStore() throws IOException {
+	protected KeyValueStore openKeyValueStore(String identifier) throws IOException {
+
+		// check identifier
+
+		if (identifier != null) {
+
+			this.setPath("xdi2-graph." + identifier + ".properties");
+		}
 
 		// open store
 

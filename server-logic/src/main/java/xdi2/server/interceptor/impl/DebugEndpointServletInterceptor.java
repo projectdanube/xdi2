@@ -13,9 +13,9 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
 import xdi2.messaging.target.MessagingTarget;
-import xdi2.server.EndpointRegistry;
 import xdi2.server.EndpointServlet;
 import xdi2.server.interceptor.AbstractEndpointServletInterceptor;
+import xdi2.server.registry.EndpointRegistry;
 
 /**
  * This interceptor prints out a list of mounted messaging targets.
@@ -35,9 +35,9 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 	}
 
 	@Override
-	public boolean processGetRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, String path, MessagingTarget messagingTarget) throws ServletException, IOException {
+	public boolean processGetRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, String requestPath, MessagingTarget messagingTarget) throws ServletException, IOException {
 
-		if (! path.isEmpty()) return false;
+		if (! requestPath.equals("/")) return false;
 
 		EndpointRegistry endpointRegistry = endpointServlet.getEndpointRegistry();
 
@@ -45,9 +45,11 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 
 		VelocityContext context = new VelocityContext();
 		context.put("endpointservlet", endpointServlet);
-		context.put("path", path);
+		context.put("requestPath", requestPath);
 		context.put("messagingtargets", endpointRegistry.getMessagingTargets());
 		context.put("messagingtargetsbypath", endpointRegistry.getMessagingTargetsByPath().entrySet());
+		context.put("messagingtargetfactorys", endpointRegistry.getMessagingTargetFactorys());
+		context.put("messagingtargetfactorysbypath", endpointRegistry.getMessagingTargetFactorysByPath().entrySet());
 
 		// send response
 

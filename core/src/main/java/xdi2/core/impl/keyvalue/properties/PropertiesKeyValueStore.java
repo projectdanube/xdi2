@@ -1,10 +1,11 @@
 package xdi2.core.impl.keyvalue.properties;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -327,8 +328,8 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		if (! this.transaction) throw new Xdi2RuntimeException("No open transaction.");
 
-
 		try {
+
 			this.load();
 			this.transaction = false;
 		} catch (Exception ex) {
@@ -341,14 +342,17 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 	private void load() {
 
+		this.properties = new Properties();
+
 		try {
 
 			File file = new File(this.path);
+			if (! file.exists()) return;
 
-			if (! file.exists()) file.createNewFile();
+			Reader reader = new FileReader(this.path);
 
-			this.properties = new Properties();
-			this.properties.load(new FileInputStream(this.path));
+			this.properties.load(reader);
+			reader.close();
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Cannot load properties file at " + this.path, ex);
@@ -359,10 +363,13 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		try {
 
-			OutputStream stream = new FileOutputStream(this.path);
+			File file = new File(this.path);
+			if (! file.exists()) file.createNewFile();
+			
+			Writer writer = new FileWriter(file);
 
-			this.properties.store(stream, null);
-			stream.close();
+			this.properties.store(writer, null);
+			writer.close();
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Cannot save properties file at " + this.path, ex);

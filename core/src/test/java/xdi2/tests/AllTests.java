@@ -9,6 +9,7 @@ import xdi2.tests.core.features.remoteroots.RemoteRootsTest;
 import xdi2.tests.core.features.timestamps.TimestampsTest;
 import xdi2.tests.core.features.variables.VariablesTest;
 import xdi2.tests.core.graph.BDBGraphTest;
+import xdi2.tests.core.graph.FileGraphTest;
 import xdi2.tests.core.graph.MapGraphTest;
 import xdi2.tests.core.graph.MemoryGraphTest;
 import xdi2.tests.core.graph.PropertiesGraphTest;
@@ -29,6 +30,7 @@ public class AllTests {
 		suite.addTestSuite(MapGraphTest.class);
 		suite.addTestSuite(PropertiesGraphTest.class);
 		suite.addTestSuite(BDBGraphTest.class);
+		suite.addTestSuite(FileGraphTest.class);
 		suite.addTestSuite(MapKeyValueTest.class);
 		suite.addTestSuite(PropertiesKeyValueTest.class);
 		suite.addTestSuite(BDBKeyValueTest.class);

@@ -43,6 +43,22 @@ public abstract class AbstractGraphTest extends TestCase {
 	protected abstract Graph openNewGraph(String id) throws IOException;
 	protected abstract Graph reopenGraph(Graph graph, String id) throws IOException;
 
+	public void testSimple() throws Exception {
+		
+		Graph graph0 = this.openNewGraph(this.getClass().getName() + "-graph-0");
+		
+		ContextNode markus = graph0.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
+		markus.createLiteral("test");
+		markus.createRelation(new XRI3Segment("+friend"), new XRI3Segment("=drummond"));
+		
+		markus = graph0.getRootContextNode().getContextNode(new XRI3SubSegment("=markus"));
+		assertNotNull(markus);
+		assertTrue(markus.containsRelations());
+		assertTrue(markus.containsLiteral());
+		
+		graph0.close();
+	}
+	
 	public void testMakeGraph() throws Exception {
 
 		Graph graph1 = this.openNewGraph(this.getClass().getName() + "-graph-1");
