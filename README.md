@@ -45,6 +45,10 @@ Google Group: http://groups.google.com/group/xdi2
 
 Changelog: https://github.com/peacekeeper/xdi2/blob/master/CHANGELOG
 
+### Extensions
+
+* [personal-com-connector](https://github.com/peacekeeper/xdi2/wiki/personal-com-connector) - Personal.com / XDI Connector
+
 ### Tests
 
 See [Testing](https://github.com/peacekeeper/xdi2/wiki/Testing) for a description of unit tests, etc.
