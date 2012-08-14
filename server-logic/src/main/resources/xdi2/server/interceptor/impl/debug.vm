@@ -29,14 +29,16 @@ hr { color: black; background-color: black; height: 3px; }
 	<th>Contributors</th>
 	<th>Interceptors</th>
 	</tr>
-#foreach($messagingtargetbypath in $messagingtargetsbypath)
+#foreach($messagingtargetbypath in $messagingtargetsbypath.entrySet())
 	<tr>
     <td valign="top"><a href="$messagingtargetbypath.key">$messagingtargetbypath.key</a></td>
     <td valign="top">$messagingtargetbypath.value.class.canonicalName</td>
     <td valign="top">#if($messagingtargetbypath.value.owner)$messagingtargetbypath.value.owner#end</td>
 	<td valign="top">
-	#foreach($contributor in $messagingtargetbypath.value.contributors.value) 
-		$contributor.class.canonicalName<br>
+	#foreach($contributorlist in $messagingtargetbypath.value.contributors.entrySet())
+		#foreach($contributor in $contributorlist.value)
+			$contributor.class.canonicalName ($contributorlist.key)<br>
+		#end
 	#end
 	</td>
 	<td valign="top">
@@ -54,7 +56,7 @@ hr { color: black; background-color: black; height: 3px; }
 	<th>Path</th>
 	<th>MessagingTargetFactory</th>
 	</tr>
-#foreach($messagingtargetfactorybypath in $messagingtargetfactorysbypath)
+#foreach($messagingtargetfactorybypath in $messagingtargetfactorysbypath.entrySet())
 	<tr>
     <td valign="top"><a href="$messagingtargetfactorybypath.key">$messagingtargetfactorybypath.key</a></td>
     <td valign="top">$messagingtargetfactorybypath.value.class.canonicalName</td>

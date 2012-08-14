@@ -47,9 +47,9 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 		context.put("endpointservlet", endpointServlet);
 		context.put("requestPath", requestPath);
 		context.put("messagingtargets", endpointRegistry.getMessagingTargets());
-		context.put("messagingtargetsbypath", endpointRegistry.getMessagingTargetsByPath().entrySet());
+		context.put("messagingtargetsbypath", endpointRegistry.getMessagingTargetsByPath());
 		context.put("messagingtargetfactorys", endpointRegistry.getMessagingTargetFactorys());
-		context.put("messagingtargetfactorysbypath", endpointRegistry.getMessagingTargetFactorysByPath().entrySet());
+		context.put("messagingtargetfactorysbypath", endpointRegistry.getMessagingTargetFactorysByPath());
 
 		// send response
 

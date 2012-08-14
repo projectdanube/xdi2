@@ -63,6 +63,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	@Override
 	public void init() throws Exception {
 
+		if (log.isDebugEnabled()) log.debug("Initializing " + this.getClass().getSimpleName() + " (" + this.getInterceptors().size() + " interceptors)" + ", " + this.getContributors().size() + " contributors).");
+
 		// execute interceptors
 
 		for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = this.getMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
@@ -77,6 +79,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	@Override
 	public void shutdown() throws Exception {
+
+		if (log.isDebugEnabled()) log.debug("Shutting down " + this.getClass().getSimpleName() + ".");
 
 		// execute interceptors
 
