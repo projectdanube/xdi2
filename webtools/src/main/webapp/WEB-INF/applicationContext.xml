@@ -50,6 +50,16 @@
 		<property name="graph" ref="registrygraph" />
 		<property name="interceptors">
 			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
+					<property name="bootstrapOwner" value="@!9999" />
+					<property name="bootstrapOwnerSynonyms">
+						<util:list>
+							<value>@myorg</value>
+						</util:list>
+					</property>
+					<property name="bootstrapSharedSecret" value="s3cret" />
+					<property name="bootstrapLinkContract" value="true" />
+				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
 			</util:list>
@@ -131,8 +141,7 @@
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
-				<bean
-					class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
 					<property name="linkContractsGraph" ref="graph4" />
 				</bean>
 			</util:list>

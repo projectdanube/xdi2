@@ -73,9 +73,8 @@ public class LinkContractsTest extends TestCase {
 					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
 				} catch (Xdi2NotAuthorizedException ex) {
 
-					fail(ex.getMessage());
-				} 				
-				finally {
+					throw ex;
+				} finally {
 					ii++;
 				}
 			}

@@ -37,7 +37,7 @@ hr { color: black; background-color: black; height: 3px; }
 	<td valign="top">
 	#foreach($contributorlist in $messagingtargetbypath.value.contributors.entrySet())
 		#foreach($contributor in $contributorlist.value)
-			$contributor.class.canonicalName ($contributorlist.key)<br>
+			$contributorlist.key<br>$contributor.class.canonicalName<br><hr>
 		#end
 	#end
 	</td>
