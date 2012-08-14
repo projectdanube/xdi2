@@ -1,14 +1,10 @@
-{
-"=!2222$secret$!($token)/!" : [ "xanimesh" ],
-"(@!9999)/$is" : [ "()" ],
-"=!1111$secret$!($token)/!" : [ "xmarkus" ],
-"(=newuser)/$is" : [ "(=!3333)" ],
-"(=animesh)/$is" : [ "(=!2222)" ],
-"=!3333$secret$!($token)/!" : [ "newsecret" ],
-"$do$if$*($and)$!2db39321-f1af-4228-903c-3628b89de1cb/!" : [ "xdi.getGraphValue('$secret$!($token)') == xdi.getMessageProperty('$secret$!($token)')" ],
-"$do/$all" : [ "()" ],
-"$do/$is$do" : [ "@!9999" ],
-"$secret$!($token)/!" : [ "s3cret" ],
-"(=markus)/$is" : [ "(=!1111)" ],
-"()/$is$is" : [ "(@!9999)" ]
-}
+()/$is$is/(@!9999)
+$do/$all/()
+$do/$is$do/@!9999
+(=animesh)/$is/(=!2222)
+(=markus)/$is/(=!1111)
+(@!9999)/$is/()
+$do$if$*($and)$!2db39321-f1af-4228-903c-3628b89de1cb/!/(data:,xdi.getGraphValue%28'$secret$!%28$token%29'%29%20==%20xdi.getMessageProperty%28'$secret$!%28$token%29'%29)
+$secret$!($token)/!/(data:,s3cret)
+=!1111$secret$!($token)/!/(data:,xmarkus)
+=!2222$secret$!($token)/!/(data:,xanimesh)

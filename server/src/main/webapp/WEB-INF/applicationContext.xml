@@ -31,6 +31,7 @@
 
 	<bean id="registrygraphfactory" class="xdi2.core.impl.file.FileGraphFactory">
 		<property name="path" value="registry.xdi" />
+		<property name="mimeType" value="text/xdi;contexts=0;ordered=1" />
 	</bean>
 
 	<bean id="registrygraph" factory-bean="registrygraphfactory" factory-method="openGraph" />
@@ -62,6 +63,9 @@
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
+					<property name="linkContractsGraph" ref="registrygraph" />
+				</bean>
 			</util:list>
 		</property>
 	</bean>
