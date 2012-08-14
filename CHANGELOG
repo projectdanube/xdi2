@@ -1,6 +1,15 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-08-14:
+------------------------
+
+*** Added sample configuration for RegistryGraphMessagingTargetFactory
+
+*** Added skeleton project for connector module xdi2-connector-personal
+
+*** Some bug fixing
+
 2012-08-09:
 ------------------------
 

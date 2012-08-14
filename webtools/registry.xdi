@@ -1,11 +1,10 @@
 {
-"()/()": [
-   "(=!3333)"
-],
 "=!2222$secret$!($token)/!" : [ "xanimesh" ],
-"(=animesh)/$is" : [ "(=!2222)" ],
 "(@!9999)/$is" : [ "()" ],
 "=!1111$secret$!($token)/!" : [ "xmarkus" ],
+"(=newuser)/$is" : [ "(=!3333)" ],
+"(=animesh)/$is" : [ "(=!2222)" ],
+"=!3333$secret$!($token)/!" : [ "newsecret" ],
 "$do$if$*($and)$!2db39321-f1af-4228-903c-3628b89de1cb/!" : [ "xdi.getGraphValue('$secret$!($token)') == xdi.getMessageProperty('$secret$!($token)')" ],
 "$do/$all" : [ "()" ],
 "$do/$is$do" : [ "@!9999" ],
