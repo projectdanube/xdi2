@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
 
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.EndpointServlet;
@@ -31,6 +32,7 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 	public void init(EndpointServlet endpointServlet) {
 
 		this.velocityEngine = new VelocityEngine();
+		this.velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG, "0");
 		this.velocityEngine.init();
 	}
 
