@@ -110,8 +110,11 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 
 		ContextNode targetNode = this.linkContractsGraph.findContextNode(
 				targetAddress, false);
+		if(((targetNode == null) && (lcPermission == XDILinkContractPermission.LC_OP_ADD ))){
+			targetNode = linkContractsGraph.getRootContextNode();
+		}
 
-		if (targetNode != null) {
+		if ((targetNode != null)) {
 			Iterator<ContextNode> nodesWithRequestedOp = linkContract
 					.getNodesWithPermission(lcPermission);
 			if (!nodesWithRequestedOp.hasNext()) {
