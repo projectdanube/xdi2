@@ -14,7 +14,7 @@ import xdi2.server.registry.EndpointRegistry;
 public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingTargetFactory {
 
 	private static final Logger log = LoggerFactory.getLogger(RegistryGraphMessagingTargetFactory.class);
-	
+
 	private Graph registryGraph;
 
 	@Override
@@ -33,8 +33,15 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 
 		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), owner, false);
 		if (remoteRootContextNode == null) {
-			
-			log.warn("Remote root context node for " + owner + " not found in registry");
+
+			log.warn("Remote root context node for " + owner + " not found in the registry graph. Ignoring.");
+			return;
+		}
+
+		ContextNode selfRemoteContextNode = RemoteRoots.getSelfRemoteRootContextNode(this.getRegistryGraph());
+		if (remoteRootContextNode.equals(selfRemoteContextNode)) {
+
+			log.warn("Remote root context node for " + owner + " is the owner of the registry graph. Ignoring.");
 			return;
 		}
 

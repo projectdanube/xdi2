@@ -49,7 +49,8 @@ public class MimeType implements Serializable, Comparable<MimeType> {
 	public MimeType mimeTypeWithoutQuality() {
 
 		String mimeType = this.getMimeType();
-		Properties parameters = new Properties(this.getParameters());
+		Properties parameters = new Properties();
+		parameters.putAll(this.getParameters());
 		parameters.remove("q");
 
 		return new MimeType(mimeType, parameters);

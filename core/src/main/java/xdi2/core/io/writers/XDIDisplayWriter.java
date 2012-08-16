@@ -41,7 +41,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	private static final String HTML_COLOR_RELATION = "#ff8888";
 	private static final String HTML_COLOR_LITERAL = "#8888ff";
 
-	private boolean writeContextStatements;
+	private boolean writeContexts;
 	private boolean writeOrdered;
 	private boolean writeHtml;
 
@@ -55,11 +55,11 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		// check parameters
 
-		this.writeContextStatements = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
+		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
 		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
 
-		log.debug("Parameters: writeContextStatements=" + this.writeContextStatements + ", writeOrdered=" + this.writeOrdered + ", writeHtml=" + this.writeHtml);
+		log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeOrdered=" + this.writeOrdered + ", writeHtml=" + this.writeHtml);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
@@ -97,7 +97,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			// ignore implied context nodes
 
-			if ((! this.writeContextStatements) && (statement instanceof ContextNodeStatement)) {
+			if ((! this.writeContexts) && (statement instanceof ContextNodeStatement)) {
 
 				ContextNode contextNode = ((ContextNodeStatement) statement).getContextNode();
 

@@ -48,7 +48,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
 
-		log.debug("Parameters: writeContextStatements=" + this.writeContexts);
+		log.debug("Parameters: writeContexts=" + this.writeContexts);
 	}
 
 	private void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, State state) throws IOException {

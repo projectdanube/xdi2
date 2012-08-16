@@ -1,6 +1,15 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-08-16:
+------------------------
+
+*** Merged Animesh' link contracts bug fix
+
+*** Bug fixed related to Accept header and MIME types
+
+*** Bug fixed related to the "self" remote root context nodes
+
 2012-08-14:
 ------------------------
 

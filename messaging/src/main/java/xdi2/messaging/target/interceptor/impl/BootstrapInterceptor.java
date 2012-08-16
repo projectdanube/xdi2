@@ -48,12 +48,9 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 			if (this.bootstrapOwner != null) {
 
-				graph.findContextNode(this.bootstrapOwner, true);
-
-				ContextNode bootstrapOwnerRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, this.bootstrapOwner, true);
-
-				rootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_IS, bootstrapOwnerRemoteRootContextNode);
-				bootstrapOwnerRemoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, rootContextNode);
+				graph.getRootContextNode().createContextNodes(this.bootstrapOwner);
+				
+				RemoteRoots.setSelfRemoteRootContextNode(graph, this.bootstrapOwner);
 			}
 
 			// bootstrap owner synonyms
