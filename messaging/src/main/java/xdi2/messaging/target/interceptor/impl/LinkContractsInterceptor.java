@@ -1,9 +1,8 @@
 package xdi2.messaging.target.interceptor.impl;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URLDecoder;
 import java.util.Iterator;
+import java.util.List;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
@@ -13,11 +12,10 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.features.linkcontracts.LinkContract;
-import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.Policy;
-import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
@@ -55,9 +53,11 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 		if (linkContract != null) {
 			putLinkContract(executionContext, linkContract);
 		}
-		if ((linkContract != null) && !this.evaluatePolicyExpressions(linkContract, message)) {
+		if ((linkContract != null)
+				&& !this.evaluatePolicyExpressions(linkContract, message)) {
 			throw new Xdi2NotAuthorizedException(
-					"Link contract policy expression violation for message" , null, null);
+					"Link contract policy expression violation for message",
+					null, null);
 		}
 		// done
 
@@ -73,6 +73,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 		return false;
 	}
 
+	
 	private boolean checkLinkContractAuthorization(Operation operation,
 			XRI3Segment targetAddress, ExecutionContext executionContext)
 			throws Xdi2NotAuthorizedException {
@@ -103,58 +104,47 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 		} else if (ModOperation.isValid(operation.getRelation())) {
 			lcPermission = XDILinkContractPermission.LC_OP_MOD;
 		}
-
-		// check if a $operation arc goes from the LinkContract node to the
-		// $targetStatement or one of it's parents
-		// ...
-
-		ContextNode targetNode = this.linkContractsGraph.findContextNode(
-				targetAddress, false);
-		if(((targetNode == null) && (lcPermission == XDILinkContractPermission.LC_OP_ADD ))){
-			targetNode = linkContractsGraph.getRootContextNode();
+		//check if an address covered by a link contract is a parent of the target address of the operation
+		int subSegArrayLen = targetAddress.getNumSubSegments()+1;
+		String [] subSegArray = new String[subSegArrayLen];
+		subSegArray[0] = "()";
+		String subSegStr = "";
+		for(int i = 1 ; i < subSegArrayLen ; i++){
+			subSegStr += targetAddress.getSubSegment(i-1).toString();
+			subSegArray[i] = subSegStr;
 		}
-
-		if ((targetNode != null)) {
+		for (int i = 0 ; i < subSegArray.length ; i++) {
+			String subseg = subSegArray[i];
+			
 			Iterator<ContextNode> nodesWithRequestedOp = linkContract
-					.getNodesWithPermission(lcPermission);
-			if (!nodesWithRequestedOp.hasNext()) {
-				nodesWithRequestedOp = linkContract
-						.getNodesWithPermission(XDILinkContractPermission.LC_OP_ALL);
-			}
-			for (Iterator<ContextNode> iter = nodesWithRequestedOp; iter
-					.hasNext();) {
-				ContextNode c = iter.next();
-				// if the requested permission is given directly to the target
-				// node
-				if (c.getXri().equals(targetNode.getXri())) {
-					operationAllowed = true;
-					break;
-				}
-				// if the requested permission is given to a node which is a
-				// parent of the target node
-				ContextNode parentNodeOfTargetNode = targetNode
-						.getContextNode();
-				ContextNode tempTargetNode = targetNode;
-				while (parentNodeOfTargetNode != null) {
-					if (c.getXri().equals(parentNodeOfTargetNode.getXri())) {
+						.getNodesWithPermission(lcPermission);
+				
+			Iterator<ContextNode> nodesWithRequestedAllOp = linkContract
+							.getNodesWithPermission(XDILinkContractPermission.LC_OP_ALL);
+				
+				for  (Iterator<ContextNode> iter = nodesWithRequestedOp; iter.hasNext();){ 
+					ContextNode c = iter.next(); 
+					if(c.getXri().equals(subseg)){
 						operationAllowed = true;
-						break;
+						return operationAllowed;
 					}
-					tempTargetNode = parentNodeOfTargetNode;
-					parentNodeOfTargetNode = tempTargetNode.getContextNode();
 				}
-				if (operationAllowed) {
-					break;
+				for  (Iterator<ContextNode> iter = nodesWithRequestedAllOp; iter.hasNext();){ 
+					ContextNode c = iter.next(); 
+					if(c.getXri().equals(subseg)){
+						operationAllowed = true;
+						return operationAllowed;
+					}
 				}
-			}
+			
 		}
 		return operationAllowed;
 	}
 
 	@Override
 	public Statement targetStatement(Operation operation,
-			Statement targetStatement, MessageResult messageResult, ExecutionContext executionContext)
-			throws Xdi2MessagingException {
+			Statement targetStatement, MessageResult messageResult,
+			ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// read the referenced link contract from the execution context
 
@@ -177,8 +167,8 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 
 	@Override
 	public XRI3Segment targetAddress(Operation operation,
-			XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext)
-			throws Xdi2MessagingException {
+			XRI3Segment targetAddress, MessageResult messageResult,
+			ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// read the referenced link contract from the execution context
 
@@ -221,13 +211,14 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 				Context cx = Context.enter();
 				Scriptable scope = cx.initStandardObjects();
 				try {
-					ScriptableObject.defineClass(scope, JSPolicyExpressionHelper.class);
+					ScriptableObject.defineClass(scope,
+							JSPolicyExpressionHelper.class);
 					Object[] arg = {};
 					Scriptable policyExpressionHelper = cx.newObject(scope,
 							"JSPolicyExpressionHelper", arg);
 
 					scope.put("xdi", scope, policyExpressionHelper);
-					
+
 				} catch (IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -237,13 +228,11 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements
 				} catch (InvocationTargetException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}				
-				scope.put(
-						"linkContract",
-						scope, lc);
-				scope.put("message",
-						scope, message);
-				evalResult = lcPolicy.getPolicyExpressionComponent().evaluate(cx,scope);
+				}
+				scope.put("linkContract", scope, lc);
+				scope.put("message", scope, message);
+				evalResult = lcPolicy.getPolicyExpressionComponent().evaluate(
+						cx, scope);
 				Context.exit();
 			} else {
 				evalResult = true;
