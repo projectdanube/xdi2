@@ -63,7 +63,7 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 			if (RemoteRoots.isRemoteRootXri(targetAddress)) {
 
-				xri = RemoteRoots.getXriOfRemoteRootXri(targetAddress);
+				xri = RemoteRoots.xriOfRemoteRootXri(targetAddress);
 			} else {
 
 				xri = targetAddress;
@@ -87,12 +87,10 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 			// prepare result graph
 
 			Graph graph = messageResult.getGraph();
-			ContextNode rootContextNode = graph.getRootContextNode();
 
 			// add "self" remote root context nodes
 
-			ContextNode selfRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, XDIConstants.XRI_S_ROOT, true);
-			selfRemoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, rootContextNode);
+			RemoteRoots.setSelfRemoteRootContextNode(graph, XDIConstants.XRI_S_ROOT);
 
 			// add I-Number remote root context nodes
 
