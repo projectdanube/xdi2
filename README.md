@@ -1,5 +1,5 @@
-<img src="http://peacekeeper.github.com/xdi2/files/projectdanube_logo.png" align="right">
-<img src="http://peacekeeper.github.com/xdi2/files/logo64.png"><br>
+<img src="http://peacekeeper.github.com/xdi2/images/projectdanube_logo.png" align="right">
+<img src="http://peacekeeper.github.com/xdi2/images/logo64.png"><br>
 [![Build Status](https://secure.travis-ci.org/peacekeeper/xdi2.png)](http://travis-ci.org/peacekeeper/xdi2)
 
 [XDI²](http://github.com/peacekeeper/xdi2) is a general purpose XDI library for Java, supporting both a traditional client/server model and distributed peer-to-peer data exchange. 
