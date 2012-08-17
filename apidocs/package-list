@@ -13,6 +13,7 @@ xdi2.core.features.remoteroots
 xdi2.core.features.timestamps
 xdi2.core.features.variables
 xdi2.core.impl
+xdi2.core.impl.file
 xdi2.core.impl.keyvalue
 xdi2.core.impl.keyvalue.bdb
 xdi2.core.impl.keyvalue.map
@@ -36,6 +37,7 @@ xdi2.messaging.target.contributor
 xdi2.messaging.target.impl.echo
 xdi2.messaging.target.impl.file
 xdi2.messaging.target.impl.graph
+xdi2.messaging.target.impl.n
 xdi2.messaging.target.interceptor
 xdi2.messaging.target.interceptor.impl
 xdi2.messaging.util
@@ -46,8 +48,11 @@ xdi2.samples.core
 xdi2.samples.messaging
 xdi2.samples.server
 xdi2.server
+xdi2.server.factory
+xdi2.server.factory.impl
 xdi2.server.interceptor
-xdi2.server.util
+xdi2.server.interceptor.impl
+xdi2.server.registry
 xdi2.webtools.converter
 xdi2.webtools.grapher
 xdi2.webtools.localmessenger
