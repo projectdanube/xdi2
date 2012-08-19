@@ -75,9 +75,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_org.eclipse.jetty.server.Server">NESTED</A>&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_org.eclipse.jetty.server.handler.HandlerWrapper">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_org.eclipse.jetty.server.Server">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -159,6 +159,22 @@ Class EndpointServer</H2>
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Field Summary</B></FONT></TH>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#DEFAULT_APPLICATIONCONTEXT_PATH">DEFAULT_APPLICATIONCONTEXT_PATH</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#DEFAULT_JETTY_APPLICATIONCONTEXT_PATH">DEFAULT_JETTY_APPLICATIONCONTEXT_PATH</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_org.eclipse.jetty.server.handler.HandlerWrapper"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -205,8 +221,8 @@ Class EndpointServer</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#doStart()">doStart</A></B>()</CODE>
+<CODE>&nbsp;org.springframework.context.ApplicationContext</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#getApplicationContext()">getApplicationContext</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -221,24 +237,40 @@ Class EndpointServer</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;org.eclipse.jetty.servlet.ServletHandler</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#getServletHandler()">getServletHandler</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#getWebAppDir()">getWebAppDir</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#main(java.lang.String...)">main</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>...&nbsp;args)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#newServer(org.springframework.context.ApplicationContext)">newServer</A></B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#newServer(java.io.File)">newServer</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</A>&nbsp;file)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#newServer(java.io.InputStream)">newServer</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</A>&nbsp;stream)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#newServer(org.springframework.core.io.Resource...)">newServer</A></B>(org.springframework.core.io.Resource...&nbsp;resources)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -259,22 +291,6 @@ Class EndpointServer</H2>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#setServletHandler(org.eclipse.jetty.servlet.ServletHandler)">setServletHandler</A></B>(org.eclipse.jetty.servlet.ServletHandler&nbsp;servletHandler)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#setWebAppDir(java.lang.String)">setWebAppDir</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;webAppDir)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_org.eclipse.jetty.server.Server"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -282,7 +298,7 @@ Class EndpointServer</H2>
 <TH ALIGN="left"><B>Methods inherited from class org.eclipse.jetty.server.Server</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>addBean, addConnector, addLifeCycle, clearAttributes, doStop, dump, getAttribute, getAttributeNames, getConnectors, getContainer, getGracefulShutdown, getMaxCookieVersion, getSendDateHeader, getSendServerVersion, getSessionIdManager, getStopAtShutdown, getThreadPool, getVersion, handle, handleAsync, isDumpAfterStart, isDumpBeforeStop, isUncheckedPrintWriter, join, removeAttribute, removeBean, removeConnector, removeLifeCycle, setAttribute, setConnectors, setDumpAfterStart, setDumpBeforeStop, setGracefulShutdown, setMaxCookieVersion, setSendDateHeader, setSendServerVersion, setSessionIdManager, setStopAtShutdown, setThreadPool, setUncheckedPrintWriter, toString</CODE></TD>
+<TD><CODE>addBean, addConnector, addLifeCycle, clearAttributes, doStart, doStop, dump, getAttribute, getAttributeNames, getConnectors, getContainer, getGracefulShutdown, getMaxCookieVersion, getSendDateHeader, getSendServerVersion, getSessionIdManager, getStopAtShutdown, getThreadPool, getVersion, handle, handleAsync, isDumpAfterStart, isDumpBeforeStop, isUncheckedPrintWriter, join, removeAttribute, removeBean, removeConnector, removeLifeCycle, setAttribute, setConnectors, setDumpAfterStart, setDumpBeforeStop, setGracefulShutdown, setMaxCookieVersion, setSendDateHeader, setSendServerVersion, setSessionIdManager, setStopAtShutdown, setThreadPool, setUncheckedPrintWriter, toString</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_org.eclipse.jetty.server.handler.HandlerWrapper"><!-- --></A>
@@ -351,6 +367,35 @@ Class EndpointServer</H2>
 &nbsp;
 <P>
 
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="DEFAULT_JETTY_APPLICATIONCONTEXT_PATH"><!-- --></A><H3>
+DEFAULT_JETTY_APPLICATIONCONTEXT_PATH</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_JETTY_APPLICATIONCONTEXT_PATH</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../constant-values.html#xdi2.server.EndpointServer.DEFAULT_JETTY_APPLICATIONCONTEXT_PATH">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DEFAULT_APPLICATIONCONTEXT_PATH"><!-- --></A><H3>
+DEFAULT_APPLICATIONCONTEXT_PATH</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_APPLICATIONCONTEXT_PATH</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../constant-values.html#xdi2.server.EndpointServer.DEFAULT_APPLICATIONCONTEXT_PATH">Constant Field Values</A></DL>
+</DL>
+
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
@@ -378,48 +423,6 @@ public <B>EndpointServer</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="getContextPath()"><!-- --></A><H3>
-getContextPath</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getContextPath</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getServletHandler()"><!-- --></A><H3>
-getServletHandler</H3>
-<PRE>
-public org.eclipse.jetty.servlet.ServletHandler <B>getServletHandler</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getWebAppDir()"><!-- --></A><H3>
-getWebAppDir</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getWebAppDir</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="setApplicationContext(org.springframework.context.ApplicationContext)"><!-- --></A><H3>
 setApplicationContext</H3>
 <PRE>
@@ -433,6 +436,20 @@ public void <B>setApplicationContext</B>(org.springframework.context.Application
 
 <DT><B>Throws:</B>
 <DD><CODE>org.springframework.beans.BeansException</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getApplicationContext()"><!-- --></A><H3>
+getApplicationContext</H3>
+<PRE>
+public org.springframework.context.ApplicationContext <B>getApplicationContext</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -451,10 +468,10 @@ public void <B>setContextPath</B>(<A HREF="http://download.oracle.com/javase/6/d
 </DL>
 <HR>
 
-<A NAME="setServletHandler(org.eclipse.jetty.servlet.ServletHandler)"><!-- --></A><H3>
-setServletHandler</H3>
+<A NAME="getContextPath()"><!-- --></A><H3>
+getContextPath</H3>
 <PRE>
-public void <B>setServletHandler</B>(org.eclipse.jetty.servlet.ServletHandler&nbsp;servletHandler)</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getContextPath</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -465,10 +482,10 @@ public void <B>setServletHandler</B>(org.eclipse.jetty.servlet.ServletHandler&nb
 </DL>
 <HR>
 
-<A NAME="setWebAppDir(java.lang.String)"><!-- --></A><H3>
-setWebAppDir</H3>
+<A NAME="newServer(org.springframework.context.ApplicationContext)"><!-- --></A><H3>
+newServer</H3>
 <PRE>
-public void <B>setWebAppDir</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;webAppDir)</PRE>
+public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -479,19 +496,44 @@ public void <B>setWebAppDir</B>(<A HREF="http://download.oracle.com/javase/6/doc
 </DL>
 <HR>
 
-<A NAME="doStart()"><!-- --></A><H3>
-doStart</H3>
+<A NAME="newServer(org.springframework.core.io.Resource...)"><!-- --></A><H3>
+newServer</H3>
 <PRE>
-protected void <B>doStart</B>()
-                throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
+public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(org.springframework.core.io.Resource...&nbsp;resources)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE>doStart</CODE> in class <CODE>org.eclipse.jetty.server.Server</CODE></DL>
+</DL>
 </DD>
 <DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
+<A NAME="newServer(java.io.File)"><!-- --></A><H3>
+newServer</H3>
+<PRE>
+public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</A>&nbsp;file)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="newServer(java.io.InputStream)"><!-- --></A><H3>
+newServer</H3>
+<PRE>
+public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</A>&nbsp;stream)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -563,9 +605,9 @@ public static void <B>main</B>(<A HREF="http://download.oracle.com/javase/6/docs
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_org.eclipse.jetty.server.Server">NESTED</A>&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_org.eclipse.jetty.server.handler.HandlerWrapper">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_org.eclipse.jetty.server.Server">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

@@ -48,6 +48,7 @@ xdi2.samples.core
 xdi2.samples.messaging
 xdi2.samples.server
 xdi2.server
+xdi2.server.exceptions
 xdi2.server.factory
 xdi2.server.factory.impl
 xdi2.server.interceptor

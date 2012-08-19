@@ -235,7 +235,7 @@ Registry to mount and unmount messaging targets.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/server/registry/EndpointRegistry.html#loadApplicationContext(org.springframework.context.ApplicationContext)">loadApplicationContext</A></B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/server/registry/EndpointRegistry.html#init(org.springframework.context.ApplicationContext)">init</A></B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -322,13 +322,16 @@ public <B>EndpointRegistry</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="loadApplicationContext(org.springframework.context.ApplicationContext)"><!-- --></A><H3>
-loadApplicationContext</H3>
+<A NAME="init(org.springframework.context.ApplicationContext)"><!-- --></A><H3>
+init</H3>
 <PRE>
-public void <B>loadApplicationContext</B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</PRE>
+public void <B>init</B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)
+          throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
 <DL>
 <DD><DL>
-</DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
@@ -348,12 +351,15 @@ public void <B>shutdown</B>()</PRE>
 mountMessagingTarget</H3>
 <PRE>
 public void <B>mountMessagingTarget</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetPath,
-                                 <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</PRE>
+                                 <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)
+                          throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
 <DL>
 <DD>Mount a messaging target in the registry.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>messagingTarget</CODE> - The messaging target to mount.</DL>
+<DT><B>Parameters:</B><DD><CODE>messagingTarget</CODE> - The messaging target to mount.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
@@ -362,12 +368,15 @@ public void <B>mountMessagingTarget</B>(<A HREF="http://download.oracle.com/java
 mountMessagingTargetFactory</H3>
 <PRE>
 public void <B>mountMessagingTargetFactory</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
-                                        <A HREF="../../../xdi2/server/factory/MessagingTargetFactory.html" title="interface in xdi2.server.factory">MessagingTargetFactory</A>&nbsp;messagingTargetFactory)</PRE>
+                                        <A HREF="../../../xdi2/server/factory/MessagingTargetFactory.html" title="interface in xdi2.server.factory">MessagingTargetFactory</A>&nbsp;messagingTargetFactory)
+                                 throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
 <DL>
 <DD>Mount a messaging target factory in the registry.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>messagingTargetFactory</CODE> - The messaging target factory to mount.</DL>
+<DT><B>Parameters:</B><DD><CODE>messagingTargetFactory</CODE> - The messaging target factory to mount.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
 </DD>
 </DL>
 <HR>

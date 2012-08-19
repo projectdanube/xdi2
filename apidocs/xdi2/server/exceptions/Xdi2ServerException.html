@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Xdi2Exception (xdi2 0.1-SNAPSHOT API)
+Xdi2ServerException (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Xdi2Exception (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Xdi2Exception (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Xdi2ServerException (xdi2 0.1-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -39,7 +39,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/Xdi2Exception.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/Xdi2ServerException.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -55,10 +55,10 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../xdi2/core/exceptions/Xdi2GraphException.html" title="class in xdi2.core.exceptions"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?xdi2/core/exceptions/Xdi2Exception.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="Xdi2Exception.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?xdi2/server/exceptions/Xdi2ServerException.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Xdi2ServerException.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -87,29 +87,33 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-xdi2.core.exceptions</FONT>
+xdi2.server.exceptions</FONT>
 <BR>
-Class Xdi2Exception</H2>
+Class Xdi2ServerException</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
   <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">java.lang.Throwable</A>
       <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">java.lang.Exception</A>
-          <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.exceptions.Xdi2Exception</B>
+          <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../xdi2/core/exceptions/Xdi2Exception.html" title="class in xdi2.core.exceptions">xdi2.core.exceptions.Xdi2Exception</A>
+              <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>xdi2.server.exceptions.Xdi2ServerException</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A></DD>
 </DL>
-<DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</A>, <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A>, <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A>, <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></DD>
-</DL>
 <HR>
 <DL>
-<DT><PRE>public abstract class <B>Xdi2Exception</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></DL>
+<DT><PRE>public class <B>Xdi2ServerException</B><DT>extends <A HREF="../../../xdi2/core/exceptions/Xdi2Exception.html" title="class in xdi2.core.exceptions">Xdi2Exception</A></DL>
 </PRE>
 
 <P>
+An exception that is thrown during server operation.
+<P>
+
+<P>
 <DL>
-<DT><B>See Also:</B><DD><A HREF="../../../serialized-form.html#xdi2.core.exceptions.Xdi2Exception">Serialized Form</A></DL>
+<DT><B>Author:</B></DT>
+  <DD>markus</DD>
+<DT><B>See Also:</B><DD><A HREF="../../../serialized-form.html#xdi2.server.exceptions.Xdi2ServerException">Serialized Form</A></DL>
 <HR>
 
 <P>
@@ -123,26 +127,26 @@ Class Xdi2Exception</H2>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/exceptions/Xdi2Exception.html#Xdi2Exception()">Xdi2Exception</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html#Xdi2ServerException()">Xdi2ServerException</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/exceptions/Xdi2Exception.html#Xdi2Exception(java.lang.String)">Xdi2Exception</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html#Xdi2ServerException(java.lang.String)">Xdi2ServerException</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/exceptions/Xdi2Exception.html#Xdi2Exception(java.lang.String, java.lang.Throwable)">Xdi2Exception</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message,
-              <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A>&nbsp;ex)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html#Xdi2ServerException(java.lang.String, java.lang.Throwable)">Xdi2ServerException</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message,
+                    <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A>&nbsp;ex)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/exceptions/Xdi2Exception.html#Xdi2Exception(java.lang.Throwable)">Xdi2Exception</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A>&nbsp;ex)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html#Xdi2ServerException(java.lang.Throwable)">Xdi2ServerException</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A>&nbsp;ex)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -189,35 +193,35 @@ Class Xdi2Exception</H2>
 </TR>
 </TABLE>
 
-<A NAME="Xdi2Exception()"><!-- --></A><H3>
-Xdi2Exception</H3>
+<A NAME="Xdi2ServerException()"><!-- --></A><H3>
+Xdi2ServerException</H3>
 <PRE>
-public <B>Xdi2Exception</B>()</PRE>
+public <B>Xdi2ServerException</B>()</PRE>
 <DL>
 </DL>
 <HR>
 
-<A NAME="Xdi2Exception(java.lang.String, java.lang.Throwable)"><!-- --></A><H3>
-Xdi2Exception</H3>
+<A NAME="Xdi2ServerException(java.lang.String, java.lang.Throwable)"><!-- --></A><H3>
+Xdi2ServerException</H3>
 <PRE>
-public <B>Xdi2Exception</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message,
-                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A>&nbsp;ex)</PRE>
+public <B>Xdi2ServerException</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message,
+                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A>&nbsp;ex)</PRE>
 <DL>
 </DL>
 <HR>
 
-<A NAME="Xdi2Exception(java.lang.String)"><!-- --></A><H3>
-Xdi2Exception</H3>
+<A NAME="Xdi2ServerException(java.lang.String)"><!-- --></A><H3>
+Xdi2ServerException</H3>
 <PRE>
-public <B>Xdi2Exception</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message)</PRE>
+public <B>Xdi2ServerException</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message)</PRE>
 <DL>
 </DL>
 <HR>
 
-<A NAME="Xdi2Exception(java.lang.Throwable)"><!-- --></A><H3>
-Xdi2Exception</H3>
+<A NAME="Xdi2ServerException(java.lang.Throwable)"><!-- --></A><H3>
+Xdi2ServerException</H3>
 <PRE>
-public <B>Xdi2Exception</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A>&nbsp;ex)</PRE>
+public <B>Xdi2ServerException</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A>&nbsp;ex)</PRE>
 <DL>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -236,7 +240,7 @@ public <B>Xdi2Exception</B>(<A HREF="http://download.oracle.com/javase/6/docs/ap
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/Xdi2Exception.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/Xdi2ServerException.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -252,10 +256,10 @@ public <B>Xdi2Exception</B>(<A HREF="http://download.oracle.com/javase/6/docs/ap
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../xdi2/core/exceptions/Xdi2GraphException.html" title="class in xdi2.core.exceptions"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?xdi2/core/exceptions/Xdi2Exception.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="Xdi2Exception.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?xdi2/server/exceptions/Xdi2ServerException.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Xdi2ServerException.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {

@@ -55,7 +55,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/server/ServletExecutionContext.html" title="class in xdi2.server"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/server/RequestInfo.html" title="class in xdi2.server"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/server/EndpointServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="EndpointServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -298,6 +298,14 @@ The XDI endpoint servlet.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#isInitialized()">isInitialized</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#processDeleteRequest(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">processDeleteRequest</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
                      javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
@@ -352,14 +360,6 @@ The XDI endpoint servlet.
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#setInterceptors(java.util.List)">setInterceptors</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;&nbsp;interceptors)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#setStartup(java.util.Date)">setStartup</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</A>&nbsp;startup)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -916,10 +916,10 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html
 </DL>
 <HR>
 
-<A NAME="setStartup(java.util.Date)"><!-- --></A><H3>
-setStartup</H3>
+<A NAME="getStartupAsString()"><!-- --></A><H3>
+getStartupAsString</H3>
 <PRE>
-public void <B>setStartup</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</A>&nbsp;startup)</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getStartupAsString</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -930,10 +930,10 @@ public void <B>setStartup</B>(<A HREF="http://download.oracle.com/javase/6/docs/
 </DL>
 <HR>
 
-<A NAME="getStartupAsString()"><!-- --></A><H3>
-getStartupAsString</H3>
+<A NAME="isInitialized()"><!-- --></A><H3>
+isInitialized</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getStartupAsString</B>()</PRE>
+public boolean <B>isInitialized</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -974,7 +974,7 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.ht
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/server/ServletExecutionContext.html" title="class in xdi2.server"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/server/RequestInfo.html" title="class in xdi2.server"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/server/EndpointServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="EndpointServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
