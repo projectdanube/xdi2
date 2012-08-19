@@ -15,6 +15,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
 
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.EndpointServlet;
+import xdi2.server.RequestInfo;
 import xdi2.server.interceptor.AbstractEndpointServletInterceptor;
 import xdi2.server.registry.EndpointRegistry;
 
@@ -37,9 +38,9 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 	}
 
 	@Override
-	public boolean processGetRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, String requestPath, MessagingTarget messagingTarget) throws ServletException, IOException {
+	public boolean processGetRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, RequestInfo requestInfo, MessagingTarget messagingTarget) throws ServletException, IOException {
 
-		if (! requestPath.equals("/")) return false;
+		if (! requestInfo.getRequestPath().equals("/")) return false;
 
 		EndpointRegistry endpointRegistry = endpointServlet.getEndpointRegistry();
 
@@ -47,7 +48,7 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 
 		VelocityContext context = new VelocityContext();
 		context.put("endpointservlet", endpointServlet);
-		context.put("requestPath", requestPath);
+		context.put("requestinfo", requestInfo);
 		context.put("messagingtargets", endpointRegistry.getMessagingTargets());
 		context.put("messagingtargetsbypath", endpointRegistry.getMessagingTargetsByPath());
 		context.put("messagingtargetfactorys", endpointRegistry.getMessagingTargetFactorys());

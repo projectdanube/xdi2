@@ -6,6 +6,22 @@
 
 	<display-name>xdi2-xri2xdi</display-name>
 
+	<!-- XDI FILTER -->
+
+	<filter>
+		<filter-name>EndpointFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>EndpointFilter</filter-name>
+		<servlet-name>EndpointServlet</servlet-name>
+	</filter-mapping>
+
 	<!-- XDI SERVER -->
 
 	<servlet>

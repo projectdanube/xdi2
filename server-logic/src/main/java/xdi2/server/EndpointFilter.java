@@ -19,7 +19,8 @@ import xdi2.server.factory.MessagingTargetFactory;
 import xdi2.server.registry.EndpointRegistry;
 
 /**
- * The EndpointFilter examines which messaging target a request applies to.
+ * The EndpointFilter examines the request path.
+ * Based on this, it decides which messaging target a request applies to.
  * If no messaging target can be found at the request path, the EndpointFilter tries to find
  * a messaging target factory that can create one.
  * 
@@ -55,13 +56,16 @@ public class EndpointFilter implements Filter {
 
 		EndpointRegistry endpointRegistry = this.getEndpointServlet().getEndpointRegistry();
 
+		// parse request info
+
+		RequestInfo requestInfo = RequestInfo.parse((HttpServletRequest) request);
+
 		// check which messaging target this request applies to
 
-		String requestPath = findRequestPath((HttpServletRequest) request);
-		String messagingTargetPath = endpointRegistry.findMessagingTargetPath(requestPath);
+		String messagingTargetPath = endpointRegistry.findMessagingTargetPath(requestInfo.getRequestPath());
 		MessagingTarget messagingTarget = messagingTargetPath == null ? null : endpointRegistry.getMessagingTarget(messagingTargetPath);
 
-		log.debug("requestPath=" + requestPath + ", messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? "null" : messagingTarget.getClass().getSimpleName()));
+		log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? "null" : messagingTarget.getClass().getSimpleName()));
 
 		// if we don't have one, try to find a messaging target factory
 
@@ -69,7 +73,7 @@ public class EndpointFilter implements Filter {
 
 			log.debug("No messaging target found. Looking for messaging target factory.");
 
-			String messagingTargetFactoryPath = endpointRegistry.findMessagingTargetFactoryPath(requestPath);
+			String messagingTargetFactoryPath = endpointRegistry.findMessagingTargetFactoryPath(requestInfo.getRequestPath());
 			MessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : endpointRegistry.getMessagingTargetFactory(messagingTargetFactoryPath);
 
 			log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? "null" : messagingTargetFactory.getClass().getSimpleName()));
@@ -78,7 +82,7 @@ public class EndpointFilter implements Filter {
 
 				try {
 
-					messagingTargetFactory.mountMessagingTarget(endpointRegistry, messagingTargetFactoryPath, requestPath);
+					messagingTargetFactory.mountMessagingTarget(endpointRegistry, messagingTargetFactoryPath, requestInfo.getRequestPath());
 				} catch (Exception ex) {
 
 					log.error("Unexpected exception: " + ex.getMessage(), ex);
@@ -87,17 +91,18 @@ public class EndpointFilter implements Filter {
 				}
 			}
 
-			messagingTargetPath = endpointRegistry.findMessagingTargetPath(requestPath);
+			messagingTargetPath = endpointRegistry.findMessagingTargetPath(requestInfo.getRequestPath());
 			messagingTarget = messagingTargetPath == null ? null : endpointRegistry.getMessagingTarget(messagingTargetPath);
 		}
 
-		// set attributes
+		// update request info
 
-		request.setAttribute("requestPath", requestPath);
-		request.setAttribute("messagingTargetPath", messagingTargetPath);
-		request.setAttribute("MessagingTarget", messagingTarget);
+		requestInfo.setMessagingTargetPath(messagingTargetPath);
 
 		// done
+
+		request.setAttribute("requestInfo", requestInfo);
+		request.setAttribute("messagingTarget", messagingTarget);
 
 		chain.doFilter(request, response);
 	}
@@ -118,21 +123,5 @@ public class EndpointFilter implements Filter {
 
 			((HttpServletResponse) response).sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected exception: " + ex.getMessage());
 		}
-	}
-
-	protected static String findRequestPath(HttpServletRequest request) {
-
-		String requestUri = request.getRequestURI();
-		String contextPath = request.getContextPath(); 
-		String servletPath = request.getServletPath();
-		String requestPath = requestUri.substring(contextPath.length() + servletPath.length());
-		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
-
-		log.debug("requestUri: " + requestUri);
-		log.debug("contextPath: " + contextPath);
-		log.debug("servletPath: " + servletPath);
-		log.debug("requestPath: " + requestPath);
-
-		return requestPath;
 	}
 }

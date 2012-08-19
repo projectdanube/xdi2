@@ -1,37 +1,23 @@
 package xdi2.server;
 
-
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
+import org.eclipse.jetty.servlet.FilterMapping;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.servlet.ServletMapping;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.GenericWebApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.core.io.FileSystemResource;
 
+@SuppressWarnings("unchecked")
 public class EndpointServer extends Server implements ApplicationContextAware {
 
-	private String webAppDir = null;
-	private String contextPath = null;
-	private ServletHandler servletHandler = null;
 	private ApplicationContext applicationContext = null;
-
-	public String getContextPath() {
-
-		return this.contextPath;
-	}
-
-	public ServletHandler getServletHandler() {
-
-		return this.servletHandler;
-	}
-
-	public String getWebAppDir() {
-
-		return this.webAppDir;
-	}
+	private String contextPath = null;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -39,45 +25,68 @@ public class EndpointServer extends Server implements ApplicationContextAware {
 		this.applicationContext = applicationContext;
 	}
 
+	public ApplicationContext getApplicationContext() {
+
+		return this.applicationContext;
+	}
+
 	public void setContextPath(String contextPath) {
 
 		this.contextPath = contextPath;
 	}
 
-	public void setServletHandler(ServletHandler servletHandler) {
+	public String getContextPath() {
 
-		this.servletHandler = servletHandler;
+		return this.contextPath;
 	}
 
-	public void setWebAppDir(String webAppDir) {
+	public static EndpointServer newServer(ApplicationContext applicationContext) throws Exception {
 
-		this.webAppDir = webAppDir;
+		EndpointServer server = (EndpointServer) applicationContext.getBean("Server");
+
+		return server;
 	}
 
-	@Override
-	protected void doStart() throws Exception {
+	public static EndpointServer newServer() throws Exception {
 
-		EndpointServlet endpointServlet = new EndpointServlet();
+		GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext();
+		applicationContext.setClassLoader(ClassLoader.getSystemClassLoader());
+		applicationContext.load(new FileSystemResource("jetty-applicationContext.xml"));
+		applicationContext.refresh();
 
-		ServletContextHandler servletContextHandler = new ServletContextHandler();
-		servletContextHandler.addServlet(new ServletHolder(endpointServlet), "/*");
+		return newServer(applicationContext);
+	}
 
-		//		final WebAppContext webAppContext = new WebAppContext(getServer(), this.webAppDir, this.contextPath);
-		GenericWebApplicationContext webApplicationContext = new GenericWebApplicationContext();
+	public void setup() throws Exception {
 
-		webApplicationContext.setServletContext(servletContextHandler.getServletContext());
-		webApplicationContext.setParent(this.applicationContext);
-		servletContextHandler.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, webApplicationContext);
-		webApplicationContext.refresh();
-		//servletContextHandler.setServletHandler(this.servletHandler);
+		EndpointServlet endpointServlet = (EndpointServlet) this.getApplicationContext().getBean("EndpointServlet");
+		EndpointFilter endpointFilter = (EndpointFilter) this.getApplicationContext().getBean("EndpointFilter");
+
+		ServletMapping servletMapping = new ServletMapping();
+		servletMapping.setServletName("EndpointServlet");
+		servletMapping.setPathSpec("/xdi/*");
+
+		FilterMapping filterMapping = new FilterMapping();
+		filterMapping.setFilterName("EndpointFilter");
+		filterMapping.setServletName("EndpointServlet");
+
+		ServletHandler servletHandler = new ServletHandler();
+		servletHandler.setServlets(new ServletHolder[] { new ServletHolder(endpointServlet) });
+		servletHandler.setFilters(new FilterHolder[] { new FilterHolder(endpointFilter) });
+		servletHandler.setServletMappings(new ServletMapping[] { servletMapping });
+		servletHandler.setFilterMappings(new FilterMapping[] { filterMapping });
+
+		ServletContextHandler servletContextHandler = new ServletContextHandler(null, this.getContextPath());
+		servletContextHandler.setServletHandler(servletHandler);
+		servletContextHandler.setContextPath("/");
 
 		this.setHandler(servletContextHandler);
 
 		super.doStart();
 	}
-	
+
 	public static void main(String... args) throws Exception {
-		
-		new EndpointServer().start();
+
+		EndpointServer.newServer().start();
 	}
 }

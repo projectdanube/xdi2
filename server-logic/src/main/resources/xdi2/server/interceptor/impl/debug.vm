@@ -31,7 +31,7 @@ hr { color: black; background-color: black; height: 3px; }
 	</tr>
 #foreach($messagingtargetbypath in $messagingtargetsbypath.entrySet())
 	<tr>
-    <td valign="top"><a href="$messagingtargetbypath.key">$messagingtargetbypath.key</a></td>
+    <td valign="top"><a href="$requestinfo.contextPath$requestinfo.servletPath$messagingtargetbypath.key">$requestinfo.contextPath$requestinfo.servletPath$messagingtargetbypath.key</a></td>
     <td valign="top">$messagingtargetbypath.value.class.canonicalName</td>
     <td valign="top">#if($messagingtargetbypath.value.owner)$messagingtargetbypath.value.owner#end</td>
 	<td valign="top">
@@ -58,7 +58,7 @@ hr { color: black; background-color: black; height: 3px; }
 	</tr>
 #foreach($messagingtargetfactorybypath in $messagingtargetfactorysbypath.entrySet())
 	<tr>
-    <td valign="top"><a href="$messagingtargetfactorybypath.key">$messagingtargetfactorybypath.key</a></td>
+    <td valign="top"><a href="$requestinfo.contextPath$requestinfo.servletPath$messagingtargetfactorybypath.key">$requestinfo.contextPath$requestinfo.servletPath$messagingtargetfactorybypath.key</a></td>
     <td valign="top">$messagingtargetfactorybypath.value.class.canonicalName</td>
     </tr>
 #end
