@@ -77,25 +77,13 @@
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
-			<artifactId>xdi2-core</artifactId>
-			<version>0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xdi2</groupId>
-			<artifactId>xdi2-messaging</artifactId>
-			<version>0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xdi2</groupId>
 			<artifactId>xdi2-client</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
-			<artifactId>xdi2-server-logic</artifactId>
+			<artifactId>xdi2-server</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

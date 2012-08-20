@@ -12,8 +12,9 @@
 		<module>core</module>
 		<module>messaging</module>
 		<module>client</module>
-		<module>server-logic</module>
 		<module>server</module>
+		<module>server-standalone</module>
+		<module>server-war</module>
 		<module>p2p</module>
 		<module>webtools</module>
 		<module>xri2xdi</module>

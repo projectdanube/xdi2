@@ -37,7 +37,7 @@ public class XDIUtil {
 
 	public static String dataXriSegmentToString(XRI3Segment xriSegment) {
 
-		if (log.isDebugEnabled()) log.debug("Converting from data URI: " + xriSegment.toString());
+		if (log.isTraceEnabled()) log.trace("Converting from data URI: " + xriSegment.toString());
 
 		XRI3SubSegment xriSubSegment = (XRI3SubSegment) xriSegment.getFirstSubSegment();
 		if (xriSubSegment == null) throw new Xdi2RuntimeException("Invalid data URI (no subsegment): " + xriSubSegment);
@@ -74,7 +74,7 @@ public class XDIUtil {
 
 	public static XRI3Segment stringToDataXriSegment(String string, boolean base64) {
 
-		if (log.isDebugEnabled()) log.debug("Converting to data URI: " + string);
+		if (log.isTraceEnabled()) log.trace("Converting to data URI: " + string);
 
 		String dataUri;
 

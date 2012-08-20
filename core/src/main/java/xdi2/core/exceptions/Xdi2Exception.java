@@ -1,6 +1,6 @@
 package xdi2.core.exceptions;
 
-public class Xdi2Exception extends Exception {
+public abstract class Xdi2Exception extends Exception {
 
 	private static final long serialVersionUID = 8960240020914987608L;
 
