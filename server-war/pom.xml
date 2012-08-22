@@ -80,7 +80,7 @@
 			<exclusions>
 				<exclusion>
 					<groupId>org.eclipse.jetty</groupId>
-					<artifactId>jetty-server</artifactId>
+					<artifactId>jetty-servlet</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
