@@ -18,11 +18,16 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.impl.AbstractStatement;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XRI3XRef;
 
 public class XDIJSONWriter extends AbstractXDIWriter {
 
@@ -122,21 +127,52 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		for (Entry<XRI3Segment, List<Relation>> entry : relationsMap.entrySet()) {
 
-			XRI3Segment relationArcXri = entry.getKey();
-			List<Relation> relationsList = entry.getValue();
+            XRI3Segment relationArcXri = entry.getKey();
+            List<Relation> relationsList = entry.getValue();
 
-			startItem(bufferedWriter, state);
-			bufferedWriter.write(state.indent + "\"" + xri + "/" + relationArcXri + "\" : [ ");
+            startItem(bufferedWriter, state);
+            bufferedWriter.write(state.indent + "\"" + xri + "/" + relationArcXri + "\" : [ ");
 
-			for (int i=0; i<relationsList.size(); i++) {
+            Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
+           
+            for (int i=0; i<relationsList.size(); i++) {
+            	
+                XRI3Segment targetContextNodeXri = relationsList.get(i).getTargetContextNodeXri();
+                XRI3XRef xref = (XRI3XRef) targetContextNodeXri.getFirstSubSegment().getXRef();
+                
+                Statement statement = null;
+                
+                if (xref != null) {
+                	
+                    try {
+                    	
+                        statement = AbstractStatement.fromString(xref.getXRIReference().toString());
+                    } catch (Xdi2ParseException ex) {
+                       
+                    }
+                }
+                
+                // if the target context node XRI is a valid statement in a cross-reference, add it to the temporary graph
+                if (statement != null) {
+                	
+                    tempGraph.addStatement(statement);
+                } else {
+                	
+                	tempGraph = null;
+                    bufferedWriter.write("\"" + targetContextNodeXri + "\"");
+                    if (i < relationsList.size() - 1) bufferedWriter.write(", ");
+                }
+            }
 
-				bufferedWriter.write("\"" + relationsList.get(i).getTargetContextNodeXri() + "\"");
-				if (i < relationsList.size() - 1) bufferedWriter.write(", ");
-			}
+            if (tempGraph != null) {
 
-			bufferedWriter.write(" ]");
-			finishItem(bufferedWriter, state);
-		}
+            	// write the temporary graph recursively
+            	this.write(tempGraph, bufferedWriter);
+            }
+
+            bufferedWriter.write(" ]");
+            finishItem(bufferedWriter, state);
+        }
 
 		// write literal
 
@@ -180,7 +216,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 	private static void startItem(BufferedWriter bufferedWriter, State state) throws IOException {
 
 		if (state.first) {
-
+			
 			state.first = false;
 		} else {
 

@@ -18,6 +18,7 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -33,7 +34,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 	public static final String FORMAT_NAME = "XDI/JSON";
 	public static final String FILE_EXTENSION = "json";
 	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
-
+	
 	public XDIJSONReader(Properties parameters) {
 
 		super(parameters);
@@ -96,11 +97,45 @@ public class XDIJSONReader extends AbstractXDIReader {
 				XRI3Segment arcXri = makeXRI3Segment(predicate, state);
 
 				for (int i=0; i<value.length(); i++) {
+					
+					String valueString = value.getString(i);
+					
+					JSONObject jsonObject = null;
+					
+					try{
+						
+						//try parsing the valueString as a possible cross-reference
+						jsonObject = new JSONObject(valueString);
+					} catch (JSONException e) {
+						//ignore if no cross-reference was found
+					}
+					
+					Relation relation = null;
+					
+					if (jsonObject != null) {
+						
+						// if a cross-reference exists, recursively parse each nested JSON and add it as a relation
+						for (Iterator<?> innerKeys = jsonObject.keys(); innerKeys.hasNext(); ) {
+							String innerKey = (String) innerKeys.next();
+							JSONArray innerValue = jsonObject.getJSONArray(innerKey);
 
-					XRI3Segment targetContextNodeXri = makeXRI3Segment(value.getString(i), state);
-
-					Relation relation = contextNode.createRelation(arcXri, targetContextNodeXri);
-					if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+							JSONObject innerJSONObject = new JSONObject();
+							innerJSONObject.put(innerKey, innerValue);
+							
+							Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
+							read(tempGraph, innerJSONObject, state);
+							
+							String innerValueString = ("(" + tempGraph.toString(new MimeType("text/xdi")) + ")").replaceAll("[ \n]", "");
+							XRI3Segment innerTargetContextNodeXri = makeXRI3Segment(innerValueString, state);
+							relation = contextNode.createRelation(arcXri, innerTargetContextNodeXri);
+							if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+						}
+					} else {
+						
+						XRI3Segment targetContextNodeXri = makeXRI3Segment(valueString, state);
+						relation = contextNode.createRelation(arcXri, targetContextNodeXri);
+						if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+					}
 				}
 			}
 		}
