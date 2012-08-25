@@ -394,7 +394,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		};
 
 		Literal literal = this.getLiteral();
-		
+
 		List<Iterator<Literal>> list = new ArrayList<Iterator<Literal>> ();
 		if (literal != null) list.add(new SingleItemIterator<Literal> (literal));
 		list.add(descendingIterator);
@@ -509,7 +509,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public String toString() {
 
-		return this.getStatement().toString();
+		Statement statement = this.getStatement();
+
+		return statement == null ? XDIConstants.XRI_S_CONTEXT.toString() : statement.toString();
 	}
 
 	@Override

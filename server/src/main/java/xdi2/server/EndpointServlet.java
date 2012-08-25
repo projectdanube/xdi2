@@ -570,7 +570,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		return messageEnvelope;
 	}
 
-	private MessageResult execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	protected MessageResult execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		// create an execution context
 
@@ -597,7 +597,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		return messageResult;
 	}
 
-	private ExecutionContext createExecutionContext(MessagingTarget messagingTarget, HttpServletRequest request, HttpServletResponse response) {
+	protected ExecutionContext createExecutionContext(MessagingTarget messagingTarget, HttpServletRequest request, HttpServletResponse response) {
 
 		ExecutionContext executionContext = new ExecutionContext(messagingTarget);
 
@@ -645,7 +645,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		log.debug("Output complete.");
 	}
 
-	protected static void handleInternalException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
+	private static void handleInternalException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
 
 		if (! response.isCommitted()) {
 
@@ -653,7 +653,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		}
 	}
 
-	protected static void handleException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
+	private static void handleException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
 
 		// send error result
 

@@ -14,7 +14,6 @@ public abstract class AbstractMultiplicitySingleton extends AbstractMultiplicity
 
 	/**
 	 * Gets or returns an attribute singleton under a context node.
-	 * @param contextNode A context node.
 	 * @param arcXri The "base" arc XRI of the attribute singleton, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The attribute singleton.

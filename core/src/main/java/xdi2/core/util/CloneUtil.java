@@ -11,12 +11,12 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
  */
 public final class CloneUtil {
 
-	protected static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
+	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
 	private CloneUtil() { }
 
 	/**
-	 * Creates a copy of the given graph containing the same contents.
+	 * Creates a clone of the given graph with the same contents.
 	 * @param graph The graph to clone.
 	 * @return The cloned graph.
 	 */
@@ -29,7 +29,7 @@ public final class CloneUtil {
 	}
 
 	/**
-	 * Creates a copy of the given context node containing the same contents.
+	 * Creates a clone of the given context node with the same contents.
 	 * @param contextNode The context node to clone.
 	 * @return The cloned context node.
 	 */

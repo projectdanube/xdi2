@@ -9,6 +9,7 @@ import xdi2.core.features.multiplicity.EntitySingleton;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -147,6 +148,17 @@ public final class MessageCollection implements Serializable, Comparable<Message
 				return Message.fromMessageCollectionAndEntitySingleton(MessageCollection.this, entitySingleton);
 			}
 		};
+	}
+
+	/**
+	 * Deletes all messages from this message collection.
+	 */
+	public void deleteMessages() {
+
+		for (Message message : new IteratorListMaker<Message> (this.getMessages()).list()) {
+
+			message.getContextNode().delete();
+		}
 	}
 
 	/**

@@ -29,6 +29,7 @@ import xdi2.core.io.readers.AutoReader;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor;
 import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
@@ -101,6 +102,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("variablesSupport", "on");
+		request.setAttribute("expandDollarIsSupport", "on");
 		request.setAttribute("linkContractsSupport", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
@@ -114,6 +116,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
 		String variablesSupport = request.getParameter("variablesSupport");
+		String expandDollarIsSupport = request.getParameter("expandDollarIsSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
 		String to = request.getParameter("to");
 		String input = request.getParameter("input");
@@ -158,6 +161,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 				VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
 				messagingTarget.getInterceptors().add(variablesInterceptor);
+			}
+
+			if ("on".equals(expandDollarIsSupport)) {
+
+				ExpandDollarIsInterceptor expandDollarIsInterceptor = new ExpandDollarIsInterceptor();
+				messagingTarget.getInterceptors().add(expandDollarIsInterceptor);
 			}
 
 			if ("on".equals(linkContractsSupport)) {
@@ -223,6 +232,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("variablesSupport", variablesSupport);
+		request.setAttribute("expandDollarIsSupport", expandDollarIsSupport);
 		request.setAttribute("linkContractsSupport", linkContractsSupport);
 		request.setAttribute("to", to);
 		request.setAttribute("input", input);

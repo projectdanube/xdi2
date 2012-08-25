@@ -10,6 +10,7 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.multiplicity.EntitySingleton;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -123,17 +124,16 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Return the sender authority.
-	 * TODO: This is inefficient because it enumerates all relations in the graph.
 	 */
 	public XRI3Segment getSenderAuthority() {
 
-		for (Iterator<Relation> relations = this.getMessageEnvelope().getGraph().getRootContextNode().getAllRelations(); relations.hasNext(); ) {
+		for (Iterator<Relation> incomingRelations = this.getContextNode().getIncomingRelations(); incomingRelations.hasNext(); ) {
 
-			Relation relation = relations.next();
+			Relation incomingRelation = incomingRelations.next();
 
-			if (this.getContextNode().equals(relation.follow())) {
+			if (incomingRelation.getArcXri().equals(XDIMessagingConstants.XRI_S_FROM_GRAPH)) {
 
-				return relation.getContextNode().getXri();
+				return incomingRelation.getContextNode().getXri();
 			}
 		}
 
@@ -141,14 +141,34 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Set the sender authority.
+	 */
+	public void setSenderAuthority(XRI3Segment senderAuthority) {
+
+		ContextNode senderAuthorityContextNode = this.getMessageEnvelope().getGraph().findContextNode(senderAuthority, true);
+		
+		senderAuthorityContextNode.createRelation(XDIMessagingConstants.XRI_S_FROM_GRAPH, this.getContextNode());
+	}
+
+	/**
 	 * Return the recipient authority.
 	 */
 	public XRI3Segment getRecipientAuthority() {
 
-		Relation toGraphXriRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_GRAPH);
-		if (toGraphXriRelation == null) return null;
+		Relation recipientAuthorityRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_GRAPH);
+		if (recipientAuthorityRelation == null) return null;
 
-		return toGraphXriRelation.getTargetContextNodeXri();
+		return recipientAuthorityRelation.getTargetContextNodeXri();
+	}
+
+	/**
+	 * Set the recipient authority.
+	 */
+	public void setRecipientAuthority(XRI3Segment recipientAuthority) {
+
+		ContextNode recipientContextNode = this.getMessageEnvelope().getGraph().findContextNode(recipientAuthority, true);
+
+		this.getContextNode().createRelation(XDIMessagingConstants.XRI_S_TO_GRAPH, recipientContextNode);
 	}
 
 	/**
@@ -396,6 +416,17 @@ public final class Message implements Serializable, Comparable<Message> {
 				return DelOperation.fromMessageAndRelation(Message.this, relation);
 			}
 		};
+	}
+
+	/**
+	 * Deletes all operations from this message.
+	 */
+	public void deleteOperations() {
+
+		for (Operation operation : new IteratorListMaker<Operation> (this.getOperations()).list()) {
+
+			operation.getRelation().delete();
+		}
 	}
 
 	/**

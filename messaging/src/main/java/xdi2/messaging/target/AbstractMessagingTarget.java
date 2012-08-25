@@ -13,6 +13,8 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.AbstractStatement;
+import xdi2.core.util.CopyUtil;
+import xdi2.core.util.iterators.InsertableIterator;
 import xdi2.core.util.iterators.SelectingClassIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Message;
@@ -131,7 +133,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute the message envelope
 
-			for (Iterator<Message> messages = messageEnvelope.getMessages(); messages.hasNext(); ) {
+			Iterator<Message> messages = messageEnvelope.getMessages();
+
+			while (messages.hasNext()) {
 
 				i++;
 				Message message = messages.next();
@@ -180,7 +184,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			this.after(messageEnvelope, executionContext);
 
-			// execute result interceptors
+			// execute result interceptors (finish)
 
 			this.executeResultInterceptorsFinish(messageResult, executionContext);
 		} catch (Exception ex) {
@@ -220,7 +224,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		int i = 0;
 		int operationCount = message.getOperationCount();
 
-		for (Iterator<Operation> operations = message.getOperations(); operations.hasNext(); ) {
+		InsertableIterator<Operation> operations = new InsertableIterator<Operation> (message.getOperations(), false);
+
+		while (operations.hasNext()) {
 
 			i++;
 			Operation operation = operations.next();
@@ -247,7 +253,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation " + i + "/" + operationCount + " (" + operation.getOperationXri() + ").");
 
-				this.execute(operation, messageResult, executionContext);
+				MessageResult operationMessageResult = new MessageResult();
+
+				this.execute(operation, operationMessageResult, executionContext);
+
+				CopyUtil.copyGraph(operationMessageResult.getGraph(), messageResult.getGraph(), null);
 
 				// execute operation interceptors (after)
 
@@ -259,6 +269,10 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				// after operation
 
 				this.after(operation, executionContext);
+
+				// execute operation interceptors (feedback)
+
+				this.executeOperationInterceptorsFeedback(operation, operationMessageResult, messageResult, executionContext);
 			} catch (Exception ex) {
 
 				// check exception
@@ -575,6 +589,30 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		}
 
 		return false;
+	}
+
+	private void executeOperationInterceptorsFeedback(Operation operation, MessageResult operationMessageResult, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		for (Iterator<OperationInterceptor> operationInterceptors = this.getOperationInterceptors(); operationInterceptors.hasNext(); ) {
+
+			OperationInterceptor operationInterceptor = operationInterceptors.next();
+
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation interceptor " + operationInterceptor.getClass().getSimpleName() + " (feedback).");
+
+			for (Iterator<Statement> statements = operationMessageResult.getGraph().getRootContextNode().getAllStatements(); statements.hasNext(); ) {
+
+				Statement statement = statements.next();
+
+				MessageEnvelope messageEnvelope = operationInterceptor.feedback(operation, statement, executionContext);
+
+				if (messageEnvelope != null) {
+
+					if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Interceptor " + operationInterceptor.getClass().getSimpleName() + " returned a message envelope for statement " + statement.toString() + ". Initiating Feedback.");
+					this.execute(messageEnvelope, messageResult, executionContext);
+					if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Interceptor " + operationInterceptor.getClass().getSimpleName() + " Feedback completed.");
+				}
+			}
+		}
 	}
 
 	private XRI3Segment executeTargetInterceptorsAddress(Operation operation, XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {

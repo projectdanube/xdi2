@@ -28,7 +28,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
 public class VariablesInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, TargetInterceptor, ResultInterceptor {
 
 	/*
-	 * Interceptor
+	 * MessageEnvelopeInterceptor
 	 */
 
 	@Override

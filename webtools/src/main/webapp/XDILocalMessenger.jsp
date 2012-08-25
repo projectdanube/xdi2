@@ -40,7 +40,7 @@
 		<% String writeContexts = (String) request.getAttribute("writeContexts"); if (writeContexts == null) writeContexts = ""; %>
 		<% String writeOrdered = (String) request.getAttribute("writeOrdered"); if (writeOrdered == null) writeOrdered = ""; %>
 		<% String variablesSupport = (String) request.getAttribute("variablesSupport"); if (variablesSupport == null) variablesSupport = ""; %>
-		<% String versioningSupport = (String) request.getAttribute("versioningSupport"); if (versioningSupport == null) versioningSupport = ""; %>
+		<% String expandDollarIsSupport = (String) request.getAttribute("expandDollarIsSupport"); if (expandDollarIsSupport == null) expandDollarIsSupport = ""; %>
 		<% String linkContractsSupport = (String) request.getAttribute("linkContractsSupport"); if (linkContractsSupport == null) linkContractsSupport = ""; %>
 		<% String to = (String) request.getAttribute("to"); if (to == null) to = ""; %>
 
@@ -55,11 +55,11 @@
 
 		<input name="writeOrdered" type="checkbox" <%= writeOrdered.equals("on") ? "checked" : "" %>>ordered=1
 
-		<input name="variablesSupport" type="checkbox" <%= variablesSupport.equals("on") ? "checked" : "" %>>Variable Support
-<!-- 
-		<input name="versioningSupport" type="checkbox" <%= versioningSupport.equals("on") ? "checked" : "" %>>Versioning
--->
-		<input name="linkContractsSupport" type="checkbox" <%= linkContractsSupport.equals("on") ? "checked" : "" %>>Link Contract Support&nbsp;
+		<input name="variablesSupport" type="checkbox" <%= variablesSupport.equals("on") ? "checked" : "" %>>Variables
+
+		<input name="expandDollarIsSupport" type="checkbox" <%= expandDollarIsSupport.equals("on") ? "checked" : "" %>>Expand $is
+
+		<input name="linkContractsSupport" type="checkbox" <%= linkContractsSupport.equals("on") ? "checked" : "" %>>Link Contracts&nbsp;
 
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDILocalMessengerHelp.jsp">What can I do here?</a>

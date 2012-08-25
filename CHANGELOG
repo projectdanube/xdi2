@@ -1,6 +1,18 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-08-24:
+------------------------
+
+*** New function of OperationInterceptors to be able to respond to result statements
+
+*** Added experimental ExpandDollarIsInterceptor
+
+2012-08-19:
+------------------------
+
+*** Renamed "server-logic" to "server", "server" to "server-war". Added "server-standalone".
+
 2012-08-16:
 ------------------------
 

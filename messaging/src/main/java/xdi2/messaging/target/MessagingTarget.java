@@ -35,7 +35,6 @@ public interface MessagingTarget {
 	 * @param executionContext An "execution context" object that is created when
 	 * execution of the message envelope begins and that will be passed into every 
 	 * single execute() method.
-	 * @return True, if the message envelope has been handled.
 	 */
 	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

@@ -12,6 +12,7 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -175,6 +176,17 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 				return MessageCollection.fromMessageEnvelopeAndEntityCollection(MessageEnvelope.this, EntityCollection.fromContextNode(contextNode));
 			}
 		};
+	}
+
+	/**
+	 * Deletes all message collections from this message envelope.
+	 */
+	public void deleteMessageCollections() {
+
+		for (MessageCollection messageCollection : new IteratorListMaker<MessageCollection> (this.getMessageCollections()).list()) {
+
+			messageCollection.getContextNode().delete();
+		}
 	}
 
 	/**

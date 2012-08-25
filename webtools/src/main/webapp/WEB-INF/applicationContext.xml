@@ -45,7 +45,6 @@
 
 	<!-- MESSAGING TARGET at /registry -->
 	<!-- MessagingTarget: GraphMessagingTarget backed by a FileGraph -->
-	<!-- Interceptors: (none) -->
 
 	<bean name="/registry" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
 		<property name="graph" ref="registrygraph" />
@@ -62,6 +61,7 @@
 					<property name="bootstrapLinkContract" value="true" />
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
 					<property name="linkContractsGraph" ref="registrygraph" />
@@ -72,7 +72,6 @@
 
 	<!-- MESSAGING TARGET at /mem-graph -->
 	<!-- MessagingTarget: GraphMessagingTarget backed by a MemoryGraph -->
-	<!-- Interceptors: VariablesInterceptor -->
 
 	<bean id="graphfactory1" class="xdi2.core.impl.memory.MemoryGraphFactory">
 	</bean>
@@ -84,13 +83,13 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 			</util:list>
 		</property>
 	</bean>
 
 	<!-- MESSAGING TARGET at /bdb-graph -->
 	<!-- MessagingTarget: GraphMessagingTarget backed by a BDBGraph -->
-	<!-- Interceptors: VariablesInterceptor -->
 
 	<bean id="graphfactory2" class="xdi2.core.impl.keyvalue.bdb.BDBGraphFactory">
 	</bean>
@@ -102,13 +101,13 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 			</util:list>
 		</property>
 	</bean>
 
 	<!-- MESSAGING TARGET at /file-graph -->
 	<!-- MessagingTarget: FileMessagingTarget backed by an XDI/JSON file -->
-	<!-- Interceptors: VariablesInterceptor -->
 
 	<bean name="/file-graph" class="xdi2.messaging.target.impl.file.FileMessagingTarget">
 		<property name="filename" value="./xdi2-file/graph.xdi" />
@@ -116,13 +115,13 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 			</util:list>
 		</property>
 	</bean>
 
 	<!-- MESSAGING TARGET at /=markus -->
 	<!-- MessagingTarget: GraphMessagingTarget backed by a MemoryGraph -->
-	<!-- Interceptors: BootstrapInterceptor, VariablesInterceptor, CheckOwnerInterceptor, LinkContractsInterceptor -->
 
 	<bean id="graphfactory4" class="xdi2.core.impl.memory.MemoryGraphFactory">
 	</bean>
@@ -144,6 +143,7 @@
 					<property name="bootstrapLinkContract" value="true" />
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
 					<property name="linkContractsGraph" ref="graph4" />
