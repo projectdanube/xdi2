@@ -118,7 +118,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String variablesSupport = request.getParameter("variablesSupport");
 		String expandDollarIsSupport = request.getParameter("expandDollarIsSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
-		String to = request.getParameter("to");
+		String resultFormat = request.getParameter("resultFormat");
 		String input = request.getParameter("input");
 		String message = request.getParameter("message");
 		String output = "";
@@ -132,7 +132,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiInputWriter;
-		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(to, xdiResultWriterParameters);
+		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 		MessageEnvelope messageEnvelope = null;
 		MessageResult messageResult = null;
 		Graph graphInput = graphFactory.openGraph();
@@ -229,12 +229,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("variablesSupport", variablesSupport);
 		request.setAttribute("expandDollarIsSupport", expandDollarIsSupport);
 		request.setAttribute("linkContractsSupport", linkContractsSupport);
-		request.setAttribute("to", to);
 		request.setAttribute("input", input);
 		request.setAttribute("message", message);
 		request.setAttribute("output", output);

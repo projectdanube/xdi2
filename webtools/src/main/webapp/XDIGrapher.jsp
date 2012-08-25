@@ -37,18 +37,19 @@
 		<input type="submit" value="Draw!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIGrapherHelp.jsp">What can I do here?</a>
 
-		<% if (request.getAttribute("stats") != null) { %>
-			<p>
-			<%= request.getAttribute("stats") %>
-			</p>
-		<% } %>
-
-		<% if (request.getAttribute("imageId") != null) { %>
-			<div>
-				<img src="/XDIGrapherImage?imageId=<%= request.getAttribute("imageId") %>">
-			</div><br>
-		<% } %>
 	</form>
+
+	<% if (request.getAttribute("stats") != null) { %>
+		<p>
+		<%= request.getAttribute("stats") %>
+		</p>
+	<% } %>
+
+	<% if (request.getAttribute("imageId") != null) { %>
+		<div>
+			<img src="/XDIGrapherImage?imageId=<%= request.getAttribute("imageId") %>">
+		</div><br>
+	<% } %>
 
 </body>
 </html>

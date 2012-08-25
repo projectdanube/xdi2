@@ -28,12 +28,20 @@
 
 		<textarea name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 
+		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
 		<% String writeContexts = (String) request.getAttribute("writeContexts"); if (writeContexts == null) writeContexts = ""; %>
 		<% String writeOrdered = (String) request.getAttribute("writeOrdered"); if (writeOrdered == null) writeOrdered = ""; %>
 		<% String endpoint = (String) request.getAttribute("endpoint"); if (endpoint == null) endpoint = ""; %>
 
 		Send to endpoint: 
 		<input type="text" name="endpoint" size="80" value="<%= endpoint %>">
+
+		Result Format:
+		<select name="resultFormat">
+		<option value="XDI/JSON" <%= resultFormat.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
+		<option value="XDI DISPLAY" <%= resultFormat.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
+		</select>
+		&nbsp;
 
 		<input name="writeContexts" type="checkbox" <%= writeContexts.equals("on") ? "checked" : "" %>>contexts=1
 
@@ -42,20 +50,21 @@
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIMessengerHelp.jsp">What can I do here?</a>
 
-		<% if (request.getAttribute("stats") != null) { %>
-			<p>
-			<%= request.getAttribute("stats") %>
+	</form>
 
-			<% if (request.getAttribute("output") != null) { %>
-				Copy&amp;Paste: <textarea style="width: 100px; height: 1.2em; overflow: hidden"><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></textarea>
-			<% } %>
-			</p>
-		<% } %>
+	<% if (request.getAttribute("stats") != null) { %>
+		<p>
+		<%= request.getAttribute("stats") %>
 
 		<% if (request.getAttribute("output") != null) { %>
-			<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
+			Copy&amp;Paste: <textarea style="width: 100px; height: 1.2em; overflow: hidden"><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></textarea>
 		<% } %>
-	</form>
+		</p>
+	<% } %>
+
+	<% if (request.getAttribute("output") != null) { %>
+		<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
+	<% } %>
 
 </body>
 </html>

@@ -37,17 +37,17 @@
 		</tr>
 		</table>
 
+		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
 		<% String writeContexts = (String) request.getAttribute("writeContexts"); if (writeContexts == null) writeContexts = ""; %>
 		<% String writeOrdered = (String) request.getAttribute("writeOrdered"); if (writeOrdered == null) writeOrdered = ""; %>
 		<% String variablesSupport = (String) request.getAttribute("variablesSupport"); if (variablesSupport == null) variablesSupport = ""; %>
 		<% String expandDollarIsSupport = (String) request.getAttribute("expandDollarIsSupport"); if (expandDollarIsSupport == null) expandDollarIsSupport = ""; %>
 		<% String linkContractsSupport = (String) request.getAttribute("linkContractsSupport"); if (linkContractsSupport == null) linkContractsSupport = ""; %>
-		<% String to = (String) request.getAttribute("to"); if (to == null) to = ""; %>
 
 		Result Format:
-		<select name="to">
-		<option value="XDI/JSON" <%= to.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
-		<option value="XDI DISPLAY" <%= to.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
+		<select name="resultFormat">
+		<option value="XDI/JSON" <%= resultFormat.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
+		<option value="XDI DISPLAY" <%= resultFormat.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
 		</select>
 		&nbsp;
 
@@ -64,20 +64,21 @@
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDILocalMessengerHelp.jsp">What can I do here?</a>
 
-		<% if (request.getAttribute("stats") != null) { %>
-			<p>
-			<%= request.getAttribute("stats") %>
+	</form>
 
-			<% if (request.getAttribute("output") != null) { %>
-				Copy&amp;Paste: <textarea style="width: 100px; height: 1.2em; overflow: hidden"><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></textarea>
-			<% } %>
-			</p>
-		<% } %>
+	<% if (request.getAttribute("stats") != null) { %>
+		<p>
+		<%= request.getAttribute("stats") %>
 
 		<% if (request.getAttribute("output") != null) { %>
-			<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
+			Copy&amp;Paste: <textarea style="width: 100px; height: 1.2em; overflow: hidden"><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></textarea>
 		<% } %>
-	</form>
+		</p>
+	<% } %>
+
+	<% if (request.getAttribute("output") != null) { %>
+		<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
+	<% } %>
 	
 </body>
 </html>

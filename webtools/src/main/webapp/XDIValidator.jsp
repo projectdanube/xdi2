@@ -40,16 +40,17 @@
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIValidatorHelp.jsp">What can I do here?</a>
 
-		<% if (request.getAttribute("stats") != null) { %>
-			<p>
-			<%= request.getAttribute("stats") %>
-			</p>
-		<% } %>
-
-		<% if (request.getAttribute("output") != null) { %>
-			<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
-		<% } %>
 	</form>
+
+	<% if (request.getAttribute("stats") != null) { %>
+		<p>
+		<%= request.getAttribute("stats") %>
+		</p>
+	<% } %>
+
+	<% if (request.getAttribute("output") != null) { %>
+		<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
+	<% } %>
 
 </body>
 </html>

@@ -92,10 +92,10 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String resultFormat = request.getParameter("resultFormat");
 		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
 		String from = request.getParameter("from");
-		String to = request.getParameter("to");
 		String input = request.getParameter("input");
 		String output = "";
 		String stats = "-1";
@@ -107,7 +107,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		if ("on".equals(writeOrdered)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
 
 		XDIReader xdiReader = XDIReaderRegistry.forFormat(from, null);
-		XDIWriter xdiWriter = XDIWriterRegistry.forFormat(to, xdiWriterParameters);
+		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiWriterParameters);
 		Graph graph = graphFactory.openGraph();
 
 		try {
@@ -116,7 +116,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 			StringWriter writer = new StringWriter();
 
 			xdiReader.read(graph, reader);
-			xdiWriter.write(graph, writer);
+			xdiResultWriter.write(graph, writer);
 
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 		} catch (Exception ex) {
@@ -138,10 +138,10 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("from", from);
-		request.setAttribute("to", to);
 		request.setAttribute("input", input);
 		request.setAttribute("output", output);
 		request.setAttribute("stats", stats);
