@@ -174,7 +174,9 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 	private static String escape(String string) {
 
-		return string.replace("\\", "\\\\");
+		return string
+				.replace("\\", "\\\\")
+				.replace("\"", "\\\"");
 	}
 
 	private static void startItem(BufferedWriter bufferedWriter, State state) throws IOException {
