@@ -196,7 +196,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			return;
 		}
 
-		log.debug("Incoming GET request. Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
+		log.debug("Incoming GET request to " + request.getRequestURL() + ". Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
 
 		try {
 
@@ -220,7 +220,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			return;
 		}
 
-		log.debug("Incoming POST request. Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
+		log.debug("Incoming POST request to " + request.getRequestURL() + ". Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
 
 		try {
 
@@ -244,8 +244,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			return;
 		}
 
-		log.debug("Incoming PUT request. Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
-
+		log.debug("Incoming PUT request to " + request.getRequestURL() + ". Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
+		
 		try {
 
 			this.processPutRequest(request, response);
@@ -268,8 +268,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			return;
 		}
 
-		log.debug("Incoming DELETE request. Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
-
+		log.debug("Incoming DELETE request to " + request.getRequestURL() + ". Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
+		
 		try {
 
 			this.processDeleteRequest(request, response);
