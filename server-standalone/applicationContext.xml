@@ -11,8 +11,7 @@
 
 	<!-- XDI SERVLET -->
 
-	<bean id="EndpointServlet" class="xdi2.server.EndpointServlet"
-		init-method="init" destroy-method="destroy">
+	<bean id="EndpointServlet" class="xdi2.server.EndpointServlet" init-method="init" destroy-method="destroy">
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.server.interceptor.impl.DebugEndpointServletInterceptor" />
@@ -22,8 +21,7 @@
 
 	<!-- MESSAGING TARGET FACTORY at /any/* -->
 
-	<bean name="/any/*"
-		class="xdi2.server.factory.impl.AnyGraphMessagingTargetFactory">
+	<bean name="/any/*" class="xdi2.server.factory.impl.AnyGraphMessagingTargetFactory">
 		<property name="graphFactory">
 			<bean class="xdi2.core.impl.memory.MemoryGraphFactory" />
 		</property>
@@ -36,11 +34,9 @@
 		<property name="mimeType" value="text/xdi;contexts=0;ordered=1" />
 	</bean>
 
-	<bean id="registrygraph" factory-bean="registrygraphfactory"
-		factory-method="openGraph" />
+	<bean id="registrygraph" factory-bean="registrygraphfactory" factory-method="openGraph" />
 
-	<bean name="/users/*"
-		class="xdi2.server.factory.impl.RegistryGraphMessagingTargetFactory">
+	<bean name="/users/*" class="xdi2.server.factory.impl.RegistryGraphMessagingTargetFactory">
 		<property name="graphFactory">
 			<bean class="xdi2.core.impl.memory.MemoryGraphFactory" />
 		</property>
@@ -65,11 +61,9 @@
 					<property name="bootstrapLinkContract" value="true" />
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
-				<bean
-					class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
-				<bean
-					class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
 					<property name="linkContractsGraph" ref="registrygraph" />
 				</bean>
 			</util:list>
@@ -89,8 +83,7 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
-				<bean
-					class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 			</util:list>
 		</property>
 	</bean>
@@ -108,8 +101,7 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
-				<bean
-					class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 			</util:list>
 		</property>
 	</bean>
@@ -123,8 +115,7 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
-				<bean
-					class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 			</util:list>
 		</property>
 	</bean>
@@ -152,11 +143,9 @@
 					<property name="bootstrapLinkContract" value="true" />
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
-				<bean
-					class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
-				<bean
-					class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
 					<property name="linkContractsGraph" ref="graph4" />
 				</bean>
 			</util:list>
