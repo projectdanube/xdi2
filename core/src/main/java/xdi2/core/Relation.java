@@ -6,8 +6,7 @@ import xdi2.core.Statement.RelationStatement;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
- * This interface represents a predicate in an XDI graph. Methods include
- * creating and finding references, literals and inner graphs of the predicate.
+ * This interface represents a relation in an XDI graph.
  * 
  * @author markus
  */
