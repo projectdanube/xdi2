@@ -25,6 +25,11 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.ResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
+/**
+ * This interceptor can replace XDI variables in a $add operation with automatically generated persistent XRI subsegments.
+ * 
+ * @author markus
+ */
 public class VariablesInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, TargetInterceptor, ResultInterceptor {
 
 	/*

@@ -31,6 +31,11 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.util.JSPolicyExpressionHelper;
 
+/**
+ * This interceptor enforces link contracts while a message is executed.
+ * 
+ * @author animesh
+ */
 public class LinkContractsInterceptor extends AbstractInterceptor implements
 		MessageInterceptor, TargetInterceptor {
 

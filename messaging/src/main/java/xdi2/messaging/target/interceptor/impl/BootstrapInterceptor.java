@@ -16,6 +16,12 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 
+/**
+ * This interceptor can initialize an empty XDI graph with basic bootstrapping data,
+ * such as the owner XRI of the graph, a shared secret, and an initial "root link contract".
+ * 
+ * @author markus
+ */
 public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 	private XRI3Segment bootstrapOwner;

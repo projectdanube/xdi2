@@ -9,6 +9,11 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
+/**
+ * This interceptor throws an exception when $add, $mod or $del operations are attempted on certain XDI addresses.
+ * 
+ * @author markus
+ */
 public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetInterceptor {
 
 	private XRI3Segment[] readOnlyAddresses;
