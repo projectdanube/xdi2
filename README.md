@@ -1,4 +1,4 @@
-<img src="http://peacekeeper.github.com/xdi2/images/projectdanube_logo.png" align="right">
+<a href="http://projectdanube.org/" target="_blank"><img src="http://peacekeeper.github.com/xdi2/images/projectdanube_logo.png" align="right"></a>
 <img src="http://peacekeeper.github.com/xdi2/images/logo64.png"><br>
 [![Build Status](https://secure.travis-ci.org/peacekeeper/xdi2.png)](http://travis-ci.org/peacekeeper/xdi2)
 
