@@ -121,6 +121,10 @@ Packages that use <A HREF="../../../../xdi2/messaging/target/MessagingTarget.htm
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.server"><B>xdi2.server</B></A></TD>
+<TD>A servlet exposing an XDI messaging endpoint.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.server.interceptor"><B>xdi2.server.interceptor</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -394,6 +398,44 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B>BootstrapInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#shutdown(xdi2.messaging.target.MessagingTarget)">shutdown</A></B>(<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.server"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A> in <A HREF="../../../../xdi2/server/package-summary.html">xdi2.server</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/server/package-summary.html">xdi2.server</A> with parameters of type <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A></CODE></FONT></TD>
+<TD><CODE><B>EndpointServlet.</B><B><A HREF="../../../../xdi2/server/EndpointServlet.html#createExecutionContext(xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">createExecutionContext</A></B>(<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+                       javax.servlet.http.HttpServletRequest&nbsp;request,
+                       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></CODE></FONT></TD>
+<TD><CODE><B>EndpointServlet.</B><B><A HREF="../../../../xdi2/server/EndpointServlet.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">execute</A></B>(<A HREF="../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+        <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+        javax.servlet.http.HttpServletRequest&nbsp;request,
+        javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

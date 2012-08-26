@@ -193,6 +193,14 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#deleteOperations()">deleteOperations</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes all operations from this message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#equals(java.lang.Object)">equals</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;object)</CODE>
 
@@ -367,6 +375,22 @@ An XDI message, represented as a context node.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an entity singleton is a valid XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setRecipientAuthority(xdi2.core.xri3.impl.XRI3Segment)">setRecipientAuthority</A></B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;recipientAuthority)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the recipient authority.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setSenderAuthority(xdi2.core.xri3.impl.XRI3Segment)">setSenderAuthority</A></B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;senderAuthority)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the sender authority.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -560,7 +584,22 @@ getSenderAuthority</H3>
 public <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getSenderAuthority</B>()</PRE>
 <DL>
 <DD>Return the sender authority.
- TODO: This is inefficient because it enumerates all relations in the graph.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setSenderAuthority(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
+setSenderAuthority</H3>
+<PRE>
+public void <B>setSenderAuthority</B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;senderAuthority)</PRE>
+<DL>
+<DD>Set the sender authority.
 <P>
 <DD><DL>
 </DL>
@@ -577,6 +616,22 @@ getRecipientAuthority</H3>
 public <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getRecipientAuthority</B>()</PRE>
 <DL>
 <DD>Return the recipient authority.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setRecipientAuthority(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
+setRecipientAuthority</H3>
+<PRE>
+public void <B>setRecipientAuthority</B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;recipientAuthority)</PRE>
+<DL>
+<DD>Set the recipient authority.
 <P>
 <DD><DL>
 </DL>
@@ -822,6 +877,22 @@ public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="cla
 <DD><DL>
 
 <DT><B>Returns:</B><DD>An iterator over all XDI $del operations.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="deleteOperations()"><!-- --></A><H3>
+deleteOperations</H3>
+<PRE>
+public void <B>deleteOperations</B>()</PRE>
+<DL>
+<DD>Deletes all operations from this message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>

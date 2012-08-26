@@ -101,11 +101,11 @@ Class EndpointServer</H2>
                           <IMG SRC="../../resources/inherit.gif" ALT="extended by "><B>xdi2.server.EndpointServer</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD>org.eclipse.jetty.server.Handler, org.eclipse.jetty.server.HandlerContainer, org.eclipse.jetty.util.Attributes, org.eclipse.jetty.util.component.Destroyable, org.eclipse.jetty.util.component.Dumpable, org.eclipse.jetty.util.component.LifeCycle, org.springframework.context.ApplicationContextAware</DD>
+<DT><B>All Implemented Interfaces:</B> <DD>org.eclipse.jetty.server.Handler, org.eclipse.jetty.server.HandlerContainer, org.eclipse.jetty.util.Attributes, org.eclipse.jetty.util.component.Destroyable, org.eclipse.jetty.util.component.Dumpable, org.eclipse.jetty.util.component.LifeCycle</DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>EndpointServer</B><DT>extends org.eclipse.jetty.server.Server<DT>implements org.springframework.context.ApplicationContextAware</DL>
+<DT><PRE>public class <B>EndpointServer</B><DT>extends org.eclipse.jetty.server.Server</DL>
 </PRE>
 
 <P>
@@ -162,7 +162,7 @@ Class EndpointServer</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#DEFAULT_APPLICATIONCONTEXT_PATH">DEFAULT_APPLICATIONCONTEXT_PATH</A></B></CODE>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#FALLBACK_APPLICATIONCONTEXT">FALLBACK_APPLICATIONCONTEXT</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -170,7 +170,7 @@ Class EndpointServer</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#DEFAULT_JETTY_APPLICATIONCONTEXT_PATH">DEFAULT_JETTY_APPLICATIONCONTEXT_PATH</A></B></CODE>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#FALLBACK_JETTY_APPLICATIONCONTEXT">FALLBACK_JETTY_APPLICATIONCONTEXT</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -221,16 +221,16 @@ Class EndpointServer</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;org.springframework.context.ApplicationContext</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#getApplicationContext()">getApplicationContext</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/server/EndpointFilter.html" title="class in xdi2.server">EndpointFilter</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#getEndpointFilter()">getEndpointFilter</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#getContextPath()">getContextPath</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#getEndpointServlet()">getEndpointServlet</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -246,26 +246,18 @@ Class EndpointServer</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#newServer()">newServer</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#newServer(org.springframework.context.ApplicationContext)">newServer</A></B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#newServer(java.io.File)">newServer</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</A>&nbsp;file)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#newServer(java.io.InputStream)">newServer</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</A>&nbsp;stream)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Generates a new XDI2 server from an application context.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -277,8 +269,9 @@ Class EndpointServer</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#setApplicationContext(org.springframework.context.ApplicationContext)">setApplicationContext</A></B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</CODE>
+<CODE>static&nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#newServer(org.springframework.core.io.Resource, org.springframework.core.io.Resource)">newServer</A></B>(org.springframework.core.io.Resource&nbsp;applicationContextResource,
+          org.springframework.core.io.Resource&nbsp;jettyApplicationContextResource)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -286,7 +279,15 @@ Class EndpointServer</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#setContextPath(java.lang.String)">setContextPath</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;contextPath)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#setEndpointFilter(xdi2.server.EndpointFilter)">setEndpointFilter</A></B>(<A HREF="../../xdi2/server/EndpointFilter.html" title="class in xdi2.server">EndpointFilter</A>&nbsp;endpointFilter)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServer.html#setEndpointServlet(xdi2.server.EndpointServlet)">setEndpointServlet</A></B>(<A HREF="../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -377,23 +378,23 @@ Class EndpointServer</H2>
 </TR>
 </TABLE>
 
-<A NAME="DEFAULT_JETTY_APPLICATIONCONTEXT_PATH"><!-- --></A><H3>
-DEFAULT_JETTY_APPLICATIONCONTEXT_PATH</H3>
+<A NAME="FALLBACK_APPLICATIONCONTEXT"><!-- --></A><H3>
+FALLBACK_APPLICATIONCONTEXT</H3>
 <PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_JETTY_APPLICATIONCONTEXT_PATH</B></PRE>
+public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>FALLBACK_APPLICATIONCONTEXT</B></PRE>
 <DL>
 <DL>
-<DT><B>See Also:</B><DD><A HREF="../../constant-values.html#xdi2.server.EndpointServer.DEFAULT_JETTY_APPLICATIONCONTEXT_PATH">Constant Field Values</A></DL>
+<DT><B>See Also:</B><DD><A HREF="../../constant-values.html#xdi2.server.EndpointServer.FALLBACK_APPLICATIONCONTEXT">Constant Field Values</A></DL>
 </DL>
 <HR>
 
-<A NAME="DEFAULT_APPLICATIONCONTEXT_PATH"><!-- --></A><H3>
-DEFAULT_APPLICATIONCONTEXT_PATH</H3>
+<A NAME="FALLBACK_JETTY_APPLICATIONCONTEXT"><!-- --></A><H3>
+FALLBACK_JETTY_APPLICATIONCONTEXT</H3>
 <PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_APPLICATIONCONTEXT_PATH</B></PRE>
+public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>FALLBACK_JETTY_APPLICATIONCONTEXT</B></PRE>
 <DL>
 <DL>
-<DT><B>See Also:</B><DD><A HREF="../../constant-values.html#xdi2.server.EndpointServer.DEFAULT_APPLICATIONCONTEXT_PATH">Constant Field Values</A></DL>
+<DT><B>See Also:</B><DD><A HREF="../../constant-values.html#xdi2.server.EndpointServer.FALLBACK_JETTY_APPLICATIONCONTEXT">Constant Field Values</A></DL>
 </DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
@@ -423,59 +424,44 @@ public <B>EndpointServer</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="setApplicationContext(org.springframework.context.ApplicationContext)"><!-- --></A><H3>
-setApplicationContext</H3>
+<A NAME="getEndpointFilter()"><!-- --></A><H3>
+getEndpointFilter</H3>
 <PRE>
-public void <B>setApplicationContext</B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)
-                           throws org.springframework.beans.BeansException</PRE>
+public <A HREF="../../xdi2/server/EndpointFilter.html" title="class in xdi2.server">EndpointFilter</A> <B>getEndpointFilter</B>()</PRE>
 <DL>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>setApplicationContext</CODE> in interface <CODE>org.springframework.context.ApplicationContextAware</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>org.springframework.beans.BeansException</CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getApplicationContext()"><!-- --></A><H3>
-getApplicationContext</H3>
-<PRE>
-public org.springframework.context.ApplicationContext <B>getApplicationContext</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 </DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="setContextPath(java.lang.String)"><!-- --></A><H3>
-setContextPath</H3>
+<A NAME="setEndpointFilter(xdi2.server.EndpointFilter)"><!-- --></A><H3>
+setEndpointFilter</H3>
 <PRE>
-public void <B>setContextPath</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;contextPath)</PRE>
+public void <B>setEndpointFilter</B>(<A HREF="../../xdi2/server/EndpointFilter.html" title="class in xdi2.server">EndpointFilter</A>&nbsp;endpointFilter)</PRE>
 <DL>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 </DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="getContextPath()"><!-- --></A><H3>
-getContextPath</H3>
+<A NAME="getEndpointServlet()"><!-- --></A><H3>
+getEndpointServlet</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getContextPath</B>()</PRE>
+public <A HREF="../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A> <B>getEndpointServlet</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
 </DD>
+</DL>
+<HR>
+
+<A NAME="setEndpointServlet(xdi2.server.EndpointServlet)"><!-- --></A><H3>
+setEndpointServlet</H3>
+<PRE>
+public void <B>setEndpointServlet</B>(<A HREF="../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet)</PRE>
+<DL>
 <DD><DL>
 </DL>
 </DD>
@@ -485,13 +471,15 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.ht
 <A NAME="newServer(org.springframework.context.ApplicationContext)"><!-- --></A><H3>
 newServer</H3>
 <PRE>
-public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</PRE>
+public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)
+                                throws <A HREF="../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
 <DL>
+<DD>Generates a new XDI2 server from an application context.
+<P>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
@@ -499,41 +487,42 @@ public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xd
 <A NAME="newServer(org.springframework.core.io.Resource...)"><!-- --></A><H3>
 newServer</H3>
 <PRE>
-public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(org.springframework.core.io.Resource...&nbsp;resources)</PRE>
+public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(org.springframework.core.io.Resource...&nbsp;resources)
+                                throws <A HREF="../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
 <DL>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="newServer(java.io.File)"><!-- --></A><H3>
+<A NAME="newServer(org.springframework.core.io.Resource, org.springframework.core.io.Resource)"><!-- --></A><H3>
 newServer</H3>
 <PRE>
-public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</A>&nbsp;file)</PRE>
+public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(org.springframework.core.io.Resource&nbsp;applicationContextResource,
+                                       org.springframework.core.io.Resource&nbsp;jettyApplicationContextResource)
+                                throws <A HREF="../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
 <DL>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="newServer(java.io.InputStream)"><!-- --></A><H3>
+<A NAME="newServer()"><!-- --></A><H3>
 newServer</H3>
 <PRE>
-public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</A>&nbsp;stream)</PRE>
+public static <A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server">EndpointServer</A> <B>newServer</B>()
+                                throws <A HREF="../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
 <DL>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
@@ -544,9 +533,6 @@ main</H3>
 public static void <B>main</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>...&nbsp;args)
                  throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
 <DL>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 
 <DT><B>Throws:</B>

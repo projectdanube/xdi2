@@ -94,7 +94,7 @@ Interface OperationInterceptor</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractOperationInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractOperationInterceptor</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractOperationInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractOperationInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/ExpandDollarIsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ExpandDollarIsInterceptor</A></DD>
 </DL>
 <HR>
 <DL>
@@ -141,6 +141,16 @@ Interceptor that is executed before and after an operation is executed.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run before an operation is executed.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/OperationInterceptor.html#feedback(xdi2.messaging.Operation, xdi2.core.Statement, xdi2.messaging.target.ExecutionContext)">feedback</A></B>(<A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+         <A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;statement,
+         <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method provides a way to feed an additional message envelope into a "child" processing loop.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -194,6 +204,29 @@ boolean <B>after</B>(<A HREF="../../../../xdi2/messaging/Operation.html" title="
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>operation</CODE> - The operation to process.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
 <DT><B>Returns:</B><DD>True, if the operation has been fully handled and the server should stop processing it.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="feedback(xdi2.messaging.Operation, xdi2.core.Statement, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+feedback</H3>
+<PRE>
+<A HREF="../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>feedback</B>(<A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                         <A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;statement,
+                         <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                         throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD>This method provides a way to feed an additional message envelope into a "child" processing loop.
+ It is run for every statement produced as a result of an operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>operation</CODE> - The operation that produces the result statement.<DD><CODE>statement</CODE> - A result statement.<DD><CODE>executionContext</CODE> - The current execution context.
+<DT><B>Returns:</B><DD>A message envelope that will be fed into a "child" processing loop.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>

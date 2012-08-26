@@ -141,8 +141,8 @@ Packages that use <A HREF="../../../xdi2/messaging/MessageResult.html" title="cl
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.samples.server"><B>xdi2.samples.server</B></A></TD>
-<TD>&nbsp;&nbsp;</TD>
+<TD><A HREF="#xdi2.server"><B>xdi2.server</B></A></TD>
+<TD>A servlet exposing an XDI messaging endpoint.&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1462,11 +1462,11 @@ Uses of <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.samples.server"><!-- --></A>
+<A NAME="xdi2.server"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A> in <A HREF="../../../xdi2/samples/server/package-summary.html">xdi2.samples.server</A></FONT></TH>
+Uses of <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A> in <A HREF="../../../xdi2/server/package-summary.html">xdi2.server</A></FONT></TH>
 </TR>
 </TABLE>
 &nbsp;
@@ -1474,27 +1474,15 @@ Uses of <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/samples/server/package-summary.html">xdi2.samples.server</A> with parameters of type <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/server/package-summary.html">xdi2.server</A> that return <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>MyFileContributor.</B><B><A HREF="../../../xdi2/samples/server/MyFileContributor.html#get(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">get</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;contextNodeXri,
-    <A HREF="../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
-    <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-    <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>MyFileContributor.</B><B><A HREF="../../../xdi2/samples/server/MyFileContributor.html#modLiteral(xdi2.core.xri3.impl.XRI3Segment, java.lang.String, xdi2.messaging.ModOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">modLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;contextNodeXri,
-           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData,
-           <A HREF="../../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&nbsp;operation,
-           <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-           <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+<CODE>protected &nbsp;<A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></CODE></FONT></TD>
+<TD><CODE><B>EndpointServlet.</B><B><A HREF="../../../xdi2/server/EndpointServlet.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">execute</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+        <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+        javax.servlet.http.HttpServletRequest&nbsp;request,
+        javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

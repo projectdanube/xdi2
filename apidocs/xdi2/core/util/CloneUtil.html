@@ -75,9 +75,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -111,24 +111,7 @@ Various utility methods for cloning graph components.
 <HR>
 
 <P>
-<!-- =========== FIELD SUMMARY =========== -->
 
-<A NAME="field_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected static&nbsp;<A HREF="../../../xdi2/core/impl/memory/MemoryGraphFactory.html" title="class in xdi2.core.impl.memory">MemoryGraphFactory</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/CloneUtil.html#graphFactory">graphFactory</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
 <!-- ========== METHOD SUMMARY =========== -->
 
 <A NAME="method_summary"><!-- --></A>
@@ -143,7 +126,7 @@ Various utility methods for cloning graph components.
 <TD><CODE><B><A HREF="../../../xdi2/core/util/CloneUtil.html#cloneContextNode(xdi2.core.ContextNode)">cloneContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a copy of the given context node containing the same contents.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a clone of the given context node with the same contents.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -151,7 +134,7 @@ Various utility methods for cloning graph components.
 <TD><CODE><B><A HREF="../../../xdi2/core/util/CloneUtil.html#cloneGraph(xdi2.core.Graph)">cloneGraph</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a copy of the given graph containing the same contents.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a clone of the given graph with the same contents.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -165,25 +148,6 @@ Various utility methods for cloning graph components.
 </TABLE>
 &nbsp;
 <P>
-
-<!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="graphFactory"><!-- --></A><H3>
-graphFactory</H3>
-<PRE>
-protected static final <A HREF="../../../xdi2/core/impl/memory/MemoryGraphFactory.html" title="class in xdi2.core.impl.memory">MemoryGraphFactory</A> <B>graphFactory</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
 
 <!-- ============ METHOD DETAIL ========== -->
 
@@ -200,7 +164,7 @@ cloneGraph</H3>
 <PRE>
 public static <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> <B>cloneGraph</B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</PRE>
 <DL>
-<DD>Creates a copy of the given graph containing the same contents.
+<DD>Creates a clone of the given graph with the same contents.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>graph</CODE> - The graph to clone.
@@ -214,7 +178,7 @@ cloneContextNode</H3>
 <PRE>
 public static <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>cloneContextNode</B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
 <DL>
-<DD>Creates a copy of the given context node containing the same contents.
+<DD>Creates a clone of the given context node with the same contents.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - The context node to clone.
@@ -273,9 +237,9 @@ public static <A HREF="../../../xdi2/core/ContextNode.html" title="interface in 
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

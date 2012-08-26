@@ -145,6 +145,16 @@ The XDI endpoint servlet.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#createExecutionContext(xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">createExecutionContext</A></B>(<A HREF="../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+                       javax.servlet.http.HttpServletRequest&nbsp;request,
+                       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#destroy()">destroy</A></B>()</CODE>
 
@@ -183,6 +193,17 @@ The XDI endpoint servlet.
 <CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#doPut(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doPut</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">execute</A></B>(<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+        <A HREF="../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+        javax.servlet.http.HttpServletRequest&nbsp;request,
+        javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -255,26 +276,6 @@ The XDI endpoint servlet.
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#getSupportPut()">getSupportPut</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#handleException(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Exception)">handleException</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                javax.servlet.http.HttpServletResponse&nbsp;response,
-                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#handleInternalException(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Exception)">handleInternalException</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                        javax.servlet.http.HttpServletResponse&nbsp;response,
-                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -682,13 +683,14 @@ protected void <B>processDeleteRequest</B>(javax.servlet.http.HttpServletRequest
 </DL>
 <HR>
 
-<A NAME="handleInternalException(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Exception)"><!-- --></A><H3>
-handleInternalException</H3>
+<A NAME="execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+execute</H3>
 <PRE>
-protected static void <B>handleInternalException</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                                              javax.servlet.http.HttpServletResponse&nbsp;response,
-                                              <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)
-                                       throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
+protected <A HREF="../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A> <B>execute</B>(<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                <A HREF="../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+                                javax.servlet.http.HttpServletRequest&nbsp;request,
+                                javax.servlet.http.HttpServletResponse&nbsp;response)
+                         throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -701,21 +703,18 @@ protected static void <B>handleInternalException</B>(javax.servlet.http.HttpServ
 </DL>
 <HR>
 
-<A NAME="handleException(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Exception)"><!-- --></A><H3>
-handleException</H3>
+<A NAME="createExecutionContext(xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+createExecutionContext</H3>
 <PRE>
-protected static void <B>handleException</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                                      javax.servlet.http.HttpServletResponse&nbsp;response,
-                                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)
-                               throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
+protected <A HREF="../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A> <B>createExecutionContext</B>(<A HREF="../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+                                                  javax.servlet.http.HttpServletRequest&nbsp;request,
+                                                  javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
 <DL>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE></DL>
+</DL>
 </DD>
 </DL>
 <HR>
