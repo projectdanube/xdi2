@@ -16,8 +16,10 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.impl.AbstractStatement;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -46,21 +48,16 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	public void read(Graph graph, JSONObject graphObject, State state) throws IOException, Xdi2ParseException, JSONException {
 
-		//		this.readContextNode(graph.getRootContextNode(), graphObject);
-
 		for (Iterator<?> keys = graphObject.keys(); keys.hasNext(); ) {
 
 			String key = (String) keys.next();
 			JSONArray value = graphObject.getJSONArray(key);
 
-			String[] strings = key.split("/");
-			if (strings.length != 2) throw new Xdi2ParseException("Invalid key: " + key);
+			Statement statement = makeStatement(key + "/($)", state);
 
-			String subject = strings[0];
-			String predicate = strings[1];
-			ContextNode contextNode = graph.findContextNode(makeXRI3Segment(subject, state), true);
+			ContextNode contextNode = graph.findContextNode(statement.getSubject(), true);
 
-			if (predicate.equals("()")) {
+			if (statement.getPredicate().equals("()")) {
 
 				// add context nodes
 
@@ -79,7 +76,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 						if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
 					}
 				}
-			} else if (predicate.equals("!")) {
+			} else if (statement.getPredicate().equals("!")) {
 
 				// add literal
 
@@ -93,13 +90,11 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add relations
 
-				XRI3Segment arcXri = makeXRI3Segment(predicate, state);
-
 				for (int i=0; i<value.length(); i++) {
 
 					XRI3Segment targetContextNodeXri = makeXRI3Segment(value.getString(i), state);
 
-					Relation relation = contextNode.createRelation(arcXri, targetContextNodeXri);
+					Relation relation = contextNode.createRelation(statement.getPredicate(), targetContextNodeXri);
 					if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 				}
 			}
@@ -144,6 +139,12 @@ public class XDIJSONReader extends AbstractXDIReader {
 	private static class State {
 
 		private String lastXriString;
+	}
+
+	private static Statement makeStatement(String xriString, State state) throws Xdi2ParseException {
+
+		state.lastXriString = xriString;
+		return AbstractStatement.fromString(xriString);
 	}
 
 	private static XRI3Segment makeXRI3Segment(String xriString, State state) {
