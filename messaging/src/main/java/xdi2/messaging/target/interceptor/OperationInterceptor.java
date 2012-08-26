@@ -33,12 +33,12 @@ public interface OperationInterceptor extends Interceptor {
 	public boolean after(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
-	 * This method provides a way to execute an additional message envelope in a "child" processing loop.
+	 * This method provides a way to feed an additional message envelope into a "child" processing loop.
 	 * It is run for every statement produced as a result of an operation.
 	 * @param operation The operation that produces the result statement.
 	 * @param statement A result statement.
 	 * @param executionContext The current execution context.
-	 * @return A message envelope that will be executed in a "child" processing loop. 
+	 * @return A message envelope that will be fed into a "child" processing loop. 
 	 */
 	public MessageEnvelope feedback(Operation operation, Statement statement, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

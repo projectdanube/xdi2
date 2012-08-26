@@ -14,6 +14,12 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.interceptor.AbstractOperationInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
+/**
+ * This interceptor checks for $is relational statements in the result of an operation.
+ * For each such statement, it creates a $get operation and feeds it into a "child" processing loop.
+ * 
+ * @author markus
+ */
 public class ExpandDollarIsInterceptor extends AbstractOperationInterceptor {
 
 	@Override
