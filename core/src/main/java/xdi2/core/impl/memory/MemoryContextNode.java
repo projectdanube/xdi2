@@ -143,7 +143,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
 
-		if (this.containsRelation(arcXri, targetContextNodeXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
+		if (this.containsRelation(arcXri, targetContextNodeXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNodeXri + ".");
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) {
