@@ -1,6 +1,11 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-08-26:
+------------------------
+
+*** Small bugfixes to XDI/JSON reader and writer
+
 2012-08-25:
 ------------------------
 
