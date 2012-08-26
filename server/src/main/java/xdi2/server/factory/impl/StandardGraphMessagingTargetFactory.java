@@ -11,6 +11,7 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.BootstrapInterceptor;
 import xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor;
+import xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor;
 import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 import xdi2.server.exceptions.Xdi2ServerException;
@@ -63,6 +64,9 @@ public abstract class StandardGraphMessagingTargetFactory extends AbstractMessag
 
 		VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
 		graphMessagingTarget.addInterceptor(variablesInterceptor);
+
+		ExpandDollarIsInterceptor expandDollarIsInterceptor = new ExpandDollarIsInterceptor();
+		graphMessagingTarget.addInterceptor(expandDollarIsInterceptor);
 
 		if (owner != null) {
 
