@@ -8,8 +8,6 @@ import xdi2.core.xri3.impl.XRI3SubSegment;
 
 /**
  * This interface represents a context node in an XDI graph.
- * XDI graphs consist of context nodes, relations, and literals.
- * Also, XDI graphs can be expressed a set of XDI statements.
  * 
  * @author markus
  */
