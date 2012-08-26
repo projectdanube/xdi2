@@ -51,7 +51,7 @@ public class FileGraphFactory extends AbstractGraphFactory implements GraphFacto
 		XDIReader xdiReader = XDIReaderRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 		XDIWriter xdiWriter = XDIWriterRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 
-		MemoryGraph memoryGraph = (MemoryGraph) this.memoryGraphFactory.openGraph();
+		MemoryGraph memoryGraph = this.memoryGraphFactory.openGraph();
 
 		return new FileGraph(this.path, xdiReader, xdiWriter, memoryGraph);
 	}
