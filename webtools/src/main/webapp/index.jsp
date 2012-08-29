@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>XDI²</title>
+<title>XDI2</title>
 <script type="text/javascript" src="tabber.js"></script>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 <link rel="shortcut icon" href="favicon.ico" />
@@ -15,7 +15,7 @@
 	<tr>
 	<td>
 		<div class="header">
-		<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI²</span>
+		<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI2</span>
 		</div>
 	</td>
 	<td valign="bottom" style="padding-left: 20px">
@@ -26,7 +26,7 @@
 	
 	<hr noshade style="clear:both">
 	
-	<p>XDI² ("XDI-Squared") is an XDI library for Java, supporting both traditional client/server models and distributed network topologies.</p>
+	<p>XDI2 ("XDI Two") is an XDI library for Java, supporting both traditional client/server models and distributed network topologies.</p>
 	
 	<p>It is designed to be a general-purpose, lightweight and modular implementation of XDI specifications, in order to support a wide range of use cases.</p>
 
