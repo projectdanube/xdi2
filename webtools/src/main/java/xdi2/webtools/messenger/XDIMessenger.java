@@ -85,6 +85,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
+		request.setAttribute("writePretty", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("endpoint", request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")) + sampleEndpoint);
@@ -97,6 +98,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		String resultFormat = request.getParameter("resultFormat");
 		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
+		String writePretty = request.getParameter("writePretty");
 		String input = request.getParameter("input");
 		String endpoint = request.getParameter("endpoint");
 		String output = "";
@@ -107,6 +109,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 		if ("on".equals(writeContexts)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
 		if ("on".equals(writeOrdered)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
+		if ("on".equals(writePretty)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "1");
 
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
@@ -172,6 +175,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
+		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("input", input);
 		request.setAttribute("endpoint", endpoint);
 		request.setAttribute("output", output);

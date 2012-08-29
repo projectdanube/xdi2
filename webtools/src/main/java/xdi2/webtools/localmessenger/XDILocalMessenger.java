@@ -101,6 +101,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
+		request.setAttribute("writeContexts", null);
 		request.setAttribute("variablesSupport", null);
 		request.setAttribute("expandDollarIsSupport", null);
 		request.setAttribute("linkContractsSupport", null);
@@ -115,6 +116,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
+		String writePretty = request.getParameter("writePretty");
 		String variablesSupport = request.getParameter("variablesSupport");
 		String expandDollarIsSupport = request.getParameter("expandDollarIsSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
@@ -129,6 +131,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		if ("on".equals(writeContexts)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
 		if ("on".equals(writeOrdered)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
+		if ("on".equals(writePretty)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "1");
 		
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiInputWriter;
@@ -232,6 +235,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
+		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("variablesSupport", variablesSupport);
 		request.setAttribute("expandDollarIsSupport", expandDollarIsSupport);
 		request.setAttribute("linkContractsSupport", linkContractsSupport);
