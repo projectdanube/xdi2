@@ -115,9 +115,9 @@ public class IOTest extends TestCase {
 		sbJSON.append("\"@!9999!8888$($msg)$(!1234)/$do\":[\"=!1111!2222!3$do\"]}");
 		String jsonString = sbJSON.toString();
 		
-		Properties properties = new Properties();
-		properties.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "2");
-		XDIJSONWriter xdiJSONWriter = new XDIJSONWriter(properties);
+		Properties params = new Properties();
+		params.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "2");
+		XDIJSONWriter xdiJSONWriter = new XDIJSONWriter(params);
 		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
 		StringWriter writer = new StringWriter();
 		Writer out = xdiJSONWriter.write(graph, writer);
