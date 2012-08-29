@@ -232,17 +232,22 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		// write
 
-		this.write(graph, new BufferedWriter(writer));
-
 		if (this.prettyIndent > 0) {
+
 			try {
 
-				JSONObject json = new JSONObject(writer.toString());
-				writer = new StringWriter();
-				writer.write(json.toString(this.prettyIndent));
-			} catch (JSONException e) {
+				StringWriter stringWriter = new StringWriter();
+				this.write(graph, new BufferedWriter(stringWriter));
 
+				JSONObject json = new JSONObject(stringWriter.toString());
+				writer.write(json.toString(this.prettyIndent));
+			} catch (JSONException ex) {
+
+				throw new IOException("Problem while constructing JSON object: " + ex.getMessage(), ex);
 			}
+		} else {
+
+			this.write(graph, new BufferedWriter(writer));
 		}
 
 		writer.flush();
