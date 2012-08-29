@@ -27,9 +27,11 @@ public final class XDIWriterRegistry {
 	public static final String PARAMETER_CONTEXTS = "contexts";
 	public static final String PARAMETER_ORDERED = "ordered";
 	public static final String PARAMETER_HTML = "html";
+	public static final String PARAMETER_PRETTY = "pretty";
 	public static final String DEFAULT_CONTEXTS = "0";
 	public static final String DEFAULT_ORDERED = "0";
 	public static final String DEFAULT_HTML = "0";
+	public static final String DEFAULT_PRETTY = "0";
 
 	private static String writerClassNames[] = {
 

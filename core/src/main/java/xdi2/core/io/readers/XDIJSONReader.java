@@ -17,9 +17,11 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.AbstractStatement;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -35,7 +37,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 	public static final String FORMAT_NAME = "XDI/JSON";
 	public static final String FILE_EXTENSION = "json";
 	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
-
+	
 	public XDIJSONReader(Properties parameters) {
 
 		super(parameters);
@@ -48,16 +50,20 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	public void read(Graph graph, JSONObject graphObject, State state) throws IOException, Xdi2ParseException, JSONException {
 
+		//		this.readContextNode(graph.getRootContextNode(), graphObject);
+
 		for (Iterator<?> keys = graphObject.keys(); keys.hasNext(); ) {
 
 			String key = (String) keys.next();
 			JSONArray value = graphObject.getJSONArray(key);
 
 			Statement statement = makeStatement(key + "/($)", state);
+			XRI3Segment subject = statement.getSubject();
+			XRI3Segment predicate = statement.getPredicate();
 
-			ContextNode contextNode = graph.findContextNode(statement.getSubject(), true);
+			ContextNode contextNode = graph.findContextNode(subject, true);
 
-			if (statement.getPredicate().equals("()")) {
+			if (predicate.equals(XDIConstants.XRI_S_CONTEXT)) {
 
 				// add context nodes
 
@@ -76,7 +82,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 						if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
 					}
 				}
-			} else if (statement.getPredicate().equals("!")) {
+			} else if (predicate.equals(XDIConstants.XRI_S_LITERAL)) {
 
 				// add literal
 
@@ -90,12 +96,48 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add relations
 
+				XRI3Segment arcXri = predicate;
+
 				for (int i=0; i<value.length(); i++) {
+					
+					String valueString = value.getString(i);
+					
+					JSONObject jsonObject = null;
+					
+					try {
+						
+						//try parsing the valueString as a possible cross-reference
+						jsonObject = new JSONObject(valueString);
+					} catch (JSONException e) {
+						//ignore if no cross-reference was found
+					}
+					
+					Relation relation = null;
+					
+					if (jsonObject != null) {
+						
+						// if a cross-reference exists, recursively parse each nested JSON and add it as a relation
+						for (Iterator<?> innerKeys = jsonObject.keys(); innerKeys.hasNext(); ) {
+							String innerKey = (String) innerKeys.next();
+							JSONArray innerValue = jsonObject.getJSONArray(innerKey);
 
-					XRI3Segment targetContextNodeXri = makeXRI3Segment(value.getString(i), state);
-
-					Relation relation = contextNode.createRelation(statement.getPredicate(), targetContextNodeXri);
-					if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+							JSONObject innerJSONObject = new JSONObject();
+							innerJSONObject.put(innerKey, innerValue);
+							
+							Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
+							read(tempGraph, innerJSONObject, state);
+							
+							String innerValueString = ("(" + tempGraph.toString(new MimeType("text/xdi")) + ")").replaceAll("[ \n]", "");
+							XRI3Segment innerTargetContextNodeXri = makeXRI3Segment(innerValueString, state);
+							relation = contextNode.createRelation(arcXri, innerTargetContextNodeXri);
+							if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+						}
+					} else {
+						
+						XRI3Segment targetContextNodeXri = makeXRI3Segment(valueString, state);
+						relation = contextNode.createRelation(arcXri, targetContextNodeXri);
+						if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+					}
 				}
 			}
 		}

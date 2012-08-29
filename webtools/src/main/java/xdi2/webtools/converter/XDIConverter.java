@@ -95,6 +95,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		String resultFormat = request.getParameter("resultFormat");
 		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
+		String writePretty = request.getParameter("writePretty");
 		String from = request.getParameter("from");
 		String input = request.getParameter("input");
 		String output = "";
@@ -105,6 +106,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 
 		if ("on".equals(writeContexts)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
 		if ("on".equals(writeOrdered)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
+		if ("on".equals(writePretty)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "1");
 
 		XDIReader xdiReader = XDIReaderRegistry.forFormat(from, null);
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiWriterParameters);
@@ -141,6 +143,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
+		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("from", from);
 		request.setAttribute("input", input);
 		request.setAttribute("output", output);
