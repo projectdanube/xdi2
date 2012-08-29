@@ -102,7 +102,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 					
 					JSONObject jsonObject = null;
 					
-					try{
+					try {
 						
 						//try parsing the valueString as a possible cross-reference
 						jsonObject = new JSONObject(valueString);

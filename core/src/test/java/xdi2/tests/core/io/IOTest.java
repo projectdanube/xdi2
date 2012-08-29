@@ -1,19 +1,15 @@
 package xdi2.tests.core.io;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
-import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Properties;
 
-import javax.print.DocFlavor.READER;
-
-import org.json.JSONArray;
+import org.json.JSONObject;
 
 import junit.framework.TestCase;
 import xdi2.core.Graph;
-import xdi2.core.impl.memory.MemoryGraph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReaderRegistry;
@@ -82,6 +78,10 @@ public class IOTest extends TestCase {
 		xdiJSONReader.read(graph, reader);
 		
 		String serializedXDI = graph.toString(new MimeType("text/xdi")).trim();
+		
+		System.out.println("Input JSON:\n" + new JSONObject(jsonString).toString(2));
+		
+		System.out.println("Output XDI:\n" + serializedXDI);
 	 	
 		assertEquals(xdiString, serializedXDI);
 	}
@@ -92,32 +92,41 @@ public class IOTest extends TestCase {
 		sbXDI.append("(@!9999!8888)/$add/@!9999!8888$($msg)$(!1234)\n");
 		sbXDI.append("@!9999!8888$($msg)$(!1234)$!($t)/!/(data:,2011-04-10T22:22:22Z)\n");
 		sbXDI.append("@!9999!8888$($msg)$(!1234)/$do/=!1111!2222!3$do\n");
+		sbXDI.append("@!9999!8888$($msg)$(!1234)$do/$add/=markus\n");
+		sbXDI.append("@!9999!8888$($msg)$(!1234)$do/$add/(http://example.com)\n");
 		sbXDI.append("@!9999!8888$($msg)$(!1234)$do/$add/(=!1111!2222!3$*(+tel)$!1/!/(data:,+1.206.555.1111))\n");
 		sbXDI.append("@!9999!8888$($msg)$(!1234)$do/$add/(=!1111!2222!3$*(+tel)/+home/=!1111!2222!3$*(+tel)$!1)\n");
 		sbXDI.append("@!9999!8888$($msg)$(!1234)$do/$add/(=!1111!2222!3$*(+tel)/+work+fax/=!1111!2222!3$*(+tel)$!2)\n");
 		sbXDI.append("@!9999!8888$($msg)$(!1234)$do/$add/(=!1111!2222!3$!(+age)/!/(data:,33))\n");
-		sbXDI.append("@!9999!8888$($msg)$(!1234)$do/$add/(=!1111!2222!3$!(+age)/$is+/+$json$number!)\n");
+		sbXDI.append("@!9999!8888$($msg)$(!1234)$do/$add/(=!1111!2222!3$!(+age)/$is+/+$json$number!)");
 		String xdiString = sbXDI.toString();
 
 		StringBuilder sbJSON = new StringBuilder();
-		sbJSON.append("{\"@!9999!8888$($msg)$(!1234)$!($t)/!\":[\"2011-04-10T22:22:22Z\"],");
-		sbJSON.append("\"@!9999!8888$($msg)$(!1234)$do/$add\":[{");
-		sbJSON.append("\"=!1111!2222!3$!(+age)/$is+\":[\"+$json$number!\"],");
+		sbJSON.append("{\"(@!9999!8888)/$add\":[\"@!9999!8888$($msg)$(!1234)\"],");
+		sbJSON.append("\"@!9999!8888$($msg)$(!1234)$!($t)/!\":[\"2011-04-10T22:22:22Z\"],");
+		sbJSON.append("\"@!9999!8888$($msg)$(!1234)$do/$add\":[");
+		sbJSON.append("\"=markus\",");
+		sbJSON.append("\"(http://example.com)\",{");
 		sbJSON.append("\"=!1111!2222!3$!(+age)/!\":[\"33\"],");
+		sbJSON.append("\"=!1111!2222!3$!(+age)/$is+\":[\"+$json$number!\"],");
 		sbJSON.append("\"=!1111!2222!3$*(+tel)$!1/!\":[\"+1.206.555.1111\"],");
 		sbJSON.append("\"=!1111!2222!3$*(+tel)/+home\":[\"=!1111!2222!3$*(+tel)$!1\"],");
 		sbJSON.append("\"=!1111!2222!3$*(+tel)/+work+fax\":[\"=!1111!2222!3$*(+tel)$!2\"]}],");
-		sbJSON.append("\"@!9999!8888$($msg)$(!1234)/$do\":[\"=!1111!2222!3$do\"],");
-		sbJSON.append("\"(@!9999!8888)/$add\":[\"@!9999!8888$($msg)$(!1234)\"]}");
+		sbJSON.append("\"@!9999!8888$($msg)$(!1234)/$do\":[\"=!1111!2222!3$do\"]}");
 		String jsonString = sbJSON.toString();
-
-		XDIJSONWriter xdiJSONWriter = new XDIJSONWriter(null);
+		
+		Properties properties = new Properties();
+		properties.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "2");
+		XDIJSONWriter xdiJSONWriter = new XDIJSONWriter(properties);
 		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		PrintWriter writer = new PrintWriter(out);
-		xdiJSONWriter.write(graph, writer);
+		StringWriter writer = new StringWriter();
+		Writer out = xdiJSONWriter.write(graph, writer);
 		
 		String serializedJSON = out.toString();
+		
+		System.out.println("Input XDI:\n" + xdiString);
+		
+		System.out.println("Output JSON:\n" + serializedJSON);
 		
 		assertEquals(jsonString, serializedJSON.replaceAll("[ \n]", ""));
 	}
