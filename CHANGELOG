@@ -1,6 +1,13 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-08-29:
+------------------------
+
+*** Added Prashant/Pankaj code for "recursion" and "pretty printing" support of XDI/JSON format
+
+*** Renamed XDI² to XDI2
+
 2012-08-26:
 ------------------------
 
