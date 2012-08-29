@@ -230,11 +230,12 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		
 		if (this.prettyIndent > 0) {
 			try {
+				
 				JSONObject json = new JSONObject(writer.toString());
 				writer = new StringWriter();
 				writer.write(json.toString(this.prettyIndent));
 			} catch (JSONException e) {
-				e.printStackTrace();
+				
 			}
 		}
 		
