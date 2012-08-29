@@ -59,7 +59,13 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
 		
-		this.prettyIndent = Integer.parseInt(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
+		try {
+		
+			this.prettyIndent = Integer.parseInt(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
+		} catch (NumberFormatException nfe) {
+			
+			this.prettyIndent = Integer.parseInt(XDIWriterRegistry.DEFAULT_PRETTY);
+		}
 
 		log.debug("Parameters: writeContexts=" + this.writeContexts + ", prettyIndent=" + this.prettyIndent);
 	}
