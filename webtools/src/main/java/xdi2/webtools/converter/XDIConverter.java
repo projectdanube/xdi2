@@ -84,7 +84,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 
 		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
-		request.setAttribute("writePretty", null);
+		request.setAttribute("writePretty", "on");
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.getRequestDispatcher("/XDIConverter.jsp").forward(request, response);
