@@ -56,7 +56,7 @@ public final class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return XDILinkContractConstants.XRI_SS_IF_MULT.equals(contextNode
+		return XDILinkContractConstants.XRI_SS_IF.equals(contextNode
 				.getArcXri());
 	}
 

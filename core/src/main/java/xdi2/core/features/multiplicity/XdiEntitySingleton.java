@@ -7,11 +7,11 @@ import xdi2.core.ContextNode;
  * 
  * @author markus
  */
-public final class EntitySingleton extends AbstractMultiplicitySingleton {
+public class XdiEntitySingleton extends XdiSubGraph {
 
 	private static final long serialVersionUID = -1075885367630005576L;
 
-	protected EntitySingleton(ContextNode contextNode) {
+	protected XdiEntitySingleton(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -27,12 +27,7 @@ public final class EntitySingleton extends AbstractMultiplicitySingleton {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
- 			return
-				Multiplicity.isEntitySingletonArcXri(contextNode.getArcXri()) ||
-				(
-				Multiplicity.isEntityCollectionMemberArcXri(contextNode.getArcXri()) &&
-				EntityCollection.isValid(contextNode.getContextNode())
-				);
+		return Multiplicity.isEntitySingletonArcXri(contextNode.getArcXri());
 	}
 
 	/**
@@ -40,10 +35,10 @@ public final class EntitySingleton extends AbstractMultiplicitySingleton {
 	 * @param contextNode The context node that is an XDI entity singleton.
 	 * @return The XDI entity singleton.
 	 */
-	public static EntitySingleton fromContextNode(ContextNode contextNode) {
+	public static XdiEntitySingleton fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new EntitySingleton(contextNode);
+		return new XdiEntitySingleton(contextNode);
 	}
 }

@@ -5,10 +5,11 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.multiplicity.AttributeCollection;
-import xdi2.core.features.multiplicity.AttributeSingleton;
-import xdi2.core.features.multiplicity.EntitySingleton;
+import xdi2.core.features.multiplicity.XdiAttributeMember;
+import xdi2.core.features.multiplicity.XdiCollection;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
@@ -22,11 +23,11 @@ public class MultiplicitySample {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
 
-		AttributeCollection telAttributeCollection = EntitySingleton.fromContextNode(contextNode).getAttributeCollection("+tel", true);
-		telAttributeCollection.createAttributeSingleton().getContextNode().createLiteral("+1.206.555.1111");
-		telAttributeCollection.createAttributeSingleton().getContextNode().createLiteral("+1.206.555.2222");
+		XdiCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(new XRI3SubSegment("+tel"), true);
+		telCollection.createAttributeMember().getContextNode().createLiteral("+1.206.555.1111");
+		telCollection.createAttributeMember().getContextNode().createLiteral("+1.206.555.2222");
 
-		System.out.println(graph);
+		System.out.println(graph.toString(new MimeType("application/xdi+json;pretty=1")));
 
 		// write and re-read the graph, then find and print the members of the attribute collection
 
@@ -34,9 +35,9 @@ public class MultiplicitySample {
 		XDIReaderRegistry.getAuto().read(graph2, new StringReader(graph.toString()));
 		ContextNode contextNode2 = graph.findContextNode(new XRI3Segment("=markus"), false);
 
-		AttributeCollection telAttributeCollection2 = EntitySingleton.fromContextNode(contextNode2).getAttributeCollection("+tel", false);
+		XdiCollection telCollection2 = XdiSubGraph.fromContextNode(contextNode2).getCollection(new XRI3SubSegment("+tel"), false);
 
-		for (Iterator<AttributeSingleton> i = telAttributeCollection2.iterator(); i.hasNext(); ) {
+		for (Iterator<XdiAttributeMember> i = telCollection2.attributes(); i.hasNext(); ) {
 
 			System.out.println(i.next().getContextNode().getLiteral().getLiteralData());
 		}

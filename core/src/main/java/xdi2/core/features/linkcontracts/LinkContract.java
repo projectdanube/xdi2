@@ -119,10 +119,10 @@ public final class LinkContract implements Serializable,
 	public Policy getPolicy(boolean create) {
 
 		ContextNode contextNode = this.getContextNode().getContextNode(
-				XDILinkContractConstants.XRI_SS_IF_MULT);
+				XDILinkContractConstants.XRI_SS_IF);
 		if (contextNode == null && create)
 			contextNode = this.getContextNode().createContextNode(
-					XDILinkContractConstants.XRI_SS_IF_MULT);
+					XDILinkContractConstants.XRI_SS_IF);
 		if (contextNode == null)
 			return null;
 

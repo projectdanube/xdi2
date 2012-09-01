@@ -57,7 +57,7 @@ public class Timestamps {
 	 */
 	public static Date getContextNodeTimestamp(ContextNode contextNode) {
 
-		XRI3SubSegment arcXri = Multiplicity.attributeSingletonArcXri(XDITimestampsConstants.XRI_SS_T.toString());
+		XRI3SubSegment arcXri = Multiplicity.attributeSingletonArcXri(XDITimestampsConstants.XRI_SS_T);
 
 		Literal timestampLiteral = contextNode.getLiteralInContextNode(arcXri);
 		if (timestampLiteral == null) return null;
@@ -71,7 +71,7 @@ public class Timestamps {
 	 */
 	public static void setContextNodeTimestamp(ContextNode contextNode, Date timestamp) {
 
-		XRI3SubSegment arcXri = Multiplicity.attributeSingletonArcXri(XDITimestampsConstants.XRI_SS_T.toString());
+		XRI3SubSegment arcXri = Multiplicity.attributeSingletonArcXri(XDITimestampsConstants.XRI_SS_T);
 
 		String string = timestampToString(timestamp);
 
