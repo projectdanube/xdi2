@@ -79,7 +79,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 					} else {
 
 						ContextNode innerContextNode = contextNode.createContextNode(arcXri);
-						if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
+						if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
 					}
 				}
 			} else if (predicate.equals(XDIConstants.XRI_S_LITERAL)) {
@@ -91,7 +91,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 				String literalData = value.getString(0);
 
 				Literal literal = contextNode.createLiteral(literalData);
-				if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
+				if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 			} else {
 
 				// add relations
@@ -130,13 +130,13 @@ public class XDIJSONReader extends AbstractXDIReader {
 							String innerValueString = ("(" + tempGraph.toString(new MimeType("text/xdi")) + ")").replaceAll("[ \n]", "");
 							XRI3Segment innerTargetContextNodeXri = makeXRI3Segment(innerValueString, state);
 							relation = contextNode.createRelation(arcXri, innerTargetContextNodeXri);
-							if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+							if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 						}
 					} else {
 						
 						XRI3Segment targetContextNodeXri = makeXRI3Segment(valueString, state);
 						relation = contextNode.createRelation(arcXri, targetContextNodeXri);
-						if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+						if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 					}
 				}
 			}
