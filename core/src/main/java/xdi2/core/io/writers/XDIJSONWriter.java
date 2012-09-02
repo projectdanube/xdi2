@@ -23,11 +23,11 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2ParseException;
-import xdi2.core.impl.AbstractStatement;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Reference;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -164,7 +164,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 					try {
 
-						statement = AbstractStatement.fromString(xriXref.toString());
+						statement = StatementUtil.fromString(xriXref.toString());
 					} catch (Xdi2ParseException ex) {
 
 					}

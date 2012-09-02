@@ -6,7 +6,7 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
 /**
- * Various utility methods for cloning graph components.
+ * Various utility methods for working with XRIs.
  * 
  * @author markus
  */
@@ -27,16 +27,41 @@ public final class XRIUtil {
 	/**
 	 * Checks if an XRI starts with a certain other XRI.
 	 */
-	public static boolean startsWith(XRI3Segment whole, XRI3Segment part) {
+	public static boolean startsWith(XRI3Segment xri, XRI3Segment part) {
 
-		if (whole.getNumSubSegments() < part.getNumSubSegments()) return false;
+		if (xri.getNumSubSegments() < part.getNumSubSegments()) return false;
 
 		for (int i=0; i<part.getNumSubSegments(); i++) {
 
-			if (! (whole.getSubSegment(i).equals(part.getSubSegment(i)))) return false;
+			if (! (xri.getSubSegment(i).equals(part.getSubSegment(i)))) return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * Extracts a relative XRI.
+	 * E.g. for =a*b*c*d and =a*b, this returns *c*d
+	 */
+	public static XRI3Segment relativeXRI(XRI3Segment xri, XRI3Segment base) {
+
+		if (xri.getNumSubSegments() <= base.getNumSubSegments()) return null;
+
+		int i = 0;
+
+		for (; i<base.getNumSubSegments(); i++) {
+
+			if (! (xri.getSubSegment(i).equals(base.getSubSegment(i)))) return null;
+		}
+
+		StringBuilder buffer = new StringBuilder();
+
+		for (; i<xri.getNumSubSegments(); i++) {
+
+			buffer.append(xri.getSubSegment(i).toString());
+		}
+
+		return new XRI3Segment(buffer.toString());
 	}
 
 	/**
@@ -45,17 +70,13 @@ public final class XRIUtil {
 	 */
 	public static XRI3Segment parentXri(XRI3Segment xri) {
 
+		if (xri.getNumSubSegments() <= 1)  return null;
+
 		StringBuilder buffer = new StringBuilder();
 
-		if (xri.getNumSubSegments() > 1) {
+		for (int i=0; i<xri.getNumSubSegments() - 1; i++) {
 
-			for (int i=0; i<xri.getNumSubSegments() - 1; i++) {
-
-				buffer.append(xri.getSubSegment(i).toString());
-			}
-		} else {
-
-			return null;
+			buffer.append(xri.getSubSegment(i).toString());
 		}
 
 		return new XRI3Segment(buffer.toString());

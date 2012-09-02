@@ -14,6 +14,11 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.core.xri3.impl.XRI3XRef;
 
+/**
+ * Various utility methods for working with XDI.
+ * 
+ * @author markus
+ */
 public class XDIUtil {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIUtil.class);
