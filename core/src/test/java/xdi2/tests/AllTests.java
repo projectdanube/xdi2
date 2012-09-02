@@ -21,6 +21,7 @@ import xdi2.tests.core.io.IOTest;
 import xdi2.tests.core.io.readers.XDIJSONReaderTest;
 import xdi2.tests.core.io.writers.XDIJSONWriterTest;
 import xdi2.tests.core.util.XDIUtilTest;
+import xdi2.tests.core.util.XRIUtilTest;
 import xdi2.tests.core.util.iterators.IteratorTest;
 
 public class AllTests {
@@ -46,6 +47,7 @@ public class AllTests {
 		suite.addTestSuite(XDIJSONReaderTest.class);
 		suite.addTestSuite(XDIJSONWriterTest.class);
 		suite.addTestSuite(LinkContractsTest.class);
+		suite.addTestSuite(XRIUtilTest.class);
 		suite.addTestSuite(XDIUtilTest.class);
 		suite.addTestSuite(IteratorTest.class);
 		suite.addTestSuite(AbstractStatementTest.class);

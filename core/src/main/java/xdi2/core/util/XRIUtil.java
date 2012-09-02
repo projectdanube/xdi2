@@ -2,7 +2,6 @@ package xdi2.core.util;
 
 import java.util.UUID;
 
-import xdi2.core.xri3.impl.XRI3;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -25,28 +24,26 @@ public final class XRIUtil {
 		return new XRI3SubSegment(outerPrefix + "(" + innerPrefix + UUID.randomUUID().toString() + ")");
 	}
 
-	public static XRI3 extractParentXri(XRI3 xri) {
+	/**
+	 * Checks if an XRI starts with a certain other XRI.
+	 */
+	public static boolean startsWith(XRI3Segment whole, XRI3Segment part) {
 
-		StringBuilder buffer = new StringBuilder();
+		if (whole.getNumSubSegments() < part.getNumSubSegments()) return false;
 
-		if (xri.hasPath()) {
+		for (int i=0; i<part.getNumSubSegments(); i++) {
 
-			buffer.append(xri.getAuthority());
-
-			for (int i=0; i<xri.getPath().getNumSegments() - 1; i++) {
-
-				buffer.append("/");
-				buffer.append(xri.getPath().getSegment(i).toString());
-			}
-		} else {
-
-			return null;
+			if (! (whole.getSubSegment(i).equals(part.getSubSegment(i)))) return false;
 		}
 
-		return new XRI3(buffer.toString());
+		return true;
 	}
 
-	public static XRI3Segment extractParentXriSegment(XRI3Segment xri) {
+	/**
+	 * Extracts an XRI's parent XRI.
+	 * E.g. for =a*b*c*d, this returns =a*b*c
+	 */
+	public static XRI3Segment parentXri(XRI3Segment xri) {
 
 		StringBuilder buffer = new StringBuilder();
 
@@ -64,7 +61,11 @@ public final class XRIUtil {
 		return new XRI3Segment(buffer.toString());
 	}
 
-	public static XRI3Segment extractLocalXriSegment(XRI3Segment xri) {
+	/**
+	 * Extracts an XRI's local part.
+	 * E.g. for =a*b*c*d, this returns *d
+	 */
+	public static XRI3Segment localXri(XRI3Segment xri) {
 
 		if (xri.getNumSubSegments() > 0) {
 
