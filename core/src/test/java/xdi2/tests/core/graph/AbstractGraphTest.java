@@ -44,21 +44,21 @@ public abstract class AbstractGraphTest extends TestCase {
 	protected abstract Graph reopenGraph(Graph graph, String id) throws IOException;
 
 	public void testSimple() throws Exception {
-		
+
 		Graph graph0 = this.openNewGraph(this.getClass().getName() + "-graph-0");
-		
+
 		ContextNode markus = graph0.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
 		markus.createLiteral("test");
 		markus.createRelation(new XRI3Segment("+friend"), new XRI3Segment("=drummond"));
-		
+
 		markus = graph0.getRootContextNode().getContextNode(new XRI3SubSegment("=markus"));
 		assertNotNull(markus);
 		assertTrue(markus.containsRelations());
 		assertTrue(markus.containsLiteral());
-		
+
 		graph0.close();
 	}
-	
+
 	public void testMakeGraph() throws Exception {
 
 		Graph graph1 = this.openNewGraph(this.getClass().getName() + "-graph-1");
@@ -594,6 +594,39 @@ public abstract class AbstractGraphTest extends TestCase {
 		graph19.close();
 	}
 
+	public void testIllegalArcXris() throws Exception {
+
+		Graph graph20 = this.openNewGraph(this.getClass().getName() + "-graph-20");
+
+		ContextNode markus = graph20.findContextNode(new XRI3Segment("=markus"), true);
+
+		try {
+
+			markus.createContextNodes(new XRI3Segment("()"));
+			fail();
+		} catch (Xdi2GraphException ex){
+
+		}
+
+		try {
+
+			markus.createRelation(new XRI3Segment("()"), new XRI3Segment("=animesh"));
+			fail();
+		} catch (Xdi2GraphException ex){
+
+		}
+
+		try {
+
+			markus.createRelation(new XRI3Segment("!"), new XRI3Segment("=animesh"));
+			fail();
+		} catch (Xdi2GraphException ex){
+
+		}
+
+		graph20.close();
+	}
+
 	@SuppressWarnings("unused")
 	private static void makeGraph(Graph graph) throws Exception {
 
@@ -603,7 +636,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassport1ContextNode = abcPassportContextNode.createContextNode(new XRI3SubSegment("!1"));
 		ContextNode abcPassport2ContextNode = abcPassportContextNode.createContextNode(new XRI3SubSegment("!2"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.createContextNode(new XRI3SubSegment("$v"));
-		ContextNode abcPassportCContextNode = abcPassportContextNode.createContextNode(new XRI3SubSegment("()"));
+		ContextNode abcPassportCContextNode = abcPassportContextNode.createContextNode(new XRI3SubSegment("($)"));
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.createContextNode(new XRI3SubSegment("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.createContextNode(new XRI3SubSegment("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.createRelation(new XRI3Segment("$"), new XRI3Segment("=abc+passport"));
@@ -632,7 +665,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("!1"));
 		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("!2"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("$v"));
-		ContextNode abcPassportCContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("()"));
+		ContextNode abcPassportCContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("($)"));
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(new XRI3SubSegment("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(new XRI3SubSegment("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(new XRI3Segment("$"));
@@ -662,7 +695,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("!1")));
 		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("!2")));
 		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("$v")));
-		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("()")));
+		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("($)")));
 		assertTrue(abcPassportVContextNode.containsContextNode(new XRI3SubSegment("!1")));
 		assertTrue(abcPassportVContextNode.containsContextNode(new XRI3SubSegment("!2")));
 		assertTrue(abcPassportV2ContextNode.containsRelation(new XRI3Segment("$"), new XRI3Segment("=abc+passport")));
@@ -697,25 +730,25 @@ public abstract class AbstractGraphTest extends TestCase {
 				graph.findContextNode(new XRI3Segment("=abc+passport!1"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!2"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport$v"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport($)"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport$v!1"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport$v!2"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()!1"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()!2"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport($)!1"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport($)!2"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!1+number"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!1+country"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!1$d"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!2+number"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!2+country"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!2$d"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()!1$d"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()!2$d"), false)
+				graph.findContextNode(new XRI3Segment("=abc+passport($)!1$d"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport($)!2$d"), false)
 		};
 
 		XRI3SubSegment[][] contextNodeArcXrisArray = new XRI3SubSegment [][] {
 				new XRI3SubSegment[] { new XRI3SubSegment("=abc") },
 				new XRI3SubSegment[] { new XRI3SubSegment("+passport") },
-				new XRI3SubSegment[] { new XRI3SubSegment("!1"), new XRI3SubSegment("!2"), new XRI3SubSegment("$v"), new XRI3SubSegment("()") },
+				new XRI3SubSegment[] { new XRI3SubSegment("!1"), new XRI3SubSegment("!2"), new XRI3SubSegment("$v"), new XRI3SubSegment("($)") },
 				new XRI3SubSegment[] { new XRI3SubSegment("+number"), new XRI3SubSegment("+country"), new XRI3SubSegment("$d") },
 				new XRI3SubSegment[] { new XRI3SubSegment("+number"), new XRI3SubSegment("+country"), new XRI3SubSegment("$d") },
 				new XRI3SubSegment[] { new XRI3SubSegment("!1"), new XRI3SubSegment("!2") },
@@ -828,8 +861,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new XRI3Segment("=abc+passport!2"), abcPassport2ContextNode.getXri());
 		assertEquals(new XRI3SubSegment("$v"), abcPassportVContextNode.getArcXri());
 		assertEquals(new XRI3Segment("=abc+passport$v"), abcPassportVContextNode.getXri());
-		assertEquals(new XRI3SubSegment("()"), abcPassportCContextNode.getArcXri());
-		assertEquals(new XRI3Segment("=abc+passport()"), abcPassportCContextNode.getXri());
+		assertEquals(new XRI3SubSegment("($)"), abcPassportCContextNode.getArcXri());
+		assertEquals(new XRI3Segment("=abc+passport($)"), abcPassportCContextNode.getXri());
 		assertEquals(new XRI3SubSegment("!1"), abcPassportV1ContextNode.getArcXri());
 		assertEquals(new XRI3Segment("=abc+passport$v!1"), abcPassportV1ContextNode.getXri());
 		assertEquals(new XRI3SubSegment("!2"), abcPassportV2ContextNode.getArcXri());
@@ -849,9 +882,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new XRI3SubSegment("$d"), abcPassport2DLiteral.getContextNode().getArcXri());
 		assertEquals("2010-10-01T00:00:00Z", abcPassport2DLiteral.getLiteralData());
 		assertEquals(new XRI3SubSegment("!1"), abcPassportC1ContextNode.getArcXri());
-		assertEquals(new XRI3Segment("=abc+passport()!1"), abcPassportC1ContextNode.getXri());
+		assertEquals(new XRI3Segment("=abc+passport($)!1"), abcPassportC1ContextNode.getXri());
 		assertEquals(new XRI3SubSegment("!2"), abcPassportC2ContextNode.getArcXri());
-		assertEquals(new XRI3Segment("=abc+passport()!2"), abcPassportC2ContextNode.getXri());
+		assertEquals(new XRI3Segment("=abc+passport($)!2"), abcPassportC2ContextNode.getXri());
 		assertEquals(new XRI3SubSegment("$d"), abcPassportC1DLiteral.getContextNode().getArcXri());
 		assertEquals("2010-11-11T11:11:11Z", abcPassportC1DLiteral.getLiteralData());
 		assertEquals(new XRI3SubSegment("$d"), abcPassportC2DLiteral.getContextNode().getArcXri());
@@ -881,7 +914,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("!1"));
 		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("!2"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("$v"));
-		ContextNode abcPassportCContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("()"));
+		ContextNode abcPassportCContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("($)"));
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(new XRI3SubSegment("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(new XRI3SubSegment("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(new XRI3Segment("$"));
@@ -914,7 +947,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("!1"));
 		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("!2"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("$v"));
-		ContextNode abcPassportCContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("()"));
+		ContextNode abcPassportCContextNode = abcPassportContextNode.getContextNode(new XRI3SubSegment("($)"));
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(new XRI3SubSegment("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(new XRI3SubSegment("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(new XRI3Segment("$"));
@@ -939,7 +972,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("!1")));
 		assertFalse(abcPassportContextNode.containsContextNode(new XRI3SubSegment("!2")));	// MANIPULATED
 		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("$v")));
-		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("()")));
+		assertTrue(abcPassportContextNode.containsContextNode(new XRI3SubSegment("($)")));
 		assertTrue(abcPassportVContextNode.containsContextNode(new XRI3SubSegment("!1")));
 		assertTrue(abcPassportVContextNode.containsContextNode(new XRI3SubSegment("!2")));
 		assertTrue(abcPassportV2ContextNode.containsRelation(new XRI3Segment("$"), new XRI3Segment("=abc+passport")));
@@ -974,25 +1007,25 @@ public abstract class AbstractGraphTest extends TestCase {
 				graph.findContextNode(new XRI3Segment("=abc+passport!1"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!2"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport$v"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport($)"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport$v!1"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport$v!2"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()!1"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()!2"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport($)!1"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport($)!2"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!1+number"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!1+country"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!1$d"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!2+number"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!2+country"), false),
 				graph.findContextNode(new XRI3Segment("=abc+passport!2$d"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()!1$d"), false),
-				graph.findContextNode(new XRI3Segment("=abc+passport()!2$d"), false)
+				graph.findContextNode(new XRI3Segment("=abc+passport($)!1$d"), false),
+				graph.findContextNode(new XRI3Segment("=abc+passport($)!2$d"), false)
 		};
 
 		XRI3SubSegment[][] contextNodeArcXrisArray = new XRI3SubSegment [][] {
 				new XRI3SubSegment[] { new XRI3SubSegment("=abc") },
 				new XRI3SubSegment[] { new XRI3SubSegment("+passport") },
-				new XRI3SubSegment[] { new XRI3SubSegment("!1"), new XRI3SubSegment("$v"), new XRI3SubSegment("()") },	// MANIPULATED
+				new XRI3SubSegment[] { new XRI3SubSegment("!1"), new XRI3SubSegment("$v"), new XRI3SubSegment("($)") },	// MANIPULATED
 				new XRI3SubSegment[] { new XRI3SubSegment("+number"), new XRI3SubSegment("+country"), new XRI3SubSegment("$d") },
 				null,	// MANIPULATED
 				new XRI3SubSegment[] { new XRI3SubSegment("!1"), new XRI3SubSegment("!2") },
@@ -1103,8 +1136,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertEquals(new XRI3SubSegment("$v"), abcPassportVContextNode.getArcXri());
 		assertEquals(new XRI3Segment("=abc+passport$v"), abcPassportVContextNode.getXri());
-		assertEquals(new XRI3SubSegment("()"), abcPassportCContextNode.getArcXri());
-		assertEquals(new XRI3Segment("=abc+passport()"), abcPassportCContextNode.getXri());
+		assertEquals(new XRI3SubSegment("($)"), abcPassportCContextNode.getArcXri());
+		assertEquals(new XRI3Segment("=abc+passport($)"), abcPassportCContextNode.getXri());
 		assertEquals(new XRI3SubSegment("!1"), abcPassportV1ContextNode.getArcXri());
 		assertEquals(new XRI3Segment("=abc+passport$v!1"), abcPassportV1ContextNode.getXri());
 		assertEquals(new XRI3SubSegment("!2"), abcPassportV2ContextNode.getArcXri());
@@ -1124,9 +1157,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(abcPassport2LiteralD);	// MANIPULATED
 		assertNull(abcPassport2LiteralD);	// MANIPULATED
 		assertEquals(new XRI3SubSegment("!1"), abcPassportC1ContextNode.getArcXri());
-		assertEquals(new XRI3Segment("=abc+passport()!1"), abcPassportC1ContextNode.getXri());
+		assertEquals(new XRI3Segment("=abc+passport($)!1"), abcPassportC1ContextNode.getXri());
 		assertEquals(new XRI3SubSegment("!2"), abcPassportC2ContextNode.getArcXri());
-		assertEquals(new XRI3Segment("=abc+passport()!2"), abcPassportC2ContextNode.getXri());
+		assertEquals(new XRI3Segment("=abc+passport($)!2"), abcPassportC2ContextNode.getXri());
 		assertEquals(new XRI3SubSegment("$d"), abcPassportC1LiteralD.getContextNode().getArcXri());
 		assertEquals("2010-03-03T03:03:03Z", abcPassportC1LiteralD.getLiteralData());	// MANIPULATED
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED

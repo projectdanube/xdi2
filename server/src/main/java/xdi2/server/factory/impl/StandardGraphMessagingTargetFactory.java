@@ -60,25 +60,25 @@ public abstract class StandardGraphMessagingTargetFactory extends AbstractMessag
 		bootstrapInterceptor.setBootstrapOwnerSynonyms(ownerSynonyms);
 		bootstrapInterceptor.setBootstrapSharedSecret(sharedSecret);
 		bootstrapInterceptor.setBootstrapLinkContract(true);
-		graphMessagingTarget.addInterceptor(bootstrapInterceptor);
+		graphMessagingTarget.getInterceptors().addInterceptor(bootstrapInterceptor);
 
 		VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
-		graphMessagingTarget.addInterceptor(variablesInterceptor);
+		graphMessagingTarget.getInterceptors().addInterceptor(variablesInterceptor);
 
 		ExpandDollarIsInterceptor expandDollarIsInterceptor = new ExpandDollarIsInterceptor();
-		graphMessagingTarget.addInterceptor(expandDollarIsInterceptor);
+		graphMessagingTarget.getInterceptors().addInterceptor(expandDollarIsInterceptor);
 
 		if (owner != null) {
 
 			CheckOwnerInterceptor checkOwnerInterceptor = new CheckOwnerInterceptor();
-			graphMessagingTarget.addInterceptor(checkOwnerInterceptor);
+			graphMessagingTarget.getInterceptors().addInterceptor(checkOwnerInterceptor);
 		}
 
 		if (owner != null && sharedSecret != null) {
 
 			LinkContractsInterceptor linkContractsInterceptor = new LinkContractsInterceptor();
 			linkContractsInterceptor.setLinkContractsGraph(graph);
-			graphMessagingTarget.addInterceptor(linkContractsInterceptor);
+			graphMessagingTarget.getInterceptors().addInterceptor(linkContractsInterceptor);
 		}
 
 		// mount the new messaging target

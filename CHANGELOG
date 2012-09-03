@@ -1,7 +1,12 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
-2012-09:01:
+2012-09-03:
+------------------------
+
+*** Many updates to messaging architecture and contributor/connector functionality
+
+2012-09-01:
 ------------------------
 
 *** Updates to multiplicity support

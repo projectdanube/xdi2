@@ -13,7 +13,7 @@ import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.AbstractAddressHandler;
+import xdi2.messaging.target.AbstractContextHandler;
 import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.ExecutionContext;
@@ -53,10 +53,10 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 		this.xriResolver = xriResolver;
 	}
 
-	private AddressHandler addressHandler = new AbstractAddressHandler() {
+	private AddressHandler addressHandler = new AbstractContextHandler() {
 
 		@Override
-		public boolean executeGetOnAddress(XRI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public void getContext(XRI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// is this a remote root context XRI?
 
@@ -115,10 +115,6 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 				ContextNode xriContextNode = graph.findContextNode(xri, true);
 				xriContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, inumberContextNode);
 			}
-
-			// done
-
-			return true;
 		}
 	};
 }

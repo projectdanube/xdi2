@@ -6,6 +6,7 @@ import xdi2.core.Statement;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.AddressHandler;
@@ -22,6 +23,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	private Graph graph;
 	private GraphAddressHandler graphAddressHandler;
 	private GraphStatementHandler graphStatementHandler;
+	private GraphContextHandler graphContextHandler;
 
 	public GraphMessagingTarget() {
 
@@ -30,6 +32,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 		this.graph = null;
 		this.graphAddressHandler = null;
 		this.graphStatementHandler = null;
+		this.graphContextHandler = null;
 	}
 
 	@Override
@@ -56,25 +59,25 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public void before(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		super.before(messageEnvelope, executionContext);
+		super.before(messageEnvelope, messageResult, executionContext);
 
 		this.graph.beginTransaction();
 	}
 
 	@Override
-	public void after(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		super.after(messageEnvelope, executionContext);
+		super.after(messageEnvelope, messageResult, executionContext);
 
 		this.graph.commitTransaction();
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, Exception ex) throws Xdi2MessagingException {
+	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) throws Xdi2MessagingException {
 
-		super.exception(messageEnvelope, executionContext, ex);
+		super.exception(messageEnvelope, messageResult, executionContext, ex);
 
 		this.graph.rollbackTransaction();
 	}
@@ -82,13 +85,13 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	@Override
 	public AddressHandler getAddressHandler(XRI3Segment address) throws Xdi2MessagingException {
 
-		return this.graphAddressHandler;
+		return this.graphContextHandler;
 	}
 
 	@Override
 	public StatementHandler getStatementHandler(Statement statement) throws Xdi2MessagingException {
 
-		return this.graphStatementHandler;
+		return this.graphContextHandler;
 	}
 
 	public Graph getGraph() {
@@ -96,10 +99,16 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 		return this.graph;
 	}
 
+	public GraphContextHandler getGraphContextHandler() {
+
+		return this.graphContextHandler;
+	}
+
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
 		this.graphAddressHandler = new GraphAddressHandler(graph);
 		this.graphStatementHandler = new GraphStatementHandler(graph);
+		this.graphContextHandler = new GraphContextHandler(graph);
 	}
 }

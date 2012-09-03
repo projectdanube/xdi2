@@ -1,5 +1,8 @@
 package xdi2.core.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2ParseException;
@@ -17,6 +20,8 @@ import xdi2.core.xri3.impl.XRI3XRef;
  * @author markus
  */
 public final class StatementUtil {
+
+	private static final Logger log = LoggerFactory.getLogger(StatementUtil.class);
 
 	private StatementUtil() { }
 
@@ -171,12 +176,23 @@ public final class StatementUtil {
 	 * Extracts a statement with a relative subject.
 	 * E.g. for =a*b*c*d and =a*b, this returns *c*d
 	 */
-	public static Statement relativeStatement(Statement statement, XRI3Segment base) {
+	public static Statement relativeStatement(Statement statement, XRI3Segment base, boolean variablesInXri, boolean variablesInBase) {
 
-		XRI3Segment subject = XRIUtil.relativeXRI(statement.getSubject(), base);
+		if (log.isTraceEnabled()) log.trace("relativeStatement(" + statement + "," + base + "," + variablesInXri + "," + variablesInBase + ")");
+
+		XRI3Segment subject = XRIUtil.relativeXri(statement.getSubject(), base, variablesInXri, variablesInBase);
 		XRI3Segment predicate = statement.getPredicate();
 		XRI3Segment object = statement.getObject();
 
 		return fromComponents(subject, predicate, object);
+	}
+
+	/**
+	 * Extracts a statement with a relative subject.
+	 * E.g. for =a*b*c*d and =a*b, this returns *c*d
+	 */
+	public static Statement relativeStatement(Statement statement, XRI3Segment base) {
+
+		return relativeStatement(statement, base, false, false);
 	}
 }

@@ -10,13 +10,13 @@ import xdi2.messaging.target.ExecutionContext;
 public abstract class AbstractTargetInterceptor extends AbstractInterceptor implements TargetInterceptor {
 
 	@Override
-	public Statement targetStatement(Operation operation, Statement targetStatement, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public Statement targetStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return targetStatement;
 	}
 
 	@Override
-	public XRI3Segment targetAddress(Operation operation, XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XRI3Segment targetAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return targetAddress;
 	}
