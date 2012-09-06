@@ -1,9 +1,9 @@
 package xdi2.messaging.target.impl.graph;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Relation;
 import xdi2.core.Statement;
-import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -50,12 +50,11 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public XRI3Segment getOwner() {
+	public XRI3Segment getOwnerAuthority() {
 
-		Relation relation = this.getGraph().getRootContextNode().getRelation(XDIDictionaryConstants.XRI_S_IS_IS);
-		if (relation == null) return null;
+		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(this.getGraph());
 
-		return relation.getTargetContextNodeXri();
+		return selfRemoteRootContextNode.getXri();
 	}
 
 	@Override

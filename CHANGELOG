@@ -6,6 +6,8 @@ VERSION 0.1-SNAPSHOT
 
 *** Added DataTypes skeleton class for supporting literal data types
 
+*** Support for messaging targets to be removed by messaging target factories
+
 2012-09-03:
 ------------------------
 

@@ -24,13 +24,13 @@ public class CheckOwnerInterceptor extends AbstractInterceptor implements Messag
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		MessagingTarget messagingTarget = executionContext.getMessagingTarget();
-		XRI3Segment owner = messagingTarget.getOwner();
+		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 		XRI3Segment recipientAuthority = message.getRecipientAuthority();
 
-		if (owner == null) return false;
+		if (ownerAuthority == null) return false;
 		if (recipientAuthority == null) throw new Xdi2MessagingException("No recipient authority found in message.", null, null);
 
-		if (! owner.equals(recipientAuthority)) throw new Xdi2MessagingException("Unknown recipient authority: " + recipientAuthority, null, null);
+		if (! ownerAuthority.equals(recipientAuthority)) throw new Xdi2MessagingException("Unknown recipient authority: " + recipientAuthority, null, null);
 
 		return false;
 	}

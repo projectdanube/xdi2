@@ -467,14 +467,14 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_GET, contextNodeXri);
 
-		// set the recipient authority to the owner of the messaging target
+		// set the recipient authority to the owner authority of the messaging target
 
-		XRI3Segment owner = messagingTarget.getOwner();
+		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 
-		if (owner != null) {
+		if (ownerAuthority != null) {
 
 			Message message = messageEnvelope.getMessages().next();
-			message.getContextNode().createRelation(XDIMessagingConstants.XRI_S_TO_GRAPH, owner);
+			message.setRecipientAuthority(ownerAuthority);
 		}
 
 		// done

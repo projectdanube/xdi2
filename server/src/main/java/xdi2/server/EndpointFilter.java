@@ -96,18 +96,18 @@ public class EndpointFilter implements Filter {
 
 		log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? "null" : messagingTarget.getClass().getSimpleName()));
 
-		// if we don't have one, try to find a messaging target factory
+		// check which messaging target factory this request applies to
 
-		if (messagingTarget == null) {
+		String messagingTargetFactoryPath = endpointRegistry.findMessagingTargetFactoryPath(requestInfo.getRequestPath());
+		MessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : endpointRegistry.getMessagingTargetFactory(messagingTargetFactoryPath);
 
-			log.debug("No messaging target found. Looking for messaging target factory.");
+		log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? "null" : messagingTargetFactory.getClass().getSimpleName()));
 
-			String messagingTargetFactoryPath = endpointRegistry.findMessagingTargetFactoryPath(requestInfo.getRequestPath());
-			MessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : endpointRegistry.getMessagingTargetFactory(messagingTargetFactoryPath);
+		if (messagingTargetFactory != null) {
 
-			log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? "null" : messagingTargetFactory.getClass().getSimpleName()));
+			// if we don't have a messaging target, see if the messaging target factory can create one
 
-			if (messagingTargetFactory != null) {
+			if (messagingTarget == null) {
 
 				try {
 
@@ -118,7 +118,22 @@ public class EndpointFilter implements Filter {
 					handleInternalException(request, response, ex);
 					return;
 				}
+			} else {
+
+				// if we do have a messaging target, see if the messaging target factory wants to modify or remove it
+
+				try {
+
+					messagingTargetFactory.updateMessagingTarget(endpointRegistry, messagingTarget);
+				} catch (Exception ex) {
+
+					log.error("Unexpected exception: " + ex.getMessage(), ex);
+					handleInternalException(request, response, ex);
+					return;
+				}
 			}
+
+			// after the messaging target factory did its work, look for the messaging target again
 
 			messagingTargetPath = endpointRegistry.findMessagingTargetPath(requestInfo.getRequestPath());
 			messagingTarget = messagingTargetPath == null ? null : endpointRegistry.getMessagingTarget(messagingTargetPath);

@@ -1,5 +1,6 @@
 package xdi2.server.factory;
 
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.EndpointRegistry;
 
@@ -24,4 +25,9 @@ public interface MessagingTargetFactory {
 	 * Mount a new MessagingTarget.
 	 */
 	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException;
+
+	/**
+	 * Updates a messaging target.
+	 */
+	public void updateMessagingTarget(EndpointRegistry endpointRegistry, MessagingTarget messagingTarget) throws Xdi2ServerException;
 }

@@ -8,6 +8,7 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.EndpointRegistry;
 
@@ -63,5 +64,22 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 	public void setRegistryGraph(Graph registryGraph) {
 
 		this.registryGraph = registryGraph;
+	}
+
+	@Override
+	public void updateMessagingTarget(EndpointRegistry endpointRegistry, MessagingTarget messagingTarget) throws Xdi2ServerException {
+
+		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
+		XRI3Segment owner = RemoteRoots.xriOfRemoteRootXri(ownerAuthority);
+
+		// look into registry
+
+		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), owner, false);
+		if (remoteRootContextNode == null) {
+
+			log.warn("Remote root context node for " + owner + " no longer found in the registry graph. Removing messaging target.");
+
+			endpointRegistry.unmountMessagingTarget(messagingTarget);
+		}
 	}
 }
