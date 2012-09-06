@@ -1,6 +1,11 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-09-06:
+------------------------
+
+*** Added DataTypes skeleton class for supporting literal data types
+
 2012-09-03:
 ------------------------
 
