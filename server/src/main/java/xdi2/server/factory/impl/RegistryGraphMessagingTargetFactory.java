@@ -79,6 +79,14 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 
 			log.warn("Remote root context node for " + owner + " no longer found in the registry graph. Removing messaging target.");
 
+			try {
+
+				messagingTarget.shutdown();
+			} catch (Exception ex) {
+
+				throw new Xdi2ServerException("Cannot shut down messaging target: " + ex.getMessage(), ex);
+			}
+
 			endpointRegistry.unmountMessagingTarget(messagingTarget);
 		}
 	}
