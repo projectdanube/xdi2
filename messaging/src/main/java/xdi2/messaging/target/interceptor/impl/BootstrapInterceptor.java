@@ -1,5 +1,8 @@
 package xdi2.messaging.target.interceptor.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -8,9 +11,7 @@ import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
-import xdi2.core.features.multiplicity.XdiAttributeSingleton;
-import xdi2.core.features.multiplicity.XdiEntitySingleton;
-import xdi2.core.features.multiplicity.XdiSubGraph;
+import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
@@ -25,6 +26,10 @@ import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
  * @author markus
  */
 public class BootstrapInterceptor implements MessagingTargetInterceptor {
+
+	private static final XRI3Segment XRI_SECRET_TOKEN = new XRI3Segment("" + Multiplicity.entitySingletonArcXri(new XRI3SubSegment("$secret")) + Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("$token")));
+
+	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 
 	private XRI3Segment bootstrapOwner;
 	private XRI3Segment[] bootstrapOwnerSynonyms;
@@ -47,6 +52,8 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 		GraphMessagingTarget graphMessagingTarget = (GraphMessagingTarget) messagingTarget;
 		Graph graph = graphMessagingTarget.getGraph();
 		ContextNode rootContextNode = graph.getRootContextNode();
+
+		log.debug("bootstrapOwner=" + this.bootstrapOwner + ", bootstrapSharedSecret=" + (this.bootstrapSharedSecret == null ? null : "XXXXX") + ", bootstrapLinkContract=" + this.bootstrapLinkContract);
 
 		// check if the owner statement exists
 
@@ -78,10 +85,8 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 			if (this.bootstrapSharedSecret != null) {
 
-				XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(rootContextNode).getEntitySingleton(new XRI3SubSegment("$secret"), true);
-				XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XRI3SubSegment("$token"), true);
-
-				attributeSingleton.getContextNode().createLiteral(this.bootstrapSharedSecret);
+				ContextNode bootstrapOwnerSharedSecretContextNode = graph.findContextNode(XRI_SECRET_TOKEN, true);
+				bootstrapOwnerSharedSecretContextNode.createLiteral(this.bootstrapSharedSecret);
 			}
 
 			// bootstrap link contract and policy
@@ -96,7 +101,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 				Policy policy = bootstrapLinkContract.getPolicy(true);
 				AndExpression andExpression = policy.getAndNode(true);
-				andExpression.addLiteralExpression("xdi.getGraphValue('$secret$!($token)') == xdi.getMessageProperty('$secret$!($token)')");
+				andExpression.addLiteralExpression("xdi.getGraphValue('" + XRI_SECRET_TOKEN + "') == xdi.getMessageProperty('" + XRI_SECRET_TOKEN + "')");
 			}
 		}
 	}

@@ -38,6 +38,19 @@ public class InterceptorList extends ArrayList<Interceptor> {
 		this.remove(interceptor);
 	}
 
+	public String stringList() {
+
+		StringBuffer buffer = new StringBuffer();
+
+		for (Interceptor interceptor : this) {
+
+			if (buffer.length() > 0) buffer.append(",");
+			buffer.append(interceptor.getClass().getSimpleName());
+		}
+
+		return buffer.toString();
+	}
+
 	/*
 	 * Methods for executing interceptors
 	 */

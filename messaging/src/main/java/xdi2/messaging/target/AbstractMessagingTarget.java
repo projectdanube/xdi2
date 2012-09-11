@@ -56,7 +56,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	@Override
 	public void init() throws Exception {
 
-		if (log.isDebugEnabled()) log.debug("Initializing " + this.getClass().getSimpleName() + " (" + this.getInterceptors().size() + " interceptors)" + ", " + this.getContributors().size() + " contributors).");
+		if (log.isDebugEnabled()) log.debug("Initializing " + this.getClass().getSimpleName() + " [" + this.getInterceptors().size() + " interceptors: " + this.getInterceptors().stringList() + "] [" + this.getContributors().size() + " contributors: " + this.getContributors().stringList() + "].");
 
 		// execute messaging target interceptors (init)
 

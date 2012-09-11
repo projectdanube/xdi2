@@ -13,13 +13,14 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
+import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 
-public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> {
+public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> implements Iterable<Contributor> {
 
 	private static final long serialVersionUID = 1645889897751813459L;
 
@@ -79,6 +80,32 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> {
 			if (entry.getValue().contains(contributor)) entry.getValue().remove(contributor);
 			if (entry.getValue().isEmpty()) entries.remove();
 		}
+	}
+
+	@Override
+	public Iterator<Contributor> iterator() {
+
+		return new DescendingIterator<List<Contributor>, Contributor> (this.values().iterator()) {
+
+			@Override
+			public Iterator<Contributor> descend(List<Contributor> item) {
+
+				return item.iterator();
+			}
+		};
+	}
+
+	public String stringList() {
+
+		StringBuffer buffer = new StringBuffer();
+
+		for (Contributor contributor : this) {
+
+			if (buffer.length() > 0) buffer.append(",");
+			buffer.append(contributor.getClass().getSimpleName());
+		}
+
+		return buffer.toString();
 	}
 
 	/*

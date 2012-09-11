@@ -137,6 +137,8 @@ public class EndpointFilter implements Filter {
 
 			messagingTargetPath = endpointRegistry.findMessagingTargetPath(requestInfo.getRequestPath());
 			messagingTarget = messagingTargetPath == null ? null : endpointRegistry.getMessagingTarget(messagingTargetPath);
+
+			log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? "null" : messagingTarget.getClass().getSimpleName()));
 		}
 
 		// update request info

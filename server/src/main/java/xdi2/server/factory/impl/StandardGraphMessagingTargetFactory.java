@@ -45,14 +45,6 @@ public abstract class StandardGraphMessagingTargetFactory extends AbstractMessag
 		GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 		graphMessagingTarget.setGraph(graph);
 
-		try {
-
-			graphMessagingTarget.init();
-		} catch (Exception ex) {
-
-			throw new Xdi2ServerException("Cannot initialize messaging target: " + ex.getMessage(), ex);
-		}
-
 		// add interceptors
 
 		BootstrapInterceptor bootstrapInterceptor = new BootstrapInterceptor();
