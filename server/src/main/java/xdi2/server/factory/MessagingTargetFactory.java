@@ -29,5 +29,5 @@ public interface MessagingTargetFactory {
 	/**
 	 * Updates a messaging target.
 	 */
-	public void updateMessagingTarget(EndpointRegistry endpointRegistry, MessagingTarget messagingTarget) throws Xdi2ServerException;
+	public void updateMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException;
 }

@@ -39,6 +39,8 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public void init() throws Exception {
 
 		super.init();
+
+		// read owner
 	}
 
 	@Override
@@ -53,6 +55,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public XRI3Segment getOwnerAuthority() {
 
 		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(this.getGraph());
+		if (selfRemoteRootContextNode == null) return null;
 
 		return selfRemoteRootContextNode.getXri();
 	}

@@ -124,7 +124,7 @@ public class EndpointFilter implements Filter {
 
 				try {
 
-					messagingTargetFactory.updateMessagingTarget(endpointRegistry, messagingTarget);
+					messagingTargetFactory.updateMessagingTarget(endpointRegistry, messagingTargetFactoryPath, requestInfo.getRequestPath(), messagingTarget);
 				} catch (Exception ex) {
 
 					log.error("Unexpected exception: " + ex.getMessage(), ex);

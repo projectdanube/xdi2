@@ -27,7 +27,7 @@ public class AnyGraphMessagingTargetFactory extends StandardGraphMessagingTarget
 	}
 
 	@Override
-	public void updateMessagingTarget(EndpointRegistry endpointRegistry, MessagingTarget messagingTarget) throws Xdi2ServerException {
+	public void updateMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException {
 
 	}
 }

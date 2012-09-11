@@ -60,21 +60,15 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 		super.mountStandardMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerSynonyms, sharedSecret);
 	}
 
-	public Graph getRegistryGraph() {
-
-		return this.registryGraph;
-	}
-
-	public void setRegistryGraph(Graph registryGraph) {
-
-		this.registryGraph = registryGraph;
-	}
-
 	@Override
-	public void updateMessagingTarget(EndpointRegistry endpointRegistry, MessagingTarget messagingTarget) throws Xdi2ServerException {
+	public void updateMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException {
 
-		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
-		XRI3Segment owner = RemoteRoots.xriOfRemoteRootXri(ownerAuthority);
+		// parse owner
+
+		String ownerString = requestPath.substring(messagingTargetFactoryPath.length() + 1);
+		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
+
+		XRI3Segment owner = new XRI3Segment(ownerString);
 
 		// look into registry
 
@@ -93,5 +87,15 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 
 			endpointRegistry.unmountMessagingTarget(messagingTarget);
 		}
+	}
+
+	public Graph getRegistryGraph() {
+
+		return this.registryGraph;
+	}
+
+	public void setRegistryGraph(Graph registryGraph) {
+
+		this.registryGraph = registryGraph;
 	}
 }

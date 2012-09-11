@@ -27,7 +27,7 @@ public class CheckOwnerInterceptor extends AbstractInterceptor implements Messag
 		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 		XRI3Segment recipientAuthority = message.getRecipientAuthority();
 
-		if (ownerAuthority == null) return false;
+		if (ownerAuthority == null) throw new Xdi2MessagingException("No owner authority found in messaging target.", null, null);
 		if (recipientAuthority == null) throw new Xdi2MessagingException("No recipient authority found in message.", null, null);
 
 		if (! ownerAuthority.equals(recipientAuthority)) throw new Xdi2MessagingException("Unknown recipient authority: " + recipientAuthority, null, null);
