@@ -3,7 +3,9 @@ package xdi2.core.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Statement;
+import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
@@ -194,5 +196,23 @@ public final class StatementUtil {
 	public static Statement relativeStatement(Statement statement, XRI3Segment base) {
 
 		return relativeStatement(statement, base, false, false);
+	}
+
+	/**
+	 * Checks if a statement is implied by other statements in the graph.
+	 * @param statement A statement.
+	 * @return True, if the statement is implied by other statements in the graph.
+	 */
+	public static boolean isImplied(Statement statement) {
+
+		if (! (statement instanceof ContextNodeStatement)) return false;
+
+		ContextNode contextNode = ((ContextNodeStatement) statement).getContextNode();
+		if (contextNode == null) return false;
+
+		if (! contextNode.isEmpty()) return true;
+		if (contextNode.getIncomingRelations().hasNext()) return true;
+
+		return false;
 	}
 }

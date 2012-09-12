@@ -69,7 +69,7 @@ public class StatementUtilTest extends TestCase {
 	}
 
 	public void testRelative() throws Exception {
-		
+
 		LiteralStatement literalStatement = (LiteralStatement) StatementUtil.fromString("=markus+name/!/(data:,Markus%20Sabadello)");
 
 		LiteralStatement relativeLiteralStatement = (LiteralStatement) StatementUtil.relativeStatement(literalStatement, new XRI3Segment("=markus"));

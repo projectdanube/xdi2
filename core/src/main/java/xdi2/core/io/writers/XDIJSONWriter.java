@@ -92,10 +92,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 					@Override
 					public boolean select(ContextNode contextNode) {
 
-						if (! contextNode.isEmpty()) return false;
-						if (contextNode.getIncomingRelations().hasNext()) return false;
-
-						return true;
+						return ! StatementUtil.isImplied(contextNode.getStatement());
 					}
 				};
 			}

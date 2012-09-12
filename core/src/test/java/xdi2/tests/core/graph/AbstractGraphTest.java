@@ -627,6 +627,25 @@ public abstract class AbstractGraphTest extends TestCase {
 		graph20.close();
 	}
 
+	public void testImplied() throws Exception {
+
+		Graph graph21 = this.openNewGraph(this.getClass().getName() + "-graph-21");
+
+		ContextNode webmarkus = graph21.findContextNode(new XRI3Segment("=web*markus"), true);
+		ContextNode animesh = graph21.findContextNode(new XRI3Segment("=animesh"), true);
+		Relation friend = webmarkus.createRelation(new XRI3Segment("+friend"), animesh);
+		Literal name = webmarkus.createLiteral("Markus Sabadello");
+		ContextNode web = webmarkus.getContextNode();
+
+		assertTrue(StatementUtil.isImplied(webmarkus.getStatement()));
+		assertTrue(StatementUtil.isImplied(animesh.getStatement()));
+		assertFalse(StatementUtil.isImplied(friend.getStatement()));
+		assertFalse(StatementUtil.isImplied(name.getStatement()));
+		assertTrue(StatementUtil.isImplied(web.getStatement()));
+
+		graph21.close();
+	}
+
 	@SuppressWarnings("unused")
 	private static void makeGraph(Graph graph) throws Exception {
 
