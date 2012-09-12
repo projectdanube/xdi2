@@ -125,8 +125,8 @@ Interceptor that is executed when an operation is executed on an XDI statement o
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetAddress(xdi2.messaging.Operation, xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetAddress</A></B>(<A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-              <A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+              <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
               <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
               <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
@@ -136,8 +136,8 @@ Interceptor that is executed when an operation is executed on an XDI statement o
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.messaging.Operation, xdi2.core.Statement, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></B>(<A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-                <A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></B>(<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
+                <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                 <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                 <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
@@ -158,11 +158,11 @@ Interceptor that is executed when an operation is executed on an XDI statement o
 </TR>
 </TABLE>
 
-<A NAME="targetAddress(xdi2.messaging.Operation, xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="targetAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 targetAddress</H3>
 <PRE>
-<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>targetAddress</B>(<A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-                          <A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>targetAddress</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+                          <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                           <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                           <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
                           throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
@@ -173,7 +173,7 @@ targetAddress</H3>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>operation</CODE> - The operation to process.<DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
+<DT><B>Parameters:</B><DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>operation</CODE> - The operation to process.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
 <DT><B>Returns:</B><DD>The new target address, or the original target address, or null to skip.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
@@ -181,11 +181,11 @@ targetAddress</H3>
 </DL>
 <HR>
 
-<A NAME="targetStatement(xdi2.messaging.Operation, xdi2.core.Statement, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="targetStatement(xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 targetStatement</H3>
 <PRE>
-<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>targetStatement</B>(<A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-                          <A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
+<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>targetStatement</B>(<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
+                          <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                           <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                           <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
                           throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
@@ -196,7 +196,7 @@ targetStatement</H3>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>operation</CODE> - The operation to process.<DD><CODE>targetStatement</CODE> - The target statement.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement.<DD><CODE>operation</CODE> - The operation to process.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
 <DT><B>Returns:</B><DD>The new target statement, or the original target statement, or null to skip.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>

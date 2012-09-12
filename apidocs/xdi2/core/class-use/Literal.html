@@ -93,6 +93,10 @@ Packages that use <A HREF="../../../xdi2/core/Literal.html" title="interface in 
 <TD>The XDI graph model and basic operations on it.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.datatypes"><B>xdi2.core.features.datatypes</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.impl"><B>xdi2.core.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -205,6 +209,57 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all literals of this context node.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.datatypes"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> in <A HREF="../../../xdi2/core/features/datatypes/package-summary.html">xdi2.core.features.datatypes</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/datatypes/package-summary.html">xdi2.core.features.datatypes</A> with parameters of type <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B>DataTypes.</B><B><A HREF="../../../xdi2/core/features/datatypes/DataTypes.html#getLiteralDataType(xdi2.core.Literal)">getLiteralDataType</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>DataTypes.</B><B><A HREF="../../../xdi2/core/features/datatypes/DataTypes.html#isLiteralBinary(xdi2.core.Literal)">isLiteralBinary</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>DataTypes.</B><B><A HREF="../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralBinary(xdi2.core.Literal, boolean)">setLiteralBinary</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
+                 boolean&nbsp;binary)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>DataTypes.</B><B><A HREF="../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralDataType(xdi2.core.Literal, xdi2.core.xri3.impl.XRI3Segment)">setLiteralDataType</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
+                   <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;dataTypeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -524,7 +579,7 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyLiteral(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteral</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
             <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
-            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a literal of a context node into a target context node.</TD>
@@ -534,18 +589,34 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyLiteral(xdi2.core.Literal, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteral</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
             <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
-            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a literal into another graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>abstract &nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.CopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html#replaceLiteral(xdi2.core.Literal)">replaceLiteral</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strategies can replace a literal that is being copied.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>CopyUtil.AllCopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.AllCopyStrategy.html#replaceLiteral(xdi2.core.Literal)">replaceLiteral</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>CopyUtil.NoDuplicatesCopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.NoDuplicatesCopyStrategy.html#replaceLiteral(xdi2.core.Literal)">replaceLiteral</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -560,18 +631,34 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyLiteral(xdi2.core.Literal, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteral</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
             <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
-            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a literal into another graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>abstract &nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.CopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html#replaceLiteral(xdi2.core.Literal)">replaceLiteral</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strategies can replace a literal that is being copied.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>CopyUtil.AllCopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.AllCopyStrategy.html#replaceLiteral(xdi2.core.Literal)">replaceLiteral</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>CopyUtil.NoDuplicatesCopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.NoDuplicatesCopyStrategy.html#replaceLiteral(xdi2.core.Literal)">replaceLiteral</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;

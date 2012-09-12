@@ -126,8 +126,8 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#Message(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.EntitySingleton)">Message</A></B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-        <A HREF="../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A>&nbsp;entitySingleton)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#Message(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)">Message</A></B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
+        <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;entityMember)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -210,11 +210,11 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#fromMessageCollectionAndEntitySingleton(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.EntitySingleton)">fromMessageCollectionAndEntitySingleton</A></B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-                                        <A HREF="../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A>&nbsp;entitySingleton)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#fromMessageCollectionAndEntityMember(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)">fromMessageCollectionAndEntityMember</A></B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
+                                     <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;xdiEntityMember)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message bound to a given context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message bound to a given XDI entity member.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -242,11 +242,11 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getEntitySingleton()">getEntitySingleton</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getEntityMember()">getEntityMember</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying entity singleton to which this XDI message is bound.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying XDI entity member to which this XDI message is bound.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -371,10 +371,10 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#isValid(xdi2.core.features.multiplicity.EntitySingleton)">isValid</A></B>(<A HREF="../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A>&nbsp;entitySingleton)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#isValid(xdi2.core.features.multiplicity.XdiEntityMember)">isValid</A></B>(<A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;xdiEntityMember)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an entity singleton is a valid XDI message.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI entity member is a valid XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -423,11 +423,11 @@ An XDI message, represented as a context node.
 </TR>
 </TABLE>
 
-<A NAME="Message(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.EntitySingleton)"><!-- --></A><H3>
+<A NAME="Message(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)"><!-- --></A><H3>
 Message</H3>
 <PRE>
 protected <B>Message</B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-                  <A HREF="../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A>&nbsp;entitySingleton)</PRE>
+                  <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;entityMember)</PRE>
 <DL>
 </DL>
 
@@ -441,36 +441,36 @@ protected <B>Message</B>(<A HREF="../../xdi2/messaging/MessageCollection.html" t
 </TR>
 </TABLE>
 
-<A NAME="isValid(xdi2.core.features.multiplicity.EntitySingleton)"><!-- --></A><H3>
+<A NAME="isValid(xdi2.core.features.multiplicity.XdiEntityMember)"><!-- --></A><H3>
 isValid</H3>
 <PRE>
-public static boolean <B>isValid</B>(<A HREF="../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A>&nbsp;entitySingleton)</PRE>
+public static boolean <B>isValid</B>(<A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;xdiEntityMember)</PRE>
 <DL>
-<DD>Checks if an entity singleton is a valid XDI message.
+<DD>Checks if an XDI entity member is a valid XDI message.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>entitySingleton</CODE> - The entity singleton to check.
-<DT><B>Returns:</B><DD>True if the entity singleton is a valid XDI message.</DL>
+<DT><B>Parameters:</B><DD><CODE>xdiEntityMember</CODE> - The XDI entity member to check.
+<DT><B>Returns:</B><DD>True if the XDI entity member is a valid XDI message.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="fromMessageCollectionAndEntitySingleton(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.EntitySingleton)"><!-- --></A><H3>
-fromMessageCollectionAndEntitySingleton</H3>
+<A NAME="fromMessageCollectionAndEntityMember(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)"><!-- --></A><H3>
+fromMessageCollectionAndEntityMember</H3>
 <PRE>
-public static <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>fromMessageCollectionAndEntitySingleton</B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-                                                              <A HREF="../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A>&nbsp;entitySingleton)</PRE>
+public static <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>fromMessageCollectionAndEntityMember</B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
+                                                           <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;xdiEntityMember)</PRE>
 <DL>
-<DD>Factory method that creates an XDI message bound to a given context node.
+<DD>Factory method that creates an XDI message bound to a given XDI entity member.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>messageCollection</CODE> - The XDI message collection to which this XDI message belongs.<DD><CODE>entitySingleton</CODE> - The context node that is an XDI message.
+<DT><B>Parameters:</B><DD><CODE>messageCollection</CODE> - The XDI message collection to which this XDI message belongs.<DD><CODE>xdiEntityMember</CODE> - The XDI entity member that is an XDI message.
 <DT><B>Returns:</B><DD>The XDI message.</DL>
 </DD>
 </DL>
@@ -510,19 +510,19 @@ public <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.
 </DL>
 <HR>
 
-<A NAME="getEntitySingleton()"><!-- --></A><H3>
-getEntitySingleton</H3>
+<A NAME="getEntityMember()"><!-- --></A><H3>
+getEntityMember</H3>
 <PRE>
-public <A HREF="../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A> <B>getEntitySingleton</B>()</PRE>
+public <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A> <B>getEntityMember</B>()</PRE>
 <DL>
-<DD>Returns the underlying entity singleton to which this XDI message is bound.
+<DD>Returns the underlying XDI entity member to which this XDI message is bound.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>An entity singleton that represents the XDI message.</DL>
+<DT><B>Returns:</B><DD>An XDI entity member that represents the XDI message.</DL>
 </DD>
 </DL>
 <HR>

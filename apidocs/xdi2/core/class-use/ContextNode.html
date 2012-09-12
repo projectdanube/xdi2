@@ -698,15 +698,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>AttributeCollection.</B><B><A HREF="../../../xdi2/core/features/multiplicity/AttributeCollection.html#getContextNode()">getContextNode</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying context node to which this XDI attribute collection is bound.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>AbstractMultiplicityContextNode.</B><B><A HREF="../../../xdi2/core/features/multiplicity/AbstractMultiplicityContextNode.html#getContextNode()">getContextNode</A></B>()</CODE>
+<TD><CODE><B>XdiSubGraph.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiSubGraph.html#getContextNode()">getContextNode</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -746,35 +738,51 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A></CODE></FONT></TD>
-<TD><CODE><B>EntitySingleton.</B><B><A HREF="../../../xdi2/core/features/multiplicity/EntitySingleton.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A></CODE></FONT></TD>
+<TD><CODE><B>XdiSubGraph.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiSubGraph.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates a subgraph bound to a given context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/XdiEntitySingleton.html" title="class in xdi2.core.features.multiplicity">XdiEntitySingleton</A></CODE></FONT></TD>
+<TD><CODE><B>XdiEntitySingleton.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiEntitySingleton.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI entity singleton bound to a given context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/EntityCollection.html" title="class in xdi2.core.features.multiplicity">EntityCollection</A></CODE></FONT></TD>
-<TD><CODE><B>EntityCollection.</B><B><A HREF="../../../xdi2/core/features/multiplicity/EntityCollection.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A></CODE></FONT></TD>
+<TD><CODE><B>XdiEntityMember.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiEntityMember.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI entity collection bound to a given context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI entity member bound to a given context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/AttributeSingleton.html" title="class in xdi2.core.features.multiplicity">AttributeSingleton</A></CODE></FONT></TD>
-<TD><CODE><B>AttributeSingleton.</B><B><A HREF="../../../xdi2/core/features/multiplicity/AttributeSingleton.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A></CODE></FONT></TD>
+<TD><CODE><B>XdiCollection.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiCollection.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI collection bound to a given context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/XdiAttributeSingleton.html" title="class in xdi2.core.features.multiplicity">XdiAttributeSingleton</A></CODE></FONT></TD>
+<TD><CODE><B>XdiAttributeSingleton.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiAttributeSingleton.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI attribute singleton bound to a given context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/AttributeCollection.html" title="class in xdi2.core.features.multiplicity">AttributeCollection</A></CODE></FONT></TD>
-<TD><CODE><B>AttributeCollection.</B><B><A HREF="../../../xdi2/core/features/multiplicity/AttributeCollection.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/multiplicity/XdiAttributeMember.html" title="class in xdi2.core.features.multiplicity">XdiAttributeMember</A></CODE></FONT></TD>
+<TD><CODE><B>XdiAttributeMember.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiAttributeMember.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI attribute collection bound to a given context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI attribute member bound to a given context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -804,7 +812,15 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>EntitySingleton.</B><B><A HREF="../../../xdi2/core/features/multiplicity/EntitySingleton.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B>XdiSubGraph.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiSubGraph.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid subgraph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>XdiEntitySingleton.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiEntitySingleton.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI entity singleton.</TD>
@@ -812,15 +828,23 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>EntityCollection.</B><B><A HREF="../../../xdi2/core/features/multiplicity/EntityCollection.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B>XdiEntityMember.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiEntityMember.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI entity collection.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI entity member.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AttributeSingleton.</B><B><A HREF="../../../xdi2/core/features/multiplicity/AttributeSingleton.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B>XdiCollection.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiCollection.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI collection.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>XdiAttributeSingleton.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiAttributeSingleton.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI attribute singleton.</TD>
@@ -828,10 +852,10 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AttributeCollection.</B><B><A HREF="../../../xdi2/core/features/multiplicity/AttributeCollection.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B>XdiAttributeMember.</B><B><A HREF="../../../xdi2/core/features/multiplicity/XdiAttributeMember.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI attribute collection.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI attribute member.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -842,43 +866,37 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/core/features/multiplicity/package-summary.html">xdi2.core.features.multiplicity</A> with parameters of type <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/AbstractMultiplicityCollection.html#AbstractMultiplicityCollection(xdi2.core.ContextNode)">AbstractMultiplicityCollection</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/XdiAttributeMember.html#XdiAttributeMember(xdi2.core.ContextNode)">XdiAttributeMember</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/AbstractMultiplicityContextNode.html#AbstractMultiplicityContextNode(xdi2.core.ContextNode)">AbstractMultiplicityContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/XdiAttributeSingleton.html#XdiAttributeSingleton(xdi2.core.ContextNode)">XdiAttributeSingleton</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/AbstractMultiplicitySingleton.html#AbstractMultiplicitySingleton(xdi2.core.ContextNode)">AbstractMultiplicitySingleton</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/XdiCollection.html#XdiCollection(xdi2.core.ContextNode)">XdiCollection</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/AttributeCollection.html#AttributeCollection(xdi2.core.ContextNode)">AttributeCollection</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/XdiEntityMember.html#XdiEntityMember(xdi2.core.ContextNode)">XdiEntityMember</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/AttributeSingleton.html#AttributeSingleton(xdi2.core.ContextNode)">AttributeSingleton</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/XdiEntitySingleton.html#XdiEntitySingleton(xdi2.core.ContextNode)">XdiEntitySingleton</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/EntityCollection.html#EntityCollection(xdi2.core.ContextNode)">EntityCollection</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/EntitySingleton.html#EntitySingleton(xdi2.core.ContextNode)">EntitySingleton</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/XdiSubGraph.html#XdiSubGraph(xdi2.core.ContextNode)">XdiSubGraph</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1567,18 +1585,34 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyContextNode(xdi2.core.ContextNode, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                 <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
-                <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+                <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a context node into another graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>abstract &nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.CopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html#replaceContextNode(xdi2.core.ContextNode)">replaceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strategies can replace a context node that is being copied.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>CopyUtil.AllCopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.AllCopyStrategy.html#replaceContextNode(xdi2.core.ContextNode)">replaceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>CopyUtil.NoDuplicatesCopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.NoDuplicatesCopyStrategy.html#replaceContextNode(xdi2.core.ContextNode)">replaceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1593,7 +1627,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyContextNodes(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                  <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
-                 <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+                 <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies all context nodes of a context node into a target context node.</TD>
@@ -1619,7 +1653,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyContextNode(xdi2.core.ContextNode, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                 <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
-                <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+                <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a context node into another graph.</TD>
@@ -1629,7 +1663,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyContextNodeContents(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyContextNodeContents</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                         <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
-                        <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+                        <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies the contents of a context node (context nodes, relations, and the literal) into a target context node.</TD>
@@ -1639,7 +1673,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyContextNodes(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                  <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
-                 <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+                 <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies all context nodes of a context node into a target context node.</TD>
@@ -1649,7 +1683,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyLiteral(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteral</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
             <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
-            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a literal of a context node into a target context node.</TD>
@@ -1659,18 +1693,34 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyRelations(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyRelations</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
               <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
-              <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+              <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies all relations of a context node into a target context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>abstract &nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.CopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html#replaceContextNode(xdi2.core.ContextNode)">replaceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strategies can replace a context node that is being copied.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>CopyUtil.AllCopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.AllCopyStrategy.html#replaceContextNode(xdi2.core.ContextNode)">replaceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>CopyUtil.NoDuplicatesCopyStrategy.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.NoDuplicatesCopyStrategy.html#replaceContextNode(xdi2.core.ContextNode)">replaceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;

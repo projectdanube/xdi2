@@ -55,7 +55,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/messaging/target/AbstractAddressHandler.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AbstractAddressHandler.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -136,7 +136,7 @@ Class AbstractAddressHandler</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html#executeAddOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.AddOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeAddOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
                     <A HREF="../../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>&nbsp;operation,
                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
@@ -147,7 +147,7 @@ Class AbstractAddressHandler</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html#executeDelOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDelOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
                     <A HREF="../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>&nbsp;operation,
                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
@@ -158,7 +158,7 @@ Class AbstractAddressHandler</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html#executeGetOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
                     <A HREF="../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
@@ -169,7 +169,7 @@ Class AbstractAddressHandler</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html#executeModOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.ModOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeModOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
                     <A HREF="../../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&nbsp;operation,
                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
@@ -180,7 +180,7 @@ Class AbstractAddressHandler</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html#executeOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
                  <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                  <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
@@ -232,11 +232,11 @@ public <B>AbstractAddressHandler</B>()</PRE>
 <A NAME="executeOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeOnAddress</H3>
 <PRE>
-public boolean <B>executeOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
-                                <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-                                <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
-                         throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+public final void <B>executeOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+                                   <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                            throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/messaging/target/AddressHandler.html#executeOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">AddressHandler</A></CODE></B></DD>
 <DD>Executes an XDI operation on an address.
@@ -246,7 +246,6 @@ public boolean <B>executeOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>messageResult</CODE> - The message result to fill.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
-<DT><B>Returns:</B><DD>True, if the operation has been fully handled and the server should stop processing it.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>
@@ -256,11 +255,11 @@ public boolean <B>executeOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI
 <A NAME="executeGetOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeGetOnAddress</H3>
 <PRE>
-public boolean <B>executeGetOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
-                                   <A HREF="../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
-                                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
-                            throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+public void <B>executeGetOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+                                <A HREF="../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
+                                <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                         throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -276,11 +275,11 @@ public boolean <B>executeGetOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/
 <A NAME="executeAddOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.AddOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeAddOnAddress</H3>
 <PRE>
-public boolean <B>executeAddOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
-                                   <A HREF="../../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>&nbsp;operation,
-                                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
-                            throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+public void <B>executeAddOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+                                <A HREF="../../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>&nbsp;operation,
+                                <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                         throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -296,11 +295,11 @@ public boolean <B>executeAddOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/
 <A NAME="executeModOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.ModOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeModOnAddress</H3>
 <PRE>
-public boolean <B>executeModOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
-                                   <A HREF="../../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&nbsp;operation,
-                                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
-                            throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+public void <B>executeModOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+                                <A HREF="../../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&nbsp;operation,
+                                <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                         throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -316,11 +315,11 @@ public boolean <B>executeModOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/
 <A NAME="executeDelOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeDelOnAddress</H3>
 <PRE>
-public boolean <B>executeDelOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
-                                   <A HREF="../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>&nbsp;operation,
-                                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
-                            throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+public void <B>executeDelOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+                                <A HREF="../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>&nbsp;operation,
+                                <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                         throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -363,7 +362,7 @@ public boolean <B>executeDelOnAddress</B>(<A HREF="../../../xdi2/core/xri3/impl/
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/messaging/target/AbstractAddressHandler.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AbstractAddressHandler.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

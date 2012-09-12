@@ -116,11 +116,11 @@ Uses of <A HREF="../../../xdi2/messaging/MessageCollection.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A></CODE></FONT></TD>
-<TD><CODE><B>MessageCollection.</B><B><A HREF="../../../xdi2/messaging/MessageCollection.html#fromMessageEnvelopeAndEntityCollection(xdi2.messaging.MessageEnvelope, xdi2.core.features.multiplicity.EntityCollection)">fromMessageEnvelopeAndEntityCollection</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-                                       <A HREF="../../../xdi2/core/features/multiplicity/EntityCollection.html" title="class in xdi2.core.features.multiplicity">EntityCollection</A>&nbsp;entityCollection)</CODE>
+<TD><CODE><B>MessageCollection.</B><B><A HREF="../../../xdi2/messaging/MessageCollection.html#fromMessageEnvelopeAndXdiCollection(xdi2.messaging.MessageEnvelope, xdi2.core.features.multiplicity.XdiCollection)">fromMessageEnvelopeAndXdiCollection</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                    <A HREF="../../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message collection bound to a given entity collection.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message collection bound to a given XDI collection.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -182,11 +182,11 @@ Uses of <A HREF="../../../xdi2/messaging/MessageCollection.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
-<TD><CODE><B>Message.</B><B><A HREF="../../../xdi2/messaging/Message.html#fromMessageCollectionAndEntitySingleton(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.EntitySingleton)">fromMessageCollectionAndEntitySingleton</A></B>(<A HREF="../../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-                                        <A HREF="../../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A>&nbsp;entitySingleton)</CODE>
+<TD><CODE><B>Message.</B><B><A HREF="../../../xdi2/messaging/Message.html#fromMessageCollectionAndEntityMember(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)">fromMessageCollectionAndEntityMember</A></B>(<A HREF="../../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
+                                     <A HREF="../../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;xdiEntityMember)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message bound to a given context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message bound to a given XDI entity member.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -197,8 +197,8 @@ Uses of <A HREF="../../../xdi2/messaging/MessageCollection.html" title="class in
 <TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/messaging/package-summary.html">xdi2.messaging</A> with parameters of type <A HREF="../../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/messaging/Message.html#Message(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.EntitySingleton)">Message</A></B>(<A HREF="../../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-        <A HREF="../../../xdi2/core/features/multiplicity/EntitySingleton.html" title="class in xdi2.core.features.multiplicity">EntitySingleton</A>&nbsp;entitySingleton)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/Message.html#Message(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)">Message</A></B>(<A HREF="../../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
+        <A HREF="../../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;entityMember)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

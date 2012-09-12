@@ -145,6 +145,17 @@ A MessagingTargetFactory can instantiate MessagingTargets for given request path
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method gets called when the MessagingTargetFactory is no longer needed.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/server/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
+                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
+                      <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Updates a messaging target.</TD>
+</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -200,6 +211,25 @@ void <B>mountMessagingTarget</B>(<A HREF="../../../xdi2/server/registry/Endpoint
                           throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
 <DL>
 <DD>Mount a new MessagingTarget.
+<P>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)"><!-- --></A><H3>
+updateMessagingTarget</H3>
+<PRE>
+void <B>updateMessagingTarget</B>(<A HREF="../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
+                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
+                           <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)
+                           throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
+<DL>
+<DD>Updates a messaging target.
 <P>
 <DD><DL>
 

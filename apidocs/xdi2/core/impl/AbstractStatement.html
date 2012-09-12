@@ -205,40 +205,6 @@ Class AbstractStatement</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractStatement.html#fromComponents(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment)">fromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;subject,
-               <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;predicate,
-               <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;object)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI statement from its three components</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractStatement.html#fromString(java.lang.String)">fromString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI statement from a string in the form subject/predicate/object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractStatement.html#fromXriReference(xdi2.core.xri3.impl.XRI3Reference)">fromXriReference</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Reference.html" title="class in xdi2.core.xri3.impl">XRI3Reference</A>&nbsp;reference)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI statement from an XRI reference in the form subject/predicate/object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractStatement.html#fromXriSegment(xdi2.core.xri3.impl.XRI3Segment)">fromXriSegment</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;segment)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI statement from an XRI segment in the form (subject/predicate/object)</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractStatement.html#getGraph()">getGraph</A></B>()</CODE>
 
@@ -317,85 +283,6 @@ public <B>AbstractStatement</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
-
-<A NAME="fromComponents(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
-fromComponents</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>fromComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;subject,
-                                       <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;predicate,
-                                       <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;object)</PRE>
-<DL>
-<DD>Creates an XDI statement from its three components
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>subject</CODE> - The statement's subject<DD><CODE>predicate</CODE> - The statement's predicate<DD><CODE>object</CODE> - The statement's object
-<DT><B>Returns:</B><DD>An XDI statement</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="fromXriReference(xdi2.core.xri3.impl.XRI3Reference)"><!-- --></A><H3>
-fromXriReference</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>fromXriReference</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Reference.html" title="class in xdi2.core.xri3.impl">XRI3Reference</A>&nbsp;reference)
-                                  throws <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
-<DL>
-<DD>Creates an XDI statement from an XRI reference in the form subject/predicate/object
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>reference</CODE> - The XRI reference
-<DT><B>Returns:</B><DD>An XDI statement
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="fromXriSegment(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
-fromXriSegment</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>fromXriSegment</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;segment)
-                                throws <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
-<DL>
-<DD>Creates an XDI statement from an XRI segment in the form (subject/predicate/object)
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>segment</CODE> - The XRI segment
-<DT><B>Returns:</B><DD>An XDI statement
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="fromString(java.lang.String)"><!-- --></A><H3>
-fromString</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>fromString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)
-                            throws <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
-<DL>
-<DD>Creates an XDI statement from a string in the form subject/predicate/object
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>string</CODE> - The string
-<DT><B>Returns:</B><DD>An XDI statement
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
 
 <A NAME="getXRI3()"><!-- --></A><H3>
 getXRI3</H3>

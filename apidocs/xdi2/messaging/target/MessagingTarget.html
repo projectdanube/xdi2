@@ -132,10 +132,10 @@ A MessagingTarget can process XDI messages and produce a result graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#getOwner()">getOwner</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#getOwnerAuthority()">getOwnerAuthority</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the owner of the messaging target.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the owner authority of the messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -199,12 +199,12 @@ void <B>shutdown</B>()
 </DL>
 <HR>
 
-<A NAME="getOwner()"><!-- --></A><H3>
-getOwner</H3>
+<A NAME="getOwnerAuthority()"><!-- --></A><H3>
+getOwnerAuthority</H3>
 <PRE>
-<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getOwner</B>()</PRE>
+<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getOwnerAuthority</B>()</PRE>
 <DL>
-<DD>Returns the owner of the messaging target.
+<DD>Returns the owner authority of the messaging target.
  This may be null.
 <P>
 <DD><DL>
@@ -224,9 +224,8 @@ void <B>execute</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title
 <DD>Executes all messages in an XDI messaging envelope against this messaging target.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>messageEnvelope</CODE> - The XDI message envelope containing XDI messages to be executed.<DD><CODE>messageResult</CODE> - The result produced by executing the message envelope.<DD><CODE>executionContext</CODE> - An "execution context" object that is created when
- execution of the message envelope begins and that will be passed into every 
- single execute() method.
+<DT><B>Parameters:</B><DD><CODE>messageEnvelope</CODE> - The XDI message envelope containing XDI messages to be executed.<DD><CODE>messageResult</CODE> - The result produced by executing the message envelope.<DD><CODE>executionContext</CODE> - An "execution context" object that carries state between
+ messaging targets, interceptors and contributors.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>

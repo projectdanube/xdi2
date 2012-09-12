@@ -89,41 +89,12 @@ function windowTitle()
 Packages that use <A HREF="../../../../../xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">ResultInterceptor</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.messaging.target"><B>xdi2.messaging.target</B></A></TD>
-<TD>Base classes for implementing XDI messaging targets.&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.interceptor"><B>xdi2.messaging.target.interceptor</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.interceptor.impl"><B>xdi2.messaging.target.interceptor.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-<A NAME="xdi2.messaging.target"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">ResultInterceptor</A> in <A HREF="../../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> that return types with arguments of type <A HREF="../../../../../xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">ResultInterceptor</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">ResultInterceptor</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>AbstractMessagingTarget.</B><B><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#getResultInterceptors()">getResultInterceptors</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -153,6 +124,22 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/ResultIntercep
 </TABLE>
 &nbsp;
 <P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/interceptor/package-summary.html">xdi2.messaging.target.interceptor</A> that return types with arguments of type <A HREF="../../../../../xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">ResultInterceptor</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">ResultInterceptor</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html#findResultInterceptors()">findResultInterceptors</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.messaging.target.interceptor.impl"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -173,7 +160,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/ResultIntercep
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor can replace XDI variables in a $add operation with automatically generated persistent XRI subsegments.</TD>
 </TR>
 </TABLE>
 &nbsp;

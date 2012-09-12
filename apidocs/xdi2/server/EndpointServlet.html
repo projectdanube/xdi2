@@ -55,7 +55,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/server/RequestInfo.html" title="class in xdi2.server"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/server/InterceptorList.html" title="class in xdi2.server"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/server/EndpointServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="EndpointServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -146,8 +146,7 @@ The XDI endpoint servlet.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;<A HREF="../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#createExecutionContext(xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">createExecutionContext</A></B>(<A HREF="../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
-                       javax.servlet.http.HttpServletRequest&nbsp;request,
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#createExecutionContext(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">createExecutionContext</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
                        javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
 
 <BR>
@@ -218,15 +217,7 @@ The XDI endpoint servlet.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/server/interceptor/EndpointServletInterceptor.html" title="interface in xdi2.server.interceptor">EndpointServletInterceptor</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#getEndpointServletInterceptors()">getEndpointServletInterceptors</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/server/InterceptorList.html" title="class in xdi2.server">InterceptorList</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#getInterceptors()">getInterceptors</A></B>()</CODE>
 
 <BR>
@@ -353,6 +344,14 @@ The XDI endpoint servlet.
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#setEndpointRegistry(xdi2.server.registry.EndpointRegistry)">setEndpointRegistry</A></B>(<A HREF="../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/server/EndpointServlet.html#setInterceptors(xdi2.server.InterceptorList)">setInterceptors</A></B>(<A HREF="../../xdi2/server/InterceptorList.html" title="class in xdi2.server">InterceptorList</A>&nbsp;interceptors)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -703,11 +702,10 @@ protected <A HREF="../../xdi2/messaging/MessageResult.html" title="class in xdi2
 </DL>
 <HR>
 
-<A NAME="createExecutionContext(xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+<A NAME="createExecutionContext(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
 createExecutionContext</H3>
 <PRE>
-protected <A HREF="../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A> <B>createExecutionContext</B>(<A HREF="../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
-                                                  javax.servlet.http.HttpServletRequest&nbsp;request,
+protected <A HREF="../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A> <B>createExecutionContext</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
                                                   javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
 <DL>
 <DD><DL>
@@ -750,7 +748,21 @@ public void <B>setEndpointRegistry</B>(<A HREF="../../xdi2/server/registry/Endpo
 <A NAME="getInterceptors()"><!-- --></A><H3>
 getInterceptors</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt; <B>getInterceptors</B>()</PRE>
+public <A HREF="../../xdi2/server/InterceptorList.html" title="class in xdi2.server">InterceptorList</A> <B>getInterceptors</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setInterceptors(xdi2.server.InterceptorList)"><!-- --></A><H3>
+setInterceptors</H3>
+<PRE>
+public void <B>setInterceptors</B>(<A HREF="../../xdi2/server/InterceptorList.html" title="class in xdi2.server">InterceptorList</A>&nbsp;interceptors)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -765,20 +777,6 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html
 setInterceptors</H3>
 <PRE>
 public void <B>setInterceptors</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;&nbsp;interceptors)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getEndpointServletInterceptors()"><!-- --></A><H3>
-getEndpointServletInterceptors</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/server/interceptor/EndpointServletInterceptor.html" title="interface in xdi2.server.interceptor">EndpointServletInterceptor</A>&gt; <B>getEndpointServletInterceptors</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -973,7 +971,7 @@ public boolean <B>isInitialized</B>()</PRE>
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/server/EndpointServer.html" title="class in xdi2.server"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/server/RequestInfo.html" title="class in xdi2.server"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/server/InterceptorList.html" title="class in xdi2.server"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/server/EndpointServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="EndpointServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

@@ -874,7 +874,7 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyContextNode(xdi2.core.ContextNode, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                 <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
-                <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+                <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a context node into another graph.</TD>
@@ -884,7 +884,7 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyGraph(xdi2.core.Graph, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyGraph</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
           <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
-          <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+          <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a whole graph into another graph.</TD>
@@ -894,7 +894,7 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyLiteral(xdi2.core.Literal, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteral</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
             <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
-            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+            <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a literal into another graph.</TD>
@@ -904,10 +904,24 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
 <TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyRelation(xdi2.core.Relation, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyRelation</A></B>(<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&nbsp;relation,
              <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
-             <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+             <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="interface in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a relation into another graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/core/util/package-summary.html">xdi2.core.util</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/core/util/CopyUtil.NoDuplicatesCopyStrategy.html#CopyUtil.NoDuplicatesCopyStrategy(xdi2.core.Graph)">CopyUtil.NoDuplicatesCopyStrategy</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1102,6 +1116,14 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
 <TD><CODE><B>GraphMessagingTarget.</B><B><A HREF="../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html#getGraph()">getGraph</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
+<TD><CODE><B>GraphContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#getGraph()">getGraph</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

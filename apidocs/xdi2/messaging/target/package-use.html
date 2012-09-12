@@ -93,6 +93,10 @@ Packages that use <A HREF="../../../xdi2/messaging/target/package-summary.html">
 <TD>An XDI client that can "send" XDI messages to local Graph objects.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.exceptions"><B>xdi2.messaging.exceptions</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target"><B>xdi2.messaging.target</B></A></TD>
 <TD>Base classes for implementing XDI messaging targets.&nbsp;</TD>
 </TR>
@@ -129,6 +133,14 @@ Packages that use <A HREF="../../../xdi2/messaging/target/package-summary.html">
 <TD>A servlet exposing an XDI messaging endpoint.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.server.factory"><B>xdi2.server.factory</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.server.factory.impl"><B>xdi2.server.factory.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.server.interceptor"><B>xdi2.server.interceptor</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -162,6 +174,22 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 </TABLE>
 &nbsp;
 <P>
+<A NAME="xdi2.messaging.exceptions"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> used by <A HREF="../../../xdi2/messaging/exceptions/package-summary.html">xdi2.messaging.exceptions</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../xdi2/messaging/target/class-use/ExecutionContext.html#xdi2.messaging.exceptions"><B>ExecutionContext</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messaging tarets as well as contributors and interceptors can use the ExecutionContext
+ to store and share state.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.messaging.target"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -178,7 +206,7 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/ExecutionContext.html#xdi2.messaging.target"><B>ExecutionContext</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessagingTargets as well as Contributors and Interceptors can use the ExecutionContext
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messaging tarets as well as contributors and interceptors can use the ExecutionContext
  to store and share state.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -203,23 +231,11 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> used by <A HREF="../../../xdi2/messaging/target/contributor/package-summary.html">xdi2.messaging.target.contributor</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../../xdi2/messaging/target/class-use/AddressHandler.html#xdi2.messaging.target.contributor"><B>AddressHandler</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An AddressHandler can execute an XDI operation against an address.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/ExecutionContext.html#xdi2.messaging.target.contributor"><B>ExecutionContext</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessagingTargets as well as Contributors and Interceptors can use the ExecutionContext
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messaging tarets as well as contributors and interceptors can use the ExecutionContext
  to store and share state.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../../xdi2/messaging/target/class-use/StatementHandler.html#xdi2.messaging.target.contributor"><B>StatementHandler</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A StatementHandler can execute an XDI operation against a statement given in a cross-reference.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -234,9 +250,9 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/AbstractMessagingTarget.html#xdi2.messaging.target.impl.echo"><B>AbstractMessagingTarget</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget relieves subclasses from the following:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget provides the following functionality:
  - Implementation of execute() with a message envelope (all messages
-   in the envelope and all operations in the messages will be executed).</TD>
+   in the envelope and all operations in the messages will be executed)</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/AddressHandler.html#xdi2.messaging.target.impl.echo"><B>AddressHandler</B></A></B>
@@ -248,7 +264,7 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/ExecutionContext.html#xdi2.messaging.target.impl.echo"><B>ExecutionContext</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessagingTargets as well as Contributors and Interceptors can use the ExecutionContext
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messaging tarets as well as contributors and interceptors can use the ExecutionContext
  to store and share state.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -276,15 +292,15 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/AbstractMessagingTarget.html#xdi2.messaging.target.impl.file"><B>AbstractMessagingTarget</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget relieves subclasses from the following:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget provides the following functionality:
  - Implementation of execute() with a message envelope (all messages
-   in the envelope and all operations in the messages will be executed).</TD>
+   in the envelope and all operations in the messages will be executed)</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/ExecutionContext.html#xdi2.messaging.target.impl.file"><B>ExecutionContext</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessagingTargets as well as Contributors and Interceptors can use the ExecutionContext
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messaging tarets as well as contributors and interceptors can use the ExecutionContext
  to store and share state.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -309,12 +325,18 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../xdi2/messaging/target/class-use/AbstractContextHandler.html#xdi2.messaging.target.impl.graph"><B>AbstractContextHandler</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/AbstractMessagingTarget.html#xdi2.messaging.target.impl.graph"><B>AbstractMessagingTarget</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget relieves subclasses from the following:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget provides the following functionality:
  - Implementation of execute() with a message envelope (all messages
-   in the envelope and all operations in the messages will be executed).</TD>
+   in the envelope and all operations in the messages will be executed)</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/AbstractStatementHandler.html#xdi2.messaging.target.impl.graph"><B>AbstractStatementHandler</B></A></B>
@@ -333,7 +355,7 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/ExecutionContext.html#xdi2.messaging.target.impl.graph"><B>ExecutionContext</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessagingTargets as well as Contributors and Interceptors can use the ExecutionContext
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messaging tarets as well as contributors and interceptors can use the ExecutionContext
  to store and share state.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -361,9 +383,9 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/AbstractMessagingTarget.html#xdi2.messaging.target.impl.n"><B>AbstractMessagingTarget</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget relieves subclasses from the following:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget provides the following functionality:
  - Implementation of execute() with a message envelope (all messages
-   in the envelope and all operations in the messages will be executed).</TD>
+   in the envelope and all operations in the messages will be executed)</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/MessagingTarget.html#xdi2.messaging.target.impl.n"><B>MessagingTarget</B></A></B>
@@ -384,7 +406,7 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/ExecutionContext.html#xdi2.messaging.target.interceptor"><B>ExecutionContext</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessagingTargets as well as Contributors and Interceptors can use the ExecutionContext
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messaging tarets as well as contributors and interceptors can use the ExecutionContext
  to store and share state.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -406,7 +428,7 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/ExecutionContext.html#xdi2.messaging.target.interceptor.impl"><B>ExecutionContext</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessagingTargets as well as Contributors and Interceptors can use the ExecutionContext
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messaging tarets as well as contributors and interceptors can use the ExecutionContext
  to store and share state.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -428,11 +450,41 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/ExecutionContext.html#xdi2.server"><B>ExecutionContext</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessagingTargets as well as Contributors and Interceptors can use the ExecutionContext
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messaging tarets as well as contributors and interceptors can use the ExecutionContext
  to store and share state.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/MessagingTarget.html#xdi2.server"><B>MessagingTarget</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A MessagingTarget can process XDI messages and produce a result graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.server.factory"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> used by <A HREF="../../../xdi2/server/factory/package-summary.html">xdi2.server.factory</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../xdi2/messaging/target/class-use/MessagingTarget.html#xdi2.server.factory"><B>MessagingTarget</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A MessagingTarget can process XDI messages and produce a result graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.server.factory.impl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> used by <A HREF="../../../xdi2/server/factory/impl/package-summary.html">xdi2.server.factory.impl</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../xdi2/messaging/target/class-use/MessagingTarget.html#xdi2.server.factory.impl"><B>MessagingTarget</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A MessagingTarget can process XDI messages and produce a result graph.</TD>
@@ -495,9 +547,9 @@ Classes in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.me
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/AbstractMessagingTarget.html#xdi2.xri2xdi"><B>AbstractMessagingTarget</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget relieves subclasses from the following:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The AbstractMessagingTarget provides the following functionality:
  - Implementation of execute() with a message envelope (all messages
-   in the envelope and all operations in the messages will be executed).</TD>
+   in the envelope and all operations in the messages will be executed)</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../xdi2/messaging/target/class-use/AddressHandler.html#xdi2.xri2xdi"><B>AddressHandler</B></A></B>

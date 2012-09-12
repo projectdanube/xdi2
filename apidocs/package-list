@@ -5,6 +5,7 @@ xdi2.client.local
 xdi2.core
 xdi2.core.constants
 xdi2.core.exceptions
+xdi2.core.features.datatypes
 xdi2.core.features.dictionary
 xdi2.core.features.linkcontracts
 xdi2.core.features.linkcontracts.util

@@ -323,6 +323,16 @@ This interface represents a context node in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#findRelation(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment)">findRelation</A></B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
+             <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;arcXri,
+             <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a relation at any depth under this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#findRelations(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment)">findRelations</A></B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
               <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;arcXri)</CODE>
@@ -1110,7 +1120,7 @@ boolean <B>containsRelation</B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.h
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI to look for.<DD><CODE>targetContextNodeXri</CODE> - The target context node XRI of the relation.
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the relation.<DD><CODE>targetContextNodeXri</CODE> - The target context node XRI of the relation.
 <DT><B>Returns:</B><DD>True if this context nod has a relation with the given arc XRI.</DL>
 </DD>
 </DL>
@@ -1127,7 +1137,7 @@ boolean <B>containsRelations</B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI to look for.
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the relation.
 <DT><B>Returns:</B><DD>True if this context nod has a relation with the given arc XRI.</DL>
 </DD>
 </DL>
@@ -1146,6 +1156,25 @@ boolean <B>containsRelations</B>()</PRE>
 <DD><DL>
 
 <DT><B>Returns:</B><DD>True if this context node has relations.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="findRelation(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
+findRelation</H3>
+<PRE>
+<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>findRelation</B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
+                      <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;arcXri,
+                      <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
+<DL>
+<DD>Finds a relation at any depth under this context node.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>xri</CODE> - The relation XRI of the context node containing the relation.<DD><CODE>arcXri</CODE> - The arc XRI of the relation.<DD><CODE>targetContextNodeXri</CODE> - The target context node XRI of the relation.
+<DT><B>Returns:</B><DD>A relation or null.</DL>
 </DD>
 </DL>
 <HR>

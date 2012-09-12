@@ -54,7 +54,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html" title="class in xdi2.messaging.target"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../xdi2/messaging/target/AbstractStatementHandler.html" title="class in xdi2.messaging.target"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/messaging/target/AbstractMessagingTarget.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -106,13 +106,12 @@ Class AbstractMessagingTarget</H2>
 </PRE>
 
 <P>
-The AbstractMessagingTarget relieves subclasses from the following:
+The AbstractMessagingTarget provides the following functionality:
  - Implementation of execute() with a message envelope (all messages
    in the envelope and all operations in the messages will be executed).
  - Implementation of execute() with a message (all operations
    in the messages will be executed).
- - Using a list of MessageEnvelopeInterceptors, MessageInterceptors and 
-   OperationInterceptors
+ - Support for interceptors and contributors.
  - Maintaining an "execution context" object where state can be kept between
    individual operations.
  
@@ -156,24 +155,8 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#addContributor(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.target.contributor.Contributor)">addContributor</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
-               <A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&nbsp;contributor)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#addInterceptor(xdi2.messaging.target.interceptor.Interceptor)">addInterceptor</A></B>(<A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&nbsp;interceptor)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+      <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
       <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
@@ -182,7 +165,8 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.Message, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+      <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
       <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
@@ -191,7 +175,8 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.Operation, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+      <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
       <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
@@ -200,7 +185,8 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+       <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
        <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
@@ -209,7 +195,8 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.Message, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+       <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
        <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
@@ -218,7 +205,8 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.Operation, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+       <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
        <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
@@ -227,7 +215,8 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.ExecutionContext, java.lang.Exception)">exception</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, java.lang.Exception)">exception</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+          <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
           <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext,
           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)</CODE>
 
@@ -258,7 +247,7 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A></B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-        <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+        <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
         <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
@@ -274,7 +263,7 @@ The AbstractMessagingTarget relieves subclasses from the following:
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getContributors()">getContributors</A></B>()</CODE>
 
 <BR>
@@ -282,7 +271,7 @@ The AbstractMessagingTarget relieves subclasses from the following:
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getInterceptors()">getInterceptors</A></B>()</CODE>
 
 <BR>
@@ -290,64 +279,16 @@ The AbstractMessagingTarget relieves subclasses from the following:
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/MessageEnvelopeInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageEnvelopeInterceptor</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getMessageEnvelopeInterceptors()">getMessageEnvelopeInterceptors</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getMessageInterceptors()">getMessageInterceptors</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessagingTargetInterceptor</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getMessagingTargetInterceptors()">getMessagingTargetInterceptors</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/OperationInterceptor.html" title="interface in xdi2.messaging.target.interceptor">OperationInterceptor</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getOperationInterceptors()">getOperationInterceptors</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getOwner()">getOwner</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getOwnerAuthority()">getOwnerAuthority</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the owner of the messaging target.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">ResultInterceptor</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getResultInterceptors()">getResultInterceptors</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the owner authority of the messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/StatementHandler.html" title="interface in xdi2.messaging.target">StatementHandler</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getStatementHandler(xdi2.core.Statement)">getStatementHandler</A></B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getTargetInterceptors()">getTargetInterceptors</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -363,16 +304,7 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#removeContributor(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.target.contributor.Contributor)">removeContributor</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
-                  <A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&nbsp;contributor)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#removeInterceptor(xdi2.messaging.target.interceptor.Interceptor)">removeInterceptor</A></B>(<A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&nbsp;interceptor)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#setContributors(xdi2.messaging.target.contributor.ContributorMap)">setContributors</A></B>(<A HREF="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A>&nbsp;contributors)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -388,6 +320,14 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#setInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">setInterceptors</A></B>(<A HREF="../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&nbsp;interceptors)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#setInterceptors(java.util.List)">setInterceptors</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;&nbsp;interceptors)</CODE>
 
 <BR>
@@ -396,7 +336,7 @@ The AbstractMessagingTarget relieves subclasses from the following:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#setOwner(xdi2.core.xri3.impl.XRI3Segment)">setOwner</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;owner)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#setOwnerAuthority(xdi2.core.xri3.impl.XRI3Segment)">setOwnerAuthority</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;ownerAuthority)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -503,8 +443,8 @@ public void <B>execute</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A></CODE> in interface <CODE><A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>messageEnvelope</CODE> - The XDI message envelope containing XDI messages to be executed.<DD><CODE>messageResult</CODE> - The result produced by executing the message envelope.<DD><CODE>executionContext</CODE> - An "execution context" object that is created when
- execution of the message envelope begins and that will be passed into every execute() method.
+<DT><B>Parameters:</B><DD><CODE>messageEnvelope</CODE> - The XDI message envelope containing XDI messages to be executed.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - An "execution context" object that carries state between
+ messaging targets, interceptors and contributors.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>
@@ -525,8 +465,8 @@ public void <B>execute</B>(<A HREF="../../../xdi2/messaging/Message.html" title=
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>message</CODE> - The XDI message containing XDI operations to be executed.<DD><CODE>messageResult</CODE> - The result produced by executing the message envelope.<DD><CODE>executionContext</CODE> - An "execution context" object that is created when
- execution of the message envelope begins and that will be passed into every execute() method.
+<DT><B>Parameters:</B><DD><CODE>message</CODE> - The XDI message containing XDI operations to be executed.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - An "execution context" object that carries state between
+ messaging targets, interceptors and contributors.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>
@@ -537,7 +477,7 @@ public void <B>execute</B>(<A HREF="../../../xdi2/messaging/Message.html" title=
 execute</H3>
 <PRE>
 public void <B>execute</B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-                    <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                    <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
                     <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
              throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
@@ -547,18 +487,19 @@ public void <B>execute</B>(<A HREF="../../../xdi2/messaging/Operation.html" titl
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>operation</CODE> - The XDI operation.<DD><CODE>messageResult</CODE> - The result produced by executing the message envelope.<DD><CODE>executionContext</CODE> - An "execution context" object that is created when
- execution of the message envelope begins and that will be passed into every execute() method.
+<DT><B>Parameters:</B><DD><CODE>operation</CODE> - The XDI operation.<DD><CODE>operationMessageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object that carries state between
+ messaging targets, interceptors and contributors.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="before(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="before(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 before</H3>
 <PRE>
 public void <B>before</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                    <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
             throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
@@ -573,10 +514,11 @@ public void <B>before</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html"
 </DL>
 <HR>
 
-<A NAME="before(xdi2.messaging.Message, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 before</H3>
 <PRE>
 public void <B>before</B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                    <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
             throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
@@ -591,10 +533,11 @@ public void <B>before</B>(<A HREF="../../../xdi2/messaging/Message.html" title="
 </DL>
 <HR>
 
-<A NAME="before(xdi2.messaging.Operation, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="before(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 before</H3>
 <PRE>
 public void <B>before</B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
                    <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
             throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
@@ -609,10 +552,11 @@ public void <B>before</B>(<A HREF="../../../xdi2/messaging/Operation.html" title
 </DL>
 <HR>
 
-<A NAME="after(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="after(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 after</H3>
 <PRE>
 public void <B>after</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                  <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
            throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
@@ -627,10 +571,11 @@ public void <B>after</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" 
 </DL>
 <HR>
 
-<A NAME="after(xdi2.messaging.Message, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 after</H3>
 <PRE>
 public void <B>after</B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+                  <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
            throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
@@ -645,10 +590,11 @@ public void <B>after</B>(<A HREF="../../../xdi2/messaging/Message.html" title="c
 </DL>
 <HR>
 
-<A NAME="after(xdi2.messaging.Operation, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="after(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 after</H3>
 <PRE>
 public void <B>after</B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                  <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
            throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
@@ -663,10 +609,11 @@ public void <B>after</B>(<A HREF="../../../xdi2/messaging/Operation.html" title=
 </DL>
 <HR>
 
-<A NAME="exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.ExecutionContext, java.lang.Exception)"><!-- --></A><H3>
+<A NAME="exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, java.lang.Exception)"><!-- --></A><H3>
 exception</H3>
 <PRE>
 public void <B>exception</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                      <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                       <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)
                throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
@@ -716,17 +663,17 @@ public <A HREF="../../../xdi2/messaging/target/StatementHandler.html" title="int
 </DL>
 <HR>
 
-<A NAME="getOwner()"><!-- --></A><H3>
-getOwner</H3>
+<A NAME="getOwnerAuthority()"><!-- --></A><H3>
+getOwnerAuthority</H3>
 <PRE>
-public <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getOwner</B>()</PRE>
+public <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getOwnerAuthority</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#getOwner()">MessagingTarget</A></CODE></B></DD>
-<DD>Returns the owner of the messaging target.
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#getOwnerAuthority()">MessagingTarget</A></CODE></B></DD>
+<DD>Returns the owner authority of the messaging target.
  This may be null.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#getOwner()">getOwner</A></CODE> in interface <CODE><A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#getOwnerAuthority()">getOwnerAuthority</A></CODE> in interface <CODE><A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -734,68 +681,10 @@ public <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in x
 </DL>
 <HR>
 
-<A NAME="setOwner(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
-setOwner</H3>
+<A NAME="setOwnerAuthority(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
+setOwnerAuthority</H3>
 <PRE>
-public void <B>setOwner</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;owner)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getContributors()"><!-- --></A><H3>
-getContributors</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt; <B>getContributors</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setContributors(java.util.Map)"><!-- --></A><H3>
-setContributors</H3>
-<PRE>
-public void <B>setContributors</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;contributors)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="addContributor(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.target.contributor.Contributor)"><!-- --></A><H3>
-addContributor</H3>
-<PRE>
-public void <B>addContributor</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
-                           <A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&nbsp;contributor)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="removeContributor(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.target.contributor.Contributor)"><!-- --></A><H3>
-removeContributor</H3>
-<PRE>
-public void <B>removeContributor</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
-                              <A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&nbsp;contributor)</PRE>
+public void <B>setOwnerAuthority</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;ownerAuthority)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -809,7 +698,21 @@ public void <B>removeContributor</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3S
 <A NAME="getInterceptors()"><!-- --></A><H3>
 getInterceptors</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt; <B>getInterceptors</B>()</PRE>
+public <A HREF="../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A> <B>getInterceptors</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setInterceptors(xdi2.messaging.target.interceptor.InterceptorList)"><!-- --></A><H3>
+setInterceptors</H3>
+<PRE>
+public void <B>setInterceptors</B>(<A HREF="../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&nbsp;interceptors)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -834,10 +737,10 @@ public void <B>setInterceptors</B>(<A HREF="http://download.oracle.com/javase/6/
 </DL>
 <HR>
 
-<A NAME="addInterceptor(xdi2.messaging.target.interceptor.Interceptor)"><!-- --></A><H3>
-addInterceptor</H3>
+<A NAME="getContributors()"><!-- --></A><H3>
+getContributors</H3>
 <PRE>
-public void <B>addInterceptor</B>(<A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&nbsp;interceptor)</PRE>
+public <A HREF="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A> <B>getContributors</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -848,10 +751,10 @@ public void <B>addInterceptor</B>(<A HREF="../../../xdi2/messaging/target/interc
 </DL>
 <HR>
 
-<A NAME="removeInterceptor(xdi2.messaging.target.interceptor.Interceptor)"><!-- --></A><H3>
-removeInterceptor</H3>
+<A NAME="setContributors(xdi2.messaging.target.contributor.ContributorMap)"><!-- --></A><H3>
+setContributors</H3>
 <PRE>
-public void <B>removeInterceptor</B>(<A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&nbsp;interceptor)</PRE>
+public void <B>setContributors</B>(<A HREF="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A>&nbsp;contributors)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -862,80 +765,10 @@ public void <B>removeInterceptor</B>(<A HREF="../../../xdi2/messaging/target/int
 </DL>
 <HR>
 
-<A NAME="getMessagingTargetInterceptors()"><!-- --></A><H3>
-getMessagingTargetInterceptors</H3>
+<A NAME="setContributors(java.util.Map)"><!-- --></A><H3>
+setContributors</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessagingTargetInterceptor</A>&gt; <B>getMessagingTargetInterceptors</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getMessageEnvelopeInterceptors()"><!-- --></A><H3>
-getMessageEnvelopeInterceptors</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/MessageEnvelopeInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageEnvelopeInterceptor</A>&gt; <B>getMessageEnvelopeInterceptors</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getMessageInterceptors()"><!-- --></A><H3>
-getMessageInterceptors</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A>&gt; <B>getMessageInterceptors</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getOperationInterceptors()"><!-- --></A><H3>
-getOperationInterceptors</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/OperationInterceptor.html" title="interface in xdi2.messaging.target.interceptor">OperationInterceptor</A>&gt; <B>getOperationInterceptors</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTargetInterceptors()"><!-- --></A><H3>
-getTargetInterceptors</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A>&gt; <B>getTargetInterceptors</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getResultInterceptors()"><!-- --></A><H3>
-getResultInterceptors</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">ResultInterceptor</A>&gt; <B>getResultInterceptors</B>()</PRE>
+public void <B>setContributors</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;contributors)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -975,7 +808,7 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html" title="class in xdi2.messaging.target"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../xdi2/messaging/target/AbstractStatementHandler.html" title="class in xdi2.messaging.target"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/messaging/target/AbstractMessagingTarget.html" target="_top"><B>FRAMES</B></A>  &nbsp;
