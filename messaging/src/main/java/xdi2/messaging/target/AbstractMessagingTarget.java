@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.CopyUtil.NoDuplicatesCopyStrategy;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.InsertableIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -278,7 +279,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				// finish message result
 
-				CopyUtil.copyGraph(operationMessageResult.getGraph(), messageResult.getGraph(), null);
+				CopyUtil.copyGraph(operationMessageResult.getGraph(), messageResult.getGraph(), new NoDuplicatesCopyStrategy(messageResult.getGraph()));
 			} catch (Exception ex) {
 
 				// check exception

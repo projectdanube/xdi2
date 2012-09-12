@@ -53,6 +53,15 @@ public interface Graph extends Serializable, Comparable<Graph> {
 
 	/**
 	 * Finds a relation at any depth in this graph.
+	 * @param xri The relation XRI of the context node containing the relation.
+	 * @param arcXri The arc XRI of the relation.
+	 * @param targetContextNodeXri The target context node XRI of the relation.
+	 * @return A relation or null.
+	 */
+	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
+
+	/**
+	 * Finds a relation at any depth in this graph.
 	 * @param xri The XRI of the context node containing the relation.
 	 * @param arcXri The arc XRI of the relation.
 	 * @return A relation or null.
@@ -80,6 +89,15 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @return True, if the context node exists.
 	 */
 	public boolean containsContextNode(XRI3Segment xri);
+
+	/**
+	 * Checks if relations exists in this graph.
+	 * @param xri The XRI of the context node containing the relation.
+	 * @param arcXri The arc XRI of the relation.
+	 * @param targetContextNodeXri The target context node XRI of the relation.
+	 * @return True, if the relation exists.
+	 */
+	public boolean containsRelation(XRI3Segment xri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
 
 	/**
 	 * Checks if relations exists in this graph.

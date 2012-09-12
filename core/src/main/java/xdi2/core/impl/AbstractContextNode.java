@@ -324,6 +324,15 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
+
+		ContextNode contextNode = this.findContextNode(xri, false);
+		if (contextNode == null) return null;
+
+		return contextNode.getRelation(arcXri, targetContextNodeXri);
+	}
+
+	@Override
 	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri) {
 
 		ContextNode contextNode = this.findContextNode(xri, false);
