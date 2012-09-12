@@ -2,6 +2,9 @@ package xdi2.core.util;
 
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
@@ -14,6 +17,8 @@ import xdi2.core.xri3.impl.XRI3Segment;
  * @author markus
  */
 public final class CopyUtil {
+
+	private static final Logger log = LoggerFactory.getLogger(CopyUtil.class);
 
 	private static final CopyStrategy allCopyStrategy = new AllCopyStrategy();
 
@@ -247,7 +252,11 @@ public final class CopyUtil {
 
 			if (contextNode == null) throw new NullPointerException();
 
-			if (this.targetGraph.containsContextNode(contextNode.getXri())) return null;
+			if (this.targetGraph.containsContextNode(contextNode.getXri()) && contextNode.isEmpty()) {
+
+				if (log.isDebugEnabled()) log.debug("Not copying context node" + contextNode);
+				return null;
+			}
 
 			return contextNode;
 		}
@@ -257,7 +266,11 @@ public final class CopyUtil {
 
 			if (relation == null) throw new NullPointerException();
 
-			if (this.targetGraph.containsRelation(relation.getContextNode().getXri(), relation.getArcXri(), relation.getTargetContextNodeXri())) return null;
+			if (this.targetGraph.containsRelation(relation.getContextNode().getXri(), relation.getArcXri(), relation.getTargetContextNodeXri())) {
+
+				if (log.isDebugEnabled()) log.debug("Not copying relation " + relation);
+				return null;
+			}
 
 			return relation;
 		}
@@ -267,7 +280,11 @@ public final class CopyUtil {
 
 			if (literal == null) throw new NullPointerException();
 
-			if (this.targetGraph.containsLiteral(literal.getContextNode().getXri())) return null;
+			if (this.targetGraph.containsLiteral(literal.getContextNode().getXri())) {
+
+				if (log.isDebugEnabled()) log.debug("Not copying literal " + literal);
+				return null;
+			}
 
 			return literal;
 		}
