@@ -238,3 +238,4 @@ Also changed tests and sample messages in the web tools accordingly.
 *** Added interceptor functionality to xdi2.servet.EndpointServlet.
 
 *** Added CHANGELOG
+ 
