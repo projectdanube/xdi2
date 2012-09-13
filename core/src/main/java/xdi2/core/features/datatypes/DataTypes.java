@@ -1,6 +1,8 @@
 package xdi2.core.features.datatypes;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Literal;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.multiplicity.XdiAttributeMember;
 import xdi2.core.features.multiplicity.XdiAttributeSingleton;
 import xdi2.core.features.multiplicity.XdiCollection;
@@ -49,7 +51,7 @@ public class DataTypes {
 
 		// TODO: maybe use the MimeType class from the io package?
 		// TODO: maybe somehow use enums?
-		
+
 		return null;
 	}
 
@@ -66,6 +68,9 @@ public class DataTypes {
 
 	public static void setLiteralDataType(Literal literal, XRI3Segment dataTypeXri) {
 
+		ContextNode contextNode = literal.getContextNode();
+
+		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, dataTypeXri);
 	}
 
 	public static XRI3Segment getLiteralDataType(Literal literal) {
@@ -86,7 +91,7 @@ public class DataTypes {
 	 * Methods for data types of multiplicity contexts
 	 * TODO: we'll think about that a bit later
 	 */
-	
+
 	public static void setLiteralDataType(XdiCollection xdiCollection, XRI3Segment dataType) {
 
 	}
