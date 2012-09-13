@@ -94,14 +94,14 @@ public class EndpointFilter implements Filter {
 		String messagingTargetPath = endpointRegistry.findMessagingTargetPath(requestInfo.getRequestPath());
 		MessagingTarget messagingTarget = messagingTargetPath == null ? null : endpointRegistry.getMessagingTarget(messagingTargetPath);
 
-		log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? "null" : messagingTarget.getClass().getSimpleName()));
+		log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
 
 		// check which messaging target factory this request applies to
 
 		String messagingTargetFactoryPath = endpointRegistry.findMessagingTargetFactoryPath(requestInfo.getRequestPath());
 		MessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : endpointRegistry.getMessagingTargetFactory(messagingTargetFactoryPath);
 
-		log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? "null" : messagingTargetFactory.getClass().getSimpleName()));
+		log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? null : messagingTargetFactory.getClass().getSimpleName()));
 
 		if (messagingTargetFactory != null) {
 
@@ -138,7 +138,7 @@ public class EndpointFilter implements Filter {
 			messagingTargetPath = endpointRegistry.findMessagingTargetPath(requestInfo.getRequestPath());
 			messagingTarget = messagingTargetPath == null ? null : endpointRegistry.getMessagingTarget(messagingTargetPath);
 
-			log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? "null" : messagingTarget.getClass().getSimpleName()));
+			log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
 		}
 
 		// update request info

@@ -57,52 +57,51 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 		// check if the owner statement exists
 
-		if (! rootContextNode.containsRelations(XDIDictionaryConstants.XRI_S_IS_IS)) {
+		if (rootContextNode.containsRelations(XDIDictionaryConstants.XRI_S_IS_IS)) return;
 
-			// bootstrap owner
+		// create bootstrap owner
 
-			if (this.bootstrapOwner != null) {
+		if (this.bootstrapOwner != null) {
 
-				graph.getRootContextNode().createContextNodes(this.bootstrapOwner);
-				
-				RemoteRoots.setSelfRemoteRootContextNode(graph, this.bootstrapOwner);
+			graph.getRootContextNode().createContextNodes(this.bootstrapOwner);
+
+			RemoteRoots.setSelfRemoteRootContextNode(graph, this.bootstrapOwner);
+		}
+
+		// create bootstrap owner synonyms
+
+		if (this.bootstrapOwner != null && this.bootstrapOwnerSynonyms != null) {
+
+			ContextNode bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
+
+			for (XRI3Segment bootstrapOwnerSynonym : this.bootstrapOwnerSynonyms) {
+
+				ContextNode bootstrapOwnerSynonymContextNode = graph.findContextNode(bootstrapOwnerSynonym, true);
+				bootstrapOwnerSynonymContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, bootstrapOwnerContextNode);
 			}
+		}
 
-			// bootstrap owner synonyms
+		// create bootstrap shared secret
 
-			if (this.bootstrapOwner != null && this.bootstrapOwnerSynonyms != null) {
+		if (this.bootstrapSharedSecret != null) {
 
-				ContextNode bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
+			ContextNode bootstrapOwnerSharedSecretContextNode = graph.findContextNode(XRI_SECRET_TOKEN, true);
+			bootstrapOwnerSharedSecretContextNode.createLiteral(this.bootstrapSharedSecret);
+		}
 
-				for (XRI3Segment bootstrapOwnerSynonym : this.bootstrapOwnerSynonyms) {
+		// create bootstrap link contract and policy
 
-					ContextNode bootstrapOwnerSynonymContextNode = graph.findContextNode(bootstrapOwnerSynonym, true);
-					bootstrapOwnerSynonymContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, bootstrapOwnerContextNode);
-				}
-			}
+		if (this.bootstrapLinkContract) {
 
-			// bootstrap shared secret
+			ContextNode bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
 
-			if (this.bootstrapSharedSecret != null) {
+			LinkContract bootstrapLinkContract = LinkContracts.getLinkContract(rootContextNode, true);
+			bootstrapLinkContract.addAssignee(bootstrapOwnerContextNode);
+			bootstrapLinkContract.addPermission(XDILinkContractPermission.LC_OP_ALL, rootContextNode);
 
-				ContextNode bootstrapOwnerSharedSecretContextNode = graph.findContextNode(XRI_SECRET_TOKEN, true);
-				bootstrapOwnerSharedSecretContextNode.createLiteral(this.bootstrapSharedSecret);
-			}
-
-			// bootstrap link contract and policy
-
-			if (this.bootstrapLinkContract) {
-
-				ContextNode bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
-
-				LinkContract bootstrapLinkContract = LinkContracts.getLinkContract(rootContextNode, true);
-				bootstrapLinkContract.addAssignee(bootstrapOwnerContextNode);
-				bootstrapLinkContract.addPermission(XDILinkContractPermission.LC_OP_ALL, rootContextNode);
-
-				Policy policy = bootstrapLinkContract.getPolicy(true);
-				AndExpression andExpression = policy.getAndNode(true);
-				andExpression.addLiteralExpression("xdi.getGraphValue('" + XRI_SECRET_TOKEN + "') == xdi.getMessageProperty('" + XRI_SECRET_TOKEN + "')");
-			}
+			Policy policy = bootstrapLinkContract.getPolicy(true);
+			AndExpression andExpression = policy.getAndNode(true);
+			andExpression.addLiteralExpression("xdi.getGraphValue('" + XRI_SECRET_TOKEN + "') == xdi.getMessageProperty('" + XRI_SECRET_TOKEN + "')");
 		}
 	}
 
