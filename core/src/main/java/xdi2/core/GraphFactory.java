@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.io.MimeType;
 
 /**
  * A graph factory can construct new XDI graph implementations.
@@ -36,4 +37,10 @@ public interface GraphFactory {
 	 * @return An already existing or new graph.
 	 */
 	public Graph parseGraph(String graph, String format, Properties parameters) throws IOException, Xdi2ParseException;
+
+	/**
+	 * Creates/opens a graph and fills it with content in one of the serialization formats.
+	 * @return An already existing or new graph.
+	 */
+	public Graph parseGraph(String graph, MimeType mimeType) throws IOException, Xdi2ParseException;
 }
