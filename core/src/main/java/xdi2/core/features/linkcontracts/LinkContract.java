@@ -63,28 +63,6 @@ public final class LinkContract implements Serializable,
 			return null;
 
 		LinkContract lc = new LinkContract(contextNode);
-		//lc.addAuthenticationFunction();
-		return lc;
-	}
-
-	/**
-	 * Factory method that creates an XDI link contract bound to a given context
-	 * node.
-	 * 
-	 * @param contextNode
-	 *            The context node that is an XDI link contract.
-	 * @return The XDI link contract.
-	 */
-	public static LinkContract fromContextNode(ContextNode contextNode,
-			boolean withAuthFunc) {
-
-		if (!isValid(contextNode))
-			return null;
-
-		LinkContract lc = new LinkContract(contextNode);
-		if (withAuthFunc) {
-			lc.addAuthenticationFunction();
-		}
 		return lc;
 	}
 

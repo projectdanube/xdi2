@@ -139,26 +139,7 @@ public class LinkContractsTest extends TestCase {
 				new XRI3SubSegment("=markus"));		
 		ContextNode animesh = graph.getRootContextNode().createContextNode(
 				new XRI3SubSegment("=animesh"));
-		LinkContract linkContract = LinkContracts.getLinkContract(markus, true,
-				false);
-		XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(graph.getRootContextNode()).getEntitySingleton(new XRI3SubSegment("$secret"), true);
-		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XRI3SubSegment("$token"), true);
-
-		attributeSingleton.getContextNode().createLiteral("secret");
-		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL,
-				graph.getRootContextNode());
-		linkContract.addAssignee(animesh);
-		return graph;
-	}
-	public Graph makeGraphWithAuth() throws Exception {
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		//=markus is the owner of the graph
-		ContextNode markus = graph.getRootContextNode().createContextNode(
-				new XRI3SubSegment("=markus"));		
-		ContextNode animesh = graph.getRootContextNode().createContextNode(
-				new XRI3SubSegment("=animesh"));
-		LinkContract linkContract = LinkContracts.getLinkContract(markus, true,
-				true);
+		LinkContract linkContract = LinkContracts.getLinkContract(markus, true);
 		XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(graph.getRootContextNode()).getEntitySingleton(new XRI3SubSegment("$secret"), true);
 		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XRI3SubSegment("$token"), true);
 
@@ -175,8 +156,7 @@ public class LinkContractsTest extends TestCase {
 				new XRI3SubSegment("=markus"));		
 		ContextNode animesh = graph.getRootContextNode().createContextNode(
 				new XRI3SubSegment("=animesh"));
-		LinkContract linkContract = LinkContracts.getLinkContract(markus, true,
-				false);
+		LinkContract linkContract = LinkContracts.getLinkContract(markus, true);
 		XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(graph.getRootContextNode()).getEntitySingleton(new XRI3SubSegment("$secret"), true);
 		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XRI3SubSegment("$token"), true);
 
@@ -250,10 +230,8 @@ public class LinkContractsTest extends TestCase {
 			}
 			Graph g1 = makeGraphWithoutAuth();
 			testWriteGraph(g1, "lc-1");
-			Graph g2 = makeGraphWithAuth();
-			testWriteGraph(g2, "lc-2");
-			Graph g3 = makeGraphWithPolicyExpression();
-			testWriteGraph(g3, "lc-3");
+			Graph g2 = makeGraphWithPolicyExpression();
+			testWriteGraph(g2, "lc-3");
 			
 			Context.exit();
 			log.info("Done.");

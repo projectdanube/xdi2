@@ -27,8 +27,6 @@ public final class XDILinkContractConstants {
 	public static final XRI3Segment XRI_S_DEL = new XRI3Segment("$del");
 	public static final XRI3Segment XRI_S_VARIABLE_REF = new XRI3Segment("($)");
 
-	public static final XRI3Segment XRI_S_SHAREDSECRET_LITERAL = new XRI3Segment("$secret$!($token)");
-
 	public static final XRI3SubSegment XRI_SS_GET = new XRI3SubSegment("$get");
 	public static final XRI3SubSegment XRI_SS_ALL = new XRI3SubSegment("$all");
 	public static final XRI3SubSegment XRI_SS_ADD = new XRI3SubSegment("$add");

@@ -51,7 +51,7 @@ MessageInterceptor, TargetInterceptor {
 				: this.linkContractsGraph.findContextNode(linkContractXri,
 						false);
 		LinkContract linkContract = (linkContractContextNode == null) ? null
-				: LinkContract.fromContextNode(linkContractContextNode, false);
+				: LinkContract.fromContextNode(linkContractContextNode);
 
 		if (linkContract != null) {
 			putLinkContract(executionContext, linkContract);
