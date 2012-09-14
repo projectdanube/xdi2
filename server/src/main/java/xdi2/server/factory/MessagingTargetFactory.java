@@ -5,7 +5,7 @@ import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.EndpointRegistry;
 
 /**
- * A MessagingTargetFactory can instantiate MessagingTargets for given request paths.
+ * A MessagingTargetFactory can dynamically create MessagingTargets to process incoming XDI messages..
  * 
  * @author Markus
  */
