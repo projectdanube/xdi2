@@ -5,6 +5,11 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.EndpointRegistry;
 
+/**
+ * This messaging target factory create messaging targets for any path.
+ * 
+ * @author markus
+ */
 public class AnyGraphMessagingTargetFactory extends StandardGraphMessagingTargetFactory {
 
 	@Override

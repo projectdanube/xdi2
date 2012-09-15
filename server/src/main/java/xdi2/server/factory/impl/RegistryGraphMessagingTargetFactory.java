@@ -14,12 +14,18 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.EndpointRegistry;
 
+/**
+ * This messaging target factory uses a "registry graph" as a basis to decide what 
+ * messaging targets to create.
+ * 
+ * @author markus
+ */
 public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingTargetFactory {
 
 	private static final XRI3Segment XRI_SECRET_TOKEN = new XRI3Segment("" + Multiplicity.entitySingletonArcXri(new XRI3SubSegment("$secret")) + Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("$token")));
 
 	private static final Logger log = LoggerFactory.getLogger(RegistryGraphMessagingTargetFactory.class);
-	
+
 	private Graph registryGraph;
 
 	@Override
