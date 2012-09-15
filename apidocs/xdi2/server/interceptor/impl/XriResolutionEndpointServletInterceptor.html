@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-RedirectEndpointServletInterceptor (xdi2 0.1-SNAPSHOT API)
+XriResolutionEndpointServletInterceptor (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ RedirectEndpointServletInterceptor (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="RedirectEndpointServletInterceptor (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="XriResolutionEndpointServletInterceptor (xdi2 0.1-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -39,7 +39,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/RedirectEndpointServletInterceptor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XriResolutionEndpointServletInterceptor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -54,11 +54,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../xdi2/server/interceptor/impl/DebugEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="RedirectEndpointServletInterceptor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XriResolutionEndpointServletInterceptor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -89,22 +89,22 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <FONT SIZE="-1">
 xdi2.server.interceptor.impl</FONT>
 <BR>
-Class RedirectEndpointServletInterceptor</H2>
+Class XriResolutionEndpointServletInterceptor</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
   <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html" title="class in xdi2.server.interceptor">xdi2.server.interceptor.AbstractEndpointServletInterceptor</A>
-      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.server.interceptor.impl.RedirectEndpointServletInterceptor</B>
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.server.interceptor.impl.XriResolutionEndpointServletInterceptor</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>, <A HREF="../../../../xdi2/server/interceptor/EndpointServletInterceptor.html" title="interface in xdi2.server.interceptor">EndpointServletInterceptor</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>RedirectEndpointServletInterceptor</B><DT>extends <A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html" title="class in xdi2.server.interceptor">AbstractEndpointServletInterceptor</A></DL>
+<DT><PRE>public class <B>XriResolutionEndpointServletInterceptor</B><DT>extends <A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html" title="class in xdi2.server.interceptor">AbstractEndpointServletInterceptor</A></DL>
 </PRE>
 
 <P>
-This interceptor redirects to a specified URL in case of a GET request without path.
+This interceptor can act as a lightweight XRI resolution server based on a "registry graph".
 <P>
 
 <P>
@@ -125,7 +125,7 @@ This interceptor redirects to a specified URL in case of a GET request without p
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html#RedirectEndpointServletInterceptor()">RedirectEndpointServletInterceptor</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#XriResolutionEndpointServletInterceptor()">XriResolutionEndpointServletInterceptor</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -142,16 +142,40 @@ This interceptor redirects to a specified URL in case of a GET request without p
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html#getLocation()">getLocation</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#getRegistryGraph()">getRegistryGraph</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#getResolvePath()">getResolvePath</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#getTargetPath()">getTargetPath</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#init(xdi2.server.EndpointServlet)">init</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method gets called when the endpoint servlet is initialized.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html#processGetRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
+<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#processGetRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
                   javax.servlet.http.HttpServletRequest&nbsp;request,
                   javax.servlet.http.HttpServletResponse&nbsp;response,
                   <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
@@ -163,7 +187,23 @@ This interceptor redirects to a specified URL in case of a GET request without p
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html#setLocation(java.lang.String)">setLocation</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;location)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#setRegistryGraph(xdi2.core.Graph)">setRegistryGraph</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;registryGraph)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#setResolvePath(java.lang.String)">setResolvePath</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;resolvePath)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#setTargetPath(java.lang.String)">setTargetPath</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;targetPath)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -175,7 +215,7 @@ This interceptor redirects to a specified URL in case of a GET request without p
 <TH ALIGN="left"><B>Methods inherited from class xdi2.server.interceptor.<A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html" title="class in xdi2.server.interceptor">AbstractEndpointServletInterceptor</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#destroy(xdi2.server.EndpointServlet)">destroy</A>, <A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#init(xdi2.server.EndpointServlet)">init</A>, <A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processDeleteRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processDeleteRequest</A>, <A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processPostRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPostRequest</A>, <A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processPutRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPutRequest</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#destroy(xdi2.server.EndpointServlet)">destroy</A>, <A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processDeleteRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processDeleteRequest</A>, <A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processPostRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPostRequest</A>, <A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processPutRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPutRequest</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -200,10 +240,10 @@ This interceptor redirects to a specified URL in case of a GET request without p
 </TR>
 </TABLE>
 
-<A NAME="RedirectEndpointServletInterceptor()"><!-- --></A><H3>
-RedirectEndpointServletInterceptor</H3>
+<A NAME="XriResolutionEndpointServletInterceptor()"><!-- --></A><H3>
+XriResolutionEndpointServletInterceptor</H3>
 <PRE>
-public <B>RedirectEndpointServletInterceptor</B>()</PRE>
+public <B>XriResolutionEndpointServletInterceptor</B>()</PRE>
 <DL>
 </DL>
 
@@ -216,6 +256,23 @@ public <B>RedirectEndpointServletInterceptor</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="init(xdi2.server.EndpointServlet)"><!-- --></A><H3>
+init</H3>
+<PRE>
+public void <B>init</B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../xdi2/server/interceptor/EndpointServletInterceptor.html#init(xdi2.server.EndpointServlet)">EndpointServletInterceptor</A></CODE></B></DD>
+<DD>This method gets called when the endpoint servlet is initialized.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/server/interceptor/EndpointServletInterceptor.html#init(xdi2.server.EndpointServlet)">init</A></CODE> in interface <CODE><A HREF="../../../../xdi2/server/interceptor/EndpointServletInterceptor.html" title="interface in xdi2.server.interceptor">EndpointServletInterceptor</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#init(xdi2.server.EndpointServlet)">init</A></CODE> in class <CODE><A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html" title="class in xdi2.server.interceptor">AbstractEndpointServletInterceptor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="processGetRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)"><!-- --></A><H3>
 processGetRequest</H3>
@@ -244,10 +301,10 @@ public boolean <B>processGetRequest</B>(<A HREF="../../../../xdi2/server/Endpoin
 </DL>
 <HR>
 
-<A NAME="getLocation()"><!-- --></A><H3>
-getLocation</H3>
+<A NAME="getResolvePath()"><!-- --></A><H3>
+getResolvePath</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getLocation</B>()</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getResolvePath</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -255,10 +312,54 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.ht
 </DL>
 <HR>
 
-<A NAME="setLocation(java.lang.String)"><!-- --></A><H3>
-setLocation</H3>
+<A NAME="setResolvePath(java.lang.String)"><!-- --></A><H3>
+setResolvePath</H3>
 <PRE>
-public void <B>setLocation</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;location)</PRE>
+public void <B>setResolvePath</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;resolvePath)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getTargetPath()"><!-- --></A><H3>
+getTargetPath</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getTargetPath</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setTargetPath(java.lang.String)"><!-- --></A><H3>
+setTargetPath</H3>
+<PRE>
+public void <B>setTargetPath</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;targetPath)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRegistryGraph()"><!-- --></A><H3>
+getRegistryGraph</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> <B>getRegistryGraph</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setRegistryGraph(xdi2.core.Graph)"><!-- --></A><H3>
+setRegistryGraph</H3>
+<PRE>
+public void <B>setRegistryGraph</B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;registryGraph)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -280,7 +381,7 @@ public void <B>setLocation</B>(<A HREF="http://download.oracle.com/javase/6/docs
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/RedirectEndpointServletInterceptor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XriResolutionEndpointServletInterceptor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -295,11 +396,11 @@ public void <B>setLocation</B>(<A HREF="http://download.oracle.com/javase/6/docs
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../xdi2/server/interceptor/impl/DebugEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="RedirectEndpointServletInterceptor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XriResolutionEndpointServletInterceptor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
