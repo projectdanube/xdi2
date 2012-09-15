@@ -20,8 +20,8 @@ import xdi2.core.io.XDIWriterRegistry;
  */
 public class FileGraphFactory extends AbstractGraphFactory implements GraphFactory {
 
-	public static final String DEFAULT_PATH = "xdi2-graph.properties";
-	public static final String DEFAULT_MIMETYPE = null;
+	public static final String DEFAULT_PATH = "xdi2-graph.xdi";
+	public static final String DEFAULT_MIMETYPE = XDIWriterRegistry.getDefault().getMimeType().toString();
 
 	private String path;
 	private String mimeType;
