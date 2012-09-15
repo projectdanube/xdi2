@@ -124,7 +124,7 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 	@Override
 	public String toString() {
 
-		return this.requestUri;
+		return this.getUri();
 	}
 
 	@Override

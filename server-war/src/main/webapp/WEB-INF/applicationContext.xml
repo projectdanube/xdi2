@@ -15,6 +15,11 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.server.interceptor.impl.DebugEndpointServletInterceptor" />
+				<bean class="xdi2.server.interceptor.impl.XriResolutionEndpointServletInterceptor">
+					<property name="resolvePath" value="/resolve" />
+					<property name="targetPath" value="/users" />
+					<property name="registryGraph" ref="registrygraph" />
+				</bean>
 			</util:list>
 		</property>
 	</bean>
@@ -110,8 +115,8 @@
 	<!-- MessagingTarget: FileMessagingTarget backed by an XDI/JSON file -->
 
 	<bean name="/file-graph" class="xdi2.messaging.target.impl.file.FileMessagingTarget">
-		<property name="filename" value="./xdi2-file/graph.xdi" />
-		<property name="format" value="XDI/JSON" />
+		<property name="path" value="./xdi2-file/graph.xdi" />
+		<property name="mimeType" value="application/xdi+json;contexts=0;ordered=1" />
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />

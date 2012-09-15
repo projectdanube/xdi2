@@ -1,6 +1,13 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-09-15:
+------------------------
+
+*** Added XriResolutionEndpointServletInterceptor
+
+*** Various bug fixes, and improvements to DebugEndpointServletInterceptor
+
 2012-09-11:
 ------------------------
 
