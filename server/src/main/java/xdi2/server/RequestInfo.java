@@ -18,6 +18,7 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 
 	private static final long serialVersionUID = 5362137617270494532L;
 
+	private String uri;
 	private String requestUri;
 	private String contextPath;
 	private String servletPath;
@@ -26,8 +27,9 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 
 	private static Logger log = LoggerFactory.getLogger(RequestInfo.class.getName());
 
-	public RequestInfo(String requestUri, String contextPath, String servletPath, String requestPath, String messagingTargetPath) {
+	public RequestInfo(String uri, String requestUri, String contextPath, String servletPath, String requestPath, String messagingTargetPath) {
 
+		this.uri = uri;
 		this.requestUri = requestUri;
 		this.contextPath = contextPath;
 		this.servletPath = servletPath;
@@ -37,23 +39,36 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 
 	public static RequestInfo parse(HttpServletRequest request) {
 
+		String uri = request.getRequestURL().toString();
+
 		String requestUri = request.getRequestURI();
-		
+
 		String contextPath = request.getContextPath(); 
 		if (contextPath.endsWith("/")) contextPath = contextPath.substring(0, contextPath.length() - 1);
-		
+
 		String servletPath = request.getServletPath();
 		if (servletPath.endsWith("/")) servletPath = servletPath.substring(0, servletPath.length() - 1);
 
 		String requestPath = requestUri.substring(contextPath.length() + servletPath.length());
 		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
 
+		log.debug("uri: " + uri);
 		log.debug("requestUri: " + requestUri);
 		log.debug("contextPath: " + contextPath);
 		log.debug("servletPath: " + servletPath);
 		log.debug("requestPath: " + requestPath);
 
-		return new RequestInfo(requestUri, contextPath, servletPath, requestPath, null);
+		return new RequestInfo(uri, requestUri, contextPath, servletPath, requestPath, null);
+	}
+
+	public String getUri() {
+
+		return this.uri;
+	}
+
+	public void setUri(String uri) {
+
+		this.uri = uri;
 	}
 
 	public String getRequestUri() {
@@ -120,7 +135,7 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 
 		RequestInfo other = (RequestInfo) object;
 
-		return this.getRequestUri().equals(other.getRequestUri());
+		return this.getRequestUri().equals(other.getUri());
 	}
 
 	@Override
@@ -128,7 +143,7 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 
 		int hashCode = 1;
 
-		hashCode = (hashCode * 31) + this.getRequestUri().hashCode();
+		hashCode = (hashCode * 31) + this.getUri().hashCode();
 
 		return hashCode;
 	}
@@ -140,7 +155,7 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 
 		int compare;
 
-		if ((compare = this.getRequestUri().compareTo(other.getRequestUri())) != 0) return compare;
+		if ((compare = this.getUri().compareTo(other.getUri())) != 0) return compare;
 
 		return 0;
 	}
