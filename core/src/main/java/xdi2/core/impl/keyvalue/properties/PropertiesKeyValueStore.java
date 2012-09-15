@@ -339,6 +339,11 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		log.debug("Rolled back transaction...");
 	}
+	
+	public String getPath() {
+	
+		return this.path;
+	}
 
 	private void load() {
 
