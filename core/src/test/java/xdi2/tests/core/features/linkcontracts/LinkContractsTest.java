@@ -21,9 +21,9 @@ import xdi2.core.features.linkcontracts.NotExpression;
 import xdi2.core.features.linkcontracts.OrExpression;
 import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
-import xdi2.core.features.multiplicity.AttributeSingleton;
-import xdi2.core.features.multiplicity.EntitySingleton;
-import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.features.multiplicity.XdiAttributeSingleton;
+import xdi2.core.features.multiplicity.XdiEntitySingleton;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -139,28 +139,9 @@ public class LinkContractsTest extends TestCase {
 				new XRI3SubSegment("=markus"));		
 		ContextNode animesh = graph.getRootContextNode().createContextNode(
 				new XRI3SubSegment("=animesh"));
-		LinkContract linkContract = LinkContracts.getLinkContract(markus, true,
-				false);
-		EntitySingleton entitySingleton = EntitySingleton.fromContextNode(graph.getRootContextNode()).getEntitySingleton("$secret", true);
-		AttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton("$token", true);
-
-		attributeSingleton.getContextNode().createLiteral("secret");
-		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL,
-				graph.getRootContextNode());
-		linkContract.addAssignee(animesh);
-		return graph;
-	}
-	public Graph makeGraphWithAuth() throws Exception {
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		//=markus is the owner of the graph
-		ContextNode markus = graph.getRootContextNode().createContextNode(
-				new XRI3SubSegment("=markus"));		
-		ContextNode animesh = graph.getRootContextNode().createContextNode(
-				new XRI3SubSegment("=animesh"));
-		LinkContract linkContract = LinkContracts.getLinkContract(markus, true,
-				true);
-		EntitySingleton entitySingleton = EntitySingleton.fromContextNode(graph.getRootContextNode()).getEntitySingleton("$secret", true);
-		AttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton("$token", true);
+		LinkContract linkContract = LinkContracts.getLinkContract(markus, true);
+		XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(graph.getRootContextNode()).getEntitySingleton(new XRI3SubSegment("$secret"), true);
+		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XRI3SubSegment("$token"), true);
 
 		attributeSingleton.getContextNode().createLiteral("secret");
 		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL,
@@ -175,10 +156,9 @@ public class LinkContractsTest extends TestCase {
 				new XRI3SubSegment("=markus"));		
 		ContextNode animesh = graph.getRootContextNode().createContextNode(
 				new XRI3SubSegment("=animesh"));
-		LinkContract linkContract = LinkContracts.getLinkContract(markus, true,
-				false);
-		EntitySingleton entitySingleton = EntitySingleton.fromContextNode(graph.getRootContextNode()).getEntitySingleton("$secret", true);
-		AttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton("$token", true);
+		LinkContract linkContract = LinkContracts.getLinkContract(markus, true);
+		XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(graph.getRootContextNode()).getEntitySingleton(new XRI3SubSegment("$secret"), true);
+		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XRI3SubSegment("$token"), true);
 
 		attributeSingleton.getContextNode().createLiteral("secret");
 		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL,
@@ -250,10 +230,8 @@ public class LinkContractsTest extends TestCase {
 			}
 			Graph g1 = makeGraphWithoutAuth();
 			testWriteGraph(g1, "lc-1");
-			Graph g2 = makeGraphWithAuth();
-			testWriteGraph(g2, "lc-2");
-			Graph g3 = makeGraphWithPolicyExpression();
-			testWriteGraph(g3, "lc-3");
+			Graph g2 = makeGraphWithPolicyExpression();
+			testWriteGraph(g2, "lc-3");
 			
 			Context.exit();
 			log.info("Done.");

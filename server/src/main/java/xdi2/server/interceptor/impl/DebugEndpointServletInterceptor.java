@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,8 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.EndpointServlet;
 import xdi2.server.RequestInfo;
+import xdi2.server.factory.MessagingTargetFactory;
 import xdi2.server.interceptor.AbstractEndpointServletInterceptor;
-import xdi2.server.registry.EndpointRegistry;
 
 /**
  * This interceptor prints out a list of mounted messaging targets.
@@ -42,17 +44,22 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 
 		if (! requestInfo.getRequestPath().equals("/")) return false;
 
-		EndpointRegistry endpointRegistry = endpointServlet.getEndpointRegistry();
+		// prepare velocity values
+
+		List<MessagingTarget> messagingTargets = endpointServlet.getEndpointRegistry().getMessagingTargets();
+		Map<String, MessagingTarget> messagingTargetsByPath = endpointServlet.getEndpointRegistry().getMessagingTargetsByPath();
+		List<MessagingTargetFactory> messagingTargetFactorys = endpointServlet.getEndpointRegistry().getMessagingTargetFactorys();
+		Map<String, MessagingTargetFactory> messagingTargetFactorysByPath = endpointServlet.getEndpointRegistry().getMessagingTargetFactorysByPath();
 
 		// prepare velocity
 
 		VelocityContext context = new VelocityContext();
 		context.put("endpointservlet", endpointServlet);
 		context.put("requestinfo", requestInfo);
-		context.put("messagingtargets", endpointRegistry.getMessagingTargets());
-		context.put("messagingtargetsbypath", endpointRegistry.getMessagingTargetsByPath());
-		context.put("messagingtargetfactorys", endpointRegistry.getMessagingTargetFactorys());
-		context.put("messagingtargetfactorysbypath", endpointRegistry.getMessagingTargetFactorysByPath());
+		context.put("messagingtargets", messagingTargets);
+		context.put("messagingtargetsbypath", messagingTargetsByPath);
+		context.put("messagingtargetfactorys", messagingTargetFactorys);
+		context.put("messagingtargetfactorysbypath", messagingTargetFactorysByPath);
 
 		// send response
 

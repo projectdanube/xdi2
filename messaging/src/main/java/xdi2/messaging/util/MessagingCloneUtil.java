@@ -6,6 +6,7 @@ import xdi2.core.util.CopyUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.Operation;
 
 /**
  * Various utility methods for cloning messaging components.
@@ -54,5 +55,20 @@ public final class MessagingCloneUtil {
 		CopyUtil.copyContextNode(message.getContextNode(), clonedMessageCollection.getMessageEnvelope().getGraph(), null);
 
 		return clonedMessageCollection.getMessages().next();
+	}
+
+	/**
+	 * Creates a clone of the given operation with the same contents.
+	 * @param operation The operation to clone.
+	 * @return The cloned operation.
+	 */
+	public static Operation cloneOperation(Operation operation) {
+
+		Message clonedMessage = cloneMessage(operation.getMessage());
+		clonedMessage.deleteOperations();
+
+		CopyUtil.copyRelation(operation.getRelation(), clonedMessage.getMessageEnvelope().getGraph(), null);
+
+		return clonedMessage.getOperations().next();
 	}
 }

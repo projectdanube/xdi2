@@ -72,7 +72,7 @@ public class BasicTest extends TestCase {
 
 		Message message = messageCollection.getMessage(true);
 
-		assertTrue(Message.isValid(message.getEntitySingleton()));
+		assertTrue(Message.isValid(message.getEntityMember()));
 
 		assertTrue(messageEnvelope.getMessageCollections().hasNext());
 		assertNotNull(messageEnvelope.getMessageCollection(SENDER, false));

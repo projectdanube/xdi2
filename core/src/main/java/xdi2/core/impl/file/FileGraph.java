@@ -25,13 +25,15 @@ public class FileGraph extends AbstractGraph implements Graph {
 	private static final Logger log = LoggerFactory.getLogger(FileGraph.class);
 
 	private String path;
+	private String mimeType;
 	private XDIReader xdiReader;
 	private XDIWriter xdiWriter;
 	private MemoryGraph memoryGraph;
 
-	FileGraph(String path, XDIReader xdiReader, XDIWriter xdiWriter, MemoryGraph memoryGraph) {
+	FileGraph(String path, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter, MemoryGraph memoryGraph) {
 
 		this.path = path;
+		this.mimeType = mimeType;
 		this.xdiReader = xdiReader;
 		this.xdiWriter = xdiWriter;
 		this.memoryGraph = memoryGraph;
@@ -73,6 +75,16 @@ public class FileGraph extends AbstractGraph implements Graph {
 	@Override
 	public void rollbackTransaction() {
 
+	}
+
+	public String getPath() {
+
+		return this.path;
+	}
+
+	public String getMimeType() {
+
+		return this.mimeType;
 	}
 
 	private void load() {

@@ -1,42 +1,51 @@
 {
 "()/()": [
-   "=abc",
-   "=!1111"
+   "=abc"
 ],
-"=abc/$is" : [ "=!1111" ],
-"=!1111/()": [
+"=abc/()": [
    "+passport"
 ],
-"=!1111+passport/()": [
-   "!1",
+"=abc+passport/()": [
+   "$v",
    "!2",
-   "+ca",
-   "+nz",
-   "$d",
-   "$v"
+   "($)",
+   "!1"
 ],
-"=!1111+passport!1/()": [
+"=abc+passport$v/()": [
+   "!2",
+   "!1"
+],
+"=abc+passport$v!2/$" : [ "=abc+passport" ],
+"=abc+passport!2/()": [
+   "+number",
    "+country",
-   "+num",
-   "+expires"
+   "$d"
 ],
-"=!1111+passport!1+country/!" : [ "Canada" ],
-"=!1111+passport!1+num/!" : [ "987654321" ],
-"=!1111+passport!1+expires/!" : [ "2005J01J01T00:00:00Z" ],
-"=!1111+passport!2/()": [
+"=abc+passport!2+number/!" : [ "123456789" ],
+"=abc+passport!2+country/!" : [ "New Zealand" ],
+"=abc+passport!2$d/!" : [ "2010-10-01T00:00:00Z" ],
+"=abc+passport($)/()": [
+   "!2",
+   "!1"
+],
+"=abc+passport($)!2/()": [
+   "$d"
+],
+"=abc+passport($)!2$d/!" : [ "2010-12-22T22:22:22Z" ],
+"=abc+passport($)!1/()": [
+   "$d"
+],
+"=abc+passport($)!1$d/!" : [ "2010-11-11T11:11:11Z" ],
+"=abc+passport!1/()": [
+   "+number",
    "+country",
-   "+num",
-   "+expires",
-   "$d",
-   "$v"
+   "$d"
 ],
-"=!1111+passport!2+country/!" : [ "New%20Zealand" ],
-"=!1111+passport!2+num/!" : [ "123456789" ],
-"=!1111+passport!2+expires/()": [
-   "$d",
-   "$v"
-],
-"=!1111+passport!2+expires/!" : [ "2010J10J01T00:00:00Z" ],
-"=!1111+passport+ca/$is" : [ "!1" ],
-"=!1111+passport+nz/$is" : [ "!2" ]
+"=abc+passport!1+number/!" : [ "987654321" ],
+"=abc+passport!1+country/!" : [ "Canada" ],
+"=abc+passport!1$d/!" : [ "2005-01-01T00:00:00Z" ],
+"=abc+passport/$v" : [ "=abc+passport$v!2" ],
+"=abc+passport/*2" : [ "=abc+passport!2" ],
+"=abc+passport/*1" : [ "=abc+passport!1" ],
+"=abc/+rel" : [ "=abc+passport!1", "=abc+passport!2" ]
 }

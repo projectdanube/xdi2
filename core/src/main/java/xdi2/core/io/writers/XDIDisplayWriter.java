@@ -11,7 +11,6 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
@@ -22,6 +21,7 @@ import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
@@ -97,13 +97,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			// ignore implied context nodes
 
-			if ((! this.writeContexts) && (statement instanceof ContextNodeStatement)) {
-
-				ContextNode contextNode = ((ContextNodeStatement) statement).getContextNode();
-
-				if (! contextNode.isEmpty()) continue;
-				if (contextNode.getIncomingRelations().hasNext()) continue;
-			}
+			if ((! this.writeContexts) && StatementUtil.isImplied(statement)) continue;
 
 			// HTML output
 

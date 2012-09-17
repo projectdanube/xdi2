@@ -1,3 +1,3 @@
-=markus$($msg)$(!1)$do/$add/(=markus+name/!/(data:,Markus%20Sabadello))
-=markus$($msg)$(!1)$do/$add/(=markus+email/!/(data:,markus.sabadello@gmail.com))
-=markus$($msg)$(!1)$do/$add/(=markus/+friend/=drummond)
+=markus$msg$(!1)$do/$add/(=markus+name/!/(data:,Markus%20Sabadello))
+=markus$msg$(!1)$do/$add/(=markus+email/!/(data:,markus.sabadello@gmail.com))
+=markus$msg$(!1)$do/$add/(=markus/+friend/=drummond)

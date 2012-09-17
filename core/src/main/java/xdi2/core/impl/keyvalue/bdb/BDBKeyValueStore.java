@@ -370,6 +370,16 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		log.debug("Rolled back transaction...");
 	}
 
+	public String getDatabasePath() {
+	
+		return this.databasePath;
+	}
+
+	public String getDatabaseName() {
+	
+		return this.databaseName;
+	}
+
 	private class CursorDuplicatesIterator extends ReadOnlyIterator<String> {
 
 		private DatabaseEntry dbKey;

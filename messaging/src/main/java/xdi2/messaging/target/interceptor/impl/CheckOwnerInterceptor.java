@@ -1,5 +1,8 @@
 package xdi2.messaging.target.interceptor.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
@@ -16,6 +19,8 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
  */
 public class CheckOwnerInterceptor extends AbstractInterceptor implements MessageInterceptor {
 
+	private static Logger log = LoggerFactory.getLogger(CheckOwnerInterceptor.class.getName());
+
 	/*
 	 * Interceptor
 	 */
@@ -24,13 +29,14 @@ public class CheckOwnerInterceptor extends AbstractInterceptor implements Messag
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		MessagingTarget messagingTarget = executionContext.getMessagingTarget();
-		XRI3Segment owner = messagingTarget.getOwner();
+		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 		XRI3Segment recipientAuthority = message.getRecipientAuthority();
 
-		if (owner == null) return false;
+		log.debug("ownerAuthority=" + ownerAuthority + ", recipientAuthority=" + recipientAuthority);
+
 		if (recipientAuthority == null) throw new Xdi2MessagingException("No recipient authority found in message.", null, null);
 
-		if (! owner.equals(recipientAuthority)) throw new Xdi2MessagingException("Unknown recipient authority: " + recipientAuthority, null, null);
+		if (! recipientAuthority.equals(ownerAuthority)) throw new Xdi2MessagingException("Invalid recipient authority: " + recipientAuthority, null, null);
 
 		return false;
 	}

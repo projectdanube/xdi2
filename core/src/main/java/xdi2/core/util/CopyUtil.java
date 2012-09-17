@@ -2,6 +2,9 @@ package xdi2.core.util;
 
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
@@ -14,6 +17,10 @@ import xdi2.core.xri3.impl.XRI3Segment;
  * @author markus
  */
 public final class CopyUtil {
+
+	private static final Logger log = LoggerFactory.getLogger(CopyUtil.class);
+
+	private static final CopyStrategy allCopyStrategy = new AllCopyStrategy();
 
 	private CopyUtil() { }
 
@@ -117,7 +124,7 @@ public final class CopyUtil {
 	public static Iterator<ContextNode> copyContextNodes(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
 		if (contextNode == null) return null;
-		if (copyStrategy == null) copyStrategy = ALLCOPYSTRATEGY;
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
 
@@ -143,7 +150,7 @@ public final class CopyUtil {
 	public static Iterator<Relation> copyRelations(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
 		if (contextNode == null) return null;
-		if (copyStrategy == null) copyStrategy = ALLCOPYSTRATEGY;
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
 
@@ -166,9 +173,10 @@ public final class CopyUtil {
 	public static Literal copyLiteral(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
 		if (contextNode == null) return null;
-		if (copyStrategy == null) copyStrategy = ALLCOPYSTRATEGY;
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		Literal literal = contextNode.getLiteral();
+		if (literal == null) return null;
 		if ((literal = copyStrategy.replaceLiteral(literal)) == null) return null;
 
 		targetContextNode.createLiteral(literal.getLiteralData());
@@ -179,7 +187,7 @@ public final class CopyUtil {
 	/**
 	 * An interface that can determine what to copy and what not.
 	 */
-	public static abstract class CopyStrategy {
+	public static interface CopyStrategy {
 
 		/**
 		 * Strategies can replace a context node that is being copied.
@@ -204,10 +212,9 @@ public final class CopyUtil {
 	}
 
 	/**
-	 * 
 	 * The default strategy that copies everything.
 	 */
-	public static final CopyStrategy ALLCOPYSTRATEGY = new CopyStrategy() {
+	public static class AllCopyStrategy implements CopyStrategy {
 
 		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {
@@ -226,5 +233,60 @@ public final class CopyUtil {
 
 			return literal;
 		}
-	};
+	}
+
+	/**
+	 * A strategy that does not copy arcs that already exist in a target graph
+	 */
+	public static class NoDuplicatesCopyStrategy implements CopyStrategy {
+
+		private Graph targetGraph;
+
+		public NoDuplicatesCopyStrategy(Graph targetGraph) {
+
+			this.targetGraph = targetGraph;
+		}
+
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (this.targetGraph.containsContextNode(contextNode.getXri()) && contextNode.isEmpty()) {
+
+				if (log.isDebugEnabled()) log.debug("Not copying context node" + contextNode);
+				return null;
+			}
+
+			return contextNode;
+		}
+
+		@Override
+		public Relation replaceRelation(Relation relation) {
+
+			if (relation == null) throw new NullPointerException();
+
+			if (this.targetGraph.containsRelation(relation.getContextNode().getXri(), relation.getArcXri(), relation.getTargetContextNodeXri())) {
+
+				if (log.isDebugEnabled()) log.debug("Not copying relation " + relation);
+				return null;
+			}
+
+			return relation;
+		}
+
+		@Override
+		public Literal replaceLiteral(Literal literal) {
+
+			if (literal == null) throw new NullPointerException();
+
+			if (this.targetGraph.containsLiteral(literal.getContextNode().getXri())) {
+
+				if (log.isDebugEnabled()) log.debug("Not copying literal " + literal);
+				return null;
+			}
+
+			return literal;
+		}
+	}
 }

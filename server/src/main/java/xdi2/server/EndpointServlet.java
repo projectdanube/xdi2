@@ -1,13 +1,12 @@
 package xdi2.server;
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -31,7 +30,6 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.util.iterators.SelectingClassIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -43,7 +41,6 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.server.exceptions.Xdi2ServerException;
-import xdi2.server.interceptor.EndpointServletInterceptor;
 import xdi2.server.registry.EndpointRegistry;
 
 /**
@@ -63,7 +60,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
 	private EndpointRegistry endpointRegistry;
-	private List<Interceptor> interceptors;
+	private InterceptorList interceptors;
 	private boolean supportGet, supportPost, supportPut, supportDelete;
 	private boolean initialized;
 	private Date startup;
@@ -73,7 +70,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		super();
 
 		this.endpointRegistry = new EndpointRegistry();
-		this.interceptors = new ArrayList<Interceptor> ();
+		this.interceptors = new InterceptorList();
 		this.supportGet = true;
 		this.supportPost = true;
 		this.supportPut = true;
@@ -134,14 +131,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// execute interceptors
 
-		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
-
-			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (init).");
-
-			endpointServletInterceptor.init(this);
-		}
+		this.getInterceptors().executeEndpointServletInterceptorsInit(this);
 
 		// remember startup time
 
@@ -167,14 +157,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// execute interceptors
 
-		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
-
-			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (destroy).");
-
-			endpointServletInterceptor.destroy(this);
-		}
+		this.getInterceptors().executeEndpointServletInterceptorsDestroy(this);
 
 		// shut down endpoint registry
 
@@ -292,17 +275,9 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// execute interceptors
 
-		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
-
-			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (GET).");
-
-			if (endpointServletInterceptor.processGetRequest(this, request, response, requestInfo, messagingTarget)) {
-
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": GET request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
-				return;
-			}
+		if (this.getInterceptors().executeEndpointServletInterceptorsGet(this, request, response, requestInfo, messagingTarget)) {
+			
+			return;
 		}
 
 		// no messaging target?
@@ -342,17 +317,9 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// execute interceptors
 
-		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
-
-			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (POST).");
-
-			if (endpointServletInterceptor.processPostRequest(this, request, response, requestInfo, messagingTarget)) {
-
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": POST request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
-				return;
-			}
+		if (this.getInterceptors().executeEndpointServletInterceptorsPost(this, request, response, requestInfo, messagingTarget)) {
+			
+			return;
 		}
 
 		// no messaging target?
@@ -392,17 +359,9 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// execute interceptors
 
-		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
-
-			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (PUT).");
-
-			if (endpointServletInterceptor.processPutRequest(this, request, response, requestInfo, messagingTarget)) {
-
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": PUT request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
-				return;
-			}
+		if (this.getInterceptors().executeEndpointServletInterceptorsPut(this, request, response, requestInfo, messagingTarget)) {
+			
+			return;
 		}
 
 		// no messaging target?
@@ -442,17 +401,9 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// execute interceptors
 
-		for (Iterator<EndpointServletInterceptor> endpointServletInterceptors = this.getEndpointServletInterceptors(); endpointServletInterceptors.hasNext(); ) {
-
-			EndpointServletInterceptor endpointServletInterceptor = endpointServletInterceptors.next();
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + endpointServletInterceptor.getClass().getSimpleName() + " (DELETE).");
-
-			if (endpointServletInterceptor.processDeleteRequest(this, request, response, requestInfo, messagingTarget)) {
-
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": DELETE request has been fully handled by interceptor " + endpointServletInterceptor.getClass().getSimpleName() + ".");
-				return;
-			}
+		if (this.getInterceptors().executeEndpointServletInterceptorsDelete(this, request, response, requestInfo, messagingTarget)) {
+			
+			return;
 		}
 
 		// no messaging target?
@@ -516,14 +467,14 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_GET, contextNodeXri);
 
-		// set the recipient authority to the owner of the messaging target
+		// set the recipient authority to the owner authority of the messaging target
 
-		XRI3Segment owner = messagingTarget.getOwner();
+		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 
-		if (owner != null) {
+		if (ownerAuthority != null) {
 
 			Message message = messageEnvelope.getMessages().next();
-			message.getContextNode().createRelation(XDIMessagingConstants.XRI_S_TO_GRAPH, owner);
+			message.setRecipientAuthority(ownerAuthority);
 		}
 
 		// done
@@ -574,7 +525,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// create an execution context
 
-		ExecutionContext executionContext = this.createExecutionContext(messagingTarget, request, response);
+		ExecutionContext executionContext = this.createExecutionContext(request, response);
 
 		// execute the messages and operations against our message target, save result
 
@@ -597,9 +548,9 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		return messageResult;
 	}
 
-	protected ExecutionContext createExecutionContext(MessagingTarget messagingTarget, HttpServletRequest request, HttpServletResponse response) {
+	protected ExecutionContext createExecutionContext(HttpServletRequest request, HttpServletResponse response) {
 
-		ExecutionContext executionContext = new ExecutionContext(messagingTarget);
+		ExecutionContext executionContext = new ExecutionContext();
 
 		ServletExecutionContext.putEndpointServlet(executionContext, this);
 		ServletExecutionContext.putHttpServletRequest(executionContext, request);
@@ -678,19 +629,20 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		this.endpointRegistry = endpointRegistry;
 	}
 
-	public List<Interceptor> getInterceptors() {
+	public InterceptorList getInterceptors() {
 
 		return this.interceptors;
 	}
 
-	public void setInterceptors(List<Interceptor> interceptors) {
+	public void setInterceptors(InterceptorList interceptors) {
 
 		this.interceptors = interceptors;
 	}
 
-	public Iterator<EndpointServletInterceptor> getEndpointServletInterceptors() {
+	public void setInterceptors(List<Interceptor> interceptors) {
 
-		return new SelectingClassIterator<Interceptor, EndpointServletInterceptor> (this.interceptors.iterator(), EndpointServletInterceptor.class);
+		this.interceptors.clear();
+		this.interceptors.addAll(interceptors);
 	}
 
 	public boolean getSupportGet() {

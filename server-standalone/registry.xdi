@@ -1,7 +1,10 @@
 ()/$is$is/(@!9999)
 $do/$all/()
 $do/$is$do/@!9999
+(=animesh)/$is/(=!2222)
+(=markus)/$is/(=!1111)
 (@!9999)/$is/()
-@myorg/$is/@!9999
-$do$if$*($and)$!23c3b5db-da11-43a2-b008-a2d66796582b/!/(data:,xdi.getGraphValue%28'$secret$!%28$token%29'%29%20==%20xdi.getMessageProperty%28'$secret$!%28$token%29'%29)
-$secret$!($token)/!/(data:,s3cret)
+$($secret)$!($token)/!/(data:,s3cret)
+$do$if$and$!(!2db39321-f1af-4228-903c-3628b89de1cb)/!/(data:,xdi.getGraphValue%28'$%28$secret%29$!%28$token%29'%29%20==%20xdi.getMessageProperty%28'$%28$secret%29$!%28$token%29'%29)
+=!1111$($secret)$!($token)/!/(data:,xmarkus)
+=!2222$($secret)$!($token)/!/(data:,xanimesh)

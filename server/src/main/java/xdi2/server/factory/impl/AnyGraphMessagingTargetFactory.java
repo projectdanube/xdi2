@@ -1,9 +1,15 @@
 package xdi2.server.factory.impl;
 
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.EndpointRegistry;
 
+/**
+ * This messaging target factory create messaging targets for any path.
+ * 
+ * @author markus
+ */
 public class AnyGraphMessagingTargetFactory extends StandardGraphMessagingTargetFactory {
 
 	@Override
@@ -23,5 +29,10 @@ public class AnyGraphMessagingTargetFactory extends StandardGraphMessagingTarget
 		// create and mount the new messaging target
 
 		super.mountStandardMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerSynonyms, sharedSecret);
+	}
+
+	@Override
+	public void updateMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException {
+
 	}
 }

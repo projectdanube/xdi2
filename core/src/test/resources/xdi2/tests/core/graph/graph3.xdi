@@ -5,8 +5,8 @@
 "(=!91F2.8153.F600.AE24)/$is" : [ "()" ],
 "$do/$all" : [ "()" ],
 "$do/$is$do" : [ "=!91F2.8153.F600.AE24" ],
-"$do$if$*($and)$!2db39321-f1af-4228-903c-3628b89de1cb/!" : [ "xdi.getGraphValue('$secret$!($token)') == xdi.getMessageProperty('$secret$!($token)')" ],
-"$secret$!($token)/!" : [ "s3cret" ],
+"$do$if$and$!(!2db39321-f1af-4228-903c-3628b89de1cb)/!" : [ "xdi.getGraphValue('$($secret)$!($token)') == xdi.getMessageProperty('$($secret)$!($token)')" ],
+"$($secret)$!($token)/!" : [ "s3cret" ],
 "=markus/$is" : [ "=!91F2.8153.F600.AE24" ],
 "()/$is$is" : [ "(=!91F2.8153.F600.AE24)" ]
 }

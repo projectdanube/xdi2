@@ -6,6 +6,7 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.ExecutionContext;
 
 public class ErrorMessageResult extends MessageResult {
 
@@ -89,7 +90,9 @@ public class ErrorMessageResult extends MessageResult {
 
 		if (ex instanceof Xdi2MessagingException) {
 
-			Operation operation = ((Xdi2MessagingException) ex).getOperation();
+			ExecutionContext executionContext = ((Xdi2MessagingException) ex).getExecutionContext();
+			Operation operation = executionContext == null ? null : executionContext.getOperation();
+
 			if (operation != null) errorMessageResult.setErrorOperation(operation.getRelation().getStatement().toString());
 		}
 

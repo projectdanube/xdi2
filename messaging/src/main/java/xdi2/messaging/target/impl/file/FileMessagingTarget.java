@@ -25,17 +25,20 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  */
 public class FileMessagingTarget extends GraphMessagingTarget {
 
+	public static final String DEFAULT_PATH = "xdi2-graph.xdi";
+	public static final String DEFAULT_MIMETYPE = XDIWriterRegistry.getDefault().getMimeType().toString();
+
 	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
-	private String filename;
-	private String format;
+	private String path;
+	private String mimeType;
 
 	public FileMessagingTarget() {
 
 		super();
 
-		this.filename = null;
-		this.format = XDIReaderRegistry.getDefault().getFormat();
+		this.path = DEFAULT_PATH;
+		this.mimeType = DEFAULT_MIMETYPE;
 	}
 
 	@Override
@@ -64,8 +67,8 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 
 	private void readGraph() throws Xdi2MessagingException {
 
-		XDIReader xdiReader = XDIReaderRegistry.forFormat(this.format, null);
-		if (xdiReader == null) throw new Xdi2MessagingException("Cannot read this format: " + this.format, null, null);
+		XDIReader xdiReader = XDIReaderRegistry.forFormat(this.mimeType, null);
+		if (xdiReader == null) throw new Xdi2MessagingException("Cannot read this format: " + this.mimeType, null, null);
 
 		Graph graph = this.getGraph();
 		graph.clear();
@@ -74,7 +77,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 
 		try {
 
-			File file = new File(this.filename);
+			File file = new File(this.path);
 			reader = new FileReader(file);
 			xdiReader.read(graph, reader);
 			reader.close();
@@ -94,14 +97,14 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 			}
 		}
 
-		if (xdiReader instanceof AutoReader) this.format = ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat();
-		if (this.format == null) this.format = XDIWriterRegistry.getDefault().getFormat();
+		if (xdiReader instanceof AutoReader) this.mimeType = ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat();
+		if (this.mimeType == null) this.mimeType = XDIWriterRegistry.getDefault().getFormat();
 	}
 
 	private void writeGraph() throws Xdi2MessagingException {
 
-		XDIWriter xdiWriter = XDIWriterRegistry.forFormat(this.format, null);
-		if (xdiWriter == null) throw new Xdi2MessagingException("Cannot write this format: " + this.format, null, null);
+		XDIWriter xdiWriter = XDIWriterRegistry.forFormat(this.mimeType, null);
+		if (xdiWriter == null) throw new Xdi2MessagingException("Cannot write this format: " + this.mimeType, null, null);
 
 		Graph graph = this.getGraph();
 		
@@ -109,7 +112,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 
 		try {
 
-			File file = new File(this.filename);
+			File file = new File(this.path);
 			file.createNewFile();
 			writer = new FileWriter(file);
 			xdiWriter.write(graph, writer);
@@ -128,23 +131,23 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 		graph.close();
 	}
 
-	public String getFilename() {
+	public String getPath() {
 
-		return this.filename;
+		return this.path;
 	}
 
-	public void setFilename(String filename) {
+	public void setPath(String path) {
 
-		this.filename = filename;
+		this.path = path;
 	}
 
-	public String getFormat() {
+	public String getMimeType() {
 
-		return this.format;
+		return this.mimeType;
 	}
 
-	public void setFormat(String format) {
+	public void setMimeType(String mimeType) {
 
-		this.format = format;
+		this.mimeType = mimeType;
 	}
 }

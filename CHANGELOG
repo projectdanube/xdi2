@@ -1,6 +1,35 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-09-15:
+------------------------
+
+*** Added XriResolutionEndpointServletInterceptor
+
+*** Various bug fixes, and improvements to DebugEndpointServletInterceptor
+
+2012-09-11:
+------------------------
+
+*** Some bug fixes related to multiplicity syntax
+
+2012-09-06:
+------------------------
+
+*** Added DataTypes skeleton class for supporting literal data types
+
+*** Support for messaging targets to be removed by messaging target factories
+
+2012-09-03:
+------------------------
+
+*** Many updates to messaging architecture and contributor/connector functionality
+
+2012-09-01:
+------------------------
+
+*** Updates to multiplicity support
+
 2012-08-29:
 ------------------------
 
@@ -216,3 +245,4 @@ Also changed tests and sample messages in the web tools accordingly.
 *** Added interceptor functionality to xdi2.servet.EndpointServlet.
 
 *** Added CHANGELOG
+ 

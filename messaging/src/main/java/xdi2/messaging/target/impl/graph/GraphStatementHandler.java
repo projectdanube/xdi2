@@ -44,17 +44,17 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	 */
 
 	@Override
-	public boolean executeAddOnStatement(Statement statement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeAddOnStatement(Statement statement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		try {
 
 			this.getGraph().addStatement(statement);
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot add statement: " + ex.getMessage(), ex, operation);
+			throw new Xdi2MessagingException("Cannot add statement: " + ex.getMessage(), ex, executionContext);
 		}
 
-		return false;
+		return;
 	}
 
 	/*
@@ -62,17 +62,31 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	 */
 
 	@Override
-	public boolean executeDelOnContextNodeStatement(ContextNodeStatement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnContextNodeStatement(ContextNodeStatement contextNodeStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, operation);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, executionContext);
 
 		contextNode = contextNode.findContextNode(contextNodeStatement.getObject(), false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, operation);
+		if (contextNode == null) return;
+
+		CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
+
+		return;
+	}
+
+	@Override
+	public void executeDelOnContextNodeStatement(ContextNodeStatement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), false);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, executionContext);
+
+		contextNode = contextNode.findContextNode(contextNodeStatement.getObject(), false);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, executionContext);
 
 		contextNode.delete();
 
-		return false;
+		return;
 	}
 
 	/*
@@ -80,10 +94,10 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	 */
 
 	@Override
-	public boolean executeGetOnRelationStatement(RelationStatement relationStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnRelationStatement(RelationStatement relationStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
-		if (contextNode == null) return false;
+		if (contextNode == null) return;
 
 		boolean isObjectVariable = Variables.isVariable(relationStatement.getObject());
 
@@ -92,7 +106,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 			if (isObjectVariable) {
 
 				Literal literal = contextNode.getLiteral();
-				if (literal == null) return false;
+				if (literal == null) return;
 
 				CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
 			}
@@ -110,15 +124,13 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 				}
 			}
 		}
-
-		return false;
 	}
 
 	@Override
-	public boolean executeDelOnRelationStatement(RelationStatement relationStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnRelationStatement(RelationStatement relationStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement, null, operation);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement, null, executionContext);
 
 		if (Variables.isVariable(relationStatement.getObject())) {
 
@@ -133,8 +145,6 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 
 			contextNode.deleteRelation(relationStatement.getPredicate(), relationStatement.getObject());
 		}
-
-		return false;
 	}
 
 	/*
@@ -142,47 +152,44 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	 */
 
 	@Override
-	public boolean executeGetOnLiteralStatement(LiteralStatement literalStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnLiteralStatement(LiteralStatement literalStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), false);
-		if (contextNode == null) return false;
+		if (contextNode == null) return;
 
 		Literal literal = contextNode.getLiteral();
-		if (literal == null) return false;
+		if (literal == null) return;
 
 		if (XDIUtil.dataXriSegmentToString(literalStatement.getObject()).equals(literal.getLiteralData())) {
 
 			CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
 		}
-
-		return false;
 	}
 
 	@Override
-	public boolean executeModOnLiteralStatement(LiteralStatement literalStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeModOnLiteralStatement(LiteralStatement literalStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + literalStatement, null, operation);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + literalStatement, null, executionContext);
 
 		Literal literal = contextNode.getLiteral();
-		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, operation);
+		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, executionContext);
 
 		literal.setLiteralData(XDIUtil.dataXriSegmentToString(literalStatement.getObject()));
-
-		return false;
 	}
 
 	@Override
-	public boolean executeDelOnLiteralStatement(LiteralStatement literalStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnLiteralStatement(LiteralStatement literalStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + literalStatement, null, operation);
+		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + literalStatement, null, executionContext);
 
 		Literal literal = contextNode.getLiteral();
-		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, operation);
+		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, executionContext);
 
-		literal.setLiteralData(XDIUtil.dataXriSegmentToString(literalStatement.getObject()));
+		if (XDIUtil.dataXriSegmentToString(literalStatement.getObject()).equals(literal.getLiteralData())) {
 
-		return false;
+			literal.delete();
+		}
 	}
 }

@@ -24,22 +24,22 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 	}
 
 	@Override
-	public Statement targetStatement(Operation operation, Statement targetStatement, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public Statement targetStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		this.checkReadOnly(operation, targetStatement.getSubject());
+		this.checkReadOnly(operation, targetStatement.getSubject(), executionContext);
 
 		return targetStatement;
 	}
 
 	@Override
-	public XRI3Segment targetAddress(Operation operation, XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XRI3Segment targetAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		this.checkReadOnly(operation, targetAddress);
+		this.checkReadOnly(operation, targetAddress, executionContext);
 
 		return targetAddress;
 	}
 
-	private void checkReadOnly(Operation operation, XRI3Segment address) throws Xdi2MessagingException {
+	private void checkReadOnly(Operation operation, XRI3Segment address, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation.isReadOperation()) return;
 
@@ -47,7 +47,7 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 
 			if (readOnlyAddress == null || startsWith(address, readOnlyAddress)) {
 
-				throw new Xdi2MessagingException("This address is read-only: " + address, null, operation);
+				throw new Xdi2MessagingException("This address is read-only: " + address, null, executionContext);
 			}
 		}
 	}

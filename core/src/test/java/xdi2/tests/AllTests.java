@@ -13,14 +13,15 @@ import xdi2.tests.core.graph.FileGraphTest;
 import xdi2.tests.core.graph.MapGraphTest;
 import xdi2.tests.core.graph.MemoryGraphTest;
 import xdi2.tests.core.graph.PropertiesGraphTest;
-import xdi2.tests.core.impl.AbstractStatementTest;
 import xdi2.tests.core.impl.keyvalue.BDBKeyValueTest;
 import xdi2.tests.core.impl.keyvalue.MapKeyValueTest;
 import xdi2.tests.core.impl.keyvalue.PropertiesKeyValueTest;
 import xdi2.tests.core.io.IOTest;
 import xdi2.tests.core.io.readers.XDIJSONReaderTest;
 import xdi2.tests.core.io.writers.XDIJSONWriterTest;
+import xdi2.tests.core.util.StatementUtilTest;
 import xdi2.tests.core.util.XDIUtilTest;
+import xdi2.tests.core.util.XRIUtilTest;
 import xdi2.tests.core.util.iterators.IteratorTest;
 
 public class AllTests {
@@ -46,9 +47,10 @@ public class AllTests {
 		suite.addTestSuite(XDIJSONReaderTest.class);
 		suite.addTestSuite(XDIJSONWriterTest.class);
 		suite.addTestSuite(LinkContractsTest.class);
+		suite.addTestSuite(XRIUtilTest.class);
 		suite.addTestSuite(XDIUtilTest.class);
+		suite.addTestSuite(StatementUtilTest.class);
 		suite.addTestSuite(IteratorTest.class);
-		suite.addTestSuite(AbstractStatementTest.class);
 		//$JUnit-END$
 		return suite;
 	}
