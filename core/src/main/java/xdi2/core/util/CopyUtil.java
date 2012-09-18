@@ -187,58 +187,50 @@ public final class CopyUtil {
 	/**
 	 * An interface that can determine what to copy and what not.
 	 */
-	public static interface CopyStrategy {
+	public static abstract class CopyStrategy {
 
 		/**
 		 * Strategies can replace a context node that is being copied.
 		 * @param contextNode The original context node.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public abstract ContextNode replaceContextNode(ContextNode contextNode);
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+			
+			return contextNode;
+		}
 
 		/**
 		 * Strategies can replace a relation that is being copied.
 		 * @param relation The original relation.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public abstract Relation replaceRelation(Relation relation);
+		public Relation replaceRelation(Relation relation) {
+			
+			return relation;
+		}
 
 		/**
 		 * Strategies can replace a literal that is being copied.
 		 * @param literal The original literal.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public abstract Literal replaceLiteral(Literal literal);
-	}
-
-	/**
-	 * The default strategy that copies everything.
-	 */
-	public static class AllCopyStrategy implements CopyStrategy {
-
-		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
-
-			return contextNode;
-		}
-
-		@Override
-		public Relation replaceRelation(Relation relation) {
-
-			return relation;
-		}
-
-		@Override
 		public Literal replaceLiteral(Literal literal) {
-
+			
 			return literal;
 		}
 	}
 
 	/**
+	 * The default strategy that copies everything.
+	 */
+	public static class AllCopyStrategy extends CopyStrategy {
+
+	}
+
+	/**
 	 * A strategy that does not copy arcs that already exist in a target graph
 	 */
-	public static class NoDuplicatesCopyStrategy implements CopyStrategy {
+	public static class NoDuplicatesCopyStrategy extends CopyStrategy {
 
 		private Graph targetGraph;
 
