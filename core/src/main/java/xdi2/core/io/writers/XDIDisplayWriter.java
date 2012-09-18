@@ -44,6 +44,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	private boolean writeContexts;
 	private boolean writeOrdered;
 	private boolean writeHtml;
+	private boolean prettyPrint;
 
 	public XDIDisplayWriter(Properties parameters) {
 
@@ -58,8 +59,17 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
 		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
+		
+		try {
+			
+			int prettyParam = Integer.parseInt(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
+			this.prettyPrint = prettyParam > 0 ? true : false;
+		} catch (NumberFormatException nfe) {
+			
+			this.prettyPrint = false;
+		}
 
-		log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeOrdered=" + this.writeOrdered + ", writeHtml=" + this.writeHtml);
+		log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeOrdered=" + this.writeOrdered + ", writeHtml=" + this.writeHtml + ", prettyPrint=" + this.prettyPrint);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
@@ -68,6 +78,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			bufferedWriter.write("<html><head><title>XDI Graph</title></head>\n");
 			bufferedWriter.write("<body style=\"font-family:monospace;font-size:14pt;font-weight:bold;\">\n");
+			bufferedWriter.write("<pre>\n");
 		}
 
 		Iterator<Statement> statements;
@@ -90,7 +101,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			statements = graph.getRootContextNode().getAllStatements();
 		}
-
+		
 		while (statements.hasNext()) {
 
 			Statement statement = statements.next();
@@ -102,31 +113,32 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			// HTML output
 
 			if (this.writeHtml) {
-
+				
 				if (statement instanceof ContextNodeStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_CONTEXTNODE + "\">");
-					bufferedWriter.write(statement.toString());
-					bufferedWriter.write("</span><br>\n");
+					bufferedWriter.write(statement.toString(this.prettyPrint).replaceAll("\t", "&#9;"));
+					bufferedWriter.write("</span>\n");
 				} else if (statement instanceof RelationStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_RELATION + "\">");
-					bufferedWriter.write(statement.toString());
-					bufferedWriter.write("</span><br>\n");
+					bufferedWriter.write(statement.toString(this.prettyPrint).replaceAll("\t", "&#9;"));
+					bufferedWriter.write("</span>\n");
 				} else if (statement instanceof LiteralStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_LITERAL + "\">");
-					bufferedWriter.write(statement.toString());
-					bufferedWriter.write("</span><br>\n");
+					bufferedWriter.write(statement.toString(this.prettyPrint).replaceAll("\t", "&#9;"));
+					bufferedWriter.write("</span>\n");
 				}
 			} else {
 
-				bufferedWriter.write(statement.toString() + "\n");
+				bufferedWriter.write(statement.toString(this.prettyPrint) + "\n");
 			}
 		}
-
+		
 		if (this.writeHtml) {
 
+			bufferedWriter.write("</pre>\n");
 			bufferedWriter.write("</body></html>\n");
 		}
 

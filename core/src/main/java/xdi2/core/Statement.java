@@ -31,7 +31,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 
 	/**
 	 * Gets the object of this statement.
-	 * @return A object.
+	 * @return An object.
 	 */
 	public XRI3Segment getObject();
 
@@ -42,8 +42,8 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	public XRI3 getXRI3();
 
 	/**
-	 * Returns the graph that contains this statements.
-	 * @return The graph that contains this statements.
+	 * Returns the graph that contains this statement.
+	 * @return The graph that contains this statement.
 	 */
 	public Graph getGraph();
 
@@ -51,6 +51,13 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * Delete the statement.
 	 */
 	public void delete();
+	
+	/**
+	 * Returns the String representation of this statement.
+	 * @param pretty A boolean flag to check whether to prettyprint the output.
+	 * @return The String representation of this statement.
+	 */
+	public String toString(boolean pretty);
 
 	/*
 	 * Sub-interfaces

@@ -48,12 +48,8 @@ public class XDIJSONWriterTest extends TestCase {
 		StringWriter writer = new StringWriter();
 		Writer out = xdiJSONWriter.write(graph, writer);
 		
-		String serializedJSON = out.toString();
+		String serializedJSON = out.toString().replaceAll("[ \n]", "");
 		
-		System.out.println("Input XDI:\n" + xdiString);
-		
-		System.out.println("Output JSON:\n" + serializedJSON);
-		
-		assertEquals(jsonString, serializedJSON.replaceAll("[ \n]", ""));
+		assertEquals(jsonString, serializedJSON);
 	}
 }

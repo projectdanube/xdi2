@@ -3,13 +3,11 @@ package xdi2.tests.core.io.readers;
 import java.io.StringReader;
 
 import junit.framework.TestCase;
-
-import org.json.JSONObject;
-
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.readers.XDIJSONReader;
+import xdi2.core.io.writers.XDIDisplayWriter;
 
 public class XDIJSONReaderTest extends TestCase {
 
@@ -43,7 +41,7 @@ public class XDIJSONReaderTest extends TestCase {
 		StringReader reader = new StringReader(jsonString);
 		xdiJSONReader.read(graph, reader);
 
-		String serializedXDI = graph.toString(new MimeType("text/xdi")).trim();
+		String serializedXDI = graph.toString(XDIDisplayWriter.MIME_TYPE).trim();
 
 		assertEquals(xdiString, serializedXDI);
 	}

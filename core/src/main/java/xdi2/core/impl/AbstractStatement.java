@@ -35,12 +35,23 @@ public abstract class AbstractStatement implements Statement {
 	@Override
 	public String toString() {
 
+		return this.toString(false);
+	}
+	
+	public String toString(boolean pretty) {
+		
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(this.getSubject());
-		builder.append("/");
+		
+		if (pretty) builder.append("\t");
+		else builder.append("/");
+		
 		builder.append(this.getPredicate());
-		builder.append("/");
+
+		if (pretty) builder.append("\t");
+		else builder.append("/");
+		
 		builder.append(this.getObject());
 
 		return builder.toString();
