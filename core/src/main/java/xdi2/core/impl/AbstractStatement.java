@@ -5,17 +5,12 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
-import xdi2.core.xri3.impl.XRI3;
+import xdi2.core.xri3.impl.XRI3Reference;
+import xdi2.core.xri3.impl.XRI3Segment;
 
 public abstract class AbstractStatement implements Statement {
 
 	private static final long serialVersionUID = -8879896347494275688L;
-
-	@Override
-	public XRI3 getXRI3() {
-
-		return new XRI3(this.toString());
-	}
 
 	@Override
 	public Graph getGraph() {
@@ -28,6 +23,18 @@ public abstract class AbstractStatement implements Statement {
 
 	}
 
+	@Override
+	public XRI3Reference toXriReference() {
+
+		return new XRI3Reference(this.toString());
+	}
+
+	@Override
+	public XRI3Segment toXriSegment() {
+
+		return new XRI3Segment("(" + this.toString() + ")");
+	}
+
 	/*
 	 * Object methods
 	 */
@@ -37,21 +44,22 @@ public abstract class AbstractStatement implements Statement {
 
 		return this.toString(false);
 	}
-	
+
+	@Override
 	public String toString(boolean pretty) {
-		
+
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(this.getSubject());
-		
+
 		if (pretty) builder.append("\t");
 		else builder.append("/");
-		
+
 		builder.append(this.getPredicate());
 
 		if (pretty) builder.append("\t");
 		else builder.append("/");
-		
+
 		builder.append(this.getObject());
 
 		return builder.toString();
