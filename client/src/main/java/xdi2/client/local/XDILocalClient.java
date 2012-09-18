@@ -64,7 +64,7 @@ public class XDILocalClient implements XDIClient {
 
 		// create an execution context
 
-		ExecutionContext executionContext = new ExecutionContext(this.messagingTarget);
+		ExecutionContext executionContext = new ExecutionContext();
 
 		// send the message envelope
 

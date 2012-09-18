@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import junit.framework.TestCase;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
+import xdi2.core.util.iterators.InsertableIterator;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -381,6 +382,41 @@ public class IteratorTest extends TestCase {
 		assertRemoveUnsupportedOperationException(i);
 		assertNextNoSuchElementException(i);
 		assertRemoveUnsupportedOperationException(i);
+	}
+
+	public void testInsertableIterator() throws Exception {
+
+		List<String> strings1 = Arrays.asList("a", "b", "c");
+		List<String> strings2 = Arrays.asList("x", "y", "z");
+		List<String> strings3 = Arrays.asList("1", "2", "3");
+
+		InsertableIterator<String> iterator1 = new InsertableIterator<String> (strings1.iterator(), false);
+		assertTrue(iterator1.hasNext()); assertEquals(iterator1.next(), "a");
+		iterator1.insert(strings2.iterator());
+		assertTrue(iterator1.hasNext()); assertEquals(iterator1.next(), "x");
+		assertTrue(iterator1.hasNext()); assertEquals(iterator1.next(), "y");
+		assertTrue(iterator1.hasNext()); assertEquals(iterator1.next(), "z");
+		assertTrue(iterator1.hasNext()); assertEquals(iterator1.next(), "b");
+		assertTrue(iterator1.hasNext()); assertEquals(iterator1.next(), "c");
+		iterator1.insert(strings3.iterator());
+		assertTrue(iterator1.hasNext()); assertEquals(iterator1.next(), "1");
+		assertTrue(iterator1.hasNext()); assertEquals(iterator1.next(), "2");
+		assertTrue(iterator1.hasNext()); assertEquals(iterator1.next(), "3");
+		assertFalse(iterator1.hasNext());
+
+		InsertableIterator<String> iterator2 = new InsertableIterator<String> (strings1.iterator(), true);
+		assertTrue(iterator2.hasNext()); assertEquals(iterator2.next(), "a");
+		iterator2.insert(strings2.iterator());
+		assertTrue(iterator2.hasNext()); assertEquals(iterator2.next(), "b");
+		assertTrue(iterator2.hasNext()); assertEquals(iterator2.next(), "c");
+		assertTrue(iterator2.hasNext()); assertEquals(iterator2.next(), "x");
+		assertTrue(iterator2.hasNext()); assertEquals(iterator2.next(), "y");
+		assertTrue(iterator2.hasNext()); assertEquals(iterator2.next(), "z");
+		iterator2.insert(strings3.iterator());
+		assertTrue(iterator2.hasNext()); assertEquals(iterator2.next(), "1");
+		assertTrue(iterator2.hasNext()); assertEquals(iterator2.next(), "2");
+		assertTrue(iterator2.hasNext()); assertEquals(iterator2.next(), "3");
+		assertFalse(iterator2.hasNext());
 	}
 
 	/*

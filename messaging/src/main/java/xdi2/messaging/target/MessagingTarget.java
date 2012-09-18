@@ -23,19 +23,17 @@ public interface MessagingTarget {
 	public void shutdown() throws Exception;
 
 	/**
-	 * Returns the owner of the messaging target.
+	 * Returns the owner authority of the messaging target.
 	 * This may be null.
 	 */
-	public XRI3Segment getOwner();
+	public XRI3Segment getOwnerAuthority();
 
 	/**
 	 * Executes all messages in an XDI messaging envelope against this messaging target.
 	 * @param messageEnvelope The XDI message envelope containing XDI messages to be executed.
 	 * @param messageResult The result produced by executing the message envelope.
-	 * @param executionContext An "execution context" object that is created when
-	 * execution of the message envelope begins and that will be passed into every 
-	 * single execute() method.
-	 * @return True, if the message envelope has been handled.
+	 * @param executionContext An "execution context" object that carries state between
+	 * messaging targets, interceptors and contributors.
 	 */
 	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

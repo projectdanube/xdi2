@@ -20,8 +20,8 @@ import xdi2.core.io.XDIWriterRegistry;
  */
 public class FileGraphFactory extends AbstractGraphFactory implements GraphFactory {
 
-	public static final String DEFAULT_PATH = "xdi2-graph.properties";
-	public static final String DEFAULT_MIMETYPE = null;
+	public static final String DEFAULT_PATH = "xdi2-graph.xdi";
+	public static final String DEFAULT_MIMETYPE = XDIWriterRegistry.getDefault().getMimeType().toString();
 
 	private String path;
 	private String mimeType;
@@ -51,9 +51,9 @@ public class FileGraphFactory extends AbstractGraphFactory implements GraphFacto
 		XDIReader xdiReader = XDIReaderRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 		XDIWriter xdiWriter = XDIWriterRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 
-		MemoryGraph memoryGraph = (MemoryGraph) this.memoryGraphFactory.openGraph();
+		MemoryGraph memoryGraph = this.memoryGraphFactory.openGraph();
 
-		return new FileGraph(this.path, xdiReader, xdiWriter, memoryGraph);
+		return new FileGraph(this.path, this.mimeType, xdiReader, xdiWriter, memoryGraph);
 	}
 
 	public String getPath() {

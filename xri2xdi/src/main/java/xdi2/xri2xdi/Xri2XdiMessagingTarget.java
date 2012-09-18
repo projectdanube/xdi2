@@ -5,14 +5,15 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.dictionary.Dictionary;
-import xdi2.core.features.multiplicity.AttributeSingleton;
-import xdi2.core.features.multiplicity.EntitySingleton;
+import xdi2.core.features.multiplicity.XdiAttributeSingleton;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.AbstractAddressHandler;
+import xdi2.messaging.target.AbstractContextHandler;
 import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.ExecutionContext;
@@ -52,10 +53,10 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 		this.xriResolver = xriResolver;
 	}
 
-	private AddressHandler addressHandler = new AbstractAddressHandler() {
+	private AddressHandler addressHandler = new AbstractContextHandler() {
 
 		@Override
-		public boolean executeGetOnAddress(XRI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public void getContext(XRI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			// is this a remote root context XRI?
 
@@ -63,7 +64,7 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 			if (RemoteRoots.isRemoteRootXri(targetAddress)) {
 
-				xri = RemoteRoots.getXriOfRemoteRootXri(targetAddress);
+				xri = RemoteRoots.xriOfRemoteRootXri(targetAddress);
 			} else {
 
 				xri = targetAddress;
@@ -87,12 +88,10 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 			// prepare result graph
 
 			Graph graph = messageResult.getGraph();
-			ContextNode rootContextNode = graph.getRootContextNode();
 
 			// add "self" remote root context nodes
 
-			ContextNode selfRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, XDIConstants.XRI_S_ROOT, true);
-			selfRemoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, rootContextNode);
+			RemoteRoots.setSelfRemoteRootContextNode(graph, XDIConstants.XRI_S_ROOT);
 
 			// add I-Number remote root context nodes
 
@@ -102,7 +101,7 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 
 			if (uri != null) {
 
-				AttributeSingleton uriAttributeSingleton = EntitySingleton.fromContextNode(inumberRemoteRootContextNode).getAttributeSingleton(XRI_URI, true);
+				XdiAttributeSingleton uriAttributeSingleton = XdiSubGraph.fromContextNode(inumberRemoteRootContextNode).getAttributeSingleton(new XRI3SubSegment(XRI_URI), true);
 				Dictionary.addContextNodeType(uriAttributeSingleton.getContextNode(), XRI_TYPE_XDI);
 				uriAttributeSingleton.getContextNode().createLiteral(uri);
 			}
@@ -116,10 +115,6 @@ public class Xri2XdiMessagingTarget extends AbstractMessagingTarget {
 				ContextNode xriContextNode = graph.findContextNode(xri, true);
 				xriContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, inumberContextNode);
 			}
-
-			// done
-
-			return true;
 		}
 	};
 }

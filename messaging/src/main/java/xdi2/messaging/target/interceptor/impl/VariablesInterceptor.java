@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.variables.Variables;
-import xdi2.core.impl.AbstractStatement;
+import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -25,10 +25,15 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.ResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
+/**
+ * This interceptor can replace XDI variables in a $add operation with automatically generated persistent XRI subsegments.
+ * 
+ * @author markus
+ */
 public class VariablesInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, TargetInterceptor, ResultInterceptor {
 
 	/*
-	 * Interceptor
+	 * MessageEnvelopeInterceptor
 	 */
 
 	@Override
@@ -55,7 +60,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	 */
 
 	@Override
-	public Statement targetStatement(Operation operation, Statement targetStatement, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public Statement targetStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof AddOperation)) return targetStatement;
 
@@ -65,11 +70,11 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		if (subject == targetStatement.getSubject() && predicate == targetStatement.getPredicate() && object == targetStatement.getObject()) return targetStatement;
 
-		return AbstractStatement.fromComponents(subject, predicate, object);
+		return StatementUtil.fromComponents(subject, predicate, object);
 	}
 
 	@Override
-	public XRI3Segment targetAddress(Operation operation, XRI3Segment targetAddress, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XRI3Segment targetAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof AddOperation)) return targetAddress;
 
@@ -91,7 +96,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 			XRI3Segment predicate = XDIDictionaryConstants.XRI_S_IS;
 			XRI3Segment object = new XRI3Segment(entry.getValue().toString());
 
-			Statement statement = AbstractStatement.fromComponents(subject, predicate, object);
+			Statement statement = StatementUtil.fromComponents(subject, predicate, object);
 
 			messageResult.getGraph().addStatement(statement);
 		}
@@ -165,9 +170,9 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 		return getVariables(executionContext).get(key);
 	}
 
-	private static XRI3SubSegment putVariable(ExecutionContext executionContext, XRI3SubSegment key, XRI3SubSegment value) {
+	private static void putVariable(ExecutionContext executionContext, XRI3SubSegment key, XRI3SubSegment value) {
 
-		return getVariables(executionContext).put(key, value);
+		getVariables(executionContext).put(key, value);
 	}
 
 	private static void resetVariables(ExecutionContext executionContext) {

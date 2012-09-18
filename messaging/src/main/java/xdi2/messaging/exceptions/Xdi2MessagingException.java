@@ -1,7 +1,7 @@
 package xdi2.messaging.exceptions;
 
 import xdi2.core.exceptions.Xdi2Exception;
-import xdi2.messaging.Operation;
+import xdi2.messaging.target.ExecutionContext;
 
 /**
  * An exception that is thrown when messages are processed.
@@ -12,22 +12,22 @@ public class Xdi2MessagingException extends Xdi2Exception {
 
 	private static final long serialVersionUID = -1108199426288138128L;
 
-	private Operation operation;
+	private ExecutionContext executionContext;
 
-	public Xdi2MessagingException(String message, Throwable ex, Operation operation) {
+	public Xdi2MessagingException(String message, Throwable ex, ExecutionContext executionContext) {
 
 		super(message, ex);
 
-		this.operation = operation;
+		this.executionContext = executionContext;
 	}
 
-	public Operation getOperation() {
+	public ExecutionContext getExecutionContext() {
 
-		return this.operation;
+		return this.executionContext;
 	}
 
-	public void setOperation(Operation operation) {
+	public void setExecutionContext(ExecutionContext operation) {
 
-		this.operation = operation;
+		this.executionContext = operation;
 	}
 }

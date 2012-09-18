@@ -6,12 +6,13 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.multiplicity.EntityCollection;
 import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.features.multiplicity.XdiCollection;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -141,14 +142,14 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public MessageCollection getMessageCollection(XRI3Segment senderXri, boolean create) {
 
-		XRI3Segment messageCollectionXri = new XRI3Segment(senderXri.toString() + Multiplicity.entityCollectionArcXri(XDIMessagingConstants.XRI_SS_MSG.toString()));
+		XRI3Segment messageCollectionXri = new XRI3Segment(senderXri.toString() + Multiplicity.collectionArcXri(XDIMessagingConstants.XRI_SS_MSG));
 		ContextNode contextNode = this.getGraph().findContextNode(messageCollectionXri, create);
 
 		if (contextNode == null) return null;
 
-		EntityCollection entityCollection = EntityCollection.fromContextNode(contextNode);
+		XdiCollection xdiCollection = XdiCollection.fromContextNode(contextNode);
 
-		return new MessageCollection(this, entityCollection);
+		return new MessageCollection(this, xdiCollection);
 	}
 
 	/**
@@ -166,15 +167,28 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 			@Override
 			public boolean select(ContextNode contextNode) {
 
-				return EntityCollection.isValid(contextNode) && MessageCollection.isValid(EntityCollection.fromContextNode(contextNode));
+				return XdiCollection.isValid(contextNode) && MessageCollection.isValid(XdiCollection.fromContextNode(contextNode));
 			}
 
 			@Override
 			public MessageCollection map(ContextNode contextNode) {
 
-				return MessageCollection.fromMessageEnvelopeAndEntityCollection(MessageEnvelope.this, EntityCollection.fromContextNode(contextNode));
+				XdiCollection xdiCollection = XdiCollection.fromContextNode(contextNode);
+
+				return MessageCollection.fromMessageEnvelopeAndXdiCollection(MessageEnvelope.this, xdiCollection);
 			}
 		};
+	}
+
+	/**
+	 * Deletes all message collections from this message envelope.
+	 */
+	public void deleteMessageCollections() {
+
+		for (MessageCollection messageCollection : new IteratorListMaker<MessageCollection> (this.getMessageCollections()).list()) {
+
+			messageCollection.getContextNode().delete();
+		}
 	}
 
 	/**

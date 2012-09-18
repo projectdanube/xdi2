@@ -10,7 +10,7 @@ import org.mozilla.javascript.Scriptable;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
-import xdi2.core.features.multiplicity.AttributeSingleton;
+import xdi2.core.features.multiplicity.XdiAttributeSingleton;
 
 public class NotExpression extends PolicyExpressionComponent {
 	private static final long serialVersionUID = 5732150467865911411L;
@@ -58,7 +58,7 @@ public class NotExpression extends PolicyExpressionComponent {
 		if(null == expr || expr.isEmpty()){
 			return;
 		}
-		ContextNode c = AttributeSingleton.fromContextNode(contextNode)
+		ContextNode c = XdiAttributeSingleton.fromContextNode(contextNode)
 				.getContextNode();
 		c.createLiteral(expr);
 	}

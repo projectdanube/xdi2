@@ -29,6 +29,7 @@ import xdi2.core.io.readers.AutoReader;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor;
 import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
@@ -100,7 +101,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
-		request.setAttribute("variablesSupport", "on");
+		request.setAttribute("writePretty", "on");
+		request.setAttribute("variablesSupport", null);
+		request.setAttribute("expandDollarIsSupport", null);
 		request.setAttribute("linkContractsSupport", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
@@ -113,9 +116,11 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
+		String writePretty = request.getParameter("writePretty");
 		String variablesSupport = request.getParameter("variablesSupport");
+		String expandDollarIsSupport = request.getParameter("expandDollarIsSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
-		String to = request.getParameter("to");
+		String resultFormat = request.getParameter("resultFormat");
 		String input = request.getParameter("input");
 		String message = request.getParameter("message");
 		String output = "";
@@ -126,10 +131,11 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		if ("on".equals(writeContexts)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
 		if ("on".equals(writeOrdered)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
+		if ("on".equals(writePretty)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "1");
 		
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiInputWriter;
-		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(to, xdiResultWriterParameters);
+		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 		MessageEnvelope messageEnvelope = null;
 		MessageResult messageResult = null;
 		Graph graphInput = graphFactory.openGraph();
@@ -158,6 +164,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 				VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
 				messagingTarget.getInterceptors().add(variablesInterceptor);
+			}
+
+			if ("on".equals(expandDollarIsSupport)) {
+
+				ExpandDollarIsInterceptor expandDollarIsInterceptor = new ExpandDollarIsInterceptor();
+				messagingTarget.getInterceptors().add(expandDollarIsInterceptor);
 			}
 
 			if ("on".equals(linkContractsSupport)) {
@@ -220,11 +232,13 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
+		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("variablesSupport", variablesSupport);
+		request.setAttribute("expandDollarIsSupport", expandDollarIsSupport);
 		request.setAttribute("linkContractsSupport", linkContractsSupport);
-		request.setAttribute("to", to);
 		request.setAttribute("input", input);
 		request.setAttribute("message", message);
 		request.setAttribute("output", output);

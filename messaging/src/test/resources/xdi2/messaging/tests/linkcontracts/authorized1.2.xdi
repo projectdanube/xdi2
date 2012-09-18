@@ -1,2 +1,2 @@
-=markus$($msg)$(!1)$do/$mod/(=markus$*(+email)$!1/!/(data:,markus@test.com))
-=markus$($msg)$(!1)/$do/=markus$do
+=markus$msg$(!1)$do/$mod/(=markus$*(+email)$!1/!/(data:,markus@test.com))
+=markus$msg$(!1)/$do/=markus$do

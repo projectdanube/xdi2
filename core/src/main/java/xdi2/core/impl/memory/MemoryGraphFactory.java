@@ -1,6 +1,8 @@
 package xdi2.core.impl.memory;
 
-import xdi2.core.Graph;
+import java.util.HashMap;
+import java.util.Map;
+
 import xdi2.core.GraphFactory;
 import xdi2.core.impl.AbstractGraphFactory;
 
@@ -19,9 +21,13 @@ public class MemoryGraphFactory extends AbstractGraphFactory implements GraphFac
 
 	private int sortmode;
 
+	private Map<String, MemoryGraph> graphs;
+
 	public MemoryGraphFactory() { 
 
 		this.sortmode = SORTMODE_NONE;
+
+		this.graphs = new HashMap<String, MemoryGraph> ();
 	}
 
 	public static MemoryGraphFactory getInstance() {
@@ -32,7 +38,7 @@ public class MemoryGraphFactory extends AbstractGraphFactory implements GraphFac
 	}
 
 	@Override
-	public Graph openGraph() {
+	public MemoryGraph openGraph() {
 
 		// create new graph
 
@@ -40,9 +46,17 @@ public class MemoryGraphFactory extends AbstractGraphFactory implements GraphFac
 	}
 
 	@Override
-	public Graph openGraph(String identifier) {
+	public MemoryGraph openGraph(String identifier) {
 
-		return this.openGraph();
+		MemoryGraph graph = this.graphs.get(identifier);
+		
+		if (graph == null) {
+			
+			graph = this.openGraph();
+			this.graphs.put(identifier, graph);
+		}
+		
+		return graph;
 	}
 
 	public int getSortmode() {

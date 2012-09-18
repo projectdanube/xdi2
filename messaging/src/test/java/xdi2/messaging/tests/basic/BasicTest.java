@@ -72,7 +72,7 @@ public class BasicTest extends TestCase {
 
 		Message message = messageCollection.getMessage(true);
 
-		assertTrue(Message.isValid(message.getEntitySingleton()));
+		assertTrue(Message.isValid(message.getEntityMember()));
 
 		assertTrue(messageEnvelope.getMessageCollections().hasNext());
 		assertNotNull(messageEnvelope.getMessageCollection(SENDER, false));
@@ -202,5 +202,15 @@ public class BasicTest extends TestCase {
 		assertEquals(message.getSenderAuthority(), new XRI3Segment("(=!1111)(!3)"));
 		assertEquals(message.getRecipientAuthority(), new XRI3Segment("(=!2222)"));
 		assertEquals(message.getTimestamp(), calendar.getTime());
+	}
+
+	public void testSenderAndRecipientAuthority() throws Exception {
+
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.getMessage(new XRI3Segment("=sender"), true);
+		message.setSenderAuthority(new XRI3Segment("(=!1111)"));
+		message.setRecipientAuthority(new XRI3Segment("(=!2222)"));
+		assertEquals(message.getSenderAuthority(), new XRI3Segment("(=!1111)"));
+		assertEquals(message.getRecipientAuthority(), new XRI3Segment("(=!2222)"));
 	}
 }

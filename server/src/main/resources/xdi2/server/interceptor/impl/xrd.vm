@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XRDS>
+	<XRD version="2.0">
+		<Query>$query</Query>
+		<ServerStatus code="100" />
+		<Expires>2099-12-31T23:59:59.999Z</Expires>
+		<ProviderID>$providerid</ProviderID>
+		<LocalID>$localid</LocalID>
+		<CanonicalID>$canonicalid</CanonicalID>
+		<Service priority="10">
+			<Type select="true">xri://$xdi!($v!1)</Type>
+			<Path select="true">($context)!($xdi)!($v!1) </Path>
+			<MediaType match="default" select="false" />
+			<URI append="none" priority="10">$uri</URI>
+		</Service>
+	</XRD>
+</XRDS>

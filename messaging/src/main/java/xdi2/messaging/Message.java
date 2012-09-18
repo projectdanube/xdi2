@@ -6,10 +6,12 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
+import xdi2.core.Statement;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.multiplicity.EntitySingleton;
+import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -26,14 +28,14 @@ public final class Message implements Serializable, Comparable<Message> {
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	private MessageCollection messageCollection;
-	private EntitySingleton entitySingleton;
+	private XdiEntityMember entityMember;
 
-	protected Message(MessageCollection messageCollection, EntitySingleton entitySingleton) {
+	protected Message(MessageCollection messageCollection, XdiEntityMember entityMember) {
 
-		if (messageCollection == null || entitySingleton == null) throw new NullPointerException();
+		if (messageCollection == null || entityMember == null) throw new NullPointerException();
 
 		this.messageCollection = messageCollection;
-		this.entitySingleton = entitySingleton;
+		this.entityMember = entityMember;
 	}
 
 	/*
@@ -41,26 +43,26 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 
 	/**
-	 * Checks if an entity singleton is a valid XDI message.
-	 * @param entitySingleton The entity singleton to check.
-	 * @return True if the entity singleton is a valid XDI message.
+	 * Checks if an XDI entity member is a valid XDI message.
+	 * @param xdiEntityMember The XDI entity member to check.
+	 * @return True if the XDI entity member is a valid XDI message.
 	 */
-	public static boolean isValid(EntitySingleton entitySingleton) {
+	public static boolean isValid(XdiEntityMember xdiEntityMember) {
 
-		return entitySingleton.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
+		return xdiEntityMember.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
 	}
 
 	/**
-	 * Factory method that creates an XDI message bound to a given context node.
+	 * Factory method that creates an XDI message bound to a given XDI entity member.
 	 * @param messageCollection The XDI message collection to which this XDI message belongs.
-	 * @param entitySingleton The context node that is an XDI message.
+	 * @param xdiEntityMember The XDI entity member that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageCollectionAndEntitySingleton(MessageCollection messageCollection, EntitySingleton entitySingleton) {
+	public static Message fromMessageCollectionAndEntityMember(MessageCollection messageCollection, XdiEntityMember xdiEntityMember) {
 
-		if (! isValid(entitySingleton)) return null;
+		if (! isValid(xdiEntityMember)) return null;
 
-		return new Message(messageCollection, entitySingleton);
+		return new Message(messageCollection, xdiEntityMember);
 	}
 
 	/*
@@ -86,12 +88,12 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns the underlying entity singleton to which this XDI message is bound.
-	 * @return An entity singleton that represents the XDI message.
+	 * Returns the underlying XDI entity member to which this XDI message is bound.
+	 * @return An XDI entity member that represents the XDI message.
 	 */
-	public EntitySingleton getEntitySingleton() {
+	public XdiEntityMember getEntityMember() {
 
-		return this.entitySingleton;
+		return this.entityMember;
 	}
 
 	/**
@@ -100,7 +102,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ContextNode getContextNode() {
 
-		return this.entitySingleton.getContextNode();
+		return this.entityMember.getContextNode();
 	}
 
 	/**
@@ -123,17 +125,16 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Return the sender authority.
-	 * TODO: This is inefficient because it enumerates all relations in the graph.
 	 */
 	public XRI3Segment getSenderAuthority() {
 
-		for (Iterator<Relation> relations = this.getMessageEnvelope().getGraph().getRootContextNode().getAllRelations(); relations.hasNext(); ) {
+		for (Iterator<Relation> incomingRelations = this.getContextNode().getIncomingRelations(); incomingRelations.hasNext(); ) {
 
-			Relation relation = relations.next();
+			Relation incomingRelation = incomingRelations.next();
 
-			if (this.getContextNode().equals(relation.follow())) {
+			if (incomingRelation.getArcXri().equals(XDIMessagingConstants.XRI_S_FROM_GRAPH)) {
 
-				return relation.getContextNode().getXri();
+				return incomingRelation.getContextNode().getXri();
 			}
 		}
 
@@ -141,14 +142,34 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Set the sender authority.
+	 */
+	public void setSenderAuthority(XRI3Segment senderAuthority) {
+
+		ContextNode senderAuthorityContextNode = this.getMessageEnvelope().getGraph().findContextNode(senderAuthority, true);
+		
+		senderAuthorityContextNode.createRelation(XDIMessagingConstants.XRI_S_FROM_GRAPH, this.getContextNode());
+	}
+
+	/**
 	 * Return the recipient authority.
 	 */
 	public XRI3Segment getRecipientAuthority() {
 
-		Relation toGraphXriRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_GRAPH);
-		if (toGraphXriRelation == null) return null;
+		Relation recipientAuthorityRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_GRAPH);
+		if (recipientAuthorityRelation == null) return null;
 
-		return toGraphXriRelation.getTargetContextNodeXri();
+		return recipientAuthorityRelation.getTargetContextNodeXri();
+	}
+
+	/**
+	 * Set the recipient authority.
+	 */
+	public void setRecipientAuthority(XRI3Segment recipientAuthority) {
+
+		ContextNode recipientContextNode = this.getMessageEnvelope().getGraph().findContextNode(recipientAuthority, true);
+
+		this.getContextNode().createRelation(XDIMessagingConstants.XRI_S_TO_GRAPH, recipientContextNode);
 	}
 
 	/**
@@ -195,6 +216,19 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new operation and adds it to this XDI message.
+	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 */
+	public Operation createOperation(XRI3Segment operationXri, Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetStatement.toXriSegment());
+
+		return Operation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
 	 * Creates a new $get operation and adds it to this XDI message.
 	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $get operation.
@@ -202,6 +236,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	public GetOperation createGetOperation(XRI3Segment targetXri) {
 
 		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetXri);
+
+		return GetOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $get operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $get operation.
+	 */
+	public GetOperation createGetOperation(Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetStatement.toXriSegment());
 
 		return GetOperation.fromMessageAndRelation(this, relation);
 	}
@@ -219,6 +265,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $add operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $get operation.
+	 */
+	public AddOperation createAddOperation(Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetStatement.toXriSegment());
+
+		return AddOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
 	 * Creates a new $mod operation and adds it to this XDI message.
 	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $mod operation.
@@ -231,6 +289,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $mod operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $mod operation.
+	 */
+	public ModOperation createModOperation(Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetStatement.toXriSegment());
+
+		return ModOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
 	 * Creates a new $del operation and adds it to this XDI message.
 	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $del operation.
@@ -238,6 +308,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	public DelOperation createDelOperation(XRI3Segment targetXri) {
 
 		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetXri);
+
+		return DelOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $del operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $del operation.
+	 */
+	public DelOperation createDelOperation(Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetStatement.toXriSegment());
 
 		return DelOperation.fromMessageAndRelation(this, relation);
 	}
@@ -396,6 +478,17 @@ public final class Message implements Serializable, Comparable<Message> {
 				return DelOperation.fromMessageAndRelation(Message.this, relation);
 			}
 		};
+	}
+
+	/**
+	 * Deletes all operations from this message.
+	 */
+	public void deleteOperations() {
+
+		for (Operation operation : new IteratorListMaker<Operation> (this.getOperations()).list()) {
+
+			operation.getRelation().delete();
+		}
 	}
 
 	/**

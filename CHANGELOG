@@ -1,6 +1,82 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-09-15:
+------------------------
+
+*** Added XriResolutionEndpointServletInterceptor
+
+*** Various bug fixes, and improvements to DebugEndpointServletInterceptor
+
+2012-09-11:
+------------------------
+
+*** Some bug fixes related to multiplicity syntax
+
+2012-09-06:
+------------------------
+
+*** Added DataTypes skeleton class for supporting literal data types
+
+*** Support for messaging targets to be removed by messaging target factories
+
+2012-09-03:
+------------------------
+
+*** Many updates to messaging architecture and contributor/connector functionality
+
+2012-09-01:
+------------------------
+
+*** Updates to multiplicity support
+
+2012-08-29:
+------------------------
+
+*** Added Prashant/Pankaj code for "recursion" and "pretty printing" support of XDI/JSON format
+
+*** Renamed XDI² to XDI2
+
+2012-08-26:
+------------------------
+
+*** Small bugfixes to XDI/JSON reader and writer
+
+2012-08-25:
+------------------------
+
+*** Updates to web tools
+
+2012-08-24:
+------------------------
+
+*** New function of OperationInterceptors to be able to respond to result statements
+
+*** Added experimental ExpandDollarIsInterceptor
+
+2012-08-19:
+------------------------
+
+*** Renamed "server-logic" to "server", "server" to "server-war". Added "server-standalone".
+
+2012-08-16:
+------------------------
+
+*** Merged Animesh' link contracts bug fix
+
+*** Bug fixed related to Accept header and MIME types
+
+*** Bug fixed related to the "self" remote root context nodes
+
+2012-08-14:
+------------------------
+
+*** Added sample configuration for RegistryGraphMessagingTargetFactory
+
+*** Added skeleton project for connector module xdi2-connector-personal
+
+*** Some bug fixing
+
 2012-08-09:
 ------------------------
 
@@ -169,3 +245,4 @@ Also changed tests and sample messages in the web tools accordingly.
 *** Added interceptor functionality to xdi2.servet.EndpointServlet.
 
 *** Added CHANGELOG
+ 

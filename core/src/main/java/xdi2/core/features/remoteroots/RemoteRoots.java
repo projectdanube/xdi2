@@ -2,6 +2,8 @@ package xdi2.core.features.remoteroots;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Relation;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XRI3Reference;
@@ -13,6 +15,10 @@ public class RemoteRoots {
 
 	private RemoteRoots() { }
 
+	/*
+	 * Methods for remote root context nodes.
+	 */
+
 	/**
 	 * Given a graph, finds and returns a remote root context node for an XRI.
 	 * @param graph The graph.
@@ -22,7 +28,7 @@ public class RemoteRoots {
 	 */
 	public static ContextNode findRemoteRootContextNode(Graph graph, XRI3Segment xri, boolean create) {
 
-		return graph.findContextNode(getRemoteRootXri(xri), create);
+		return graph.findContextNode(remoteRootXri(xri), create);
 	}
 
 	/**
@@ -37,18 +43,60 @@ public class RemoteRoots {
 
 			@Override
 			public boolean select(ContextNode contextNode) {
-				
-				return isRemoteRootXri(contextNode.getXri());
+
+				return isRemoteRootContextNode(contextNode);
 			}
 		};
 	}
-	
+
+	/**
+	 * Checks if a given context node is a remote root context node.
+	 * @param contextNode A context node.
+	 * @return True, if the context node is a remote root context node.
+	 */
+	public static boolean isRemoteRootContextNode(ContextNode contextNode) {
+
+		return isRemoteRootXri(contextNode.getXri());
+	}
+
+	/*
+	 * Methods for the self remote root context node.
+	 */
+
+	public static ContextNode setSelfRemoteRootContextNode(Graph graph, XRI3Segment xri) {
+
+		ContextNode rootContextNode = graph.getRootContextNode();
+
+		rootContextNode.deleteRelations(XDIDictionaryConstants.XRI_S_IS_IS);
+
+		if (xri == null) return null;
+		
+		ContextNode remoteRootContextNode = findRemoteRootContextNode(graph, xri, true);
+
+		rootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_IS, remoteRootContextNode);
+		remoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, rootContextNode);
+
+		return remoteRootContextNode;
+	}
+
+	public static ContextNode getSelfRemoteRootContextNode(Graph graph) {
+
+		Relation relation = graph.getRootContextNode().getRelation(XDIDictionaryConstants.XRI_S_IS_IS);
+		if (relation == null) return null;
+
+		return relation.follow();
+	}
+
+	/*
+	 * Methods for remote root XRIs.
+	 */
+
 	/**
 	 * Returns the remote root XRI of an XRI.
 	 * @param xri An XRI.
 	 * @return The remote root XRI of the XRI.
 	 */
-	public static XRI3Segment getRemoteRootXri(XRI3Segment xri) {
+	public static XRI3Segment remoteRootXri(XRI3Segment xri) {
 
 		return new XRI3Segment("(" + xri.toString() + ")");
 	}
@@ -58,7 +106,7 @@ public class RemoteRoots {
 	 * @param xri A remote root XRI.
 	 * @return The XRI of the remote root XRI.
 	 */
-	public static XRI3Segment getXriOfRemoteRootXri(XRI3Segment xri) {
+	public static XRI3Segment xriOfRemoteRootXri(XRI3Segment xri) {
 
 		if (xri.getNumSubSegments() != 1) return null;
 
@@ -80,6 +128,6 @@ public class RemoteRoots {
 	 */
 	public static boolean isRemoteRootXri(XRI3Segment xri) {
 
-		return getXriOfRemoteRootXri(xri) != null;
+		return xriOfRemoteRootXri(xri) != null;
 	}
 }

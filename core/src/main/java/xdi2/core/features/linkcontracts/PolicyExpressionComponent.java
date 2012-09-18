@@ -8,7 +8,7 @@ import org.mozilla.javascript.Scriptable;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
-import xdi2.core.features.multiplicity.AttributeCollection;
+import xdi2.core.features.multiplicity.XdiCollection;
 
 public abstract class PolicyExpressionComponent implements Serializable,
 		Comparable<PolicyExpressionComponent> {
@@ -112,7 +112,7 @@ public abstract class PolicyExpressionComponent implements Serializable,
 			return;
 		}
 
-		ContextNode c = AttributeCollection.fromContextNode(contextNode).createAttributeSingleton().getContextNode();
+		ContextNode c = XdiCollection.fromContextNode(contextNode).createAttributeMember().getContextNode();
 		c.createLiteral(expr);
 	}
 	// TODO : Add remove function. Consider URL decoding before comparing.

@@ -40,14 +40,19 @@ public class MimeTypeTest extends TestCase {
 		MimeType otherMimeType2 = new MimeType("application/xdi+json;contexts=1;q=0.5", null);
 		MimeType otherMimeType3 = new MimeType("application/xdi+json", null);
 
+		assertNull(otherMimeType1.mimeTypeWithoutQuality().getParameterValue("q"));
+		assertNotNull(otherMimeType1.mimeTypeWithoutQuality().getParameterValue("contexts"));
+		assertNull(otherMimeType2.mimeTypeWithoutQuality().getParameterValue("q"));
+		assertNotNull(otherMimeType2.mimeTypeWithoutQuality().getParameterValue("contexts"));
+		
 		for (int i=0; i<mimeTypes.length; i++) { 
 
 			assertFalse(mimeTypes[i].equals(otherMimeType1));
 			assertFalse(mimeTypes[i].equals(otherMimeType2));
 			assertFalse(mimeTypes[i].equals(otherMimeType3));
-			assertTrue(mimeTypes[i].mimeTypeWithoutQuality().equals(otherMimeType1.mimeTypeWithoutQuality()));
-			assertTrue(mimeTypes[i].mimeTypeWithoutQuality().equals(otherMimeType2.mimeTypeWithoutQuality()));
-			assertTrue(mimeTypes[i].mimeTypeWithoutQuality().equals(otherMimeType3.mimeTypeWithoutQuality()));
+			assertTrue(mimeTypes[i].mimeTypeWithoutParameters().equals(otherMimeType1.mimeTypeWithoutParameters()));
+			assertTrue(mimeTypes[i].mimeTypeWithoutParameters().equals(otherMimeType2.mimeTypeWithoutParameters()));
+			assertTrue(mimeTypes[i].mimeTypeWithoutParameters().equals(otherMimeType3.mimeTypeWithoutParameters()));
 		}
 	}
 }

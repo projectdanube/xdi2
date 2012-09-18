@@ -15,18 +15,18 @@ public interface OperationInterceptor extends Interceptor {
 	/**
 	 * Run before an operation is executed.
 	 * @param operation The operation to process.
-	 * @param messageResult The message result.
+	 * @param operationMessageResult The operation's message result.
 	 * @param executionContext The current execution context.
 	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
-	public boolean before(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public boolean before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
 	 * Run after an operation is executed.
 	 * @param operation The operation to process.
-	 * @param messageResult The message result.
+	 * @param operationMessageResult The operation's message result.
 	 * @param executionContext The current execution context.
 	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
-	public boolean after(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public boolean after(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

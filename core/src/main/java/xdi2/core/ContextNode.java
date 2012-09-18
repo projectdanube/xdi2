@@ -7,10 +7,7 @@ import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
 /**
- * This interface represents a whole XDI graph.
- * XDI graphs consist of subjects and statements between them.
- * Operations on the graph include creating new statements and subjects, finding and
- * manipulating them.
+ * This interface represents a context node in an XDI graph.
  * 
  * @author markus
  */
@@ -223,7 +220,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 
 	/**
 	 * Checks if a relation with a given arc XRI exists in this context node.
-	 * @param arcXri The arc XRI to look for. 
+	 * @param arcXri The arc XRI of the relation. 
 	 * @param targetContextNodeXri The target context node XRI of the relation.
 	 * @return True if this context nod has a relation with the given arc XRI.
 	 */
@@ -231,7 +228,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 
 	/**
 	 * Checks if relations with a given arc XRI exists in this context node.
-	 * @param arcXri The arc XRI to look for. 
+	 * @param arcXri The arc XRI of the relation. 
 	 * @return True if this context nod has a relation with the given arc XRI.
 	 */
 	public boolean containsRelations(XRI3Segment arcXri);
@@ -241,6 +238,15 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return True if this context node has relations.
 	 */
 	public boolean containsRelations();
+
+	/**
+	 * Finds a relation at any depth under this context node.
+	 * @param xri The relation XRI of the context node containing the relation.
+	 * @param arcXri The arc XRI of the relation.
+	 * @param targetContextNodeXri The target context node XRI of the relation.
+	 * @return A relation or null.
+	 */
+	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
 
 	/**
 	 * Finds a relation at any depth under this context node.

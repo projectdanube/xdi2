@@ -8,6 +8,6 @@ public abstract class AbstractResultInterceptor extends AbstractInterceptor impl
 
 	@Override
 	public void finish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-		
+
 	}
 }

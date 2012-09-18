@@ -13,6 +13,7 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.impl.AbstractContextNode;
+import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
@@ -66,6 +67,8 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	public synchronized ContextNode createContextNode(XRI3SubSegment arcXri) {
 
 		if (arcXri == null) throw new NullPointerException();
+
+		if (XRIUtil.isIllegalContextNodeArcXri(arcXri)) throw new Xdi2GraphException("Invalid arc XRI: " + arcXri);
 
 		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 
@@ -141,9 +144,11 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		if (arcXri == null) throw new NullPointerException();
 		if (targetContextNode == null) throw new NullPointerException();
 
+		if (XRIUtil.isIllegalRelationArcXri(arcXri)) throw new Xdi2GraphException("Invalid arc XRI: " + arcXri);
+
 		XRI3Segment targetContextNodeXri = targetContextNode.getXri();
 
-		if (this.containsRelation(arcXri, targetContextNodeXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
+		if (this.containsRelation(arcXri, targetContextNodeXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNodeXri + ".");
 
 		Map<XRI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) {

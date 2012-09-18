@@ -81,9 +81,10 @@ public class AcceptHeader implements Serializable, Comparable<AcceptHeader> {
 		for (MimeType mimeType : mimeTypes) {
 
 			MimeType mimeTypeWithoutQuality = mimeType.mimeTypeWithoutQuality();
+			MimeType mimeTypeWithoutParameters = mimeType.mimeTypeWithoutParameters();
 
-			if (canRead && (! XDIReaderRegistry.supportsMimeType(mimeTypeWithoutQuality))) continue;
-			if (canWrite && (! XDIWriterRegistry.supportsMimeType(mimeTypeWithoutQuality))) continue;
+			if (canRead && (! XDIReaderRegistry.supportsMimeType(mimeTypeWithoutParameters))) continue;
+			if (canWrite && (! XDIWriterRegistry.supportsMimeType(mimeTypeWithoutParameters))) continue;
 
 			return mimeTypeWithoutQuality;
 		}

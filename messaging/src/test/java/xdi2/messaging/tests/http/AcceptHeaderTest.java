@@ -29,14 +29,28 @@ public class AcceptHeaderTest extends TestCase {
 		AcceptHeader acceptHeader;
 
 		acceptHeader = AcceptHeader.parse("application/xdi+json;q=1,application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5,text/xdi;q=0.5");
+		assertEquals(acceptHeader.getMimeTypes().size(), 6);
 		assertEquals(acceptHeader.bestMimeType(true, false), XDIJSONReader.MIME_TYPE);
 
 		acceptHeader = AcceptHeader.parse("text/xdi;q=1,application/xdi+json;contexts=0;q=0.5,application/xdi+json;contexts=1;q=0.5,application/xdi+json;q=0.5,text/xdi;contexts=0;q=0.5,text/xdi;contexts=1;q=0.5");
+		assertEquals(acceptHeader.getMimeTypes().size(), 6);
 		assertEquals(acceptHeader.bestMimeType(true, false), XDIDisplayReader.MIME_TYPE);
 
 		acceptHeader = AcceptHeader.parse("application/xml;q=1.1,text/html,text/xdi;q=0.7,*/*;q=0.8");
+		assertEquals(acceptHeader.getMimeTypes().size(), 4);
 		assertEquals(acceptHeader.bestMimeType(false, false), new MimeType("application/xml"));
 		assertEquals(acceptHeader.bestMimeType(true, false), new MimeType("text/xdi"));
 		assertEquals(acceptHeader.bestMimeType(false, true), new MimeType("text/html"));
+	}
+
+	public void testAcceptHeaderParameters() throws Exception {
+
+		AcceptHeader acceptHeader;
+
+		acceptHeader = AcceptHeader.parse("application/xdi+json;contexts=1;ordered=0");
+		assertNotNull(acceptHeader.bestMimeType(true, true));
+		assertNotNull(acceptHeader.bestMimeType(true, true));
+		assertEquals(acceptHeader.bestMimeType(true, true).getParameterValue("contexts"), "1");
+		assertEquals(acceptHeader.bestMimeType(true, true).getParameterValue("ordered"), "0");
 	}
 }

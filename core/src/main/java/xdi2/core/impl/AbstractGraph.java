@@ -53,6 +53,12 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
+	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
+
+		return this.getRootContextNode().findRelation(xri, arcXri, targetContextNodeXri);
+	}
+
+	@Override
 	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri) {
 
 		return this.getRootContextNode().findRelation(xri, arcXri);
@@ -74,6 +80,12 @@ public abstract class AbstractGraph implements Graph {
 	public boolean containsContextNode(XRI3Segment xri) {
 
 		return this.findContextNode(xri, false) != null;
+	}
+
+	@Override
+	public boolean containsRelation(XRI3Segment xri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
+
+		return this.findRelation(xri, arcXri, targetContextNodeXri) != null;
 	}
 
 	@Override

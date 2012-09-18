@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>XDI²</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>XDI2</title>
 <script type="text/javascript" src="tabber.js"></script>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 <link rel="shortcut icon" href="favicon.ico" />
@@ -15,7 +15,7 @@
 	<tr>
 	<td>
 		<div class="header">
-		<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI²</span>
+		<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI2</span>
 		</div>
 	</td>
 	<td valign="bottom" style="padding-left: 20px">
@@ -26,7 +26,7 @@
 	
 	<hr noshade style="clear:both">
 	
-	<p>XDI² ("XDI-Squared") is an XDI library for Java, supporting both traditional client/server models and distributed network topologies.</p>
+	<p>XDI2 ("XDI Two") is an XDI library for Java, supporting both traditional client/server models and distributed network topologies.</p>
 	
 	<p>It is designed to be a general-purpose, lightweight and modular implementation of XDI specifications, in order to support a wide range of use cases.</p>
 
