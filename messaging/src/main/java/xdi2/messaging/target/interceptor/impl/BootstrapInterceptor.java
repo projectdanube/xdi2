@@ -101,7 +101,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 			Policy policy = bootstrapLinkContract.getPolicy(true);
 			AndExpression andExpression = policy.getAndNode(true);
-			andExpression.addLiteralExpression("xdi.getGraphValue('" + XRI_SECRET_TOKEN + "') == xdi.getMessageProperty('" + XRI_SECRET_TOKEN + "')");
+			andExpression.addLiteralExpression("xdi.getGraphValue('" + XRI_SECRET_TOKEN  +"') != null && (xdi.getGraphValue('" + XRI_SECRET_TOKEN + "') == xdi.getMessageProperty('" + XRI_SECRET_TOKEN + "'))");
 		}
 	}
 
