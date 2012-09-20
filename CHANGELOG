@@ -1,6 +1,11 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-09-19:
+------------------------
+
+*** New default link contract policy that checks for null values
+
 2012-09-15:
 ------------------------
 
