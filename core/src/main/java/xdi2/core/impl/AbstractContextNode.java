@@ -569,12 +569,6 @@ public abstract class AbstractContextNode implements ContextNode {
 		}
 
 		@Override
-		public XRI3Segment getPredicate() {
-
-			return XDIConstants.XRI_S_CONTEXT;
-		}
-
-		@Override
 		public XRI3Segment getObject() {
 
 			return new XRI3Segment(AbstractContextNode.this.getArcXri().toString());

@@ -5,6 +5,7 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.xri3.impl.XRI3Reference;
 import xdi2.core.xri3.impl.XRI3Segment;
 
@@ -128,6 +129,12 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -7006808512493295364L;
 
 		@Override
+		public final XRI3Segment getPredicate() {
+
+			return XDIConstants.XRI_S_CONTEXT;
+		}
+
+		@Override
 		public ContextNode getContextNode() {
 
 			return null;
@@ -148,6 +155,12 @@ public abstract class AbstractStatement implements Statement {
 	public static abstract class AbstractLiteralStatement extends AbstractStatement implements LiteralStatement {
 
 		private static final long serialVersionUID = -7876412291137305476L;
+
+		@Override
+		public final XRI3Segment getPredicate() {
+
+			return XDIConstants.XRI_S_LITERAL;
+		}
 
 		@Override
 		public Literal getLiteral() {
