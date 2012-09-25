@@ -246,7 +246,7 @@ public final class CopyUtil {
 
 			if (this.targetGraph.containsContextNode(contextNode.getXri()) && contextNode.isEmpty()) {
 
-				if (log.isDebugEnabled()) log.debug("Not copying context node" + contextNode);
+				if (log.isDebugEnabled()) log.debug("Not copying context node " + contextNode);
 				return null;
 			}
 

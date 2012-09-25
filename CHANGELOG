@@ -1,6 +1,11 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-09-26:
+------------------------
+
+*** Updates to support latest multiplicity syntax (i.e. collections and entity singletons)
+
 2012-09-19:
 ------------------------
 

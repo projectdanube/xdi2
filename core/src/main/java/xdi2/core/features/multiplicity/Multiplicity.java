@@ -10,8 +10,8 @@ import xdi2.core.xri3.impl.XRI3SubSegment;
  * 
  * Examples:
  * 
- * Collection: +tel, +passport
- * Entity Singleton: $(+passport)
+ * Collection: $(+tel), $(+passport)
+ * Entity Singleton: =!1111, +passport
  * Attribute Singleton: $!(+tel)
  * Entity Member: $(!1)
  * Attribute Member: $!(!1)
@@ -28,12 +28,12 @@ public class Multiplicity {
 	
 	public static XRI3SubSegment collectionArcXri(XRI3SubSegment arcXri) {
 
-		return arcXri;
+		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
 	
 	public static XRI3SubSegment entitySingletonArcXri(XRI3SubSegment arcXri) {
 
-		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
+		return arcXri;
 	}
 
 	public static XRI3SubSegment attributeSingletonArcXri(XRI3SubSegment arcXri) {
@@ -57,20 +57,20 @@ public class Multiplicity {
 	
 	public static boolean isCollectionArcXri(XRI3SubSegment arcXri) {
 
-		if (isEntitySingletonArcXri(arcXri)) return false;
-		if (isAttributeSingletonArcXri(arcXri)) return false;
-		if (isEntityMemberArcXri(arcXri)) return false;
-		if (isAttributeMemberArcXri(arcXri)) return false;
+		if (arcXri == null) return false;
+		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
+		if (arcXri.hasLCS()) return false;
+		if (! arcXri.hasXRef()) return false;
 
 		return true;
 	}
 
 	public static boolean isEntitySingletonArcXri(XRI3SubSegment arcXri) {
 
-		if (arcXri == null) return false;
-		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
-		if (arcXri.hasLCS()) return false;
-		if (! arcXri.hasXRef()) return false;
+		if (isCollectionArcXri(arcXri)) return false;
+		if (isAttributeSingletonArcXri(arcXri)) return false;
+		if (isEntityMemberArcXri(arcXri)) return false;
+		if (isAttributeMemberArcXri(arcXri)) return false;
 
 		return true;
 	}
