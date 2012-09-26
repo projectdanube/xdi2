@@ -56,10 +56,10 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
-					<property name="bootstrapOwner" value="@!9999" />
+					<property name="bootstrapOwner" value="=!BDF3.1FB.E70C.3958" />
 					<property name="bootstrapOwnerSynonyms">
 						<util:list>
-							<value>@myorg</value>
+							<value>=danube</value>
 						</util:list>
 					</property>
 					<property name="bootstrapSharedSecret" value="s3cret" />

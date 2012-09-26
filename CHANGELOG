@@ -1,6 +1,13 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-09-27:
+------------------------
+
+*** Update to the way the XriResolutionServletEndpointInterceptor works
+
+*** Updates to applicationContext.xml to registry to use =danube and =!BDF3.1FB.E70C.3958 as examples
+
 2012-09-26:
 ------------------------
 

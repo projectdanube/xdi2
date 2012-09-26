@@ -58,22 +58,24 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		String providerid = getProviderId(this.getRegistryGraph());
 		String localid = query;
 		String canonicalid = providerid + localid;
-		String uri = constructUri(requestInfo, this.getTargetPath(), query);
+		String uri = constructUri(requestInfo, this.getTargetPath(), canonicalid);
 
 		// look into registry
 
-		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XRI3Segment(query), false);
+		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XRI3Segment(canonicalid), false);
 		if (remoteRootContextNode == null) {
 
-			log.warn("Remote root context node for " + query + " not found in the registry graph. Ignoring.");
-			return false;
+			log.warn("Remote root context node for " + canonicalid + " not found in the registry graph. Ignoring.");
+			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
+			return true;
 		}
 
 		ContextNode selfRemoteContextNode = RemoteRoots.getSelfRemoteRootContextNode(this.getRegistryGraph());
 		if (remoteRootContextNode.equals(selfRemoteContextNode)) {
 
 			log.warn("Remote root context node for " + query + " is the owner of the registry graph. Ignoring.");
-			return false;
+			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
+			return true;
 		}
 
 		// prepare velocity
@@ -89,12 +91,12 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		// send response
 
-		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrd.vm"));
+		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrds-ok.vm"));
 		PrintWriter writer = response.getWriter();
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("application/xrd+xml");
-		this.velocityEngine.evaluate(context, writer, "xrd.vm", reader);
+		this.velocityEngine.evaluate(context, writer, "xrds-ok.vm", reader);
 		writer.close();
 
 		// done
@@ -117,10 +119,10 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		return query;
 	}
 
-	private static String constructUri(RequestInfo requestInfo, String targetPath, String query) {
+	private static String constructUri(RequestInfo requestInfo, String targetPath, String canonicalid) {
 
 		String uri = requestInfo.getUri().substring(0, requestInfo.getUri().length() - requestInfo.getRequestPath().length());
-		uri += targetPath + "/" + query;
+		uri += targetPath + "/" + canonicalid;
 
 		return uri;
 	}
@@ -133,6 +135,26 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		return RemoteRoots.xriOfRemoteRootXri(contextNode.getXri()).toString();
 	}
 
+	private void sendNotFoundXrd(EndpointServlet endpointServlet, RequestInfo requestInfo, String query, HttpServletResponse response) throws IOException {
+
+		// prepare velocity
+
+		VelocityContext context = new VelocityContext();
+		context.put("endpointservlet", endpointServlet);
+		context.put("requestinfo", requestInfo);
+		context.put("query", query);
+
+		// send response
+
+		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrds-notfound.vm"));
+		PrintWriter writer = response.getWriter();
+
+		response.setStatus(HttpServletResponse.SC_OK);
+		response.setContentType("application/xrd+xml");
+		this.velocityEngine.evaluate(context, writer, "xrd.vm", reader);
+		writer.close();
+	}
+	
 	/*
 	 * Getters and setters
 	 */
