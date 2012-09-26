@@ -24,13 +24,13 @@ import xdi2.core.features.multiplicity.Multiplicity;
  * @author markus
  */
 public final class LinkContract implements Serializable,
-		Comparable<LinkContract> {
+Comparable<LinkContract> {
 
 	private static final long serialVersionUID = 1604380462449272148L;
 
 	//The $do context node which represents this link contract in the graph
 	private ContextNode contextNode;
-	
+
 	private static final XRI3Segment XRI_SECRET_TOKEN = new XRI3Segment("" + Multiplicity.entitySingletonArcXri(new XRI3SubSegment("$secret")) + Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("$token")));
 
 	private LinkContract(ContextNode contextNode) {

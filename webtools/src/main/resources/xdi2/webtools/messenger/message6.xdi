@@ -1,4 +1,4 @@
 @!9999$($msg)$(!1)/$is()/(@!9999)
 @!9999$($msg)$(!1)/$do/$do
-@!9999$($msg)$(!1)$($secret)$!($token)/!/(data:,s3cret)
+@!9999$($msg)$(!1)$secret$!($token)/!/(data:,s3cret)
 @!9999$($msg)$(!1)$do/$get/()

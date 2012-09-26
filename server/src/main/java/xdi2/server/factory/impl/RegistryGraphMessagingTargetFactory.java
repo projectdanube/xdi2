@@ -6,10 +6,9 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
-import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.EndpointRegistry;
@@ -21,8 +20,6 @@ import xdi2.server.registry.EndpointRegistry;
  * @author markus
  */
 public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingTargetFactory {
-
-	private static final XRI3Segment XRI_SECRET_TOKEN = new XRI3Segment("" + Multiplicity.entitySingletonArcXri(new XRI3SubSegment("$secret")) + Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("$token")));
 
 	private static final Logger log = LoggerFactory.getLogger(RegistryGraphMessagingTargetFactory.class);
 
@@ -58,7 +55,7 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 
 		XRI3Segment[] ownerSynonyms = new XRI3Segment[0];
 
-		Literal sharedSecretLiteral = this.getRegistryGraph().findLiteral(new XRI3Segment("" + owner + XRI_SECRET_TOKEN));
+		Literal sharedSecretLiteral = this.getRegistryGraph().findLiteral(new XRI3Segment("" + owner + XDIMessagingConstants.XRI_S_SECRET_TOKEN));
 		String sharedSecret = sharedSecretLiteral == null ? null : sharedSecretLiteral.getLiteralData();
 
 		// create and mount the new messaging target

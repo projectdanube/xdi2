@@ -11,10 +11,9 @@ import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
-import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
@@ -26,8 +25,6 @@ import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
  * @author markus
  */
 public class BootstrapInterceptor implements MessagingTargetInterceptor {
-
-	private static final XRI3Segment XRI_SECRET_TOKEN = new XRI3Segment("" + Multiplicity.entitySingletonArcXri(new XRI3SubSegment("$secret")) + Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("$token")));
 
 	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 
@@ -85,7 +82,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 		if (this.bootstrapSharedSecret != null) {
 
-			ContextNode bootstrapOwnerSharedSecretContextNode = graph.findContextNode(XRI_SECRET_TOKEN, true);
+			ContextNode bootstrapOwnerSharedSecretContextNode = graph.findContextNode(XDIMessagingConstants.XRI_S_SECRET_TOKEN, true);
 			bootstrapOwnerSharedSecretContextNode.createLiteral(this.bootstrapSharedSecret);
 		}
 
@@ -101,7 +98,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 			Policy policy = bootstrapLinkContract.getPolicy(true);
 			AndExpression andExpression = policy.getAndNode(true);
-			andExpression.addLiteralExpression("xdi.getGraphValue('" + XRI_SECRET_TOKEN  +"') != null && (xdi.getGraphValue('" + XRI_SECRET_TOKEN + "') == xdi.getMessageProperty('" + XRI_SECRET_TOKEN + "'))");
+			andExpression.addLiteralExpression("xdi.getGraphValue('" + XDIMessagingConstants.XRI_S_SECRET_TOKEN  +"') != null && (xdi.getGraphValue('" + XDIMessagingConstants.XRI_S_SECRET_TOKEN + "') == xdi.getMessageProperty('" + XDIMessagingConstants.XRI_S_SECRET_TOKEN + "'))");
 		}
 	}
 
