@@ -350,10 +350,6 @@ public final class LinkContract implements Serializable,
 		Relation r = null;
 		for (; allRelations.hasNext();) {
 			r = allRelations.next();
-			// System.out.println("Arc XRI=" + r.getArcXri());
-			// System.out.println("Relation XRI=" + r.getRelationXri());
-			// System.out.println("Context Node=" + r.getContextNode());
-			// System.out.println("XDI Statement=" + r.getStatement());
 			if (r.getArcXri().equals(perm)) {
 				ContextNode nodeWithPermission = r.follow();
 				if (nodeWithPermission.equals(targetNode)) {
