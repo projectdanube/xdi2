@@ -10,8 +10,6 @@ import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDITimestampsConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.multiplicity.Multiplicity;
-import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public class Timestamps {
 
@@ -57,9 +55,7 @@ public class Timestamps {
 	 */
 	public static Date getContextNodeTimestamp(ContextNode contextNode) {
 
-		XRI3SubSegment arcXri = Multiplicity.attributeSingletonArcXri(XDITimestampsConstants.XRI_SS_T);
-
-		Literal timestampLiteral = contextNode.getLiteralInContextNode(arcXri);
+		Literal timestampLiteral = contextNode.getLiteralInContextNode(XDITimestampsConstants.XRI_SS_T);
 		if (timestampLiteral == null) return null;
 
 		Date timestamp = stringToTimestamp(timestampLiteral.getLiteralData());
@@ -71,14 +67,12 @@ public class Timestamps {
 	 */
 	public static void setContextNodeTimestamp(ContextNode contextNode, Date timestamp) {
 
-		XRI3SubSegment arcXri = Multiplicity.attributeSingletonArcXri(XDITimestampsConstants.XRI_SS_T);
-
 		String string = timestampToString(timestamp);
 
-		Literal timestampLiteral = contextNode.getLiteralInContextNode(arcXri);
+		Literal timestampLiteral = contextNode.getLiteralInContextNode(XDITimestampsConstants.XRI_SS_T);
 
 		if (timestampLiteral == null) 
-			timestampLiteral = contextNode.createLiteralInContextNode(arcXri, string);
+			timestampLiteral = contextNode.createLiteralInContextNode(XDITimestampsConstants.XRI_SS_T, string);
 		else
 			timestampLiteral.setLiteralData(string);
 	}
