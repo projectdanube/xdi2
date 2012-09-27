@@ -30,7 +30,7 @@ public class IteratorTest extends TestCase {
 		assertTrue(new IteratorContains(myObjectIterator(), myObject()).contains());
 		assertEquals(new IteratorCounter(myObjectIterator()).count(), 4);
 		assertEquals(new IteratorFirstItem<MyObject> (myObjectIterator()).item(), myObject());
-		assertEquals(new IteratorArrayMaker<MyObject> (myObjectIterator()).array(new MyObject[0]).length, 4);
+		assertEquals(new IteratorArrayMaker<MyObject> (myObjectIterator()).array(MyObject.class).length, 4);
 		assertEquals(new IteratorListMaker<MyObject> (myObjectIterator()).list().size(), 4);
 	}
 

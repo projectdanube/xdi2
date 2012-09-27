@@ -1,12 +1,17 @@
 package xdi2.server.factory.impl;
 
+import java.util.Iterator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
+import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.remoteroots.RemoteRoots;
+import xdi2.core.util.iterators.IteratorArrayMaker;
+import xdi2.core.util.iterators.MappingContextNodeXrisIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.target.MessagingTarget;
@@ -40,20 +45,27 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 		// look into registry
 
 		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), owner, false);
+
 		if (remoteRootContextNode == null) {
 
 			log.warn("Remote root context node for " + owner + " not found in the registry graph. Ignoring.");
 			return;
 		}
 
-		ContextNode selfRemoteContextNode = RemoteRoots.getSelfRemoteRootContextNode(this.getRegistryGraph());
-		if (remoteRootContextNode.equals(selfRemoteContextNode)) {
+		if (RemoteRoots.isSelfRemoteRootContextNode(remoteRootContextNode)) {
 
 			log.warn("Remote root context node for " + owner + " is the owner of the registry graph. Ignoring.");
 			return;
 		}
 
-		XRI3Segment[] ownerSynonyms = new XRI3Segment[0];
+		// read the owner synonyms
+
+		Iterator<ContextNode> ownerSynonymRemoteRootContextNodes = Dictionary.getSynonymContextNodes(remoteRootContextNode);
+
+		XRI3Segment[] ownerSynonyms = (new IteratorArrayMaker<XRI3Segment> (new MappingContextNodeXrisIterator(ownerSynonymRemoteRootContextNodes))).array(XRI3Segment.class);
+		for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(ownerSynonyms[i]);
+
+		// read the shared secret
 
 		Literal sharedSecretLiteral = this.getRegistryGraph().findLiteral(new XRI3Segment("" + owner + XDIMessagingConstants.XRI_S_SECRET_TOKEN));
 		String sharedSecret = sharedSecretLiteral == null ? null : sharedSecretLiteral.getLiteralData();

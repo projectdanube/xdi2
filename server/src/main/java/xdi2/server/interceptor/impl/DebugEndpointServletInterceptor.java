@@ -44,14 +44,12 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 
 		if (! requestInfo.getRequestPath().equals("/")) return false;
 
-		// prepare velocity values
+		// prepare velocity
 
 		List<MessagingTarget> messagingTargets = endpointServlet.getEndpointRegistry().getMessagingTargets();
 		Map<String, MessagingTarget> messagingTargetsByPath = endpointServlet.getEndpointRegistry().getMessagingTargetsByPath();
 		List<MessagingTargetFactory> messagingTargetFactorys = endpointServlet.getEndpointRegistry().getMessagingTargetFactorys();
 		Map<String, MessagingTargetFactory> messagingTargetFactorysByPath = endpointServlet.getEndpointRegistry().getMessagingTargetFactorysByPath();
-
-		// prepare velocity
 
 		VelocityContext context = new VelocityContext();
 		context.put("endpointservlet", endpointServlet);

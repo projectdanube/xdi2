@@ -58,23 +58,26 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 		// create bootstrap owner
 
+		ContextNode bootstrapOwnerContextNode = null;
+		ContextNode bootstrapOwnerSelfRemoteRootContextNode = null;
+		
 		if (this.bootstrapOwner != null) {
 
-			graph.getRootContextNode().createContextNodes(this.bootstrapOwner);
-
-			RemoteRoots.setSelfRemoteRootContextNode(graph, this.bootstrapOwner);
+			bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
+			bootstrapOwnerSelfRemoteRootContextNode = RemoteRoots.setSelfRemoteRootContextNode(graph, this.bootstrapOwner);
 		}
 
 		// create bootstrap owner synonyms
 
 		if (this.bootstrapOwner != null && this.bootstrapOwnerSynonyms != null) {
 
-			ContextNode bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
-
 			for (XRI3Segment bootstrapOwnerSynonym : this.bootstrapOwnerSynonyms) {
 
 				ContextNode bootstrapOwnerSynonymContextNode = graph.findContextNode(bootstrapOwnerSynonym, true);
 				bootstrapOwnerSynonymContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, bootstrapOwnerContextNode);
+
+				ContextNode bootstrapOwnerSynonymRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, bootstrapOwnerSynonym, true);
+				bootstrapOwnerSynonymRemoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, bootstrapOwnerSelfRemoteRootContextNode);
 			}
 		}
 
@@ -90,7 +93,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 		if (this.bootstrapLinkContract) {
 
-			ContextNode bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
+			bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
 
 			LinkContract bootstrapLinkContract = LinkContracts.getLinkContract(rootContextNode, true);
 			bootstrapLinkContract.addAssignee(bootstrapOwnerContextNode);

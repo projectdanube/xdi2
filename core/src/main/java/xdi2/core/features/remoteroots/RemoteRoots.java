@@ -70,7 +70,7 @@ public class RemoteRoots {
 		rootContextNode.deleteRelations(XDIDictionaryConstants.XRI_S_IS_IS);
 
 		if (xri == null) return null;
-		
+
 		ContextNode remoteRootContextNode = findRemoteRootContextNode(graph, xri, true);
 
 		rootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_IS, remoteRootContextNode);
@@ -85,6 +85,13 @@ public class RemoteRoots {
 		if (relation == null) return null;
 
 		return relation.follow();
+	}
+
+	public static boolean isSelfRemoteRootContextNode(ContextNode remoteRootContextNode) {
+
+		ContextNode selfRemoteRootContextNode = getSelfRemoteRootContextNode(remoteRootContextNode.getGraph());
+
+		return remoteRootContextNode.equals(selfRemoteRootContextNode);
 	}
 
 	/*

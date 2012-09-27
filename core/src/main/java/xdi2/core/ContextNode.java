@@ -196,7 +196,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Returns the relations with a given arc XRI. 
 	 * @param arcXri The arc XRI to look for. 
-	 * @return The relations with the given arc XRI, or null.
+	 * @return An iterator over relations with the given arc XRI, or null.
 	 */
 	public ReadOnlyIterator<Relation> getRelations(XRI3Segment arcXri);
 
@@ -205,6 +205,13 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return An iterator over relations.
 	 */
 	public ReadOnlyIterator<Relation> getRelations();
+
+	/**
+	 * Returns the incoming relations with a given arc XRI.
+	 * @param arcXri The arc XRI to look for. 
+	 * @return An iterator over relations with the given arc XRI, or null.
+	 */
+	public ReadOnlyIterator<Relation> getIncomingRelations(XRI3Segment arcXri);
 
 	/**
 	 * Returns the incoming relations of this context node.
