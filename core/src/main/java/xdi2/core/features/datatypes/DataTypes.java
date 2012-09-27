@@ -276,10 +276,9 @@ public class DataTypes {
 		try {
 			Graph graph = literal.getGraph();
 
-			ReadOnlyIterator<Relation> relations = graph.findRelations(literal
-					.getContextNode().getXri(),
-					XDIDictionaryConstants.XRI_S_IS_TYPE);
-
+			ReadOnlyIterator<Relation> relations = 
+					literal.getContextNode().getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
+			
 			dataTypes = new ArrayList<XRI3Segment>();
 
 			while (relations.hasNext()) {
