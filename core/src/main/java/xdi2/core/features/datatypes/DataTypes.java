@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -34,7 +33,7 @@ public class DataTypes {
 			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "json");
 	public static final XRI3Segment XRI_MIME_DATATYPE = new XRI3Segment(""
 			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "mime");
-	private static final String xriBoolean = "+$binary!";
+	private static final String xriBinary = "+$binary!";
 
 	/*
 	 * Methods for data type XRIs
@@ -171,7 +170,7 @@ public class DataTypes {
 		ContextNode contextNode = literal.getContextNode();
 
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_TYPE,
-				new XRI3Segment(xriBoolean));
+				new XRI3Segment(xriBinary));
 
 	}
 
@@ -189,7 +188,7 @@ public class DataTypes {
 		Iterator<?> itrDatatypes = lstDatatypesXRI.iterator();
 
 		while (itrDatatypes.hasNext()) {
-			if (itrDatatypes.next().toString().contains(xriBoolean)) {
+			if (itrDatatypes.next().toString().contains(xriBinary)) {
 				isBinary = true;
 				break;
 			}
@@ -274,11 +273,9 @@ public class DataTypes {
 	private static List<XRI3Segment> getLiteralDatatypes(Literal literal) {
 		List<XRI3Segment> dataTypes;
 		try {
-			Graph graph = literal.getGraph();
-
-			ReadOnlyIterator<Relation> relations = graph.findRelations(literal
-					.getContextNode().getXri(),
-					XDIDictionaryConstants.XRI_S_IS_TYPE);
+			
+	     ReadOnlyIterator<Relation> relations =
+	                    literal.getContextNode().getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
 
 			dataTypes = new ArrayList<XRI3Segment>();
 
