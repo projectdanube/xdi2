@@ -31,6 +31,7 @@ import xdi2.messaging.http.AcceptHeader;
  * <li>sendMimeType - The mime type to use to send the XDI messages to the endpoint. The Content-type header will be set accordingly.</li>
  * <li>recvMimeType - The mime type in which we want to receive the results from the endpoint. The Accept header will be set accordingly.
  * If the endpoint replies in some other mime type than requested, we will still try to read it.</li>
+ * <li>useragent - The User-Agent HTTP header to use.</li>
  * </ul> 
  * 
  * @author markus
