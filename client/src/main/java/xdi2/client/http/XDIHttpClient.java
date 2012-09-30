@@ -44,7 +44,7 @@ public class XDIHttpClient implements XDIClient {
 
 	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;contexts=0";
 	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json;contexts=0";
-	public static final String DEFAULT_USERAGENT = "XDI^2 Java Library";
+	public static final String DEFAULT_USERAGENT = "XDI2 Java Library";
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
 
