@@ -38,6 +38,10 @@
 	<!-- SPRING -->
 
 	<listener>
+		<listener-class>xdi2.server.plugins.PluginsLoaderListener</listener-class>
+	</listener>
+
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 

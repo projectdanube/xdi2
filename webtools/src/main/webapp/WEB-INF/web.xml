@@ -110,7 +110,7 @@
 	<!-- SPRING -->
 
 	<listener>
-		<listener-class>xdi2.server.modules.ModulesLoader</listener-class>
+		<listener-class>xdi2.server.plugins.PluginsLoaderListener</listener-class>
 	</listener>
 
 	<listener>

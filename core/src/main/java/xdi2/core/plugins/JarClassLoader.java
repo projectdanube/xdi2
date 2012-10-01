@@ -1,4 +1,4 @@
-package xdi2.server.modules;
+package xdi2.core.plugins;
 
 import java.io.Closeable;
 import java.io.File;
@@ -79,7 +79,7 @@ public class JarClassLoader extends URLClassLoader {
 
 	private void addJarResource(File file) throws IOException {
 
-		log.info("Adding .jar: " + file.getAbsolutePath());
+		log.debug("Adding .jar to classpath: " + file.getAbsolutePath());
 
 		JarFile jarFile = new JarFile(file);
 		addURL(file.toURI().toURL());
