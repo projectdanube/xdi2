@@ -23,6 +23,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractStatementHandler;
 import xdi2.messaging.target.ExecutionContext;
 
+@Deprecated
 public class GraphStatementHandler extends AbstractStatementHandler {
 
 	private Graph graph;

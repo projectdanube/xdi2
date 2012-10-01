@@ -18,6 +18,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
  * 
  * @author markus
  */
+@Deprecated
 public abstract class AbstractStatementHandler implements StatementHandler {
 
 	/*

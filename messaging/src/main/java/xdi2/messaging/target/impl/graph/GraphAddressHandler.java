@@ -15,6 +15,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractAddressHandler;
 import xdi2.messaging.target.ExecutionContext;
 
+@Deprecated
 public class GraphAddressHandler extends AbstractAddressHandler {
 
 	private Graph graph;
@@ -45,10 +46,10 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 	@Override
 	public void executeAddOnAddress(XRI3Segment targetAddress, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment parentAddress = XRIUtil.parentXri(targetAddress);
+		XRI3Segment parentAddress = XRIUtil.parentXri(targetAddress, -1);
 		if (parentAddress == null) parentAddress = XDIConstants.XRI_S_CONTEXT;
 
-		XRI3SubSegment localAddress = XRIUtil.localXri(targetAddress);
+		XRI3SubSegment localAddress = (XRI3SubSegment) XRIUtil.localXri(targetAddress, 1).getFirstSubSegment();
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, true);
 		contextNode.createContextNode(localAddress);

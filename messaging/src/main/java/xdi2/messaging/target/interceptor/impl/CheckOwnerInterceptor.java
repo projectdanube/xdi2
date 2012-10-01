@@ -28,7 +28,7 @@ public class CheckOwnerInterceptor extends AbstractInterceptor implements Messag
 	@Override
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		MessagingTarget messagingTarget = executionContext.getMessagingTarget();
+		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 		XRI3Segment recipientAuthority = message.getRecipientAuthority();
 

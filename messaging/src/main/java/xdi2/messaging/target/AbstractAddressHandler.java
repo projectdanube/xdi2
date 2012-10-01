@@ -9,6 +9,13 @@ import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
+/**
+ * Checks what kind of operation is being
+ * executed ($add, $get, ...) and calls the appropriate executeXXX() method
+ * 
+ * @author markus
+ */
+@Deprecated
 public class AbstractAddressHandler implements AddressHandler {
 
 	/*

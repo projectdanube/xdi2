@@ -1,6 +1,7 @@
 package xdi2.messaging.target.contributor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -112,18 +113,25 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 	 * Methods for executing contributors
 	 */
 
-	public boolean executeContributorsAddress(XRI3Segment relativeTargetAddress, XRI3Segment targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeContributorsAddress(XRI3Segment[] contributorXris, XRI3Segment relativeTargetAddress, XRI3Segment targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		// find an address with contributors
 
 		final XRI3Segment relativeContextNodeXri = relativeTargetAddress;
 
-		XRI3Segment contributorXri = this.findHigherContributorXri(relativeContextNodeXri);
-		if (contributorXri == null) return false;
+		XRI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
+		if (nextContributorXri == null) return false;
 
-		relativeTargetAddress = this.findRelativeTargetAddress(contributorXri, relativeTargetAddress);
+		contributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
+		contributorXris[contributorXris.length - 1] = XRIUtil.parentXri(relativeContextNodeXri, nextContributorXri.getNumSubSegments());
 
-		if (log.isDebugEnabled()) log.debug("Contributor XRI: " + contributorXri + ", relative target address: " + relativeTargetAddress + ", target address: " + targetAddress);
+		relativeTargetAddress = XRIUtil.relativeXri(relativeTargetAddress, nextContributorXri, false, true);
 
-		for (Iterator<Contributor> contributors = this.get(contributorXri).iterator(); contributors.hasNext(); ) {
+		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(contributorXris) + ", next relative target address: " + relativeTargetAddress + ", target address: " + targetAddress);
+
+		// execute the contributors
+
+		for (Iterator<Contributor> contributors = this.get(nextContributorXri).iterator(); contributors.hasNext(); ) {
 
 			Contributor contributor = contributors.next();
 
@@ -133,7 +141,7 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 				executionContext.pushContributor(contributor, "Contributor: address");
 
-				if (contributor.executeOnAddress(contributorXri, relativeTargetAddress, targetAddress, operation, operationMessageResult, executionContext)) {
+				if (contributor.executeOnAddress(contributorXris, relativeTargetAddress, targetAddress, operation, operationMessageResult, executionContext)) {
 
 					if (log.isDebugEnabled()) log.debug("Address has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
 					return true;
@@ -144,21 +152,30 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 			}
 		}
 
+		// done
+
 		return false;
 	}
 
-	public boolean executeContributorsStatement(Statement relativeTargetStatement, Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeContributorsStatement(XRI3Segment contributorXris[], Statement relativeTargetStatement, Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		// find an address with contributors
 
 		XRI3Segment relativeContextNodeXri = targetStatement instanceof ContextNodeStatement ? new XRI3Segment(relativeTargetStatement.getSubject().toString() + relativeTargetStatement.getObject().toString()) : relativeTargetStatement.getSubject();
 
-		XRI3Segment contributorXri = this.findHigherContributorXri(relativeContextNodeXri);
-		if (contributorXri == null) return false;
+		XRI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
+		if (nextContributorXri == null) return false;
 
-		relativeTargetStatement = this.findRelativeTargetStatement(contributorXri, relativeTargetStatement);
+		contributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
+		contributorXris[contributorXris.length - 1] = XRIUtil.parentXri(relativeContextNodeXri, nextContributorXri.getNumSubSegments());
 
-		if (log.isDebugEnabled()) log.debug("Contributor XRI: " + contributorXri + ", relative target statement: " + relativeTargetStatement + ", target statement: " + targetStatement);
+		relativeTargetStatement = StatementUtil.relativeStatement(relativeTargetStatement, nextContributorXri, false, true);
 
-		for (Iterator<Contributor> contributors = this.get(contributorXri).iterator(); contributors.hasNext(); ) {
+		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(contributorXris) + ", next relative target statement: " + relativeTargetStatement + ", target statement: " + targetStatement);
+
+		// execute the contributors
+
+		for (Iterator<Contributor> contributors = this.get(nextContributorXri).iterator(); contributors.hasNext(); ) {
 
 			Contributor contributor = contributors.next();
 
@@ -168,7 +185,7 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 				executionContext.pushContributor(contributor, "Contributor: statement");
 
-				if (contributor.executeOnStatement(contributorXri, relativeTargetStatement, targetStatement, operation, operationMessageResult, executionContext)) {
+				if (contributor.executeOnStatement(contributorXris, relativeTargetStatement, targetStatement, operation, operationMessageResult, executionContext)) {
 
 					if (log.isDebugEnabled()) log.debug("Statement has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
 					return true;
@@ -178,6 +195,8 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 				executionContext.popContributor();
 			}
 		}
+
+		// done
 
 		return false;
 	}
@@ -194,7 +213,7 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 	public XRI3Segment findHigherContributorXri(XRI3Segment contextNodeXri) {
 
 		for (XRI3Segment contributorXri : this.keySet()) {
-
+			
 			if (XRIUtil.startsWith(contextNodeXri, contributorXri, false, true)) return contributorXri;
 		}
 
@@ -209,15 +228,5 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 		}
 
 		return null;
-	}
-
-	public XRI3Segment findRelativeTargetAddress(XRI3Segment contributorXri, XRI3Segment targetAddress) {
-
-		return XRIUtil.relativeXri(targetAddress, contributorXri, false, true);
-	}
-
-	public Statement findRelativeTargetStatement(XRI3Segment contributorXri, Statement targetStatement) {
-
-		return StatementUtil.relativeStatement(targetStatement, contributorXri, false, true);
 	}
 }

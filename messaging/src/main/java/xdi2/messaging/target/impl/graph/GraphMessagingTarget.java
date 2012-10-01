@@ -21,8 +21,8 @@ import xdi2.messaging.target.StatementHandler;
 public class GraphMessagingTarget extends AbstractMessagingTarget {
 
 	private Graph graph;
-	private GraphAddressHandler graphAddressHandler;
-	private GraphStatementHandler graphStatementHandler;
+//	private GraphAddressHandler graphAddressHandler;
+//	private GraphStatementHandler graphStatementHandler;
 	private GraphContextHandler graphContextHandler;
 
 	public GraphMessagingTarget() {
@@ -30,8 +30,8 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 		super();
 
 		this.graph = null;
-		this.graphAddressHandler = null;
-		this.graphStatementHandler = null;
+//		this.graphAddressHandler = null;
+//		this.graphStatementHandler = null;
 		this.graphContextHandler = null;
 	}
 
@@ -109,8 +109,8 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
-		this.graphAddressHandler = new GraphAddressHandler(graph);
-		this.graphStatementHandler = new GraphStatementHandler(graph);
+//		this.graphAddressHandler = new GraphAddressHandler(graph);
+//		this.graphStatementHandler = new GraphStatementHandler(graph);
 		this.graphContextHandler = new GraphContextHandler(graph);
 	}
 }

@@ -91,7 +91,7 @@ public class ErrorMessageResult extends MessageResult {
 		if (ex instanceof Xdi2MessagingException) {
 
 			ExecutionContext executionContext = ((Xdi2MessagingException) ex).getExecutionContext();
-			Operation operation = executionContext == null ? null : executionContext.getOperation();
+			Operation operation = executionContext == null ? null : executionContext.getCurrentOperation();
 
 			if (operation != null) errorMessageResult.setErrorOperation(operation.getRelation().getStatement().toString());
 		}

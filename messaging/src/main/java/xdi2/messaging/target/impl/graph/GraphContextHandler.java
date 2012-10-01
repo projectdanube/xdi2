@@ -61,10 +61,10 @@ public class GraphContextHandler extends AbstractContextHandler {
 	@Override
 	public void addContext(XRI3Segment contextNodeXri, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment parentXri = XRIUtil.parentXri(contextNodeXri);
+		XRI3Segment parentXri = XRIUtil.parentXri(contextNodeXri, -1);
 		if (parentXri == null) parentXri = XDIConstants.XRI_S_CONTEXT;
 
-		XRI3SubSegment localXri = XRIUtil.localXri(contextNodeXri);
+		XRI3SubSegment localXri = (XRI3SubSegment) XRIUtil.localXri(contextNodeXri, 1).getFirstSubSegment();
 
 		ContextNode contextNode = this.getGraph().findContextNode(parentXri, true);
 		contextNode.createContextNode(localXri);

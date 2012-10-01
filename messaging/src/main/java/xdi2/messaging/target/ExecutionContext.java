@@ -23,21 +23,6 @@ public final class ExecutionContext implements Serializable {
 
 	private static final long serialVersionUID = 3238581605986543950L;
 
-	/*
-	 * Position
-	 */
-
-	/**
-	 * The current position.
-	 * This is either a MessagingTarget, a MessageEnvelope, a Message,
-	 * an Operation, an Interceptor, or a Contributor.
-	 */
-	private Position<?> current, top;
-
-	/*
-	 * Attributes
-	 */
-
 	/**
 	 * This map is preserved during the entire execution of a MessageEnvelope.
 	 */
@@ -53,179 +38,28 @@ public final class ExecutionContext implements Serializable {
 	 */
 	private Map<String, Object> operationAttributes;
 
-	public ExecutionContext() { 
+	/**
+	 * The exception that happened during execution.
+	 */
+	private Exception ex;
 
-		this.current = new Position<ExecutionContext> (null, this, null);
-		this.top = this.current;
+	/**
+	 * The current execution position.
+	 * This is either a MessagingTarget, a MessageEnvelope, a Message,
+	 * an Operation, an Interceptor, or a Contributor.
+	 */
+	private ExecutionPosition<?> currentExecutionPosition, topExecutionPosition;
+
+	public ExecutionContext() { 
 
 		this.messageEnvelopeAttributes = new HashMap<String, Object> ();
 		this.messageAttributes = new HashMap<String, Object> ();
 		this.operationAttributes = new HashMap<String, Object> ();
-	}
 
-	/*
-	 * Position
-	 */
+		this.ex = null;
 
-	public void pushMessagingTarget(MessagingTarget messagingTarget, String comment) {
-
-		this.pushPosition(messagingTarget, comment);
-	}
-
-	public void pushMessageEnvelope(MessageEnvelope messageEnvelope, String comment) {
-
-		this.pushPosition(messageEnvelope, comment);
-	}
-
-	public void pushMessage(Message message, String comment) {
-
-		this.pushPosition(message, comment);
-	}
-
-	public void pushOperation(Operation operation, String comment) {
-
-		this.pushPosition(operation, comment);
-	}
-
-	public void pushInterceptor(Interceptor interceptor, String comment) {
-
-		this.pushPosition(interceptor, comment);
-	}
-
-	public void pushContributor(Contributor contributor, String comment) {
-
-		this.pushPosition(contributor, comment);
-	}
-
-	public void popMessagingTarget() {
-
-		this.popPosition(MessagingTarget.class);
-	}
-
-	public void popMessageEnvelope() {
-
-		this.popPosition(MessageEnvelope.class);
-	}
-
-	public void popMessage() {
-
-		this.popPosition(Message.class);
-	}
-
-	public void popOperation() {
-
-		this.popPosition(Operation.class);
-	}
-
-	public void popInterceptor() {
-
-		this.popPosition(Interceptor.class);
-	}
-
-	public void popContributor() {
-
-		this.popPosition(Contributor.class);
-	}
-
-	public MessagingTarget getMessagingTarget() {
-
-		return this.findPosition(MessagingTarget.class);
-	}
-
-	public MessageEnvelope getMessageEnvelope() {
-
-		return this.findPosition(MessageEnvelope.class);
-	}
-
-	public Message getMessage() {
-
-		return this.findPosition(Message.class);
-	}
-
-	public Operation getOperation() {
-
-		return this.findPosition(Operation.class);
-	}
-
-	public Interceptor getInterceptor() {
-
-		return this.findPosition(Interceptor.class);
-	}
-
-	public Contributor getContributor() {
-
-		return this.findPosition(Contributor.class);
-	}
-
-	public boolean isTopPosition() {
-
-		return this.current == this.top;
-	}
-
-	public String getPositionString() {
-
-		StringBuffer buffer = new StringBuffer();
-
-		for (Position<?> position = this.current; position != this.top; ) {
-
-			Object object = position.object;
-
-			buffer.insert(0, object.getClass().getSimpleName());
-			if (position.parent != this.top) buffer.insert(0, "-->");
-
-			position = position.parent;
-		}
-
-		return buffer.toString();
-	}
-
-	public String getTraceString() {
-
-		return this.getTraceString(0, this.top);
-	}
-
-	private String getTraceString(int depth, Position<?> parent) {
-
-		StringBuffer buffer = new StringBuffer();
-
-		buffer.append("\n");
-		for (int i=0; i<depth; i++) buffer.append("  ");
-		buffer.append(parent.toString());
-
-		for (Position<?> position : parent.positions) {
-
-			buffer.append(this.getTraceString(depth + 1, position));
-		}
-
-		return buffer.toString();
-	}
-
-	private <T> void pushPosition(T object, String comment) {
-
-		this.current = new Position<T> (this.current, object, comment);
-	}
-
-	@SuppressWarnings("unchecked")
-	private <T> void popPosition(Class<? extends T> clazz) {
-
-		Position<T> position = (Position<T>) this.current;
-
-		if (this.current == this.top) throw new IllegalStateException();
-
-		this.current = position.parent;
-	}
-
-	@SuppressWarnings("unchecked")
-	private <T> T findPosition(Class<? extends T> clazz) {
-
-		for (Position<?> position = this.current; position != this.top; ) {
-
-			if (clazz.isAssignableFrom(position.object.getClass())) return (T) position.object;
-
-			position = position.parent;
-		}
-
-		return null;
+		this.currentExecutionPosition = new ExecutionPosition<ExecutionContext> (null, this, null);
+		this.topExecutionPosition = this.currentExecutionPosition;
 	}
 
 	/*
@@ -287,32 +121,223 @@ public final class ExecutionContext implements Serializable {
 	}
 
 	/*
+	 * Exception
+	 */
+
+	public Exception getException() {
+
+		return this.ex;
+	}
+
+	public void setException(Exception ex) {
+
+		this.ex = ex;
+	}
+
+	/*
+	 * Execution positions
+	 */
+
+	public void pushMessagingTarget(MessagingTarget messagingTarget, String comment) {
+
+		this.pushExecutionPosition(messagingTarget, comment);
+	}
+
+	public void pushMessageEnvelope(MessageEnvelope messageEnvelope, String comment) {
+
+		this.pushExecutionPosition(messageEnvelope, comment);
+	}
+
+	public void pushMessage(Message message, String comment) {
+
+		this.pushExecutionPosition(message, comment);
+	}
+
+	public void pushOperation(Operation operation, String comment) {
+
+		this.pushExecutionPosition(operation, comment);
+	}
+
+	public void pushInterceptor(Interceptor interceptor, String comment) {
+
+		this.pushExecutionPosition(interceptor, comment);
+	}
+
+	public void pushContributor(Contributor contributor, String comment) {
+
+		this.pushExecutionPosition(contributor, comment);
+	}
+
+	public void popMessagingTarget() {
+
+		this.popExecutionPosition(MessagingTarget.class);
+	}
+
+	public void popMessageEnvelope() {
+
+		this.popExecutionPosition(MessageEnvelope.class);
+	}
+
+	public void popMessage() {
+
+		this.popExecutionPosition(Message.class);
+	}
+
+	public void popOperation() {
+
+		this.popExecutionPosition(Operation.class);
+	}
+
+	public void popInterceptor() {
+
+		this.popExecutionPosition(Interceptor.class);
+	}
+
+	public void popContributor() {
+
+		this.popExecutionPosition(Contributor.class);
+	}
+
+	public MessagingTarget getCurrentMessagingTarget() {
+
+		ExecutionPosition<MessagingTarget> executionPosition = this.findCurrentExecutionPosition(MessagingTarget.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public MessageEnvelope getCurrentMessageEnvelope() {
+
+		ExecutionPosition<MessageEnvelope> executionPosition = this.findCurrentExecutionPosition(MessageEnvelope.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public Message getCurrentMessage() {
+
+		ExecutionPosition<Message> executionPosition = this.findCurrentExecutionPosition(Message.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public Operation getCurrentOperation() {
+
+		ExecutionPosition<Operation> executionPosition = this.findCurrentExecutionPosition(Operation.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public Interceptor getCurrentInterceptor() {
+
+		ExecutionPosition<Interceptor> executionPosition = this.findCurrentExecutionPosition(Interceptor.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public Contributor getCurrentContributor() {
+
+		ExecutionPosition<Contributor> executionPosition = this.findCurrentExecutionPosition(Contributor.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public boolean isTopExecutionPosition() {
+
+		return this.currentExecutionPosition == this.topExecutionPosition;
+	}
+
+	private <T> void pushExecutionPosition(T object, String comment) {
+
+		this.currentExecutionPosition = new ExecutionPosition<T> (this.currentExecutionPosition, object, comment);
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> void popExecutionPosition(Class<? extends T> clazz) {
+
+		ExecutionPosition<T> executionPosition = (ExecutionPosition<T>) this.currentExecutionPosition;
+
+		if (this.currentExecutionPosition == this.topExecutionPosition) throw new IllegalStateException();
+
+		this.currentExecutionPosition = executionPosition.parentExecutionPosition;
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> ExecutionPosition<T> findCurrentExecutionPosition(Class<? extends T> clazz) {
+
+		for (ExecutionPosition<?> executionPosition = this.currentExecutionPosition; executionPosition != this.topExecutionPosition; ) {
+
+			if (clazz.isAssignableFrom(executionPosition.executionObject.getClass())) return (ExecutionPosition<T>) executionPosition;
+
+			executionPosition = executionPosition.parentExecutionPosition;
+		}
+
+		return null;
+	}
+
+	public String getTraceLine() {
+
+		StringBuffer buffer = new StringBuffer();
+
+		for (ExecutionPosition<?> position = this.currentExecutionPosition; position != this.topExecutionPosition; ) {
+
+			Object executionObject = position.executionObject;
+
+			buffer.insert(0, executionObject.getClass().getSimpleName());
+			if (position.parentExecutionPosition != this.topExecutionPosition) buffer.insert(0, "-->");
+
+			position = position.parentExecutionPosition;
+		}
+
+		return buffer.toString();
+	}
+
+	public String getTraceBlock() {
+
+		return this.getTraceBlock(0, this.topExecutionPosition);
+	}
+
+	private String getTraceBlock(int depth, ExecutionPosition<?> parentExecutionPosition) {
+
+		StringBuffer buffer = new StringBuffer();
+
+		buffer.append("\n");
+		for (int i=0; i<depth; i++) buffer.append("  ");
+		buffer.append(parentExecutionPosition.toString());
+
+		for (ExecutionPosition<?> executionPosition : parentExecutionPosition.childExecutionPositions) {
+
+			buffer.append(this.getTraceBlock(depth + 1, executionPosition));
+		}
+
+		return buffer.toString();
+	}
+
+	/*
 	 * Helper classes
 	 */
 
-	private static final class Position<T> {
+	private static final class ExecutionPosition<T> {
 
-		private Position<?> parent;
-		private T object;
+		private ExecutionPosition<?> parentExecutionPosition;
+		private T executionObject;
 		private String comment;
-		
-		private List<Position<?>> positions;
 
-		private Position(Position<?> parent, T object, String comment) {
+		private List<ExecutionPosition<?>> childExecutionPositions;
 
-			this.parent = parent;
-			this.object = object;
+		private ExecutionPosition(ExecutionPosition<?> parentExecutionPosition, T executionObject, String comment) {
+
+			this.parentExecutionPosition = parentExecutionPosition;
+			this.executionObject = executionObject;
 			this.comment = comment;
 
-			this.positions = new ArrayList<Position<?>> ();
+			this.childExecutionPositions = new ArrayList<ExecutionPosition<?>> ();
 
-			if (parent != null) parent.positions.add(this);
+			if (parentExecutionPosition != null) parentExecutionPosition.childExecutionPositions.add(this);
 		}
-		
+
 		@Override
 		public String toString() {
-			
-			return this.object.getClass().getSimpleName() + (this.comment == null ? "" : " (" + this.comment + ")");
+
+			return this.executionObject.getClass().getSimpleName() + (this.comment == null ? "" : " (" + this.comment + ")");
 		}
 	}
 }
