@@ -27,6 +27,11 @@ public class Dictionary {
 		return relation.follow();
 	}
 
+	public static void setCanonicalContextNode(ContextNode contextNode, ContextNode canonicalContextNode) {
+
+		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, canonicalContextNode);
+	}
+
 	/*
 	 * Methods for synonym context nodes.
 	 * These are the sources of incoming $is relations.
