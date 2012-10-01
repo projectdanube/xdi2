@@ -6,7 +6,6 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.xri3.impl.XRI3Segment;
@@ -40,6 +39,9 @@ public final class XRIUtil {
 
 		if (log.isTraceEnabled()) log.trace("startsWith(" + xri + "," + base + "," + variablesInXri + "," + variablesInBase + ")");
 
+		if (base == null) return true;
+		if (xri == null) return false;
+		
 		if (xri.getNumSubSegments() < base.getNumSubSegments()) return false;
 
 		for (int i=0; i<base.getNumSubSegments(); i++) {
@@ -88,7 +90,7 @@ public final class XRIUtil {
 			buffer.append(xri.getSubSegment(i).toString());
 		}
 
-		if (buffer.length() == 0) return XDIConstants.XRI_S_CONTEXT;
+		if (buffer.length() == 0) return null;
 
 		return new XRI3Segment(buffer.toString());
 	}
@@ -103,40 +105,57 @@ public final class XRIUtil {
 	}
 
 	/**
-	 * Extracts an XRI's parent XRI.
-	 * E.g. for =a*b*c*d, this returns =a*b*c
+	 * Extracts an XRI's parent subsegment(s), counting either from the start or the end.
+	 * For =a*b*c*d and 1, this returns =a
+	 * For =a*b*c*d and -1, this returns =a*b*c
 	 */
-	public static XRI3Segment parentXri(XRI3Segment xri) {
+	public static XRI3Segment parentXri(XRI3Segment xri, int numSubSegments) {
 
-		if (log.isTraceEnabled()) log.trace("parentXri(" + xri + ")");
-
-		if (xri.getNumSubSegments() <= 1)  return null;
+		if (log.isTraceEnabled()) log.trace("parentXri(" + xri + "," + numSubSegments + ")");
 
 		StringBuilder buffer = new StringBuilder();
 
-		for (int i=0; i<xri.getNumSubSegments() - 1; i++) {
+		if (numSubSegments > 0) {
 
-			buffer.append(xri.getSubSegment(i).toString());
-		}
+			for (int i = 0; i < numSubSegments; i++) buffer.append(xri.getSubSegment(i).toString());
+		} else if (numSubSegments < 0) {
 
-		return new XRI3Segment(buffer.toString());
-	}
-
-	/**
-	 * Extracts an XRI's local part.
-	 * E.g. for =a*b*c*d, this returns *d
-	 */
-	public static XRI3SubSegment localXri(XRI3Segment xri) {
-
-		if (log.isTraceEnabled()) log.trace("localXri(" + xri  + ")");
-
-		if (xri.getNumSubSegments() > 0) {
-
-			return (XRI3SubSegment) xri.getLastSubSegment();
+			for (int i = 0; i < xri.getNumSubSegments() - (- numSubSegments); i++) buffer.append(xri.getSubSegment(i).toString());
 		} else {
 
 			return null;
 		}
+
+		if (buffer.length() == 0) return null;
+		
+		return new XRI3Segment(buffer.toString());
+	}
+
+	/**
+	 * Extracts an XRI's local subsegment(s).
+	 * For =a*b*c*d and 1, this returns *d
+	 * For =a*b*c*d and -1, this returns *b*c*d
+	 */
+	public static XRI3Segment localXri(XRI3Segment xri, int numSubSegments) {
+
+		if (log.isTraceEnabled()) log.trace("localXri(" + xri + "," + numSubSegments + ")");
+
+		StringBuilder buffer = new StringBuilder();
+
+		if (numSubSegments > 0) {
+
+			for (int i = xri.getNumSubSegments() - numSubSegments; i < xri.getNumSubSegments(); i++) buffer.append(xri.getSubSegment(i).toString());
+		} else if (numSubSegments < 0) {
+
+			for (int i = (- numSubSegments); i < xri.getNumSubSegments(); i++) buffer.append(xri.getSubSegment(i).toString());
+		} else {
+
+			return null;
+		}
+
+		if (buffer.length() == 0) return null;
+
+		return new XRI3Segment(buffer.toString());
 	}
 
 	/**

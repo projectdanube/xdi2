@@ -23,6 +23,7 @@ import xdi2.tests.core.io.readers.XDIDisplayReaderTest;
 import xdi2.tests.core.io.readers.XDIJSONReaderTest;
 import xdi2.tests.core.io.writers.XDIDisplayWriterTest;
 import xdi2.tests.core.io.writers.XDIJSONWriterTest;
+import xdi2.tests.core.util.CopyUtilTest;
 import xdi2.tests.core.util.StatementUtilTest;
 import xdi2.tests.core.util.XDIUtilTest;
 import xdi2.tests.core.util.XRIUtilTest;
@@ -57,6 +58,7 @@ public class AllTests {
 		suite.addTestSuite(LinkContractsTest.class);
 		suite.addTestSuite(XRIUtilTest.class);
 		suite.addTestSuite(XDIUtilTest.class);
+		suite.addTestSuite(CopyUtilTest.class);
 		suite.addTestSuite(StatementUtilTest.class);
 		suite.addTestSuite(IteratorTest.class);
 		//$JUnit-END$
