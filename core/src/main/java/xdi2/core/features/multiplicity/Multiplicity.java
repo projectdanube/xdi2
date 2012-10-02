@@ -25,12 +25,12 @@ public class Multiplicity {
 	/*
 	 * Methods for building arc XRIs.
 	 */
-	
+
 	public static XRI3SubSegment collectionArcXri(XRI3SubSegment arcXri) {
 
 		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
-	
+
 	public static XRI3SubSegment entitySingletonArcXri(XRI3SubSegment arcXri) {
 
 		return arcXri;
@@ -51,16 +51,47 @@ public class Multiplicity {
 		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG, "" + XRI3Constants.LCS_BANG);
 	}
 
+	public static XRI3SubSegment baseArcXri(XRI3SubSegment arcXri) {
+
+		if (isCollectionArcXri(arcXri)) {
+
+			return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+		}
+
+		if (isEntitySingletonArcXri(arcXri)) {
+
+			return arcXri;
+		}
+
+		if (isAttributeSingletonArcXri(arcXri)) {
+
+			return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+		}
+
+		if (isEntityMemberArcXri(arcXri)) {
+
+			return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+		}
+
+		if (isAttributeMemberArcXri(arcXri)) {
+
+			return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+		}
+
+		throw new IllegalArgumentException("Invalid multiplicity subsegment: " + arcXri);
+	}
+
 	/*
 	 * Methods for checking arc XRIs.
 	 */
-	
+
 	public static boolean isCollectionArcXri(XRI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
 		if (! arcXri.hasXRef()) return false;
+		if (! arcXri.getXRef().hasXRIReference()) return false;
 
 		return true;
 	}
@@ -81,6 +112,7 @@ public class Multiplicity {
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (! arcXri.hasXRef()) return false;
+		if (! arcXri.getXRef().hasXRIReference()) return false;
 
 		return true;
 	}

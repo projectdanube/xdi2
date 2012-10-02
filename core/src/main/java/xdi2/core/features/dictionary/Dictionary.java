@@ -8,11 +8,45 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.MappingContextNodeXrisIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
+import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public class Dictionary {
 
 	private Dictionary() { }
+
+	/*
+	 * Methods for dictionary XRIs
+	 */
+
+	public static XRI3SubSegment instanceXriToDictionaryXri(XRI3SubSegment instanceXri) {
+
+		return new XRI3SubSegment("" + XRI3Constants.GCS_PLUS + "(" + instanceXri + ")");
+	}
+
+	public static XRI3SubSegment dictionaryXriToInstanceXri(XRI3SubSegment dictionaryXri) {
+
+		if (! XRI3Constants.GCS_PLUS.equals(dictionaryXri.getGCS())) return null;
+		if (dictionaryXri.hasLCS()) return null;
+		if (! dictionaryXri.hasXRef()) return null;
+		if (! dictionaryXri.getXRef().hasXRIReference()) return null;
+
+		return new XRI3SubSegment("" + dictionaryXri.getXRef().getXRIReference());
+	}
+
+	public static XRI3SubSegment nativeIdentifierToInstanceXri(String nativeIdentifier) {
+
+		return new XRI3SubSegment("" + XRI3Constants.GCS_PLUS + "(" + nativeIdentifier + ")");
+	}
+
+	public static String instanceXriToNativeIdentifier(XRI3SubSegment instanceXri) {
+
+		if (! instanceXri.hasXRef()) return null;
+		if (! instanceXri.getXRef().hasXRIReference()) return null;
+
+		return instanceXri.getXRef().getXRIReference().toString();
+	}
 
 	/*
 	 * Methods for the canonical context node.
@@ -45,7 +79,7 @@ public class Dictionary {
 	}
 
 	/*
-	 * Methods for types.
+	 * Methods for types of context nodes.
 	 */
 
 	public static Iterator<XRI3Segment> getContextNodeTypes(ContextNode contextNode) {

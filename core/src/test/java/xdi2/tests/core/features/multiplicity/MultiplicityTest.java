@@ -38,6 +38,10 @@ public class MultiplicityTest extends TestCase {
 
 		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXri()));
 		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXri()));
+
+		assertEquals(Multiplicity.baseArcXri(new XRI3SubSegment("$(+tel)")), new XRI3SubSegment("+tel"));
+		assertEquals(Multiplicity.baseArcXri(new XRI3SubSegment("+passport")), new XRI3SubSegment("+passport"));
+		assertEquals(Multiplicity.baseArcXri(new XRI3SubSegment("$!(+tel)")), new XRI3SubSegment("+tel"));
 	}
 
 	public void testSubGraph() throws Exception {
