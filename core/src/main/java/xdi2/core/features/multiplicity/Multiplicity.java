@@ -3,6 +3,7 @@ package xdi2.core.features.multiplicity;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.parser.ParserException;
 
 /**
  * Multiplicity supports constructs to express XDI collections, entities and attributes.
@@ -53,29 +54,35 @@ public class Multiplicity {
 
 	public static XRI3SubSegment baseArcXri(XRI3SubSegment arcXri) {
 
-		if (isCollectionArcXri(arcXri)) {
+		try {
 
-			return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
-		}
+			if (isCollectionArcXri(arcXri)) {
 
-		if (isEntitySingletonArcXri(arcXri)) {
+				return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+			}
 
-			return arcXri;
-		}
+			if (isEntitySingletonArcXri(arcXri)) {
 
-		if (isAttributeSingletonArcXri(arcXri)) {
+				return arcXri;
+			}
 
-			return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
-		}
+			if (isAttributeSingletonArcXri(arcXri)) {
 
-		if (isEntityMemberArcXri(arcXri)) {
+				return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+			}
 
-			return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
-		}
+			if (isEntityMemberArcXri(arcXri)) {
 
-		if (isAttributeMemberArcXri(arcXri)) {
+				return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+			}
 
-			return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+			if (isAttributeMemberArcXri(arcXri)) {
+
+				return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+			}
+		} catch (ParserException ex) {
+
+			return null;
 		}
 
 		throw new IllegalArgumentException("Invalid multiplicity subsegment: " + arcXri);
