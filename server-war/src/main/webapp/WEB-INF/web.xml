@@ -35,7 +35,7 @@
 		<url-pattern>/xdi/</url-pattern>
 	</servlet-mapping>
 
-	<!-- SPRING -->
+	<!-- LISTENERS -->
 
 	<listener>
 		<listener-class>xdi2.server.plugins.PluginsLoaderListener</listener-class>
