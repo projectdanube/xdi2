@@ -1,5 +1,7 @@
 package xdi2.messaging.target.impl.graph;
 
+import java.io.IOException;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
@@ -11,6 +13,8 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.StatementHandler;
 
 /**
@@ -18,11 +22,11 @@ import xdi2.messaging.target.StatementHandler;
  * 
  * @author markus
  */
-public class GraphMessagingTarget extends AbstractMessagingTarget {
+public class GraphMessagingTarget extends AbstractMessagingTarget implements Prototype<GraphMessagingTarget> {
 
 	private Graph graph;
-//	private GraphAddressHandler graphAddressHandler;
-//	private GraphStatementHandler graphStatementHandler;
+	//	private GraphAddressHandler graphAddressHandler;
+	//	private GraphStatementHandler graphStatementHandler;
 	private GraphContextHandler graphContextHandler;
 
 	public GraphMessagingTarget() {
@@ -30,8 +34,8 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 		super();
 
 		this.graph = null;
-//		this.graphAddressHandler = null;
-//		this.graphStatementHandler = null;
+		//		this.graphAddressHandler = null;
+		//		this.graphStatementHandler = null;
 		this.graphContextHandler = null;
 	}
 
@@ -96,6 +100,32 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 		return this.graphContextHandler;
 	}
 
+	@Override
+	public GraphMessagingTarget instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
+
+		// create new messaging target
+
+		MessagingTarget messagingTarget = new GraphMessagingTarget();
+
+		// instantiate new graph
+
+		Graph graph;
+
+		try {
+
+			graph = this.getGraph().getGraphFactory().openGraph(prototypingContext.getOwner().toString());
+		} catch (IOException ex) {
+
+			throw new Xdi2MessagingException("Cannot open graph: " + ex.getMessage(), ex, null);
+		}
+
+		((GraphMessagingTarget) messagingTarget).setGraph(graph);
+
+		// done
+
+		return (GraphMessagingTarget) messagingTarget;
+	}
+
 	public Graph getGraph() {
 
 		return this.graph;
@@ -109,8 +139,8 @@ public class GraphMessagingTarget extends AbstractMessagingTarget {
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
-//		this.graphAddressHandler = new GraphAddressHandler(graph);
-//		this.graphStatementHandler = new GraphStatementHandler(graph);
+		//		this.graphAddressHandler = new GraphAddressHandler(graph);
+		//		this.graphStatementHandler = new GraphStatementHandler(graph);
 		this.graphContextHandler = new GraphContextHandler(graph);
 	}
 }
