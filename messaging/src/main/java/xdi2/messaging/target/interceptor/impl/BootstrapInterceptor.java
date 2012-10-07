@@ -1,20 +1,27 @@
 package xdi2.messaging.target.interceptor.impl;
 
+import java.util.Iterator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Literal;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.linkcontracts.AndExpression;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.features.remoteroots.RemoteRoots;
+import xdi2.core.util.iterators.IteratorArrayMaker;
+import xdi2.core.util.iterators.MappingContextNodeXrisIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 
@@ -24,7 +31,7 @@ import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
  * 
  * @author markus
  */
-public class BootstrapInterceptor implements MessagingTargetInterceptor {
+public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototype<BootstrapInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 
@@ -40,6 +47,54 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 		this.bootstrapSharedSecret = null;
 		this.bootstrapLinkContract = false;
 	}
+
+	/*
+	 * Prototype
+	 */
+
+	@Override
+	public BootstrapInterceptor instanceFor(PrototypingContext prototypingContext) {
+
+		// create new interceptor
+
+		BootstrapInterceptor interceptor = new BootstrapInterceptor();
+		interceptor.setBootstrapOwner(prototypingContext.getOwner());
+		interceptor.setBootstrapLinkContract(this.getBootstrapLinkContract());
+
+		// read the owner synonyms
+
+		XRI3Segment[] ownerSynonyms = null;
+
+		if (prototypingContext.getOwnerRemoteRootContextNode() != null) {
+
+			Iterator<ContextNode> ownerSynonymRemoteRootContextNodes = Dictionary.getSynonymContextNodes(prototypingContext.getOwnerRemoteRootContextNode());
+
+			ownerSynonyms = (new IteratorArrayMaker<XRI3Segment> (new MappingContextNodeXrisIterator(ownerSynonymRemoteRootContextNodes))).array(XRI3Segment.class);
+			for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(ownerSynonyms[i]);
+		}
+
+		interceptor.setBootstrapOwnerSynonyms(ownerSynonyms);
+
+		// read the shared secret
+
+		String sharedSecret = null;
+
+		if (prototypingContext.getOwnerContextNode() != null) {
+
+			Literal sharedSecretLiteral = prototypingContext.getOwnerContextNode().findLiteral(XDIMessagingConstants.XRI_S_SECRET_TOKEN);
+			sharedSecret = sharedSecretLiteral == null ? null : sharedSecretLiteral.getLiteralData();
+		}
+
+		interceptor.setBootstrapSharedSecret(sharedSecret);
+
+		// done
+
+		return interceptor;
+	}
+
+	/*
+	 * MessagingTargetInterceptor
+	 */
 
 	@Override
 	public void init(MessagingTarget messagingTarget) throws Exception {
@@ -60,7 +115,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 
 		ContextNode bootstrapOwnerContextNode = null;
 		ContextNode bootstrapOwnerSelfRemoteRootContextNode = null;
-		
+
 		if (this.bootstrapOwner != null) {
 
 			bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
@@ -109,6 +164,10 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor {
 	public void shutdown(MessagingTarget messagingTarget) throws Exception {
 
 	}
+
+	/*
+	 * Getters and setters
+	 */
 
 	public XRI3Segment getBootstrapOwner() {
 

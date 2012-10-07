@@ -1,5 +1,6 @@
 package xdi2.messaging.target;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -470,5 +471,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		this.contributors.clear();
 		this.contributors.putAll(contributors);
+	}
+
+	public void setContributorsList(ArrayList<Contributor> contributors) {
+
+		this.contributors.clear();
+		for (Contributor contributor : contributors) this.contributors.addContributor(contributor);
 	}
 }

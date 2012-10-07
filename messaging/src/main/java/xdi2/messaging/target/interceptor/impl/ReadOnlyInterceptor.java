@@ -6,6 +6,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
@@ -14,7 +15,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * 
  * @author markus
  */
-public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetInterceptor {
+public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetInterceptor, Prototype<ReadOnlyInterceptor> {
 
 	private XRI3Segment[] readOnlyAddresses;
 
@@ -22,6 +23,22 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 
 		this.readOnlyAddresses = new XRI3Segment[0];
 	}
+
+	/*
+	 * Prototype
+	 */
+
+	@Override
+	public ReadOnlyInterceptor instanceFor(PrototypingContext prototypingContext) {
+
+		// done
+
+		return this;
+	}
+
+	/*
+	 * TargetInterceptor
+	 */
 
 	@Override
 	public Statement targetStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {

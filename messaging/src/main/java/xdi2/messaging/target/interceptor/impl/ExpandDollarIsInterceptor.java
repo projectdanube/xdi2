@@ -21,6 +21,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
@@ -32,9 +33,21 @@ import xdi2.messaging.util.MessagingCloneUtil;
  * 
  * @author markus
  */
-public class ExpandDollarIsInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, OperationInterceptor {
+public class ExpandDollarIsInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, OperationInterceptor, Prototype<ExpandDollarIsInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(ExpandDollarIsInterceptor.class);
+
+	/*
+	 * Prototype
+	 */
+
+	@Override
+	public ExpandDollarIsInterceptor instanceFor(PrototypingContext prototypingContext) {
+
+		// done
+
+		return this;
+	}
 
 	/*
 	 * MessageEnvelopeInterceptor

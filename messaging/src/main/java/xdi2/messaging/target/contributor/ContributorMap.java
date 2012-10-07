@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Statement;
-import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -20,8 +19,9 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.Prototype;
 
-public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> implements Iterable<Contributor> {
+public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> implements Iterable<Contributor>, Prototype<ContributorMap> {
 
 	private static final long serialVersionUID = 1645889897751813459L;
 
@@ -49,7 +49,7 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 	public void addContributor(Contributor contributor) {
 
-		ContributorCall contributorCall = contributor.getClass().getAnnotation(ContributorCall.class);
+		ContributorXri contributorCall = contributor.getClass().getAnnotation(ContributorXri.class);
 
 		for (String address : contributorCall.addresses()) {
 
@@ -161,7 +161,7 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 		// find an address with contributors
 
-		XRI3Segment relativeContextNodeXri = targetStatement instanceof ContextNodeStatement ? new XRI3Segment(relativeTargetStatement.getSubject().toString() + relativeTargetStatement.getObject().toString()) : relativeTargetStatement.getSubject();
+		XRI3Segment relativeContextNodeXri = targetStatement.getContextNodeXri();
 
 		XRI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
 		if (nextContributorXri == null) return false;
@@ -213,7 +213,7 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 	public XRI3Segment findHigherContributorXri(XRI3Segment contextNodeXri) {
 
 		for (XRI3Segment contributorXri : this.keySet()) {
-			
+
 			if (XRIUtil.startsWith(contextNodeXri, contributorXri, false, true)) return contributorXri;
 		}
 
@@ -228,5 +228,49 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 		}
 
 		return null;
+	}
+
+	/*
+	 * Prototype
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ContributorMap instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
+
+		// create new contributor map
+
+		ContributorMap contributorMap = new ContributorMap();
+
+		// add contributors
+
+		for (Map.Entry<XRI3Segment, List<Contributor>> entry : this.entrySet()) {
+
+			XRI3Segment contributorXri = entry.getKey();
+			List<Contributor> contributors = entry.getValue();
+
+			for (Contributor contributor : contributors) {
+
+				if (! (contributor instanceof Prototype<?>)) {
+
+					throw new Xdi2MessagingException("Cannot use contributor " + contributor.getClass().getSimpleName() + " as prototype.", null, null);
+				}
+
+				try {
+
+					Prototype<? extends Contributor> contributorPrototype = (Prototype<? extends Contributor>) contributor;
+					Contributor prototypedContributor = prototypingContext.instanceFor(contributorPrototype);
+
+					contributorMap.addContributor(contributorXri, prototypedContributor);
+				} catch (Xdi2MessagingException ex) {
+
+					throw new Xdi2MessagingException("Cannot instantiate interceptor for prototype " + contributor.getClass().getSimpleName() + ": " + ex.getMessage(), ex, null);
+				}
+			}
+		}
+
+		// done
+
+		return contributorMap;
 	}
 }

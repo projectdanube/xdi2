@@ -83,7 +83,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	public void delContext(XRI3Segment contextNodeXri, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeXri, null, executionContext);
+		if (contextNode == null) return;
 
 		contextNode.delete();
 	}
@@ -130,7 +130,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	public void delRelation(XRI3Segment contextNodeXri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeXri, null, executionContext);
+		if (contextNode == null) return;
 
 		if (Variables.isVariable(targetContextNodeXri)) {
 
@@ -182,10 +182,10 @@ public class GraphContextHandler extends AbstractContextHandler {
 	public void delLiteral(XRI3Segment contextNodeXri, String literalData, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
-		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeXri, null, executionContext);
+		if (contextNode == null) return;
 
 		Literal literal = contextNode.getLiteral();
-		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + contextNodeXri, null, executionContext);
+		if (literal == null) return;
 
 		if (literalData.equals(literal.getLiteralData())) {
 

@@ -1,6 +1,15 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-10-07:
+------------------------
+
+*** Updates to multiplicity
+
+*** Introduction of prototype messaging targets
+
+*** Changing $del behavior to not raise exception if context node doesn't exist
+
 2012-10-01:
 ------------------------
 

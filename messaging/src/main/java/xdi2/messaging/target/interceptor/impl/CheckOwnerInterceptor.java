@@ -9,6 +9,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
@@ -17,12 +18,24 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
  * 
  * @author markus
  */
-public class CheckOwnerInterceptor extends AbstractInterceptor implements MessageInterceptor {
+public class CheckOwnerInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<CheckOwnerInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(CheckOwnerInterceptor.class.getName());
 
 	/*
-	 * Interceptor
+	 * Prototype
+	 */
+
+	@Override
+	public CheckOwnerInterceptor instanceFor(PrototypingContext prototypingContext) {
+
+		// done
+
+		return this;
+	}
+
+	/*
+	 * MessageInterceptor
 	 */
 
 	@Override

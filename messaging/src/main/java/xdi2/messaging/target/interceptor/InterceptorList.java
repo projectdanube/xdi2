@@ -16,8 +16,9 @@ import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.Prototype;
 
-public class InterceptorList extends ArrayList<Interceptor> {
+public class InterceptorList extends ArrayList<Interceptor> implements Prototype<InterceptorList> {
 
 	private static final long serialVersionUID = -2532712738486475044L;
 
@@ -371,5 +372,43 @@ public class InterceptorList extends ArrayList<Interceptor> {
 	public Iterator<ResultInterceptor> findResultInterceptors() {
 
 		return new SelectingClassIterator<Interceptor, ResultInterceptor> (this.iterator(), ResultInterceptor.class);
+	}
+
+	/*
+	 * Prototype
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public InterceptorList instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
+
+		// create new interceptor list
+
+		InterceptorList interceptorList = new InterceptorList();
+
+		// add interceptors
+
+		for (Interceptor interceptor : this) {
+
+			if (! (interceptor instanceof Prototype<?>)) {
+
+				throw new Xdi2MessagingException("Cannot use interceptor " + interceptor.getClass().getSimpleName() + " as prototype.", null, null);
+			}
+
+			try {
+
+				Prototype<? extends Interceptor> interceptorPrototype = (Prototype<? extends Interceptor>) interceptor;
+				Interceptor prototypedInterceptor = prototypingContext.instanceFor(interceptorPrototype);
+
+				interceptorList.addInterceptor(prototypedInterceptor);
+			} catch (Xdi2MessagingException ex) {
+
+				throw new Xdi2MessagingException("Cannot instantiate interceptor for prototype " + interceptor.getClass().getSimpleName() + ": " + ex.getMessage(), ex, null);
+			}
+		}
+
+		// done
+
+		return interceptorList;
 	}
 }
