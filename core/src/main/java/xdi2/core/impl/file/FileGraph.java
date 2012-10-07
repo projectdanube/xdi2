@@ -30,8 +30,10 @@ public class FileGraph extends AbstractGraph implements Graph {
 	private XDIWriter xdiWriter;
 	private MemoryGraph memoryGraph;
 
-	FileGraph(String path, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter, MemoryGraph memoryGraph) {
+	FileGraph(FileGraphFactory graphFactory, String path, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter, MemoryGraph memoryGraph) {
 
+		super(graphFactory);
+		
 		this.path = path;
 		this.mimeType = mimeType;
 		this.xdiReader = xdiReader;

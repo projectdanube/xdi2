@@ -53,7 +53,7 @@ public class FileGraphFactory extends AbstractGraphFactory implements GraphFacto
 
 		MemoryGraph memoryGraph = this.memoryGraphFactory.openGraph();
 
-		return new FileGraph(this.path, this.mimeType, xdiReader, xdiWriter, memoryGraph);
+		return new FileGraph(this, this.path, this.mimeType, xdiReader, xdiWriter, memoryGraph);
 	}
 
 	public String getPath() {
