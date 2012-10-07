@@ -129,6 +129,12 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -7006808512493295364L;
 
 		@Override
+		public XRI3Segment getContextNodeXri() {
+
+			return this.getSubject().equals(XDIConstants.XRI_S_CONTEXT) ? this.getObject() : new XRI3Segment("" + this.getSubject() + this.getObject());
+		}
+
+		@Override
 		public final XRI3Segment getPredicate() {
 
 			return XDIConstants.XRI_S_CONTEXT;
@@ -146,6 +152,12 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -2393268622327844933L;
 
 		@Override
+		public XRI3Segment getContextNodeXri() {
+
+			return this.getSubject();
+		}
+
+		@Override
 		public Relation getRelation() {
 
 			return null;
@@ -155,6 +167,12 @@ public abstract class AbstractStatement implements Statement {
 	public static abstract class AbstractLiteralStatement extends AbstractStatement implements LiteralStatement {
 
 		private static final long serialVersionUID = -7876412291137305476L;
+
+		@Override
+		public XRI3Segment getContextNodeXri() {
+
+			return this.getSubject();
+		}
 
 		@Override
 		public final XRI3Segment getPredicate() {

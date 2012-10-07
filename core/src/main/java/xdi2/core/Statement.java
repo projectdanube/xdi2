@@ -42,6 +42,11 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	public Graph getGraph();
 
 	/**
+	 * Returns the context node XRI of this statement.
+	 */
+	public XRI3Segment getContextNodeXri();
+
+	/**
 	 * Delete the statement.
 	 */
 	public void delete();
@@ -57,7 +62,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * @return An XRI segment.
 	 */
 	public XRI3Segment toXriSegment();
-	
+
 	/**
 	 * Returns the String representation of this statement.
 	 * @param pretty A boolean flag to check whether to prettyprint the output.
