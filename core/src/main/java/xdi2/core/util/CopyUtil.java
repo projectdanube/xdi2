@@ -267,7 +267,7 @@ public final class CopyUtil {
 		 */
 		public ContextNode replaceContextNode(ContextNode contextNode) {
 
-			if (log.isDebugEnabled()) log.debug("Copying context node " + contextNode);
+			if (log.isTraceEnabled()) log.trace("Copying context node " + contextNode);
 
 			return contextNode;
 		}
@@ -279,7 +279,7 @@ public final class CopyUtil {
 		 */
 		public Relation replaceRelation(Relation relation) {
 
-			if (log.isDebugEnabled()) log.debug("Copying relation " + relation);
+			if (log.isTraceEnabled()) log.trace("Copying relation " + relation);
 
 			return relation;
 		}
@@ -291,7 +291,7 @@ public final class CopyUtil {
 		 */
 		public Literal replaceLiteral(Literal literal) {
 
-			if (log.isDebugEnabled()) log.debug("Copying literal " + literal);
+			if (log.isTraceEnabled()) log.trace("Copying literal " + literal);
 
 			return literal;
 		}
