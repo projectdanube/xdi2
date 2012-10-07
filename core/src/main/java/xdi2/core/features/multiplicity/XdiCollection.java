@@ -16,7 +16,7 @@ import xdi2.core.util.iterators.SelectingMappingIterator;
  * 
  * @author markus
  */
-public class XdiCollection extends XdiSubGraph {
+public final class XdiCollection extends XdiSubGraph {
 
 	private static final long serialVersionUID = 1455719520426705802L;
 
