@@ -11,7 +11,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.GetOperation;
@@ -28,21 +28,21 @@ import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
- * This interceptor checks for $is relational statements in the result of an operation.
+ * This interceptor checks for ($) relational statements in the result of an operation.
  * For each such statement, it creates a $get operation and feeds it into a "child" processing loop.
  * 
  * @author markus
  */
-public class ExpandDollarIsInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, OperationInterceptor, Prototype<ExpandDollarIsInterceptor> {
+public class ExpandInclusionInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, OperationInterceptor, Prototype<ExpandInclusionInterceptor> {
 
-	private static final Logger log = LoggerFactory.getLogger(ExpandDollarIsInterceptor.class);
+	private static final Logger log = LoggerFactory.getLogger(ExpandInclusionInterceptor.class);
 
 	/*
 	 * Prototype
 	 */
 
 	@Override
-	public ExpandDollarIsInterceptor instanceFor(PrototypingContext prototypingContext) {
+	public ExpandInclusionInterceptor instanceFor(PrototypingContext prototypingContext) {
 
 		// done
 
@@ -109,7 +109,7 @@ public class ExpandDollarIsInterceptor extends AbstractInterceptor implements Me
 
 			Relation relation = ((RelationStatement) statement).getRelation();
 
-			if (relation.getArcXri().equals(XDIDictionaryConstants.XRI_S_IS)) {
+			if (relation.getArcXri().equals(XDIConstants.XRI_S_INCLUSION)) {
 
 				XRI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
 
@@ -147,7 +147,7 @@ public class ExpandDollarIsInterceptor extends AbstractInterceptor implements Me
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_EXPANDEDADDRESSES_PER_MESSAGEENVELOPE = ExpandDollarIsInterceptor.class.getCanonicalName() + "#expandedaddressespermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_EXPANDEDADDRESSES_PER_MESSAGEENVELOPE = ExpandInclusionInterceptor.class.getCanonicalName() + "#expandedaddressespermessageenvelope";
 
 	@SuppressWarnings("unchecked")
 	private static Set<XRI3Segment> getExpandedAddresses(ExecutionContext executionContext) {
