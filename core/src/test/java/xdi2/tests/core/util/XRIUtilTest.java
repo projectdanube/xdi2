@@ -64,4 +64,19 @@ public class XRIUtilTest extends TestCase {
 		assertEquals(XRIUtil.relativeXri(xri1, new XRI3Segment("=a*b*c")), new XRI3Segment("*d"));
 		assertNull(XRIUtil.relativeXri(xri1, new XRI3Segment("=a*b*c*d")));
 	}
+
+	public void testRelative() throws Exception {
+
+		XRI3Segment xri1 = new XRI3Segment("=a*b+c!d@e$f*g");
+
+		assertEquals(XRIUtil.relativeXri(xri1, new XRI3Segment("($)"), false, true), new XRI3Segment("*b+c!d@e$f*g"));
+		assertEquals(XRIUtil.relativeXri(xri1, new XRI3Segment("($)($)"), false, true), new XRI3Segment("+c!d@e$f*g"));
+		assertEquals(XRIUtil.relativeXri(xri1, new XRI3Segment("($$!)"), false, true), new XRI3Segment("+c!d@e$f*g"));
+		assertEquals(XRIUtil.relativeXri(xri1, new XRI3Segment("($)($$!)"), false, true), new XRI3Segment("+c!d@e$f*g"));
+		assertEquals(XRIUtil.relativeXri(xri1, new XRI3Segment("($$!)($$!)"), false, true), new XRI3Segment("@e$f*g"));
+		assertEquals(XRIUtil.relativeXri(xri1, new XRI3Segment("($$!)($)($$!)"), false, true), new XRI3Segment("@e$f*g"));
+		assertEquals(XRIUtil.relativeXri(xri1, new XRI3Segment("($$!)($)($$!)($)"), false, true), new XRI3Segment("$f*g"));
+		assertEquals(XRIUtil.relativeXri(xri1, new XRI3Segment("($$!)($)($$!)($$!)"), false, true), new XRI3Segment("$f*g"));
+		assertNull(XRIUtil.relativeXri(xri1, new XRI3Segment("($$!)($)($$!)($$!)($$!)"), false, true));
+	}
 }

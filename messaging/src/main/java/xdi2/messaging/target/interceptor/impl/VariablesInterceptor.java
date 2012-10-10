@@ -128,7 +128,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 		for (int i=0; i<segment.getNumSubSegments(); i++) {
 
 			XRI3SubSegment subSegment = (XRI3SubSegment) segment.getSubSegment(i);
-			if (! Variables.isVariable(subSegment)) continue;
+			if (! Variables.isVariableSingle(subSegment)) continue;
 
 			if (newSubSegments == null) {
 

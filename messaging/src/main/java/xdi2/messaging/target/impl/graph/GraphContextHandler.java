@@ -98,11 +98,11 @@ public class GraphContextHandler extends AbstractContextHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
 		if (contextNode == null) return;
 
-		boolean isObjectVariable = Variables.isVariable(targetContextNodeXri);
+		boolean isObjectVariableSingle = Variables.isVariableSingle(targetContextNodeXri);
 
 		if (arcXri.equals(XDIConstants.XRI_S_LITERAL)) {
 
-			if (isObjectVariable) {
+			if (isObjectVariableSingle) {
 
 				Literal literal = contextNode.getLiteral();
 				if (literal == null) return;
@@ -111,7 +111,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 			}
 		} else {
 
-			if (isObjectVariable) {
+			if (isObjectVariableSingle) {
 
 				Iterator<Relation> relations = contextNode.getRelations(arcXri);
 
@@ -132,7 +132,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
 		if (contextNode == null) return;
 
-		if (Variables.isVariable(targetContextNodeXri)) {
+		if (Variables.isVariableSingle(targetContextNodeXri)) {
 
 			if (contextNode.containsRelations()) {
 

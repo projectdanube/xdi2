@@ -100,11 +100,11 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) return;
 
-		boolean isObjectVariable = Variables.isVariable(relationStatement.getObject());
+		boolean isObjectVariableSingle = Variables.isVariableSingle(relationStatement.getObject());
 
 		if (relationStatement.getPredicate().equals(XDIConstants.XRI_S_LITERAL)) {
 
-			if (isObjectVariable) {
+			if (isObjectVariableSingle) {
 
 				Literal literal = contextNode.getLiteral();
 				if (literal == null) return;
@@ -119,7 +119,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 
 				Relation relation = relations.next();
 
-				if (isObjectVariable || relationStatement.getObject().equals(relation.getTargetContextNodeXri())) {
+				if (isObjectVariableSingle || relationStatement.getObject().equals(relation.getTargetContextNodeXri())) {
 
 					CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
 				}
@@ -133,7 +133,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement, null, executionContext);
 
-		if (Variables.isVariable(relationStatement.getObject())) {
+		if (Variables.isVariableSingle(relationStatement.getObject())) {
 
 			if (contextNode.containsRelations()) {
 

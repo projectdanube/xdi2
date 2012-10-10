@@ -117,17 +117,18 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 		// find an address with contributors
 
-		final XRI3Segment relativeContextNodeXri = relativeTargetAddress;
+		XRI3Segment relativeContextNodeXri = relativeTargetAddress;
 
 		XRI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
 		if (nextContributorXri == null) return false;
 
-		contributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
-		contributorXris[contributorXris.length - 1] = XRIUtil.parentXri(relativeContextNodeXri, nextContributorXri.getNumSubSegments());
+		XRI3Segment nextRelativeTargetAddress = XRIUtil.relativeXri(relativeTargetAddress, nextContributorXri, false, true);
+		XRI3Segment nextRelativeContextNodeXri = nextRelativeTargetAddress;
 
-		relativeTargetAddress = XRIUtil.relativeXri(relativeTargetAddress, nextContributorXri, false, true);
+		XRI3Segment[] nextContributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
+		nextContributorXris[nextContributorXris.length - 1] = nextRelativeContextNodeXri == null ? relativeContextNodeXri : XRIUtil.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
 
-		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(contributorXris) + ", next relative target address: " + relativeTargetAddress + ", target address: " + targetAddress);
+		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(nextContributorXris) + ", next relative target address: " + nextRelativeTargetAddress + ", target address: " + targetAddress);
 
 		// execute the contributors
 
@@ -141,7 +142,7 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 				executionContext.pushContributor(contributor, "Contributor: address");
 
-				if (contributor.executeOnAddress(contributorXris, relativeTargetAddress, targetAddress, operation, operationMessageResult, executionContext)) {
+				if (contributor.executeOnAddress(nextContributorXris, nextRelativeTargetAddress, targetAddress, operation, operationMessageResult, executionContext)) {
 
 					if (log.isDebugEnabled()) log.debug("Address has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
 					return true;
@@ -166,12 +167,13 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 		XRI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
 		if (nextContributorXri == null) return false;
 
-		contributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
-		contributorXris[contributorXris.length - 1] = XRIUtil.parentXri(relativeContextNodeXri, nextContributorXri.getNumSubSegments());
+		Statement nextRelativeTargetStatement = StatementUtil.relativeStatement(relativeTargetStatement, nextContributorXri, false, true);
+		XRI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement.getContextNodeXri();
 
-		relativeTargetStatement = StatementUtil.relativeStatement(relativeTargetStatement, nextContributorXri, false, true);
+		XRI3Segment[] nextContributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
+		nextContributorXris[nextContributorXris.length - 1] = nextRelativeContextNodeXri == null ? relativeContextNodeXri : XRIUtil.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
 
-		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(contributorXris) + ", next relative target statement: " + relativeTargetStatement + ", target statement: " + targetStatement);
+		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(nextContributorXris) + ", next relative target statement: " + nextRelativeTargetStatement + ", target statement: " + targetStatement);
 
 		// execute the contributors
 
@@ -185,7 +187,7 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 				executionContext.pushContributor(contributor, "Contributor: statement");
 
-				if (contributor.executeOnStatement(contributorXris, relativeTargetStatement, targetStatement, operation, operationMessageResult, executionContext)) {
+				if (contributor.executeOnStatement(nextContributorXris, nextRelativeTargetStatement, targetStatement, operation, operationMessageResult, executionContext)) {
 
 					if (log.isDebugEnabled()) log.debug("Statement has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
 					return true;

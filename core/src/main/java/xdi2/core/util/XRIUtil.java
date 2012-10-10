@@ -39,20 +39,70 @@ public final class XRIUtil {
 
 		if (log.isTraceEnabled()) log.trace("startsWith(" + xri + "," + base + "," + variablesInXri + "," + variablesInBase + ")");
 
-		if (base == null) return true;
 		if (xri == null) return false;
-		
-		if (xri.getNumSubSegments() < base.getNumSubSegments()) return false;
+		if (base == null) return true;
 
-		for (int i=0; i<base.getNumSubSegments(); i++) {
+		int xriIndex = 0, baseIndex = 0;
 
-			if (variablesInXri && Variables.isVariable((XRI3SubSegment) xri.getSubSegment(i))) continue;
-			if (variablesInBase && Variables.isVariable((XRI3SubSegment) base.getSubSegment(i))) continue;
+		while (true) {
 
-			if (! (xri.getSubSegment(i).equals(base.getSubSegment(i)))) return false;
+			if (baseIndex == base.getNumSubSegments()) return true;
+			if (xriIndex == xri.getNumSubSegments()) return false;
+
+			XRI3SubSegment xriSubSegment = (XRI3SubSegment) xri.getSubSegment(xriIndex);
+			XRI3SubSegment baseSubSegment = (XRI3SubSegment) base.getSubSegment(baseIndex);
+
+			// check variables
+			
+			if (variablesInXri && Variables.isVariableSingle(xriSubSegment)) {
+
+				if (Variables.isVariableSingle(xriSubSegment)) {
+
+					xriIndex++;
+					baseIndex++;
+
+					continue; 
+				}
+
+				if (Variables.isVariableMultipleLocal(xriSubSegment)) {
+
+					xriIndex++;
+					baseIndex++;
+
+					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasGCS())) baseIndex++;
+
+					continue;
+				}
+			}
+
+			if (variablesInBase) {
+
+				if (Variables.isVariableSingle(baseSubSegment)) {
+
+					xriIndex++;
+					baseIndex++;
+
+					continue; 
+				}
+
+				if (Variables.isVariableMultipleLocal(baseSubSegment)) {
+
+					xriIndex++;
+					baseIndex++;
+
+					while (xriIndex < xri.getNumSubSegments() && (! xri.getSubSegment(xriIndex).hasGCS())) xriIndex++;
+
+					continue;
+				}
+			}
+
+			// no variables? just match the subsegment
+
+			if (! (xriSubSegment.equals(baseSubSegment))) return false;
+
+			xriIndex++;
+			baseIndex++;
 		}
-
-		return true;
 	}
 
 	/**
@@ -71,23 +121,76 @@ public final class XRIUtil {
 
 		if (log.isTraceEnabled()) log.trace("relativeXri(" + xri + "," + base + "," + variablesInXri + "," + variablesInBase + ")");
 
-		if (xri.getNumSubSegments() < base.getNumSubSegments()) return null;
+		if (xri == null) return null;
+		if (base == null) return xri;
 
-		int i = 0;
+		int xriIndex = 0, baseIndex = 0;
 
-		for (; i<base.getNumSubSegments(); i++) {
+		while (true) {
 
-			if (variablesInXri && Variables.isVariable((XRI3SubSegment) xri.getSubSegment(i))) continue;
-			if (variablesInBase && Variables.isVariable((XRI3SubSegment) base.getSubSegment(i))) continue;
+			if (baseIndex == base.getNumSubSegments()) break;
+			if (xriIndex == xri.getNumSubSegments()) return null;
 
-			if (! (xri.getSubSegment(i).equals(base.getSubSegment(i)))) return null;
+			XRI3SubSegment xriSubSegment = (XRI3SubSegment) xri.getSubSegment(xriIndex);
+			XRI3SubSegment baseSubSegment = (XRI3SubSegment) base.getSubSegment(baseIndex);
+
+			// check variables
+			
+			if (variablesInXri && Variables.isVariableSingle(xriSubSegment)) {
+
+				if (Variables.isVariableSingle(xriSubSegment)) {
+
+					xriIndex++;
+					baseIndex++;
+
+					continue; 
+				}
+
+				if (Variables.isVariableMultipleLocal(xriSubSegment)) {
+
+					xriIndex++;
+					baseIndex++;
+
+					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasGCS())) baseIndex++;
+
+					continue;
+				}
+			}
+
+			if (variablesInBase) {
+
+				if (Variables.isVariableSingle(baseSubSegment)) {
+
+					xriIndex++;
+					baseIndex++;
+
+					continue; 
+				}
+
+				if (Variables.isVariableMultipleLocal(baseSubSegment)) {
+
+					xriIndex++;
+					baseIndex++;
+
+					while (xriIndex < xri.getNumSubSegments() && (! xri.getSubSegment(xriIndex).hasGCS())) xriIndex++;
+
+					continue;
+				}
+			}
+
+			// no variables? just match the subsegment
+
+			if (! (xriSubSegment.equals(baseSubSegment))) return null;
+
+			xriIndex++;
+			baseIndex++;
 		}
 
 		StringBuilder buffer = new StringBuilder();
 
-		for (; i<xri.getNumSubSegments(); i++) {
+		for (; xriIndex<xri.getNumSubSegments(); xriIndex++) {
 
-			buffer.append(xri.getSubSegment(i).toString());
+			buffer.append(xri.getSubSegment(xriIndex).toString());
 		}
 
 		if (buffer.length() == 0) return null;
@@ -127,7 +230,7 @@ public final class XRIUtil {
 		}
 
 		if (buffer.length() == 0) return null;
-		
+
 		return new XRI3Segment(buffer.toString());
 	}
 

@@ -74,8 +74,8 @@
 		</property>
 		<property name="contributors">
 			<util:map>
-				<entry key="(https://facebook.com)" value-ref="facebookContributor" />
-				<entry key="(https://personal.com)" value-ref="personalContributor" />
+				<entry key="+(https://facebook.com/)" value-ref="facebookContributor" />
+				<entry key="+(https://personal.com/)" value-ref="personalContributor" />
 			</util:map>
 		</property>
 	</bean>

@@ -324,7 +324,7 @@ public abstract class AbstractContributor implements Contributor {
 		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
 		if (tempContextNode == null) return false;
 
-		boolean isObjectVariable = Variables.isVariable(targetContextNodeXri);
+		boolean isObjectVariable = Variables.isVariableSingle(targetContextNodeXri);
 
 		if (arcXri.equals(XDIConstants.XRI_S_LITERAL)) {
 
