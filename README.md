@@ -50,6 +50,7 @@ Changelog: https://github.com/peacekeeper/xdi2/blob/master/CHANGELOG
 
 * [xdi2-connector-facebook](https://github.com/peacekeeper/xdi2-connector-facebook) - Facebook -> XDI Connector
 * [xdi2-connector-personal](https://github.com/peacekeeper/xdi2-connector-personal) - Personal.com -> XDI Connector
+* [xdi2-connector-allfiled](https://github.com/peacekeeper/xdi2-connector-allfiled) - Allfiled -> XDI Connector
 
 ### Tests
 
