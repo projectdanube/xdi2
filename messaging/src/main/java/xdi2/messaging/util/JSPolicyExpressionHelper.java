@@ -54,11 +54,11 @@ public class JSPolicyExpressionHelper extends ScriptableObject {
 		Scriptable scope = this.getParentScope();
 		LinkContract linkContract = (LinkContract) scope.get("linkContract", scope);
 		if (linkContract == null) {
-			return "";
+			return null;
 		}
 		Literal literal = linkContract.getContextNode().getGraph()
 				.findLiteral(new XRI3Segment(address));
-		return literal == null ? "" : literal.getLiteralData();
+		return literal == null ? null : literal.getLiteralData();
 
 	}
 
@@ -67,11 +67,11 @@ public class JSPolicyExpressionHelper extends ScriptableObject {
 		Scriptable scope = this.getParentScope();
 		Message message = (Message) scope.get("message", scope);
 		if (message == null) {
-			return "";
+			return null;
 		}
 		Literal literal = message.getContextNode().findLiteral(
 				new XRI3Segment(property));
-		return literal == null ? "" : literal.getLiteralData();
+		return literal == null ? null : literal.getLiteralData();
 	}
 
 //	public static void initialize(){

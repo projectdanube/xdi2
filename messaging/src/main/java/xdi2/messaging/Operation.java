@@ -3,6 +3,9 @@ package xdi2.messaging;
 import java.io.Serializable;
 
 import xdi2.core.Relation;
+import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
@@ -127,6 +130,29 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	public XRI3Segment getTarget() {
 
 		return this.getRelation().getTargetContextNodeXri();
+	}
+
+	public Statement getTargetStatement() {
+
+		try {
+
+			return StatementUtil.fromXriSegment(this.getTarget());
+		} catch (Xdi2ParseException ex) {
+
+			return null;
+		}
+	}
+
+	public XRI3Segment getTargetAddress() {
+
+		try {
+
+			StatementUtil.fromXriSegment(this.getTarget());
+			return null;
+		} catch (Xdi2ParseException ex) {
+
+			return this.getTarget();
+		}
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package xdi2.messaging.constants;
 
+import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 
@@ -20,7 +21,9 @@ public final class XDIMessagingConstants {
 	public static final XRI3Segment XRI_S_DO = new XRI3Segment("$do");
 	public static final XRI3Segment XRI_S_FROM_GRAPH = new XRI3Segment("$add");
 	public static final XRI3Segment XRI_S_TO_GRAPH = new XRI3Segment("$is()");
-	public static final XRI3Segment XRI_S_SHAREDSECRET_LITERAL = new XRI3Segment("$secret$!($token)");
+
+	public static final XRI3Segment XRI_S_SECRET_TOKEN = new XRI3Segment("" + Multiplicity.entitySingletonArcXri(new XRI3SubSegment("$secret")) + Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("$token")));
+	public static final XRI3Segment XRI_S_OAUTH_TOKEN = new XRI3Segment("" + Multiplicity.entitySingletonArcXri(new XRI3SubSegment("$oauth")) + Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("$token")));
 
 	public static final XRI3SubSegment XRI_SS_MSG = new XRI3SubSegment("$msg");
 	public static final XRI3SubSegment XRI_SS_GET = new XRI3SubSegment("$get");

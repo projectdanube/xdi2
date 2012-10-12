@@ -1,5 +1,6 @@
 package xdi2.core.util.iterators;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,12 +27,15 @@ public final class IteratorArrayMaker<I> {
 	 * Makes and returns the array consisting of all items of the iterator.
 	 * @return The array.
 	 */
-	public I[] array(I[] array) {
+	public I[] array(Class<? super I> clazz) {
 
 		if (this.array == null) {
 
 			List<I> list = new ArrayList<I> ();
 			while (this.iterator.hasNext()) list.add(this.iterator.next());
+
+			@SuppressWarnings("unchecked")
+			I[] array = (I[]) Array.newInstance(clazz, list.size());
 
 			this.array = list.toArray(array);
 		}

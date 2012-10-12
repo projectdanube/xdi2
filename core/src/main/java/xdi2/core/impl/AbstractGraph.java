@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.GraphFactory;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
@@ -30,10 +31,23 @@ public abstract class AbstractGraph implements Graph {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractGraph.class);
 
+	private GraphFactory graphFactory;
+	
+	protected AbstractGraph(GraphFactory graphFactory) {
+		
+		this.graphFactory = graphFactory;
+	}
+	
 	/*
 	 * General methods
 	 */
 
+	@Override
+	public GraphFactory getGraphFactory() {
+
+		return this.graphFactory;
+	}
+	
 	@Override
 	public void clear() {
 
@@ -154,19 +168,19 @@ public abstract class AbstractGraph implements Graph {
 		if (statement instanceof ContextNodeStatement) {
 
 			ContextNode innerContextNode = contextNode.createContextNode(new XRI3SubSegment(object.toString()));
-			if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
+			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
 
 			return innerContextNode.getStatement();
 		} else if (statement instanceof LiteralStatement) {
 
 			Literal literal = contextNode.createLiteral(XDIUtil.dataXriSegmentToString(object));
-			if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
+			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 
 			return literal.getStatement();
 		} else if (statement instanceof RelationStatement) {
 
 			Relation relation = contextNode.createRelation(predicate, object);
-			if (log.isDebugEnabled()) log.debug("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 
 			return relation.getStatement();
 		} else {

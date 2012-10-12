@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
+import xdi2.core.Statement;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.features.timestamps.Timestamps;
@@ -215,6 +216,19 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new operation and adds it to this XDI message.
+	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 */
+	public Operation createOperation(XRI3Segment operationXri, Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetStatement.toXriSegment());
+
+		return Operation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
 	 * Creates a new $get operation and adds it to this XDI message.
 	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $get operation.
@@ -222,6 +236,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	public GetOperation createGetOperation(XRI3Segment targetXri) {
 
 		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetXri);
+
+		return GetOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $get operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $get operation.
+	 */
+	public GetOperation createGetOperation(Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetStatement.toXriSegment());
 
 		return GetOperation.fromMessageAndRelation(this, relation);
 	}
@@ -239,6 +265,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $add operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $get operation.
+	 */
+	public AddOperation createAddOperation(Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetStatement.toXriSegment());
+
+		return AddOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
 	 * Creates a new $mod operation and adds it to this XDI message.
 	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $mod operation.
@@ -251,6 +289,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $mod operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $mod operation.
+	 */
+	public ModOperation createModOperation(Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetStatement.toXriSegment());
+
+		return ModOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
 	 * Creates a new $del operation and adds it to this XDI message.
 	 * @param targetXri The target XRI to which the operation applies.
 	 * @return The newly created $del operation.
@@ -258,6 +308,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	public DelOperation createDelOperation(XRI3Segment targetXri) {
 
 		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetXri);
+
+		return DelOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $del operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $del operation.
+	 */
+	public DelOperation createDelOperation(Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetStatement.toXriSegment());
 
 		return DelOperation.fromMessageAndRelation(this, relation);
 	}

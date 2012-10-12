@@ -35,7 +35,11 @@
 		<url-pattern>/xdi/</url-pattern>
 	</servlet-mapping>
 
-	<!-- SPRING -->
+	<!-- LISTENERS -->
+
+	<listener>
+		<listener-class>xdi2.server.plugins.PluginsLoaderListener</listener-class>
+	</listener>
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

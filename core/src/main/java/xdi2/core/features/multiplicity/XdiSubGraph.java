@@ -55,8 +55,6 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 		if (XdiEntityMember.isValid(contextNode)) return XdiEntityMember.fromContextNode(contextNode);
 		if (XdiAttributeMember.isValid(contextNode)) return XdiAttributeMember.fromContextNode(contextNode);
 
-		if (! isValid(contextNode)) return null;
-
 		return new XdiSubGraph(contextNode);
 	}
 

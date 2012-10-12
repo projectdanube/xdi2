@@ -32,6 +32,10 @@ public final class CopyUtil {
 	 */
 	public static void copyGraph(Graph graph, Graph targetGraph, CopyStrategy copyStrategy) {
 
+		if (graph == null) throw new NullPointerException();
+		if (targetGraph == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
 		copyContextNodeContents(graph.getRootContextNode(), targetGraph.getRootContextNode(), copyStrategy);
 	}
 
@@ -44,7 +48,9 @@ public final class CopyUtil {
 	 */
 	public static ContextNode copyContextNode(ContextNode contextNode, Graph targetGraph, CopyStrategy copyStrategy) {
 
-		if (contextNode == null) return null;
+		if (contextNode == null) throw new NullPointerException();
+		if (targetGraph == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		ContextNode targetContextNode;
 
@@ -64,6 +70,29 @@ public final class CopyUtil {
 	}
 
 	/**
+	 * Copies a context node into another context node.
+	 * @param contextNode A context node from any context node.
+	 * @param targetContextNode The target context node.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied context node in the target context node.
+	 */
+	public static ContextNode copyContextNode(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
+
+		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
+		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
+
+		ContextNode targetInnerContextNode = targetContextNode.getContextNode(contextNode.getArcXri());
+		if (targetInnerContextNode == null) targetInnerContextNode = targetContextNode.createContextNode(contextNode.getArcXri());
+
+		CopyUtil.copyContextNodeContents(contextNode, targetInnerContextNode, copyStrategy);
+
+		return targetContextNode;
+	}
+
+	/**
 	 * Copies a relation into another graph.
 	 * @param relation A relation from any graph.
 	 * @param targetGraph The target graph.
@@ -72,11 +101,33 @@ public final class CopyUtil {
 	 */
 	public static Relation copyRelation(Relation relation, Graph targetGraph, CopyStrategy copyStrategy) {
 
-		if (relation == null) return null;
+		if (relation == null) throw new NullPointerException();
+		if (targetGraph == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		XRI3Segment parentContextNodeXri = relation.getContextNode().getXri();
-		ContextNode targetParentContextNode = targetGraph.findContextNode(parentContextNodeXri, true);
-		Relation targetRelation = targetParentContextNode.createRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
+		XRI3Segment contextNodeXri = relation.getContextNode().getXri();
+		ContextNode targetContextNode = targetGraph.findContextNode(contextNodeXri, true);
+
+		return copyRelation(relation, targetContextNode, copyStrategy);
+	}
+
+	/**
+	 * Copies a relation into another context node.
+	 * @param relation A relation from any context node.
+	 * @param targetContextNode The target context node.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied relation in the target context node.
+	 */
+	public static Relation copyRelation(Relation relation, ContextNode targetContextNode, CopyStrategy copyStrategy) {
+
+		if (relation == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
+		if ((relation = copyStrategy.replaceRelation(relation)) == null) return null;
+
+		Relation targetRelation = targetContextNode.getRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
+		if (targetRelation == null) targetRelation = targetContextNode.createRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
 
 		return targetRelation;
 	}
@@ -90,13 +141,36 @@ public final class CopyUtil {
 	 */
 	public static Literal copyLiteral(Literal literal, Graph targetGraph, CopyStrategy copyStrategy) {
 
-		if (literal == null) return null;
+		if (literal == null) throw new NullPointerException();
+		if (targetGraph == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		XRI3Segment parentContextNodeXri = literal.getContextNode().getXri();
-		ContextNode targetParentContextNode = targetGraph.findContextNode(parentContextNodeXri, true);
-		Literal targetliteral = targetParentContextNode.createLiteral(literal.getLiteralData());
+		XRI3Segment contextNodeXri = literal.getContextNode().getXri();
+		ContextNode targetContextNode = targetGraph.findContextNode(contextNodeXri, true);
 
-		return targetliteral;
+		return copyLiteral(literal, targetContextNode, copyStrategy);
+	}
+
+	/**
+	 * Copies a literal into another context node.
+	 * @param literal A literal from any context node.
+	 * @param targetContextNode The target context node.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied literal in the target context node.
+	 */
+	public static Literal copyLiteral(Literal literal, ContextNode targetContextNode, CopyStrategy copyStrategy) {
+
+		if (literal == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
+		if ((literal = copyStrategy.replaceLiteral(literal)) == null) return null;
+
+		Literal targetLiteral = targetContextNode.getLiteral();
+		if (targetLiteral != null) targetLiteral.setLiteralData(literal.getLiteralData());
+		if (targetLiteral == null) targetLiteral = targetContextNode.createLiteral(literal.getLiteralData());
+
+		return targetLiteral;
 	}
 
 	/**
@@ -107,7 +181,9 @@ public final class CopyUtil {
 	 */
 	public static void copyContextNodeContents(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
-		if (contextNode == null) return;
+		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		copyContextNodes(contextNode, targetContextNode, copyStrategy);
 		copyRelations(contextNode, targetContextNode, copyStrategy);
@@ -123,18 +199,15 @@ public final class CopyUtil {
 	 */
 	public static Iterator<ContextNode> copyContextNodes(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
-		if (contextNode == null) return null;
+		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
 
 			ContextNode innerContextNode = innerContextNodes.next();
-			if ((innerContextNode = copyStrategy.replaceContextNode(innerContextNode)) == null) continue;
 
-			ContextNode targetInnerContextNode = targetContextNode.getContextNode(innerContextNode.getArcXri());
-			if (targetInnerContextNode == null) targetInnerContextNode = targetContextNode.createContextNode(innerContextNode.getArcXri());
-
-			copyContextNodeContents(innerContextNode, targetInnerContextNode, copyStrategy);
+			copyContextNode(innerContextNode, targetContextNode, copyStrategy);
 		}
 
 		return targetContextNode.getContextNodes();
@@ -149,15 +222,15 @@ public final class CopyUtil {
 	 */
 	public static Iterator<Relation> copyRelations(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
-		if (contextNode == null) return null;
+		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
 
 			Relation relation = relations.next();
-			if ((relation = copyStrategy.replaceRelation(relation)) == null) continue;
 
-			targetContextNode.createRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
+			copyRelation(relation, targetContextNode, copyStrategy);
 		}
 
 		return targetContextNode.getRelations();
@@ -172,121 +245,62 @@ public final class CopyUtil {
 	 */
 	public static Literal copyLiteral(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
 
-		if (contextNode == null) return null;
+		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return null;
-		if ((literal = copyStrategy.replaceLiteral(literal)) == null) return null;
 
-		targetContextNode.createLiteral(literal.getLiteralData());
-
-		return targetContextNode.getLiteral();
+		return copyLiteral(literal, targetContextNode, copyStrategy);
 	}
 
 	/**
 	 * An interface that can determine what to copy and what not.
 	 */
-	public static interface CopyStrategy {
+	public static abstract class CopyStrategy {
 
 		/**
 		 * Strategies can replace a context node that is being copied.
 		 * @param contextNode The original context node.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public abstract ContextNode replaceContextNode(ContextNode contextNode);
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			if (log.isTraceEnabled()) log.trace("Copying context node " + contextNode);
+
+			return contextNode;
+		}
 
 		/**
 		 * Strategies can replace a relation that is being copied.
 		 * @param relation The original relation.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public abstract Relation replaceRelation(Relation relation);
+		public Relation replaceRelation(Relation relation) {
+
+			if (log.isTraceEnabled()) log.trace("Copying relation " + relation);
+
+			return relation;
+		}
 
 		/**
 		 * Strategies can replace a literal that is being copied.
 		 * @param literal The original literal.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public abstract Literal replaceLiteral(Literal literal);
+		public Literal replaceLiteral(Literal literal) {
+
+			if (log.isTraceEnabled()) log.trace("Copying literal " + literal);
+
+			return literal;
+		}
 	}
 
 	/**
 	 * The default strategy that copies everything.
 	 */
-	public static class AllCopyStrategy implements CopyStrategy {
+	public static class AllCopyStrategy extends CopyStrategy {
 
-		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
-
-			return contextNode;
-		}
-
-		@Override
-		public Relation replaceRelation(Relation relation) {
-
-			return relation;
-		}
-
-		@Override
-		public Literal replaceLiteral(Literal literal) {
-
-			return literal;
-		}
-	}
-
-	/**
-	 * A strategy that does not copy arcs that already exist in a target graph
-	 */
-	public static class NoDuplicatesCopyStrategy implements CopyStrategy {
-
-		private Graph targetGraph;
-
-		public NoDuplicatesCopyStrategy(Graph targetGraph) {
-
-			this.targetGraph = targetGraph;
-		}
-
-		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
-
-			if (contextNode == null) throw new NullPointerException();
-
-			if (this.targetGraph.containsContextNode(contextNode.getXri()) && contextNode.isEmpty()) {
-
-				if (log.isDebugEnabled()) log.debug("Not copying context node" + contextNode);
-				return null;
-			}
-
-			return contextNode;
-		}
-
-		@Override
-		public Relation replaceRelation(Relation relation) {
-
-			if (relation == null) throw new NullPointerException();
-
-			if (this.targetGraph.containsRelation(relation.getContextNode().getXri(), relation.getArcXri(), relation.getTargetContextNodeXri())) {
-
-				if (log.isDebugEnabled()) log.debug("Not copying relation " + relation);
-				return null;
-			}
-
-			return relation;
-		}
-
-		@Override
-		public Literal replaceLiteral(Literal literal) {
-
-			if (literal == null) throw new NullPointerException();
-
-			if (this.targetGraph.containsLiteral(literal.getContextNode().getXri())) {
-
-				if (log.isDebugEnabled()) log.debug("Not copying literal " + literal);
-				return null;
-			}
-
-			return literal;
-		}
 	}
 }

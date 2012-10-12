@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +18,12 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.remoteroots.RemoteRoots;
+import xdi2.core.util.iterators.IteratorArrayMaker;
+import xdi2.core.util.iterators.MappingContextNodeXrisIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.EndpointServlet;
 import xdi2.server.RequestInfo;
@@ -52,29 +57,45 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		if (! requestInfo.getRequestPath().startsWith(this.getResolvePath())) return false;
 
-		// prepare velocity values
+		// prepare resolution information
 
-		String query = parseQuery(requestInfo);
-		String providerid = getProviderId(this.getRegistryGraph());
-		String localid = query;
-		String canonicalid = providerid + localid;
-		String uri = constructUri(requestInfo, this.getTargetPath(), query);
+		XRI3SubSegment query = parseQuery(requestInfo);
+		XRI3Segment providerid = getProviderId(this.getRegistryGraph());
+		XRI3Segment[] provideridSynonyms = getProviderIdSynonyms(this.getRegistryGraph(), providerid);
 
 		// look into registry
 
-		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XRI3Segment(query), false);
+		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XRI3Segment("" + providerid + query), false);
+
+		if (remoteRootContextNode == null) {
+
+			for (XRI3Segment provideridSynonym : provideridSynonyms) {
+
+				remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XRI3Segment("" + provideridSynonym + query), false);
+				if (remoteRootContextNode != null) break;
+			}
+		}
+
 		if (remoteRootContextNode == null) {
 
 			log.warn("Remote root context node for " + query + " not found in the registry graph. Ignoring.");
-			return false;
+			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
+			return true;
 		}
 
-		ContextNode selfRemoteContextNode = RemoteRoots.getSelfRemoteRootContextNode(this.getRegistryGraph());
-		if (remoteRootContextNode.equals(selfRemoteContextNode)) {
+		if (RemoteRoots.isSelfRemoteRootContextNode(remoteRootContextNode)) {
 
 			log.warn("Remote root context node for " + query + " is the owner of the registry graph. Ignoring.");
-			return false;
+			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
+			return true;
 		}
+
+		ContextNode canonicalRemoteRootContextNode = Dictionary.getCanonicalContextNode(remoteRootContextNode);
+		if (canonicalRemoteRootContextNode == null) canonicalRemoteRootContextNode = remoteRootContextNode;
+
+		XRI3Segment canonicalid = RemoteRoots.xriOfRemoteRootXri(canonicalRemoteRootContextNode.getXri());
+		XRI3SubSegment localid = query;
+		String uri = constructUri(requestInfo, this.getTargetPath(), canonicalid);
 
 		// prepare velocity
 
@@ -89,12 +110,12 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		// send response
 
-		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrd.vm"));
+		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrds-ok.vm"));
 		PrintWriter writer = response.getWriter();
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("application/xrd+xml");
-		this.velocityEngine.evaluate(context, writer, "xrd.vm", reader);
+		this.velocityEngine.evaluate(context, writer, "xrds-ok.vm", reader);
 		writer.close();
 
 		// done
@@ -106,7 +127,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 	 * Helper methods
 	 */
 
-	private static String parseQuery(RequestInfo requestInfo) {
+	private static XRI3SubSegment parseQuery(RequestInfo requestInfo) {
 
 		String query = requestInfo.getRequestPath();
 		if (query.endsWith("/")) query = query.substring(0, query.length() - 1);
@@ -114,23 +135,78 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		if (query.isEmpty()) return null;
 
-		return query;
+		return new XRI3SubSegment(query);
 	}
 
-	private static String constructUri(RequestInfo requestInfo, String targetPath, String query) {
+	private static String constructUri(RequestInfo requestInfo, String targetPath, XRI3Segment canonicalid) {
 
 		String uri = requestInfo.getUri().substring(0, requestInfo.getUri().length() - requestInfo.getRequestPath().length());
-		uri += targetPath + "/" + query;
+		uri += targetPath + "/" + canonicalid.toString();
 
 		return uri;
 	}
 
-	private static String getProviderId(Graph graph) {
+	private static XRI3Segment getProviderId(Graph graph) {
 
-		ContextNode contextNode = RemoteRoots.getSelfRemoteRootContextNode(graph);
-		if (contextNode == null) return null;
+		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(graph);
+		if (selfRemoteRootContextNode == null) return null;
 
-		return RemoteRoots.xriOfRemoteRootXri(contextNode.getXri()).toString();
+		return RemoteRoots.xriOfRemoteRootXri(selfRemoteRootContextNode.getXri());
+	}
+
+	private static XRI3Segment[] getProviderIdSynonyms(Graph graph, XRI3Segment providerid) {
+
+		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(graph);
+		if (selfRemoteRootContextNode == null) return new XRI3Segment[0];
+
+		Iterator<ContextNode> selfSynonymRemoteRootContextNodes = Dictionary.getSynonymContextNodes(selfRemoteRootContextNode);
+
+		XRI3Segment[] selfSynonyms = new IteratorArrayMaker<XRI3Segment> (new MappingContextNodeXrisIterator(selfSynonymRemoteRootContextNodes)).array(XRI3Segment.class);
+		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(selfSynonyms[i]);
+
+		return selfSynonyms;
+	}
+
+	/*	private static XRI3Segment getCanonicalId(Graph graph, XRI3Segment providerid, XRI3SubSegment localid) {
+
+		XRI3Segment canonicalid = new XRI3Segment("" + providerid + localid);
+
+		ContextNode canonicalidRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, canonicalid, false);
+
+		if (canonicalidRemoteRootContextNode != null) {
+
+			while (true) {
+
+				Relation canonicalidRelation = canonicalidRemoteRootContextNode.getRelation(XDIDictionaryConstants.XRI_S_IS);
+				if (canonicalidRelation == null) break;
+
+				canonicalidRemoteRootContextNode = canonicalidRelation.follow();
+			}
+
+			canonicalid = RemoteRoots.xriOfRemoteRootXri(canonicalidRemoteRootContextNode.getXri());
+		}
+
+		return canonicalid;
+	}*/
+
+	private void sendNotFoundXrd(EndpointServlet endpointServlet, RequestInfo requestInfo, XRI3SubSegment query, HttpServletResponse response) throws IOException {
+
+		// prepare velocity
+
+		VelocityContext context = new VelocityContext();
+		context.put("endpointservlet", endpointServlet);
+		context.put("requestinfo", requestInfo);
+		context.put("query", query);
+
+		// send response
+
+		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrds-notfound.vm"));
+		PrintWriter writer = response.getWriter();
+
+		response.setStatus(HttpServletResponse.SC_OK);
+		response.setContentType("application/xrd+xml");
+		this.velocityEngine.evaluate(context, writer, "xrd.vm", reader);
+		writer.close();
 	}
 
 	/*

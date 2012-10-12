@@ -283,11 +283,11 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
 		if (tempContextNode == null) return;
 
-		boolean isObjectVariable = Variables.isVariable(targetContextNodeXri);
+		boolean isObjectVariableSingle = Variables.isVariableSingle(targetContextNodeXri);
 
 		if (arcXri.equals(XDIConstants.XRI_S_LITERAL)) {
 
-			if (isObjectVariable) {
+			if (isObjectVariableSingle) {
 
 				Literal literal = tempContextNode.getLiteral();
 				if (literal == null) return;
@@ -296,7 +296,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 			}
 		} else {
 
-			if (isObjectVariable) {
+			if (isObjectVariableSingle) {
 				
 				Iterator<Relation> relations = tempContextNode.getRelations(arcXri);
 

@@ -24,6 +24,8 @@ import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.Prototype;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
@@ -35,9 +37,36 @@ import xdi2.messaging.util.JSPolicyExpressionHelper;
  * @author animesh
  */
 public class LinkContractsInterceptor extends AbstractInterceptor implements
-MessageInterceptor, TargetInterceptor {
+MessageInterceptor, TargetInterceptor, Prototype<LinkContractsInterceptor> {
 
 	private Graph linkContractsGraph;
+
+	/*
+	 * Prototype
+	 */
+
+	@Override
+	public LinkContractsInterceptor instanceFor(PrototypingContext prototypingContext) {
+
+		// create new interceptor
+
+		LinkContractsInterceptor interceptor = new LinkContractsInterceptor();
+
+		// set the link contracts graph
+
+		if (this.linkContractsGraph == null && prototypingContext.getMessagingTarget() instanceof GraphMessagingTarget) {
+
+			interceptor.setLinkContractsGraph(((GraphMessagingTarget) prototypingContext.getMessagingTarget()).getGraph());
+		}
+
+		// done
+
+		return interceptor;
+	}
+
+	/*
+	 * MessageInterceptor
+	 */
 
 	@Override
 	public boolean before(Message message, MessageResult messageResult,
@@ -76,6 +105,9 @@ MessageInterceptor, TargetInterceptor {
 		return false;
 	}
 
+	/*
+	 * TargetInterceptor
+	 */
 
 	private static boolean checkLinkContractAuthorization(Operation operation,
 			XRI3Segment targetAddress, ExecutionContext executionContext)
@@ -156,7 +188,7 @@ MessageInterceptor, TargetInterceptor {
 			throw new Xdi2MessagingException("No link contract.", null,
 					executionContext);
 
-		XRI3Segment targetAddress = targetStatement.getSubject();
+		XRI3Segment targetAddress = targetStatement.getContextNodeXri();
 
 		if (!checkLinkContractAuthorization(operation, targetAddress,
 				executionContext)) {

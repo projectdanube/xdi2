@@ -7,7 +7,7 @@ import xdi2.core.ContextNode;
  * 
  * @author markus
  */
-public class XdiAttributeMember extends XdiSubGraph {
+public final class XdiAttributeMember extends XdiAttribute {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 

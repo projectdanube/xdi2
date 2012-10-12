@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
+import xdi2.core.Statement.LiteralStatement;
+import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
@@ -49,12 +51,6 @@ public final class StatementUtil {
 				}
 
 				@Override
-				public XRI3Segment getPredicate() {
-
-					return predicate;
-				}
-
-				@Override
 				public XRI3Segment getObject() {
 
 					return object;
@@ -70,12 +66,6 @@ public final class StatementUtil {
 				public XRI3Segment getSubject() {
 
 					return subject;
-				}
-
-				@Override
-				public XRI3Segment getPredicate() {
-
-					return predicate;
 				}
 
 				@Override
@@ -109,6 +99,39 @@ public final class StatementUtil {
 				}
 			};
 		}
+	}
+
+	/**
+	 * Creates an XDI statement from a context node XRI and an arc XRI.
+	 * @param contextNodeXri The context node XRI
+	 * @param arcXri The arc XRI
+	 * @return An XDI statement
+	 */
+	public static ContextNodeStatement fromContextNodeComponents(final XRI3Segment contextNodeXri, final XRI3Segment arcXri) {
+
+		return (ContextNodeStatement) fromComponents(contextNodeXri, XDIConstants.XRI_S_CONTEXT, arcXri);
+	}
+
+	/**
+	 * Creates an XDI statement from a context node XRI, arc XRI, and target context node XRI.
+	 * @param contextNodeXri The context node XRI
+	 * @param arcXri The arc XRI
+	 * @return An XDI statement
+	 */
+	public static RelationStatement fromRelationComponents(final XRI3Segment contextNodeXri, final XRI3Segment arcXri, final XRI3Segment targetContextNodeXri) {
+
+		return (RelationStatement) fromComponents(contextNodeXri, arcXri, targetContextNodeXri);
+	}
+
+	/**
+	 * Creates an XDI statement from a context node XRI and literal data.
+	 * @param contextNodeXri The context node XRI
+	 * @param literalData The literal data
+	 * @return An XDI statement
+	 */
+	public static LiteralStatement fromLiteralComponents(final XRI3Segment contextNodeXri, final String literalData) {
+
+		return (LiteralStatement) fromComponents(contextNodeXri, XDIConstants.XRI_S_LITERAL, XDIUtil.stringToDataXriSegment(literalData));
 	}
 
 	/**

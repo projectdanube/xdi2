@@ -271,6 +271,19 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	public ReadOnlyIterator<Relation> getIncomingRelations(final XRI3Segment arcXri) {
+
+		return new SelectingIterator<Relation> (this.getIncomingRelations()) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return relation.getArcXri().equals(arcXri);
+			}
+		};
+	}
+
+	@Override
 	/*
 	 * TODO: This is inefficient for a large number of context nodes in the graph.
 	 */
@@ -566,12 +579,6 @@ public abstract class AbstractContextNode implements ContextNode {
 		public XRI3Segment getSubject() {
 
 			return AbstractContextNode.this.getContextNode().getXri();
-		}
-
-		@Override
-		public XRI3Segment getPredicate() {
-
-			return XDIConstants.XRI_S_CONTEXT;
 		}
 
 		@Override

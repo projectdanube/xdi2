@@ -21,6 +21,12 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 */
 
 	/**
+	 * Gets the graph factory that created this graph.
+	 * @return The graph factory.
+	 */
+	public GraphFactory getGraphFactory();
+	
+	/**
 	 * Gets the root context node of this graph.
 	 * @return The graph's root context node.
 	 */

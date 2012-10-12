@@ -5,11 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
-import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.EndpointRegistry;
@@ -20,16 +18,14 @@ import xdi2.server.registry.EndpointRegistry;
  * 
  * @author markus
  */
-public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingTargetFactory {
-
-	private static final XRI3Segment XRI_SECRET_TOKEN = new XRI3Segment("" + Multiplicity.entitySingletonArcXri(new XRI3SubSegment("$secret")) + Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("$token")));
+public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTargetFactory {
 
 	private static final Logger log = LoggerFactory.getLogger(RegistryGraphMessagingTargetFactory.class);
 
 	private Graph registryGraph;
 
 	@Override
-	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException {
+	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -40,34 +36,35 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 
 		XRI3Segment owner = new XRI3Segment(ownerString);
 
-		// look into registry
+		// find the owner's remote root context node
 
-		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), owner, false);
-		if (remoteRootContextNode == null) {
+		ContextNode ownerRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), owner, false);
+
+		if (ownerRemoteRootContextNode == null) {
 
 			log.warn("Remote root context node for " + owner + " not found in the registry graph. Ignoring.");
 			return;
 		}
 
-		ContextNode selfRemoteContextNode = RemoteRoots.getSelfRemoteRootContextNode(this.getRegistryGraph());
-		if (remoteRootContextNode.equals(selfRemoteContextNode)) {
+		if (RemoteRoots.isSelfRemoteRootContextNode(ownerRemoteRootContextNode)) {
 
 			log.warn("Remote root context node for " + owner + " is the owner of the registry graph. Ignoring.");
 			return;
 		}
 
-		XRI3Segment[] ownerSynonyms = new XRI3Segment[0];
+		// find the owner's context node
 
-		Literal sharedSecretLiteral = this.getRegistryGraph().findLiteral(new XRI3Segment("" + owner + XRI_SECRET_TOKEN));
-		String sharedSecret = sharedSecretLiteral == null ? null : sharedSecretLiteral.getLiteralData();
+		ContextNode ownerContextNode = this.getRegistryGraph().findContextNode(owner, false);
 
 		// create and mount the new messaging target
 
-		super.mountStandardMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerSynonyms, sharedSecret);
+		log.info("Will create messaging target for " + owner);
+		
+		super.mountMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerRemoteRootContextNode, ownerContextNode);
 	}
 
 	@Override
-	public void updateMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException {
+	public void updateMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -76,7 +73,7 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 
 		XRI3Segment owner = new XRI3Segment(ownerString);
 
-		// look into registry
+		// find the owner's remote root context node
 
 		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), owner, false);
 		if (remoteRootContextNode == null) {
@@ -90,6 +87,8 @@ public class RegistryGraphMessagingTargetFactory extends StandardGraphMessagingT
 
 				throw new Xdi2ServerException("Cannot shut down messaging target: " + ex.getMessage(), ex);
 			}
+
+			// unmount the messaging target
 
 			endpointRegistry.unmountMessagingTarget(messagingTarget);
 		}

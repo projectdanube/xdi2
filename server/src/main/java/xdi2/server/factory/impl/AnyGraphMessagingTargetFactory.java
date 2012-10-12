@@ -1,6 +1,10 @@
 package xdi2.server.factory.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.EndpointRegistry;
@@ -10,10 +14,12 @@ import xdi2.server.registry.EndpointRegistry;
  * 
  * @author markus
  */
-public class AnyGraphMessagingTargetFactory extends StandardGraphMessagingTargetFactory {
+public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFactory {
+
+	private static final Logger log = LoggerFactory.getLogger(AnyGraphMessagingTargetFactory.class);
 
 	@Override
-	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException {
+	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -23,12 +29,12 @@ public class AnyGraphMessagingTargetFactory extends StandardGraphMessagingTarget
 		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
 
 		XRI3Segment owner = new XRI3Segment(ownerString);
-		XRI3Segment[] ownerSynonyms = new XRI3Segment[0];
-		String sharedSecret = null;
 
 		// create and mount the new messaging target
 
-		super.mountStandardMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerSynonyms, sharedSecret);
+		log.info("Will create messaging target for " + owner);
+
+		super.mountMessagingTarget(endpointRegistry, messagingTargetPath, owner, null, null);
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package xdi2.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import xdi2.tests.core.features.datatypes.DataTypesTest;
+import xdi2.tests.core.features.dictionary.DictionaryTest;
 import xdi2.tests.core.features.linkcontracts.LinkContractsTest;
 import xdi2.tests.core.features.multiplicity.MultiplicityTest;
 import xdi2.tests.core.features.multiplicity.OrderingTest;
@@ -21,6 +23,7 @@ import xdi2.tests.core.io.readers.XDIDisplayReaderTest;
 import xdi2.tests.core.io.readers.XDIJSONReaderTest;
 import xdi2.tests.core.io.writers.XDIDisplayWriterTest;
 import xdi2.tests.core.io.writers.XDIJSONWriterTest;
+import xdi2.tests.core.util.CopyUtilTest;
 import xdi2.tests.core.util.StatementUtilTest;
 import xdi2.tests.core.util.XDIUtilTest;
 import xdi2.tests.core.util.XRIUtilTest;
@@ -39,6 +42,8 @@ public class AllTests {
 		suite.addTestSuite(MapKeyValueTest.class);
 		suite.addTestSuite(PropertiesKeyValueTest.class);
 		suite.addTestSuite(BDBKeyValueTest.class);
+		suite.addTestSuite(DataTypesTest.class);
+		suite.addTestSuite(DictionaryTest.class);
 		suite.addTestSuite(LinkContractsTest.class);
 		suite.addTestSuite(MultiplicityTest.class);
 		suite.addTestSuite(OrderingTest.class);
@@ -53,6 +58,7 @@ public class AllTests {
 		suite.addTestSuite(LinkContractsTest.class);
 		suite.addTestSuite(XRIUtilTest.class);
 		suite.addTestSuite(XDIUtilTest.class);
+		suite.addTestSuite(CopyUtilTest.class);
 		suite.addTestSuite(StatementUtilTest.class);
 		suite.addTestSuite(IteratorTest.class);
 		//$JUnit-END$

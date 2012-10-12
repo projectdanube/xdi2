@@ -20,7 +20,7 @@ public class DictionaryTest extends TestCase {
 		XRI3Segment type1 = new XRI3Segment("+employee");
 		XRI3Segment type2 = new XRI3Segment("+person");
 		XRI3Segment type3 = new XRI3Segment("+developer");
-		
+
 		Dictionary.addContextNodeType(contextNode, type1);
 		assertEquals(Dictionary.getContextNodeType(contextNode), type1);
 		assertEquals(new IteratorCounter(Dictionary.getContextNodeTypes(contextNode)).count(), 1);
@@ -33,7 +33,7 @@ public class DictionaryTest extends TestCase {
 		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type2).contains());
 		assertTrue(Dictionary.isContextNodeType(contextNode, type1));
 		assertTrue(Dictionary.isContextNodeType(contextNode, type2));
-		
+
 		Dictionary.addContextNodeType(contextNode, type3);
 		assertEquals(new IteratorCounter(Dictionary.getContextNodeTypes(contextNode)).count(), 3);
 		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type1).contains());

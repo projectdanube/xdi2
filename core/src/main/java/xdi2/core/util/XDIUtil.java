@@ -100,6 +100,11 @@ public class XDIUtil {
 		return new XRI3Segment("(" + dataUri + ")");
 	}
 
+	public static XRI3Segment stringToDataXriSegment(String string) {
+
+		return stringToDataXriSegment(string, false);
+	}
+
 	private static String makeDataUri(String string) throws URISyntaxException {
 
 		return 
