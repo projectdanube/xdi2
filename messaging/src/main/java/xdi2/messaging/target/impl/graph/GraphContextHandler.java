@@ -98,31 +98,25 @@ public class GraphContextHandler extends AbstractContextHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
 		if (contextNode == null) return;
 
-		boolean isObjectVariableSingle = Variables.isVariableSingle(targetContextNodeXri);
+		if (Variables.isVariableSingle(targetContextNodeXri)) {
 
-		if (arcXri.equals(XDIConstants.XRI_S_LITERAL)) {
+			Iterator<Relation> relations = contextNode.getRelations(arcXri);
 
-			if (isObjectVariableSingle) {
+			if (Variables.isVariableSingle(arcXri)) {
 
-				Literal literal = contextNode.getLiteral();
-				if (literal == null) return;
-
-				CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
-			}
-		} else {
-
-			if (isObjectVariableSingle) {
-
-				Iterator<Relation> relations = contextNode.getRelations(arcXri);
-
-				while (relations.hasNext()) CopyUtil.copyRelation(relations.next(), messageResult.getGraph(), null);
+				relations = contextNode.getRelations();
 			} else {
 
-				Relation relation = contextNode.getRelation(arcXri, targetContextNodeXri);
-				if (relation == null) return;
-
-				CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
+				relations = contextNode.getRelations(arcXri);
 			}
+
+			while (relations.hasNext()) CopyUtil.copyRelation(relations.next(), messageResult.getGraph(), null);
+		} else {
+
+			Relation relation = contextNode.getRelation(arcXri, targetContextNodeXri);
+			if (relation == null) return;
+
+			CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
 		}
 	}
 
@@ -134,12 +128,12 @@ public class GraphContextHandler extends AbstractContextHandler {
 
 		if (Variables.isVariableSingle(targetContextNodeXri)) {
 
-			if (contextNode.containsRelations()) {
+			if (Variables.isVariableSingle(arcXri)) {
+
+				contextNode.deleteRelations();
+			} else {
 
 				contextNode.deleteRelations(arcXri);
-			} else if (contextNode.containsLiteral()) {
-
-				contextNode.deleteLiteral();
 			}
 		} else {
 
@@ -160,7 +154,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		if (literalData.equals(literal.getLiteralData())) {
+		if (literalData.isEmpty() || literalData.equals(literal.getLiteralData())) {
 
 			CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
 		}
@@ -187,7 +181,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		if (literalData.equals(literal.getLiteralData())) {
+		if (literalData.isEmpty() || literalData.equals(literal.getLiteralData())) {
 
 			literal.delete();
 		}

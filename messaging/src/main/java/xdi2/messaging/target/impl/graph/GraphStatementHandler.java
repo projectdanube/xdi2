@@ -10,7 +10,6 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIUtil;
@@ -100,30 +99,25 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) return;
 
-		boolean isObjectVariableSingle = Variables.isVariableSingle(relationStatement.getObject());
+		if (Variables.isVariableSingle(relationStatement.getObject())) {
 
-		if (relationStatement.getPredicate().equals(XDIConstants.XRI_S_LITERAL)) {
+			Iterator<Relation> relations;
 
-			if (isObjectVariableSingle) {
+			if (Variables.isVariableSingle(relationStatement.getPredicate())) {
 
-				Literal literal = contextNode.getLiteral();
-				if (literal == null) return;
+				relations = contextNode.getRelations();
+			} else {
 
-				CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
+				relations = contextNode.getRelations(relationStatement.getPredicate());
 			}
+
+			while (relations.hasNext()) CopyUtil.copyRelation(relations.next(), messageResult.getGraph(), null);
 		} else {
 
-			Iterator<Relation> relations = contextNode.getRelations(relationStatement.getPredicate());
+			Relation relation = contextNode.getRelation(relationStatement.getPredicate(), relationStatement.getObject());
+			if (relation == null) return;
 
-			while (relations.hasNext()) {
-
-				Relation relation = relations.next();
-
-				if (isObjectVariableSingle || relationStatement.getObject().equals(relation.getTargetContextNodeXri())) {
-
-					CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
-				}
-			}
+			CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
 		}
 	}
 
@@ -135,12 +129,12 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 
 		if (Variables.isVariableSingle(relationStatement.getObject())) {
 
-			if (contextNode.containsRelations()) {
+			if (Variables.isVariableSingle(relationStatement.getPredicate())) {
+
+				contextNode.deleteRelations();
+			} else {
 
 				contextNode.deleteRelations(relationStatement.getPredicate());
-			} else if (contextNode.containsLiteral()) {
-
-				contextNode.deleteLiteral();
 			}
 		} else {
 
@@ -161,7 +155,9 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		if (XDIUtil.dataXriSegmentToString(literalStatement.getObject()).equals(literal.getLiteralData())) {
+		String literalStatementData = XDIUtil.dataXriSegmentToString(literalStatement.getObject());
+		
+		if (literalStatementData.isEmpty() || literalStatementData.equals(literal.getLiteralData())) {
 
 			CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
 		}
@@ -188,7 +184,9 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, executionContext);
 
-		if (XDIUtil.dataXriSegmentToString(literalStatement.getObject()).equals(literal.getLiteralData())) {
+		String literalStatementData = XDIUtil.dataXriSegmentToString(literalStatement.getObject());
+
+		if (literalStatementData.isEmpty() || literalStatementData.equals(literal.getLiteralData())) {
 
 			literal.delete();
 		}

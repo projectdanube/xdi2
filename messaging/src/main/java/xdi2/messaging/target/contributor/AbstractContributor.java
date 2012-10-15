@@ -12,7 +12,6 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIUtil;
@@ -324,31 +323,25 @@ public abstract class AbstractContributor implements Contributor {
 		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
 		if (tempContextNode == null) return false;
 
-		boolean isObjectVariable = Variables.isVariableSingle(targetContextNodeXri);
+		if (Variables.isVariableSingle(targetContextNodeXri)) {
 
-		if (arcXri.equals(XDIConstants.XRI_S_LITERAL)) {
+			Iterator<Relation> relations;
 
-			if (isObjectVariable) {
+			if (Variables.isVariableSingle(arcXri)) {
 
-				Literal literal = tempContextNode.getLiteral();
-				if (literal == null) return false;
-
-				CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
-			}
-		} else {
-
-			if (isObjectVariable) {
-
-				Iterator<Relation> relations = tempContextNode.getRelations(arcXri);
-
-				while (relations.hasNext()) CopyUtil.copyRelation(relations.next(), messageResult.getGraph(), null);
+				relations = tempContextNode.getRelations();
 			} else {
 
-				Relation relation = tempContextNode.getRelation(arcXri, targetContextNodeXri);
-				if (relation == null) return false;
-
-				CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
+				relations = tempContextNode.getRelations(arcXri);
 			}
+
+			while (relations.hasNext()) CopyUtil.copyRelation(relations.next(), messageResult.getGraph(), null);
+		} else {
+
+			Relation relation = tempContextNode.getRelation(arcXri, targetContextNodeXri);
+			if (relation == null) return false;
+
+			CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
 		}
 
 		return false;
@@ -381,9 +374,10 @@ public abstract class AbstractContributor implements Contributor {
 		Literal tempLiteral = tempContextNode.getLiteral();
 		if (tempLiteral == null) return false;
 
-		if (! tempLiteral.getLiteralData().equals(literalData)) return false;
+		if (literalData.isEmpty() || literalData.equals(tempLiteral.getLiteralData())) {
 
-		CopyUtil.copyLiteral(tempLiteral, messageResult.getGraph(), null);
+			CopyUtil.copyLiteral(tempLiteral, messageResult.getGraph(), null);
+		}
 
 		return false;
 	}

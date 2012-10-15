@@ -14,6 +14,9 @@ public class XDIConstants {
 	public static final XRI3Segment XRI_S_CONTEXT = new XRI3Segment("()");
 	public static final XRI3Segment XRI_S_LITERAL = new XRI3Segment("!");
 
+	public static final XRI3Segment XRI_S_VARIABLE_SINGLE = new XRI3Segment("($)");
+	public static final XRI3Segment XRI_S_VARIABLE_MULTIPLE_LOCAL = new XRI3Segment("($$!)");
+
 	public static final XRI3Segment XRI_S_INCLUSION = new XRI3Segment("($)");
 
 	public static final XRI3Segment XRI_S_TRUE = new XRI3Segment("$true");
