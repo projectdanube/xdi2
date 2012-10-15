@@ -52,6 +52,18 @@
 		</property>
 	</bean>
 
+	<bean id="allfiledContributor" class="xdi2.connector.allfiled.contributor.AllfiledContributor">
+		<property name="allfiledApi">
+			<bean class="xdi2.connector.allfiled.api.AllfiledApi" init-method="init" destroy-method="destroy">
+				<property name="appId" value="1191" />
+				<property name="appSecret" value="TC2Sgky11WcpeyFYdhGVlNhuOP2LqjSmwJTHLKhQXjGvaedDOG" />
+			</bean>
+		</property>
+		<property name="allfiledMapping">
+			<bean class="xdi2.connector.allfiled.mapping.AllfiledMapping" />
+		</property>
+	</bean>
+
 	<bean id="prototypeGraphFactory" class="xdi2.core.impl.memory.MemoryGraphFactory">
 	</bean>
 
@@ -70,12 +82,14 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor" />
 				<ref bean="facebookContributor" />
 				<ref bean="personalContributor" />
+				<ref bean="allfiledContributor" />
 			</util:list>
 		</property>
 		<property name="contributors">
 			<util:map>
 				<entry key="+(https://facebook.com/)" value-ref="facebookContributor" />
 				<entry key="+(https://personal.com/)" value-ref="personalContributor" />
+				<entry key="+(https://allfiled.com/)" value-ref="allfiledContributor" />
 			</util:map>
 		</property>
 	</bean>
