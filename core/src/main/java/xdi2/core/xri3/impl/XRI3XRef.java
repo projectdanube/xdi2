@@ -4,14 +4,15 @@ import java.util.List;
 
 import xdi2.core.xri3.XRIReference;
 import xdi2.core.xri3.XRIXRef;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.IRI;
-import xdi2.core.xri3.impl.parser.Parser.xref;
-import xdi2.core.xri3.impl.parser.Parser.xref_IRI;
-import xdi2.core.xri3.impl.parser.Parser.xref_empty;
-import xdi2.core.xri3.impl.parser.Parser.xref_xri_reference;
-import xdi2.core.xri3.impl.parser.Parser.xri_reference;
+import xdi2.core.xri3.impl.parser.Rule$IRI;
+import xdi2.core.xri3.impl.parser.Rule$xref;
+import xdi2.core.xri3.impl.parser.Rule$xref_IRI;
+import xdi2.core.xri3.impl.parser.Rule$xref_empty;
+import xdi2.core.xri3.impl.parser.Rule$xref_xri_reference;
+import xdi2.core.xri3.impl.parser.Rule$xri_reference;
 
 public class XRI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 
@@ -24,7 +25,7 @@ public class XRI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 
 	public XRI3XRef(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("xref", string);
+		this.rule = Parser.parse("xref", string);
 		this.read();
 	}
 
@@ -48,16 +49,16 @@ public class XRI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 
 		// xref or xref_empty or xref_xri_reference or xref_IRI ?
 
-		if (object instanceof xref) {
+		if (object instanceof Rule$xref) {
 
-			List list_xref = ((xref) object).rules;
+			List list_xref = ((Rule$xref) object).rules;
 			if (list_xref.size() < 1) return;
 			object = list_xref.get(0);	// xref_empty or xref_xri_reference or xref_IRI
-		} else if (object instanceof xref_empty) {
+		} else if (object instanceof Rule$xref_empty) {
 
-		} else if (object instanceof xref_xri_reference) {
+		} else if (object instanceof Rule$xref_xri_reference) {
 
-		} else if (object instanceof xref_IRI) {
+		} else if (object instanceof Rule$xref_IRI) {
 
 		} else {
 
@@ -67,24 +68,24 @@ public class XRI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 		// xref_empty or xref_xri_reference or xref_IRI ?
 
 
-		if (object instanceof xref_empty) {
+		if (object instanceof Rule$xref_empty) {
 
-		} else if (object instanceof xref_xri_reference) {
+		} else if (object instanceof Rule$xref_xri_reference) {
 
 			// read xri_reference from xref_xri_reference
 			
-			List list_xref_xri_reference = ((xref_xri_reference) object).rules;
+			List list_xref_xri_reference = ((Rule$xref_xri_reference) object).rules;
 			if (list_xref_xri_reference.size() < 2) return;
 			object = list_xref_xri_reference.get(1);	// xri_reference
-			this.xriReference = new XRI3Reference((xri_reference) object);
-		} else if (object instanceof xref_IRI) {
+			this.xriReference = new XRI3Reference((Rule$xri_reference) object);
+		} else if (object instanceof Rule$xref_IRI) {
 
 			// read IRI from xref_IRI
 			
-			List list_xref_IRI = ((xref_IRI) object).rules;
+			List list_xref_IRI = ((Rule$xref_IRI) object).rules;
 			if (list_xref_IRI.size() < 2) return;
 			object = list_xref_IRI.get(1);	// IRI
-			this.iri = ((IRI) object).spelling;
+			this.iri = ((Rule$IRI) object).spelling;
 		} else {
 
 			throw new ClassCastException(object.getClass().getName());

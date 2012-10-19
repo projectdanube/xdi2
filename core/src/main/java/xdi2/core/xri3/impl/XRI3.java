@@ -12,14 +12,15 @@ import xdi2.core.xri3.XRIPath;
 import xdi2.core.xri3.XRIQuery;
 import xdi2.core.xri3.XRIReference;
 import xdi2.core.xri3.XRISyntaxComponent;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.ifragment;
-import xdi2.core.xri3.impl.parser.Parser.iquery;
-import xdi2.core.xri3.impl.parser.Parser.xri;
-import xdi2.core.xri3.impl.parser.Parser.xri_authority;
-import xdi2.core.xri3.impl.parser.Parser.xri_hier_part;
-import xdi2.core.xri3.impl.parser.Parser.xri_path_abempty;
+import xdi2.core.xri3.impl.parser.Rule$ifragment;
+import xdi2.core.xri3.impl.parser.Rule$iquery;
+import xdi2.core.xri3.impl.parser.Rule$xri;
+import xdi2.core.xri3.impl.parser.Rule$xri_authority;
+import xdi2.core.xri3.impl.parser.Rule$xri_hier_part;
+import xdi2.core.xri3.impl.parser.Rule$xri_path_abempty;
 
 public class XRI3 extends XRI3SyntaxComponent implements XRI {
 
@@ -131,7 +132,7 @@ public class XRI3 extends XRI3SyntaxComponent implements XRI {
 
 	public XRI3(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("xri", string);
+		this.rule = Parser.parse("xri", string);
 		this.read();
 	}
 
@@ -142,7 +143,7 @@ public class XRI3 extends XRI3SyntaxComponent implements XRI {
 		buffer.append(xri.toString());
 		buffer.append(xriPart.toString());
 
-		this.rule = XRI3Util.getParser().parse("xri", buffer.toString());
+		this.rule = Parser.parse("xri", buffer.toString());
 		this.read();
 	}
 
@@ -153,7 +154,7 @@ public class XRI3 extends XRI3SyntaxComponent implements XRI {
 		buffer.append(xri.toString());
 		buffer.append(xriPart);
 
-		this.rule = XRI3Util.getParser().parse("xri", buffer.toString());
+		this.rule = Parser.parse("xri", buffer.toString());
 		this.read();
 	}
 
@@ -166,7 +167,7 @@ public class XRI3 extends XRI3SyntaxComponent implements XRI {
 		buffer.append(uri);
 		buffer.append(XRI3Constants.XREF_END);
 
-		this.rule = XRI3Util.getParser().parse("xri", buffer.toString());
+		this.rule = Parser.parse("xri", buffer.toString());
 		this.read();
 	}
 
@@ -192,23 +193,23 @@ public class XRI3 extends XRI3SyntaxComponent implements XRI {
 
 		// read xri_hier_part from xri
 
-		List list_xri_noscheme = ((xri) object).rules;
+		List list_xri_noscheme = ((Rule$xri) object).rules;
 		if (list_xri_noscheme.size() < 1) return;
 		object = list_xri_noscheme.get(0);	// xri_hier_part
 
 		// read xri_authority from xri_hier_part
 
-		List list_xri_hier_part = ((xri_hier_part) object).rules;
+		List list_xri_hier_part = ((Rule$xri_hier_part) object).rules;
 		if (list_xri_hier_part.size() < 1) return;
 		object = list_xri_hier_part.get(0);	// xri_authority
-		this.authority = new XRI3Authority((xri_authority) object);
+		this.authority = new XRI3Authority((Rule$xri_authority) object);
 		if (this.authority.getParserObject().spelling.length() < 1) this.authority = null;
 
 		// read xri_path_abempty from xri_hier_part
 
 		if (list_xri_hier_part.size() < 2) return;
 		object = list_xri_hier_part.get(1);	// xri_path_abempty
-		this.path = new XRI3Path((xri_path_abempty) object);
+		this.path = new XRI3Path((Rule$xri_path_abempty) object);
 		if (this.path.getParserObject().spelling.length() < 1) this.path = null;
 
 		// read iquery or ifragment from xri
@@ -218,20 +219,20 @@ public class XRI3 extends XRI3SyntaxComponent implements XRI {
 
 		// iquery or ifragment ?
 
-		if (object instanceof iquery) {
+		if (object instanceof Rule$iquery) {
 
-			this.query = new XRI3Query((iquery) object);
+			this.query = new XRI3Query((Rule$iquery) object);
 			if (this.query.getParserObject().spelling.length() < 1) this.query = null;
 
 			// read ifragment from xri
 
 			if (list_xri_noscheme.size() < 5) return;
 			object = list_xri_noscheme.get(4);	// ifragment
-			this.fragment = new XRI3Fragment((ifragment) object);
+			this.fragment = new XRI3Fragment((Rule$ifragment) object);
 			if (this.fragment.getParserObject().spelling.length() < 1) this.fragment = null;
-		} else if (object instanceof ifragment) {
+		} else if (object instanceof Rule$ifragment) {
 
-			this.fragment = new XRI3Fragment((ifragment) object);
+			this.fragment = new XRI3Fragment((Rule$ifragment) object);
 			if (this.fragment.getParserObject().spelling.length() < 1) this.fragment = null;
 		} else {
 

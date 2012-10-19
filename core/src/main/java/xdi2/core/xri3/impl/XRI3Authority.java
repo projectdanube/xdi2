@@ -5,11 +5,12 @@ import java.util.List;
 
 import xdi2.core.xri3.XRIAuthority;
 import xdi2.core.xri3.XRISubSegment;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.global_subseg;
-import xdi2.core.xri3.impl.parser.Parser.subseg;
-import xdi2.core.xri3.impl.parser.Parser.xri_authority;
+import xdi2.core.xri3.impl.parser.Rule$global_subseg;
+import xdi2.core.xri3.impl.parser.Rule$subseg;
+import xdi2.core.xri3.impl.parser.Rule$xri_authority;
 
 public class XRI3Authority extends XRI3SyntaxComponent implements XRIAuthority {
 
@@ -21,7 +22,7 @@ public class XRI3Authority extends XRI3SyntaxComponent implements XRIAuthority {
 
 	public XRI3Authority(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("xri-authority", string);
+		this.rule = Parser.parse("xri-authority", string);
 		this.read();
 	}
 
@@ -32,7 +33,7 @@ public class XRI3Authority extends XRI3SyntaxComponent implements XRIAuthority {
 		buffer.append(xriAuthority.toString());
 		buffer.append(xriSubSegment.toString());
 
-		this.rule = XRI3Util.getParser().parse("xri-authority", buffer.toString());
+		this.rule = Parser.parse("xri-authority", buffer.toString());
 		this.read();
 	}
 
@@ -55,10 +56,10 @@ public class XRI3Authority extends XRI3SyntaxComponent implements XRIAuthority {
 
 		// read global_subseg from xri_authority
 
-		List list_xri_authority = ((xri_authority) object).rules;
+		List list_xri_authority = ((Rule$xri_authority) object).rules;
 		if (list_xri_authority.size() < 1) return;
 		object = list_xri_authority.get(0);	// global_subseg
-		this.subSegments.add(new XRI3SubSegment((global_subseg) object));
+		this.subSegments.add(new XRI3SubSegment((Rule$global_subseg) object));
 
 		// read subsegs from xri_authority
 
@@ -66,7 +67,7 @@ public class XRI3Authority extends XRI3SyntaxComponent implements XRIAuthority {
 		for (int i=1; i<list_xri_authority.size(); i++) {
 
 			object = list_xri_authority.get(i);	// subseg
-			this.subSegments.add(new XRI3SubSegment((subseg) object));
+			this.subSegments.add(new XRI3SubSegment((Rule$subseg) object));
 		}
 	}
 

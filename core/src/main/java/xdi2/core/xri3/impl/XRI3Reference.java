@@ -9,17 +9,18 @@ import xdi2.core.xri3.XRIPath;
 import xdi2.core.xri3.XRIQuery;
 import xdi2.core.xri3.XRIReference;
 import xdi2.core.xri3.XRISyntaxComponent;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.ifragment;
-import xdi2.core.xri3.impl.parser.Parser.ipath_empty;
-import xdi2.core.xri3.impl.parser.Parser.iquery;
-import xdi2.core.xri3.impl.parser.Parser.relative_xri_part;
-import xdi2.core.xri3.impl.parser.Parser.relative_xri_ref;
-import xdi2.core.xri3.impl.parser.Parser.xri;
-import xdi2.core.xri3.impl.parser.Parser.xri_path_abs;
-import xdi2.core.xri3.impl.parser.Parser.xri_path_noscheme;
-import xdi2.core.xri3.impl.parser.Parser.xri_reference;
+import xdi2.core.xri3.impl.parser.Rule$ifragment;
+import xdi2.core.xri3.impl.parser.Rule$ipath_empty;
+import xdi2.core.xri3.impl.parser.Rule$iquery;
+import xdi2.core.xri3.impl.parser.Rule$relative_xri_part;
+import xdi2.core.xri3.impl.parser.Rule$relative_xri_ref;
+import xdi2.core.xri3.impl.parser.Rule$xri;
+import xdi2.core.xri3.impl.parser.Rule$xri_path_abs;
+import xdi2.core.xri3.impl.parser.Rule$xri_path_noscheme;
+import xdi2.core.xri3.impl.parser.Rule$xri_reference;
 
 public class XRI3Reference extends XRI3SyntaxComponent implements XRIReference {
 
@@ -34,7 +35,7 @@ public class XRI3Reference extends XRI3SyntaxComponent implements XRIReference {
 
 	public XRI3Reference(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("xri-reference", string);
+		this.rule = Parser.parse("xri-reference", string);
 		this.read();
 	}
 
@@ -45,7 +46,7 @@ public class XRI3Reference extends XRI3SyntaxComponent implements XRIReference {
 		buffer.append(xriReference.toString());
 		buffer.append(xriPart.toString());
 
-		this.rule = XRI3Util.getParser().parse("xri-reference", buffer.toString());
+		this.rule = Parser.parse("xri-reference", buffer.toString());
 		this.read();
 	}
 
@@ -56,7 +57,7 @@ public class XRI3Reference extends XRI3SyntaxComponent implements XRIReference {
 		buffer.append(xriReference.toString());
 		buffer.append(xriPart);
 
-		this.rule = XRI3Util.getParser().parse("xri-reference", buffer.toString());
+		this.rule = Parser.parse("xri-reference", buffer.toString());
 		this.read();
 	}
 
@@ -82,40 +83,40 @@ public class XRI3Reference extends XRI3SyntaxComponent implements XRIReference {
 
 		// read xri or relative_xri_ref from xri_reference
 
-		List list_xri_reference = ((xri_reference) object).rules;
+		List list_xri_reference = ((Rule$xri_reference) object).rules;
 		if (list_xri_reference.size() < 1) return;
 		object = list_xri_reference.get(0);	// xri or relative_xri_ref
 
 		// xri or relative_xri_ref ?
 
-		if (object instanceof xri) {
+		if (object instanceof Rule$xri) {
 
-			this.xri = new XRI3((xri) object);
-		} else if (object instanceof relative_xri_ref) {
+			this.xri = new XRI3((Rule$xri) object);
+		} else if (object instanceof Rule$relative_xri_ref) {
 
 			// read relative_xri_part from relative_xri_ref
 
-			List list_relative_xri_ref = ((relative_xri_ref) object).rules;
+			List list_relative_xri_ref = ((Rule$relative_xri_ref) object).rules;
 			if (list_relative_xri_ref.size() < 1) return;
 			object = list_relative_xri_ref.get(0);	// relative_xri_part
 
 			// read xri_path_abs or xri_path_noscheme or ipath_empty from relative_xri_part
 
-			List list_relative_xri_part = ((relative_xri_part) object).rules;
+			List list_relative_xri_part = ((Rule$relative_xri_part) object).rules;
 			if (list_relative_xri_part.size() < 1) return;
 			object = list_relative_xri_part.get(0);	// xri_path_abs or xri_path_noscheme or ipath_empty	
 
 			// read xri_path_abs or xri_path_noscheme or ipath_emptry ?
 
-			if (object instanceof xri_path_abs) {
+			if (object instanceof Rule$xri_path_abs) {
 
-				this.path = new XRI3Path((xri_path_abs) object);
-			} else if (object instanceof xri_path_noscheme) {
+				this.path = new XRI3Path((Rule$xri_path_abs) object);
+			} else if (object instanceof Rule$xri_path_noscheme) {
 
-				this.path = new XRI3Path((xri_path_noscheme) object);
-			} else if (object instanceof ipath_empty) {
+				this.path = new XRI3Path((Rule$xri_path_noscheme) object);
+			} else if (object instanceof Rule$ipath_empty) {
 
-				this.path = new XRI3Path((ipath_empty) object);
+				this.path = new XRI3Path((Rule$ipath_empty) object);
 			} else {
 
 				throw new ClassCastException(object.getClass().getName());
@@ -125,13 +126,13 @@ public class XRI3Reference extends XRI3SyntaxComponent implements XRIReference {
 
 			if (list_relative_xri_ref.size() < 3) return;
 			object = list_relative_xri_ref.get(2);	// iquery
-			this.query = new XRI3Query((iquery) object);
+			this.query = new XRI3Query((Rule$iquery) object);
 
 			// read ifragment from relative_xri_ref
 
 			if (list_relative_xri_ref.size() < 5) return;
 			object = list_relative_xri_ref.get(4);	// ifragment
-			this.fragment = new XRI3Fragment((ifragment) object);
+			this.fragment = new XRI3Fragment((Rule$ifragment) object);
 		} else {
 
 			throw new ClassCastException(object.getClass().getName());

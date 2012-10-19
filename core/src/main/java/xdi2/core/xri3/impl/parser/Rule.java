@@ -1,14 +1,14 @@
-package xdi2.core.xri3.impl.parser;
-
 /* -----------------------------------------------------------------------------
  * Rule.java
  * -----------------------------------------------------------------------------
  *
- * Producer : com.parse2.aparse.Parser 0.5
- * Produced : Sat Dec 20 01:35:48 CET 2008
+ * Producer : com.parse2.aparse.Parser 2.2
+ * Produced : Fri Oct 19 08:29:48 CEST 2012
  *
  * -----------------------------------------------------------------------------
  */
+
+package xdi2.core.xri3.impl.parser;
 
 import java.util.ArrayList;
 
@@ -21,11 +21,6 @@ public abstract class Rule
   {
     this.spelling = spelling;
     this.rules = rules;
-  }
-
-  public Rule(Rule rule)
-  {
-    this(rule.spelling, rule.rules);
   }
 
   public String toString()
@@ -48,7 +43,7 @@ public abstract class Rule
     return spelling.compareTo(rule.spelling);
   }
 
-  public abstract Object visit(Visitor visitor);
+  public abstract Object accept(Visitor visitor);
 }
 
 /* -----------------------------------------------------------------------------
