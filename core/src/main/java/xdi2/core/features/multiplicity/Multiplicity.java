@@ -37,17 +37,27 @@ public class Multiplicity {
 		return arcXri;
 	}
 
+	public static XRI3SubSegment entityMemberArcXri(XRI3SubSegment arcXri) {
+
+		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
+	}
+
+	public static XRI3SubSegment entityMemberArcXriRandom() {
+
+		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR, "" + XRI3Constants.LCS_BANG);
+	}
+
 	public static XRI3SubSegment attributeSingletonArcXri(XRI3SubSegment arcXri) {
 
 		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
 	}
 
-	public static XRI3SubSegment entityMemberArcXri() {
+	public static XRI3SubSegment attributeMemberArcXri(XRI3SubSegment arcXri) {
 
-		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR, "" + XRI3Constants.LCS_BANG);
+		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
 	}
 
-	public static XRI3SubSegment attributeMemberArcXri() {
+	public static XRI3SubSegment attributeMemberArcXriRandom() {
 
 		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG, "" + XRI3Constants.LCS_BANG);
 	}
