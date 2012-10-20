@@ -30,6 +30,12 @@
 	
 	<p>It is designed to be a general-purpose, lightweight and modular implementation of XDI specifications, in order to support a wide range of use cases.</p>
 
+	<p class="subheader">XRI Applications</p>
+	
+	<p>
+	<a href="XRIParser">XRI Parser</a>
+	</p>
+
 	<p class="subheader">XDI Applications</p>
 	
 	<p>
