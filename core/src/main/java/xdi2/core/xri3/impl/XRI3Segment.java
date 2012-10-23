@@ -6,14 +6,15 @@ import java.util.List;
 import xdi2.core.xri3.XRILiteral;
 import xdi2.core.xri3.XRISegment;
 import xdi2.core.xri3.XRISubSegment;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.literal;
-import xdi2.core.xri3.impl.parser.Parser.literal_nc;
-import xdi2.core.xri3.impl.parser.Parser.subseg;
-import xdi2.core.xri3.impl.parser.Parser.xri_segment;
-import xdi2.core.xri3.impl.parser.Parser.xri_segment_nc;
-import xdi2.core.xri3.impl.parser.Parser.xri_segment_nz;
+import xdi2.core.xri3.impl.parser.Rule$literal;
+import xdi2.core.xri3.impl.parser.Rule$literal_nc;
+import xdi2.core.xri3.impl.parser.Rule$subseg;
+import xdi2.core.xri3.impl.parser.Rule$xri_segment;
+import xdi2.core.xri3.impl.parser.Rule$xri_segment_nc;
+import xdi2.core.xri3.impl.parser.Rule$xri_segment_nz;
 
 public class XRI3Segment extends XRI3SyntaxComponent implements XRISegment {
 
@@ -26,7 +27,7 @@ public class XRI3Segment extends XRI3SyntaxComponent implements XRISegment {
 
 	public XRI3Segment(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("xri-segment", string);
+		this.rule = Parser.parse("xri-segment", string);
 		this.read();
 	}
 
@@ -51,22 +52,22 @@ public class XRI3Segment extends XRI3SyntaxComponent implements XRISegment {
 
 		// xri_segment or xri_segment_nz or xri_segment_nc ?
 
-		if (object instanceof xri_segment) {
+		if (object instanceof Rule$xri_segment) {
 
 			// read literal or subseg from xri_segment
 
-			List list_xri_segment = ((xri_segment) object).rules;
+			List list_xri_segment = ((Rule$xri_segment) object).rules;
 			if (list_xri_segment.size() < 1) return;
 			object = list_xri_segment.get(0);	// literal or subseg
 
 			// literal or subseg?
 
-			if (object instanceof literal) {
+			if (object instanceof Rule$literal) {
 
-				this.literal = new XRI3Literal((literal) object);
-			} else if (object instanceof subseg) {
+				this.literal = new XRI3Literal((Rule$literal) object);
+			} else if (object instanceof Rule$subseg) {
 
-				this.subSegments.add(new XRI3SubSegment((subseg) object));
+				this.subSegments.add(new XRI3SubSegment((Rule$subseg) object));
 			} else {
 
 				throw new ClassCastException(object.getClass().getName());
@@ -78,24 +79,24 @@ public class XRI3Segment extends XRI3SyntaxComponent implements XRISegment {
 			for (int i=1; i<list_xri_segment.size(); i++) {
 
 				object = list_xri_segment.get(i);	// subseg
-				this.subSegments.add(new XRI3SubSegment((subseg) object));
+				this.subSegments.add(new XRI3SubSegment((Rule$subseg) object));
 			}
-		} else if (object instanceof xri_segment_nz) {
+		} else if (object instanceof Rule$xri_segment_nz) {
 
 			// read literal or subseg from xri_segment_nz
 
-			List list_xri_segment_nz = ((xri_segment_nz) object).rules;
+			List list_xri_segment_nz = ((Rule$xri_segment_nz) object).rules;
 			if (list_xri_segment_nz.size() < 1) return;
 			object = list_xri_segment_nz.get(0);	// literal or subseg
 
 			// literal or subseg?
 
-			if (object instanceof literal) {
+			if (object instanceof Rule$literal) {
 
-				this.literal = new XRI3Literal((literal) object);
-			} else if (object instanceof subseg) {
+				this.literal = new XRI3Literal((Rule$literal) object);
+			} else if (object instanceof Rule$subseg) {
 
-				this.subSegments.add(new XRI3SubSegment((subseg) object));
+				this.subSegments.add(new XRI3SubSegment((Rule$subseg) object));
 			} else {
 
 				throw new ClassCastException(object.getClass().getName());
@@ -107,24 +108,24 @@ public class XRI3Segment extends XRI3SyntaxComponent implements XRISegment {
 			for (int i=1; i<list_xri_segment_nz.size(); i++) {
 
 				object = list_xri_segment_nz.get(i);	// subseg
-				this.subSegments.add(new XRI3SubSegment((subseg) object));
+				this.subSegments.add(new XRI3SubSegment((Rule$subseg) object));
 			}
-		} else if (object instanceof xri_segment_nc) {
+		} else if (object instanceof Rule$xri_segment_nc) {
 
 			// read literal_nc or subseg from xri_segment_nc
 
-			List list_xri_segment_nc = ((xri_segment_nc) object).rules;
+			List list_xri_segment_nc = ((Rule$xri_segment_nc) object).rules;
 			if (list_xri_segment_nc.size() < 1) return;
 			object = list_xri_segment_nc.get(0);	// literal_nc or subseg
 
 			// literal_nc or subseg?
 
-			if (object instanceof literal_nc) {
+			if (object instanceof Rule$literal_nc) {
 
-				this.literal = new XRI3Literal((literal_nc) object);
-			} else if (object instanceof subseg) {
+				this.literal = new XRI3Literal((Rule$literal_nc) object);
+			} else if (object instanceof Rule$subseg) {
 
-				this.subSegments.add(new XRI3SubSegment((subseg) object));
+				this.subSegments.add(new XRI3SubSegment((Rule$subseg) object));
 			} else {
 
 				throw new ClassCastException(object.getClass().getName());
@@ -136,7 +137,7 @@ public class XRI3Segment extends XRI3SyntaxComponent implements XRISegment {
 			for (int i=1; i<list_xri_segment_nc.size(); i++) {
 
 				object = list_xri_segment_nc.get(i);	// subseg
-				this.subSegments.add(new XRI3SubSegment((subseg) object));
+				this.subSegments.add(new XRI3SubSegment((Rule$subseg) object));
 			}
 		} else {
 

@@ -1,9 +1,10 @@
 package xdi2.core.xri3.impl;
 
 import xdi2.core.xri3.XRIFragment;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.ifragment;
+import xdi2.core.xri3.impl.parser.Rule$ifragment;
 
 public class XRI3Fragment extends XRI3SyntaxComponent implements XRIFragment {
 
@@ -15,7 +16,7 @@ public class XRI3Fragment extends XRI3SyntaxComponent implements XRIFragment {
 
 	public XRI3Fragment(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("ifragment", string);
+		this.rule = Parser.parse("ifragment", string);
 		this.read();
 	}
 
@@ -36,7 +37,7 @@ public class XRI3Fragment extends XRI3SyntaxComponent implements XRIFragment {
 		
 		Object object = this.rule;	// ifragment
 
-		this.value = ((ifragment) object).spelling;
+		this.value = ((Rule$ifragment) object).spelling;
 	}
 
 	public Rule getParserObject() {

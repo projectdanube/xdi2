@@ -61,7 +61,7 @@ public final class XdiCollection extends XdiSubGraph {
 	 */
 	public XdiEntityMember createEntityMember() {
 
-		ContextNode contextNode = this.getContextNode().createContextNode(Multiplicity.entityMemberArcXri());
+		ContextNode contextNode = this.getContextNode().createContextNode(Multiplicity.entityMemberArcXriRandom());
 
 		return XdiEntityMember.fromContextNode(contextNode);
 	}
@@ -72,7 +72,7 @@ public final class XdiCollection extends XdiSubGraph {
 	 */
 	public XdiAttributeMember createAttributeMember() {
 
-		ContextNode contextNode = this.getContextNode().createContextNode(Multiplicity.attributeMemberArcXri());
+		ContextNode contextNode = this.getContextNode().createContextNode(Multiplicity.attributeMemberArcXriRandom());
 
 		return XdiAttributeMember.fromContextNode(contextNode);
 	}

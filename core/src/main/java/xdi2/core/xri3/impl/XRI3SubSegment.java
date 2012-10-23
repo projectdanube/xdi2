@@ -5,15 +5,16 @@ import java.util.List;
 import xdi2.core.xri3.XRILiteral;
 import xdi2.core.xri3.XRISubSegment;
 import xdi2.core.xri3.XRIXRef;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.gcs_char;
-import xdi2.core.xri3.impl.parser.Parser.global_subseg;
-import xdi2.core.xri3.impl.parser.Parser.lcs_char;
-import xdi2.core.xri3.impl.parser.Parser.literal;
-import xdi2.core.xri3.impl.parser.Parser.local_subseg;
-import xdi2.core.xri3.impl.parser.Parser.subseg;
-import xdi2.core.xri3.impl.parser.Parser.xref;
+import xdi2.core.xri3.impl.parser.Rule$gcs_char;
+import xdi2.core.xri3.impl.parser.Rule$global_subseg;
+import xdi2.core.xri3.impl.parser.Rule$lcs_char;
+import xdi2.core.xri3.impl.parser.Rule$literal;
+import xdi2.core.xri3.impl.parser.Rule$local_subseg;
+import xdi2.core.xri3.impl.parser.Rule$subseg;
+import xdi2.core.xri3.impl.parser.Rule$xref;
 
 public class XRI3SubSegment extends XRI3SyntaxComponent implements XRISubSegment {
 
@@ -28,7 +29,7 @@ public class XRI3SubSegment extends XRI3SyntaxComponent implements XRISubSegment
 
 	public XRI3SubSegment(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("subseg", string);
+		this.rule = Parser.parse("subseg", string);
 		this.read();
 	}
 
@@ -39,7 +40,7 @@ public class XRI3SubSegment extends XRI3SyntaxComponent implements XRISubSegment
 		buffer.append(gcs);
 		buffer.append(localSubSegment.toString());
 
-		this.rule = XRI3Util.getParser().parse("subseg", buffer.toString());
+		this.rule = Parser.parse("subseg", buffer.toString());
 		this.read();
 	}
 
@@ -52,7 +53,7 @@ public class XRI3SubSegment extends XRI3SyntaxComponent implements XRISubSegment
 		buffer.append(uri);
 		buffer.append(XRI3Constants.XREF_END);
 
-		this.rule = XRI3Util.getParser().parse("subseg", buffer.toString());
+		this.rule = Parser.parse("subseg", buffer.toString());
 		this.read();
 	}
 
@@ -78,25 +79,25 @@ public class XRI3SubSegment extends XRI3SyntaxComponent implements XRISubSegment
 
 		// subseg?
 
-		if (object instanceof subseg) {
+		if (object instanceof Rule$subseg) {
 
 			// read global_subseg or local_subseg or xref from subseg
 
-			List list_subseg = ((subseg) object).rules;
+			List list_subseg = ((Rule$subseg) object).rules;
 			if (list_subseg.size() < 1) return;
 			object = list_subseg.get(0);	// global_subseg or local_subseg or xref
 		}
 
 		// global_subseg?
 
-		if (object instanceof global_subseg) {
+		if (object instanceof Rule$global_subseg) {
 
 			// read gcs_char from global_subseg;
 
-			List list_global_subseg = ((global_subseg) object).rules;
+			List list_global_subseg = ((Rule$global_subseg) object).rules;
 			if (list_global_subseg.size() < 1) return;
 			object = list_global_subseg.get(0);	// gcs_char
-			this.gcs = new Character(((gcs_char) object).spelling.charAt(0));
+			this.gcs = new Character(((Rule$gcs_char) object).spelling.charAt(0));
 
 			// read local_subseg or xref or literal from global_subseg
 
@@ -106,14 +107,14 @@ public class XRI3SubSegment extends XRI3SyntaxComponent implements XRISubSegment
 
 		// local_subseg?
 
-		if (object instanceof local_subseg) {
+		if (object instanceof Rule$local_subseg) {
 
 			// read lcs_char from local_subseg;
 
-			List list_local_subseg = ((local_subseg) object).rules;
+			List list_local_subseg = ((Rule$local_subseg) object).rules;
 			if (list_local_subseg.size() < 1) return;
 			object = list_local_subseg.get(0);	// lcs_char
-			this.lcs = new Character(((lcs_char) object).spelling.charAt(0));
+			this.lcs = new Character(((Rule$lcs_char) object).spelling.charAt(0));
 
 			// read xref or literal from local_subseg
 
@@ -123,12 +124,12 @@ public class XRI3SubSegment extends XRI3SyntaxComponent implements XRISubSegment
 
 		// literal or literal_nc or xref?
 
-		if (object instanceof literal) {
+		if (object instanceof Rule$literal) {
 
-			this.literal = new XRI3Literal((literal) object);
-		} else if (object instanceof xref) {
+			this.literal = new XRI3Literal((Rule$literal) object);
+		} else if (object instanceof Rule$xref) {
 
-			this.xref = new XRI3XRef((xref) object);
+			this.xref = new XRI3XRef((Rule$xref) object);
 		} else {
 
 			return;

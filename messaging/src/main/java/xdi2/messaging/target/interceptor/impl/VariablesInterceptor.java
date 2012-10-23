@@ -6,8 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
@@ -32,6 +36,8 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * @author markus
  */
 public class VariablesInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, TargetInterceptor, ResultInterceptor, Prototype<VariablesInterceptor> {
+
+	private static final Logger log = LoggerFactory.getLogger(VariablesInterceptor.class);
 
 	/*
 	 * Prototype
@@ -128,7 +134,13 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 		for (int i=0; i<segment.getNumSubSegments(); i++) {
 
 			XRI3SubSegment subSegment = (XRI3SubSegment) segment.getSubSegment(i);
-			if (! Variables.isVariableSingle(subSegment)) continue;
+			XRI3SubSegment newSubSegment = substituteSubSegment(subSegment, executionContext);
+
+			if (newSubSegment == null) continue;
+
+			if (log.isDebugEnabled()) log.debug("Substituted " + subSegment + " for " + newSubSegment);
+
+			// substitute subsegment
 
 			if (newSubSegments == null) {
 
@@ -136,9 +148,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 				for (int ii=0; ii<segment.getNumSubSegments(); ii++) newSubSegments.add((XRI3SubSegment) segment.getSubSegment(ii));
 			}
 
-			// substitute subsegment
-
-			newSubSegments.set(i, substituteSubSegment(subSegment, executionContext));
+			newSubSegments.set(i, newSubSegment);
 		}
 
 		// no substitutions?
@@ -155,13 +165,45 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 	private static XRI3SubSegment substituteSubSegment(XRI3SubSegment subSegment, ExecutionContext executionContext) {
 
-		XRI3SubSegment newSubSegment = getVariable(executionContext, subSegment);
+		// we remember the multiplicity of the subsegment
 
-		if (newSubSegment == null) {
+		boolean entityMember = Multiplicity.isEntityMemberArcXri(subSegment);
+		boolean attributeMember = Multiplicity.isAttributeMemberArcXri(subSegment);
 
-			newSubSegment = XRIUtil.randomSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG);
-			putVariable(executionContext, subSegment, newSubSegment);
+		XRI3SubSegment baseSubSegment;
+
+		if (entityMember || attributeMember) {
+
+			baseSubSegment = Multiplicity.baseArcXri(subSegment);
+			baseSubSegment = new XRI3SubSegment("" + baseSubSegment.toString().substring(1));
+		} else {
+
+			baseSubSegment = subSegment;
 		}
+
+		if (log.isDebugEnabled()) log.debug("entityMember: " + entityMember + ", attributeMember: " + attributeMember + ", baseSubSegment: " + baseSubSegment);
+
+		if (! Variables.isVariableSingle(baseSubSegment)) return null;
+
+		// substitute the base subsegment (without multiplicity)
+
+		XRI3SubSegment newBaseSubSegment = getVariable(executionContext, baseSubSegment);
+
+		if (newBaseSubSegment == null) {
+
+			newBaseSubSegment = XRIUtil.randomSubSegment("" + XRI3Constants.LCS_BANG);
+			putVariable(executionContext, baseSubSegment, newBaseSubSegment);
+		}
+
+		// re-apply multiplicity to the substitution
+
+		XRI3SubSegment newSubSegment;
+
+		if (entityMember) newSubSegment = Multiplicity.entityMemberArcXri(newBaseSubSegment);
+		else if (attributeMember) newSubSegment = Multiplicity.attributeMemberArcXri(newBaseSubSegment);
+		else newSubSegment = newBaseSubSegment;
+
+		// done
 
 		return newSubSegment;
 	}

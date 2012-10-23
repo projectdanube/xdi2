@@ -1,9 +1,10 @@
 package xdi2.core.xri3.impl;
 
 import xdi2.core.xri3.XRIQuery;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.iquery;
+import xdi2.core.xri3.impl.parser.Rule$iquery;
 
 public class XRI3Query extends XRI3SyntaxComponent implements XRIQuery {
 
@@ -15,7 +16,7 @@ public class XRI3Query extends XRI3SyntaxComponent implements XRIQuery {
 
 	public XRI3Query(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("iquery", string);
+		this.rule = Parser.parse("iquery", string);
 		this.read();
 	}
 
@@ -36,7 +37,7 @@ public class XRI3Query extends XRI3SyntaxComponent implements XRIQuery {
 		
 		Object object = this.rule;	// iquery
 
-		this.value = ((iquery) object).spelling;
+		this.value = ((Rule$iquery) object).spelling;
 	}
 
 	public Rule getParserObject() {

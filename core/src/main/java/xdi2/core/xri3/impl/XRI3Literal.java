@@ -1,10 +1,11 @@
 package xdi2.core.xri3.impl;
 
 import xdi2.core.xri3.XRILiteral;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.literal;
-import xdi2.core.xri3.impl.parser.Parser.literal_nc;
+import xdi2.core.xri3.impl.parser.Rule$literal;
+import xdi2.core.xri3.impl.parser.Rule$literal_nc;
 
 public class XRI3Literal extends XRI3SyntaxComponent implements XRILiteral {
 
@@ -16,7 +17,7 @@ public class XRI3Literal extends XRI3SyntaxComponent implements XRILiteral {
 
 	public XRI3Literal(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("literal", string);
+		this.rule = Parser.parse("literal", string);
 		this.read();
 	}
 
@@ -39,12 +40,12 @@ public class XRI3Literal extends XRI3SyntaxComponent implements XRILiteral {
 
 		// literal of literal_nc
 		
-		if (object instanceof literal) {
+		if (object instanceof Rule$literal) {
 			
-			this.value = ((literal) object).spelling;
-		} else if (object instanceof literal_nc) {
+			this.value = ((Rule$literal) object).spelling;
+		} else if (object instanceof Rule$literal_nc) {
 			
-			this.value = ((literal_nc) object).spelling;
+			this.value = ((Rule$literal_nc) object).spelling;
 		}
 	}
 

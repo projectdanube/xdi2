@@ -6,11 +6,22 @@
 
 	<display-name>xdi2-webtools</display-name>
 
-	<!-- XDI WEBTOOLS -->
+	<!-- XRI AND XDI WEBTOOLS -->
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
+	<servlet>
+		<description></description>
+		<display-name>XRIParser</display-name>
+		<servlet-name>XRIParser</servlet-name>
+		<servlet-class>xdi2.webtools.parser.XRIParser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XRIParser</servlet-name>
+		<url-pattern>/XRIParser</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<description></description>

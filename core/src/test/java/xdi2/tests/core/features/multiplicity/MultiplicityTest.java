@@ -36,8 +36,10 @@ public class MultiplicityTest extends TestCase {
 		assertFalse(Multiplicity.isEntitySingletonArcXri(Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("+tel"))));
 		assertTrue(Multiplicity.isAttributeSingletonArcXri(Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("+tel"))));
 
-		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXri()));
-		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXri()));
+		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXri(new XRI3SubSegment("!1"))));
+		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXriRandom()));
+		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXri(new XRI3SubSegment("!1"))));
+		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXriRandom()));
 
 		assertEquals(Multiplicity.baseArcXri(new XRI3SubSegment("$(+tel)")), new XRI3SubSegment("+tel"));
 		assertEquals(Multiplicity.baseArcXri(new XRI3SubSegment("+passport")), new XRI3SubSegment("+passport"));

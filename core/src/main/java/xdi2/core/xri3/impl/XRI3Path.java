@@ -5,15 +5,16 @@ import java.util.List;
 
 import xdi2.core.xri3.XRIPath;
 import xdi2.core.xri3.XRISegment;
+import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
-import xdi2.core.xri3.impl.parser.Parser.xri_path;
-import xdi2.core.xri3.impl.parser.Parser.xri_path_abempty;
-import xdi2.core.xri3.impl.parser.Parser.xri_path_abs;
-import xdi2.core.xri3.impl.parser.Parser.xri_path_noscheme;
-import xdi2.core.xri3.impl.parser.Parser.xri_segment;
-import xdi2.core.xri3.impl.parser.Parser.xri_segment_nc;
-import xdi2.core.xri3.impl.parser.Parser.xri_segment_nz;
+import xdi2.core.xri3.impl.parser.Rule$xri_path;
+import xdi2.core.xri3.impl.parser.Rule$xri_path_abempty;
+import xdi2.core.xri3.impl.parser.Rule$xri_path_abs;
+import xdi2.core.xri3.impl.parser.Rule$xri_path_noscheme;
+import xdi2.core.xri3.impl.parser.Rule$xri_segment;
+import xdi2.core.xri3.impl.parser.Rule$xri_segment_nc;
+import xdi2.core.xri3.impl.parser.Rule$xri_segment_nz;
 
 public class XRI3Path extends XRI3SyntaxComponent implements XRIPath {
 
@@ -25,7 +26,7 @@ public class XRI3Path extends XRI3SyntaxComponent implements XRIPath {
 
 	public XRI3Path(String string) throws ParserException {
 
-		this.rule = XRI3Util.getParser().parse("xri-path", string);
+		this.rule = Parser.parse("xri-path", string);
 		this.read();
 	}
 
@@ -48,36 +49,36 @@ public class XRI3Path extends XRI3SyntaxComponent implements XRIPath {
 
 		// xri_path ?
 
-		if (object instanceof xri_path) {
+		if (object instanceof Rule$xri_path) {
 
 			// read xri_path_abempty or xri_path_abs or xri_path_noscheme from xri_path
 
-			List list_xri_path = ((xri_path) object).rules;
+			List list_xri_path = ((Rule$xri_path) object).rules;
 			if (list_xri_path.size() < 1) return;
 			object = list_xri_path.get(0);	// xri_path_abempty or xri_path_abs or xri_path_noscheme
 		}
 
 		// xri_path_abempty or xri_path_abs or xri_path_noscheme ?
 
-		if (object instanceof xri_path_abempty) {
+		if (object instanceof Rule$xri_path_abempty) {
 
 			// read xri_segments from xri_path_abempty
 
-			List list_xri_path_abempty = ((xri_path_abempty) object).rules;
+			List list_xri_path_abempty = ((Rule$xri_path_abempty) object).rules;
 			if (list_xri_path_abempty.size() < 2) return;
 			for (int i=0; i+1<list_xri_path_abempty.size(); i+=2) {
 
 				object = list_xri_path_abempty.get(i+1);	// xri_segment
-				this.segments.add(new XRI3Segment((xri_segment) object));
+				this.segments.add(new XRI3Segment((Rule$xri_segment) object));
 			}
-		} else if (object instanceof xri_path_abs) {
+		} else if (object instanceof Rule$xri_path_abs) {
 
 			// read xri_segment_nz from xri_path_abs
 
-			List list_xri_path_abs = ((xri_path_abs) object).rules;
+			List list_xri_path_abs = ((Rule$xri_path_abs) object).rules;
 			if (list_xri_path_abs.size() < 2) return;
 			object = list_xri_path_abs.get(1);	// xri_segment_nz
-			this.segments.add(new XRI3Segment((xri_segment_nz) object));
+			this.segments.add(new XRI3Segment((Rule$xri_segment_nz) object));
 			
 			// read xri_segments from xri_path_abs
 			
@@ -85,16 +86,16 @@ public class XRI3Path extends XRI3SyntaxComponent implements XRIPath {
 			for (int i=2; i+1<list_xri_path_abs.size(); i+=2) {
 				
 				object = list_xri_path_abs.get(i+1);	// xri_segment
-				this.segments.add(new XRI3Segment((xri_segment) object));
+				this.segments.add(new XRI3Segment((Rule$xri_segment) object));
 			}
-		} else if (object instanceof xri_path_noscheme) {
+		} else if (object instanceof Rule$xri_path_noscheme) {
 			
 			// read xri_segment_nc from xri_path_noscheme
 			
-			List list_xri_path_noscheme = ((xri_path_noscheme) object).rules;
+			List list_xri_path_noscheme = ((Rule$xri_path_noscheme) object).rules;
 			if (list_xri_path_noscheme.size() < 1) return;
 			object = list_xri_path_noscheme.get(0);	// xri_segment_nc
-			this.segments.add(new XRI3Segment((xri_segment_nc) object));
+			this.segments.add(new XRI3Segment((Rule$xri_segment_nc) object));
 			
 			// read xri_segments from xri_path_noscheme
 			
@@ -102,7 +103,7 @@ public class XRI3Path extends XRI3SyntaxComponent implements XRIPath {
 			for (int i=1; i+1<list_xri_path_noscheme.size(); i+=2) {
 				
 				object = list_xri_path_noscheme.get(i+1);	// xri_segment
-				this.segments.add(new XRI3Segment((xri_segment) object));
+				this.segments.add(new XRI3Segment((Rule$xri_segment) object));
 			}
 		} else {
 			
