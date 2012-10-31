@@ -145,10 +145,6 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 				executionContext.pushInterceptor(messageEnvelopeInterceptor, "MessageEnvelopeInterceptor: exception");
 
 				messageEnvelopeInterceptor.exception(messageEnvelope, messageResult, executionContext, ex);
-			} catch (Exception ex2) {
-
-				if (log.isWarnEnabled()) log.warn("Exception during message envelope interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + " (exception): " + ex2.getMessage() + ".", ex2);
-				continue;
 			} finally {
 
 				executionContext.popInterceptor();

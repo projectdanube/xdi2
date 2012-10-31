@@ -1,7 +1,7 @@
 package xdi2.messaging.target.interceptor.impl;
 
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -13,6 +13,7 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.remoteroots.RemoteRoots;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
@@ -77,7 +78,7 @@ public class ExpandDollarIsInterceptor extends AbstractInterceptor implements Me
 	 */
 
 	@Override
-	public boolean before(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// consider $get targets of the operations to be already expanded
 
@@ -97,13 +98,13 @@ public class ExpandDollarIsInterceptor extends AbstractInterceptor implements Me
 	}
 
 	@Override
-	public boolean after(Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean after(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look through the message result for $is statements
 
-		for (Iterator<Statement> statements = messageResult.getGraph().getRootContextNode().getAllStatements(); statements.hasNext(); ) {
-
-			Statement statement = statements.next();
+		List<Statement> statements = new IteratorListMaker<Statement> (operationMessageResult.getGraph().getRootContextNode().getAllStatements()).list();
+		
+		for (Statement statement : statements) {
 
 			if (! (statement instanceof RelationStatement)) continue;
 
@@ -134,7 +135,7 @@ public class ExpandDollarIsInterceptor extends AbstractInterceptor implements Me
 				message.deleteOperations();
 				message.createGetOperation(relation.getTargetContextNodeXri());
 
-				this.feedback(message, messageResult, executionContext);
+				this.feedback(message, operationMessageResult, executionContext);
 			}
 		}
 

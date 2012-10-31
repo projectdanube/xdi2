@@ -119,6 +119,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				try {
 
+					executionContext.pushMessage(message, null);
+
 					this.execute(message, messageResult, executionContext);
 				} finally {
 
@@ -184,8 +186,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		if (messageResult == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
-		executionContext.pushMessage(message, null);
-
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message (" + message.getOperationCount() + " operations).");
 
 		// clear execution context
@@ -215,6 +215,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			MessageResult operationMessageResult = new MessageResult();
 
 			try {
+
+				executionContext.pushOperation(operation, null);
 
 				this.execute(operation, operationMessageResult, executionContext);
 			} finally {
@@ -249,8 +251,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		if (operation == null) throw new NullPointerException();
 		if (operationMessageResult == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
-
-		executionContext.pushOperation(operation, null);
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation (" + operation.getOperationXri() + ").");
 
