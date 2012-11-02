@@ -17,7 +17,7 @@ import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
-import xdi2.core.util.iterators.MappingContextNodeXrisIterator;
+import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.target.MessagingTarget;
@@ -69,7 +69,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 			Iterator<ContextNode> ownerSynonymRemoteRootContextNodes = Dictionary.getSynonymContextNodes(prototypingContext.getOwnerRemoteRootContextNode());
 
-			ownerSynonyms = (new IteratorArrayMaker<XRI3Segment> (new MappingContextNodeXrisIterator(ownerSynonymRemoteRootContextNodes))).array(XRI3Segment.class);
+			ownerSynonyms = (new IteratorArrayMaker<XRI3Segment> (new MappingContextNodeXriIterator(ownerSynonymRemoteRootContextNodes))).array(XRI3Segment.class);
 			for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(ownerSynonyms[i]);
 		}
 

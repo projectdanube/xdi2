@@ -175,7 +175,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 		if (entityMember || attributeMember) {
 
 			baseSubSegment = Multiplicity.baseArcXri(subSegment);
-			baseSubSegment = new XRI3SubSegment("" + baseSubSegment.toString().substring(1));
+			if (baseSubSegment.hasXRef()) baseSubSegment = new XRI3SubSegment("" + baseSubSegment.toString().substring(1));
 		} else {
 
 			baseSubSegment = subSegment;

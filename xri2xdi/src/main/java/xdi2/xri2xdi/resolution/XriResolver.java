@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class XriResolver {
 
 	public static final String DEFAULT_XRI_PROXY = "https://xri.net/";
-	public static final String DEFAULT_USER_AGENT = "XDI^2 Java library";
+	public static final String DEFAULT_USER_AGENT = "XDI2 Java library";
 
 	private static final String QUERY = "_xrd_r=application/xrd+xml;sep=true;nodefault_t=true&_xrd_t=xri://$xdi!($v!1)";
 

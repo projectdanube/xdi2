@@ -9,7 +9,7 @@
 		<property name="endpointServlet" ref="EndpointServlet" />
 	</bean>
 
-	<!-- XDI Servlet -->
+	<!-- XDI SERVLET -->
 
 	<bean id="EndpointServlet" class="xdi2.server.EndpointServlet"
 		init-method="init" destroy-method="destroy">

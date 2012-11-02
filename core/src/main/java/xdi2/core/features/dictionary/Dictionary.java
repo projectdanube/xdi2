@@ -5,7 +5,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.util.iterators.MappingContextNodeXrisIterator;
+import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.xri3.impl.XRI3Constants;
@@ -84,7 +84,7 @@ public class Dictionary {
 
 	public static Iterator<XRI3Segment> getContextNodeTypes(ContextNode contextNode) {
 
-		return new MappingContextNodeXrisIterator(new MappingRelationTargetContextNodeIterator(contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE)));
+		return new MappingContextNodeXriIterator(new MappingRelationTargetContextNodeIterator(contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE)));
 	}
 
 	public static XRI3Segment getContextNodeType(ContextNode contextNode) {

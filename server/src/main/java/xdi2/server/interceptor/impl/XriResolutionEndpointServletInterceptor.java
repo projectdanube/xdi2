@@ -21,7 +21,7 @@ import xdi2.core.Graph;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
-import xdi2.core.util.iterators.MappingContextNodeXrisIterator;
+import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.xri3.impl.XRI3Segment;
 import xdi2.core.xri3.impl.XRI3SubSegment;
 import xdi2.messaging.target.MessagingTarget;
@@ -161,7 +161,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		Iterator<ContextNode> selfSynonymRemoteRootContextNodes = Dictionary.getSynonymContextNodes(selfRemoteRootContextNode);
 
-		XRI3Segment[] selfSynonyms = new IteratorArrayMaker<XRI3Segment> (new MappingContextNodeXrisIterator(selfSynonymRemoteRootContextNodes)).array(XRI3Segment.class);
+		XRI3Segment[] selfSynonyms = new IteratorArrayMaker<XRI3Segment> (new MappingContextNodeXriIterator(selfSynonymRemoteRootContextNodes)).array(XRI3Segment.class);
 		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(selfSynonyms[i]);
 
 		return selfSynonyms;

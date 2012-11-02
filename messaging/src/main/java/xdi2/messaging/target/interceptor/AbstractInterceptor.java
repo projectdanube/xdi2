@@ -18,7 +18,7 @@ public abstract class AbstractInterceptor implements Interceptor {
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 
-		if (! (messagingTarget instanceof AbstractMessagingTarget)) throw new Xdi2MessagingException("Cannot feedback on a non-AbstractMessagingTarget", null, executionContext);
+		if (! (messagingTarget instanceof AbstractMessagingTarget)) throw new Xdi2MessagingException("Cannot only feedback on an AbstractMessagingTarget", null, executionContext);
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Initiating Feedback.");
 		((AbstractMessagingTarget) messagingTarget).execute(message, messageResult, executionContext);

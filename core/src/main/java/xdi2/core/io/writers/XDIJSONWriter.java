@@ -208,7 +208,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		if (literal != null) {
 
 			startItem(bufferedWriter, state);
-			bufferedWriter.write("\"" + xri + "/!\":[\"" + escape(literal.getLiteralData()) + "\"]");
+			bufferedWriter.write("\"" + xri + "/!\":[" + JSONObject.quote(literal.getLiteralData()) + "]");
 			finishItem(bufferedWriter, state);
 		}
 	}
@@ -250,13 +250,6 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		writer.flush();
 
 		return writer;
-	}
-
-	private static String escape(String string) {
-
-		return string
-				.replace("\\", "\\\\")
-				.replace("\"", "\\\"");
 	}
 
 	private static void startItem(BufferedWriter bufferedWriter, State state) throws IOException {
