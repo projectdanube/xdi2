@@ -103,7 +103,7 @@
 
 	<!-- MESSAGING TARGET FACTORY at /users/* -->
 
-	<bean id="registrygraphfactory" class="xdi2.core.impl.file.FileGraphFactory">
+	<bean id="registrygraphfactory" class="xdi2.core.impl.wrapped.file.FileGraphFactory">
 		<property name="path" value="registry.xdi" />
 		<property name="mimeType" value="text/xdi;contexts=0;ordered=1" />
 	</bean>
