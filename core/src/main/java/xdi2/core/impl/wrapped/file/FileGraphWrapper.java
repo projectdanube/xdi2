@@ -1,4 +1,4 @@
-package xdi2.core.impl.file;
+package xdi2.core.impl.wrapped.file;
 
 import java.io.File;
 import java.io.FileReader;
@@ -9,89 +9,33 @@ import java.io.Writer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.impl.AbstractGraph;
-import xdi2.core.impl.memory.MemoryContextNode;
 import xdi2.core.impl.memory.MemoryGraph;
+import xdi2.core.impl.wrapped.GraphWrapper;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIWriter;
 
-public class FileGraph extends AbstractGraph implements Graph {
+public class FileGraphWrapper implements GraphWrapper {
 
-	private static final long serialVersionUID = 8979035878235290607L;
-
-	private static final Logger log = LoggerFactory.getLogger(FileGraph.class);
+	private static final Logger log = LoggerFactory.getLogger(FileGraphWrapper.class);
 
 	private String path;
 	private String mimeType;
 	private XDIReader xdiReader;
 	private XDIWriter xdiWriter;
-	private MemoryGraph memoryGraph;
 
-	FileGraph(FileGraphFactory graphFactory, String path, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter, MemoryGraph memoryGraph) {
+	public FileGraphWrapper(String path, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter) {
 
-		super(graphFactory);
-		
 		this.path = path;
 		this.mimeType = mimeType;
 		this.xdiReader = xdiReader;
 		this.xdiWriter = xdiWriter;
-		this.memoryGraph = memoryGraph;
-
-		this.load();
 	}
 
 	@Override
-	public ContextNode getRootContextNode() {
+	public void load(MemoryGraph memoryGraph) {
 
-		MemoryContextNode memoryContextNode = (MemoryContextNode) this.memoryGraph.getRootContextNode();
-
-		return new FileContextNode(this, null, memoryContextNode);
-	}
-
-	@Override
-	public void close() {
-
-		this.save();
-	}
-
-	@Override
-	public boolean supportsTransactions() {
-
-		return false;
-	}
-
-	@Override
-	public void beginTransaction() {
-
-	}
-
-	@Override
-	public void commitTransaction() {
-
-		this.save();
-	}
-
-	@Override
-	public void rollbackTransaction() {
-
-	}
-
-	public String getPath() {
-
-		return this.path;
-	}
-
-	public String getMimeType() {
-
-		return this.mimeType;
-	}
-
-	private void load() {
-
-		this.memoryGraph.clear();
+		memoryGraph.clear();
 
 		try {
 
@@ -106,7 +50,7 @@ public class FileGraph extends AbstractGraph implements Graph {
 
 			Reader reader = new FileReader(file);
 
-			this.xdiReader.read(this.memoryGraph, reader);
+			this.xdiReader.read(memoryGraph, reader);
 			reader.close();
 		} catch (Exception ex) {
 
@@ -114,7 +58,8 @@ public class FileGraph extends AbstractGraph implements Graph {
 		}
 	}
 
-	private void save() {
+	@Override
+	public void save(MemoryGraph memoryGraph) {
 
 		try {
 
@@ -129,11 +74,51 @@ public class FileGraph extends AbstractGraph implements Graph {
 
 			Writer writer = new FileWriter(this.path);
 
-			this.xdiWriter.write(this.memoryGraph, writer);
+			this.xdiWriter.write(memoryGraph, writer);
 			writer.close();
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Cannot save file at " + this.path, ex);
 		}
+	}
+
+	public String getPath() {
+
+		return this.path;
+	}
+
+	public void setPath(String path) {
+
+		this.path = path;
+	}
+
+	public String getMimeType() {
+
+		return this.mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+
+		this.mimeType = mimeType;
+	}
+
+	public XDIReader getXdiReader() {
+
+		return this.xdiReader;
+	}
+
+	public void setXdiReader(XDIReader xdiReader) {
+
+		this.xdiReader = xdiReader;
+	}
+
+	public XDIWriter getXdiWriter() {
+
+		return this.xdiWriter;
+	}
+
+	public void setXdiWriter(XDIWriter xdiWriter) {
+
+		this.xdiWriter = xdiWriter;
 	}
 }

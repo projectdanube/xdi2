@@ -1,12 +1,10 @@
-package xdi2.core.impl.file;
+package xdi2.core.impl.wrapped.file;
 
 import java.io.IOException;
 
-import xdi2.core.Graph;
 import xdi2.core.GraphFactory;
-import xdi2.core.impl.AbstractGraphFactory;
-import xdi2.core.impl.memory.MemoryGraph;
-import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.impl.wrapped.WrappedGraphFactory;
+import xdi2.core.impl.wrapped.GraphWrapper;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -18,14 +16,13 @@ import xdi2.core.io.XDIWriterRegistry;
  * 
  * @author markus
  */
-public class FileGraphFactory extends AbstractGraphFactory implements GraphFactory {
+public class FileGraphFactory extends WrappedGraphFactory implements GraphFactory {
 
 	public static final String DEFAULT_PATH = "xdi2-graph.xdi";
 	public static final String DEFAULT_MIMETYPE = XDIWriterRegistry.getDefault().getMimeType().toString();
 
 	private String path;
 	private String mimeType;
-	private MemoryGraphFactory memoryGraphFactory;
 
 	public FileGraphFactory() { 
 
@@ -33,11 +30,10 @@ public class FileGraphFactory extends AbstractGraphFactory implements GraphFacto
 
 		this.path = DEFAULT_PATH;
 		this.mimeType = DEFAULT_MIMETYPE;
-		this.memoryGraphFactory = MemoryGraphFactory.getInstance();
 	}
 
 	@Override
-	public Graph openGraph(String identifier) throws IOException {
+	public GraphWrapper openWrapper(String identifier) throws IOException {
 
 		// check identifier
 
@@ -51,9 +47,7 @@ public class FileGraphFactory extends AbstractGraphFactory implements GraphFacto
 		XDIReader xdiReader = XDIReaderRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 		XDIWriter xdiWriter = XDIWriterRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 
-		MemoryGraph memoryGraph = this.memoryGraphFactory.openGraph();
-
-		return new FileGraph(this, this.path, this.mimeType, xdiReader, xdiWriter, memoryGraph);
+		return new FileGraphWrapper(this.path, this.mimeType, xdiReader, xdiWriter);
 	}
 
 	public String getPath() {
@@ -74,15 +68,5 @@ public class FileGraphFactory extends AbstractGraphFactory implements GraphFacto
 	public void setMimeType(String mimeType) {
 
 		this.mimeType = mimeType;
-	}
-
-	public MemoryGraphFactory getMemoryGraphFactory() {
-
-		return this.memoryGraphFactory;
-	}
-
-	public void setMemoryGraphFactory(MemoryGraphFactory memoryGraphFactory) {
-
-		this.memoryGraphFactory = memoryGraphFactory;
 	}
 }

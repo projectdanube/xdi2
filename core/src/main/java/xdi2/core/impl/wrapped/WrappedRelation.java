@@ -1,17 +1,17 @@
-package xdi2.core.impl.file;
+package xdi2.core.impl.wrapped;
 
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractRelation;
 import xdi2.core.impl.memory.MemoryRelation;
 import xdi2.core.xri3.impl.XRI3Segment;
 
-public class FileRelation extends AbstractRelation implements Relation {
+public class WrappedRelation extends AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = -3710590809580009142L;
 
 	private MemoryRelation memoryRelation;
 
-	FileRelation(FileGraph graph, FileContextNode contextNode, MemoryRelation memoryRelation) {
+	WrappedRelation(WrappedGraph graph, WrappedContextNode contextNode, MemoryRelation memoryRelation) {
 
 		super(graph, contextNode);
 
