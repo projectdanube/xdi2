@@ -98,7 +98,7 @@ Class AbstractContextNode</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;, <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/impl/BasicContextNode.html" title="class in xdi2.core.impl">BasicContextNode</A>, <A HREF="../../../xdi2/core/impl/file/FileContextNode.html" title="class in xdi2.core.impl.file">FileContextNode</A>, <A HREF="../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html" title="class in xdi2.core.impl.keyvalue">KeyValueContextNode</A>, <A HREF="../../../xdi2/core/impl/memory/MemoryContextNode.html" title="class in xdi2.core.impl.memory">MemoryContextNode</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/impl/BasicContextNode.html" title="class in xdi2.core.impl">BasicContextNode</A>, <A HREF="../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html" title="class in xdi2.core.impl.keyvalue">KeyValueContextNode</A>, <A HREF="../../../xdi2/core/impl/memory/MemoryContextNode.html" title="class in xdi2.core.impl.memory">MemoryContextNode</A>, <A HREF="../../../xdi2/core/impl/wrapped/WrappedContextNode.html" title="class in xdi2.core.impl.wrapped">WrappedContextNode</A></DD>
 </DL>
 <HR>
 <DL>
@@ -408,6 +408,14 @@ Class AbstractContextNode</H2>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the incoming relations of this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations(xdi2.core.xri3.impl.XRI3Segment)">getIncomingRelations</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the incoming relations with a given arc XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -939,7 +947,25 @@ public <A HREF="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI to look for.
-<DT><B>Returns:</B><DD>The relations with the given arc XRI, or null.</DL>
+<DT><B>Returns:</B><DD>An iterator over relations with the given arc XRI, or null.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getIncomingRelations(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
+getIncomingRelations</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>getIncomingRelations</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getIncomingRelations(xdi2.core.xri3.impl.XRI3Segment)">ContextNode</A></CODE></B></DD>
+<DD>Returns the incoming relations with a given arc XRI.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/ContextNode.html#getIncomingRelations(xdi2.core.xri3.impl.XRI3Segment)">getIncomingRelations</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI to look for.
+<DT><B>Returns:</B><DD>An iterator over relations with the given arc XRI, or null.</DL>
 </DD>
 </DL>
 <HR>

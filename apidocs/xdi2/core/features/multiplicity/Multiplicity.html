@@ -105,8 +105,8 @@ Multiplicity supports constructs to express XDI collections, entities and attrib
  
  Examples:
  
- Collection: +tel, +passport
- Entity Singleton: $(+passport)
+ Collection: $(+tel), $(+passport)
+ Entity Singleton: =!1111, +passport
  Attribute Singleton: $!(+tel)
  Entity Member: $(!1)
  Attribute Member: $!(!1)
@@ -132,7 +132,15 @@ Multiplicity supports constructs to express XDI collections, entities and attrib
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/multiplicity/Multiplicity.html#attributeMemberArcXri()">attributeMemberArcXri</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/multiplicity/Multiplicity.html#attributeMemberArcXri(xdi2.core.xri3.impl.XRI3SubSegment)">attributeMemberArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/multiplicity/Multiplicity.html#attributeMemberArcXriRandom()">attributeMemberArcXriRandom</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -148,6 +156,14 @@ Multiplicity supports constructs to express XDI collections, entities and attrib
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/multiplicity/Multiplicity.html#baseArcXri(xdi2.core.xri3.impl.XRI3SubSegment)">baseArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/multiplicity/Multiplicity.html#collectionArcXri(xdi2.core.xri3.impl.XRI3SubSegment)">collectionArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
@@ -156,7 +172,15 @@ Multiplicity supports constructs to express XDI collections, entities and attrib
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/multiplicity/Multiplicity.html#entityMemberArcXri()">entityMemberArcXri</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/multiplicity/Multiplicity.html#entityMemberArcXri(xdi2.core.xri3.impl.XRI3SubSegment)">entityMemberArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/multiplicity/Multiplicity.html#entityMemberArcXriRandom()">entityMemberArcXriRandom</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -254,6 +278,28 @@ public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" titl
 </DL>
 <HR>
 
+<A NAME="entityMemberArcXri(xdi2.core.xri3.impl.XRI3SubSegment)"><!-- --></A><H3>
+entityMemberArcXri</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A> <B>entityMemberArcXri</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="entityMemberArcXriRandom()"><!-- --></A><H3>
+entityMemberArcXriRandom</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A> <B>entityMemberArcXriRandom</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="attributeSingletonArcXri(xdi2.core.xri3.impl.XRI3SubSegment)"><!-- --></A><H3>
 attributeSingletonArcXri</H3>
 <PRE>
@@ -265,10 +311,10 @@ public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" titl
 </DL>
 <HR>
 
-<A NAME="entityMemberArcXri()"><!-- --></A><H3>
-entityMemberArcXri</H3>
+<A NAME="attributeMemberArcXri(xdi2.core.xri3.impl.XRI3SubSegment)"><!-- --></A><H3>
+attributeMemberArcXri</H3>
 <PRE>
-public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A> <B>entityMemberArcXri</B>()</PRE>
+public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A> <B>attributeMemberArcXri</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -276,10 +322,21 @@ public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" titl
 </DL>
 <HR>
 
-<A NAME="attributeMemberArcXri()"><!-- --></A><H3>
-attributeMemberArcXri</H3>
+<A NAME="attributeMemberArcXriRandom()"><!-- --></A><H3>
+attributeMemberArcXriRandom</H3>
 <PRE>
-public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A> <B>attributeMemberArcXri</B>()</PRE>
+public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A> <B>attributeMemberArcXriRandom</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="baseArcXri(xdi2.core.xri3.impl.XRI3SubSegment)"><!-- --></A><H3>
+baseArcXri</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A> <B>baseArcXri</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD><DL>
 </DL>

@@ -54,7 +54,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/core/xri3/impl/parser/Parser.xri_sub_delims.html" title="class in xdi2.core.xri3.impl.parser"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserContext.html" title="class in xdi2.core.xri3.impl.parser"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../xdi2/core/xri3/impl/parser/Rule.html" title="class in xdi2.core.xri3.impl.parser"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/xri3/impl/parser/ParserException.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -75,9 +75,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#methods_inherited_from_class_java.lang.Throwable">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;METHOD</FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -106,6 +106,13 @@ Class ParserException</H2>
 </PRE>
 
 <P>
+<p>Signals that a parse failure has occurred.</p>
+ 
+ <p>Producer : com.parse2.aparse.Parser 2.2<br/>
+ Produced : Fri Oct 19 08:29:48 CEST 2012</p>
+<P>
+
+<P>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../../../serialized-form.html#xdi2.core.xri3.impl.parser.ParserException">Serialized Form</A></DL>
 <HR>
@@ -121,10 +128,13 @@ Class ParserException</H2>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#ParserException(java.lang.String)">ParserException</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message)</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#ParserException(java.lang.String, java.lang.String, int, java.util.Stack)">ParserException</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;reason,
+                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;text,
+                int&nbsp;index,
+                <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Stack.html?is-external=true" title="class or interface in java.util">Stack</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;&nbsp;ruleStack)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a parser exception from the specified parse failure information.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -136,6 +146,48 @@ Class ParserException</H2>
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Method Summary</B></FONT></TH>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#getMessage()">getMessage</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a message detailing the parse failure.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#getReason()">getReason</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the description of the parse failure.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Stack.html?is-external=true" title="class or interface in java.util">Stack</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#getRuleStack()">getRuleStack</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the ABNF rule stack at the point the parse failure occurred.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#getSubstring()">getSubstring</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a substring of the parsed string that encompasses the point 
+ at which the parse failure occurred.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#getSubstringIndex()">getSubstringIndex</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an index to the character within the substring returned by 
+ <A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#getSubstring()"><CODE>getSubstring()</CODE></A> at which the parse failure occurred.</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Throwable"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -143,7 +195,7 @@ Class ParserException</H2>
 <TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#fillInStackTrace()" title="class or interface in java.lang">fillInStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#getCause()" title="class or interface in java.lang">getCause</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#getLocalizedMessage()" title="class or interface in java.lang">getLocalizedMessage</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#getMessage()" title="class or interface in java.lang">getMessage</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#getStackTrace()" title="class or interface in java.lang">getStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#initCause(java.lang.Throwable)" title="class or interface in java.lang">initCause</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#printStackTrace()" title="class or interface in java.lang">printStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#printStackTrace(java.io.PrintStream)" title="class or interface in java.lang">printStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#printStackTrace(java.io.PrintWriter)" title="class or interface in java.lang">printStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#setStackTrace(java.lang.StackTraceElement[])" title="class or interface in java.lang">setStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#toString()" title="class or interface in java.lang">toString</A></CODE></TD>
+<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#fillInStackTrace()" title="class or interface in java.lang">fillInStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#getCause()" title="class or interface in java.lang">getCause</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#getLocalizedMessage()" title="class or interface in java.lang">getLocalizedMessage</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#getStackTrace()" title="class or interface in java.lang">getStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#initCause(java.lang.Throwable)" title="class or interface in java.lang">initCause</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#printStackTrace()" title="class or interface in java.lang">printStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#printStackTrace(java.io.PrintStream)" title="class or interface in java.lang">printStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#printStackTrace(java.io.PrintWriter)" title="class or interface in java.lang">printStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#setStackTrace(java.lang.StackTraceElement[])" title="class or interface in java.lang">setStackTrace</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#toString()" title="class or interface in java.lang">toString</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -168,11 +220,117 @@ Class ParserException</H2>
 </TR>
 </TABLE>
 
-<A NAME="ParserException(java.lang.String)"><!-- --></A><H3>
+<A NAME="ParserException(java.lang.String, java.lang.String, int, java.util.Stack)"><!-- --></A><H3>
 ParserException</H3>
 <PRE>
-public <B>ParserException</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;message)</PRE>
+public <B>ParserException</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;reason,
+                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;text,
+                       int&nbsp;index,
+                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Stack.html?is-external=true" title="class or interface in java.util">Stack</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;&nbsp;ruleStack)</PRE>
 <DL>
+<DD>Creates a parser exception from the specified parse failure information.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>reason</CODE> - A description of the parse failure.<DD><CODE>text</CODE> - The string of characters being parsed.<DD><CODE>index</CODE> - The index to the character at which the parse failure occurred.<DD><CODE>ruleStack</CODE> - The ABNF rule stack at the point the parse failure occurred.</DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="getReason()"><!-- --></A><H3>
+getReason</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getReason</B>()</PRE>
+<DL>
+<DD>Returns the description of the parse failure.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The description of the parse failure.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getSubstring()"><!-- --></A><H3>
+getSubstring</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getSubstring</B>()</PRE>
+<DL>
+<DD>Returns a substring of the parsed string that encompasses the point 
+ at which the parse failure occurred. The substring will be up to 60 
+ characters in length unless the point of failure occurred within 
+ 30 characters of the start or end of the parsed string. 
+ <A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#getSubstringIndex()"><CODE>getSubstringIndex()</CODE></A> returns an index to the character within 
+ this substring at which the parse failure occurred. This substring 
+ may contain non-printable characters.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The substring that encompasses the point of failure.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getSubstringIndex()"><!-- --></A><H3>
+getSubstringIndex</H3>
+<PRE>
+public int <B>getSubstringIndex</B>()</PRE>
+<DL>
+<DD>Returns an index to the character within the substring returned by 
+ <A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#getSubstring()"><CODE>getSubstring()</CODE></A> at which the parse failure occurred.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The index to the character within the substring returned 
+ <A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserException.html#getSubstring()"><CODE>getSubstring()</CODE></A> at which the parse failure occurred.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRuleStack()"><!-- --></A><H3>
+getRuleStack</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Stack.html?is-external=true" title="class or interface in java.util">Stack</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt; <B>getRuleStack</B>()</PRE>
+<DL>
+<DD>Returns the ABNF rule stack at the point the parse failure occurred.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The ABNF rule stack.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMessage()"><!-- --></A><H3>
+getMessage</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getMessage</B>()</PRE>
+<DL>
+<DD>Returns a message detailing the parse failure. The message detail
+ the reason for the failure and where the failure occurred.
+
+ <br><br>For example ...<br><br><code>
+ rule "Minutes" failed<br>
+ 15:75:47<br>
+ &nbsp;&nbsp;&nbsp;^<br>
+ rule stack:<br>
+ &nbsp;&nbsp;Clock<br>
+ &nbsp;&nbsp;Minutes</code><br>
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true#getMessage()" title="class or interface in java.lang">getMessage</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>Details of the parse failure.</DL>
+</DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
@@ -205,7 +363,7 @@ public <B>ParserException</B>(<A HREF="http://download.oracle.com/javase/6/docs/
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/core/xri3/impl/parser/Parser.xri_sub_delims.html" title="class in xdi2.core.xri3.impl.parser"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/xri3/impl/parser/ParserContext.html" title="class in xdi2.core.xri3.impl.parser"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../xdi2/core/xri3/impl/parser/Rule.html" title="class in xdi2.core.xri3.impl.parser"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/xri3/impl/parser/ParserException.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -226,9 +384,9 @@ public <B>ParserException</B>(<A HREF="http://download.oracle.com/javase/6/docs/
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#methods_inherited_from_class_java.lang.Throwable">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;METHOD</FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

@@ -168,7 +168,7 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getContributor()">getContributor</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getCurrentContributor()">getCurrentContributor</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -176,7 +176,7 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getInterceptor()">getInterceptor</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getCurrentInterceptor()">getCurrentInterceptor</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -184,7 +184,39 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getMessage()">getMessage</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getCurrentMessage()">getCurrentMessage</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getCurrentMessageEnvelope()">getCurrentMessageEnvelope</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getCurrentMessagingTarget()">getCurrentMessagingTarget</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getCurrentOperation()">getCurrentOperation</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getException()">getException</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -199,32 +231,8 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getMessageEnvelope()">getMessageEnvelope</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getMessageEnvelopeAttribute(java.lang.String)">getMessageEnvelopeAttribute</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getMessagingTarget()">getMessagingTarget</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getOperation()">getOperation</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -240,7 +248,7 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getPositionString()">getPositionString</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getTraceBlock()">getTraceBlock</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -248,7 +256,7 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getTraceString()">getTraceString</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getTraceLine()">getTraceLine</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -256,7 +264,7 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#isTopPosition()">isTopPosition</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#isTopExecutionPosition()">isTopExecutionPosition</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -390,6 +398,14 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#setException(java.lang.Exception)">setException</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -429,6 +445,163 @@ public <B>ExecutionContext</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="getMessageEnvelopeAttribute(java.lang.String)"><!-- --></A><H3>
+getMessageEnvelopeAttribute</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getMessageEnvelopeAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="putMessageEnvelopeAttribute(java.lang.String, java.lang.Object)"><!-- --></A><H3>
+putMessageEnvelopeAttribute</H3>
+<PRE>
+public void <B>putMessageEnvelopeAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
+                                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearMessageEnvelopeAttributes()"><!-- --></A><H3>
+clearMessageEnvelopeAttributes</H3>
+<PRE>
+public void <B>clearMessageEnvelopeAttributes</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMessageAttribute(java.lang.String)"><!-- --></A><H3>
+getMessageAttribute</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getMessageAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="putMessageAttribute(java.lang.String, java.lang.Object)"><!-- --></A><H3>
+putMessageAttribute</H3>
+<PRE>
+public void <B>putMessageAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
+                                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearMessageAttributes()"><!-- --></A><H3>
+clearMessageAttributes</H3>
+<PRE>
+public void <B>clearMessageAttributes</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOperationAttribute(java.lang.String)"><!-- --></A><H3>
+getOperationAttribute</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getOperationAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="putOperationAttribute(java.lang.String, java.lang.Object)"><!-- --></A><H3>
+putOperationAttribute</H3>
+<PRE>
+public void <B>putOperationAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
+                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearOperationAttributes()"><!-- --></A><H3>
+clearOperationAttributes</H3>
+<PRE>
+public void <B>clearOperationAttributes</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getException()"><!-- --></A><H3>
+getException</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A> <B>getException</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setException(java.lang.Exception)"><!-- --></A><H3>
+setException</H3>
+<PRE>
+public void <B>setException</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="pushMessagingTarget(xdi2.messaging.target.MessagingTarget, java.lang.String)"><!-- --></A><H3>
 pushMessagingTarget</H3>
@@ -604,10 +777,10 @@ public void <B>popContributor</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="getMessagingTarget()"><!-- --></A><H3>
-getMessagingTarget</H3>
+<A NAME="getCurrentMessagingTarget()"><!-- --></A><H3>
+getCurrentMessagingTarget</H3>
 <PRE>
-public <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A> <B>getMessagingTarget</B>()</PRE>
+public <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A> <B>getCurrentMessagingTarget</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -618,10 +791,10 @@ public <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="inte
 </DL>
 <HR>
 
-<A NAME="getMessageEnvelope()"><!-- --></A><H3>
-getMessageEnvelope</H3>
+<A NAME="getCurrentMessageEnvelope()"><!-- --></A><H3>
+getCurrentMessageEnvelope</H3>
 <PRE>
-public <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>getMessageEnvelope</B>()</PRE>
+public <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>getCurrentMessageEnvelope</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -632,10 +805,10 @@ public <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xd
 </DL>
 <HR>
 
-<A NAME="getMessage()"><!-- --></A><H3>
-getMessage</H3>
+<A NAME="getCurrentMessage()"><!-- --></A><H3>
+getCurrentMessage</H3>
 <PRE>
-public <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>getMessage</B>()</PRE>
+public <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>getCurrentMessage</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -646,10 +819,10 @@ public <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messa
 </DL>
 <HR>
 
-<A NAME="getOperation()"><!-- --></A><H3>
-getOperation</H3>
+<A NAME="getCurrentOperation()"><!-- --></A><H3>
+getCurrentOperation</H3>
 <PRE>
-public <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A> <B>getOperation</B>()</PRE>
+public <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A> <B>getCurrentOperation</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -660,10 +833,10 @@ public <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.mes
 </DL>
 <HR>
 
-<A NAME="getInterceptor()"><!-- --></A><H3>
-getInterceptor</H3>
+<A NAME="getCurrentInterceptor()"><!-- --></A><H3>
+getCurrentInterceptor</H3>
 <PRE>
-public <A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A> <B>getInterceptor</B>()</PRE>
+public <A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A> <B>getCurrentInterceptor</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -674,10 +847,10 @@ public <A HREF="../../../xdi2/messaging/target/interceptor/Interceptor.html" tit
 </DL>
 <HR>
 
-<A NAME="getContributor()"><!-- --></A><H3>
-getContributor</H3>
+<A NAME="getCurrentContributor()"><!-- --></A><H3>
+getCurrentContributor</H3>
 <PRE>
-public <A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A> <B>getContributor</B>()</PRE>
+public <A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A> <B>getCurrentContributor</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -688,10 +861,10 @@ public <A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" tit
 </DL>
 <HR>
 
-<A NAME="isTopPosition()"><!-- --></A><H3>
-isTopPosition</H3>
+<A NAME="isTopExecutionPosition()"><!-- --></A><H3>
+isTopExecutionPosition</H3>
 <PRE>
-public boolean <B>isTopPosition</B>()</PRE>
+public boolean <B>isTopExecutionPosition</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -702,10 +875,10 @@ public boolean <B>isTopPosition</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="getPositionString()"><!-- --></A><H3>
-getPositionString</H3>
+<A NAME="getTraceLine()"><!-- --></A><H3>
+getTraceLine</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getPositionString</B>()</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getTraceLine</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -716,139 +889,10 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.ht
 </DL>
 <HR>
 
-<A NAME="getTraceString()"><!-- --></A><H3>
-getTraceString</H3>
+<A NAME="getTraceBlock()"><!-- --></A><H3>
+getTraceBlock</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getTraceString</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getMessageEnvelopeAttribute(java.lang.String)"><!-- --></A><H3>
-getMessageEnvelopeAttribute</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getMessageEnvelopeAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="putMessageEnvelopeAttribute(java.lang.String, java.lang.Object)"><!-- --></A><H3>
-putMessageEnvelopeAttribute</H3>
-<PRE>
-public void <B>putMessageEnvelopeAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
-                                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;value)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="clearMessageEnvelopeAttributes()"><!-- --></A><H3>
-clearMessageEnvelopeAttributes</H3>
-<PRE>
-public void <B>clearMessageEnvelopeAttributes</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getMessageAttribute(java.lang.String)"><!-- --></A><H3>
-getMessageAttribute</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getMessageAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="putMessageAttribute(java.lang.String, java.lang.Object)"><!-- --></A><H3>
-putMessageAttribute</H3>
-<PRE>
-public void <B>putMessageAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
-                                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;value)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="clearMessageAttributes()"><!-- --></A><H3>
-clearMessageAttributes</H3>
-<PRE>
-public void <B>clearMessageAttributes</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getOperationAttribute(java.lang.String)"><!-- --></A><H3>
-getOperationAttribute</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getOperationAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="putOperationAttribute(java.lang.String, java.lang.Object)"><!-- --></A><H3>
-putOperationAttribute</H3>
-<PRE>
-public void <B>putOperationAttribute</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
-                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;value)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="clearOperationAttributes()"><!-- --></A><H3>
-clearOperationAttributes</H3>
-<PRE>
-public void <B>clearOperationAttributes</B>()</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getTraceBlock</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>

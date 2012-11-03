@@ -54,8 +54,8 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html" title="class in xdi2.server.factory.impl"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/server/factory/impl/RegistryGraphMessagingTargetFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="RegistryGraphMessagingTargetFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -93,7 +93,7 @@ Class RegistryGraphMessagingTargetFactory</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
   <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/server/factory/AbstractMessagingTargetFactory.html" title="class in xdi2.server.factory">xdi2.server.factory.AbstractMessagingTargetFactory</A>
-      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">xdi2.server.factory.impl.StandardGraphMessagingTargetFactory</A>
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">xdi2.server.factory.impl.PrototypingMessagingTargetFactory</A>
           <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.server.factory.impl.RegistryGraphMessagingTargetFactory</B>
 </PRE>
 <DL>
@@ -101,7 +101,7 @@ Class RegistryGraphMessagingTargetFactory</H2>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>RegistryGraphMessagingTargetFactory</B><DT>extends <A HREF="../../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">StandardGraphMessagingTargetFactory</A></DL>
+<DT><PRE>public class <B>RegistryGraphMessagingTargetFactory</B><DT>extends <A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">PrototypingMessagingTargetFactory</A></DL>
 </PRE>
 
 <P>
@@ -180,13 +180,13 @@ This messaging target factory uses a "registry graph" as a basis to decide what
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Updates a messaging target.</TD>
 </TR>
 </TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_xdi2.server.factory.impl.StandardGraphMessagingTargetFactory"><!-- --></A>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.server.factory.impl.PrototypingMessagingTargetFactory"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class xdi2.server.factory.impl.<A HREF="../../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">StandardGraphMessagingTargetFactory</A></B></TH>
+<TH ALIGN="left"><B>Methods inherited from class xdi2.server.factory.impl.<A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">PrototypingMessagingTargetFactory</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html#getGraphFactory()">getGraphFactory</A>, <A HREF="../../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html#mountStandardMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment[], java.lang.String)">mountStandardMessagingTarget</A>, <A HREF="../../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html#setGraphFactory(xdi2.core.GraphFactory)">setGraphFactory</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html#getPrototypeMessagingTarget()">getPrototypeMessagingTarget</A>, <A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, xdi2.core.xri3.impl.XRI3Segment, xdi2.core.ContextNode, xdi2.core.ContextNode)">mountMessagingTarget</A>, <A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html#setPrototypeMessagingTarget(xdi2.messaging.target.MessagingTarget)">setPrototypeMessagingTarget</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_xdi2.server.factory.AbstractMessagingTargetFactory"><!-- --></A>
@@ -243,7 +243,8 @@ mountMessagingTarget</H3>
 public void <B>mountMessagingTarget</B>(<A HREF="../../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath)
-                          throws <A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
+                          throws <A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A>,
+                                 <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../../xdi2/server/factory/MessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String)">MessagingTargetFactory</A></CODE></B></DD>
 <DD>Mount a new MessagingTarget.
@@ -251,7 +252,8 @@ public void <B>mountMessagingTarget</B>(<A HREF="../../../../xdi2/server/registr
 <DD><DL>
 
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
+<DD><CODE><A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
@@ -263,7 +265,8 @@ public void <B>updateMessagingTarget</B>(<A HREF="../../../../xdi2/server/regist
                                   <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                                   <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
                                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)
-                           throws <A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
+                           throws <A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A>,
+                                  <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../../xdi2/server/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">MessagingTargetFactory</A></CODE></B></DD>
 <DD>Updates a messaging target.
@@ -271,7 +274,8 @@ public void <B>updateMessagingTarget</B>(<A HREF="../../../../xdi2/server/regist
 <DD><DL>
 
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
+<DD><CODE><A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
@@ -327,8 +331,8 @@ public void <B>setRegistryGraph</B>(<A HREF="../../../../xdi2/core/Graph.html" t
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html" title="class in xdi2.server.factory.impl"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/server/factory/impl/RegistryGraphMessagingTargetFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="RegistryGraphMessagingTargetFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

@@ -125,10 +125,6 @@ Packages that use <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A></
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.core.impl.file"><B>xdi2.core.impl.file</B></A></TD>
-<TD>File-based implementation of the XDI graph model.&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.impl.keyvalue"><B>xdi2.core.impl.keyvalue</B></A></TD>
 <TD>Implementation of the XDI graph model as key/value pairs.&nbsp;</TD>
 </TR>
@@ -147,6 +143,22 @@ Packages that use <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A></
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.impl.memory"><B>xdi2.core.impl.memory</B></A></TD>
 <TD>In-memory implementation of the XDI graph model.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.impl.wrapped"><B>xdi2.core.impl.wrapped</B></A></TD>
+<TD>XDI graph model implementations that wrap an in-memory XDI graph.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.impl.wrapped.classpath"><B>xdi2.core.impl.wrapped.classpath</B></A></TD>
+<TD>Classpath-based wrapped in-memory XDI graph.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.impl.wrapped.file"><B>xdi2.core.impl.wrapped.file</B></A></TD>
+<TD>File-based wrapped in-memory XDI graph.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.impl.wrapped.url"><B>xdi2.core.impl.wrapped.url</B></A></TD>
+<TD>URL-based wrapped in-memory XDI graph.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.io"><B>xdi2.core.io</B></A></TD>
@@ -247,6 +259,12 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/GraphFactory.html#xdi2.core"><B>GraphFactory</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A graph factory can construct new XDI graph implementations.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../xdi2/core/class-use/Literal.html#xdi2.core"><B>Literal</B></A></B>
@@ -452,45 +470,6 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.core.impl.file"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/impl/file/package-summary.html">xdi2.core.impl.file</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.core.impl.file"><B>ContextNode</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.core.impl.file"><B>Graph</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/GraphFactory.html#xdi2.core.impl.file"><B>GraphFactory</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A graph factory can construct new XDI graph implementations.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Literal.html#xdi2.core.impl.file"><B>Literal</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a literal in an XDI graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.core.impl.file"><B>Relation</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a relation in an XDI graph.</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
 <A NAME="xdi2.core.impl.keyvalue"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -614,6 +593,90 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 </TABLE>
 &nbsp;
 <P>
+<A NAME="xdi2.core.impl.wrapped"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/impl/wrapped/package-summary.html">xdi2.core.impl.wrapped</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.core.impl.wrapped"><B>ContextNode</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.core.impl.wrapped"><B>Graph</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/GraphFactory.html#xdi2.core.impl.wrapped"><B>GraphFactory</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A graph factory can construct new XDI graph implementations.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Literal.html#xdi2.core.impl.wrapped"><B>Literal</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a literal in an XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.core.impl.wrapped"><B>Relation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a relation in an XDI graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.impl.wrapped.classpath"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/impl/wrapped/classpath/package-summary.html">xdi2.core.impl.wrapped.classpath</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/GraphFactory.html#xdi2.core.impl.wrapped.classpath"><B>GraphFactory</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A graph factory can construct new XDI graph implementations.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.impl.wrapped.file"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/impl/wrapped/file/package-summary.html">xdi2.core.impl.wrapped.file</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/GraphFactory.html#xdi2.core.impl.wrapped.file"><B>GraphFactory</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A graph factory can construct new XDI graph implementations.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.impl.wrapped.url"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/impl/wrapped/url/package-summary.html">xdi2.core.impl.wrapped.url</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/GraphFactory.html#xdi2.core.impl.wrapped.url"><B>GraphFactory</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A graph factory can construct new XDI graph implementations.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.core.io"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -695,6 +758,24 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Statement.ContextNodeStatement.html#xdi2.core.util"><B>Statement.ContextNodeStatement</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Statement.LiteralStatement.html#xdi2.core.util"><B>Statement.LiteralStatement</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Statement.RelationStatement.html#xdi2.core.util"><B>Statement.RelationStatement</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -755,6 +836,12 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a relation in an XDI graph.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.messaging"><B>Statement</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
+</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -778,6 +865,12 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.messaging.target"><B>ContextNode</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.messaging.target"><B>Statement</B></A></B>
@@ -936,16 +1029,16 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/server/factory/impl/package-summary.html">xdi2.server.factory.impl</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.server.factory.impl"><B>ContextNode</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.server.factory.impl"><B>Graph</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/GraphFactory.html#xdi2.server.factory.impl"><B>GraphFactory</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A graph factory can construct new XDI graph implementations.</TD>
 </TR>
 </TABLE>
 &nbsp;

@@ -163,19 +163,21 @@ Various utility methods for working with XRIs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#localXri(xdi2.core.xri3.impl.XRI3Segment)">localXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#localXri(xdi2.core.xri3.impl.XRI3Segment, int)">localXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
+         int&nbsp;numSubSegments)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracts an XRI's local part.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracts an XRI's local subsegment(s).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#parentXri(xdi2.core.xri3.impl.XRI3Segment)">parentXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#parentXri(xdi2.core.xri3.impl.XRI3Segment, int)">parentXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
+          int&nbsp;numSubSegments)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracts an XRI's parent XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracts an XRI's parent subsegment(s), counting either from the start or the end.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -371,13 +373,15 @@ public static <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="cla
 </DL>
 <HR>
 
-<A NAME="parentXri(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
+<A NAME="parentXri(xdi2.core.xri3.impl.XRI3Segment, int)"><!-- --></A><H3>
 parentXri</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>parentXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>parentXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
+                                    int&nbsp;numSubSegments)</PRE>
 <DL>
-<DD>Extracts an XRI's parent XRI.
- E.g. for =a*b*c*d, this returns =a*b*c
+<DD>Extracts an XRI's parent subsegment(s), counting either from the start or the end.
+ For =a*b*c*d and 1, this returns =a
+ For =a*b*c*d and -1, this returns =a*b*c
 <P>
 <DD><DL>
 </DL>
@@ -385,13 +389,15 @@ public static <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="cla
 </DL>
 <HR>
 
-<A NAME="localXri(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
+<A NAME="localXri(xdi2.core.xri3.impl.XRI3Segment, int)"><!-- --></A><H3>
 localXri</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl">XRI3SubSegment</A> <B>localXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>localXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;xri,
+                                   int&nbsp;numSubSegments)</PRE>
 <DL>
-<DD>Extracts an XRI's local part.
- E.g. for =a*b*c*d, this returns *d
+<DD>Extracts an XRI's local subsegment(s).
+ For =a*b*c*d and 1, this returns *d
+ For =a*b*c*d and -1, this returns *b*c*d
 <P>
 <DD><DL>
 </DL>

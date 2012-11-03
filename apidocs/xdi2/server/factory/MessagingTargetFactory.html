@@ -91,7 +91,7 @@ xdi2.server.factory</FONT>
 <BR>
 Interface MessagingTargetFactory</H2>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../xdi2/server/factory/AbstractMessagingTargetFactory.html" title="class in xdi2.server.factory">AbstractMessagingTargetFactory</A>, <A HREF="../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">AnyGraphMessagingTargetFactory</A>, <A HREF="../../../xdi2/server/factory/impl/RegistryGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">RegistryGraphMessagingTargetFactory</A>, <A HREF="../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">StandardGraphMessagingTargetFactory</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../xdi2/server/factory/AbstractMessagingTargetFactory.html" title="class in xdi2.server.factory">AbstractMessagingTargetFactory</A>, <A HREF="../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">AnyGraphMessagingTargetFactory</A>, <A HREF="../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">PrototypingMessagingTargetFactory</A>, <A HREF="../../../xdi2/server/factory/impl/RegistryGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">RegistryGraphMessagingTargetFactory</A></DD>
 </DL>
 <HR>
 <DL>
@@ -208,14 +208,16 @@ mountMessagingTarget</H3>
 void <B>mountMessagingTarget</B>(<A HREF="../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath)
-                          throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
+                          throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A>,
+                                 <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD>Mount a new MessagingTarget.
 <P>
 <DD><DL>
 
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
+<DD><CODE><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE>
+<DD><CODE><A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
@@ -227,14 +229,16 @@ void <B>updateMessagingTarget</B>(<A HREF="../../../xdi2/server/registry/Endpoin
                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
                            <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)
-                           throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
+                           throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A>,
+                                  <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD>Updates a messaging target.
 <P>
 <DD><DL>
 
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE></DL>
+<DD><CODE><A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></CODE>
+<DD><CODE><A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

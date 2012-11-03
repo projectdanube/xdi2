@@ -153,10 +153,26 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createAddOperation(xdi2.core.Statement)">createAddOperation</A></B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $add operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createAddOperation(xdi2.core.xri3.impl.XRI3Segment)">createAddOperation</A></B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $add operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createDelOperation(xdi2.core.Statement)">createDelOperation</A></B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $del operation and adds it to this XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -169,6 +185,14 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createGetOperation(xdi2.core.Statement)">createGetOperation</A></B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $get operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createGetOperation(xdi2.core.xri3.impl.XRI3Segment)">createGetOperation</A></B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetXri)</CODE>
 
 <BR>
@@ -177,10 +201,27 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createModOperation(xdi2.core.Statement)">createModOperation</A></B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $mod operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createModOperation(xdi2.core.xri3.impl.XRI3Segment)">createModOperation</A></B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $mod operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createOperation(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.Statement)">createOperation</A></B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;operationXri,
+                <A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new operation and adds it to this XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -711,6 +752,24 @@ public <A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messag
 </DL>
 <HR>
 
+<A NAME="createOperation(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.Statement)"><!-- --></A><H3>
+createOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A> <B>createOperation</B>(<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;operationXri,
+                                 <A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created, empty operation, or null if the operation XRI is not valid.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="createGetOperation(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
 createGetOperation</H3>
 <PRE>
@@ -723,6 +782,23 @@ public <A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.mes
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>targetXri</CODE> - The target XRI to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $get operation.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createGetOperation(xdi2.core.Statement)"><!-- --></A><H3>
+createGetOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A> <B>createGetOperation</B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $get operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
 <DT><B>Returns:</B><DD>The newly created $get operation.</DL>
 </DD>
 </DL>
@@ -745,6 +821,23 @@ public <A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.mes
 </DL>
 <HR>
 
+<A NAME="createAddOperation(xdi2.core.Statement)"><!-- --></A><H3>
+createAddOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A> <B>createAddOperation</B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $add operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $get operation.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="createModOperation(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
 createModOperation</H3>
 <PRE>
@@ -762,6 +855,23 @@ public <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.mes
 </DL>
 <HR>
 
+<A NAME="createModOperation(xdi2.core.Statement)"><!-- --></A><H3>
+createModOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A> <B>createModOperation</B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $mod operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $mod operation.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="createDelOperation(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
 createDelOperation</H3>
 <PRE>
@@ -774,6 +884,23 @@ public <A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.mes
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>targetXri</CODE> - The target XRI to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $del operation.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createDelOperation(xdi2.core.Statement)"><!-- --></A><H3>
+createDelOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A> <B>createDelOperation</B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $del operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
 <DT><B>Returns:</B><DD>The newly created $del operation.</DL>
 </DD>
 </DL>

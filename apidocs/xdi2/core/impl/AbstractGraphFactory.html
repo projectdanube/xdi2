@@ -98,7 +98,7 @@ Class AbstractGraphFactory</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/impl/keyvalue/AbstractKeyValueGraphFactory.html" title="class in xdi2.core.impl.keyvalue">AbstractKeyValueGraphFactory</A>, <A HREF="../../../xdi2/core/impl/file/FileGraphFactory.html" title="class in xdi2.core.impl.file">FileGraphFactory</A>, <A HREF="../../../xdi2/core/impl/memory/MemoryGraphFactory.html" title="class in xdi2.core.impl.memory">MemoryGraphFactory</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/impl/keyvalue/AbstractKeyValueGraphFactory.html" title="class in xdi2.core.impl.keyvalue">AbstractKeyValueGraphFactory</A>, <A HREF="../../../xdi2/core/impl/memory/MemoryGraphFactory.html" title="class in xdi2.core.impl.memory">MemoryGraphFactory</A>, <A HREF="../../../xdi2/core/impl/wrapped/WrappedGraphFactory.html" title="class in xdi2.core.impl.wrapped">WrappedGraphFactory</A></DD>
 </DL>
 <HR>
 <DL>
@@ -137,10 +137,42 @@ Class AbstractGraphFactory</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraphFactory.html#loadGraph(java.io.File)">loadGraph</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</A>&nbsp;file)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opens a graph and fills it with content in one of the serialization formats.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraphFactory.html#loadGraph(java.io.InputStream)">loadGraph</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</A>&nbsp;inputStream)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opens a graph and fills it with content in one of the serialization formats.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraphFactory.html#loadGraph(java.io.Reader)">loadGraph</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io">Reader</A>&nbsp;reader)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opens a graph and fills it with content in one of the serialization formats.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraphFactory.html#loadGraph(java.net.URL)">loadGraph</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</A>&nbsp;url)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opens a graph and fills it with content in one of the serialization formats.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraphFactory.html#openGraph()">openGraph</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates/opens a graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opens a graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -148,7 +180,7 @@ Class AbstractGraphFactory</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraphFactory.html#parseGraph(java.lang.String)">parseGraph</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates/opens a graph and fills it with content in one of the serialization formats.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opens a graph and fills it with content in one of the serialization formats.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -157,7 +189,7 @@ Class AbstractGraphFactory</H2>
            <A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A>&nbsp;mimeType)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates/opens a graph and fills it with content in one of the serialization formats.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opens a graph and fills it with content in one of the serialization formats.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -167,7 +199,7 @@ Class AbstractGraphFactory</H2>
            <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Properties.html?is-external=true" title="class or interface in java.util">Properties</A>&nbsp;parameters)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates/opens a graph and fills it with content in one of the serialization formats.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opens a graph and fills it with content in one of the serialization formats.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -225,7 +257,7 @@ public <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Gr
                 throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/GraphFactory.html#openGraph()">GraphFactory</A></CODE></B></DD>
-<DD>Creates/opens a graph.
+<DD>Opens a graph.
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/GraphFactory.html#openGraph()">openGraph</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></DL>
@@ -239,6 +271,98 @@ public <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Gr
 </DL>
 <HR>
 
+<A NAME="loadGraph(java.net.URL)"><!-- --></A><H3>
+loadGraph</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> <B>loadGraph</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</A>&nbsp;url)
+                throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A>,
+                       <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/GraphFactory.html#loadGraph(java.net.URL)">GraphFactory</A></CODE></B></DD>
+<DD>Opens a graph and fills it with content in one of the serialization formats.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/GraphFactory.html#loadGraph(java.net.URL)">loadGraph</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>A new graph.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE>
+<DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="loadGraph(java.io.File)"><!-- --></A><H3>
+loadGraph</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> <B>loadGraph</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</A>&nbsp;file)
+                throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A>,
+                       <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/GraphFactory.html#loadGraph(java.io.File)">GraphFactory</A></CODE></B></DD>
+<DD>Opens a graph and fills it with content in one of the serialization formats.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/GraphFactory.html#loadGraph(java.io.File)">loadGraph</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>A new graph.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE>
+<DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="loadGraph(java.io.InputStream)"><!-- --></A><H3>
+loadGraph</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> <B>loadGraph</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</A>&nbsp;inputStream)
+                throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A>,
+                       <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/GraphFactory.html#loadGraph(java.io.InputStream)">GraphFactory</A></CODE></B></DD>
+<DD>Opens a graph and fills it with content in one of the serialization formats.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/GraphFactory.html#loadGraph(java.io.InputStream)">loadGraph</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>A new graph.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE>
+<DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="loadGraph(java.io.Reader)"><!-- --></A><H3>
+loadGraph</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> <B>loadGraph</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io">Reader</A>&nbsp;reader)
+                throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A>,
+                       <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/GraphFactory.html#loadGraph(java.io.Reader)">GraphFactory</A></CODE></B></DD>
+<DD>Opens a graph and fills it with content in one of the serialization formats.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/GraphFactory.html#loadGraph(java.io.Reader)">loadGraph</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>A new graph.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE>
+<DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="parseGraph(java.lang.String)"><!-- --></A><H3>
 parseGraph</H3>
 <PRE>
@@ -247,14 +371,14 @@ public <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Gr
                         <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/GraphFactory.html#parseGraph(java.lang.String)">GraphFactory</A></CODE></B></DD>
-<DD>Creates/opens a graph and fills it with content in one of the serialization formats.
+<DD>Opens a graph and fills it with content in one of the serialization formats.
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/GraphFactory.html#parseGraph(java.lang.String)">parseGraph</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>An already existing or new graph.
+<DT><B>Returns:</B><DD>A new graph.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE>
 <DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
@@ -272,14 +396,14 @@ public <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Gr
                         <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/GraphFactory.html#parseGraph(java.lang.String, java.lang.String, java.util.Properties)">GraphFactory</A></CODE></B></DD>
-<DD>Creates/opens a graph and fills it with content in one of the serialization formats.
+<DD>Opens a graph and fills it with content in one of the serialization formats.
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/GraphFactory.html#parseGraph(java.lang.String, java.lang.String, java.util.Properties)">parseGraph</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>An already existing or new graph.
+<DT><B>Returns:</B><DD>A new graph.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE>
 <DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
@@ -296,14 +420,14 @@ public <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Gr
                         <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/GraphFactory.html#parseGraph(java.lang.String, xdi2.core.io.MimeType)">GraphFactory</A></CODE></B></DD>
-<DD>Creates/opens a graph and fills it with content in one of the serialization formats.
+<DD>Opens a graph and fills it with content in one of the serialization formats.
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/GraphFactory.html#parseGraph(java.lang.String, xdi2.core.io.MimeType)">parseGraph</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>An already existing or new graph.
+<DT><B>Returns:</B><DD>A new graph.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE>
 <DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>

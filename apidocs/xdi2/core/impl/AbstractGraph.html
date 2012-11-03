@@ -98,7 +98,7 @@ Class AbstractGraph</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&gt;, <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/impl/file/FileGraph.html" title="class in xdi2.core.impl.file">FileGraph</A>, <A HREF="../../../xdi2/core/impl/keyvalue/KeyValueGraph.html" title="class in xdi2.core.impl.keyvalue">KeyValueGraph</A>, <A HREF="../../../xdi2/core/impl/memory/MemoryGraph.html" title="class in xdi2.core.impl.memory">MemoryGraph</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/impl/keyvalue/KeyValueGraph.html" title="class in xdi2.core.impl.keyvalue">KeyValueGraph</A>, <A HREF="../../../xdi2/core/impl/memory/MemoryGraph.html" title="class in xdi2.core.impl.memory">MemoryGraph</A>, <A HREF="../../../xdi2/core/impl/wrapped/WrappedGraph.html" title="class in xdi2.core.impl.wrapped">WrappedGraph</A></DD>
 </DL>
 <HR>
 <DL>
@@ -121,7 +121,9 @@ Class AbstractGraph</H2>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#AbstractGraph()">AbstractGraph</A></B>()</CODE>
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#AbstractGraph(xdi2.core.GraphFactory)">AbstractGraph</A></B>(<A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A>&nbsp;graphFactory)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -266,6 +268,14 @@ Class AbstractGraph</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#getGraphFactory()">getGraphFactory</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the graph factory that created this graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#hashCode()">hashCode</A></B>()</CODE>
 
@@ -353,10 +363,10 @@ Class AbstractGraph</H2>
 </TR>
 </TABLE>
 
-<A NAME="AbstractGraph()"><!-- --></A><H3>
+<A NAME="AbstractGraph(xdi2.core.GraphFactory)"><!-- --></A><H3>
 AbstractGraph</H3>
 <PRE>
-public <B>AbstractGraph</B>()</PRE>
+protected <B>AbstractGraph</B>(<A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A>&nbsp;graphFactory)</PRE>
 <DL>
 </DL>
 
@@ -369,6 +379,24 @@ public <B>AbstractGraph</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="getGraphFactory()"><!-- --></A><H3>
+getGraphFactory</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A> <B>getGraphFactory</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Graph.html#getGraphFactory()">Graph</A></CODE></B></DD>
+<DD>Gets the graph factory that created this graph.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Graph.html#getGraphFactory()">getGraphFactory</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The graph factory.</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="clear()"><!-- --></A><H3>
 clear</H3>

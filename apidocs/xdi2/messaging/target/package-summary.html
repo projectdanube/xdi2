@@ -102,6 +102,12 @@ Base classes for implementing XDI messaging targets.
 <TD>A MessagingTarget can process XDI messages and produce a result graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype&lt;T extends Prototype&lt;T&gt;&gt;</A></B></TD>
+<TD>This interface is used to mark messaging targets, interceptors and contributors that
+ can create an automatically configured copy of themselves, which is useful for
+ messaging target factories.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/StatementHandler.html" title="interface in xdi2.messaging.target">StatementHandler</A></B></TD>
 <TD>A StatementHandler can execute an XDI operation against a statement given in a cross-reference.</TD>
 </TR>
@@ -117,7 +123,7 @@ Base classes for implementing XDI messaging targets.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html" title="class in xdi2.messaging.target">AbstractAddressHandler</A></B></TD>
-<TD>&nbsp;</TD>
+<TD><B>Deprecated.</B></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></B></TD>
@@ -131,13 +137,16 @@ Base classes for implementing XDI messaging targets.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/AbstractStatementHandler.html" title="class in xdi2.messaging.target">AbstractStatementHandler</A></B></TD>
-<TD>Checks what kind of statement and what kind of operation is being
- executed ($add, $get, ...) and calls the appropriate executeXXX() method</TD>
+<TD><B>Deprecated.</B></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A></B></TD>
 <TD>Messaging tarets as well as contributors and interceptors can use the ExecutionContext
  to store and share state.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A></B></TD>
+<TD>&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;

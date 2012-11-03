@@ -94,7 +94,7 @@ Interface Graph</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../xdi2/core/impl/AbstractGraph.html" title="class in xdi2.core.impl">AbstractGraph</A>, <A HREF="../../xdi2/core/impl/file/FileGraph.html" title="class in xdi2.core.impl.file">FileGraph</A>, <A HREF="../../xdi2/core/impl/keyvalue/KeyValueGraph.html" title="class in xdi2.core.impl.keyvalue">KeyValueGraph</A>, <A HREF="../../xdi2/core/impl/memory/MemoryGraph.html" title="class in xdi2.core.impl.memory">MemoryGraph</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../xdi2/core/impl/AbstractGraph.html" title="class in xdi2.core.impl">AbstractGraph</A>, <A HREF="../../xdi2/core/impl/keyvalue/KeyValueGraph.html" title="class in xdi2.core.impl.keyvalue">KeyValueGraph</A>, <A HREF="../../xdi2/core/impl/memory/MemoryGraph.html" title="class in xdi2.core.impl.memory">MemoryGraph</A>, <A HREF="../../xdi2/core/impl/wrapped/WrappedGraph.html" title="class in xdi2.core.impl.wrapped">WrappedGraph</A></DD>
 </DL>
 <HR>
 <DL>
@@ -246,6 +246,14 @@ This interface represents a whole XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#getGraphFactory()">getGraphFactory</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the graph factory that created this graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/Graph.html#getRootContextNode()">getRootContextNode</A></B>()</CODE>
 
@@ -315,6 +323,23 @@ This interface represents a whole XDI graph.
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="getGraphFactory()"><!-- --></A><H3>
+getGraphFactory</H3>
+<PRE>
+<A HREF="../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A> <B>getGraphFactory</B>()</PRE>
+<DL>
+<DD>Gets the graph factory that created this graph.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The graph factory.</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="getRootContextNode()"><!-- --></A><H3>
 getRootContextNode</H3>

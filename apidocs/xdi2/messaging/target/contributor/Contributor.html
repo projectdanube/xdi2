@@ -55,7 +55,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html" title="class in xdi2.messaging.target.contributor"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/messaging/target/contributor/ContributorCall.html" title="annotation in xdi2.messaging.target.contributor"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/messaging/target/contributor/Contributor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Contributor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -114,7 +114,7 @@ Interface Contributor</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeOnAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;contributorXri,
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnAddress(xdi2.core.xri3.impl.XRI3Segment[], xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeOnAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>[]&nbsp;contributorXris,
                  <A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;relativeTargetAddress,
                  <A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
                  <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
@@ -127,7 +127,7 @@ Interface Contributor</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnStatement(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.Statement, xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeOnStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;contributorXri,
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnStatement(xdi2.core.xri3.impl.XRI3Segment[], xdi2.core.Statement, xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeOnStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>[]&nbsp;contributorXris,
                    <A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;relativeTargetStatement,
                    <A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
                    <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
@@ -151,10 +151,10 @@ Interface Contributor</H2>
 </TR>
 </TABLE>
 
-<A NAME="executeOnAddress(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeOnAddress(xdi2.core.xri3.impl.XRI3Segment[], xdi2.core.xri3.impl.XRI3Segment, xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeOnAddress</H3>
 <PRE>
-boolean <B>executeOnAddress</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;contributorXri,
+boolean <B>executeOnAddress</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>[]&nbsp;contributorXris,
                          <A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;relativeTargetAddress,
                          <A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
                          <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
@@ -165,7 +165,7 @@ boolean <B>executeOnAddress</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Seg
 <DD>Executes an XDI operation on an address.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contributorXri</CODE> - The base XRI on which the contributor is mounted.<DD><CODE>relativeAddress</CODE> - The target address relative to the contributor.<DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>operationMessageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
+<DT><B>Parameters:</B><DD><CODE>contributorXris</CODE> - The base XRIs on which the contributors are mounted.<DD><CODE>relativeAddress</CODE> - The target address relative to the contributor.<DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>operationMessageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
 <DT><B>Returns:</B><DD>True, if the operation has been fully handled and the server should stop processing it.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
@@ -173,10 +173,10 @@ boolean <B>executeOnAddress</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Seg
 </DL>
 <HR>
 
-<A NAME="executeOnStatement(xdi2.core.xri3.impl.XRI3Segment, xdi2.core.Statement, xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeOnStatement(xdi2.core.xri3.impl.XRI3Segment[], xdi2.core.Statement, xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeOnStatement</H3>
 <PRE>
-boolean <B>executeOnStatement</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;contributorXri,
+boolean <B>executeOnStatement</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>[]&nbsp;contributorXris,
                            <A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;relativeTargetStatement,
                            <A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
                            <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
@@ -187,7 +187,7 @@ boolean <B>executeOnStatement</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3S
 <DD>Executes an XDI operation on a statement.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contributorXri</CODE> - The base XRI on which the contributor is mounted.<DD><CODE>relativeTargetStatement</CODE> - The target statement relative to the contributor.<DD><CODE>targetStatement</CODE> - The target statement.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>operationMessageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
+<DT><B>Parameters:</B><DD><CODE>contributorXris</CODE> - The base XRIs on which the contributors are mounted.<DD><CODE>relativeTargetStatement</CODE> - The target statement relative to the contributor.<DD><CODE>targetStatement</CODE> - The target statement.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>operationMessageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
 <DT><B>Returns:</B><DD>True, if the operation has been fully handled and the server should stop processing it.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
@@ -225,7 +225,7 @@ boolean <B>executeOnStatement</B>(<A HREF="../../../../xdi2/core/xri3/impl/XRI3S
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html" title="class in xdi2.messaging.target.contributor"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/messaging/target/contributor/ContributorCall.html" title="annotation in xdi2.messaging.target.contributor"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/messaging/target/contributor/Contributor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Contributor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

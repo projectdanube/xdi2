@@ -89,12 +89,12 @@ function windowTitle()
 Packages that use <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.core.impl"><B>xdi2.core.impl</B></A></TD>
-<TD>&nbsp;&nbsp;</TD>
+<TD><A HREF="#xdi2.core"><B>xdi2.core</B></A></TD>
+<TD>The XDI graph model and basic operations on it.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.core.impl.file"><B>xdi2.core.impl.file</B></A></TD>
-<TD>File-based implementation of the XDI graph model.&nbsp;</TD>
+<TD><A HREF="#xdi2.core.impl"><B>xdi2.core.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.impl.keyvalue"><B>xdi2.core.impl.keyvalue</B></A></TD>
@@ -117,8 +117,45 @@ Packages that use <A HREF="../../../xdi2/core/GraphFactory.html" title="interfac
 <TD>In-memory implementation of the XDI graph model.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.server.factory.impl"><B>xdi2.server.factory.impl</B></A></TD>
-<TD>&nbsp;&nbsp;</TD>
+<TD><A HREF="#xdi2.core.impl.wrapped"><B>xdi2.core.impl.wrapped</B></A></TD>
+<TD>XDI graph model implementations that wrap an in-memory XDI graph.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.impl.wrapped.classpath"><B>xdi2.core.impl.wrapped.classpath</B></A></TD>
+<TD>Classpath-based wrapped in-memory XDI graph.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.impl.wrapped.file"><B>xdi2.core.impl.wrapped.file</B></A></TD>
+<TD>File-based wrapped in-memory XDI graph.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.impl.wrapped.url"><B>xdi2.core.impl.wrapped.url</B></A></TD>
+<TD>URL-based wrapped in-memory XDI graph.&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A> in <A HREF="../../../xdi2/core/package-summary.html">xdi2.core</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/package-summary.html">xdi2.core</A> that return <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></FONT></TD>
+<TD><CODE><B>Graph.</B><B><A HREF="../../../xdi2/core/Graph.html#getGraphFactory()">getGraphFactory</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the graph factory that created this graph.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -148,11 +185,18 @@ Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.core.impl.file"><!-- --></A>
+
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A> in <A HREF="../../../xdi2/core/impl/file/package-summary.html">xdi2.core.impl.file</A></FONT></TH>
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/impl/package-summary.html">xdi2.core.impl</A> that return <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#getGraphFactory()">getGraphFactory</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -160,15 +204,13 @@ Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../xdi2/core/impl/file/package-summary.html">xdi2.core.impl.file</A> that implement <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/core/impl/package-summary.html">xdi2.core.impl</A> with parameters of type <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/file/FileGraphFactory.html" title="class in xdi2.core.impl.file">FileGraphFactory</A></B></CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#AbstractGraph(xdi2.core.GraphFactory)">AbstractGraph</A></B>(<A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A>&nbsp;graphFactory)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GraphFactory that creates file-based graphs.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -298,11 +340,11 @@ Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.server.factory.impl"><!-- --></A>
+<A NAME="xdi2.core.impl.wrapped"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A> in <A HREF="../../../xdi2/server/factory/impl/package-summary.html">xdi2.server.factory.impl</A></FONT></TH>
+Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A> in <A HREF="../../../xdi2/core/impl/wrapped/package-summary.html">xdi2.core.impl.wrapped</A></FONT></TH>
 </TR>
 </TABLE>
 &nbsp;
@@ -310,15 +352,24 @@ Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/server/factory/impl/package-summary.html">xdi2.server.factory.impl</A> that return <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../xdi2/core/impl/wrapped/package-summary.html">xdi2.core.impl.wrapped</A> that implement <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></CODE></FONT></TD>
-<TD><CODE><B>StandardGraphMessagingTargetFactory.</B><B><A HREF="../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html#getGraphFactory()">getGraphFactory</A></B>()</CODE>
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/wrapped/WrappedGraphFactory.html" title="class in xdi2.core.impl.wrapped">WrappedGraphFactory</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GraphFactory that creates wrapped memory graphs.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.impl.wrapped.classpath"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A> in <A HREF="../../../xdi2/core/impl/wrapped/classpath/package-summary.html">xdi2.core.impl.wrapped.classpath</A></FONT></TH>
 </TR>
 </TABLE>
 &nbsp;
@@ -326,15 +377,65 @@ Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/server/factory/impl/package-summary.html">xdi2.server.factory.impl</A> with parameters of type <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../xdi2/core/impl/wrapped/classpath/package-summary.html">xdi2.core.impl.wrapped.classpath</A> that implement <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>StandardGraphMessagingTargetFactory.</B><B><A HREF="../../../xdi2/server/factory/impl/StandardGraphMessagingTargetFactory.html#setGraphFactory(xdi2.core.GraphFactory)">setGraphFactory</A></B>(<A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A>&nbsp;graphFactory)</CODE>
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/wrapped/classpath/ClasspathGraphFactory.html" title="class in xdi2.core.impl.wrapped.classpath">ClasspathGraphFactory</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GraphFactory that creates classpath-based graphs.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.impl.wrapped.file"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A> in <A HREF="../../../xdi2/core/impl/wrapped/file/package-summary.html">xdi2.core.impl.wrapped.file</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../xdi2/core/impl/wrapped/file/package-summary.html">xdi2.core.impl.wrapped.file</A> that implement <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/wrapped/file/FileGraphFactory.html" title="class in xdi2.core.impl.wrapped.file">FileGraphFactory</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GraphFactory that creates file-based graphs.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.impl.wrapped.url"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A> in <A HREF="../../../xdi2/core/impl/wrapped/url/package-summary.html">xdi2.core.impl.wrapped.url</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../xdi2/core/impl/wrapped/url/package-summary.html">xdi2.core.impl.wrapped.url</A> that implement <A HREF="../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/wrapped/url/URLGraphFactory.html" title="class in xdi2.core.impl.wrapped.url">URLGraphFactory</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GraphFactory that creates URL-based graphs.</TD>
 </TR>
 </TABLE>
 &nbsp;
