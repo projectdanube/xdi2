@@ -21,21 +21,6 @@ A sample deployment of XDI2 is available at http://xdi2.projectdanube.org.
 * [xdi2-p2p](https://github.com/peacekeeper/xdi2/wiki/xdi2-p2p) - Code for peer-to-peer XDI data exchange [.jar]
 * [xdi2-samples](https://github.com/peacekeeper/xdi2/wiki/xdi2-samples) - Various samples on how to work with the XDI2 library [.jar]
 
-### Virtual Machine and Screencast
-
-To give you a quick start into XDI2, watch the following screencast, or download a VirtualBox image with all the components.
-
-<table>
-<tr>
-<td>
-<a href="http://files.projectdanube.org/XDI2-VirtualBox.zip"><img src="http://peacekeeper.github.com/xdi2/images/virtualbox_logo.png"></a><br>
-</td>
-<td>
-<iframe src="http://player.vimeo.com/video/52763525?badge=0" width="500" height="320" frameborder="0" webkitAllowFullScreen="1" mozallowfullscreen="1" allowFullScreen="1">IFRAME</iframe> <p><a href="http://vimeo.com/52763525">XDI Personal Cloud Demo</a> from <a href="http://vimeo.com/user3934958">Markus Sabadello</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
-</td>
-</tr>
-</table>
-
 ### How to build
 
 Just run
@@ -52,6 +37,13 @@ To build all components.
 Then go to:
 
     http://localhost:8080/
+
+### Virtual Machine and Screencast
+
+To give you a quick start into XDI2, download a VirtualBox image with all the components, or watch a screencast.
+
+* <a href="http://files.projectdanube.org/XDI2-VirtualBox.zip">Download VirtualBox image</a>
+* <a href="http://vimeo.com/52763525">XDI Personal Cloud Demo</a> from <a href="http://vimeo.com/user3934958">Markus Sabadello</a> on <a href="http://vimeo.com">Vimeo</a>
 
 ### Community
 
