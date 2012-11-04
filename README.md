@@ -35,13 +35,6 @@ Then go to:
 
     http://localhost:8080/
 
-### Virtual machine and screencasts
-
-To give you a quick start into XDI2, you may download a VirtualBox image with all the components, or watch a screencast.
-
-* VirtualBox: <a href="http://files.projectdanube.org/XDI2-VirtualBox.zip">Download</a>
-* Screencast: <a href="http://vimeo.com/52763525">XDI Personal Cloud Demo</a> from <a href="http://vimeo.com/user3934958">Markus Sabadello</a> on <a href="http://vimeo.com">Vimeo</a>
-
 ### Community
 
 Google Group: http://groups.google.com/group/xdi2
@@ -51,6 +44,13 @@ Weekly Call: [XDI Implementer's Call](https://github.com/peacekeeper/xdi2/wiki/X
 Javadoc: http://peacekeeper.github.com/xdi2/apidocs
 
 Changelog: https://github.com/peacekeeper/xdi2/blob/master/CHANGELOG
+
+### Virtual machine and screencasts
+
+To give you a quick start into XDI2, you may download a VirtualBox image with all the components, or watch a screencast.
+
+* VirtualBox: <a href="http://files.projectdanube.org/XDI2-VirtualBox.zip">Download</a>
+* Screencast: <a href="http://vimeo.com/52763525">XDI Personal Cloud Demo</a> from <a href="http://vimeo.com/user3934958">Markus Sabadello</a> on <a href="http://vimeo.com">Vimeo</a>
 
 ### Plugins
 
