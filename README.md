@@ -35,7 +35,7 @@ Then go to:
 
     http://localhost:8080/
 
-### Virtual Machine and Screencast
+### Virtual machine and screencasts
 
 To give you a quick start into XDI2, download a VirtualBox image with all the components, or watch a screencast.
 
