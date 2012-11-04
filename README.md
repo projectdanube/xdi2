@@ -46,9 +46,11 @@ To give you a quick start into XDI2, download a VirtualBox image with all the co
 
 ### Community
 
-Javadoc: http://peacekeeper.github.com/xdi2/apidocs
-
 Google Group: http://groups.google.com/group/xdi2
+
+Weekly Call: [XDI Implementer's Call](https://github.com/peacekeeper/xdi2/wiki/XDI Implementer's Call)
+
+Javadoc: http://peacekeeper.github.com/xdi2/apidocs
 
 Changelog: https://github.com/peacekeeper/xdi2/blob/master/CHANGELOG
 
