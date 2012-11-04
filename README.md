@@ -37,9 +37,9 @@ Then go to:
 
 ### Community
 
-Google Group: http://groups.google.com/group/xdi2
-
 Weekly Call: [XDI Implementer's Call](https://github.com/peacekeeper/xdi2/wiki/XDI Implementer's Call)
+
+Google Group: http://groups.google.com/group/xdi2
 
 Javadoc: http://peacekeeper.github.com/xdi2/apidocs
 
