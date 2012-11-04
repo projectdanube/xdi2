@@ -6,6 +6,8 @@ VERSION 0.1-SNAPSHOT
 
 *** introducing "wrapped" graphs that come from a file, url, or classpath
 
+*** separating out "xri2xdi" component into a separate project
+
 2012-10-31:
 ------------------------
 
