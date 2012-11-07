@@ -15,6 +15,7 @@ import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.parser.ParserException;
 
 public class XDIDisplayReader extends AbstractXDIReader {
 
@@ -64,6 +65,9 @@ public class XDIDisplayReader extends AbstractXDIReader {
 			} catch (Xdi2Exception ex) {
 
 				throw new Xdi2ParseException("Problem at line " + lineNr + ": " + ex.getMessage(), ex);
+			} catch (ParserException ex) {
+
+				throw new Xdi2ParseException("XRI parser problem at line " + lineNr + ": " + ex.getMessage(), ex);
 			}
 		}
 	}
