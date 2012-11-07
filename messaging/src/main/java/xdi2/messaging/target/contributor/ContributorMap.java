@@ -214,6 +214,15 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 	public XRI3Segment findHigherContributorXri(XRI3Segment contextNodeXri) {
 
+		// try first without variables
+
+		for (XRI3Segment contributorXri : this.keySet()) {
+
+			if (XRIUtil.startsWith(contextNodeXri, contributorXri, false, false)) return contributorXri;
+		}
+
+		// now try with variables
+
 		for (XRI3Segment contributorXri : this.keySet()) {
 
 			if (XRIUtil.startsWith(contextNodeXri, contributorXri, false, true)) return contributorXri;
@@ -223,6 +232,15 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 	}
 
 	public XRI3Segment findLowerContributorXri(XRI3Segment contextNodeXri) {
+
+		// try first without variables
+
+		for (XRI3Segment contributorXri : this.keySet()) {
+
+			if (XRIUtil.startsWith(contributorXri, contextNodeXri, false, false)) return contributorXri;
+		}
+
+		// now try with variables
 
 		for (XRI3Segment contributorXri : this.keySet()) {
 

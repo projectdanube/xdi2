@@ -83,13 +83,13 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		if (! (operation instanceof AddOperation)) return targetStatement;
 
-		XRI3Segment subject = substituteSegment(targetStatement.getSubject(), executionContext);
-		XRI3Segment predicate = substituteSegment(targetStatement.getPredicate(), executionContext);
-		XRI3Segment object = substituteSegment(targetStatement.getObject(), executionContext);
+		XRI3Segment substitutedTargetSubject = substituteSegment(targetStatement.getSubject(), executionContext);
+		XRI3Segment substitutedTargetPredicate = substituteSegment(targetStatement.getPredicate(), executionContext);
+		XRI3Segment substitutedTargetObject = substituteSegment(targetStatement.getObject(), executionContext);
 
-		if (subject == targetStatement.getSubject() && predicate == targetStatement.getPredicate() && object == targetStatement.getObject()) return targetStatement;
+		if (substitutedTargetSubject == targetStatement.getSubject() && substitutedTargetPredicate == targetStatement.getPredicate() && substitutedTargetObject == targetStatement.getObject()) return targetStatement;
 
-		return StatementUtil.fromComponents(subject, predicate, object);
+		return StatementUtil.fromComponents(substitutedTargetSubject, substitutedTargetPredicate, substitutedTargetObject);
 	}
 
 	@Override
@@ -127,38 +127,38 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 	private static XRI3Segment substituteSegment(XRI3Segment segment, ExecutionContext executionContext) {
 
-		List<XRI3SubSegment> newSubSegments = null;
+		List<XRI3SubSegment> substitutedSubSegments = null;
 
 		// substitute segment
 
 		for (int i=0; i<segment.getNumSubSegments(); i++) {
 
 			XRI3SubSegment subSegment = (XRI3SubSegment) segment.getSubSegment(i);
-			XRI3SubSegment newSubSegment = substituteSubSegment(subSegment, executionContext);
+			XRI3SubSegment substitutedSubSegment = substituteSubSegment(subSegment, executionContext);
 
-			if (newSubSegment == null) continue;
+			if (substitutedSubSegment == null) continue;
 
-			if (log.isDebugEnabled()) log.debug("Substituted " + subSegment + " for " + newSubSegment);
+			if (log.isDebugEnabled()) log.debug("Substituted " + subSegment + " for " + substitutedSubSegment);
 
 			// substitute subsegment
 
-			if (newSubSegments == null) {
+			if (substitutedSubSegments == null) {
 
-				newSubSegments = new ArrayList<XRI3SubSegment> (segment.getNumSubSegments());
-				for (int ii=0; ii<segment.getNumSubSegments(); ii++) newSubSegments.add((XRI3SubSegment) segment.getSubSegment(ii));
+				substitutedSubSegments = new ArrayList<XRI3SubSegment> (segment.getNumSubSegments());
+				for (int ii=0; ii<segment.getNumSubSegments(); ii++) substitutedSubSegments.add((XRI3SubSegment) segment.getSubSegment(ii));
 			}
 
-			newSubSegments.set(i, newSubSegment);
+			substitutedSubSegments.set(i, substitutedSubSegment);
 		}
 
 		// no substitutions?
 
-		if (newSubSegments == null) return segment;
+		if (substitutedSubSegments == null) return segment;
 
 		// build new target address
 
 		StringBuilder newTargetAddress = new StringBuilder();
-		for (XRI3SubSegment subSegment : newSubSegments) newTargetAddress.append(subSegment.toString());
+		for (XRI3SubSegment subSegment : substitutedSubSegments) newTargetAddress.append(subSegment.toString());
 
 		return new XRI3Segment(newTargetAddress.toString());
 	}

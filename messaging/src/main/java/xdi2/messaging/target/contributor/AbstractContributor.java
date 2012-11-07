@@ -357,7 +357,7 @@ public abstract class AbstractContributor implements Contributor {
 		return false;
 	}
 
-	public boolean delRelation(XRI3Segment[] contributorXris, XRI3Segment relativeContextNodeXri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri,XRI3Segment contextNodeXri,  DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean delRelation(XRI3Segment[] contributorXris, XRI3Segment relativeContextNodeXri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri, XRI3Segment contextNodeXri,  DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}

@@ -1,6 +1,18 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-11-07:
+------------------------
+
+*** improved support for $is arcs ("substitution instead of expansion")
+
+2012-11-07:
+------------------------
+
+*** bugfix to contributor selection logic
+
+*** making sure source contexts of $is arcs must be empty
+
 2012-11-04:
 ------------------------
 
