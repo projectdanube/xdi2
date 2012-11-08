@@ -5,7 +5,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.impl.file.FileGraphFactory;
+import xdi2.core.impl.wrapped.file.FileGraphFactory;
 
 public class FileGraphTest extends AbstractGraphTest {
 

@@ -36,6 +36,26 @@ h1 { font-size: 1.5em; }
 	<tr><th>Startup Time:</th><td>$endpointservlet.getStartupAsString()</td></tr>
 	<tr><th>Context+Servlet Path:</th><td>$requestinfo.contextPath $requestinfo.servletPath</td></tr>
 </table>
+<table>
+<tr>
+<td>
+<p><form action="" method="post">
+	<input type="hidden" name="cmd" value="reload">
+	<input type="submit" value="reload">
+</form></p>
+</td>
+</tr>
+</table>
+<hr style="clear: both" noshade>
+<h1>Active Plugins:</h1>
+<table>
+#foreach($pluginfile in $pluginfiles)
+	<tr>
+	<th>Plugin:</th>
+    <td>$pluginfile.getAbsolutePath()</td>
+    </tr>
+#end
+</table>
 <hr style="clear: both" noshade>
 <h1>Mounted MessagingTargets:</h1>
 <table>
@@ -52,6 +72,11 @@ h1 { font-size: 1.5em; }
     	<a href="$requestinfo.contextPath$requestinfo.servletPath$messagingtargetbypath.key">
     		$requestinfo.contextPath$requestinfo.servletPath$messagingtargetbypath.key
     	</a>
+		<p><form action="" method="post">
+			<input type="hidden" name="cmd" value="unmount_messaging_target">
+			<input type="hidden" name="messagingtargetpath" value="$messagingtargetbypath.key">
+			<input type="submit" value="unmount">
+		</form></p>
     </td>
     <td valign="top">
     	$messagingtargetbypath.value.class.canonicalName
@@ -71,6 +96,23 @@ h1 { font-size: 1.5em; }
 		    		<br>[databaseName] <span style="color:gray">$messagingtargetbypath.value.graph.keyValueStore.databaseName</span>
 		    	#end
 	    	#end
+	    	#if($messagingtargetbypath.value.graph.class.canonicalName=="xdi2.core.impl.wrapped.WrappedGraph")
+	    		<br><span style="color:gray">$messagingtargetbypath.value.graph.graphWrapper.class.canonicalName</span>
+		    	#if($messagingtargetbypath.value.graph.graphWrapper.class.canonicalName=="xdi2.core.impl.wrapped.file.FileGraphWrapper")
+		    		<br>[path] <span style="color:gray">$messagingtargetbypath.value.graph.graphWrapper.path</span>
+		    	#end
+		    	#if($messagingtargetbypath.value.graph.graphWrapper.class.canonicalName=="xdi2.core.impl.wrapped.url.URLGraphWrapper")
+		    		<br>[url] <span style="color:gray">$messagingtargetbypath.value.graph.graphWrapper.url</span>
+		    	#end
+		    	#if($messagingtargetbypath.value.graph.graphWrapper.class.canonicalName=="xdi2.core.impl.wrapped.classpath.ClasspathGraphWrapper")
+		    		<br>[classpath] <span style="color:gray">$messagingtargetbypath.value.graph.graphWrapper.classpath</span>
+		    	#end
+	    	#end
+			<p><form action="" method="post">
+				<input type="hidden" name="cmd" value="edit_messaging_target">
+				<input type="hidden" name="messagingtargetpath" value="$messagingtargetbypath.key">
+				<input type="submit" value="edit">
+			</form></p>
     	#end
     	#if($messagingtargetbypath.value.class.canonicalName=="xdi2.messaging.target.impl.file.FileMessagingTarget")
     		<br>[path] <span style="color:gray">$messagingtargetbypath.value.path</span>
@@ -106,8 +148,19 @@ h1 { font-size: 1.5em; }
 	</tr>
 #foreach($messagingtargetfactorybypath in $messagingtargetfactorysbypath.entrySet())
 	<tr>
-    <td valign="top"><a href="$requestinfo.contextPath$requestinfo.servletPath$messagingtargetfactorybypath.key">$requestinfo.contextPath$requestinfo.servletPath$messagingtargetfactorybypath.key</a></td>
-    <td valign="top">$messagingtargetfactorybypath.value.class.canonicalName</td>
+    <td valign="top">
+    	<a href="$requestinfo.contextPath$requestinfo.servletPath$messagingtargetfactorybypath.key">
+    		$requestinfo.contextPath$requestinfo.servletPath$messagingtargetfactorybypath.key
+    	</a>
+		<p><form action="" method="post">
+			<input type="hidden" name="cmd" value="unmount_messaging_target_factory">
+			<input type="hidden" name="messagingtargetfactorypath" value="$messagingtargetfactorybypath.key">
+			<input type="submit" value="unmount">
+		</form></p>
+    </td>
+    <td valign="top">
+    	$messagingtargetfactorybypath.value.class.canonicalName
+    </td>
     </tr>
 #end
 </table>

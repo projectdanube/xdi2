@@ -4,8 +4,6 @@
 
 [XDI2](http://github.com/peacekeeper/xdi2) is a general purpose XDI library for Java, supporting both a traditional client/server model and distributed peer-to-peer data exchange. 
 
-It is the basis for [Project Danube](http://www.projectdanube.org/).
-
 A sample deployment of XDI2 is available at http://xdi2.projectdanube.org.
 
 ### Components
@@ -17,7 +15,6 @@ A sample deployment of XDI2 is available at http://xdi2.projectdanube.org.
 * [xdi2-server-standalone](https://github.com/peacekeeper/xdi2/wiki/xdi2-server-standalone) - The XDI server as a standalone application [.jar]
 * [xdi2-server-war](https://github.com/peacekeeper/xdi2/wiki/xdi2-server-war) - The XDI server as a web application [.war]
 * [xdi2-webtools](https://github.com/peacekeeper/xdi2/wiki/xdi2-webtools) - A collection of web-based XDI tools for testing [.war]
-* [xdi2-xri2xdi](https://github.com/peacekeeper/xdi2/wiki/xdi2-xri2xdi) - A proxy XDI discovery service based on the global XRI registry [.war]
 * [xdi2-p2p](https://github.com/peacekeeper/xdi2/wiki/xdi2-p2p) - Code for peer-to-peer XDI data exchange [.jar]
 * [xdi2-samples](https://github.com/peacekeeper/xdi2/wiki/xdi2-samples) - Various samples on how to work with the XDI2 library [.jar]
 
@@ -40,11 +37,20 @@ Then go to:
 
 ### Community
 
-Javadoc: http://peacekeeper.github.com/xdi2/apidocs
+Weekly Call: [XDI Implementer's Call](https://github.com/peacekeeper/xdi2/wiki/XDI Implementer's Call)
 
 Google Group: http://groups.google.com/group/xdi2
 
+Javadoc: http://peacekeeper.github.com/xdi2/apidocs
+
 Changelog: https://github.com/peacekeeper/xdi2/blob/master/CHANGELOG
+
+### Virtual machine and screencasts
+
+To give you a quick start into XDI2, you may download a VirtualBox image with all the components, or watch a screencast.
+
+* VirtualBox: <a href="http://files.projectdanube.org/XDI2-VirtualBox.zip">Download</a>
+* Screencast: <a href="http://vimeo.com/52763525">XDI Personal Cloud Demo</a> from <a href="http://vimeo.com/user3934958">Markus Sabadello</a> on <a href="http://vimeo.com">Vimeo</a>
 
 ### Plugins
 

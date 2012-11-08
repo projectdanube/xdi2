@@ -29,9 +29,8 @@ import xdi2.core.io.readers.AutoReader;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.ExpandDollarIsInterceptor;
+import xdi2.messaging.target.interceptor.impl.DollarIsInterceptor;
 import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
-import xdi2.messaging.target.interceptor.impl.UniqueDollarIsInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
 /**
@@ -104,8 +103,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", "on");
 		request.setAttribute("variablesSupport", "on");
-		request.setAttribute("expandDollarIsSupport", "on");
-		request.setAttribute("uniqueDollarIsSupport", "on");
+		request.setAttribute("dollarIsSupport", "on");
 		request.setAttribute("linkContractsSupport", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
@@ -120,8 +118,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String writeOrdered = request.getParameter("writeOrdered");
 		String writePretty = request.getParameter("writePretty");
 		String variablesSupport = request.getParameter("variablesSupport");
-		String expandDollarIsSupport = request.getParameter("expandDollarIsSupport");
-		String uniqueDollarIsSupport = request.getParameter("uniqueDollarIsSupport");
+		String dollarIsSupport = request.getParameter("dollarIsSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
 		String resultFormat = request.getParameter("resultFormat");
 		String input = request.getParameter("input");
@@ -169,16 +166,10 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 				messagingTarget.getInterceptors().add(variablesInterceptor);
 			}
 
-			if ("on".equals(expandDollarIsSupport)) {
+			if ("on".equals(dollarIsSupport)) {
 
-				ExpandDollarIsInterceptor expandDollarIsInterceptor = new ExpandDollarIsInterceptor();
-				messagingTarget.getInterceptors().add(expandDollarIsInterceptor);
-			}
-
-			if ("on".equals(uniqueDollarIsSupport)) {
-
-				UniqueDollarIsInterceptor uniqueDollarIsInterceptor = new UniqueDollarIsInterceptor();
-				messagingTarget.getInterceptors().add(uniqueDollarIsInterceptor);
+				DollarIsInterceptor dollarIsInterceptor = new DollarIsInterceptor();
+				messagingTarget.getInterceptors().add(dollarIsInterceptor);
 			}
 
 			if ("on".equals(linkContractsSupport)) {
@@ -246,8 +237,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("variablesSupport", variablesSupport);
-		request.setAttribute("expandDollarIsSupport", expandDollarIsSupport);
-		request.setAttribute("uniqueDollarIsSupport", uniqueDollarIsSupport);
+		request.setAttribute("dollarIsSupport", dollarIsSupport);
 		request.setAttribute("linkContractsSupport", linkContractsSupport);
 		request.setAttribute("input", input);
 		request.setAttribute("message", message);

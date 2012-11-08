@@ -13,6 +13,8 @@ public class PluginsLoader {
 
 	private static final Logger log = LoggerFactory.getLogger(PluginsLoader.class);
 
+	private static File[] files;
+
 	private PluginsLoader() { }
 
 	public static void loadPlugins(String pluginsPath) throws IOException {
@@ -25,7 +27,7 @@ public class PluginsLoader {
 			return;
 		}
 
-		File[] files = path.listFiles(new FilenameFilter() {
+		files = path.listFiles(new FilenameFilter() {
 
 			@Override
 			public boolean accept(File dir, String name) {
@@ -47,5 +49,10 @@ public class PluginsLoader {
 	public static void loadPlugins() throws IOException {
 
 		loadPlugins(DEFAULT_PLUGINS_PATH);
+	}
+
+	public static File[] getFiles() {
+
+		return files;
 	}
 }

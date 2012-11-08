@@ -29,12 +29,16 @@ public class EndpointRegistry {
 	private List<MessagingTargetFactory> messagingTargetFactorys;
 	private Map<String, MessagingTargetFactory> messagingTargetFactorysByPath;
 
+	private ApplicationContext applicationContext;
+
 	public EndpointRegistry() {
 
 		this.messagingTargets = new ArrayList<MessagingTarget> ();
 		this.messagingTargetsByPath = new HashMap<String, MessagingTarget> ();
 		this.messagingTargetFactorys = new ArrayList<MessagingTargetFactory> ();
 		this.messagingTargetFactorysByPath = new HashMap<String, MessagingTargetFactory> ();
+
+		this.applicationContext = null;
 	}
 
 	public synchronized void init(ApplicationContext applicationContext) throws Xdi2ServerException {
@@ -80,6 +84,10 @@ public class EndpointRegistry {
 			this.mountMessagingTargetFactory(path, messagingTargetFactory);
 		}
 
+		// remember application context
+
+		this.applicationContext = applicationContext;
+
 		// done
 
 		log.info("Done. " + this.messagingTargets.size() + " messaging targets and " + this.messagingTargetFactorys.size() + " messaging target factories mounted.");
@@ -100,9 +108,26 @@ public class EndpointRegistry {
 
 		tempList.clear();
 
+		// forget application context
+
+		this.applicationContext = null;
+
 		// done
 
 		log.info(size + " messaging targets were shut down.");
+	}
+
+	public synchronized void reload() throws Xdi2ServerException {
+
+		if (this.applicationContext == null) {
+
+			throw new Xdi2ServerException("Not initialized");
+		}
+
+		ApplicationContext applicationContext = this.applicationContext;
+
+		this.shutdown();
+		this.init(applicationContext);
 	}
 
 	/**
@@ -159,7 +184,7 @@ public class EndpointRegistry {
 			throw new Xdi2ServerException("Messaging target factory " + this.messagingTargetFactorysByPath.get(messagingTargetFactoryPath).getClass().getCanonicalName() + " already mounted at path " + messagingTargetFactoryPath + ".");
 		}
 
-		// mount messaging target
+		// mount messaging target factory
 
 		while (messagingTargetFactoryPath.startsWith("/")) messagingTargetFactoryPath = messagingTargetFactoryPath.substring(1);
 		if (messagingTargetFactoryPath.endsWith("/*")) messagingTargetFactoryPath = messagingTargetFactoryPath.substring(0, messagingTargetFactoryPath.length() - 2);
