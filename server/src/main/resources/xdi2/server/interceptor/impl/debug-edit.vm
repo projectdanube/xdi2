@@ -9,6 +9,10 @@ th { font-weight: bold; }
 td { margin: 5px; padding: 5px; border: 2px solid black; }
 hr { color: black; background-color: black; height: 3px; }
 h1 { font-size: 1.5em; }
+textarea.input { background-color: white; border: 3px solid black; padding: 5px; }
+textarea { background-color: white; border: 3px solid black; }
+input { background-color: white; border: 3px solid black; }
+select { background-color: white; border: 3px solid black; }
 </style>
 <title>XDI2 Graph Editor</title>
 </head>
@@ -24,26 +28,32 @@ h1 { font-size: 1.5em; }
 </tr>
 </table>
 <hr style="clear: both" noshade>
-$messagingtargetpath
+$messagingtarget.class.canonicalName at $messagingtargetpath
 <hr style="clear: both" noshade>
+#if($error)
+	<p><font color="red">$error</font></p>
+#end
 <form action="" method="post">
-	Format:
+	Format: 
 	<select name="format">
-	<option value="XDI/JSON">XDI/JSON</option>
-	<option value="XDI DISPLAY">XDI DISPLAY</option>
+	<option value="XDI/JSON" #if($format == "XDI/JSON")selected#end>XDI/JSON</option>
+	<option value="XDI DISPLAY" #if($format == "XDI DISPLAY")selected#end>XDI DISPLAY</option>
 	</select>
-	<input name="writeContexts" type="checkbox">contexts=1
-	<input name="writeOrdered" type="checkbox">ordered=1
-	<input name="writePretty" type="checkbox">pretty=1
+	<input name="writecontexts" type="checkbox" #if($writecontexts == "on")checked#end>contexts=1
+	<input name="writeordered" type="checkbox" #if($writeordered == "on")checked#end>ordered=1
+	<input name="writepretty" type="checkbox" #if($writepretty == "on")checked#end>pretty=1
 	<input type="hidden" name="cmd" value="edit_messaging_target">
 	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
 	<input type="submit" value="refresh">
 </form>
 <form action="" method="post">
-	<textarea name="graph" style="width: 100%" rows="12">$graph</textarea>
+	<textarea name="graphstring" style="width: 100%" rows="12">$graphstring</textarea>
 	<input type="hidden" name="cmd" value="save_messaging_target">
 	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
 	<input type="submit" value="save">
+</form>
+<form action="" method="post">
+	<input type="submit" value="back">
 </form>
 <hr noshade>
 See <a href="http://xdi2.projectdanube.org/">http://xdi2.projectdanube.org/</a> for more information.
