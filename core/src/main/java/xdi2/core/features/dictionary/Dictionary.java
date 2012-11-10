@@ -49,8 +49,8 @@ public class Dictionary {
 	}
 
 	/*
-	 * Methods for the canonical context node.
-	 * This is the target of a $is relation.
+	 * Methods for canonical context nodes.
+	 * This is the target of a $is / $xis relation.
 	 */
 
 	public static ContextNode getCanonicalContextNode(ContextNode contextNode) {
@@ -64,6 +64,19 @@ public class Dictionary {
 	public static void setCanonicalContextNode(ContextNode contextNode, ContextNode canonicalContextNode) {
 
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, canonicalContextNode);
+	}
+
+	public static ContextNode getPrivateCanonicalContextNode(ContextNode contextNode) {
+
+		Relation relation = contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_BANG);
+		if (relation == null) return null;
+
+		return relation.follow();
+	}
+
+	public static void setPrivateCanonicalContextNode(ContextNode contextNode, ContextNode canonicalContextNode) {
+
+		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_BANG, canonicalContextNode);
 	}
 
 	/*

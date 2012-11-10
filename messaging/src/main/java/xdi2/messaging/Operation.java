@@ -6,6 +6,7 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.util.StatementUtil;
+import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XRI3Segment;
 
 /**
@@ -121,6 +122,15 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	public XRI3Segment getOperationXri() {
 
 		return this.getRelation().getArcXri();
+	}
+
+	/**
+	 * Returns the operation extension XRI of the operation.
+	 * @return The operation extension XRI of the operation.
+	 */
+	public XRI3Segment getOperationExtensionXri() {
+
+		return XRIUtil.localXri(this.getOperationXri(), -1);
 	}
 
 	/**

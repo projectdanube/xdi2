@@ -1,6 +1,12 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-11-10:
+
+*** experimental implementation of $is!, $get*, $get!
+
+*** adding XDITestLocalMessenger
+
 2012-11-07:
 ------------------------
 
