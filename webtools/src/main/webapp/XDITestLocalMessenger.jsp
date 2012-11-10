@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,9 +13,6 @@
 	<div class="header">
 	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI (Test) Local Messenger</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDITestLocalMessenger?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
-	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
 
@@ -24,17 +22,24 @@
 
 	<% } %>
 
-	<p style="color: red">This is a "testing" version of the regular XDI Local Messenger tool, designed to try out various proposed or experimental features.</p>
+	<p style="color: #540dd8">– – – This is a "testing" version of the regular XDI Local Messenger tool, designed to try out various proposed or experimental features.</p>
 
 	<form action="XDITestLocalMessenger" method="post">
 
 		<table width="100%" cellspacing="0" cellpadding="0" border="0">
 		<tr>
-		<td width="50%" style="padding-right: 10px">
+		<td width="40%" style="padding-right: 10px">
 			<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 		</td>
-		<td width="50%" style="padding-left: 10px">
-			<textarea class="input" name="message" style="width: 100%" rows="12"><%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %></textarea><br>
+		<td width="30%" style="padding-left: 10px">
+			<% for (int i=0; i<((List<String>) request.getAttribute("sampleMessages")).size()/2; i++) { %>
+				<p><input type="radio" name="message" <%= Integer.toString(i).equals(request.getAttribute("message")) ? "checked" : "" %> value="<%= i %>"><%= ((List<String>) request.getAttribute("sampleMessages")).get(i) %></input></p>
+			<% } %>
+		</td>
+		<td width="30%" style="padding-left: 10px">
+			<% for (int i=((List<String>) request.getAttribute("sampleMessages")).size()/2; i<((List<String>) request.getAttribute("sampleMessages")).size(); i++) { %>
+				<p><input type="radio" name="message" <%= Integer.toString(i).equals(request.getAttribute("message")) ? "checked" : "" %> value="<%= i %>"><%= ((List<String>) request.getAttribute("sampleMessages")).get(i) %></input></p>
+			<% } %>
 		</td>
 		</tr>
 		</table>

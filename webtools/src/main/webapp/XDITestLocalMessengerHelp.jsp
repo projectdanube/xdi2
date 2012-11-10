@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>XDI Test Local Messenger - Help</title>
+<title>XDI (Test) Local Messenger - Help</title>
 <script type="text/javascript" src="tabber.js"></script>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body style="background-image: url('images/back.png'); background-repeat: repeat-y; margin-left: 60px;">
 
 	<div class="header">
-	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Test Local Messenger</span>
+	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI (Test) Local Messenger</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDITestLocalMessenger">Back...</a>
 	</div>
 

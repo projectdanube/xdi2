@@ -26,6 +26,7 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
+import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -44,7 +45,7 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 	private static Logger log = LoggerFactory.getLogger(XDITestLocalMessenger.class);
 
 	private static MemoryGraphFactory graphFactory;
-	private static List<String> sampleInputs;
+	private static String sampleInput;
 	private static List<String> sampleMessages;
 
 	static {
@@ -52,23 +53,41 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 		graphFactory = MemoryGraphFactory.getInstance();
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
 
-		sampleInputs = new ArrayList<String> ();
+		InputStream inputStream = XDITestLocalMessenger.class.getResourceAsStream("graph.xdi");
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+		try {
+
+			int i;
+
+			while ((i = inputStream.read()) != -1) outputStream.write(i);
+			sampleInput = new String(outputStream.toByteArray());
+		} catch (Exception ex) {
+
+		} finally {
+
+			try {
+
+				inputStream.close();
+				outputStream.close();
+			} catch (Exception ex) {
+
+			}
+		}
+
 		sampleMessages = new ArrayList<String> ();
 
 		while (true) {
 
-			InputStream inputStream1 = XDITestLocalMessenger.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
-			InputStream inputStream2 = XDITestLocalMessenger.class.getResourceAsStream("message" + (sampleMessages.size() + 1) + ".xdi");
-			ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
-			ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
-			int i;
+			inputStream = XDITestLocalMessenger.class.getResourceAsStream("message" + (sampleMessages.size() + 1) + ".xdi");
+			outputStream = new ByteArrayOutputStream();
 
 			try {
 
-				while ((i = inputStream1.read()) != -1) outputStream1.write(i);
-				while ((i = inputStream2.read()) != -1) outputStream2.write(i);
-				sampleInputs.add(new String(outputStream1.toByteArray()));
-				sampleMessages.add(new String(outputStream2.toByteArray()));
+				int i;
+
+				while ((i = inputStream.read()) != -1) outputStream.write(i);
+				sampleMessages.add(new String(outputStream.toByteArray()));
 			} catch (Exception ex) {
 
 				break;
@@ -76,10 +95,8 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 
 				try {
 
-					inputStream1.close();
-					inputStream2.close();
-					outputStream1.close();
-					outputStream2.close();
+					inputStream.close();
+					outputStream.close();
 				} catch (Exception ex) {
 
 				}
@@ -99,15 +116,16 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
+		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
-		request.setAttribute("writePretty", "on");
+		request.setAttribute("writePretty", null);
 		request.setAttribute("variablesSupport", "on");
 		request.setAttribute("dollarIsSupport", "on");
 		request.setAttribute("linkContractsSupport", null);
-		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
-		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
-		request.setAttribute("message", sampleMessages.get(Integer.parseInt(sample) - 1));
+		request.setAttribute("input", sampleInput);
+		request.setAttribute("sampleMessages", sampleMessages);
+		request.setAttribute("message", "0");
 		request.getRequestDispatcher("/XDITestLocalMessenger.jsp").forward(request, response);
 	}
 
@@ -153,7 +171,7 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 
 			messageEnvelope = new MessageEnvelope();
 
-			xdiReader.read(messageEnvelope.getGraph(), new StringReader(message));
+			xdiReader.read(messageEnvelope.getGraph(), new StringReader(sampleMessages.get(Integer.parseInt(message))));
 
 			// prepare the messaging target
 
@@ -231,7 +249,7 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 
 		// display results
 
-		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("sampleMessages", sampleMessages);
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
