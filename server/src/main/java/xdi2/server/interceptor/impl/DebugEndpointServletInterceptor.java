@@ -25,6 +25,7 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.plugins.PluginsLoader;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -98,10 +99,10 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 
 			if (format == null) {
 
-				format = XDIWriterRegistry.getDefault().getFormat();
+				format = XDIDisplayWriter.FORMAT_NAME;
 				writecontexts = null;
 				writeordered = "on";
-				writepretty = "on";
+				writepretty = null;
 			}
 
 			Properties xdiWriterParameters = new Properties();
