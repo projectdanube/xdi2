@@ -26,6 +26,7 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
+import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -99,9 +100,10 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
+		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
-		request.setAttribute("writePretty", "on");
+		request.setAttribute("writePretty", null);
 		request.setAttribute("variablesSupport", "on");
 		request.setAttribute("dollarIsSupport", "on");
 		request.setAttribute("linkContractsSupport", null);
@@ -114,13 +116,13 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String resultFormat = request.getParameter("resultFormat");
 		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
 		String writePretty = request.getParameter("writePretty");
 		String variablesSupport = request.getParameter("variablesSupport");
 		String dollarIsSupport = request.getParameter("dollarIsSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
-		String resultFormat = request.getParameter("resultFormat");
 		String input = request.getParameter("input");
 		String message = request.getParameter("message");
 		String output = "";

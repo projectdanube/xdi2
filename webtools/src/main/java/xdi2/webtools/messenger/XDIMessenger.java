@@ -25,6 +25,7 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 
@@ -83,9 +84,10 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
+		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
-		request.setAttribute("writePretty", "on");
+		request.setAttribute("writePretty", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("endpoint", request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")) + sampleEndpoint);

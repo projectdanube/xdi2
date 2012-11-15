@@ -81,7 +81,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 			if (substitutedContextNode == null) continue;
 
 			boolean doBackSubstitution = XDIDictionaryConstants.XRI_S_IS_BANG.equals(arcXri) || (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
-			boolean doRecordSubstitution = (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && GetOperation.XRI_EXTENSION_STAR.equals(operation.getOperationExtensionXri()));
+			boolean doRecordSubstitution = (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && ! GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
 
 			// back-substitution?
 
@@ -143,7 +143,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 		while (true) { 
 
 			tempTargetAddress = substitutedTargetAddress;
-			substitutedTargetAddress = substituteExistingCanonicalArcs(tempTargetAddress, graph, operation, executionContext);
+			substitutedTargetAddress = substituteCanonicalArcs(tempTargetAddress, graph, operation, executionContext);
 
 			if (substitutedTargetAddress == tempTargetAddress) break;
 
@@ -175,7 +175,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 						XDIDictionaryConstants.XRI_S_IS.equals(((RelationStatement) targetStatement).getPredicate()) ||
 						XDIDictionaryConstants.XRI_S_IS_BANG.equals(((RelationStatement) targetStatement).getPredicate()))) {
 
-			// are we adding a $is arc or $xis arc to a non-empty context?
+			// are we adding a $is arc or $is! arc to a non-empty context?
 
 			if (operation instanceof AddOperation) {
 
@@ -186,7 +186,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 				if (targetContextNode != null && ! targetContextNode.isEmpty()) {
 
-					throw new Xdi2MessagingException("Cannot add canonical $is relation to non-empty context node " + targetContextNode.getXri(), null, executionContext);
+					throw new Xdi2MessagingException("Cannot add canonical $is or $is! relation to non-empty context node " + targetContextNode.getXri(), null, executionContext);
 				}
 			}
 		} else {
@@ -201,7 +201,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 			while (true) {
 
 				tempTargetSubject = substitutedTargetSubject;
-				substitutedTargetSubject = substituteExistingCanonicalArcs(tempTargetSubject, graph, operation, executionContext);
+				substitutedTargetSubject = substituteCanonicalArcs(tempTargetSubject, graph, operation, executionContext);
 
 				if (substitutedTargetSubject == tempTargetSubject) break;
 
@@ -219,7 +219,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 		return targetStatement;
 	}
 
-	private static XRI3Segment substituteExistingCanonicalArcs(XRI3Segment contextNodeXri, Graph graph, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static XRI3Segment substituteCanonicalArcs(XRI3Segment contextNodeXri, Graph graph, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		String localPart = "";
 
@@ -231,9 +231,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 			ContextNode canonicalContextNode = contextNode == null ? null : Dictionary.getCanonicalContextNode(contextNode);
 			ContextNode privateCanonicalContextNode = contextNode == null ? null : Dictionary.getPrivateCanonicalContextNode(contextNode);
 
-			if (canonicalContextNode != null && 
-					(GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()) ||
-							GetOperation.XRI_EXTENSION_STAR.equals(operation.getOperationExtensionXri()))) {
+			if (canonicalContextNode != null) {
 
 				if (canonicalContextNode.equals(contextNode)) break;
 

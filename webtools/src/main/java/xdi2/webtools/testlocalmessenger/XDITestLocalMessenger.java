@@ -132,13 +132,13 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String resultFormat = request.getParameter("resultFormat");
 		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
 		String writePretty = request.getParameter("writePretty");
 		String variablesSupport = request.getParameter("variablesSupport");
 		String dollarIsSupport = request.getParameter("dollarIsSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
-		String resultFormat = request.getParameter("resultFormat");
 		String input = request.getParameter("input");
 		String message = request.getParameter("message");
 		String output = "";
