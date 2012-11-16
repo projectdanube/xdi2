@@ -55,7 +55,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 			String key = (String) keys.next();
 			JSONArray value = graphObject.getJSONArray(key);
 
-			if (key.endsWith(XDIConstants.XRI_S_CONTEXT.toString())) {
+			if (key.endsWith("/" + XDIConstants.XRI_S_CONTEXT.toString())) {
 
 				Statement statement = makeStatement(key + "/($)", state);
 				ContextNode contextNode = graph.findContextNode(statement.getSubject(), true);
@@ -77,7 +77,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 						if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
 					}
 				}
-			} else if (key.endsWith(XDIConstants.XRI_S_LITERAL.toString())) {
+			} else if (key.endsWith("/" + XDIConstants.XRI_S_LITERAL.toString())) {
 
 				Statement statement = makeStatement(key + "/(data:,)", state);
 				ContextNode contextNode = graph.findContextNode(statement.getSubject(), true);
