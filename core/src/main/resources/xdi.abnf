@@ -20,8 +20,6 @@
 #    has been replaced with the three rules xref-empty, xref-xri-reference and xref-IRI.
 # 6) Java regular expressions only support the BMP of unicode. the "ucschar" and "iprivate"
 #    rules have been adjusted accordingly.
-# 7) The rules global-subseg and local-subseg have been commented out from the XRI rules, because
-#    they are also defined in the XDI rules.
 #
 # =markus 11-16-2012
 #
@@ -37,11 +35,14 @@ xdi-subject = xdi-segment ;
 xdi-predicate = xdi-segment ;
 xdi-object = xdi-segment ;
 xdi-segment = ( literal / xdi-subseg ) *xdi-subseg ;
-xdi-subseg = global-subseg / local-subseg / xdi-xref ;
-global-subseg = gcs-char [ local-subseg / xdi-xref / literal ] ;
-local-subseg = lcs-char [ xdi-xref / literal ] ;
-xdi-xref = "(" [ xdi-xref-value ] ")" ;
-xdi-xref-value = xdi-address / iri ;
+xdi-subseg = xdi-global-subseg / xdi-local-subseg / xdi-xref ;
+xdi-global-subseg = gcs-char [ xdi-local-subseg / xdi-xref / literal ] ;
+xdi-local-subseg = lcs-char [ xdi-xref / literal ] ;
+xdi-xref = xdi-xref-empty / xdi-xref-address / xdi-xref-IRI;
+xdi-xref-empty = "()" ;
+xdi-xref-address = "(" xdi-address ")" ;
+xdi-xref-IRI = "(" IRI ")" ;
+
 
 #
 # XRI rules
@@ -59,8 +60,8 @@ xri-authority     = global-subseg *subseg ;
 subseg            = global-subseg
                   / local-subseg
                   / xref ;
-# global-subseg     = gcs-char [ local-subseg / xref / literal ] ;
-# local-subseg      = lcs-char [ xref / literal ] ;
+global-subseg     = gcs-char [ local-subseg / xref / literal ] ;
+local-subseg      = lcs-char [ xref / literal ] ;
 gcs-char          = "=" / "@" / "+" / "$" ;
 lcs-char          = "*" / "!" ;
 literal           = 1*xri-pchar ;

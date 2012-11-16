@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Oct 19 08:29:48 CEST 2012
+ * Produced : Fri Nov 16 11:30:08 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -14,6 +14,76 @@ import java.util.ArrayList;
 
 public class Displayer implements Visitor
 {
+
+  public Object visit(Rule$xdi_address rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_node rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_statement rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_subject rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_predicate rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_object rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_segment rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_subseg rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_global_subseg rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_local_subseg rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_xref rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_xref_empty rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_xref_address rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule$xdi_xref_IRI rule)
+  {
+    return visitRules(rule.rules);
+  }
 
   public Object visit(Rule$xri rule)
   {

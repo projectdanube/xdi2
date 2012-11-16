@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Oct 19 08:29:48 CEST 2012
+ * Produced : Fri Nov 16 11:30:08 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -15,6 +15,174 @@ import java.util.ArrayList;
 public class XmlDisplayer implements Visitor
 {
   private boolean terminal = true;
+
+  public Object visit(Rule$xdi_address rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-address>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-address>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_node rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-node>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-node>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_statement rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-statement>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-statement>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_subject rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-subject>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-subject>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_predicate rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-predicate>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-predicate>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_object rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-object>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-object>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_segment rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-segment>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-segment>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_subseg rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-subseg>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-subseg>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_global_subseg rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-global-subseg>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-global-subseg>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_local_subseg rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-local-subseg>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-local-subseg>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_xref rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-xref>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-xref>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_xref_empty rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-xref-empty>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-xref-empty>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_xref_address rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-xref-address>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-xref-address>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_xref_IRI rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-xref-IRI>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-xref-IRI>");
+    terminal = false;
+    return null;
+  }
 
   public Object visit(Rule$xri rule)
   {
