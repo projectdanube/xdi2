@@ -147,7 +147,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	public void setSenderAuthority(XDI3Segment senderAuthority) {
 
 		ContextNode senderAuthorityContextNode = this.getMessageEnvelope().getGraph().findContextNode(senderAuthority, true);
-		
+
 		senderAuthorityContextNode.createRelation(XDIMessagingConstants.XRI_S_FROM_GRAPH, this.getContextNode());
 	}
 

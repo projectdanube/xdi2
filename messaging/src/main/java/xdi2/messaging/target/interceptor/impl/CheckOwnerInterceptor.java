@@ -3,6 +3,9 @@ package xdi2.messaging.target.interceptor.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
@@ -45,7 +48,10 @@ public class CheckOwnerInterceptor extends AbstractInterceptor implements Messag
 		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 		XDI3Segment recipientAuthority = message.getRecipientAuthority();
 
-		log.debug("ownerAuthority=" + ownerAuthority + ", recipientAuthority=" + recipientAuthority);
+		Graph g = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyContextNode(message.getContextNode(), g, null);
+
+		if (log.isDebugEnabled()) log.debug("ownerAuthority=" + ownerAuthority + ", recipientAuthority=" + recipientAuthority);
 
 		if (recipientAuthority == null) throw new Xdi2MessagingException("No recipient authority found in message.", null, null);
 
