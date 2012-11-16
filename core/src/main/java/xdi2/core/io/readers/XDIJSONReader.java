@@ -79,7 +79,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 				}
 			} else if (key.endsWith("/" + XDIConstants.XRI_S_LITERAL.toString())) {
 
-				Statement statement = makeStatement(key + "/(data:,)", state);
+				Statement statement = makeStatement(key + "/($)", state);
 				ContextNode contextNode = graph.findContextNode(statement.getSubject(), true);
 
 				// add literal
