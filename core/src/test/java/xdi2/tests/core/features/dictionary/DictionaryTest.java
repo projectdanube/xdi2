@@ -12,6 +12,49 @@ import xdi2.core.xri3.impl.XDI3SubSegment;
 
 public class DictionaryTest extends TestCase {
 
+	public void testXRIs() throws Exception {
+
+		assertEquals(Dictionary.instanceXriToDictionaryXri(new XDI3SubSegment("+friend")), new XDI3SubSegment("+(+friend)"));
+		assertEquals(Dictionary.dictionaryXriToInstanceXri(new XDI3SubSegment("+(+friend)")), new XDI3SubSegment("+friend"));
+		assertEquals(Dictionary.nativeIdentifierToInstanceXri("user_name"), new XDI3SubSegment("+(user_name)"));
+		assertEquals(Dictionary.instanceXriToNativeIdentifier(new XDI3SubSegment("+(user_name)")), "user_name");
+	}
+
+	public void testCanonical() throws Exception {
+
+		Graph graph = MemoryGraphFactory.getInstance().openGraph();
+		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=markus"));
+		ContextNode canonicalContextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=!1111"));
+		ContextNode privateCanonicalContextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=!2222"));
+
+		// test $is
+
+		Dictionary.setCanonicalContextNode(contextNode, canonicalContextNode);
+
+		assertEquals(Dictionary.getCanonicalContextNode(contextNode), canonicalContextNode);
+		assertNull(Dictionary.getPrivateCanonicalContextNode(contextNode));
+
+		assertEquals(Dictionary.getSynonymContextNodes(canonicalContextNode).next(), contextNode);
+		
+		Dictionary.getCanonicalContextNode(contextNode).delete();
+
+		// test $is!
+
+		Dictionary.setPrivateCanonicalContextNode(contextNode, privateCanonicalContextNode);
+
+		assertEquals(Dictionary.getPrivateCanonicalContextNode(contextNode), privateCanonicalContextNode);
+		assertNull(Dictionary.getCanonicalContextNode(contextNode));
+
+		assertEquals(Dictionary.getSynonymContextNodes(privateCanonicalContextNode).next(), contextNode);
+
+		Dictionary.getPrivateCanonicalContextNode(contextNode).delete();
+
+		// done
+
+		contextNode.delete();
+		assertTrue(graph.isEmpty());
+	}
+
 	public void testTypes() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();

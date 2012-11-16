@@ -26,6 +26,7 @@ public class XDI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 
 	private Rule rule;
 
+	private String value;
 	private XDI3Segment node;
 	private XDI3Statement statement;
 	private String iri;
@@ -44,6 +45,7 @@ public class XDI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 
 	private void reset() {
 
+		this.value = null;
 		this.node = null;
 		this.statement = null;
 		this.iri = null;
@@ -84,19 +86,20 @@ public class XDI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 			List list_xdi_xref_address = ((Rule$xdi_xref_address) object).rules;
 			if (list_xdi_xref_address.size() < 2) return;
 			object = list_xdi_xref_address.get(1);	// xdi_address
+			this.value = ((Rule$xdi_address) object).spelling;
 
 			// read xdi_node or xdi_statement from xdi_address
 
 			List list_xdi_address = ((Rule$xdi_address) object).rules;
 			if (list_xdi_address.size() < 1) return;
 			object = list_xdi_address.get(0);	// xdi_node or xdi_statement
-			
+
 			// xdi_node or xdi_statement ?
 
 			if (object instanceof Rule$xdi_node) {
 
 				// read xdi_segment from xdi_node
-				
+
 				List list_xdi_node = ((Rule$xdi_node) object).rules;
 				if (list_xdi_node.size() < 1) return;
 				object = list_xdi_node.get(0);	// xdi_segment
@@ -112,6 +115,7 @@ public class XDI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 			List list_xdi_xref_IRI = ((Rule$xdi_xref_IRI) object).rules;
 			if (list_xdi_xref_IRI.size() < 2) return;
 			object = list_xdi_xref_IRI.get(1);	// IRI
+			this.value = ((Rule$IRI) object).spelling;
 			this.iri = ((Rule$IRI) object).spelling;
 		} else {
 
@@ -147,6 +151,11 @@ public class XDI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 	public XRIReference getXRIReference() {
 
 		return(null);
+	}
+
+	public String getValue() {
+
+		return(this.value);
 	}
 
 	public XDI3Segment getNode() {

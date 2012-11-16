@@ -1,16 +1,19 @@
 package xdi2.core.features.dictionary;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
-import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.impl.XRI3Constants;
 
 public class Dictionary {
 
@@ -30,9 +33,8 @@ public class Dictionary {
 		if (! XRI3Constants.GCS_PLUS.equals(dictionaryXri.getGCS())) return null;
 		if (dictionaryXri.hasLCS()) return null;
 		if (! dictionaryXri.hasXRef()) return null;
-		if (! dictionaryXri.getXRef().hasXRIReference()) return null;
 
-		return new XDI3SubSegment("" + dictionaryXri.getXRef().getXRIReference());
+		return new XDI3SubSegment(dictionaryXri.getXRef().getValue());
 	}
 
 	public static XDI3SubSegment nativeIdentifierToInstanceXri(String nativeIdentifier) {
@@ -43,14 +45,13 @@ public class Dictionary {
 	public static String instanceXriToNativeIdentifier(XDI3SubSegment instanceXri) {
 
 		if (! instanceXri.hasXRef()) return null;
-		if (! instanceXri.getXRef().hasXRIReference()) return null;
 
-		return instanceXri.getXRef().getXRIReference().toString();
+		return instanceXri.getXRef().getValue();
 	}
 
 	/*
 	 * Methods for canonical context nodes.
-	 * This is the target of a $is / $xis relation.
+	 * This is the target of a $is / $is! relation.
 	 */
 
 	public static ContextNode getCanonicalContextNode(ContextNode contextNode) {
@@ -84,11 +85,13 @@ public class Dictionary {
 	 * These are the sources of incoming $is relations.
 	 */
 
+	@SuppressWarnings("unchecked")
 	public static Iterator<ContextNode> getSynonymContextNodes(ContextNode contextNode) {
 
-		Iterator<Relation> relations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS);
+		Iterator<Relation> canonicalRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS);
+		Iterator<Relation> privateCanonicalRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS_BANG);
 
-		return new MappingRelationContextNodeIterator(relations);
+		return new MappingRelationContextNodeIterator(new CompositeIterator<Relation>(canonicalRelations, privateCanonicalRelations));
 	}
 
 	/*
