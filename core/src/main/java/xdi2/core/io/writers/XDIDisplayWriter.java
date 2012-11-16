@@ -69,7 +69,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			this.prettyPrint = false;
 		}
 
-		log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeOrdered=" + this.writeOrdered + ", writeHtml=" + this.writeHtml + ", prettyPrint=" + this.prettyPrint);
+		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeOrdered=" + this.writeOrdered + ", writeHtml=" + this.writeHtml + ", prettyPrint=" + this.prettyPrint);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {

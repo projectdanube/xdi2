@@ -66,7 +66,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 			this.prettyIndent = Integer.parseInt(XDIWriterRegistry.DEFAULT_PRETTY);
 		}
 
-		log.debug("Parameters: writeContexts=" + this.writeContexts + ", prettyIndent=" + this.prettyIndent);
+		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", prettyIndent=" + this.prettyIndent);
 	}
 
 	private void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, State state) throws IOException {
