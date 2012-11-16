@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.xri3.impl.parser.Parser;
+import xdi2.core.xri3.impl.parser.ParserRules;
 import xdi2.core.xri3.impl.parser.Rule;
 import xdi2.core.xri3.impl.parser.TreeDisplayer;
 
@@ -64,7 +65,8 @@ public class XRIParser extends javax.servlet.http.HttpServlet implements javax.s
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
-		request.setAttribute("rulename", "xri-reference");
+		request.setAttribute("rules", ParserRules.rules);
+		request.setAttribute("rulename", "xdi-statement");
 		request.setAttribute("input", sampleInput);
 		request.getRequestDispatcher("/XRIParser.jsp").forward(request, response);
 	}
@@ -94,6 +96,7 @@ public class XRIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 		// display results
 
+		request.setAttribute("rules", ParserRules.rules);
 		request.setAttribute("rulename", rulename);
 		request.setAttribute("input", input);
 		request.setAttribute("output", output);

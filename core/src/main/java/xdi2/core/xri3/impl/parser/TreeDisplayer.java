@@ -488,7 +488,7 @@ public class TreeDisplayer implements Visitor
   {
     for (Rule innerrule : rules) {
       for (int i=0; i<indent*2; i++) stream.print(' ');
-      stream.println(innerrule.getClass().getSimpleName());
+      stream.println(ParserRules.ruleNameForClass(innerrule.getClass()));
       indent++;
       innerrule.accept(this);
       indent--;

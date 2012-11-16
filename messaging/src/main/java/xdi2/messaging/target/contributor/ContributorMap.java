@@ -168,7 +168,7 @@ public class ContributorMap extends TreeMap<XDI3Segment, List<Contributor>> impl
 		if (nextContributorXri == null) return false;
 
 		Statement nextRelativeTargetStatement = StatementUtil.relativeStatement(relativeTargetStatement, nextContributorXri, false, true);
-		XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement.getContextNodeXri();
+		XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement == null ? null : nextRelativeTargetStatement.getContextNodeXri();
 
 		XDI3Segment[] nextContributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
 		nextContributorXris[nextContributorXris.length - 1] = nextRelativeContextNodeXri == null ? relativeContextNodeXri : XRIUtil.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());

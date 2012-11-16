@@ -115,5 +115,7 @@ public class StatementUtilTest extends TestCase {
 		assertTrue(relativeLiteralStatement.getSubject().equals(new XDI3Segment("+name")));
 		assertTrue(relativeLiteralStatement.getPredicate().equals(new XDI3Segment("!")));
 		assertTrue(relativeLiteralStatement.getObject().equals(new XDI3Segment("(data:,Markus%20Sabadello)")));
+
+		assertNull(StatementUtil.relativeStatement(relativeLiteralStatement, new XDI3Segment("($)"), false, true));
 	}
 }

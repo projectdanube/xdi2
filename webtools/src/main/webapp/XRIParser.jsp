@@ -17,14 +17,21 @@
 
 	<% if (request.getAttribute("error") != null) { %>
 			
-		<p><font color="red"><%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %></font></p>
+		<p style="font-family: monospace; white-space: pre; color: red;"><%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %></p>
 
 	<% } %>
 
 	<form action="XRIParser" method="post">
 
-		ABNF Rule: (e.g. xri, xri-reference, xri-segment, subseg, xref, ...): <input type="text" class="input" name="rulename" style="width: 200px" value="<%= request.getAttribute("rulename") != null ? request.getAttribute("rulename") : "" %>"><br>
-		String: <input type="text" class="input" name="input" style="width: 500px" value="<%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %>">
+		Parse ABNF:
+		<select name="rulename" style="width: 200px">
+		
+		<% for (String rule : (String[]) request.getAttribute("rules")) { %>
+			<option class="input" name="rulename" value="<%= rule %>" <%= rule.equals(request.getAttribute("rulename")) ? "selected" : "" %>><%= rule %></option>
+		<% } %>
+		</select>
+		&nbsp;
+		<input type="text" class="input" name="input" style="width: 500px" value="<%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %>">
 
 		<input type="submit" value="Go!">
 

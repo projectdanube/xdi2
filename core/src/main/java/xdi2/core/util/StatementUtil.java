@@ -136,6 +136,8 @@ public final class StatementUtil {
 		XDI3Segment predicate = statement.getPredicate();
 		XDI3Segment object = statement.getObject();
 
+		if (subject == null) return null;
+
 		return fromComponents(subject, predicate, object);
 	}
 
