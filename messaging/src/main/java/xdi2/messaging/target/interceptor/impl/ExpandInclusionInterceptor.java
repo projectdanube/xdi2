@@ -13,7 +13,7 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.remoteroots.RemoteRoots;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -83,7 +83,7 @@ public class ExpandInclusionInterceptor extends AbstractInterceptor implements M
 
 		if (operation instanceof GetOperation) {
 
-			XRI3Segment targetAddress = operation.getTargetAddress();
+			XDI3Segment targetAddress = operation.getTargetAddress();
 
 			if (targetAddress != null) {
 
@@ -111,7 +111,7 @@ public class ExpandInclusionInterceptor extends AbstractInterceptor implements M
 
 			if (relation.getArcXri().equals(XDIConstants.XRI_S_INCLUSION)) {
 
-				XRI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
+				XDI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
 
 				if (isExpandedAddress(executionContext, targetContextNodeXri)) {
 
@@ -150,23 +150,23 @@ public class ExpandInclusionInterceptor extends AbstractInterceptor implements M
 	private static final String EXECUTIONCONTEXT_KEY_EXPANDEDADDRESSES_PER_MESSAGEENVELOPE = ExpandInclusionInterceptor.class.getCanonicalName() + "#expandedaddressespermessageenvelope";
 
 	@SuppressWarnings("unchecked")
-	private static Set<XRI3Segment> getExpandedAddresses(ExecutionContext executionContext) {
+	private static Set<XDI3Segment> getExpandedAddresses(ExecutionContext executionContext) {
 
-		return (Set<XRI3Segment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EXPANDEDADDRESSES_PER_MESSAGEENVELOPE);
+		return (Set<XDI3Segment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EXPANDEDADDRESSES_PER_MESSAGEENVELOPE);
 	}
 
-	private static boolean isExpandedAddress(ExecutionContext executionContext, XRI3Segment contextNodeXri) {
+	private static boolean isExpandedAddress(ExecutionContext executionContext, XDI3Segment contextNodeXri) {
 
 		return getExpandedAddresses(executionContext).contains(contextNodeXri);
 	}
 
-	private static void addExpandedAddress(ExecutionContext executionContext, XRI3Segment contextNodeXri) {
+	private static void addExpandedAddress(ExecutionContext executionContext, XDI3Segment contextNodeXri) {
 
 		getExpandedAddresses(executionContext).add(contextNodeXri);
 	}
 
 	private static void resetExpandedAddresses(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EXPANDEDADDRESSES_PER_MESSAGEENVELOPE, new HashSet<XRI3Segment> ());
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EXPANDEDADDRESSES_PER_MESSAGEENVELOPE, new HashSet<XDI3Segment> ());
 	}
 }

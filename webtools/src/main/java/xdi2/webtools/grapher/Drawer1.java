@@ -17,8 +17,8 @@ import xdi2.core.Literal;
 import xdi2.core.xri3.impl.XRI3Authority;
 import xdi2.core.xri3.impl.XRI3Path;
 import xdi2.core.xri3.impl.XRI3Reference;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 
 public class Drawer1 implements Drawer {
 
@@ -263,21 +263,21 @@ public class Drawer1 implements Drawer {
 	}
 
 	@SuppressWarnings({ "unused", "unchecked" })
-	private static List<String> getAllSubSegments(List<XRI3SubSegment> subSegments) {
+	private static List<String> getAllSubSegments(List<XDI3SubSegment> subSegments) {
 
 		List<String> list = new ArrayList<String> ();
 
-		for (XRI3SubSegment subSegment : subSegments) {
+		for (XDI3SubSegment subSegment : subSegments) {
 
 			if (subSegment.hasXRef()) {
 
 				XRI3Reference xref = (XRI3Reference) subSegment.getXRef().getXRIReference();
 				XRI3Authority xrefAuthority = ((XRI3Authority) xref.getAuthority());
-				List<XRI3Segment> xrefSegments = ((XRI3Path) xref.getPath()).getSegments();
+				List<XDI3Segment> xrefSegments = ((XRI3Path) xref.getPath()).getSegments();
 
 				list.addAll(getAllSubSegments(xrefAuthority.getSubSegments()));
 
-				for (XRI3Segment xrefSegment : xrefSegments) {
+				for (XDI3Segment xrefSegment : xrefSegments) {
 
 					list.addAll(getAllSubSegments(xrefSegment.getSubSegments()));
 				}

@@ -7,19 +7,19 @@ import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.util.iterators.IteratorCounter;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 
 public class DictionaryTest extends TestCase {
 
 	public void testTypes() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XRI3SubSegment("=markus"));
+		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=markus"));
 
-		XRI3Segment type1 = new XRI3Segment("+employee");
-		XRI3Segment type2 = new XRI3Segment("+person");
-		XRI3Segment type3 = new XRI3Segment("+developer");
+		XDI3Segment type1 = new XDI3Segment("+employee");
+		XDI3Segment type2 = new XDI3Segment("+person");
+		XDI3Segment type3 = new XDI3Segment("+developer");
 
 		Dictionary.addContextNodeType(contextNode, type1);
 		assertEquals(Dictionary.getContextNodeType(contextNode), type1);

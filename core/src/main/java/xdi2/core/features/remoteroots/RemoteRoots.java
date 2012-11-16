@@ -6,10 +6,9 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
-import xdi2.core.xri3.impl.XRI3Reference;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
-import xdi2.core.xri3.impl.XRI3XRef;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.impl.XDI3XRef;
 
 public class RemoteRoots {
 
@@ -26,7 +25,7 @@ public class RemoteRoots {
 	 * @param create Whether the remote root context node should be created, if it does not exist.
 	 * @return The remote root context node.
 	 */
-	public static ContextNode findRemoteRootContextNode(Graph graph, XRI3Segment xri, boolean create) {
+	public static ContextNode findRemoteRootContextNode(Graph graph, XDI3Segment xri, boolean create) {
 
 		return graph.findContextNode(remoteRootXri(xri), create);
 	}
@@ -63,7 +62,7 @@ public class RemoteRoots {
 	 * Methods for the self remote root context node.
 	 */
 
-	public static ContextNode setSelfRemoteRootContextNode(Graph graph, XRI3Segment xri) {
+	public static ContextNode setSelfRemoteRootContextNode(Graph graph, XDI3Segment xri) {
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 
@@ -103,9 +102,9 @@ public class RemoteRoots {
 	 * @param xri An XRI.
 	 * @return The remote root XRI of the XRI.
 	 */
-	public static XRI3Segment remoteRootXri(XRI3Segment xri) {
+	public static XDI3Segment remoteRootXri(XDI3Segment xri) {
 
-		return new XRI3Segment("(" + xri.toString() + ")");
+		return new XDI3Segment("(" + xri.toString() + ")");
 	}
 
 	/**
@@ -113,19 +112,17 @@ public class RemoteRoots {
 	 * @param xri A remote root XRI.
 	 * @return The XRI of the remote root XRI.
 	 */
-	public static XRI3Segment xriOfRemoteRootXri(XRI3Segment xri) {
+	public static XDI3Segment xriOfRemoteRootXri(XDI3Segment xri) {
 
 		if (xri.getNumSubSegments() != 1) return null;
 
-		XRI3SubSegment xriSubSegment = (XRI3SubSegment) xri.getFirstSubSegment();
-		if (! xriSubSegment.hasXRef()) return null;
+		XDI3SubSegment subSegment = xri.getFirstSubSegment();
+		if (! subSegment.hasXRef()) return null;
 
-		XRI3XRef xriXref = (XRI3XRef) xriSubSegment.getXRef();
-		if (! xriXref.hasXRIReference()) return null;
+		XDI3XRef xref = subSegment.getXRef();
+		if (! xref.hasNode()) return null;
 
-		XRI3Reference xriReference = (XRI3Reference) xriXref.getXRIReference();
-
-		return new XRI3Segment(xriReference.toString());
+		return xref.getNode();
 	}
 
 	/**
@@ -133,7 +130,7 @@ public class RemoteRoots {
 	 * @param xri An remote root XRI.
 	 * @return True, if the XRI is a remote root XRI.
 	 */
-	public static boolean isRemoteRootXri(XRI3Segment xri) {
+	public static boolean isRemoteRootXri(XDI3Segment xri) {
 
 		return xriOfRemoteRootXri(xri) != null;
 	}

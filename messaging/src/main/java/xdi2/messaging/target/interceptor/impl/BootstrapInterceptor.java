@@ -18,7 +18,7 @@ import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -35,8 +35,8 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 
-	private XRI3Segment bootstrapOwner;
-	private XRI3Segment[] bootstrapOwnerSynonyms;
+	private XDI3Segment bootstrapOwner;
+	private XDI3Segment[] bootstrapOwnerSynonyms;
 	private String bootstrapSharedSecret;
 	private boolean bootstrapLinkContract;
 
@@ -63,13 +63,13 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		// read the owner synonyms
 
-		XRI3Segment[] ownerSynonyms = null;
+		XDI3Segment[] ownerSynonyms = null;
 
 		if (prototypingContext.getOwnerRemoteRootContextNode() != null) {
 
 			Iterator<ContextNode> ownerSynonymRemoteRootContextNodes = Dictionary.getSynonymContextNodes(prototypingContext.getOwnerRemoteRootContextNode());
 
-			ownerSynonyms = (new IteratorArrayMaker<XRI3Segment> (new MappingContextNodeXriIterator(ownerSynonymRemoteRootContextNodes))).array(XRI3Segment.class);
+			ownerSynonyms = (new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(ownerSynonymRemoteRootContextNodes))).array(XDI3Segment.class);
 			for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(ownerSynonyms[i]);
 		}
 
@@ -126,7 +126,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		if (this.bootstrapOwner != null && this.bootstrapOwnerSynonyms != null) {
 
-			for (XRI3Segment bootstrapOwnerSynonym : this.bootstrapOwnerSynonyms) {
+			for (XDI3Segment bootstrapOwnerSynonym : this.bootstrapOwnerSynonyms) {
 
 				ContextNode bootstrapOwnerSynonymContextNode = graph.findContextNode(bootstrapOwnerSynonym, true);
 				bootstrapOwnerSynonymContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, bootstrapOwnerContextNode);
@@ -169,30 +169,30 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 	 * Getters and setters
 	 */
 
-	public XRI3Segment getBootstrapOwner() {
+	public XDI3Segment getBootstrapOwner() {
 
 		return this.bootstrapOwner;
 	}
 
-	public void setBootstrapOwner(XRI3Segment bootstrapOwner) {
+	public void setBootstrapOwner(XDI3Segment bootstrapOwner) {
 
 		this.bootstrapOwner = bootstrapOwner;
 	}
 
-	public XRI3Segment[] getBootstrapOwnerSynonyms() {
+	public XDI3Segment[] getBootstrapOwnerSynonyms() {
 
 		return this.bootstrapOwnerSynonyms;
 	}
 
-	public void setBootstrapOwnerSynonyms(XRI3Segment[] bootstrapOwnerSynonyms) {
+	public void setBootstrapOwnerSynonyms(XDI3Segment[] bootstrapOwnerSynonyms) {
 
 		this.bootstrapOwnerSynonyms = bootstrapOwnerSynonyms;
 	}
 
 	public void setBootstrapOwnerSynonyms(String[] bootstrapOwnerSynonyms) {
 
-		this.bootstrapOwnerSynonyms = new XRI3Segment[bootstrapOwnerSynonyms.length];
-		for (int i=0; i<this.bootstrapOwnerSynonyms.length; i++) this.bootstrapOwnerSynonyms[i] = new XRI3Segment(bootstrapOwnerSynonyms[i]);
+		this.bootstrapOwnerSynonyms = new XDI3Segment[bootstrapOwnerSynonyms.length];
+		for (int i=0; i<this.bootstrapOwnerSynonyms.length; i++) this.bootstrapOwnerSynonyms[i] = new XDI3Segment(bootstrapOwnerSynonyms[i]);
 	}
 
 	public String getBootstrapSharedSecret() {

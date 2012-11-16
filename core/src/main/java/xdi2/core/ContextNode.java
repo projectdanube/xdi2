@@ -2,9 +2,10 @@ package xdi2.core;
 
 import java.io.Serializable;
 
+import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 
 /**
  * This interface represents a context node in an XDI graph.
@@ -62,14 +63,14 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * This returns null for the root context node.
 	 * @return The arc XRI associated with this context node.
 	 */
-	public XRI3SubSegment getArcXri();
+	public XDI3SubSegment getArcXri();
 
 	/**
 	 * Gets the XRI of this context node.
 	 * This returns () for the root context node.
 	 * @return The XRI of this context node.
 	 */
-	public XRI3Segment getXri();
+	public XDI3Segment getXri();
 
 	/*
 	 * Methods related to context nodes of this context node
@@ -80,21 +81,21 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI of the new context node.
 	 * @return The newly created context node.
 	 */
-	public ContextNode createContextNode(XRI3SubSegment arcXri);
+	public ContextNode createContextNode(XDI3SubSegment arcXri);
 
 	/**
 	 * Creates new context nodes and adds them to this context node.
 	 * @param arcXri The arc XRI of the new context nodes.
 	 * @return The newly created final context node.
 	 */
-	public ContextNode createContextNodes(XRI3Segment arcXri);
+	public ContextNode createContextNodes(XDI3Segment arcXri);
 
 	/**
 	 * Returns a context node with a given arc XRI. 
 	 * @param arcXri The arc XRI to look for. 
 	 * @return The context node with the given arc XRI, or null.
 	 */
-	public ContextNode getContextNode(XRI3SubSegment arcXri);
+	public ContextNode getContextNode(XDI3SubSegment arcXri);
 
 	/**
 	 * Returns the context nodes of this context node.
@@ -119,7 +120,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI to look for. 
 	 * @return True if this context node has a context node with the given arc XRI.
 	 */
-	public boolean containsContextNode(XRI3SubSegment arcXri);
+	public boolean containsContextNode(XDI3SubSegment arcXri);
 
 	/**
 	 * Checks if this context node has one or more context nodes.
@@ -133,13 +134,13 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param create Whether or not to create context nodes if they don't exist.
 	 * @return A context node or null.
 	 */
-	public ContextNode findContextNode(XRI3Segment xri, boolean create);
+	public ContextNode findContextNode(XDI3Segment xri, boolean create);
 
 	/**
 	 * Deletes the context node with a given arc XRI from this context node.
 	 * @param arcXri The arc XRI of this context arc.
 	 */
-	public void deleteContextNode(XRI3SubSegment arcXri);
+	public void deleteContextNode(XDI3SubSegment arcXri);
 
 	/**
 	 * Deletes all context nodes from this context node.
@@ -168,7 +169,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param targetContextNodeXri The target context node XRI of the relation.
 	 * @return The newly created relation.
 	 */
-	public Relation createRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
+	public Relation createRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
 	 * Creates a new relation and adds it to this context node.
@@ -176,7 +177,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param targetContextNode The target context node of the relation.
 	 * @return The newly created relation.
 	 */
-	public Relation createRelation(XRI3Segment arcXri, ContextNode targetContextNode);
+	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode);
 
 	/**
 	 * Returns a relation with a given arc XRI and context node. 
@@ -184,21 +185,21 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param targetContextNodeXri The target context node XRI of the relation.
 	 * @return The relation with the given arc XRI, or null.
 	 */
-	public Relation getRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
+	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
 	 * Returns a relation with a given arc XRI. 
 	 * @param arcXri The arc XRI to look for. 
 	 * @return The relation with the given arc XRI, or null.
 	 */
-	public Relation getRelation(XRI3Segment arcXri);
+	public Relation getRelation(XDI3Segment arcXri);
 
 	/**
 	 * Returns the relations with a given arc XRI. 
 	 * @param arcXri The arc XRI to look for. 
 	 * @return An iterator over relations with the given arc XRI, or null.
 	 */
-	public ReadOnlyIterator<Relation> getRelations(XRI3Segment arcXri);
+	public ReadOnlyIterator<Relation> getRelations(XDI3Segment arcXri);
 
 	/**
 	 * Returns the relations of this context node.
@@ -211,7 +212,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI to look for. 
 	 * @return An iterator over relations with the given arc XRI, or null.
 	 */
-	public ReadOnlyIterator<Relation> getIncomingRelations(XRI3Segment arcXri);
+	public ReadOnlyIterator<Relation> getIncomingRelations(XDI3Segment arcXri);
 
 	/**
 	 * Returns the incoming relations of this context node.
@@ -231,14 +232,14 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param targetContextNodeXri The target context node XRI of the relation.
 	 * @return True if this context nod has a relation with the given arc XRI.
 	 */
-	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
+	public boolean containsRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
 	 * Checks if relations with a given arc XRI exists in this context node.
 	 * @param arcXri The arc XRI of the relation. 
 	 * @return True if this context nod has a relation with the given arc XRI.
 	 */
-	public boolean containsRelations(XRI3Segment arcXri);
+	public boolean containsRelations(XDI3Segment arcXri);
 
 	/**
 	 * Checks if this context node has one or more relations.
@@ -253,7 +254,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param targetContextNodeXri The target context node XRI of the relation.
 	 * @return A relation or null.
 	 */
-	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
+	public Relation findRelation(XDI3Segment xri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
 	 * Finds a relation at any depth under this context node.
@@ -261,7 +262,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI of the relation.
 	 * @return A relation or null.
 	 */
-	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri);
+	public Relation findRelation(XDI3Segment xri, XDI3Segment arcXri);
 
 	/**
 	 * Finds relations at any depth under this context node.
@@ -269,20 +270,20 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI of the relations.
 	 * @return An iterator over relations.
 	 */
-	public ReadOnlyIterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri);
+	public ReadOnlyIterator<Relation> findRelations(XDI3Segment xri, XDI3Segment arcXri);
 
 	/**
 	 * Deletes the relation with a given arc XRI from this context node.
 	 * @param arcXri The arc XRI of the relation.
 	 * @param targetContextNodeXri The target context node XRI of the relation.
 	 */
-	public void deleteRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
+	public void deleteRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
 	 * Deletes the relation with a given arc XRI from this context node.
 	 * @param arcXri The arc XRI of the relation.
 	 */
-	public void deleteRelations(XRI3Segment arcXri);
+	public void deleteRelations(XDI3Segment arcXri);
 
 	/**
 	 * Deletes all relations from this context node.
@@ -294,7 +295,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI to look for. 
 	 * @return The number of relations.
 	 */
-	public int getRelationCount(XRI3Segment arcXri);
+	public int getRelationCount(XDI3Segment arcXri);
 
 	/**
 	 * Returns the number of relations of this context node.
@@ -325,7 +326,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param literalData The data of the literal.
 	 * @return The newly created literal.
 	 */
-	public Literal createLiteralInContextNode(XRI3SubSegment arcXri, String literalData);
+	public Literal createLiteralInContextNode(XDI3SubSegment arcXri, String literalData);
 
 	/**
 	 * Returns the literal of this context node.
@@ -338,7 +339,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI of the context node.
 	 * @return The literal.
 	 */
-	public Literal getLiteralInContextNode(XRI3SubSegment arcXri);
+	public Literal getLiteralInContextNode(XDI3SubSegment arcXri);
 
 	/**
 	 * Returns all literals of this context node.
@@ -357,14 +358,14 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI of the context node.
 	 * @return True if this context node has literals.
 	 */
-	public boolean containsLiteralInContextNode(XRI3SubSegment arcXri);
+	public boolean containsLiteralInContextNode(XDI3SubSegment arcXri);
 
 	/**
 	 * Finds a literal at any depth under this context node.
 	 * @param xri The relative XRI of the context node containing the literal.
 	 * @return The literal or null.
 	 */
-	public Literal findLiteral(XRI3Segment xri);
+	public Literal findLiteral(XDI3Segment xri);
 
 	/**
 	 * Deletes the literal from this context node.
@@ -385,7 +386,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Gets the statement that contains this context node.
 	 * @return A statement.
 	 */
-	public Statement getStatement();
+	public ContextNodeStatement getStatement();
 
 	/**
 	 * Gets all statements rooted in this context node.

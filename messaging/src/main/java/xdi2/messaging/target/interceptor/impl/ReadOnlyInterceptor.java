@@ -1,7 +1,7 @@
 package xdi2.messaging.target.interceptor.impl;
 
 import xdi2.core.Statement;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -17,11 +17,11 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  */
 public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetInterceptor, Prototype<ReadOnlyInterceptor> {
 
-	private XRI3Segment[] readOnlyAddresses;
+	private XDI3Segment[] readOnlyAddresses;
 
 	public ReadOnlyInterceptor() {
 
-		this.readOnlyAddresses = new XRI3Segment[0];
+		this.readOnlyAddresses = new XDI3Segment[0];
 	}
 
 	/*
@@ -49,18 +49,18 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 	}
 
 	@Override
-	public XRI3Segment targetAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		this.checkReadOnly(operation, targetAddress, executionContext);
 
 		return targetAddress;
 	}
 
-	private void checkReadOnly(Operation operation, XRI3Segment address, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private void checkReadOnly(Operation operation, XDI3Segment address, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation.isReadOperation()) return;
 
-		for (XRI3Segment readOnlyAddress : this.readOnlyAddresses) {
+		for (XDI3Segment readOnlyAddress : this.readOnlyAddresses) {
 
 			if (readOnlyAddress == null || startsWith(address, readOnlyAddress)) {
 
@@ -69,7 +69,7 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 		}
 	}
 
-	private static boolean startsWith(XRI3Segment whole, XRI3Segment part) {
+	private static boolean startsWith(XDI3Segment whole, XDI3Segment part) {
 
 		if (part.getNumSubSegments() > whole.getNumSubSegments()) return false;
 
@@ -81,19 +81,19 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 		return true;
 	}
 
-	public XRI3Segment[] getReadOnlyAddresses() {
+	public XDI3Segment[] getReadOnlyAddresses() {
 
 		return this.readOnlyAddresses;
 	}
 
-	public void setReadOnlyAddresses(XRI3Segment[] readOnlyAddresses) {
+	public void setReadOnlyAddresses(XDI3Segment[] readOnlyAddresses) {
 
 		this.readOnlyAddresses = readOnlyAddresses;
 	}
 
 	public void setReadOnlyAddresses(String[] readOnlyAddresses) {
 
-		this.readOnlyAddresses = new XRI3Segment[readOnlyAddresses.length];
-		for (int i=0; i<this.readOnlyAddresses.length; i++) this.readOnlyAddresses[i] = new XRI3Segment(readOnlyAddresses[i]);
+		this.readOnlyAddresses = new XDI3Segment[readOnlyAddresses.length];
+		for (int i=0; i<this.readOnlyAddresses.length; i++) this.readOnlyAddresses[i] = new XDI3Segment(readOnlyAddresses[i]);
 	}
 }

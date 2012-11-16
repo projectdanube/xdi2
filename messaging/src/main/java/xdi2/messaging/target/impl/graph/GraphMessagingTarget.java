@@ -6,7 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.features.remoteroots.RemoteRoots;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -56,7 +56,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public XRI3Segment getOwnerAuthority() {
+	public XDI3Segment getOwnerAuthority() {
 
 		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(this.getGraph());
 		if (selfRemoteRootContextNode == null) return null;
@@ -89,7 +89,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public AddressHandler getAddressHandler(XRI3Segment address) throws Xdi2MessagingException {
+	public AddressHandler getAddressHandler(XDI3Segment address) throws Xdi2MessagingException {
 
 		return this.graphContextHandler;
 	}

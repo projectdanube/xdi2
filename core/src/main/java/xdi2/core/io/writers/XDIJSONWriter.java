@@ -29,9 +29,8 @@ import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.SelectingIterator;
-import xdi2.core.xri3.impl.XRI3Reference;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3XRef;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3XRef;
 
 public class XDIJSONWriter extends AbstractXDIWriter {
 
@@ -119,7 +118,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		// write relations
 
-		Map<XRI3Segment, List<Relation>> relationsMap = new HashMap<XRI3Segment, List<Relation>> ();
+		Map<XDI3Segment, List<Relation>> relationsMap = new HashMap<XDI3Segment, List<Relation>> ();
 
 		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
 
@@ -136,9 +135,9 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 			relationsList.add(relation);
 		}
 
-		for (Entry<XRI3Segment, List<Relation>> entry : relationsMap.entrySet()) {
+		for (Entry<XDI3Segment, List<Relation>> entry : relationsMap.entrySet()) {
 
-			XRI3Segment relationArcXri = entry.getKey();
+			XDI3Segment relationArcXri = entry.getKey();
 			List<Relation> relationsList = entry.getValue();
 
 			startItem(bufferedWriter, state);
@@ -150,18 +149,16 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 			for (int i = 0; i < relationsList.size(); i++) {
 
-				XRI3Segment targetContextNodeXri = relationsList.get(i).getTargetContextNodeXri();
-				XRI3XRef xref = (XRI3XRef) targetContextNodeXri.getFirstSubSegment().getXRef();
-
-				XRI3Reference xriXref = xref == null ? null : (XRI3Reference) xref.getXRIReference();
+				XDI3Segment targetContextNodeXri = relationsList.get(i).getTargetContextNodeXri();
+				XDI3XRef xref = targetContextNodeXri.getFirstSubSegment().getXRef();
 
 				Statement statement = null;
 
-				if (xriXref != null) {
+				if (xref != null && xref.hasStatement()) {
 
 					try {
 
-						statement = StatementUtil.fromString(xriXref.toString());
+						statement = StatementUtil.fromXdiStatement(xref.getStatement());
 					} catch (Xdi2ParseException ex) {
 
 					}

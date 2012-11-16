@@ -14,8 +14,8 @@ import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.features.multiplicity.Multiplicity;
 
 /**
@@ -31,7 +31,7 @@ Comparable<LinkContract> {
 	//The $do context node which represents this link contract in the graph
 	private ContextNode contextNode;
 
-	private static final XRI3Segment XRI_SECRET_TOKEN = new XRI3Segment("" + Multiplicity.entitySingletonArcXri(new XRI3SubSegment("$secret")) + Multiplicity.attributeSingletonArcXri(new XRI3SubSegment("$token")));
+	private static final XDI3Segment XRI_SECRET_TOKEN = new XDI3Segment("" + Multiplicity.entitySingletonArcXri(new XDI3SubSegment("$secret")) + Multiplicity.attributeSingletonArcXri(new XDI3SubSegment("$token")));
 
 	private LinkContract(ContextNode contextNode) {
 		this.contextNode = contextNode;
@@ -236,7 +236,7 @@ Comparable<LinkContract> {
 	public boolean addPermission(XDILinkContractPermission permission,
 			ContextNode targetNode) {
 		boolean status = false;
-		XRI3Segment perm = null;
+		XDI3Segment perm = null;
 
 		// one cannot add an authorization permission to the Link Contract Node
 		// itself
@@ -319,7 +319,7 @@ Comparable<LinkContract> {
 	public boolean removePermission(XDILinkContractPermission permission,
 			ContextNode targetNode) {
 		boolean status = false;
-		XRI3Segment perm = null;
+		XDI3Segment perm = null;
 		switch (permission) {
 		case LC_OP_GET:
 			perm = XDILinkContractConstants.XRI_S_GET;
@@ -370,7 +370,7 @@ Comparable<LinkContract> {
 			XDILinkContractPermission permission) {
 
 		List<ContextNode> nodesWithPermission = new ArrayList<ContextNode>();
-		XRI3Segment perm = null;
+		XDI3Segment perm = null;
 		switch (permission) {
 		case LC_OP_GET:
 			perm = XDILinkContractConstants.XRI_S_GET;

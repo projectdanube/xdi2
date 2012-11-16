@@ -1,7 +1,7 @@
 package xdi2.server.factory.impl;
 
 import xdi2.core.ContextNode;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.MessagingTarget;
@@ -18,7 +18,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetPath, XRI3Segment owner, ContextNode ownerRemoteRootContextNode, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
+	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetPath, XDI3Segment owner, ContextNode ownerRemoteRootContextNode, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
 
 		// create new messaging target
 

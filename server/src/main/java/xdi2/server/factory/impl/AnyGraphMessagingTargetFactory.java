@@ -3,7 +3,7 @@ package xdi2.server.factory.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
@@ -28,7 +28,7 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 
 		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
 
-		XRI3Segment owner = new XRI3Segment(ownerString);
+		XDI3Segment owner = new XDI3Segment(ownerString);
 
 		// create and mount the new messaging target
 

@@ -3,6 +3,7 @@ package xdi2.core.xri3.impl;
 import java.util.List;
 
 import xdi2.core.xri3.XRILiteral;
+import xdi2.core.xri3.XRISubSegment;
 import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
@@ -18,7 +19,7 @@ import xdi2.core.xri3.impl.parser.Rule$xdi_subseg;
 import xdi2.core.xri3.impl.parser.Rule$xdi_xref;
 import xdi2.core.xri3.impl.parser.Rule$xref;
 
-public class XDI3SubSegment extends XRI3SyntaxComponent {
+public class XDI3SubSegment extends XRI3SyntaxComponent implements XRISubSegment {
 
 	private static final long serialVersionUID = -645927779266394209L;
 

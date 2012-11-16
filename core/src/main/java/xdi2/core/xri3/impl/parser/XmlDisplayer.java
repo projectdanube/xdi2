@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 11:30:08 CET 2012
+ * Produced : Fri Nov 16 12:53:05 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -160,18 +160,6 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule$xdi_xref_address rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<xdi-xref-address>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</xdi-xref-address>");
-    terminal = false;
-    return null;
-  }
-
   public Object visit(Rule$xdi_xref_IRI rule)
   {
     if (!terminal) System.out.println();
@@ -180,6 +168,18 @@ public class XmlDisplayer implements Visitor
     visitRules(rule.rules);
     if (!terminal) System.out.println();
     System.out.print("</xdi-xref-IRI>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule$xdi_xref_address rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-xref-address>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-xref-address>");
     terminal = false;
     return null;
   }

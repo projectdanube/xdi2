@@ -12,7 +12,7 @@ import org.mozilla.javascript.annotations.JSGetter;
 import xdi2.core.Literal;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.Message;
 
 public class JSPolicyExpressionHelper extends ScriptableObject {
@@ -57,7 +57,7 @@ public class JSPolicyExpressionHelper extends ScriptableObject {
 			return null;
 		}
 		Literal literal = linkContract.getContextNode().getGraph()
-				.findLiteral(new XRI3Segment(address));
+				.findLiteral(new XDI3Segment(address));
 		return literal == null ? null : literal.getLiteralData();
 
 	}
@@ -70,7 +70,7 @@ public class JSPolicyExpressionHelper extends ScriptableObject {
 			return null;
 		}
 		Literal literal = message.getContextNode().findLiteral(
-				new XRI3Segment(property));
+				new XDI3Segment(property));
 		return literal == null ? null : literal.getLiteralData();
 	}
 

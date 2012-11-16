@@ -22,8 +22,8 @@ import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.EndpointServlet;
 import xdi2.server.RequestInfo;
@@ -59,19 +59,19 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		// prepare resolution information
 
-		XRI3SubSegment query = parseQuery(requestInfo);
-		XRI3Segment providerid = getProviderId(this.getRegistryGraph());
-		XRI3Segment[] provideridSynonyms = getProviderIdSynonyms(this.getRegistryGraph(), providerid);
+		XDI3SubSegment query = parseQuery(requestInfo);
+		XDI3Segment providerid = getProviderId(this.getRegistryGraph());
+		XDI3Segment[] provideridSynonyms = getProviderIdSynonyms(this.getRegistryGraph(), providerid);
 
 		// look into registry
 
-		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XRI3Segment("" + providerid + query), false);
+		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XDI3Segment("" + providerid + query), false);
 
 		if (remoteRootContextNode == null) {
 
-			for (XRI3Segment provideridSynonym : provideridSynonyms) {
+			for (XDI3Segment provideridSynonym : provideridSynonyms) {
 
-				remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XRI3Segment("" + provideridSynonym + query), false);
+				remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XDI3Segment("" + provideridSynonym + query), false);
 				if (remoteRootContextNode != null) break;
 			}
 		}
@@ -93,8 +93,8 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		ContextNode canonicalRemoteRootContextNode = Dictionary.getCanonicalContextNode(remoteRootContextNode);
 		if (canonicalRemoteRootContextNode == null) canonicalRemoteRootContextNode = remoteRootContextNode;
 
-		XRI3Segment canonicalid = RemoteRoots.xriOfRemoteRootXri(canonicalRemoteRootContextNode.getXri());
-		XRI3SubSegment localid = query;
+		XDI3Segment canonicalid = RemoteRoots.xriOfRemoteRootXri(canonicalRemoteRootContextNode.getXri());
+		XDI3SubSegment localid = query;
 		String uri = constructUri(requestInfo, this.getTargetPath(), canonicalid);
 
 		// prepare velocity
@@ -127,7 +127,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 	 * Helper methods
 	 */
 
-	private static XRI3SubSegment parseQuery(RequestInfo requestInfo) {
+	private static XDI3SubSegment parseQuery(RequestInfo requestInfo) {
 
 		String query = requestInfo.getRequestPath();
 		if (query.endsWith("/")) query = query.substring(0, query.length() - 1);
@@ -135,10 +135,10 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		if (query.isEmpty()) return null;
 
-		return new XRI3SubSegment(query);
+		return new XDI3SubSegment(query);
 	}
 
-	private static String constructUri(RequestInfo requestInfo, String targetPath, XRI3Segment canonicalid) {
+	private static String constructUri(RequestInfo requestInfo, String targetPath, XDI3Segment canonicalid) {
 
 		String uri = requestInfo.getUri().substring(0, requestInfo.getUri().length() - requestInfo.getRequestPath().length());
 		uri += targetPath + "/" + canonicalid.toString();
@@ -146,7 +146,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		return uri;
 	}
 
-	private static XRI3Segment getProviderId(Graph graph) {
+	private static XDI3Segment getProviderId(Graph graph) {
 
 		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(graph);
 		if (selfRemoteRootContextNode == null) return null;
@@ -154,22 +154,22 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		return RemoteRoots.xriOfRemoteRootXri(selfRemoteRootContextNode.getXri());
 	}
 
-	private static XRI3Segment[] getProviderIdSynonyms(Graph graph, XRI3Segment providerid) {
+	private static XDI3Segment[] getProviderIdSynonyms(Graph graph, XDI3Segment providerid) {
 
 		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(graph);
-		if (selfRemoteRootContextNode == null) return new XRI3Segment[0];
+		if (selfRemoteRootContextNode == null) return new XDI3Segment[0];
 
 		Iterator<ContextNode> selfSynonymRemoteRootContextNodes = Dictionary.getSynonymContextNodes(selfRemoteRootContextNode);
 
-		XRI3Segment[] selfSynonyms = new IteratorArrayMaker<XRI3Segment> (new MappingContextNodeXriIterator(selfSynonymRemoteRootContextNodes)).array(XRI3Segment.class);
+		XDI3Segment[] selfSynonyms = new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(selfSynonymRemoteRootContextNodes)).array(XDI3Segment.class);
 		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(selfSynonyms[i]);
 
 		return selfSynonyms;
 	}
 
-	/*	private static XRI3Segment getCanonicalId(Graph graph, XRI3Segment providerid, XRI3SubSegment localid) {
+	/*	private static XDI3Segment getCanonicalId(Graph graph, XDI3Segment providerid, XDI3SubSegment localid) {
 
-		XRI3Segment canonicalid = new XRI3Segment("" + providerid + localid);
+		XDI3Segment canonicalid = new XDI3Segment("" + providerid + localid);
 
 		ContextNode canonicalidRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, canonicalid, false);
 
@@ -189,7 +189,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		return canonicalid;
 	}*/
 
-	private void sendNotFoundXrd(EndpointServlet endpointServlet, RequestInfo requestInfo, XRI3SubSegment query, HttpServletResponse response) throws IOException {
+	private void sendNotFoundXrd(EndpointServlet endpointServlet, RequestInfo requestInfo, XDI3SubSegment query, HttpServletResponse response) throws IOException {
 
 		// prepare velocity
 

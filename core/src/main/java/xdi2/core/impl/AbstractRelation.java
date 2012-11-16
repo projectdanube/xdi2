@@ -5,7 +5,7 @@ import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.impl.AbstractStatement.AbstractRelationStatement;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 public abstract class AbstractRelation implements Relation {
 
@@ -115,19 +115,19 @@ public abstract class AbstractRelation implements Relation {
 		private static final long serialVersionUID = 1937380243537401799L;
 
 		@Override
-		public XRI3Segment getSubject() {
+		public XDI3Segment getSubject() {
 
 			return AbstractRelation.this.getContextNode().getXri();
 		}
 
 		@Override
-		public XRI3Segment getPredicate() {
+		public XDI3Segment getPredicate() {
 
 			return AbstractRelation.this.getArcXri();
 		}
 
 		@Override
-		public XRI3Segment getObject() {
+		public XDI3Segment getObject() {
 
 			return AbstractRelation.this.getTargetContextNodeXri();
 		}

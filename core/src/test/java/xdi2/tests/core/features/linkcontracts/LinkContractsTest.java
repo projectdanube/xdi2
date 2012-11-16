@@ -31,7 +31,7 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.XDIDisplayReader;
 import xdi2.core.io.readers.XDIJSONReader;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 
 public class LinkContractsTest extends TestCase {
 
@@ -136,12 +136,12 @@ public class LinkContractsTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		//=markus is the owner of the graph
 		ContextNode markus = graph.getRootContextNode().createContextNode(
-				new XRI3SubSegment("=markus"));		
+				new XDI3SubSegment("=markus"));		
 		ContextNode animesh = graph.getRootContextNode().createContextNode(
-				new XRI3SubSegment("=animesh"));
+				new XDI3SubSegment("=animesh"));
 		LinkContract linkContract = LinkContracts.getLinkContract(markus, true);
-		XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(graph.getRootContextNode()).getEntitySingleton(new XRI3SubSegment("$secret"), true);
-		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XRI3SubSegment("$token"), true);
+		XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(graph.getRootContextNode()).getEntitySingleton(new XDI3SubSegment("$secret"), true);
+		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XDI3SubSegment("$token"), true);
 
 		attributeSingleton.getContextNode().createLiteral("secret");
 		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL,
@@ -153,12 +153,12 @@ public class LinkContractsTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		//=markus is the owner of the graph
 		ContextNode markus = graph.getRootContextNode().createContextNode(
-				new XRI3SubSegment("=markus"));		
+				new XDI3SubSegment("=markus"));		
 		ContextNode animesh = graph.getRootContextNode().createContextNode(
-				new XRI3SubSegment("=animesh"));
+				new XDI3SubSegment("=animesh"));
 		LinkContract linkContract = LinkContracts.getLinkContract(markus, true);
-		XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(graph.getRootContextNode()).getEntitySingleton(new XRI3SubSegment("$secret"), true);
-		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XRI3SubSegment("$token"), true);
+		XdiEntitySingleton entitySingleton = XdiSubGraph.fromContextNode(graph.getRootContextNode()).getEntitySingleton(new XDI3SubSegment("$secret"), true);
+		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XDI3SubSegment("$token"), true);
 
 		attributeSingleton.getContextNode().createLiteral("secret");
 		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL,

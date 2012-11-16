@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.remoteroots.RemoteRoots;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
@@ -34,7 +34,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
 
-		XRI3Segment owner = new XRI3Segment(ownerString);
+		XDI3Segment owner = new XDI3Segment(ownerString);
 
 		// find the owner's remote root context node
 
@@ -71,7 +71,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		String ownerString = requestPath.substring(messagingTargetFactoryPath.length() + 1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XRI3Segment owner = new XRI3Segment(ownerString);
+		XDI3Segment owner = new XDI3Segment(ownerString);
 
 		// find the owner's remote root context node
 

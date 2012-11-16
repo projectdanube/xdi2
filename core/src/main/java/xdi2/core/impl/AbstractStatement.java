@@ -6,8 +6,8 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.xri3.impl.XRI3Reference;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 public abstract class AbstractStatement implements Statement {
 
@@ -25,15 +25,15 @@ public abstract class AbstractStatement implements Statement {
 	}
 
 	@Override
-	public XRI3Reference toXriReference() {
+	public XDI3Statement toXdiStatement() {
 
-		return new XRI3Reference(this.toString());
+		return new XDI3Statement(this.toString());
 	}
 
 	@Override
-	public XRI3Segment toXriSegment() {
+	public XDI3Segment toXriSegment() {
 
-		return new XRI3Segment("(" + this.toString() + ")");
+		return new XDI3Segment("(" + this.toString() + ")");
 	}
 
 	/*
@@ -129,13 +129,13 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -7006808512493295364L;
 
 		@Override
-		public XRI3Segment getContextNodeXri() {
+		public XDI3Segment getContextNodeXri() {
 
-			return this.getSubject().equals(XDIConstants.XRI_S_CONTEXT) ? this.getObject() : new XRI3Segment("" + this.getSubject() + this.getObject());
+			return this.getSubject().equals(XDIConstants.XRI_S_CONTEXT) ? this.getObject() : new XDI3Segment("" + this.getSubject() + this.getObject());
 		}
 
 		@Override
-		public final XRI3Segment getPredicate() {
+		public final XDI3Segment getPredicate() {
 
 			return XDIConstants.XRI_S_CONTEXT;
 		}
@@ -152,7 +152,7 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -2393268622327844933L;
 
 		@Override
-		public XRI3Segment getContextNodeXri() {
+		public XDI3Segment getContextNodeXri() {
 
 			return this.getSubject();
 		}
@@ -169,13 +169,13 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -7876412291137305476L;
 
 		@Override
-		public XRI3Segment getContextNodeXri() {
+		public XDI3Segment getContextNodeXri() {
 
 			return this.getSubject();
 		}
 
 		@Override
-		public final XRI3Segment getPredicate() {
+		public final XDI3Segment getPredicate() {
 
 			return XDIConstants.XRI_S_LITERAL;
 		}

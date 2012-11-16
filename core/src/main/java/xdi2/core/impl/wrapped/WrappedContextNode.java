@@ -11,8 +11,8 @@ import xdi2.core.impl.memory.MemoryLiteral;
 import xdi2.core.impl.memory.MemoryRelation;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 
 public class WrappedContextNode extends AbstractContextNode implements ContextNode {
 
@@ -28,7 +28,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public XRI3SubSegment getArcXri() {
+	public XDI3SubSegment getArcXri() {
 
 		return this.memoryContextNode.getArcXri();
 	}
@@ -38,7 +38,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	 */
 
 	@Override
-	public synchronized ContextNode createContextNode(XRI3SubSegment arcXri) {
+	public synchronized ContextNode createContextNode(XDI3SubSegment arcXri) {
 
 		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.createContextNode(arcXri);
 
@@ -46,7 +46,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public ContextNode getContextNode(XRI3SubSegment arcXri) {
+	public ContextNode getContextNode(XDI3SubSegment arcXri) {
 
 		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.getContextNode(arcXri);
 
@@ -62,7 +62,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public boolean containsContextNode(XRI3SubSegment arcXri) {
+	public boolean containsContextNode(XDI3SubSegment arcXri) {
 
 		return this.memoryContextNode.containsContextNode(arcXri);
 	}
@@ -74,7 +74,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public synchronized void deleteContextNode(XRI3SubSegment arcXri) {
+	public synchronized void deleteContextNode(XDI3SubSegment arcXri) {
 
 		this.memoryContextNode.deleteContextNode(arcXri);
 	}
@@ -90,7 +90,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	 */
 
 	@Override
-	public synchronized Relation createRelation(XRI3Segment arcXri, ContextNode targetContextNode) {
+	public synchronized Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
 		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.createRelation(arcXri, targetContextNode);
 
@@ -98,7 +98,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public Relation getRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
+	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.getRelation(arcXri, targetContextNodeXri);
 
@@ -106,7 +106,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> getRelations(XRI3Segment arcXri) {
+	public ReadOnlyIterator<Relation> getRelations(XDI3Segment arcXri) {
 
 		ReadOnlyIterator<Relation> ret = this.memoryContextNode.getRelations(arcXri);
 
@@ -122,13 +122,13 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public boolean containsRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
+	public boolean containsRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		return this.memoryContextNode.containsRelation(arcXri, targetContextNodeXri);
 	}
 
 	@Override
-	public boolean containsRelations(XRI3Segment arcXri) {
+	public boolean containsRelations(XDI3Segment arcXri) {
 
 		return this.memoryContextNode.containsRelations(arcXri);
 	}
@@ -140,13 +140,13 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public synchronized void deleteRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
+	public synchronized void deleteRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		this.memoryContextNode.deleteRelation(arcXri, targetContextNodeXri);
 	}
 
 	@Override
-	public synchronized void deleteRelations(XRI3Segment arcXri) {
+	public synchronized void deleteRelations(XDI3Segment arcXri) {
 
 		this.memoryContextNode.deleteRelations(arcXri);
 	}

@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 11:30:08 CET 2012
+ * Produced : Fri Nov 16 12:53:05 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -75,12 +75,12 @@ public class Displayer implements Visitor
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule$xdi_xref_address rule)
+  public Object visit(Rule$xdi_xref_IRI rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule$xdi_xref_IRI rule)
+  public Object visit(Rule$xdi_xref_address rule)
   {
     return visitRules(rule.rules);
   }

@@ -30,7 +30,7 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -434,7 +434,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		sendResult(messageResult, request, response);
 	}
 
-	private static MessageEnvelope readFromUrl(HttpServletRequest request, HttpServletResponse response, RequestInfo requestInfo, MessagingTarget messagingTarget, XRI3Segment operationXri) throws IOException {
+	private static MessageEnvelope readFromUrl(HttpServletRequest request, HttpServletResponse response, RequestInfo requestInfo, MessagingTarget messagingTarget, XDI3Segment operationXri) throws IOException {
 
 		// parse an XDI address from the request path
 
@@ -443,7 +443,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		log.debug("XDI address: " + addr);
 
-		XRI3Segment contextNodeXri;
+		XDI3Segment contextNodeXri;
 
 		if (addr.equals("")) {
 
@@ -452,7 +452,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			try {
 
-				contextNodeXri = new XRI3Segment(addr);
+				contextNodeXri = new XDI3Segment(addr);
 			} catch (Exception ex) {
 
 				log.error("Cannot parse XDI address: " + ex.getMessage(), ex);
@@ -469,7 +469,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// set the recipient authority to the owner authority of the messaging target
 
-		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
+		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 
 		if (ownerAuthority != null) {
 

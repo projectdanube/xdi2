@@ -6,7 +6,7 @@ import xdi2.core.Literal;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 public abstract class AbstractLiteral implements Literal {
 
@@ -107,13 +107,13 @@ public abstract class AbstractLiteral implements Literal {
 		private static final long serialVersionUID = -8290065911553369697L;
 
 		@Override
-		public XRI3Segment getSubject() {
+		public XDI3Segment getSubject() {
 
 			return AbstractLiteral.this.getContextNode().getXri();
 		}
 
 		@Override
-		public XRI3Segment getObject() {
+		public XDI3Segment getObject() {
 
 			return XDIUtil.stringToDataXriSegment(AbstractLiteral.this.getLiteralData(), false);
 		}

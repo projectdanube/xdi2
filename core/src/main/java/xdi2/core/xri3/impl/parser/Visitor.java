@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 11:30:08 CET 2012
+ * Produced : Fri Nov 16 12:53:05 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -24,8 +24,8 @@ public interface Visitor
   public Object visit(Rule$xdi_local_subseg rule);
   public Object visit(Rule$xdi_xref rule);
   public Object visit(Rule$xdi_xref_empty rule);
-  public Object visit(Rule$xdi_xref_address rule);
   public Object visit(Rule$xdi_xref_IRI rule);
+  public Object visit(Rule$xdi_xref_address rule);
   public Object visit(Rule$xri rule);
   public Object visit(Rule$xri_reference rule);
   public Object visit(Rule$relative_xri_ref rule);

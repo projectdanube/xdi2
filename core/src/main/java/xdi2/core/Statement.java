@@ -2,8 +2,8 @@ package xdi2.core;
 
 import java.io.Serializable;
 
-import xdi2.core.xri3.impl.XRI3Reference;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 /**
  * This interface represents a statement in an XDI graph.
@@ -21,19 +21,19 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * Gets the subject of this statement.
 	 * @return A subject.
 	 */
-	public XRI3Segment getSubject();
+	public XDI3Segment getSubject();
 
 	/**
 	 * Gets the predicate of this statement.
 	 * @return A predicate.
 	 */
-	public XRI3Segment getPredicate();
+	public XDI3Segment getPredicate();
 
 	/**
 	 * Gets the object of this statement.
 	 * @return An object.
 	 */
-	public XRI3Segment getObject();
+	public XDI3Segment getObject();
 
 	/**
 	 * Returns the graph that contains this statement.
@@ -44,7 +44,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	/**
 	 * Returns the context node XRI of this statement.
 	 */
-	public XRI3Segment getContextNodeXri();
+	public XDI3Segment getContextNodeXri();
 
 	/**
 	 * Delete the statement.
@@ -52,16 +52,16 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	public void delete();
 
 	/**
-	 * Expresses the statement as an XRI reference in the form subject/predicate/object
-	 * @return An XRI reference.
+	 * Expresses the statement as an XDI statement in the form subject/predicate/object
+	 * @return An XDI statement.
 	 */
-	public XRI3Reference toXriReference();
+	public XDI3Statement toXdiStatement();
 
 	/**
 	 * Expresses the statement as an XRI segment in the form (subject/predicate/object)
 	 * @return An XRI segment.
 	 */
-	public XRI3Segment toXriSegment();
+	public XDI3Segment toXriSegment();
 
 	/**
 	 * Returns the String representation of this statement.

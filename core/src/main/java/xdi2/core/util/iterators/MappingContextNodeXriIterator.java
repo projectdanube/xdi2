@@ -3,14 +3,14 @@ package xdi2.core.util.iterators;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 /**
  * A MappingIterator that maps XDI context nodes to their XRIs.
  * 
  * @author markus
  */
-public class MappingContextNodeXriIterator extends MappingIterator<ContextNode, XRI3Segment> {
+public class MappingContextNodeXriIterator extends MappingIterator<ContextNode, XDI3Segment> {
 
 	public MappingContextNodeXriIterator(Iterator<ContextNode> contextNodes) {
 
@@ -18,7 +18,7 @@ public class MappingContextNodeXriIterator extends MappingIterator<ContextNode, 
 	}
 
 	@Override
-	public XRI3Segment map(ContextNode contextNode) {
+	public XDI3Segment map(ContextNode contextNode) {
 
 		return contextNode.getXri();
 	}

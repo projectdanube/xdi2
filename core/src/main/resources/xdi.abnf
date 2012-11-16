@@ -20,6 +20,9 @@
 #    has been replaced with the three rules xref-empty, xref-xri-reference and xref-IRI.
 # 6) Java regular expressions only support the BMP of unicode. the "ucschar" and "iprivate"
 #    rules have been adjusted accordingly.
+# 7) In the xdi-xref rule, xdi-xref-IRI and xdi-xref-address have been swapped.
+# 8) In the xdi-address rule, xdi-statement and xdi-node have been swapped.
+#
 #
 # =markus 11-16-2012
 #
@@ -28,7 +31,7 @@
 # XDI rules
 #
 
-xdi-address = xdi-node / xdi-statement ;
+xdi-address = xdi-statement / xdi-node;
 xdi-node = xdi-segment ;
 xdi-statement = xdi-subject "/" xdi-predicate "/" xdi-object ;
 xdi-subject = xdi-segment ;
@@ -38,11 +41,10 @@ xdi-segment = ( literal / xdi-subseg ) *xdi-subseg ;
 xdi-subseg = xdi-global-subseg / xdi-local-subseg / xdi-xref ;
 xdi-global-subseg = gcs-char [ xdi-local-subseg / xdi-xref / literal ] ;
 xdi-local-subseg = lcs-char [ xdi-xref / literal ] ;
-xdi-xref = xdi-xref-empty / xdi-xref-address / xdi-xref-IRI;
+xdi-xref = xdi-xref-empty / xdi-xref-IRI / xdi-xref-address;
 xdi-xref-empty = "()" ;
-xdi-xref-address = "(" xdi-address ")" ;
 xdi-xref-IRI = "(" IRI ")" ;
-
+xdi-xref-address = "(" xdi-address ")" ;
 
 #
 # XRI rules

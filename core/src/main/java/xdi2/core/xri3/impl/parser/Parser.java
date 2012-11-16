@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 11:30:08 CET 2012
+ * Produced : Fri Nov 16 12:53:05 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -172,8 +172,8 @@ public class Parser
     else if (rulename.equalsIgnoreCase("xdi-local-subseg")) rule = Rule$xdi_local_subseg.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-xref")) rule = Rule$xdi_xref.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-xref-empty")) rule = Rule$xdi_xref_empty.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-xref-address")) rule = Rule$xdi_xref_address.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-xref-IRI")) rule = Rule$xdi_xref_IRI.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-xref-address")) rule = Rule$xdi_xref_address.parse(context);
     else if (rulename.equalsIgnoreCase("xri")) rule = Rule$xri.parse(context);
     else if (rulename.equalsIgnoreCase("xri-reference")) rule = Rule$xri_reference.parse(context);
     else if (rulename.equalsIgnoreCase("relative-xri-ref")) rule = Rule$relative_xri_ref.parse(context);

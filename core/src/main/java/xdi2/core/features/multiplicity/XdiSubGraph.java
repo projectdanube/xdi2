@@ -3,7 +3,7 @@ package xdi2.core.features.multiplicity;
 import java.io.Serializable;
 
 import xdi2.core.ContextNode;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 
 /**
  * An XDI subgraph according to the multiplicity pattern, represented as a context node.
@@ -68,9 +68,9 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The collection.
 	 */
-	public XdiCollection getCollection(XRI3SubSegment arcXri, boolean create) {
+	public XdiCollection getCollection(XDI3SubSegment arcXri, boolean create) {
 
-		XRI3SubSegment collectionArcXri = Multiplicity.collectionArcXri(arcXri);
+		XDI3SubSegment collectionArcXri = Multiplicity.collectionArcXri(arcXri);
 		ContextNode collectionContextNode = this.getContextNode().getContextNode(collectionArcXri);
 		if (collectionContextNode == null) collectionContextNode = this.getContextNode().createContextNode(collectionArcXri);
 
@@ -83,9 +83,9 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The attribute singleton.
 	 */
-	public XdiAttributeSingleton getAttributeSingleton(XRI3SubSegment arcXri, boolean create) {
+	public XdiAttributeSingleton getAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
 
-		XRI3SubSegment attributeSingletonArcXri = Multiplicity.attributeSingletonArcXri(arcXri);
+		XDI3SubSegment attributeSingletonArcXri = Multiplicity.attributeSingletonArcXri(arcXri);
 		ContextNode attributeSingletonContextNode = this.getContextNode().getContextNode(attributeSingletonArcXri);
 		if (attributeSingletonContextNode == null) attributeSingletonContextNode = this.getContextNode().createContextNode(attributeSingletonArcXri);
 
@@ -98,9 +98,9 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The entity singleton.
 	 */
-	public XdiEntitySingleton getEntitySingleton(XRI3SubSegment arcXri, boolean create) {
+	public XdiEntitySingleton getEntitySingleton(XDI3SubSegment arcXri, boolean create) {
 
-		XRI3SubSegment entitySingletonArcXri = Multiplicity.entitySingletonArcXri(arcXri);
+		XDI3SubSegment entitySingletonArcXri = Multiplicity.entitySingletonArcXri(arcXri);
 		ContextNode entitySingletonContextNode = this.getContextNode().getContextNode(entitySingletonArcXri);
 		if (entitySingletonContextNode == null) entitySingletonContextNode = this.getContextNode().createContextNode(entitySingletonArcXri);
 

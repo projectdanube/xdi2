@@ -2,6 +2,8 @@ package xdi2.core.xri3.impl;
 
 import java.util.List;
 
+import xdi2.core.xri3.XRIReference;
+import xdi2.core.xri3.XRIXRef;
 import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
@@ -18,7 +20,7 @@ import xdi2.core.xri3.impl.parser.Rule$xref_IRI;
 import xdi2.core.xri3.impl.parser.Rule$xref_empty;
 import xdi2.core.xri3.impl.parser.Rule$xref_xri_reference;
 
-public class XDI3XRef extends XRI3SyntaxComponent {
+public class XDI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 
 	private static final long serialVersionUID = 4875921569202236777L;
 
@@ -107,7 +109,7 @@ public class XDI3XRef extends XRI3SyntaxComponent {
 
 			// read IRI from xdi_xref_IRI
 
-			List list_xdi_xref_IRI = ((Rule$xref_IRI) object).rules;
+			List list_xdi_xref_IRI = ((Rule$xdi_xref_IRI) object).rules;
 			if (list_xdi_xref_IRI.size() < 2) return;
 			object = list_xdi_xref_IRI.get(1);	// IRI
 			this.iri = ((Rule$IRI) object).spelling;
@@ -120,6 +122,11 @@ public class XDI3XRef extends XRI3SyntaxComponent {
 	public Rule getParserObject() {
 
 		return(this.rule);
+	}
+
+	public boolean hasXRIReference() {
+
+		return(false);
 	}
 
 	public boolean hasNode() {
@@ -135,6 +142,11 @@ public class XDI3XRef extends XRI3SyntaxComponent {
 	public boolean hasIRI() {
 
 		return(this.iri != null);
+	}
+
+	public XRIReference getXRIReference() {
+
+		return(null);
 	}
 
 	public XDI3Segment getNode() {

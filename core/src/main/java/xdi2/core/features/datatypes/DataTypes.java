@@ -15,7 +15,7 @@ import xdi2.core.features.multiplicity.XdiAttributeSingleton;
 import xdi2.core.features.multiplicity.XdiCollection;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.impl.XRI3Constants;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 /**
  * A helper class to work with data types, i.e. get or set them. Supported data
@@ -28,11 +28,11 @@ public class DataTypes {
 	private DataTypes() {
 	}
 
-	public static final XRI3Segment XRI_XSD_DATATYPE = new XRI3Segment(""
+	public static final XDI3Segment XRI_XSD_DATATYPE = new XDI3Segment(""
 			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "xsd");
-	public static final XRI3Segment XRI_JSON_DATATYPE = new XRI3Segment(""
+	public static final XDI3Segment XRI_JSON_DATATYPE = new XDI3Segment(""
 			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "json");
-	public static final XRI3Segment XRI_MIME_DATATYPE = new XRI3Segment(""
+	public static final XDI3Segment XRI_MIME_DATATYPE = new XDI3Segment(""
 			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "mime");
 	private static final String xriBoolean = "+$binary!";
 
@@ -41,14 +41,14 @@ public class DataTypes {
 	 */
 
 	/**
-	 * Returns XRI3Segment for a xsd datatype string.
+	 * Returns XDI3Segment for a xsd datatype string.
 	 * 
 	 * @param xsdType
-	 * @return a xsd datatype XRI3Segment
+	 * @return a xsd datatype XDI3Segment
 	 */
-	public static XRI3Segment dataTypeXriFromXsdType(String xsdType) {
+	public static XDI3Segment dataTypeXriFromXsdType(String xsdType) {
 
-		return new XRI3Segment("" + XRI_XSD_DATATYPE + XRI3Constants.GCS_DOLLAR
+		return new XDI3Segment("" + XRI_XSD_DATATYPE + XRI3Constants.GCS_DOLLAR
 				+ xsdType + XRI3Constants.LCS_BANG);
 	}
 
@@ -58,7 +58,7 @@ public class DataTypes {
 	 * @param dataTypeXri
 	 * @return a string of xsd datatype
 	 */
-	public static String xsdTypeFromDataTypeXri(XRI3Segment dataTypeXri) {
+	public static String xsdTypeFromDataTypeXri(XDI3Segment dataTypeXri) {
 
 		String dataTypeXriString = dataTypeXri.toString();
 
@@ -66,14 +66,14 @@ public class DataTypes {
 	}
 
 	/**
-	 * Returns XRI3Segment for a json datatype string.
+	 * Returns XDI3Segment for a json datatype string.
 	 * 
 	 * @param jsonType
-	 * @return a json datatype XRI3Segment
+	 * @return a json datatype XDI3Segment
 	 */
-	public static XRI3Segment dataTypeXriFromJsonType(String jsonType) {
+	public static XDI3Segment dataTypeXriFromJsonType(String jsonType) {
 
-		return new XRI3Segment("" + XRI_JSON_DATATYPE
+		return new XDI3Segment("" + XRI_JSON_DATATYPE
 				+ XRI3Constants.GCS_DOLLAR + jsonType + XRI3Constants.LCS_BANG);
 	}
 
@@ -83,7 +83,7 @@ public class DataTypes {
 	 * @param dataTypeXri
 	 * @return a string of json datatype
 	 */
-	public static String jsonTypeFromDataTypeXri(XRI3Segment dataTypeXri) {
+	public static String jsonTypeFromDataTypeXri(XDI3Segment dataTypeXri) {
 
 		String dataTypeJSONString = dataTypeXri.toString();
 
@@ -91,27 +91,27 @@ public class DataTypes {
 	}
 
 	/**
-	 * Returns XRI3Segment for a mime datatype string.
+	 * Returns XDI3Segment for a mime datatype string.
 	 * 
 	 * @param mimeType
-	 * @return a mime datatype XRI3Segment.
+	 * @return a mime datatype XDI3Segment.
 	 */
-	public static XRI3Segment dataTypeXriFromMimeType(String mimeType) {
+	public static XDI3Segment dataTypeXriFromMimeType(String mimeType) {
 
 		// TODO: maybe use the MimeType class from the io package?
 		// TODO: maybe somehow use enums?
 		String[] parts;
-		XRI3Segment xriSeg = null;
+		XDI3Segment xriSeg = null;
 		try {
 			parts = mimeType.split("/");
-			xriSeg = new XRI3Segment("" + XRI_MIME_DATATYPE
+			xriSeg = new XDI3Segment("" + XRI_MIME_DATATYPE
 					+ XRI3Constants.GCS_DOLLAR + parts[0]
 					+ XRI3Constants.GCS_DOLLAR + parts[1]
 					+ XRI3Constants.LCS_BANG);
 		} catch (Exception ex) {
 			throw new Xdi2RuntimeException("Invalid MIME Type ", ex);
 		}
-		return xriSeg = (xriSeg != null) ? xriSeg : new XRI3Segment("");
+		return xriSeg = (xriSeg != null) ? xriSeg : new XDI3Segment("");
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class DataTypes {
 	 * @param dataTypeXri
 	 * @return a string of mime datatype
 	 */
-	public static String mimeTypeFromDataTypeXri(XRI3Segment dataTypeXri) {
+	public static String mimeTypeFromDataTypeXri(XDI3Segment dataTypeXri) {
 
 		String dataTypeMIMEString = dataTypeXri.toString();
 
@@ -141,7 +141,7 @@ public class DataTypes {
 	 * @param dataTypeXri
 	 */
 	public static void setLiteralDataType(Literal literal,
-			XRI3Segment dataTypeXri) {
+			XDI3Segment dataTypeXri) {
 
 		ContextNode contextNode = literal.getContextNode();
 
@@ -153,9 +153,9 @@ public class DataTypes {
 	 * Get all datatypes associated with a literal
 	 * 
 	 * @param literal
-	 * @return list of datatypes as XRI3Segment
+	 * @return list of datatypes as XDI3Segment
 	 */
-	public static List<XRI3Segment> getLiteralDataType(Literal literal) {
+	public static List<XDI3Segment> getLiteralDataType(Literal literal) {
 
 		return getLiteralDatatypes(literal);
 	}
@@ -171,7 +171,7 @@ public class DataTypes {
 		ContextNode contextNode = literal.getContextNode();
 
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_TYPE,
-				new XRI3Segment(xriBoolean));
+				new XDI3Segment(xriBoolean));
 
 	}
 
@@ -183,7 +183,7 @@ public class DataTypes {
 	 */
 	public static boolean isLiteralBinary(Literal literal) {
 
-		List<XRI3Segment> lstDatatypesXRI = getLiteralDatatypes(literal);
+		List<XDI3Segment> lstDatatypesXRI = getLiteralDatatypes(literal);
 		boolean isBinary = false;
 
 		Iterator<?> itrDatatypes = lstDatatypesXRI.iterator();
@@ -204,32 +204,32 @@ public class DataTypes {
 	 */
 
 	public static void setLiteralDataType(XdiCollection xdiCollection,
-			XRI3Segment dataType) {
+			XDI3Segment dataType) {
 
 	}
 
-	public static XRI3Segment getLiteralDataType(XdiCollection xdiCollection) {
+	public static XDI3Segment getLiteralDataType(XdiCollection xdiCollection) {
 
 		return null;
 	}
 
 	public static void setLiteralDataType(
-			XdiAttributeMember xdiAttributeMember, XRI3Segment dataType) {
+			XdiAttributeMember xdiAttributeMember, XDI3Segment dataType) {
 
 	}
 
-	public static XRI3Segment getLiteralDataType(
+	public static XDI3Segment getLiteralDataType(
 			XdiAttributeMember xdiAttributeMember) {
 
 		return null;
 	}
 
 	public static void setLiteralDataType(
-			XdiAttributeSingleton xdiAttributeSingleton, XRI3Segment dataType) {
+			XdiAttributeSingleton xdiAttributeSingleton, XDI3Segment dataType) {
 
 	}
 
-	public static XRI3Segment getLiteralDataType(
+	public static XDI3Segment getLiteralDataType(
 			XdiAttributeSingleton xdiAttributeSingleton) {
 
 		return null;
@@ -265,21 +265,21 @@ public class DataTypes {
 				}
 			}
 		} catch (Exception ex) {
-			throw new Xdi2RuntimeException("Invalid XRI3Segment ", ex);
+			throw new Xdi2RuntimeException("Invalid XDI3Segment ", ex);
 		}
 
 		return sb.toString();
 	}
 
-	private static List<XRI3Segment> getLiteralDatatypes(Literal literal) {
-		List<XRI3Segment> dataTypes;
+	private static List<XDI3Segment> getLiteralDatatypes(Literal literal) {
+		List<XDI3Segment> dataTypes;
 		try {
 			Graph graph = literal.getGraph();
 
 			ReadOnlyIterator<Relation> relations = 
 					literal.getContextNode().getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
 			
-			dataTypes = new ArrayList<XRI3Segment>();
+			dataTypes = new ArrayList<XDI3Segment>();
 
 			while (relations.hasNext()) {
 
@@ -287,7 +287,7 @@ public class DataTypes {
 				dataTypes.add(relation.getStatement().getObject());
 			}
 		} catch (Exception ex) {
-			throw new Xdi2RuntimeException("Invalid XRI3Segment ", ex);
+			throw new Xdi2RuntimeException("Invalid XDI3Segment ", ex);
 		}
 		
 		return dataTypes;

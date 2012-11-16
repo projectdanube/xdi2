@@ -5,8 +5,8 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
@@ -33,7 +33,7 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 	}
 
 	@Override
-	public void executeGetOnAddress(XRI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnAddress(XDI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
 
@@ -44,19 +44,19 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 	}
 
 	@Override
-	public void executeAddOnAddress(XRI3Segment targetAddress, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeAddOnAddress(XDI3Segment targetAddress, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XRI3Segment parentAddress = XRIUtil.parentXri(targetAddress, -1);
+		XDI3Segment parentAddress = XRIUtil.parentXri(targetAddress, -1);
 		if (parentAddress == null) parentAddress = XDIConstants.XRI_S_CONTEXT;
 
-		XRI3SubSegment localAddress = (XRI3SubSegment) XRIUtil.localXri(targetAddress, 1).getFirstSubSegment();
+		XDI3SubSegment localAddress = (XDI3SubSegment) XRIUtil.localXri(targetAddress, 1).getFirstSubSegment();
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, true);
 		contextNode.createContextNode(localAddress);
 	}
 
 	@Override
-	public void executeDelOnAddress(XRI3Segment targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnAddress(XDI3Segment targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + targetAddress, null, executionContext);

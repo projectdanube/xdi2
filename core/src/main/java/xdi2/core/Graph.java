@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import xdi2.core.io.MimeType;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 /**
  * This interface represents a whole XDI graph.
@@ -55,7 +55,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @param create Whether or not to create context nodes if they don't exist.
 	 * @return A context node or null
 	 */
-	public ContextNode findContextNode(XRI3Segment xri, boolean create);
+	public ContextNode findContextNode(XDI3Segment xri, boolean create);
 
 	/**
 	 * Finds a relation at any depth in this graph.
@@ -64,7 +64,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @param targetContextNodeXri The target context node XRI of the relation.
 	 * @return A relation or null.
 	 */
-	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
+	public Relation findRelation(XDI3Segment xri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
 	 * Finds a relation at any depth in this graph.
@@ -72,7 +72,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @param arcXri The arc XRI of the relation.
 	 * @return A relation or null.
 	 */
-	public Relation findRelation(XRI3Segment xri, XRI3Segment arcXri);
+	public Relation findRelation(XDI3Segment xri, XDI3Segment arcXri);
 
 	/**
 	 * Finds relations at any depth in this graph.
@@ -80,21 +80,21 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @param arcXri The arc XRI of the relations.
 	 * @return An iterator over relations.
 	 */
-	public ReadOnlyIterator<Relation> findRelations(XRI3Segment xri, XRI3Segment arcXri);
+	public ReadOnlyIterator<Relation> findRelations(XDI3Segment xri, XDI3Segment arcXri);
 
 	/**
 	 * Finds a literal at any depth in this graph.
 	 * @param xri The XRI of the context node containing the literal.
 	 * @return A literal or null.
 	 */
-	public Literal findLiteral(XRI3Segment xri);
+	public Literal findLiteral(XDI3Segment xri);
 
 	/**
 	 * Checks if a context node exists in this graph.
 	 * @param xri The XRI of the context node.
 	 * @return True, if the context node exists.
 	 */
-	public boolean containsContextNode(XRI3Segment xri);
+	public boolean containsContextNode(XDI3Segment xri);
 
 	/**
 	 * Checks if relations exists in this graph.
@@ -103,7 +103,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @param targetContextNodeXri The target context node XRI of the relation.
 	 * @return True, if the relation exists.
 	 */
-	public boolean containsRelation(XRI3Segment xri, XRI3Segment arcXri, XRI3Segment targetContextNodeXri);
+	public boolean containsRelation(XDI3Segment xri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
 	 * Checks if relations exists in this graph.
@@ -111,14 +111,14 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @param arcXri The arc XRI of the relation.
 	 * @return True, if the relation exists.
 	 */
-	public boolean containsRelations(XRI3Segment xri, XRI3Segment arcXri);
+	public boolean containsRelations(XDI3Segment xri, XDI3Segment arcXri);
 
 	/**
 	 * Checks if a literal exists in this graph.
 	 * @param xri The XRI of the context node containing the literal.
 	 * @return True, if the literal exists.
 	 */
-	public boolean containsLiteral(XRI3Segment xri);
+	public boolean containsLiteral(XDI3Segment xri);
 
 	/**
 	 * Converts the graph to a string in the given serialization format.

@@ -17,7 +17,7 @@ import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
@@ -69,13 +69,13 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 		// look through the message result for post-substitution actions
 
-		Map.Entry<XRI3Segment, XRI3Segment[]> entry;
+		Map.Entry<XDI3Segment, XDI3Segment[]> entry;
 
 		while ((entry = popSubstitution(executionContext)) != null) {
 
-			XRI3Segment substitutedContextNodeXri = entry.getKey();
-			XRI3Segment arcXri = entry.getValue()[0];
-			XRI3Segment contextNodeXri = entry.getValue()[1];
+			XDI3Segment substitutedContextNodeXri = entry.getKey();
+			XDI3Segment arcXri = entry.getValue()[0];
+			XDI3Segment contextNodeXri = entry.getValue()[1];
 
 			ContextNode substitutedContextNode = operationMessageResult.getGraph().findContextNode(substitutedContextNodeXri, false);
 			if (substitutedContextNode == null) continue;
@@ -124,7 +124,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 	 */
 
 	@Override
-	public XRI3Segment targetAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// find our graph
 
@@ -135,10 +135,10 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 		// apply substitution
 
-		XRI3Segment originalTargetAddress = targetAddress;
-		XRI3Segment substitutedTargetAddress = originalTargetAddress;
+		XDI3Segment originalTargetAddress = targetAddress;
+		XDI3Segment substitutedTargetAddress = originalTargetAddress;
 
-		XRI3Segment tempTargetAddress;
+		XDI3Segment tempTargetAddress;
 
 		while (true) { 
 
@@ -179,7 +179,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 			if (operation instanceof AddOperation) {
 
-				XRI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
+				XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
 				ContextNode targetContextNode = graph.findContextNode(targetContextNodeXri, false);
 
 				// check if the context is empty
@@ -193,10 +193,10 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 			// apply substitution
 
-			XRI3Segment originalTargetSubject = targetStatement.getSubject();
-			XRI3Segment substitutedTargetSubject = originalTargetSubject;
+			XDI3Segment originalTargetSubject = targetStatement.getSubject();
+			XDI3Segment substitutedTargetSubject = originalTargetSubject;
 
-			XRI3Segment tempTargetSubject;
+			XDI3Segment tempTargetSubject;
 
 			while (true) {
 
@@ -219,11 +219,11 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 		return targetStatement;
 	}
 
-	private static XRI3Segment substituteCanonicalArcs(XRI3Segment contextNodeXri, Graph graph, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static XDI3Segment substituteCanonicalArcs(XDI3Segment contextNodeXri, Graph graph, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		String localPart = "";
 
-		XRI3Segment originalContextNodeXri = contextNodeXri;
+		XDI3Segment originalContextNodeXri = contextNodeXri;
 
 		while (contextNodeXri != null) {
 
@@ -235,26 +235,26 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 				if (canonicalContextNode.equals(contextNode)) break;
 
-				XRI3Segment substitutedContextNodeXri = canonicalContextNode.getXri();
+				XDI3Segment substitutedContextNodeXri = canonicalContextNode.getXri();
 
 				if (log.isDebugEnabled()) log.debug("Applying " + XDIDictionaryConstants.XRI_S_IS + " arc: " + contextNodeXri + " --> " + substitutedContextNodeXri);
 
 				pushSubstitution(executionContext, substitutedContextNodeXri, XDIDictionaryConstants.XRI_S_IS, contextNodeXri);
 
-				return new XRI3Segment("" + canonicalContextNode.getXri() + localPart);
+				return new XDI3Segment("" + canonicalContextNode.getXri() + localPart);
 			}
 
 			if (privateCanonicalContextNode != null) {
 
 				if (privateCanonicalContextNode.equals(contextNode)) break;
 
-				XRI3Segment privateSubstitutedContextNodeXri = privateCanonicalContextNode.getXri();
+				XDI3Segment privateSubstitutedContextNodeXri = privateCanonicalContextNode.getXri();
 
 				if (log.isDebugEnabled()) log.debug("Applying " + XDIDictionaryConstants.XRI_S_IS_BANG + " arc: " + contextNodeXri + " --> " + privateSubstitutedContextNodeXri);
 
 				pushSubstitution(executionContext, privateSubstitutedContextNodeXri, XDIDictionaryConstants.XRI_S_IS_BANG, contextNodeXri);
 
-				return new XRI3Segment("" + privateCanonicalContextNode.getXri() + localPart);
+				return new XDI3Segment("" + privateCanonicalContextNode.getXri() + localPart);
 			}
 
 			localPart = "" + XRIUtil.localXri(contextNodeXri, 1) + localPart;
@@ -273,26 +273,26 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 	private static final String EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION = DollarIsInterceptor.class.getCanonicalName() + "#substitutionsperoperation";
 
 	@SuppressWarnings("unchecked")
-	private static Deque<Map.Entry<XRI3Segment, XRI3Segment[]>> getSubstitutions(ExecutionContext executionContext) {
+	private static Deque<Map.Entry<XDI3Segment, XDI3Segment[]>> getSubstitutions(ExecutionContext executionContext) {
 
-		return (Deque<Map.Entry<XRI3Segment, XRI3Segment[]>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION);
+		return (Deque<Map.Entry<XDI3Segment, XDI3Segment[]>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION);
 	}
 
-	private static Map.Entry<XRI3Segment, XRI3Segment[]> popSubstitution(ExecutionContext executionContext) {
+	private static Map.Entry<XDI3Segment, XDI3Segment[]> popSubstitution(ExecutionContext executionContext) {
 
-		Deque<Map.Entry<XRI3Segment, XRI3Segment[]>> substitutions = getSubstitutions(executionContext);
+		Deque<Map.Entry<XDI3Segment, XDI3Segment[]>> substitutions = getSubstitutions(executionContext);
 		if (substitutions.isEmpty()) return null;
 
 		return substitutions.pop();
 	}
 
-	private static void pushSubstitution(ExecutionContext executionContext, XRI3Segment substitutedContextNodeXri, XRI3Segment arcXri, XRI3Segment contextNodeXri) {
+	private static void pushSubstitution(ExecutionContext executionContext, XDI3Segment substitutedContextNodeXri, XDI3Segment arcXri, XDI3Segment contextNodeXri) {
 
-		getSubstitutions(executionContext).push(new AbstractMap.SimpleEntry<XRI3Segment, XRI3Segment[]> (substitutedContextNodeXri, new XRI3Segment[] { arcXri, contextNodeXri }));
+		getSubstitutions(executionContext).push(new AbstractMap.SimpleEntry<XDI3Segment, XDI3Segment[]> (substitutedContextNodeXri, new XDI3Segment[] { arcXri, contextNodeXri }));
 	}
 
 	private static void resetSubstitutions(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION, new ArrayDeque<Map.Entry<XRI3Segment, XRI3Segment>> ());
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION, new ArrayDeque<Map.Entry<XDI3Segment, XDI3Segment>> ());
 	}
 }

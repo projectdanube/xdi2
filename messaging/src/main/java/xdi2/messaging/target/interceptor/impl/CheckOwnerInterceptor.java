@@ -3,7 +3,7 @@ package xdi2.messaging.target.interceptor.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -42,8 +42,8 @@ public class CheckOwnerInterceptor extends AbstractInterceptor implements Messag
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XRI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
-		XRI3Segment recipientAuthority = message.getRecipientAuthority();
+		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
+		XDI3Segment recipientAuthority = message.getRecipientAuthority();
 
 		log.debug("ownerAuthority=" + ownerAuthority + ", recipientAuthority=" + recipientAuthority);
 

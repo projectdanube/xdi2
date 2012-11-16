@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xdi2.core.xri3.XRILiteral;
+import xdi2.core.xri3.XRISegment;
+import xdi2.core.xri3.XRISubSegment;
 import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
@@ -11,7 +13,7 @@ import xdi2.core.xri3.impl.parser.Rule$literal;
 import xdi2.core.xri3.impl.parser.Rule$xdi_segment;
 import xdi2.core.xri3.impl.parser.Rule$xdi_subseg;
 
-public class XDI3Segment extends XRI3SyntaxComponent {
+public class XDI3Segment extends XRI3SyntaxComponent implements XRISegment {
 
 	private static final long serialVersionUID = 2153450076797516335L;
 
@@ -116,7 +118,7 @@ public class XDI3Segment extends XRI3SyntaxComponent {
 		return((XDI3SubSegment) this.subSegments.get(this.subSegments.size() - 1));
 	}
 
-	public boolean startsWith(XDI3SubSegment[] subSegments) {
+	public boolean startsWith(XRISubSegment[] subSegments) {
 
 		if (this.subSegments.size() < subSegments.length) return(false);
 

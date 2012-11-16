@@ -9,7 +9,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 /**
  * Various utility methods for copying statements between graphs.
@@ -59,7 +59,7 @@ public final class CopyUtil {
 			targetContextNode = targetGraph.getRootContextNode();
 		} else {
 
-			XRI3Segment parentContextNodeXri = contextNode.getContextNode().getXri();
+			XDI3Segment parentContextNodeXri = contextNode.getContextNode().getXri();
 			ContextNode targetParentContextNode = targetGraph.findContextNode(parentContextNodeXri, true);
 			targetContextNode = targetParentContextNode.createContextNode(contextNode.getArcXri());
 		}
@@ -105,7 +105,7 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		XRI3Segment contextNodeXri = relation.getContextNode().getXri();
+		XDI3Segment contextNodeXri = relation.getContextNode().getXri();
 		ContextNode targetContextNode = targetGraph.findContextNode(contextNodeXri, true);
 
 		return copyRelation(relation, targetContextNode, copyStrategy);
@@ -145,7 +145,7 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		XRI3Segment contextNodeXri = literal.getContextNode().getXri();
+		XDI3Segment contextNodeXri = literal.getContextNode().getXri();
 		ContextNode targetContextNode = targetGraph.findContextNode(contextNodeXri, true);
 
 		return copyLiteral(literal, targetContextNode, copyStrategy);

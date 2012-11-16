@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 11:30:08 CET 2012
+ * Produced : Fri Nov 16 12:53:05 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -73,7 +73,7 @@ final public class Rule$xdi_xref extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule$xdi_xref_address.parse(context);
+            rule = Rule$xdi_xref_IRI.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -100,7 +100,7 @@ final public class Rule$xdi_xref extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule$xdi_xref_IRI.parse(context);
+            rule = Rule$xdi_xref_address.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);

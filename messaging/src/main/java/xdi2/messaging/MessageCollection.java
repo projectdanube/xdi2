@@ -12,7 +12,7 @@ import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -97,7 +97,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Returns the sender of the message collection.
 	 * @return The sender of the message collection.
 	 */
-	public XRI3Segment getSender() {
+	public XDI3Segment getSender() {
 
 		return this.getContextNode().getContextNode().getXri();
 	}

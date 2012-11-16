@@ -14,14 +14,14 @@ import xdi2.core.Statement;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.DescendingIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.Prototype;
 
-public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> implements Iterable<Contributor>, Prototype<ContributorMap> {
+public class ContributorMap extends TreeMap<XDI3Segment, List<Contributor>> implements Iterable<Contributor>, Prototype<ContributorMap> {
 
 	private static final long serialVersionUID = 1645889897751813459L;
 
@@ -29,10 +29,10 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 	public ContributorMap() {
 
-		super(XRIUtil.XRI3SEGMENT_DESCENDING_COMPARATOR);
+		super(XRIUtil.XDI3Segment_DESCENDING_COMPARATOR);
 	}
 
-	public void addContributor(XRI3Segment contributorXri, Contributor contributor) {
+	public void addContributor(XDI3Segment contributorXri, Contributor contributor) {
 
 		log.debug("Adding contributor " + contributor.getClass().getSimpleName() + " under " + contributorXri);
 
@@ -53,11 +53,11 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 		for (String address : contributorCall.addresses()) {
 
-			this.addContributor(new XRI3Segment(address), contributor);
+			this.addContributor(new XDI3Segment(address), contributor);
 		}
 	}
 
-	public void removeContributor(XRI3Segment contributorXri, Contributor contributor) {
+	public void removeContributor(XDI3Segment contributorXri, Contributor contributor) {
 
 		log.debug("Removing contributor " + contributor.getClass().getSimpleName() + " from " + contributorXri);
 
@@ -74,9 +74,9 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 	public void removeContributor(Contributor contributor) {
 
-		for (Iterator<Map.Entry<XRI3Segment, List<Contributor>>> entries = this.entrySet().iterator(); entries.hasNext(); ) {
+		for (Iterator<Map.Entry<XDI3Segment, List<Contributor>>> entries = this.entrySet().iterator(); entries.hasNext(); ) {
 
-			Map.Entry<XRI3Segment, List<Contributor>> entry = entries.next();
+			Map.Entry<XDI3Segment, List<Contributor>> entry = entries.next();
 
 			if (entry.getValue().contains(contributor)) entry.getValue().remove(contributor);
 			if (entry.getValue().isEmpty()) entries.remove();
@@ -113,19 +113,19 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 	 * Methods for executing contributors
 	 */
 
-	public boolean executeContributorsAddress(XRI3Segment[] contributorXris, XRI3Segment relativeTargetAddress, XRI3Segment targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeContributorsAddress(XDI3Segment[] contributorXris, XDI3Segment relativeTargetAddress, XDI3Segment targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// find an address with contributors
 
-		XRI3Segment relativeContextNodeXri = relativeTargetAddress;
+		XDI3Segment relativeContextNodeXri = relativeTargetAddress;
 
-		XRI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
+		XDI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
 		if (nextContributorXri == null) return false;
 
-		XRI3Segment nextRelativeTargetAddress = XRIUtil.relativeXri(relativeTargetAddress, nextContributorXri, false, true);
-		XRI3Segment nextRelativeContextNodeXri = nextRelativeTargetAddress;
+		XDI3Segment nextRelativeTargetAddress = XRIUtil.relativeXri(relativeTargetAddress, nextContributorXri, false, true);
+		XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetAddress;
 
-		XRI3Segment[] nextContributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
+		XDI3Segment[] nextContributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
 		nextContributorXris[nextContributorXris.length - 1] = nextRelativeContextNodeXri == null ? relativeContextNodeXri : XRIUtil.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
 
 		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(nextContributorXris) + ", next relative target address: " + nextRelativeTargetAddress + ", target address: " + targetAddress);
@@ -158,19 +158,19 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 		return false;
 	}
 
-	public boolean executeContributorsStatement(XRI3Segment contributorXris[], Statement relativeTargetStatement, Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeContributorsStatement(XDI3Segment contributorXris[], Statement relativeTargetStatement, Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// find an address with contributors
 
-		XRI3Segment relativeContextNodeXri = targetStatement.getContextNodeXri();
+		XDI3Segment relativeContextNodeXri = targetStatement.getContextNodeXri();
 
-		XRI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
+		XDI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
 		if (nextContributorXri == null) return false;
 
 		Statement nextRelativeTargetStatement = StatementUtil.relativeStatement(relativeTargetStatement, nextContributorXri, false, true);
-		XRI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement.getContextNodeXri();
+		XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement.getContextNodeXri();
 
-		XRI3Segment[] nextContributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
+		XDI3Segment[] nextContributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
 		nextContributorXris[nextContributorXris.length - 1] = nextRelativeContextNodeXri == null ? relativeContextNodeXri : XRIUtil.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
 
 		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(nextContributorXris) + ", next relative target statement: " + nextRelativeTargetStatement + ", target statement: " + targetStatement);
@@ -207,23 +207,23 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 	 * Methods for finding contributors
 	 */
 
-	public XRI3Segment findMatchingContributorXri(XRI3Segment contextNodeXri) {
+	public XDI3Segment findMatchingContributorXri(XDI3Segment contextNodeXri) {
 
 		return this.containsKey(contextNodeXri) ? contextNodeXri : null;
 	}
 
-	public XRI3Segment findHigherContributorXri(XRI3Segment contextNodeXri) {
+	public XDI3Segment findHigherContributorXri(XDI3Segment contextNodeXri) {
 
 		// try first without variables
 
-		for (XRI3Segment contributorXri : this.keySet()) {
+		for (XDI3Segment contributorXri : this.keySet()) {
 
 			if (XRIUtil.startsWith(contextNodeXri, contributorXri, false, false)) return contributorXri;
 		}
 
 		// now try with variables
 
-		for (XRI3Segment contributorXri : this.keySet()) {
+		for (XDI3Segment contributorXri : this.keySet()) {
 
 			if (XRIUtil.startsWith(contextNodeXri, contributorXri, false, true)) return contributorXri;
 		}
@@ -231,18 +231,18 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 		return null;
 	}
 
-	public XRI3Segment findLowerContributorXri(XRI3Segment contextNodeXri) {
+	public XDI3Segment findLowerContributorXri(XDI3Segment contextNodeXri) {
 
 		// try first without variables
 
-		for (XRI3Segment contributorXri : this.keySet()) {
+		for (XDI3Segment contributorXri : this.keySet()) {
 
 			if (XRIUtil.startsWith(contributorXri, contextNodeXri, false, false)) return contributorXri;
 		}
 
 		// now try with variables
 
-		for (XRI3Segment contributorXri : this.keySet()) {
+		for (XDI3Segment contributorXri : this.keySet()) {
 
 			if (XRIUtil.startsWith(contributorXri, contextNodeXri, true, false)) return contributorXri;
 		}
@@ -264,9 +264,9 @@ public class ContributorMap extends TreeMap<XRI3Segment, List<Contributor>> impl
 
 		// add contributors
 
-		for (Map.Entry<XRI3Segment, List<Contributor>> entry : this.entrySet()) {
+		for (Map.Entry<XDI3Segment, List<Contributor>> entry : this.entrySet()) {
 
-			XRI3Segment contributorXri = entry.getKey();
+			XDI3Segment contributorXri = entry.getKey();
 			List<Contributor> contributors = entry.getValue();
 
 			for (Contributor contributor : contributors) {
