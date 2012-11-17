@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>XRI Parser</title>
+<script type="text/javascript" src="tabber.js"></script>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body style="background-image: url('images/back.png'); background-repeat: repeat-y; margin-left: 60px;">
@@ -39,9 +40,37 @@
 
 	<br>
 
-	<% if (request.getAttribute("output") != null) { %>
-		<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
+	<div class="tabber">
+
+	<% if (request.getAttribute("output1") != null) { %>
+	    <div class="tabbertab">
+		<h2>Tree</h2>
+		<div class="result"><pre><%= request.getAttribute("output1") != null ? request.getAttribute("output1") : "" %></pre></div><br>
+		</div>
 	<% } %>
+
+	<% if (request.getAttribute("output2") != null) { %>
+	    <div class="tabbertab">
+		<h2>Xml</h2>
+		<div class="result"><pre><%= request.getAttribute("output2") != null ? request.getAttribute("output2") : "" %></pre></div><br>
+		</div>
+	<% } %>
+
+	<% if (request.getAttribute("output3") != null) { %>
+	    <div class="tabbertab">
+		<h2>Stacks</h2>
+		<div class="result"><pre><%= request.getAttribute("output3") != null ? request.getAttribute("output3") : "" %></pre></div><br>
+		</div>
+	<% } %>
+
+	<% if (request.getAttribute("output4") != null) { %>
+	    <div class="tabbertab">
+		<h2>Counts</h2>
+		<div class="result"><pre><%= request.getAttribute("output4") != null ? request.getAttribute("output4") : "" %></pre></div><br>
+		</div>
+	<% } %>
+	
+	</div>
 	
 </body>
 </html>

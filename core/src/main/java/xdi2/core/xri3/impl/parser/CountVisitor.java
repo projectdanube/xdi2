@@ -1,17 +1,34 @@
 package xdi2.core.xri3.impl.parser;
 
-import java.io.PrintStream;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class TreeDisplayer implements Visitor
+public class CountVisitor implements Visitor
 {
-	private int indent;
-	private PrintStream stream;
-	public TreeDisplayer(PrintStream stream)
+	private Map<String, Integer> count;
+	public CountVisitor()
 	{
-		this.indent = 0;
-		this.stream = stream;
+		this.count = new HashMap<String, Integer> ();
 	}
 
+	public Map<String, Integer> getCount() {
+		
+		TreeMap<String, Integer> count = new TreeMap<String, Integer> (new Comparator<String> () {
+
+			@Override
+			public int compare(String string1, String string2) {
+
+				return CountVisitor.this.count.get(string1).intValue() < CountVisitor.this.count.get(string2).intValue() ? 1 : -1;
+			}
+		});
+		
+		count.putAll(this.count);
+		
+		return count;
+	}
+	
 	@Override
 	public Object visit(Rule$xdi_address rule) {
 		return visitRule(rule);
@@ -456,24 +473,21 @@ public class TreeDisplayer implements Visitor
 
 	public Object visit(Terminal$StringValue value)
 	{
-		stream.println('"' + value.spelling + '"');
 		return null;
 	}
 
 	public Object visit(Terminal$NumericValue value)
 	{
-		stream.println('"' + value.spelling + '"');
 		return null;
 	}
 
 	private Object visitRule(Rule rule)
 	{
-		stream.println(ParserRules.ruleNameForClass(rule.getClass()));
+		Integer n = this.count.get(ParserRules.ruleNameForClass(rule.getClass()));
+		n = n == null ? Integer.valueOf(1) : Integer.valueOf(n.intValue() + 1);
+		this.count.put(ParserRules.ruleNameForClass(rule.getClass()), n);
 		for (Rule innerrule : rule.rules) {
-			indent++;
-			for (int i=0; i<indent*2; i++) stream.print(' ');
 			innerrule.accept(this);
-			indent--;
 		}
 		return null;
 	}

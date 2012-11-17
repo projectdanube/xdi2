@@ -1,15 +1,23 @@
 package xdi2.core.xri3.impl.parser;
 
-import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
-public class TreeDisplayer implements Visitor
+public class DequesVisitor implements Visitor
 {
-	private int indent;
-	private PrintStream stream;
-	public TreeDisplayer(PrintStream stream)
+	private Deque<String> currentDeque;
+	private List<Deque<String>> deques;
+	public DequesVisitor()
 	{
-		this.indent = 0;
-		this.stream = stream;
+		this.deques = new ArrayList<Deque<String>> ();
+		this.nextDeque();
+	}
+
+	public List<Deque<String>> getDeques() {
+
+		return this.deques;
 	}
 
 	@Override
@@ -456,26 +464,37 @@ public class TreeDisplayer implements Visitor
 
 	public Object visit(Terminal$StringValue value)
 	{
-		stream.println('"' + value.spelling + '"');
+		this.currentDeque.addLast(value.spelling);
+		this.nextDeque();
+		this.currentDeque.removeLast();
 		return null;
 	}
 
 	public Object visit(Terminal$NumericValue value)
 	{
-		stream.println('"' + value.spelling + '"');
+		this.currentDeque.addLast(value.spelling);
+		this.nextDeque();
+		this.currentDeque.removeLast();
 		return null;
 	}
 
 	private Object visitRule(Rule rule)
 	{
-		stream.println(ParserRules.ruleNameForClass(rule.getClass()));
+		this.currentDeque.addLast(ParserRules.ruleNameForClass(rule.getClass()));
 		for (Rule innerrule : rule.rules) {
-			indent++;
-			for (int i=0; i<indent*2; i++) stream.print(' ');
 			innerrule.accept(this);
-			indent--;
 		}
+		this.currentDeque.removeLast();
 		return null;
+	}
+
+	private void nextDeque() {
+		if (this.currentDeque != null) {
+			this.deques.add(this.currentDeque);
+			this.currentDeque = new LinkedList<String> (this.currentDeque);
+		} else {
+			this.currentDeque = new LinkedList<String> ();
+		}
 	}
 }
 

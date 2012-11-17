@@ -25,8 +25,15 @@ public class ParserRules {
 
 	static String ruleNameForClass(Class<?> clazz) {
 
-		if (! clazz.getSimpleName().startsWith("Rule$")) return clazz.getSimpleName();
-		
-		return clazz.getSimpleName().substring(5).replace('_', '-');
+		if (clazz.getSimpleName().startsWith("Rule$")) {
+
+			return clazz.getSimpleName().substring(5).replace('_', '-');
+		} else if (clazz.getSimpleName().startsWith("Terminal$")) {
+
+			return "[" + clazz.getSimpleName().substring(9).toUpperCase() + "]";
+		} else {
+
+			return clazz.getSimpleName();
+		}
 	}
 }
