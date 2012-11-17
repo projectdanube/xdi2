@@ -133,7 +133,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		for (int i=0; i<segment.getNumSubSegments(); i++) {
 
-			XDI3SubSegment subSegment = (XDI3SubSegment) segment.getSubSegment(i);
+			XDI3SubSegment subSegment = segment.getSubSegment(i);
 			XDI3SubSegment substitutedSubSegment = substituteSubSegment(subSegment, executionContext);
 
 			if (substitutedSubSegment == null) continue;
@@ -145,7 +145,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 			if (substitutedSubSegments == null) {
 
 				substitutedSubSegments = new ArrayList<XDI3SubSegment> (segment.getNumSubSegments());
-				for (int ii=0; ii<segment.getNumSubSegments(); ii++) substitutedSubSegments.add((XDI3SubSegment) segment.getSubSegment(ii));
+				for (int ii=0; ii<segment.getNumSubSegments(); ii++) substitutedSubSegments.add(segment.getSubSegment(ii));
 			}
 
 			substitutedSubSegments.set(i, substitutedSubSegment);

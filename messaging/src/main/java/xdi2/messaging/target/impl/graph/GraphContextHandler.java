@@ -64,7 +64,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		XDI3Segment parentXri = XRIUtil.parentXri(contextNodeXri, -1);
 		if (parentXri == null) parentXri = XDIConstants.XRI_S_CONTEXT;
 
-		XDI3SubSegment localXri = (XDI3SubSegment) XRIUtil.localXri(contextNodeXri, 1).getFirstSubSegment();
+		XDI3SubSegment localXri = XRIUtil.localXri(contextNodeXri, 1).getFirstSubSegment();
 
 		ContextNode contextNode = this.getGraph().findContextNode(parentXri, true);
 		contextNode.createContextNode(localXri);

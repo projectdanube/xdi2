@@ -1,8 +1,6 @@
 package xdi2.core.features.dictionary;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;

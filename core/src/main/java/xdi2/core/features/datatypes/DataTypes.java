@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -14,8 +13,8 @@ import xdi2.core.features.multiplicity.XdiAttributeMember;
 import xdi2.core.features.multiplicity.XdiAttributeSingleton;
 import xdi2.core.features.multiplicity.XdiCollection;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XRI3Constants;
 
 /**
  * A helper class to work with data types, i.e. get or set them. Supported data
@@ -106,8 +105,8 @@ public class DataTypes {
 			parts = mimeType.split("/");
 			xriSeg = new XDI3Segment("" + XRI_MIME_DATATYPE
 					+ XRI3Constants.GCS_DOLLAR + parts[0]
-					+ XRI3Constants.GCS_DOLLAR + parts[1]
-					+ XRI3Constants.LCS_BANG);
+							+ XRI3Constants.GCS_DOLLAR + parts[1]
+									+ XRI3Constants.LCS_BANG);
 		} catch (Exception ex) {
 			throw new Xdi2RuntimeException("Invalid MIME Type ", ex);
 		}
@@ -272,13 +271,13 @@ public class DataTypes {
 	}
 
 	private static List<XDI3Segment> getLiteralDatatypes(Literal literal) {
-		List<XDI3Segment> dataTypes;
-		try {
-			Graph graph = literal.getGraph();
 
-			ReadOnlyIterator<Relation> relations = 
-					literal.getContextNode().getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
-			
+		List<XDI3Segment> dataTypes;
+
+		try {
+
+			ReadOnlyIterator<Relation> relations = literal.getContextNode().getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
+
 			dataTypes = new ArrayList<XDI3Segment>();
 
 			while (relations.hasNext()) {
@@ -287,11 +286,10 @@ public class DataTypes {
 				dataTypes.add(relation.getStatement().getObject());
 			}
 		} catch (Exception ex) {
+
 			throw new Xdi2RuntimeException("Invalid XDI3Segment ", ex);
 		}
-		
+
 		return dataTypes;
-
 	}
-
 }

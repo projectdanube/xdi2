@@ -1,17 +1,12 @@
 package xdi2.messaging.util;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.annotations.JSConstructor;
 import org.mozilla.javascript.annotations.JSFunction;
-import org.mozilla.javascript.annotations.JSGetter;
 
 import xdi2.core.Literal;
 import xdi2.core.features.linkcontracts.LinkContract;
-import xdi2.core.features.linkcontracts.util.JSPolicyExpressionUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.Message;
 

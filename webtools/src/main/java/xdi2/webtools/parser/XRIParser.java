@@ -150,7 +150,7 @@ public class XRIParser extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("rulename", rulename);
 		request.setAttribute("input", input);
 		request.setAttribute("output1", output1);
-		//request.setAttribute("output2", output2);
+		request.setAttribute("output2", output2);
 		request.setAttribute("output3", output3);
 		request.setAttribute("output4", output4);
 		request.setAttribute("error", error);
