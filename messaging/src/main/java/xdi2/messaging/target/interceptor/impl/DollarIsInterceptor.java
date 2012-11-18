@@ -3,7 +3,7 @@ package xdi2.messaging.target.interceptor.impl;
 import java.util.AbstractMap;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -18,10 +18,12 @@ import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -30,6 +32,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
@@ -39,7 +42,7 @@ import xdi2.messaging.util.MessagingCloneUtil;
  * 
  * @author markus
  */
-public class DollarIsInterceptor extends AbstractInterceptor implements OperationInterceptor, TargetInterceptor, Prototype<DollarIsInterceptor> {
+public class DollarIsInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, OperationInterceptor, TargetInterceptor, Prototype<DollarIsInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(DollarIsInterceptor.class);
 
@@ -56,13 +59,34 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 	}
 
 	/*
+	 * MessageEnvelopeInterceptor
+	 */
+
+	@Override
+	public boolean before(MessageEnvelope messageEnvelope, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		resetSubstitutions(executionContext);
+
+		return false;
+	}
+
+	@Override
+	public boolean after(MessageEnvelope messageEnvelope, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		return false;
+	}
+
+	@Override
+	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
+
+	}
+
+	/*
 	 * OperationInterceptor
 	 */
 
 	@Override
 	public boolean before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		resetSubstitutions(executionContext);
 
 		return false;
 	}
@@ -72,9 +96,9 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 		// look through the message result to apply substitution
 
-		for (Iterator<Statement> statements = operationMessageResult.getGraph().getRootContextNode().getAllStatements(); statements.hasNext(); ) {
+		List<Statement> statements = new IteratorListMaker<Statement> (operationMessageResult.getGraph().getRootContextNode().getAllStatements()).list();
 
-			Statement statement = statements.next();
+		for (Statement statement : statements) {
 
 			if (statement instanceof RelationStatement &&
 					(XDIDictionaryConstants.XRI_S_IS.equals(((RelationStatement) statement).getPredicate()) ||
@@ -82,11 +106,30 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 				Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 				feedbackMessage.deleteOperations();
-				feedbackMessage.createGetOperation(((RelationStatement) statement.getObject()));
-				statement.delete();
-				pushSubstitution(executionContext, ((RelationStatement) statement).getObject(), ((RelationStatement) statement).getPredicate(), ((RelationStatement) statement).getSubject());
+				feedbackMessage.createOperation(operation.getOperationXri(), ((RelationStatement) statement).getSubject());
 
-				this.feedback(feedbackMessage, operationMessageResult, executionContext);
+				MessageResult feedbackMessageResult = new MessageResult();
+				Deque<Map.Entry<XDI3Segment, XDI3Segment[]>> substitutions = getSubstitutions(executionContext);
+				resetSubstitutions(executionContext);
+				this.feedback(feedbackMessage, feedbackMessageResult, executionContext);
+				putSubstitutions(executionContext, substitutions);
+
+				// delete the substituted context as far up the graph as possible
+
+				ContextNode substitutedContextNode = ((RelationStatement) statement).getRelation().follow();
+				ContextNode parentSubstitutedContextNode;
+
+				do {
+
+					parentSubstitutedContextNode = substitutedContextNode.getContextNode();
+					substitutedContextNode.delete();
+					substitutedContextNode = parentSubstitutedContextNode;
+				} while (parentSubstitutedContextNode.isEmpty() && (! parentSubstitutedContextNode.isRootContextNode()));
+
+				log.debug("feedbackMessageResult: " + feedbackMessageResult);
+				CopyUtil.copyGraph(feedbackMessageResult.getGraph(), operationMessageResult.getGraph(), null);
+				log.debug("operationMessageResult: " + operationMessageResult);
+				//pushSubstitution(executionContext, ((RelationStatement) statement).getObject(), ((RelationStatement) statement).getPredicate(), ((RelationStatement) statement).getSubject());
 			}
 		}
 
@@ -293,6 +336,11 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 	private static Deque<Map.Entry<XDI3Segment, XDI3Segment[]>> getSubstitutions(ExecutionContext executionContext) {
 
 		return (Deque<Map.Entry<XDI3Segment, XDI3Segment[]>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION);
+	}
+
+	private static void putSubstitutions(ExecutionContext executionContext, Deque<Map.Entry<XDI3Segment, XDI3Segment[]>> substitutions) {
+
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION, substitutions);
 	}
 
 	private static Map.Entry<XDI3Segment, XDI3Segment[]> popSubstitution(ExecutionContext executionContext) {
