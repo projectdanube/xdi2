@@ -3,6 +3,7 @@ package xdi2.messaging.target.interceptor.impl;
 import java.util.AbstractMap;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.GetOperation;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -30,6 +32,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
+import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
  * This interceptor makes sure only one outgoing $is arc can exist on any context.
@@ -66,6 +69,26 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 	@Override
 	public boolean after(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		// look through the message result to apply substitution
+
+		for (Iterator<Statement> statements = operationMessageResult.getGraph().getRootContextNode().getAllStatements(); statements.hasNext(); ) {
+
+			Statement statement = statements.next();
+
+			if (statement instanceof RelationStatement &&
+					(XDIDictionaryConstants.XRI_S_IS.equals(((RelationStatement) statement).getPredicate()) ||
+							XDIDictionaryConstants.XRI_S_IS_BANG.equals(((RelationStatement) statement).getPredicate()))) {
+
+				Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
+				feedbackMessage.deleteOperations();
+				feedbackMessage.createGetOperation(((RelationStatement) statement.getObject()));
+				statement.delete();
+				pushSubstitution(executionContext, ((RelationStatement) statement).getObject(), ((RelationStatement) statement).getPredicate(), ((RelationStatement) statement).getSubject());
+
+				this.feedback(feedbackMessage, operationMessageResult, executionContext);
+			}
+		}
 
 		// look through the message result for post-substitution actions
 
@@ -143,7 +166,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 		while (true) { 
 
 			tempTargetAddress = substitutedTargetAddress;
-			substitutedTargetAddress = substituteCanonicalArcs(tempTargetAddress, graph, operation, executionContext);
+			substitutedTargetAddress = substituteCanonicalArcs(tempTargetAddress, graph, executionContext);
 
 			if (substitutedTargetAddress == tempTargetAddress) break;
 
@@ -170,48 +193,44 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 		Graph graph = ((GraphMessagingTarget) currentMessagingTarget).getGraph();
 
-		if (targetStatement instanceof RelationStatement &&
-				(
-						XDIDictionaryConstants.XRI_S_IS.equals(((RelationStatement) targetStatement).getPredicate()) ||
+		// are we adding a $is arc or $is! arc to a non-empty context?
+
+		if (operation instanceof AddOperation &&
+				targetStatement instanceof RelationStatement &&
+				(XDIDictionaryConstants.XRI_S_IS.equals(((RelationStatement) targetStatement).getPredicate()) ||
 						XDIDictionaryConstants.XRI_S_IS_BANG.equals(((RelationStatement) targetStatement).getPredicate()))) {
 
-			// are we adding a $is arc or $is! arc to a non-empty context?
+			XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
+			ContextNode targetContextNode = graph.findContextNode(targetContextNodeXri, false);
 
-			if (operation instanceof AddOperation) {
+			// check if the context is empty
 
-				XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
-				ContextNode targetContextNode = graph.findContextNode(targetContextNodeXri, false);
+			if (targetContextNode != null && ! targetContextNode.isEmpty()) {
 
-				// check if the context is empty
-
-				if (targetContextNode != null && ! targetContextNode.isEmpty()) {
-
-					throw new Xdi2MessagingException("Cannot add canonical $is or $is! relation to non-empty context node " + targetContextNode.getXri(), null, executionContext);
-				}
+				throw new Xdi2MessagingException("Cannot add canonical $is or $is! relation to non-empty context node " + targetContextNode.getXri(), null, executionContext);
 			}
-		} else {
+		}
 
-			// apply substitution
+		// apply substitution
 
-			XDI3Segment originalTargetSubject = targetStatement.getSubject();
-			XDI3Segment substitutedTargetSubject = originalTargetSubject;
+		XDI3Segment originalTargetSubject = targetStatement.getSubject();
+		XDI3Segment substitutedTargetSubject = originalTargetSubject;
 
-			XDI3Segment tempTargetSubject;
+		XDI3Segment tempTargetSubject;
 
-			while (true) {
+		while (true) {
 
-				tempTargetSubject = substitutedTargetSubject;
-				substitutedTargetSubject = substituteCanonicalArcs(tempTargetSubject, graph, operation, executionContext);
+			tempTargetSubject = substitutedTargetSubject;
+			substitutedTargetSubject = substituteCanonicalArcs(tempTargetSubject, graph, executionContext);
 
-				if (substitutedTargetSubject == tempTargetSubject) break;
+			if (substitutedTargetSubject == tempTargetSubject) break;
 
-				if (log.isDebugEnabled()) log.debug("In message envelope: Substituted " + tempTargetSubject + " with " + substitutedTargetSubject);
-			}
+			if (log.isDebugEnabled()) log.debug("In message envelope: Substituted " + tempTargetSubject + " with " + substitutedTargetSubject);
+		}
 
-			if (substitutedTargetSubject != originalTargetSubject) {
+		if (substitutedTargetSubject != originalTargetSubject) {
 
-				return StatementUtil.fromComponents(substitutedTargetSubject, targetStatement.getPredicate(), targetStatement.getObject());
-			}
+			return StatementUtil.fromComponents(substitutedTargetSubject, targetStatement.getPredicate(), targetStatement.getObject());
 		}
 
 		// done
@@ -219,7 +238,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 		return targetStatement;
 	}
 
-	private static XDI3Segment substituteCanonicalArcs(XDI3Segment contextNodeXri, Graph graph, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static XDI3Segment substituteCanonicalArcs(XDI3Segment contextNodeXri, Graph graph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		String localPart = "";
 
@@ -236,10 +255,9 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 				if (canonicalContextNode.equals(contextNode)) break;
 
 				XDI3Segment substitutedContextNodeXri = canonicalContextNode.getXri();
+				pushSubstitution(executionContext, substitutedContextNodeXri, XDIDictionaryConstants.XRI_S_IS, contextNodeXri);
 
 				if (log.isDebugEnabled()) log.debug("Applying " + XDIDictionaryConstants.XRI_S_IS + " arc: " + contextNodeXri + " --> " + substitutedContextNodeXri);
-
-				pushSubstitution(executionContext, substitutedContextNodeXri, XDIDictionaryConstants.XRI_S_IS, contextNodeXri);
 
 				return new XDI3Segment("" + canonicalContextNode.getXri() + localPart);
 			}
@@ -249,10 +267,9 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 				if (privateCanonicalContextNode.equals(contextNode)) break;
 
 				XDI3Segment privateSubstitutedContextNodeXri = privateCanonicalContextNode.getXri();
+				pushSubstitution(executionContext, privateSubstitutedContextNodeXri, XDIDictionaryConstants.XRI_S_IS_BANG, contextNodeXri);
 
 				if (log.isDebugEnabled()) log.debug("Applying " + XDIDictionaryConstants.XRI_S_IS_BANG + " arc: " + contextNodeXri + " --> " + privateSubstitutedContextNodeXri);
-
-				pushSubstitution(executionContext, privateSubstitutedContextNodeXri, XDIDictionaryConstants.XRI_S_IS_BANG, contextNodeXri);
 
 				return new XDI3Segment("" + privateCanonicalContextNode.getXri() + localPart);
 			}
