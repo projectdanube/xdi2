@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 19:01:51 CET 2012
+ * Produced : Sun Nov 18 00:40:33 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -28,14 +28,14 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule$xdi_node rule)
+  public Object visit(Rule$xdi_context rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xdi-node>");
+    System.out.print("<xdi-context>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xdi-node>");
+    System.out.print("</xdi-context>");
     terminal = false;
     return null;
   }

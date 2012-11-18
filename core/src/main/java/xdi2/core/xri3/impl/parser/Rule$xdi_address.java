@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 19:01:51 CET 2012
+ * Produced : Sun Nov 18 00:40:33 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -73,7 +73,7 @@ final public class Rule$xdi_address extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule$xdi_node.parse(context);
+            rule = Rule$xdi_context.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);

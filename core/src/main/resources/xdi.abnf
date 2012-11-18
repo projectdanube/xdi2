@@ -31,8 +31,8 @@
 # XDI rules
 #
 
-xdi-address = xdi-statement / xdi-node;
-xdi-node = xdi-segment ;
+xdi-address = xdi-statement / xdi-context;
+xdi-context = xdi-segment ;
 xdi-statement = xdi-subject "/" xdi-predicate "/" xdi-object ;
 xdi-subject = xdi-segment ;
 xdi-predicate = xdi-segment ;

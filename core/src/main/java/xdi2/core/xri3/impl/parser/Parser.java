@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 19:01:51 CET 2012
+ * Produced : Sun Nov 18 00:40:33 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -161,7 +161,7 @@ public class Parser
 
     Rule rule = null;
     if (rulename.equalsIgnoreCase("xdi-address")) rule = Rule$xdi_address.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-node")) rule = Rule$xdi_node.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-context")) rule = Rule$xdi_context.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-statement")) rule = Rule$xdi_statement.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-subject")) rule = Rule$xdi_subject.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-predicate")) rule = Rule$xdi_predicate.parse(context);

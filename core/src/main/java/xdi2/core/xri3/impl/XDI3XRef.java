@@ -9,7 +9,7 @@ import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
 import xdi2.core.xri3.impl.parser.Rule$IRI;
 import xdi2.core.xri3.impl.parser.Rule$xdi_address;
-import xdi2.core.xri3.impl.parser.Rule$xdi_node;
+import xdi2.core.xri3.impl.parser.Rule$xdi_context;
 import xdi2.core.xri3.impl.parser.Rule$xdi_segment;
 import xdi2.core.xri3.impl.parser.Rule$xdi_statement;
 import xdi2.core.xri3.impl.parser.Rule$xdi_xref;
@@ -88,21 +88,21 @@ public class XDI3XRef extends XRI3SyntaxComponent implements XRIXRef {
 			object = list_xdi_xref_address.get(1);	// xdi_address
 			this.value = ((Rule$xdi_address) object).spelling;
 
-			// read xdi_node or xdi_statement from xdi_address
+			// read xdi_context or xdi_statement from xdi_address
 
 			List list_xdi_address = ((Rule$xdi_address) object).rules;
 			if (list_xdi_address.size() < 1) return;
-			object = list_xdi_address.get(0);	// xdi_node or xdi_statement
+			object = list_xdi_address.get(0);	// xdi_context or xdi_statement
 
-			// xdi_node or xdi_statement ?
+			// xdi_context or xdi_statement ?
 
-			if (object instanceof Rule$xdi_node) {
+			if (object instanceof Rule$xdi_context) {
 
-				// read xdi_segment from xdi_node
+				// read xdi_segment from xdi_context
 
-				List list_xdi_node = ((Rule$xdi_node) object).rules;
-				if (list_xdi_node.size() < 1) return;
-				object = list_xdi_node.get(0);	// xdi_segment
+				List list_xdi_context = ((Rule$xdi_context) object).rules;
+				if (list_xdi_context.size() < 1) return;
+				object = list_xdi_context.get(0);	// xdi_segment
 				this.node = new XDI3Segment((Rule$xdi_segment) object);
 			} else if (object instanceof Rule$xdi_statement) {
 

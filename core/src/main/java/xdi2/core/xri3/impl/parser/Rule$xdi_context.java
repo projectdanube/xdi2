@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule$xdi_node.java
+ * Rule$xdi_context.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 19:01:51 CET 2012
+ * Produced : Sun Nov 18 00:40:33 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.impl.parser;
 
 import java.util.ArrayList;
 
-final public class Rule$xdi_node extends Rule
+final public class Rule$xdi_context extends Rule
 {
-  private Rule$xdi_node(String spelling, ArrayList<Rule> rules)
+  private Rule$xdi_context(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule$xdi_node extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule$xdi_node parse(ParserContext context)
+  public static Rule$xdi_context parse(ParserContext context)
   {
-    context.push("xdi-node");
+    context.push("xdi-context");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -64,13 +64,13 @@ final public class Rule$xdi_node extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule$xdi_node(context.text.substring(s0, context.index), e0);
+      rule = new Rule$xdi_context(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("xdi-node", parsed);
+    context.pop("xdi-context", parsed);
 
-    return (Rule$xdi_node)rule;
+    return (Rule$xdi_context)rule;
   }
 }
 

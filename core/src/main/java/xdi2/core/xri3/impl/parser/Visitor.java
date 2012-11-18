@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Nov 16 19:01:51 CET 2012
+ * Produced : Sun Nov 18 00:40:33 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -13,7 +13,7 @@ package xdi2.core.xri3.impl.parser;
 public interface Visitor
 {
   public Object visit(Rule$xdi_address rule);
-  public Object visit(Rule$xdi_node rule);
+  public Object visit(Rule$xdi_context rule);
   public Object visit(Rule$xdi_statement rule);
   public Object visit(Rule$xdi_subject rule);
   public Object visit(Rule$xdi_predicate rule);

@@ -25,7 +25,7 @@ public class DequesVisitor implements Visitor
 		return visitRule(rule);
 	}
 	@Override
-	public Object visit(Rule$xdi_node rule) {
+	public Object visit(Rule$xdi_context rule) {
 		return visitRule(rule);
 	}
 	@Override
