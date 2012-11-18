@@ -13,7 +13,7 @@
 	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Local Messenger</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDILocalMessenger?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+		<a href="XDILocalMessenger?sample=<%= i+1 %>" title="<%= ((String[]) request.getAttribute("sampleTooltips"))[i] %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>

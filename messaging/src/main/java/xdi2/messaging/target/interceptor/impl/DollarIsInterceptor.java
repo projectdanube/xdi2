@@ -1,10 +1,8 @@
 package xdi2.messaging.target.interceptor.impl;
 
-import java.util.AbstractMap;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,8 +63,6 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 	@Override
 	public boolean before(MessageEnvelope messageEnvelope, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		resetSubstitutions(executionContext);
-
 		return false;
 	}
 
@@ -88,95 +84,67 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 	@Override
 	public boolean before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		resetEquivalences(executionContext);
+
 		return false;
 	}
 
 	@Override
 	public boolean after(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// look through the message result to apply substitution
+		// look through the message result to apply following
 
-		List<Statement> statements = new IteratorListMaker<Statement> (operationMessageResult.getGraph().getRootContextNode().getAllStatements()).list();
+		List<Statement> statements = new IteratorListMaker<Statement> (Dictionary.getEquivalenceStatements(operationMessageResult.getGraph())).list();
 
 		for (Statement statement : statements) {
 
-			if (statement instanceof RelationStatement &&
-					(XDIDictionaryConstants.XRI_S_IS.equals(((RelationStatement) statement).getPredicate()) ||
-							XDIDictionaryConstants.XRI_S_IS_BANG.equals(((RelationStatement) statement).getPredicate()))) {
+			Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
+			feedbackMessage.deleteOperations();
+			feedbackMessage.createOperation(operation.getOperationXri(), statement.getSubject());
 
-				Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
-				feedbackMessage.deleteOperations();
-				feedbackMessage.createOperation(operation.getOperationXri(), ((RelationStatement) statement).getSubject());
+			((RelationStatement) statement).getRelation().follow().deleteUntilEmpty();
 
-				MessageResult feedbackMessageResult = new MessageResult();
-				Deque<Map.Entry<XDI3Segment, XDI3Segment[]>> substitutions = getSubstitutions(executionContext);
-				resetSubstitutions(executionContext);
-				this.feedback(feedbackMessage, feedbackMessageResult, executionContext);
-				putSubstitutions(executionContext, substitutions);
-
-				// delete the substituted context as far up the graph as possible
-
-				ContextNode substitutedContextNode = ((RelationStatement) statement).getRelation().follow();
-				ContextNode parentSubstitutedContextNode;
-
-				do {
-
-					parentSubstitutedContextNode = substitutedContextNode.getContextNode();
-					substitutedContextNode.delete();
-					substitutedContextNode = parentSubstitutedContextNode;
-				} while (parentSubstitutedContextNode.isEmpty() && (! parentSubstitutedContextNode.isRootContextNode()));
-
-				log.debug("feedbackMessageResult: " + feedbackMessageResult);
-				CopyUtil.copyGraph(feedbackMessageResult.getGraph(), operationMessageResult.getGraph(), null);
-				log.debug("operationMessageResult: " + operationMessageResult);
-				//pushSubstitution(executionContext, ((RelationStatement) statement).getObject(), ((RelationStatement) statement).getPredicate(), ((RelationStatement) statement).getSubject());
-			}
+//			MessageResult feedbackMessageResult = new MessageResult();
+			Deque<Equivalence> equivalences = getEquivalences(executionContext);
+			this.feedback(feedbackMessage, operationMessageResult, executionContext);
+			putEquivalences(executionContext, equivalences);
+//			CopyUtil.copyGraph(feedbackMessageResult.getGraph(), operationMessageResult.getGraph(), null);
 		}
 
-		// look through the message result for post-substitution actions
+		// look through the message result for post-following actions
 
-		Map.Entry<XDI3Segment, XDI3Segment[]> entry;
+		Equivalence equivalence;
 
-		while ((entry = popSubstitution(executionContext)) != null) {
+		while ((equivalence = popEquivalence(executionContext)) != null) {
 
-			XDI3Segment substitutedContextNodeXri = entry.getKey();
-			XDI3Segment arcXri = entry.getValue()[0];
-			XDI3Segment contextNodeXri = entry.getValue()[1];
+			XDI3Segment contextNodeXri = equivalence.getContextNodeXri();
+			XDI3Segment arcXri = equivalence.getArcXri();
+			XDI3Segment followedContextNodeXri = equivalence.getFollowedContextNodeXri();
 
-			ContextNode substitutedContextNode = operationMessageResult.getGraph().findContextNode(substitutedContextNodeXri, false);
-			if (substitutedContextNode == null) continue;
+			ContextNode followedContextNode = operationMessageResult.getGraph().findContextNode(followedContextNodeXri, false);
+			if (followedContextNode == null) continue;
 
-			boolean doBackSubstitution = XDIDictionaryConstants.XRI_S_IS_BANG.equals(arcXri) || (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
-			boolean doRecordSubstitution = (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && ! GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
+			boolean doSubstituteEquivalenceStatements = XDIDictionaryConstants.XRI_S_IS_BANG.equals(arcXri) || (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
+			boolean doIncludeEquivalenceStatements = (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && ! GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
 
-			// back-substitution?
+			// substitute equivalence statements?
 
-			if (doBackSubstitution) {
+			if (doSubstituteEquivalenceStatements) {
 
-				if (log.isDebugEnabled()) log.debug("In message result: Back-substituting " + substitutedContextNodeXri + " with " + contextNodeXri);
+				if (log.isDebugEnabled()) log.debug("In message result: Substituting equivalence: " + equivalence);
 
 				ContextNode contextNode = operationMessageResult.getGraph().findContextNode(contextNodeXri, true);
-				CopyUtil.copyContextNodeContents(substitutedContextNode, contextNode, null);
-
-				// delete the substituted context as far up the graph as possible
-
-				ContextNode parentSubstitutedContextNode;
-
-				do {
-
-					parentSubstitutedContextNode = substitutedContextNode.getContextNode();
-					substitutedContextNode.delete();
-					substitutedContextNode = parentSubstitutedContextNode;
-				} while (parentSubstitutedContextNode.isEmpty() && (! parentSubstitutedContextNode.isRootContextNode()));
+				CopyUtil.copyContextNodeContents(followedContextNode, contextNode, null);
+				followedContextNode.deleteUntilEmpty();
 			}
 
-			// record substitution?
+			// include equivalence statements?
 
-			if (doRecordSubstitution) {
+			if (doIncludeEquivalenceStatements) {
 
-				if (log.isDebugEnabled()) log.debug("In message result: Recording substitution " + substitutedContextNodeXri + " with " + contextNodeXri);
+				if (log.isDebugEnabled()) log.debug("In message result: Including equivalence: " + equivalence);
 
-				operationMessageResult.getGraph().addStatement(StatementUtil.fromComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_IS, substitutedContextNodeXri));
+				operationMessageResult.getGraph().addStatement(StatementUtil.fromComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_IS, followedContextNodeXri));
 			}
 		}
 
@@ -199,26 +167,26 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 
 		Graph graph = ((GraphMessagingTarget) currentMessagingTarget).getGraph();
 
-		// apply substitution
+		// apply following
 
 		XDI3Segment originalTargetAddress = targetAddress;
-		XDI3Segment substitutedTargetAddress = originalTargetAddress;
+		XDI3Segment followedTargetAddress = originalTargetAddress;
 
 		XDI3Segment tempTargetAddress;
 
 		while (true) { 
 
-			tempTargetAddress = substitutedTargetAddress;
-			substitutedTargetAddress = substituteCanonicalArcs(tempTargetAddress, graph, executionContext);
+			tempTargetAddress = followedTargetAddress;
+			followedTargetAddress = followEquivalences(tempTargetAddress, graph, executionContext);
 
-			if (substitutedTargetAddress == tempTargetAddress) break;
+			if (followedTargetAddress == tempTargetAddress) break;
 
-			if (log.isDebugEnabled()) log.debug("In message envelope: Substituted " + tempTargetAddress + " with " + substitutedTargetAddress);
+			if (log.isDebugEnabled()) log.debug("In message envelope: Followed " + tempTargetAddress + " to " + followedTargetAddress);
 		}
 
-		if (substitutedTargetAddress != originalTargetAddress) {
+		if (followedTargetAddress != originalTargetAddress) {
 
-			return substitutedTargetAddress;
+			return followedTargetAddress;
 		}
 
 		// done
@@ -254,26 +222,26 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 			}
 		}
 
-		// apply substitution
+		// apply following
 
 		XDI3Segment originalTargetSubject = targetStatement.getSubject();
-		XDI3Segment substitutedTargetSubject = originalTargetSubject;
+		XDI3Segment followedTargetSubject = originalTargetSubject;
 
 		XDI3Segment tempTargetSubject;
 
 		while (true) {
 
-			tempTargetSubject = substitutedTargetSubject;
-			substitutedTargetSubject = substituteCanonicalArcs(tempTargetSubject, graph, executionContext);
+			tempTargetSubject = followedTargetSubject;
+			followedTargetSubject = followEquivalences(tempTargetSubject, graph, executionContext);
 
-			if (substitutedTargetSubject == tempTargetSubject) break;
+			if (followedTargetSubject == tempTargetSubject) break;
 
-			if (log.isDebugEnabled()) log.debug("In message envelope: Substituted " + tempTargetSubject + " with " + substitutedTargetSubject);
+			if (log.isDebugEnabled()) log.debug("In message envelope: Followed " + tempTargetSubject + " to " + followedTargetSubject);
 		}
 
-		if (substitutedTargetSubject != originalTargetSubject) {
+		if (followedTargetSubject != originalTargetSubject) {
 
-			return StatementUtil.fromComponents(substitutedTargetSubject, targetStatement.getPredicate(), targetStatement.getObject());
+			return StatementUtil.fromComponents(followedTargetSubject, targetStatement.getPredicate(), targetStatement.getObject());
 		}
 
 		// done
@@ -281,7 +249,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 		return targetStatement;
 	}
 
-	private static XDI3Segment substituteCanonicalArcs(XDI3Segment contextNodeXri, Graph graph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static XDI3Segment followEquivalences(XDI3Segment contextNodeXri, Graph graph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		String localPart = "";
 
@@ -297,10 +265,8 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 
 				if (canonicalContextNode.equals(contextNode)) break;
 
-				XDI3Segment substitutedContextNodeXri = canonicalContextNode.getXri();
-				pushSubstitution(executionContext, substitutedContextNodeXri, XDIDictionaryConstants.XRI_S_IS, contextNodeXri);
-
-				if (log.isDebugEnabled()) log.debug("Applying " + XDIDictionaryConstants.XRI_S_IS + " arc: " + contextNodeXri + " --> " + substitutedContextNodeXri);
+				XDI3Segment followedContextNodeXri = canonicalContextNode.getXri();
+				pushEquivalence(executionContext, new Equivalence(contextNodeXri, XDIDictionaryConstants.XRI_S_IS, followedContextNodeXri));
 
 				return new XDI3Segment("" + canonicalContextNode.getXri() + localPart);
 			}
@@ -309,10 +275,8 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 
 				if (privateCanonicalContextNode.equals(contextNode)) break;
 
-				XDI3Segment privateSubstitutedContextNodeXri = privateCanonicalContextNode.getXri();
-				pushSubstitution(executionContext, privateSubstitutedContextNodeXri, XDIDictionaryConstants.XRI_S_IS_BANG, contextNodeXri);
-
-				if (log.isDebugEnabled()) log.debug("Applying " + XDIDictionaryConstants.XRI_S_IS_BANG + " arc: " + contextNodeXri + " --> " + privateSubstitutedContextNodeXri);
+				XDI3Segment privateFollowedContextNodeXri = privateCanonicalContextNode.getXri();
+				pushEquivalence(executionContext, new Equivalence(contextNodeXri, XDIDictionaryConstants.XRI_S_IS_BANG, privateFollowedContextNodeXri));
 
 				return new XDI3Segment("" + privateCanonicalContextNode.getXri() + localPart);
 			}
@@ -330,34 +294,75 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION = DollarIsInterceptor.class.getCanonicalName() + "#substitutionsperoperation";
+	private static final String EXECUTIONCONTEXT_KEY_EQUIVALENCES_PER_OPERATION = DollarIsInterceptor.class.getCanonicalName() + "#equivalencesperoperation";
 
 	@SuppressWarnings("unchecked")
-	private static Deque<Map.Entry<XDI3Segment, XDI3Segment[]>> getSubstitutions(ExecutionContext executionContext) {
+	private static Deque<Equivalence> getEquivalences(ExecutionContext executionContext) {
 
-		return (Deque<Map.Entry<XDI3Segment, XDI3Segment[]>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION);
+		return (Deque<Equivalence>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EQUIVALENCES_PER_OPERATION);
 	}
 
-	private static void putSubstitutions(ExecutionContext executionContext, Deque<Map.Entry<XDI3Segment, XDI3Segment[]>> substitutions) {
+	private static void putEquivalences(ExecutionContext executionContext, Deque<Equivalence> equivalences) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION, substitutions);
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EQUIVALENCES_PER_OPERATION, equivalences);
 	}
 
-	private static Map.Entry<XDI3Segment, XDI3Segment[]> popSubstitution(ExecutionContext executionContext) {
+	private static Equivalence popEquivalence(ExecutionContext executionContext) {
 
-		Deque<Map.Entry<XDI3Segment, XDI3Segment[]>> substitutions = getSubstitutions(executionContext);
-		if (substitutions.isEmpty()) return null;
+		Deque<Equivalence> equivalences = getEquivalences(executionContext);
+		if (equivalences.isEmpty()) return null;
 
-		return substitutions.pop();
+		Equivalence equivalence = equivalences.pop();
+
+		if (log.isDebugEnabled()) log.debug("Popping equivalence: " + equivalence);
+
+		return equivalence;
 	}
 
-	private static void pushSubstitution(ExecutionContext executionContext, XDI3Segment substitutedContextNodeXri, XDI3Segment arcXri, XDI3Segment contextNodeXri) {
+	private static void pushEquivalence(ExecutionContext executionContext, Equivalence equivalence) {
 
-		getSubstitutions(executionContext).push(new AbstractMap.SimpleEntry<XDI3Segment, XDI3Segment[]> (substitutedContextNodeXri, new XDI3Segment[] { arcXri, contextNodeXri }));
+		getEquivalences(executionContext).push(equivalence);
+
+		if (log.isDebugEnabled()) log.debug("Pushing equivalence: " + equivalence);
 	}
 
-	private static void resetSubstitutions(ExecutionContext executionContext) {
+	private static void resetEquivalences(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_SUBSTITUTIONS_PER_OPERATION, new ArrayDeque<Map.Entry<XDI3Segment, XDI3Segment>> ());
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EQUIVALENCES_PER_OPERATION, new ArrayDeque<Equivalence> ());
+	}
+
+	private static class Equivalence {
+
+		private XDI3Segment contextNodeXri;
+		private XDI3Segment arcXri;
+		private XDI3Segment followedContextNodeXri;
+
+		public Equivalence(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment followedContextNodeXri) {
+
+			this.contextNodeXri = contextNodeXri;
+			this.arcXri = arcXri;
+			this.followedContextNodeXri = followedContextNodeXri;
+		}
+
+		public XDI3Segment getContextNodeXri() {
+
+			return this.contextNodeXri;
+		}
+
+		public XDI3Segment getArcXri() {
+
+			return this.arcXri;
+		}
+
+		public XDI3Segment getFollowedContextNodeXri() {
+
+			return this.followedContextNodeXri;
+		}
+
+		@Override
+		public String toString() {
+
+			return this.getContextNodeXri() + " --> " + this.getArcXri() + " --> " + this.getFollowedContextNodeXri();
+		}
 	}
 }

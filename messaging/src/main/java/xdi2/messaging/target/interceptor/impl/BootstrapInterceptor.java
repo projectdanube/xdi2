@@ -67,7 +67,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		if (prototypingContext.getOwnerRemoteRootContextNode() != null) {
 
-			Iterator<ContextNode> ownerSynonymRemoteRootContextNodes = Dictionary.getSynonymContextNodes(prototypingContext.getOwnerRemoteRootContextNode());
+			Iterator<ContextNode> ownerSynonymRemoteRootContextNodes = Dictionary.getEquivalenceContextNodes(prototypingContext.getOwnerRemoteRootContextNode());
 
 			ownerSynonyms = (new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(ownerSynonymRemoteRootContextNodes))).array(XDI3Segment.class);
 			for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(ownerSynonyms[i]);

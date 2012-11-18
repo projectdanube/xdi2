@@ -1,14 +1,20 @@
 package xdi2.core.features.dictionary;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.Relation;
+import xdi2.core.Statement;
+import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
+import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.xri3.impl.XRI3Constants;
@@ -79,17 +85,38 @@ public class Dictionary {
 	}
 
 	/*
-	 * Methods for synonym context nodes.
-	 * These are the sources of incoming $is relations.
+	 * Methods for equivalence context nodes.
+	 * These are the sources of incoming $is or $is! relations.
 	 */
 
-	@SuppressWarnings("unchecked")
-	public static Iterator<ContextNode> getSynonymContextNodes(ContextNode contextNode) {
+	public static Iterator<ContextNode> getEquivalenceContextNodes(ContextNode contextNode) {
 
 		Iterator<Relation> canonicalRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS);
 		Iterator<Relation> privateCanonicalRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS_BANG);
 
-		return new MappingRelationContextNodeIterator(new CompositeIterator<Relation>(canonicalRelations, privateCanonicalRelations));
+		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		iterators.add(canonicalRelations);
+		iterators.add(privateCanonicalRelations);
+
+		return new MappingRelationContextNodeIterator(new CompositeIterator<Relation> (iterators.iterator()));
+	}
+
+	/*
+	 * Methods for equivalence statements.
+	 */
+
+	public static Iterator<Statement> getEquivalenceStatements(Graph graph) {
+
+		return new SelectingIterator<Statement> (graph.getRootContextNode().getAllStatements()) {
+
+			@Override
+			public boolean select(Statement statement) {
+
+				return (statement instanceof RelationStatement &&
+						(XDIDictionaryConstants.XRI_S_IS.equals(statement.getPredicate()) ||
+								XDIDictionaryConstants.XRI_S_IS_BANG.equals(statement.getPredicate())));
+			}
+		};
 	}
 
 	/*

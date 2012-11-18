@@ -3,6 +3,7 @@ package xdi2.tests.core.features.dictionary;
 import junit.framework.TestCase;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.IteratorContains;
@@ -34,7 +35,8 @@ public class DictionaryTest extends TestCase {
 		assertEquals(Dictionary.getCanonicalContextNode(contextNode), canonicalContextNode);
 		assertNull(Dictionary.getPrivateCanonicalContextNode(contextNode));
 
-		assertEquals(Dictionary.getSynonymContextNodes(canonicalContextNode).next(), contextNode);
+		assertEquals(Dictionary.getEquivalenceStatements(graph).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS).getStatement());
+		assertEquals(Dictionary.getEquivalenceContextNodes(canonicalContextNode).next(), contextNode);
 		
 		Dictionary.getCanonicalContextNode(contextNode).delete();
 
@@ -45,7 +47,8 @@ public class DictionaryTest extends TestCase {
 		assertEquals(Dictionary.getPrivateCanonicalContextNode(contextNode), privateCanonicalContextNode);
 		assertNull(Dictionary.getCanonicalContextNode(contextNode));
 
-		assertEquals(Dictionary.getSynonymContextNodes(privateCanonicalContextNode).next(), contextNode);
+		assertEquals(Dictionary.getEquivalenceStatements(graph).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_BANG).getStatement());
+		assertEquals(Dictionary.getEquivalenceContextNodes(privateCanonicalContextNode).next(), contextNode);
 
 		Dictionary.getPrivateCanonicalContextNode(contextNode).delete();
 

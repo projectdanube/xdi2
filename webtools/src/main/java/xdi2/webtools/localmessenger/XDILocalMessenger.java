@@ -47,6 +47,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	private static MemoryGraphFactory graphFactory;
 	private static List<String> sampleInputs;
 	private static List<String> sampleMessages;
+	private static List<String> sampleTooltips;
 
 	static {
 
@@ -55,21 +56,26 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		sampleInputs = new ArrayList<String> ();
 		sampleMessages = new ArrayList<String> ();
+		sampleTooltips = new ArrayList<String> ();
 
 		while (true) {
 
 			InputStream inputStream1 = XDILocalMessenger.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
 			InputStream inputStream2 = XDILocalMessenger.class.getResourceAsStream("message" + (sampleMessages.size() + 1) + ".xdi");
+			InputStream inputStream3 = XDILocalMessenger.class.getResourceAsStream("tooltip" + (sampleTooltips.size() + 1) + ".txt");
 			ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
 			ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
+			ByteArrayOutputStream outputStream3 = new ByteArrayOutputStream();
 			int i;
 
 			try {
 
 				while ((i = inputStream1.read()) != -1) outputStream1.write(i);
 				while ((i = inputStream2.read()) != -1) outputStream2.write(i);
+				while ((i = inputStream3.read()) != -1) outputStream3.write(i);
 				sampleInputs.add(new String(outputStream1.toByteArray()));
 				sampleMessages.add(new String(outputStream2.toByteArray()));
+				sampleTooltips.add(new String(outputStream3.toByteArray()));
 			} catch (Exception ex) {
 
 				break;
@@ -79,8 +85,10 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 					inputStream1.close();
 					inputStream2.close();
+					inputStream3.close();
 					outputStream1.close();
 					outputStream2.close();
+					outputStream3.close();
 				} catch (Exception ex) {
 
 				}
@@ -108,6 +116,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("dollarIsSupport", "on");
 		request.setAttribute("linkContractsSupport", null);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("sampleTooltips", sampleTooltips.toArray(new String[sampleTooltips.size()]));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("message", sampleMessages.get(Integer.parseInt(sample) - 1));
 		request.getRequestDispatcher("/XDILocalMessenger.jsp").forward(request, response);
@@ -234,6 +243,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		// display results
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
+		request.setAttribute("sampleTooltips", sampleTooltips.toArray(new String[sampleTooltips.size()]));
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);

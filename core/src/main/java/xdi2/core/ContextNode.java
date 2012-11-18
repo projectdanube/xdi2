@@ -48,6 +48,11 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public void delete();
 
 	/**
+	 * Deletes this context node and its parent context nodes until reaching a non-empty one or the root.
+	 */
+	public void deleteUntilEmpty();
+
+	/**
 	 * Clears the context node. This is equivalent to calling deleteContextNodes(), deleteRelations() and deleteLiterals().
 	 */
 	public void clear();

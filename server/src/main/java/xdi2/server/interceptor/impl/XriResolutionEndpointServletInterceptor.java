@@ -159,7 +159,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(graph);
 		if (selfRemoteRootContextNode == null) return new XDI3Segment[0];
 
-		Iterator<ContextNode> selfSynonymRemoteRootContextNodes = Dictionary.getSynonymContextNodes(selfRemoteRootContextNode);
+		Iterator<ContextNode> selfSynonymRemoteRootContextNodes = Dictionary.getEquivalenceContextNodes(selfRemoteRootContextNode);
 
 		XDI3Segment[] selfSynonyms = new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(selfSynonymRemoteRootContextNodes)).array(XDI3Segment.class);
 		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(selfSynonyms[i]);
