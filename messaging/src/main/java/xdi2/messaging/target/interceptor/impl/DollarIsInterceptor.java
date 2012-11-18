@@ -38,7 +38,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
- * This interceptor makes sure only one outgoing $is arc can exist on any context.
+ * This interceptor handles $is and $is! relations.
  * 
  * @author markus
  */
@@ -240,8 +240,8 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 
 		if (operation instanceof AddOperation &&
 				targetStatement instanceof RelationStatement &&
-				(XDIDictionaryConstants.XRI_S_IS.equals(((RelationStatement) targetStatement).getPredicate()) ||
-						XDIDictionaryConstants.XRI_S_IS_BANG.equals(((RelationStatement) targetStatement).getPredicate()))) {
+				(XDIDictionaryConstants.XRI_S_IS.equals(targetStatement.getPredicate()) ||
+						XDIDictionaryConstants.XRI_S_IS_BANG.equals(targetStatement.getPredicate()))) {
 
 			XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
 			ContextNode targetContextNode = graph.findContextNode(targetContextNodeXri, false);
