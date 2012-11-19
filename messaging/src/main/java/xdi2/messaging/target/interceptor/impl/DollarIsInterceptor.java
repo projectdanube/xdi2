@@ -90,12 +90,10 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 				continue;
 			}
 
-			// delete the equivalence relation
+			// delete the equivalence relation, and perform a $get on its source
 
 			equivalenceRelation.delete();
 			equivalenceRelation.follow().deleteWhileEmpty();
-
-			// perform a $get on the source of the equivalence relation
 
 			Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 			feedbackMessage.deleteOperations();
@@ -223,22 +221,28 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 		Graph graph = ((GraphMessagingTarget) currentMessagingTarget).getGraph();
 
-		// are we adding a $is arc or $is! arc to a non-empty context?
+		// are we operating on a $is or $is! arc?
 
-		if (operation instanceof AddOperation &&
-				targetStatement instanceof RelationStatement &&
+		if (targetStatement instanceof RelationStatement &&
 				(XDIDictionaryConstants.XRI_S_IS.equals(targetStatement.getPredicate()) ||
 						XDIDictionaryConstants.XRI_S_IS_BANG.equals(targetStatement.getPredicate()))) {
 
-			XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
-			ContextNode targetContextNode = graph.findContextNode(targetContextNodeXri, false);
+			// cannot add a $is or $is! arc to non-empty context node
 
-			// check if the context is empty
+			if (operation instanceof AddOperation) {
 
-			if (targetContextNode != null && ! targetContextNode.isEmpty()) {
+				XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
+				ContextNode targetContextNode = graph.findContextNode(targetContextNodeXri, false);
 
-				throw new Xdi2MessagingException("Cannot add canonical $is or $is! relation to non-empty context node " + targetContextNode.getXri(), null, executionContext);
+				if (targetContextNode != null && ! targetContextNode.isEmpty()) {
+
+					throw new Xdi2MessagingException("Cannot add canonical $is or $is! relation to non-empty context node " + targetContextNode.getXri(), null, executionContext);
+				}
 			}
+
+			// don't do anything else if we are operating on $is and $is! arcs
+
+			return targetStatement;
 		}
 
 		// apply following
