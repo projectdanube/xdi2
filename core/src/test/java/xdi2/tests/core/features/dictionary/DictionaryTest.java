@@ -35,7 +35,7 @@ public class DictionaryTest extends TestCase {
 		assertEquals(Dictionary.getCanonicalContextNode(contextNode), canonicalContextNode);
 		assertNull(Dictionary.getPrivateCanonicalContextNode(contextNode));
 
-		assertEquals(Dictionary.getEquivalenceStatements(graph).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS).getStatement());
+		assertEquals(Dictionary.getEquivalenceRelations(graph).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS).getStatement());
 		assertEquals(Dictionary.getEquivalenceContextNodes(canonicalContextNode).next(), contextNode);
 		
 		Dictionary.getCanonicalContextNode(contextNode).delete();
@@ -47,7 +47,7 @@ public class DictionaryTest extends TestCase {
 		assertEquals(Dictionary.getPrivateCanonicalContextNode(contextNode), privateCanonicalContextNode);
 		assertNull(Dictionary.getCanonicalContextNode(contextNode));
 
-		assertEquals(Dictionary.getEquivalenceStatements(graph).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_BANG).getStatement());
+		assertEquals(Dictionary.getEquivalenceRelations(graph).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_BANG).getStatement());
 		assertEquals(Dictionary.getEquivalenceContextNodes(privateCanonicalContextNode).next(), contextNode);
 
 		Dictionary.getPrivateCanonicalContextNode(contextNode).delete();

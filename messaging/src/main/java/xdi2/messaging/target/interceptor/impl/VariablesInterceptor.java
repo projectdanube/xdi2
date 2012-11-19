@@ -117,7 +117,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 			Statement statement = StatementUtil.fromComponents(subject, predicate, object);
 
-			messageResult.getGraph().addStatement(statement);
+			messageResult.getGraph().createStatement(statement);
 		}
 	}
 

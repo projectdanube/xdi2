@@ -25,7 +25,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @return The graph factory.
 	 */
 	public GraphFactory getGraphFactory();
-	
+
 	/**
 	 * Gets the root context node of this graph.
 	 * @return The graph's root context node.
@@ -138,9 +138,14 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 */
 
 	/**
-	 * A simple way to add a statement to this graph.
+	 * A simple way to create a statement to this graph.
 	 */
-	public Statement addStatement(Statement statement);
+	public Statement createStatement(Statement statement);
+
+	/**
+	 * A simple way to check if a statement exists in this graph.
+	 */
+	public boolean containsStatement(Statement statement);
 
 	/*
 	 * Methods related to transactions

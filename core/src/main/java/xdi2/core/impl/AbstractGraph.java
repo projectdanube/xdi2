@@ -21,6 +21,10 @@ import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.XDIUtil;
+import xdi2.core.util.iterators.IteratorContains;
+import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
+import xdi2.core.util.iterators.MappingLiteralStatementIterator;
+import xdi2.core.util.iterators.MappingRelationStatementIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3SubSegment;
@@ -157,7 +161,7 @@ public abstract class AbstractGraph implements Graph {
 	 */
 
 	@Override
-	public Statement addStatement(Statement statement) {
+	public Statement createStatement(Statement statement) {
 
 		XDI3Segment subject = statement.getSubject();
 		XDI3Segment predicate = statement.getPredicate();
@@ -183,6 +187,27 @@ public abstract class AbstractGraph implements Graph {
 			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 
 			return relation.getStatement();
+		} else {
+
+			throw new Xdi2RuntimeException("Unknown statement type: " + statement.getClass().getCanonicalName());
+		}
+	}
+
+	@Override
+	public boolean containsStatement(Statement statement) {
+
+		ContextNode contextNode = this.findContextNode(statement.getSubject(), false);
+		if (contextNode == null) return false;
+
+		if (statement instanceof ContextNodeStatement) {
+
+			return new IteratorContains(new MappingContextNodeStatementIterator(contextNode.getContextNodes()), statement).contains();
+		} else if (statement instanceof LiteralStatement) {
+
+			return new IteratorContains(new MappingLiteralStatementIterator(contextNode.getLiteral()), statement).contains();
+		} else if (statement instanceof RelationStatement) {
+
+			return new IteratorContains(new MappingRelationStatementIterator(contextNode.getRelations()), statement).contains();
 		} else {
 
 			throw new Xdi2RuntimeException("Unknown statement type: " + statement.getClass().getCanonicalName());

@@ -7,8 +7,6 @@ import java.util.List;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
-import xdi2.core.Statement;
-import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
@@ -54,9 +52,13 @@ public class Dictionary {
 	}
 
 	/*
-	 * Methods for canonical context nodes.
-	 * This is the target of a $is / $is! relation.
+	 * Methods for canonical context nodes and relations.
 	 */
+
+	public static Relation getCanonicalRelation(ContextNode contextNode) {
+
+		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS);
+	}
 
 	public static ContextNode getCanonicalContextNode(ContextNode contextNode) {
 
@@ -69,6 +71,11 @@ public class Dictionary {
 	public static void setCanonicalContextNode(ContextNode contextNode, ContextNode canonicalContextNode) {
 
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, canonicalContextNode);
+	}
+
+	public static Relation getPrivateCanonicalRelation(ContextNode contextNode) {
+
+		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_BANG);
 	}
 
 	public static ContextNode getPrivateCanonicalContextNode(ContextNode contextNode) {
@@ -102,19 +109,17 @@ public class Dictionary {
 	}
 
 	/*
-	 * Methods for equivalence statements.
+	 * Methods for equivalence relations.
 	 */
 
-	public static Iterator<Statement> getEquivalenceStatements(Graph graph) {
+	public static Iterator<Relation> getEquivalenceRelations(Graph graph) {
 
-		return new SelectingIterator<Statement> (graph.getRootContextNode().getAllStatements()) {
+		return new SelectingIterator<Relation> (graph.getRootContextNode().getAllRelations()) {
 
 			@Override
-			public boolean select(Statement statement) {
+			public boolean select(Relation equivalenceRelation) {
 
-				return (statement instanceof RelationStatement &&
-						(XDIDictionaryConstants.XRI_S_IS.equals(statement.getPredicate()) ||
-								XDIDictionaryConstants.XRI_S_IS_BANG.equals(statement.getPredicate())));
+				return XDIDictionaryConstants.XRI_S_IS.equals(equivalenceRelation.getArcXri()) || XDIDictionaryConstants.XRI_S_IS_BANG.equals(equivalenceRelation.getArcXri());
 			}
 		};
 	}

@@ -33,7 +33,7 @@ public class SimpleCoreSample {
 
 		// we can also add a whole new statement to the graph
 
-		graph.addStatement(StatementUtil.fromString("=alice/+friend/=bob"));
+		graph.createStatement(StatementUtil.fromString("=alice/+friend/=bob"));
 
 		// write the whole graph in different serialization formats
 

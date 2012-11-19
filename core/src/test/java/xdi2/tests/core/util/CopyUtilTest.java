@@ -11,10 +11,10 @@ public class CopyUtilTest extends TestCase {
 	public void testCopyUtil() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.addStatement(StatementUtil.fromString("=markus+email/!/(data:,markus.sabadello@gmail.com)"));
-		graph.addStatement(StatementUtil.fromString("=markus/+friend/=neustar*animesh"));
-		graph.addStatement(StatementUtil.fromString("=neustar*animesh+email/!/(data:,animesh@gmail.com)"));
-		graph.addStatement(StatementUtil.fromString("=neustar*animesh/+friend/=markus"));
+		graph.createStatement(StatementUtil.fromString("=markus+email/!/(data:,markus.sabadello@gmail.com)"));
+		graph.createStatement(StatementUtil.fromString("=markus/+friend/=neustar*animesh"));
+		graph.createStatement(StatementUtil.fromString("=neustar*animesh+email/!/(data:,animesh@gmail.com)"));
+		graph.createStatement(StatementUtil.fromString("=neustar*animesh/+friend/=markus"));
 
 		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
 		CopyUtil.copyGraph(graph, graph2, null);

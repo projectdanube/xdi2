@@ -423,9 +423,9 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		Graph graph16 = this.openNewGraph(this.getClass().getName() + "-graph-16");
 
-		graph16.addStatement(StatementUtil.fromString("=markus/+friend/=animesh"));
-		graph16.addStatement(StatementUtil.fromString("=markus/+friend/=neustar*les"));
-		graph16.addStatement(StatementUtil.fromString("=!1111*2222/$is/=markus"));
+		graph16.createStatement(StatementUtil.fromString("=markus/+friend/=animesh"));
+		graph16.createStatement(StatementUtil.fromString("=markus/+friend/=neustar*les"));
+		graph16.createStatement(StatementUtil.fromString("=!1111*2222/$is/=markus"));
 
 		ContextNode markus = graph16.findContextNode(new XDI3Segment("=markus"), false);
 		ContextNode animesh = graph16.findContextNode(new XDI3Segment("=animesh"), false);
@@ -493,8 +493,8 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		Graph graph17 = this.openNewGraph(this.getClass().getName() + "-graph-17");
 
-		graph17.addStatement(StatementUtil.fromString("=markus/!/(data:,Markus%20Sabadello)"));
-		graph17.addStatement(StatementUtil.fromString("=markus/+friend/=neustar*les"));
+		graph17.createStatement(StatementUtil.fromString("=markus/!/(data:,Markus%20Sabadello)"));
+		graph17.createStatement(StatementUtil.fromString("=markus/+friend/=neustar*les"));
 
 		ContextNode root = graph17.getRootContextNode();
 		ContextNode markus = graph17.findContextNode(new XDI3Segment("=markus"), false);
@@ -511,8 +511,8 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		Graph graph18 = this.openNewGraph(this.getClass().getName() + "-graph-18");
 
-		graph18.addStatement(StatementUtil.fromString("=markus/!/(data:,Markus%20Sabadello)"));
-		graph18.addStatement(StatementUtil.fromString("=markus/+friend/=neustar*les"));
+		graph18.createStatement(StatementUtil.fromString("=markus/!/(data:,Markus%20Sabadello)"));
+		graph18.createStatement(StatementUtil.fromString("=markus/+friend/=neustar*les"));
 
 		ContextNode markus = graph18.findContextNode(new XDI3Segment("=markus"), false);
 

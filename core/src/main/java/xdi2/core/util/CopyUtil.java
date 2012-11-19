@@ -1,6 +1,10 @@
 package xdi2.core.util;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -302,5 +306,60 @@ public final class CopyUtil {
 	 */
 	public static class AllCopyStrategy extends CopyStrategy {
 
+	}
+
+	/**
+	 * A strategy that excludes certain context nodes.
+	 */
+	public static class ExcludeContextNodesCopyStrategy extends CopyStrategy {
+
+		private Set<ContextNode> excludeContextNodes;
+
+		public ExcludeContextNodesCopyStrategy(Collection<ContextNode> excludeContextNodes) {
+
+			this.excludeContextNodes = new HashSet<ContextNode> ();
+			this.excludeContextNodes.addAll(excludeContextNodes);
+		}
+
+		public ExcludeContextNodesCopyStrategy() {
+
+			this(Arrays.asList(new ContextNode[0]));
+		}
+
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			if (this.excludeContextNodes.contains(contextNode)) return null;
+
+			return contextNode;
+		}
+
+		public void addExcludeContextNode(ContextNode contextNode) {
+
+			this.excludeContextNodes.add(contextNode);
+		}
+	}
+
+	/**
+	 * A strategy that excludes duplicate context nodes.
+	 */
+	public static class ExcludeDuplicateContextNodesCopyStrategy extends ExcludeContextNodesCopyStrategy {
+
+		public ExcludeDuplicateContextNodesCopyStrategy() {
+
+			super();
+		}
+
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			try {
+
+				return super.replaceContextNode(contextNode);
+			} finally {
+
+				this.addExcludeContextNode(contextNode);
+			}
+		}
 	}
 }

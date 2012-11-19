@@ -171,7 +171,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 						tempGraph = MemoryGraphFactory.getInstance().openGraph();
 					}
 
-					tempGraph.addStatement(statement);
+					tempGraph.createStatement(statement);
 				} else {
 
 					bufferedWriter.write("\"" + targetContextNodeXri + "\"");

@@ -9,10 +9,12 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.dictionary.Dictionary;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
@@ -21,16 +23,15 @@ import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
-import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
@@ -40,7 +41,7 @@ import xdi2.messaging.util.MessagingCloneUtil;
  * 
  * @author markus
  */
-public class DollarIsInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, OperationInterceptor, TargetInterceptor, Prototype<DollarIsInterceptor> {
+public class DollarIsInterceptor extends AbstractInterceptor implements OperationInterceptor, TargetInterceptor, Prototype<DollarIsInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(DollarIsInterceptor.class);
 
@@ -57,34 +58,13 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 	}
 
 	/*
-	 * MessageEnvelopeInterceptor
-	 */
-
-	@Override
-	public boolean before(MessageEnvelope messageEnvelope, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
-	}
-
-	@Override
-	public boolean after(MessageEnvelope messageEnvelope, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
-	}
-
-	@Override
-	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
-
-	}
-
-	/*
 	 * OperationInterceptor
 	 */
 
 	@Override
 	public boolean before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		resetEquivalences(executionContext);
+		resetEquivalenceRelations(executionContext);
 
 		return false;
 	}
@@ -92,60 +72,99 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 	@Override
 	public boolean after(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// look through the message result to apply following
+		// look through the message result to process result equivalence relations
 
-		List<Statement> statements = new IteratorListMaker<Statement> (Dictionary.getEquivalenceStatements(operationMessageResult.getGraph())).list();
+		List<Relation> equivalenceRelations = new IteratorListMaker<Relation> (Dictionary.getEquivalenceRelations(operationMessageResult.getGraph())).list();
 
-		for (Statement statement : statements) {
+		for (Relation equivalenceRelation : equivalenceRelations) {
+
+			if (log.isDebugEnabled()) log.debug("In message result: Found equivalence relation: " + equivalenceRelation);
+
+			// don't follow equivalence relations to parent nodes
+
+			if (XRIUtil.startsWith(equivalenceRelation.getTargetContextNodeXri(), equivalenceRelation.getContextNode().getXri())) {
+
+				if (log.isDebugEnabled()) log.debug("In message result: Skipping equivalence relation: " + equivalenceRelation);
+
+				if (XDIDictionaryConstants.XRI_S_IS_BANG.equals(equivalenceRelation.getArcXri())) equivalenceRelation.delete();
+				continue;
+			}
+
+			// delete the equivalence relation
+
+			equivalenceRelation.delete();
+			equivalenceRelation.follow().deleteWhileEmpty();
+
+			// perform a $get on the source of the equivalence relation
 
 			Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 			feedbackMessage.deleteOperations();
-			feedbackMessage.createOperation(operation.getOperationXri(), statement.getSubject());
-
-			((RelationStatement) statement).getRelation().follow().deleteUntilEmpty();
-
-//			MessageResult feedbackMessageResult = new MessageResult();
-			Deque<Equivalence> equivalences = getEquivalences(executionContext);
+			feedbackMessage.createOperation(new XDI3Segment("" + XDIMessagingConstants.XRI_S_GET + (operation.getOperationExtensionXri() == null ? "" : operation.getOperationExtensionXri())), equivalenceRelation.getContextNode().getXri());
+			Deque<Relation> tempEquivalenceRelations = getEquivalenceRelations(executionContext);
+			resetEquivalenceRelations(executionContext);
 			this.feedback(feedbackMessage, operationMessageResult, executionContext);
-			putEquivalences(executionContext, equivalences);
-//			CopyUtil.copyGraph(feedbackMessageResult.getGraph(), operationMessageResult.getGraph(), null);
+			putEquivalenceRelations(executionContext, tempEquivalenceRelations);
+
+			// done with this equivalence relation
+
+			if (log.isDebugEnabled()) log.debug("In message result: We now have: " + operationMessageResult);
 		}
 
-		// look through the message result for post-following actions
+		// look through the message result to process followed equivalence relations
 
-		Equivalence equivalence;
+		Relation equivalenceRelation;
 
-		while ((equivalence = popEquivalence(executionContext)) != null) {
+		while ((equivalenceRelation = popEquivalenceRelation(executionContext)) != null) {
 
-			XDI3Segment contextNodeXri = equivalence.getContextNodeXri();
-			XDI3Segment arcXri = equivalence.getArcXri();
-			XDI3Segment followedContextNodeXri = equivalence.getFollowedContextNodeXri();
+			// check what to do with this equivalence relation
 
-			ContextNode followedContextNode = operationMessageResult.getGraph().findContextNode(followedContextNodeXri, false);
-			if (followedContextNode == null) continue;
+			ContextNode contextNode = equivalenceRelation.getContextNode();
+			XDI3Segment arcXri = equivalenceRelation.getArcXri();
+			XDI3Segment targetContextNodeXri = equivalenceRelation.getTargetContextNodeXri();
 
-			boolean doSubstituteEquivalenceStatements = XDIDictionaryConstants.XRI_S_IS_BANG.equals(arcXri) || (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
-			boolean doIncludeEquivalenceStatements = (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && ! GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
+			boolean doSubstituteEquivalenceRelations = XDIDictionaryConstants.XRI_S_IS_BANG.equals(arcXri) || (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
+			boolean doIncludeEquivalenceRelations = (XDIDictionaryConstants.XRI_S_IS.equals(arcXri) && ! GetOperation.XRI_EXTENSION_BANG.equals(operation.getOperationExtensionXri()));
 
-			// substitute equivalence statements?
+			// substitute equivalence relations?
 
-			if (doSubstituteEquivalenceStatements) {
+			if (doSubstituteEquivalenceRelations) {
 
-				if (log.isDebugEnabled()) log.debug("In message result: Substituting equivalence: " + equivalence);
+				ContextNode targetContextNode = operationMessageResult.getGraph().findContextNode(targetContextNodeXri, false);
 
-				ContextNode contextNode = operationMessageResult.getGraph().findContextNode(contextNodeXri, true);
-				CopyUtil.copyContextNodeContents(followedContextNode, contextNode, null);
-				followedContextNode.deleteUntilEmpty();
+				if (targetContextNode != null && ! operationMessageResult.getGraph().isEmpty()) {
+
+					if (log.isDebugEnabled()) log.debug("In message result: Substituting equivalence relation: " + equivalenceRelation);
+
+					Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
+					ContextNode tempContextNode = tempGraph.findContextNode(contextNode.getXri(), true);
+					CopyUtil.copyContextNodeContents(targetContextNode, tempContextNode, null);
+					targetContextNode.clear();
+					targetContextNode.deleteWhileEmpty();
+					CopyUtil.copyGraph(tempGraph, operationMessageResult.getGraph(), null);
+				} else {
+
+					if (log.isDebugEnabled()) log.debug("In message result: Not substituting equivalence relation: " + equivalenceRelation);
+				}
 			}
 
-			// include equivalence statements?
+			// include equivalence relations?
 
-			if (doIncludeEquivalenceStatements) {
+			if (doIncludeEquivalenceRelations) {
 
-				if (log.isDebugEnabled()) log.debug("In message result: Including equivalence: " + equivalence);
+				if (operationMessageResult.getGraph().containsStatement(equivalenceRelation.getStatement())) {
 
-				operationMessageResult.getGraph().addStatement(StatementUtil.fromComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_IS, followedContextNodeXri));
+					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate equivalence relation: " + equivalenceRelation);
+				} else {
+
+					if (log.isDebugEnabled()) log.debug("In message result: Including equivalence relation: " + equivalenceRelation);
+
+					operationMessageResult.getGraph().createStatement(equivalenceRelation.getStatement());
+				}
 			}
+
+			// done with this equivalence relation
+
+			if (log.isDebugEnabled()) log.debug("In message result: We now have: " + operationMessageResult);
 		}
 
 		// done
@@ -177,7 +196,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 		while (true) { 
 
 			tempTargetAddress = followedTargetAddress;
-			followedTargetAddress = followEquivalences(tempTargetAddress, graph, executionContext);
+			followedTargetAddress = followEquivalenceRelations(tempTargetAddress, graph, executionContext);
 
 			if (followedTargetAddress == tempTargetAddress) break;
 
@@ -232,7 +251,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 		while (true) {
 
 			tempTargetSubject = followedTargetSubject;
-			followedTargetSubject = followEquivalences(tempTargetSubject, graph, executionContext);
+			followedTargetSubject = followEquivalenceRelations(tempTargetSubject, graph, executionContext);
 
 			if (followedTargetSubject == tempTargetSubject) break;
 
@@ -249,7 +268,7 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 		return targetStatement;
 	}
 
-	private static XDI3Segment followEquivalences(XDI3Segment contextNodeXri, Graph graph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static XDI3Segment followEquivalenceRelations(XDI3Segment contextNodeXri, Graph graph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		String localPart = "";
 
@@ -258,27 +277,27 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 		while (contextNodeXri != null) {
 
 			ContextNode contextNode = graph.findContextNode(contextNodeXri, false);
-			ContextNode canonicalContextNode = contextNode == null ? null : Dictionary.getCanonicalContextNode(contextNode);
-			ContextNode privateCanonicalContextNode = contextNode == null ? null : Dictionary.getPrivateCanonicalContextNode(contextNode);
+			Relation canonicalRelation = contextNode == null ? null : Dictionary.getCanonicalRelation(contextNode);
+			Relation privateCanonicalRelation = contextNode == null ? null : Dictionary.getPrivateCanonicalRelation(contextNode);
 
-			if (canonicalContextNode != null) {
+			if (canonicalRelation != null) {
 
-				if (canonicalContextNode.equals(contextNode)) break;
+				if (canonicalRelation.equals(contextNode)) break;
 
-				XDI3Segment followedContextNodeXri = canonicalContextNode.getXri();
-				pushEquivalence(executionContext, new Equivalence(contextNodeXri, XDIDictionaryConstants.XRI_S_IS, followedContextNodeXri));
+				ContextNode canonicalContextNode = canonicalRelation.follow();
+				pushEquivalenceRelation(executionContext, canonicalRelation);
 
-				return new XDI3Segment("" + canonicalContextNode.getXri() + localPart);
+				return new XDI3Segment("" + (canonicalContextNode.isRootContextNode() ? "" : canonicalContextNode.getXri()) + localPart);
 			}
 
-			if (privateCanonicalContextNode != null) {
+			if (privateCanonicalRelation != null) {
 
-				if (privateCanonicalContextNode.equals(contextNode)) break;
+				if (privateCanonicalRelation.equals(contextNode)) break;
 
-				XDI3Segment privateFollowedContextNodeXri = privateCanonicalContextNode.getXri();
-				pushEquivalence(executionContext, new Equivalence(contextNodeXri, XDIDictionaryConstants.XRI_S_IS_BANG, privateFollowedContextNodeXri));
+				ContextNode privateCanonicalContextNode  = privateCanonicalRelation.follow();
+				pushEquivalenceRelation(executionContext, privateCanonicalRelation);
 
-				return new XDI3Segment("" + privateCanonicalContextNode.getXri() + localPart);
+				return new XDI3Segment("" + (privateCanonicalContextNode.isRootContextNode() ? "" : privateCanonicalContextNode.getXri()) + localPart);
 			}
 
 			localPart = "" + XRIUtil.localXri(contextNodeXri, 1) + localPart;
@@ -294,50 +313,52 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_EQUIVALENCES_PER_OPERATION = DollarIsInterceptor.class.getCanonicalName() + "#equivalencesperoperation";
+	private static final String EXECUTIONCONTEXT_KEY_EQUIVALENCERELATIONS_PER_OPERATION = DollarIsInterceptor.class.getCanonicalName() + "#equivalencerelationsperoperation";
 
 	@SuppressWarnings("unchecked")
-	private static Deque<Equivalence> getEquivalences(ExecutionContext executionContext) {
+	private static Deque<Relation> getEquivalenceRelations(ExecutionContext executionContext) {
 
-		return (Deque<Equivalence>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EQUIVALENCES_PER_OPERATION);
+		return (Deque<Relation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EQUIVALENCERELATIONS_PER_OPERATION);
 	}
 
-	private static void putEquivalences(ExecutionContext executionContext, Deque<Equivalence> equivalences) {
+	private static void putEquivalenceRelations(ExecutionContext executionContext, Deque<Relation> equivalenceRelations) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EQUIVALENCES_PER_OPERATION, equivalences);
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EQUIVALENCERELATIONS_PER_OPERATION, equivalenceRelations);
 	}
 
-	private static Equivalence popEquivalence(ExecutionContext executionContext) {
+	private static Relation popEquivalenceRelation(ExecutionContext executionContext) {
 
-		Deque<Equivalence> equivalences = getEquivalences(executionContext);
-		if (equivalences.isEmpty()) return null;
+		Deque<Relation> equivalenceRelations = getEquivalenceRelations(executionContext);
+		if (equivalenceRelations.isEmpty()) return null;
 
-		Equivalence equivalence = equivalences.pop();
+		Relation equivalenceRelation = equivalenceRelations.pop();
 
-		if (log.isDebugEnabled()) log.debug("Popping equivalence: " + equivalence);
+		if (log.isDebugEnabled()) log.debug("Popping equivalence relation: " + equivalenceRelation);
 
-		return equivalence;
+		return equivalenceRelation;
 	}
 
-	private static void pushEquivalence(ExecutionContext executionContext, Equivalence equivalence) {
+	private static void pushEquivalenceRelation(ExecutionContext executionContext, Relation equivalenceRelation) {
 
-		getEquivalences(executionContext).push(equivalence);
+		getEquivalenceRelations(executionContext).push(equivalenceRelation);
 
-		if (log.isDebugEnabled()) log.debug("Pushing equivalence: " + equivalence);
+		if (log.isDebugEnabled()) log.debug("Pushing equivalence relation: " + equivalenceRelation);
 	}
 
-	private static void resetEquivalences(ExecutionContext executionContext) {
+	private static void resetEquivalenceRelations(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EQUIVALENCES_PER_OPERATION, new ArrayDeque<Equivalence> ());
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_EQUIVALENCERELATIONS_PER_OPERATION, new ArrayDeque<Relation> ());
 	}
 
-	private static class Equivalence {
+	/*	private static class Statement implements Serializable, Comparable<Statement> {
+
+		private static final long serialVersionUID = -8103575725476096458L;
 
 		private XDI3Segment contextNodeXri;
 		private XDI3Segment arcXri;
 		private XDI3Segment followedContextNodeXri;
 
-		public Equivalence(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment followedContextNodeXri) {
+		public Statement(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment followedContextNodeXri) {
 
 			this.contextNodeXri = contextNodeXri;
 			this.arcXri = arcXri;
@@ -364,5 +385,46 @@ public class DollarIsInterceptor extends AbstractInterceptor implements MessageE
 
 			return this.getContextNodeXri() + " --> " + this.getArcXri() + " --> " + this.getFollowedContextNodeXri();
 		}
-	}
+
+		@Override
+		public boolean equals(Object object) {
+
+			if (this == object) return true;
+			if (object == null) return false;
+
+			Statement other = (Statement) object;
+
+			if (! this.contextNodeXri.equals(other.contextNodeXri)) return false;
+			if (! this.arcXri.equals(other.arcXri)) return false;
+			if (! this.followedContextNodeXri.equals(other.followedContextNodeXri)) return false;
+
+			return true;
+		}
+
+		@Override
+		public int hashCode() {
+
+			int hashCode = 1;
+
+			hashCode = (hashCode * 31) + this.getContextNodeXri().hashCode();
+			hashCode = (hashCode * 31) + this.getArcXri().hashCode();
+			hashCode = (hashCode * 31) + this.getFollowedContextNodeXri().hashCode();
+
+			return hashCode;
+		}
+
+		@Override
+		public int compareTo(Statement other) {
+
+			if (other == null || other == this) return 0;
+
+			int compare;
+
+			if ((compare = this.getContextNodeXri().compareTo(other.getContextNodeXri())) != 0) return compare;
+			if ((compare = this.getArcXri().compareTo(other.getArcXri())) != 0) return compare;
+			if ((compare = this.getFollowedContextNodeXri().compareTo(other.getFollowedContextNodeXri())) != 0) return compare;
+
+			return 0;
+		}
+	}*/
 }

@@ -61,7 +61,7 @@ public class XDIDisplayReader extends AbstractXDIReader {
 
 				// add the statement to the graph
 
-				graph.addStatement(statement);
+				graph.createStatement(statement);
 			} catch (Xdi2Exception ex) {
 
 				throw new Xdi2ParseException("Problem at line " + lineNr + ": " + ex.getMessage(), ex);

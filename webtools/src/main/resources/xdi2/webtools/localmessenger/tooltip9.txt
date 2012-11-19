@@ -1,1 +1,1 @@
-Following $is and $is! arcs
+$del operation with $is and $is! arcs

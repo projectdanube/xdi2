@@ -1,9 +1,9 @@
 =markus/$is/=!1111
 =!1111$!(+name)/!/(data:,Markus)
-=!1111$!(+age)/!/(data:,33)
-=magda/$is/=!2222
-=!2222$!(+name)/!/(data:,Magda)
-=!2222$!(+age)/!/(data:,27)
+=!1111$!(+country)/!/(data:,Austria)
+=animesh/$is/=!2222
+=!2222$!(+name)/!/(data:,Animesh)
+=!2222$!(+country)/!/(data:,USA)
 =pseudonym/$is/=!3333
 =!3333$!(+name)/$is!/=!1111$!(+name)
-=!3333$!(+age)/$is!/=!2222$!(+age)
+=!3333$!(+country)/$is!/=!2222$!(+country)
