@@ -14,6 +14,8 @@
 	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XRI Parser</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	View the source ABNF <a href="https://github.com/peacekeeper/xdi2/blob/master/core/src/main/resources/xdi.abnf">here</a>...
 	</div>
 
 	<% if (request.getAttribute("error") != null) { %>
@@ -51,14 +53,14 @@
 
 	<% if (request.getAttribute("output2") != null) { %>
 	    <div class="tabbertab">
-		<h2>Xml</h2>
+		<h2>Stack</h2>
 		<div class="result"><pre><%= request.getAttribute("output2") != null ? request.getAttribute("output2") : "" %></pre></div><br>
 		</div>
 	<% } %>
 
 	<% if (request.getAttribute("output3") != null) { %>
 	    <div class="tabbertab">
-		<h2>Stacks</h2>
+		<h2>Xml</h2>
 		<div class="result"><pre><%= request.getAttribute("output3") != null ? request.getAttribute("output3") : "" %></pre></div><br>
 		</div>
 	<% } %>

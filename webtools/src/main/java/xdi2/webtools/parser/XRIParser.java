@@ -105,19 +105,11 @@ public class XRIParser extends javax.servlet.http.HttpServlet implements javax.s
 			rule.accept(new TreeDisplayer(stream1));
 			output1 = html(new String(buffer1.toByteArray(), "UTF-8"));
 
-			// xml
-
-			PrintStream out = System.out;
-			System.setOut(stream2);
-			rule.accept(new XmlDisplayer());
-			System.setOut(out);
-			output2 = html(new String(buffer2.toByteArray(), "UTF-8"));
-
-			// count
+			// stack
 
 			DequesVisitor dequesVisitor = new DequesVisitor();
 			rule.accept(dequesVisitor);
-			stream3.println("<table border='1' cellpadding='5'><tr>");
+			stream2.println("<table border='1' cellpadding='5'><tr>");
 			for (Deque<String> deque : dequesVisitor.getDeques()) {
 				String terminal = deque.peekLast();
 				StringBuffer stack = new StringBuffer();
@@ -125,11 +117,19 @@ public class XRIParser extends javax.servlet.http.HttpServlet implements javax.s
 				while ((stackentry = deque.pollFirst()) != null) {
 					stack.append(stackentry + "<br>");
 				}
-				stream3.println("<td onmouseover=\"document.getElementById('stack').innerHTML='" + stack.toString() + "';\" style='cursor:default;font-size:13pt;font-weight:bold;'>" + terminal + "</td>");
+				stream2.println("<td onmouseover=\"document.getElementById('stack').innerHTML='" + stack.toString() + "';\" style='cursor:default;font-size:13pt;font-weight:bold;'>" + terminal + "</td>");
 			}
-			stream3.println("</tr></table>");
-			stream3.println("<div id='stack'></div>");
-			output3 = new String(buffer3.toByteArray(), "UTF-8");
+			stream2.println("</tr></table>");
+			stream2.println("<div id='stack'></div>");
+			output2 = new String(buffer2.toByteArray(), "UTF-8");
+
+			// xml
+
+			PrintStream out = System.out;
+			System.setOut(stream3);
+			rule.accept(new XmlDisplayer());
+			System.setOut(out);
+			output3 = html(new String(buffer3.toByteArray(), "UTF-8"));
 
 			// count
 
