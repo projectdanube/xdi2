@@ -105,7 +105,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 		Graph graph = graphMessagingTarget.getGraph();
 		ContextNode rootContextNode = graph.getRootContextNode();
 
-		log.debug("bootstrapOwner=" + this.bootstrapOwner + ", bootstrapSharedSecret=" + (this.bootstrapSharedSecret == null ? null : "XXXXX") + ", bootstrapLinkContract=" + this.bootstrapLinkContract);
+		log.debug("bootstrapOwner=" + this.bootstrapOwner + ", bootstrapOwnerSynonyms=" + this.bootstrapOwnerSynonyms + ", bootstrapSharedSecret=" + (this.bootstrapSharedSecret == null ? null : "XXXXX") + ", bootstrapLinkContract=" + this.bootstrapLinkContract);
 
 		// check if the owner statement exists
 

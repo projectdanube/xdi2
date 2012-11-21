@@ -1,5 +1,9 @@
 package xdi2.server.factory.impl;
 
+import org.eclipse.jetty.util.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -15,10 +19,14 @@ import xdi2.server.registry.EndpointRegistry;
 
 public abstract class PrototypingMessagingTargetFactory extends AbstractMessagingTargetFactory {
 
+	private static final Logger log = LoggerFactory.getLogger(PrototypingMessagingTargetFactory.class);
+
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
 	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetPath, XDI3Segment owner, ContextNode ownerRemoteRootContextNode, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
+
+		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", owner=" + owner + ", ownerRemoteRootContextNode=" + ownerRemoteRootContextNode + ", ownerContextNode=" + ownerContextNode);
 
 		// create new messaging target
 
