@@ -112,10 +112,6 @@ Packages that use <A HREF="../../../../../xdi2/messaging/target/interceptor/Inte
 <TD><A HREF="#xdi2.server.interceptor.impl"><B>xdi2.server.interceptor.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.xri2xdi"><B>xdi2.xri2xdi</B></A></TD>
-<TD>&nbsp;&nbsp;</TD>
-</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -365,18 +361,10 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ExpandDollarIsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ExpandDollarIsInterceptor</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/DollarIsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">DollarIsInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks for $is relational statements in the result of an operation.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ExpandInclusionInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ExpandInclusionInterceptor</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks for ($) relational statements in the result of an operation.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor handles $is and $is!</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -401,14 +389,6 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor throws an exception when $add, $mod or $del operations are attempted on certain XDI addresses.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/UniqueDollarIsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">UniqueDollarIsInterceptor</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor make sure only one outgoing $is arc can exist on any context.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -536,6 +516,14 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/impl/DelegatingEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl">DelegatingEndpointServletInterceptor</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl">RedirectEndpointServletInterceptor</A></B></CODE>
 
 <BR>
@@ -548,31 +536,6 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor can act as a lightweight XRI resolution server based on a "registry graph".</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-<A NAME="xdi2.xri2xdi"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A> in <A HREF="../../../../../xdi2/xri2xdi/package-summary.html">xdi2.xri2xdi</A></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../xdi2/xri2xdi/package-summary.html">xdi2.xri2xdi</A> that implement <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/xri2xdi/GetEmptyPathEndpointServletInterceptor.html" title="class in xdi2.xri2xdi">GetEmptyPathEndpointServletInterceptor</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;

@@ -65,6 +65,5 @@ xdi2.webtools.grapher
 xdi2.webtools.localmessenger
 xdi2.webtools.messenger
 xdi2.webtools.parser
+xdi2.webtools.testlocalmessenger
 xdi2.webtools.validator
-xdi2.xri2xdi
-xdi2.xri2xdi.resolution

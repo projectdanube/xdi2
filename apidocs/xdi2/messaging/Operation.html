@@ -229,7 +229,15 @@ An XDI messaging operation, represented as a relation.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getOperationExtensionXri()">getOperationExtensionXri</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the operation extension XRI of the operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getOperationXri()">getOperationXri</A></B>()</CODE>
 
 <BR>
@@ -245,7 +253,7 @@ An XDI messaging operation, represented as a relation.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getSender()">getSender</A></B>()</CODE>
 
 <BR>
@@ -253,7 +261,7 @@ An XDI messaging operation, represented as a relation.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getTarget()">getTarget</A></B>()</CODE>
 
 <BR>
@@ -261,7 +269,7 @@ An XDI messaging operation, represented as a relation.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getTargetAddress()">getTargetAddress</A></B>()</CODE>
 
 <BR>
@@ -508,7 +516,7 @@ public <A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Re
 <A NAME="getOperationXri()"><!-- --></A><H3>
 getOperationXri</H3>
 <PRE>
-public <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getOperationXri</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getOperationXri</B>()</PRE>
 <DL>
 <DD>Returns the operation XRI of the operation (e.g. $get, $mod).
 <P>
@@ -522,10 +530,27 @@ public <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2
 </DL>
 <HR>
 
+<A NAME="getOperationExtensionXri()"><!-- --></A><H3>
+getOperationExtensionXri</H3>
+<PRE>
+public <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getOperationExtensionXri</B>()</PRE>
+<DL>
+<DD>Returns the operation extension XRI of the operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The operation extension XRI of the operation.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getTarget()"><!-- --></A><H3>
 getTarget</H3>
 <PRE>
-public <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getTarget</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getTarget</B>()</PRE>
 <DL>
 <DD>Returns the target of the operation.
 <P>
@@ -556,7 +581,7 @@ public <A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">S
 <A NAME="getTargetAddress()"><!-- --></A><H3>
 getTargetAddress</H3>
 <PRE>
-public <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getTargetAddress</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getTargetAddress</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -570,7 +595,7 @@ public <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2
 <A NAME="getSender()"><!-- --></A><H3>
 getSender</H3>
 <PRE>
-public <A HREF="../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getSender</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getSender</B>()</PRE>
 <DL>
 <DD>Returns the sender of the message's message collection.
 <P>

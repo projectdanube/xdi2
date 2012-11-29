@@ -98,7 +98,7 @@ Class AbstractMessagingTarget</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/messaging/target/impl/echo/EchoMessagingTarget.html" title="class in xdi2.messaging.target.impl.echo">EchoMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html" title="class in xdi2.messaging.target.impl.graph">GraphMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/n/NullMessagingTarget.html" title="class in xdi2.messaging.target.impl.n">NullMessagingTarget</A>, <A HREF="../../../xdi2/xri2xdi/Xri2XdiMessagingTarget.html" title="class in xdi2.xri2xdi">Xri2XdiMessagingTarget</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/messaging/target/impl/echo/EchoMessagingTarget.html" title="class in xdi2.messaging.target.impl.echo">EchoMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html" title="class in xdi2.messaging.target.impl.graph">GraphMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/n/NullMessagingTarget.html" title="class in xdi2.messaging.target.impl.n">NullMessagingTarget</A></DD>
 </DL>
 <HR>
 <DL>
@@ -267,7 +267,7 @@ The AbstractMessagingTarget provides the following functionality:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.core.xri3.impl.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetAddress,
         <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
         <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
         <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
@@ -278,7 +278,7 @@ The AbstractMessagingTarget provides the following functionality:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getAddressHandler(xdi2.core.xri3.impl.XRI3Segment)">getAddressHandler</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getAddressHandler(xdi2.core.xri3.impl.XDI3Segment)">getAddressHandler</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetAddress)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -301,7 +301,7 @@ The AbstractMessagingTarget provides the following functionality:
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getOwnerAuthority()">getOwnerAuthority</A></B>()</CODE>
 
 <BR>
@@ -334,7 +334,7 @@ The AbstractMessagingTarget provides the following functionality:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#setContributors(java.util.Map)">setContributors</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;contributors)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#setContributors(java.util.Map)">setContributors</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;contributors)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -366,7 +366,7 @@ The AbstractMessagingTarget provides the following functionality:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#setOwnerAuthority(xdi2.core.xri3.impl.XRI3Segment)">setOwnerAuthority</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;ownerAuthority)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#setOwnerAuthority(xdi2.core.xri3.impl.XDI3Segment)">setOwnerAuthority</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;ownerAuthority)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -525,10 +525,10 @@ public void <B>execute</B>(<A HREF="../../../xdi2/messaging/Operation.html" titl
 </DL>
 <HR>
 
-<A NAME="execute(xdi2.core.xri3.impl.XRI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="execute(xdi2.core.xri3.impl.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 execute</H3>
 <PRE>
-public void <B>execute</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress,
+public void <B>execute</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetAddress,
                     <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
                     <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
@@ -705,10 +705,10 @@ public void <B>exception</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.ht
 </DL>
 <HR>
 
-<A NAME="getAddressHandler(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
+<A NAME="getAddressHandler(xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
 getAddressHandler</H3>
 <PRE>
-public <A HREF="../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A> <B>getAddressHandler</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;targetAddress)
+public <A HREF="../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A> <B>getAddressHandler</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetAddress)
                                  throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
@@ -742,7 +742,7 @@ public <A HREF="../../../xdi2/messaging/target/StatementHandler.html" title="int
 <A NAME="getOwnerAuthority()"><!-- --></A><H3>
 getOwnerAuthority</H3>
 <PRE>
-public <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A> <B>getOwnerAuthority</B>()</PRE>
+public <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getOwnerAuthority</B>()</PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#getOwnerAuthority()">MessagingTarget</A></CODE></B></DD>
 <DD>Returns the owner authority of the messaging target.
@@ -757,10 +757,10 @@ public <A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in x
 </DL>
 <HR>
 
-<A NAME="setOwnerAuthority(xdi2.core.xri3.impl.XRI3Segment)"><!-- --></A><H3>
+<A NAME="setOwnerAuthority(xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
 setOwnerAuthority</H3>
 <PRE>
-public void <B>setOwnerAuthority</B>(<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>&nbsp;ownerAuthority)</PRE>
+public void <B>setOwnerAuthority</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;ownerAuthority)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -844,7 +844,7 @@ public void <B>setContributors</B>(<A HREF="../../../xdi2/messaging/target/contr
 <A NAME="setContributors(java.util.Map)"><!-- --></A><H3>
 setContributors</H3>
 <PRE>
-public void <B>setContributors</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl">XRI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;contributors)</PRE>
+public void <B>setContributors</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;contributors)</PRE>
 <DL>
 <DD><DL>
 </DL>
