@@ -75,6 +75,7 @@
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
 					<property name="bootstrapLinkContract" value="true" />
+					<property name="bootstrapPublicLinkContract" value="true" />
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.DollarIsInterceptor" />
@@ -130,6 +131,7 @@
 					</property>
 					<property name="bootstrapSharedSecret" value="s3cret" />
 					<property name="bootstrapLinkContract" value="true" />
+					<property name="bootstrapPublicLinkContract" value="true" />
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.DollarIsInterceptor" />
@@ -212,6 +214,7 @@
 					</property>
 					<property name="bootstrapSharedSecret" value="s3cret" />
 					<property name="bootstrapLinkContract" value="true" />
+					<property name="bootstrapPublicLinkContract" value="true" />
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.DollarIsInterceptor" />

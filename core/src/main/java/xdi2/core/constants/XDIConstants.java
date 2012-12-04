@@ -22,6 +22,8 @@ public class XDIConstants {
 	public static final XDI3Segment XRI_S_TRUE = new XDI3Segment("$true");
 	public static final XDI3Segment XRI_S_FALSE = new XDI3Segment("$false");
 
+	public static final XDI3Segment XRI_S_PUBLIC = new XDI3Segment("$public");
+
 	public static final XDI3SubSegment XRI_SS_CONTEXT = new XDI3SubSegment("()");
 	public static final XDI3SubSegment XRI_SS_LITERAL = new XDI3SubSegment("!");
 

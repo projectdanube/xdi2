@@ -81,11 +81,24 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 			if (log.isDebugEnabled()) log.debug("In message result: Found equivalence relation: " + equivalenceRelation);
 
+			XDI3Segment contextNodeXri = equivalenceRelation.getContextNode().getXri();
+			XDI3Segment targetContextNodeXri = equivalenceRelation.getTargetContextNodeXri();
+			
+			// don't follow equivalence relations from parent nodes
+
+			if (XDIConstants.XRI_S_ROOT.equals(contextNodeXri) || XRIUtil.startsWith(targetContextNodeXri, contextNodeXri)) {
+
+				if (log.isDebugEnabled()) log.debug("In message result: Skipping equivalence relation from parent: " + equivalenceRelation);
+
+				if (XDIDictionaryConstants.XRI_S_IS_BANG.equals(equivalenceRelation.getArcXri())) equivalenceRelation.delete();
+				continue;
+			}
+
 			// don't follow equivalence relations to parent nodes
 
-			if (XRIUtil.startsWith(equivalenceRelation.getTargetContextNodeXri(), equivalenceRelation.getContextNode().getXri())) {
+			if (XDIConstants.XRI_S_ROOT.equals(targetContextNodeXri) || XRIUtil.startsWith(contextNodeXri, targetContextNodeXri)) {
 
-				if (log.isDebugEnabled()) log.debug("In message result: Skipping equivalence relation: " + equivalenceRelation);
+				if (log.isDebugEnabled()) log.debug("In message result: Skipping equivalence relation to parent: " + equivalenceRelation);
 
 				if (XDIDictionaryConstants.XRI_S_IS_BANG.equals(equivalenceRelation.getArcXri())) equivalenceRelation.delete();
 				continue;

@@ -2,12 +2,16 @@ VERSION 0.1-SNAPSHOT
 ========================
 
 2012-12-04:
+------------------------
 
 *** bugfix in DollarIsInterceptor
+
+*** support for $public link contract
 
 *** some work on XDI Discovery
 
 2012-11-10:
+------------------------
 
 *** experimental implementation of $is!, $get*, $get!
 
