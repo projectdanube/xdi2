@@ -1,6 +1,12 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-12-04:
+
+*** bugfix in DollarIsInterceptor
+
+*** some work on XDI Discovery
+
 2012-11-10:
 
 *** experimental implementation of $is!, $get*, $get!

@@ -12,6 +12,7 @@ import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.Statement.RelationStatement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -291,7 +292,10 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 				ContextNode canonicalContextNode = canonicalRelation.follow();
 				pushEquivalenceRelation(executionContext, canonicalRelation);
 
-				return new XDI3Segment("" + (canonicalContextNode.isRootContextNode() ? "" : canonicalContextNode.getXri()) + localPart);
+				if (canonicalContextNode.isRootContextNode())
+					return new XDI3Segment("" + (localPart.isEmpty() ? XDIConstants.XRI_S_ROOT : localPart));
+				else
+					return new XDI3Segment(canonicalContextNode.getXri() + localPart);
 			}
 
 			if (privateCanonicalRelation != null) {
@@ -301,7 +305,10 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 				ContextNode privateCanonicalContextNode  = privateCanonicalRelation.follow();
 				pushEquivalenceRelation(executionContext, privateCanonicalRelation);
 
-				return new XDI3Segment("" + (privateCanonicalContextNode.isRootContextNode() ? "" : privateCanonicalContextNode.getXri()) + localPart);
+				if (privateCanonicalContextNode.isRootContextNode())
+					return new XDI3Segment("" + (localPart.isEmpty() ? XDIConstants.XRI_S_ROOT : localPart));
+				else
+					return new XDI3Segment(privateCanonicalContextNode.getXri() + localPart);
 			}
 
 			localPart = "" + XRIUtil.localXri(contextNodeXri, 1) + localPart;
