@@ -75,30 +75,21 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 		// look through the message result to process result equivalence relations
 
+		XDI3Segment operationContextNodeXri = operation.getTargetAddress() != null ? operation.getTargetAddress() : operation.getTargetStatement().getContextNodeXri();
+
 		List<Relation> equivalenceRelations = new IteratorListMaker<Relation> (Dictionary.getEquivalenceRelations(operationMessageResult.getGraph())).list();
 
 		for (Relation equivalenceRelation : equivalenceRelations) {
 
 			if (log.isDebugEnabled()) log.debug("In message result: Found equivalence relation: " + equivalenceRelation);
 
-			XDI3Segment contextNodeXri = equivalenceRelation.getContextNode().getXri();
 			XDI3Segment targetContextNodeXri = equivalenceRelation.getTargetContextNodeXri();
 			
-			// don't follow equivalence relations from parent nodes
+			// don't follow equivalence relations within operation target
 
-			if (XDIConstants.XRI_S_ROOT.equals(contextNodeXri) || XRIUtil.startsWith(targetContextNodeXri, contextNodeXri)) {
+			if (XDIConstants.XRI_S_ROOT.equals(operationContextNodeXri) || XRIUtil.startsWith(targetContextNodeXri, operationContextNodeXri)) {
 
-				if (log.isDebugEnabled()) log.debug("In message result: Skipping equivalence relation from parent: " + equivalenceRelation);
-
-				if (XDIDictionaryConstants.XRI_S_IS_BANG.equals(equivalenceRelation.getArcXri())) equivalenceRelation.delete();
-				continue;
-			}
-
-			// don't follow equivalence relations to parent nodes
-
-			if (XDIConstants.XRI_S_ROOT.equals(targetContextNodeXri) || XRIUtil.startsWith(contextNodeXri, targetContextNodeXri)) {
-
-				if (log.isDebugEnabled()) log.debug("In message result: Skipping equivalence relation to parent: " + equivalenceRelation);
+				if (log.isDebugEnabled()) log.debug("In message result: Skipping equivalence relation within operation target (" + operationContextNodeXri + "): " + equivalenceRelation);
 
 				if (XDIDictionaryConstants.XRI_S_IS_BANG.equals(equivalenceRelation.getArcXri())) equivalenceRelation.delete();
 				continue;
@@ -300,9 +291,9 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 			if (canonicalRelation != null) {
 
-				if (canonicalRelation.equals(contextNode)) break;
-
 				ContextNode canonicalContextNode = canonicalRelation.follow();
+				if (canonicalContextNode.equals(contextNode)) break;
+
 				pushEquivalenceRelation(executionContext, canonicalRelation);
 
 				if (canonicalContextNode.isRootContextNode())
@@ -313,9 +304,9 @@ public class DollarIsInterceptor extends AbstractInterceptor implements Operatio
 
 			if (privateCanonicalRelation != null) {
 
-				if (privateCanonicalRelation.equals(contextNode)) break;
-
 				ContextNode privateCanonicalContextNode  = privateCanonicalRelation.follow();
+				if (privateCanonicalRelation.equals(privateCanonicalContextNode)) break;
+
 				pushEquivalenceRelation(executionContext, privateCanonicalRelation);
 
 				if (privateCanonicalContextNode.isRootContextNode())
