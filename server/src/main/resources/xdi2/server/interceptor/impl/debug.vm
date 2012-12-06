@@ -22,10 +22,10 @@ h1 { font-size: 1.5em; }
 <h1 style="float: left">Server Status</h1>
 </th>
 <th>
-<form action="" method="post">
+<!--<form action="" method="post">
 	<input type="hidden" name="cmd" value="reload">
 	<input type="submit" value="reload">
-</form>
+</form>-->
 </th>
 </tr>
 </table>

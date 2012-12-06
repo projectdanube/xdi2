@@ -171,7 +171,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 			ContextNode allContextNode = graph.findContextNode(XDILinkContractConstants.XRI_S_ALL, true);
 			ContextNode publicContextNode = graph.findContextNode(XDIConstants.XRI_S_PUBLIC, true);
 
-			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(rootContextNode, true);
+			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
 			bootstrapPublicLinkContract.addAssignee(allContextNode);
 			bootstrapPublicLinkContract.addPermission(XDILinkContractPermission.LC_OP_GET, publicContextNode);
 		}
