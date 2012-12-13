@@ -3,9 +3,9 @@ package xdi2.messaging.target.contributor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.Prototype;
 
-public class ContributorMap extends TreeMap<XDI3Segment, List<Contributor>> implements Iterable<Contributor>, Prototype<ContributorMap> {
+public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>> implements Iterable<Contributor>, Prototype<ContributorMap> {
 
 	private static final long serialVersionUID = 1645889897751813459L;
 
@@ -29,7 +29,7 @@ public class ContributorMap extends TreeMap<XDI3Segment, List<Contributor>> impl
 
 	public ContributorMap() {
 
-		super(XRIUtil.XDI3Segment_DESCENDING_COMPARATOR);
+		super();
 	}
 
 	public void addContributor(XDI3Segment contributorXri, Contributor contributor) {
@@ -214,15 +214,6 @@ public class ContributorMap extends TreeMap<XDI3Segment, List<Contributor>> impl
 
 	public XDI3Segment findHigherContributorXri(XDI3Segment contextNodeXri) {
 
-		// try first without variables
-
-		for (XDI3Segment contributorXri : this.keySet()) {
-
-			if (XRIUtil.startsWith(contextNodeXri, contributorXri, false, false)) return contributorXri;
-		}
-
-		// now try with variables
-
 		for (XDI3Segment contributorXri : this.keySet()) {
 
 			if (XRIUtil.startsWith(contextNodeXri, contributorXri, false, true)) return contributorXri;
@@ -232,15 +223,6 @@ public class ContributorMap extends TreeMap<XDI3Segment, List<Contributor>> impl
 	}
 
 	public XDI3Segment findLowerContributorXri(XDI3Segment contextNodeXri) {
-
-		// try first without variables
-
-		for (XDI3Segment contributorXri : this.keySet()) {
-
-			if (XRIUtil.startsWith(contributorXri, contextNodeXri, false, false)) return contributorXri;
-		}
-
-		// now try with variables
 
 		for (XDI3Segment contributorXri : this.keySet()) {
 
