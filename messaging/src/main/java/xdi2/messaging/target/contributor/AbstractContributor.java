@@ -5,6 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
@@ -15,6 +18,7 @@ import xdi2.core.Statement.RelationStatement;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIUtil;
+import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
@@ -26,6 +30,8 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 
 public abstract class AbstractContributor implements Contributor {
+
+	private static final Logger log = LoggerFactory.getLogger(AbstractContributor.class);
 
 	private ContributorMap contributors;
 
@@ -397,6 +403,24 @@ public abstract class AbstractContributor implements Contributor {
 		return false;
 	}
 
+	/*
+	 * Filter methods
+	 */
+
+	public boolean getContextFilter(XDI3Segment[] contributorXris, XDI3Segment relativeContextNodeXri, XDI3Segment contextNodeXri, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment tempContextNodeXri = XRIUtil.parentXri(contextNodeXri, - relativeContextNodeXri.getNumSubSegments());
+
+		log.debug("Filtering " + tempContextNodeXri + " with lower context node " + relativeContextNodeXri);
+		
+		MessageResult tempMessageResult = new MessageResult();
+		this.getContext(contributorXris, null, tempContextNodeXri, operation, tempMessageResult, executionContext);
+		ContextNode contextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
+		if (contextNode != null) CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
+
+		return true;
+	}
+	
 	/*
 	 * Getters and setters
 	 */
