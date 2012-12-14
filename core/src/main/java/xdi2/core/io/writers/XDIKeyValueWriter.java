@@ -30,7 +30,7 @@ public class XDIKeyValueWriter extends AbstractXDIWriter {
 
 	public static final String FORMAT_NAME = "KEYVALUE";
 	public static final String FILE_EXTENSION = null;
-	public static final MimeType MIME_TYPE = new MimeType("text/plain");
+	public static final MimeType MIME_TYPE = null;
 
 	private boolean writeOrdered;
 

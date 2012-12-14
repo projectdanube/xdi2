@@ -11,8 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.io.readers.AutoReader;
-import xdi2.core.io.readers.XDIJSONReader;
 import xdi2.core.io.readers.XDIDisplayReader;
+import xdi2.core.io.readers.XDIJSONReader;
+import xdi2.core.io.readers.XDIRawJSONReader;
 
 /**
  * Provides an appropriate XDIReader for a given type.
@@ -26,7 +27,8 @@ public final class XDIReaderRegistry {
 	private static String readerClassNames[] = {
 
 		XDIJSONReader.class.getName(),
-		XDIDisplayReader.class.getName()
+		XDIDisplayReader.class.getName(),
+		XDIRawJSONReader.class.getName()
 	};
 
 	private static List<Class<XDIReader>> readerClasses;
