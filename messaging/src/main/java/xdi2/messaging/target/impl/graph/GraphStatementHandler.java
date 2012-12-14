@@ -48,7 +48,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 
 		try {
 
-			this.getGraph().addStatement(statement);
+			this.getGraph().createStatement(statement);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Cannot add statement: " + ex.getMessage(), ex, executionContext);

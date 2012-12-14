@@ -4,7 +4,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractRelation;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 public class KeyValueRelation extends AbstractRelation implements Relation {
 
@@ -13,10 +13,10 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 	private KeyValueStore keyValueStore;
 	private String key;
 
-	private XRI3Segment arcXri;
-	private XRI3Segment targetContextNodeXri;
+	private XDI3Segment arcXri;
+	private XDI3Segment targetContextNodeXri;
 
-	KeyValueRelation(Graph graph, ContextNode contextNode, KeyValueStore keyValueStore, String key, XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
+	KeyValueRelation(Graph graph, ContextNode contextNode, KeyValueStore keyValueStore, String key, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		super(graph, contextNode);
 
@@ -28,13 +28,13 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 	}
 
 	@Override
-	public XRI3Segment getArcXri() {
+	public XDI3Segment getArcXri() {
 
 		return this.arcXri;
 	}
 
 	@Override
-	public XRI3Segment getTargetContextNodeXri() {
+	public XDI3Segment getTargetContextNodeXri() {
 
 		return this.targetContextNodeXri;
 	}

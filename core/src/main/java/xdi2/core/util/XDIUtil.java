@@ -10,9 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
-import xdi2.core.xri3.impl.XRI3XRef;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.impl.XDI3XRef;
 
 /**
  * Various utility methods for working with XDI.
@@ -27,7 +27,7 @@ public class XDIUtil {
 
 	private XDIUtil() { }
 
-	public static boolean isDataXriSegment(XRI3Segment xriSegment) {
+	public static boolean isDataXriSegment(XDI3Segment xriSegment) {
 
 		try {
 
@@ -40,18 +40,18 @@ public class XDIUtil {
 		return true;
 	}
 
-	public static String dataXriSegmentToString(XRI3Segment xriSegment) {
+	public static String dataXriSegmentToString(XDI3Segment xriSegment) {
 
 		if (log.isTraceEnabled()) log.trace("Converting from data URI: " + xriSegment.toString());
 
-		XRI3SubSegment xriSubSegment = (XRI3SubSegment) xriSegment.getFirstSubSegment();
-		if (xriSubSegment == null) throw new Xdi2RuntimeException("Invalid data URI (no subsegment): " + xriSubSegment);
+		XDI3SubSegment subSegment = xriSegment.getFirstSubSegment();
+		if (subSegment == null) throw new Xdi2RuntimeException("Invalid data URI (no subsegment): " + subSegment);
 
-		XRI3XRef xRef = (XRI3XRef) xriSubSegment.getXRef();
-		if (xRef == null) throw new Xdi2RuntimeException("Invalid data URI (no xref): " + xriSubSegment);
+		XDI3XRef xref = subSegment.getXRef();
+		if (xref == null) throw new Xdi2RuntimeException("Invalid data URI (no xref): " + subSegment);
 
-		String iri = xRef.getIRI();		
-		if (iri == null) throw new Xdi2RuntimeException("Invalid data URI (no iri): " + xriSubSegment);
+		String iri = xref.getIRI();		
+		if (iri == null) throw new Xdi2RuntimeException("Invalid data URI (no iri): " + subSegment);
 
 		URI uri = URI.create(iri);
 		if (! uri.getScheme().equals("data")) throw new Xdi2RuntimeException("Invalid data URI scheme: " + uri);
@@ -77,7 +77,7 @@ public class XDIUtil {
 		}
 	}
 
-	public static XRI3Segment stringToDataXriSegment(String string, boolean base64) {
+	public static XDI3Segment stringToDataXriSegment(String string, boolean base64) {
 
 		if (log.isTraceEnabled()) log.trace("Converting to data URI: " + string);
 
@@ -97,10 +97,10 @@ public class XDIUtil {
 			throw new Xdi2RuntimeException(ex);
 		}
 
-		return new XRI3Segment("(" + dataUri + ")");
+		return new XDI3Segment("(" + dataUri + ")");
 	}
 
-	public static XRI3Segment stringToDataXriSegment(String string) {
+	public static XDI3Segment stringToDataXriSegment(String string) {
 
 		return stringToDataXriSegment(string, false);
 	}

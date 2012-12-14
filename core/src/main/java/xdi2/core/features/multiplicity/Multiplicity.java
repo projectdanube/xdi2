@@ -2,7 +2,7 @@ package xdi2.core.features.multiplicity;
 
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XRI3Constants;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.xri3.impl.parser.ParserException;
 
 /**
@@ -27,48 +27,48 @@ public class Multiplicity {
 	 * Methods for building arc XRIs.
 	 */
 
-	public static XRI3SubSegment collectionArcXri(XRI3SubSegment arcXri) {
+	public static XDI3SubSegment collectionArcXri(XDI3SubSegment arcXri) {
 
-		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
+		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
 
-	public static XRI3SubSegment entitySingletonArcXri(XRI3SubSegment arcXri) {
+	public static XDI3SubSegment entitySingletonArcXri(XDI3SubSegment arcXri) {
 
 		return arcXri;
 	}
 
-	public static XRI3SubSegment entityMemberArcXri(XRI3SubSegment arcXri) {
+	public static XDI3SubSegment entityMemberArcXri(XDI3SubSegment arcXri) {
 
-		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
+		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
 
-	public static XRI3SubSegment entityMemberArcXriRandom() {
+	public static XDI3SubSegment entityMemberArcXriRandom() {
 
 		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR, "" + XRI3Constants.LCS_BANG);
 	}
 
-	public static XRI3SubSegment attributeSingletonArcXri(XRI3SubSegment arcXri) {
+	public static XDI3SubSegment attributeSingletonArcXri(XDI3SubSegment arcXri) {
 
-		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
+		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
 	}
 
-	public static XRI3SubSegment attributeMemberArcXri(XRI3SubSegment arcXri) {
+	public static XDI3SubSegment attributeMemberArcXri(XDI3SubSegment arcXri) {
 
-		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
+		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
 	}
 
-	public static XRI3SubSegment attributeMemberArcXriRandom() {
+	public static XDI3SubSegment attributeMemberArcXriRandom() {
 
 		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG, "" + XRI3Constants.LCS_BANG);
 	}
 
-	public static XRI3SubSegment baseArcXri(XRI3SubSegment arcXri) {
+	public static XDI3SubSegment baseArcXri(XDI3SubSegment arcXri) {
 
 		try {
 
 			if (isCollectionArcXri(arcXri)) {
 
-				return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+				return new XDI3SubSegment("" + arcXri.getXRef().getNode().toString());
 			}
 
 			if (isEntitySingletonArcXri(arcXri)) {
@@ -78,17 +78,17 @@ public class Multiplicity {
 
 			if (isAttributeSingletonArcXri(arcXri)) {
 
-				return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+				return new XDI3SubSegment("" + arcXri.getXRef().getNode().toString());
 			}
 
 			if (isEntityMemberArcXri(arcXri)) {
 
-				return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+				return new XDI3SubSegment("" + arcXri.getXRef().getNode().toString());
 			}
 
 			if (isAttributeMemberArcXri(arcXri)) {
 
-				return new XRI3SubSegment("" + arcXri.getXRef().getXRIReference().toString());
+				return new XDI3SubSegment("" + arcXri.getXRef().getNode().toString());
 			}
 		} catch (ParserException ex) {
 
@@ -102,18 +102,18 @@ public class Multiplicity {
 	 * Methods for checking arc XRIs.
 	 */
 
-	public static boolean isCollectionArcXri(XRI3SubSegment arcXri) {
+	public static boolean isCollectionArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasXRIReference()) return false;
+		if (! arcXri.getXRef().hasNode()) return false;
 
 		return true;
 	}
 
-	public static boolean isEntitySingletonArcXri(XRI3SubSegment arcXri) {
+	public static boolean isEntitySingletonArcXri(XDI3SubSegment arcXri) {
 
 		if (isCollectionArcXri(arcXri)) return false;
 		if (isAttributeSingletonArcXri(arcXri)) return false;
@@ -123,45 +123,41 @@ public class Multiplicity {
 		return true;
 	}
 
-	public static boolean isAttributeSingletonArcXri(XRI3SubSegment arcXri) {
+	public static boolean isAttributeSingletonArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasXRIReference()) return false;
+		if (! arcXri.getXRef().hasNode()) return false;
 
 		return true;
 	}
 
-	public static boolean isEntityMemberArcXri(XRI3SubSegment arcXri) {
+	public static boolean isEntityMemberArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasXRIReference()) return false;
-		if (! arcXri.getXRef().getXRIReference().hasPath()) return false;
-		if (arcXri.getXRef().getXRIReference().getPath().getNumSegments() <= 0) return false;
-		if (arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getNumSubSegments() <= 0) return false;
-		if (arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getFirstSubSegment().hasGCS()) return false;
-		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getFirstSubSegment().getLCS())) return false;
+		if (! arcXri.getXRef().hasNode()) return false;
+		if (arcXri.getXRef().getNode().getNumSubSegments() <= 0) return false;
+		if (arcXri.getXRef().getNode().getFirstSubSegment().hasGCS()) return false;
+		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getNode().getFirstSubSegment().getLCS())) return false;
 
 		return true;
 	}
 
-	public static boolean isAttributeMemberArcXri(XRI3SubSegment arcXri) {
+	public static boolean isAttributeMemberArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasXRIReference()) return false;
-		if (! arcXri.getXRef().getXRIReference().hasPath()) return false;
-		if (arcXri.getXRef().getXRIReference().getPath().getNumSegments() <= 0) return false;
-		if (arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getNumSubSegments() <= 0) return false;
-		if (arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getFirstSubSegment().hasGCS()) return false;
-		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getXRIReference().getPath().getFirstSegment().getFirstSubSegment().getLCS())) return false;
+		if (! arcXri.getXRef().hasNode()) return false;
+		if (arcXri.getXRef().getNode().getNumSubSegments() <= 0) return false;
+		if (arcXri.getXRef().getNode().getFirstSubSegment().hasGCS()) return false;
+		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getNode().getFirstSubSegment().getLCS())) return false;
 
 		return true;
 	}

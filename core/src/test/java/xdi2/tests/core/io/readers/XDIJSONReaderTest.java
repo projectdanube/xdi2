@@ -5,7 +5,6 @@ import java.io.StringReader;
 import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.io.MimeType;
 import xdi2.core.io.readers.XDIJSONReader;
 import xdi2.core.io.writers.XDIDisplayWriter;
 

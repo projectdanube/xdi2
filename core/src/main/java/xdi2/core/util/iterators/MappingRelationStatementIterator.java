@@ -1,5 +1,6 @@
 package xdi2.core.util.iterators;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import xdi2.core.Relation;
@@ -15,6 +16,11 @@ public class MappingRelationStatementIterator extends MappingIterator<Relation, 
 	public MappingRelationStatementIterator(Iterator<Relation> relations) {
 
 		super(relations);
+	}
+
+	public MappingRelationStatementIterator(Relation relation) {
+
+		super(Arrays.asList(new Relation[] { relation }).iterator());
 	}
 
 	@Override

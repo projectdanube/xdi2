@@ -6,7 +6,7 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.TerminatingOnNullIterator;
 import xdi2.core.xri3.impl.XRI3Constants;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 
 public class Ordering {
 
@@ -16,12 +16,12 @@ public class Ordering {
 	 * Methods for arc XRIs.
 	 */
 
-	public static XRI3SubSegment indexArcXri(int index) {
+	public static XDI3SubSegment indexArcXri(int index) {
 
-		return new XRI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_STAR + Integer.toString(index));
+		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_STAR + Integer.toString(index));
 	}
 
-	public static int arcXriIndex(XRI3SubSegment arcXri) {
+	public static int arcXriIndex(XDI3SubSegment arcXri) {
 
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return -1;
 		if (! XRI3Constants.LCS_STAR.equals(arcXri.getLCS())) return -1;
@@ -36,7 +36,7 @@ public class Ordering {
 
 	public static ContextNode getOrderedContextNodeByIndex(final ContextNode contextNode, int index) {
 
-		XRI3SubSegment indexArcXri = indexArcXri(index);
+		XDI3SubSegment indexArcXri = indexArcXri(index);
 		ContextNode indexContextNode = contextNode.getContextNode(indexArcXri);
 		Relation indexRelation = indexContextNode == null ? null : indexContextNode.getRelation(XDIDictionaryConstants.XRI_S_IS);
 		ContextNode orderedContextNode = indexRelation == null ? null : indexRelation.follow();

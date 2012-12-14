@@ -1,0 +1,1 @@
+$del operation with $is and $is! arcs

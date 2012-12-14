@@ -13,7 +13,7 @@ import xdi2.core.Statement;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.Policy;
 import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
@@ -75,7 +75,7 @@ MessageInterceptor, TargetInterceptor, Prototype<LinkContractsInterceptor> {
 		// find out which link contract is referenced by this message, and store
 		// it in the execution context
 
-		XRI3Segment linkContractXri = message.getLinkContractXri();
+		XDI3Segment linkContractXri = message.getLinkContractXri();
 		ContextNode linkContractContextNode = (linkContractXri == null) ? null
 				: this.linkContractsGraph.findContextNode(linkContractXri,
 						false);
@@ -110,11 +110,11 @@ MessageInterceptor, TargetInterceptor, Prototype<LinkContractsInterceptor> {
 	 */
 
 	private static boolean checkLinkContractAuthorization(Operation operation,
-			XRI3Segment targetAddress, ExecutionContext executionContext)
+			XDI3Segment targetAddress, ExecutionContext executionContext)
 					throws Xdi2NotAuthorizedException {
 
 		boolean operationAllowed = false, senderIsAssigned = false;
-		XRI3Segment sender = operation.getSender();
+		XDI3Segment sender = operation.getSender();
 		LinkContract linkContract = getLinkContract(executionContext);
 		// check if sender has been assigned the link contract
 
@@ -188,7 +188,7 @@ MessageInterceptor, TargetInterceptor, Prototype<LinkContractsInterceptor> {
 			throw new Xdi2MessagingException("No link contract.", null,
 					executionContext);
 
-		XRI3Segment targetAddress = targetStatement.getContextNodeXri();
+		XDI3Segment targetAddress = targetStatement.getContextNodeXri();
 
 		if (!checkLinkContractAuthorization(operation, targetAddress,
 				executionContext)) {
@@ -201,7 +201,7 @@ MessageInterceptor, TargetInterceptor, Prototype<LinkContractsInterceptor> {
 	}
 
 	@Override
-	public XRI3Segment targetAddress(XRI3Segment targetAddress, Operation operation,
+	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation,
 			MessageResult messageResult,
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 

@@ -1,5 +1,6 @@
 package xdi2.core.util.iterators;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import xdi2.core.Literal;
@@ -15,6 +16,11 @@ public class MappingLiteralStatementIterator extends MappingIterator<Literal, St
 	public MappingLiteralStatementIterator(Iterator<Literal> literals) {
 
 		super(literals);
+	}
+
+	public MappingLiteralStatementIterator(Literal literal) {
+
+		super(Arrays.asList(new Literal[] { literal }).iterator());
 	}
 
 	@Override

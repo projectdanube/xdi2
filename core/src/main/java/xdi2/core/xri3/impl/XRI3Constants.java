@@ -11,8 +11,6 @@ public class XRI3Constants {
 
 	public static final String XREF_START = "(";
 	public static final String XREF_END = ")";
-
-	public static final XRI3 XRI_NULL = new XRI3("$null");
 	
 	public static final Character GCS_EQUALS = new Character('='); 
 	public static final Character GCS_AT = new Character('@'); 

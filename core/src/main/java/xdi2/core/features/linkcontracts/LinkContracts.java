@@ -6,7 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.util.iterators.SelectingMappingIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 
 public class LinkContracts {
@@ -73,7 +73,7 @@ public class LinkContracts {
 	 */
 
 	public static LinkContract findLinkContractByAddress(Graph graph,
-			XRI3Segment address) {
+			XDI3Segment address) {
 
 		ContextNode root = graph.getRootContextNode();
 		

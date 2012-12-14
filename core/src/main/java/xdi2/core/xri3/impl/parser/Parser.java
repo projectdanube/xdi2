@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.2
- * Produced : Fri Oct 19 08:29:48 CEST 2012
+ * Produced : Sun Nov 18 00:40:33 CET 2012
  *
  * -----------------------------------------------------------------------------
  */
@@ -31,7 +31,7 @@ public class Parser
     if (ok)
     {
       arguments.setProperty("Trace", "Off");
-      arguments.setProperty("Rule", "xri");
+      arguments.setProperty("Rule", "xdi-address");
 
       for (int i = 0; i < args.length; i++)
       {
@@ -160,7 +160,21 @@ public class Parser
     ParserContext context = new ParserContext(string, trace);
 
     Rule rule = null;
-    if (rulename.equalsIgnoreCase("xri")) rule = Rule$xri.parse(context);
+    if (rulename.equalsIgnoreCase("xdi-address")) rule = Rule$xdi_address.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-context")) rule = Rule$xdi_context.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-statement")) rule = Rule$xdi_statement.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-subject")) rule = Rule$xdi_subject.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-predicate")) rule = Rule$xdi_predicate.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-object")) rule = Rule$xdi_object.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-segment")) rule = Rule$xdi_segment.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-subseg")) rule = Rule$xdi_subseg.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-global-subseg")) rule = Rule$xdi_global_subseg.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-local-subseg")) rule = Rule$xdi_local_subseg.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-xref")) rule = Rule$xdi_xref.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-xref-empty")) rule = Rule$xdi_xref_empty.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-xref-IRI")) rule = Rule$xdi_xref_IRI.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-xref-address")) rule = Rule$xdi_xref_address.parse(context);
+    else if (rulename.equalsIgnoreCase("xri")) rule = Rule$xri.parse(context);
     else if (rulename.equalsIgnoreCase("xri-reference")) rule = Rule$xri_reference.parse(context);
     else if (rulename.equalsIgnoreCase("relative-xri-ref")) rule = Rule$relative_xri_ref.parse(context);
     else if (rulename.equalsIgnoreCase("relative-xri-part")) rule = Rule$relative_xri_part.parse(context);

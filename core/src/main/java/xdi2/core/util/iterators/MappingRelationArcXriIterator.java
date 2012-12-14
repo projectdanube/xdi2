@@ -3,14 +3,14 @@ package xdi2.core.util.iterators;
 import java.util.Iterator;
 
 import xdi2.core.Relation;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 /**
  * A MappingIterator that maps XDI relations to their arc XRIs.
  * 
  * @author markus
  */
-public class MappingRelationArcXriIterator extends MappingIterator<Relation, XRI3Segment> {
+public class MappingRelationArcXriIterator extends MappingIterator<Relation, XDI3Segment> {
 
 	public MappingRelationArcXriIterator(Iterator<Relation> relations) {
 
@@ -18,7 +18,7 @@ public class MappingRelationArcXriIterator extends MappingIterator<Relation, XRI
 	}
 
 	@Override
-	public XRI3Segment map(Relation relation) {
+	public XDI3Segment map(Relation relation) {
 
 		return relation.getArcXri();
 	}

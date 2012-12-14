@@ -2,7 +2,7 @@ package xdi2.resolution;
 
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -30,7 +30,7 @@ public class XDIResolver {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createGetOperation(new XRI3Segment("(" + xri + ")"));
+		message.createGetOperation(new XDI3Segment("(" + xri + ")"));
 
 		// send the message
 

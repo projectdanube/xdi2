@@ -69,6 +69,17 @@
 
 	<servlet>
 		<description></description>
+		<display-name>XDITestLocalMessenger</display-name>
+		<servlet-name>XDITestLocalMessenger</servlet-name>
+		<servlet-class>xdi2.webtools.testlocalmessenger.XDITestLocalMessenger</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDITestLocalMessenger</servlet-name>
+		<url-pattern>/XDITestLocalMessenger</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
 		<display-name>XDIGrapher</display-name>
 		<servlet-name>XDIGrapher</servlet-name>
 		<servlet-class>xdi2.webtools.grapher.XDIGrapher</servlet-class>

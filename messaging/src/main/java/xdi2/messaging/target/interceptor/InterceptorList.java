@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Statement;
 import xdi2.core.util.iterators.SelectingClassIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -256,7 +256,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 		return false;
 	}
 
-	public XRI3Segment executeTargetInterceptorsAddress(XRI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDI3Segment executeTargetInterceptorsAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		for (Iterator<TargetInterceptor> targetInterceptors = this.findTargetInterceptors(); targetInterceptors.hasNext(); ) {
 

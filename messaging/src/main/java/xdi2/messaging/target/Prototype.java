@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 /**
@@ -25,11 +25,11 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 		private static final Logger log = LoggerFactory.getLogger(PrototypingContext.class);
 
 		private MessagingTarget messagingTarget;
-		private XRI3Segment owner;
+		private XDI3Segment owner;
 		private ContextNode ownerRemoteRootContextNode;
 		private ContextNode ownerContextNode;
 
-		public PrototypingContext(XRI3Segment owner, ContextNode ownerRemoteRootContextNode, ContextNode ownerContextNode) {
+		public PrototypingContext(XDI3Segment owner, ContextNode ownerRemoteRootContextNode, ContextNode ownerContextNode) {
 
 			this.messagingTarget = null;
 			this.owner = owner;
@@ -65,7 +65,7 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 			return this.messagingTarget;
 		}
 
-		public XRI3Segment getOwner() {
+		public XDI3Segment getOwner() {
 
 			return this.owner;
 		}

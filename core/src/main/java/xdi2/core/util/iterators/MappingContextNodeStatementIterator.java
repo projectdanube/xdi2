@@ -1,5 +1,6 @@
 package xdi2.core.util.iterators;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
@@ -15,6 +16,11 @@ public class MappingContextNodeStatementIterator extends MappingIterator<Context
 	public MappingContextNodeStatementIterator(Iterator<ContextNode> contextNodes) {
 
 		super(contextNodes);
+	}
+
+	public MappingContextNodeStatementIterator(ContextNode contextNode) {
+
+		super(Arrays.asList(new ContextNode[] { contextNode }).iterator());
 	}
 
 	@Override

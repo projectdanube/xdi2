@@ -5,19 +5,19 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 
 public class BasicContextNode extends AbstractContextNode implements ContextNode {
 
 	private static final long serialVersionUID = -3684616841641336596L;
 
-	private XRI3SubSegment arcXri;
+	private XDI3SubSegment arcXri;
 	private Iterable<ContextNode> contextNodes;
 	private Iterable<Relation> relations;
 	private Literal literal;
 
-	public BasicContextNode(Graph graph, ContextNode contextNode, XRI3SubSegment arcXri, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
+	public BasicContextNode(Graph graph, ContextNode contextNode, XDI3SubSegment arcXri, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
 
 		super(graph, contextNode);
 
@@ -28,13 +28,13 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public XRI3SubSegment getArcXri() {
+	public XDI3SubSegment getArcXri() {
 
 		return this.arcXri;
 	}
 
 	@Override
-	public ContextNode createContextNode(XRI3SubSegment arcXri) {
+	public ContextNode createContextNode(XDI3SubSegment arcXri) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -46,7 +46,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void deleteContextNode(XRI3SubSegment arcXri) {
+	public void deleteContextNode(XDI3SubSegment arcXri) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -58,7 +58,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public Relation createRelation(XRI3Segment arcXri, ContextNode targetContextNode) {
+	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -70,13 +70,13 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void deleteRelation(XRI3Segment arcXri, XRI3Segment targetContextNodeXri) {
+	public void deleteRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
 
 	@Override
-	public void deleteRelations(XRI3Segment arcXri) {
+	public void deleteRelations(XDI3Segment arcXri) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}

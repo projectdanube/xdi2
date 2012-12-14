@@ -1,16 +1,21 @@
 package xdi2.core.features.dictionary;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
+import xdi2.core.util.iterators.SelectingIterator;
+import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.xri3.impl.XRI3Constants;
-import xdi2.core.xri3.impl.XRI3Segment;
-import xdi2.core.xri3.impl.XRI3SubSegment;
 
 public class Dictionary {
 
@@ -20,38 +25,40 @@ public class Dictionary {
 	 * Methods for dictionary XRIs
 	 */
 
-	public static XRI3SubSegment instanceXriToDictionaryXri(XRI3SubSegment instanceXri) {
+	public static XDI3SubSegment instanceXriToDictionaryXri(XDI3SubSegment instanceXri) {
 
-		return new XRI3SubSegment("" + XRI3Constants.GCS_PLUS + "(" + instanceXri + ")");
+		return new XDI3SubSegment("" + XRI3Constants.GCS_PLUS + "(" + instanceXri + ")");
 	}
 
-	public static XRI3SubSegment dictionaryXriToInstanceXri(XRI3SubSegment dictionaryXri) {
+	public static XDI3SubSegment dictionaryXriToInstanceXri(XDI3SubSegment dictionaryXri) {
 
 		if (! XRI3Constants.GCS_PLUS.equals(dictionaryXri.getGCS())) return null;
 		if (dictionaryXri.hasLCS()) return null;
 		if (! dictionaryXri.hasXRef()) return null;
-		if (! dictionaryXri.getXRef().hasXRIReference()) return null;
 
-		return new XRI3SubSegment("" + dictionaryXri.getXRef().getXRIReference());
+		return new XDI3SubSegment(dictionaryXri.getXRef().getValue());
 	}
 
-	public static XRI3SubSegment nativeIdentifierToInstanceXri(String nativeIdentifier) {
+	public static XDI3SubSegment nativeIdentifierToInstanceXri(String nativeIdentifier) {
 
-		return new XRI3SubSegment("" + XRI3Constants.GCS_PLUS + "(" + nativeIdentifier + ")");
+		return new XDI3SubSegment("" + XRI3Constants.GCS_PLUS + "(" + nativeIdentifier + ")");
 	}
 
-	public static String instanceXriToNativeIdentifier(XRI3SubSegment instanceXri) {
+	public static String instanceXriToNativeIdentifier(XDI3SubSegment instanceXri) {
 
 		if (! instanceXri.hasXRef()) return null;
-		if (! instanceXri.getXRef().hasXRIReference()) return null;
 
-		return instanceXri.getXRef().getXRIReference().toString();
+		return instanceXri.getXRef().getValue();
 	}
 
 	/*
-	 * Methods for the canonical context node.
-	 * This is the target of a $is relation.
+	 * Methods for canonical context nodes and relations.
 	 */
+
+	public static Relation getCanonicalRelation(ContextNode contextNode) {
+
+		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS);
+	}
 
 	public static ContextNode getCanonicalContextNode(ContextNode contextNode) {
 
@@ -66,43 +73,82 @@ public class Dictionary {
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, canonicalContextNode);
 	}
 
+	public static Relation getPrivateCanonicalRelation(ContextNode contextNode) {
+
+		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_BANG);
+	}
+
+	public static ContextNode getPrivateCanonicalContextNode(ContextNode contextNode) {
+
+		Relation relation = contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_BANG);
+		if (relation == null) return null;
+
+		return relation.follow();
+	}
+
+	public static void setPrivateCanonicalContextNode(ContextNode contextNode, ContextNode canonicalContextNode) {
+
+		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_BANG, canonicalContextNode);
+	}
+
 	/*
-	 * Methods for synonym context nodes.
-	 * These are the sources of incoming $is relations.
+	 * Methods for equivalence context nodes.
+	 * These are the sources of incoming $is or $is! relations.
 	 */
 
-	public static Iterator<ContextNode> getSynonymContextNodes(ContextNode contextNode) {
+	public static Iterator<ContextNode> getEquivalenceContextNodes(ContextNode contextNode) {
 
-		Iterator<Relation> relations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS);
+		Iterator<Relation> canonicalRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS);
+		Iterator<Relation> privateCanonicalRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS_BANG);
 
-		return new MappingRelationContextNodeIterator(relations);
+		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		iterators.add(canonicalRelations);
+		iterators.add(privateCanonicalRelations);
+
+		return new MappingRelationContextNodeIterator(new CompositeIterator<Relation> (iterators.iterator()));
+	}
+
+	/*
+	 * Methods for equivalence relations.
+	 */
+
+	public static Iterator<Relation> getEquivalenceRelations(Graph graph) {
+
+		return new SelectingIterator<Relation> (graph.getRootContextNode().getAllRelations()) {
+
+			@Override
+			public boolean select(Relation equivalenceRelation) {
+
+				return XDIDictionaryConstants.XRI_S_IS.equals(equivalenceRelation.getArcXri()) || XDIDictionaryConstants.XRI_S_IS_BANG.equals(equivalenceRelation.getArcXri());
+			}
+		};
 	}
 
 	/*
 	 * Methods for types of context nodes.
 	 */
 
-	public static Iterator<XRI3Segment> getContextNodeTypes(ContextNode contextNode) {
+	public static Iterator<XDI3Segment> getContextNodeTypes(ContextNode contextNode) {
 
 		return new MappingContextNodeXriIterator(new MappingRelationTargetContextNodeIterator(contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE)));
 	}
 
-	public static XRI3Segment getContextNodeType(ContextNode contextNode) {
+	public static XDI3Segment getContextNodeType(ContextNode contextNode) {
 
 		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_TYPE).getTargetContextNodeXri();
 	}
 
-	public static boolean isContextNodeType(ContextNode contextNode, XRI3Segment type) {
+	public static boolean isContextNodeType(ContextNode contextNode, XDI3Segment type) {
 
 		return contextNode.containsRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
 	}
 
-	public static void addContextNodeType(ContextNode contextNode, XRI3Segment type) {
+	public static void addContextNodeType(ContextNode contextNode, XDI3Segment type) {
 
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
 	}
 
-	public static void removeContextNodeType(ContextNode contextNode, XRI3Segment type) {
+	public static void removeContextNodeType(ContextNode contextNode, XDI3Segment type) {
 
 		contextNode.deleteRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
 	}
@@ -112,7 +158,7 @@ public class Dictionary {
 		contextNode.deleteRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
 	}
 
-	public static void setContextNodeType(ContextNode contextNode, XRI3Segment type) {
+	public static void setContextNodeType(ContextNode contextNode, XDI3Segment type) {
 
 		removeContextNodeTypes(contextNode);
 		addContextNodeType(contextNode, type);

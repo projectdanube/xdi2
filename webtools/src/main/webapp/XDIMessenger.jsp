@@ -20,7 +20,7 @@
 
 	<% if (request.getAttribute("error") != null) { %>
 			
-		<p><font color="red"><%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %></font></p>
+		<p style="font-family: monospace; white-space: pre; color: red;"><%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %></p>
 
 	<% } %>
 

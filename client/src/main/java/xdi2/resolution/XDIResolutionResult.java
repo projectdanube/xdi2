@@ -6,7 +6,7 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.xri3.impl.XRI3;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.MessageResult;
 
 public class XDIResolutionResult implements Serializable {
@@ -38,7 +38,7 @@ public class XDIResolutionResult implements Serializable {
 
 		String inumber;
 
-		Relation relation = graph.findRelation(new XRI3Segment(xri), new XRI3Segment("$is"));		
+		Relation relation = graph.findRelation(new XDI3Segment(xri), new XDI3Segment("$is"));		
 
 		if (relation != null && isInumber(relation.getTargetContextNodeXri().toString())) { 
 
@@ -59,10 +59,10 @@ public class XDIResolutionResult implements Serializable {
 
 		if (inumber != null) {
 
-			literal = graph.findLiteral(new XRI3Segment("(" + inumber + ")" + "$!($uri)"));
+			literal = graph.findLiteral(new XDI3Segment("(" + inumber + ")" + "$!($uri)"));
 		} else {
 
-			literal = graph.findLiteral(new XRI3Segment("(" + xri + ")" + "$!($uri)"));
+			literal = graph.findLiteral(new XDI3Segment("(" + xri + ")" + "$!($uri)"));
 		}
 
 		if (literal != null) {

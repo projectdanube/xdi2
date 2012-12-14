@@ -1,6 +1,6 @@
 package xdi2.messaging.target;
 
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -26,7 +26,7 @@ public interface MessagingTarget {
 	 * Returns the owner authority of the messaging target.
 	 * This may be null.
 	 */
-	public XRI3Segment getOwnerAuthority();
+	public XDI3Segment getOwnerAuthority();
 
 	/**
 	 * Executes all messages in an XDI messaging envelope against this messaging target.

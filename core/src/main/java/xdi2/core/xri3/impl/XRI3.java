@@ -193,9 +193,9 @@ public class XRI3 extends XRI3SyntaxComponent implements XRI {
 
 		// read xri_hier_part from xri
 
-		List list_xri_noscheme = ((Rule$xri) object).rules;
-		if (list_xri_noscheme.size() < 1) return;
-		object = list_xri_noscheme.get(0);	// xri_hier_part
+		List list_xri = ((Rule$xri) object).rules;
+		if (list_xri.size() < 1) return;
+		object = list_xri.get(0);	// xri_hier_part
 
 		// read xri_authority from xri_hier_part
 
@@ -214,8 +214,8 @@ public class XRI3 extends XRI3SyntaxComponent implements XRI {
 
 		// read iquery or ifragment from xri
 
-		if (list_xri_noscheme.size() < 3) return;
-		object = list_xri_noscheme.get(2);	// iquery or ifragment
+		if (list_xri.size() < 3) return;
+		object = list_xri.get(2);	// iquery or ifragment
 
 		// iquery or ifragment ?
 
@@ -226,8 +226,8 @@ public class XRI3 extends XRI3SyntaxComponent implements XRI {
 
 			// read ifragment from xri
 
-			if (list_xri_noscheme.size() < 5) return;
-			object = list_xri_noscheme.get(4);	// ifragment
+			if (list_xri.size() < 5) return;
+			object = list_xri.get(4);	// ifragment
 			this.fragment = new XRI3Fragment((Rule$ifragment) object);
 			if (this.fragment.getParserObject().spelling.length() < 1) this.fragment = null;
 		} else if (object instanceof Rule$ifragment) {

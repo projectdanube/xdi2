@@ -1,6 +1,7 @@
 package xdi2.messaging;
 
 import xdi2.core.Relation;
+import xdi2.core.util.XRIUtil;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -8,7 +9,7 @@ import xdi2.messaging.constants.XDIMessagingConstants;
  * 
  * @author markus
  */
-public final class ModOperation extends Operation {
+public class ModOperation extends Operation {
 
 	private static final long serialVersionUID = -5386430243720744523L;
 
@@ -28,8 +29,8 @@ public final class ModOperation extends Operation {
 	 */
 	public static boolean isValid(Relation relation) {
 
-		if (! XDIMessagingConstants.XRI_SS_MOD.equals(relation.getArcXri())) return false;
-		if (! XDIMessagingConstants.XRI_SS_DO.equals(relation.getContextNode().getArcXri())) return false;
+		if (! XRIUtil.startsWith(relation.getArcXri(), XDIMessagingConstants.XRI_S_MOD)) return false;
+		if (! XDIMessagingConstants.XRI_S_DO.equals(relation.getContextNode().getArcXri())) return false;
 
 		return true;
 	}

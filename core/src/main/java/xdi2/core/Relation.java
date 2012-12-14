@@ -3,7 +3,7 @@ package xdi2.core;
 import java.io.Serializable;
 
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 /**
  * This interface represents a relation in an XDI graph.
@@ -37,13 +37,13 @@ public interface Relation extends Serializable, Comparable<Relation> {
 	 * Every relation has an associated arc XRI.
 	 * @return The arc XRI associated with the relation.
 	 */
-	public XRI3Segment getArcXri();
+	public XDI3Segment getArcXri();
 
 	/**
 	 * Get the target context node XRI.
 	 * @return The target context node XRI of the relation.
 	 */
-	public XRI3Segment getTargetContextNodeXri();
+	public XDI3Segment getTargetContextNodeXri();
 
 	/**
 	 * Follows the relation to the target context node.

@@ -12,7 +12,7 @@ import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -42,7 +42,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
-	private XRI3Segment ownerAuthority;
+	private XDI3Segment ownerAuthority;
 	private InterceptorList interceptors;
 	private ContributorMap contributors;
 
@@ -271,10 +271,10 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// check if the target is a statement or an address
 
-		XRI3Segment target = operation.getTarget();
+		XDI3Segment target = operation.getTarget();
 
 		Statement targetStatement = null;
-		XRI3Segment targetAddress = null;
+		XDI3Segment targetAddress = null;
 
 		try {
 
@@ -314,7 +314,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(XRI3Segment targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDI3Segment targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// execute target interceptors (address)
 
@@ -325,7 +325,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// execute contributors (address)
 
-		if (this.getContributors().executeContributorsAddress(new XRI3Segment[0], targetAddress, targetAddress, operation, operationMessageResult, executionContext)) {
+		if (this.getContributors().executeContributorsAddress(new XDI3Segment[0], targetAddress, targetAddress, operation, operationMessageResult, executionContext)) {
 
 			return;
 		}
@@ -364,7 +364,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// execute contributors (statement)
 
-		if (this.getContributors().executeContributorsStatement(new XRI3Segment[0], targetStatement, targetStatement, operation, operationMessageResult, executionContext)) {
+		if (this.getContributors().executeContributorsStatement(new XDI3Segment[0], targetStatement, targetStatement, operation, operationMessageResult, executionContext)) {
 
 			return;
 		}
@@ -416,7 +416,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	}
 
-	public AddressHandler getAddressHandler(XRI3Segment targetAddress) throws Xdi2MessagingException {
+	public AddressHandler getAddressHandler(XDI3Segment targetAddress) throws Xdi2MessagingException {
 
 		return null;
 	}
@@ -431,12 +431,12 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 */
 
 	@Override
-	public XRI3Segment getOwnerAuthority() {
+	public XDI3Segment getOwnerAuthority() {
 
 		return this.ownerAuthority;
 	}
 
-	public void setOwnerAuthority(XRI3Segment ownerAuthority) {
+	public void setOwnerAuthority(XDI3Segment ownerAuthority) {
 
 		this.ownerAuthority = ownerAuthority;
 	}
@@ -467,7 +467,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		this.contributors = contributors;
 	}
 
-	public void setContributors(Map<XRI3Segment, List<Contributor>> contributors) {
+	public void setContributors(Map<XDI3Segment, List<Contributor>> contributors) {
 
 		this.contributors.clear();
 		this.contributors.putAll(contributors);

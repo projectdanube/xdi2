@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.impl.XRI3Segment;
+import xdi2.core.xri3.impl.XDI3Segment;
 
 public class DataTypesTest extends TestCase {
 
@@ -27,16 +27,16 @@ public class DataTypesTest extends TestCase {
 
 			// Set a new datatype to a literal in graph
 			DataTypes.setLiteralDataType(
-					graph.findLiteral(new XRI3Segment("=markus$!(+age)")),
-					new XRI3Segment("+$mime$image$png!"));
+					graph.findLiteral(new XDI3Segment("=markus$!(+age)")),
+					new XDI3Segment("+$mime$image$png!"));
 
 			// Get datatype list for a literal
-			List<XRI3Segment> lst = DataTypes.getLiteralDataType(graph
-					.findLiteral(new XRI3Segment("=markus$!(+age)")));
+			List<XDI3Segment> lst = DataTypes.getLiteralDataType(graph
+					.findLiteral(new XDI3Segment("=markus$!(+age)")));
 
 			assertNotNull(lst);
 
-			for (XRI3Segment xriSeg : lst) {
+			for (XDI3Segment xriSeg : lst) {
 
 				if (xriSeg.toString().contains("json")) {
 
@@ -86,8 +86,8 @@ public class DataTypesTest extends TestCase {
 
 			// Set a new datatype to a literal in graph
 			DataTypes.setLiteralDataType(
-					graph.findLiteral(new XRI3Segment("=markus$!(+age)")),
-					new XRI3Segment("+$json$number!"));
+					graph.findLiteral(new XDI3Segment("=markus$!(+age)")),
+					new XDI3Segment("+$json$number!"));
 			Assert.fail();
 
 		} catch (Exception ex) {
@@ -110,12 +110,12 @@ public class DataTypesTest extends TestCase {
 
 			// Set a new datatype to a literal in graph
 			DataTypes.setLiteralDataType(
-					graph.findLiteral(new XRI3Segment("=markus$!(+age)")),
-					new XRI3Segment("+$binary!"));
+					graph.findLiteral(new XDI3Segment("=markus$!(+age)")),
+					new XDI3Segment("+$binary!"));
 
 			// Get datatype from xri datatype list and assert for a binary type
 			assertEquals(true, DataTypes.isLiteralBinary(graph
-					.findLiteral(new XRI3Segment("=markus$!(+age)"))));
+					.findLiteral(new XDI3Segment("=markus$!(+age)"))));
 
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
