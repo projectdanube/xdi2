@@ -1,9 +1,9 @@
-=markus/$is/=!1111
+=markus/$ref/=!1111
 =!1111$!(+name)/!/(data:,Markus)
 =!1111$!(+country)/!/(data:,Austria)
-=animesh/$is/=!2222
+=animesh/$ref/=!2222
 =!2222$!(+name)/!/(data:,Animesh)
 =!2222$!(+country)/!/(data:,USA)
-=pseudonym/$is/=!3333
-=!3333$!(+name)/$is!/=!1111$!(+name)
-=!3333$!(+country)/$is!/=!2222$!(+country)
+=pseudonym/$ref/=!3333
+=!3333$!(+name)/$ref!/=!1111$!(+name)
+=!3333$!(+country)/$ref!/=!2222$!(+country)

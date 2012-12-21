@@ -30,7 +30,7 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.DollarIsInterceptor;
+import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
@@ -186,7 +186,7 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 
 			if ("on".equals(dollarIsSupport)) {
 
-				DollarIsInterceptor dollarIsInterceptor = new DollarIsInterceptor();
+				RefInterceptor dollarIsInterceptor = new RefInterceptor();
 				messagingTarget.getInterceptors().add(dollarIsInterceptor);
 			}
 

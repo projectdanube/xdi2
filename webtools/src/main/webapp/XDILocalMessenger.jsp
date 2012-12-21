@@ -42,7 +42,7 @@
 		<% String writeOrdered = (String) request.getAttribute("writeOrdered"); if (writeOrdered == null) writeOrdered = ""; %>
 		<% String writePretty = (String) request.getAttribute("writePretty"); if (writePretty == null) writePretty = ""; %>
 		<% String variablesSupport = (String) request.getAttribute("variablesSupport"); if (variablesSupport == null) variablesSupport = ""; %>
-		<% String dollarIsSupport = (String) request.getAttribute("dollarIsSupport"); if (dollarIsSupport == null) dollarIsSupport = ""; %>
+		<% String dollarRefSupport = (String) request.getAttribute("dollarRefSupport"); if (dollarRefSupport == null) dollarRefSupport = ""; %>
 		<% String linkContractsSupport = (String) request.getAttribute("linkContractsSupport"); if (linkContractsSupport == null) linkContractsSupport = ""; %>
 
 		Result Format:
@@ -60,7 +60,7 @@
 
 		<input name="variablesSupport" type="checkbox" <%= variablesSupport.equals("on") ? "checked" : "" %>>Variables
 
-		<input name="dollarIsSupport" type="checkbox" <%= dollarIsSupport.equals("on") ? "checked" : "" %>>$is Support
+		<input name="dollarRefSupport" type="checkbox" <%= dollarRefSupport.equals("on") ? "checked" : "" %>>$ref Support
 
 		<input name="linkContractsSupport" type="checkbox" <%= linkContractsSupport.equals("on") ? "checked" : "" %>>Link Contracts&nbsp;
 

@@ -32,6 +32,11 @@ public class Multiplicity {
 		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
 
+	public static XDI3SubSegment collectionArcXriRandom() {
+
+		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR, "");
+	}
+
 	public static XDI3SubSegment entitySingletonArcXri(XDI3SubSegment arcXri) {
 
 		return arcXri;
