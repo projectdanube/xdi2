@@ -79,7 +79,7 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 			keyValueStore.init();
 		} catch (Exception ex) {
 
-			throw new IOException("Cannot open database: " + ex.getMessage());
+			throw new IOException("Cannot open database: " + ex.getMessage(), ex);
 		}
 
 		// done
