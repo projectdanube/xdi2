@@ -1,6 +1,7 @@
 package xdi2.core.util;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -53,7 +54,7 @@ public final class XRIUtil {
 			XDI3SubSegment baseSubSegment = base.getSubSegment(baseIndex);
 
 			// check variables
-			
+
 			if (variablesInXri && Variables.isVariableSingle(xriSubSegment)) {
 
 				if (Variables.isVariableSingle(xriSubSegment)) {
@@ -135,7 +136,7 @@ public final class XRIUtil {
 			XDI3SubSegment baseSubSegment = base.getSubSegment(baseIndex);
 
 			// check variables
-			
+
 			if (variablesInXri && Variables.isVariableSingle(xriSubSegment)) {
 
 				if (Variables.isVariableSingle(xriSubSegment)) {
@@ -280,6 +281,25 @@ public final class XRIUtil {
 		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri) && (! Variables.isVariable(targetXri))) return true;
 
 		return false;
+	}
+
+	/**
+	 * Replaces all occurences of a subsegment with a segment.
+	 */
+	@SuppressWarnings("unchecked")
+	public static XDI3Segment replaceXri(XDI3Segment xri, XDI3SubSegment oldXri, XDI3Segment newXri) {
+
+		StringBuffer buffer = new StringBuffer();
+
+		for (XDI3SubSegment subSegment : ((List<XDI3SubSegment>) xri.getSubSegments())) {
+
+			if (subSegment.equals(oldXri)) 
+				buffer.append(newXri.toString());
+			else
+				buffer.append(subSegment.toString());
+		}
+
+		return new XDI3Segment(buffer.toString());
 	}
 
 	/*

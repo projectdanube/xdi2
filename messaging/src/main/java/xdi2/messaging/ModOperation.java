@@ -25,7 +25,7 @@ public class ModOperation extends Operation {
 	/**
 	 * Checks if an relation is a valid XDI $mod operation.
 	 * @param relation The relation to check.
-	 * @return True if the relation is a valid XDI operation.
+	 * @return True if the relation is a valid XDI $mod operation.
 	 */
 	public static boolean isValid(Relation relation) {
 
@@ -36,7 +36,7 @@ public class ModOperation extends Operation {
 	}
 
 	/**
-	 * Factory method that creates an XDI operation bound to a given relation.
+	 * Factory method that creates an XDI $mod operation bound to a given relation.
 	 * @param relation The relation that is an XDI $mod operation.
 	 * @return The XDI $mod operation.
 	 */

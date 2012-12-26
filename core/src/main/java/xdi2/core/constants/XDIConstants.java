@@ -17,10 +17,11 @@ public class XDIConstants {
 	public static final XDI3Segment XRI_S_VARIABLE_SINGLE = new XDI3Segment("($)");
 	public static final XDI3Segment XRI_S_VARIABLE_MULTIPLE_LOCAL = new XDI3Segment("($$!)");
 
-	public static final XDI3Segment XRI_S_INCLUSION = new XDI3Segment("($)");
-
 	public static final XDI3Segment XRI_S_TRUE = new XDI3Segment("$true");
 	public static final XDI3Segment XRI_S_FALSE = new XDI3Segment("$false");
+
+	public static final XDI3SubSegment XRI_SS_TRUE = new XDI3SubSegment("$true");
+	public static final XDI3SubSegment XRI_SS_FALSE = new XDI3SubSegment("$false");
 
 	public static final XDI3Segment XRI_S_PUBLIC = new XDI3Segment("$public");
 

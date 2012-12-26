@@ -12,11 +12,10 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.equivalence.Equivalence;
-import xdi2.core.features.linkcontracts.AndExpression;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
-import xdi2.core.features.linkcontracts.Policy;
-import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
+import xdi2.core.features.linkcontracts.policy.PolicyAnd;
+import xdi2.core.features.linkcontracts.policy.PolicyUtil;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
@@ -156,24 +155,21 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 			bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
 
 			LinkContract bootstrapLinkContract = LinkContracts.getLinkContract(rootContextNode, true);
-			bootstrapLinkContract.addAssignee(bootstrapOwnerContextNode);
-			bootstrapLinkContract.addPermission(XDILinkContractPermission.LC_OP_ALL, rootContextNode);
+			bootstrapLinkContract.addPermission(XDILinkContractConstants.XRI_S_GET, XDIConstants.XRI_S_ROOT);
 
-			Policy policy = bootstrapLinkContract.getPolicy(true);
-			AndExpression andExpression = policy.getAndNode(true);
-			andExpression.addLiteralExpression("xdi.getGraphValue('" + XDIMessagingConstants.XRI_S_SECRET_TOKEN  +"') != null && (xdi.getGraphValue('" + XDIMessagingConstants.XRI_S_SECRET_TOKEN + "') == xdi.getMessageProperty('" + XDIMessagingConstants.XRI_S_SECRET_TOKEN + "'))");
+			PolicyAnd policyAnd = bootstrapLinkContract.getPolicyRoot(true).getPolicyAnd(true);
+			policyAnd.addPolicyStatement(PolicyUtil.senderMatchesPolicyStatement(this.bootstrapOwner));
+			policyAnd.addPolicyStatement(PolicyUtil.secretTokenMatchesPolicyStatement());
 		}
 
 		// create public bootstrap link contract
 
 		if (this.bootstrapPublicLinkContract) {
 
-			ContextNode allContextNode = graph.findContextNode(XDILinkContractConstants.XRI_S_ALL, true);
 			ContextNode publicContextNode = graph.findContextNode(XDIConstants.XRI_S_PUBLIC, true);
 
 			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
-			bootstrapPublicLinkContract.addAssignee(allContextNode);
-			bootstrapPublicLinkContract.addPermission(XDILinkContractPermission.LC_OP_GET, publicContextNode);
+			bootstrapPublicLinkContract.addPermission(XDILinkContractConstants.XRI_S_GET, XDIConstants.XRI_S_PUBLIC);
 		}
 	}
 

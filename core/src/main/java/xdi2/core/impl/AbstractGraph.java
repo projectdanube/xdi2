@@ -65,57 +65,57 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
-	public ContextNode findContextNode(XDI3Segment xri, boolean create) {
+	public ContextNode findContextNode(XDI3Segment contextNodeXri, boolean create) {
 
-		return this.getRootContextNode().findContextNode(xri, create);
+		return this.getRootContextNode().findContextNode(contextNodeXri, create);
 	}
 
 	@Override
-	public Relation findRelation(XDI3Segment xri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public Relation findRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		return this.getRootContextNode().findRelation(xri, arcXri, targetContextNodeXri);
+		return this.getRootContextNode().findRelation(contextNodeXri, arcXri, targetContextNodeXri);
 	}
 
 	@Override
-	public Relation findRelation(XDI3Segment xri, XDI3Segment arcXri) {
+	public Relation findRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri) {
 
-		return this.getRootContextNode().findRelation(xri, arcXri);
+		return this.getRootContextNode().findRelation(contextNodeXri, arcXri);
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> findRelations(XDI3Segment xri, XDI3Segment arcXri) {
+	public ReadOnlyIterator<Relation> findRelations(XDI3Segment contextNodeXri, XDI3Segment arcXri) {
 
-		return this.getRootContextNode().findRelations(xri, arcXri);
+		return this.getRootContextNode().findRelations(contextNodeXri, arcXri);
 	}
 
 	@Override
-	public Literal findLiteral(XDI3Segment xri) {
+	public Literal findLiteral(XDI3Segment contextNodeXri) {
 
-		return this.getRootContextNode().findLiteral(xri);
+		return this.getRootContextNode().findLiteral(contextNodeXri);
 	}
 
 	@Override
-	public boolean containsContextNode(XDI3Segment xri) {
+	public boolean containsContextNode(XDI3Segment contextNodeXri) {
 
-		return this.findContextNode(xri, false) != null;
+		return this.findContextNode(contextNodeXri, false) != null;
 	}
 
 	@Override
-	public boolean containsRelation(XDI3Segment xri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public boolean containsRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		return this.findRelation(xri, arcXri, targetContextNodeXri) != null;
+		return this.findRelation(contextNodeXri, arcXri, targetContextNodeXri) != null;
 	}
 
 	@Override
-	public boolean containsRelations(XDI3Segment xri, XDI3Segment arcXri) {
+	public boolean containsRelations(XDI3Segment contextNodeXri, XDI3Segment arcXri) {
 
-		return this.findRelation(xri, arcXri) != null;
+		return this.findRelation(contextNodeXri, arcXri) != null;
 	}
 
 	@Override
-	public boolean containsLiteral(XDI3Segment xri) {
+	public boolean containsLiteral(XDI3Segment contextNodeXri) {
 
-		return this.findLiteral(xri) != null;
+		return this.findLiteral(contextNodeXri) != null;
 	}
 
 	@Override

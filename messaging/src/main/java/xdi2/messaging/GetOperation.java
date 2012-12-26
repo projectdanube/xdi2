@@ -28,7 +28,7 @@ public class GetOperation extends Operation {
 	/**
 	 * Checks if an relation is a valid XDI $get operation.
 	 * @param relation The relation to check.
-	 * @return True if the relation is a valid XDI operation.
+	 * @return True if the relation is a valid XDI $get operation.
 	 */
 	public static boolean isValid(Relation relation) {
 
@@ -39,7 +39,7 @@ public class GetOperation extends Operation {
 	}
 
 	/**
-	 * Factory method that creates an XDI operation bound to a given relation.
+	 * Factory method that creates an XDI $get operation bound to a given relation.
 	 * @param relation The relation that is an XDI $get operation.
 	 * @return The XDI $get operation.
 	 */

@@ -10,6 +10,7 @@ import xdi2.core.xri3.impl.XDI3Segment;
 public final class XDIDictionaryConstants {
 
 	public static final XDI3Segment XRI_S_IS = new XDI3Segment("$is");
+
 	public static final XDI3Segment XRI_S_IS_TYPE = new XDI3Segment("$is+");
 
 	public static final XDI3Segment XRI_S_REF = new XDI3Segment("$ref");

@@ -7,20 +7,18 @@ import java.util.Iterator;
 
 import junit.framework.TestCase;
 
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Scriptable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.linkcontracts.AndExpression;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
-import xdi2.core.features.linkcontracts.NotExpression;
-import xdi2.core.features.linkcontracts.OrExpression;
-import xdi2.core.features.linkcontracts.Policy;
-import xdi2.core.features.linkcontracts.util.XDILinkContractPermission;
+import xdi2.core.features.linkcontracts.policy.PolicyAnd;
+import xdi2.core.features.linkcontracts.policy.PolicyNot;
+import xdi2.core.features.linkcontracts.policy.PolicyOr;
+import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.multiplicity.XdiAttributeSingleton;
 import xdi2.core.features.multiplicity.XdiEntitySingleton;
 import xdi2.core.features.multiplicity.XdiSubGraph;
@@ -35,30 +33,24 @@ import xdi2.core.xri3.impl.XDI3SubSegment;
 
 public class LinkContractsTest extends TestCase {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(LinkContractsTest.class);
+	private static final Logger log = LoggerFactory.getLogger(LinkContractsTest.class);
 
 	private final XDIReader autoReader = XDIReaderRegistry.getAuto();
 	private final XDIReader xdiJSONReader = new XDIJSONReader(null);
 	private final XDIReader xdiStatementsReader = new XDIDisplayReader(null);
 
-	private final XDIWriter jsonWriter = XDIWriterRegistry.forFormat(
-			"XDI/JSON", null);
-	private final XDIWriter statementsWriter = XDIWriterRegistry.forFormat(
-			"XDI DISPLAY", null);
-	
-	private final Context cx = Context.enter();
-	private final Scriptable scope = cx.initStandardObjects();
+	private final XDIWriter jsonWriter = XDIWriterRegistry.forFormat("XDI/JSON", null);
+	private final XDIWriter statementsWriter = XDIWriterRegistry.forFormat("XDI DISPLAY", null);
 
 	private MemoryGraphFactory graphFactory = new MemoryGraphFactory();
 
-	
+
 	protected Graph openNewGraph(String id) {
 
 		return this.graphFactory.openGraph();
 	}
 
-	
+
 	protected Graph reopenGraph(Graph graph, String id) throws IOException {
 
 		return graph;
@@ -73,8 +65,8 @@ public class LinkContractsTest extends TestCase {
 		Graph graph = this.openNewGraph(fileName + "-graph-json");
 
 		xdiJSONReader
-				.read(graph, this.getClass().getResourceAsStream(fileName))
-				.close();
+		.read(graph, this.getClass().getResourceAsStream(fileName))
+		.close();
 		testGraph(graph);
 
 		return graph;
@@ -98,9 +90,9 @@ public class LinkContractsTest extends TestCase {
 		if (this.getClass().getResourceAsStream(fileName) != null){
 			autoReader.read(graph3, this.getClass().getResourceAsStream(fileName))
 			.close();
-		
-		testGraph(graph3);
-		
+
+			testGraph(graph3);
+
 		}
 		return graph3;
 	}
@@ -117,18 +109,18 @@ public class LinkContractsTest extends TestCase {
 
 		String[] writerFormats = new String[] { "XDI/JSON", "XDI DISPLAY" };
 
-		
+
 		log.info("Write JSON: " + writerFormats[0]);
 		XDIWriter writer = XDIWriterRegistry.forFormat(writerFormats[0], null);
 		writer.write(graph, new FileWriter(new File("json-" + fileName + ".out"))).close();
 		log.info("Write XDI Statements: " + writerFormats[1]);
 		writer = XDIWriterRegistry.forFormat(writerFormats[1], null);
 		writer.write(graph, new FileWriter(new File("XDIStatements-"+ fileName + ".out"))).close();
-		
-//		Graph g1 = testReadFormatAutoDetect("XDIStatements-"+ fileName + ".out");
-//		assertEquals(g1.compareTo(graph), 0);
-//		Graph g2 = testReadFormatAutoDetect("json-"+ fileName + ".out");
-//		assertEquals(g2.compareTo(graph), 0);
+
+		//		Graph g1 = testReadFormatAutoDetect("XDIStatements-"+ fileName + ".out");
+		//		assertEquals(g1.compareTo(graph), 0);
+		//		Graph g2 = testReadFormatAutoDetect("json-"+ fileName + ".out");
+		//		assertEquals(g2.compareTo(graph), 0);
 
 	}
 
@@ -146,7 +138,6 @@ public class LinkContractsTest extends TestCase {
 		attributeSingleton.getContextNode().createLiteral("secret");
 		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL,
 				graph.getRootContextNode());
-		linkContract.addAssignee(animesh);
 		return graph;
 	}
 	public Graph makeGraphWithPolicyExpression() throws Exception {
@@ -161,14 +152,12 @@ public class LinkContractsTest extends TestCase {
 		XdiAttributeSingleton attributeSingleton = entitySingleton.getAttributeSingleton(new XDI3SubSegment("$token"), true);
 
 		attributeSingleton.getContextNode().createLiteral("secret");
-		linkContract.addPermission(XDILinkContractPermission.LC_OP_ALL,
-				graph.getRootContextNode());
-		linkContract.addAssignee(animesh);
-		Policy policy = linkContract.getPolicy(true);
-		AndExpression andN = policy.getAndNode(true);
-		NotExpression notN = andN.getNotNode(true);
+		linkContract.addPermission(XDILinkContractConstants.XRI_S_ALL, graph.getRootContextNode().getXri());
+		PolicyRoot policy = linkContract.getPolicyRoot(true);
+		PolicyAnd andN = policy.getPolicyAnd(true);
+		PolicyNot notN = andN.getPolicyNot(true);
 		notN.addLiteralExpression("5 < 6");
-		OrExpression orN = andN.getOrNode(true);
+		PolicyOr orN = andN.getPolicyOr(true);
 		orN.addLiteralExpression("\"To be\" == \"Not to be\"");
 		orN.addLiteralExpression("\"I\" == \"Me\"");
 		orN.addLiteralExpression("1 == 1");
@@ -177,10 +166,11 @@ public class LinkContractsTest extends TestCase {
 		return graph;
 	}
 	public void testLinkContracts() throws Exception {
-		
+
 		int i = 1;
 
 		try {
+
 			while (true) {
 
 				if (this.getClass().getResourceAsStream("graph" + i + ".xdi") == null)
@@ -197,12 +187,6 @@ public class LinkContractsTest extends TestCase {
 				for(;lcs.hasNext();){
 					LinkContract lc = lcs.next();
 					if(i == 1 || i == 2){
-						//check assignee
-						Iterator<ContextNode> assignees = lc.getAssignees();
-						ContextNode assignee = assignees.next();
-						assertEquals(assignee.toString(), "=markus");
-						//should be only one node is $is$do 
-						assertEquals(assignees.hasNext(), false);
 						//check operations permission
 						Iterator<ContextNode> getPermissionNodes = lc.getNodesWithPermission(XDILinkContractPermission.LC_OP_GET);
 						ContextNode getPerm = getPermissionNodes.next();
@@ -219,10 +203,7 @@ public class LinkContractsTest extends TestCase {
 						ContextNode modPerm = modPermissionNodes.next();
 						assertEquals(modPermissionNodes.hasNext(), false);
 						assertEquals(modPerm.toString(), "=markus");
-
-						
 					}
-					
 				}
 				testWriteGraph(graph,fileName);
 				graph.close();
@@ -232,8 +213,7 @@ public class LinkContractsTest extends TestCase {
 			testWriteGraph(g1, "lc-1");
 			Graph g2 = makeGraphWithPolicyExpression();
 			testWriteGraph(g2, "lc-3");
-			
-			Context.exit();
+
 			log.info("Done.");
 
 			// assertTrue(i > 1);

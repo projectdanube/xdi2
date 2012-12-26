@@ -545,9 +545,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public String toString() {
 
-		Statement statement = this.getStatement();
-
-		return statement == null ? XDIConstants.XRI_S_CONTEXT.toString() : statement.toString();
+		return this.getXri().toString();
 	}
 
 	@Override

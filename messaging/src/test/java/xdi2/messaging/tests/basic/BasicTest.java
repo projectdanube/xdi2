@@ -197,7 +197,6 @@ public class BasicTest extends TestCase {
 		assertEquals(message.getLinkContractXri(), new XDI3Segment("$(=!2222)$(!1)$do"));
 		LinkContract linkContract = LinkContracts.findLinkContractByAddress(messageEnvelope.getGraph(), message.getLinkContractXri());
 		assertNotNull(linkContract);
-		assertEquals(linkContract.getAssignees().next().getXri(), sender);
 
 		assertEquals(message.getSenderAuthority(), new XDI3Segment("(=!1111)(!3)"));
 		assertEquals(message.getRecipientAuthority(), new XDI3Segment("(=!2222)"));

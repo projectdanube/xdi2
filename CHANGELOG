@@ -1,6 +1,15 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-12-26:
+------------------------
+
+*** many updates to support $is, $ref and $ref!
+
+*** support for declarative link contract policies
+
+*** updates to XDI Local Messenger
+
 2012-12-21:
 ------------------------
 

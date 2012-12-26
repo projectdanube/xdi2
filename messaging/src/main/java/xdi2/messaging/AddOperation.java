@@ -25,7 +25,7 @@ public class AddOperation extends Operation {
 	/**
 	 * Checks if an relation is a valid XDI $add operation.
 	 * @param relation The relation to check.
-	 * @return True if the relation is a valid XDI operation.
+	 * @return True if the relation is a valid XDI $add operation.
 	 */
 	public static boolean isValid(Relation relation) {
 
@@ -36,7 +36,7 @@ public class AddOperation extends Operation {
 	}
 
 	/**
-	 * Factory method that creates an XDI operation bound to a given relation.
+	 * Factory method that creates an XDI $add operation bound to a given relation.
 	 * @param relation The relation that is an XDI $add operation.
 	 * @return The XDI $add operation.
 	 */

@@ -7,7 +7,7 @@ import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 
 /**
- * A class that provides various constants for XDI timestamps.
+ * Constants for XDI timestamps.
  * 
  * @author markus
  */
