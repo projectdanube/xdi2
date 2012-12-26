@@ -2,6 +2,7 @@ package xdi2.core.features.linkcontracts.policy;
 
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.linkcontracts.condition.EqualsCondition;
+import xdi2.core.features.linkcontracts.condition.IsCondition;
 import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
 import xdi2.core.features.linkcontracts.policystatement.TruePolicyStatement;
 import xdi2.core.xri3.impl.XDI3Segment;
@@ -28,7 +29,7 @@ public final class PolicyUtil {
 
 	public static PolicyStatement secretTokenMatchesPolicyStatement() {
 
-		Condition condition = EqualsCondition.fromSubjectAndObject(new XDI3Segment("($msg)$secret$!($token)"), new XDI3Segment("$secret$!($token)"));
+		Condition condition = IsCondition.fromSubjectAndObject(new XDI3Segment("($msg)$secret$!($token)"), new XDI3Segment("$secret$!($token)"));
 
 		return TruePolicyStatement.fromCondition(condition);
 	}
