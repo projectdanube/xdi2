@@ -30,8 +30,9 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.RefInterceptor;
+import xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor;
 import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
+import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
 /**
@@ -212,6 +213,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 			messagingTarget.setGraph(graphInput);
+
+			CheckOwnerInterceptor checkOwnerInterceptor = new CheckOwnerInterceptor();
+			messagingTarget.getInterceptors().add(checkOwnerInterceptor);
 
 			if ("on".equals(variablesSupport)) {
 
