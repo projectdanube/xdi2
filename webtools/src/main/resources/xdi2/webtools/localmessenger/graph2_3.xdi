@@ -1,0 +1,8 @@
+()/$is/(=!91F2.8153.F600.AE24)
+$do/$all/()
+$do$if$and/$true/(=!91F2.8153.F600.AE24/+friend/($from))
+(=!91F2.8153.F600.AE24)/$is/()
+=markus/$ref/=!91F2.8153.F600.AE24
+=!91F2.8153.F600.AE24/+friend/=!1111
+=!91F2.8153.F600.AE24/+friend/=!2222
+=!91F2.8153.F600.AE24$!(+email)/!/(data:,markus.sabadello@gmail.com)
