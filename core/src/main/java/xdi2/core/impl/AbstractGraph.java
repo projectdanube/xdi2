@@ -36,12 +36,12 @@ public abstract class AbstractGraph implements Graph {
 	private static final Logger log = LoggerFactory.getLogger(AbstractGraph.class);
 
 	private GraphFactory graphFactory;
-	
+
 	protected AbstractGraph(GraphFactory graphFactory) {
-		
+
 		this.graphFactory = graphFactory;
 	}
-	
+
 	/*
 	 * General methods
 	 */
@@ -51,7 +51,7 @@ public abstract class AbstractGraph implements Graph {
 
 		return this.graphFactory;
 	}
-	
+
 	@Override
 	public void clear() {
 
@@ -89,6 +89,12 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
+	public Literal findLiteral(XDI3Segment contextNodeXri, String literalData) {
+
+		return this.getRootContextNode().findLiteral(contextNodeXri, literalData);
+	}
+
+	@Override
 	public Literal findLiteral(XDI3Segment contextNodeXri) {
 
 		return this.getRootContextNode().findLiteral(contextNodeXri);
@@ -110,6 +116,12 @@ public abstract class AbstractGraph implements Graph {
 	public boolean containsRelations(XDI3Segment contextNodeXri, XDI3Segment arcXri) {
 
 		return this.findRelation(contextNodeXri, arcXri) != null;
+	}
+
+	@Override
+	public boolean containsLiteral(XDI3Segment contextNodeXri, String literalData) {
+
+		return this.findLiteral(contextNodeXri, literalData) != null;
 	}
 
 	@Override

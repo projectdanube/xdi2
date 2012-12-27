@@ -586,7 +586,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(markus.getAllRelationCount(), 0);
 
 		assertNull(markus.getLiteral());
-		assertNull(markus.getLiteralInContextNode(new XDI3SubSegment("!not")));
+		assertNull(markus.findLiteral(new XDI3Segment("!not")));
 		assertEquals(markus.getAllLiteralCount(), 0);
 
 		assertEquals(markus.getAllStatementCount(), 1);
@@ -688,16 +688,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(new XDI3SubSegment("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(new XDI3SubSegment("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(new XDI3Segment("$"));
-		Literal abcPassport1NumberLiteral = abcPassport1ContextNode.getLiteralInContextNode(new XDI3SubSegment("+number"));
-		Literal abcPassport1CountryLiteral = abcPassport1ContextNode.getLiteralInContextNode(new XDI3SubSegment("+country"));
-		Literal abcPassport1DLiteral = abcPassport1ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
-		Literal abcPassport2NumberLiteral = abcPassport2ContextNode.getLiteralInContextNode(new XDI3SubSegment("+number"));
-		Literal abcPassport2CountryLiteral = abcPassport2ContextNode.getLiteralInContextNode(new XDI3SubSegment("+country"));
-		Literal abcPassport2DLiteral = abcPassport2ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
+		Literal abcPassport1NumberLiteral = abcPassport1ContextNode.findLiteral(new XDI3Segment("+number"));
+		Literal abcPassport1CountryLiteral = abcPassport1ContextNode.findLiteral(new XDI3Segment("+country"));
+		Literal abcPassport1DLiteral = abcPassport1ContextNode.findLiteral(new XDI3Segment("$d"));
+		Literal abcPassport2NumberLiteral = abcPassport2ContextNode.findLiteral(new XDI3Segment("+number"));
+		Literal abcPassport2CountryLiteral = abcPassport2ContextNode.findLiteral(new XDI3Segment("+country"));
+		Literal abcPassport2DLiteral = abcPassport2ContextNode.findLiteral(new XDI3Segment("$d"));
 		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(new XDI3SubSegment("!1"));
 		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(new XDI3SubSegment("!2"));
-		Literal abcPassportC1DLiteral = abcPassportC1ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
-		Literal abcPassportC2DLiteral = abcPassportC2ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
+		Literal abcPassportC1DLiteral = abcPassportC1ContextNode.findLiteral(new XDI3Segment("$d"));
+		Literal abcPassportC2DLiteral = abcPassportC2ContextNode.findLiteral(new XDI3Segment("$d"));
 		Relation abcPassportRelationV = abcPassportContextNode.getRelation(new XDI3Segment("$v"));
 		Relation abcPassportRelation1 = abcPassportContextNode.getRelation(new XDI3Segment("*1"));
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(new XDI3Segment("*2"));
@@ -724,18 +724,18 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(abcPassport2ContextNode.containsContextNode(new XDI3SubSegment("+number")));
 		assertTrue(abcPassport2ContextNode.containsContextNode(new XDI3SubSegment("+country")));
 		assertTrue(abcPassport2ContextNode.containsContextNode(new XDI3SubSegment("$d")));
-		assertTrue(abcPassport1ContextNode.containsLiteralInContextNode(new XDI3SubSegment("+number")));
-		assertTrue(abcPassport1ContextNode.containsLiteralInContextNode(new XDI3SubSegment("+country")));
-		assertTrue(abcPassport1ContextNode.containsLiteralInContextNode(new XDI3SubSegment("$d")));
-		assertTrue(abcPassport2ContextNode.containsLiteralInContextNode(new XDI3SubSegment("+number")));
-		assertTrue(abcPassport2ContextNode.containsLiteralInContextNode(new XDI3SubSegment("+country")));
-		assertTrue(abcPassport2ContextNode.containsLiteralInContextNode(new XDI3SubSegment("$d")));
+		assertTrue(abcPassport1ContextNode.getContextNode(new XDI3SubSegment("+number")).containsLiteral());
+		assertTrue(abcPassport1ContextNode.getContextNode(new XDI3SubSegment("+country")).containsLiteral());
+		assertTrue(abcPassport1ContextNode.getContextNode(new XDI3SubSegment("$d")).containsLiteral());
+		assertTrue(abcPassport2ContextNode.getContextNode(new XDI3SubSegment("+number")).containsLiteral());
+		assertTrue(abcPassport2ContextNode.getContextNode(new XDI3SubSegment("+country")).containsLiteral());
+		assertTrue(abcPassport2ContextNode.getContextNode(new XDI3SubSegment("$d")).containsLiteral());
 		assertTrue(abcPassportCContextNode.containsContextNode(new XDI3SubSegment("!1")));
 		assertTrue(abcPassportCContextNode.containsContextNode(new XDI3SubSegment("!2")));
 		assertTrue(abcPassportC1ContextNode.containsContextNode(new XDI3SubSegment("$d")));
 		assertTrue(abcPassportC2ContextNode.containsContextNode(new XDI3SubSegment("$d")));
-		assertTrue(abcPassportC1ContextNode.containsLiteralInContextNode(new XDI3SubSegment("$d")));
-		assertTrue(abcPassportC2ContextNode.containsLiteralInContextNode(new XDI3SubSegment("$d")));
+		assertTrue(abcPassportC1ContextNode.getContextNode(new XDI3SubSegment("$d")).containsLiteral());
+		assertTrue(abcPassportC2ContextNode.getContextNode(new XDI3SubSegment("$d")).containsLiteral());
 		assertTrue(abcPassportContextNode.containsRelation(new XDI3Segment("$v"), new XDI3Segment("=abc+passport$v!2")));
 		assertTrue(abcPassportContextNode.containsRelation(new XDI3Segment("*1"), new XDI3Segment("=abc+passport!1")));
 		assertTrue(abcPassportContextNode.containsRelation(new XDI3Segment("*2"), new XDI3Segment("=abc+passport!2")));
@@ -937,16 +937,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(new XDI3SubSegment("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(new XDI3SubSegment("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(new XDI3Segment("$"));
-		Literal abcPassport1LiteralNumber = abcPassport1ContextNode.getLiteralInContextNode(new XDI3SubSegment("+number"));
-		Literal abcPassport1LiteralCountry = abcPassport1ContextNode.getLiteralInContextNode(new XDI3SubSegment("+country"));
-		Literal abcPassport1LiteralD = abcPassport1ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
-		Literal abcPassport2LiteralNumber = abcPassport2ContextNode.getLiteralInContextNode(new XDI3SubSegment("+number"));
-		Literal abcPassport2LiteralCountry = abcPassport2ContextNode.getLiteralInContextNode(new XDI3SubSegment("+country"));
-		Literal abcPassport2LiteralD = abcPassport2ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
+		Literal abcPassport1LiteralNumber = abcPassport1ContextNode.findLiteral(new XDI3Segment("+number"));
+		Literal abcPassport1LiteralCountry = abcPassport1ContextNode.findLiteral(new XDI3Segment("+country"));
+		Literal abcPassport1LiteralD = abcPassport1ContextNode.findLiteral(new XDI3Segment("$d"));
+		Literal abcPassport2LiteralNumber = abcPassport2ContextNode.findLiteral(new XDI3Segment("+number"));
+		Literal abcPassport2LiteralCountry = abcPassport2ContextNode.findLiteral(new XDI3Segment("+country"));
+		Literal abcPassport2LiteralD = abcPassport2ContextNode.findLiteral(new XDI3Segment("$d"));
 		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(new XDI3SubSegment("!1"));
 		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(new XDI3SubSegment("!2"));
-		Literal abcPassportC1LiteralD = abcPassportC1ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
-		Literal abcPassportC2LiteralD = abcPassportC2ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
+		Literal abcPassportC1LiteralD = abcPassportC1ContextNode.findLiteral(new XDI3Segment("$d"));
+		Literal abcPassportC2LiteralD = abcPassportC2ContextNode.findLiteral(new XDI3Segment("$d"));
 		Relation abcPassportRelationV = abcPassportContextNode.getRelation(new XDI3Segment("$v"));
 		Relation abcPassportRelation1 = abcPassportContextNode.getRelation(new XDI3Segment("*1"));
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(new XDI3Segment("*2"));
@@ -970,16 +970,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(new XDI3SubSegment("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(new XDI3SubSegment("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(new XDI3Segment("$"));
-		Literal abcPassport1LiteralNumber = abcPassport1ContextNode.getLiteralInContextNode(new XDI3SubSegment("+number"));
-		Literal abcPassport1LiteralCountry = abcPassport1ContextNode.getLiteralInContextNode(new XDI3SubSegment("+country"));
-		Literal abcPassport1LiteralD = abcPassport1ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
+		Literal abcPassport1LiteralNumber = abcPassport1ContextNode.findLiteral(new XDI3Segment("+number"));
+		Literal abcPassport1LiteralCountry = abcPassport1ContextNode.findLiteral(new XDI3Segment("+country"));
+		Literal abcPassport1LiteralD = abcPassport1ContextNode.findLiteral(new XDI3Segment("$d"));
 		Literal abcPassport2LiteralNumber = null;
 		Literal abcPassport2LiteralCountry = null;
 		Literal abcPassport2LiteralD = null;
 		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(new XDI3SubSegment("!1"));
 		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(new XDI3SubSegment("!2"));
-		Literal abcPassportC1LiteralD = abcPassportC1ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
-		Literal abcPassportC2LiteralD = abcPassportC2ContextNode.getLiteralInContextNode(new XDI3SubSegment("$d"));
+		Literal abcPassportC1LiteralD = abcPassportC1ContextNode.findLiteral(new XDI3Segment("$d"));
+		Literal abcPassportC2LiteralD = abcPassportC2ContextNode.findLiteral(new XDI3Segment("$d"));
 		Relation abcPassportRelationV = abcPassportContextNode.getRelation(new XDI3Segment("$v"));
 		Relation abcPassportRelation1 = abcPassportContextNode.getRelation(new XDI3Segment("*1"));
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(new XDI3Segment("*2"));
@@ -1001,9 +1001,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
-		assertTrue(abcPassport1ContextNode.containsLiteralInContextNode(new XDI3SubSegment("+number")));
-		assertTrue(abcPassport1ContextNode.containsLiteralInContextNode(new XDI3SubSegment("+country")));
-		assertTrue(abcPassport1ContextNode.containsLiteralInContextNode(new XDI3SubSegment("$d")));
+		assertTrue(abcPassport1ContextNode.getContextNode(new XDI3SubSegment("+number")).containsLiteral());
+		assertTrue(abcPassport1ContextNode.getContextNode(new XDI3SubSegment("+country")).containsLiteral());
+		assertTrue(abcPassport1ContextNode.getContextNode(new XDI3SubSegment("$d")).containsLiteral());
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
@@ -1011,7 +1011,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(abcPassportCContextNode.containsContextNode(new XDI3SubSegment("!2")));
 		assertTrue(abcPassportC1ContextNode.containsContextNode(new XDI3SubSegment("$d")));
 		assertFalse(abcPassportC2ContextNode.containsContextNode(new XDI3SubSegment("$d")));	// MANIPULATED
-		assertTrue(abcPassportC1ContextNode.containsLiteralInContextNode(new XDI3SubSegment("$d")));
+		assertTrue(abcPassportC1ContextNode.getContextNode(new XDI3SubSegment("$d")).containsLiteral());
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
 		assertTrue(abcPassportContextNode.containsRelation(new XDI3Segment("$v"), new XDI3Segment("=abc+passport$v!2")));
 		assertTrue(abcPassportContextNode.containsRelation(new XDI3Segment("*1"), new XDI3Segment("=abc+passport!1")));

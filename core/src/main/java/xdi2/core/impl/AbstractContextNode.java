@@ -400,21 +400,14 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 
 	@Override
-	public Literal createLiteralInContextNode(XDI3SubSegment arcXri, String literalData) {
+	public Literal getLiteral(String literalData) {
 
-		ContextNode contextNode = this.getContextNode(arcXri);
-		if (contextNode == null) contextNode = this.createContextNode(arcXri);
+		Literal literal = this.getLiteral();
+		if (literal == null) return null;
 
-		return contextNode.createLiteral(literalData);
-	}
+		if (! literal.getLiteralData().equals(literalData)) return null;
 
-	@Override
-	public Literal getLiteralInContextNode(XDI3SubSegment arcXri) {
-
-		ContextNode contextNode = this.getContextNode(arcXri);
-		if (contextNode == null) return null;
-
-		return contextNode.getLiteral();
+		return literal;
 	}
 
 	@Override
@@ -439,15 +432,24 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	public boolean containsLiteral(String literalData) {
+
+		return this.getLiteral(literalData) != null;
+	}
+
+	@Override
 	public boolean containsLiteral() {
 
 		return this.getLiteral() != null;
 	}
 
 	@Override
-	public boolean containsLiteralInContextNode(XDI3SubSegment arcXri) {
+	public Literal findLiteral(XDI3Segment xri, String literalData) {
 
-		return this.getLiteralInContextNode(arcXri)  != null;
+		ContextNode contextNode = this.findContextNode(xri, false);
+		if (contextNode == null) return null;
+
+		return contextNode.getLiteral(literalData);
 	}
 
 	@Override

@@ -85,6 +85,14 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	/**
 	 * Finds a literal at any depth in this graph.
 	 * @param contextNodeXri The XRI of the context node containing the literal.
+	 * @param literalData The data of the literal.
+	 * @return A literal or null.
+	 */
+	public Literal findLiteral(XDI3Segment contextNodeXri, String literalData);
+
+	/**
+	 * Finds a literal at any depth in this graph.
+	 * @param contextNodeXri The XRI of the context node containing the literal.
 	 * @return A literal or null.
 	 */
 	public Literal findLiteral(XDI3Segment contextNodeXri);
@@ -112,6 +120,14 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 * @return True, if the relation exists.
 	 */
 	public boolean containsRelations(XDI3Segment contextNodeXri, XDI3Segment arcXri);
+
+	/**
+	 * Checks if a literal exists in this graph.
+	 * @param contextNodeXri The XRI of the context node containing the literal.
+	 * @param literalData The data of the literal.
+	 * @return True, if the literal exists.
+	 */
+	public boolean containsLiteral(XDI3Segment contextNodeXri, String literalData);
 
 	/**
 	 * Checks if a literal exists in this graph.
