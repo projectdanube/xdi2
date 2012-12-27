@@ -1,6 +1,13 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2012-12-27:
+------------------------
+
+*** some updates to core graph API
+
+*** adding StatementCondition to policy syntax
+
 2012-12-26:
 ------------------------
 
