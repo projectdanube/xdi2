@@ -108,7 +108,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Returns the underlying relation to which this XDI operation is bound.
-	 * @return A relation that represents an XDI operation.
+	 * @return A relation that represents the XDI operation.
 	 */
 	public Relation getRelation() {
 
@@ -142,6 +142,10 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		return this.getRelation().getTargetContextNodeXri();
 	}
 
+	/**
+	 * Returns the target statement of the operation.
+	 * @return The target statement of the operation.
+	 */
 	public Statement getTargetStatement() {
 
 		try {
@@ -153,6 +157,10 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		}
 	}
 
+	/**
+	 * Returns the target address of the operation.
+	 * @return The target address of the operation.
+	 */
 	public XDI3Segment getTargetAddress() {
 
 		try {

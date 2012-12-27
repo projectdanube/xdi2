@@ -1,0 +1,1 @@
+Allowing $get access to all my friends

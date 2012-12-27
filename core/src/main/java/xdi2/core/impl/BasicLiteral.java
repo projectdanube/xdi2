@@ -4,13 +4,14 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 
+@Deprecated
 public class BasicLiteral extends AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = 3101871056623742994L;
 
 	private String literalData;
 
-	public BasicLiteral(Graph graph, ContextNode contextNode, String literalData) {
+	private BasicLiteral(Graph graph, ContextNode contextNode, String literalData) {
 
 		super(graph, contextNode);
 

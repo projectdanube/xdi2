@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.dictionary.Dictionary;
+import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
@@ -90,10 +90,10 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 			return true;
 		}
 
-		ContextNode canonicalRemoteRootContextNode = Dictionary.getCanonicalContextNode(remoteRootContextNode);
-		if (canonicalRemoteRootContextNode == null) canonicalRemoteRootContextNode = remoteRootContextNode;
+		ContextNode referenceRemoteRootContextNode = Equivalence.getReferenceContextNode(remoteRootContextNode);
+		if (referenceRemoteRootContextNode == null) referenceRemoteRootContextNode = remoteRootContextNode;
 
-		XDI3Segment canonicalid = RemoteRoots.xriOfRemoteRootXri(canonicalRemoteRootContextNode.getXri());
+		XDI3Segment canonicalid = RemoteRoots.xriOfRemoteRootXri(referenceRemoteRootContextNode.getXri());
 		XDI3SubSegment localid = query;
 		String uri = constructUri(requestInfo, this.getTargetPath(), canonicalid);
 
@@ -159,7 +159,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(graph);
 		if (selfRemoteRootContextNode == null) return new XDI3Segment[0];
 
-		Iterator<ContextNode> selfSynonymRemoteRootContextNodes = Dictionary.getEquivalenceContextNodes(selfRemoteRootContextNode);
+		Iterator<ContextNode> selfSynonymRemoteRootContextNodes = Equivalence.getIncomingReferenceAndPrivateReferenceContextNodes(selfRemoteRootContextNode);
 
 		XDI3Segment[] selfSynonyms = new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(selfSynonymRemoteRootContextNodes)).array(XDI3Segment.class);
 		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(selfSynonyms[i]);

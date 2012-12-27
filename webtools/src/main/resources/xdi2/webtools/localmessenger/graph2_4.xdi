@@ -1,0 +1,8 @@
+(=!BDF3.1FB.E70C.3958!1111)/$is/()
+$do/$do$send/=!1111$(+channel)$(!23)$(+event)
+$do$if$and/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+domain)/!/(data:,cloudos))
+$do$if$and$or/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,notification))
+$do$if$and$or/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,subscription))
+$do$if$and$or/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,deletion))
+=danube*markus/$ref/=!BDF3.1FB.E70C.3958!1111
+()/$is/(=!BDF3.1FB.E70C.3958!1111)

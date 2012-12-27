@@ -55,7 +55,7 @@ public class Timestamps {
 	 */
 	public static Date getContextNodeTimestamp(ContextNode contextNode) {
 
-		Literal timestampLiteral = contextNode.getLiteralInContextNode(XDITimestampsConstants.XRI_SS_T);
+		Literal timestampLiteral = contextNode.findLiteral(XDITimestampsConstants.XRI_S_T);
 		if (timestampLiteral == null) return null;
 
 		Date timestamp = stringToTimestamp(timestampLiteral.getLiteralData());
@@ -67,13 +67,13 @@ public class Timestamps {
 	 */
 	public static void setContextNodeTimestamp(ContextNode contextNode, Date timestamp) {
 
-		String string = timestampToString(timestamp);
+		String literalData = timestampToString(timestamp);
 
-		Literal timestampLiteral = contextNode.getLiteralInContextNode(XDITimestampsConstants.XRI_SS_T);
+		Literal timestampLiteral = contextNode.findLiteral(XDITimestampsConstants.XRI_S_T);
 
 		if (timestampLiteral == null) 
-			timestampLiteral = contextNode.createLiteralInContextNode(XDITimestampsConstants.XRI_SS_T, string);
+			timestampLiteral = contextNode.findContextNode(XDITimestampsConstants.XRI_S_T, true).createLiteral(literalData);
 		else
-			timestampLiteral.setLiteralData(string);
+			timestampLiteral.setLiteralData(literalData);
 	}
 }

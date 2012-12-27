@@ -326,12 +326,11 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal createLiteral(String literalData);
 
 	/**
-	 * Creates a new literal of a context node and adds it to this context node.
-	 * @param arcXri The arc XRI of the context node.
+	 * Returns the literal of this context node.
 	 * @param literalData The data of the literal.
-	 * @return The newly created literal.
+	 * @return The literal.
 	 */
-	public Literal createLiteralInContextNode(XDI3SubSegment arcXri, String literalData);
+	public Literal getLiteral(String literalData);
 
 	/**
 	 * Returns the literal of this context node.
@@ -340,30 +339,30 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal getLiteral();
 
 	/**
-	 * Returns the literal of a context node in this context node.
-	 * @param arcXri The arc XRI of the context node.
-	 * @return The literal.
-	 */
-	public Literal getLiteralInContextNode(XDI3SubSegment arcXri);
-
-	/**
 	 * Returns all literals of this context node.
 	 * @return An iterator over literals.
 	 */
 	public ReadOnlyIterator<Literal> getAllLiterals();
 
 	/**
+	 * Checks if this context node has a literal with the given data.
+	 * @param literalData The data of the literal.
+	 * @return True if this context node has a literal with the given data.
+	 */
+	public boolean containsLiteral(String literalData);
+
+	/**
 	 * Checks if this context node has a literal.
-	 * @return True if this context node has literals.
+	 * @return True if this context node has a literal.
 	 */
 	public boolean containsLiteral();
 
 	/**
-	 * Checks if this context node has a literal.
-	 * @param arcXri The arc XRI of the context node.
-	 * @return True if this context node has literals.
+	 * Finds a literal at any depth under this context node.
+	 * @param xri The relative XRI of the context node containing the literal.
+	 * @return The literal or null.
 	 */
-	public boolean containsLiteralInContextNode(XDI3SubSegment arcXri);
+	public Literal findLiteral(XDI3Segment xri, String literalData);
 
 	/**
 	 * Finds a literal at any depth under this context node.

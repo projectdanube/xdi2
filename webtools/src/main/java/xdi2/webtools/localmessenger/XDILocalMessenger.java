@@ -30,8 +30,9 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.DollarIsInterceptor;
+import xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor;
 import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
+import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
 /**
@@ -45,37 +46,35 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	private static Logger log = LoggerFactory.getLogger(XDILocalMessenger.class);
 
 	private static MemoryGraphFactory graphFactory;
-	private static List<String> sampleInputs;
-	private static List<String> sampleMessages;
-	private static List<String> sampleTooltips;
+	private static List<String> sampleCategories;
+	private static List<List<String>> sampleInputs;
+	private static List<List<String>> sampleMessages;
+	private static List<List<String>> sampleTooltips;
 
 	static {
 
 		graphFactory = MemoryGraphFactory.getInstance();
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
 
-		sampleInputs = new ArrayList<String> ();
-		sampleMessages = new ArrayList<String> ();
-		sampleTooltips = new ArrayList<String> ();
+		sampleCategories = new ArrayList<String> ();
+		sampleInputs = new ArrayList<List<String>> ();
+		sampleMessages = new ArrayList<List<String>> ();
+		sampleTooltips = new ArrayList<List<String>> ();
+
+		int i;
 
 		while (true) {
 
-			InputStream inputStream1 = XDILocalMessenger.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
-			InputStream inputStream2 = XDILocalMessenger.class.getResourceAsStream("message" + (sampleMessages.size() + 1) + ".xdi");
-			InputStream inputStream3 = XDILocalMessenger.class.getResourceAsStream("tooltip" + (sampleTooltips.size() + 1) + ".txt");
+			InputStream inputStream1 = XDILocalMessenger.class.getResourceAsStream("category" + (sampleCategories.size() + 1) + ".txt");
 			ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
-			ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
-			ByteArrayOutputStream outputStream3 = new ByteArrayOutputStream();
-			int i;
 
 			try {
 
 				while ((i = inputStream1.read()) != -1) outputStream1.write(i);
-				while ((i = inputStream2.read()) != -1) outputStream2.write(i);
-				while ((i = inputStream3.read()) != -1) outputStream3.write(i);
-				sampleInputs.add(new String(outputStream1.toByteArray()));
-				sampleMessages.add(new String(outputStream2.toByteArray()));
-				sampleTooltips.add(new String(outputStream3.toByteArray()));
+				sampleCategories.add(new String(outputStream1.toByteArray()));
+				sampleInputs.add(new ArrayList<String> ());
+				sampleMessages.add(new ArrayList<String> ());
+				sampleTooltips.add(new ArrayList<String> ());
 			} catch (Exception ex) {
 
 				break;
@@ -84,13 +83,48 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 				try {
 
 					inputStream1.close();
-					inputStream2.close();
-					inputStream3.close();
 					outputStream1.close();
-					outputStream2.close();
-					outputStream3.close();
 				} catch (Exception ex) {
 
+				}
+			}
+
+			for (int c=0; c<sampleCategories.size(); c++) {
+
+				while (true) {
+
+					InputStream inputStream2 = XDILocalMessenger.class.getResourceAsStream("graph" + (c + 1) + "_" + (sampleInputs.get(c).size() + 1) + ".xdi");
+					InputStream inputStream3 = XDILocalMessenger.class.getResourceAsStream("message" + (c + 1) + "_" + (sampleMessages.get(c).size() + 1) + ".xdi");
+					InputStream inputStream4 = XDILocalMessenger.class.getResourceAsStream("tooltip" + (c + 1) + "_" + (sampleTooltips.get(c).size() + 1) + ".txt");
+					ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
+					ByteArrayOutputStream outputStream3 = new ByteArrayOutputStream();
+					ByteArrayOutputStream outputStream4 = new ByteArrayOutputStream();
+
+					try {
+
+						while ((i = inputStream2.read()) != -1) outputStream2.write(i);
+						while ((i = inputStream3.read()) != -1) outputStream3.write(i);
+						while ((i = inputStream4.read()) != -1) outputStream4.write(i);
+						sampleInputs.get(c).add(new String(outputStream2.toByteArray()).trim());
+						sampleMessages.get(c).add(new String(outputStream3.toByteArray()).trim());
+						sampleTooltips.get(c).add(new String(outputStream4.toByteArray()).trim());
+					} catch (Exception ex) {
+
+						break;
+					} finally {
+
+						try {
+
+							inputStream2.close();
+							inputStream3.close();
+							inputStream4.close();
+							outputStream2.close();
+							outputStream3.close();
+							outputStream4.close();
+						} catch (Exception ex) {
+
+						}
+					}
 				}
 			}
 		}
@@ -105,32 +139,41 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String category = request.getParameter("category");
+		if (category == null) category = "1";
+
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
+		request.setAttribute("category", category);
+		request.setAttribute("sample", sample);
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeContexts", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);
 		request.setAttribute("variablesSupport", "on");
-		request.setAttribute("dollarIsSupport", "on");
+		request.setAttribute("dollarRefSupport", "on");
 		request.setAttribute("linkContractsSupport", null);
-		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
-		request.setAttribute("sampleTooltips", sampleTooltips.toArray(new String[sampleTooltips.size()]));
-		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
-		request.setAttribute("message", sampleMessages.get(Integer.parseInt(sample) - 1));
+		request.setAttribute("sampleCategories", sampleCategories);
+		request.setAttribute("sampleInputs", sampleInputs);
+		request.setAttribute("sampleMessages", sampleMessages);
+		request.setAttribute("sampleTooltips", sampleTooltips);
+		request.setAttribute("input", sampleInputs.get(Integer.parseInt(category) - 1).get(Integer.parseInt(sample) - 1));
+		request.setAttribute("message", sampleMessages.get(Integer.parseInt(category) - 1).get(Integer.parseInt(sample) - 1));
 		request.getRequestDispatcher("/XDILocalMessenger.jsp").forward(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String category = request.getParameter("category");
+		String sample = request.getParameter("sample");
 		String resultFormat = request.getParameter("resultFormat");
 		String writeContexts = request.getParameter("writeContexts");
 		String writeOrdered = request.getParameter("writeOrdered");
 		String writePretty = request.getParameter("writePretty");
 		String variablesSupport = request.getParameter("variablesSupport");
-		String dollarIsSupport = request.getParameter("dollarIsSupport");
+		String dollarRefSupport = request.getParameter("dollarRefSupport");
 		String linkContractsSupport = request.getParameter("linkContractsSupport");
 		String input = request.getParameter("input");
 		String message = request.getParameter("message");
@@ -143,7 +186,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		if ("on".equals(writeContexts)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
 		if ("on".equals(writeOrdered)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
 		if ("on".equals(writePretty)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "1");
-		
+
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiInputWriter;
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
@@ -171,16 +214,19 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 			messagingTarget.setGraph(graphInput);
 
+			CheckOwnerInterceptor checkOwnerInterceptor = new CheckOwnerInterceptor();
+			messagingTarget.getInterceptors().add(checkOwnerInterceptor);
+
 			if ("on".equals(variablesSupport)) {
 
 				VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
 				messagingTarget.getInterceptors().add(variablesInterceptor);
 			}
 
-			if ("on".equals(dollarIsSupport)) {
+			if ("on".equals(dollarRefSupport)) {
 
-				DollarIsInterceptor dollarIsInterceptor = new DollarIsInterceptor();
-				messagingTarget.getInterceptors().add(dollarIsInterceptor);
+				RefInterceptor dollarRefInterceptor = new RefInterceptor();
+				messagingTarget.getInterceptors().add(dollarRefInterceptor);
 			}
 
 			if ("on".equals(linkContractsSupport)) {
@@ -242,14 +288,18 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		// display results
 
-		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
-		request.setAttribute("sampleTooltips", sampleTooltips.toArray(new String[sampleTooltips.size()]));
+		request.setAttribute("category", category);
+		request.setAttribute("sample", sample);
+		request.setAttribute("sampleCategories", sampleCategories);
+		request.setAttribute("sampleInputs", sampleInputs);
+		request.setAttribute("sampleMessages", sampleMessages);
+		request.setAttribute("sampleTooltips", sampleTooltips);
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeContexts", writeContexts);
 		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("variablesSupport", variablesSupport);
-		request.setAttribute("dollarIsSupport", dollarIsSupport);
+		request.setAttribute("dollarRefSupport", dollarRefSupport);
 		request.setAttribute("linkContractsSupport", linkContractsSupport);
 		request.setAttribute("input", input);
 		request.setAttribute("message", message);

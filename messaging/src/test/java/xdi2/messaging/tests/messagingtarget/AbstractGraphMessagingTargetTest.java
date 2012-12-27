@@ -16,7 +16,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.DollarIsInterceptor;
+import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 
 public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
@@ -56,7 +56,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
 			GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 			graphMessagingTarget.setGraph(graph);
-			graphMessagingTarget.getInterceptors().addInterceptor(new DollarIsInterceptor());
+			graphMessagingTarget.getInterceptors().addInterceptor(new RefInterceptor());
 
 			log.info("Graph " + i);
 

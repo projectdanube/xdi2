@@ -8,6 +8,7 @@ import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 
+@Deprecated
 public class BasicContextNode extends AbstractContextNode implements ContextNode {
 
 	private static final long serialVersionUID = -3684616841641336596L;
@@ -17,7 +18,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	private Iterable<Relation> relations;
 	private Literal literal;
 
-	public BasicContextNode(Graph graph, ContextNode contextNode, XDI3SubSegment arcXri, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
+	private BasicContextNode(Graph graph, ContextNode contextNode, XDI3SubSegment arcXri, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
 
 		super(graph, contextNode);
 
