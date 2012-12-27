@@ -2,6 +2,7 @@ package xdi2.core.features.linkcontracts.policystatement;
 
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.locator.ContextNodeLocator;
@@ -60,6 +61,9 @@ public class TruePolicyStatement extends PolicyStatement {
 	@Override
 	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
 
-		return true == this.getCondition().evaluate(contextNodeLocator);
+		Condition condition = this.getCondition();
+		if (condition == null) throw new Xdi2RuntimeException("Missing or invalid condition in $true policy statement.");
+
+		return true == condition.evaluate(contextNodeLocator);
 	}
 }

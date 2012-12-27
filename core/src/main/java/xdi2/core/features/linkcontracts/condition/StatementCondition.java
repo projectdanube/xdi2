@@ -66,7 +66,7 @@ public class StatementCondition extends Condition {
 
 			ContextNode subject = contextNodeLocator.locateContextNode(this.getStatement().getContextNodeXri());
 			XDI3Segment arcXri = ((RelationStatement) this.getStatement()).getRelation().getArcXri();
-			XDI3Segment targetContextNodeXri = ((RelationStatement) this.getStatement()).getRelation().getTargetContextNodeXri();
+			XDI3Segment targetContextNodeXri = contextNodeLocator.getContextNodeXri(((RelationStatement) this.getStatement()).getRelation().getTargetContextNodeXri());
 
 			return subject.containsRelation(arcXri, targetContextNodeXri);
 		}

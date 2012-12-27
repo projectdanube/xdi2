@@ -44,7 +44,8 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 				EqualsCondition.isValid(statement) ||
 				GreaterCondition.isValid(statement) ||
 				LesserCondition.isValid(statement) ||
-				IsCondition.isValid(statement);
+				IsCondition.isValid(statement) ||
+				StatementCondition.isValid(statement);
 	}
 
 	/**
@@ -58,6 +59,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 		if (GreaterCondition.isValid(statement)) return GreaterCondition.fromStatement(statement);
 		if (LesserCondition.isValid(statement)) return LesserCondition.fromStatement(statement);
 		if (IsCondition.isValid(statement)) return IsCondition.fromStatement(statement);
+		if (StatementCondition.isValid(statement)) return StatementCondition.fromStatement(statement);
 
 		return null;
 	}

@@ -1,10 +1,8 @@
 package xdi2.core.features.linkcontracts.policystatement;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.locator.ContextNodeLocator;
@@ -17,8 +15,6 @@ import xdi2.core.util.locator.ContextNodeLocator;
 public class FalsePolicyStatement extends PolicyStatement {
 
 	private static final long serialVersionUID = -7397004800836677763L;
-
-	private static final Logger log = LoggerFactory.getLogger(FalsePolicyStatement.class);
 
 	protected FalsePolicyStatement(Relation relation) {
 
@@ -65,8 +61,9 @@ public class FalsePolicyStatement extends PolicyStatement {
 	@Override
 	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
 
-		log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getRelation());
+		Condition condition = this.getCondition();
+		if (condition == null) throw new Xdi2RuntimeException("Missing or invalid condition in $false policy statement.");
 
-		return false == this.getCondition().evaluate(contextNodeLocator);
+		return false == condition.evaluate(contextNodeLocator);
 	}
 }
