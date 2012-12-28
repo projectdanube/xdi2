@@ -213,13 +213,13 @@ public abstract class AbstractGraph implements Graph {
 
 		if (statement instanceof ContextNodeStatement) {
 
-			return new IteratorContains(new MappingContextNodeStatementIterator(contextNode.getContextNodes()), statement).contains();
+			return new IteratorContains<Statement> (new MappingContextNodeStatementIterator(contextNode.getContextNodes()), statement).contains();
 		} else if (statement instanceof LiteralStatement) {
 
-			return new IteratorContains(new MappingLiteralStatementIterator(contextNode.getLiteral()), statement).contains();
+			return new IteratorContains<Statement> (new MappingLiteralStatementIterator(contextNode.getLiteral()), statement).contains();
 		} else if (statement instanceof RelationStatement) {
 
-			return new IteratorContains(new MappingRelationStatementIterator(contextNode.getRelations()), statement).contains();
+			return new IteratorContains<Statement> (new MappingRelationStatementIterator(contextNode.getRelations()), statement).contains();
 		} else {
 
 			throw new Xdi2RuntimeException("Unknown statement type: " + statement.getClass().getCanonicalName());
