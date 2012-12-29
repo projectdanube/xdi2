@@ -2,8 +2,8 @@ package xdi2.core.features.linkcontracts.condition;
 
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.locator.ContextNodeLocator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3Statement;
 
@@ -61,7 +61,7 @@ public class GreaterCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		throw new Xdi2RuntimeException("Not implemented.");
 	}

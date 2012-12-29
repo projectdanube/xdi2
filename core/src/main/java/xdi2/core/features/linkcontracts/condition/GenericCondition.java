@@ -1,7 +1,7 @@
 package xdi2.core.features.linkcontracts.condition;
 
 import xdi2.core.ContextNode;
-import xdi2.core.util.locator.ContextNodeLocator;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3Statement;
 
@@ -50,27 +50,27 @@ public class GenericCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (this.getStatement().isContextNodeStatement()) {
 
-			ContextNode subject = contextNodeLocator.locateContextNode(this.getStatement().getContextNodeXri());
+			ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
 
 			return subject != null;
 		}
 
 		if (this.getStatement().isRelationStatement()) {
 
-			ContextNode subject = contextNodeLocator.locateContextNode(this.getStatement().getContextNodeXri());
+			ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
 			XDI3Segment arcXri = this.getStatement().getArcXri();
-			XDI3Segment targetContextNodeXri = contextNodeLocator.getContextNodeXri(this.getStatement().getTargetContextNodeXri());
+			XDI3Segment targetContextNodeXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getTargetContextNodeXri());
 
 			return subject.containsRelation(arcXri, targetContextNodeXri);
 		}
 
 		if (this.getStatement().isLiteralStatement()) {
 
-			ContextNode subject = contextNodeLocator.locateContextNode(this.getStatement().getContextNodeXri());
+			ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
 			String literalData = this.getStatement().getLiteralData();
 
 			return subject.containsLiteral(literalData);

@@ -1,20 +1,21 @@
-package xdi2.messaging.util.locator;
+package xdi2.messaging.target.interceptor.impl;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Relation;
+import xdi2.core.features.linkcontracts.evaluation.GraphPolicyEvaluationContext;
 import xdi2.core.util.XRIUtil;
-import xdi2.core.util.locator.GraphContextNodeLocator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.Message;
 
-public class MessageContextNodeLocator extends GraphContextNodeLocator {
+public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext {
 
 	public static final XDI3Segment XRI_FROM = new XDI3Segment("($from)");
 	public static final XDI3Segment XRI_MSG = new XDI3Segment("($msg)");
 
 	private Message message;
 
-	public MessageContextNodeLocator(Graph graph, Message message) {
+	public MessagePolicyEvaluationContext(Graph graph, Message message) {
 
 		super(graph);
 
@@ -42,7 +43,7 @@ public class MessageContextNodeLocator extends GraphContextNodeLocator {
 	}
 
 	@Override
-	public ContextNode locateContextNode(XDI3Segment xri) {
+	public ContextNode getContextNode(XDI3Segment xri) {
 
 		if (XRIUtil.startsWith(xri, XRI_MSG)) {
 
@@ -64,7 +65,13 @@ public class MessageContextNodeLocator extends GraphContextNodeLocator {
 			return contextNode;
 		}
 
-		return super.locateContextNode(xri);
+		return super.getContextNode(xri);
+	}
+
+	@Override
+	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+
+		return this.getMessage().getOperationsContextNode().getRelation(arcXri, targetContextNodeXri);
 	}
 
 	public Message getMessage() {

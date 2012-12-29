@@ -11,6 +11,7 @@ import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
+import xdi2.messaging.DoOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
@@ -40,6 +41,8 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 			this.executeModOnAddress(targetAddress, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			this.executeDelOnAddress(targetAddress, (DelOperation) operation, messageResult, executionContext);
+		else if (operation instanceof DoOperation)
+			this.executeDoOnAddress(targetAddress, (DoOperation) operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, executionContext);
 	}
@@ -70,6 +73,13 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		XDI3Segment contextNodeXri = targetAddress;
 
 		this.delContext(contextNodeXri, operation, messageResult, executionContext);
+	}
+
+	public void executeDoOnAddress(XDI3Segment targetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment contextNodeXri = targetAddress;
+
+		this.doContext(contextNodeXri, operation, messageResult, executionContext);
 	}
 
 	/*
@@ -266,6 +276,10 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 	}
 
 	public void delContext(XDI3Segment contextNodeXri, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void doContext(XDI3Segment contextNodeXri, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 

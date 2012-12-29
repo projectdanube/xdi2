@@ -3,6 +3,7 @@ package xdi2.messaging.target;
 import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
+import xdi2.messaging.DoOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
@@ -33,6 +34,8 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 			this.executeModOnStatement(targetStatement, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			this.executeDelOnStatement(targetStatement, (DelOperation) operation, messageResult, executionContext);
+		else if (operation instanceof DoOperation)
+			this.executeDoOnStatement(targetStatement, (DoOperation) operation, messageResult, executionContext);
 		else 
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, executionContext);
 	}
@@ -85,6 +88,18 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
 	}
 
+	public void executeDoOnStatement(XDI3Statement targetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement.isContextNodeStatement())
+			this.executeDoOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isRelationStatement())
+			this.executeDoOnRelationStatement(targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isLiteralStatement())
+			this.executeDoOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
+		else
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+	}
+
 	/*
 	 * Operations on context node statements
 	 */
@@ -102,6 +117,10 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 	}
 
 	public void executeDelOnContextNodeStatement(XDI3Statement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeDoOnContextNodeStatement(XDI3Statement contextNodeStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -125,6 +144,10 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 
 	}
 
+	public void executeDoOnRelationStatement(XDI3Statement relationStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
 	/*
 	 * Operations on literal statements
 	 */
@@ -142,6 +165,10 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 	}
 
 	public void executeDelOnLiteralStatement(XDI3Statement literalStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeDoOnLiteralStatement(XDI3Statement literalStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 }

@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Statement;
-import xdi2.core.util.locator.ContextNodeLocator;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.xri3.impl.XDI3Statement;
 
 /**
@@ -91,19 +91,19 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 	/**
 	 * Checks if the XDI condition evaluates to true or false.
-	 * @param contextNodeLocator An object that can locate context nodes.
+	 * @param policyEvaluationContext A context for evaluating an XDI policy.
 	 * @return True or false.
 	 */
-	public final boolean evaluate(ContextNodeLocator contextNodeLocator) {
+	public final boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getStatement());
-		boolean result = this.evaluateInternal(contextNodeLocator);
+		boolean result = this.evaluateInternal(policyEvaluationContext);
 		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getStatement() + ": " + result);
 
 		return result;
 	}
 
-	protected abstract boolean evaluateInternal(ContextNodeLocator contextNodeLocator);
+	protected abstract boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
 
 	/*
 	 * Object methods

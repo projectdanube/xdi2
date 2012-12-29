@@ -4,8 +4,8 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
-import xdi2.core.util.locator.ContextNodeLocator;
 
 /**
  * An XDI $not policy, represented as a context node.
@@ -54,18 +54,18 @@ public class PolicyNot extends Policy {
 	 */
 
 	@Override
-	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		for (Iterator<Policy> policies = this.getPolicies(); policies.hasNext(); ) {
 
 			Policy policy = policies.next();
-			if (true == policy.evaluate(contextNodeLocator)) return false;
+			if (true == policy.evaluate(policyEvaluationContext)) return false;
 		}
 
 		for (Iterator<PolicyStatement> policyStatements = this.getPolicyStatements(); policyStatements.hasNext(); ) {
 
 			PolicyStatement policyStatement = policyStatements.next();
-			if (true == policyStatement.evaluate(contextNodeLocator)) return false;
+			if (true == policyStatement.evaluate(policyEvaluationContext)) return false;
 		}
 
 		return true;

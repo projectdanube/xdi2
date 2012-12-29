@@ -1,12 +1,14 @@
 package xdi2.core.features.linkcontracts.condition;
 
+import java.util.Iterator;
+
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.util.StatementUtil;
+import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorContains;
-import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
-import xdi2.core.util.locator.ContextNodeLocator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3Statement;
 
@@ -64,21 +66,22 @@ public class IsCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		// check if subject XRI and object XRI are the same
 
-		XDI3Segment subjectXri = contextNodeLocator.getContextNodeXri(this.getStatement().getSubject());
-		XDI3Segment objectXri = contextNodeLocator.getContextNodeXri(this.getStatement().getObject());
+		XDI3Segment subjectXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getSubject());
+		XDI3Segment objectXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getObject());
 
 		if (subjectXri != null && subjectXri.equals(objectXri)) return true;
 
 		// check if the statement exists
 
-		ContextNode subject = contextNodeLocator.locateContextNode(this.getStatement().getSubject());
-		ContextNode object = contextNodeLocator.locateContextNode(this.getStatement().getObject());
+		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
+		ContextNode object = policyEvaluationContext.getContextNode(this.getStatement().getObject());
 
-		if (subject != null && new IteratorContains<ContextNode> (new MappingRelationTargetContextNodeIterator(Equivalence.getEquivalenceRelations(subject)), object).contains()) return true;
+		Iterator<ContextNode> equivalenceContextNodes = subject == null ? new EmptyIterator<ContextNode> () : Equivalence.getEquivalenceContextNodes(subject);
+		if (new IteratorContains<ContextNode> (equivalenceContextNodes, object).contains()) return true;
 
 		// done
 

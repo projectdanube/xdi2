@@ -18,6 +18,7 @@ import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
+import xdi2.messaging.DoOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
@@ -60,6 +61,8 @@ public abstract class AbstractContributor implements Contributor {
 			return this.executeModOnAddress(contributorXris, relativeTargetAddress, targetAddress, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			return this.executeDelOnAddress(contributorXris, relativeTargetAddress, targetAddress, (DelOperation) operation, messageResult, executionContext);
+		else if (operation instanceof DoOperation)
+			return this.executeDoOnAddress(contributorXris, relativeTargetAddress, targetAddress, (DoOperation) operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, executionContext);
 	}
@@ -96,6 +99,14 @@ public abstract class AbstractContributor implements Contributor {
 		return this.delContext(contributorXris, relativeContextNodeXri, contextNodeXri, operation, messageResult, executionContext);
 	}
 
+	public boolean executeDoOnAddress(XDI3Segment[] contributorXris, XDI3Segment relativeTargetAddress, XDI3Segment targetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment relativeContextNodeXri = relativeTargetAddress;
+		XDI3Segment contextNodeXri = targetAddress;
+
+		return this.doContext(contributorXris, relativeContextNodeXri, contextNodeXri, operation, messageResult, executionContext);
+	}
+
 	/*
 	 * Operations on statements
 	 */
@@ -120,6 +131,8 @@ public abstract class AbstractContributor implements Contributor {
 			return this.executeModOnStatement(contributorXris, relativeTargetStatement, targetStatement, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			return this.executeDelOnStatement(contributorXris, relativeTargetStatement, targetStatement, (DelOperation) operation, messageResult, executionContext);
+		else if (operation instanceof DoOperation)
+			return this.executeDoOnStatement(contributorXris, relativeTargetStatement, targetStatement, (DoOperation) operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, executionContext);
 	}
@@ -172,6 +185,18 @@ public abstract class AbstractContributor implements Contributor {
 			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
 	}
 
+	public boolean executeDoOnStatement(XDI3Segment[] contributorXris, XDI3Statement relativeTargetStatement, XDI3Statement targetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement.isContextNodeStatement())
+			return this.executeDoOnContextNodeStatement(contributorXris, relativeTargetStatement, targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isRelationStatement())
+			return this.executeDoOnRelationStatement(contributorXris, relativeTargetStatement, targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isLiteralStatement())
+			return this.executeDoOnLiteralStatement(contributorXris, relativeTargetStatement, targetStatement, operation, messageResult, executionContext);
+		else
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+	}
+
 	/*
 	 * Operations on context node statements
 	 */
@@ -206,6 +231,14 @@ public abstract class AbstractContributor implements Contributor {
 		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXri();
 
 		return this.delContext(contributorXris, relativeContextNodeXri, contextNodeXri, operation, messageResult, executionContext);
+	}
+
+	public boolean executeDoOnContextNodeStatement(XDI3Segment[] contributorXris, XDI3Statement relativeContextNodeStatement, XDI3Statement contextNodeStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment relativeContextNodeXri = relativeContextNodeStatement == null ? null : relativeContextNodeStatement.getContextNodeXri();
+		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXri();
+
+		return this.doContext(contributorXris, relativeContextNodeXri, contextNodeXri, operation, messageResult, executionContext);
 	}
 
 	/*
@@ -252,6 +285,16 @@ public abstract class AbstractContributor implements Contributor {
 		return this.delRelation(contributorXris, relativeContextNodeXri, contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
 
+	public boolean executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Statement relativeRelationStatement, XDI3Statement relationStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment relativeContextNodeXri = relativeRelationStatement == null ? null : relativeRelationStatement.getContextNodeXri();
+		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
+		XDI3Segment arcXri = relationStatement.getPredicate();
+		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+
+		return this.doRelation(contributorXris, relativeContextNodeXri, contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
+	}
+
 	/*
 	 * Operations on literal statements
 	 */
@@ -292,6 +335,15 @@ public abstract class AbstractContributor implements Contributor {
 		return this.delLiteral(contributorXris, relativeContextNodeXri, contextNodeXri, literalData, operation, messageResult, executionContext);
 	}
 
+	public boolean executeDoOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Statement relativeLiteralStatement, XDI3Statement literalStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment relativeContextNodeXri = relativeLiteralStatement == null ? null : relativeLiteralStatement.getContextNodeXri();
+		XDI3Segment contextNodeXri = literalStatement.getContextNodeXri();
+		String literalData = literalStatement.getLiteralData();
+
+		return this.doLiteral(contributorXris, relativeContextNodeXri, contextNodeXri, literalData, operation, messageResult, executionContext);
+	}
+
 	/*
 	 * Methods to be overridden by subclasses
 	 */
@@ -312,6 +364,11 @@ public abstract class AbstractContributor implements Contributor {
 	}
 
 	public boolean delContext(XDI3Segment[] contributorXris, XDI3Segment relativeContextNodeXri, XDI3Segment contextNodeXri, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		return false;
+	}
+
+	public boolean doContext(XDI3Segment[] contributorXris, XDI3Segment relativeContextNodeXri, XDI3Segment contextNodeXri, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
@@ -364,6 +421,11 @@ public abstract class AbstractContributor implements Contributor {
 		return false;
 	}
 
+	public boolean doRelation(XDI3Segment[] contributorXris, XDI3Segment relativeContextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri, XDI3Segment contextNodeXri,  DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		return false;
+	}
+
 	public boolean getLiteral(XDI3Segment[] contributorXris, XDI3Segment relativeContextNodeXri, XDI3Segment contextNodeXri, String literalData, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		MessageResult tempMessageResult = new MessageResult();
@@ -395,6 +457,11 @@ public abstract class AbstractContributor implements Contributor {
 	}
 
 	public boolean delLiteral(XDI3Segment[] contributorXris, XDI3Segment relativeContextNodeXri, XDI3Segment contextNodeXri, String literalData, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		return false;
+	}
+
+	public boolean doLiteral(XDI3Segment[] contributorXris, XDI3Segment relativeContextNodeXri, XDI3Segment contextNodeXri, String literalData, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}

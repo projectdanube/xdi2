@@ -6,11 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Relation;
-import xdi2.core.exceptions.Xdi2ParseException;
-import xdi2.core.features.linkcontracts.condition.Condition;
-import xdi2.core.util.StatementUtil;
-import xdi2.core.util.locator.ContextNodeLocator;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 
 /**
  * An XDI policy statement, represented as a relation.
@@ -89,40 +85,20 @@ public abstract class PolicyStatement implements Serializable, Comparable<Policy
 	}
 
 	/**
-	 * Returns the XDI condition of the XDI policy statement.
-	 * @return The XDI condition of the XDI policy statement.
-	 */
-	public Condition getCondition() {
-
-		XDI3Statement statement;
-
-		try {
-
-			statement = StatementUtil.fromXriSegment(this.getRelation().getTargetContextNodeXri());
-		} catch (Xdi2ParseException ex) {
-
-			log.warn("No condition for policy statement: " + this.getRelation() + ": " + ex.getMessage(), ex);
-			return null;
-		}
-
-		return Condition.fromStatement(statement);
-	}
-
-	/**
 	 * Checks if the XDI policy statement evaluates to true or false.
-	 * @param contextNodeLocator An object that can locate context nodes.
+	 * @param policyEvaluationContext An object that can locate context nodes.
 	 * @return True or false.
 	 */
-	public final boolean evaluate(ContextNodeLocator contextNodeLocator) {
+	public final boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getRelation());
-		boolean result = this.evaluateInternal(contextNodeLocator);
+		boolean result = this.evaluateInternal(policyEvaluationContext);
 		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getRelation() + ": " + result);
 
 		return result;
 	}
 
-	protected abstract boolean evaluateInternal(ContextNodeLocator contextNodeLocator);
+	protected abstract boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
 
 	/*
 	 * Object methods

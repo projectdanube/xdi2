@@ -2,8 +2,8 @@ package xdi2.core.features.linkcontracts.condition;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.locator.ContextNodeLocator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3Statement;
 
@@ -61,10 +61,10 @@ public class EqualsCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		ContextNode subject = contextNodeLocator.locateContextNode(this.getStatement().getSubject());
-		ContextNode object = contextNodeLocator.locateContextNode(this.getStatement().getObject());
+		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
+		ContextNode object = policyEvaluationContext.getContextNode(this.getStatement().getObject());
 
 		if (subject == null || object == null) return false;
 
