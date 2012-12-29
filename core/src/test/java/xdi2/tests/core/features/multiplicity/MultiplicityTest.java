@@ -90,10 +90,10 @@ public class MultiplicityTest extends TestCase {
 		assertFalse(Multiplicity.isAttributeMemberArcXri(passport2ContextNode.getArcXri()));
 
 		assertEquals(passportCollection.entitiesSize(), 2);
-		assertTrue(new IteratorContains(passportCollection.entities(), XdiEntityMember.fromContextNode(passport1ContextNode)).contains());
-		assertTrue(new IteratorContains(passportCollection.entities(), XdiEntityMember.fromContextNode(passport2ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiEntityMember>(passportCollection.entities(), XdiEntityMember.fromContextNode(passport1ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiEntityMember>(passportCollection.entities(), XdiEntityMember.fromContextNode(passport2ContextNode)).contains());
 		assertEquals(telCollection.attributesSize(), 2);
-		assertTrue(new IteratorContains(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel1ContextNode)).contains());
-		assertTrue(new IteratorContains(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel2ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiAttributeMember>(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel1ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiAttributeMember>(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel2ContextNode)).contains());
 	}
 }
