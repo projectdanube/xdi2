@@ -2,7 +2,9 @@ package xdi2.core.util.locator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Statement;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 public class GraphContextNodeLocator implements ContextNodeLocator {
 
@@ -23,6 +25,12 @@ public class GraphContextNodeLocator implements ContextNodeLocator {
 	public ContextNode locateContextNode(XDI3Segment xri) {
 
 		return this.getGraph().findContextNode(xri, false);
+	}
+
+	@Override
+	public Statement locateStatement(XDI3Statement statement) {
+
+		return this.getGraph().findStatement(statement);
 	}
 
 	public Graph getGraph() {

@@ -223,7 +223,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public Operation createOperation(XDI3Segment operationXri, Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetStatement.getXdiStatement().toXriSegment());
 
 		return Operation.fromMessageAndRelation(this, relation);
 	}
@@ -247,7 +247,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public GetOperation createGetOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetStatement.getXdiStatement().toXriSegment());
 
 		return GetOperation.fromMessageAndRelation(this, relation);
 	}
@@ -271,7 +271,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public AddOperation createAddOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetStatement.getXdiStatement().toXriSegment());
 
 		return AddOperation.fromMessageAndRelation(this, relation);
 	}
@@ -295,7 +295,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ModOperation createModOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetStatement.getXdiStatement().toXriSegment());
 
 		return ModOperation.fromMessageAndRelation(this, relation);
 	}
@@ -319,7 +319,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public DelOperation createDelOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetStatement.getXdiStatement().toXriSegment());
 
 		return DelOperation.fromMessageAndRelation(this, relation);
 	}

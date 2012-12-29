@@ -12,11 +12,11 @@ import xdi2.core.util.locator.ContextNodeLocator;
  * 
  * @author markus
  */
-public class OperationPolicyStatement extends PolicyStatement {
+public class GenericPolicyStatement extends PolicyStatement {
 
 	private static final long serialVersionUID = 4296419491079293469L;
 
-	protected OperationPolicyStatement(Relation relation) {
+	protected GenericPolicyStatement(Relation relation) {
 
 		super(relation);
 	}
@@ -42,14 +42,14 @@ public class OperationPolicyStatement extends PolicyStatement {
 	 * @param relation The relation that is an XDI $true policy statement.
 	 * @return The XDI $true policy statement.
 	 */
-	public static OperationPolicyStatement fromRelation(Relation relation) {
+	public static GenericPolicyStatement fromRelation(Relation relation) {
 
 		if (! isValid(relation)) return null;
 
-		return new OperationPolicyStatement(relation);
+		return new GenericPolicyStatement(relation);
 	}
 
-	public static OperationPolicyStatement fromCondition(Condition condition) {
+	public static GenericPolicyStatement fromCondition(Condition condition) {
 
 		return fromRelation(GraphUtil.relationFromComponents(XDIConstants.XRI_S_ROOT, XDIConstants.XRI_S_TRUE, condition.getStatement().toXriSegment()));
 	}

@@ -21,8 +21,6 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.Statement;
-import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
@@ -152,26 +150,13 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 				XDI3Segment targetContextNodeXri = relationsList.get(i).getTargetContextNodeXri();
 				XDI3XRef xref = targetContextNodeXri.getFirstSubSegment().getXRef();
 
-				Statement statement = null;
+				// if the target context node XRI is a valid statement in a cross-reference, add it to the temporary graph
 
 				if (xref != null && xref.hasStatement()) {
 
-					try {
+					if (tempGraph == null) tempGraph = MemoryGraphFactory.getInstance().openGraph();
 
-						statement = StatementUtil.fromXdiStatement(xref.getStatement());
-					} catch (Xdi2ParseException ex) {
-
-					}
-				}
-
-				// if the target context node XRI is a valid statement in a cross-reference, add it to the temporary graph
-				if (statement != null) {
-
-					if (tempGraph == null) {
-						tempGraph = MemoryGraphFactory.getInstance().openGraph();
-					}
-
-					tempGraph.createStatement(statement);
+					tempGraph.createStatement(xref.getStatement());
 				} else {
 
 					bufferedWriter.write("\"" + targetContextNodeXri + "\"");
@@ -191,6 +176,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 				if (missingTrailingComma) bufferedWriter.write(",");
 
 				// write the temporary graph recursively
+
 				this.write(tempGraph, bufferedWriter);
 			}
 

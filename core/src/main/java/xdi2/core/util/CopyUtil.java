@@ -13,6 +13,10 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.Statement;
+import xdi2.core.Statement.ContextNodeStatement;
+import xdi2.core.Statement.LiteralStatement;
+import xdi2.core.Statement.RelationStatement;
 import xdi2.core.xri3.impl.XDI3Segment;
 
 /**
@@ -257,6 +261,26 @@ public final class CopyUtil {
 		if (literal == null) return null;
 
 		return copyLiteral(literal, targetContextNode, copyStrategy);
+	}
+
+	/**
+	 * Copies a literal of a context node into a target context node.
+	 * @param contextNode A context node from any graph.
+	 * @param targetContextNode The target context node.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied literal in the target graph.
+	 */
+	public static Statement copyStatement(Statement statement, Graph targetGraph, CopyStrategy copyStrategy) {
+
+		if (statement == null) throw new NullPointerException();
+		if (targetGraph == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
+		if (statement instanceof ContextNodeStatement) return copyContextNode(((ContextNodeStatement) statement).getContextNode(), targetGraph, null).getStatement();
+		if (statement instanceof RelationStatement) return copyRelation(((RelationStatement) statement).getRelation(), targetGraph, null).getStatement();
+		if (statement instanceof LiteralStatement) return copyLiteral(((LiteralStatement) statement).getLiteral(), targetGraph, null).getStatement();
+
+		return null;
 	}
 
 	/**

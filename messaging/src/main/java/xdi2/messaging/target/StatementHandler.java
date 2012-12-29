@@ -1,6 +1,6 @@
 package xdi2.messaging.target;
 
-import xdi2.core.Statement;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -22,5 +22,5 @@ public interface StatementHandler {
 	 * @param messageResult The message result to fill.
 	 * @param executionContext An "execution context" object for the entire XDI message envelope.
 	 */
-	public void executeOnStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public void executeOnStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

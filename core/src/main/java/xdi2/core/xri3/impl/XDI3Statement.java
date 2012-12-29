@@ -2,6 +2,8 @@ package xdi2.core.xri3.impl;
 
 import java.util.List;
 
+import xdi2.core.constants.XDIConstants;
+import xdi2.core.util.XDIUtil;
 import xdi2.core.xri3.impl.parser.Parser;
 import xdi2.core.xri3.impl.parser.ParserException;
 import xdi2.core.xri3.impl.parser.Rule;
@@ -14,6 +16,9 @@ import xdi2.core.xri3.impl.parser.Rule$xdi_subject;
 public class XDI3Statement extends XRI3SyntaxComponent {
 
 	private static final long serialVersionUID = -1416735368366011077L;
+
+	public static final XDI3Segment XRI_S_CONTEXT = new XDI3Segment("()");
+	public static final XDI3Segment XRI_S_LITERAL = new XDI3Segment("!");
 
 	private Rule rule;
 
@@ -102,5 +107,63 @@ public class XDI3Statement extends XRI3SyntaxComponent {
 	public XDI3Segment getObject() {
 
 		return this.object;
+	}
+
+	public boolean isContextNodeStatement() {
+
+		return XRI_S_CONTEXT.equals(this.getPredicate());
+	}
+
+	public boolean isLiteralStatement() {
+
+		return XRI_S_LITERAL.equals(this.getPredicate()) && XDIUtil.isDataXriSegment(this.getObject());
+	}
+
+	public boolean isRelationStatement() {
+
+		return (! this.isContextNodeStatement()) && (! this.isLiteralStatement());
+	}
+
+	public XDI3Segment getContextNodeXri() {
+
+		if (XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate())) {
+
+			if (XDIConstants.XRI_S_ROOT.equals(this.getSubject())) {
+
+				return this.getObject();
+			} else {
+
+				return new XDI3Segment("" + this.getSubject() + this.getObject());
+			}
+		} else {
+
+			return this.getSubject();
+		}
+	}
+
+	public XDI3Segment getArcXri() {
+
+		if (! this.isRelationStatement()) return null;
+
+		return this.getPredicate();
+	}
+
+	public XDI3Segment getTargetContextNodeXri() {
+
+		if (! this.isRelationStatement()) return null;
+
+		return this.getObject();
+	}
+
+	public String getLiteralData() {
+
+		if (! this.isLiteralStatement()) return null;
+
+		return XDIUtil.dataXriSegmentToString(this.getObject());
+	}
+
+	public XDI3Segment toXriSegment() {
+
+		return new XDI3Segment("(" + this.toString() + ")");
 	}
 }

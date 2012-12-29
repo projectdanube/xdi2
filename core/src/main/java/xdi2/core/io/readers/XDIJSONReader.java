@@ -25,6 +25,7 @@ import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.xri3.impl.parser.ParserException;
 
@@ -57,7 +58,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 			if (key.endsWith("/" + XDIConstants.XRI_S_CONTEXT.toString())) {
 
-				Statement statement = makeStatement(key + "/($)", state);
+				XDI3Statement statement = makeStatement(key + "/($)", state);
 				ContextNode contextNode = graph.findContextNode(statement.getSubject(), true);
 
 				// add context nodes
@@ -79,7 +80,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 				}
 			} else if (key.endsWith("/" + XDIConstants.XRI_S_LITERAL.toString())) {
 
-				Statement statement = makeStatement(key + "/($)", state);
+				XDI3Statement statement = makeStatement(key + "/($)", state);
 				ContextNode contextNode = graph.findContextNode(statement.getSubject(), true);
 
 				// add literal
@@ -92,7 +93,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 				if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 			} else {
 
-				Statement statement = makeStatement(key + "/()", state);
+				XDI3Statement statement = makeStatement(key + "/()", state);
 				ContextNode contextNode = graph.findContextNode(statement.getSubject(), true);
 				XDI3Segment arcXri = statement.getPredicate();
 
@@ -210,10 +211,10 @@ public class XDIJSONReader extends AbstractXDIReader {
 		private String lastXriString;
 	}
 
-	private static Statement makeStatement(String xriString, State state) throws Xdi2ParseException {
+	private static XDI3Statement makeStatement(String xriString, State state) throws Xdi2ParseException {
 
 		state.lastXriString = xriString;
-		return StatementUtil.fromString(xriString);
+		return new XDI3Statement(xriString);
 	}
 
 	private static XDI3Segment makeXDI3Segment(String xriString, State state) {

@@ -6,12 +6,12 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
@@ -43,11 +43,11 @@ public class GraphContextHandler extends AbstractContextHandler {
 	 */
 
 	@Override
-	public void executeAddOnStatement(Statement statement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeAddOnStatement(XDI3Statement targetStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		try {
 
-			this.getGraph().createStatement(statement);
+			this.getGraph().createStatement(targetStatement);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Cannot add statement: " + ex.getMessage(), ex, executionContext);

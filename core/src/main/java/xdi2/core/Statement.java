@@ -55,20 +55,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * Expresses the statement as an XDI statement in the form subject/predicate/object
 	 * @return An XDI statement.
 	 */
-	public XDI3Statement toXdiStatement();
-
-	/**
-	 * Expresses the statement as an XRI segment in the form (subject/predicate/object)
-	 * @return An XRI segment.
-	 */
-	public XDI3Segment toXriSegment();
-
-	/**
-	 * Returns the String representation of this statement.
-	 * @param pretty A boolean flag to check whether to prettyprint the output.
-	 * @return The String representation of this statement.
-	 */
-	public String toString(boolean pretty);
+	public XDI3Statement getXdiStatement();
 
 	/*
 	 * Sub-interfaces

@@ -3,11 +3,11 @@ package xdi2.messaging;
 import java.io.Serializable;
 
 import xdi2.core.Relation;
-import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 /**
  * An XDI messaging operation, represented as a relation.
@@ -146,7 +146,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the target statement of the operation.
 	 * @return The target statement of the operation.
 	 */
-	public Statement getTargetStatement() {
+	public XDI3Statement getTargetStatement() {
 
 		try {
 

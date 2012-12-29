@@ -1,7 +1,7 @@
 package xdi2.messaging.target.contributor;
 
-import xdi2.core.Statement;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -31,5 +31,5 @@ public interface Contributor {
 	 * @param executionContext An "execution context" object for the entire XDI message envelope.
 	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
-	public boolean executeOnStatement(XDI3Segment[] contributorXris, Statement relativeTargetStatement, Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public boolean executeOnStatement(XDI3Segment[] contributorXris, XDI3Statement relativeTargetStatement, XDI3Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

@@ -9,15 +9,15 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.Statement;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -79,7 +79,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	 */
 
 	@Override
-	public Statement targetStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof AddOperation)) return targetStatement;
 
@@ -115,7 +115,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 			XDI3Segment predicate = XDIDictionaryConstants.XRI_S_IS;
 			XDI3Segment object = new XDI3Segment(entry.getValue().toString());
 
-			Statement statement = StatementUtil.fromComponents(subject, predicate, object);
+			XDI3Statement statement = StatementUtil.fromComponents(subject, predicate, object);
 
 			messageResult.getGraph().createStatement(statement);
 		}

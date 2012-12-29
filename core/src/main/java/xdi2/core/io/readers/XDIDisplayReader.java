@@ -7,13 +7,10 @@ import java.util.Properties;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Statement;
-import xdi2.core.Statement.ContextNodeStatement;
-import xdi2.core.exceptions.Xdi2Exception;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
-import xdi2.core.util.StatementUtil;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.xri3.impl.parser.ParserException;
 
@@ -48,11 +45,11 @@ public class XDIDisplayReader extends AbstractXDIReader {
 
 			try {
 
-				Statement statement = StatementUtil.fromString(line);
+				XDI3Statement statement = new XDI3Statement(line);
 
 				// ignore implied context nodes
 
-				if (statement instanceof ContextNodeStatement) {
+				if (statement.isContextNodeStatement()) {
 
 					ContextNode contextNode = graph.findContextNode(statement.getSubject(), false);
 
@@ -62,9 +59,6 @@ public class XDIDisplayReader extends AbstractXDIReader {
 				// add the statement to the graph
 
 				graph.createStatement(statement);
-			} catch (Xdi2Exception ex) {
-
-				throw new Xdi2ParseException("Problem at line " + lineNr + ": " + ex.getMessage(), ex);
 			} catch (ParserException ex) {
 
 				throw new Xdi2ParseException("XRI parser problem at line " + lineNr + ": " + ex.getMessage(), ex);

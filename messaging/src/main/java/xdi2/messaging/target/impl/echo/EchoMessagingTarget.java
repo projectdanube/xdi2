@@ -1,8 +1,8 @@
 package xdi2.messaging.target.impl.echo;
 
-import xdi2.core.Statement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -30,7 +30,7 @@ public class EchoMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public StatementHandler getStatementHandler(Statement targetStatement) throws Xdi2MessagingException {
+	public StatementHandler getStatementHandler(XDI3Statement targetStatement) throws Xdi2MessagingException {
 
 		return null;
 	}

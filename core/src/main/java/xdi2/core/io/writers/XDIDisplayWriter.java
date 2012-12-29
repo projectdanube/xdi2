@@ -59,13 +59,13 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
 		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
-		
+
 		try {
-			
+
 			int prettyParam = Integer.parseInt(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 			this.prettyPrint = prettyParam > 0 ? true : false;
 		} catch (NumberFormatException nfe) {
-			
+
 			this.prettyPrint = false;
 		}
 
@@ -101,7 +101,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			statements = graph.getRootContextNode().getAllStatements();
 		}
-		
+
 		while (statements.hasNext()) {
 
 			Statement statement = statements.next();
@@ -113,29 +113,29 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			// HTML output
 
 			if (this.writeHtml) {
-				
+
 				if (statement instanceof ContextNodeStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_CONTEXTNODE + "\">");
-					bufferedWriter.write(statement.toString(this.prettyPrint).replaceAll("\t", "&#9;"));
+					writeStatement(bufferedWriter, statement, this.prettyPrint, true);
 					bufferedWriter.write("</span>\n");
 				} else if (statement instanceof RelationStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_RELATION + "\">");
-					bufferedWriter.write(statement.toString(this.prettyPrint).replaceAll("\t", "&#9;"));
+					writeStatement(bufferedWriter, statement, this.prettyPrint, true);
 					bufferedWriter.write("</span>\n");
 				} else if (statement instanceof LiteralStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_LITERAL + "\">");
-					bufferedWriter.write(statement.toString(this.prettyPrint).replaceAll("\t", "&#9;"));
+					writeStatement(bufferedWriter, statement, this.prettyPrint, true);
 					bufferedWriter.write("</span>\n");
 				}
 			} else {
 
-				bufferedWriter.write(statement.toString(this.prettyPrint) + "\n");
+				writeStatement(bufferedWriter, statement, this.prettyPrint, false);
 			}
 		}
-		
+
 		if (this.writeHtml) {
 
 			bufferedWriter.write("</pre>\n");
@@ -143,6 +143,23 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		}
 
 		bufferedWriter.flush();
+	}
+
+	private static void writeStatement(BufferedWriter bufferedWriter, Statement statement, boolean pretty, boolean html) throws IOException {
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(statement.getSubject());
+		builder.append(pretty ? "\t" : "/");
+		builder.append(statement.getPredicate());
+		builder.append(pretty ? "\t" : "/");
+		builder.append(statement.getObject());
+		builder.append(html ? "<br>\n" : "\n");
+
+		String string = builder.toString();
+		if (html) string = string.replaceAll("\t", "&#9;");
+
+		bufferedWriter.write(string);
 	}
 
 	@Override

@@ -6,12 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Relation;
-import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.locator.ContextNodeLocator;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 /**
  * An XDI policy statement, represented as a relation.
@@ -46,7 +45,8 @@ public abstract class PolicyStatement implements Serializable, Comparable<Policy
 
 		return
 				TruePolicyStatement.isValid(relation) ||
-				FalsePolicyStatement.isValid(relation);
+				FalsePolicyStatement.isValid(relation) ||
+				GenericPolicyStatement.isValid(relation);
 	}
 
 	/**
@@ -58,12 +58,13 @@ public abstract class PolicyStatement implements Serializable, Comparable<Policy
 
 		if (TruePolicyStatement.isValid(relation)) return TruePolicyStatement.fromRelation(relation);
 		if (FalsePolicyStatement.isValid(relation)) return FalsePolicyStatement.fromRelation(relation);
+		if (GenericPolicyStatement.isValid(relation)) return GenericPolicyStatement.fromRelation(relation);
 
 		return null;
 	}
 
 	/**
-	 * Factory method that casts a Policy to the right subclass, e.g. to a TruePolicy.
+	 * Factory method that casts a Policy to the right subclass, e.g. to a TruePolicyStatement.
 	 * @param policy The Policy to be cast.
 	 * @return The casted Policy.
 	 */
@@ -88,21 +89,12 @@ public abstract class PolicyStatement implements Serializable, Comparable<Policy
 	}
 
 	/**
-	 * Returns the policy XRI of the XDI policy statement (e.g. $true, $false).
-	 * @return The policy XRI of the XDI policy statement.
-	 */
-	public XDI3Segment getPolicyXri() {
-
-		return this.getRelation().getArcXri();
-	}
-
-	/**
 	 * Returns the XDI condition of the XDI policy statement.
 	 * @return The XDI condition of the XDI policy statement.
 	 */
 	public Condition getCondition() {
 
-		Statement statement;
+		XDI3Statement statement;
 
 		try {
 
