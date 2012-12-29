@@ -27,11 +27,11 @@ public class DataTypes {
 	private DataTypes() {
 	}
 
-	public static final XDI3Segment XRI_XSD_DATATYPE = new XDI3Segment(""
+	public static final XDI3Segment XRI_DATATYPE_XSD = new XDI3Segment(""
 			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "xsd");
-	public static final XDI3Segment XRI_JSON_DATATYPE = new XDI3Segment(""
+	public static final XDI3Segment XRI_DATATYPE_JSON = new XDI3Segment(""
 			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "json");
-	public static final XDI3Segment XRI_MIME_DATATYPE = new XDI3Segment(""
+	public static final XDI3Segment XRI_DATATYPE_MIME = new XDI3Segment(""
 			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "mime");
 	private static final String xriBoolean = "+$binary!";
 
@@ -47,7 +47,7 @@ public class DataTypes {
 	 */
 	public static XDI3Segment dataTypeXriFromXsdType(String xsdType) {
 
-		return new XDI3Segment("" + XRI_XSD_DATATYPE + XRI3Constants.GCS_DOLLAR
+		return new XDI3Segment("" + XRI_DATATYPE_XSD + XRI3Constants.GCS_DOLLAR
 				+ xsdType + XRI3Constants.LCS_BANG);
 	}
 
@@ -72,7 +72,7 @@ public class DataTypes {
 	 */
 	public static XDI3Segment dataTypeXriFromJsonType(String jsonType) {
 
-		return new XDI3Segment("" + XRI_JSON_DATATYPE
+		return new XDI3Segment("" + XRI_DATATYPE_JSON
 				+ XRI3Constants.GCS_DOLLAR + jsonType + XRI3Constants.LCS_BANG);
 	}
 
@@ -103,7 +103,7 @@ public class DataTypes {
 		XDI3Segment xriSeg = null;
 		try {
 			parts = mimeType.split("/");
-			xriSeg = new XDI3Segment("" + XRI_MIME_DATATYPE
+			xriSeg = new XDI3Segment("" + XRI_DATATYPE_MIME
 					+ XRI3Constants.GCS_DOLLAR + parts[0]
 							+ XRI3Constants.GCS_DOLLAR + parts[1]
 									+ XRI3Constants.LCS_BANG);
