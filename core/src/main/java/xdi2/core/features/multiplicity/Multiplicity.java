@@ -1,8 +1,9 @@
 package xdi2.core.features.multiplicity;
 
-import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.impl.XRI3Constants;
+import java.util.UUID;
+
 import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.parser.ParserException;
 
 /**
@@ -32,9 +33,9 @@ public class Multiplicity {
 		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
 
-	public static XDI3SubSegment collectionArcXriRandom() {
+	public static XDI3SubSegment collectionArcXri(String identifier) {
 
-		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR, "");
+		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + identifier + ")");
 	}
 
 	public static XDI3SubSegment entitySingletonArcXri(XDI3SubSegment arcXri) {
@@ -42,14 +43,14 @@ public class Multiplicity {
 		return arcXri;
 	}
 
-	public static XDI3SubSegment entityMemberArcXri(XDI3SubSegment arcXri) {
+	public static XDI3SubSegment entityMemberArcXri(String identifier) {
 
-		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
+		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + XRI3Constants.LCS_BANG + identifier + ")");
 	}
 
 	public static XDI3SubSegment entityMemberArcXriRandom() {
 
-		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR, "" + XRI3Constants.LCS_BANG);
+		return entityMemberArcXri(UUID.randomUUID().toString());
 	}
 
 	public static XDI3SubSegment attributeSingletonArcXri(XDI3SubSegment arcXri) {
@@ -57,14 +58,14 @@ public class Multiplicity {
 		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
 	}
 
-	public static XDI3SubSegment attributeMemberArcXri(XDI3SubSegment arcXri) {
+	public static XDI3SubSegment attributeMemberArcXri(String identifier) {
 
-		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
+		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + XRI3Constants.LCS_BANG + identifier + ")");
 	}
 
 	public static XDI3SubSegment attributeMemberArcXriRandom() {
 
-		return XRIUtil.randomXRefSubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG, "" + XRI3Constants.LCS_BANG);
+		return attributeMemberArcXri(UUID.randomUUID().toString());
 	}
 
 	public static XDI3SubSegment baseArcXri(XDI3SubSegment arcXri) {
