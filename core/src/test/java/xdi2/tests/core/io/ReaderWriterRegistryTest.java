@@ -5,7 +5,7 @@ import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriterRegistry;
 
-public class IOTest extends TestCase {
+public class ReaderWriterRegistryTest extends TestCase {
 
 	public void testDefaults() throws Exception {
 

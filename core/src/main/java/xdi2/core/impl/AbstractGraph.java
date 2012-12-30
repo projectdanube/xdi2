@@ -13,6 +13,7 @@ import xdi2.core.GraphFactory;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
@@ -146,6 +147,8 @@ public abstract class AbstractGraph implements Graph {
 		if (mimeType == null) throw new NullPointerException();
 
 		XDIWriter writer = XDIWriterRegistry.forMimeType(mimeType);
+		if (writer == null) throw new Xdi2RuntimeException("Unknown MIME type for XDI serialization: " + mimeType);
+
 		StringWriter buffer = new StringWriter();
 
 		try {
@@ -187,7 +190,7 @@ public abstract class AbstractGraph implements Graph {
 
 			return literal.getStatement();
 		}
-		
+
 		return null;
 	}
 
