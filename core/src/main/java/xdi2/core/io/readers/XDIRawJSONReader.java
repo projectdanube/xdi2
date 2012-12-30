@@ -3,12 +3,8 @@ package xdi2.core.io.readers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Properties;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
@@ -22,6 +18,11 @@ import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3SubSegment;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 
 public class XDIRawJSONReader extends AbstractXDIReader {
 
@@ -48,10 +49,10 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	private static void readJSONObject(ContextNode contextNode, JSONObject jsonObject) throws JSONException {
 
-		for (Iterator<?> keys = jsonObject.keys(); keys.hasNext(); ) {
+		for (Entry<String, Object> entry : jsonObject.entrySet()) {
 
-			String key = (String) keys.next();
-			Object value = jsonObject.get(key);
+			String key = entry.getKey();
+			Object value = entry.getValue();
 
 			if (value instanceof JSONObject) {
 
@@ -77,9 +78,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	private static void readJSONArray(ContextNode contextNode, JSONArray jsonArray) throws JSONException {
 
-		for (int i=0; i<jsonArray.length(); i++) {
-
-			Object value = jsonArray.get(i);
+		for (Object value : jsonArray) {
 
 			if (value instanceof JSONObject) {
 
@@ -118,9 +117,9 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (value.equals(Boolean.TRUE)) DataTypes.setLiteralDataType(literal, XRI_DATATYPE_JSON_TRUE);
 			if (value.equals(Boolean.FALSE)) DataTypes.setLiteralDataType(literal, XRI_DATATYPE_JSON_FALSE);
-		} else if (value.equals(JSONObject.NULL)) {
+		} else if (value == null) {
 
-			Literal literal = contextNode.createLiteral(value.toString());
+			Literal literal = contextNode.createLiteral("null");
 			DataTypes.setLiteralDataType(literal, XRI_DATATYPE_JSON_NULL);
 		}
 	}
@@ -140,7 +139,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 			graphString.append(line + "\n");
 		}
 
-		this.read(graph, new JSONObject(graphString.toString()));
+		this.read(graph, JSON.parseObject(graphString.toString()));
 	}
 
 	@Override

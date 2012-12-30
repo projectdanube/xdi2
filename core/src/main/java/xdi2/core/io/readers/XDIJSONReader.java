@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +26,11 @@ import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.xri3.impl.parser.ParserException;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 
 public class XDIJSONReader extends AbstractXDIReader {
 
@@ -51,10 +54,12 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	public void read(Graph graph, JSONObject graphObject, State state) throws IOException, Xdi2ParseException, JSONException {
 
-		for (Iterator<?> keys = graphObject.keys(); keys.hasNext(); ) {
+		for (Entry<String, Object> entry : graphObject.entrySet()) {
 
-			String key = (String) keys.next();
-			JSONArray value = graphObject.getJSONArray(key);
+			if (! (entry.getValue() instanceof JSONArray)) throw new Xdi2ParseException("Value for key " + entry.getKey() + " must be a JSON array");
+
+			String key = entry.getKey();
+			JSONArray value = (JSONArray) entry.getValue();
 
 			if (key.endsWith("/" + XDIConstants.XRI_S_CONTEXT.toString())) {
 
@@ -63,7 +68,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add context nodes
 
-				for (int i=0; i<value.length(); i++) {
+				for (int i=0; i<value.size(); i++) {
 
 					XDI3SubSegment arcXri = makeXDI3SubSegment(value.getString(i), state);
 
@@ -85,7 +90,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add literal
 
-				if (value.length() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
+				if (value.size() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
 
 				String literalData = value.getString(0);
 
@@ -99,7 +104,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add relations
 
-				for (int i=0; i<value.length(); i++) {
+				for (int i=0; i<value.size(); i++) {
 
 					String valueString = value.getString(i);
 
@@ -109,7 +114,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 					try {
 
-						jsonObject = new JSONObject(valueString);
+						jsonObject = JSON.parseObject(valueString);
 					} catch (JSONException ex) {
 
 					}
@@ -134,10 +139,12 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 						innerGraph.close();*/
 
-						for (Iterator<?> innerKeys = jsonObject.keys(); innerKeys.hasNext(); ) {
+						for (Entry<String, Object> innerEntry : jsonObject.entrySet()) {
 
-							String innerKey = (String) innerKeys.next();
-							JSONArray innerValue = jsonObject.getJSONArray(innerKey);
+							if (! (entry.getValue() instanceof JSONArray)) throw new Xdi2ParseException("Value for key " + entry.getKey() + " must be a JSON array");
+
+							String innerKey = (String) innerEntry.getKey();
+							JSONArray innerValue = (JSONArray) innerEntry.getValue();
 
 							JSONObject innerJSONObject = new JSONObject();
 							innerJSONObject.put(innerKey, innerValue);
@@ -181,7 +188,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 			graphString.append(line + "\n");
 		}
 
-		this.read(graph, new JSONObject(graphString.toString()), state);
+		this.read(graph, JSON.parseObject(graphString.toString()), state);
 	}
 
 	@Override

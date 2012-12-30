@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +27,10 @@ import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3XRef;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 
 public class XDIJSONWriter extends AbstractXDIWriter {
 
@@ -191,7 +193,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		if (literal != null) {
 
 			startItem(bufferedWriter, state);
-			bufferedWriter.write("\"" + xri + "/!\":[" + JSONObject.quote(literal.getLiteralData()) + "]");
+			bufferedWriter.write("\"" + xri + "/!\":[" + JSON.toJSONString(literal.getLiteralData()) + "]");
 			finishItem(bufferedWriter, state);
 		}
 	}
@@ -219,8 +221,8 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 				StringWriter stringWriter = new StringWriter();
 				this.write(graph, new BufferedWriter(stringWriter));
 
-				JSONObject json = new JSONObject(stringWriter.toString());
-				writer.write(json.toString(this.prettyIndent));
+				JSONObject json = JSON.parseObject(stringWriter.toString());
+				writer.write(JSON.toJSONString(json, this.prettyIndent > 0));
 			} catch (JSONException ex) {
 
 				throw new IOException("Problem while constructing JSON object: " + ex.getMessage(), ex);
