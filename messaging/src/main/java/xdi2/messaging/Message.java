@@ -102,7 +102,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ContextNode getContextNode() {
 
-		return this.entityMember.getContextNode();
+		return this.getEntityMember().getContextNode();
 	}
 
 	/**

@@ -76,10 +76,10 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	}
 
 	/**
-	 * Returns the underlying entity collection to which this XDI message collection is bound.
-	 * @return An entity collection that represents the XDI message collection.
+	 * Returns the underlying XDI collection to which this XDI message collection is bound.
+	 * @return An XDI collection that represents the XDI message collection.
 	 */
-	public XdiCollection getEntityCollection() {
+	public XdiCollection getCollection() {
 
 		return this.xdiCollection;
 	}
@@ -90,7 +90,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public ContextNode getContextNode() {
 
-		return this.xdiCollection.getContextNode();
+		return this.getCollection().getContextNode();
 	}
 
 	/**
