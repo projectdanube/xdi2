@@ -59,14 +59,14 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	}
 
 	/*
-	 * Multiplicity methods
+	 * Instance methods
 	 */
 
 	/**
-	 * Gets or returns a collection under a context node.
-	 * @param arcXri The "base" arc XRI of the collection, without multiplicity syntax.
+	 * Gets or returns an XDI collection under a context node.
+	 * @param arcXri The "base" arc XRI of the XDI collection, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The collection.
+	 * @return The XDI collection.
 	 */
 	public XdiCollection getCollection(XDI3SubSegment arcXri, boolean create) {
 
@@ -78,10 +78,10 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	}
 
 	/**
-	 * Gets or returns an attribute singleton under a context node.
-	 * @param arcXri The "base" arc XRI of the attribute singleton, without multiplicity syntax.
+	 * Gets or returns an XDI attribute singleton under a context node.
+	 * @param arcXri The "base" arc XRI of the XDI attribute singleton, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The attribute singleton.
+	 * @return The XDI attribute singleton.
 	 */
 	public XdiAttributeSingleton getAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
 
@@ -93,10 +93,10 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	}
 
 	/**
-	 * Gets or returns an entity singleton under a context node.
-	 * @param arcXri The "base" arc XRI of the entity singleton, without multiplicity syntax.
+	 * Gets or returns an XDI entity singleton under a context node.
+	 * @param arcXri The "base" arc XRI of the XDI entity singleton, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The entity singleton.
+	 * @return The XDI entity singleton.
 	 */
 	public XdiEntitySingleton getEntitySingleton(XDI3SubSegment arcXri, boolean create) {
 
