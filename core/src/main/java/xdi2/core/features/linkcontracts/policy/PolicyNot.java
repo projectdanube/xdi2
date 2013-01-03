@@ -2,13 +2,15 @@ package xdi2.core.features.linkcontracts.policy;
 
 import java.util.Iterator;
 
-import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
+import xdi2.core.features.multiplicity.XdiEntityMember;
+import xdi2.core.features.multiplicity.XdiEntitySingleton;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 
 /**
- * An XDI $not policy, represented as a context node.
+ * An XDI $not policy, represented as an XDI subgraph.
  * 
  * @author markus
  */
@@ -16,9 +18,9 @@ public class PolicyNot extends Policy {
 
 	private static final long serialVersionUID = 5732150467865911411L;
 
-	protected PolicyNot(ContextNode contextNode) {
+	protected PolicyNot(XdiSubGraph xdiSubGraph) {
 
-		super(contextNode);
+		super(xdiSubGraph);
 	}
 
 	/*
@@ -26,27 +28,30 @@ public class PolicyNot extends Policy {
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI $not policy.
-	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI $not policy.
+	 * Checks if an XDI subgraph is a valid XDI $not policy.
+	 * @param xdiSubGraph The XDI subgraph to check.
+	 * @return True if the XDI subgraph is a valid XDI $not policy.
 	 */
-	public static boolean isValid(ContextNode contextNode) {
+	public static boolean isValid(XdiSubGraph xdiSubGraph) {
 
-		if (! XDILinkContractConstants.XRI_SS_NOT.equals(contextNode.getArcXri())) return false;
+		if (xdiSubGraph instanceof XdiEntitySingleton)
+			return ((XdiEntitySingleton) xdiSubGraph).getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_NOT);
+		else if (xdiSubGraph instanceof XdiEntityMember)
+			return ((XdiEntityMember) xdiSubGraph).getParentCollection().getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_NOT);
 
-		return true;
+		return false;
 	}
 
 	/**
-	 * Factory method that creates an XDI $not policy bound to a given context node.
-	 * @param contextNode The context node that is an XDI $not policy.
-	 * @return The XDI $not policy.
+	 * Factory method that creates an XDI $and policy bound to a given XDI subgraph.
+	 * @param xdiSubGraph The XDI subgraph that is an XDI root policy.
+	 * @return The XDI $and policy.
 	 */
-	public static PolicyNot fromContextNode(ContextNode contextNode) {
+	public static PolicyNot fromSubGraph(XdiSubGraph xdiSubGraph) {
 
-		if (! isValid(contextNode)) return null;
+		if (! isValid(xdiSubGraph)) return null;
 
-		return new PolicyNot(contextNode);
+		return new PolicyNot(xdiSubGraph);
 	}
 
 	/*

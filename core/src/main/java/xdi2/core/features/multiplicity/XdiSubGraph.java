@@ -63,6 +63,15 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 */
 
 	/**
+	 * @param Returns the "base" arc XRI of this XDI subgraph, without multiplicity syntax.
+	 * @return The "base" arc XRI.
+	 */
+	public XDI3SubSegment getBaseArcXri() {
+		
+		return Multiplicity.baseArcXri(this.getContextNode().getArcXri());
+	}
+	
+	/**
 	 * Gets or returns an XDI collection under a context node.
 	 * @param arcXri The "base" arc XRI of the XDI collection, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.

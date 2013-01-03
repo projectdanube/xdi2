@@ -13,9 +13,15 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
+import xdi2.core.features.multiplicity.XdiCollection;
+import xdi2.core.features.multiplicity.XdiEntityMember;
+import xdi2.core.features.multiplicity.XdiEntitySingleton;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.util.iterators.SingleItemIterator;
 
 /**
  * An XDI policy, represented as a context node.
@@ -28,13 +34,13 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	private static final Logger log = LoggerFactory.getLogger(Policy.class);
 
-	private ContextNode contextNode;
+	private XdiSubGraph xdiSubGraph;
 
-	protected Policy(ContextNode contextNode) {
+	protected Policy(XdiSubGraph xdiSubGraph) {
 
-		if (contextNode == null) throw new NullPointerException();
+		if (xdiSubGraph == null) throw new NullPointerException();
 
-		this.contextNode = contextNode;
+		this.xdiSubGraph = xdiSubGraph;
 	}
 
 	/**
@@ -42,7 +48,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 * @param contextNode The context node to check.
 	 * @return True if the context node is a valid XDI policy.
 	 */
-	public static boolean isValid(ContextNode contextNode) {
+	public static boolean isValid(XdiSubGraph contextNode) {
 
 		return
 				PolicyRoot.isValid(contextNode) ||
@@ -52,16 +58,16 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	}
 
 	/**
-	 * Factory method that creates an XDI policy bound to a given context node.
-	 * @param contextNode The context node that is an XDI policy.
+	 * Factory method that creates an XDI policy bound to a given XDI subgraph.
+	 * @param xdiSubGraph The XDI subgraph that is an XDI policy.
 	 * @return The XDI policy.
 	 */
-	public static Policy fromContextNode(ContextNode contextNode) {
+	public static Policy fromSubGraph(XdiSubGraph xdiSubGraph) {
 
-		if (PolicyRoot.isValid(contextNode)) return PolicyRoot.fromLinkContractAndContextNode(null, contextNode);
-		if (PolicyAnd.isValid(contextNode)) return PolicyAnd.fromContextNode(contextNode);
-		if (PolicyOr.isValid(contextNode)) return PolicyOr.fromContextNode(contextNode);
-		if (PolicyNot.isValid(contextNode)) return PolicyNot.fromContextNode(contextNode);
+		if (PolicyRoot.isValid(xdiSubGraph)) return PolicyRoot.fromLinkContractAndSubGraph(null, xdiSubGraph);
+		if (PolicyAnd.isValid(xdiSubGraph)) return PolicyAnd.fromSubGraph(xdiSubGraph);
+		if (PolicyOr.isValid(xdiSubGraph)) return PolicyOr.fromSubGraph(xdiSubGraph);
+		if (PolicyNot.isValid(xdiSubGraph)) return PolicyNot.fromSubGraph(xdiSubGraph);
 
 		return null;
 	}
@@ -75,7 +81,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		if (policy == null) return null;
 
-		return fromContextNode(policy.getContextNode());
+		return fromSubGraph(policy.getSubGraph());
 	}
 
 	/*
@@ -83,26 +89,45 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 
 	/**
+	 * Returns the underlying XDI subgraph to which this XDI policy is bound.
+	 * @return An XDI subgraph that represents the XDI policy.
+	 */
+	public XdiSubGraph getSubGraph() {
+
+		return this.xdiSubGraph;
+	}
+
+	/**
 	 * Returns the underlying context node to which this XDI policy is bound.
 	 * @return A context node that represents the XDI policy.
 	 */
 	public ContextNode getContextNode() {
 
-		return this.contextNode;
+		return this.getSubGraph().getContextNode();
 	}
 
 	/**
 	 * Returns an XDI $and policy underneath this XDI policy.
-	 * @param create Whether to create an XDI $and policy if it does not exist.
 	 * @return An XDI $and policy.
 	 */
-	public PolicyAnd getPolicyAnd(boolean create) {
+	public Iterator<PolicyAnd> getPolicyAnd() {
 
-		ContextNode contextNode = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_AND);
-		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDILinkContractConstants.XRI_SS_AND);
-		if (contextNode == null) return null;
+		List<Iterator<PolicyAnd>> iterators = new ArrayList<Iterator<PolicyAnd>> ();
 
-		return PolicyAnd.fromContextNode(contextNode);
+		XdiEntitySingleton policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_AND, false);
+		if (policyAndEntitySingleton != null) iterators.add(new SingleItemIterator<PolicyAnd> (PolicyAnd.fromSubGraph(policyAndEntitySingleton)));
+
+		XdiCollection policyAndCollection = this.getSubGraph().getCollection(XDILinkContractConstants.XRI_SS_AND, false);
+		if (policyAndCollection != null) iterators.add(new MappingIterator<XdiEntityMember, PolicyAnd> (policyAndCollection.entities()) {
+
+			@Override
+			public PolicyAnd map(XdiEntityMember item) {
+
+				return PolicyAnd.fromSubGraph(item);
+			}
+		});
+
+		return new CompositeIterator<PolicyAnd> (iterators.iterator());
 	}
 
 	/**
@@ -112,7 +137,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyOr getPolicyOr(boolean create) {
 
-		ContextNode contextNode = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_OR);
+		XdiSubGraph contextNode = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_OR);
 		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDILinkContractConstants.XRI_SS_OR);
 		if (contextNode == null) return null;
 
@@ -126,7 +151,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyNot getPolicyNot(boolean create) {
 
-		ContextNode contextNode = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_NOT);
+		XdiSubGraph contextNode = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_NOT);
 		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDILinkContractConstants.XRI_SS_NOT);
 		if (contextNode == null) return null;
 

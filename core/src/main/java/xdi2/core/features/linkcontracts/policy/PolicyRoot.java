@@ -2,14 +2,16 @@ package xdi2.core.features.linkcontracts.policy;
 
 import java.util.Iterator;
 
-import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
+import xdi2.core.features.multiplicity.XdiEntityMember;
+import xdi2.core.features.multiplicity.XdiEntitySingleton;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 
 /**
- * An XDI root policy, represented as a context node.
+ * An XDI root policy, represented as an XDI subgraph.
  * 
  * @author markus
  */
@@ -19,9 +21,9 @@ public final class PolicyRoot extends Policy {
 
 	private LinkContract linkContract;
 
-	protected PolicyRoot(LinkContract linkContract, ContextNode contextNode) {
+	protected PolicyRoot(LinkContract linkContract, XdiSubGraph xdiSubGraph) {
 
-		super(contextNode);
+		super(xdiSubGraph);
 
 		if (linkContract == null) throw new NullPointerException();
 
@@ -33,29 +35,31 @@ public final class PolicyRoot extends Policy {
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI root policy.
-	 * 
-	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI root policy.
+	 * Checks if an XDI subgraph is a valid XDI root policy.
+	 * @param xdiSubGraph The XDI subgraph to check.
+	 * @return True if the XDI subgraph is a valid XDI root policy.
 	 */
-	public static boolean isValid(ContextNode contextNode) {
+	public static boolean isValid(XdiSubGraph xdiSubGraph) {
 
-		if (! XDILinkContractConstants.XRI_SS_IF.equals(contextNode.getArcXri())) return false;
+		if (xdiSubGraph instanceof XdiEntitySingleton)
+			return ((XdiEntitySingleton) xdiSubGraph).getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_IF);
+		else if (xdiSubGraph instanceof XdiEntityMember)
+			return ((XdiEntityMember) xdiSubGraph).getParentCollection().getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_IF);
 
-		return true;
+		return false;
 	}
 
 	/**
-	 * Factory method that creates an XDI root policy bound to a given context node.
+	 * Factory method that creates an XDI root policy bound to a given XDI subgraph.
 	 * @param linkContract The XDI link contract to which this XDI policy root belongs.
-	 * @param contextNode The context node that is an XDI root policy.
+	 * @param xdiSubGraph The XDI subgraph that is an XDI root policy.
 	 * @return The XDI root policy.
 	 */
-	public static PolicyRoot fromLinkContractAndContextNode(LinkContract linkContract, ContextNode contextNode) {
+	public static PolicyRoot fromLinkContractAndSubGraph(LinkContract linkContract, XdiSubGraph xdiSubGraph) {
 
-		if (!isValid(contextNode)) return null;
+		if (! isValid(xdiSubGraph)) return null;
 
-		return new PolicyRoot(linkContract, contextNode);
+		return new PolicyRoot(linkContract, xdiSubGraph);
 	}
 
 	/*
