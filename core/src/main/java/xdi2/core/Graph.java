@@ -1,5 +1,6 @@
 package xdi2.core;
 
+import java.io.Closeable;
 import java.io.Serializable;
 import java.util.Properties;
 
@@ -15,7 +16,7 @@ import xdi2.core.xri3.impl.XDI3Statement;
  * 
  * @author markus
  */
-public interface Graph extends Serializable, Comparable<Graph> {
+public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 
 	/*
 	 * General methods
