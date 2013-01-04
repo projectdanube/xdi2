@@ -13,8 +13,9 @@ import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
+import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
@@ -162,22 +163,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode().getAllContextNodes();
 
-		return new SelectingMappingIterator<ContextNode, MessageCollection> (contextNodes) {
-
-			@Override
-			public boolean select(ContextNode contextNode) {
-
-				return XdiCollection.isValid(contextNode) && MessageCollection.isValid(XdiCollection.fromContextNode(contextNode));
-			}
-
-			@Override
-			public MessageCollection map(ContextNode contextNode) {
-
-				XdiCollection xdiCollection = XdiCollection.fromContextNode(contextNode);
-
-				return MessageCollection.fromMessageEnvelopeAndXdiCollection(MessageEnvelope.this, xdiCollection);
-			}
-		};
+		return new MappingContextNodeMessageCollectionIterator(this, contextNodes);
 	}
 
 	/**
@@ -318,5 +304,26 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (other == this || other == null) return 0;
 
 		return this.getGraph().compareTo(other.getGraph());
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingContextNodeMessageCollectionIterator extends NotNullIterator<MessageCollection> {
+
+		public MappingContextNodeMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<ContextNode> iterator) {
+
+			super(new MappingIterator<ContextNode, MessageCollection> (iterator) {
+
+				@Override
+				public MessageCollection map(ContextNode contextNode) {
+
+					XdiCollection xdiCollection = XdiCollection.fromContextNode(contextNode);
+
+					return MessageCollection.fromMessageEnvelopeAndXdiCollection(messageEnvelope, xdiCollection);
+				}
+			});
+		}
 	}
 }

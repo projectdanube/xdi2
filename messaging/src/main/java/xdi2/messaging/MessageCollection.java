@@ -10,8 +10,9 @@ import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
+import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
@@ -132,22 +133,9 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		// get all context nodes that are valid XDI messages
 
-		Iterator<XdiEntityMember> messages = this.xdiCollection.entities();
+		Iterator<XdiEntityMember> messages = this.getCollection().entities();
 
-		return new SelectingMappingIterator<XdiEntityMember, Message> (messages) {
-
-			@Override
-			public boolean select(XdiEntityMember xdiEntityMember) {
-
-				return Message.isValid(xdiEntityMember);
-			}
-
-			@Override
-			public Message map(XdiEntityMember xdiEntityMember) {
-
-				return Message.fromMessageCollectionAndEntityMember(MessageCollection.this, xdiEntityMember);
-			}
-		};
+		return new MappingEntityMemberMessageIterator(this, messages);
 	}
 
 	/**
@@ -230,5 +218,24 @@ public final class MessageCollection implements Serializable, Comparable<Message
 		if (other == this || other == null) return(0);
 
 		return this.getContextNode().compareTo(other.getContextNode());
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingEntityMemberMessageIterator extends NotNullIterator<Message> {
+
+		public MappingEntityMemberMessageIterator(final MessageCollection messageCollection, Iterator<XdiEntityMember> iterator) {
+
+			super(new MappingIterator<XdiEntityMember, Message> (iterator) {
+
+				@Override
+				public Message map(XdiEntityMember xdiEntityMember) {
+
+					return Message.fromMessageCollectionAndEntityMember(messageCollection, xdiEntityMember);
+				}
+			});
+		}
 	}
 }
