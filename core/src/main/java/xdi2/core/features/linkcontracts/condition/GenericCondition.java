@@ -65,7 +65,7 @@ public class GenericCondition extends Condition {
 			XDI3Segment arcXri = this.getStatement().getArcXri();
 			XDI3Segment targetContextNodeXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getTargetContextNodeXri());
 
-			return subject.containsRelation(arcXri, targetContextNodeXri);
+			return subject != null && subject.containsRelation(arcXri, targetContextNodeXri);
 		}
 
 		if (this.getStatement().isLiteralStatement()) {
@@ -73,7 +73,7 @@ public class GenericCondition extends Condition {
 			ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
 			String literalData = this.getStatement().getLiteralData();
 
-			return subject.containsLiteral(literalData);
+			return subject != null && subject.containsLiteral(literalData);
 		}
 
 		return false;

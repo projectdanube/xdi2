@@ -6,6 +6,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
 
@@ -51,11 +52,9 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 	public static LinkContract fromContextNode(ContextNode contextNode) {
 
-		if (!isValid(contextNode))
-			return null;
+		if (! isValid(contextNode)) return null;
 
-		LinkContract lc = new LinkContract(contextNode);
-		return lc;
+		return new LinkContract(contextNode);
 	}
 
 	/*
@@ -82,7 +81,9 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDILinkContractConstants.XRI_SS_IF);
 		if (contextNode == null) return null;
 
-		return PolicyRoot.fromLinkContractAndContextNode(this, contextNode);
+		XdiSubGraph xdiSubGraph = XdiSubGraph.fromContextNode(contextNode);
+
+		return PolicyRoot.fromLinkContractAndSubGraph(this, xdiSubGraph);
 	}
 
 	/**
