@@ -64,15 +64,15 @@ public class PolicyNot extends Policy {
 		for (Iterator<Policy> policies = this.getPolicies(); policies.hasNext(); ) {
 
 			Policy policy = policies.next();
-			if (true == policy.evaluate(policyEvaluationContext)) return false;
+			if (false == policy.evaluate(policyEvaluationContext)) return true;
 		}
 
 		for (Iterator<PolicyStatement> policyStatements = this.getPolicyStatements(); policyStatements.hasNext(); ) {
 
 			PolicyStatement policyStatement = policyStatements.next();
-			if (true == policyStatement.evaluate(policyEvaluationContext)) return false;
+			if (false == policyStatement.evaluate(policyEvaluationContext)) return true;
 		}
 
-		return true;
+		return false;
 	}
 }

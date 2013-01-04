@@ -108,39 +108,34 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	}
 
 	/**
-	 * Returns an XDI $and policy underneath this XDI policy.
-	 * @return An XDI $and policy.
+	 * Creates an XDI $and policy.
 	 */
-	/*	public Iterator<PolicyAnd> getPolicyAnd() {
-	}*/
+	public PolicyAnd createAndPolicy() {
+
+		XdiEntitySingleton policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_AND, true);
+
+		return PolicyAnd.fromSubGraph(policyAndEntitySingleton);
+	}
 
 	/**
-	 * Returns an XDI $or policy underneath this XDI policy.
-	 * @param create Whether to create an XDI $or policy if it does not exist.
-	 * @return An XDI $or policy.
+	 * Creates an XDI $or policy.
 	 */
-	/*public PolicyOr getPolicyOr(boolean create) {
+	public PolicyOr createOrPolicy() {
 
-		XdiSubGraph contextNode = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_OR);
-		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDILinkContractConstants.XRI_SS_OR);
-		if (contextNode == null) return null;
+		XdiEntitySingleton policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_OR, true);
 
-		return PolicyOr.fromContextNode(contextNode);
-	}*/
+		return PolicyOr.fromSubGraph(policyOrEntitySingleton);
+	}
 
 	/**
-	 * Returns an XDI $not policy underneath this XDI policy.
-	 * @param create Whether to create an XDI $not policy if it does not exist.
-	 * @return An XDI $not policy.
+	 * Creates an XDI $not policy.
 	 */
-	/*public PolicyNot getPolicyNot(boolean create) {
+	public PolicyNot createNotPolicy() {
 
-		XdiSubGraph contextNode = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_NOT);
-		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDILinkContractConstants.XRI_SS_NOT);
-		if (contextNode == null) return null;
+		XdiEntitySingleton policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_NOT, true);
 
-		return PolicyNot.fromContextNode(contextNode);
-	}*/
+		return PolicyNot.fromSubGraph(policyNotEntitySingleton);
+	}
 
 	/**
 	 * Returns the XDI policies underneath this XDI policy.
@@ -156,7 +151,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		XdiEntitySingleton policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_NOT, false);
 
 		log.debug("" + policyAndEntitySingleton + policyOrEntitySingleton + policyNotEntitySingleton);
-		
+
 		if (policyAndEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyAnd.fromSubGraph(policyAndEntitySingleton)));
 		if (policyOrEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyOr.fromSubGraph(policyOrEntitySingleton)));
 		if (policyNotEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyNot.fromSubGraph(policyNotEntitySingleton)));
