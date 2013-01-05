@@ -1,4 +1,10 @@
-=!2222$($msg)$(!1)/$is()/(=!1111)
-=!2222$($msg)$(!1)/$do/$do
-=!2222$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+domain)/!/(data:,cloudos))
-=!2222$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,notification))
+(=!1111)/$is/()
+()/$is/(=!1111)
+=!1111/+friend/=!2222
+$do$if$and$($or)$(!1)/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,notification))
+$do$if$and$($or)$(!1)/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,subscription))
+$do$if$and$($or)$(!1)/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,deletion))
+$do$if$and$($or)$(!2)/$true/(=!1111/+friend/($from))
+$do$if$and$($or)$(!2)/$true/(=!1111/$is/($from))
+$do$if$and/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+domain)/!/(data:,cloudos))
+$do/$do$send/=!1111$(+channel)$(!23)$(+event)
