@@ -226,9 +226,9 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 	public static class MappingEntityMemberMessageIterator extends NotNullIterator<Message> {
 
-		public MappingEntityMemberMessageIterator(final MessageCollection messageCollection, Iterator<XdiEntityMember> iterator) {
+		public MappingEntityMemberMessageIterator(final MessageCollection messageCollection, Iterator<XdiEntityMember> xdiEntityMembers) {
 
-			super(new MappingIterator<XdiEntityMember, Message> (iterator) {
+			super(new MappingIterator<XdiEntityMember, Message> (xdiEntityMembers) {
 
 				@Override
 				public Message map(XdiEntityMember xdiEntityMember) {

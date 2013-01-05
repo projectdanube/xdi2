@@ -1,7 +1,11 @@
 package xdi2.core.features.multiplicity;
 
+import java.util.Iterator;
 import java.util.UUID;
 
+import xdi2.core.ContextNode;
+import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.parser.ParserException;
@@ -166,5 +170,84 @@ public class Multiplicity {
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getNode().getFirstSubSegment().getLCS())) return false;
 
 		return true;
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingContextNodeCollectionIterator extends NotNullIterator<XdiCollection> {
+
+		public MappingContextNodeCollectionIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiCollection> (contextNodes) {
+
+				@Override
+				public XdiCollection map(ContextNode contextNode) {
+
+					return XdiCollection.fromContextNode(contextNode);
+				}
+			});
+		}
+	}
+
+	public static class MappingContextNodeEntitySingletonIterator extends NotNullIterator<XdiEntitySingleton> {
+
+		public MappingContextNodeEntitySingletonIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiEntitySingleton> (contextNodes) {
+
+				@Override
+				public XdiEntitySingleton map(ContextNode contextNode) {
+
+					return XdiEntitySingleton.fromContextNode(contextNode);
+				}
+			});
+		}
+	}
+
+	public static class MappingContextNodeAttributeSingletonIterator extends NotNullIterator<XdiAttributeSingleton> {
+
+		public MappingContextNodeAttributeSingletonIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiAttributeSingleton> (contextNodes) {
+
+				@Override
+				public XdiAttributeSingleton map(ContextNode contextNode) {
+
+					return XdiAttributeSingleton.fromContextNode(contextNode);
+				}
+			});
+		}
+	}
+
+	public static class MappingContextNodeEntityMemberIterator extends NotNullIterator<XdiEntityMember> {
+
+		public MappingContextNodeEntityMemberIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiEntityMember> (contextNodes) {
+
+				@Override
+				public XdiEntityMember map(ContextNode contextNode) {
+
+					return XdiEntityMember.fromContextNode(contextNode);
+				}
+			});
+		}
+	}
+
+	public static class MappingContextNodeAttributeMemberIterator extends NotNullIterator<XdiAttributeMember> {
+
+		public MappingContextNodeAttributeMemberIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiAttributeMember> (contextNodes) {
+
+				@Override
+				public XdiAttributeMember map(ContextNode contextNode) {
+
+					return XdiAttributeMember.fromContextNode(contextNode);
+				}
+			});
+		}
 	}
 }

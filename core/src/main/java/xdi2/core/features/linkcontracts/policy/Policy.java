@@ -273,9 +273,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingEntityMemberPolicyOrIterator extends NotNullIterator<PolicyOr> {
 
-		public MappingEntityMemberPolicyOrIterator(Iterator<XdiEntityMember> iterator) {
+		public MappingEntityMemberPolicyOrIterator(Iterator<XdiEntityMember> relations) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyOr> (iterator) {
+			super(new MappingIterator<XdiEntityMember, PolicyOr> (relations) {
 
 				@Override
 				public PolicyOr map(XdiEntityMember xdiEntityMember) {
@@ -288,9 +288,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingEntityMemberPolicyNotIterator extends NotNullIterator<PolicyNot> {
 
-		public MappingEntityMemberPolicyNotIterator(Iterator<XdiEntityMember> iterator) {
+		public MappingEntityMemberPolicyNotIterator(Iterator<XdiEntityMember> relations) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyNot> (iterator) {
+			super(new MappingIterator<XdiEntityMember, PolicyNot> (relations) {
 
 				@Override
 				public PolicyNot map(XdiEntityMember xdiEntityMember) {
@@ -303,9 +303,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingRelationPolicyStatementIterator extends NotNullIterator<PolicyStatement> {
 
-		public MappingRelationPolicyStatementIterator(Iterator<Relation> iterator) {
+		public MappingRelationPolicyStatementIterator(Iterator<Relation> relations) {
 
-			super(new MappingIterator<Relation, PolicyStatement> (iterator) {
+			super(new MappingIterator<Relation, PolicyStatement> (relations) {
 
 				@Override
 				public PolicyStatement map(Relation relation) {

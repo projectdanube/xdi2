@@ -7,6 +7,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.features.multiplicity.Multiplicity.MappingContextNodeCollectionIterator;
 import xdi2.core.features.multiplicity.XdiCollection;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -163,7 +164,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode().getAllContextNodes();
 
-		return new MappingContextNodeMessageCollectionIterator(this, contextNodes);
+		return new MappingCollectionMessageCollectionIterator(this, new MappingContextNodeCollectionIterator(contextNodes));
 	}
 
 	/**
@@ -310,16 +311,14 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeMessageCollectionIterator extends NotNullIterator<MessageCollection> {
+	public static class MappingCollectionMessageCollectionIterator extends NotNullIterator<MessageCollection> {
 
-		public MappingContextNodeMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<ContextNode> iterator) {
+		public MappingCollectionMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<XdiCollection> xdiCollections) {
 
-			super(new MappingIterator<ContextNode, MessageCollection> (iterator) {
+			super(new MappingIterator<XdiCollection, MessageCollection> (xdiCollections) {
 
 				@Override
-				public MessageCollection map(ContextNode contextNode) {
-
-					XdiCollection xdiCollection = XdiCollection.fromContextNode(contextNode);
+				public MessageCollection map(XdiCollection xdiCollection) {
 
 					return MessageCollection.fromMessageEnvelopeAndXdiCollection(messageEnvelope, xdiCollection);
 				}

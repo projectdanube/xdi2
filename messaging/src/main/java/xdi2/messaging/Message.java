@@ -506,9 +506,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationOperationIterator extends NotNullIterator<Operation> {
 
-		public MappingRelationOperationIterator(final Message message, Iterator<Relation> iterator) {
+		public MappingRelationOperationIterator(final Message message, Iterator<Relation> relations) {
 
-			super(new MappingIterator<Relation, Operation> (iterator) {
+			super(new MappingIterator<Relation, Operation> (relations) {
 
 				@Override
 				public Operation map(Relation relation) {
@@ -521,9 +521,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationGetOperationIterator extends NotNullIterator<GetOperation> {
 
-		public MappingRelationGetOperationIterator(final Message message, Iterator<Relation> iterator) {
+		public MappingRelationGetOperationIterator(final Message message, Iterator<Relation> relations) {
 
-			super(new MappingIterator<Relation, GetOperation> (iterator) {
+			super(new MappingIterator<Relation, GetOperation> (relations) {
 
 				@Override
 				public GetOperation map(Relation relation) {
@@ -536,9 +536,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationAddOperationIterator extends NotNullIterator<AddOperation> {
 
-		public MappingRelationAddOperationIterator(final Message message, Iterator<Relation> iterator) {
+		public MappingRelationAddOperationIterator(final Message message, Iterator<Relation> relations) {
 
-			super(new MappingIterator<Relation, AddOperation> (iterator) {
+			super(new MappingIterator<Relation, AddOperation> (relations) {
 
 				@Override
 				public AddOperation map(Relation relation) {
@@ -551,9 +551,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationModOperationIterator extends NotNullIterator<ModOperation> {
 
-		public MappingRelationModOperationIterator(final Message message, Iterator<Relation> iterator) {
+		public MappingRelationModOperationIterator(final Message message, Iterator<Relation> relations) {
 
-			super(new MappingIterator<Relation, ModOperation> (iterator) {
+			super(new MappingIterator<Relation, ModOperation> (relations) {
 
 				@Override
 				public ModOperation map(Relation relation) {
@@ -566,9 +566,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationDelOperationIterator extends NotNullIterator<DelOperation> {
 
-		public MappingRelationDelOperationIterator(final Message message, Iterator<Relation> iterator) {
+		public MappingRelationDelOperationIterator(final Message message, Iterator<Relation> relations) {
 
-			super(new MappingIterator<Relation, DelOperation> (iterator) {
+			super(new MappingIterator<Relation, DelOperation> (relations) {
 
 				@Override
 				public DelOperation map(Relation relation) {
@@ -581,9 +581,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationDoOperationIterator extends NotNullIterator<DoOperation> {
 
-		public MappingRelationDoOperationIterator(final Message message, Iterator<Relation> iterator) {
+		public MappingRelationDoOperationIterator(final Message message, Iterator<Relation> relations) {
 
-			super(new MappingIterator<Relation, DoOperation> (iterator) {
+			super(new MappingIterator<Relation, DoOperation> (relations) {
 
 				@Override
 				public DoOperation map(Relation relation) {
