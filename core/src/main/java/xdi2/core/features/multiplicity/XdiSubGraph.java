@@ -81,7 +81,8 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 
 		XDI3SubSegment collectionArcXri = Multiplicity.collectionArcXri(arcXri);
 		ContextNode collectionContextNode = this.getContextNode().getContextNode(collectionArcXri);
-		if (collectionContextNode == null) collectionContextNode = this.getContextNode().createContextNode(collectionArcXri);
+		if (collectionContextNode == null && create) collectionContextNode = this.getContextNode().createContextNode(collectionArcXri);
+		if (collectionContextNode == null) return null;
 
 		return new XdiCollection(collectionContextNode);
 	}
@@ -96,7 +97,8 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 
 		XDI3SubSegment attributeSingletonArcXri = Multiplicity.attributeSingletonArcXri(arcXri);
 		ContextNode attributeSingletonContextNode = this.getContextNode().getContextNode(attributeSingletonArcXri);
-		if (attributeSingletonContextNode == null) attributeSingletonContextNode = this.getContextNode().createContextNode(attributeSingletonArcXri);
+		if (attributeSingletonContextNode == null && create) attributeSingletonContextNode = this.getContextNode().createContextNode(attributeSingletonArcXri);
+		if (attributeSingletonContextNode == null) return null;
 
 		return new XdiAttributeSingleton(attributeSingletonContextNode);
 	}
@@ -111,7 +113,8 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 
 		XDI3SubSegment entitySingletonArcXri = Multiplicity.entitySingletonArcXri(arcXri);
 		ContextNode entitySingletonContextNode = this.getContextNode().getContextNode(entitySingletonArcXri);
-		if (entitySingletonContextNode == null) entitySingletonContextNode = this.getContextNode().createContextNode(entitySingletonArcXri);
+		if (entitySingletonContextNode == null && create) entitySingletonContextNode = this.getContextNode().createContextNode(entitySingletonArcXri);
+		if (entitySingletonContextNode == null) return null;
 
 		return new XdiEntitySingleton(entitySingletonContextNode);
 	}
