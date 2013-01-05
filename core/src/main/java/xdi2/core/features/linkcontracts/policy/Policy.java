@@ -23,6 +23,7 @@ import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
+import xdi2.core.xri3.impl.XDI3SubSegment;
 
 /**
  * An XDI policy, represented as a context node.
@@ -108,6 +109,20 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	}
 
 	/**
+	 * Returns the policy XRI of the XDI operation (e.g. $and, $or).
+	 * @return The policy XRI of the XDI operation.
+	 */
+	public XDI3SubSegment getPolicyXri() {
+
+		if (this.getSubGraph() instanceof XdiEntitySingleton)
+			return ((XdiEntitySingleton) this.getSubGraph()).getBaseArcXri();
+		else if (this.getSubGraph() instanceof XdiEntityMember)
+			return ((XdiEntityMember) this.getSubGraph()).getParentCollection().getBaseArcXri();
+
+		return null;
+	}
+
+	/**
 	 * Creates an XDI $and policy.
 	 */
 	public PolicyAnd createAndPolicy() {
@@ -150,8 +165,6 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		XdiEntitySingleton policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_OR, false);
 		XdiEntitySingleton policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_NOT, false);
 
-		log.debug("" + policyAndEntitySingleton + policyOrEntitySingleton + policyNotEntitySingleton);
-
 		if (policyAndEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyAnd.fromSubGraph(policyAndEntitySingleton)));
 		if (policyOrEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyOr.fromSubGraph(policyOrEntitySingleton)));
 		if (policyNotEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyNot.fromSubGraph(policyNotEntitySingleton)));
@@ -165,10 +178,6 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (policyAndCollection != null) iterators.add(new CastingIterator<PolicyAnd, Policy> (new MappingEntityMemberPolicyAndIterator(policyAndCollection.entities())));
 		if (policyOrCollection != null) iterators.add(new CastingIterator<PolicyOr, Policy> (new MappingEntityMemberPolicyOrIterator(policyOrCollection.entities())));
 		if (policyNotCollection != null) iterators.add(new CastingIterator<PolicyNot, Policy> (new MappingEntityMemberPolicyNotIterator(policyNotCollection.entities())));
-
-		if (policyAndCollection != null) log.debug("and" + policyAndCollection.entitiesSize());
-		if (policyOrCollection != null) log.debug("or" + policyOrCollection.entitiesSize());
-		if (policyNotCollection != null) log.debug("not" + policyNotCollection.entitiesSize());
 
 		return new CompositeIterator<Policy> (iterators.iterator());
 	}

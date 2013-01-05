@@ -118,8 +118,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the operation XRI of the operation (e.g. $get, $mod).
-	 * @return The operation XRI of the operation.
+	 * Returns the operation XRI of the XDI operation (e.g. $get, $mod).
+	 * @return The operation XRI of the XDI operation.
 	 */
 	public XDI3Segment getOperationXri() {
 
@@ -127,8 +127,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the operation extension XRI of the operation.
-	 * @return The operation extension XRI of the operation.
+	 * Returns the operation extension XRI of the XDI operation.
+	 * @return The operation extension XRI of the XDI operation.
 	 */
 	public XDI3Segment getOperationExtensionXri() {
 
