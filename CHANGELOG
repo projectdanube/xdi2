@@ -1,6 +1,13 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2013-01-05:
+------------------------
+
+*** support for declarative policies
+
+*** some work to support visualization of graphs
+
 2012-12-29:
 ------------------------
 
