@@ -1,7 +1,5 @@
 package xdi2.webtools.grapher;
 
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -105,17 +103,14 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		try {
 
 			Drawer drawer = null;
-			if (type.equals("stdl")) drawer = new Drawer1(true);
-			if (type.equals("std")) drawer = new Drawer1(false);
+			if (type.equals("d1")) drawer = new Drawer1();
+			if (type.equals("d2")) drawer = new Drawer2();
+			if (type.equals("d3")) drawer = new Drawer3();
 			if (drawer == null) return;
 
 			xdiReader.read(graph, new StringReader(input));
 
-			Point size = drawer.draw(null, graph, null);
-
-			BufferedImage image = new BufferedImage((int) size.getX(), (int) size.getY(), BufferedImage.TYPE_INT_ARGB);
-			Graphics2D graphics = image.createGraphics();
-			drawer.draw(graphics, graph, size);
+			BufferedImage image = drawer.draw(graph);
 
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 			imageId = UUID.randomUUID().toString();
@@ -136,10 +131,11 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		stats += Integer.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
 		stats += Integer.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
-		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + (xdiReader instanceof AutoReader ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
+		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ((xdiReader instanceof AutoReader && ((AutoReader) xdiReader).getLastSuccessfulReader() != null) ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
 
 		// display results
 
+		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", input);
 		request.setAttribute("type", type);
 		request.setAttribute("imageId", imageId);

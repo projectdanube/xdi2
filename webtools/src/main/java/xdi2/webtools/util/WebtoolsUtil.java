@@ -11,17 +11,17 @@ import xdi2.core.features.linkcontracts.policy.Policy;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
 import edu.uci.ics.jung.graph.DelegateTree;
+import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 
 public class WebtoolsUtil {
 
 	private WebtoolsUtil() { }
 
-	public static DelegateTree<Object, Statement> JUNGDelegateTreeFromGraph(Graph graph) {
+	public static DirectedGraph<Object, Statement> JUNGDirectedGraphFromGraph(Graph graph) {
 
-		DelegateTree<Object, Statement> delegateTree = new DelegateTree<Object, Statement> ();
-
-		delegateTree.setRoot(graph.getRootContextNode());
+		DirectedGraph<Object, Statement> directedGraph = new DirectedSparseMultigraph<Object, Statement> ();
 
 		for (Iterator<Statement> statements = graph.getRootContextNode().getAllStatements(); statements.hasNext(); ) {
 
@@ -29,21 +29,21 @@ public class WebtoolsUtil {
 
 			if (statement instanceof ContextNodeStatement) {
 
-				delegateTree.addChild(statement, ((ContextNodeStatement) statement).getContextNode().getContextNode(), ((ContextNodeStatement) statement).getContextNode(), EdgeType.DIRECTED);
+				directedGraph.addEdge(statement, ((ContextNodeStatement) statement).getContextNode().getContextNode(), ((ContextNodeStatement) statement).getContextNode(), EdgeType.DIRECTED);
 			}
 
 			if (statement instanceof RelationStatement) {
 
-				delegateTree.addChild(statement, ((RelationStatement) statement).getRelation().getContextNode(), ((RelationStatement) statement).getRelation().follow(), EdgeType.DIRECTED);
+				directedGraph.addEdge(statement, ((RelationStatement) statement).getRelation().getContextNode(), ((RelationStatement) statement).getRelation().follow(), EdgeType.DIRECTED);
 			}
 
 			if (statement instanceof LiteralStatement) {
 
-				delegateTree.addChild(statement, ((LiteralStatement) statement).getLiteral().getContextNode(), ((LiteralStatement) statement).getLiteral(), EdgeType.DIRECTED);
+				directedGraph.addEdge(statement, ((LiteralStatement) statement).getLiteral().getContextNode(), ((LiteralStatement) statement).getLiteral(), EdgeType.DIRECTED);
 			}
 		}
 
-		return delegateTree;
+		return directedGraph;
 	}
 
 	private static void addPolicy(DelegateTree<Object, Object> delegateTree, Policy policy) {
