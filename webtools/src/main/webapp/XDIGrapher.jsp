@@ -32,7 +32,7 @@
 
 		<select name="type">
 		<option value="d1" <%= type.equals("d1") ? "selected" : "" %>>KKLayout</option>
-		<option value="d2" <%= type.equals("d2") ? "selected" : "" %>>FRLayou2</option>
+		<option value="d2" <%= type.equals("d2") ? "selected" : "" %>>FRLayout2</option>
 		<option value="d3" <%= type.equals("d3") ? "selected" : "" %>>ISOMLayout</option>
 		</select>
 		<input type="submit" value="Draw!">
