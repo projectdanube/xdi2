@@ -43,4 +43,17 @@ public final class XdiEntityMember extends XdiEntity {
 
 		return new XdiEntityMember(contextNode);
 	}
+
+	/*
+	 * Instance methods
+	 */
+
+	/**
+	 * Gets or returns the parent XDI collection of this XDI entity member.
+	 * @return The parent XDI collection.
+	 */
+	public XdiCollection getParentCollection() {
+
+		return new XdiCollection(this.getContextNode().getContextNode());
+	}
 }

@@ -5,19 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.Statement;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.impl.XRI3Constants;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -79,7 +79,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	 */
 
 	@Override
-	public Statement targetStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof AddOperation)) return targetStatement;
 
@@ -109,13 +109,13 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		// add $is statements for all the substituted variables
 
-		for (Entry<XDI3SubSegment, XDI3SubSegment> entry : getVariables(executionContext).entrySet()) {
+		for (Entry<XDI3SubSegment, String> entry : getVariables(executionContext).entrySet()) {
 
 			XDI3Segment subject = new XDI3Segment(entry.getKey().toString());
 			XDI3Segment predicate = XDIDictionaryConstants.XRI_S_IS;
 			XDI3Segment object = new XDI3Segment(entry.getValue().toString());
 
-			Statement statement = StatementUtil.fromComponents(subject, predicate, object);
+			XDI3Statement statement = StatementUtil.fromComponents(subject, predicate, object);
 
 			messageResult.getGraph().createStatement(statement);
 		}
@@ -175,7 +175,6 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 		if (entityMember || attributeMember) {
 
 			baseSubSegment = Multiplicity.baseArcXri(subSegment);
-			if (baseSubSegment.hasXRef()) baseSubSegment = new XDI3SubSegment("" + baseSubSegment.toString().substring(1));
 		} else {
 
 			baseSubSegment = subSegment;
@@ -187,21 +186,21 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		// substitute the base subsegment (without multiplicity)
 
-		XDI3SubSegment newBaseSubSegment = getVariable(executionContext, baseSubSegment);
+		String newIdentifier = getVariable(executionContext, baseSubSegment);
 
-		if (newBaseSubSegment == null) {
+		if (newIdentifier == null) {
 
-			newBaseSubSegment = XRIUtil.randomSubSegment("" + XRI3Constants.LCS_BANG);
-			putVariable(executionContext, baseSubSegment, newBaseSubSegment);
+			newIdentifier = UUID.randomUUID().toString();
+			putVariable(executionContext, baseSubSegment, newIdentifier);
 		}
 
 		// re-apply multiplicity to the substitution
 
 		XDI3SubSegment newSubSegment;
 
-		if (entityMember) newSubSegment = Multiplicity.entityMemberArcXri(newBaseSubSegment);
-		else if (attributeMember) newSubSegment = Multiplicity.attributeMemberArcXri(newBaseSubSegment);
-		else newSubSegment = newBaseSubSegment;
+		if (entityMember) newSubSegment = Multiplicity.entityMemberArcXri(newIdentifier);
+		else if (attributeMember) newSubSegment = Multiplicity.attributeMemberArcXri(newIdentifier);
+		else newSubSegment = new XDI3SubSegment("" + XRI3Constants.LCS_BANG + newIdentifier);
 
 		// done
 
@@ -215,23 +214,23 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	private static final String EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE = VariablesInterceptor.class.getCanonicalName() + "#variablespermessageenvelope";
 
 	@SuppressWarnings("unchecked")
-	private static Map<XDI3SubSegment, XDI3SubSegment> getVariables(ExecutionContext executionContext) {
+	private static Map<XDI3SubSegment, String> getVariables(ExecutionContext executionContext) {
 
-		return (Map<XDI3SubSegment, XDI3SubSegment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE);
+		return (Map<XDI3SubSegment, String>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE);
 	}
 
-	private static XDI3SubSegment getVariable(ExecutionContext executionContext, XDI3SubSegment key) {
+	private static String getVariable(ExecutionContext executionContext, XDI3SubSegment key) {
 
 		return getVariables(executionContext).get(key);
 	}
 
-	private static void putVariable(ExecutionContext executionContext, XDI3SubSegment key, XDI3SubSegment value) {
+	private static void putVariable(ExecutionContext executionContext, XDI3SubSegment key, String value) {
 
 		getVariables(executionContext).put(key, value);
 	}
 
 	private static void resetVariables(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE, new HashMap<XDI3SubSegment, XDI3SubSegment> ());
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE, new HashMap<XDI3SubSegment, String> ());
 	}
 }

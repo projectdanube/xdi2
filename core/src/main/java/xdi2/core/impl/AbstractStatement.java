@@ -25,15 +25,9 @@ public abstract class AbstractStatement implements Statement {
 	}
 
 	@Override
-	public XDI3Statement toXdiStatement() {
+	public XDI3Statement getXdiStatement() {
 
 		return new XDI3Statement(this.toString());
-	}
-
-	@Override
-	public XDI3Segment toXriSegment() {
-
-		return new XDI3Segment("(" + this.toString() + ")");
 	}
 
 	/*
@@ -43,24 +37,12 @@ public abstract class AbstractStatement implements Statement {
 	@Override
 	public String toString() {
 
-		return this.toString(false);
-	}
-
-	@Override
-	public String toString(boolean pretty) {
-
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(this.getSubject());
-
-		if (pretty) builder.append("\t");
-		else builder.append("/");
-
+		builder.append("/");
 		builder.append(this.getPredicate());
-
-		if (pretty) builder.append("\t");
-		else builder.append("/");
-
+		builder.append("/");
 		builder.append(this.getObject());
 
 		return builder.toString();
@@ -131,7 +113,7 @@ public abstract class AbstractStatement implements Statement {
 		@Override
 		public XDI3Segment getContextNodeXri() {
 
-			return this.getSubject().equals(XDIConstants.XRI_S_CONTEXT) ? this.getObject() : new XDI3Segment("" + this.getSubject() + this.getObject());
+			return XDIConstants.XRI_S_ROOT.equals(this.getSubject()) ? this.getObject() : new XDI3Segment("" + this.getSubject() + this.getObject());
 		}
 
 		@Override

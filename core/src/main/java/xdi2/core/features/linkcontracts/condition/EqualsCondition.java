@@ -1,13 +1,11 @@
 package xdi2.core.features.linkcontracts.condition;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Relation;
-import xdi2.core.Statement;
-import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.locator.ContextNodeLocator;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 /**
  * An XDI $equals condition, represented as a statement.
@@ -18,7 +16,7 @@ public class EqualsCondition extends Condition {
 
 	private static final long serialVersionUID = 613463446651165139L;
 
-	protected EqualsCondition(Statement statement) {
+	protected EqualsCondition(XDI3Statement statement) {
 
 		super(statement);
 	}
@@ -32,13 +30,11 @@ public class EqualsCondition extends Condition {
 	 * @param relation The relation to check.
 	 * @return True if the relation is a valid XDI $equals condition.
 	 */
-	public static boolean isValid(Statement statement) {
+	public static boolean isValid(XDI3Statement statement) {
 
-		if (! (statement instanceof RelationStatement)) return false;
+		if (! statement.isRelationStatement()) return false;
 
-		Relation relation = ((RelationStatement) statement).getRelation();
-
-		if (! XDILinkContractConstants.XRI_S_EQUALS.equals(relation.getArcXri())) return false;
+		if (! XDILinkContractConstants.XRI_S_EQUALS.equals(statement.getArcXri())) return false;
 
 		return true;
 	}
@@ -48,7 +44,7 @@ public class EqualsCondition extends Condition {
 	 * @param statement The statement that is an XDI $equals condition.
 	 * @return The XDI $equals condition.
 	 */
-	public static EqualsCondition fromStatement(Statement statement) {
+	public static EqualsCondition fromStatement(XDI3Statement statement) {
 
 		if (! isValid(statement)) return null;
 
@@ -65,10 +61,10 @@ public class EqualsCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		ContextNode subject = contextNodeLocator.locateContextNode(this.getStatement().getSubject());
-		ContextNode object = contextNodeLocator.locateContextNode(this.getStatement().getObject());
+		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
+		ContextNode object = policyEvaluationContext.getContextNode(this.getStatement().getObject());
 
 		if (subject == null || object == null) return false;
 

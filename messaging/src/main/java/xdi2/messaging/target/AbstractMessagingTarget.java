@@ -8,11 +8,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -273,7 +273,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		XDI3Segment target = operation.getTarget();
 
-		Statement targetStatement = null;
+		XDI3Statement targetStatement = null;
 		XDI3Segment targetAddress = null;
 
 		try {
@@ -353,7 +353,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDI3Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// execute target interceptors (statement)
 
@@ -421,7 +421,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		return null;
 	}
 
-	public StatementHandler getStatementHandler(Statement targetStatement) throws Xdi2MessagingException {
+	public StatementHandler getStatementHandler(XDI3Statement targetStatement) throws Xdi2MessagingException {
 
 		return null;
 	}

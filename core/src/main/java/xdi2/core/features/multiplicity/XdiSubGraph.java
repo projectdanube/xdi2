@@ -59,50 +59,62 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	}
 
 	/*
-	 * Multiplicity methods
+	 * Instance methods
 	 */
 
 	/**
-	 * Gets or returns a collection under a context node.
-	 * @param arcXri The "base" arc XRI of the collection, without multiplicity syntax.
+	 * @param Returns the "base" arc XRI of this XDI subgraph, without multiplicity syntax.
+	 * @return The "base" arc XRI.
+	 */
+	public XDI3SubSegment getBaseArcXri() {
+		
+		return Multiplicity.baseArcXri(this.getContextNode().getArcXri());
+	}
+	
+	/**
+	 * Gets or returns an XDI collection under a context node.
+	 * @param arcXri The "base" arc XRI of the XDI collection, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The collection.
+	 * @return The XDI collection.
 	 */
 	public XdiCollection getCollection(XDI3SubSegment arcXri, boolean create) {
 
 		XDI3SubSegment collectionArcXri = Multiplicity.collectionArcXri(arcXri);
 		ContextNode collectionContextNode = this.getContextNode().getContextNode(collectionArcXri);
-		if (collectionContextNode == null) collectionContextNode = this.getContextNode().createContextNode(collectionArcXri);
+		if (collectionContextNode == null && create) collectionContextNode = this.getContextNode().createContextNode(collectionArcXri);
+		if (collectionContextNode == null) return null;
 
 		return new XdiCollection(collectionContextNode);
 	}
 
 	/**
-	 * Gets or returns an attribute singleton under a context node.
-	 * @param arcXri The "base" arc XRI of the attribute singleton, without multiplicity syntax.
+	 * Gets or returns an XDI attribute singleton under a context node.
+	 * @param arcXri The "base" arc XRI of the XDI attribute singleton, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The attribute singleton.
+	 * @return The XDI attribute singleton.
 	 */
 	public XdiAttributeSingleton getAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
 
 		XDI3SubSegment attributeSingletonArcXri = Multiplicity.attributeSingletonArcXri(arcXri);
 		ContextNode attributeSingletonContextNode = this.getContextNode().getContextNode(attributeSingletonArcXri);
-		if (attributeSingletonContextNode == null) attributeSingletonContextNode = this.getContextNode().createContextNode(attributeSingletonArcXri);
+		if (attributeSingletonContextNode == null && create) attributeSingletonContextNode = this.getContextNode().createContextNode(attributeSingletonArcXri);
+		if (attributeSingletonContextNode == null) return null;
 
 		return new XdiAttributeSingleton(attributeSingletonContextNode);
 	}
 
 	/**
-	 * Gets or returns an entity singleton under a context node.
-	 * @param arcXri The "base" arc XRI of the entity singleton, without multiplicity syntax.
+	 * Gets or returns an XDI entity singleton under a context node.
+	 * @param arcXri The "base" arc XRI of the XDI entity singleton, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The entity singleton.
+	 * @return The XDI entity singleton.
 	 */
 	public XdiEntitySingleton getEntitySingleton(XDI3SubSegment arcXri, boolean create) {
 
 		XDI3SubSegment entitySingletonArcXri = Multiplicity.entitySingletonArcXri(arcXri);
 		ContextNode entitySingletonContextNode = this.getContextNode().getContextNode(entitySingletonArcXri);
-		if (entitySingletonContextNode == null) entitySingletonContextNode = this.getContextNode().createContextNode(entitySingletonArcXri);
+		if (entitySingletonContextNode == null && create) entitySingletonContextNode = this.getContextNode().createContextNode(entitySingletonArcXri);
+		if (entitySingletonContextNode == null) return null;
 
 		return new XdiEntitySingleton(entitySingletonContextNode);
 	}

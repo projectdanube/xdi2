@@ -4,14 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
-import xdi2.core.Statement.LiteralStatement;
-import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2ParseException;
-import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
@@ -35,21 +31,9 @@ public final class StatementUtil {
 	 * @param object The statement's object
 	 * @return An XDI statement
 	 */
-	public static Statement fromComponents(final XDI3Segment subject, final XDI3Segment predicate, final XDI3Segment object) {
+	public static XDI3Statement fromComponents(final XDI3Segment subject, final XDI3Segment predicate, final XDI3Segment object) {
 
-		if (XDIConstants.XRI_S_CONTEXT.equals(predicate)) {
-
-			Graph graph = MemoryGraphFactory.getInstance().openGraph();
-			return graph.findContextNode(subject, true).createContextNodes(object).getStatement();
-		} else if (XDIConstants.XRI_S_LITERAL.equals(predicate) && XDIUtil.isDataXriSegment(object)) {
-
-			Graph graph = MemoryGraphFactory.getInstance().openGraph();
-			return graph.findContextNode(subject, true).createLiteral(XDIUtil.dataXriSegmentToString(object)).getStatement();
-		} else {
-
-			Graph graph = MemoryGraphFactory.getInstance().openGraph();
-			return graph.findContextNode(subject, true).createRelation(predicate, object).getStatement();
-		}
+		return new XDI3Statement("" + subject + "/" + predicate + "/" + object);
 	}
 
 	/**
@@ -58,9 +42,9 @@ public final class StatementUtil {
 	 * @param arcXri The arc XRI
 	 * @return An XDI statement
 	 */
-	public static ContextNodeStatement fromContextNodeComponents(final XDI3Segment contextNodeXri, final XDI3Segment arcXri) {
+	public static XDI3Statement fromContextNodeComponents(final XDI3Segment contextNodeXri, final XDI3Segment arcXri) {
 
-		return (ContextNodeStatement) fromComponents(contextNodeXri, XDIConstants.XRI_S_CONTEXT, arcXri);
+		return fromComponents(contextNodeXri, XDIConstants.XRI_S_CONTEXT, arcXri);
 	}
 
 	/**
@@ -69,9 +53,9 @@ public final class StatementUtil {
 	 * @param arcXri The arc XRI
 	 * @return An XDI statement
 	 */
-	public static RelationStatement fromRelationComponents(final XDI3Segment contextNodeXri, final XDI3Segment arcXri, final XDI3Segment targetContextNodeXri) {
+	public static XDI3Statement fromRelationComponents(final XDI3Segment contextNodeXri, final XDI3Segment arcXri, final XDI3Segment targetContextNodeXri) {
 
-		return (RelationStatement) fromComponents(contextNodeXri, arcXri, targetContextNodeXri);
+		return fromComponents(contextNodeXri, arcXri, targetContextNodeXri);
 	}
 
 	/**
@@ -80,19 +64,9 @@ public final class StatementUtil {
 	 * @param literalData The literal data
 	 * @return An XDI statement
 	 */
-	public static LiteralStatement fromLiteralComponents(final XDI3Segment contextNodeXri, final String literalData) {
+	public static XDI3Statement fromLiteralComponents(final XDI3Segment contextNodeXri, final String literalData) {
 
-		return (LiteralStatement) fromComponents(contextNodeXri, XDIConstants.XRI_S_LITERAL, XDIUtil.stringToDataXriSegment(literalData));
-	}
-
-	/**
-	 * Creates an XDI statement from an XDI statement in the form subject/predicate/object
-	 * @param statement The XDI statement
-	 * @return An XDI statement
-	 */
-	public static Statement fromXdiStatement(XDI3Statement statement) throws Xdi2ParseException {
-
-		return fromComponents(statement.getSubject(), statement.getPredicate(), statement.getObject());
+		return fromComponents(contextNodeXri, XDIConstants.XRI_S_LITERAL, XDIUtil.stringToDataXriSegment(literalData));
 	}
 
 	/**
@@ -100,7 +74,7 @@ public final class StatementUtil {
 	 * @param segment The XRI segment
 	 * @return An XDI statement
 	 */
-	public static Statement fromXriSegment(XDI3Segment segment) throws Xdi2ParseException {
+	public static XDI3Statement fromXriSegment(XDI3Segment segment) throws Xdi2ParseException {
 
 		XDI3SubSegment subSegment = segment.getFirstSubSegment();
 		if (subSegment == null) throw new Xdi2ParseException("No subsegment found: " + segment.toString());
@@ -111,24 +85,14 @@ public final class StatementUtil {
 		XDI3Statement statement = xref.getStatement();
 		if (statement == null) throw new Xdi2ParseException("No statement found: " + segment.toString());
 
-		return fromXdiStatement(statement);
-	}
-
-	/**
-	 * Creates an XDI statement from a string in the form subject/predicate/object
-	 * @param string The string
-	 * @return An XDI statement
-	 */
-	public static Statement fromString(String string) throws Xdi2ParseException {
-
-		return fromXdiStatement(new XDI3Statement(string));
+		return statement;
 	}
 
 	/**
 	 * Extracts a statement with a relative subject.
 	 * E.g. for =a*b*c*d and =a*b, this returns *c*d
 	 */
-	public static Statement relativeStatement(Statement statement, XDI3Segment base, boolean variablesInXri, boolean variablesInBase) {
+	public static XDI3Statement relativeStatement(XDI3Statement statement, XDI3Segment base, boolean variablesInXri, boolean variablesInBase) {
 
 		if (log.isTraceEnabled()) log.trace("relativeStatement(" + statement + "," + base + "," + variablesInXri + "," + variablesInBase + ")");
 
@@ -145,7 +109,7 @@ public final class StatementUtil {
 	 * Extracts a statement with a relative subject.
 	 * E.g. for =a*b*c*d and =a*b, this returns *c*d
 	 */
-	public static Statement relativeStatement(Statement statement, XDI3Segment base) {
+	public static XDI3Statement relativeStatement(XDI3Statement statement, XDI3Segment base) {
 
 		return relativeStatement(statement, base, false, false);
 	}

@@ -1,12 +1,16 @@
 package xdi2.core.features.linkcontracts.condition;
 
-import xdi2.core.Relation;
-import xdi2.core.Statement;
-import xdi2.core.Statement.RelationStatement;
+import java.util.Iterator;
+
+import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.locator.ContextNodeLocator;
+import xdi2.core.util.iterators.EmptyIterator;
+import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 /**
  * An XDI $is condition, represented as a statement.
@@ -17,7 +21,7 @@ public class IsCondition extends Condition {
 
 	private static final long serialVersionUID = 7506322819724395818L;
 
-	protected IsCondition(Statement statement) {
+	protected IsCondition(XDI3Statement statement) {
 
 		super(statement);
 	}
@@ -31,13 +35,11 @@ public class IsCondition extends Condition {
 	 * @param relation The relation to check.
 	 * @return True if the relation is a valid XDI $is condition.
 	 */
-	public static boolean isValid(Statement statement) {
+	public static boolean isValid(XDI3Statement statement) {
 
-		if (! (statement instanceof RelationStatement)) return false;
+		if (! statement.isRelationStatement()) return false;
 
-		Relation relation = ((RelationStatement) statement).getRelation();
-
-		if (! XDILinkContractConstants.XRI_S_IS.equals(relation.getArcXri())) return false;
+		if (! XDILinkContractConstants.XRI_S_IS.equals(statement.getArcXri())) return false;
 
 		return true;
 	}
@@ -47,7 +49,7 @@ public class IsCondition extends Condition {
 	 * @param statement The statement that is an XDI $is condition.
 	 * @return The XDI $is condition.
 	 */
-	public static IsCondition fromStatement(Statement statement) {
+	public static IsCondition fromStatement(XDI3Statement statement) {
 
 		if (! isValid(statement)) return null;
 
@@ -64,13 +66,25 @@ public class IsCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		XDI3Segment subjectXri = contextNodeLocator.getContextNodeXri(this.getStatement().getSubject());
-		XDI3Segment objectXri = contextNodeLocator.getContextNodeXri(this.getStatement().getObject());
+		// check if subject XRI and object XRI are the same
 
-		if (subjectXri == null || objectXri == null) return false;
+		XDI3Segment subjectXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getSubject());
+		XDI3Segment objectXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getObject());
 
-		return subjectXri.equals(objectXri);
+		if (subjectXri != null && subjectXri.equals(objectXri)) return true;
+
+		// check if the statement exists
+
+		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
+		ContextNode object = policyEvaluationContext.getContextNode(this.getStatement().getObject());
+
+		Iterator<ContextNode> equivalenceContextNodes = subject == null ? new EmptyIterator<ContextNode> () : Equivalence.getEquivalenceContextNodes(subject);
+		if (new IteratorContains<ContextNode> (equivalenceContextNodes, object).contains()) return true;
+
+		// done
+
+		return false;
 	}
 }

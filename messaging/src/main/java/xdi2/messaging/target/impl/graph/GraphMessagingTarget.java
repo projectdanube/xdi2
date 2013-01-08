@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Statement;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -95,7 +95,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public StatementHandler getStatementHandler(Statement statement) throws Xdi2MessagingException {
+	public StatementHandler getStatementHandler(XDI3Statement statement) throws Xdi2MessagingException {
 
 		return this.graphContextHandler;
 	}

@@ -4,15 +4,15 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.condition.Condition;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.util.GraphUtil;
-import xdi2.core.util.locator.ContextNodeLocator;
 
 /**
  * An XDI $false policy statement, represented as a relation.
  * 
  * @author markus
  */
-public class FalsePolicyStatement extends PolicyStatement {
+public class FalsePolicyStatement extends ConditionPolicyStatement {
 
 	private static final long serialVersionUID = -7397004800836677763L;
 
@@ -59,11 +59,11 @@ public class FalsePolicyStatement extends PolicyStatement {
 	 */
 
 	@Override
-	public boolean evaluateInternal(ContextNodeLocator contextNodeLocator) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		Condition condition = this.getCondition();
 		if (condition == null) throw new Xdi2RuntimeException("Missing or invalid condition in $false policy statement.");
 
-		return false == condition.evaluate(contextNodeLocator);
+		return false == condition.evaluate(policyEvaluationContext);
 	}
 }

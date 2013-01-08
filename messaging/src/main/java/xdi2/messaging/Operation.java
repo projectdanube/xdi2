@@ -3,11 +3,11 @@ package xdi2.messaging;
 import java.io.Serializable;
 
 import xdi2.core.Relation;
-import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 /**
  * An XDI messaging operation, represented as a relation.
@@ -44,7 +44,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 				GetOperation.isValid(relation) ||
 				AddOperation.isValid(relation) ||
 				ModOperation.isValid(relation) ||
-				DelOperation.isValid(relation);
+				DelOperation.isValid(relation) ||
+				DoOperation.isValid(relation);
 	}
 
 	/**
@@ -59,6 +60,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		if (AddOperation.isValid(relation)) return AddOperation.fromMessageAndRelation(message, relation);
 		if (ModOperation.isValid(relation)) return ModOperation.fromMessageAndRelation(message, relation);
 		if (DelOperation.isValid(relation)) return DelOperation.fromMessageAndRelation(message, relation);
+		if (DoOperation.isValid(relation)) return DoOperation.fromMessageAndRelation(message, relation);
 
 		return null;
 	}
@@ -116,8 +118,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the operation XRI of the operation (e.g. $get, $mod).
-	 * @return The operation XRI of the operation.
+	 * Returns the operation XRI of the XDI operation (e.g. $get, $mod).
+	 * @return The operation XRI of the XDI operation.
 	 */
 	public XDI3Segment getOperationXri() {
 
@@ -125,8 +127,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the operation extension XRI of the operation.
-	 * @return The operation extension XRI of the operation.
+	 * Returns the operation extension XRI of the XDI operation.
+	 * @return The operation extension XRI of the XDI operation.
 	 */
 	public XDI3Segment getOperationExtensionXri() {
 
@@ -146,7 +148,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the target statement of the operation.
 	 * @return The target statement of the operation.
 	 */
-	public Statement getTargetStatement() {
+	public XDI3Statement getTargetStatement() {
 
 		try {
 

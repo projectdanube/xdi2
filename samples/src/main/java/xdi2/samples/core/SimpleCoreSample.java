@@ -6,8 +6,8 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 
 public class SimpleCoreSample {
@@ -33,7 +33,7 @@ public class SimpleCoreSample {
 
 		// we can also add a whole new statement to the graph
 
-		graph.createStatement(StatementUtil.fromString("=alice/+friend/=bob"));
+		graph.createStatement(new XDI3Statement("=alice/+friend/=bob"));
 
 		// write the whole graph in different serialization formats
 

@@ -4,17 +4,17 @@ import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.StatementUtil;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 public class CopyUtilTest extends TestCase {
 
 	public void testCopyUtil() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.createStatement(StatementUtil.fromString("=markus+email/!/(data:,markus.sabadello@gmail.com)"));
-		graph.createStatement(StatementUtil.fromString("=markus/+friend/=neustar*animesh"));
-		graph.createStatement(StatementUtil.fromString("=neustar*animesh+email/!/(data:,animesh@gmail.com)"));
-		graph.createStatement(StatementUtil.fromString("=neustar*animesh/+friend/=markus"));
+		graph.createStatement(new XDI3Statement("=markus+email/!/(data:,markus.sabadello@gmail.com)"));
+		graph.createStatement(new XDI3Statement("=markus/+friend/=neustar*animesh"));
+		graph.createStatement(new XDI3Statement("=neustar*animesh+email/!/(data:,animesh@gmail.com)"));
+		graph.createStatement(new XDI3Statement("=neustar*animesh/+friend/=markus"));
 
 		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
 		CopyUtil.copyGraph(graph, graph2, null);

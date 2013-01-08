@@ -7,13 +7,13 @@ import java.util.Iterator;
  * 
  * @author markus
  */
-public final class IteratorContains {
+public final class IteratorContains<T> {
 
 	private Boolean contains;
 	private Iterator<?> iterator;
-	private Object element;
+	private T element;
 
-	public IteratorContains(Iterator<?> iterator, Object element) {
+	public IteratorContains(Iterator<T> iterator, T element) {
 
 		if (iterator == null) throw new NullPointerException();
 

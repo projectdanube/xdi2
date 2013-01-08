@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +19,6 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.Statement;
-import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
@@ -31,6 +27,10 @@ import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3XRef;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 
 public class XDIJSONWriter extends AbstractXDIWriter {
 
@@ -152,26 +152,13 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 				XDI3Segment targetContextNodeXri = relationsList.get(i).getTargetContextNodeXri();
 				XDI3XRef xref = targetContextNodeXri.getFirstSubSegment().getXRef();
 
-				Statement statement = null;
+				// if the target context node XRI is a valid statement in a cross-reference, add it to the temporary graph
 
 				if (xref != null && xref.hasStatement()) {
 
-					try {
+					if (tempGraph == null) tempGraph = MemoryGraphFactory.getInstance().openGraph();
 
-						statement = StatementUtil.fromXdiStatement(xref.getStatement());
-					} catch (Xdi2ParseException ex) {
-
-					}
-				}
-
-				// if the target context node XRI is a valid statement in a cross-reference, add it to the temporary graph
-				if (statement != null) {
-
-					if (tempGraph == null) {
-						tempGraph = MemoryGraphFactory.getInstance().openGraph();
-					}
-
-					tempGraph.createStatement(statement);
+					tempGraph.createStatement(xref.getStatement());
 				} else {
 
 					bufferedWriter.write("\"" + targetContextNodeXri + "\"");
@@ -191,6 +178,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 				if (missingTrailingComma) bufferedWriter.write(",");
 
 				// write the temporary graph recursively
+
 				this.write(tempGraph, bufferedWriter);
 			}
 
@@ -205,7 +193,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		if (literal != null) {
 
 			startItem(bufferedWriter, state);
-			bufferedWriter.write("\"" + xri + "/!\":[" + JSONObject.quote(literal.getLiteralData()) + "]");
+			bufferedWriter.write("\"" + xri + "/!\":[" + JSON.toJSONString(literal.getLiteralData()) + "]");
 			finishItem(bufferedWriter, state);
 		}
 	}
@@ -233,8 +221,8 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 				StringWriter stringWriter = new StringWriter();
 				this.write(graph, new BufferedWriter(stringWriter));
 
-				JSONObject json = new JSONObject(stringWriter.toString());
-				writer.write(json.toString(this.prettyIndent));
+				JSONObject json = JSON.parseObject(stringWriter.toString());
+				writer.write(JSON.toJSONString(json, this.prettyIndent > 0));
 			} catch (JSONException ex) {
 
 				throw new IOException("Problem while constructing JSON object: " + ex.getMessage(), ex);

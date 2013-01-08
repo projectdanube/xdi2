@@ -47,7 +47,7 @@
 	XDI Setter&nbsp;&nbsp;
 	XDI Signer&nbsp;&nbsp;
 	XDI Addresser&nbsp;&nbsp;
-	XDI Grapher
+	<a href="XDIGrapher">XDI Grapher</a>
 	</p>
 
 	<p class="subheader">Google Group</p>

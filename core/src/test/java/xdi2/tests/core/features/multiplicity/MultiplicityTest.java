@@ -36,9 +36,9 @@ public class MultiplicityTest extends TestCase {
 		assertFalse(Multiplicity.isEntitySingletonArcXri(Multiplicity.attributeSingletonArcXri(new XDI3SubSegment("+tel"))));
 		assertTrue(Multiplicity.isAttributeSingletonArcXri(Multiplicity.attributeSingletonArcXri(new XDI3SubSegment("+tel"))));
 
-		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXri(new XDI3SubSegment("!1"))));
+		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXri("1")));
 		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXriRandom()));
-		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXri(new XDI3SubSegment("!1"))));
+		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXri("1")));
 		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXriRandom()));
 
 		assertEquals(Multiplicity.baseArcXri(new XDI3SubSegment("$(+tel)")), new XDI3SubSegment("+tel"));
@@ -90,10 +90,10 @@ public class MultiplicityTest extends TestCase {
 		assertFalse(Multiplicity.isAttributeMemberArcXri(passport2ContextNode.getArcXri()));
 
 		assertEquals(passportCollection.entitiesSize(), 2);
-		assertTrue(new IteratorContains(passportCollection.entities(), XdiEntityMember.fromContextNode(passport1ContextNode)).contains());
-		assertTrue(new IteratorContains(passportCollection.entities(), XdiEntityMember.fromContextNode(passport2ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiEntityMember>(passportCollection.entities(), XdiEntityMember.fromContextNode(passport1ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiEntityMember>(passportCollection.entities(), XdiEntityMember.fromContextNode(passport2ContextNode)).contains());
 		assertEquals(telCollection.attributesSize(), 2);
-		assertTrue(new IteratorContains(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel1ContextNode)).contains());
-		assertTrue(new IteratorContains(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel2ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiAttributeMember>(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel1ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiAttributeMember>(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel2ContextNode)).contains());
 	}
 }

@@ -1,6 +1,18 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2013-01-05:
+------------------------
+
+*** support for declarative policies
+
+*** some work to support visualization of graphs
+
+2012-12-29:
+------------------------
+
+*** many API updates to support the "statement" ABNF rule
+
 2012-12-27:
 ------------------------
 

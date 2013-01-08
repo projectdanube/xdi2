@@ -11,7 +11,7 @@ public class SelectingClassIterator<I, O> extends CastingIterator<I, O> {
 
 	public SelectingClassIterator(Iterator<I> iterator, final Class<O> clazz) {
 
-		super (new SelectingIterator<I> (iterator) {
+		super(new SelectingIterator<I> (iterator) {
 
 			@Override
 			public boolean select(I item) {

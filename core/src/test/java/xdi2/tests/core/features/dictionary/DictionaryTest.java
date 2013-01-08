@@ -32,30 +32,30 @@ public class DictionaryTest extends TestCase {
 		Dictionary.addContextNodeType(contextNode, type1);
 		assertEquals(Dictionary.getContextNodeType(contextNode), type1);
 		assertEquals(new IteratorCounter(Dictionary.getContextNodeTypes(contextNode)).count(), 1);
-		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type1).contains());
+		assertTrue(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type1).contains());
 		assertTrue(Dictionary.isContextNodeType(contextNode, type1));
 
 		Dictionary.addContextNodeType(contextNode, type2);
 		assertEquals(new IteratorCounter(Dictionary.getContextNodeTypes(contextNode)).count(), 2);
-		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type1).contains());
-		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type2).contains());
+		assertTrue(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type1).contains());
+		assertTrue(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type2).contains());
 		assertTrue(Dictionary.isContextNodeType(contextNode, type1));
 		assertTrue(Dictionary.isContextNodeType(contextNode, type2));
 
 		Dictionary.addContextNodeType(contextNode, type3);
 		assertEquals(new IteratorCounter(Dictionary.getContextNodeTypes(contextNode)).count(), 3);
-		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type1).contains());
-		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type2).contains());
-		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type3).contains());
+		assertTrue(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type1).contains());
+		assertTrue(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type2).contains());
+		assertTrue(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type3).contains());
 		assertTrue(Dictionary.isContextNodeType(contextNode, type1));
 		assertTrue(Dictionary.isContextNodeType(contextNode, type2));
 		assertTrue(Dictionary.isContextNodeType(contextNode, type3));
 
 		Dictionary.removeContextNodeType(contextNode, type2);
 		assertEquals(new IteratorCounter(Dictionary.getContextNodeTypes(contextNode)).count(), 2);
-		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type1).contains());
-		assertFalse(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type2).contains());
-		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type3).contains());
+		assertTrue(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type1).contains());
+		assertFalse(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type2).contains());
+		assertTrue(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type3).contains());
 		assertTrue(Dictionary.isContextNodeType(contextNode, type1));
 		assertFalse(Dictionary.isContextNodeType(contextNode, type2));
 		assertTrue(Dictionary.isContextNodeType(contextNode, type3));
@@ -63,9 +63,9 @@ public class DictionaryTest extends TestCase {
 		Dictionary.setContextNodeType(contextNode, type3);
 		assertEquals(Dictionary.getContextNodeType(contextNode), type3);
 		assertEquals(new IteratorCounter(Dictionary.getContextNodeTypes(contextNode)).count(), 1);
-		assertFalse(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type1).contains());
-		assertFalse(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type2).contains());
-		assertTrue(new IteratorContains(Dictionary.getContextNodeTypes(contextNode), type3).contains());
+		assertFalse(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type1).contains());
+		assertFalse(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type2).contains());
+		assertTrue(new IteratorContains<XDI3Segment>(Dictionary.getContextNodeTypes(contextNode), type3).contains());
 		assertFalse(Dictionary.isContextNodeType(contextNode, type1));
 		assertFalse(Dictionary.isContextNodeType(contextNode, type2));
 		assertTrue(Dictionary.isContextNodeType(contextNode, type3));

@@ -13,21 +13,13 @@ import xdi2.core.GraphFactory;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
-import xdi2.core.Statement.ContextNodeStatement;
-import xdi2.core.Statement.LiteralStatement;
-import xdi2.core.Statement.RelationStatement;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.util.XDIUtil;
-import xdi2.core.util.iterators.IteratorContains;
-import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
-import xdi2.core.util.iterators.MappingLiteralStatementIterator;
-import xdi2.core.util.iterators.MappingRelationStatementIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 public abstract class AbstractGraph implements Graph {
 
@@ -155,6 +147,8 @@ public abstract class AbstractGraph implements Graph {
 		if (mimeType == null) throw new NullPointerException();
 
 		XDIWriter writer = XDIWriterRegistry.forMimeType(mimeType);
+		if (writer == null) throw new Xdi2RuntimeException("Unknown MIME type for XDI serialization: " + mimeType);
+
 		StringWriter buffer = new StringWriter();
 
 		try {
@@ -173,57 +167,61 @@ public abstract class AbstractGraph implements Graph {
 	 */
 
 	@Override
-	public Statement createStatement(Statement statement) {
+	public Statement createStatement(XDI3Statement statement) {
 
-		XDI3Segment subject = statement.getSubject();
-		XDI3Segment predicate = statement.getPredicate();
-		XDI3Segment object = statement.getObject();
+		ContextNode contextNode = this.findContextNode(statement.getSubject(), true);
 
-		ContextNode contextNode = this.findContextNode(subject, true);
+		if (statement.isContextNodeStatement()) {
 
-		if (statement instanceof ContextNodeStatement) {
-
-			ContextNode innerContextNode = contextNode.createContextNode(new XDI3SubSegment(object.toString()));
-			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
+			ContextNode innerContextNode = contextNode.createContextNodes(statement.getObject());
+			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created context node --> " + innerContextNode.getXri());
 
 			return innerContextNode.getStatement();
-		} else if (statement instanceof LiteralStatement) {
+		} else if (statement.isRelationStatement()) {
 
-			Literal literal = contextNode.createLiteral(XDIUtil.dataXriSegmentToString(object));
-			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
-
-			return literal.getStatement();
-		} else if (statement instanceof RelationStatement) {
-
-			Relation relation = contextNode.createRelation(predicate, object);
+			Relation relation = contextNode.createRelation(statement.getArcXri(), statement.getTargetContextNodeXri());
 			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 
 			return relation.getStatement();
-		} else {
+		} else if (statement.isLiteralStatement()) {
 
-			throw new Xdi2RuntimeException("Unknown statement type: " + statement.getClass().getCanonicalName());
+			Literal literal = contextNode.createLiteral(statement.getLiteralData());
+			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
+
+			return literal.getStatement();
 		}
+
+		return null;
 	}
 
 	@Override
-	public boolean containsStatement(Statement statement) {
+	public Statement findStatement(XDI3Statement statement) {
 
-		ContextNode contextNode = this.findContextNode(statement.getSubject(), false);
-		if (contextNode == null) return false;
+		if (statement.isContextNodeStatement()) {
 
-		if (statement instanceof ContextNodeStatement) {
+			ContextNode contextNode = this.findContextNode(statement.getSubject(), false);
+			contextNode = contextNode == null ? null : contextNode.findContextNode(statement.getObject(), false);
 
-			return new IteratorContains(new MappingContextNodeStatementIterator(contextNode.getContextNodes()), statement).contains();
-		} else if (statement instanceof LiteralStatement) {
+			return contextNode == null ? null : contextNode.getStatement();
+		} else if (statement.isRelationStatement()) {
 
-			return new IteratorContains(new MappingLiteralStatementIterator(contextNode.getLiteral()), statement).contains();
-		} else if (statement instanceof RelationStatement) {
+			Relation relation = this.findRelation(statement.getSubject(), statement.getArcXri(), statement.getTargetContextNodeXri());
 
-			return new IteratorContains(new MappingRelationStatementIterator(contextNode.getRelations()), statement).contains();
-		} else {
+			return relation == null ? null : relation.getStatement();
+		} else if (statement.isLiteralStatement()) {
 
-			throw new Xdi2RuntimeException("Unknown statement type: " + statement.getClass().getCanonicalName());
+			Literal literal = this.findLiteral(statement.getSubject(), statement.getLiteralData());
+
+			return literal == null ? null : literal.getStatement();
 		}
+
+		return null;
+	}
+
+	@Override
+	public boolean containsStatement(XDI3Statement statement) {
+
+		return this.findStatement(statement) != null;
 	}
 
 	/*

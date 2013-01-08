@@ -6,9 +6,9 @@ import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.Statement;
 import xdi2.core.util.iterators.SelectingClassIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -286,7 +286,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 		return targetAddress;
 	}
 
-	public Statement executeTargetInterceptorsStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDI3Statement executeTargetInterceptorsStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		for (Iterator<TargetInterceptor> targetInterceptors = this.findTargetInterceptors(); targetInterceptors.hasNext(); ) {
 

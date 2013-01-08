@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Statement;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContract;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.util.XRIUtil;
-import xdi2.core.util.locator.ContextNodeLocator;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
@@ -25,7 +25,6 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
-import xdi2.messaging.util.locator.MessageContextNodeLocator;
 
 /**
  * This interceptor enforces link contracts while a message is executed.
@@ -86,11 +85,11 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 		PolicyRoot policyRoot = linkContract.getPolicyRoot(false);
 		if (policyRoot == null) return false;
 
-		ContextNodeLocator contextNodeLocator = new MessageContextNodeLocator(this.getLinkContractsGraph(), message);
+		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(this.getLinkContractsGraph(), message);
 
-		if (! policyRoot.evaluate(contextNodeLocator)) {
+		if (! policyRoot.evaluate(policyEvaluationContext)) {
 
-			throw new Xdi2NotAuthorizedException("Policy violation for message " + message.toString() + " in link contract " + linkContract.toString() + ".", null, executionContext);
+			throw new Xdi2NotAuthorizedException("Link contract policy violation for message " + message.toString() + " in link contract " + linkContract.toString() + ".", null, executionContext);
 		}
 
 		// done
@@ -145,7 +144,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 	}
 
 	@Override
-	public Statement targetStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// read the referenced link contract from the execution context
 
@@ -156,7 +155,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 
 		if (! checkLinkContractAuthorization(operation, contextNodeXri, executionContext)) {
 
-			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.toString() + " on target statement: " + targetStatement.toString(), null, executionContext);
+			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target statement: " + targetStatement, null, executionContext);
 		}
 
 		// done
@@ -176,7 +175,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 
 		if (! checkLinkContractAuthorization(operation, contextNodeXri, executionContext)) {
 
-			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.toString() + " on target address: " + targetAddress.toString(), null, executionContext);
+			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target address: " + targetAddress, null, executionContext);
 		}
 
 		// done

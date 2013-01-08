@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
-import xdi2.core.Statement;
-import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.equivalence.Equivalence;
@@ -21,6 +19,7 @@ import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
@@ -154,14 +153,14 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 			if (doIncludeReferenceRelations) {
 
-				if (operationMessageResult.getGraph().containsStatement(referenceRelation.getStatement())) {
+				if (operationMessageResult.getGraph().containsStatement(referenceRelation.getStatement().getXdiStatement())) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate reference relation: " + referenceRelation);
 				} else {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Including reference relation: " + referenceRelation);
 
-					operationMessageResult.getGraph().createStatement(referenceRelation.getStatement());
+					CopyUtil.copyStatement(referenceRelation.getStatement(), operationMessageResult.getGraph(), null);
 				}
 			}
 
@@ -217,7 +216,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 	}
 
 	@Override
-	public Statement targetStatement(Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// find our graph
 
@@ -228,7 +227,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 		// are we operating on a $ref or $ref! arc?
 
-		if (targetStatement instanceof RelationStatement &&
+		if (targetStatement.isRelationStatement() &&
 				(XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getPredicate()) ||
 						XDIDictionaryConstants.XRI_S_REF_BANG.equals(targetStatement.getPredicate()))) {
 

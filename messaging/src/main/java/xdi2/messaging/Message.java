@@ -12,8 +12,9 @@ import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
+import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -102,7 +103,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ContextNode getContextNode() {
 
-		return this.entityMember.getContextNode();
+		return this.getEntityMember().getContextNode();
 	}
 
 	/**
@@ -223,7 +224,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public Operation createOperation(XDI3Segment operationXri, Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetStatement.getXdiStatement().toXriSegment());
 
 		return Operation.fromMessageAndRelation(this, relation);
 	}
@@ -247,7 +248,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public GetOperation createGetOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetStatement.getXdiStatement().toXriSegment());
 
 		return GetOperation.fromMessageAndRelation(this, relation);
 	}
@@ -271,7 +272,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public AddOperation createAddOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetStatement.getXdiStatement().toXriSegment());
 
 		return AddOperation.fromMessageAndRelation(this, relation);
 	}
@@ -295,7 +296,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ModOperation createModOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetStatement.getXdiStatement().toXriSegment());
 
 		return ModOperation.fromMessageAndRelation(this, relation);
 	}
@@ -319,9 +320,33 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public DelOperation createDelOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetStatement.toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetStatement.getXdiStatement().toXriSegment());
 
 		return DelOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $do operation and adds it to this XDI message.
+	 * @param targetXri The target XRI to which the operation applies.
+	 * @return The newly created $do operation.
+	 */
+	public DoOperation createDoOperation(XDI3Segment targetXri) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DO, targetXri);
+
+		return DoOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $do operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $do operation.
+	 */
+	public DoOperation createDoOperation(Statement targetStatement) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DO, targetStatement.getXdiStatement().toXriSegment());
+
+		return DoOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
@@ -334,20 +359,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
 
-		return new SelectingMappingIterator<Relation, Operation> (relations) {
-
-			@Override
-			public boolean select(Relation relation) {
-
-				return Operation.isValid(relation);
-			}
-
-			@Override
-			public Operation map(Relation relation) {
-
-				return Operation.fromMessageAndRelation(Message.this, relation);
-			}
-		};
+		return new MappingRelationOperationIterator(this, relations);
 	}
 
 	/**
@@ -360,20 +372,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(operationXri);
 
-		return new SelectingMappingIterator<Relation, Operation> (relations) {
-
-			@Override
-			public boolean select(Relation relation) {
-
-				return Operation.isValid(relation);
-			}
-
-			@Override
-			public Operation map(Relation relation) {
-
-				return Operation.fromMessageAndRelation(Message.this, relation);
-			}
-		};
+		return new MappingRelationOperationIterator(this, relations);
 	}
 
 	/**
@@ -386,20 +385,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_GET);
 
-		return new SelectingMappingIterator<Relation, GetOperation> (relations) {
-
-			@Override
-			public boolean select(Relation relation) {
-
-				return GetOperation.isValid(relation);
-			}
-
-			@Override
-			public GetOperation map(Relation relation) {
-
-				return GetOperation.fromMessageAndRelation(Message.this, relation);
-			}
-		};
+		return new MappingRelationGetOperationIterator(this, relations);
 	}
 
 	/**
@@ -412,20 +398,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_ADD);
 
-		return new SelectingMappingIterator<Relation, AddOperation> (relations) {
-
-			@Override
-			public boolean select(Relation relation) {
-
-				return AddOperation.isValid(relation);
-			}
-
-			@Override
-			public AddOperation map(Relation relation) {
-
-				return AddOperation.fromMessageAndRelation(Message.this, relation);
-			}
-		};
+		return new MappingRelationAddOperationIterator(this, relations);
 	}
 
 	/**
@@ -438,20 +411,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_MOD);
 
-		return new SelectingMappingIterator<Relation, ModOperation> (relations) {
-
-			@Override
-			public boolean select(Relation relation) {
-
-				return ModOperation.isValid(relation);
-			}
-
-			@Override
-			public ModOperation map(Relation relation) {
-
-				return ModOperation.fromMessageAndRelation(Message.this, relation);
-			}
-		};
+		return new MappingRelationModOperationIterator(this, relations);
 	}
 
 	/**
@@ -464,20 +424,20 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_DEL);
 
-		return new SelectingMappingIterator<Relation, DelOperation> (relations) {
+		return new MappingRelationDelOperationIterator(this, relations);
+	}
 
-			@Override
-			public boolean select(Relation relation) {
+	/**
+	 * Returns all XDI $do operations in this XDI message.
+	 * @return An iterator over all XDI $do operations.
+	 */
+	public ReadOnlyIterator<DoOperation> getDoOperations() {
 
-				return DelOperation.isValid(relation);
-			}
+		// look for valid relations
 
-			@Override
-			public DelOperation map(Relation relation) {
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_DO);
 
-				return DelOperation.fromMessageAndRelation(Message.this, relation);
-			}
-		};
+		return new MappingRelationDoOperationIterator(this, relations);
 	}
 
 	/**
@@ -538,5 +498,99 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (other == this || other == null) return 0;
 
 		return this.getContextNode().compareTo(other.getContextNode());
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingRelationOperationIterator extends NotNullIterator<Operation> {
+
+		public MappingRelationOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, Operation> (relations) {
+
+				@Override
+				public Operation map(Relation relation) {
+
+					return Operation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationGetOperationIterator extends NotNullIterator<GetOperation> {
+
+		public MappingRelationGetOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, GetOperation> (relations) {
+
+				@Override
+				public GetOperation map(Relation relation) {
+
+					return GetOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationAddOperationIterator extends NotNullIterator<AddOperation> {
+
+		public MappingRelationAddOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, AddOperation> (relations) {
+
+				@Override
+				public AddOperation map(Relation relation) {
+
+					return AddOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationModOperationIterator extends NotNullIterator<ModOperation> {
+
+		public MappingRelationModOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, ModOperation> (relations) {
+
+				@Override
+				public ModOperation map(Relation relation) {
+
+					return ModOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationDelOperationIterator extends NotNullIterator<DelOperation> {
+
+		public MappingRelationDelOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, DelOperation> (relations) {
+
+				@Override
+				public DelOperation map(Relation relation) {
+
+					return DelOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationDoOperationIterator extends NotNullIterator<DoOperation> {
+
+		public MappingRelationDoOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, DoOperation> (relations) {
+
+				@Override
+				public DoOperation map(Relation relation) {
+
+					return DoOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
 	}
 }

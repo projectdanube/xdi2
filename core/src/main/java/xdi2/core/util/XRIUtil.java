@@ -2,7 +2,6 @@ package xdi2.core.util;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,16 +21,6 @@ public final class XRIUtil {
 	private static final Logger log = LoggerFactory.getLogger(XRIUtil.class);
 
 	private XRIUtil() { }
-
-	public static XDI3SubSegment randomSubSegment(String prefix) {
-
-		return new XDI3SubSegment(prefix + UUID.randomUUID().toString());
-	}
-
-	public static XDI3SubSegment randomXRefSubSegment(String outerPrefix, String innerPrefix) {
-
-		return new XDI3SubSegment(outerPrefix + "(" + innerPrefix + UUID.randomUUID().toString() + ")");
-	}
 
 	/**
 	 * Checks if an XRI starts with a certain other XRI.

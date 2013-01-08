@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Statement;
-import xdi2.core.util.locator.ContextNodeLocator;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
+import xdi2.core.xri3.impl.XDI3Statement;
 
 /**
  * An XDI condition, represented as a statement.
@@ -20,9 +20,9 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 	private static final Logger log = LoggerFactory.getLogger(Condition.class);
 
-	private Statement statement;
+	private XDI3Statement statement;
 
-	protected Condition(Statement statement) {
+	protected Condition(XDI3Statement statement) {
 
 		if (statement == null) throw new NullPointerException();
 
@@ -45,7 +45,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 				GreaterCondition.isValid(statement) ||
 				LesserCondition.isValid(statement) ||
 				IsCondition.isValid(statement) ||
-				StatementCondition.isValid(statement);
+				GenericCondition.isValid(statement);
 	}
 
 	/**
@@ -53,13 +53,13 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * @param statement The statement that is an XDI condition.
 	 * @return The XDI condition.
 	 */
-	public static Condition fromStatement(Statement statement) {
+	public static Condition fromStatement(XDI3Statement statement) {
 
 		if (EqualsCondition.isValid(statement)) return EqualsCondition.fromStatement(statement);
 		if (GreaterCondition.isValid(statement)) return GreaterCondition.fromStatement(statement);
 		if (LesserCondition.isValid(statement)) return LesserCondition.fromStatement(statement);
 		if (IsCondition.isValid(statement)) return IsCondition.fromStatement(statement);
-		if (StatementCondition.isValid(statement)) return StatementCondition.fromStatement(statement);
+		if (GenericCondition.isValid(statement)) return GenericCondition.fromStatement(statement);
 
 		return null;
 	}
@@ -84,35 +84,26 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * Returns the underlying statement to which this XDI condition is bound.
 	 * @return A statement that represents the XDI condition.
 	 */
-	public Statement getStatement() {
+	public XDI3Statement getStatement() {
 
 		return this.statement;
 	}
 
 	/**
-	 * Returns the condition XRI of the XDI condition (e.g. $equals, $greater, $lesser, $is).
-	 * @return The condition XRI of the XDI condition.
-	 */
-	public XDI3Segment getConditionXri() {
-
-		return this.getStatement().getPredicate();
-	}
-
-	/**
 	 * Checks if the XDI condition evaluates to true or false.
-	 * @param contextNodeLocator An object that can locate context nodes.
+	 * @param policyEvaluationContext A context for evaluating an XDI policy.
 	 * @return True or false.
 	 */
-	public final boolean evaluate(ContextNodeLocator contextNodeLocator) {
+	public final boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getStatement());
-		boolean result = this.evaluateInternal(contextNodeLocator);
+		boolean result = this.evaluateInternal(policyEvaluationContext);
 		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getStatement() + ": " + result);
 
 		return result;
 	}
 
-	protected abstract boolean evaluateInternal(ContextNodeLocator contextNodeLocator);
+	protected abstract boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
 
 	/*
 	 * Object methods

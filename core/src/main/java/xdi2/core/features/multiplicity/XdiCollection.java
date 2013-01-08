@@ -5,11 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.ContextNode;
+import xdi2.core.features.multiplicity.Multiplicity.MappingContextNodeAttributeMemberIterator;
+import xdi2.core.features.multiplicity.Multiplicity.MappingContextNodeEntityMemberIterator;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.NoDuplicatesIterator;
-import xdi2.core.util.iterators.SelectingMappingIterator;
 
 /**
  * An XDI collection according to the multiplicity pattern, represented as a context node.
@@ -125,20 +126,7 @@ public final class XdiCollection extends XdiSubGraph {
 
 		// look for context nodes that are valid XDI entity members
 
-		return new SelectingMappingIterator<ContextNode, XdiEntityMember> (contextNodes) {
-
-			@Override
-			public boolean select(ContextNode contextNode) {
-
-				return Multiplicity.isEntityMemberArcXri(contextNode.getArcXri());
-			}
-
-			@Override
-			public XdiEntityMember map(ContextNode contextNode) {
-
-				return XdiEntityMember.fromContextNode(contextNode);
-			}
-		};
+		return new MappingContextNodeEntityMemberIterator(contextNodes);
 	}
 
 	/**
@@ -171,20 +159,7 @@ public final class XdiCollection extends XdiSubGraph {
 
 		// look for context nodes that are valid XDI attribute members
 
-		return new SelectingMappingIterator<ContextNode, XdiAttributeMember> (contextNodes) {
-
-			@Override
-			public boolean select(ContextNode contextNode) {
-
-				return Multiplicity.isAttributeMemberArcXri(contextNode.getArcXri());
-			}
-
-			@Override
-			public XdiAttributeMember map(ContextNode contextNode) {
-
-				return XdiAttributeMember.fromContextNode(contextNode);
-			}
-		};
+		return new MappingContextNodeAttributeMemberIterator(contextNodes);
 	}
 
 	/**

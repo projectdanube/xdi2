@@ -3,30 +3,47 @@ package xdi2.core.io.readers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Iterator;
+import java.security.MessageDigest;
+import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Literal;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
+import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3SubSegment;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 
 public class XDIRawJSONReader extends AbstractXDIReader {
 
 	private static final long serialVersionUID = 5574875512968150162L;
 
+	private static final Logger log = LoggerFactory.getLogger(XDIRawJSONReader.class);
+
 	public static final String FORMAT_NAME = "RAW JSON";
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType MIME_TYPE = null;
+
+	public static final XDI3Segment XRI_DATATYPE_JSON_NUMBER = new XDI3Segment("+$json$number");
+	public static final XDI3Segment XRI_DATATYPE_JSON_TRUE = new XDI3Segment("+$json$true");
+	public static final XDI3Segment XRI_DATATYPE_JSON_FALSE = new XDI3Segment("+$json$false");
+	public static final XDI3Segment XRI_DATATYPE_JSON_NULL = new XDI3Segment("+$json$null");
 
 	public XDIRawJSONReader(Properties parameters) {
 
@@ -40,10 +57,10 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	private static void readJSONObject(ContextNode contextNode, JSONObject jsonObject) throws JSONException {
 
-		for (Iterator<?> keys = jsonObject.keys(); keys.hasNext(); ) {
+		for (Entry<String, Object> entry : jsonObject.entrySet()) {
 
-			String key = (String) keys.next();
-			Object value = jsonObject.get(key);
+			String key = entry.getKey();
+			Object value = entry.getValue();
 
 			if (value instanceof JSONObject) {
 
@@ -62,36 +79,80 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 				XDI3SubSegment arcXri = Multiplicity.attributeSingletonArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
-				innerContextNode.createLiteral(value.toString());
+				createLiteral(innerContextNode, value);
 			}
 		}
 	}
 
 	private static void readJSONArray(ContextNode contextNode, JSONArray jsonArray) throws JSONException {
 
-		for (int i=0; i<jsonArray.length(); i++) {
+		for (Object value : jsonArray) {
 
-			Object value = jsonArray.get(i);
+			String jsonContentId = jsonContentId(value);
 
 			if (value instanceof JSONObject) {
 
-				XDI3SubSegment arcXri = Multiplicity.entityMemberArcXriRandom();
+				XDI3SubSegment arcXri = Multiplicity.entityMemberArcXri(jsonContentId);
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				readJSONObject(innerContextNode, (JSONObject) value);
 			} else if (value instanceof JSONArray) {
 
-				XDI3SubSegment arcXri = Multiplicity.collectionArcXriRandom();
+				XDI3SubSegment arcXri = Multiplicity.collectionArcXri(jsonContentId);
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				readJSONArray(innerContextNode, (JSONArray) value);
 			} else {
 
-				XDI3SubSegment arcXri = Multiplicity.attributeMemberArcXriRandom();
+				XDI3SubSegment arcXri = Multiplicity.attributeMemberArcXri(jsonContentId);
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
-				innerContextNode.createLiteral(value.toString());
+				createLiteral(innerContextNode, value);
 			}
+		}
+	}
+
+	private static void createLiteral(ContextNode contextNode, Object value) {
+
+		if (value instanceof String) {
+
+			contextNode.createLiteral(value.toString());
+		} else if (value instanceof Number) {
+
+			Literal literal = contextNode.createLiteral(value.toString());
+			DataTypes.setLiteralDataType(literal, XRI_DATATYPE_JSON_NUMBER);
+		} else if (value instanceof Boolean) {
+
+			Literal literal = contextNode.createLiteral(value.toString());
+
+			if (value.equals(Boolean.TRUE)) DataTypes.setLiteralDataType(literal, XRI_DATATYPE_JSON_TRUE);
+			if (value.equals(Boolean.FALSE)) DataTypes.setLiteralDataType(literal, XRI_DATATYPE_JSON_FALSE);
+		} else if (value == null) {
+
+			Literal literal = contextNode.createLiteral("null");
+			DataTypes.setLiteralDataType(literal, XRI_DATATYPE_JSON_NULL);
+		}
+	}
+
+	private static String jsonContentId(Object object) {
+
+		try {
+
+			String canonicalJson = JSON.toJSONString(object);
+			if (log.isDebugEnabled()) log.debug("canonical JSON: " + canonicalJson);
+
+			MessageDigest digest;
+
+			digest = MessageDigest.getInstance("SHA-256");
+			digest.update(canonicalJson.getBytes("UTF-8"));
+
+			String jsonContentId = new String(Base64.encodeBase64URLSafe(digest.digest()), "UTF-8");
+			if (log.isDebugEnabled()) log.debug("json_content_id: " + jsonContentId);
+
+			return jsonContentId;
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
 		}
 	}
 
@@ -110,7 +171,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 			graphString.append(line + "\n");
 		}
 
-		this.read(graph, new JSONObject(graphString.toString()));
+		this.read(graph, JSON.parseObject(graphString.toString()));
 	}
 
 	@Override

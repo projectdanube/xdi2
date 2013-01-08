@@ -27,7 +27,7 @@ public class IteratorTest extends TestCase {
 
 	public void testIteratorUsers() throws Exception {
 
-		assertTrue(new IteratorContains(myObjectIterator(), myObject()).contains());
+		assertTrue(new IteratorContains<MyObject>(myObjectIterator(), myObject()).contains());
 		assertEquals(new IteratorCounter(myObjectIterator()).count(), 4);
 		assertEquals(new IteratorFirstItem<MyObject> (myObjectIterator()).item(), myObject());
 		assertEquals(new IteratorArrayMaker<MyObject> (myObjectIterator()).array(MyObject.class).length, 4);
