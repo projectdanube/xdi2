@@ -37,6 +37,7 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	/**
 	 * Closes the graph. This should be called when work on the graph is done.
 	 */
+	@Override
 	public void close();
 
 	/**

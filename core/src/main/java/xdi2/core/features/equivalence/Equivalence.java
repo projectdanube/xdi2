@@ -85,6 +85,9 @@ public class Equivalence {
 
 	public static void setReferenceContextNode(ContextNode contextNode, ContextNode referenceContextNode) {
 
+		Relation referenceRelation = getReferenceRelation(contextNode);
+		if (referenceRelation != null) referenceRelation.delete();
+
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, referenceContextNode);
 	}
 

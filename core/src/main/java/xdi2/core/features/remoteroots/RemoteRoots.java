@@ -66,21 +66,22 @@ public class RemoteRoots {
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 
-		rootContextNode.deleteRelations(XDIDictionaryConstants.XRI_S_IS);
+		ContextNode selfRemoteRootContextNode = getSelfRemoteRootContextNode(graph);
+		if (selfRemoteRootContextNode != null) selfRemoteRootContextNode.delete();
 
 		if (xri == null) return null;
 
 		ContextNode remoteRootContextNode = findRemoteRootContextNode(graph, xri, true);
 
-		rootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, remoteRootContextNode);
-		remoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, rootContextNode);
+		rootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_REF, remoteRootContextNode);
+		remoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, rootContextNode);
 
 		return remoteRootContextNode;
 	}
 
 	public static ContextNode getSelfRemoteRootContextNode(Graph graph) {
 
-		Relation relation = graph.getRootContextNode().getRelation(XDIDictionaryConstants.XRI_S_IS);
+		Relation relation = graph.getRootContextNode().getRelation(XDIDictionaryConstants.XRI_S_IS_REF);
 		if (relation == null) return null;
 
 		return relation.follow();
