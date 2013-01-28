@@ -1,4 +1,4 @@
-()/$is/(=!BDF3.1FB.E70C.3958)
+()/$is$ref/(=!BDF3.1FB.E70C.3958)
 $do/$all/()
 $do$if$and/$true/(($from)/$is/=!BDF3.1FB.E70C.3958)
 $do$if$and/$true/(($msg)$secret$!($token)/$equals/$secret$!($token))
