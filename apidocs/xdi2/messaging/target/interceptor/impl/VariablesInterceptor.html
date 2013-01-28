@@ -54,7 +54,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -220,8 +220,8 @@ This interceptor can replace XDI variables in a $add operation with automaticall
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html#targetStatement(xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></B>(<A HREF="../../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html#targetStatement(xdi2.core.xri3.impl.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;targetStatement,
                 <A HREF="../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                 <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                 <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
@@ -358,20 +358,20 @@ public void <B>exception</B>(<A HREF="../../../../../xdi2/messaging/MessageEnvel
 </DL>
 <HR>
 
-<A NAME="targetStatement(xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="targetStatement(xdi2.core.xri3.impl.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 targetStatement</H3>
 <PRE>
-public <A HREF="../../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>targetStatement</B>(<A HREF="../../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
-                                 <A HREF="../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-                                 <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                 <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
-                          throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+public <A HREF="../../../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>targetStatement</B>(<A HREF="../../../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;targetStatement,
+                                     <A HREF="../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                                     <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                     <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                              throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">TargetInterceptor</A></CODE></B></DD>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.core.xri3.impl.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">TargetInterceptor</A></CODE></B></DD>
 <DD>Replaces or skips the target statement before it is executed.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.core.xri3.impl.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A></CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement.<DD><CODE>operation</CODE> - The operation to process.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
@@ -456,7 +456,7 @@ public void <B>finish</B>(<A HREF="../../../../../xdi2/messaging/MessageResult.h
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -486,6 +486,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

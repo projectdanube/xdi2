@@ -182,23 +182,6 @@ Various utility methods for working with XRIs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#randomSubSegment(java.lang.String)">randomSubSegment</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;prefix)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#randomXRefSubSegment(java.lang.String, java.lang.String)">randomXRefSubSegment</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outerPrefix,
-                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;innerPrefix)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#relativeXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">relativeXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
             <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base)</CODE>
@@ -216,6 +199,16 @@ Various utility methods for working with XRIs.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracts a relative XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#replaceXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3SubSegment, xdi2.core.xri3.impl.XDI3Segment)">replaceXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+           <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;oldXri,
+           <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;newXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Replaces all occurences of a subsegment with a segment.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -288,29 +281,6 @@ public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/u
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
-
-<A NAME="randomSubSegment(java.lang.String)"><!-- --></A><H3>
-randomSubSegment</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A> <B>randomSubSegment</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;prefix)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="randomXRefSubSegment(java.lang.String, java.lang.String)"><!-- --></A><H3>
-randomXRefSubSegment</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A> <B>randomXRefSubSegment</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;outerPrefix,
-                                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;innerPrefix)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
 
 <A NAME="startsWith(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
 startsWith</H3>
@@ -431,6 +401,21 @@ public static boolean <B>isIllegalRelationArcXri</B>(<A HREF="../../../xdi2/core
 </DL>
 </DD>
 </DL>
+<HR>
+
+<A NAME="replaceXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3SubSegment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+replaceXri</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>replaceXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+                                     <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;oldXri,
+                                     <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;newXri)</PRE>
+<DL>
+<DD>Replaces all occurences of a subsegment with a segment.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
 
@@ -492,6 +477,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

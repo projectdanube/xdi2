@@ -1,0 +1,2303 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+CountVisitor (xdi2 0.1-SNAPSHOT API)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="CountVisitor (xdi2 0.1-SNAPSHOT API)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/CountVisitor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/DequesVisitor.html" title="class in xdi2.core.xri3.impl.parser.aparse"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?xdi2/core/xri3/impl/parser/aparse/CountVisitor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="CountVisitor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+xdi2.core.xri3.impl.parser.aparse</FONT>
+<BR>
+Class CountVisitor</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.xri3.impl.parser.aparse.CountVisitor</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>CountVisitor</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#CountVisitor()">CountVisitor</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#getCount()">getCount</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ALPHA)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ALPHA.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ALPHA</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$BIT)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$BIT.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$BIT</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$CHAR)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$CHAR.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$CHAR</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$CR)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$CR.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$CR</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$CRLF)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$CRLF.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$CRLF</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$CTL)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$CTL.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$CTL</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$dec_octet)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$dec_octet.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$dec_octet</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$DIGIT)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$DIGIT.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$DIGIT</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$DQUOTE)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$DQUOTE.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$DQUOTE</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$gcs_char)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$gcs_char.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$gcs_char</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$gen_delims)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$gen_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$gen_delims</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$global_subseg)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$global_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$global_subseg</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$h16)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$h16.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$h16</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$HEXDIG)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$HEXDIG.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$HEXDIG</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$HTAB)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$HTAB.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$HTAB</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iauthority)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iauthority.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iauthority</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ifragment)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ifragment.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ifragment</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ihier_part)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ihier_part.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ihier_part</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ihost)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ihost.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ihost</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IP_literal)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IP_literal.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IP_literal</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_abempty)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipath_abempty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipath_abempty</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_abs)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipath_abs.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipath_abs</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_empty)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipath_empty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipath_empty</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_rootless)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipath_rootless.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipath_rootless</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipchar)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipchar.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipchar</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iprivate)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iprivate.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iprivate</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IPv4address)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IPv4address.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IPv4address</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IPv6address)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IPv6address.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IPv6address</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IPvFuture)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IPvFuture.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IPvFuture</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iquery)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iquery.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iquery</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ireg_name)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ireg_name.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ireg_name</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IRI)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IRI.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IRI</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$isegment_nz)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$isegment_nz.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$isegment_nz</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$isegment)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$isegment.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$isegment</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iunreserved)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iunreserved.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iunreserved</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iuserinfo)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iuserinfo.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iuserinfo</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$lcs_char)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$lcs_char.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$lcs_char</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$LF)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$LF.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$LF</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$literal_nc)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$literal_nc.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$literal_nc</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$literal)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$literal.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$literal</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$local_subseg)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$local_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$local_subseg</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ls32)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ls32.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ls32</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$LWSP)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$LWSP.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$LWSP</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$OCTET)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$OCTET.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$OCTET</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$pct_encoded)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$pct_encoded.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$pct_encoded</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$port)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$port.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$port</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$relative_xri_part)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$relative_xri_part.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$relative_xri_part</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$relative_xri_ref)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$relative_xri_ref.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$relative_xri_ref</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$reserved)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$reserved.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$reserved</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$scheme)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$scheme.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$scheme</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$SP)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$SP.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$SP</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$sub_delims)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$sub_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$sub_delims</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$subseg)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$subseg</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ucschar)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ucschar.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ucschar</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$unreserved)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$unreserved.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$unreserved</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$VCHAR)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$VCHAR.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$VCHAR</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$WSP)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$WSP.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$WSP</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_address)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_address.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_address</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_context)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_context.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_context</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_global_subseg)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_global_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_global_subseg</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_local_subseg)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_local_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_local_subseg</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_object)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_object.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_object</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_predicate)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_predicate.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_predicate</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_segment)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_segment.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_segment</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_statement)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_statement.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_statement</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_subject)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_subject.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_subject</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_subseg)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_subseg</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_address)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref_address.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_xref_address</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_empty)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref_empty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_xref_empty</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_IRI)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref_IRI.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_xref_IRI</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_xref</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref_empty)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xref_empty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xref_empty</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref_IRI)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xref_IRI.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xref_IRI</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref_xri_reference)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xref_xri_reference.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xref_xri_reference</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xref.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xref</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_authority)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_authority.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_authority</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_gen_delims)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_gen_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_gen_delims</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_hier_part)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_hier_part.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_hier_part</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path_abempty)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_path_abempty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_path_abempty</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path_abs)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_path_abs.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_path_abs</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path_noscheme)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_path_noscheme.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_path_noscheme</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_path.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_path</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_pchar_nc)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_pchar_nc.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_pchar_nc</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_pchar)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_pchar.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_pchar</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_reference)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_reference.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_reference</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_reserved)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_reserved.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_reserved</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_segment_nc)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_segment_nc.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_segment_nc</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_segment_nz)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_segment_nz.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_segment_nz</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_segment)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_segment.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_segment</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_sub_delims)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_sub_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_sub_delims</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri</A>&nbsp;rule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Terminal$NumericValue)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Terminal$NumericValue.html" title="class in xdi2.core.xri3.impl.parser.aparse">Terminal$NumericValue</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/CountVisitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Terminal$StringValue)">visit</A></B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Terminal$StringValue.html" title="class in xdi2.core.xri3.impl.parser.aparse">Terminal$StringValue</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="CountVisitor()"><!-- --></A><H3>
+CountVisitor</H3>
+<PRE>
+public <B>CountVisitor</B>()</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="getCount()"><!-- --></A><H3>
+getCount</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A>&gt; <B>getCount</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_address)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_address.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_address</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_address)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_context)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_context.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_context</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_context)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_statement)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_statement.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_statement</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_statement)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_subject)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_subject.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_subject</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_subject)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_predicate)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_predicate.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_predicate</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_predicate)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_object)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_object.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_object</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_object)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_segment)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_segment.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_segment</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_segment)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_subseg)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_subseg</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_subseg)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_global_subseg)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_global_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_global_subseg</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_global_subseg)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_local_subseg)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_local_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_local_subseg</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_local_subseg)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_xref</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_empty)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref_empty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_xref_empty</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_empty)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_address)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref_address.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_xref_address</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_address)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_IRI)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref_IRI.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xdi_xref_IRI</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_IRI)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_reference)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_reference.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_reference</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_reference)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$relative_xri_ref)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$relative_xri_ref.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$relative_xri_ref</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$relative_xri_ref)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$relative_xri_part)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$relative_xri_part.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$relative_xri_part</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$relative_xri_part)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_hier_part)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_hier_part.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_hier_part</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_hier_part)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_authority)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_authority.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_authority</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_authority)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$subseg)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$subseg</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$subseg)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$global_subseg)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$global_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$global_subseg</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$global_subseg)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$local_subseg)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$local_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$local_subseg</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$local_subseg)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$gcs_char)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$gcs_char.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$gcs_char</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$gcs_char)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$lcs_char)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$lcs_char.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$lcs_char</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$lcs_char)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$literal)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$literal.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$literal</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$literal)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$literal_nc)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$literal_nc.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$literal_nc</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$literal_nc)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xref.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xref</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref_empty)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xref_empty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xref_empty</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref_empty)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref_xri_reference)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xref_xri_reference.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xref_xri_reference</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref_xri_reference)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref_IRI)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xref_IRI.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xref_IRI</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xref_IRI)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_path.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_path</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path_abempty)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_path_abempty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_path_abempty</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path_abempty)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path_abs)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_path_abs.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_path_abs</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path_abs)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path_noscheme)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_path_noscheme.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_path_noscheme</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_path_noscheme)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_segment)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_segment.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_segment</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_segment)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_segment_nz)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_segment_nz.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_segment_nz</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_segment_nz)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_segment_nc)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_segment_nc.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_segment_nc</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_segment_nc)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_pchar)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_pchar.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_pchar</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_pchar)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_pchar_nc)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_pchar_nc.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_pchar_nc</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_pchar_nc)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_reserved)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_reserved.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_reserved</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_reserved)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_gen_delims)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_gen_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_gen_delims</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_gen_delims)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_sub_delims)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$xri_sub_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$xri_sub_delims</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$xri_sub_delims)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$IRI)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IRI.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IRI</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IRI)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$scheme)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$scheme.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$scheme</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$scheme)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ihier_part)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ihier_part.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ihier_part</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ihier_part)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$iauthority)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iauthority.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iauthority</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iauthority)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$iuserinfo)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iuserinfo.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iuserinfo</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iuserinfo)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ihost)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ihost.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ihost</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ihost)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$IP_literal)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IP_literal.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IP_literal</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IP_literal)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$IPvFuture)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IPvFuture.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IPvFuture</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IPvFuture)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$IPv6address)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IPv6address.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IPv6address</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IPv6address)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ls32)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ls32.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ls32</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ls32)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$h16)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$h16.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$h16</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$h16)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$IPv4address)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$IPv4address.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$IPv4address</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$IPv4address)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$dec_octet)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$dec_octet.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$dec_octet</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$dec_octet)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ireg_name)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ireg_name.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ireg_name</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ireg_name)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$port)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$port.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$port</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$port)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_abempty)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipath_abempty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipath_abempty</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_abempty)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_abs)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipath_abs.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipath_abs</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_abs)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_rootless)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipath_rootless.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipath_rootless</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_rootless)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_empty)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipath_empty.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipath_empty</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipath_empty)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$isegment)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$isegment.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$isegment</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$isegment)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$isegment_nz)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$isegment_nz.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$isegment_nz</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$isegment_nz)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$iquery)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iquery.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iquery</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iquery)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$iprivate)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iprivate.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iprivate</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iprivate)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ifragment)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ifragment.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ifragment</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ifragment)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipchar)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ipchar.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ipchar</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ipchar)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$iunreserved)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$iunreserved.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$iunreserved</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$iunreserved)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$pct_encoded)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$pct_encoded.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$pct_encoded</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$pct_encoded)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ucschar)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ucschar.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ucschar</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ucschar)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$reserved)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$reserved.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$reserved</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$reserved)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$gen_delims)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$gen_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$gen_delims</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$gen_delims)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$sub_delims)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$sub_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$sub_delims</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$sub_delims)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$unreserved)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$unreserved.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$unreserved</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$unreserved)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$ALPHA)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$ALPHA.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$ALPHA</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$ALPHA)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$BIT)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$BIT.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$BIT</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$BIT)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$CHAR)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$CHAR.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$CHAR</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$CHAR)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$CR)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$CR.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$CR</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$CR)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$CRLF)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$CRLF.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$CRLF</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$CRLF)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$CTL)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$CTL.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$CTL</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$CTL)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$DIGIT)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$DIGIT.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$DIGIT</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$DIGIT)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$DQUOTE)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$DQUOTE.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$DQUOTE</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$DQUOTE)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$HEXDIG)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$HEXDIG.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$HEXDIG</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$HEXDIG)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$HTAB)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$HTAB.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$HTAB</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$HTAB)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$LF)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$LF.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$LF</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$LF)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$LWSP)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$LWSP.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$LWSP</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$LWSP)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$OCTET)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$OCTET.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$OCTET</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$OCTET)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$SP)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$SP.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$SP</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$SP)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$VCHAR)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$VCHAR.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$VCHAR</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$VCHAR)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Rule$WSP)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Rule$WSP.html" title="class in xdi2.core.xri3.impl.parser.aparse">Rule$WSP</A>&nbsp;rule)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Rule$WSP)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Terminal$StringValue)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Terminal$StringValue.html" title="class in xdi2.core.xri3.impl.parser.aparse">Terminal$StringValue</A>&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Terminal$StringValue)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="visit(xdi2.core.xri3.impl.parser.aparse.Terminal$NumericValue)"><!-- --></A><H3>
+visit</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>visit</B>(<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Terminal$NumericValue.html" title="class in xdi2.core.xri3.impl.parser.aparse">Terminal$NumericValue</A>&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html#visit(xdi2.core.xri3.impl.parser.aparse.Terminal$NumericValue)">visit</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse">Visitor</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/CountVisitor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../xdi2/core/xri3/impl/parser/aparse/DequesVisitor.html" title="class in xdi2.core.xri3.impl.parser.aparse"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?xdi2/core/xri3/impl/parser/aparse/CountVisitor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="CountVisitor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Copyright &#169; 2013. All Rights Reserved.
+</BODY>
+</HTML>

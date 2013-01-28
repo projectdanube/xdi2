@@ -54,7 +54,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../xdi2/core/util/CopyUtil.ExcludeDuplicateContextNodesCopyStrategy.html" title="class in xdi2.core.util"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../xdi2/core/util/GraphUtil.html" title="class in xdi2.core.util"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../xdi2/core/util/XDIUtil.html" title="class in xdi2.core.util"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/core/util/StatementUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -122,7 +122,7 @@ Various utility methods for working with statements.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#fromComponents(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">fromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;subject,
                <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;predicate,
                <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;object)</CODE>
@@ -132,7 +132,7 @@ Various utility methods for working with statements.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.ContextNodeStatement.html" title="interface in xdi2.core">Statement.ContextNodeStatement</A></CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#fromContextNodeComponents(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">fromContextNodeComponents</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
                           <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
@@ -141,7 +141,7 @@ Various utility methods for working with statements.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A></CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#fromLiteralComponents(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">fromLiteralComponents</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
@@ -150,7 +150,7 @@ Various utility methods for working with statements.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.RelationStatement.html" title="interface in xdi2.core">Statement.RelationStatement</A></CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#fromRelationComponents(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">fromRelationComponents</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
                        <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
                        <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
@@ -160,23 +160,7 @@ Various utility methods for working with statements.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#fromString(java.lang.String)">fromString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI statement from a string in the form subject/predicate/object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#fromXdiStatement(xdi2.core.xri3.impl.XDI3Statement)">fromXdiStatement</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI statement from an XDI statement in the form subject/predicate/object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#fromXriSegment(xdi2.core.xri3.impl.XDI3Segment)">fromXriSegment</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;segment)</CODE>
 
 <BR>
@@ -192,8 +176,8 @@ Various utility methods for working with statements.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#relativeStatement(xdi2.core.Statement, xdi2.core.xri3.impl.XDI3Segment)">relativeStatement</A></B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;statement,
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#relativeStatement(xdi2.core.xri3.impl.XDI3Statement, xdi2.core.xri3.impl.XDI3Segment)">relativeStatement</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement,
                   <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base)</CODE>
 
 <BR>
@@ -201,8 +185,8 @@ Various utility methods for working with statements.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#relativeStatement(xdi2.core.Statement, xdi2.core.xri3.impl.XDI3Segment, boolean, boolean)">relativeStatement</A></B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;statement,
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#relativeStatement(xdi2.core.xri3.impl.XDI3Statement, xdi2.core.xri3.impl.XDI3Segment, boolean, boolean)">relativeStatement</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement,
                   <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base,
                   boolean&nbsp;variablesInXri,
                   boolean&nbsp;variablesInBase)</CODE>
@@ -236,9 +220,9 @@ Various utility methods for working with statements.
 <A NAME="fromComponents(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
 fromComponents</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>fromComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;subject,
-                                       <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;predicate,
-                                       <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;object)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>fromComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;subject,
+                                           <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;predicate,
+                                           <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;object)</PRE>
 <DL>
 <DD>Creates an XDI statement from its three components
 <P>
@@ -252,8 +236,8 @@ public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xd
 <A NAME="fromContextNodeComponents(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
 fromContextNodeComponents</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Statement.ContextNodeStatement.html" title="interface in xdi2.core">Statement.ContextNodeStatement</A> <B>fromContextNodeComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                                                                       <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>fromContextNodeComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+                                                      <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Creates an XDI statement from a context node XRI and an arc XRI.
 <P>
@@ -267,9 +251,9 @@ public static <A HREF="../../../xdi2/core/Statement.ContextNodeStatement.html" t
 <A NAME="fromRelationComponents(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
 fromRelationComponents</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Statement.RelationStatement.html" title="interface in xdi2.core">Statement.RelationStatement</A> <B>fromRelationComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                                                                 <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-                                                                 <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>fromRelationComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+                                                   <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
+                                                   <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
 <DD>Creates an XDI statement from a context node XRI, arc XRI, and target context node XRI.
 <P>
@@ -283,8 +267,8 @@ public static <A HREF="../../../xdi2/core/Statement.RelationStatement.html" titl
 <A NAME="fromLiteralComponents(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)"><!-- --></A><H3>
 fromLiteralComponents</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A> <B>fromLiteralComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                                                               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>fromLiteralComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+                                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
 <DL>
 <DD>Creates an XDI statement from a context node XRI and literal data.
 <P>
@@ -295,28 +279,11 @@ public static <A HREF="../../../xdi2/core/Statement.LiteralStatement.html" title
 </DL>
 <HR>
 
-<A NAME="fromXdiStatement(xdi2.core.xri3.impl.XDI3Statement)"><!-- --></A><H3>
-fromXdiStatement</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>fromXdiStatement</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement)
-                                  throws <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
-<DL>
-<DD>Creates an XDI statement from an XDI statement in the form subject/predicate/object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>statement</CODE> - The XDI statement
-<DT><B>Returns:</B><DD>An XDI statement
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="fromXriSegment(xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
 fromXriSegment</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>fromXriSegment</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;segment)
-                                throws <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>fromXriSegment</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;segment)
+                                    throws <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
 <DL>
 <DD>Creates an XDI statement from an XRI segment in the form (subject/predicate/object)
 <P>
@@ -329,30 +296,13 @@ public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xd
 </DL>
 <HR>
 
-<A NAME="fromString(java.lang.String)"><!-- --></A><H3>
-fromString</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>fromString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)
-                            throws <A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
-<DL>
-<DD>Creates an XDI statement from a string in the form subject/predicate/object
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>string</CODE> - The string
-<DT><B>Returns:</B><DD>An XDI statement
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="relativeStatement(xdi2.core.Statement, xdi2.core.xri3.impl.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
+<A NAME="relativeStatement(xdi2.core.xri3.impl.XDI3Statement, xdi2.core.xri3.impl.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
 relativeStatement</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>relativeStatement</B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;statement,
-                                          <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base,
-                                          boolean&nbsp;variablesInXri,
-                                          boolean&nbsp;variablesInBase)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>relativeStatement</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement,
+                                              <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base,
+                                              boolean&nbsp;variablesInXri,
+                                              boolean&nbsp;variablesInBase)</PRE>
 <DL>
 <DD>Extracts a statement with a relative subject.
  E.g. for =a*b*c*d and =a*b, this returns *c*d
@@ -363,11 +313,11 @@ public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xd
 </DL>
 <HR>
 
-<A NAME="relativeStatement(xdi2.core.Statement, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="relativeStatement(xdi2.core.xri3.impl.XDI3Statement, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
 relativeStatement</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>relativeStatement</B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;statement,
-                                          <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>relativeStatement</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement,
+                                              <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base)</PRE>
 <DL>
 <DD>Extracts a statement with a relative subject.
  E.g. for =a*b*c*d and =a*b, this returns *c*d
@@ -421,7 +371,7 @@ public static boolean <B>isImplied</B>(<A HREF="../../../xdi2/core/Statement.htm
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../xdi2/core/util/CopyUtil.ExcludeDuplicateContextNodesCopyStrategy.html" title="class in xdi2.core.util"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../xdi2/core/util/GraphUtil.html" title="class in xdi2.core.util"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../xdi2/core/util/XDIUtil.html" title="class in xdi2.core.util"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/core/util/StatementUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -451,6 +401,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

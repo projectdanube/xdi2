@@ -105,7 +105,27 @@ Packages that use <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A></
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.equivalence"><B>xdi2.core.features.equivalence</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.features.linkcontracts"><B>xdi2.core.features.linkcontracts</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.linkcontracts.condition"><B>xdi2.core.features.linkcontracts.condition</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.linkcontracts.evaluation"><B>xdi2.core.features.linkcontracts.evaluation</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.linkcontracts.policy"><B>xdi2.core.features.linkcontracts.policy</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.linkcontracts.policystatement"><B>xdi2.core.features.linkcontracts.policystatement</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -193,20 +213,8 @@ Packages that use <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A></
 <TD>Base classes for implementing XDI messaging targets.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.messaging.target.contributor"><B>xdi2.messaging.target.contributor</B></A></TD>
-<TD>&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.messaging.target.impl.echo"><B>xdi2.messaging.target.impl.echo</B></A></TD>
-<TD>Messaging target that returns the received messages.&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.impl.graph"><B>xdi2.messaging.target.impl.graph</B></A></TD>
 <TD>Messaging target that allows messages to be applied to the standard graph implementations.&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.messaging.target.interceptor"><B>xdi2.messaging.target.interceptor</B></A></TD>
-<TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.interceptor.impl"><B>xdi2.messaging.target.interceptor.impl</B></A></TD>
@@ -222,6 +230,10 @@ Packages that use <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A></
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.webtools.grapher"><B>xdi2.webtools.grapher</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.webtools.util"><B>xdi2.webtools.util</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
@@ -332,14 +344,23 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.core.features.dictionary"><B>Graph</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.equivalence"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/features/equivalence/package-summary.html">xdi2.core.features.equivalence</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.core.features.dictionary"><B>Relation</B></A></B>
+<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.core.features.equivalence"><B>ContextNode</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.core.features.equivalence"><B>Relation</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a relation in an XDI graph.</TD>
@@ -365,8 +386,80 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
 </TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.linkcontracts.condition"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/features/linkcontracts/condition/package-summary.html">xdi2.core.features.linkcontracts.condition</A></FONT></TH>
+</TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.core.features.linkcontracts"><B>Relation</B></A></B>
+<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.core.features.linkcontracts.condition"><B>Statement</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.linkcontracts.evaluation"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/features/linkcontracts/evaluation/package-summary.html">xdi2.core.features.linkcontracts.evaluation</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.core.features.linkcontracts.evaluation"><B>ContextNode</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.core.features.linkcontracts.evaluation"><B>Graph</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.core.features.linkcontracts.evaluation"><B>Relation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a relation in an XDI graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.linkcontracts.policy"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/features/linkcontracts/policy/package-summary.html">xdi2.core.features.linkcontracts.policy</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.core.features.linkcontracts.policy"><B>ContextNode</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.core.features.linkcontracts.policy"><B>Relation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a relation in an XDI graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.linkcontracts.policystatement"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/core/features/linkcontracts/policystatement/package-summary.html">xdi2.core.features.linkcontracts.policystatement</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.core.features.linkcontracts.policystatement"><B>Relation</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a relation in an XDI graph.</TD>
@@ -776,24 +869,6 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.ContextNodeStatement.html#xdi2.core.util"><B>Statement.ContextNodeStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.LiteralStatement.html#xdi2.core.util"><B>Statement.LiteralStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.RelationStatement.html#xdi2.core.util"><B>Statement.RelationStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -890,78 +965,6 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.messaging.target"><B>Statement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.ContextNodeStatement.html#xdi2.messaging.target"><B>Statement.ContextNodeStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.LiteralStatement.html#xdi2.messaging.target"><B>Statement.LiteralStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.RelationStatement.html#xdi2.messaging.target"><B>Statement.RelationStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-<A NAME="xdi2.messaging.target.contributor"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/messaging/target/contributor/package-summary.html">xdi2.messaging.target.contributor</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.messaging.target.contributor"><B>Statement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.ContextNodeStatement.html#xdi2.messaging.target.contributor"><B>Statement.ContextNodeStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.LiteralStatement.html#xdi2.messaging.target.contributor"><B>Statement.LiteralStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.RelationStatement.html#xdi2.messaging.target.contributor"><B>Statement.RelationStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-<A NAME="xdi2.messaging.target.impl.echo"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/messaging/target/impl/echo/package-summary.html">xdi2.messaging.target.impl.echo</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.messaging.target.impl.echo"><B>Statement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
-</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -977,45 +980,6 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.messaging.target.impl.graph"><B>Statement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.ContextNodeStatement.html#xdi2.messaging.target.impl.graph"><B>Statement.ContextNodeStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.LiteralStatement.html#xdi2.messaging.target.impl.graph"><B>Statement.LiteralStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.RelationStatement.html#xdi2.messaging.target.impl.graph"><B>Statement.RelationStatement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-<A NAME="xdi2.messaging.target.interceptor"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/messaging/target/interceptor/package-summary.html">xdi2.messaging.target.interceptor</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.messaging.target.interceptor"><B>Statement</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
-</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -1026,16 +990,22 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.messaging.target.interceptor.impl"><B>ContextNode</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.messaging.target.interceptor.impl"><B>Graph</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.messaging.target.interceptor.impl"><B>Statement</B></A></B>
+<TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.messaging.target.interceptor.impl"><B>Relation</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a relation in an XDI graph.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1087,6 +1057,33 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.webtools.grapher"><B>Statement</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.webtools.util"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/webtools/util/package-summary.html">xdi2.webtools.util</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.webtools.util"><B>Graph</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Statement.html#xdi2.webtools.util"><B>Statement</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a statement in an XDI graph.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1145,6 +1142,6 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

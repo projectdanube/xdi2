@@ -55,7 +55,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationAddOperationIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/Message.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Message.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -75,7 +75,7 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
@@ -114,7 +114,64 @@ An XDI message, represented as a context node.
 <HR>
 
 <P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
 
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationAddOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationAddOperationIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationDelOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationDelOperationIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationDoOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationDoOperationIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationGetOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationGetOperationIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationModOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationModOperationIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationOperationIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 
 <A NAME="constructor_summary"><!-- --></A>
@@ -181,6 +238,22 @@ An XDI message, represented as a context node.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $del operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createDoOperation(xdi2.core.Statement)">createDoOperation</A></B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $do operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createDoOperation(xdi2.core.xri3.impl.XDI3Segment)">createDoOperation</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $do operation and adds it to this XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -280,6 +353,14 @@ An XDI message, represented as a context node.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI $del operations in this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getDoOperations()">getDoOperations</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI $do operations in this XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -906,6 +987,40 @@ public <A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.mes
 </DL>
 <HR>
 
+<A NAME="createDoOperation(xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+createDoOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A> <B>createDoOperation</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetXri)</PRE>
+<DL>
+<DD>Creates a new $do operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetXri</CODE> - The target XRI to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $do operation.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createDoOperation(xdi2.core.Statement)"><!-- --></A><H3>
+createDoOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A> <B>createDoOperation</B>(<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $do operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $do operation.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getOperations()"><!-- --></A><H3>
 getOperations</H3>
 <PRE>
@@ -1004,6 +1119,23 @@ public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="cla
 <DD><DL>
 
 <DT><B>Returns:</B><DD>An iterator over all XDI $del operations.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDoOperations()"><!-- --></A><H3>
+getDoOperations</H3>
+<PRE>
+public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&gt; <B>getDoOperations</B>()</PRE>
+<DL>
+<DD>Returns all XDI $do operations in this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>An iterator over all XDI $do operations.</DL>
 </DD>
 </DL>
 <HR>
@@ -1126,7 +1258,7 @@ public int <B>compareTo</B>(<A HREF="../../xdi2/messaging/Message.html" title="c
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationAddOperationIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/Message.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Message.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -1146,7 +1278,7 @@ public int <B>compareTo</B>(<A HREF="../../xdi2/messaging/Message.html" title="c
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
@@ -1155,6 +1287,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

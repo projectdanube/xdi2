@@ -97,7 +97,19 @@ Packages that use <A HREF="../../../xdi2/core/ContextNode.html" title="interface
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.equivalence"><B>xdi2.core.features.equivalence</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.features.linkcontracts"><B>xdi2.core.features.linkcontracts</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.linkcontracts.evaluation"><B>xdi2.core.features.linkcontracts.evaluation</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.linkcontracts.policy"><B>xdi2.core.features.linkcontracts.policy</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -145,6 +157,10 @@ Packages that use <A HREF="../../../xdi2/core/ContextNode.html" title="interface
 <TD>Base classes for implementing XDI messaging targets.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl"><B>xdi2.messaging.target.interceptor.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.server.factory.impl"><B>xdi2.server.factory.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -184,7 +200,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>Graph.</B><B><A HREF="../../../xdi2/core/Graph.html#findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)">findContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+<TD><CODE><B>Graph.</B><B><A HREF="../../../xdi2/core/Graph.html#findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)">findContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
                 boolean&nbsp;create)</CODE>
 
 <BR>
@@ -319,46 +335,6 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/dictionary/package-summary.html">xdi2.core.features.dictionary</A> that return <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getCanonicalContextNode(xdi2.core.ContextNode)">getCanonicalContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getPrivateCanonicalContextNode(xdi2.core.ContextNode)">getPrivateCanonicalContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/dictionary/package-summary.html">xdi2.core.features.dictionary</A> that return types with arguments of type <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getEquivalenceContextNodes(xdi2.core.ContextNode)">getEquivalenceContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/dictionary/package-summary.html">xdi2.core.features.dictionary</A> with parameters of type <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -366,22 +342,6 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#addContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.impl.XDI3Segment)">addContextNodeType</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                    <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;type)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getCanonicalContextNode(xdi2.core.ContextNode)">getCanonicalContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getCanonicalRelation(xdi2.core.ContextNode)">getCanonicalRelation</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -398,30 +358,6 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getContextNodeTypes(xdi2.core.ContextNode)">getContextNodeTypes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getEquivalenceContextNodes(xdi2.core.ContextNode)">getEquivalenceContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getPrivateCanonicalContextNode(xdi2.core.ContextNode)">getPrivateCanonicalContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getPrivateCanonicalRelation(xdi2.core.ContextNode)">getPrivateCanonicalRelation</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -455,26 +391,204 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#setCanonicalContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">setCanonicalContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                        <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;canonicalContextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#setContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.impl.XDI3Segment)">setContextNodeType</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                    <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;type)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.equivalence"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> in <A HREF="../../../xdi2/core/features/equivalence/package-summary.html">xdi2.core.features.equivalence</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/equivalence/package-summary.html">xdi2.core.features.equivalence</A> that return <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getPrivateReferenceContextNode(xdi2.core.ContextNode)">getPrivateReferenceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getReferenceContextNode(xdi2.core.ContextNode)">getReferenceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/equivalence/package-summary.html">xdi2.core.features.equivalence</A> that return types with arguments of type <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getEquivalenceContextNodes(xdi2.core.ContextNode)">getEquivalenceContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingEquivalenceContextNodes(xdi2.core.ContextNode)">getIncomingEquivalenceContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingReferenceAndPrivateReferenceContextNodes(xdi2.core.ContextNode)">getIncomingReferenceAndPrivateReferenceContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/equivalence/package-summary.html">xdi2.core.features.equivalence</A> with parameters of type <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
+</TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#setPrivateCanonicalContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">setPrivateCanonicalContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                               <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;canonicalContextNode)</CODE>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#addEquivalenceContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">addEquivalenceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                          <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;equivalenceContextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getAllEquivalenceRelations(xdi2.core.ContextNode)">getAllEquivalenceRelations</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getAllReferenceAndPrivateReferenceRelations(xdi2.core.ContextNode)">getAllReferenceAndPrivateReferenceRelations</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getEquivalenceContextNodes(xdi2.core.ContextNode)">getEquivalenceContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getEquivalenceRelations(xdi2.core.ContextNode)">getEquivalenceRelations</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingEquivalenceContextNodes(xdi2.core.ContextNode)">getIncomingEquivalenceContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingEquivalenceRelations(xdi2.core.ContextNode)">getIncomingEquivalenceRelations</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingReferenceAndPrivateReferenceContextNodes(xdi2.core.ContextNode)">getIncomingReferenceAndPrivateReferenceContextNodes</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingReferenceAndPrivateReferenceRelations(xdi2.core.ContextNode)">getIncomingReferenceAndPrivateReferenceRelations</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getPrivateReferenceContextNode(xdi2.core.ContextNode)">getPrivateReferenceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getPrivateReferenceRelation(xdi2.core.ContextNode)">getPrivateReferenceRelation</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getReferenceContextNode(xdi2.core.ContextNode)">getReferenceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#getReferenceRelation(xdi2.core.ContextNode)">getReferenceRelation</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#setPrivateReferenceContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">setPrivateReferenceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                               <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;privateReferenceContextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>Equivalence.</B><B><A HREF="../../../xdi2/core/features/equivalence/Equivalence.html#setReferenceContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">setReferenceContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                        <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;referenceContextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -494,39 +608,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Fields in <A HREF="../../../xdi2/core/features/linkcontracts/package-summary.html">xdi2.core.features.linkcontracts</A> declared as <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>PolicyExpressionComponent.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/PolicyExpressionComponent.html#contextNode">contextNode</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/linkcontracts/package-summary.html">xdi2.core.features.linkcontracts</A> that return <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>PolicyExpressionComponent.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/PolicyExpressionComponent.html#getContextNode()">getContextNode</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>Policy.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/Policy.html#getContextNode()">getContextNode</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying context node to which this policy is bound.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -534,8 +616,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#getContextNode()">getContextNode</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying context node to which this XDI link contract is
- bound.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying context node to which this XDI link contract is bound.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -548,15 +629,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#getAssignees()">getAssignees</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets all assignees of this Link Contract node</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#getNodesWithPermission(xdi2.core.features.linkcontracts.util.XDILinkContractPermission)">getNodesWithPermission</A></B>(<A HREF="../../../xdi2/core/features/linkcontracts/util/XDILinkContractPermission.html" title="enum in xdi2.core.features.linkcontracts.util">XDILinkContractPermission</A>&nbsp;permission)</CODE>
+<TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#getNodesWithPermission(xdi2.core.xri3.impl.XDI3Segment)">getNodesWithPermission</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;permissionXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -571,74 +644,12 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#addAssignee(xdi2.core.ContextNode)">addAssignee</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;assignee)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a assignment relationship of a LinkContract to a target assignee
- node</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#addPermission(xdi2.core.features.linkcontracts.util.XDILinkContractPermission, xdi2.core.ContextNode)">addPermission</A></B>(<A HREF="../../../xdi2/core/features/linkcontracts/util/XDILinkContractPermission.html" title="enum in xdi2.core.features.linkcontracts.util">XDILinkContractPermission</A>&nbsp;permission,
-              <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a permission (one of GET, ADD, MOD, DEL, COPY , MOVE , ALL) from
- this Link Contract node to a target node</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>PolicyExpressionComponent.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/PolicyExpressionComponent.html#evaluateChildBranch(xdi2.core.ContextNode, org.mozilla.javascript.Context, org.mozilla.javascript.Scriptable)">evaluateChildBranch</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;childNode,
-                    org.mozilla.javascript.Context&nbsp;cx,
-                    org.mozilla.javascript.Scriptable&nbsp;scope)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/linkcontracts/OrExpression.html" title="class in xdi2.core.features.linkcontracts">OrExpression</A></CODE></FONT></TD>
-<TD><CODE><B>OrExpression.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/OrExpression.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;c)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/linkcontracts/NotExpression.html" title="class in xdi2.core.features.linkcontracts">NotExpression</A></CODE></FONT></TD>
-<TD><CODE><B>NotExpression.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/NotExpression.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;c)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
 <TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI link contract bound to a given context
  node.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/linkcontracts/AndExpression.html" title="class in xdi2.core.features.linkcontracts">AndExpression</A></CODE></FONT></TD>
-<TD><CODE><B>AndExpression.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/AndExpression.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;c)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/linkcontracts/Policy.html" title="class in xdi2.core.features.linkcontracts">Policy</A></CODE></FONT></TD>
-<TD><CODE><B>Policy.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/Policy.html#fromLinkContractAndContextNode(xdi2.core.features.linkcontracts.LinkContract, xdi2.core.ContextNode)">fromLinkContractAndContextNode</A></B>(<A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&nbsp;linkContract,
-                               <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI policy bound to a given context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -652,77 +663,11 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B>Policy.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/Policy.html#getRuleReference(xdi2.core.ContextNode)">getRuleReference</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;target)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>PolicyExpressionComponent.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/PolicyExpressionComponent.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;c)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid PolicyExpression.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>Policy.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/Policy.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI policy.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>OrExpression.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/OrExpression.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;node)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>NotExpression.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/NotExpression.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;node)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI link contract.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AndExpression.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/AndExpression.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;node)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#removeAssignee(xdi2.core.ContextNode)">removeAssignee</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;assignee)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes an assignment relationship of a LinkContract from an assignee
- node</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>LinkContract.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#removePermission(xdi2.core.features.linkcontracts.util.XDILinkContractPermission, xdi2.core.ContextNode)">removePermission</A></B>(<A HREF="../../../xdi2/core/features/linkcontracts/util/XDILinkContractPermission.html" title="enum in xdi2.core.features.linkcontracts.util">XDILinkContractPermission</A>&nbsp;permission,
-                 <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -733,35 +678,82 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/core/features/linkcontracts/package-summary.html">xdi2.core.features.linkcontracts</A> with parameters of type <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/AndExpression.html#AndExpression(xdi2.core.ContextNode)">AndExpression</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;c)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html#LinkContract(xdi2.core.ContextNode)">LinkContract</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Constructor parameters in <A HREF="../../../xdi2/core/features/linkcontracts/package-summary.html">xdi2.core.features.linkcontracts</A> with type arguments of type <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/LinkContracts.MappingContextNodeLinkContractIterator.html#LinkContracts.MappingContextNodeLinkContractIterator(java.util.Iterator)">LinkContracts.MappingContextNodeLinkContractIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;iterator)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.linkcontracts.evaluation"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> in <A HREF="../../../xdi2/core/features/linkcontracts/evaluation/package-summary.html">xdi2.core.features.linkcontracts.evaluation</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/linkcontracts/evaluation/package-summary.html">xdi2.core.features.linkcontracts.evaluation</A> that return <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>PolicyEvaluationContext.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html#getContextNode(xdi2.core.xri3.impl.XDI3Segment)">getContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/NotExpression.html#NotExpression(xdi2.core.ContextNode)">NotExpression</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;c)</CODE>
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>GraphPolicyEvaluationContext.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/evaluation/GraphPolicyEvaluationContext.html#getContextNode(xdi2.core.xri3.impl.XDI3Segment)">getContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/OrExpression.html#OrExpression(xdi2.core.ContextNode)">OrExpression</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;c)</CODE>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.linkcontracts.policy"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> in <A HREF="../../../xdi2/core/features/linkcontracts/policy/package-summary.html">xdi2.core.features.linkcontracts.policy</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/linkcontracts/policy/package-summary.html">xdi2.core.features.linkcontracts.policy</A> that return <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/Policy.html#Policy(xdi2.core.features.linkcontracts.LinkContract, xdi2.core.ContextNode)">Policy</A></B>(<A HREF="../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&nbsp;linkContract,
-       <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>Policy.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/policy/Policy.html#getContextNode()">getContextNode</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/PolicyExpressionComponent.html#PolicyExpressionComponent(xdi2.core.ContextNode)">PolicyExpressionComponent</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying context node to which this XDI policy is bound.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1033,6 +1025,44 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 </TABLE>
 &nbsp;
 <P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Constructor parameters in <A HREF="../../../xdi2/core/features/multiplicity/package-summary.html">xdi2.core.features.multiplicity</A> with type arguments of type <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeAttributeMemberIterator.html#Multiplicity.MappingContextNodeAttributeMemberIterator(java.util.Iterator)">Multiplicity.MappingContextNodeAttributeMemberIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeAttributeSingletonIterator.html#Multiplicity.MappingContextNodeAttributeSingletonIterator(java.util.Iterator)">Multiplicity.MappingContextNodeAttributeSingletonIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeCollectionIterator.html#Multiplicity.MappingContextNodeCollectionIterator(java.util.Iterator)">Multiplicity.MappingContextNodeCollectionIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeEntityMemberIterator.html#Multiplicity.MappingContextNodeEntityMemberIterator(java.util.Iterator)">Multiplicity.MappingContextNodeEntityMemberIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeEntitySingletonIterator.html#Multiplicity.MappingContextNodeEntitySingletonIterator(java.util.Iterator)">Multiplicity.MappingContextNodeEntitySingletonIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.core.features.remoteroots"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -1179,7 +1209,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html" title="class in xdi2.core.impl">BasicContextNode</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1195,7 +1225,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TD><CODE><B>BasicContextNode.</B><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#createContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">createContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1208,7 +1238,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)">findContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)">findContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
                 boolean&nbsp;create)</CODE>
 
 <BR>
@@ -1301,7 +1331,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TD><CODE><B>BasicContextNode.</B><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#getContextNodes()">getContextNodes</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1326,7 +1356,7 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
                <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1353,53 +1383,6 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractRelation.html#AbstractRelation(xdi2.core.Graph, xdi2.core.ContextNode)">AbstractRelation</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
                  <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#BasicContextNode(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.xri3.impl.XDI3SubSegment, java.lang.Iterable, java.lang.Iterable, xdi2.core.Literal)">BasicContextNode</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                 <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                 <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
-                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes,
-                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;&nbsp;relations,
-                 <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicLiteral.html#BasicLiteral(xdi2.core.Graph, xdi2.core.ContextNode, java.lang.String)">BasicLiteral</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-             <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicRelation.html#BasicRelation(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">BasicRelation</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-              <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-              <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-              <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Constructor parameters in <A HREF="../../../xdi2/core/impl/package-summary.html">xdi2.core.impl</A> with type arguments of type <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#BasicContextNode(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.xri3.impl.XDI3SubSegment, java.lang.Iterable, java.lang.Iterable, xdi2.core.Literal)">BasicContextNode</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                 <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                 <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
-                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes,
-                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;&nbsp;relations,
-                 <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1716,6 +1699,14 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a clone of the given context node with the same contents.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>GraphUtil.</B><B><A HREF="../../../xdi2/core/util/GraphUtil.html#contextNodeFromComponents(xdi2.core.xri3.impl.XDI3Segment)">contextNodeFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a context node from its components.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -2127,6 +2118,31 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 </TABLE>
 &nbsp;
 <P>
+<A NAME="xdi2.messaging.target.interceptor.impl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> in <A HREF="../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</A> that return <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>MessagePolicyEvaluationContext.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/MessagePolicyEvaluationContext.html#getContextNode(xdi2.core.xri3.impl.XDI3Segment)">getContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.server.factory.impl"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -2210,6 +2226,6 @@ Uses of <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.c
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

@@ -256,17 +256,6 @@ The AbstractMessagingTarget provides the following functionality:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A></B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
-        <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-        <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
-        <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes a target statement.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.core.xri3.impl.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetAddress,
         <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
         <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
@@ -274,6 +263,17 @@ The AbstractMessagingTarget provides the following functionality:
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes a target address.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.core.xri3.impl.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;targetStatement,
+        <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+        <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
+        <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes a target statement.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -310,7 +310,7 @@ The AbstractMessagingTarget provides the following functionality:
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/StatementHandler.html" title="interface in xdi2.messaging.target">StatementHandler</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getStatementHandler(xdi2.core.Statement)">getStatementHandler</A></B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html#getStatementHandler(xdi2.core.xri3.impl.XDI3Statement)">getStatementHandler</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;targetStatement)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -548,10 +548,10 @@ public void <B>execute</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.htm
 </DL>
 <HR>
 
-<A NAME="execute(xdi2.core.Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="execute(xdi2.core.xri3.impl.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 execute</H3>
 <PRE>
-public void <B>execute</B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement,
+public void <B>execute</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;targetStatement,
                     <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
                     <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
@@ -722,10 +722,10 @@ public <A HREF="../../../xdi2/messaging/target/AddressHandler.html" title="inter
 </DL>
 <HR>
 
-<A NAME="getStatementHandler(xdi2.core.Statement)"><!-- --></A><H3>
+<A NAME="getStatementHandler(xdi2.core.xri3.impl.XDI3Statement)"><!-- --></A><H3>
 getStatementHandler</H3>
 <PRE>
-public <A HREF="../../../xdi2/messaging/target/StatementHandler.html" title="interface in xdi2.messaging.target">StatementHandler</A> <B>getStatementHandler</B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;targetStatement)
+public <A HREF="../../../xdi2/messaging/target/StatementHandler.html" title="interface in xdi2.messaging.target">StatementHandler</A> <B>getStatementHandler</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;targetStatement)
                                      throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
@@ -928,6 +928,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

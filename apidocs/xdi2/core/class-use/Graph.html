@@ -97,11 +97,11 @@ Packages that use <A HREF="../../../xdi2/core/Graph.html" title="interface in xd
 <TD>The XDI graph model and basic operations on it.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.core.features.dictionary"><B>xdi2.core.features.dictionary</B></A></TD>
+<TD><A HREF="#xdi2.core.features.linkcontracts"><B>xdi2.core.features.linkcontracts</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.core.features.linkcontracts"><B>xdi2.core.features.linkcontracts</B></A></TD>
+<TD><A HREF="#xdi2.core.features.linkcontracts.evaluation"><B>xdi2.core.features.linkcontracts.evaluation</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -166,6 +166,10 @@ Packages that use <A HREF="../../../xdi2/core/Graph.html" title="interface in xd
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.webtools.grapher"><B>xdi2.webtools.grapher</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.webtools.util"><B>xdi2.webtools.util</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
@@ -318,31 +322,6 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.core.features.dictionary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> in <A HREF="../../../xdi2/core/features/dictionary/package-summary.html">xdi2.core.features.dictionary</A></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/dictionary/package-summary.html">xdi2.core.features.dictionary</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>Dictionary.</B><B><A HREF="../../../xdi2/core/features/dictionary/Dictionary.html#getEquivalenceRelations(xdi2.core.Graph)">getEquivalenceRelations</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
 <A NAME="xdi2.core.features.linkcontracts"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -373,6 +352,45 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Given a graph, lists all link contracts.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.linkcontracts.evaluation"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> in <A HREF="../../../xdi2/core/features/linkcontracts/evaluation/package-summary.html">xdi2.core.features.linkcontracts.evaluation</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/linkcontracts/evaluation/package-summary.html">xdi2.core.features.linkcontracts.evaluation</A> that return <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
+<TD><CODE><B>GraphPolicyEvaluationContext.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/evaluation/GraphPolicyEvaluationContext.html#getGraph()">getGraph</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/core/features/linkcontracts/evaluation/package-summary.html">xdi2.core.features.linkcontracts.evaluation</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/evaluation/GraphPolicyEvaluationContext.html#GraphPolicyEvaluationContext(xdi2.core.Graph)">GraphPolicyEvaluationContext</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -603,34 +621,6 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#BasicContextNode(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.xri3.impl.XDI3SubSegment, java.lang.Iterable, java.lang.Iterable, xdi2.core.Literal)">BasicContextNode</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                 <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                 <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
-                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes,
-                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;&nbsp;relations,
-                 <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicLiteral.html#BasicLiteral(xdi2.core.Graph, xdi2.core.ContextNode, java.lang.String)">BasicLiteral</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-             <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicRelation.html#BasicRelation(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">BasicRelation</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-              <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-              <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-              <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -856,9 +846,27 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>XDIJSONReader.</B><B><A HREF="../../../xdi2/core/io/readers/XDIJSONReader.html#read(xdi2.core.Graph, org.json.JSONObject, xdi2.core.io.readers.XDIJSONReader.State)">read</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-     org.json.JSONObject&nbsp;graphObject,
+<TD><CODE><B>XDIRawJSONReader.</B><B><A HREF="../../../xdi2/core/io/readers/XDIRawJSONReader.html#read(xdi2.core.Graph, com.alibaba.fastjson.JSONObject)">read</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+     com.alibaba.fastjson.JSONObject&nbsp;graphObject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>XDIJSONReader.</B><B><A HREF="../../../xdi2/core/io/readers/XDIJSONReader.html#read(xdi2.core.Graph, com.alibaba.fastjson.JSONObject, xdi2.core.io.readers.XDIJSONReader.State)">read</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+     com.alibaba.fastjson.JSONObject&nbsp;graphObject,
      xdi2.core.io.readers.XDIJSONReader.State&nbsp;state)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io">Reader</A></CODE></FONT></TD>
+<TD><CODE><B>XDIRawJSONReader.</B><B><A HREF="../../../xdi2/core/io/readers/XDIRawJSONReader.html#read(xdi2.core.Graph, java.io.Reader)">read</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+     <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io">Reader</A>&nbsp;reader)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1023,6 +1031,16 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a relation into another graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
+<TD><CODE><B>CopyUtil.</B><B><A HREF="../../../xdi2/core/util/CopyUtil.html#copyStatement(xdi2.core.Statement, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyStatement</A></B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;statement,
+              <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
+              <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a literal of a context node into a target context node.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -1297,6 +1315,21 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 </TABLE>
 &nbsp;
 <P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/MessagePolicyEvaluationContext.html#MessagePolicyEvaluationContext(xdi2.core.Graph, xdi2.messaging.Message)">MessagePolicyEvaluationContext</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+                               <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.server.factory.impl"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -1395,20 +1428,41 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/awt/Point.html?is-external=true" title="class or interface in java.awt">Point</A></CODE></FONT></TD>
-<TD><CODE><B>Drawer1.</B><B><A HREF="../../../xdi2/webtools/grapher/Drawer1.html#draw(java.awt.Graphics2D, xdi2.core.Graph, java.awt.Point)">draw</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html?is-external=true" title="class or interface in java.awt">Graphics2D</A>&nbsp;graphics,
-     <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-     <A HREF="http://download.oracle.com/javase/6/docs/api/java/awt/Point.html?is-external=true" title="class or interface in java.awt">Point</A>&nbsp;size)</CODE>
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/awt/image/BufferedImage.html?is-external=true" title="class or interface in java.awt.image">BufferedImage</A></CODE></FONT></TD>
+<TD><CODE><B>Drawer.</B><B><A HREF="../../../xdi2/webtools/grapher/Drawer.html#draw(xdi2.core.Graph)">draw</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/awt/Point.html?is-external=true" title="class or interface in java.awt">Point</A></CODE></FONT></TD>
-<TD><CODE><B>Drawer.</B><B><A HREF="../../../xdi2/webtools/grapher/Drawer.html#draw(java.awt.Graphics2D, xdi2.core.Graph, java.awt.Point)">draw</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html?is-external=true" title="class or interface in java.awt">Graphics2D</A>&nbsp;graphics,
-     <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-     <A HREF="http://download.oracle.com/javase/6/docs/api/java/awt/Point.html?is-external=true" title="class or interface in java.awt">Point</A>&nbsp;size)</CODE>
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/awt/image/BufferedImage.html?is-external=true" title="class or interface in java.awt.image">BufferedImage</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractJUNGDrawer.</B><B><A HREF="../../../xdi2/webtools/grapher/AbstractJUNGDrawer.html#draw(xdi2.core.Graph)">draw</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.webtools.util"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> in <A HREF="../../../xdi2/webtools/util/package-summary.html">xdi2.webtools.util</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/webtools/util/package-summary.html">xdi2.webtools.util</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;edu.uci.ics.jung.graph.DirectedGraph&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>,<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>WebtoolsUtil.</B><B><A HREF="../../../xdi2/webtools/util/WebtoolsUtil.html#JUNGDirectedGraphFromGraph(xdi2.core.Graph)">JUNGDirectedGraphFromGraph</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1470,6 +1524,6 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

@@ -54,8 +54,8 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationOperationIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.MappingEntityMemberMessageIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/MessageCollection.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MessageCollection.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -75,7 +75,7 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
@@ -114,7 +114,24 @@ An XDI message collection, represented as a context node.
 <HR>
 
 <P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
 
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.MappingEntityMemberMessageIterator.html" title="class in xdi2.messaging">MessageCollection.MappingEntityMemberMessageIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 
 <A NAME="constructor_summary"><!-- --></A>
@@ -177,19 +194,19 @@ An XDI message collection, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#getCollection()">getCollection</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying XDI collection to which this XDI message collection is bound.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#getContextNode()">getContextNode</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying context node to which this XDI message collection is bound.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#getEntityCollection()">getEntityCollection</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying entity collection to which this XDI message collection is bound.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -364,19 +381,19 @@ public <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.
 </DL>
 <HR>
 
-<A NAME="getEntityCollection()"><!-- --></A><H3>
-getEntityCollection</H3>
+<A NAME="getCollection()"><!-- --></A><H3>
+getCollection</H3>
 <PRE>
-public <A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A> <B>getEntityCollection</B>()</PRE>
+public <A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A> <B>getCollection</B>()</PRE>
 <DL>
-<DD>Returns the underlying entity collection to which this XDI message collection is bound.
+<DD>Returns the underlying XDI collection to which this XDI message collection is bound.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>An entity collection that represents the XDI message collection.</DL>
+<DT><B>Returns:</B><DD>An XDI collection that represents the XDI message collection.</DL>
 </DD>
 </DL>
 <HR>
@@ -599,8 +616,8 @@ public int <B>compareTo</B>(<A HREF="../../xdi2/messaging/MessageCollection.html
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationOperationIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.MappingEntityMemberMessageIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/MessageCollection.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MessageCollection.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -620,7 +637,7 @@ public int <B>compareTo</B>(<A HREF="../../xdi2/messaging/MessageCollection.html
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
@@ -629,6 +646,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

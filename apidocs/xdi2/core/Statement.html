@@ -209,27 +209,11 @@ This interface represents a statement in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Statement.html#toString(boolean)">toString</A></B>(boolean&nbsp;pretty)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the String representation of this statement.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Statement.html#toXdiStatement()">toXdiStatement</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Statement.html#getXdiStatement()">getXdiStatement</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expresses the statement as an XDI statement in the form subject/predicate/object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Statement.html#toXriSegment()">toXriSegment</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expresses the statement as an XRI segment in the form (subject/predicate/object)</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>
@@ -354,10 +338,10 @@ void <B>delete</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="toXdiStatement()"><!-- --></A><H3>
-toXdiStatement</H3>
+<A NAME="getXdiStatement()"><!-- --></A><H3>
+getXdiStatement</H3>
 <PRE>
-<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>toXdiStatement</B>()</PRE>
+<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>getXdiStatement</B>()</PRE>
 <DL>
 <DD>Expresses the statement as an XDI statement in the form subject/predicate/object
 <P>
@@ -367,40 +351,6 @@ toXdiStatement</H3>
 <DD><DL>
 
 <DT><B>Returns:</B><DD>An XDI statement.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="toXriSegment()"><!-- --></A><H3>
-toXriSegment</H3>
-<PRE>
-<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>toXriSegment</B>()</PRE>
-<DL>
-<DD>Expresses the statement as an XRI segment in the form (subject/predicate/object)
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>An XRI segment.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="toString(boolean)"><!-- --></A><H3>
-toString</H3>
-<PRE>
-<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>toString</B>(boolean&nbsp;pretty)</PRE>
-<DL>
-<DD>Returns the String representation of this statement.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>pretty</CODE> - A boolean flag to check whether to prettyprint the output.
-<DT><B>Returns:</B><DD>The String representation of this statement.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -464,6 +414,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

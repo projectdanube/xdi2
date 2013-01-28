@@ -175,7 +175,15 @@ An XDI subgraph according to the multiplicity pattern, represented as a context 
                       boolean&nbsp;create)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets or returns an attribute singleton under a context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets or returns an XDI attribute singleton under a context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/multiplicity/XdiSubGraph.html#getBaseArcXri()">getBaseArcXri</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -184,7 +192,7 @@ An XDI subgraph according to the multiplicity pattern, represented as a context 
               boolean&nbsp;create)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets or returns a collection under a context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets or returns an XDI collection under a context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -201,7 +209,7 @@ An XDI subgraph according to the multiplicity pattern, represented as a context 
                    boolean&nbsp;create)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets or returns an entity singleton under a context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets or returns an XDI entity singleton under a context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -315,20 +323,35 @@ public static <A HREF="../../../../xdi2/core/features/multiplicity/XdiSubGraph.h
 </DL>
 <HR>
 
+<A NAME="getBaseArcXri()"><!-- --></A><H3>
+getBaseArcXri</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A> <B>getBaseArcXri</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>Returns</CODE> - the "base" arc XRI of this XDI subgraph, without multiplicity syntax.
+<DT><B>Returns:</B><DD>The "base" arc XRI.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getCollection(xdi2.core.xri3.impl.XDI3SubSegment, boolean)"><!-- --></A><H3>
 getCollection</H3>
 <PRE>
 public <A HREF="../../../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A> <B>getCollection</B>(<A HREF="../../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
                                    boolean&nbsp;create)</PRE>
 <DL>
-<DD>Gets or returns a collection under a context node.
+<DD>Gets or returns an XDI collection under a context node.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The "base" arc XRI of the collection, without multiplicity syntax.<DD><CODE>create</CODE> - Whether or not to create the context node if it doesn't exist.
-<DT><B>Returns:</B><DD>The collection.</DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The "base" arc XRI of the XDI collection, without multiplicity syntax.<DD><CODE>create</CODE> - Whether or not to create the context node if it doesn't exist.
+<DT><B>Returns:</B><DD>The XDI collection.</DL>
 </DD>
 </DL>
 <HR>
@@ -339,14 +362,14 @@ getAttributeSingleton</H3>
 public <A HREF="../../../../xdi2/core/features/multiplicity/XdiAttributeSingleton.html" title="class in xdi2.core.features.multiplicity">XdiAttributeSingleton</A> <B>getAttributeSingleton</B>(<A HREF="../../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
                                                    boolean&nbsp;create)</PRE>
 <DL>
-<DD>Gets or returns an attribute singleton under a context node.
+<DD>Gets or returns an XDI attribute singleton under a context node.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The "base" arc XRI of the attribute singleton, without multiplicity syntax.<DD><CODE>create</CODE> - Whether or not to create the context node if it doesn't exist.
-<DT><B>Returns:</B><DD>The attribute singleton.</DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The "base" arc XRI of the XDI attribute singleton, without multiplicity syntax.<DD><CODE>create</CODE> - Whether or not to create the context node if it doesn't exist.
+<DT><B>Returns:</B><DD>The XDI attribute singleton.</DL>
 </DD>
 </DL>
 <HR>
@@ -357,14 +380,14 @@ getEntitySingleton</H3>
 public <A HREF="../../../../xdi2/core/features/multiplicity/XdiEntitySingleton.html" title="class in xdi2.core.features.multiplicity">XdiEntitySingleton</A> <B>getEntitySingleton</B>(<A HREF="../../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
                                              boolean&nbsp;create)</PRE>
 <DL>
-<DD>Gets or returns an entity singleton under a context node.
+<DD>Gets or returns an XDI entity singleton under a context node.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The "base" arc XRI of the entity singleton, without multiplicity syntax.<DD><CODE>create</CODE> - Whether or not to create the context node if it doesn't exist.
-<DT><B>Returns:</B><DD>The entity singleton.</DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The "base" arc XRI of the XDI entity singleton, without multiplicity syntax.<DD><CODE>create</CODE> - Whether or not to create the context node if it doesn't exist.
+<DT><B>Returns:</B><DD>The XDI entity singleton.</DL>
 </DD>
 </DL>
 <HR>
@@ -484,6 +507,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

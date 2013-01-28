@@ -180,10 +180,10 @@ Class AbstractContextNode</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">containsLiteralInContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsLiteral(java.lang.String)">containsLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if this context node has a literal.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if this context node has a literal with the given data.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -217,15 +217,6 @@ Class AbstractContextNode</H2>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates new context nodes and adds them to this context node.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#createLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment, java.lang.String)">createLiteralInContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
-                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new literal of a context node and adds it to this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -273,6 +264,15 @@ Class AbstractContextNode</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a literal at any depth under this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a literal at any depth under this context node.</TD>
@@ -428,10 +428,10 @@ Class AbstractContextNode</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">getLiteralInContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getLiteral(java.lang.String)">getLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the literal of a context node in this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the literal of this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1198,38 +1198,19 @@ public int <B>getAllRelationCount</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="createLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment, java.lang.String)"><!-- --></A><H3>
-createLiteralInContextNode</H3>
+<A NAME="getLiteral(java.lang.String)"><!-- --></A><H3>
+getLiteral</H3>
 <PRE>
-public <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>createLiteralInContextNode</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
-                                          <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+public <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#createLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment, java.lang.String)">ContextNode</A></CODE></B></DD>
-<DD>Creates a new literal of a context node and adds it to this context node.
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getLiteral(java.lang.String)">ContextNode</A></CODE></B></DD>
+<DD>Returns the literal of this context node.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/ContextNode.html#createLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment, java.lang.String)">createLiteralInContextNode</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/ContextNode.html#getLiteral(java.lang.String)">getLiteral</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the context node.<DD><CODE>literalData</CODE> - The data of the literal.
-<DT><B>Returns:</B><DD>The newly created literal.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)"><!-- --></A><H3>
-getLiteralInContextNode</H3>
-<PRE>
-public <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteralInContextNode</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
-<DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">ContextNode</A></CODE></B></DD>
-<DD>Returns the literal of a context node in this context node.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/ContextNode.html#getLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">getLiteralInContextNode</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the context node.
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The data of the literal.
 <DT><B>Returns:</B><DD>The literal.</DL>
 </DD>
 </DL>
@@ -1253,6 +1234,24 @@ public <A HREF="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="
 </DL>
 <HR>
 
+<A NAME="containsLiteral(java.lang.String)"><!-- --></A><H3>
+containsLiteral</H3>
+<PRE>
+public boolean <B>containsLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#containsLiteral(java.lang.String)">ContextNode</A></CODE></B></DD>
+<DD>Checks if this context node has a literal with the given data.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/ContextNode.html#containsLiteral(java.lang.String)">containsLiteral</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The data of the literal.
+<DT><B>Returns:</B><DD>True if this context node has a literal with the given data.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="containsLiteral()"><!-- --></A><H3>
 containsLiteral</H3>
 <PRE>
@@ -1266,25 +1265,26 @@ public boolean <B>containsLiteral</B>()</PRE>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>True if this context node has literals.</DL>
+<DT><B>Returns:</B><DD>True if this context node has a literal.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="containsLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)"><!-- --></A><H3>
-containsLiteralInContextNode</H3>
+<A NAME="findLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+findLiteral</H3>
 <PRE>
-public boolean <B>containsLiteralInContextNode</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+public <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>findLiteral</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#containsLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">ContextNode</A></CODE></B></DD>
-<DD>Checks if this context node has a literal.
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">ContextNode</A></CODE></B></DD>
+<DD>Finds a literal at any depth under this context node.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/ContextNode.html#containsLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">containsLiteralInContextNode</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/ContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">findLiteral</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the context node.
-<DT><B>Returns:</B><DD>True if this context node has literals.</DL>
+<DT><B>Parameters:</B><DD><CODE>xri</CODE> - The relative XRI of the context node containing the literal.
+<DT><B>Returns:</B><DD>The literal or null.</DL>
 </DD>
 </DL>
 <HR>
@@ -1494,6 +1494,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

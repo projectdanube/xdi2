@@ -75,9 +75,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -99,8 +99,11 @@ Class BasicContextNode</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;, <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></DD>
 </DL>
 <HR>
+<B>Deprecated.</B>
+<P>
 <DL>
-<DT><PRE>public class <B>BasicContextNode</B><DT>extends <A HREF="../../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</A><DT>implements <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></DL>
+<DT><PRE><FONT SIZE="-1"><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Deprecated.html?is-external=true" title="class or interface in java.lang">@Deprecated</A>
+</FONT>public class <B>BasicContextNode</B><DT>extends <A HREF="../../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</A><DT>implements <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></DL>
 </PRE>
 
 <P>
@@ -110,27 +113,6 @@ Class BasicContextNode</H2>
 
 <P>
 
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#BasicContextNode(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.xri3.impl.XDI3SubSegment, java.lang.Iterable, java.lang.Iterable, xdi2.core.Literal)">BasicContextNode</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                 <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                 <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
-                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes,
-                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;&nbsp;relations,
-                 <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
 <!-- ========== METHOD SUMMARY =========== -->
 
 <A NAME="method_summary"><!-- --></A>
@@ -145,7 +127,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#createContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">createContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new context node and adds it to this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Creates a new context node and adds it to this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -153,7 +135,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#createLiteral(java.lang.String)">createLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new literal and adds it to this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Creates a new literal and adds it to this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -162,7 +144,7 @@ Class BasicContextNode</H2>
                <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new relation and adds it to this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Creates a new relation and adds it to this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -170,7 +152,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#deleteContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">deleteContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the context node with a given arc XRI from this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Deletes the context node with a given arc XRI from this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -178,7 +160,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#deleteContextNodes()">deleteContextNodes</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes all context nodes from this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Deletes all context nodes from this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -186,7 +168,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#deleteLiteral()">deleteLiteral</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the literal from this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Deletes the literal from this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -195,7 +177,7 @@ Class BasicContextNode</H2>
                <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the relation with a given arc XRI from this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Deletes the relation with a given arc XRI from this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -203,7 +185,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#deleteRelations()">deleteRelations</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes all relations from this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Deletes all relations from this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -211,7 +193,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#deleteRelations(xdi2.core.xri3.impl.XDI3Segment)">deleteRelations</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the relation with a given arc XRI from this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Deletes the relation with a given arc XRI from this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -219,7 +201,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#getArcXri()">getArcXri</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every context node has an associated arc XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Every context node has an associated arc XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -227,7 +209,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#getContextNodes()">getContextNodes</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the context nodes of this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Returns the context nodes of this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -235,7 +217,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#getLiteral()">getLiteral</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the literal of this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Returns the literal of this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -243,7 +225,7 @@ Class BasicContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#getRelations()">getRelations</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the relations of this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;Returns the relations of this context node.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_xdi2.core.impl.AbstractContextNode"><!-- --></A>
@@ -252,7 +234,7 @@ Class BasicContextNode</H2>
 <TH ALIGN="left"><B>Methods inherited from class xdi2.core.impl.<A HREF="../../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#clear()">clear</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#compareTo(xdi2.core.ContextNode)">compareTo</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">containsContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsContextNodes()">containsContextNodes</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsLiteral()">containsLiteral</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">containsLiteralInContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">containsRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsRelations()">containsRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsRelations(xdi2.core.xri3.impl.XDI3Segment)">containsRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#createContextNodes(xdi2.core.xri3.impl.XDI3Segment)">createContextNodes</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#createLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment, java.lang.String)">createLiteralInContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#createRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">createRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#delete()">delete</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#deleteWhileEmpty()">deleteWhileEmpty</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)">findContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment)">findLiteral</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findRelations(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllContextNodeCount()">getAllContextNodeCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllContextNodes()">getAllContextNodes</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllLiteralCount()">getAllLiteralCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllLiterals()">getAllLiterals</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllRelationCount()">getAllRelationCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllRelations()">getAllRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllStatementCount()">getAllStatementCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllStatements()">getAllStatements</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getContextNode()">getContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">getContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getContextNodeCount()">getContextNodeCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getGraph()">getGraph</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations()">getIncomingRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations(xdi2.core.xri3.impl.XDI3Segment)">getIncomingRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">getLiteralInContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelation(xdi2.core.xri3.impl.XDI3Segment)">getRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">getRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelationCount()">getRelationCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelationCount(xdi2.core.xri3.impl.XDI3Segment)">getRelationCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelations(xdi2.core.xri3.impl.XDI3Segment)">getRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getStatement()">getStatement</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getXri()">getXri</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#hashCode()">hashCode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#isEmpty()">isEmpty</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#isLeafContextNode()">isLeafContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#isRootContextNode()">isRootContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#toString()">toString</A></CODE></TD>
+<TD><CODE><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#clear()">clear</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#compareTo(xdi2.core.ContextNode)">compareTo</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">containsContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsContextNodes()">containsContextNodes</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsLiteral()">containsLiteral</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsLiteral(java.lang.String)">containsLiteral</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">containsRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsRelations()">containsRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#containsRelations(xdi2.core.xri3.impl.XDI3Segment)">containsRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#createContextNodes(xdi2.core.xri3.impl.XDI3Segment)">createContextNodes</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#createRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">createRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#delete()">delete</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#deleteWhileEmpty()">deleteWhileEmpty</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)">findContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment)">findLiteral</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">findLiteral</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findRelations(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllContextNodeCount()">getAllContextNodeCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllContextNodes()">getAllContextNodes</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllLiteralCount()">getAllLiteralCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllLiterals()">getAllLiterals</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllRelationCount()">getAllRelationCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllRelations()">getAllRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllStatementCount()">getAllStatementCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getAllStatements()">getAllStatements</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getContextNode()">getContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">getContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getContextNodeCount()">getContextNodeCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getGraph()">getGraph</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations()">getIncomingRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations(xdi2.core.xri3.impl.XDI3Segment)">getIncomingRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getLiteral(java.lang.String)">getLiteral</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelation(xdi2.core.xri3.impl.XDI3Segment)">getRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">getRelation</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelationCount()">getRelationCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelationCount(xdi2.core.xri3.impl.XDI3Segment)">getRelationCount</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getRelations(xdi2.core.xri3.impl.XDI3Segment)">getRelations</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getStatement()">getStatement</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getXri()">getXri</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#hashCode()">hashCode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#isEmpty()">isEmpty</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#isLeafContextNode()">isLeafContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#isRootContextNode()">isRootContextNode</A>, <A HREF="../../../xdi2/core/impl/AbstractContextNode.html#toString()">toString</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -270,7 +252,7 @@ Class BasicContextNode</H2>
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.core.<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../xdi2/core/ContextNode.html#clear()">clear</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">containsContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsContextNodes()">containsContextNodes</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsLiteral()">containsLiteral</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">containsLiteralInContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">containsRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsRelations()">containsRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsRelations(xdi2.core.xri3.impl.XDI3Segment)">containsRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#createContextNodes(xdi2.core.xri3.impl.XDI3Segment)">createContextNodes</A>, <A HREF="../../../xdi2/core/ContextNode.html#createLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment, java.lang.String)">createLiteralInContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#createRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">createRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#delete()">delete</A>, <A HREF="../../../xdi2/core/ContextNode.html#deleteWhileEmpty()">deleteWhileEmpty</A>, <A HREF="../../../xdi2/core/ContextNode.html#findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)">findContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment)">findLiteral</A>, <A HREF="../../../xdi2/core/ContextNode.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#findRelations(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllContextNodeCount()">getAllContextNodeCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllContextNodes()">getAllContextNodes</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllLiteralCount()">getAllLiteralCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllLiterals()">getAllLiterals</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllRelationCount()">getAllRelationCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllRelations()">getAllRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllStatementCount()">getAllStatementCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllStatements()">getAllStatements</A>, <A HREF="../../../xdi2/core/ContextNode.html#getContextNode()">getContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">getContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#getContextNodeCount()">getContextNodeCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getGraph()">getGraph</A>, <A HREF="../../../xdi2/core/ContextNode.html#getIncomingRelations()">getIncomingRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getIncomingRelations(xdi2.core.xri3.impl.XDI3Segment)">getIncomingRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getLiteralInContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">getLiteralInContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelation(xdi2.core.xri3.impl.XDI3Segment)">getRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">getRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelationCount()">getRelationCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelationCount(xdi2.core.xri3.impl.XDI3Segment)">getRelationCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelations(xdi2.core.xri3.impl.XDI3Segment)">getRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getStatement()">getStatement</A>, <A HREF="../../../xdi2/core/ContextNode.html#getXri()">getXri</A>, <A HREF="../../../xdi2/core/ContextNode.html#isEmpty()">isEmpty</A>, <A HREF="../../../xdi2/core/ContextNode.html#isLeafContextNode()">isLeafContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#isRootContextNode()">isRootContextNode</A></CODE></TD>
+<TD><CODE><A HREF="../../../xdi2/core/ContextNode.html#clear()">clear</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">containsContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsContextNodes()">containsContextNodes</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsLiteral()">containsLiteral</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsLiteral(java.lang.String)">containsLiteral</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">containsRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsRelations()">containsRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#containsRelations(xdi2.core.xri3.impl.XDI3Segment)">containsRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#createContextNodes(xdi2.core.xri3.impl.XDI3Segment)">createContextNodes</A>, <A HREF="../../../xdi2/core/ContextNode.html#createRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">createRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#delete()">delete</A>, <A HREF="../../../xdi2/core/ContextNode.html#deleteWhileEmpty()">deleteWhileEmpty</A>, <A HREF="../../../xdi2/core/ContextNode.html#findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)">findContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment)">findLiteral</A>, <A HREF="../../../xdi2/core/ContextNode.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">findLiteral</A>, <A HREF="../../../xdi2/core/ContextNode.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#findRelations(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllContextNodeCount()">getAllContextNodeCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllContextNodes()">getAllContextNodes</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllLiteralCount()">getAllLiteralCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllLiterals()">getAllLiterals</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllRelationCount()">getAllRelationCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllRelations()">getAllRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllStatementCount()">getAllStatementCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getAllStatements()">getAllStatements</A>, <A HREF="../../../xdi2/core/ContextNode.html#getContextNode()">getContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">getContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#getContextNodeCount()">getContextNodeCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getGraph()">getGraph</A>, <A HREF="../../../xdi2/core/ContextNode.html#getIncomingRelations()">getIncomingRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getIncomingRelations(xdi2.core.xri3.impl.XDI3Segment)">getIncomingRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getLiteral(java.lang.String)">getLiteral</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelation(xdi2.core.xri3.impl.XDI3Segment)">getRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">getRelation</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelationCount()">getRelationCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelationCount(xdi2.core.xri3.impl.XDI3Segment)">getRelationCount</A>, <A HREF="../../../xdi2/core/ContextNode.html#getRelations(xdi2.core.xri3.impl.XDI3Segment)">getRelations</A>, <A HREF="../../../xdi2/core/ContextNode.html#getStatement()">getStatement</A>, <A HREF="../../../xdi2/core/ContextNode.html#getXri()">getXri</A>, <A HREF="../../../xdi2/core/ContextNode.html#isEmpty()">isEmpty</A>, <A HREF="../../../xdi2/core/ContextNode.html#isLeafContextNode()">isLeafContextNode</A>, <A HREF="../../../xdi2/core/ContextNode.html#isRootContextNode()">isRootContextNode</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>
@@ -284,28 +266,6 @@ Class BasicContextNode</H2>
 </TABLE>
 &nbsp;
 <P>
-
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-
-<A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Constructor Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="BasicContextNode(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.xri3.impl.XDI3SubSegment, java.lang.Iterable, java.lang.Iterable, xdi2.core.Literal)"><!-- --></A><H3>
-BasicContextNode</H3>
-<PRE>
-public <B>BasicContextNode</B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                        <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                        <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri,
-                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes,
-                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;&nbsp;relations,
-                        <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</PRE>
-<DL>
-</DL>
 
 <!-- ============ METHOD DETAIL ========== -->
 
@@ -322,7 +282,7 @@ getArcXri</H3>
 <PRE>
 public <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A> <B>getArcXri</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getArcXri()">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getArcXri()">ContextNode</A></CODE></B></DD>
 <DD>Every context node has an associated arc XRI.
  This returns null for the root context node.
 <P>
@@ -341,7 +301,7 @@ createContextNode</H3>
 <PRE>
 public <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>createContextNode</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#createContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#createContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">ContextNode</A></CODE></B></DD>
 <DD>Creates a new context node and adds it to this context node.
 <P>
 <DD><DL>
@@ -359,7 +319,7 @@ getContextNodes</H3>
 <PRE>
 public <A HREF="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt; <B>getContextNodes</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getContextNodes()">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getContextNodes()">ContextNode</A></CODE></B></DD>
 <DD>Returns the context nodes of this context node.
 <P>
 <DD><DL>
@@ -377,7 +337,7 @@ deleteContextNode</H3>
 <PRE>
 public void <B>deleteContextNode</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteContextNode(xdi2.core.xri3.impl.XDI3SubSegment)">ContextNode</A></CODE></B></DD>
 <DD>Deletes the context node with a given arc XRI from this context node.
 <P>
 <DD><DL>
@@ -394,7 +354,7 @@ deleteContextNodes</H3>
 <PRE>
 public void <B>deleteContextNodes</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteContextNodes()">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteContextNodes()">ContextNode</A></CODE></B></DD>
 <DD>Deletes all context nodes from this context node.
 <P>
 <DD><DL>
@@ -412,7 +372,7 @@ createRelation</H3>
 public <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>createRelation</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
                                <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#createRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.ContextNode)">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#createRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.ContextNode)">ContextNode</A></CODE></B></DD>
 <DD>Creates a new relation and adds it to this context node.
 <P>
 <DD><DL>
@@ -430,7 +390,7 @@ getRelations</H3>
 <PRE>
 public <A HREF="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>getRelations</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getRelations()">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getRelations()">ContextNode</A></CODE></B></DD>
 <DD>Returns the relations of this context node.
 <P>
 <DD><DL>
@@ -449,7 +409,7 @@ deleteRelation</H3>
 public void <B>deleteRelation</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
                            <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">ContextNode</A></CODE></B></DD>
 <DD>Deletes the relation with a given arc XRI from this context node.
 <P>
 <DD><DL>
@@ -466,7 +426,7 @@ deleteRelations</H3>
 <PRE>
 public void <B>deleteRelations</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteRelations(xdi2.core.xri3.impl.XDI3Segment)">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteRelations(xdi2.core.xri3.impl.XDI3Segment)">ContextNode</A></CODE></B></DD>
 <DD>Deletes the relation with a given arc XRI from this context node.
 <P>
 <DD><DL>
@@ -483,7 +443,7 @@ deleteRelations</H3>
 <PRE>
 public void <B>deleteRelations</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteRelations()">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteRelations()">ContextNode</A></CODE></B></DD>
 <DD>Deletes all relations from this context node.
 <P>
 <DD><DL>
@@ -500,7 +460,7 @@ createLiteral</H3>
 <PRE>
 public <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>createLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#createLiteral(java.lang.String)">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#createLiteral(java.lang.String)">ContextNode</A></CODE></B></DD>
 <DD>Creates a new literal and adds it to this context node.
 <P>
 <DD><DL>
@@ -518,7 +478,7 @@ getLiteral</H3>
 <PRE>
 public <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteral</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getLiteral()">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getLiteral()">ContextNode</A></CODE></B></DD>
 <DD>Returns the literal of this context node.
 <P>
 <DD><DL>
@@ -536,7 +496,7 @@ deleteLiteral</H3>
 <PRE>
 public void <B>deleteLiteral</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteLiteral()">ContextNode</A></CODE></B></DD>
+<DD><B>Deprecated.</B>&nbsp;<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#deleteLiteral()">ContextNode</A></CODE></B></DD>
 <DD>Deletes the literal from this context node.
 <P>
 <DD><DL>
@@ -598,15 +558,15 @@ public void <B>deleteLiteral</B>()</PRE>
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

@@ -98,7 +98,7 @@ Class Operation</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&gt;</DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>, <A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>, <A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>, <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>, <A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>, <A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>, <A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>, <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></DD>
 </DL>
 <HR>
 <DL>
@@ -233,7 +233,7 @@ An XDI messaging operation, represented as a relation.
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getOperationExtensionXri()">getOperationExtensionXri</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the operation extension XRI of the operation.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the operation extension XRI of the XDI operation.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -241,7 +241,7 @@ An XDI messaging operation, represented as a relation.
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getOperationXri()">getOperationXri</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the operation XRI of the operation (e.g.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the operation XRI of the XDI operation (e.g.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -273,15 +273,15 @@ An XDI messaging operation, represented as a relation.
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getTargetAddress()">getTargetAddress</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the target address of the operation.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getTargetStatement()">getTargetStatement</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the target statement of the operation.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -508,7 +508,7 @@ public <A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Re
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>A relation that represents an XDI operation.</DL>
+<DT><B>Returns:</B><DD>A relation that represents the XDI operation.</DL>
 </DD>
 </DL>
 <HR>
@@ -518,14 +518,14 @@ getOperationXri</H3>
 <PRE>
 public <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getOperationXri</B>()</PRE>
 <DL>
-<DD>Returns the operation XRI of the operation (e.g. $get, $mod).
+<DD>Returns the operation XRI of the XDI operation (e.g. $get, $mod).
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>The operation XRI of the operation.</DL>
+<DT><B>Returns:</B><DD>The operation XRI of the XDI operation.</DL>
 </DD>
 </DL>
 <HR>
@@ -535,14 +535,14 @@ getOperationExtensionXri</H3>
 <PRE>
 public <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getOperationExtensionXri</B>()</PRE>
 <DL>
-<DD>Returns the operation extension XRI of the operation.
+<DD>Returns the operation extension XRI of the XDI operation.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>The operation extension XRI of the operation.</DL>
+<DT><B>Returns:</B><DD>The operation extension XRI of the XDI operation.</DL>
 </DD>
 </DL>
 <HR>
@@ -567,13 +567,16 @@ public <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2
 <A NAME="getTargetStatement()"><!-- --></A><H3>
 getTargetStatement</H3>
 <PRE>
-public <A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>getTargetStatement</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>getTargetStatement</B>()</PRE>
 <DL>
+<DD>Returns the target statement of the operation.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>The target statement of the operation.</DL>
 </DD>
 </DL>
 <HR>
@@ -583,11 +586,14 @@ getTargetAddress</H3>
 <PRE>
 public <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getTargetAddress</B>()</PRE>
 <DL>
+<DD>Returns the target address of the operation.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>The target address of the operation.</DL>
 </DD>
 </DL>
 <HR>
@@ -756,6 +762,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2012. All Rights Reserved.
+Copyright &#169; 2013. All Rights Reserved.
 </BODY>
 </HTML>

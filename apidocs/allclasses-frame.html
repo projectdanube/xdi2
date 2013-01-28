@@ -36,6 +36,8 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor" target="classFrame">AbstractInterceptor</A>
 <BR>
+<A HREF="xdi2/webtools/grapher/AbstractJUNGDrawer.html" title="class in xdi2.webtools.grapher" target="classFrame">AbstractJUNGDrawer</A>
+<BR>
 <A HREF="xdi2/core/impl/keyvalue/AbstractKeyValueGraphFactory.html" title="class in xdi2.core.impl.keyvalue" target="classFrame">AbstractKeyValueGraphFactory</A>
 <BR>
 <A HREF="xdi2/core/impl/keyvalue/AbstractKeyValueStore.html" title="class in xdi2.core.impl.keyvalue" target="classFrame">AbstractKeyValueStore</A>
@@ -80,8 +82,6 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target" target="classFrame"><I>AddressHandler</I></A>
 <BR>
-<A HREF="xdi2/core/features/linkcontracts/AndExpression.html" title="class in xdi2.core.features.linkcontracts" target="classFrame">AndExpression</A>
-<BR>
 <A HREF="xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl" target="classFrame">AnyGraphMessagingTargetFactory</A>
 <BR>
 <A HREF="xdi2/core/io/readers/AutoReader.html" title="class in xdi2.core.io.readers" target="classFrame">AutoReader</A>
@@ -112,6 +112,10 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/util/iterators/CompositeIterator.html" title="class in xdi2.core.util.iterators" target="classFrame">CompositeIterator</A>
 <BR>
+<A HREF="xdi2/core/features/linkcontracts/condition/Condition.html" title="class in xdi2.core.features.linkcontracts.condition" target="classFrame">Condition</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policystatement/ConditionPolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement" target="classFrame">ConditionPolicyStatement</A>
+<BR>
 <A HREF="xdi2/samples/server/ConfiguredEndpointServerSample.html" title="class in xdi2.samples.server" target="classFrame">ConfiguredEndpointServerSample</A>
 <BR>
 <A HREF="xdi2/core/ContextNode.html" title="interface in xdi2.core" target="classFrame"><I>ContextNode</I></A>
@@ -132,7 +136,7 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/util/CopyUtil.ExcludeDuplicateContextNodesCopyStrategy.html" title="class in xdi2.core.util" target="classFrame">CopyUtil.ExcludeDuplicateContextNodesCopyStrategy</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/CountVisitor.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">CountVisitor</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/CountVisitor.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">CountVisitor</A>
 <BR>
 <A HREF="xdi2/core/features/datatypes/DataTypes.html" title="class in xdi2.core.features.datatypes" target="classFrame">DataTypes</A>
 <BR>
@@ -146,19 +150,23 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/messaging/DelOperation.html" title="class in xdi2.messaging" target="classFrame">DelOperation</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/DequesVisitor.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">DequesVisitor</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/DequesVisitor.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">DequesVisitor</A>
 <BR>
 <A HREF="xdi2/core/util/iterators/DescendingIterator.html" title="class in xdi2.core.util.iterators" target="classFrame">DescendingIterator</A>
 <BR>
 <A HREF="xdi2/core/features/dictionary/Dictionary.html" title="class in xdi2.core.features.dictionary" target="classFrame">Dictionary</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Displayer.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Displayer</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Displayer.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Displayer</A>
 <BR>
-<A HREF="xdi2/messaging/target/interceptor/impl/DollarIsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl" target="classFrame">DollarIsInterceptor</A>
+<A HREF="xdi2/messaging/DoOperation.html" title="class in xdi2.messaging" target="classFrame">DoOperation</A>
 <BR>
 <A HREF="xdi2/webtools/grapher/Drawer.html" title="interface in xdi2.webtools.grapher" target="classFrame"><I>Drawer</I></A>
 <BR>
 <A HREF="xdi2/webtools/grapher/Drawer1.html" title="class in xdi2.webtools.grapher" target="classFrame">Drawer1</A>
+<BR>
+<A HREF="xdi2/webtools/grapher/Drawer2.html" title="class in xdi2.webtools.grapher" target="classFrame">Drawer2</A>
+<BR>
+<A HREF="xdi2/webtools/grapher/Drawer3.html" title="class in xdi2.webtools.grapher" target="classFrame">Drawer3</A>
 <BR>
 <A HREF="xdi2/messaging/target/impl/echo/EchoMessagingTarget.html" title="class in xdi2.messaging.target.impl.echo" target="classFrame">EchoMessagingTarget</A>
 <BR>
@@ -174,15 +182,25 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/server/interceptor/EndpointServletInterceptor.html" title="interface in xdi2.server.interceptor" target="classFrame"><I>EndpointServletInterceptor</I></A>
 <BR>
+<A HREF="xdi2/core/features/linkcontracts/condition/EqualsCondition.html" title="class in xdi2.core.features.linkcontracts.condition" target="classFrame">EqualsCondition</A>
+<BR>
+<A HREF="xdi2/core/features/equivalence/Equivalence.html" title="class in xdi2.core.features.equivalence" target="classFrame">Equivalence</A>
+<BR>
 <A HREF="xdi2/messaging/error/ErrorMessageResult.html" title="class in xdi2.messaging.error" target="classFrame">ErrorMessageResult</A>
 <BR>
 <A HREF="xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target" target="classFrame">ExecutionContext</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policystatement/FalsePolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement" target="classFrame">FalsePolicyStatement</A>
 <BR>
 <A HREF="xdi2/core/impl/wrapped/file/FileGraphFactory.html" title="class in xdi2.core.impl.wrapped.file" target="classFrame">FileGraphFactory</A>
 <BR>
 <A HREF="xdi2/core/impl/wrapped/file/FileGraphWrapper.html" title="class in xdi2.core.impl.wrapped.file" target="classFrame">FileGraphWrapper</A>
 <BR>
 <A HREF="xdi2/messaging/target/impl/file/FileMessagingTarget.html" title="class in xdi2.messaging.target.impl.file" target="classFrame">FileMessagingTarget</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/condition/GenericCondition.html" title="class in xdi2.core.features.linkcontracts.condition" target="classFrame">GenericCondition</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policystatement/GenericPolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement" target="classFrame">GenericPolicyStatement</A>
 <BR>
 <A HREF="xdi2/messaging/GetOperation.html" title="class in xdi2.messaging" target="classFrame">GetOperation</A>
 <BR>
@@ -196,9 +214,15 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/messaging/target/impl/graph/GraphMessagingTarget.html" title="class in xdi2.messaging.target.impl.graph" target="classFrame">GraphMessagingTarget</A>
 <BR>
+<A HREF="xdi2/core/features/linkcontracts/evaluation/GraphPolicyEvaluationContext.html" title="class in xdi2.core.features.linkcontracts.evaluation" target="classFrame">GraphPolicyEvaluationContext</A>
+<BR>
 <A HREF="xdi2/messaging/target/impl/graph/GraphStatementHandler.html" title="class in xdi2.messaging.target.impl.graph" target="classFrame">GraphStatementHandler</A>
 <BR>
+<A HREF="xdi2/core/util/GraphUtil.html" title="class in xdi2.core.util" target="classFrame">GraphUtil</A>
+<BR>
 <A HREF="xdi2/core/impl/wrapped/GraphWrapper.html" title="interface in xdi2.core.impl.wrapped" target="classFrame"><I>GraphWrapper</I></A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/condition/GreaterCondition.html" title="class in xdi2.core.features.linkcontracts.condition" target="classFrame">GreaterCondition</A>
 <BR>
 <A HREF="xdi2/webtools/grapher/ImageCache.html" title="class in xdi2.webtools.grapher" target="classFrame">ImageCache</A>
 <BR>
@@ -212,6 +236,8 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/xri3/impl/IRIUtils.html" title="class in xdi2.core.xri3.impl" target="classFrame">IRIUtils</A>
 <BR>
+<A HREF="xdi2/core/features/linkcontracts/condition/IsCondition.html" title="class in xdi2.core.features.linkcontracts.condition" target="classFrame">IsCondition</A>
+<BR>
 <A HREF="xdi2/core/util/iterators/IteratorArrayMaker.html" title="class in xdi2.core.util.iterators" target="classFrame">IteratorArrayMaker</A>
 <BR>
 <A HREF="xdi2/core/util/iterators/IteratorContains.html" title="class in xdi2.core.util.iterators" target="classFrame">IteratorContains</A>
@@ -224,10 +250,6 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/plugins/JarClassLoader.html" title="class in xdi2.core.plugins" target="classFrame">JarClassLoader</A>
 <BR>
-<A HREF="xdi2/messaging/util/JSPolicyExpressionHelper.html" title="class in xdi2.messaging.util" target="classFrame">JSPolicyExpressionHelper</A>
-<BR>
-<A HREF="xdi2/core/features/linkcontracts/util/JSPolicyExpressionUtil.html" title="class in xdi2.core.features.linkcontracts.util" target="classFrame">JSPolicyExpressionUtil</A>
-<BR>
 <A HREF="xdi2/core/impl/keyvalue/KeyValueContextNode.html" title="class in xdi2.core.impl.keyvalue" target="classFrame">KeyValueContextNode</A>
 <BR>
 <A HREF="xdi2/core/impl/keyvalue/KeyValueGraph.html" title="class in xdi2.core.impl.keyvalue" target="classFrame">KeyValueGraph</A>
@@ -238,11 +260,13 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/impl/keyvalue/KeyValueStore.html" title="interface in xdi2.core.impl.keyvalue" target="classFrame"><I>KeyValueStore</I></A>
 <BR>
+<A HREF="xdi2/core/features/linkcontracts/condition/LesserCondition.html" title="class in xdi2.core.features.linkcontracts.condition" target="classFrame">LesserCondition</A>
+<BR>
 <A HREF="xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts" target="classFrame">LinkContract</A>
 <BR>
-<A HREF="xdi2/messaging/target/interceptor/impl/LinkContractAuthenticationInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl" target="classFrame">LinkContractAuthenticationInterceptor</A>
-<BR>
 <A HREF="xdi2/core/features/linkcontracts/LinkContracts.html" title="class in xdi2.core.features.linkcontracts" target="classFrame">LinkContracts</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/LinkContracts.MappingContextNodeLinkContractIterator.html" title="class in xdi2.core.features.linkcontracts" target="classFrame">LinkContracts.MappingContextNodeLinkContractIterator</A>
 <BR>
 <A HREF="xdi2/messaging/target/interceptor/impl/LinkContractsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl" target="classFrame">LinkContractsInterceptor</A>
 <BR>
@@ -290,13 +314,31 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/messaging/Message.html" title="class in xdi2.messaging" target="classFrame">Message</A>
 <BR>
+<A HREF="xdi2/messaging/Message.MappingRelationAddOperationIterator.html" title="class in xdi2.messaging" target="classFrame">Message.MappingRelationAddOperationIterator</A>
+<BR>
+<A HREF="xdi2/messaging/Message.MappingRelationDelOperationIterator.html" title="class in xdi2.messaging" target="classFrame">Message.MappingRelationDelOperationIterator</A>
+<BR>
+<A HREF="xdi2/messaging/Message.MappingRelationDoOperationIterator.html" title="class in xdi2.messaging" target="classFrame">Message.MappingRelationDoOperationIterator</A>
+<BR>
+<A HREF="xdi2/messaging/Message.MappingRelationGetOperationIterator.html" title="class in xdi2.messaging" target="classFrame">Message.MappingRelationGetOperationIterator</A>
+<BR>
+<A HREF="xdi2/messaging/Message.MappingRelationModOperationIterator.html" title="class in xdi2.messaging" target="classFrame">Message.MappingRelationModOperationIterator</A>
+<BR>
+<A HREF="xdi2/messaging/Message.MappingRelationOperationIterator.html" title="class in xdi2.messaging" target="classFrame">Message.MappingRelationOperationIterator</A>
+<BR>
 <A HREF="xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging" target="classFrame">MessageCollection</A>
 <BR>
+<A HREF="xdi2/messaging/MessageCollection.MappingEntityMemberMessageIterator.html" title="class in xdi2.messaging" target="classFrame">MessageCollection.MappingEntityMemberMessageIterator</A>
+<BR>
 <A HREF="xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging" target="classFrame">MessageEnvelope</A>
+<BR>
+<A HREF="xdi2/messaging/MessageEnvelope.MappingCollectionMessageCollectionIterator.html" title="class in xdi2.messaging" target="classFrame">MessageEnvelope.MappingCollectionMessageCollectionIterator</A>
 <BR>
 <A HREF="xdi2/messaging/target/interceptor/MessageEnvelopeInterceptor.html" title="interface in xdi2.messaging.target.interceptor" target="classFrame"><I>MessageEnvelopeInterceptor</I></A>
 <BR>
 <A HREF="xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor" target="classFrame"><I>MessageInterceptor</I></A>
+<BR>
+<A HREF="xdi2/messaging/target/interceptor/impl/MessagePolicyEvaluationContext.html" title="class in xdi2.messaging.target.interceptor.impl" target="classFrame">MessagePolicyEvaluationContext</A>
 <BR>
 <A HREF="xdi2/messaging/MessageResult.html" title="class in xdi2.messaging" target="classFrame">MessageResult</A>
 <BR>
@@ -314,11 +356,19 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/features/multiplicity/Multiplicity.html" title="class in xdi2.core.features.multiplicity" target="classFrame">Multiplicity</A>
 <BR>
+<A HREF="xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeAttributeMemberIterator.html" title="class in xdi2.core.features.multiplicity" target="classFrame">Multiplicity.MappingContextNodeAttributeMemberIterator</A>
+<BR>
+<A HREF="xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeAttributeSingletonIterator.html" title="class in xdi2.core.features.multiplicity" target="classFrame">Multiplicity.MappingContextNodeAttributeSingletonIterator</A>
+<BR>
+<A HREF="xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeCollectionIterator.html" title="class in xdi2.core.features.multiplicity" target="classFrame">Multiplicity.MappingContextNodeCollectionIterator</A>
+<BR>
+<A HREF="xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeEntityMemberIterator.html" title="class in xdi2.core.features.multiplicity" target="classFrame">Multiplicity.MappingContextNodeEntityMemberIterator</A>
+<BR>
+<A HREF="xdi2/core/features/multiplicity/Multiplicity.MappingContextNodeEntitySingletonIterator.html" title="class in xdi2.core.features.multiplicity" target="classFrame">Multiplicity.MappingContextNodeEntitySingletonIterator</A>
+<BR>
 <A HREF="xdi2/samples/core/MultiplicitySample.html" title="class in xdi2.samples.core" target="classFrame">MultiplicitySample</A>
 <BR>
 <A HREF="xdi2/core/util/iterators/NoDuplicatesIterator.html" title="class in xdi2.core.util.iterators" target="classFrame">NoDuplicatesIterator</A>
-<BR>
-<A HREF="xdi2/core/features/linkcontracts/NotExpression.html" title="class in xdi2.core.features.linkcontracts" target="classFrame">NotExpression</A>
 <BR>
 <A HREF="xdi2/core/util/iterators/NotNullIterator.html" title="class in xdi2.core.util.iterators" target="classFrame">NotNullIterator</A>
 <BR>
@@ -332,23 +382,41 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/features/multiplicity/Ordering.html" title="class in xdi2.core.features.multiplicity" target="classFrame">Ordering</A>
 <BR>
-<A HREF="xdi2/core/features/linkcontracts/OrExpression.html" title="class in xdi2.core.features.linkcontracts" target="classFrame">OrExpression</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Parser.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Parser</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Parser.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Parser</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/ParserContext.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">ParserContext</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/ParserContext.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">ParserContext</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/ParserException.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">ParserException</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/ParserException.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">ParserException</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/parser/ParserRules.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">ParserRules</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/ParserRules.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">ParserRules</A>
 <BR>
 <A HREF="xdi2/core/plugins/PluginsLoader.html" title="class in xdi2.core.plugins" target="classFrame">PluginsLoader</A>
 <BR>
 <A HREF="xdi2/server/plugins/PluginsLoaderListener.html" title="class in xdi2.server.plugins" target="classFrame">PluginsLoaderListener</A>
 <BR>
-<A HREF="xdi2/core/features/linkcontracts/Policy.html" title="class in xdi2.core.features.linkcontracts" target="classFrame">Policy</A>
+<A HREF="xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">Policy</A>
 <BR>
-<A HREF="xdi2/core/features/linkcontracts/PolicyExpressionComponent.html" title="class in xdi2.core.features.linkcontracts" target="classFrame">PolicyExpressionComponent</A>
+<A HREF="xdi2/core/features/linkcontracts/policy/Policy.MappingEntityMemberPolicyAndIterator.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">Policy.MappingEntityMemberPolicyAndIterator</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policy/Policy.MappingEntityMemberPolicyNotIterator.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">Policy.MappingEntityMemberPolicyNotIterator</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policy/Policy.MappingEntityMemberPolicyOrIterator.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">Policy.MappingEntityMemberPolicyOrIterator</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policy/Policy.MappingRelationPolicyStatementIterator.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">Policy.MappingRelationPolicyStatementIterator</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policy/PolicyAnd.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">PolicyAnd</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation" target="classFrame"><I>PolicyEvaluationContext</I></A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policy/PolicyNot.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">PolicyNot</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policy/PolicyOr.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">PolicyOr</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">PolicyRoot</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policystatement/PolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement" target="classFrame">PolicyStatement</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policy/PolicyUtil.html" title="class in xdi2.core.features.linkcontracts.policy" target="classFrame">PolicyUtil</A>
 <BR>
 <A HREF="xdi2/core/impl/keyvalue/properties/PropertiesGraphFactory.html" title="class in xdi2.core.impl.keyvalue.properties" target="classFrame">PropertiesGraphFactory</A>
 <BR>
@@ -368,6 +436,8 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl" target="classFrame">RedirectEndpointServletInterceptor</A>
 <BR>
+<A HREF="xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl" target="classFrame">RefInterceptor</A>
+<BR>
 <A HREF="xdi2/server/factory/impl/RegistryGraphMessagingTargetFactory.html" title="class in xdi2.server.factory.impl" target="classFrame">RegistryGraphMessagingTargetFactory</A>
 <BR>
 <A HREF="xdi2/core/Relation.html" title="interface in xdi2.core" target="classFrame"><I>Relation</I></A>
@@ -378,189 +448,189 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor" target="classFrame"><I>ResultInterceptor</I></A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ALPHA.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ALPHA</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ALPHA.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ALPHA</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$BIT.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$BIT</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$BIT.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$BIT</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$CHAR.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$CHAR</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$CHAR.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$CHAR</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$CR.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$CR</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$CR.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$CR</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$CRLF.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$CRLF</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$CRLF.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$CRLF</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$CTL.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$CTL</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$CTL.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$CTL</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$dec_octet.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$dec_octet</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$dec_octet.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$dec_octet</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$DIGIT.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$DIGIT</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$DIGIT.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$DIGIT</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$DQUOTE.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$DQUOTE</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$DQUOTE.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$DQUOTE</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$gcs_char.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$gcs_char</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$gcs_char.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$gcs_char</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$gen_delims.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$gen_delims</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$gen_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$gen_delims</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$global_subseg.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$global_subseg</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$global_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$global_subseg</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$h16.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$h16</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$h16.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$h16</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$HEXDIG.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$HEXDIG</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$HEXDIG.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$HEXDIG</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$HTAB.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$HTAB</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$HTAB.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$HTAB</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$iauthority.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$iauthority</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$iauthority.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$iauthority</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ifragment.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ifragment</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ifragment.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ifragment</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ihier_part.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ihier_part</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ihier_part.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ihier_part</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ihost.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ihost</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ihost.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ihost</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$IP_literal.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$IP_literal</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$IP_literal.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$IP_literal</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ipath_abempty.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ipath_abempty</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ipath_abempty.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ipath_abempty</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ipath_abs.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ipath_abs</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ipath_abs.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ipath_abs</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ipath_empty.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ipath_empty</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ipath_empty.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ipath_empty</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ipath_rootless.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ipath_rootless</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ipath_rootless.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ipath_rootless</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ipchar.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ipchar</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ipchar.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ipchar</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$iprivate.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$iprivate</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$iprivate.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$iprivate</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$IPv4address.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$IPv4address</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$IPv4address.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$IPv4address</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$IPv6address.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$IPv6address</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$IPv6address.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$IPv6address</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$IPvFuture.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$IPvFuture</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$IPvFuture.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$IPvFuture</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$iquery.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$iquery</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$iquery.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$iquery</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ireg_name.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ireg_name</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ireg_name.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ireg_name</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$IRI.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$IRI</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$IRI.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$IRI</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$isegment.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$isegment</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$isegment.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$isegment</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$isegment_nz.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$isegment_nz</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$isegment_nz.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$isegment_nz</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$iunreserved.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$iunreserved</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$iunreserved.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$iunreserved</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$iuserinfo.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$iuserinfo</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$iuserinfo.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$iuserinfo</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$lcs_char.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$lcs_char</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$lcs_char.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$lcs_char</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$LF.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$LF</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$LF.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$LF</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$literal.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$literal</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$literal.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$literal</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$literal_nc.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$literal_nc</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$literal_nc.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$literal_nc</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$local_subseg.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$local_subseg</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$local_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$local_subseg</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ls32.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ls32</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ls32.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ls32</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$LWSP.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$LWSP</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$LWSP.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$LWSP</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$OCTET.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$OCTET</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$OCTET.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$OCTET</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$pct_encoded.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$pct_encoded</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$pct_encoded.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$pct_encoded</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$port.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$port</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$port.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$port</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$relative_xri_part.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$relative_xri_part</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$relative_xri_part.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$relative_xri_part</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$relative_xri_ref.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$relative_xri_ref</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$relative_xri_ref.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$relative_xri_ref</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$reserved.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$reserved</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$reserved.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$reserved</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$scheme.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$scheme</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$scheme.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$scheme</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$SP.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$SP</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$SP.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$SP</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$sub_delims.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$sub_delims</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$sub_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$sub_delims</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$subseg.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$subseg</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$subseg</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$ucschar.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$ucschar</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$ucschar.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$ucschar</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$unreserved.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$unreserved</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$unreserved.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$unreserved</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$VCHAR.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$VCHAR</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$VCHAR.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$VCHAR</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$WSP.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$WSP</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$WSP.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$WSP</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_address.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_address</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_address.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_address</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_context.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_context</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_context.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_context</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_global_subseg.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_global_subseg</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_global_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_global_subseg</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_local_subseg.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_local_subseg</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_local_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_local_subseg</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_object.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_object</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_object.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_object</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_predicate.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_predicate</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_predicate.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_predicate</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_segment.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_segment</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_segment.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_segment</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_statement.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_statement</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_statement.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_statement</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_subject.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_subject</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_subject.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_subject</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_subseg.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_subseg</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_subseg.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_subseg</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_xref.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_xref</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_xref</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_xref_address.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_xref_address</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref_address.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_xref_address</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_xref_empty.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_xref_empty</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref_empty.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_xref_empty</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xdi_xref_IRI.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xdi_xref_IRI</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xdi_xref_IRI.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xdi_xref_IRI</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xref.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xref</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xref.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xref</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xref_empty.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xref_empty</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xref_empty.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xref_empty</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xref_IRI.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xref_IRI</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xref_IRI.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xref_IRI</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xref_xri_reference.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xref_xri_reference</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xref_xri_reference.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xref_xri_reference</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_authority.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_authority</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_authority.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_authority</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_gen_delims.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_gen_delims</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_gen_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_gen_delims</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_hier_part.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_hier_part</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_hier_part.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_hier_part</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_path.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_path</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_path.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_path</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_path_abempty.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_path_abempty</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_path_abempty.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_path_abempty</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_path_abs.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_path_abs</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_path_abs.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_path_abs</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_path_noscheme.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_path_noscheme</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_path_noscheme.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_path_noscheme</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_pchar.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_pchar</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_pchar.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_pchar</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_pchar_nc.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_pchar_nc</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_pchar_nc.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_pchar_nc</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_reference.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_reference</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_reference.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_reference</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_reserved.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_reserved</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_reserved.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_reserved</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_segment.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_segment</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_segment.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_segment</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_segment_nc.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_segment_nc</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_segment_nc.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_segment_nc</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_segment_nz.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_segment_nz</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_segment_nz.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_segment_nz</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Rule$xri_sub_delims.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Rule$xri_sub_delims</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Rule$xri_sub_delims.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Rule$xri_sub_delims</A>
 <BR>
 <A HREF="xdi2/core/util/iterators/SelectingClassIterator.html" title="class in xdi2.core.util.iterators" target="classFrame">SelectingClassIterator</A>
 <BR>
@@ -592,11 +662,19 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/util/StatementUtil.html" title="class in xdi2.core.util" target="classFrame">StatementUtil</A>
 <BR>
+<A HREF="xdi2/server/spring/StringXDI3SegmentConverter.html" title="class in xdi2.server.spring" target="classFrame">StringXDI3SegmentConverter</A>
+<BR>
+<A HREF="xdi2/server/spring/StringXDI3StatementConverter.html" title="class in xdi2.server.spring" target="classFrame">StringXDI3StatementConverter</A>
+<BR>
+<A HREF="xdi2/server/spring/StringXDI3SubSegmentConverter.html" title="class in xdi2.server.spring" target="classFrame">StringXDI3SubSegmentConverter</A>
+<BR>
+<A HREF="xdi2/server/spring/StringXDI3XRefConverter.html" title="class in xdi2.server.spring" target="classFrame">StringXDI3XRefConverter</A>
+<BR>
 <A HREF="xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor" target="classFrame"><I>TargetInterceptor</I></A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Terminal$NumericValue.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Terminal$NumericValue</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Terminal$NumericValue.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Terminal$NumericValue</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Terminal$StringValue.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">Terminal$StringValue</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Terminal$StringValue.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">Terminal$StringValue</A>
 <BR>
 <A HREF="xdi2/core/util/iterators/TerminatingIterator.html" title="class in xdi2.core.util.iterators" target="classFrame">TerminatingIterator</A>
 <BR>
@@ -604,7 +682,9 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/features/timestamps/Timestamps.html" title="class in xdi2.core.features.timestamps" target="classFrame">Timestamps</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/TreeDisplayer.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">TreeDisplayer</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/TreeDisplayer.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">TreeDisplayer</A>
+<BR>
+<A HREF="xdi2/core/features/linkcontracts/policystatement/TruePolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement" target="classFrame">TruePolicyStatement</A>
 <BR>
 <A HREF="xdi2/core/impl/wrapped/url/URLGraphFactory.html" title="class in xdi2.core.impl.wrapped.url" target="classFrame">URLGraphFactory</A>
 <BR>
@@ -614,7 +694,9 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl" target="classFrame">VariablesInterceptor</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/Visitor.html" title="interface in xdi2.core.xri3.impl.parser" target="classFrame"><I>Visitor</I></A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.impl.parser.aparse" target="classFrame"><I>Visitor</I></A>
+<BR>
+<A HREF="xdi2/webtools/util/WebtoolsUtil.html" title="class in xdi2.webtools.util" target="classFrame">WebtoolsUtil</A>
 <BR>
 <A HREF="xdi2/core/impl/wrapped/WrappedContextNode.html" title="class in xdi2.core.impl.wrapped" target="classFrame">WrappedContextNode</A>
 <BR>
@@ -646,11 +728,25 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions" target="classFrame">Xdi2ServerException</A>
 <BR>
+<A HREF="xdi2/core/xri3/impl/parser/apg/XDI3Grammar.html" title="class in xdi2.core.xri3.impl.parser.apg" target="classFrame">XDI3Grammar</A>
+<BR>
+<A HREF="xdi2/core/xri3/impl/parser/apg/XDI3Grammar.RuleNames.html" title="enum in xdi2.core.xri3.impl.parser.apg" target="classFrame">XDI3Grammar.RuleNames</A>
+<BR>
+<A HREF="xdi2/core/xri3/impl/parser/apg/XDI3Grammar.UdtNames.html" title="enum in xdi2.core.xri3.impl.parser.apg" target="classFrame">XDI3Grammar.UdtNames</A>
+<BR>
+<A HREF="xdi2/core/xri3/impl/parser/XDI3Parser.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">XDI3Parser</A>
+<BR>
+<A HREF="xdi2/core/xri3/impl/parser/XDI3ParserAParse.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">XDI3ParserAParse</A>
+<BR>
+<A HREF="xdi2/core/xri3/impl/parser/XDI3ParserAPG.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">XDI3ParserAPG</A>
+<BR>
 <A HREF="xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl" target="classFrame">XDI3Segment</A>
 <BR>
 <A HREF="xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl" target="classFrame">XDI3Statement</A>
 <BR>
 <A HREF="xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl" target="classFrame">XDI3SubSegment</A>
+<BR>
+<A HREF="xdi2/core/xri3/impl/XDI3SyntaxComponent.html" title="class in xdi2.core.xri3.impl" target="classFrame">XDI3SyntaxComponent</A>
 <BR>
 <A HREF="xdi2/core/xri3/impl/XDI3XRef.html" title="class in xdi2.core.xri3.impl" target="classFrame">XDI3XRef</A>
 <BR>
@@ -696,8 +792,6 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/constants/XDILinkContractConstants.html" title="class in xdi2.core.constants" target="classFrame">XDILinkContractConstants</A>
 <BR>
-<A HREF="xdi2/core/features/linkcontracts/util/XDILinkContractPermission.html" title="enum in xdi2.core.features.linkcontracts.util" target="classFrame">XDILinkContractPermission</A>
-<BR>
 <A HREF="xdi2/client/local/XDILocalClient.html" title="class in xdi2.client.local" target="classFrame">XDILocalClient</A>
 <BR>
 <A HREF="xdi2/webtools/localmessenger/XDILocalMessenger.html" title="class in xdi2.webtools.localmessenger" target="classFrame">XDILocalMessenger</A>
@@ -705,6 +799,8 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <A HREF="xdi2/messaging/constants/XDIMessagingConstants.html" title="class in xdi2.messaging.constants" target="classFrame">XDIMessagingConstants</A>
 <BR>
 <A HREF="xdi2/webtools/messenger/XDIMessenger.html" title="class in xdi2.webtools.messenger" target="classFrame">XDIMessenger</A>
+<BR>
+<A HREF="xdi2/core/io/readers/XDIRawJSONReader.html" title="class in xdi2.core.io.readers" target="classFrame">XDIRawJSONReader</A>
 <BR>
 <A HREF="xdi2/core/io/XDIReader.html" title="interface in xdi2.core.io" target="classFrame"><I>XDIReader</I></A>
 <BR>
@@ -732,59 +828,15 @@ All Classes (xdi2 0.1-SNAPSHOT API)
 <BR>
 <A HREF="xdi2/core/io/XDIWriterRegistry.html" title="class in xdi2.core.io" target="classFrame">XDIWriterRegistry</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/parser/XmlDisplayer.html" title="class in xdi2.core.xri3.impl.parser" target="classFrame">XmlDisplayer</A>
-<BR>
-<A HREF="xdi2/core/xri3/XRI.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRI</I></A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3Authority.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3Authority</A>
+<A HREF="xdi2/core/xri3/impl/parser/aparse/XmlDisplayer.html" title="class in xdi2.core.xri3.impl.parser.aparse" target="classFrame">XmlDisplayer</A>
 <BR>
 <A HREF="xdi2/core/xri3/impl/XRI3Constants.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3Constants</A>
 <BR>
-<A HREF="xdi2/core/xri3/impl/XRI3Fragment.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3Fragment</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3Literal.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3Literal</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3Path.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3Path</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3Query.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3Query</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3Reference.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3Reference</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3Segment.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3Segment</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3SubSegment.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3SubSegment</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3SyntaxComponent.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3SyntaxComponent</A>
-<BR>
-<A HREF="xdi2/core/xri3/impl/XRI3XRef.html" title="class in xdi2.core.xri3.impl" target="classFrame">XRI3XRef</A>
-<BR>
-<A HREF="xdi2/core/xri3/XRIAuthority.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRIAuthority</I></A>
-<BR>
-<A HREF="xdi2/core/xri3/XRIFragment.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRIFragment</I></A>
-<BR>
-<A HREF="xdi2/core/xri3/XRILiteral.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRILiteral</I></A>
-<BR>
 <A HREF="xdi2/webtools/parser/XRIParser.html" title="class in xdi2.webtools.parser" target="classFrame">XRIParser</A>
-<BR>
-<A HREF="xdi2/core/xri3/XRIPath.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRIPath</I></A>
-<BR>
-<A HREF="xdi2/core/xri3/XRIQuery.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRIQuery</I></A>
-<BR>
-<A HREF="xdi2/core/xri3/XRIReference.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRIReference</I></A>
 <BR>
 <A HREF="xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl" target="classFrame">XriResolutionEndpointServletInterceptor</A>
 <BR>
-<A HREF="xdi2/core/xri3/XRISegment.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRISegment</I></A>
-<BR>
-<A HREF="xdi2/core/xri3/XRISubSegment.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRISubSegment</I></A>
-<BR>
-<A HREF="xdi2/core/xri3/XRISyntaxComponent.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRISyntaxComponent</I></A>
-<BR>
 <A HREF="xdi2/core/util/XRIUtil.html" title="class in xdi2.core.util" target="classFrame">XRIUtil</A>
-<BR>
-<A HREF="xdi2/core/xri3/XRIXRef.html" title="interface in xdi2.core.xri3" target="classFrame"><I>XRIXRef</I></A>
 <BR>
 </FONT></TD>
 </TR>
