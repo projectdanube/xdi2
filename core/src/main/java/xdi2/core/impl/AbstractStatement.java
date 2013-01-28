@@ -27,7 +27,7 @@ public abstract class AbstractStatement implements Statement {
 	@Override
 	public XDI3Statement getXdiStatement() {
 
-		return new XDI3Statement(this.toString());
+		return XDI3Statement.create(this.toString());
 	}
 
 	/*
@@ -113,7 +113,7 @@ public abstract class AbstractStatement implements Statement {
 		@Override
 		public XDI3Segment getContextNodeXri() {
 
-			return XDIConstants.XRI_S_ROOT.equals(this.getSubject()) ? this.getObject() : new XDI3Segment("" + this.getSubject() + this.getObject());
+			return XDIConstants.XRI_S_ROOT.equals(this.getSubject()) ? this.getObject() : XDI3Segment.create("" + this.getSubject() + this.getObject());
 		}
 
 		@Override

@@ -9,14 +9,14 @@ import xdi2.core.xri3.impl.XDI3Segment;
  */
 public final class XDIDictionaryConstants {
 
-	public static final XDI3Segment XRI_S_IS = new XDI3Segment("$is");
+	public static final XDI3Segment XRI_S_IS = XDI3Segment.create("$is");
 
-	public static final XDI3Segment XRI_S_IS_TYPE = new XDI3Segment("$is+");
+	public static final XDI3Segment XRI_S_IS_TYPE = XDI3Segment.create("$is+");
 
-	public static final XDI3Segment XRI_S_REF = new XDI3Segment("$ref");
-	public static final XDI3Segment XRI_S_REF_BANG = new XDI3Segment("$ref!");
+	public static final XDI3Segment XRI_S_REF = XDI3Segment.create("$ref");
+	public static final XDI3Segment XRI_S_REF_BANG = XDI3Segment.create("$ref!");
 
-	public static final XDI3Segment XRI_S_IS_REF = new XDI3Segment("$is$ref");
+	public static final XDI3Segment XRI_S_IS_REF = XDI3Segment.create("$is$ref");
 
 	private XDIDictionaryConstants() { }
 }

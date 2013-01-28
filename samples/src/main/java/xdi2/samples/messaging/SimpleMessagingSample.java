@@ -30,7 +30,7 @@ public class SimpleMessagingSample {
         // create a message
 
         MessageEnvelope messageEnvelope = new MessageEnvelope();
-        MessageCollection messageCollection = messageEnvelope.getMessageCollection(new XDI3Segment("=sender"), true);
+        MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDI3Segment.create("=sender"), true);
         Message message = messageCollection.getMessage(true);
         message.createGetOperation(messageEnvelope.getGraph().getRootContextNode().getXri());
 

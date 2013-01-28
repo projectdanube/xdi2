@@ -119,7 +119,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			xri.insert(0, contextNode.getArcXri());
 		}
 
-		return new XDI3Segment(xri.toString());
+		return XDI3Segment.create(xri.toString());
 	}
 
 	/*
@@ -598,7 +598,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		@Override
 		public XDI3Segment getObject() {
 
-			return new XDI3Segment(AbstractContextNode.this.getArcXri().toString());
+			return XDI3Segment.create(AbstractContextNode.this.getArcXri().toString());
 		}
 
 		@Override

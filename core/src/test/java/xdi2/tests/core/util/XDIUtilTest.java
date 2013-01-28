@@ -9,12 +9,12 @@ public class XDIUtilTest extends TestCase {
 	public void testDataXriAlternatives() throws Exception {
 
 		XDI3Segment alternatives[] = new XDI3Segment[] {
-				new XDI3Segment("(data:,+1%20206%20555%201212)"),
-				new XDI3Segment("(data:,%2B1%20206%20555%201212)"),
-				new XDI3Segment("(data:charset=utf-8,%2B1%20206%20555%201212)"),
-				new XDI3Segment("(data:text/plain;charset=utf-8,%2B1%20206%20555%201212)"),
-				new XDI3Segment("(data:text/plain;charset=utf-8;base64,KzEgMjA2IDU1NSAxMjEy)"),
-				new XDI3Segment("(data:;base64,KzEgMjA2IDU1NSAxMjEy)")
+				XDI3Segment.create("(data:,+1%20206%20555%201212)"),
+				XDI3Segment.create("(data:,%2B1%20206%20555%201212)"),
+				XDI3Segment.create("(data:charset=utf-8,%2B1%20206%20555%201212)"),
+				XDI3Segment.create("(data:text/plain;charset=utf-8,%2B1%20206%20555%201212)"),
+				XDI3Segment.create("(data:text/plain;charset=utf-8;base64,KzEgMjA2IDU1NSAxMjEy)"),
+				XDI3Segment.create("(data:;base64,KzEgMjA2IDU1NSAxMjEy)")
 		};
 
 		for (XDI3Segment alternative : alternatives) {
@@ -27,13 +27,13 @@ public class XDIUtilTest extends TestCase {
 	public void testDataXriConversion() throws Exception {
 
 		XDI3Segment dataXriSegments[] = new XDI3Segment[] {
-				new XDI3Segment("(data:,+1-206-555-1212)"),
-				new XDI3Segment("(data:,33)"),
-				new XDI3Segment("(data:,2010J10J10T11:12:13Z)"),
-				new XDI3Segment("(data:,+1.206.555.1111)"),
-				new XDI3Segment("(data:,Canada)"),
-				new XDI3Segment("(data:,New%20Zealand)"),
-				new XDI3Segment("(data:,987654321)")
+				XDI3Segment.create("(data:,+1-206-555-1212)"),
+				XDI3Segment.create("(data:,33)"),
+				XDI3Segment.create("(data:,2010J10J10T11:12:13Z)"),
+				XDI3Segment.create("(data:,+1.206.555.1111)"),
+				XDI3Segment.create("(data:,Canada)"),
+				XDI3Segment.create("(data:,New%20Zealand)"),
+				XDI3Segment.create("(data:,987654321)")
 		};
 
 		String strings[] = new String[] {

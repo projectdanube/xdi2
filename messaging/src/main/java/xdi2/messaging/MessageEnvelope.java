@@ -98,7 +98,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createOperation(operationXri, new XDI3Segment("(" + statement + ")"));
+		message.createOperation(operationXri, XDI3Segment.create("(" + statement + ")"));
 
 		return messageEnvelope;
 	}
@@ -115,7 +115,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 			if (targetXriOrStatement == null) targetXriOrStatement = "()";
 
-			XDI3Segment targetXri = new XDI3Segment(targetXriOrStatement);
+			XDI3Segment targetXri = XDI3Segment.create(targetXriOrStatement);
 			return MessageEnvelope.fromOperationXriAndTargetXri(operationXri, targetXri);
 		} catch (Exception ex) {
 
@@ -144,7 +144,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public MessageCollection getMessageCollection(XDI3Segment senderXri, boolean create) {
 
-		XDI3Segment messageCollectionXri = new XDI3Segment(senderXri.toString() + Multiplicity.collectionArcXri(XDIMessagingConstants.XRI_SS_MSG));
+		XDI3Segment messageCollectionXri = XDI3Segment.create(senderXri.toString() + Multiplicity.collectionArcXri(XDIMessagingConstants.XRI_SS_MSG));
 		ContextNode contextNode = this.getGraph().findContextNode(messageCollectionXri, create);
 
 		if (contextNode == null) return null;

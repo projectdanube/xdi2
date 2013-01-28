@@ -24,7 +24,7 @@ public class BasicEndpointServerSample {
 		// add interceptor
 
 		BootstrapInterceptor bi = new BootstrapInterceptor();
-		bi.setBootstrapOwner(new XDI3Segment("=!1111"));
+		bi.setBootstrapOwner(XDI3Segment.create("=!1111"));
 		bi.setBootstrapSharedSecret("s3cr3t");
 		bi.setBootstrapLinkContract(true);
 

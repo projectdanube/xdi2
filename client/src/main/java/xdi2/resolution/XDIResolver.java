@@ -30,7 +30,7 @@ public class XDIResolver {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createGetOperation(new XDI3Segment("(" + xri + ")"));
+		message.createGetOperation(XDI3Segment.create("(" + xri + ")"));
 
 		// send the message
 

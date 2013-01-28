@@ -1,6 +1,11 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2013-01-28:
+------------------------
+
+*** create() factory method for parsing XRI syntax
+
 2013-01-14:
 ------------------------
 

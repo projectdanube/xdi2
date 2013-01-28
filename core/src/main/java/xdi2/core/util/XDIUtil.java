@@ -97,7 +97,7 @@ public class XDIUtil {
 			throw new Xdi2RuntimeException(ex);
 		}
 
-		return new XDI3Segment("(" + dataUri + ")");
+		return XDI3Segment.create("(" + dataUri + ")");
 	}
 
 	public static XDI3Segment stringToDataXriSegment(String string) {

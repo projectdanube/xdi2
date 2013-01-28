@@ -13,8 +13,8 @@ public class EquivalenceTest extends TestCase {
 	public void testEquivalence() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=markus"));
-		ContextNode equivalenceContextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=!1111"));
+		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
+		ContextNode equivalenceContextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=!1111"));
 
 		// test $is
 
@@ -36,9 +36,9 @@ public class EquivalenceTest extends TestCase {
 	public void testReference() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=markus"));
-		ContextNode referenceContextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=!1111"));
-		ContextNode privateReferenceContextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=!2222"));
+		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
+		ContextNode referenceContextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=!1111"));
+		ContextNode privateReferenceContextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=!2222"));
 
 		// test $ref
 

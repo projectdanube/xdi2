@@ -185,7 +185,7 @@ public final class XRIUtil {
 
 		if (buffer.length() == 0) return null;
 
-		return new XDI3Segment(buffer.toString());
+		return XDI3Segment.create(buffer.toString());
 	}
 
 	/**
@@ -221,7 +221,7 @@ public final class XRIUtil {
 
 		if (buffer.length() == 0) return null;
 
-		return new XDI3Segment(buffer.toString());
+		return XDI3Segment.create(buffer.toString());
 	}
 
 	/**
@@ -248,7 +248,7 @@ public final class XRIUtil {
 
 		if (buffer.length() == 0) return null;
 
-		return new XDI3Segment(buffer.toString());
+		return XDI3Segment.create(buffer.toString());
 	}
 
 	/**
@@ -288,7 +288,7 @@ public final class XRIUtil {
 				buffer.append(subSegment.toString());
 		}
 
-		return new XDI3Segment(buffer.toString());
+		return XDI3Segment.create(buffer.toString());
 	}
 
 	/*

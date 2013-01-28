@@ -12,9 +12,9 @@ public class ErrorMessageResult extends MessageResult {
 
 	private static final long serialVersionUID = 8816468280233966339L;
 
-	public static final XDI3Segment XRI_S_ERRORCODE = new XDI3Segment("$false$integer");
-	public static final XDI3Segment XRI_S_ERRORSTRING = new XDI3Segment("$false$string");
-	public static final XDI3Segment XRI_S_ERROROPERATION = new XDI3Segment("$false$operation");
+	public static final XDI3Segment XRI_S_ERRORCODE = XDI3Segment.create("$false$integer");
+	public static final XDI3Segment XRI_S_ERRORSTRING = XDI3Segment.create("$false$string");
+	public static final XDI3Segment XRI_S_ERROROPERATION = XDI3Segment.create("$false$operation");
 
 	public static final String DEFAULT_ERRORCODE = "-1";
 	public static final String DEFAULT_ERRORSTRING = "XDI error.";

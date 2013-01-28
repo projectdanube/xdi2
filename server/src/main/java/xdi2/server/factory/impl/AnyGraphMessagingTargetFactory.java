@@ -28,7 +28,7 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 
 		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
 
-		XDI3Segment owner = new XDI3Segment(ownerString);
+		XDI3Segment owner = XDI3Segment.create(ownerString);
 
 		// create and mount the new messaging target
 

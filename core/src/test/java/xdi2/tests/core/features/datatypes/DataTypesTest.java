@@ -27,12 +27,12 @@ public class DataTypesTest extends TestCase {
 
 			// Set a new datatype to a literal in graph
 			DataTypes.setLiteralDataType(
-					graph.findLiteral(new XDI3Segment("=markus$!(+age)")),
-					new XDI3Segment("+$mime$image$png!"));
+					graph.findLiteral(XDI3Segment.create("=markus$!(+age)")),
+					XDI3Segment.create("+$mime$image$png!"));
 
 			// Get datatype list for a literal
 			List<XDI3Segment> lst = DataTypes.getLiteralDataType(graph
-					.findLiteral(new XDI3Segment("=markus$!(+age)")));
+					.findLiteral(XDI3Segment.create("=markus$!(+age)")));
 
 			assertNotNull(lst);
 
@@ -86,8 +86,8 @@ public class DataTypesTest extends TestCase {
 
 			// Set a new datatype to a literal in graph
 			DataTypes.setLiteralDataType(
-					graph.findLiteral(new XDI3Segment("=markus$!(+age)")),
-					new XDI3Segment("+$json$number!"));
+					graph.findLiteral(XDI3Segment.create("=markus$!(+age)")),
+					XDI3Segment.create("+$json$number!"));
 			Assert.fail();
 
 		} catch (Exception ex) {
@@ -110,12 +110,12 @@ public class DataTypesTest extends TestCase {
 
 			// Set a new datatype to a literal in graph
 			DataTypes.setLiteralDataType(
-					graph.findLiteral(new XDI3Segment("=markus$!(+age)")),
-					new XDI3Segment("+$binary!"));
+					graph.findLiteral(XDI3Segment.create("=markus$!(+age)")),
+					XDI3Segment.create("+$binary!"));
 
 			// Get datatype from xri datatype list and assert for a binary type
 			assertEquals(true, DataTypes.isLiteralBinary(graph
-					.findLiteral(new XDI3Segment("=markus$!(+age)"))));
+					.findLiteral(XDI3Segment.create("=markus$!(+age)"))));
 
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

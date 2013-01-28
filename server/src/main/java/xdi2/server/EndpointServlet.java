@@ -452,7 +452,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			try {
 
-				contextNodeXri = new XDI3Segment(addr);
+				contextNodeXri = XDI3Segment.create(addr);
 			} catch (Exception ex) {
 
 				log.error("Cannot parse XDI address: " + ex.getMessage(), ex);

@@ -53,7 +53,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		for (String address : contributorCall.addresses()) {
 
-			this.addContributor(new XDI3Segment(address), contributor);
+			this.addContributor(XDI3Segment.create(address), contributor);
 		}
 	}
 

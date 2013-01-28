@@ -205,7 +205,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 	public void setBootstrapOwnerSynonyms(String[] bootstrapOwnerSynonyms) {
 
 		this.bootstrapOwnerSynonyms = new XDI3Segment[bootstrapOwnerSynonyms.length];
-		for (int i=0; i<this.bootstrapOwnerSynonyms.length; i++) this.bootstrapOwnerSynonyms[i] = new XDI3Segment(bootstrapOwnerSynonyms[i]);
+		for (int i=0; i<this.bootstrapOwnerSynonyms.length; i++) this.bootstrapOwnerSynonyms[i] = XDI3Segment.create(bootstrapOwnerSynonyms[i]);
 	}
 
 	public String getBootstrapSharedSecret() {

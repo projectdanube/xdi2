@@ -10,8 +10,8 @@ import xdi2.messaging.Message;
 
 public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext {
 
-	public static final XDI3Segment XRI_FROM = new XDI3Segment("($from)");
-	public static final XDI3Segment XRI_MSG = new XDI3Segment("($msg)");
+	public static final XDI3Segment XRI_FROM = XDI3Segment.create("($from)");
+	public static final XDI3Segment XRI_MSG = XDI3Segment.create("($msg)");
 
 	private Message message;
 
@@ -29,14 +29,14 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 
 			XDI3Segment relativeXri = XRIUtil.relativeXri(xri, XRI_MSG);
 
-			return new XDI3Segment("" + this.getMessage().getContextNode().getXri() + (relativeXri == null ? "" : relativeXri));
+			return XDI3Segment.create("" + this.getMessage().getContextNode().getXri() + (relativeXri == null ? "" : relativeXri));
 		}
 
 		if (XRIUtil.startsWith(xri, XRI_FROM)) {
 
 			XDI3Segment relativeXri = XRIUtil.relativeXri(xri, XRI_FROM);
 
-			return new XDI3Segment("" + this.getMessage().getSender() + (relativeXri == null ? "" : relativeXri));
+			return XDI3Segment.create("" + this.getMessage().getSender() + (relativeXri == null ? "" : relativeXri));
 		}
 
 		return super.getContextNodeXri(xri);

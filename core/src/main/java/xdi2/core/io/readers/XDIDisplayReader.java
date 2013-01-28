@@ -12,7 +12,7 @@ import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.parser.ParserException;
+import xdi2.core.xri3.impl.parser.aparse.ParserException;
 
 public class XDIDisplayReader extends AbstractXDIReader {
 
@@ -45,7 +45,7 @@ public class XDIDisplayReader extends AbstractXDIReader {
 
 			try {
 
-				XDI3Statement statement = new XDI3Statement(line);
+				XDI3Statement statement = XDI3Statement.create(line);
 
 				// ignore implied context nodes
 
@@ -53,7 +53,7 @@ public class XDIDisplayReader extends AbstractXDIReader {
 
 					ContextNode contextNode = graph.findContextNode(statement.getSubject(), false);
 
-					if (contextNode != null && contextNode.containsContextNode(new XDI3SubSegment(statement.getObject().toString()))) continue;
+					if (contextNode != null && contextNode.containsContextNode(XDI3SubSegment.create(statement.getObject().toString()))) continue;
 				}
 
 				// add the statement to the graph

@@ -34,7 +34,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
 
-		XDI3Segment owner = new XDI3Segment(ownerString);
+		XDI3Segment owner = XDI3Segment.create(ownerString);
 
 		// find the owner's remote root context node
 
@@ -71,7 +71,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		String ownerString = requestPath.substring(messagingTargetFactoryPath.length() + 1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDI3Segment owner = new XDI3Segment(ownerString);
+		XDI3Segment owner = XDI3Segment.create(ownerString);
 
 		// find the owner's remote root context node
 

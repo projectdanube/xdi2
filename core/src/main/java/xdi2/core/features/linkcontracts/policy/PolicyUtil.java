@@ -22,14 +22,14 @@ public final class PolicyUtil {
 
 	public static PolicyStatement senderMatchesPolicyStatement(XDI3Segment sender) {
 
-		Condition condition = IsCondition.fromSubjectAndObject(new XDI3Segment("($from)"), sender);
+		Condition condition = IsCondition.fromSubjectAndObject(XDI3Segment.create("($from)"), sender);
 
 		return TruePolicyStatement.fromCondition(condition);
 	}
 
 	public static PolicyStatement secretTokenMatchesPolicyStatement() {
 
-		Condition condition = EqualsCondition.fromSubjectAndObject(new XDI3Segment("($msg)$secret$!($token)"), new XDI3Segment("$secret$!($token)"));
+		Condition condition = EqualsCondition.fromSubjectAndObject(XDI3Segment.create("($msg)$secret$!($token)"), XDI3Segment.create("$secret$!($token)"));
 
 		return TruePolicyStatement.fromCondition(condition);
 	}

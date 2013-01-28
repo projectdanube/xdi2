@@ -94,6 +94,6 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 	public void setReadOnlyAddresses(String[] readOnlyAddresses) {
 
 		this.readOnlyAddresses = new XDI3Segment[readOnlyAddresses.length];
-		for (int i=0; i<this.readOnlyAddresses.length; i++) this.readOnlyAddresses[i] = new XDI3Segment(readOnlyAddresses[i]);
+		for (int i=0; i<this.readOnlyAddresses.length; i++) this.readOnlyAddresses[i] = XDI3Segment.create(readOnlyAddresses[i]);
 	}
 }

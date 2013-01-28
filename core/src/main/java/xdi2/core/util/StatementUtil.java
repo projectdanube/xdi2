@@ -33,7 +33,7 @@ public final class StatementUtil {
 	 */
 	public static XDI3Statement fromComponents(final XDI3Segment subject, final XDI3Segment predicate, final XDI3Segment object) {
 
-		return new XDI3Statement("" + subject + "/" + predicate + "/" + object);
+		return XDI3Statement.create("" + subject + "/" + predicate + "/" + object);
 	}
 
 	/**

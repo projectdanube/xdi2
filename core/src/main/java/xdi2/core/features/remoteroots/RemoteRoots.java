@@ -105,7 +105,7 @@ public class RemoteRoots {
 	 */
 	public static XDI3Segment remoteRootXri(XDI3Segment xri) {
 
-		return new XDI3Segment("(" + xri.toString() + ")");
+		return XDI3Segment.create("(" + xri.toString() + ")");
 	}
 
 	/**
@@ -121,9 +121,9 @@ public class RemoteRoots {
 		if (! subSegment.hasXRef()) return null;
 
 		XDI3XRef xref = subSegment.getXRef();
-		if (! xref.hasNode()) return null;
+		if (! xref.hasSegment()) return null;
 
-		return xref.getNode();
+		return xref.getSegment();
 	}
 
 	/**

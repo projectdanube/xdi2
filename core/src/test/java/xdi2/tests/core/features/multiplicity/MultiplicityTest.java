@@ -20,38 +20,38 @@ public class MultiplicityTest extends TestCase {
 
 	public void testArcXris() throws Exception {
 
-		assertEquals(Multiplicity.collectionArcXri(new XDI3SubSegment("+tel")), new XDI3SubSegment("$(+tel)"));
-		assertEquals(Multiplicity.entitySingletonArcXri(new XDI3SubSegment("+passport")), new XDI3SubSegment("+passport"));
-		assertEquals(Multiplicity.attributeSingletonArcXri(new XDI3SubSegment("+tel")), new XDI3SubSegment("$!(+tel)"));
+		assertEquals(Multiplicity.collectionArcXri(XDI3SubSegment.create("+tel")), XDI3SubSegment.create("$(+tel)"));
+		assertEquals(Multiplicity.entitySingletonArcXri(XDI3SubSegment.create("+passport")), XDI3SubSegment.create("+passport"));
+		assertEquals(Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("+tel")), XDI3SubSegment.create("$!(+tel)"));
 
-		assertTrue(Multiplicity.isCollectionArcXri(Multiplicity.collectionArcXri(new XDI3SubSegment("+tel"))));
-		assertFalse(Multiplicity.isEntitySingletonArcXri(Multiplicity.collectionArcXri(new XDI3SubSegment("+tel"))));
-		assertFalse(Multiplicity.isAttributeSingletonArcXri(Multiplicity.collectionArcXri(new XDI3SubSegment("+tel"))));
+		assertTrue(Multiplicity.isCollectionArcXri(Multiplicity.collectionArcXri(XDI3SubSegment.create("+tel"))));
+		assertFalse(Multiplicity.isEntitySingletonArcXri(Multiplicity.collectionArcXri(XDI3SubSegment.create("+tel"))));
+		assertFalse(Multiplicity.isAttributeSingletonArcXri(Multiplicity.collectionArcXri(XDI3SubSegment.create("+tel"))));
 
-		assertFalse(Multiplicity.isCollectionArcXri(Multiplicity.entitySingletonArcXri(new XDI3SubSegment("+passport"))));
-		assertTrue(Multiplicity.isEntitySingletonArcXri(Multiplicity.entitySingletonArcXri(new XDI3SubSegment("+passport"))));
-		assertFalse(Multiplicity.isAttributeSingletonArcXri(Multiplicity.entitySingletonArcXri(new XDI3SubSegment("+passport"))));
+		assertFalse(Multiplicity.isCollectionArcXri(Multiplicity.entitySingletonArcXri(XDI3SubSegment.create("+passport"))));
+		assertTrue(Multiplicity.isEntitySingletonArcXri(Multiplicity.entitySingletonArcXri(XDI3SubSegment.create("+passport"))));
+		assertFalse(Multiplicity.isAttributeSingletonArcXri(Multiplicity.entitySingletonArcXri(XDI3SubSegment.create("+passport"))));
 
-		assertFalse(Multiplicity.isCollectionArcXri(Multiplicity.attributeSingletonArcXri(new XDI3SubSegment("+tel"))));
-		assertFalse(Multiplicity.isEntitySingletonArcXri(Multiplicity.attributeSingletonArcXri(new XDI3SubSegment("+tel"))));
-		assertTrue(Multiplicity.isAttributeSingletonArcXri(Multiplicity.attributeSingletonArcXri(new XDI3SubSegment("+tel"))));
+		assertFalse(Multiplicity.isCollectionArcXri(Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("+tel"))));
+		assertFalse(Multiplicity.isEntitySingletonArcXri(Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("+tel"))));
+		assertTrue(Multiplicity.isAttributeSingletonArcXri(Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("+tel"))));
 
 		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXri("1")));
 		assertTrue(Multiplicity.isAttributeMemberArcXri(Multiplicity.attributeMemberArcXriRandom()));
 		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXri("1")));
 		assertTrue(Multiplicity.isEntityMemberArcXri(Multiplicity.entityMemberArcXriRandom()));
 
-		assertEquals(Multiplicity.baseArcXri(new XDI3SubSegment("$(+tel)")), new XDI3SubSegment("+tel"));
-		assertEquals(Multiplicity.baseArcXri(new XDI3SubSegment("+passport")), new XDI3SubSegment("+passport"));
-		assertEquals(Multiplicity.baseArcXri(new XDI3SubSegment("$!(+tel)")), new XDI3SubSegment("+tel"));
+		assertEquals(Multiplicity.baseArcXri(XDI3SubSegment.create("$(+tel)")), XDI3SubSegment.create("+tel"));
+		assertEquals(Multiplicity.baseArcXri(XDI3SubSegment.create("+passport")), XDI3SubSegment.create("+passport"));
+		assertEquals(Multiplicity.baseArcXri(XDI3SubSegment.create("$!(+tel)")), XDI3SubSegment.create("+tel"));
 	}
 
 	public void testSubGraph() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode root = graph.getRootContextNode();
-		ContextNode markus = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=markus"));
-		ContextNode remoteRoot = RemoteRoots.findRemoteRootContextNode(graph, new XDI3Segment("=!91F2.8153.F600.AE24"), true);
+		ContextNode markus = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
+		ContextNode remoteRoot = RemoteRoots.findRemoteRootContextNode(graph, XDI3Segment.create("=!91F2.8153.F600.AE24"), true);
 
 		assertNotNull(XdiSubGraph.fromContextNode(root));
 		assertNotNull(XdiSubGraph.fromContextNode(markus));
@@ -61,14 +61,14 @@ public class MultiplicityTest extends TestCase {
 	public void testContextNodes() throws Exception {	
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=markus"));
+		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
 
 		assertTrue(XdiSubGraph.fromContextNode(contextNode) instanceof XdiEntitySingleton);
 
-		XdiCollection passportCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(new XDI3SubSegment("+passport"), true);
-		XdiCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(new XDI3SubSegment("+tel"), true);
-		XdiEntitySingleton passportEntitySingleton = XdiSubGraph.fromContextNode(contextNode).getEntitySingleton(new XDI3SubSegment("+passport"), true);
-		XdiAttributeSingleton telAttributeSingleton = XdiSubGraph.fromContextNode(contextNode).getAttributeSingleton(new XDI3SubSegment("+tel"), true);
+		XdiCollection passportCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(XDI3SubSegment.create("+passport"), true);
+		XdiCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(XDI3SubSegment.create("+tel"), true);
+		XdiEntitySingleton passportEntitySingleton = XdiSubGraph.fromContextNode(contextNode).getEntitySingleton(XDI3SubSegment.create("+passport"), true);
+		XdiAttributeSingleton telAttributeSingleton = XdiSubGraph.fromContextNode(contextNode).getAttributeSingleton(XDI3SubSegment.create("+tel"), true);
 
 		assertTrue(Multiplicity.isCollectionArcXri(passportCollection.getContextNode().getArcXri()));
 		assertTrue(Multiplicity.isEntitySingletonArcXri(passportEntitySingleton.getContextNode().getArcXri()));

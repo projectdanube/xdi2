@@ -8,7 +8,7 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.xri3.impl.XRI3Constants;
-import xdi2.core.xri3.impl.parser.ParserException;
+import xdi2.core.xri3.impl.parser.aparse.ParserException;
 
 /**
  * Multiplicity supports constructs to express XDI collections, entities and attributes.
@@ -34,12 +34,12 @@ public class Multiplicity {
 
 	public static XDI3SubSegment collectionArcXri(XDI3SubSegment arcXri) {
 
-		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
+		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
 
 	public static XDI3SubSegment collectionArcXri(String identifier) {
 
-		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + identifier + ")");
+		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + "(" + identifier + ")");
 	}
 
 	public static XDI3SubSegment entitySingletonArcXri(XDI3SubSegment arcXri) {
@@ -49,7 +49,7 @@ public class Multiplicity {
 
 	public static XDI3SubSegment entityMemberArcXri(String identifier) {
 
-		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + "(" + XRI3Constants.LCS_BANG + identifier + ")");
+		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + "(" + XRI3Constants.LCS_BANG + identifier + ")");
 	}
 
 	public static XDI3SubSegment entityMemberArcXriRandom() {
@@ -59,12 +59,12 @@ public class Multiplicity {
 
 	public static XDI3SubSegment attributeSingletonArcXri(XDI3SubSegment arcXri) {
 
-		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
+		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
 	}
 
 	public static XDI3SubSegment attributeMemberArcXri(String identifier) {
 
-		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + XRI3Constants.LCS_BANG + identifier + ")");
+		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + XRI3Constants.LCS_BANG + identifier + ")");
 	}
 
 	public static XDI3SubSegment attributeMemberArcXriRandom() {
@@ -78,7 +78,7 @@ public class Multiplicity {
 
 			if (isCollectionArcXri(arcXri)) {
 
-				return new XDI3SubSegment("" + arcXri.getXRef().getNode().toString());
+				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
 			}
 
 			if (isEntitySingletonArcXri(arcXri)) {
@@ -88,17 +88,17 @@ public class Multiplicity {
 
 			if (isAttributeSingletonArcXri(arcXri)) {
 
-				return new XDI3SubSegment("" + arcXri.getXRef().getNode().toString());
+				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
 			}
 
 			if (isEntityMemberArcXri(arcXri)) {
 
-				return new XDI3SubSegment("" + arcXri.getXRef().getNode().toString());
+				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
 			}
 
 			if (isAttributeMemberArcXri(arcXri)) {
 
-				return new XDI3SubSegment("" + arcXri.getXRef().getNode().toString());
+				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
 			}
 		} catch (ParserException ex) {
 
@@ -118,7 +118,7 @@ public class Multiplicity {
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasNode()) return false;
+		if (! arcXri.getXRef().hasSegment()) return false;
 
 		return true;
 	}
@@ -139,7 +139,7 @@ public class Multiplicity {
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasNode()) return false;
+		if (! arcXri.getXRef().hasSegment()) return false;
 
 		return true;
 	}
@@ -150,10 +150,10 @@ public class Multiplicity {
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasNode()) return false;
-		if (arcXri.getXRef().getNode().getNumSubSegments() <= 0) return false;
-		if (arcXri.getXRef().getNode().getFirstSubSegment().hasGCS()) return false;
-		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getNode().getFirstSubSegment().getLCS())) return false;
+		if (! arcXri.getXRef().hasSegment()) return false;
+		if (arcXri.getXRef().getSegment().getNumSubSegments() <= 0) return false;
+		if (arcXri.getXRef().getSegment().getFirstSubSegment().hasGCS()) return false;
+		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getLCS())) return false;
 
 		return true;
 	}
@@ -164,10 +164,10 @@ public class Multiplicity {
 		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasNode()) return false;
-		if (arcXri.getXRef().getNode().getNumSubSegments() <= 0) return false;
-		if (arcXri.getXRef().getNode().getFirstSubSegment().hasGCS()) return false;
-		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getNode().getFirstSubSegment().getLCS())) return false;
+		if (! arcXri.getXRef().hasSegment()) return false;
+		if (arcXri.getXRef().getSegment().getNumSubSegments() <= 0) return false;
+		if (arcXri.getXRef().getSegment().getFirstSubSegment().hasGCS()) return false;
+		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getLCS())) return false;
 
 		return true;
 	}

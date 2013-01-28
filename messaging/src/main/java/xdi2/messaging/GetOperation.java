@@ -14,7 +14,7 @@ public class GetOperation extends Operation {
 
 	private static final long serialVersionUID = -1452297650590584104L;
 
-	public static final XDI3Segment XRI_EXTENSION_BANG = new XDI3Segment("!");
+	public static final XDI3Segment XRI_EXTENSION_BANG = XDI3Segment.create("!");
 
 	protected GetOperation(Message message, Relation relation) {
 

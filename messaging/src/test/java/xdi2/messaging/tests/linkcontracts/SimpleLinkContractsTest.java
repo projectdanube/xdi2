@@ -23,14 +23,14 @@ public class SimpleLinkContractsTest extends TestCase {
 		Graph graph = graphFactory.openGraph();
 
 		autoReader.read(graph, this.getClass().getResourceAsStream("simple.xdi"));
-		ContextNode contextNode1111_1 = graph.findContextNode(new XDI3Segment("$(=!1111)$(!1)"), false);
-		ContextNode contextNode1111_2 = graph.findContextNode(new XDI3Segment("$(=!1111)$(!2)"), false);
+		ContextNode contextNode1111_1 = graph.findContextNode(XDI3Segment.create("$(=!1111)$(!1)"), false);
+		ContextNode contextNode1111_2 = graph.findContextNode(XDI3Segment.create("$(=!1111)$(!2)"), false);
 
 		assertEquals(new IteratorCounter(LinkContracts.getAllLinkContracts(graph)).count(), 1);
 		assertNull(LinkContracts.getLinkContract(contextNode1111_1, false));
 		assertNotNull(LinkContracts.getLinkContract(contextNode1111_2, false));
-		assertNotNull(LinkContracts.findLinkContractByAddress(graph, new XDI3Segment("$(=!1111)$(!2)$do")));
-		assertNull(LinkContracts.findLinkContractByAddress(graph, new XDI3Segment("$(=!1111)$(!2)")));
+		assertNotNull(LinkContracts.findLinkContractByAddress(graph, XDI3Segment.create("$(=!1111)$(!2)$do")));
+		assertNull(LinkContracts.findLinkContractByAddress(graph, XDI3Segment.create("$(=!1111)$(!2)")));
 
 		LinkContract linkContract = LinkContracts.getLinkContract(contextNode1111_2, false);
 		assertEquals(linkContract.getNodesWithPermission(XDILinkContractConstants.XRI_S_GET).next(), contextNode1111_2);
