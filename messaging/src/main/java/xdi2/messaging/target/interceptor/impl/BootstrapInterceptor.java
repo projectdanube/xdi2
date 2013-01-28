@@ -113,7 +113,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		// check if the owner statement exists
 
-		if (rootContextNode.containsRelations(XDIDictionaryConstants.XRI_S_IS)) return;
+		if (RemoteRoots.getSelfRemoteRootContextNode(graph) != null) return;
 
 		// create bootstrap owner
 
