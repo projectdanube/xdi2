@@ -103,7 +103,7 @@ public class JarClassLoader extends URLClassLoader {
 
 			JarEntry jarEntry = jarEntries.nextElement();
 
-			log.debug("Found .jar entry: " + jarEntry + " (directory? " + jarEntry.isDirectory() + ", jar? " + isJar(jarEntry.getName()) + ")");
+			log.trace("Found .jar entry: " + jarEntry + " (directory? " + jarEntry.isDirectory() + ", jar? " + isJar(jarEntry.getName()) + ")");
 
 			if (! jarEntry.isDirectory() && isJar(jarEntry.getName())) {
 
