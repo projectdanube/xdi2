@@ -1,5 +1,5 @@
-(=!1111)/$is/()
+(=!1111)/$ref/()
 =markus$!(+name)/!/(data:,Markus%20Sabadello)
 =markus$!(+email)/!/(data:,markus.sabadello@gmail.com)
 =markus/+friend/=drummond
-()/$is/(=!1111)
+()/$is$ref/(=!1111)
