@@ -55,7 +55,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * Expresses the statement as an XDI statement in the form subject/predicate/object
 	 * @return An XDI statement.
 	 */
-	public XDI3Statement getXdiStatement();
+	public XDI3Statement getXri();
 
 	/*
 	 * Sub-interfaces

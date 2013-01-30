@@ -1,6 +1,6 @@
 package xdi2.core.xri3.impl;
 
-import xdi2.core.xri3.impl.parser.XDI3Parser;
+import xdi2.core.xri3.impl.parser.XDI3ParserRegistry;
 
 
 public class XDI3XRef extends XDI3SyntaxComponent {
@@ -22,7 +22,7 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 
 	public static XDI3XRef create(String string) {
 
-		return XDI3Parser.getInstance().parseXDI3XRef(string);
+		return XDI3ParserRegistry.getInstance().parseXDI3XRef(string);
 	}
 
 	public boolean hasSegment() {

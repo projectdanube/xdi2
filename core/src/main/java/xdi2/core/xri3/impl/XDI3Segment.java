@@ -2,7 +2,7 @@ package xdi2.core.xri3.impl;
 
 import java.util.List;
 
-import xdi2.core.xri3.impl.parser.XDI3Parser;
+import xdi2.core.xri3.impl.parser.XDI3ParserRegistry;
 
 public class XDI3Segment extends XDI3SyntaxComponent {
 
@@ -21,7 +21,7 @@ public class XDI3Segment extends XDI3SyntaxComponent {
 
 	public static XDI3Segment create(String string) {
 
-		return XDI3Parser.getInstance().parseXDI3Segment(string);
+		return XDI3ParserRegistry.getInstance().parseXDI3Segment(string);
 	}
 
 	public boolean hasLiteral() {

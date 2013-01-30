@@ -1,4 +1,4 @@
-package xdi2.core.xri3.impl.parser;
+package xdi2.core.xri3.impl.parser.aparse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,31 +7,9 @@ import xdi2.core.xri3.impl.XDI3Segment;
 import xdi2.core.xri3.impl.XDI3Statement;
 import xdi2.core.xri3.impl.XDI3SubSegment;
 import xdi2.core.xri3.impl.XDI3XRef;
-import xdi2.core.xri3.impl.parser.aparse.Parser;
-import xdi2.core.xri3.impl.parser.aparse.Rule;
-import xdi2.core.xri3.impl.parser.aparse.Rule$IRI;
-import xdi2.core.xri3.impl.parser.aparse.Rule$gcs_char;
-import xdi2.core.xri3.impl.parser.aparse.Rule$lcs_char;
-import xdi2.core.xri3.impl.parser.aparse.Rule$literal;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_address;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_context;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_global_subseg;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_local_subseg;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_object;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_predicate;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_segment;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_statement;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_subject;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_subseg;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_IRI;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_address;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xdi_xref_empty;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xref_IRI;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xref_empty;
-import xdi2.core.xri3.impl.parser.aparse.Rule$xref_xri_reference;
+import xdi2.core.xri3.impl.parser.XDI3Parser;
 
-public class XDI3ParserAParse extends XDI3Parser {
+public class XDI3ParserAParse implements XDI3Parser {
 
 	@Override
 	public XDI3Statement parseXDI3Statement(String string) {

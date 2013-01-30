@@ -2,7 +2,7 @@ package xdi2.core.xri3.impl;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.impl.parser.XDI3Parser;
+import xdi2.core.xri3.impl.parser.XDI3ParserRegistry;
 
 public class XDI3Statement extends XDI3SyntaxComponent {
 
@@ -26,7 +26,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 	public static XDI3Statement create(String string) {
 
-		return XDI3Parser.getInstance().parseXDI3Statement(string);
+		return XDI3ParserRegistry.getInstance().parseXDI3Statement(string);
 	}
 
 	public XDI3Segment getSubject() {

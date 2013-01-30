@@ -1,6 +1,6 @@
 package xdi2.core.xri3.impl;
 
-import xdi2.core.xri3.impl.parser.XDI3Parser;
+import xdi2.core.xri3.impl.parser.XDI3ParserRegistry;
 
 
 public class XDI3SubSegment extends XDI3SyntaxComponent {
@@ -24,7 +24,7 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 
 	public static XDI3SubSegment create(String string) {
 
-		return XDI3Parser.getInstance().parseXDI3SubSegment(string);
+		return XDI3ParserRegistry.getInstance().parseXDI3SubSegment(string);
 	}
 
 	public boolean hasGCS() {

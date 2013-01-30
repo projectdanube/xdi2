@@ -25,7 +25,7 @@ public abstract class AbstractStatement implements Statement {
 	}
 
 	@Override
-	public XDI3Statement getXdiStatement() {
+	public XDI3Statement getXri() {
 
 		return XDI3Statement.create(this.toString());
 	}

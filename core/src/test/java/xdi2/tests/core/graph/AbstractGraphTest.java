@@ -670,16 +670,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(graph22.containsStatement(XDI3Statement.create("=neustar/()/*les")));
 		assertTrue(graph22.containsStatement(XDI3Statement.create("=markus/+friend/=neustar*les")));
 		assertTrue(graph22.containsStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")));
-		assertEquals(graph22.findStatement(XDI3Statement.create("=neustar/()/*les")).getXdiStatement(), XDI3Statement.create("=neustar/()/*les"));
-		assertEquals(graph22.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXdiStatement(), "=markus/+friend/=neustar*les");
-		assertEquals(graph22.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")).getXdiStatement(), "=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)");
+		assertEquals(graph22.findStatement(XDI3Statement.create("=neustar/()/*les")).getXri(), XDI3Statement.create("=neustar/()/*les"));
+		assertEquals(graph22.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXri(), "=markus/+friend/=neustar*les");
+		assertEquals(graph22.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")).getXri(), "=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)");
 
 		assertTrue(graph22.findStatement(XDI3Statement.create("=neustar/()/*les")) instanceof ContextNodeStatement);
 		assertTrue(graph22.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")) instanceof RelationStatement);
 		assertTrue(graph22.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")) instanceof LiteralStatement);
-		assertTrue(graph22.findStatement(XDI3Statement.create("=neustar/()/*les")).getXdiStatement().isContextNodeStatement());
-		assertTrue(graph22.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXdiStatement().isRelationStatement());
-		assertTrue(graph22.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")).getXdiStatement().isLiteralStatement());
+		assertTrue(graph22.findStatement(XDI3Statement.create("=neustar/()/*les")).getXri().isContextNodeStatement());
+		assertTrue(graph22.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXri().isRelationStatement());
+		assertTrue(graph22.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")).getXri().isLiteralStatement());
 
 		CopyUtil.copyStatement(statement22_1, graph23, null);
 		CopyUtil.copyStatement(statement22_2, graph23, null);
@@ -696,16 +696,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(graph23.containsStatement(XDI3Statement.create("=neustar/()/*les")));
 		assertTrue(graph23.containsStatement(XDI3Statement.create("=markus/+friend/=neustar*les")));
 		assertTrue(graph23.containsStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")));
-		assertEquals(graph23.findStatement(XDI3Statement.create("=neustar/()/*les")).getXdiStatement(), XDI3Statement.create("=neustar/()/*les"));
-		assertEquals(graph23.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXdiStatement(), "=markus/+friend/=neustar*les");
-		assertEquals(graph23.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")).getXdiStatement(), "=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)");
+		assertEquals(graph23.findStatement(XDI3Statement.create("=neustar/()/*les")).getXri(), XDI3Statement.create("=neustar/()/*les"));
+		assertEquals(graph23.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXri(), "=markus/+friend/=neustar*les");
+		assertEquals(graph23.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")).getXri(), "=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)");
 
 		assertTrue(graph23.findStatement(XDI3Statement.create("=neustar/()/*les")) instanceof ContextNodeStatement);
 		assertTrue(graph23.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")) instanceof RelationStatement);
 		assertTrue(graph23.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")) instanceof LiteralStatement);
-		assertTrue(graph23.findStatement(XDI3Statement.create("=neustar/()/*les")).getXdiStatement().isContextNodeStatement());
-		assertTrue(graph23.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXdiStatement().isRelationStatement());
-		assertTrue(graph23.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")).getXdiStatement().isLiteralStatement());
+		assertTrue(graph23.findStatement(XDI3Statement.create("=neustar/()/*les")).getXri().isContextNodeStatement());
+		assertTrue(graph23.findStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXri().isRelationStatement());
+		assertTrue(graph23.findStatement(XDI3Statement.create("=markus$!(+email)/!/(data:,markus.sabadello@gmail.com)")).getXri().isLiteralStatement());
 
 		graph22.close();
 		graph23.close();

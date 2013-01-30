@@ -153,7 +153,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 			if (doIncludeReferenceRelations) {
 
-				if (operationMessageResult.getGraph().containsStatement(referenceRelation.getStatement().getXdiStatement())) {
+				if (operationMessageResult.getGraph().containsStatement(referenceRelation.getStatement().getXri())) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate reference relation: " + referenceRelation);
 				} else {
