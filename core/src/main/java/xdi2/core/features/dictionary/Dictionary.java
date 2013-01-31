@@ -6,9 +6,9 @@ import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.XRI3Constants;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XRI3Constants;
 
 public class Dictionary {
 

@@ -1,9 +1,9 @@
 package xdi2.core.features.variables;
 
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.XDI3XRef;
-import xdi2.core.xri3.impl.XRI3Constants;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XDI3XRef;
+import xdi2.core.xri3.XRI3Constants;
 
 public class Variables {
 

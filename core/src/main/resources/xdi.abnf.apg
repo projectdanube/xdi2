@@ -3,12 +3,12 @@
 ; http://wiki.oasis-open.org/xri/XriThree/SyntaxAbnf
 ; http://wiki.oasis-open.org/xdi/XdiAbnf
 ;
-; A few modifications have been made to the rules in order to be compatible with 
-; Java and the APG library:
+; A few modifications have been made to the rules:
 ;
 ; 1) APG doesn't support prose-val. the "ipath-empty" rule has been adjusted accordingly.
-; 2) Java regular expressions only support the BMP of unicode. the "ucschar" and "iprivate"
+; 2) Java regular expressions only support the BMP of unicode. The "ucschar" and "iprivate"
 ;    rules have been adjusted accordingly.
+; 3) The "(" and ")" characters have been removed from the sub-delims rule to avoid a conflict with the xref rule.
 ;
 ; =markus 01-25-2013
 ;
@@ -17,70 +17,37 @@
 ; XDI rules
 ;
 
-xdi-address = xdi-statement / xdi-context;
-xdi-context = xdi-segment
+xdi-address = xdi-subject / xdi-statement
 xdi-statement = xdi-subject "/" xdi-predicate "/" xdi-object
+xdi-inner = xdi-subject "/" xdi-predicate
 xdi-subject = xdi-segment
 xdi-predicate = xdi-segment
 xdi-object = xdi-segment
-xdi-segment = ( literal / xdi-subseg ) *xdi-subseg
-xdi-subseg = xdi-global-subseg / xdi-local-subseg / xdi-xref
-xdi-global-subseg = gcs-char [ xdi-local-subseg / xdi-xref / literal ]
-xdi-local-subseg = lcs-char [ xdi-xref / literal ]
-xdi-xref = xdi-xref-empty / xdi-xref-IRI / xdi-xref-address;
-xdi-xref-empty = "()"
-xdi-xref-IRI = "(" IRI ")"
-xdi-xref-address = "(" xdi-address ")"
-
-;
-; XRI rules
-;
-
-xri               = xri-hier-part [ "?" iquery ] [ ";" ifragment ]
-xri-reference     = xri
-                  / relative-xri-ref
-relative-xri-ref  = relative-xri-part [ "?" iquery ] [ ";" ifragment ]
-relative-xri-part = xri-path-abs
-                  / xri-path-noscheme
-                  / ipath-empty
-xri-hier-part     = xri-authority xri-path-abempty
-xri-authority     = global-subseg *subseg
-subseg            = global-subseg
-                  / local-subseg
-                  / xref
-global-subseg     = gcs-char [ local-subseg / xref / literal ]
-local-subseg      = lcs-char [ xref / literal ]
+xdi-segment = ( literal / subseg ) *subseg
+subseg = global-subseg / local-subseg / xref
+global-subseg = gcs-char [ local-subseg / xref / literal ]
+local-subseg = lcs-char [ xref / literal ]
 gcs-char          = "=" / "@" / "+" / "$"
 lcs-char          = "*" / "!"
-literal           = 1*xri-pchar
-literal-nc        = 1*xri-pchar-nc
-xref              = xref-empty / xref-xri-reference / xref-IRI;
-xref-empty        = "()"
-xref-xri-reference = "(" xri-reference ")"
-xref-IRI          = "(" IRI ")"
-xri-path          = xri-path-abempty
-                  / xri-path-abs
-                  / xri-path-noscheme
-                  / ipath-empty
-xri-path-abempty  = *( "/" xri-segment )
-xri-path-abs      = "/" [ xri-segment-nz *( "/" xri-segment ) ]
-xri-path-noscheme = xri-segment-nc *( "/" xri-segment )
-xri-segment       = [ literal ] *subseg
-xri-segment-nz    = ( literal / subseg ) *subseg
-xri-segment-nc    = ( literal-nc / subseg ) *subseg
-xri-pchar         = iunreserved / pct-encoded / xri-sub-delims / ":"
-xri-pchar-nc      = iunreserved / pct-encoded / xri-sub-delims
-xri-reserved      = xri-gen-delims / xri-sub-delims
-xri-gen-delims    = ":" / "/" / "?" / ";" / "[" / "]" / "(" / ")"
-                  / gcs-char / lcs-char
-xri-sub-delims    = "&" / ";" / "," / "'"
+xref = xref-empty / xref-IRI / xref-subject / xref-inner / xref-statement
+xref-empty = "()"
+xref-IRI = "(" IRI ")"
+xref-subject = "(" xdi-subject ")"
+xref-inner = "(" xdi-inner ")"
+xref-statement = "(" xdi-statement ")"
+literal           = 1*xdi-pchar
+xdi-pchar         = iunreserved / pct-encoded / xdi-sub-delims / ":"
+xdi-pchar-nc      = iunreserved / pct-encoded / xdi-sub-delims
+xdi-reserved      = xdi-gen-delims / xdi-sub-delims
+xdi-gen-delims    = ":" / "/" / "?" / "#" / "[" / "]" / "(" / ")" / gcs-char / lcs-char
+xdi-sub-delims    = "&" / ";" / "," / "'"
 
 ;
 ; IRI rules
 ;
 
 IRI               = scheme ":" ihier-part [ "?" iquery ]
-                  [ ";" ifragment ]
+                  [ "#" ifragment ]
 scheme            = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
 ihier-part        = "//" iauthority ipath-abempty
                   / ipath-abs
@@ -107,7 +74,7 @@ dec-octet         = DIGIT                ; 0-9
                   / %x31-39 DIGIT        ; 10-99
                   / "1" 2DIGIT           ; 100-199
                   / "2" %x30-34 DIGIT    ; 200-249
-                  / "25" %x30-35       ; 250-255
+                  / "25" %x30-35         ; 250-255
 ireg-name         = *( iunreserved / pct-encoded / sub-delims )
 port              = *DIGIT
 ipath-abempty     = *( "/" isegment )
@@ -124,8 +91,8 @@ iunreserved       = ALPHA / DIGIT / "-" / "." / "_" / "~" / ucschar
 pct-encoded       = "%" HEXDIG HEXDIG
 ucschar           = %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF
 reserved          = gen-delims / sub-delims
-gen-delims        = ":" / "/" / "?" / ";" / "[" / "]" / "@"
-sub-delims        = "!" / "$" / "&" / "'" 
+gen-delims        = ":" / "/" / "?" / "#" / "[" / "]" / "@"
+sub-delims        = "!" / "$" / "&" / "'"
                   / "*" / "+" / "," / ";" / "="
 unreserved        = ALPHA / DIGIT / "-" / "." / "_" / "~"
 

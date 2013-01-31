@@ -2,7 +2,7 @@ package xdi2.tests.core.util;
 
 import junit.framework.TestCase;
 import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 public class XRIUtilTest extends TestCase {
 

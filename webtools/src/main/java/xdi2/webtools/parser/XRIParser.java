@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.impl.parser.aparse.CountVisitor;
-import xdi2.core.xri3.impl.parser.aparse.DequesVisitor;
-import xdi2.core.xri3.impl.parser.aparse.Parser;
-import xdi2.core.xri3.impl.parser.aparse.ParserRules;
-import xdi2.core.xri3.impl.parser.aparse.Rule;
-import xdi2.core.xri3.impl.parser.aparse.TreeDisplayer;
-import xdi2.core.xri3.impl.parser.aparse.XmlDisplayer;
+import xdi2.core.xri3.parser.aparse.CountVisitor;
+import xdi2.core.xri3.parser.aparse.DequesVisitor;
+import xdi2.core.xri3.parser.aparse.Parser;
+import xdi2.core.xri3.parser.aparse.ParserRules;
+import xdi2.core.xri3.parser.aparse.Rule;
+import xdi2.core.xri3.parser.aparse.TreeDisplayer;
+import xdi2.core.xri3.parser.aparse.XmlDisplayer;
 
 /**
  * Servlet implementation class for Servlet: XRIParser

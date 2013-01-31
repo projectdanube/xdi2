@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Statement;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Statement;
 
 /**
  * An XDI condition, represented as a statement.

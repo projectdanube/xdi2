@@ -10,9 +10,9 @@ import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
-import xdi2.core.xri3.impl.XDI3Statement;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.parser.aparse.ParserException;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.parser.aparse.ParserException;
 
 public class XDIDisplayReader extends AbstractXDIReader {
 

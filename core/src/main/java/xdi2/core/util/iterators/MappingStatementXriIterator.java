@@ -3,7 +3,7 @@ package xdi2.core.util.iterators;
 import java.util.Iterator;
 
 import xdi2.core.Statement;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Statement;
 
 /**
  * A MappingIterator that maps XDI statements to their statement XRIs.

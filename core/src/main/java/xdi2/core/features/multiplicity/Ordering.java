@@ -5,8 +5,8 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.TerminatingOnNullIterator;
-import xdi2.core.xri3.impl.XRI3Constants;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XRI3Constants;
 
 public class Ordering {
 

@@ -5,7 +5,7 @@ import xdi2.core.features.linkcontracts.condition.EqualsCondition;
 import xdi2.core.features.linkcontracts.condition.IsCondition;
 import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
 import xdi2.core.features.linkcontracts.policystatement.TruePolicyStatement;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 /**
  * Various utility methods for working with XDI policies.

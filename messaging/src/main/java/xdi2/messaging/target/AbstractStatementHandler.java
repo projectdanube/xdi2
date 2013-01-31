@@ -1,6 +1,6 @@
 package xdi2.messaging.target;
 
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.DoOperation;

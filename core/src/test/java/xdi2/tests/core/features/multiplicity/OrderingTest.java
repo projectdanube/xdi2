@@ -8,8 +8,8 @@ import xdi2.core.Graph;
 import xdi2.core.features.multiplicity.Ordering;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReaderRegistry;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class OrderingTest extends TestCase {
 

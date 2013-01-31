@@ -15,7 +15,7 @@
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	View the source ABNF <a href="https://github.com/peacekeeper/xdi2/blob/master/core/src/main/resources/xdi.abnf">here</a>...
+	View the source ABNF <a href="https://github.com/peacekeeper/xdi2/blob/master/core/src/main/resources/">here</a>...
 	</div>
 
 	<% if (request.getAttribute("error") != null) { %>

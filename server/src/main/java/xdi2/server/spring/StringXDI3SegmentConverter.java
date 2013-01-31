@@ -2,7 +2,7 @@ package xdi2.server.spring;
 
 import org.springframework.core.convert.converter.Converter;
 
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 public class StringXDI3SegmentConverter implements Converter<String, XDI3Segment> {
 

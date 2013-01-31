@@ -3,7 +3,7 @@ package xdi2.core.impl.wrapped;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractRelation;
 import xdi2.core.impl.memory.MemoryRelation;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 public class WrappedRelation extends AbstractRelation implements Relation {
 

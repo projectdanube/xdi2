@@ -7,8 +7,8 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.DoOperation;
@@ -114,7 +114,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		else if (targetStatement.isLiteralStatement())
 			this.executeGetOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	public void executeAddOnStatement(XDI3Statement targetStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -126,7 +126,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		else if (targetStatement.isLiteralStatement())
 			this.executeAddOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	public void executeModOnStatement(XDI3Statement targetStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -138,7 +138,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		else if (targetStatement.isLiteralStatement())
 			this.executeModOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	public void executeDelOnStatement(XDI3Statement targetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -150,7 +150,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		else if (targetStatement.isLiteralStatement())
 			this.executeDelOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	public void executeDoOnStatement(XDI3Statement targetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -162,7 +162,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		else if (targetStatement.isLiteralStatement())
 			this.executeDoOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	/*

@@ -6,9 +6,9 @@ import java.util.UUID;
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.XRI3Constants;
-import xdi2.core.xri3.impl.parser.aparse.ParserException;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XRI3Constants;
+import xdi2.core.xri3.parser.aparse.ParserException;
 
 /**
  * Multiplicity supports constructs to express XDI collections, entities and attributes.

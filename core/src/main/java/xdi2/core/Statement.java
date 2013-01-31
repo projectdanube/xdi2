@@ -2,8 +2,8 @@ package xdi2.core;
 
 import java.io.Serializable;
 
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 /**
  * This interface represents a statement in an XDI graph.

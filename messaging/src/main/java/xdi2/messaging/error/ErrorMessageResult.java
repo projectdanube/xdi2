@@ -2,7 +2,7 @@ package xdi2.messaging.error;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;

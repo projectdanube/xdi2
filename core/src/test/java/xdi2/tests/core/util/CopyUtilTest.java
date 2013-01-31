@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Statement;
 
 public class CopyUtilTest extends TestCase {
 

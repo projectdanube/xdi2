@@ -6,7 +6,7 @@ import xdi2.core.Literal;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 public abstract class AbstractLiteral implements Literal {
 

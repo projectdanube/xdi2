@@ -1,6 +1,13 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2013-01-31:
+------------------------
+
+*** much work on parser and graph model
+
+*** introduced APG in addition to aParse
+
 2013-01-28:
 ------------------------
 

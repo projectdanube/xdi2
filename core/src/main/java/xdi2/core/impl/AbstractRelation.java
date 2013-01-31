@@ -5,7 +5,7 @@ import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.impl.AbstractStatement.AbstractRelationStatement;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 public abstract class AbstractRelation implements Relation {
 

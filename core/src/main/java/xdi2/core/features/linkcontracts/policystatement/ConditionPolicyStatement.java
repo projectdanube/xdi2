@@ -7,7 +7,7 @@ import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Statement;
 
 public abstract class ConditionPolicyStatement extends PolicyStatement {
 

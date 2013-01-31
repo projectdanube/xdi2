@@ -3,7 +3,7 @@ package xdi2.core.util.iterators;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 /**
  * A MappingIterator that maps XDI context nodes to their XRIs.

@@ -47,7 +47,8 @@
 			<groupId>com.coasttocoastresearch</groupId>
 			<artifactId>apg</artifactId>
 			<version>1.0</version>
-			<scope>compile</scope>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/apg.jar</systemPath>
 		</dependency>
 	</dependencies>
 

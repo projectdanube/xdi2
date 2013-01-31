@@ -18,8 +18,8 @@ import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 public abstract class AbstractGraph implements Graph {
 
@@ -189,9 +189,10 @@ public abstract class AbstractGraph implements Graph {
 			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 
 			return literal.getStatement();
-		}
+		} else {
 
-		return null;
+			throw new Xdi2RuntimeException("Invalid statement XRI: " + statementXri);
+		}
 	}
 
 	@Override
