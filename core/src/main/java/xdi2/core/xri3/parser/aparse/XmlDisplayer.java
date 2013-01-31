@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Thu Jan 31 18:17:57 CET 2013
+ * Produced : Thu Jan 31 23:16:41 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -28,6 +28,30 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
+  public Object visit(Rule_xdi_context rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-context>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-context>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_xdi_inner_graph rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xdi-inner-graph>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xdi-inner-graph>");
+    terminal = false;
+    return null;
+  }
+
   public Object visit(Rule_xdi_statement rule)
   {
     if (!terminal) System.out.println();
@@ -36,18 +60,6 @@ public class XmlDisplayer implements Visitor
     visitRules(rule.rules);
     if (!terminal) System.out.println();
     System.out.print("</xdi-statement>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_xdi_inner rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<xdi-inner>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</xdi-inner>");
     terminal = false;
     return null;
   }
@@ -196,26 +208,26 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_xref_subject rule)
+  public Object visit(Rule_xref_context rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xref-subject>");
+    System.out.print("<xref-context>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xref-subject>");
+    System.out.print("</xref-context>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xref_inner rule)
+  public Object visit(Rule_xref_inner_graph rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xref-inner>");
+    System.out.print("<xref-inner-graph>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xref-inner>");
+    System.out.print("</xref-inner-graph>");
     terminal = false;
     return null;
   }
@@ -228,6 +240,18 @@ public class XmlDisplayer implements Visitor
     visitRules(rule.rules);
     if (!terminal) System.out.println();
     System.out.print("</xref-statement>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_xref_literal rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xref-literal>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xref-literal>");
     terminal = false;
     return null;
   }

@@ -25,14 +25,16 @@ import xdi2.tests.core.util.StatementUtilTest;
 import xdi2.tests.core.util.XDIUtilTest;
 import xdi2.tests.core.util.XRIUtilTest;
 import xdi2.tests.core.util.iterators.IteratorTest;
-import xdi2.tests.core.xri3.XDI3ParserTest;
+import xdi2.tests.core.xri3.XDI3ParserAPGTest;
+import xdi2.tests.core.xri3.XDI3ParserAParseTest;
 
 public class AllTests {
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		//$JUnit-BEGIN$
-		suite.addTestSuite(XDI3ParserTest.class);
+		suite.addTestSuite(XDI3ParserAParseTest.class);
+		suite.addTestSuite(XDI3ParserAPGTest.class);
 		suite.addTestSuite(MemoryGraphTest.class);
 		suite.addTestSuite(MapGraphTest.class);
 		suite.addTestSuite(PropertiesGraphTest.class);

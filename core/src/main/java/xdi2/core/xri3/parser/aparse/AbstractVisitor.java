@@ -9,15 +9,21 @@ public abstract class AbstractVisitor implements Visitor {
 
 		return visitRule(rule);
 	}
-
+	
 	@Override
-	public Object visit(Rule_xdi_statement rule) {
+	public Object visit(Rule_xdi_context rule) {
 
 		return visitRule(rule);
 	}
 
 	@Override
-	public Object visit(Rule_xdi_inner rule) {
+	public Object visit(Rule_xdi_inner_graph rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_xdi_statement rule) {
 
 		return visitRule(rule);
 	}
@@ -95,19 +101,25 @@ public abstract class AbstractVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(Rule_xref_subject rule) {
+	public Object visit(Rule_xref_context rule) {
 
 		return visitRule(rule);
 	}
 
 	@Override
-	public Object visit(Rule_xref_inner rule) {
+	public Object visit(Rule_xref_inner_graph rule) {
 
 		return visitRule(rule);
 	}
 
 	@Override
 	public Object visit(Rule_xref_statement rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_xref_literal rule) {
 
 		return visitRule(rule);
 	}

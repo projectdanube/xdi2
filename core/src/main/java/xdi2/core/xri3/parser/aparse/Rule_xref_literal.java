@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule_xref_inner.java
+ * Rule_xref_literal.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Thu Jan 31 18:17:57 CET 2013
+ * Produced : Thu Jan 31 23:16:41 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_xref_inner extends Rule
+final public class Rule_xref_literal extends Rule
 {
-  private Rule_xref_inner(String spelling, ArrayList<Rule> rules)
+  private Rule_xref_literal(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_xref_inner extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_xref_inner parse(ParserContext context)
+  public static Rule_xref_literal parse(ParserContext context)
   {
-    context.push("xref-inner");
+    context.push("xref-literal");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -61,7 +61,7 @@ final public class Rule_xref_inner extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_xdi_inner.parse(context);
+            rule = Rule_literal.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -94,13 +94,13 @@ final public class Rule_xref_inner extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_xref_inner(context.text.substring(s0, context.index), e0);
+      rule = new Rule_xref_literal(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("xref-inner", parsed);
+    context.pop("xref-literal", parsed);
 
-    return (Rule_xref_inner)rule;
+    return (Rule_xref_literal)rule;
   }
 }
 

@@ -2,6 +2,7 @@ package xdi2.core.xri3;
 
 import java.util.List;
 
+import xdi2.core.xri3.parser.XDI3Parser;
 import xdi2.core.xri3.parser.XDI3ParserRegistry;
 
 public class XDI3Segment extends XDI3SyntaxComponent {
@@ -19,9 +20,14 @@ public class XDI3Segment extends XDI3SyntaxComponent {
 		this.subSegments = subSegments;
 	}
 
+	public static XDI3Segment create(XDI3Parser parser, String string) {
+
+		return parser.parseXDI3Segment(string);
+	}
+
 	public static XDI3Segment create(String string) {
 
-		return XDI3ParserRegistry.getInstance().parseXDI3Segment(string);
+		return create(XDI3ParserRegistry.getInstance(), string);
 	}
 
 	public boolean hasLiteral() {

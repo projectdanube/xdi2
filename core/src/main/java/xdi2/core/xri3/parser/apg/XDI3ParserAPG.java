@@ -8,7 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.XDI3Inner;
+import xdi2.core.xri3.XDI3InnerGraph;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -28,9 +28,9 @@ public class XDI3ParserAPG implements XDI3Parser {
 	private static final Logger log = LoggerFactory.getLogger(XDI3ParserAPG.class);
 
 	private static Grammar grammar = XDI3Grammar.getInstance();
-	private static Parser parser_statement = makeParser(XDI3Grammar.RuleNames.XDI_STATEMENT);
-	private static Parser parser_inner = makeParser(XDI3Grammar.RuleNames.XDI_INNER);
-	private static Parser parser_segment = makeParser(XDI3Grammar.RuleNames.XDI_SEGMENT);
+	private static Parser parser_xdi_statement = makeParser(XDI3Grammar.RuleNames.XDI_STATEMENT);
+	private static Parser parser_xdi_inner_graph = makeParser(XDI3Grammar.RuleNames.XDI_INNER_GRAPH);
+	private static Parser parser_xdi_segment = makeParser(XDI3Grammar.RuleNames.XDI_SEGMENT);
 	private static Parser parser_subseg = makeParser(XDI3Grammar.RuleNames.SUBSEG);
 	private static Parser parser_xref = makeParser(XDI3Grammar.RuleNames.XREF);
 
@@ -45,34 +45,34 @@ public class XDI3ParserAPG implements XDI3Parser {
 	@Override
 	public XDI3Statement parseXDI3Statement(String input) {
 
-		return (XDI3Statement) parse(parser_statement, input);
+		return (XDI3Statement) parse(parser_xdi_statement, input, XDI3Grammar.RuleNames.XDI_STATEMENT);
 	}
 
 	@Override
-	public XDI3Inner parseXDI3Inner(String input) {
+	public XDI3InnerGraph parseXDI3InnerGraph(String input) {
 
-		return (XDI3Inner) parse(parser_inner, input);
+		return (XDI3InnerGraph) parse(parser_xdi_inner_graph, input, XDI3Grammar.RuleNames.XDI_INNER_GRAPH);
 	}
 
 	@Override
 	public XDI3Segment parseXDI3Segment(String input) {
 
-		return (XDI3Segment) parse(parser_segment, input);
+		return (XDI3Segment) parse(parser_xdi_segment, input, XDI3Grammar.RuleNames.XDI_SEGMENT);
 	}
 
 	@Override
 	public XDI3SubSegment parseXDI3SubSegment(String input) {
 
-		return (XDI3SubSegment) parse(parser_subseg, input);
+		return (XDI3SubSegment) parse(parser_subseg, input, XDI3Grammar.RuleNames.SUBSEG);
 	}
 
 	@Override
 	public XDI3XRef parseXDI3XRef(String input) {
 
-		return (XDI3XRef) parse(parser_xref, input);
+		return (XDI3XRef) parse(parser_xref, input, XDI3Grammar.RuleNames.XREF);
 	}
 
-	private static XDI3SyntaxComponent parse(Parser parser, String input) {
+	private static XDI3SyntaxComponent parse(Parser parser, String input, RuleNames ruleName) {
 
 		parser.setInputString(input);
 
@@ -83,7 +83,7 @@ public class XDI3ParserAPG implements XDI3Parser {
 		try {
 
 			ast.enableRuleNode(XDI3Grammar.RuleNames.XDI_STATEMENT.ruleID(), true);
-			ast.enableRuleNode(XDI3Grammar.RuleNames.XDI_INNER.ruleID(), true);
+			ast.enableRuleNode(XDI3Grammar.RuleNames.XDI_INNER_GRAPH.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.XDI_SEGMENT.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.SUBSEG.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.XREF.ruleID(), true);
@@ -92,7 +92,7 @@ public class XDI3ParserAPG implements XDI3Parser {
 			ast.enableRuleNode(XDI3Grammar.RuleNames.LITERAL.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.IRI.ruleID(), true);
 			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_STATEMENT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_STATEMENT));
-			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_INNER.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_INNER));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_INNER_GRAPH.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_INNER_GRAPH));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_SEGMENT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_SEGMENT));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.SUBSEG.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.SUBSEG));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.XREF.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XREF));
@@ -105,13 +105,20 @@ public class XDI3ParserAPG implements XDI3Parser {
 			throw new ParserException(ex.getMessage(), ex);
 		}
 
+		Result result;
+
 		try {
 
-			Result result = parser.parse();
+			result = parser.parse();
 			if (log.isTraceEnabled()) log.trace("Result: " + result);
 		} catch (Exception ex) {
 
 			throw new ParserException(ex.getMessage(), ex);
+		}
+
+		if (! result.success()) {
+
+			throw new ParserException("Parser error for 'rule' " + ruleName.ruleName() + " (match: " + result.getMatchedPhraseLength() + ", max: " + result.getMaxMatchedPhraseLength() + ")");
 		}
 
 		ast.translateAst();
@@ -162,6 +169,16 @@ public class XDI3ParserAPG implements XDI3Parser {
 				this.myAstContext.currentNode.xri = new XDI3Statement(this.myAstContext.currentNode.value, subject, predicate, object);
 			}
 
+			if (this.ruleName.equals(RuleNames.XDI_INNER_GRAPH)) {
+
+				List<Node> nodesSegment = this.myAstContext.currentNode.findNodes(RuleNames.XDI_SEGMENT);
+
+				XDI3Segment subject = (XDI3Segment) nodesSegment.get(0).xri;
+				XDI3Segment predicate = (XDI3Segment) nodesSegment.get(1).xri;
+
+				this.myAstContext.currentNode.xri = new XDI3InnerGraph(this.myAstContext.currentNode.value, subject, predicate);
+			}
+
 			if (this.ruleName.equals(RuleNames.XDI_SEGMENT)) {
 
 				Node nodeLiteral = this.myAstContext.currentNode.findNode(RuleNames.LITERAL);
@@ -194,15 +211,17 @@ public class XDI3ParserAPG implements XDI3Parser {
 
 				Node nodeSegment = this.myAstContext.currentNode.findNode(RuleNames.XDI_SEGMENT);
 				Node nodeStatement = this.myAstContext.currentNode.findNode(RuleNames.XDI_STATEMENT);
-				Node nodeInner = this.myAstContext.currentNode.findNode(RuleNames.XDI_INNER);
+				Node nodeInnerGraph = this.myAstContext.currentNode.findNode(RuleNames.XDI_INNER_GRAPH);
 				Node nodeIRI = this.myAstContext.currentNode.findNode(RuleNames.IRI);
+				Node nodeLiteral = this.myAstContext.currentNode.findNode(RuleNames.LITERAL);
 
 				XDI3Segment segment = nodeSegment == null ? null : (XDI3Segment) nodeSegment.xri;
 				XDI3Statement statement = nodeStatement == null ? null : (XDI3Statement) nodeStatement.xri;
-				XDI3Inner inner = nodeInner == null ? null : (XDI3Inner) nodeInner.xri;
+				XDI3InnerGraph innerGraph = nodeInnerGraph == null ? null : (XDI3InnerGraph) nodeInnerGraph.xri;
 				String IRI = nodeIRI == null ? null : nodeIRI.value;
+				String literal = nodeLiteral == null ? null : nodeLiteral.value;
 
-				this.myAstContext.currentNode.xri = new XDI3XRef(this.myAstContext.currentNode.value, segment, statement, inner, IRI);
+				this.myAstContext.currentNode.xri = new XDI3XRef(this.myAstContext.currentNode.value, segment, statement, innerGraph, IRI, literal);
 			}
 
 			if (this.myAstContext.currentNode.parent != null) this.myAstContext.currentNode = this.myAstContext.currentNode.parent;

@@ -1,15 +1,16 @@
 package xdi2.core.xri3;
 
+import xdi2.core.xri3.parser.XDI3Parser;
 import xdi2.core.xri3.parser.XDI3ParserRegistry;
 
-public class XDI3Inner extends XDI3SyntaxComponent {
+public class XDI3InnerGraph extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 5744822906511010962L;
 
 	private XDI3Segment subject;
 	private XDI3Segment predicate;
 
-	public XDI3Inner(String string, XDI3Segment subject, XDI3Segment predicate) {
+	public XDI3InnerGraph(String string, XDI3Segment subject, XDI3Segment predicate) {
 
 		super(string);
 		
@@ -17,9 +18,14 @@ public class XDI3Inner extends XDI3SyntaxComponent {
 		this.predicate = predicate;
 	}
 
-	public static XDI3Inner create(String string) {
+	public static XDI3InnerGraph create(XDI3Parser parser, String string) {
 
-		return XDI3ParserRegistry.getInstance().parseXDI3Inner(string);
+		return parser.parseXDI3InnerGraph(string);
+	}
+
+	public static XDI3InnerGraph create(String string) {
+
+		return create(XDI3ParserRegistry.getInstance(), string);
 	}
 
 	public XDI3Segment getSubject() {

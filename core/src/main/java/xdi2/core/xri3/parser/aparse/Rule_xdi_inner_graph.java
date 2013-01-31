@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule_xdi_inner.java
+ * Rule_xdi_inner_graph.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Thu Jan 31 18:17:57 CET 2013
+ * Produced : Thu Jan 31 23:16:41 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_xdi_inner extends Rule
+final public class Rule_xdi_inner_graph extends Rule
 {
-  private Rule_xdi_inner(String spelling, ArrayList<Rule> rules)
+  private Rule_xdi_inner_graph(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_xdi_inner extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_xdi_inner parse(ParserContext context)
+  public static Rule_xdi_inner_graph parse(ParserContext context)
   {
-    context.push("xdi-inner");
+    context.push("xdi-inner-graph");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -94,13 +94,13 @@ final public class Rule_xdi_inner extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_xdi_inner(context.text.substring(s0, context.index), e0);
+      rule = new Rule_xdi_inner_graph(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("xdi-inner", parsed);
+    context.pop("xdi-inner-graph", parsed);
 
-    return (Rule_xdi_inner)rule;
+    return (Rule_xdi_inner_graph)rule;
   }
 }
 
