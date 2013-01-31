@@ -38,6 +38,13 @@
 		<developerConnection>scm:git:git@github.com:peacekeeper/xdi2.git</developerConnection>
 	</scm>
 
+	<repositories>
+		<repository>
+			<id>external</id>
+			<url>file://${project.basedir}/../external</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<github.global.server>github</github.global.server>
