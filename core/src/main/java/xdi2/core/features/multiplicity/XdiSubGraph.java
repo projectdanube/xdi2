@@ -3,7 +3,7 @@ package xdi2.core.features.multiplicity;
 import java.io.Serializable;
 
 import xdi2.core.ContextNode;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI subgraph according to the multiplicity pattern, represented as a context node.

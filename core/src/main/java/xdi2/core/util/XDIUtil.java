@@ -10,9 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.XDI3XRef;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XDI3XRef;
 
 /**
  * Various utility methods for working with XDI.
@@ -97,7 +97,7 @@ public class XDIUtil {
 			throw new Xdi2RuntimeException(ex);
 		}
 
-		return new XDI3Segment("(" + dataUri + ")");
+		return XDI3Segment.create("(" + dataUri + ")");
 	}
 
 	public static XDI3Segment stringToDataXriSegment(String string) {

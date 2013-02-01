@@ -5,8 +5,8 @@ import java.io.IOException;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.remoteroots.RemoteRoots;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -113,7 +113,9 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 
 		try {
 
-			graph = this.getGraph().getGraphFactory().openGraph(prototypingContext.getOwner().toString());
+			String identifier = RemoteRoots.remoteRootXri(prototypingContext.getOwner()).toString();
+
+			graph = this.getGraph().getGraphFactory().openGraph(identifier);
 		} catch (IOException ex) {
 
 			throw new Xdi2MessagingException("Cannot open graph: " + ex.getMessage(), ex, null);

@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * This interface represents a context node in an XDI graph.

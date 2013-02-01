@@ -9,7 +9,7 @@ import xdi2.core.Relation;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;

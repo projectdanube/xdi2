@@ -2,31 +2,31 @@ package xdi2.tests.core.features.variables;
 
 import junit.framework.TestCase;
 import xdi2.core.features.variables.Variables;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 public class VariablesTest extends TestCase {
 
 	public void testVariables() throws Exception {
 
-		XDI3Segment xriSegments[] = new XDI3Segment [] {
-				new XDI3Segment("($)"),
-				new XDI3Segment("($1)"),
-				new XDI3Segment("($34)"),
-				new XDI3Segment("!($)"),
-				new XDI3Segment("+($)"),
-				new XDI3Segment("*($)"),
-				new XDI3Segment("(!)"),
-				new XDI3Segment("(!12)"),
-				new XDI3Segment("(=abc)"),
-				new XDI3Segment("($)$1"),
-				new XDI3Segment("($)()"),
-				new XDI3Segment("$1"),
-				new XDI3Segment("$()"),
-				new XDI3Segment("$()"),
-				new XDI3Segment("($$)"),
-				new XDI3Segment("($$!)"),
-				new XDI3Segment("($1$!)"),
-				new XDI3Segment("($34$!)"),
+		XDI3Segment xriSegments[] = new XDI3Segment[] {
+				XDI3Segment.create("($)"),
+				XDI3Segment.create("($1)"),
+				XDI3Segment.create("($34)"),
+				XDI3Segment.create("!($)"),
+				XDI3Segment.create("+($)"),
+				XDI3Segment.create("*($)"),
+				XDI3Segment.create("(!)"),
+				XDI3Segment.create("(!12)"),
+				XDI3Segment.create("(=abc)"),
+				XDI3Segment.create("($)$1"),
+				XDI3Segment.create("($)()"),
+				XDI3Segment.create("$1"),
+				XDI3Segment.create("$()"),
+				XDI3Segment.create("$()"),
+				XDI3Segment.create("($$)"),
+				XDI3Segment.create("($$!)"),
+				XDI3Segment.create("($1$!)"),
+				XDI3Segment.create("($34$!)"),
 		};
 
 		boolean isVariableSingle[] = new boolean [] {

@@ -3,7 +3,7 @@ package xdi2.core;
 import java.io.Serializable;
 
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 /**
  * This interface represents a relation in an XDI graph.

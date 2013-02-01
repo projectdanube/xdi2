@@ -2,7 +2,7 @@ package xdi2.core.features.linkcontracts.policystatement;
 
 import xdi2.core.Relation;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 /**
  * An XDI generic policy statement, represented as a relation.

@@ -23,7 +23,18 @@ public class JarClassLoader extends URLClassLoader {
 
 		super(new URL[0], parent);
 
-		for (File file : files) this.addJarResource(file);
+		try {
+
+			for (File file : files) this.addJarResource(file);
+		} catch (IOException ex) {
+
+			log.error(ex.getMessage(), ex);
+			throw ex;
+		} catch (Throwable ex) {
+
+			log.error(ex.getMessage(), ex);
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 	}
 
 	private static void close(Closeable closeable) {
@@ -64,6 +75,8 @@ public class JarClassLoader extends URLClassLoader {
 			int readCount;
 			byte[] buffer = new byte[4096];
 
+			log.debug("Writing temp file: " + file);
+
 			while ((readCount = input.read(buffer)) != -1) {
 
 				output.write(buffer, 0, readCount);
@@ -89,6 +102,8 @@ public class JarClassLoader extends URLClassLoader {
 		while (jarEntries.hasMoreElements()) {
 
 			JarEntry jarEntry = jarEntries.nextElement();
+
+			log.trace("Found .jar entry: " + jarEntry + " (directory? " + jarEntry.isDirectory() + ", jar? " + isJar(jarEntry.getName()) + ")");
 
 			if (! jarEntry.isDirectory() && isJar(jarEntry.getName())) {
 

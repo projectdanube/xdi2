@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.util.iterators.SelectingClassIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;

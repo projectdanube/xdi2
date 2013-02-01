@@ -2,8 +2,8 @@ package xdi2.core;
 
 import java.io.Serializable;
 
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 /**
  * This interface represents a statement in an XDI graph.
@@ -55,7 +55,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * Expresses the statement as an XDI statement in the form subject/predicate/object
 	 * @return An XDI statement.
 	 */
-	public XDI3Statement getXdiStatement();
+	public XDI3Statement getXri();
 
 	/*
 	 * Sub-interfaces

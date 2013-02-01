@@ -22,10 +22,10 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.parser.ParserException;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.parser.aparse.ParserException;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -221,18 +221,18 @@ public class XDIJSONReader extends AbstractXDIReader {
 	private static XDI3Statement makeStatement(String xriString, State state) throws Xdi2ParseException {
 
 		state.lastXriString = xriString;
-		return new XDI3Statement(xriString);
+		return XDI3Statement.create(xriString);
 	}
 
 	private static XDI3Segment makeXDI3Segment(String xriString, State state) {
 
 		state.lastXriString = xriString;
-		return new XDI3Segment(xriString);
+		return XDI3Segment.create(xriString);
 	}
 
 	private static XDI3SubSegment makeXDI3SubSegment(String xriString, State state) {
 
 		state.lastXriString = xriString;
-		return new XDI3SubSegment(xriString);
+		return XDI3SubSegment.create(xriString);
 	}
 }

@@ -6,8 +6,8 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 public abstract class AbstractStatement implements Statement {
 
@@ -25,9 +25,9 @@ public abstract class AbstractStatement implements Statement {
 	}
 
 	@Override
-	public XDI3Statement getXdiStatement() {
+	public XDI3Statement getXri() {
 
-		return new XDI3Statement(this.toString());
+		return XDI3Statement.create(this.toString());
 	}
 
 	/*
@@ -113,7 +113,7 @@ public abstract class AbstractStatement implements Statement {
 		@Override
 		public XDI3Segment getContextNodeXri() {
 
-			return XDIConstants.XRI_S_ROOT.equals(this.getSubject()) ? this.getObject() : new XDI3Segment("" + this.getSubject() + this.getObject());
+			return XDIConstants.XRI_S_ROOT.equals(this.getSubject()) ? this.getObject() : XDI3Segment.create("" + this.getSubject() + this.getObject());
 		}
 
 		@Override

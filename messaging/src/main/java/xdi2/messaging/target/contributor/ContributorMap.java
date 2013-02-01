@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.DescendingIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -53,7 +53,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		for (String address : contributorCall.addresses()) {
 
-			this.addContributor(new XDI3Segment(address), contributor);
+			this.addContributor(XDI3Segment.create(address), contributor);
 		}
 	}
 

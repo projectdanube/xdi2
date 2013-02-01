@@ -6,9 +6,9 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class SimpleCoreSample {
 
@@ -19,10 +19,10 @@ public class SimpleCoreSample {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
 		ContextNode root = graph.getRootContextNode();
-		ContextNode markus = root.createContextNode(new XDI3SubSegment("=markus"));
-		ContextNode animesh = root.createContextNode(new XDI3SubSegment("=animesh"));
-		ContextNode name = markus.createContextNode(new XDI3SubSegment("+name"));
-		Relation relation = markus.createRelation(new XDI3Segment("+friend"), animesh);
+		ContextNode markus = root.createContextNode(XDI3SubSegment.create("=markus"));
+		ContextNode animesh = root.createContextNode(XDI3SubSegment.create("=animesh"));
+		ContextNode name = markus.createContextNode(XDI3SubSegment.create("+name"));
+		Relation relation = markus.createRelation(XDI3Segment.create("+friend"), animesh);
 		Literal literal = name.createLiteral("Markus Sabadello");
 
 		// write some statements from our graph
@@ -33,7 +33,7 @@ public class SimpleCoreSample {
 
 		// we can also add a whole new statement to the graph
 
-		graph.createStatement(new XDI3Statement("=alice/+friend/=bob"));
+		graph.createStatement(XDI3Statement.create("=alice/+friend/=bob"));
 
 		// write the whole graph in different serialization formats
 

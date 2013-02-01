@@ -8,10 +8,10 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2ParseException;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.XDI3XRef;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XDI3XRef;
 
 /**
  * Various utility methods for working with statements.
@@ -33,7 +33,7 @@ public final class StatementUtil {
 	 */
 	public static XDI3Statement fromComponents(final XDI3Segment subject, final XDI3Segment predicate, final XDI3Segment object) {
 
-		return new XDI3Statement("" + subject + "/" + predicate + "/" + object);
+		return XDI3Statement.create("" + subject + "/" + predicate + "/" + object);
 	}
 
 	/**

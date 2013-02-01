@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.variables.Variables;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * Various utility methods for working with XRIs.
@@ -185,7 +185,7 @@ public final class XRIUtil {
 
 		if (buffer.length() == 0) return null;
 
-		return new XDI3Segment(buffer.toString());
+		return XDI3Segment.create(buffer.toString());
 	}
 
 	/**
@@ -221,7 +221,7 @@ public final class XRIUtil {
 
 		if (buffer.length() == 0) return null;
 
-		return new XDI3Segment(buffer.toString());
+		return XDI3Segment.create(buffer.toString());
 	}
 
 	/**
@@ -248,7 +248,7 @@ public final class XRIUtil {
 
 		if (buffer.length() == 0) return null;
 
-		return new XDI3Segment(buffer.toString());
+		return XDI3Segment.create(buffer.toString());
 	}
 
 	/**
@@ -288,7 +288,7 @@ public final class XRIUtil {
 				buffer.append(subSegment.toString());
 		}
 
-		return new XDI3Segment(buffer.toString());
+		return XDI3Segment.create(buffer.toString());
 	}
 
 	/*

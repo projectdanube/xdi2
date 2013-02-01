@@ -24,6 +24,20 @@
 		</property>
 	</bean>
 
+	<!-- SPRING -->
+
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="xdi2.server.spring.StringXDI3StatementConverter" />
+				<bean class="xdi2.server.spring.StringXDI3InnerGraphConverter" />
+				<bean class="xdi2.server.spring.StringXDI3SegmentConverter" />
+				<bean class="xdi2.server.spring.StringXDI3SubSegmentConverter" />
+				<bean class="xdi2.server.spring.StringXDI3XRefConverter" />
+			</list>
+		</property>
+	</bean>
+
 	<!-- MESSAGING TARGET TO BE USED AS A PROTOTYPE FOR MESSAGING TARGET FACTORIES -->
 
 	<bean id="facebookContributor" class="xdi2.connector.facebook.contributor.FacebookContributor">

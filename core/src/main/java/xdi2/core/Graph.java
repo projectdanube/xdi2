@@ -6,8 +6,8 @@ import java.util.Properties;
 
 import xdi2.core.io.MimeType;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 /**
  * This interface represents a whole XDI graph.
@@ -159,17 +159,17 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	/**
 	 * A simple way to create a statement in this graph.
 	 */
-	public Statement createStatement(XDI3Statement statement);
+	public Statement createStatement(XDI3Statement statementXri);
 
 	/**
 	 * A simple way to find a statement in this graph.
 	 */
-	public Statement findStatement(XDI3Statement statement);
+	public Statement findStatement(XDI3Statement statementXri);
 
 	/**
 	 * A simple way to check if a statement exists in this graph.
 	 */
-	public boolean containsStatement(XDI3Statement statement);
+	public boolean containsStatement(XDI3Statement statementXri);
 
 	/*
 	 * Methods related to transactions

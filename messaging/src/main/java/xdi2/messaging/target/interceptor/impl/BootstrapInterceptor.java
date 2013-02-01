@@ -19,7 +19,7 @@ import xdi2.core.features.linkcontracts.policy.PolicyUtil;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -113,7 +113,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		// check if the owner statement exists
 
-		if (rootContextNode.containsRelations(XDIDictionaryConstants.XRI_S_IS)) return;
+		if (RemoteRoots.getSelfRemoteRootContextNode(graph) != null) return;
 
 		// create bootstrap owner
 
@@ -205,7 +205,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 	public void setBootstrapOwnerSynonyms(String[] bootstrapOwnerSynonyms) {
 
 		this.bootstrapOwnerSynonyms = new XDI3Segment[bootstrapOwnerSynonyms.length];
-		for (int i=0; i<this.bootstrapOwnerSynonyms.length; i++) this.bootstrapOwnerSynonyms[i] = new XDI3Segment(bootstrapOwnerSynonyms[i]);
+		for (int i=0; i<this.bootstrapOwnerSynonyms.length; i++) this.bootstrapOwnerSynonyms[i] = XDI3Segment.create(bootstrapOwnerSynonyms[i]);
 	}
 
 	public String getBootstrapSharedSecret() {

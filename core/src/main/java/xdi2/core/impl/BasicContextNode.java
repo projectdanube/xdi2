@@ -5,8 +5,8 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 @Deprecated
 public class BasicContextNode extends AbstractContextNode implements ContextNode {
@@ -18,7 +18,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	private Iterable<Relation> relations;
 	private Literal literal;
 
-	private BasicContextNode(Graph graph, ContextNode contextNode, XDI3SubSegment arcXri, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
+	public BasicContextNode(Graph graph, ContextNode contextNode, XDI3SubSegment arcXri, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
 
 		super(graph, contextNode);
 

@@ -4,8 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import xdi2.core.features.multiplicity.Multiplicity;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * Constants for XDI timestamps.
@@ -14,9 +14,9 @@ import xdi2.core.xri3.impl.XDI3SubSegment;
  */
 public final class XDITimestampsConstants {
 
-	public static final XDI3Segment XRI_S_T = new XDI3Segment("" + Multiplicity.attributeSingletonArcXri(new XDI3SubSegment("$t")));
+	public static final XDI3Segment XRI_S_T = XDI3Segment.create("" + Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("$t")));
 
-	public static final XDI3SubSegment XRI_SS_T = Multiplicity.attributeSingletonArcXri(new XDI3SubSegment("$t"));
+	public static final XDI3SubSegment XRI_SS_T = Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("$t"));
 
 	public static final DateFormat[] FORMATS_TIMESTAMP = new SimpleDateFormat[] {
 

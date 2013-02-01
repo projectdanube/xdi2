@@ -11,8 +11,8 @@ import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReaderRegistry;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class MultiplicitySample {
 
@@ -21,9 +21,9 @@ public class MultiplicitySample {
 		// create and print a graph with an attribute collection
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=markus"));
+		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
 
-		XdiCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(new XDI3SubSegment("+tel"), true);
+		XdiCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(XDI3SubSegment.create("+tel"), true);
 		telCollection.createAttributeMember().getContextNode().createLiteral("+1.206.555.1111");
 		telCollection.createAttributeMember().getContextNode().createLiteral("+1.206.555.2222");
 
@@ -33,9 +33,9 @@ public class MultiplicitySample {
 
 		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
 		XDIReaderRegistry.getAuto().read(graph2, new StringReader(graph.toString()));
-		ContextNode contextNode2 = graph.findContextNode(new XDI3Segment("=markus"), false);
+		ContextNode contextNode2 = graph.findContextNode(XDI3Segment.create("=markus"), false);
 
-		XdiCollection telCollection2 = XdiSubGraph.fromContextNode(contextNode2).getCollection(new XDI3SubSegment("+tel"), false);
+		XdiCollection telCollection2 = XdiSubGraph.fromContextNode(contextNode2).getCollection(XDI3SubSegment.create("+tel"), false);
 
 		for (Iterator<XdiAttributeMember> i = telCollection2.attributes(); i.hasNext(); ) {
 

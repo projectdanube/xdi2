@@ -7,27 +7,27 @@ import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.util.iterators.IteratorCounter;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class DictionaryTest extends TestCase {
 
 	public void testXRIs() throws Exception {
 
-		assertEquals(Dictionary.instanceXriToDictionaryXri(new XDI3SubSegment("+friend")), new XDI3SubSegment("+(+friend)"));
-		assertEquals(Dictionary.dictionaryXriToInstanceXri(new XDI3SubSegment("+(+friend)")), new XDI3SubSegment("+friend"));
-		assertEquals(Dictionary.nativeIdentifierToInstanceXri("user_name"), new XDI3SubSegment("+(user_name)"));
-		assertEquals(Dictionary.instanceXriToNativeIdentifier(new XDI3SubSegment("+(user_name)")), "user_name");
+		assertEquals(Dictionary.instanceXriToDictionaryXri(XDI3SubSegment.create("+friend")), XDI3SubSegment.create("+(+friend)"));
+		assertEquals(Dictionary.dictionaryXriToInstanceXri(XDI3SubSegment.create("+(+friend)")), XDI3SubSegment.create("+friend"));
+		assertEquals(Dictionary.nativeIdentifierToInstanceXri("user_name"), XDI3SubSegment.create("+(user_name)"));
+		assertEquals(Dictionary.instanceXriToNativeIdentifier(XDI3SubSegment.create("+(user_name)")), "user_name");
 	}
 
 	public void testTypes() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.getRootContextNode().createContextNode(new XDI3SubSegment("=markus"));
+		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
 
-		XDI3Segment type1 = new XDI3Segment("+employee");
-		XDI3Segment type2 = new XDI3Segment("+person");
-		XDI3Segment type3 = new XDI3Segment("+developer");
+		XDI3Segment type1 = XDI3Segment.create("+employee");
+		XDI3Segment type2 = XDI3Segment.create("+person");
+		XDI3Segment type3 = XDI3Segment.create("+developer");
 
 		Dictionary.addContextNodeType(contextNode, type1);
 		assertEquals(Dictionary.getContextNodeType(contextNode), type1);

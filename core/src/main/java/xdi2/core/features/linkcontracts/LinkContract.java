@@ -8,7 +8,7 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 /**
  * An XDI link contract, represented as a context node.

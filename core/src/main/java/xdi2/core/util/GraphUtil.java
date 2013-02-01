@@ -5,7 +5,7 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 /**
  * Various utility methods for working with context nodes, relations and literals.

@@ -6,8 +6,8 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 public class StatementUtilTest extends TestCase {
 
@@ -23,8 +23,7 @@ public class StatementUtilTest extends TestCase {
 				"=markus/$is/=!1111",
 				"()/$is$is/=!1111",
 				"=!1111/$is/()",
-				"=!1111$*(+tel)/+home+fax/=!1111$*(+tel)$!1",
-				"=markus/!/($)",
+				"=!1111$*(+tel)/+home+fax/=!1111$*(+tel)$!1"
 		};
 
 		String literalStatements[] = new String[] {
@@ -35,12 +34,13 @@ public class StatementUtilTest extends TestCase {
 
 		String invalidStatements[] = new String[] {
 				"=markus/!/=markus",
-				"=markus/()/()"
+				"=markus/()/()",
+				"=markus/!/($)"
 		};
 
-		for (String contextNodeStatement : contextNodeStatements) assertTrue(new XDI3Statement(contextNodeStatement).isContextNodeStatement());
-		for (String relationStatement : relationStatements) assertTrue(new XDI3Statement(relationStatement).isRelationStatement());
-		for (String literalStatement : literalStatements) assertTrue(new XDI3Statement(literalStatement).isLiteralStatement());
+		for (String contextNodeStatement : contextNodeStatements) assertTrue(XDI3Statement.create(contextNodeStatement).isContextNodeStatement());
+		for (String relationStatement : relationStatements) assertTrue(XDI3Statement.create(relationStatement).isRelationStatement());
+		for (String literalStatement : literalStatements) assertTrue(XDI3Statement.create(literalStatement).isLiteralStatement());
 
 		for (String invalidStatement : invalidStatements) {
 
@@ -49,7 +49,7 @@ public class StatementUtilTest extends TestCase {
 			try {
 
 				graph = MemoryGraphFactory.getInstance().openGraph();
-				graph.createStatement(new XDI3Statement(invalidStatement));
+				graph.createStatement(XDI3Statement.create(invalidStatement));
 
 				fail();
 			} catch (Exception ex) {
@@ -61,35 +61,35 @@ public class StatementUtilTest extends TestCase {
 
 	public void testComponents() throws Exception {
 
-		XDI3Statement contextNodeStatement = new XDI3Statement("=markus/()/+email");
-		XDI3Statement contextNodeStatement2 = StatementUtil.fromComponents(new XDI3Segment("=markus"), XDIConstants.XRI_S_CONTEXT, new XDI3Segment("+email"));
-		XDI3Statement contextNodeStatement3 = StatementUtil.fromContextNodeComponents(new XDI3Segment("=markus"), new XDI3Segment("+email"));
+		XDI3Statement contextNodeStatement = XDI3Statement.create("=markus/()/+email");
+		XDI3Statement contextNodeStatement2 = StatementUtil.fromComponents(XDI3Segment.create("=markus"), XDIConstants.XRI_S_CONTEXT, XDI3Segment.create("+email"));
+		XDI3Statement contextNodeStatement3 = StatementUtil.fromContextNodeComponents(XDI3Segment.create("=markus"), XDI3Segment.create("+email"));
 
-		assertTrue(contextNodeStatement.getSubject().equals(new XDI3Segment("=markus")));
+		assertTrue(contextNodeStatement.getSubject().equals(XDI3Segment.create("=markus")));
 		assertTrue(contextNodeStatement.getPredicate().equals(XDIConstants.XRI_S_CONTEXT));
-		assertTrue(contextNodeStatement.getObject().equals(new XDI3Segment("+email")));
+		assertTrue(contextNodeStatement.getObject().equals(XDI3Segment.create("+email")));
 
 		assertEquals(contextNodeStatement, contextNodeStatement2);
 		assertEquals(contextNodeStatement, contextNodeStatement3);
 
-		XDI3Statement relationStatement = new XDI3Statement("=markus/+friend/=animesh");
-		XDI3Statement relationStatement2 = StatementUtil.fromComponents(new XDI3Segment("=markus"), new XDI3Segment("+friend"), new XDI3Segment("=animesh"));
-		XDI3Statement relationStatement3 = StatementUtil.fromRelationComponents(new XDI3Segment("=markus"), new XDI3Segment("+friend"), new XDI3Segment("=animesh"));
+		XDI3Statement relationStatement = XDI3Statement.create("=markus/+friend/=animesh");
+		XDI3Statement relationStatement2 = StatementUtil.fromComponents(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
+		XDI3Statement relationStatement3 = StatementUtil.fromRelationComponents(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
 
 		assertEquals(relationStatement, relationStatement2);
 		assertEquals(relationStatement, relationStatement3);
 
-		assertTrue(relationStatement.getSubject().equals(new XDI3Segment("=markus")));
-		assertTrue(relationStatement.getPredicate().equals(new XDI3Segment("+friend")));
-		assertTrue(relationStatement.getObject().equals(new XDI3Segment("=animesh")));
+		assertTrue(relationStatement.getSubject().equals(XDI3Segment.create("=markus")));
+		assertTrue(relationStatement.getPredicate().equals(XDI3Segment.create("+friend")));
+		assertTrue(relationStatement.getObject().equals(XDI3Segment.create("=animesh")));
 
-		XDI3Statement literalStatement = new XDI3Statement("=markus+name/!/(data:,Markus%20Sabadello)");
-		XDI3Statement literalStatement2 = StatementUtil.fromComponents(new XDI3Segment("=markus+name"), XDIConstants.XRI_S_LITERAL, XDIUtil.stringToDataXriSegment("Markus Sabadello"));
-		XDI3Statement literalStatement3 = StatementUtil.fromLiteralComponents(new XDI3Segment("=markus+name"), "Markus Sabadello");
+		XDI3Statement literalStatement = XDI3Statement.create("=markus+name/!/(data:,Markus%20Sabadello)");
+		XDI3Statement literalStatement2 = StatementUtil.fromComponents(XDI3Segment.create("=markus+name"), XDIConstants.XRI_S_LITERAL, XDIUtil.stringToDataXriSegment("Markus Sabadello"));
+		XDI3Statement literalStatement3 = StatementUtil.fromLiteralComponents(XDI3Segment.create("=markus+name"), "Markus Sabadello");
 
-		assertTrue(literalStatement.getSubject().equals(new XDI3Segment("=markus+name")));
+		assertTrue(literalStatement.getSubject().equals(XDI3Segment.create("=markus+name")));
 		assertTrue(literalStatement.getPredicate().equals(XDIConstants.XRI_S_LITERAL));
-		assertTrue(literalStatement.getObject().equals(new XDI3Segment("(data:,Markus%20Sabadello)")));
+		assertTrue(literalStatement.getObject().equals(XDI3Segment.create("(data:,Markus%20Sabadello)")));
 
 		assertEquals(literalStatement, literalStatement2);
 		assertEquals(literalStatement, literalStatement3);
@@ -97,14 +97,14 @@ public class StatementUtilTest extends TestCase {
 
 	public void testRelative() throws Exception {
 
-		XDI3Statement literalStatement = new XDI3Statement("=markus+name/!/(data:,Markus%20Sabadello)");
+		XDI3Statement literalStatement = XDI3Statement.create("=markus+name/!/(data:,Markus%20Sabadello)");
 
-		XDI3Statement relativeXDI3Statement = StatementUtil.relativeStatement(literalStatement, new XDI3Segment("=markus"));
+		XDI3Statement relativeXDI3Statement = StatementUtil.relativeStatement(literalStatement, XDI3Segment.create("=markus"));
 
-		assertTrue(relativeXDI3Statement.getSubject().equals(new XDI3Segment("+name")));
-		assertTrue(relativeXDI3Statement.getPredicate().equals(new XDI3Segment("!")));
-		assertTrue(relativeXDI3Statement.getObject().equals(new XDI3Segment("(data:,Markus%20Sabadello)")));
+		assertTrue(relativeXDI3Statement.getSubject().equals(XDI3Segment.create("+name")));
+		assertTrue(relativeXDI3Statement.getPredicate().equals(XDI3Segment.create("!")));
+		assertTrue(relativeXDI3Statement.getObject().equals(XDI3Segment.create("(data:,Markus%20Sabadello)")));
 
-		assertNull(StatementUtil.relativeStatement(relativeXDI3Statement, new XDI3Segment("($)"), false, true));
+		assertNull(StatementUtil.relativeStatement(relativeXDI3Statement, XDI3Segment.create("($)"), false, true));
 	}
 }

@@ -5,8 +5,8 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.TerminatingOnNullIterator;
-import xdi2.core.xri3.impl.XRI3Constants;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XRI3Constants;
 
 public class Ordering {
 
@@ -18,7 +18,7 @@ public class Ordering {
 
 	public static XDI3SubSegment indexArcXri(int index) {
 
-		return new XDI3SubSegment("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_STAR + Integer.toString(index));
+		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_STAR + Integer.toString(index));
 	}
 
 	public static int arcXriIndex(XDI3SubSegment arcXri) {
@@ -27,7 +27,7 @@ public class Ordering {
 		if (! XRI3Constants.LCS_STAR.equals(arcXri.getLCS())) return -1;
 		if (! arcXri.hasLiteral()) return -1;
 
-		return Integer.parseInt(arcXri.getLiteral().getValue());
+		return Integer.parseInt(arcXri.getLiteral());
 	}
 
 	/*

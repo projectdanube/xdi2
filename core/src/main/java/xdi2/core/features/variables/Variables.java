@@ -1,9 +1,9 @@
 package xdi2.core.features.variables;
 
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.XDI3XRef;
-import xdi2.core.xri3.impl.XRI3Constants;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XDI3XRef;
+import xdi2.core.xri3.XRI3Constants;
 
 public class Variables {
 
@@ -29,9 +29,9 @@ public class Variables {
 
 		XDI3XRef xref = var.getXRef();
 		if (xref.hasIRI()) return false;
-		if (! xref.hasNode()) return false;
+		if (! xref.hasSegment()) return false;
 
-		XDI3Segment node = xref.getNode();
+		XDI3Segment node = xref.getSegment();
 		if (node.getNumSubSegments() != 1) return false;
 
 		XDI3SubSegment firstSubSegment = node.getSubSegment(0);
@@ -55,9 +55,9 @@ public class Variables {
 
 		XDI3XRef xref = var.getXRef();
 		if (xref.hasIRI()) return false;
-		if (! xref.hasNode()) return false;
+		if (! xref.hasSegment()) return false;
 
-		XDI3Segment node = xref.getNode();
+		XDI3Segment node = xref.getSegment();
 		if (node.getNumSubSegments() != 2) return false;
 
 		XDI3SubSegment firstSubSegment = node.getSubSegment(0);
@@ -87,9 +87,9 @@ public class Variables {
 
 		XDI3XRef xref = var.getXRef();
 		if (xref.hasIRI()) return false;
-		if (! xref.hasNode()) return false;
+		if (! xref.hasSegment()) return false;
 
-		XDI3Segment node = xref.getNode();
+		XDI3Segment node = xref.getSegment();
 		if (node.getNumSubSegments() != 2) return false;
 
 		XDI3SubSegment firstSubSegment = node.getSubSegment(0);

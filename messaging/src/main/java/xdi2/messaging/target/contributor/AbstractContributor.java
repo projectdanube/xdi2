@@ -14,8 +14,8 @@ import xdi2.core.Relation;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.DoOperation;
@@ -146,7 +146,7 @@ public abstract class AbstractContributor implements Contributor {
 		else if (targetStatement.isLiteralStatement())
 			return this.executeGetOnLiteralStatement(contributorXris, relativeTargetStatement, targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	public boolean executeAddOnStatement(XDI3Segment[] contributorXris, XDI3Statement relativeTargetStatement, XDI3Statement targetStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -158,7 +158,7 @@ public abstract class AbstractContributor implements Contributor {
 		else if (targetStatement.isLiteralStatement())
 			return this.executeAddOnLiteralStatement(contributorXris, relativeTargetStatement, targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	public boolean executeModOnStatement(XDI3Segment[] contributorXris, XDI3Statement relativeTargetStatement, XDI3Statement targetStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -170,7 +170,7 @@ public abstract class AbstractContributor implements Contributor {
 		else if (targetStatement.isLiteralStatement())
 			return this.executeModOnLiteralStatement(contributorXris, relativeTargetStatement, targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	public boolean executeDelOnStatement(XDI3Segment[] contributorXris, XDI3Statement relativeTargetStatement, XDI3Statement targetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -182,7 +182,7 @@ public abstract class AbstractContributor implements Contributor {
 		else if (targetStatement.isLiteralStatement())
 			return this.executeDelOnLiteralStatement(contributorXris, relativeTargetStatement, targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	public boolean executeDoOnStatement(XDI3Segment[] contributorXris, XDI3Statement relativeTargetStatement, XDI3Statement targetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -194,7 +194,7 @@ public abstract class AbstractContributor implements Contributor {
 		else if (targetStatement.isLiteralStatement())
 			return this.executeDoOnLiteralStatement(contributorXris, relativeTargetStatement, targetStatement, operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
 	/*

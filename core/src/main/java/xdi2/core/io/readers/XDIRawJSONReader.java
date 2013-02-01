@@ -22,8 +22,8 @@ import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -40,10 +40,10 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType MIME_TYPE = null;
 
-	public static final XDI3Segment XRI_DATATYPE_JSON_NUMBER = new XDI3Segment("+$json$number");
-	public static final XDI3Segment XRI_DATATYPE_JSON_TRUE = new XDI3Segment("+$json$true");
-	public static final XDI3Segment XRI_DATATYPE_JSON_FALSE = new XDI3Segment("+$json$false");
-	public static final XDI3Segment XRI_DATATYPE_JSON_NULL = new XDI3Segment("+$json$null");
+	public static final XDI3Segment XRI_DATATYPE_JSON_NUMBER = XDI3Segment.create("+$json$number");
+	public static final XDI3Segment XRI_DATATYPE_JSON_TRUE = XDI3Segment.create("+$json$true");
+	public static final XDI3Segment XRI_DATATYPE_JSON_FALSE = XDI3Segment.create("+$json$false");
+	public static final XDI3Segment XRI_DATATYPE_JSON_NULL = XDI3Segment.create("+$json$null");
 
 	public XDIRawJSONReader(Properties parameters) {
 

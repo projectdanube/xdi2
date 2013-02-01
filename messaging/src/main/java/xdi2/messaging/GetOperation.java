@@ -2,7 +2,7 @@ package xdi2.messaging;
 
 import xdi2.core.Relation;
 import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -14,7 +14,7 @@ public class GetOperation extends Operation {
 
 	private static final long serialVersionUID = -1452297650590584104L;
 
-	public static final XDI3Segment XRI_EXTENSION_BANG = new XDI3Segment("!");
+	public static final XDI3Segment XRI_EXTENSION_BANG = XDI3Segment.create("!");
 
 	protected GetOperation(Message message, Relation relation) {
 

@@ -22,8 +22,8 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.remoteroots.RemoteRoots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.EndpointServlet;
 import xdi2.server.RequestInfo;
@@ -65,13 +65,13 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		// look into registry
 
-		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XDI3Segment("" + providerid + query), false);
+		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), XDI3Segment.create("" + providerid + query), false);
 
 		if (remoteRootContextNode == null) {
 
 			for (XDI3Segment provideridSynonym : provideridSynonyms) {
 
-				remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), new XDI3Segment("" + provideridSynonym + query), false);
+				remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), XDI3Segment.create("" + provideridSynonym + query), false);
 				if (remoteRootContextNode != null) break;
 			}
 		}
@@ -135,7 +135,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		if (query.isEmpty()) return null;
 
-		return new XDI3SubSegment(query);
+		return XDI3SubSegment.create(query);
 	}
 
 	private static String constructUri(RequestInfo requestInfo, String targetPath, XDI3Segment canonicalid) {
@@ -169,7 +169,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 	/*	private static XDI3Segment getCanonicalId(Graph graph, XDI3Segment providerid, XDI3SubSegment localid) {
 
-		XDI3Segment canonicalid = new XDI3Segment("" + providerid + localid);
+		XDI3Segment canonicalid = XDI3Segment.create("" + providerid + localid);
 
 		ContextNode canonicalidRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, canonicalid, false);
 

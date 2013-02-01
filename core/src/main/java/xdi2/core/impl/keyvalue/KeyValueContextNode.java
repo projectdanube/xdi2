@@ -13,8 +13,8 @@ import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class KeyValueContextNode extends AbstractContextNode implements ContextNode {
 
@@ -89,7 +89,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 			@Override
 			public ContextNode map(String item) {
 
-				XDI3SubSegment arcXri = new XDI3SubSegment(item);
+				XDI3SubSegment arcXri = XDI3SubSegment.create(item);
 				String contextNodeKey = KeyValueContextNode.this.getContextNodeKey(arcXri);
 
 				return new KeyValueContextNode(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, contextNodeKey, arcXri);
@@ -215,7 +215,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		if (! this.keyValueStore.contains(relationsKey, arcXri.toString())) return null;
 		if (! this.keyValueStore.contains(relationKey)) return null;
 
-		XDI3Segment relationXri = new XDI3Segment(this.keyValueStore.getOne(relationKey));
+		XDI3Segment relationXri = XDI3Segment.create(this.keyValueStore.getOne(relationKey));
 
 		return new KeyValueRelation(this.getGraph(), this, this.keyValueStore, relationKey, arcXri, relationXri);
 	}
@@ -234,7 +234,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 			@Override
 			public Relation map(String relationXriString) {
 
-				XDI3Segment relationXri = new XDI3Segment(relationXriString);
+				XDI3Segment relationXri = XDI3Segment.create(relationXriString);
 
 				return new KeyValueRelation(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arcXri, relationXri);
 			}
@@ -251,7 +251,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 			@Override
 			public Iterator<Relation> descend(String item) {
 
-				final XDI3Segment arcXri = new XDI3Segment(item);
+				final XDI3Segment arcXri = XDI3Segment.create(item);
 				final String relationKey = KeyValueContextNode.this.getRelationKey(arcXri);
 
 				return new MappingIterator<String, Relation> (KeyValueContextNode.this.keyValueStore.getAll(relationKey)) {
@@ -259,7 +259,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 					@Override
 					public Relation map(String relationXriString) {
 
-						return new KeyValueRelation(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arcXri, new XDI3Segment(relationXriString));
+						return new KeyValueRelation(KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arcXri, XDI3Segment.create(relationXriString));
 					}
 				};
 			}
@@ -332,7 +332,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 			@Override
 			public Integer map(String item) {
 
-				final XDI3Segment arcXri = new XDI3Segment(item);
+				final XDI3Segment arcXri = XDI3Segment.create(item);
 				final String relationKey = KeyValueContextNode.this.getRelationKey(arcXri);
 
 				return Integer.valueOf(KeyValueContextNode.this.keyValueStore.count(relationKey));

@@ -7,7 +7,7 @@ import xdi2.client.XDIClient;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -21,8 +21,8 @@ public class SimpleClientSample {
     static void doAdd() throws Exception {
 
         MessageEnvelope messageEnvelope = new MessageEnvelope();
-        Message message = messageEnvelope.getMessage(new XDI3Segment("=sender"), true);
-        message.createAddOperation(new XDI3Segment("(=markus+name/!/(data:,Markus))"));
+        Message message = messageEnvelope.getMessage(XDI3Segment.create("=sender"), true);
+        message.createAddOperation(XDI3Segment.create("(=markus+name/!/(data:,Markus))"));
 
         client.send(messageEnvelope, null);
     }
@@ -30,8 +30,8 @@ public class SimpleClientSample {
     static void doGet() throws Exception {
 
         MessageEnvelope messageEnvelope = new MessageEnvelope();
-        Message message = messageEnvelope.getMessage(new XDI3Segment("=sender"), true);
-        message.createGetOperation(new XDI3Segment("()"));
+        Message message = messageEnvelope.getMessage(XDI3Segment.create("=sender"), true);
+        message.createGetOperation(XDI3Segment.create("()"));
 
         MessageResult messageResult = new MessageResult();
         client.send(messageEnvelope, messageResult);
@@ -41,8 +41,8 @@ public class SimpleClientSample {
     static void doDel() throws Exception {
 
         MessageEnvelope messageEnvelope = new MessageEnvelope();
-        Message message = messageEnvelope.getMessage(new XDI3Segment("=sender"), true);
-        message.createDelOperation(new XDI3Segment("()"));
+        Message message = messageEnvelope.getMessage(XDI3Segment.create("=sender"), true);
+        message.createDelOperation(XDI3Segment.create("()"));
 
         client.send(messageEnvelope, null);
     }

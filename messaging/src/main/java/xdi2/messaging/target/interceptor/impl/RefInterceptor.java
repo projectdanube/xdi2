@@ -18,8 +18,8 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
@@ -101,7 +101,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 			Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 			feedbackMessage.deleteOperations();
-			feedbackMessage.createOperation(new XDI3Segment("" + XDIMessagingConstants.XRI_S_GET + (operation.getOperationExtensionXri() == null ? "" : operation.getOperationExtensionXri())), referenceRelation.getContextNode().getXri());
+			feedbackMessage.createOperation(XDI3Segment.create("" + XDIMessagingConstants.XRI_S_GET + (operation.getOperationExtensionXri() == null ? "" : operation.getOperationExtensionXri())), referenceRelation.getContextNode().getXri());
 			Deque<Relation> tempEquivalenceRelations = getReferenceRelations(executionContext);
 			resetReferenceRelations(executionContext);
 			this.feedback(feedbackMessage, operationMessageResult, executionContext);
@@ -153,7 +153,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 			if (doIncludeReferenceRelations) {
 
-				if (operationMessageResult.getGraph().containsStatement(referenceRelation.getStatement().getXdiStatement())) {
+				if (operationMessageResult.getGraph().containsStatement(referenceRelation.getStatement().getXri())) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate reference relation: " + referenceRelation);
 				} else {
@@ -296,9 +296,9 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 				pushReferenceRelation(executionContext, referenceRelation);
 
 				if (canonicalContextNode.isRootContextNode())
-					return new XDI3Segment("" + (localPart.isEmpty() ? XDIConstants.XRI_S_ROOT : localPart));
+					return XDI3Segment.create("" + (localPart.isEmpty() ? XDIConstants.XRI_S_ROOT : localPart));
 				else
-					return new XDI3Segment(canonicalContextNode.getXri() + localPart);
+					return XDI3Segment.create(canonicalContextNode.getXri() + localPart);
 			}
 
 			if (privateReferenceRelation != null) {
@@ -309,9 +309,9 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 				pushReferenceRelation(executionContext, privateReferenceRelation);
 
 				if (privateCanonicalContextNode.isRootContextNode())
-					return new XDI3Segment("" + (localPart.isEmpty() ? XDIConstants.XRI_S_ROOT : localPart));
+					return XDI3Segment.create("" + (localPart.isEmpty() ? XDIConstants.XRI_S_ROOT : localPart));
 				else
-					return new XDI3Segment(privateCanonicalContextNode.getXri() + localPart);
+					return XDI3Segment.create(privateCanonicalContextNode.getXri() + localPart);
 			}
 
 			localPart = "" + XRIUtil.localXri(contextNodeXri, 1) + localPart;

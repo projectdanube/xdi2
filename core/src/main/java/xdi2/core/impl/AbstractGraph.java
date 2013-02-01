@@ -18,8 +18,8 @@ import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 public abstract class AbstractGraph implements Graph {
 
@@ -167,50 +167,51 @@ public abstract class AbstractGraph implements Graph {
 	 */
 
 	@Override
-	public Statement createStatement(XDI3Statement statement) {
+	public Statement createStatement(XDI3Statement statementXri) {
 
-		ContextNode contextNode = this.findContextNode(statement.getSubject(), true);
+		ContextNode contextNode = this.findContextNode(statementXri.getSubject(), true);
 
-		if (statement.isContextNodeStatement()) {
+		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode innerContextNode = contextNode.createContextNodes(statement.getObject());
+			ContextNode innerContextNode = contextNode.createContextNodes(statementXri.getObject());
 			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created context node --> " + innerContextNode.getXri());
 
 			return innerContextNode.getStatement();
-		} else if (statement.isRelationStatement()) {
+		} else if (statementXri.isRelationStatement()) {
 
-			Relation relation = contextNode.createRelation(statement.getArcXri(), statement.getTargetContextNodeXri());
+			Relation relation = contextNode.createRelation(statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
 			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 
 			return relation.getStatement();
-		} else if (statement.isLiteralStatement()) {
+		} else if (statementXri.isLiteralStatement()) {
 
-			Literal literal = contextNode.createLiteral(statement.getLiteralData());
+			Literal literal = contextNode.createLiteral(statementXri.getLiteralData());
 			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 
 			return literal.getStatement();
-		}
+		} else {
 
-		return null;
+			throw new Xdi2RuntimeException("Invalid statement XRI: " + statementXri);
+		}
 	}
 
 	@Override
-	public Statement findStatement(XDI3Statement statement) {
+	public Statement findStatement(XDI3Statement statementXri) {
 
-		if (statement.isContextNodeStatement()) {
+		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = this.findContextNode(statement.getSubject(), false);
-			contextNode = contextNode == null ? null : contextNode.findContextNode(statement.getObject(), false);
+			ContextNode contextNode = this.findContextNode(statementXri.getSubject(), false);
+			contextNode = contextNode == null ? null : contextNode.findContextNode(statementXri.getObject(), false);
 
 			return contextNode == null ? null : contextNode.getStatement();
-		} else if (statement.isRelationStatement()) {
+		} else if (statementXri.isRelationStatement()) {
 
-			Relation relation = this.findRelation(statement.getSubject(), statement.getArcXri(), statement.getTargetContextNodeXri());
+			Relation relation = this.findRelation(statementXri.getSubject(), statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
 
 			return relation == null ? null : relation.getStatement();
-		} else if (statement.isLiteralStatement()) {
+		} else if (statementXri.isLiteralStatement()) {
 
-			Literal literal = this.findLiteral(statement.getSubject(), statement.getLiteralData());
+			Literal literal = this.findLiteral(statementXri.getSubject(), statementXri.getLiteralData());
 
 			return literal == null ? null : literal.getStatement();
 		}
@@ -219,9 +220,9 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
-	public boolean containsStatement(XDI3Statement statement) {
+	public boolean containsStatement(XDI3Statement statementXri) {
 
-		return this.findStatement(statement) != null;
+		return this.findStatement(statementXri) != null;
 	}
 
 	/*

@@ -2,7 +2,7 @@ package xdi2.core.features.linkcontracts.evaluation;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 
 /**
  * This interface provides a context for evaluating an XDI policy.

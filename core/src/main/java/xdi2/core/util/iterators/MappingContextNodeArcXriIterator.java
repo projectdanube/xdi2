@@ -3,7 +3,7 @@ package xdi2.core.util.iterators;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * A MappingIterator that maps XDI context nodes to their arc XRIs.

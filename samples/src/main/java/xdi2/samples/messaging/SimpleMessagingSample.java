@@ -6,7 +6,7 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
@@ -30,7 +30,7 @@ public class SimpleMessagingSample {
         // create a message
 
         MessageEnvelope messageEnvelope = new MessageEnvelope();
-        MessageCollection messageCollection = messageEnvelope.getMessageCollection(new XDI3Segment("=sender"), true);
+        MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDI3Segment.create("=sender"), true);
         Message message = messageCollection.getMessage(true);
         message.createGetOperation(messageEnvelope.getGraph().getRootContextNode().getXri());
 

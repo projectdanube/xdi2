@@ -14,10 +14,10 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3Statement;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.XRI3Constants;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XRI3Constants;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -111,9 +111,9 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		for (Entry<XDI3SubSegment, String> entry : getVariables(executionContext).entrySet()) {
 
-			XDI3Segment subject = new XDI3Segment(entry.getKey().toString());
+			XDI3Segment subject = XDI3Segment.create(entry.getKey().toString());
 			XDI3Segment predicate = XDIDictionaryConstants.XRI_S_IS;
-			XDI3Segment object = new XDI3Segment(entry.getValue().toString());
+			XDI3Segment object = XDI3Segment.create(entry.getValue().toString());
 
 			XDI3Statement statement = StatementUtil.fromComponents(subject, predicate, object);
 
@@ -160,7 +160,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 		StringBuilder newTargetAddress = new StringBuilder();
 		for (XDI3SubSegment subSegment : substitutedSubSegments) newTargetAddress.append(subSegment.toString());
 
-		return new XDI3Segment(newTargetAddress.toString());
+		return XDI3Segment.create(newTargetAddress.toString());
 	}
 
 	private static XDI3SubSegment substituteSubSegment(XDI3SubSegment subSegment, ExecutionContext executionContext) {
@@ -200,7 +200,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		if (entityMember) newSubSegment = Multiplicity.entityMemberArcXri(newIdentifier);
 		else if (attributeMember) newSubSegment = Multiplicity.attributeMemberArcXri(newIdentifier);
-		else newSubSegment = new XDI3SubSegment("" + XRI3Constants.LCS_BANG + newIdentifier);
+		else newSubSegment = XDI3SubSegment.create("" + XRI3Constants.LCS_BANG + newIdentifier);
 
 		// done
 

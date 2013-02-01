@@ -5,8 +5,7 @@ import java.io.Serializable;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.xri3.impl.XRI3;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.MessageResult;
 
 public class XDIResolutionResult implements Serializable {
@@ -27,7 +26,7 @@ public class XDIResolutionResult implements Serializable {
 	}
 
 	/**
-	 * Parses a XdiResolutionResult from an XDI^2 message result.
+	 * Parses a XdiResolutionResult from an XDI2 message result.
 	 * @return The XdiResolutionResult.
 	 */
 	public static XDIResolutionResult fromXriAndMessageResult(String xri, MessageResult messageResult) {
@@ -38,12 +37,12 @@ public class XDIResolutionResult implements Serializable {
 
 		String inumber;
 
-		Relation relation = graph.findRelation(new XDI3Segment(xri), new XDI3Segment("$is"));		
+		Relation relation = graph.findRelation(XDI3Segment.create(xri), XDI3Segment.create("$is"));		
 
-		if (relation != null && isInumber(relation.getTargetContextNodeXri().toString())) { 
+		if (relation != null && relation.getTargetContextNodeXri().isINumber()) { 
 
 			inumber = relation.getTargetContextNodeXri().toString();
-		} else if (isInumber(xri)) {
+		} else if (XDI3Segment.create(xri).isINumber()) {
 
 			inumber = xri;
 		} else {
@@ -59,10 +58,10 @@ public class XDIResolutionResult implements Serializable {
 
 		if (inumber != null) {
 
-			literal = graph.findLiteral(new XDI3Segment("(" + inumber + ")" + "$!($uri)"));
+			literal = graph.findLiteral(XDI3Segment.create("(" + inumber + ")" + "$!($uri)"));
 		} else {
 
-			literal = graph.findLiteral(new XDI3Segment("(" + xri + ")" + "$!($uri)"));
+			literal = graph.findLiteral(XDI3Segment.create("(" + xri + ")" + "$!($uri)"));
 		}
 
 		if (literal != null) {
@@ -102,10 +101,5 @@ public class XDIResolutionResult implements Serializable {
 	public String toString() {
 
 		return this.inumber + " / " + this.uri;
-	}
-
-	private static boolean isInumber(String xri) {
-
-		return new XRI3(xri).isINumber();
 	}
 }

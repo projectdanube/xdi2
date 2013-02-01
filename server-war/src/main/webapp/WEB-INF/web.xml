@@ -6,6 +6,10 @@
 
 	<display-name>xdi2-server</display-name>
 
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
 	<!-- XDI FILTER -->
 
 	<filter>

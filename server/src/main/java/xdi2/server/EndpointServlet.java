@@ -30,7 +30,7 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.xri3.impl.XDI3Segment;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -452,7 +452,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 			try {
 
-				contextNodeXri = new XDI3Segment(addr);
+				contextNodeXri = XDI3Segment.create(addr);
 			} catch (Exception ex) {
 
 				log.error("Cannot parse XDI address: " + ex.getMessage(), ex);

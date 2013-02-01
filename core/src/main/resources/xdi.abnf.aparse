@@ -1,0 +1,122 @@
+#
+# This file contains ABNF rules from the following sources:
+# http://wiki.oasis-open.org/xri/XriThree/SyntaxAbnf
+# http://wiki.oasis-open.org/xdi/XdiAbnf
+#
+# A few modifications have been made to the rules:
+#
+# 1) aParse doesn't support prose-val. the "ipath-empty" rule has been adjusted accordingly.
+# 2) Java regular expressions only support the BMP of unicode. The "ucschar" and "iprivate"
+#    rules have been adjusted accordingly.
+# 3) The "(" and ")" characters have been removed from the sub-delims rule to avoid a conflict with the xref rule.
+# 4) aParse requires that # is used after the end of a rule.
+# 5) aParse requires that # is used for comments.
+#
+# =markus 01-25-2013
+#
+
+#
+# XDI rules
+#
+
+xdi-address = xdi-context / xdi-inner-graph / xdi-statement ;
+xdi-context = xdi-subject ;
+xdi-inner-graph = xdi-subject "/" xdi-predicate ;
+xdi-statement = xdi-subject "/" xdi-predicate "/" xdi-object ;
+xdi-subject = xdi-segment ;
+xdi-predicate = xdi-segment ;
+xdi-object = xdi-segment ;
+xdi-segment = subseg *subseg ;
+subseg = global-subseg / local-subseg / xref ;
+global-subseg = gcs-char [ local-subseg / xref / literal ] ;
+local-subseg = lcs-char [ xref / literal ] ;
+gcs-char          = "=" / "@" / "+" / "$" ;
+lcs-char          = "*" / "!" ;
+xref = xref-empty / xref-IRI / xref-context / xref-inner-graph / xref-statement / xref-literal ;
+xref-empty = "()" ;
+xref-IRI = "(" IRI ")" ;
+xref-context = "(" xdi-context ")" ;
+xref-inner-graph = "(" xdi-inner-graph ")" ;
+xref-statement = "(" xdi-statement ")" ;
+xref-literal = "(" literal ")" ;
+literal           = 1*xdi-pchar ;
+xdi-pchar         = iunreserved / pct-encoded / xdi-sub-delims / ":" ;
+xdi-pchar-nc      = iunreserved / pct-encoded / xdi-sub-delims ;
+xdi-reserved      = xdi-gen-delims / xdi-sub-delims ;
+xdi-gen-delims    = ":" / "/" / "?" / "#" / "[" / "]" / "(" / ")" / gcs-char / lcs-char ;
+xdi-sub-delims    = "&" / ";" / "," / "'" ;
+
+#
+# IRI rules
+#
+
+IRI               = scheme ":" ihier-part [ "?" iquery ]
+                  [ "#" ifragment ] ;
+scheme            = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." ) ;
+ihier-part        = "//" iauthority ipath-abempty
+                  / ipath-abs
+                  / ipath-rootless
+                  / ipath-empty ;
+iauthority        = [ iuserinfo "@" ] ihost [ ":" port ] ;
+iuserinfo         = *( iunreserved / pct-encoded / sub-delims / ":" ) ;
+ihost             = IP-literal / IPv4address / ireg-name ;
+IP-literal        = "[" ( IPv6address / IPvFuture  ) "]" ;
+IPvFuture         = "v" 1*HEXDIG "." 1*( unreserved / sub-delims / ":" ) ;
+IPv6address       =                            6( h16 ":" ) ls32
+                  /                       "::" 5( h16 ":" ) ls32
+                  / [               h16 ] "::" 4( h16 ":" ) ls32
+                  / [ *1( h16 ":" ) h16 ] "::" 3( h16 ":" ) ls32
+                  / [ *2( h16 ":" ) h16 ] "::" 2( h16 ":" ) ls32
+                  / [ *3( h16 ":" ) h16 ] "::"    h16 ":"   ls32
+                  / [ *4( h16 ":" ) h16 ] "::"              ls32
+                  / [ *5( h16 ":" ) h16 ] "::"              h16
+                  / [ *6( h16 ":" ) h16 ] "::" ;
+ls32              = ( h16 ":" h16 ) / IPv4address ;
+h16               = 1*4HEXDIG ;
+IPv4address       = dec-octet "." dec-octet "." dec-octet "." dec-octet ;
+dec-octet         = DIGIT                # 0-9
+                  / %x31-39 DIGIT        # 10-99
+                  / "1" 2DIGIT           # 100-199
+                  / "2" %x30-34 DIGIT    # 200-249
+                  / "25" %x30-35 ;         # 250-255
+ireg-name         = *( iunreserved / pct-encoded / sub-delims ) ;
+port              = *DIGIT ;
+ipath-abempty     = *( "/" isegment ) ;
+ipath-abs         = "/" [ isegment-nz *( "/" isegment ) ] ;
+ipath-rootless    = isegment-nz *( "/" isegment ) ;
+ipath-empty       = "" ;
+isegment          = *ipchar ;
+isegment-nz       = 1*ipchar ;
+iquery            = *( ipchar / iprivate / "/" / "?" ) ;
+iprivate          = %xE000-F8FF ;
+ifragment         = *( ipchar / "/" / "?" ) ;
+ipchar            = iunreserved / pct-encoded / sub-delims / ":" / "@" ;
+iunreserved       = ALPHA / DIGIT / "-" / "." / "_" / "~" / ucschar ;
+pct-encoded       = "%" HEXDIG HEXDIG ;
+ucschar           = %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF ;
+reserved          = gen-delims / sub-delims ;
+gen-delims        = ":" / "/" / "?" / "#" / "[" / "]" / "@" ;
+sub-delims        = "!" / "$" / "&" / "'"
+                  / "*" / "+" / "," / ";" / "=" ;
+unreserved        = ALPHA / DIGIT / "-" / "." / "_" / "~" ;
+
+#
+# ABNF core rules
+#
+
+ALPHA          =  %x41-5A / %x61-7A ; 		# A-Z / a-z
+BIT            =  "0" / "1" ;
+CHAR           =  %x01-7F ; 				# any 7-bit US-ASCII character, excluding NUL
+CR             =  %x0D ;					# carriage return
+CRLF           =  CR LF ;					# Internet standard newline
+CTL            =  %x00-1F / %x7F ;			# controls
+DIGIT          =  %x30-39 ; 				# 0-9
+DQUOTE         =  %x22 ;					# " (Double Quote)
+HEXDIG         =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F" ;
+HTAB           =  %x09 ;					# horizontal tab
+LF             =  %x0A ;					# linefeed
+LWSP           =  *(WSP / CRLF WSP) ;		# linear white space (past newline)
+OCTET          =  %x00-FF ;					# 8 bits of data
+SP             =  %x20 ;					# space
+VCHAR          =  %x21-7E ;					# visible (printing) characters
+WSP            =  SP / HTAB ;				# white space

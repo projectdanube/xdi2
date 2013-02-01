@@ -6,9 +6,9 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
-import xdi2.core.xri3.impl.XDI3XRef;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XDI3XRef;
 
 public class RemoteRoots {
 
@@ -105,7 +105,7 @@ public class RemoteRoots {
 	 */
 	public static XDI3Segment remoteRootXri(XDI3Segment xri) {
 
-		return new XDI3Segment("(" + xri.toString() + ")");
+		return XDI3Segment.create("(" + xri.toString() + ")");
 	}
 
 	/**
@@ -121,9 +121,9 @@ public class RemoteRoots {
 		if (! subSegment.hasXRef()) return null;
 
 		XDI3XRef xref = subSegment.getXRef();
-		if (! xref.hasNode()) return null;
+		if (! xref.hasSegment()) return null;
 
-		return xref.getNode();
+		return xref.getSegment();
 	}
 
 	/**

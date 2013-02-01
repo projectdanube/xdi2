@@ -8,17 +8,17 @@ import xdi2.core.Graph;
 import xdi2.core.features.multiplicity.Ordering;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReaderRegistry;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class OrderingTest extends TestCase {
 
 	public void testOrderingArcXris() throws Exception {
 
-		assertEquals(Ordering.indexArcXri(1), new XDI3SubSegment("$*1"));
-		assertEquals(Ordering.indexArcXri(2), new XDI3SubSegment("$*2"));
-		assertEquals(Ordering.arcXriIndex(new XDI3SubSegment("$*1")), 1);
-		assertEquals(Ordering.arcXriIndex(new XDI3SubSegment("$*2")), 2);
+		assertEquals(Ordering.indexArcXri(1), XDI3SubSegment.create("$*1"));
+		assertEquals(Ordering.indexArcXri(2), XDI3SubSegment.create("$*2"));
+		assertEquals(Ordering.arcXriIndex(XDI3SubSegment.create("$*1")), 1);
+		assertEquals(Ordering.arcXriIndex(XDI3SubSegment.create("$*2")), 2);
 	}
 
 	public void testOrderedContextNodes() throws Exception {
@@ -26,7 +26,7 @@ public class OrderingTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		XDIReaderRegistry.getAuto().read(graph, this.getClass().getResourceAsStream("test-ordering.json"));
 
-		ContextNode tel = graph.findContextNode(new XDI3Segment("=!1111$*(+tel)"), false);
+		ContextNode tel = graph.findContextNode(XDI3Segment.create("=!1111$*(+tel)"), false);
 
 		Iterator<ContextNode> iterator = Ordering.getOrderedContextNodes(tel);
 		assertEquals(iterator.next().getLiteral().getLiteralData(), "+1.206.555.2222");

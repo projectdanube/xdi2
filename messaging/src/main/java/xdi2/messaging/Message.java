@@ -15,8 +15,8 @@ import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.impl.XDI3Segment;
-import xdi2.core.xri3.impl.XDI3SubSegment;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -224,7 +224,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public Operation createOperation(XDI3Segment operationXri, Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetStatement.getXdiStatement().toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetStatement.getXri().toXriSegment());
 
 		return Operation.fromMessageAndRelation(this, relation);
 	}
@@ -248,7 +248,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public GetOperation createGetOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetStatement.getXdiStatement().toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetStatement.getXri().toXriSegment());
 
 		return GetOperation.fromMessageAndRelation(this, relation);
 	}
@@ -272,7 +272,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public AddOperation createAddOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetStatement.getXdiStatement().toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetStatement.getXri().toXriSegment());
 
 		return AddOperation.fromMessageAndRelation(this, relation);
 	}
@@ -296,7 +296,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ModOperation createModOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetStatement.getXdiStatement().toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetStatement.getXri().toXriSegment());
 
 		return ModOperation.fromMessageAndRelation(this, relation);
 	}
@@ -320,7 +320,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public DelOperation createDelOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetStatement.getXdiStatement().toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetStatement.getXri().toXriSegment());
 
 		return DelOperation.fromMessageAndRelation(this, relation);
 	}
@@ -344,7 +344,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public DoOperation createDoOperation(Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DO, targetStatement.getXdiStatement().toXriSegment());
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DO, targetStatement.getXri().toXriSegment());
 
 		return DoOperation.fromMessageAndRelation(this, relation);
 	}
