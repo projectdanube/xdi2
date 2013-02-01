@@ -11,7 +11,7 @@ public class BasicLiteral extends AbstractLiteral implements Literal {
 
 	private String literalData;
 
-	private BasicLiteral(Graph graph, ContextNode contextNode, String literalData) {
+	public BasicLiteral(Graph graph, ContextNode contextNode, String literalData) {
 
 		super(graph, contextNode);
 

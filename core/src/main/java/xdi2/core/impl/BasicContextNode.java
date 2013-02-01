@@ -18,7 +18,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	private Iterable<Relation> relations;
 	private Literal literal;
 
-	private BasicContextNode(Graph graph, ContextNode contextNode, XDI3SubSegment arcXri, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
+	public BasicContextNode(Graph graph, ContextNode contextNode, XDI3SubSegment arcXri, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
 
 		super(graph, contextNode);
 

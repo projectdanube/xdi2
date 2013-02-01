@@ -13,7 +13,7 @@ public class BasicRelation extends AbstractRelation implements Relation {
 	private XDI3Segment arcXri;
 	private XDI3Segment targetContextNodeXri;
 
-	private BasicRelation(Graph graph, ContextNode contextNode, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public BasicRelation(Graph graph, ContextNode contextNode, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		super(graph, contextNode);
 
