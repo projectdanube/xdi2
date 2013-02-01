@@ -6,11 +6,11 @@
 
 	<display-name>xdi2-webtools</display-name>
 
-	<!-- XRI AND XDI WEBTOOLS -->
-
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
+	<!-- XRI AND XDI WEBTOOLS -->
 
 	<servlet>
 		<description></description>
