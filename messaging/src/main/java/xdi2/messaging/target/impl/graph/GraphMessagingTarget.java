@@ -113,7 +113,9 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 
 		try {
 
-			graph = this.getGraph().getGraphFactory().openGraph(prototypingContext.getOwner().toString());
+			String identifier = RemoteRoots.remoteRootXri(prototypingContext.getOwner()).toString();
+
+			graph = this.getGraph().getGraphFactory().openGraph(identifier);
 		} catch (IOException ex) {
 
 			throw new Xdi2MessagingException("Cannot open graph: " + ex.getMessage(), ex, null);
