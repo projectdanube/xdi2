@@ -57,6 +57,8 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	private static final Logger log = LoggerFactory.getLogger(EndpointServlet.class);
 
+	private static final String HEADER_CORS = "Access-Control-Allow-Origin:";
+
 	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
 	private EndpointRegistry endpointRegistry;
@@ -228,7 +230,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		}
 
 		log.debug("Incoming PUT request to " + request.getRequestURL() + ". Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
-		
+
 		try {
 
 			this.processPutRequest(request, response);
@@ -252,7 +254,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		}
 
 		log.debug("Incoming DELETE request to " + request.getRequestURL() + ". Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
-		
+
 		try {
 
 			this.processDeleteRequest(request, response);
@@ -276,7 +278,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		// execute interceptors
 
 		if (this.getInterceptors().executeEndpointServletInterceptorsGet(this, request, response, requestInfo, messagingTarget)) {
-			
+
 			return;
 		}
 
@@ -318,7 +320,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		// execute interceptors
 
 		if (this.getInterceptors().executeEndpointServletInterceptorsPost(this, request, response, requestInfo, messagingTarget)) {
-			
+
 			return;
 		}
 
@@ -360,7 +362,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		// execute interceptors
 
 		if (this.getInterceptors().executeEndpointServletInterceptorsPut(this, request, response, requestInfo, messagingTarget)) {
-			
+
 			return;
 		}
 
@@ -402,7 +404,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		// execute interceptors
 
 		if (this.getInterceptors().executeEndpointServletInterceptorsDelete(this, request, response, requestInfo, messagingTarget)) {
-			
+
 			return;
 		}
 
@@ -584,6 +586,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType(writer.getMimeType().toString());
 		response.setContentLength(buffer.size());
+		response.setHeader(HEADER_CORS, "*");
 
 		if (buffer.size() > 0) {
 
