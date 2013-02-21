@@ -47,6 +47,12 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	public XDI3Segment getContextNodeXri();
 
 	/**
+	 * Checks if this statement is implied by other statements in the graph.
+	 * @return True, if this statement is implied by other statements in the graph.
+	 */
+	public boolean isImplied();
+
+	/**
 	 * Delete the statement.
 	 */
 	public void delete();

@@ -9,6 +9,8 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.multiplicity.XdiEntityMember;
+import xdi2.core.features.roots.InnerRoot;
+import xdi2.core.features.roots.Roots;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -16,6 +18,7 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
@@ -206,12 +209,12 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Creates a new operation and adds it to this XDI message.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
 	 */
-	public Operation createOperation(XDI3Segment operationXri, XDI3Segment targetXri) {
+	public Operation createOperation(XDI3Segment operationXri, XDI3Segment targetAddress) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetAddress);
 
 		return Operation.fromMessageAndRelation(this, relation);
 	}
@@ -222,11 +225,12 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * @param targetStatement The target statement to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
 	 */
-	public Operation createOperation(XDI3Segment operationXri, Statement targetStatement) {
+	public Operation createOperation(XDI3Segment operationXri, XDI3Statement targetStatement) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(operationXri, targetStatement.getXri().toXriSegment());
+		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), operationXri, true);
+		innerRoot.createRelativeStatement(targetStatement);
 
-		return Operation.fromMessageAndRelation(this, relation);
+		return Operation.fromMessageAndRelation(this, innerRoot.getRelation());
 	}
 
 	/**

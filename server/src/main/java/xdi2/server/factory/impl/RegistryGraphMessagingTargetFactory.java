@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.remoteroots.RemoteRoots;
+import xdi2.core.features.roots.RemoteRoot;
+import xdi2.core.features.roots.Roots;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -36,19 +37,19 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		XDI3Segment owner = XDI3Segment.create(ownerString);
 
-		// find the owner's remote root context node
+		// find the owner's XDI remote root
 
-		ContextNode ownerRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), owner, false);
+		RemoteRoot ownerRemoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(owner, false);
 
-		if (ownerRemoteRootContextNode == null) {
+		if (ownerRemoteRoot == null) {
 
-			log.warn("Remote root context node for " + owner + " not found in the registry graph. Ignoring.");
+			log.warn("Remote root for " + owner + " not found in the registry graph. Ignoring.");
 			return;
 		}
 
-		if (RemoteRoots.isSelfRemoteRootContextNode(ownerRemoteRootContextNode)) {
+		if (ownerRemoteRoot.isSelfRemoteRoot()) {
 
-			log.warn("Remote root context node for " + owner + " is the owner of the registry graph. Ignoring.");
+			log.warn("Remote root for " + owner + " is the owner of the registry graph. Ignoring.");
 			return;
 		}
 
@@ -60,7 +61,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		log.info("Will create messaging target for " + owner);
 		
-		super.mountMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerRemoteRootContextNode, ownerContextNode);
+		super.mountMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerRemoteRoot, ownerContextNode);
 	}
 
 	@Override
@@ -75,10 +76,11 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// find the owner's remote root context node
 
-		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), owner, false);
-		if (remoteRootContextNode == null) {
+		RemoteRoot ownerRemoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(owner, false);
 
-			log.warn("Remote root context node for " + owner + " no longer found in the registry graph. Removing messaging target.");
+		if (ownerRemoteRoot == null) {
+
+			log.warn("Remote root for " + owner + " no longer found in the registry graph. Removing messaging target.");
 
 			try {
 

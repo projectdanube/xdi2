@@ -5,7 +5,6 @@ import java.io.Serializable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.Statement;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -38,7 +37,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * @param statement The statement to check.
 	 * @return True if the statement is a valid XDI condition.
 	 */
-	public static boolean isValid(Statement statement) {
+	public static boolean isValid(XDI3Statement statement) {
 
 		return
 				EqualsCondition.isValid(statement) ||
@@ -94,16 +93,16 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * @param policyEvaluationContext A context for evaluating an XDI policy.
 	 * @return True or false.
 	 */
-	public final boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
+	public final Boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getStatement());
-		boolean result = this.evaluateInternal(policyEvaluationContext);
+		Boolean result = this.evaluateInternal(policyEvaluationContext);
 		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getStatement() + ": " + result);
 
 		return result;
 	}
 
-	protected abstract boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
+	protected abstract Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
 
 	/*
 	 * Object methods

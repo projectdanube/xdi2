@@ -61,7 +61,7 @@ public class GreaterCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		throw new Xdi2RuntimeException("Not implemented.");
 	}

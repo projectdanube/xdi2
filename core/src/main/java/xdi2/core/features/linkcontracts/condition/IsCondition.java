@@ -66,25 +66,25 @@ public class IsCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		// check if subject XRI and object XRI are the same
 
 		XDI3Segment subjectXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getSubject());
 		XDI3Segment objectXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getObject());
 
-		if (subjectXri != null && subjectXri.equals(objectXri)) return true;
+		if (subjectXri != null && subjectXri.equals(objectXri)) return Boolean.TRUE;
 
 		// check if the statement exists
 
 		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
 		ContextNode object = policyEvaluationContext.getContextNode(this.getStatement().getObject());
 
-		Iterator<ContextNode> equivalenceContextNodes = subject == null ? new EmptyIterator<ContextNode> () : Equivalence.getEquivalenceContextNodes(subject);
-		if (new IteratorContains<ContextNode> (equivalenceContextNodes, object).contains()) return true;
+		Iterator<ContextNode> equivalenceContextNodes = subject == null ? new EmptyIterator<ContextNode> () : Equivalence.getIdentityContextNodes(subject);
+		if (new IteratorContains<ContextNode> (equivalenceContextNodes, object).contains()) return Boolean.TRUE;
 
 		// done
 
-		return false;
+		return Boolean.FALSE;
 	}
 }

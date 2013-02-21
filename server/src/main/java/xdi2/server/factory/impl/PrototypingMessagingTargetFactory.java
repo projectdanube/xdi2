@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
+import xdi2.core.features.roots.RemoteRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractMessagingTarget;
@@ -23,9 +24,9 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetPath, XDI3Segment owner, ContextNode ownerRemoteRootContextNode, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
+	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetPath, XDI3Segment owner, RemoteRoot ownerRemoteRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
 
-		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", owner=" + owner + ", ownerRemoteRootContextNode=" + ownerRemoteRootContextNode + ", ownerContextNode=" + ownerContextNode);
+		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", owner=" + owner + ", ownerRemoteRoot=" + ownerRemoteRoot + ", ownerContextNode=" + ownerContextNode);
 
 		// create new messaging target
 
@@ -34,7 +35,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 			throw new Xdi2MessagingException("Cannot use messaging target " + this.getPrototypeMessagingTarget().getClass().getSimpleName() + " as prototype.", null, null);
 		}
 
-		PrototypingContext prototypingContext = new PrototypingContext(owner, ownerRemoteRootContextNode, ownerContextNode);
+		PrototypingContext prototypingContext = new PrototypingContext(owner, ownerRemoteRoot, ownerContextNode);
 
 		Prototype<? extends MessagingTarget> messagingTargetPrototype; 
 		MessagingTarget prototypedMessagingTarget;

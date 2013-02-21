@@ -445,16 +445,16 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		log.debug("XDI address: " + addr);
 
-		XDI3Segment contextNodeXri;
+		XDI3Segment targetAddress;
 
 		if (addr.equals("")) {
 
-			contextNodeXri = null;
+			targetAddress = null;
 		} else {
 
 			try {
 
-				contextNodeXri = XDI3Segment.create(addr);
+				targetAddress = XDI3Segment.create(addr);
 			} catch (Exception ex) {
 
 				log.error("Cannot parse XDI address: " + ex.getMessage(), ex);
@@ -465,9 +465,9 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 		// convert address to a mini messaging envelope
 
-		log.debug("Requested XDI context node: " + contextNodeXri + ".");
+		log.debug("Requested XDI context node: " + targetAddress + ".");
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_GET, contextNodeXri);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetAddress(XDIMessagingConstants.XRI_S_GET, targetAddress);
 
 		// set the recipient authority to the owner authority of the messaging target
 

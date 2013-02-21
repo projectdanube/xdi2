@@ -86,4 +86,15 @@
             memoryStoreEvictionPolicy="LRU"
             />
 
+    <cache name="json"
+            maxElementsInMemory="1000"
+            eternal="true"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="0"
+            overflowToDisk="true"
+            diskPersistent="true"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+
 </ehcache>

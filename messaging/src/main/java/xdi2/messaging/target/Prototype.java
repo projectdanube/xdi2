@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
+import xdi2.core.features.roots.RemoteRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
@@ -26,14 +27,14 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 
 		private MessagingTarget messagingTarget;
 		private XDI3Segment owner;
-		private ContextNode ownerRemoteRootContextNode;
+		private RemoteRoot ownerRemoteRoot;
 		private ContextNode ownerContextNode;
 
-		public PrototypingContext(XDI3Segment owner, ContextNode ownerRemoteRootContextNode, ContextNode ownerContextNode) {
+		public PrototypingContext(XDI3Segment owner, RemoteRoot ownerRemoteRoot, ContextNode ownerContextNode) {
 
 			this.messagingTarget = null;
 			this.owner = owner;
-			this.ownerRemoteRootContextNode = ownerRemoteRootContextNode;
+			this.ownerRemoteRoot = ownerRemoteRoot;
 			this.ownerContextNode = ownerContextNode;
 		}
 
@@ -70,9 +71,9 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 			return this.owner;
 		}
 
-		public ContextNode getOwnerRemoteRootContextNode() {
+		public RemoteRoot getOwnerRemoteRoot() {
 
-			return this.ownerRemoteRootContextNode;
+			return this.ownerRemoteRoot;
 		}
 
 		public ContextNode getOwnerContextNode() {

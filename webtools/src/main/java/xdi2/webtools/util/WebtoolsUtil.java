@@ -7,9 +7,9 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
+import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.linkcontracts.policy.Policy;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
 import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
@@ -56,9 +56,9 @@ public class WebtoolsUtil {
 			addPolicy(delegateTree, subPolicy);
 		}
 
-		for (Iterator<PolicyStatement> policyStatements = policy.getPolicyStatements(); policyStatements.hasNext(); ) {
+		for (Iterator<Operator> operators = policy.getOperators(); operators.hasNext(); ) {
 
-			PolicyStatement policyStatement = policyStatements.next();
+			Operator policyStatement = operators.next();
 
 			delegateTree.addChild(policyStatement, policy, policyStatement, EdgeType.DIRECTED);
 		}

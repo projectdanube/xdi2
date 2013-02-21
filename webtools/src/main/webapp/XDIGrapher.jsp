@@ -31,9 +31,10 @@
 		<% String type = (String) request.getAttribute("type"); if (type == null) type = ""; %>
 
 		<select name="type">
-		<option value="d1" <%= type.equals("d1") ? "selected" : "" %>>KKLayout</option>
-		<option value="d2" <%= type.equals("d2") ? "selected" : "" %>>FRLayout2</option>
-		<option value="d3" <%= type.equals("d3") ? "selected" : "" %>>ISOMLayout</option>
+		<option value="d1" <%= type.equals("d1") ? "selected" : "" %>>JUNG KKLayout</option>
+		<option value="d2" <%= type.equals("d2") ? "selected" : "" %>>JUNG FRLayout2</option>
+		<option value="d3" <%= type.equals("d3") ? "selected" : "" %>>JUNG ISOMLayout</option>
+		<option value="d4" <%= type.equals("d4") ? "selected" : "" %>>D3 Tree</option>
 		</select>
 		<input type="submit" value="Draw!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIGrapherHelp.jsp">What can I do here?</a>
@@ -46,10 +47,21 @@
 		</p>
 	<% } %>
 
-	<% if (request.getAttribute("imageId") != null) { %>
+	<% if (type.equals("d1") || type.equals("d2") || type.equals("d3")) { %>
+
 		<div>
-			<img src="/XDIGrapherImage?imageId=<%= request.getAttribute("imageId") %>">
+			<img src="/XDIGrapherImage?graphId=<%= request.getAttribute("graphId") %>">
 		</div><br>
+
+	<% } else if (type.equals("d4")) { %>
+	
+		<script type="text/javascript" src="jquery-1.6.4.min.js"></script>
+		<script type="text/javascript" src="jquery.iframe-auto-height.plugin.1.5.0.min.js"></script>
+	
+	 	<iframe src="d3tree.html?graphId=<%= request.getAttribute("graphId") %>" frameborder="0" scrolling="no" width="100%"></iframe>
+	
+		<script type="text/javascript">jQuery('iframe').iframeAutoHeight({ minHeight: 300 });</script>
+
 	<% } %>
 
 </body>

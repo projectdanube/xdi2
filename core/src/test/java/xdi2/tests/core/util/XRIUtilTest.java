@@ -59,24 +59,24 @@ public class XRIUtilTest extends TestCase {
 		assertTrue(XRIUtil.startsWith(xri2, XDI3Segment.create("=x"), true, false));
 		assertFalse(XRIUtil.startsWith(xri2, XDI3Segment.create("=a*x*c"), true, false));
 
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("=a")), XDI3Segment.create("*b*c*d"));
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("=a*b")), XDI3Segment.create("*c*d"));
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("=a*b*c")), XDI3Segment.create("*d"));
-		assertNull(XRIUtil.relativeXri(xri1, XDI3Segment.create("=a*b*c*d")));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("=a")), XDI3Segment.create("*b*c*d"));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("=a*b")), XDI3Segment.create("*c*d"));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("=a*b*c")), XDI3Segment.create("*d"));
+		assertNull(XRIUtil.reduceXri(xri1, XDI3Segment.create("=a*b*c*d")));
 	}
 
-	public void testRelative() throws Exception {
+	public void testreduce() throws Exception {
 
 		XDI3Segment xri1 = XDI3Segment.create("=a*b+c!d@e$f*g");
 
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("($)"), false, true), XDI3Segment.create("*b+c!d@e$f*g"));
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("($)($)"), false, true), XDI3Segment.create("+c!d@e$f*g"));
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("($$!)"), false, true), XDI3Segment.create("+c!d@e$f*g"));
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("($)($$!)"), false, true), XDI3Segment.create("+c!d@e$f*g"));
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("($$!)($$!)"), false, true), XDI3Segment.create("@e$f*g"));
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("($$!)($)($$!)"), false, true), XDI3Segment.create("@e$f*g"));
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("($$!)($)($$!)($)"), false, true), XDI3Segment.create("$f*g"));
-		assertEquals(XRIUtil.relativeXri(xri1, XDI3Segment.create("($$!)($)($$!)($$!)"), false, true), XDI3Segment.create("$f*g"));
-		assertNull(XRIUtil.relativeXri(xri1, XDI3Segment.create("($$!)($)($$!)($$!)($$!)"), false, true));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("($)"), false, true), XDI3Segment.create("*b+c!d@e$f*g"));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("($)($)"), false, true), XDI3Segment.create("+c!d@e$f*g"));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("($$!)"), false, true), XDI3Segment.create("+c!d@e$f*g"));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("($)($$!)"), false, true), XDI3Segment.create("+c!d@e$f*g"));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("($$!)($$!)"), false, true), XDI3Segment.create("@e$f*g"));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("($$!)($)($$!)"), false, true), XDI3Segment.create("@e$f*g"));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("($$!)($)($$!)($)"), false, true), XDI3Segment.create("$f*g"));
+		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("($$!)($)($$!)($$!)"), false, true), XDI3Segment.create("$f*g"));
+		assertNull(XRIUtil.reduceXri(xri1, XDI3Segment.create("($$!)($)($$!)($$!)($$!)"), false, true));
 	}
 }

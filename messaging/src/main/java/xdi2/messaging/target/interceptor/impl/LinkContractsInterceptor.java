@@ -87,7 +87,7 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 
 		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(this.getLinkContractsGraph(), message);
 
-		if (! policyRoot.evaluate(policyEvaluationContext)) {
+		if (! Boolean.TRUE.equals(policyRoot.evaluate(policyEvaluationContext))) {
 
 			throw new Xdi2NotAuthorizedException("Link contract policy violation for message " + message.toString() + " in link contract " + linkContract.toString() + ".", null, executionContext);
 		}

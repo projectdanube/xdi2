@@ -1,0 +1,199 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>XDI2 Grapher D3 IFRAME</title>
+
+    <style>
+        g.node {
+            font-family: Verdana, Helvetica;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        circle.node-dot {
+            fill: lightsalmon;
+            stroke: red;
+            stroke-width: 1px;
+        }
+
+        path.link {
+            fill: none;
+            stroke: gray;
+        }
+
+        text.rel {
+            fill: none;
+            stroke: red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="tree-container"></div>
+
+<script type="text/javascript" src="jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="d3.layout.min.js"></script>
+
+<script type="text/javascript">
+
+	function visit(parent, visitFn, childrenFn)
+	{
+	    if (!parent) return;
+
+	    visitFn(parent);
+
+	    var children = childrenFn(parent);
+	    if (children) {
+	        var count = children.length;
+	        for (var i = 0; i < count; i++) {
+	            visit(children[i], visitFn, childrenFn);
+	        }
+	    }
+	}
+
+	function buildTree(containerName, customOptions)
+	{
+	    // build the options object
+	    var options = $.extend({
+	        nodeRadius: 7, fontSize: 12
+	    }, customOptions);
+
+	    
+	    // Calculate total nodes, max label length
+	    var totalNodes = 0;
+	    var maxLabelLength = 0;
+	    visit(treeData, function(d)
+	    {
+	        totalNodes++;
+	        maxLabelLength = Math.max(d.name.length, maxLabelLength);
+	    }, function(d)
+	    {
+	        return d.contents && d.contents.length > 0 ? d.contents : null;
+	    });
+
+	    // size of the diagram
+	    var size = { width:$(containerName).outerWidth(), height: totalNodes * 40};
+
+	    var tree = d3.layout.tree()
+	        .sort(null)
+	        .size([size.width - maxLabelLength*options.fontSize, size.height])
+	        .children(function(d)
+	        {
+	            return (!d.contents || d.contents.length === 0) ? null : d.contents;
+	        });
+
+	    var nodes = tree.nodes(treeData);
+	    var links = tree.links(nodes);
+
+	    
+	    /*
+	        <svg>
+	            <g class="container" />
+	        </svg>
+	     */
+	    var layoutRoot = d3.select(containerName)
+	        .append("svg:svg").attr("width", size.width).attr("height", size.height + 20)
+	        .append("svg:g")
+	        .attr("class", "container")
+	        .attr("transform", "translate(" + maxLabelLength + ",10)");
+
+
+	    // Edges between nodes as a <path class="link" />
+	    var link = d3.svg.diagonal()
+	        .projection(function(d)
+	        {
+	            return [d.x, d.y];
+	        });
+
+	    var linkGroup = layoutRoot.selectAll("path.link")
+	        .data(links)
+	        .enter()
+	        .append("svg:g");
+	    
+		linkGroup.append("svg:path")
+	        .attr("class", "link")
+	        .attr("d", link);
+
+	    linkGroup.append("svg:text")
+	        .attr("transform", function(d)
+    	        {
+    	            return "translate(" + ((d.source.x+d.target.x)/2) + "," + ((d.source.y+d.target.y)/2) + ")";
+    	        })
+        	.text(function(d)
+			{
+				return d.target.arc;
+			});
+	    
+
+	    /*
+	        Nodes as
+	        <g class="node">
+	            <circle class="node-dot" />
+	            <text />
+	        </g>
+	     */
+	     
+	     
+	    var nodeGroup = layoutRoot.selectAll("g.node")
+	        .data(nodes)
+	        .enter()
+	        .append("svg:g")
+	        .attr("class", "node")
+	        .attr("transform", function(d)
+	        {
+	            return "translate(" + d.x + "," + d.y + ")";
+	        });
+
+	    nodeGroup.append("svg:circle")
+	        .attr("class", "node-dot")
+	        .attr("r", options.nodeRadius);
+
+	     nodeGroup.selectAll("text")
+	        .data(function(d) { return d.rel; } )
+	     	.enter()
+	     	.append("svg:text")
+	     	.attr("class", "rel")
+	        .attr("dx", function(d)
+	        {
+	            return 20*d;
+	        })
+	     	.text(function(d)
+	     			{
+		     			return d.arc;
+	     			}
+	     	);
+
+	    nodeGroup.append("svg:text")
+	        .attr("text-anchor", function(d)
+	        {
+	            return d.children ? "end" : "start";
+	        })
+	        .attr("dx", function(d)
+	        {
+	            var gap = 2 * options.nodeRadius;
+	            return d.children ? -gap : gap;
+	        })
+	        .attr("dy", 3)
+	        .text(function(d)
+	        {
+	            return d.name;
+	        });
+	}	
+</script>
+
+<script>
+    $(function(){
+    	$.ajax({
+    		url: "/XDIGrapherJSON" + document.location.search,
+    		dataType: "script",
+    		success: function() {
+    	        buildTree("#tree-container");
+    		}
+    	});
+    });
+</script>
+
+</body>
+</html>

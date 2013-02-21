@@ -20,6 +20,20 @@ public abstract class AbstractStatement implements Statement {
 	}
 
 	@Override
+	public boolean isImplied() {
+
+		if (! (this instanceof ContextNodeStatement)) return false;
+
+		ContextNode contextNode = ((ContextNodeStatement) this).getContextNode();
+		if (contextNode == null) return false;
+
+		if (! contextNode.isEmpty()) return true;
+		if (contextNode.getIncomingRelations().hasNext()) return true;
+
+		return false;
+	}
+
+	@Override
 	public void delete() {
 
 	}
