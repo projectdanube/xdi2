@@ -56,14 +56,14 @@ public class GenericOperator extends Operator {
 	@Override
 	public Boolean[] evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		InnerRoot innerRoot = InnerRoot.fromContextNodeAndRelation(this.getRelation().follow(), this.getRelation());
+		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
 
 		if (innerRoot == null) {
 
 			for (Iterator<Relation> policyEvaluationContextRelations = policyEvaluationContext.getRelations(this.getRelation().getArcXri()); policyEvaluationContextRelations.hasNext(); ) {
 
 				Relation policyEvaluationContextRelation = policyEvaluationContextRelations.next();
-				InnerRoot policyEvaluationContextInnerRoot = InnerRoot.fromContextNodeAndRelation(policyEvaluationContextRelation.follow(), policyEvaluationContextRelation);
+				InnerRoot policyEvaluationContextInnerRoot = InnerRoot.fromContextNode(policyEvaluationContextRelation.follow());
 				if (policyEvaluationContextInnerRoot != null) continue;
 
 				if (policyEvaluationContextRelation.getTargetContextNodeXri().equals(this.getRelation().getTargetContextNodeXri())) return new Boolean[] { Boolean.TRUE };
@@ -81,7 +81,7 @@ public class GenericOperator extends Operator {
 				for (Iterator<Relation> policyEvaluationContextRelations = policyEvaluationContext.getRelations(this.getRelation().getArcXri()); policyEvaluationContextRelations.hasNext(); ) {
 
 					Relation policyEvaluationContextRelation = policyEvaluationContextRelations.next();
-					InnerRoot policyEvaluationContextInnerRoot = InnerRoot.fromContextNodeAndRelation(policyEvaluationContextRelation.follow(), policyEvaluationContextRelation);
+					InnerRoot policyEvaluationContextInnerRoot = InnerRoot.fromContextNode(policyEvaluationContextRelation.follow());
 					if (policyEvaluationContextInnerRoot == null) continue;
 
 					results.add(Boolean.valueOf(policyEvaluationContextInnerRoot.containsRelativeStatement(statementXri)));

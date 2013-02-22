@@ -12,8 +12,14 @@ public class RemoteRootsTest extends TestCase {
 
 	public void testRemoteRootXris() throws Exception {
 
+		assertFalse(RemoteRoot.isRemoteRootXri(XDI3SubSegment.create("()")));
 		assertTrue(RemoteRoot.isRemoteRootXri(XDI3SubSegment.create("(=!1111!23)")));
 		assertFalse(RemoteRoot.isRemoteRootXri(XDI3SubSegment.create("(=a*b/+c*d)")));
+
+		assertFalse(RemoteRoot.isRemoteRootXri(XDI3SubSegment.create("$(+c)")));
+		assertFalse(RemoteRoot.isRemoteRootXri(XDI3SubSegment.create("$(!1)")));
+		assertFalse(RemoteRoot.isRemoteRootXri(XDI3SubSegment.create("$!(!1)")));
+
 		assertEquals(RemoteRoot.createRemoteRootXri(XDI3Segment.create("=!1111!23")), XDI3SubSegment.create("(=!1111!23)"));
 		assertEquals(RemoteRoot.getXriOfRemoteRootXri(XDI3SubSegment.create("(=!1111!23)")), XDI3Segment.create("=!1111!23"));
 	}

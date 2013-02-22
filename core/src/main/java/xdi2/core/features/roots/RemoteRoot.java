@@ -90,6 +90,9 @@ public final class RemoteRoot extends AbstractRoot {
 	 */
 	public static XDI3Segment getXriOfRemoteRootXri(XDI3SubSegment xri) {
 
+		if (xri.hasGCS()) return null;
+		if (xri.hasLCS()) return null;
+		
 		if (! xri.hasXRef()) return null;
 
 		XDI3XRef xref = xri.getXRef();

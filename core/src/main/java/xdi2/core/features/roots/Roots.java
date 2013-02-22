@@ -22,4 +22,31 @@ public class Roots {
 
 		return new LocalRoot(localRootContextNode);
 	}
+
+	/**
+	 * Checks if a context node is a valid XDI root.
+	 * @param contextNode The context node to check.
+	 * @return True if the context node is a valid XDI root.
+	 */
+	public static boolean isValid(ContextNode contextNode) {
+
+		return
+				LocalRoot.isValid(contextNode) ||
+				RemoteRoot.isValid(contextNode) ||
+				InnerRoot.isValid(contextNode);
+	}
+
+	/**
+	 * Factory method that creates an XDI root bound to a given context node.
+	 * @param contextNode The context node that is an XDI root.
+	 * @return The XDI root.
+	 */
+	public static Root fromContextNode(ContextNode contextNode) {
+
+		if (LocalRoot.isValid(contextNode)) return new LocalRoot(contextNode);
+		if (RemoteRoot.isValid(contextNode)) return new RemoteRoot(contextNode);
+		if (InnerRoot.isValid(contextNode)) return new InnerRoot(contextNode);
+
+		return null;
+	}
 }

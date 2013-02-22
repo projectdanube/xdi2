@@ -3,40 +3,79 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>XDI2 Grapher D3 IFRAME</title>
+<title>XDI2 Grapher D3 IFRAME</title>
 
-    <style>
-        g.node {
-            font-family: Verdana, Helvetica;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        circle.node-dot {
-            fill: lightsalmon;
-            stroke: red;
-            stroke-width: 1px;
-        }
+<style>
+g.node {
+	font-family: Verdana, Helvetica;
+	font-size: 12px;
+	font-weight: bold;
+}
 
-        path.link {
-            fill: none;
-            stroke: gray;
-        }
+circle.node-root {
+	fill: white;
+	stroke: black;
+	stroke-width: 2px;
+}
 
-        text.rel {
-            fill: none;
-            stroke: red;
-        }
-    </style>
+circle.node-context {
+	fill: gray;
+	stroke: black;
+	stroke-width: 2px;
+}
+
+path.link {
+	fill: none;
+	stroke: black;
+	stroke-width: 2px;
+}
+
+text.link {
+}
+
+path.rel {
+	fill: none;
+	stroke: red;
+	stroke-width: 2px;
+}
+
+text.rel {
+}
+
+path.arrow-link {
+	fill: black;
+	stroke: black;
+}
+
+path.arrow-rel {
+	fill: red;
+	stroke: red;
+}
+</style>
 </head>
 <body>
 
-<div id="tree-container"></div>
+	<div id="tree-container">
+	<svg>
+		<defs>
+			<marker id="arrow-link" viewBox="0 0 100 100" refX="10" refY="10"
+				markerUnits="strokeWidth" markerWidth="20" markerHeight="20" orient="auto">
+				<path d="M 0 0 L 20 10 L 0 20 z" class="arrow-link"/>
+			</marker>
+			<marker id="arrow-rel" viewBox="0 0 100 100" refX="10" refY="10"
+				markerUnits="strokeWidth" markerWidth="20" markerHeight="20" orient="auto">
+				<path d="M 0 0 L 20 10 L 0 20 z" class="arrow-rel"/>
+			</marker>
+		</defs>
+		<g></g>
+	</svg>
+	</div>
 
-<script type="text/javascript" src="jquery-1.6.4.min.js"></script>
-<script type="text/javascript" src="d3.min.js"></script>
-<script type="text/javascript" src="d3.layout.min.js"></script>
+	<script type="text/javascript" src="jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="d3.min.js"></script>
+	<script type="text/javascript" src="d3.layout.min.js"></script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 	function visit(parent, visitFn, childrenFn)
 	{
@@ -86,47 +125,24 @@
 
 	    var nodes = tree.nodes(treeData);
 	    var links = tree.links(nodes);
-
 	    
 	    /*
 	        <svg>
 	            <g class="container" />
 	        </svg>
 	     */
-	    var layoutRoot = d3.select(containerName)
-	        .append("svg:svg").attr("width", size.width).attr("height", size.height + 20)
-	        .append("svg:g")
+	    
+	    var container = d3.select(containerName);
+	     
+	    var svg = container.select("svg")
+	        .attr("width", size.width)
+	        .attr("height", size.height + 20);
+	    
+		var layoutRoot = svg.select("g")
 	        .attr("class", "container")
 	        .attr("transform", "translate(" + maxLabelLength + ",10)");
 
-
-	    // Edges between nodes as a <path class="link" />
-	    var link = d3.svg.diagonal()
-	        .projection(function(d)
-	        {
-	            return [d.x, d.y];
-	        });
-
-	    var linkGroup = layoutRoot.selectAll("path.link")
-	        .data(links)
-	        .enter()
-	        .append("svg:g");
-	    
-		linkGroup.append("svg:path")
-	        .attr("class", "link")
-	        .attr("d", link);
-
-	    linkGroup.append("svg:text")
-	        .attr("transform", function(d)
-    	        {
-    	            return "translate(" + ((d.source.x+d.target.x)/2) + "," + ((d.source.y+d.target.y)/2) + ")";
-    	        })
-        	.text(function(d)
-			{
-				return d.target.arc;
-			});
-	    
-
+		//for (x in layoutRoot) alert(x + ": " + svg[x]);
 	    /*
 	        Nodes as
 	        <g class="node">
@@ -134,7 +150,6 @@
 	            <text />
 	        </g>
 	     */
-	     
 	     
 	    var nodeGroup = layoutRoot.selectAll("g.node")
 	        .data(nodes)
@@ -147,23 +162,11 @@
 	        });
 
 	    nodeGroup.append("svg:circle")
-	        .attr("class", "node-dot")
-	        .attr("r", options.nodeRadius);
-
-	     nodeGroup.selectAll("text")
-	        .data(function(d) { return d.rel; } )
-	     	.enter()
-	     	.append("svg:text")
-	     	.attr("class", "rel")
-	        .attr("dx", function(d)
+	        .attr("class", function(d)
 	        {
-	            return 20*d;
-	        })
-	     	.text(function(d)
-	     			{
-		     			return d.arc;
-	     			}
-	     	);
+	        	return d.root ? "node-root" : "node-context";
+			})
+	        .attr("r", options.nodeRadius);
 
 	    nodeGroup.append("svg:text")
 	        .attr("text-anchor", function(d)
@@ -180,10 +183,106 @@
 	        {
 	            return d.name;
 	        });
+
+	    /*
+	        Links as
+	        <path class="link" />
+	     */
+
+	    var link = d3.svg.diagonal()
+	        .projection(function(d)
+	        {
+	            return [d.x, d.y];
+	        });
+	    
+	    var linkGroup = layoutRoot.selectAll("path.link")
+	        .data(links)
+	        .enter()
+	        .append("svg:g");
+	    
+		linkGroup.append("svg:path")
+	        .attr("class", "link")
+	        .attr("d", link)
+	    	.attr("marker-end", "url(#arrow-link)");
+
+	    linkGroup.append("svg:text")
+	        .attr("transform", function(d)
+    	        {
+    	            return "translate(" + ((d.source.x+d.target.x)/2) + "," + ((d.source.y+d.target.y)/2) + ")";
+    	        })
+        	.text(function(d)
+			{
+				return d.target.arc;
+			});
+
+	    /*
+	        Rel Links as
+	        <path class="rel" />
+	    */
+
+	    var rel = d3.svg.diagonal()
+	        .projection(function(d)
+	        {
+	            return [d.x, d.y];
+	        });
+
+	    for (var i=0; i<relData.length; i++) {
+	    	for (var ii=0; ii<nodes.length; ii++) {
+	    		if (relData[i].source == nodes[ii].name) {
+	    	    	relData[i].source = { "x": nodes[ii].x, "y": nodes[ii].y };
+	    		}
+	    		if (relData[i].target == nodes[ii].name) {
+	    	    	relData[i].target = { "x": nodes[ii].x, "y": nodes[ii].y};
+	    		}
+	    	}
+	    }	    
+	    
+	    var relGroup = layoutRoot.selectAll("path.rel")
+	        .data(relData)
+	        .enter()
+	        .append("svg:g");
+	    
+		relGroup.append("svg:path")
+	        .attr("class", "rel")
+	        .attr("d", rel)
+        	.attr("marker-end", "url(#arrow-rel)");
+
+	    relGroup.append("svg:text")
+	     	.attr("class", "rel")
+	        .attr("transform", function(d)
+    	        {
+    	            return "translate(" + ((d.source.x+d.target.x)/2) + "," + ((d.source.y+d.target.y)/2) + ")";
+    	        })
+	     	.text(function(d)
+     			{
+	     			return d.arc;
+     			}
+	     	);
+	    
+/*	    var nodeRelGroup = nodeGroup.selectAll("g.node")
+	        .data(function(d) { return d.rel; } )
+	     	.enter()
+	        .append("svg:g");
+	    
+	    nodeRelGroup.append("svg:text")
+	     	.attr("class", "rel")
+	        .attr("dx", function(d)
+	        {
+	            return 20*d;
+	        })
+	     	.text(function(d)
+	     			{
+		     			return d.arc;
+	     			}
+	     	);
+	     	
+		nodeRelGroup.append("svg:path")
+        	.attr("class", "link")
+        	.attr("d", link);*/
 	}	
 </script>
 
-<script>
+	<script>
     $(function(){
     	$.ajax({
     		url: "/XDIGrapherJSON" + document.location.search,

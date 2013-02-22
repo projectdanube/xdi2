@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
+import xdi2.core.features.roots.Roots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -161,6 +162,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		buffer.append("{\n");
 		buffer.append("name: \"" + contextNode.getXri() + "\",\n");
 		buffer.append("arc: \"" + (contextNode.isRootContextNode() ? "()" : contextNode.getArcXri()) + "\",\n");
+		buffer.append("root: " + Roots.isValid(contextNode) + ",\n");
 		buffer.append("contents: [\n");
 
 		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
@@ -195,12 +197,36 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		buffer.append("}\n");
 	}
 
+	private static void addRelationsToBuffer(StringBuffer buffer, Iterator<Relation> relations) {
+
+		buffer.append("[\n");
+
+		while (relations.hasNext()) {
+
+			Relation relation = relations.next();
+
+			buffer.append("{\n");
+
+			buffer.append("arc: \"" + relation.getArcXri() + "\",\n");
+			buffer.append("source: \"" + relation.getContextNode().getXri() + "\",\n");
+			buffer.append("target: \"" + relation.getTargetContextNodeXri() + "\"\n");
+
+			if (relations.hasNext()) buffer.append("},\n"); else buffer.append("}\n"); 
+		}
+
+		buffer.append("]\n");
+	}
+
 	private static String makeJSON(Graph graph) throws IOException {
 
 		StringBuffer buffer = new StringBuffer();
 
 		buffer.append("var treeData = \n");
 		addContextNodeToBuffer(buffer, graph.getRootContextNode());
+		buffer.append(";\n");
+
+		buffer.append("var relData = \n");
+		addRelationsToBuffer(buffer, graph.getRootContextNode().getAllRelations());
 		buffer.append(";\n");
 
 		return buffer.toString();

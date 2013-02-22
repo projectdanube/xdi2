@@ -40,7 +40,7 @@ public class FalseOperator extends ConditionOperator {
 	public static boolean isValid(Relation relation) {
 
 		if (! XDIConstants.XRI_S_FALSE.equals(relation.getArcXri())) return false;
-		if (! InnerRoot.isValid(relation.follow(), relation)) return false;
+		if (! InnerRoot.isValid(relation.follow())) return false;
 
 		return true;
 	}
@@ -61,7 +61,7 @@ public class FalseOperator extends ConditionOperator {
 
 		InnerRoot innerRoot = GraphUtil.innerRootFromComponents(XDIConstants.XRI_S_ROOT, XDIConstants.XRI_S_FALSE, new SingleItemIterator<XDI3Statement> (condition.getStatement()));
 
-		return fromRelation(innerRoot.getRelation());
+		return fromRelation(innerRoot.getPredicateRelation());
 	}
 
 	/*

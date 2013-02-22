@@ -24,7 +24,7 @@ public abstract class ConditionOperator extends Operator {
 	 */
 	public Iterator<Condition> getConditions() {
 
-		InnerRoot innerRoot = InnerRoot.fromContextNodeAndRelation(this.getRelation().follow(), this.getRelation());
+		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
 		if (innerRoot == null) throw new Xdi2RuntimeException("Missing condition in operator: " + this.getRelation());
 
 		return new MappingIterator<XDI3Statement, Condition> (innerRoot.getRelativeStatements(true)) {

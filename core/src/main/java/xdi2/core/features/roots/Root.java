@@ -26,12 +26,4 @@ public interface Root extends Serializable, Comparable<Root> {
 	public Statement findRelativeStatement(XDI3Statement statementXri);
 	public boolean containsRelativeStatement(XDI3Statement statementXri);
 	public Iterator<XDI3Statement> getRelativeStatements(boolean ignoreImplied);
-
-	/**
-	 * A simple way to find a statement in this graph.
-	 */
-
-	/**
-	 * A simple way to check if a statement exists in this graph.
-	 */
 }

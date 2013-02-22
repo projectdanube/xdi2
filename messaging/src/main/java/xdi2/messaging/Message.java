@@ -229,7 +229,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), operationXri, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return Operation.fromMessageAndRelation(this, innerRoot.getRelation());
+		return Operation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
 	}
 
 	/**
@@ -254,7 +254,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_GET, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return GetOperation.fromMessageAndRelation(this, innerRoot.getRelation());
+		return GetOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
 	}
 
 	/**
@@ -279,7 +279,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_ADD, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return AddOperation.fromMessageAndRelation(this, innerRoot.getRelation());
+		return AddOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
 	}
 
 	/**
@@ -304,7 +304,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_MOD, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return ModOperation.fromMessageAndRelation(this, innerRoot.getRelation());
+		return ModOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
 	}
 
 	/**
@@ -329,7 +329,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DEL, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return DelOperation.fromMessageAndRelation(this, innerRoot.getRelation());
+		return DelOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
 	}
 
 	/**
@@ -354,7 +354,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DO, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return DoOperation.fromMessageAndRelation(this, innerRoot.getRelation());
+		return DoOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
 	}
 
 	/**

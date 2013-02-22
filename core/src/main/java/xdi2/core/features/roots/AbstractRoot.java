@@ -81,14 +81,14 @@ public abstract class AbstractRoot implements Root {
 		if (innerRootContextNode == null && create) innerRootContextNode = this.getContextNode().createContextNode(innerRootXri);
 		if (innerRootContextNode == null) return null;
 
-		ContextNode contextNode = this.getContextNode().findContextNode(subject, create);
-		if (contextNode == null) return null;
+		ContextNode subjectContextNode = this.getContextNode().findContextNode(subject, create);
+		if (subjectContextNode == null) return null;
 
-		Relation relation = contextNode.getRelation(predicate, innerRootContextNode.getXri());
-		if (relation == null && create) relation = contextNode.createRelation(predicate, innerRootContextNode.getXri());
-		if (relation == null) return null;
+		Relation predicateRelation = subjectContextNode.getRelation(predicate, innerRootContextNode.getXri());
+		if (predicateRelation == null && create) predicateRelation = subjectContextNode.createRelation(predicate, innerRootContextNode.getXri());
+		if (predicateRelation == null) return null;
 
-		return new InnerRoot(innerRootContextNode, relation);
+		return new InnerRoot(innerRootContextNode);
 	}
 
 	/**
@@ -146,7 +146,7 @@ public abstract class AbstractRoot implements Root {
 			if (relation == null && create) relation = contextNode.createRelation(InnerRoot.getPredicateOfInnerRootXri(arcXri), innerRootContextNode.getXri());
 			if (relation == null) return null;
 
-			return new InnerRoot(innerRootContextNode, relation);
+			return new InnerRoot(innerRootContextNode);
 		}
 
 		return null;

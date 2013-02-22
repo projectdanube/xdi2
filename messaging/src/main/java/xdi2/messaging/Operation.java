@@ -56,11 +56,11 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public static Operation fromMessageAndRelation(Message message, Relation relation) {
 
-		if (GetOperation.isValid(relation)) return GetOperation.fromMessageAndRelation(message, relation);
-		if (AddOperation.isValid(relation)) return AddOperation.fromMessageAndRelation(message, relation);
-		if (ModOperation.isValid(relation)) return ModOperation.fromMessageAndRelation(message, relation);
-		if (DelOperation.isValid(relation)) return DelOperation.fromMessageAndRelation(message, relation);
-		if (DoOperation.isValid(relation)) return DoOperation.fromMessageAndRelation(message, relation);
+		if (GetOperation.isValid(relation)) return new GetOperation(message, relation);
+		if (AddOperation.isValid(relation)) return new AddOperation(message, relation);
+		if (ModOperation.isValid(relation)) return new ModOperation(message, relation);
+		if (DelOperation.isValid(relation)) return new DelOperation(message, relation);
+		if (DoOperation.isValid(relation)) return new DoOperation(message, relation);
 
 		return null;
 	}
@@ -141,7 +141,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public XDI3Segment getTargetAddress() {
 
-		InnerRoot innerRoot = InnerRoot.fromContextNodeAndRelation(this.getRelation().follow(), this.getRelation());
+		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
 
 		if (innerRoot != null) {
 
@@ -158,7 +158,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public Iterator<XDI3Statement> getTargetStatements() {
 
-		InnerRoot innerRoot = InnerRoot.fromContextNodeAndRelation(this.getRelation().follow(), this.getRelation());
+		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
 
 		if (innerRoot != null) {
 
