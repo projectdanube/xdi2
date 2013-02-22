@@ -6,5 +6,5 @@ $do$if$and$($or)$(!1)/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+type/+subs
 $do$if$and$($or)$(!1)/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+type/+deletion)
 $do$if$and$($or)$(!2)/$true/(=!1111/+friend/($from))
 $do$if$and$($or)$(!2)/$true/(=!1111/$is/($from))
-$do$if$and/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+domain)/!/(data:,cloudos))
+$do$if$and/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+domain/+cloudos)
 $do/$do$send/=!1111$(+channel)$(!23)$(+event)

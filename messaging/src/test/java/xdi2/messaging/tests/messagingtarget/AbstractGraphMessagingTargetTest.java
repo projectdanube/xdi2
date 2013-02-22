@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageEnvelope;
@@ -33,7 +34,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
 		GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget(); graphMessagingTarget.setGraph(graph);
 
-		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationXriAndTargetStatement(XDIMessagingConstants.XRI_S_ADD, XDI3Statement.create("=markus/+friend/=giovanni"));
+		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationXriAndTargetStatements(XDIMessagingConstants.XRI_S_ADD, new SingleItemIterator<XDI3Statement> (XDI3Statement.create("=markus/+friend/=giovanni")));
 		MessageResult messageResult1 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope1, messageResult1, null);
 		assertEquals(graph.findRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")).getTargetContextNodeXri(), XDI3Segment.create("=giovanni"));

@@ -67,8 +67,8 @@ public abstract class AbstractRoot implements Root {
 
 	/**
 	 * Finds and returns an XDI inner root under this XDI root.
-	 * @param subject The subject XRI whose XDI inner root context node to find.
-	 * @param predicate The predicate XRI whose XDI inner root context node to find.
+	 * @param subject The subject XRI whose XDI inner root to find.
+	 * @param predicate The predicate XRI whose XDI inner root to find.
 	 * @param create Whether the XDI inner root should be created, if it does not exist.
 	 * @return The XDI inner root.
 	 */
@@ -171,8 +171,7 @@ public abstract class AbstractRoot implements Root {
 	}
 
 	/**
-	 * Creates a relative statement under this XDI root.
-	 * @return The new relative statement.
+	 * A simple way to create a relative statement in this XDI root.
 	 */
 	@Override
 	public Statement createRelativeStatement(XDI3Statement statementXri) {
@@ -182,6 +181,9 @@ public abstract class AbstractRoot implements Root {
 		return this.getContextNode().getGraph().createStatement(statementXri);
 	}
 
+	/**
+	 * A simple way to find a relative statement in this XDI root.
+	 */
 	@Override
 	public Statement findRelativeStatement(XDI3Statement statementXri) {
 
@@ -190,6 +192,9 @@ public abstract class AbstractRoot implements Root {
 		return this.getContextNode().getGraph().findStatement(statementXri);
 	}
 
+	/**
+	 * A simple way to check if a relative statement exists in this XDI root.
+	 */
 	@Override
 	public boolean containsRelativeStatement(XDI3Statement statementXri) {
 

@@ -124,9 +124,4 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 		return statement;
 	}
-
-	public XDI3Segment toXriSegment() {
-
-		return XDI3Segment.create("(" + this.toString() + ")");
-	}
 }

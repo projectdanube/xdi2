@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
-import xdi2.core.Statement;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.features.roots.InnerRoot;
@@ -222,135 +221,140 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Creates a new operation and adds it to this XDI message.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetStatements The target statements to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
 	 */
-	public Operation createOperation(XDI3Segment operationXri, XDI3Statement targetStatement) {
+	public Operation createOperation(XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
 
 		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), operationXri, true);
-		innerRoot.createRelativeStatement(targetStatement);
+		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
 		return Operation.fromMessageAndRelation(this, innerRoot.getRelation());
 	}
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public GetOperation createGetOperation(XDI3Segment targetXri) {
+	public GetOperation createGetOperation(XDI3Segment targetAddress) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetAddress);
 
 		return GetOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetStatements The target statements to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public GetOperation createGetOperation(Statement targetStatement) {
+	public GetOperation createGetOperation(Iterator<XDI3Statement> targetStatements) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_GET, targetStatement.getXri().toXriSegment());
+		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_GET, true);
+		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return GetOperation.fromMessageAndRelation(this, relation);
+		return GetOperation.fromMessageAndRelation(this, innerRoot.getRelation());
 	}
 
 	/**
 	 * Creates a new $add operation and adds it to this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public AddOperation createAddOperation(XDI3Segment targetXri) {
+	public AddOperation createAddOperation(XDI3Segment targetAddress) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetAddress);
 
 		return AddOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $add operation and adds it to this XDI message.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetStatements The target statements to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public AddOperation createAddOperation(Statement targetStatement) {
+	public AddOperation createAddOperation(Iterator<XDI3Statement> targetStatements) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_ADD, targetStatement.getXri().toXriSegment());
+		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_ADD, true);
+		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return AddOperation.fromMessageAndRelation(this, relation);
+		return AddOperation.fromMessageAndRelation(this, innerRoot.getRelation());
 	}
 
 	/**
 	 * Creates a new $mod operation and adds it to this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $mod operation.
 	 */
-	public ModOperation createModOperation(XDI3Segment targetXri) {
+	public ModOperation createModOperation(XDI3Segment targetAddress) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetAddress);
 
 		return ModOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $mod operation and adds it to this XDI message.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetStatements The target statements to which the operation applies.
 	 * @return The newly created $mod operation.
 	 */
-	public ModOperation createModOperation(Statement targetStatement) {
+	public ModOperation createModOperation(Iterator<XDI3Statement> targetStatements) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_MOD, targetStatement.getXri().toXriSegment());
+		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_MOD, true);
+		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return ModOperation.fromMessageAndRelation(this, relation);
+		return ModOperation.fromMessageAndRelation(this, innerRoot.getRelation());
 	}
 
 	/**
 	 * Creates a new $del operation and adds it to this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $del operation.
 	 */
-	public DelOperation createDelOperation(XDI3Segment targetXri) {
+	public DelOperation createDelOperation(XDI3Segment targetAddress) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetAddress);
 
 		return DelOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $del operation and adds it to this XDI message.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetStatements The target statements to which the operation applies.
 	 * @return The newly created $del operation.
 	 */
-	public DelOperation createDelOperation(Statement targetStatement) {
+	public DelOperation createDelOperation(Iterator<XDI3Statement> targetStatements) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DEL, targetStatement.getXri().toXriSegment());
+		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DEL, true);
+		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return DelOperation.fromMessageAndRelation(this, relation);
+		return DelOperation.fromMessageAndRelation(this, innerRoot.getRelation());
 	}
 
 	/**
 	 * Creates a new $do operation and adds it to this XDI message.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $do operation.
 	 */
-	public DoOperation createDoOperation(XDI3Segment targetXri) {
+	public DoOperation createDoOperation(XDI3Segment targetAddress) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DO, targetXri);
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DO, targetAddress);
 
 		return DoOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $do operation and adds it to this XDI message.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetStatements The target statements to which the operation applies.
 	 * @return The newly created $do operation.
 	 */
-	public DoOperation createDoOperation(Statement targetStatement) {
+	public DoOperation createDoOperation(Iterator<XDI3Statement> targetStatements) {
 
-		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_DO, targetStatement.getXri().toXriSegment());
+		InnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DO, true);
+		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
-		return DoOperation.fromMessageAndRelation(this, relation);
+		return DoOperation.fromMessageAndRelation(this, innerRoot.getRelation());
 	}
 
 	/**

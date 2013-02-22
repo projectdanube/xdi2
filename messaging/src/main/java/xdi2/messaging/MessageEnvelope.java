@@ -17,6 +17,7 @@ import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -90,16 +91,16 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetStatements The target statements to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static MessageEnvelope fromOperationXriAndTargetStatement(XDI3Segment operationXri, XDI3Statement targetStatement) {
+	public static MessageEnvelope fromOperationXriAndTargetStatements(XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
 
-		if (targetStatement == null) throw new NullPointerException();
+		if (targetStatements == null) throw new NullPointerException();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createOperation(operationXri, targetStatement);
+		message.createOperation(operationXri, targetStatements);
 
 		return messageEnvelope;
 	}
@@ -121,7 +122,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		} catch (Exception ex) {
 
 			XDI3Statement targetStatement = XDI3Statement.create(targetAddressOrTargetStatement);
-			return MessageEnvelope.fromOperationXriAndTargetStatement(operationXri, targetStatement);
+			return MessageEnvelope.fromOperationXriAndTargetStatements(operationXri, new SingleItemIterator<XDI3Statement> (targetStatement));
 		}
 	}
 

@@ -10,6 +10,7 @@ import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
@@ -147,7 +148,7 @@ public class BasicTest extends TestCase {
 
 	public void testMessagingFromOperationXriAndTargetStatement() throws Exception {
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetStatement(XDIMessagingConstants.XRI_S_ADD, TARGET_STATEMENT);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetStatements(XDIMessagingConstants.XRI_S_ADD, new SingleItemIterator<XDI3Statement> (TARGET_STATEMENT));
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
 		Message message = messageCollection.getMessages().next();
 		Operation operation = message.getAddOperations().next();
