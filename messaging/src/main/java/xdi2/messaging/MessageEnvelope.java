@@ -17,7 +17,9 @@ import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -72,16 +74,16 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param targetXri The target XRI to which the operation applies.
+	 * @param targetAddress The target address to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static MessageEnvelope fromOperationXriAndTargetXri(XDI3Segment operationXri, XDI3Segment targetXri) {
+	public static MessageEnvelope fromOperationXriAndTargetAddress(XDI3Segment operationXri, XDI3Segment targetAddress) {
 
-		if (targetXri == null) targetXri = XDIConstants.XRI_S_CONTEXT;
+		if (targetAddress == null) targetAddress = XDIConstants.XRI_S_CONTEXT;
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createOperation(operationXri, targetXri);
+		message.createOperation(operationXri, targetAddress);
 
 		return messageEnvelope;
 	}
@@ -89,16 +91,16 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param statement The statement to which the operation applies.
+	 * @param targetStatements The target statements to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static MessageEnvelope fromOperationXriAndStatement(XDI3Segment operationXri, String statement) {
+	public static MessageEnvelope fromOperationXriAndTargetStatements(XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
 
-		if (statement == null) throw new NullPointerException();
+		if (targetStatements == null) throw new NullPointerException();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createOperation(operationXri, XDI3Segment.create("(" + statement + ")"));
+		message.createOperation(operationXri, targetStatements);
 
 		return messageEnvelope;
 	}
@@ -106,20 +108,21 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param targetXriOrStatement The target XRI or statement to which the operation applies.
+	 * @param targetAddressOrTargetStatement The target address or target statement to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static final MessageEnvelope fromOperationXriAndTargetXriOrStatement(XDI3Segment operationXri, String targetXriOrStatement) {
+	public static final MessageEnvelope fromOperationXriAndTargetAddressOrTargetStatement(XDI3Segment operationXri, String targetAddressOrTargetStatement) {
 
 		try {
 
-			if (targetXriOrStatement == null) targetXriOrStatement = "()";
+			if (targetAddressOrTargetStatement == null) targetAddressOrTargetStatement = "()";
 
-			XDI3Segment targetXri = XDI3Segment.create(targetXriOrStatement);
-			return MessageEnvelope.fromOperationXriAndTargetXri(operationXri, targetXri);
+			XDI3Segment targetAddress = XDI3Segment.create(targetAddressOrTargetStatement);
+			return MessageEnvelope.fromOperationXriAndTargetAddress(operationXri, targetAddress);
 		} catch (Exception ex) {
 
-			return MessageEnvelope.fromOperationXriAndStatement(operationXri, targetXriOrStatement);
+			XDI3Statement targetStatement = XDI3Statement.create(targetAddressOrTargetStatement);
+			return MessageEnvelope.fromOperationXriAndTargetStatements(operationXri, new SingleItemIterator<XDI3Statement> (targetStatement));
 		}
 	}
 

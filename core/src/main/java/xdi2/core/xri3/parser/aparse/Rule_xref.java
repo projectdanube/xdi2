@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Thu Jan 31 23:16:41 CET 2013
+ * Produced : Wed Feb 20 10:37:39 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -100,7 +100,7 @@ final public class Rule_xref extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_xref_context.parse(context);
+            rule = Rule_xref_segment.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -127,7 +127,7 @@ final public class Rule_xref extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_xref_inner_graph.parse(context);
+            rule = Rule_xref_subject_predicate.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);

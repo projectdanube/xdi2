@@ -10,17 +10,19 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 
 	private XDI3Segment segment;
 	private XDI3Statement statement;
-	private XDI3InnerGraph innerGraph;
+	private XDI3Segment partialSubject;
+	private XDI3Segment partialPredicate;
 	private String IRI;
 	private String literal;
 
-	public XDI3XRef(String string, XDI3Segment segment, XDI3Statement statement, XDI3InnerGraph innerGraph, String IRI, String literal) {
+	public XDI3XRef(String string, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String IRI, String literal) {
 
 		super(string);
 
 		this.segment = segment;
 		this.statement = statement;
-		this.innerGraph = innerGraph;
+		this.partialSubject = partialSubject;
+		this.partialPredicate = partialPredicate;
 		this.IRI = IRI;
 		this.literal = literal;
 	}
@@ -45,9 +47,9 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return this.statement != null;
 	}
 
-	public boolean hasInnerGraph() {
+	public boolean hasPartialSubjectAndPredicate() {
 
-		return this.innerGraph != null;
+		return this.partialSubject != null && this.partialPredicate != null;
 	}
 
 	public boolean hasIRI() {
@@ -70,9 +72,14 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return this.statement;
 	}
 
-	public XDI3InnerGraph getInnerGraph() {
+	public XDI3Segment getPartialSubject() {
 
-		return this.innerGraph;
+		return this.partialSubject;
+	}
+
+	public XDI3Segment getPartialPredicate() {
+
+		return this.partialPredicate;
 	}
 
 	public String getIRI() {
@@ -89,7 +96,7 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 
 		if (this.segment != null) return this.segment.toString();
 		if (this.statement != null) return this.statement.toString();
-		if (this.innerGraph != null) return this.innerGraph.toString();
+		if (this.partialSubject != null && this.partialPredicate != null) return this.partialSubject.toString() + "/" + this.partialPredicate.toString();
 		if (this.IRI != null) return this.IRI;
 		if (this.literal != null) return this.literal;
 

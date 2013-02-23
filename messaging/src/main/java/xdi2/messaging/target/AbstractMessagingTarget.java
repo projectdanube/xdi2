@@ -8,9 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
@@ -269,29 +267,22 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			return;
 		}
 
-		// check if the target is a statement or an address
+		// check if the target is an address or set of statements
 
-		XDI3Segment target = operation.getTarget();
-
-		XDI3Statement targetStatement = null;
-		XDI3Segment targetAddress = null;
-
-		try {
-
-			targetStatement = StatementUtil.fromXriSegment(target);
-		} catch (Xdi2ParseException ex) {
-
-			targetAddress = target;
-		}
+		XDI3Segment targetAddress = operation.getTargetAddress();
+		Iterator<XDI3Statement> targetStatements = operation.getTargetStatements();
 
 		// execute on address or statement
 
-		if (targetStatement == null) {
+		if (targetAddress != null) {
 
 			this.execute(targetAddress, operation, operationMessageResult, executionContext);
-		} else {
+		} else if (targetStatements != null) {
 
-			this.execute(targetStatement, operation, operationMessageResult, executionContext);
+			while (targetStatements.hasNext()) {
+				
+				this.execute(targetStatements.next(), operation, operationMessageResult, executionContext);
+			}
 		}
 
 		// execute operation interceptors (after)

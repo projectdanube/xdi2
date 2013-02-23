@@ -10,64 +10,49 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
-import xdi2.core.util.iterators.SelectingIterator;
 
 public class Equivalence {
 
 	private Equivalence() { }
 
 	/*
-	 * Methods for equivalence links ($is).
+	 * Methods for identity links ($is).
 	 */
 
-	public static Iterator<Relation> getEquivalenceRelations(ContextNode contextNode) {
+	public static Iterator<Relation> getIdentityRelations(ContextNode contextNode) {
 
 		return contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS);
 	}
 
-	public static Iterator<ContextNode> getEquivalenceContextNodes(ContextNode contextNode) {
+	public static Iterator<ContextNode> getIdentityContextNodes(ContextNode contextNode) {
 
-		return new MappingRelationTargetContextNodeIterator(getEquivalenceRelations(contextNode));
+		return new MappingRelationTargetContextNodeIterator(getIdentityRelations(contextNode));
 	}
 
-	public static void addEquivalenceContextNode(ContextNode contextNode, ContextNode equivalenceContextNode) {
+	public static void addIdentityContextNode(ContextNode contextNode, ContextNode identityContextNode) {
 
-		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, equivalenceContextNode);
+		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, identityContextNode);
 	}
 
-	public static Iterator<Relation> getAllEquivalenceRelations(ContextNode contextNode) {
+	public static Iterator<Relation> getIncomingIdentityRelations(ContextNode contextNode) {
 
-		return new SelectingIterator<Relation> (contextNode.getAllRelations()) {
-
-			@Override
-			public boolean select(Relation relation) {
-
-				if (XDIDictionaryConstants.XRI_S_IS.equals(relation.getArcXri())) return true;
-
-				return false;
-			}
-		};
-	}
-
-	public static Iterator<Relation> getIncomingEquivalenceRelations(ContextNode contextNode) {
-
-		Iterator<Relation> equivalenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS);
+		Iterator<Relation> identityRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS);
 
 		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
-		iterators.add(equivalenceRelations);
+		iterators.add(identityRelations);
 
 		return new CompositeIterator<Relation> (iterators.iterator());
 	}
 
-	public static Iterator<ContextNode> getIncomingEquivalenceContextNodes(ContextNode contextNode) {
+	public static Iterator<ContextNode> getIncomingIdentityContextNodes(ContextNode contextNode) {
 
-		Iterator<Relation> incomingEquivalenceRelations = getIncomingEquivalenceRelations(contextNode);
+		Iterator<Relation> incomingIdentityRelations = getIncomingIdentityRelations(contextNode);
 
-		return new MappingRelationContextNodeIterator(incomingEquivalenceRelations);
+		return new MappingRelationContextNodeIterator(incomingIdentityRelations);
 	}
 
 	/*
-	 * Methods for reference links ($ref, $ref!).
+	 * Methods for reference links ($ref).
 	 */
 
 	public static Relation getReferenceRelation(ContextNode contextNode) {
@@ -91,38 +76,80 @@ public class Equivalence {
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, referenceContextNode);
 	}
 
-	public static Relation getPrivateReferenceRelation(ContextNode contextNode) {
+	public static Iterator<Relation> getIncomingReferenceRelations(ContextNode contextNode) {
 
-		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_REF_BANG);
+		Iterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REF);
+
+		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		iterators.add(referenceRelations);
+
+		return new CompositeIterator<Relation> (iterators.iterator());
 	}
 
-	public static ContextNode getPrivateReferenceContextNode(ContextNode contextNode) {
+	public static Iterator<ContextNode> getIncomingReferenceContextNodes(ContextNode contextNode) {
 
-		Relation relation = getPrivateReferenceRelation(contextNode);
+		Iterator<Relation> incomingReferenceRelations = getIncomingReferenceRelations(contextNode);
+
+		return new MappingRelationContextNodeIterator(incomingReferenceRelations);
+	}
+
+	/*
+	 * Methods for replacement links ($rep).
+	 */
+
+	public static Relation getReplacementRelation(ContextNode contextNode) {
+
+		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_REP);
+	}
+
+	public static ContextNode getReplacementContextNode(ContextNode contextNode) {
+
+		Relation relation = getReplacementRelation(contextNode);
 		if (relation == null) return null;
 
 		return relation.follow();
 	}
 
-	public static void setPrivateReferenceContextNode(ContextNode contextNode, ContextNode privateReferenceContextNode) {
+	public static void setReplacementContextNode(ContextNode contextNode, ContextNode replacementContextNode) {
 
-		contextNode.createRelation(XDIDictionaryConstants.XRI_S_REF_BANG, privateReferenceContextNode);
+		contextNode.createRelation(XDIDictionaryConstants.XRI_S_REP, replacementContextNode);
 	}
 
-	public static Iterator<Relation> getAllReferenceAndPrivateReferenceRelations(ContextNode contextNode) {
+	public static Iterator<Relation> getIncomingReplacementRelations(ContextNode contextNode) {
 
-		return new SelectingIterator<Relation> (contextNode.getAllRelations()) {
+		Iterator<Relation> replacementRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REP);
 
-			@Override
-			public boolean select(Relation relation) {
+		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		iterators.add(replacementRelations);
 
-				if (XDIDictionaryConstants.XRI_S_REF.equals(relation.getArcXri())) return true;
-				if (XDIDictionaryConstants.XRI_S_REF_BANG.equals(relation.getArcXri())) return true;
-
-				return false;
-			}
-		};
+		return new CompositeIterator<Relation> (iterators.iterator());
 	}
+
+	public static Iterator<ContextNode> getIncomingReplacementContextNodes(ContextNode contextNode) {
+
+		Iterator<Relation> incomingReplacementRelations = getIncomingReplacementRelations(contextNode);
+
+		return new MappingRelationContextNodeIterator(incomingReplacementRelations);
+	}
+
+	/*
+	 * Methods for reference and replacement links ($ref, $rep).
+	 */
+
+	public static Iterator<Relation> getAllReferenceAndReplacementRelations(ContextNode contextNode) {
+
+		Iterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REF);
+		Iterator<Relation> replacementRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REP);
+
+		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		iterators.add(referenceRelations);
+		iterators.add(replacementRelations);
+
+		return new CompositeIterator<Relation> (iterators.iterator());
+	}
+	
+
+	/*
 
 	public static Iterator<Relation> getIncomingReferenceAndPrivateReferenceRelations(ContextNode contextNode) {
 
@@ -141,5 +168,5 @@ public class Equivalence {
 		Iterator<Relation> incomingReferenceAndPrivateReferenceRelations = getIncomingReferenceAndPrivateReferenceRelations(contextNode);
 
 		return new MappingRelationContextNodeIterator(incomingReferenceAndPrivateReferenceRelations);
-	}
+	}*/
 }

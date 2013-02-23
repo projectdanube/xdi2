@@ -23,7 +23,6 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3XRef;
@@ -91,7 +90,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 					@Override
 					public boolean select(ContextNode contextNode) {
 
-						return ! StatementUtil.isImplied(contextNode.getStatement());
+						return ! contextNode.getStatement().isImplied();
 					}
 				};
 			}

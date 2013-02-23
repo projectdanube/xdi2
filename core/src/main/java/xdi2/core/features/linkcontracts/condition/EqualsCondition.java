@@ -61,23 +61,23 @@ public class EqualsCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
 		ContextNode object = policyEvaluationContext.getContextNode(this.getStatement().getObject());
 
-		if (subject == null || object == null) return false;
+		if (subject == null || object == null) return Boolean.FALSE;
 
 		if (subject.containsLiteral()) {
 
-			if (! object.containsLiteral()) return false;
+			if (! object.containsLiteral()) return Boolean.FALSE;
 
 			String subjectLiteralData = subject.getLiteral().getLiteralData();
 			String objectLiteralData = object.getLiteral().getLiteralData();
 
-			return subjectLiteralData.equals(objectLiteralData);
+			return Boolean.valueOf(subjectLiteralData.equals(objectLiteralData));
 		}
 
-		return false;
+		return Boolean.FALSE;
 	}
 }

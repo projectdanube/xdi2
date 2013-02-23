@@ -14,7 +14,7 @@ public class GetOperation extends Operation {
 
 	private static final long serialVersionUID = -1452297650590584104L;
 
-	public static final XDI3Segment XRI_EXTENSION_BANG = XDI3Segment.create("!");
+	public static final XDI3Segment XRI_EXTENSION_DEREF = XDI3Segment.create("$deref");
 
 	protected GetOperation(Message message, Relation relation) {
 
@@ -47,38 +47,6 @@ public class GetOperation extends Operation {
 
 		if (! isValid(relation)) return null;
 
-		//		if (GetExpOperation.isValid(relation)) return GetExpOperation.fromMessageAndRelation(message, relation);
-		//		if (GetCmpOperation.isValid(relation)) return GetCmpOperation.fromMessageAndRelation(message, relation);
-
 		return new GetOperation(message, relation);
 	}
-
-	/*
-	 * Specific $get XDI operations
-	 */
-
-	/*	public static class GetExpOperation extends GetOperation {
-
-		private static final long serialVersionUID = 5258097506386334653L;
-
-		protected GetExpOperation(Message message, Relation relation) {
-
-			super(message, relation);
-		}
-
-		public static boolean isValid(Relation relation) {
-
-			if (! XRIUtil.startsWith(relation.getArcXri(), XDIMessagingConstants.XRI_S_GET)) return false;
-			if (! XDIMessagingConstants.XRI_S_DO.equals(relation.getContextNode().getArcXri())) return false;
-
-			return true;
-		}
-
-		public static GetExpOperation fromMessageAndRelation(Message message, Relation relation) {
-
-			if (! isValid(relation)) return null;
-
-			return new GetExpOperation(message, relation);
-		}
-	}*/
 }

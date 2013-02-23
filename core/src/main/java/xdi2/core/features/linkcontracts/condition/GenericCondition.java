@@ -50,13 +50,13 @@ public class GenericCondition extends Condition {
 	 */
 
 	@Override
-	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (this.getStatement().isContextNodeStatement()) {
 
 			ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
 
-			return subject != null;
+			return Boolean.valueOf(subject != null);
 		}
 
 		if (this.getStatement().isRelationStatement()) {
@@ -65,7 +65,7 @@ public class GenericCondition extends Condition {
 			XDI3Segment arcXri = this.getStatement().getArcXri();
 			XDI3Segment targetContextNodeXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getTargetContextNodeXri());
 
-			return subject != null && subject.containsRelation(arcXri, targetContextNodeXri);
+			return Boolean.valueOf(subject != null && subject.containsRelation(arcXri, targetContextNodeXri));
 		}
 
 		if (this.getStatement().isLiteralStatement()) {
@@ -73,9 +73,9 @@ public class GenericCondition extends Condition {
 			ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
 			String literalData = this.getStatement().getLiteralData();
 
-			return subject != null && subject.containsLiteral(literalData);
+			return Boolean.valueOf(subject != null && subject.containsLiteral(literalData));
 		}
 
-		return false;
+		return Boolean.FALSE;
 	}
 }

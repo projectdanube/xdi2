@@ -8,7 +8,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.XDI3InnerGraph;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -28,11 +27,18 @@ public class XDI3ParserAPG implements XDI3Parser {
 	private static final Logger log = LoggerFactory.getLogger(XDI3ParserAPG.class);
 
 	private static Grammar grammar = XDI3Grammar.getInstance();
+
+	private static Parser parser_xdi_statement = null;
+	private static Parser parser_xdi_segment = null;
+	private static Parser parser_subseg = null;
+	private static Parser parser_xref = null;
+
+	/*  TODO: why can't we create the parse once and re-use it? seems to cause random ParserExceptions and NullPointerExceptions
+
 	private static Parser parser_xdi_statement = makeParser(XDI3Grammar.RuleNames.XDI_STATEMENT);
-	private static Parser parser_xdi_inner_graph = makeParser(XDI3Grammar.RuleNames.XDI_INNER_GRAPH);
 	private static Parser parser_xdi_segment = makeParser(XDI3Grammar.RuleNames.XDI_SEGMENT);
 	private static Parser parser_subseg = makeParser(XDI3Grammar.RuleNames.SUBSEG);
-	private static Parser parser_xref = makeParser(XDI3Grammar.RuleNames.XREF);
+	private static Parser parser_xref = makeParser(XDI3Grammar.RuleNames.XREF); */
 
 	private static Parser makeParser(RuleNames ruleName) {
 
@@ -46,12 +52,6 @@ public class XDI3ParserAPG implements XDI3Parser {
 	public XDI3Statement parseXDI3Statement(String input) {
 
 		return (XDI3Statement) parse(parser_xdi_statement, input, XDI3Grammar.RuleNames.XDI_STATEMENT);
-	}
-
-	@Override
-	public XDI3InnerGraph parseXDI3InnerGraph(String input) {
-
-		return (XDI3InnerGraph) parse(parser_xdi_inner_graph, input, XDI3Grammar.RuleNames.XDI_INNER_GRAPH);
 	}
 
 	@Override
@@ -74,7 +74,10 @@ public class XDI3ParserAPG implements XDI3Parser {
 
 	private static XDI3SyntaxComponent parse(Parser parser, String input, RuleNames ruleName) {
 
+		if (parser == null) parser = makeParser(ruleName);
+
 		parser.setInputString(input);
+		parser.enableAst(false);
 
 		Ast ast = parser.enableAst(true);
 
@@ -83,7 +86,6 @@ public class XDI3ParserAPG implements XDI3Parser {
 		try {
 
 			ast.enableRuleNode(XDI3Grammar.RuleNames.XDI_STATEMENT.ruleID(), true);
-			ast.enableRuleNode(XDI3Grammar.RuleNames.XDI_INNER_GRAPH.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.XDI_SEGMENT.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.SUBSEG.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.XREF.ruleID(), true);
@@ -92,7 +94,6 @@ public class XDI3ParserAPG implements XDI3Parser {
 			ast.enableRuleNode(XDI3Grammar.RuleNames.LITERAL.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.IRI.ruleID(), true);
 			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_STATEMENT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_STATEMENT));
-			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_INNER_GRAPH.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_INNER_GRAPH));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_SEGMENT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_SEGMENT));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.SUBSEG.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.SUBSEG));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.XREF.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XREF));
@@ -169,16 +170,6 @@ public class XDI3ParserAPG implements XDI3Parser {
 				this.myAstContext.currentNode.xri = new XDI3Statement(this.myAstContext.currentNode.value, subject, predicate, object);
 			}
 
-			if (this.ruleName.equals(RuleNames.XDI_INNER_GRAPH)) {
-
-				List<Node> nodesSegment = this.myAstContext.currentNode.findNodes(RuleNames.XDI_SEGMENT);
-
-				XDI3Segment subject = (XDI3Segment) nodesSegment.get(0).xri;
-				XDI3Segment predicate = (XDI3Segment) nodesSegment.get(1).xri;
-
-				this.myAstContext.currentNode.xri = new XDI3InnerGraph(this.myAstContext.currentNode.value, subject, predicate);
-			}
-
 			if (this.ruleName.equals(RuleNames.XDI_SEGMENT)) {
 
 				Node nodeLiteral = this.myAstContext.currentNode.findNode(RuleNames.LITERAL);
@@ -209,19 +200,19 @@ public class XDI3ParserAPG implements XDI3Parser {
 
 			if (this.ruleName.equals(RuleNames.XREF)) {
 
-				Node nodeSegment = this.myAstContext.currentNode.findNode(RuleNames.XDI_SEGMENT);
+				List<Node> nodesSegment = this.myAstContext.currentNode.findNodes(RuleNames.XDI_SEGMENT);
 				Node nodeStatement = this.myAstContext.currentNode.findNode(RuleNames.XDI_STATEMENT);
-				Node nodeInnerGraph = this.myAstContext.currentNode.findNode(RuleNames.XDI_INNER_GRAPH);
 				Node nodeIRI = this.myAstContext.currentNode.findNode(RuleNames.IRI);
 				Node nodeLiteral = this.myAstContext.currentNode.findNode(RuleNames.LITERAL);
 
-				XDI3Segment segment = nodeSegment == null ? null : (XDI3Segment) nodeSegment.xri;
+				XDI3Segment segment = nodesSegment.size() != 1 ? null : (XDI3Segment) nodesSegment.get(0).xri;
 				XDI3Statement statement = nodeStatement == null ? null : (XDI3Statement) nodeStatement.xri;
-				XDI3InnerGraph innerGraph = nodeInnerGraph == null ? null : (XDI3InnerGraph) nodeInnerGraph.xri;
+				XDI3Segment partialSubject = nodesSegment.size() != 2 ? null : (XDI3Segment) nodesSegment.get(0).xri;
+				XDI3Segment partialPredicate = nodesSegment.size() != 2 ? null : (XDI3Segment) nodesSegment.get(1).xri;
 				String IRI = nodeIRI == null ? null : nodeIRI.value;
 				String literal = nodeLiteral == null ? null : nodeLiteral.value;
 
-				this.myAstContext.currentNode.xri = new XDI3XRef(this.myAstContext.currentNode.value, segment, statement, innerGraph, IRI, literal);
+				this.myAstContext.currentNode.xri = new XDI3XRef(this.myAstContext.currentNode.value, segment, statement, partialSubject, partialPredicate, IRI, literal);
 			}
 
 			if (this.myAstContext.currentNode.parent != null) this.myAstContext.currentNode = this.myAstContext.currentNode.parent;

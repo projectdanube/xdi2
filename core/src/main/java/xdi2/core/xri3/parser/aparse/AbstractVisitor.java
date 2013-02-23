@@ -5,19 +5,7 @@ public abstract class AbstractVisitor implements Visitor {
 	public abstract Object visitRule(Rule rule);
 	
 	@Override
-	public Object visit(Rule_xdi_address rule) {
-
-		return visitRule(rule);
-	}
-	
-	@Override
 	public Object visit(Rule_xdi_context rule) {
-
-		return visitRule(rule);
-	}
-
-	@Override
-	public Object visit(Rule_xdi_inner_graph rule) {
 
 		return visitRule(rule);
 	}
@@ -101,13 +89,7 @@ public abstract class AbstractVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(Rule_xref_context rule) {
-
-		return visitRule(rule);
-	}
-
-	@Override
-	public Object visit(Rule_xref_inner_graph rule) {
+	public Object visit(Rule_xref_segment rule) {
 
 		return visitRule(rule);
 	}
@@ -132,30 +114,6 @@ public abstract class AbstractVisitor implements Visitor {
 
 	@Override
 	public Object visit(Rule_xdi_pchar rule) {
-
-		return visitRule(rule);
-	}
-
-	@Override
-	public Object visit(Rule_xdi_pchar_nc rule) {
-
-		return visitRule(rule);
-	}
-
-	@Override
-	public Object visit(Rule_xdi_reserved rule) {
-
-		return visitRule(rule);
-	}
-
-	@Override
-	public Object visit(Rule_xdi_gen_delims rule) {
-
-		return visitRule(rule);
-	}
-
-	@Override
-	public Object visit(Rule_xdi_sub_delims rule) {
 
 		return visitRule(rule);
 	}
@@ -444,6 +402,12 @@ public abstract class AbstractVisitor implements Visitor {
 
 	@Override
 	public Object visit(Rule_WSP rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_xref_subject_predicate rule) {
 
 		return visitRule(rule);
 	}

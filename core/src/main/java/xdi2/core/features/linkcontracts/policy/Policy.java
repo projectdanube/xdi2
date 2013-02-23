@@ -12,7 +12,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
+import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.multiplicity.XdiCollection;
 import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.features.multiplicity.XdiEntitySingleton;
@@ -183,27 +183,27 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	}
 
 	/**
-	 * Returns the XDI policy statements underneath this XDI policy.
+	 * Returns the XDI operators underneath this XDI policy.
 	 */
-	public Iterator<PolicyStatement> getPolicyStatements() {
+	public Iterator<Operator> getOperators() {
 
-		// get all relations that are valid XDI policy statements
+		// get all relations that are valid XDI operators
 
 		Iterator<Relation> relations = this.getContextNode().getRelations();
 
-		return new MappingRelationPolicyStatementIterator(relations);
+		return new MappingRelationOperatorIterator(relations);
 	}
 
 	/**
-	 * Adds an XDI policy statement to this XDI policy.
-	 * @param arcXri The arc XRI of the XDI policy statement.
+	 * Adds an XDI operator to this XDI policy.
+	 * @param arcXri The arc XRI of the XDI operator.
 	 * @param statement The statement of the XDI condition.
 	 */
-	public PolicyStatement addPolicyStatement(PolicyStatement policyStatement) {
+	public Operator addOperator(Operator policyStatement) {
 
 		Relation relation = CopyUtil.copyRelation(policyStatement.getRelation(), this.getContextNode(), null);
 
-		return PolicyStatement.fromRelation(relation);
+		return Operator.fromRelation(relation);
 	}
 
 	/**
@@ -211,16 +211,16 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 * @param policyEvaluationContext An object that can locate context nodes.
 	 * @return True or false.
 	 */
-	public final boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
+	public final Boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getContextNode());
-		boolean result = this.evaluateInternal(policyEvaluationContext);
+		Boolean result = this.evaluateInternal(policyEvaluationContext);
 		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getContextNode() + ": " + result);
 
 		return result;
 	}
 
-	protected abstract boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
+	protected abstract Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
 
 	/*
 	 * Object methods
@@ -310,16 +310,16 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		}
 	}
 
-	public static class MappingRelationPolicyStatementIterator extends NotNullIterator<PolicyStatement> {
+	public static class MappingRelationOperatorIterator extends NotNullIterator<Operator> {
 
-		public MappingRelationPolicyStatementIterator(Iterator<Relation> relations) {
+		public MappingRelationOperatorIterator(Iterator<Relation> relations) {
 
-			super(new MappingIterator<Relation, PolicyStatement> (relations) {
+			super(new MappingIterator<Relation, Operator> (relations) {
 
 				@Override
-				public PolicyStatement map(Relation relation) {
+				public Operator map(Relation relation) {
 
-					return PolicyStatement.fromRelation(relation);
+					return Operator.fromRelation(relation);
 				}
 			});
 		}

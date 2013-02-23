@@ -1,0 +1,298 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>XDI2 Grapher D3 IFRAME</title>
+
+<style>
+g.node {
+	font-family: Verdana, Helvetica;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+circle.node-root {
+	fill: white;
+	stroke: black;
+	stroke-width: 2px;
+}
+
+circle.node-context {
+	fill: gray;
+	stroke: black;
+	stroke-width: 2px;
+}
+
+path.link {
+	fill: none;
+	stroke: black;
+	stroke-width: 2px;
+}
+
+text.link {
+}
+
+path.rel {
+	fill: none;
+	stroke: red;
+	stroke-width: 2px;
+}
+
+text.rel {
+}
+
+path.arrow-link {
+	fill: black;
+	stroke: black;
+}
+
+path.arrow-rel {
+	fill: red;
+	stroke: red;
+}
+</style>
+</head>
+<body>
+
+	<div id="tree-container">
+	<svg>
+		<defs>
+			<marker id="arrow-link" viewBox="0 0 100 100" refX="10" refY="10"
+				markerUnits="strokeWidth" markerWidth="20" markerHeight="20" orient="auto">
+				<path d="M 0 0 L 20 10 L 0 20 z" class="arrow-link"/>
+			</marker>
+			<marker id="arrow-rel" viewBox="0 0 100 100" refX="10" refY="10"
+				markerUnits="strokeWidth" markerWidth="20" markerHeight="20" orient="auto">
+				<path d="M 0 0 L 20 10 L 0 20 z" class="arrow-rel"/>
+			</marker>
+		</defs>
+		<g></g>
+	</svg>
+	</div>
+
+	<script type="text/javascript" src="jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="d3.min.js"></script>
+	<script type="text/javascript" src="d3.layout.min.js"></script>
+
+	<script type="text/javascript">
+
+	function visit(parent, visitFn, childrenFn)
+	{
+	    if (!parent) return;
+
+	    visitFn(parent);
+
+	    var children = childrenFn(parent);
+	    if (children) {
+	        var count = children.length;
+	        for (var i = 0; i < count; i++) {
+	            visit(children[i], visitFn, childrenFn);
+	        }
+	    }
+	}
+
+	function buildTree(containerName, customOptions)
+	{
+	    // build the options object
+	    var options = $.extend({
+	        nodeRadius: 7, fontSize: 12
+	    }, customOptions);
+
+	    
+	    // Calculate total nodes, max label length
+	    var totalNodes = 0;
+	    var maxLabelLength = 0;
+	    visit(treeData, function(d)
+	    {
+	        totalNodes++;
+	        maxLabelLength = Math.max(d.name.length, maxLabelLength);
+	    }, function(d)
+	    {
+	        return d.contents && d.contents.length > 0 ? d.contents : null;
+	    });
+
+	    // size of the diagram
+	    var size = { width:$(containerName).outerWidth(), height: totalNodes * 40};
+
+	    var tree = d3.layout.tree()
+	        .sort(null)
+	        .size([size.width - maxLabelLength*options.fontSize, size.height])
+	        .children(function(d)
+	        {
+	            return (!d.contents || d.contents.length === 0) ? null : d.contents;
+	        });
+
+	    var nodes = tree.nodes(treeData);
+	    var links = tree.links(nodes);
+	    
+	    /*
+	        <svg>
+	            <g class="container" />
+	        </svg>
+	     */
+	    
+	    var container = d3.select(containerName);
+	     
+	    var svg = container.select("svg")
+	        .attr("width", size.width)
+	        .attr("height", size.height + 20);
+	    
+		var layoutRoot = svg.select("g")
+	        .attr("class", "container")
+	        .attr("transform", "translate(" + maxLabelLength + ",10)");
+
+		//for (x in layoutRoot) alert(x + ": " + svg[x]);
+	    /*
+	        Nodes as
+	        <g class="node">
+	            <circle class="node-dot" />
+	            <text />
+	        </g>
+	     */
+	     
+	    var nodeGroup = layoutRoot.selectAll("g.node")
+	        .data(nodes)
+	        .enter()
+	        .append("svg:g")
+	        .attr("class", "node")
+	        .attr("transform", function(d)
+	        {
+	            return "translate(" + d.x + "," + d.y + ")";
+	        });
+
+	    nodeGroup.append("svg:circle")
+	        .attr("class", function(d)
+	        {
+	        	return d.root ? "node-root" : "node-context";
+			})
+	        .attr("r", options.nodeRadius);
+
+	    nodeGroup.append("svg:text")
+	        .attr("text-anchor", function(d)
+	        {
+	            return d.children ? "end" : "start";
+	        })
+	        .attr("dx", function(d)
+	        {
+	            var gap = 2 * options.nodeRadius;
+	            return d.children ? -gap : gap;
+	        })
+	        .attr("dy", 3)
+	        .text(function(d)
+	        {
+	            return d.name;
+	        });
+
+	    /*
+	        Links as
+	        <path class="link" />
+	     */
+
+	    var link = d3.svg.diagonal()
+	        .projection(function(d)
+	        {
+	            return [d.x, d.y];
+	        });
+	    
+	    var linkGroup = layoutRoot.selectAll("path.link")
+	        .data(links)
+	        .enter()
+	        .append("svg:g");
+	    
+		linkGroup.append("svg:path")
+	        .attr("class", "link")
+	        .attr("d", link)
+	    	.attr("marker-end", "url(#arrow-link)");
+
+	    linkGroup.append("svg:text")
+	        .attr("transform", function(d)
+    	        {
+    	            return "translate(" + ((d.source.x+d.target.x)/2) + "," + ((d.source.y+d.target.y)/2) + ")";
+    	        })
+        	.text(function(d)
+			{
+				return d.target.arc;
+			});
+
+	    /*
+	        Rel Links as
+	        <path class="rel" />
+	    */
+
+	    var rel = d3.svg.diagonal()
+	        .projection(function(d)
+	        {
+	            return [d.x, d.y];
+	        });
+
+	    for (var i=0; i<relData.length; i++) {
+	    	for (var ii=0; ii<nodes.length; ii++) {
+	    		if (relData[i].source == nodes[ii].name) {
+	    	    	relData[i].source = { "x": nodes[ii].x, "y": nodes[ii].y };
+	    		}
+	    		if (relData[i].target == nodes[ii].name) {
+	    	    	relData[i].target = { "x": nodes[ii].x, "y": nodes[ii].y};
+	    		}
+	    	}
+	    }	    
+	    
+	    var relGroup = layoutRoot.selectAll("path.rel")
+	        .data(relData)
+	        .enter()
+	        .append("svg:g");
+	    
+		relGroup.append("svg:path")
+	        .attr("class", "rel")
+	        .attr("d", rel)
+        	.attr("marker-end", "url(#arrow-rel)");
+
+	    relGroup.append("svg:text")
+	     	.attr("class", "rel")
+	        .attr("transform", function(d)
+    	        {
+    	            return "translate(" + ((d.source.x+d.target.x)/2) + "," + ((d.source.y+d.target.y)/2) + ")";
+    	        })
+	     	.text(function(d)
+     			{
+	     			return d.arc;
+     			}
+	     	);
+	    
+/*	    var nodeRelGroup = nodeGroup.selectAll("g.node")
+	        .data(function(d) { return d.rel; } )
+	     	.enter()
+	        .append("svg:g");
+	    
+	    nodeRelGroup.append("svg:text")
+	     	.attr("class", "rel")
+	        .attr("dx", function(d)
+	        {
+	            return 20*d;
+	        })
+	     	.text(function(d)
+	     			{
+		     			return d.arc;
+	     			}
+	     	);
+	     	
+		nodeRelGroup.append("svg:path")
+        	.attr("class", "link")
+        	.attr("d", link);*/
+	}	
+</script>
+
+	<script>
+    $(function(){
+    	$.ajax({
+    		url: "/XDIGrapherJSON" + document.location.search,
+    		dataType: "script",
+    		success: function() {
+    	        buildTree("#tree-container");
+    		}
+    	});
+    });
+</script>
+
+</body>
+</html>

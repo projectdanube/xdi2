@@ -10,7 +10,9 @@ import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
@@ -25,7 +27,8 @@ public class BasicTest extends TestCase {
 
 	private static final XDI3Segment SENDER = XDI3Segment.create("=sender");
 
-	private static final XDI3Segment TARGET = XDI3Segment.create("=markus");
+	private static final XDI3Segment TARGET_ADDRESS = XDI3Segment.create("=markus");
+	private static final XDI3Statement TARGET_STATEMENT = XDI3Statement.create("=markus/+friend/=giovanni");
 
 	private static final XDI3Segment CONTEXTNODEXRIS[] = new XDI3Segment[] {
 		XDI3Segment.create("=markus+email"),
@@ -123,9 +126,9 @@ public class BasicTest extends TestCase {
 		assertTrue(delOperation instanceof DelOperation);
 	}
 
-	public void testMessagingFromOperationXriAndTargetXri() throws Exception {
+	public void testMessagingFromOperationXriAndTargetAddress() throws Exception {
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetXri(XDIMessagingConstants.XRI_S_ADD, TARGET);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetAddress(XDIMessagingConstants.XRI_S_ADD, TARGET_ADDRESS);
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
 		Message message = messageCollection.getMessages().next();
 		Operation operation = message.getAddOperations().next();
@@ -139,7 +142,27 @@ public class BasicTest extends TestCase {
 		assertEquals(message.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
 		assertEquals(operation.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
 		assertEquals(operation.getOperationXri(), XDIMessagingConstants.XRI_S_ADD);
-		assertEquals(operation.getTarget(), TARGET);
+		assertEquals(operation.getTargetAddress(), TARGET_ADDRESS);
+		assertTrue(operation instanceof AddOperation);
+	}
+
+	public void testMessagingFromOperationXriAndTargetStatement() throws Exception {
+
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetStatements(XDIMessagingConstants.XRI_S_ADD, new SingleItemIterator<XDI3Statement> (TARGET_STATEMENT));
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
+		Message message = messageCollection.getMessages().next();
+		Operation operation = message.getAddOperations().next();
+
+		assertEquals(messageEnvelope.getMessageCount(), 1);
+		assertEquals(messageEnvelope.getOperationCount(), 1);
+		assertEquals(messageCollection.getMessageCount(), 1);
+		assertEquals(messageCollection.getOperationCount(), 1);
+		assertEquals(message.getOperationCount(), 1);
+		assertEquals(messageCollection.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
+		assertEquals(message.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
+		assertEquals(operation.getSender(), XDIMessagingConstants.XRI_S_ANONYMOUS);
+		assertEquals(operation.getOperationXri(), XDIMessagingConstants.XRI_S_ADD);
+		assertEquals(operation.getTargetStatements().next(), TARGET_STATEMENT);
 		assertTrue(operation instanceof AddOperation);
 	}
 

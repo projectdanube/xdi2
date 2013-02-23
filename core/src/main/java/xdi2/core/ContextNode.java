@@ -399,7 +399,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ReadOnlyIterator<Statement> getAllStatements();
 
 	/**
-	 * Returns the number of all statements of this context node.
+	 * Returns the number of all statements rooted in this context node.
 	 * @return The number of statements.
 	 */
 	public int getAllStatementCount();

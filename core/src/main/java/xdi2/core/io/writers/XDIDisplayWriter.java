@@ -21,7 +21,6 @@ import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
@@ -108,7 +107,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			// ignore implied context nodes
 
-			if ((! this.writeContexts) && StatementUtil.isImplied(statement)) continue;
+			if ((! this.writeContexts) && statement.isImplied()) continue;
 
 			// HTML output
 

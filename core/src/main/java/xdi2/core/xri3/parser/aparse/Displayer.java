@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Thu Jan 31 23:16:41 CET 2013
+ * Produced : Wed Feb 20 10:37:39 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -15,17 +15,7 @@ import java.util.ArrayList;
 public class Displayer implements Visitor
 {
 
-  public Object visit(Rule_xdi_address rule)
-  {
-    return visitRules(rule.rules);
-  }
-
   public Object visit(Rule_xdi_context rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_xdi_inner_graph rule)
   {
     return visitRules(rule.rules);
   }
@@ -95,12 +85,12 @@ public class Displayer implements Visitor
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xref_context rule)
+  public Object visit(Rule_xref_segment rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xref_inner_graph rule)
+  public Object visit(Rule_xref_subject_predicate rule)
   {
     return visitRules(rule.rules);
   }
@@ -121,26 +111,6 @@ public class Displayer implements Visitor
   }
 
   public Object visit(Rule_xdi_pchar rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_xdi_pchar_nc rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_xdi_reserved rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_xdi_gen_delims rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_xdi_sub_delims rule)
   {
     return visitRules(rule.rules);
   }

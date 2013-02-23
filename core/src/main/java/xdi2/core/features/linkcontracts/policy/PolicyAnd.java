@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.features.linkcontracts.policystatement.PolicyStatement;
+import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.features.multiplicity.XdiEntitySingleton;
 import xdi2.core.features.multiplicity.XdiSubGraph;
@@ -59,20 +59,20 @@ public class PolicyAnd extends Policy {
 	 */
 
 	@Override
-	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		for (Iterator<Policy> policies = this.getPolicies(); policies.hasNext(); ) {
 
 			Policy policy = policies.next();
-			if (false == policy.evaluate(policyEvaluationContext)) return false;
+			if (Boolean.FALSE.equals(policy.evaluate(policyEvaluationContext))) return Boolean.FALSE;
 		}
 
-		for (Iterator<PolicyStatement> policyStatements = this.getPolicyStatements(); policyStatements.hasNext(); ) {
+		for (Iterator<Operator> operators = this.getOperators(); operators.hasNext(); ) {
 
-			PolicyStatement policyStatement = policyStatements.next();
-			if (false == policyStatement.evaluate(policyEvaluationContext)) return false;
+			Operator operator = operators.next();
+			for (Boolean result : operator.evaluate(policyEvaluationContext)) if (Boolean.FALSE.equals(result)) return Boolean.FALSE;
 		}
 
-		return true;
+		return Boolean.TRUE;
 	}
 }

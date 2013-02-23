@@ -17,32 +17,26 @@
 ; XDI rules
 ;
 
-xdi-address = xdi-context / xdi-inner-graph / xdi-statement
-xdi-context = xdi-subject
-xdi-inner-graph = xdi-subject "/" xdi-predicate
+xdi-context = xdi-segment
 xdi-statement = xdi-subject "/" xdi-predicate "/" xdi-object
 xdi-subject = xdi-segment
 xdi-predicate = xdi-segment
 xdi-object = xdi-segment
-xdi-segment = subseg *subseg
+xdi-segment = 1*subseg
 subseg = global-subseg / local-subseg / xref
 global-subseg = gcs-char [ local-subseg / xref / literal ]
 local-subseg = lcs-char [ xref / literal ]
 gcs-char          = "=" / "@" / "+" / "$"
 lcs-char          = "*" / "!"
-xref = xref-empty / xref-IRI / xref-context / xref-inner-graph / xref-statement / xref-literal
+xref = xref-empty / xref-IRI / xref-segment / xref-subject-predicate / xref-statement / xref-literal
 xref-empty = "()"
 xref-IRI = "(" IRI ")"
-xref-context = "(" xdi-context ")"
-xref-inner-graph = "(" xdi-inner-graph ")"
+xref-segment = "(" xdi-segment ")"
+xref-subject-predicate = "(" xdi-subject "/" xdi-predicate ")"
 xref-statement = "(" xdi-statement ")"
 xref-literal = "(" literal ")"
 literal           = 1*xdi-pchar
-xdi-pchar         = iunreserved / pct-encoded / xdi-sub-delims / ":"
-xdi-pchar-nc      = iunreserved / pct-encoded / xdi-sub-delims
-xdi-reserved      = xdi-gen-delims / xdi-sub-delims
-xdi-gen-delims    = ":" / "/" / "?" / "#" / "[" / "]" / "(" / ")" / gcs-char / lcs-char
-xdi-sub-delims    = "&" / ";" / "," / "'"
+xdi-pchar         = iunreserved / pct-encoded
 
 ;
 ; IRI rules

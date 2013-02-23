@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Thu Jan 31 23:16:41 CET 2013
+ * Produced : Wed Feb 20 10:37:39 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -31,7 +31,7 @@ public class Parser
     if (ok)
     {
       arguments.setProperty("Trace", "Off");
-      arguments.setProperty("Rule", "xdi-address");
+      arguments.setProperty("Rule", "xdi-context");
 
       for (int i = 0; i < args.length; i++)
       {
@@ -160,9 +160,7 @@ public class Parser
     ParserContext context = new ParserContext(string, trace);
 
     Rule rule = null;
-    if (rulename.equalsIgnoreCase("xdi-address")) rule = Rule_xdi_address.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-context")) rule = Rule_xdi_context.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-inner-graph")) rule = Rule_xdi_inner_graph.parse(context);
+    if (rulename.equalsIgnoreCase("xdi-context")) rule = Rule_xdi_context.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-statement")) rule = Rule_xdi_statement.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-subject")) rule = Rule_xdi_subject.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-predicate")) rule = Rule_xdi_predicate.parse(context);
@@ -176,16 +174,12 @@ public class Parser
     else if (rulename.equalsIgnoreCase("xref")) rule = Rule_xref.parse(context);
     else if (rulename.equalsIgnoreCase("xref-empty")) rule = Rule_xref_empty.parse(context);
     else if (rulename.equalsIgnoreCase("xref-IRI")) rule = Rule_xref_IRI.parse(context);
-    else if (rulename.equalsIgnoreCase("xref-context")) rule = Rule_xref_context.parse(context);
-    else if (rulename.equalsIgnoreCase("xref-inner-graph")) rule = Rule_xref_inner_graph.parse(context);
+    else if (rulename.equalsIgnoreCase("xref-segment")) rule = Rule_xref_segment.parse(context);
+    else if (rulename.equalsIgnoreCase("xref-subject-predicate")) rule = Rule_xref_subject_predicate.parse(context);
     else if (rulename.equalsIgnoreCase("xref-statement")) rule = Rule_xref_statement.parse(context);
     else if (rulename.equalsIgnoreCase("xref-literal")) rule = Rule_xref_literal.parse(context);
     else if (rulename.equalsIgnoreCase("literal")) rule = Rule_literal.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-pchar")) rule = Rule_xdi_pchar.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-pchar-nc")) rule = Rule_xdi_pchar_nc.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-reserved")) rule = Rule_xdi_reserved.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-gen-delims")) rule = Rule_xdi_gen_delims.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-sub-delims")) rule = Rule_xdi_sub_delims.parse(context);
     else if (rulename.equalsIgnoreCase("IRI")) rule = Rule_IRI.parse(context);
     else if (rulename.equalsIgnoreCase("scheme")) rule = Rule_scheme.parse(context);
     else if (rulename.equalsIgnoreCase("ihier-part")) rule = Rule_ihier_part.parse(context);

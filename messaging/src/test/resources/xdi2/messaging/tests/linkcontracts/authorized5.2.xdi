@@ -1,4 +1,4 @@
 =!2222$($msg)$(!1)/$is()/(=!1111)
 =!2222$($msg)$(!1)/$do/$do
-=!2222$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+domain)/!/(data:,cloudos))
-=!2222$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,notification))
+=!2222$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+domain/+cloudos)
+=!2222$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+type/+notification)

@@ -1,5 +1,7 @@
 package xdi2.core.features.linkcontracts.evaluation;
 
+import java.util.Iterator;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.xri3.XDI3Segment;
@@ -13,5 +15,5 @@ public interface PolicyEvaluationContext {
 
 	public XDI3Segment getContextNodeXri(XDI3Segment xri);
 	public ContextNode getContextNode(XDI3Segment xri);
-	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
+	public Iterator<Relation> getRelations(XDI3Segment arcXri);
 }

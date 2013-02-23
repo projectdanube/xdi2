@@ -29,8 +29,8 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	public GraphFactory getGraphFactory();
 
 	/**
-	 * Gets the root context node of this graph.
-	 * @return The graph's root context node.
+	 * Gets the local root context node of this graph.
+	 * @return The graph's local root context node.
 	 */
 	public ContextNode getRootContextNode();
 

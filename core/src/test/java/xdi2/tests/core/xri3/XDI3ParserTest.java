@@ -2,7 +2,6 @@ package xdi2.tests.core.xri3;
 
 import junit.framework.TestCase;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.XDI3InnerGraph;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3XRef;
@@ -60,7 +59,8 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(XDI3Segment.create(parser, "=markus"), xref.getSegment());
 
 		xref = XDI3XRef.create(parser, "(=markus/$add)");
-		assertEquals(XDI3InnerGraph.create(parser, "=markus/$add"), xref.getInnerGraph());
+		assertEquals(XDI3Segment.create(parser, "=markus"), xref.getPartialSubject());
+		assertEquals(XDI3Segment.create(parser, "$add"), xref.getPartialPredicate());
 
 		xref = XDI3XRef.create(parser, "(=markus/+friend/=drummond)");
 		assertEquals(XDI3Statement.create(parser, "=markus/+friend/=drummond"), xref.getStatement());

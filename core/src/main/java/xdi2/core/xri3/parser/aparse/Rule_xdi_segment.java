@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Thu Jan 31 23:16:41 CET 2013
+ * Produced : Wed Feb 20 10:37:39 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -53,13 +53,6 @@ final public class Rule_xdi_segment extends Rule
               c1++;
             }
           }
-          parsed = c1 == 1;
-        }
-        if (parsed)
-        {
-          boolean f1 = true;
-          @SuppressWarnings("unused")
-          int c1 = 0;
           while (f1)
           {
             rule = Rule_subseg.parse(context);
@@ -69,7 +62,7 @@ final public class Rule_xdi_segment extends Rule
               c1++;
             }
           }
-          parsed = true;
+          parsed = c1 >= 1;
         }
         if (parsed)
           e0.addAll(e1);

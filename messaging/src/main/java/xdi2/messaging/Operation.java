@@ -1,10 +1,10 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
+import java.util.Iterator;
 
 import xdi2.core.Relation;
-import xdi2.core.exceptions.Xdi2ParseException;
-import xdi2.core.util.StatementUtil;
+import xdi2.core.features.roots.InnerRoot;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -56,11 +56,11 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public static Operation fromMessageAndRelation(Message message, Relation relation) {
 
-		if (GetOperation.isValid(relation)) return GetOperation.fromMessageAndRelation(message, relation);
-		if (AddOperation.isValid(relation)) return AddOperation.fromMessageAndRelation(message, relation);
-		if (ModOperation.isValid(relation)) return ModOperation.fromMessageAndRelation(message, relation);
-		if (DelOperation.isValid(relation)) return DelOperation.fromMessageAndRelation(message, relation);
-		if (DoOperation.isValid(relation)) return DoOperation.fromMessageAndRelation(message, relation);
+		if (GetOperation.isValid(relation)) return new GetOperation(message, relation);
+		if (AddOperation.isValid(relation)) return new AddOperation(message, relation);
+		if (ModOperation.isValid(relation)) return new ModOperation(message, relation);
+		if (DelOperation.isValid(relation)) return new DelOperation(message, relation);
+		if (DoOperation.isValid(relation)) return new DoOperation(message, relation);
 
 		return null;
 	}
@@ -136,42 +136,36 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the target of the operation.
-	 * @return The target of the operation.
-	 */
-	public XDI3Segment getTarget() {
-
-		return this.getRelation().getTargetContextNodeXri();
-	}
-
-	/**
-	 * Returns the target statement of the operation.
-	 * @return The target statement of the operation.
-	 */
-	public XDI3Statement getTargetStatement() {
-
-		try {
-
-			return StatementUtil.fromXriSegment(this.getTarget());
-		} catch (Xdi2ParseException ex) {
-
-			return null;
-		}
-	}
-
-	/**
 	 * Returns the target address of the operation.
 	 * @return The target address of the operation.
 	 */
 	public XDI3Segment getTargetAddress() {
 
-		try {
+		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
 
-			StatementUtil.fromXriSegment(this.getTarget());
+		if (innerRoot != null) {
+
 			return null;
-		} catch (Xdi2ParseException ex) {
+		} else {
 
-			return this.getTarget();
+			return this.getRelation().getTargetContextNodeXri();
+		}
+	}
+
+	/**
+	 * Returns the target statements of the operation.
+	 * @return The target statements of the operation.
+	 */
+	public Iterator<XDI3Statement> getTargetStatements() {
+
+		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
+
+		if (innerRoot != null) {
+
+			return innerRoot.getRelativeStatements(true);
+		} else {
+
+			return null;
 		}
 	}
 

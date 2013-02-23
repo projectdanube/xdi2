@@ -1,6 +1,9 @@
 {
 "(=!91F2.8153.F600.AE24)/$is" : [ "()" ],
-"$do$if$and/$true" : [ "(($msg)$secret$!($token)/$equals/$secret$!($token))", "(($from)/$is/=!91F2.8153.F600.AE24)" ],
+"$do$if$and/$true" : [ {
+  "($msg)$secret$!($token)/$equals": [ "$secret$!($token)" ], 
+  "($from)/$is": [ "=!91F2.8153.F600.AE24" ]
+} ],
 "$do/$all" : [ "()" ],
 "$secret$!($token)/!" : [ "s3cret" ],
 "=markus/$ref" : [ "=!91F2.8153.F600.AE24" ],

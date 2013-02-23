@@ -1,5 +1,7 @@
 package xdi2.core.features.linkcontracts.evaluation;
 
+import java.util.Iterator;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
@@ -27,9 +29,9 @@ public class GraphPolicyEvaluationContext implements PolicyEvaluationContext {
 	}
 
 	@Override
-	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public Iterator<Relation> getRelations(XDI3Segment arcXri) {
 
-		return this.getGraph().getRootContextNode().getRelation(arcXri, targetContextNodeXri);
+		return this.getGraph().getRootContextNode().getRelations(arcXri);
 	}
 
 	public Graph getGraph() {

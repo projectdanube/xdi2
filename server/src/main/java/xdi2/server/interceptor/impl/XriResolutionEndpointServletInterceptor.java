@@ -19,7 +19,8 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
-import xdi2.core.features.remoteroots.RemoteRoots;
+import xdi2.core.features.roots.RemoteRoot;
+import xdi2.core.features.roots.Roots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -65,35 +66,36 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		// look into registry
 
-		ContextNode remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), XDI3Segment.create("" + providerid + query), false);
+		RemoteRoot remoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(XDI3Segment.create("" + providerid + query), false);
 
-		if (remoteRootContextNode == null) {
+		if (remoteRoot == null) {
 
 			for (XDI3Segment provideridSynonym : provideridSynonyms) {
 
-				remoteRootContextNode = RemoteRoots.findRemoteRootContextNode(this.getRegistryGraph(), XDI3Segment.create("" + provideridSynonym + query), false);
-				if (remoteRootContextNode != null) break;
+				remoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(XDI3Segment.create("" + provideridSynonym + query), false);
+				if (remoteRoot != null) break;
 			}
 		}
 
-		if (remoteRootContextNode == null) {
+		if (remoteRoot == null) {
 
-			log.warn("Remote root context node for " + query + " not found in the registry graph. Ignoring.");
+			log.warn("Remote root for " + query + " not found in the registry graph. Ignoring.");
 			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
 			return true;
 		}
 
-		if (RemoteRoots.isSelfRemoteRootContextNode(remoteRootContextNode)) {
+		if (remoteRoot.isSelfRemoteRoot()) {
 
-			log.warn("Remote root context node for " + query + " is the owner of the registry graph. Ignoring.");
+			log.warn("Remote root for " + query + " is the owner of the registry graph. Ignoring.");
 			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
 			return true;
 		}
 
-		ContextNode referenceRemoteRootContextNode = Equivalence.getReferenceContextNode(remoteRootContextNode);
-		if (referenceRemoteRootContextNode == null) referenceRemoteRootContextNode = remoteRootContextNode;
+		ContextNode referenceRemoteRootContextNode = Equivalence.getReferenceContextNode(remoteRoot.getContextNode());
+		RemoteRoot referenceRemoteRoot = (referenceRemoteRootContextNode == null) ? null : RemoteRoot.fromContextNode(referenceRemoteRootContextNode);
+		if (referenceRemoteRoot == null) referenceRemoteRoot = remoteRoot;
 
-		XDI3Segment canonicalid = RemoteRoots.xriOfRemoteRootXri(referenceRemoteRootContextNode.getXri());
+		XDI3Segment canonicalid = referenceRemoteRoot.getXriOfRemoteRoot();
 		XDI3SubSegment localid = query;
 		String uri = constructUri(requestInfo, this.getTargetPath(), canonicalid);
 
@@ -148,21 +150,21 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 	private static XDI3Segment getProviderId(Graph graph) {
 
-		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(graph);
-		if (selfRemoteRootContextNode == null) return null;
+		RemoteRoot selfRemoteRoot = Roots.findLocalRoot(graph).getSelfRemoteRoot();
+		if (selfRemoteRoot == null) return null;
 
-		return RemoteRoots.xriOfRemoteRootXri(selfRemoteRootContextNode.getXri());
+		return selfRemoteRoot.getXriOfRemoteRoot();
 	}
 
 	private static XDI3Segment[] getProviderIdSynonyms(Graph graph, XDI3Segment providerid) {
 
-		ContextNode selfRemoteRootContextNode = RemoteRoots.getSelfRemoteRootContextNode(graph);
-		if (selfRemoteRootContextNode == null) return new XDI3Segment[0];
+		RemoteRoot selfRemoteRoot = Roots.findLocalRoot(graph).getSelfRemoteRoot();
+		if (selfRemoteRoot == null) return new XDI3Segment[0];
 
-		Iterator<ContextNode> selfSynonymRemoteRootContextNodes = Equivalence.getIncomingReferenceAndPrivateReferenceContextNodes(selfRemoteRootContextNode);
+		Iterator<ContextNode> selfRemoteRootIncomingReferenceContextNodes = Equivalence.getIncomingReferenceContextNodes(selfRemoteRoot.getContextNode());
 
-		XDI3Segment[] selfSynonyms = new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(selfSynonymRemoteRootContextNodes)).array(XDI3Segment.class);
-		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = RemoteRoots.xriOfRemoteRootXri(selfSynonyms[i]);
+		XDI3Segment[] selfSynonyms = new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(selfRemoteRootIncomingReferenceContextNodes)).array(XDI3Segment.class);
+		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = RemoteRoot.getXriOfRemoteRootXri(selfSynonyms[i].getLastSubSegment());
 
 		return selfSynonyms;
 	}

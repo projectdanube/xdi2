@@ -486,15 +486,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public ReadOnlyIterator<Statement> getAllStatements() {
 
-		Iterator<Statement> contextNodeStatement = null;
 		Iterator<Statement> contextNodesStatements = null;
 		Iterator<Statement> relationsStatements = null;
 		Iterator<Statement> literalStatement = null;
-
-		if (! this.isRootContextNode()) {
-
-			contextNodeStatement = new SingleItemIterator<Statement> (this.getStatement());
-		}
 
 		if (this.containsContextNodes()) {
 
@@ -503,7 +497,11 @@ public abstract class AbstractContextNode implements ContextNode {
 				@Override
 				public Iterator<Statement> descend(ContextNode contextNode) {
 
-					return contextNode.getAllStatements();
+					List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+					list.add(new SingleItemIterator<Statement> (contextNode.getStatement()));
+					list.add(contextNode.getAllStatements());
+
+					return new CompositeIterator<Statement> (list.iterator());
 				}
 			};
 		}
@@ -526,7 +524,6 @@ public abstract class AbstractContextNode implements ContextNode {
 		}
 
 		List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
-		if (contextNodeStatement != null) list.add(contextNodeStatement);
 		if (contextNodesStatements != null) list.add(contextNodesStatements);
 		if (relationsStatements != null) list.add(relationsStatements);
 		if (literalStatement != null) list.add(literalStatement);

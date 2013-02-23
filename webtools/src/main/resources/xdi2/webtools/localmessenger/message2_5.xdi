@@ -1,4 +1,4 @@
 =!1111$($msg)$(!1)/$is()/(=!1111)
 =!1111$($msg)$(!1)/$do/$do
-=!1111$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+domain)/!/(data:,cloudos))
-=!1111$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,notification))
+=!1111$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+domain/+cloudos)
+=!1111$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+type/+notification)

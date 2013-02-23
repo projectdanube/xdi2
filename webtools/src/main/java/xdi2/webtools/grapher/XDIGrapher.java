@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +15,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Relation;
+import xdi2.core.features.roots.Roots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -91,7 +95,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 		String input = request.getParameter("input");
 		String type = request.getParameter("type");
-		String imageId = null;
+		String graphId = null;
 		String stats = "-1";
 		String error = null;
 
@@ -102,20 +106,12 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 		try {
 
-			Drawer drawer = null;
-			if (type.equals("d1")) drawer = new Drawer1();
-			if (type.equals("d2")) drawer = new Drawer2();
-			if (type.equals("d3")) drawer = new Drawer3();
-			if (drawer == null) return;
-
 			xdiReader.read(graph, new StringReader(input));
 
-			BufferedImage image = drawer.draw(graph);
+			graphId = UUID.randomUUID().toString();
 
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			imageId = UUID.randomUUID().toString();
-			ImageIO.write(image, "PNG", buffer);
-			ImageCache.put(imageId, buffer.toByteArray());
+			ImageCache.put(graphId, makeImage(graph, type));
+			JSONCache.put(graphId, makeJSON(graph));
 		} catch (Exception ex) {
 
 			ex.printStackTrace(System.err);
@@ -138,10 +134,107 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", input);
 		request.setAttribute("type", type);
-		request.setAttribute("imageId", imageId);
+		request.setAttribute("graphId", graphId);
 		request.setAttribute("stats", stats);
 		request.setAttribute("error", error);
 
 		request.getRequestDispatcher("/XDIGrapher.jsp").forward(request, response);
 	}   	  	    
+
+	private static byte[] makeImage(Graph graph, String type) throws IOException {
+
+		Drawer drawer = null;
+		if (type.equals("d1")) drawer = new Drawer1();
+		if (type.equals("d2")) drawer = new Drawer2();
+		if (type.equals("d3")) drawer = new Drawer3();
+		if (drawer == null) drawer = new EmptyDrawer();
+
+		BufferedImage image = drawer.draw(graph);
+
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		ImageIO.write(image, "PNG", buffer);
+
+		return buffer.toByteArray();
+	}
+
+	private static void addContextNodeToBuffer(StringBuffer buffer, ContextNode contextNode) {
+
+		buffer.append("{\n");
+		buffer.append("name: \"" + contextNode.getXri() + "\",\n");
+		buffer.append("arc: \"" + (contextNode.isRootContextNode() ? "()" : contextNode.getArcXri()) + "\",\n");
+		buffer.append("root: " + Roots.isValid(contextNode) + ",\n");
+		buffer.append("contents: [\n");
+
+		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
+
+			ContextNode innerContextNode = innerContextNodes.next();
+			addContextNodeToBuffer(buffer, innerContextNode);
+			if (innerContextNodes.hasNext() || contextNode.containsLiteral()) buffer.append(",");
+			buffer.append("\n");
+		}
+
+		if (contextNode.containsLiteral()) {
+
+			buffer.append("{\n");
+			buffer.append("name: \"\\\"" + contextNode.getLiteral().getLiteralData() + "\\\"\",\n");
+			buffer.append("arc: \"!\"\n");
+			buffer.append("}\n");
+		}
+
+		buffer.append("],\n");
+
+		buffer.append("rel: [");
+		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
+
+			Relation relation = relations.next();
+
+			buffer.append("{arc: \"" + relation.getArcXri() + "\", target: \"" + relation.getTargetContextNodeXri() + "\"}");
+			if (relations.hasNext()) buffer.append(",");
+			buffer.append("\n");
+		}
+		buffer.append("]");
+
+		buffer.append("}\n");
+	}
+
+	private static void addRelationsToBuffer(StringBuffer buffer, Iterator<Relation> relations) {
+
+		buffer.append("[\n");
+
+		while (relations.hasNext()) {
+
+			Relation relation = relations.next();
+
+			buffer.append("{\n");
+
+			buffer.append("arc: \"" + relation.getArcXri() + "\",\n");
+			buffer.append("source: \"" + relation.getContextNode().getXri() + "\",\n");
+			buffer.append("target: \"" + relation.getTargetContextNodeXri() + "\"\n");
+
+			if (relations.hasNext()) buffer.append("},\n"); else buffer.append("}\n"); 
+		}
+
+		buffer.append("]\n");
+	}
+
+	private static String makeJSON(Graph graph) throws IOException {
+
+		StringBuffer buffer = new StringBuffer();
+
+		buffer.append("var treeData = \n");
+		addContextNodeToBuffer(buffer, graph.getRootContextNode());
+		buffer.append(";\n");
+
+		buffer.append("var relData = \n");
+		addRelationsToBuffer(buffer, graph.getRootContextNode().getAllRelations());
+		buffer.append(";\n");
+
+		return buffer.toString();
+
+		/*		StringWriter writer = new StringWriter();
+
+		new XDIJSONWriter(null).write(graph, writer);
+
+		return writer.getBuffer().toString();*/
+	}
 }
