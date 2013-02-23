@@ -78,11 +78,11 @@ function updateSamples() {
 
 		<input name="writePretty" type="checkbox" <%= writePretty.equals("on") ? "checked" : "" %>>pretty=1
 
-		<input name="variablesSupport" type="checkbox" <%= variablesSupport.equals("on") ? "checked" : "" %>>Variables
+		<input name="variablesSupport" type="checkbox" <%= variablesSupport.equals("on") ? "checked" : "" %>>Variables Support
 
-		<input name="dollarRefSupport" type="checkbox" <%= dollarRefSupport.equals("on") ? "checked" : "" %>>$ref Support
+		<input name="dollarRefSupport" type="checkbox" <%= dollarRefSupport.equals("on") ? "checked" : "" %>>Equivalence Support
 
-		<input name="linkContractsSupport" type="checkbox" <%= linkContractsSupport.equals("on") ? "checked" : "" %>>Link Contracts&nbsp;
+		<input name="linkContractsSupport" type="checkbox" <%= linkContractsSupport.equals("on") ? "checked" : "" %>>Link Contract Support&nbsp;
 
 		<input type="hidden" name="category" value="<%= (String) request.getAttribute("category") %>">
 		<input type="hidden" name="sample" value="<%= (String) request.getAttribute("sample") %>">

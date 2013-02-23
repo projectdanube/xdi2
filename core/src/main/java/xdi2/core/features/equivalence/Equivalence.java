@@ -10,6 +10,7 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
+import xdi2.core.util.iterators.SelectingIterator;
 
 public class Equivalence {
 
@@ -138,35 +139,13 @@ public class Equivalence {
 
 	public static Iterator<Relation> getAllReferenceAndReplacementRelations(ContextNode contextNode) {
 
-		Iterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REF);
-		Iterator<Relation> replacementRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REP);
+		return new SelectingIterator<Relation> (contextNode.getAllRelations()) {
 
-		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
-		iterators.add(referenceRelations);
-		iterators.add(replacementRelations);
+			@Override
+			public boolean select(Relation relation) {
 
-		return new CompositeIterator<Relation> (iterators.iterator());
+				return relation.getArcXri().equals(XDIDictionaryConstants.XRI_S_REF) || relation.getArcXri().equals(XDIDictionaryConstants.XRI_S_REP);
+			}
+		};
 	}
-	
-
-	/*
-
-	public static Iterator<Relation> getIncomingReferenceAndPrivateReferenceRelations(ContextNode contextNode) {
-
-		Iterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REF);
-		Iterator<Relation> privateReferenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REF_BANG);
-
-		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
-		iterators.add(referenceRelations);
-		iterators.add(privateReferenceRelations);
-
-		return new CompositeIterator<Relation> (iterators.iterator());
-	}
-
-	public static Iterator<ContextNode> getIncomingReferenceAndPrivateReferenceContextNodes(ContextNode contextNode) {
-
-		Iterator<Relation> incomingReferenceAndPrivateReferenceRelations = getIncomingReferenceAndPrivateReferenceRelations(contextNode);
-
-		return new MappingRelationContextNodeIterator(incomingReferenceAndPrivateReferenceRelations);
-	}*/
 }

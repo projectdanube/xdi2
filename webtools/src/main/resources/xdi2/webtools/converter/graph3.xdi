@@ -1,51 +1,11 @@
-{
-"()/()": [
-   "=abc"
-],
-"=abc/()": [
-   "+passport"
-],
-"=abc+passport/()": [
-   "$v",
-   "!2",
-   "($)",
-   "!1"
-],
-"=abc+passport$v/()": [
-   "!2",
-   "!1"
-],
-"=abc+passport$v!2/$" : [ "=abc+passport" ],
-"=abc+passport!2/()": [
-   "+number",
-   "+country",
-   "$d"
-],
-"=abc+passport!2+number/!" : [ "123456789" ],
-"=abc+passport!2+country/!" : [ "New Zealand" ],
-"=abc+passport!2$d/!" : [ "2010-10-01T00:00:00Z" ],
-"=abc+passport($)/()": [
-   "!2",
-   "!1"
-],
-"=abc+passport($)!2/()": [
-   "$d"
-],
-"=abc+passport($)!2$d/!" : [ "2010-12-22T22:22:22Z" ],
-"=abc+passport($)!1/()": [
-   "$d"
-],
-"=abc+passport($)!1$d/!" : [ "2010-11-11T11:11:11Z" ],
-"=abc+passport!1/()": [
-   "+number",
-   "+country",
-   "$d"
-],
-"=abc+passport!1+number/!" : [ "987654321" ],
-"=abc+passport!1+country/!" : [ "Canada" ],
-"=abc+passport!1$d/!" : [ "2005-01-01T00:00:00Z" ],
-"=abc+passport/$v" : [ "=abc+passport$v!2" ],
-"=abc+passport/*2" : [ "=abc+passport!2" ],
-"=abc+passport/*1" : [ "=abc+passport!1" ],
-"=abc/+rel" : [ "=abc+passport!1", "=abc+passport!2" ]
-}
+(=!91F2.8153.F600.AE24)/$ref/()
+$do$if$and/$true/(($from)/$is/=!91F2.8153.F600.AE24)
+$do$if$and/$true/(($msg)$secret$!($token)/$equals/$secret$!($token))
+$do/$all/()
++friend$do$if/$true/(=!91F2.8153.F600.AE24/+friend/($from))
++friend$do/$get/=!91F2.8153.F600.AE24
+=!91F2.8153.F600.AE24$!(+email)/!/(data:,markus.sabadello@gmail.com)
+=!91F2.8153.F600.AE24/+friend/=!1111
+=!91F2.8153.F600.AE24/+friend/=!2222
+=markus/$ref/=!91F2.8153.F600.AE24
+()/$is$ref/(=!91F2.8153.F600.AE24)

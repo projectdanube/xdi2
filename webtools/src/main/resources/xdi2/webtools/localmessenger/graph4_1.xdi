@@ -5,7 +5,7 @@
 =!2222$!(+name)/!/(data:,Animesh)
 =!2222$!(+country)/!/(data:,USA)
 =pseudonym/$ref/=!3333
-=!3333$!(+name)/$ref!/=!1111$!(+name)
-=!3333$!(+country)/$ref!/=!2222$!(+country)
+=!3333$!(+name)/$rep/=!1111$!(+name)
+=!3333$!(+country)/$rep/=!2222$!(+country)
 (=!1111)/$ref/()
 ()/$is$ref/(=!1111)

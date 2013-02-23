@@ -144,9 +144,9 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 	private static byte[] makeImage(Graph graph, String type) throws IOException {
 
 		Drawer drawer = null;
-		if (type.equals("d1")) drawer = new Drawer1();
-		if (type.equals("d2")) drawer = new Drawer2();
-		if (type.equals("d3")) drawer = new Drawer3();
+		if (type.equals("d2")) drawer = new Drawer1();
+		if (type.equals("d3")) drawer = new Drawer2();
+		if (type.equals("d4")) drawer = new Drawer3();
 		if (drawer == null) drawer = new EmptyDrawer();
 
 		BufferedImage image = drawer.draw(graph);

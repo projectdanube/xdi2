@@ -126,18 +126,18 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 			XDI3Segment arcXri = refRepRelation.getArcXri();
 			XDI3Segment targetContextNodeXri = refRepRelation.getTargetContextNodeXri();
 
-			boolean doSubstituteRefRepRelations = XDIDictionaryConstants.XRI_S_REP.equals(arcXri) || (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && GetOperation.XRI_EXTENSION_DEREF.equals(operation.getOperationExtensionXri()));
-			boolean doIncludeRefRepRelations = (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! GetOperation.XRI_EXTENSION_DEREF.equals(operation.getOperationExtensionXri()));
+			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XRI_S_REP.equals(arcXri) || (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && GetOperation.XRI_EXTENSION_DEREF.equals(operation.getOperationExtensionXri()));
+			boolean doIncludeRefRelations = (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! GetOperation.XRI_EXTENSION_DEREF.equals(operation.getOperationExtensionXri()));
 
-			// substitute $ref/$rep relations?
+			// replace $ref/$rep relations?
 
-			if (doSubstituteRefRepRelations) {
+			if (doReplaceRefRepRelations) {
 
 				ContextNode targetContextNode = operationMessageResult.getGraph().findContextNode(targetContextNodeXri, false);
 
 				if (targetContextNode != null && ! operationMessageResult.getGraph().isEmpty()) {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Substituting reference relation: " + refRepRelation);
+					if (log.isDebugEnabled()) log.debug("In message result: Replacing $ref/$rep relation: " + refRepRelation);
 
 					Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 					ContextNode tempContextNode = tempGraph.findContextNode(contextNode.getXri(), true);
@@ -147,26 +147,26 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 					CopyUtil.copyGraph(tempGraph, operationMessageResult.getGraph(), null);
 				} else {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Not substituting reference relation: " + refRepRelation);
+					if (log.isDebugEnabled()) log.debug("In message result: Not replacing $ref/$rep relation: " + refRepRelation);
 				}
 			}
 
-			// include reference relations?
+			// include $ref relations?
 
-			if (doIncludeRefRepRelations) {
+			if (doIncludeRefRelations) {
 
 				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getXri())) {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate reference relation: " + refRepRelation);
+					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate $ref relation: " + refRepRelation);
 				} else {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Including reference relation: " + refRepRelation);
+					if (log.isDebugEnabled()) log.debug("In message result: Including $ref relation: " + refRepRelation);
 
 					CopyUtil.copyStatement(refRepRelation.getStatement(), operationMessageResult.getGraph(), null);
 				}
 			}
 
-			// done with this reference relation
+			// done with this $ref/$rep relation
 
 			if (log.isDebugEnabled()) log.debug("In message result: We now have: " + operationMessageResult);
 		}
