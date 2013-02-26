@@ -32,7 +32,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 	public static XDI3Statement create(String string) {
 
-		return create(XDI3ParserRegistry.getInstance(), string);
+		return create(XDI3ParserRegistry.getInstance().getParser(), string);
 	}
 
 	public XDI3Segment getSubject() {

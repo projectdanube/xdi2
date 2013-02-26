@@ -30,7 +30,7 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 
 	public static XDI3SubSegment create(String string) {
 
-		return create(XDI3ParserRegistry.getInstance(), string);
+		return create(XDI3ParserRegistry.getInstance().getParser(), string);
 	}
 
 	public boolean hasGCS() {

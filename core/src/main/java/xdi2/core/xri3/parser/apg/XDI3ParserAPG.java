@@ -22,6 +22,11 @@ import com.coasttocoastresearch.apg.Grammar;
 import com.coasttocoastresearch.apg.Parser;
 import com.coasttocoastresearch.apg.Parser.Result;
 
+/**
+ * An XRI parser based on the aParse parser generator.
+ * Parts of this parser have been automatically generated from an ABNF.  
+ * @see http://www.parse2.com/
+ */
 public class XDI3ParserAPG implements XDI3Parser {
 
 	private static final Logger log = LoggerFactory.getLogger(XDI3ParserAPG.class);

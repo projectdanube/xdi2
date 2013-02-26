@@ -25,7 +25,7 @@ public class XDI3Segment extends XDI3SyntaxComponent {
 
 	public static XDI3Segment create(String string) {
 
-		return create(XDI3ParserRegistry.getInstance(), string);
+		return create(XDI3ParserRegistry.getInstance().getParser(), string);
 	}
 
 	public List<XDI3SubSegment> getSubSegments() {

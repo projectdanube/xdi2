@@ -27,6 +27,7 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.plugins.PluginsLoader;
+import xdi2.core.xri3.parser.XDI3ParserRegistry;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.server.EndpointServlet;
@@ -122,6 +123,7 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 			// prepare velocity
 
 			VelocityContext context = new VelocityContext();
+			context.put("parser", XDI3ParserRegistry.getInstance().getParser());
 			context.put("endpointservlet", endpointServlet);
 			context.put("requestinfo", requestInfo);
 			context.put("messagingtarget", cmdMessagingTarget);
@@ -171,6 +173,7 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 			// prepare velocity
 
 			VelocityContext context = new VelocityContext();
+			context.put("parser", XDI3ParserRegistry.getInstance().getParser());
 			context.put("endpointservlet", endpointServlet);
 			context.put("requestinfo", requestInfo);
 			context.put("messagingtarget", cmdMessagingTarget);
@@ -214,6 +217,7 @@ public class DebugEndpointServletInterceptor extends AbstractEndpointServletInte
 		Map<String, MessagingTargetFactory> messagingTargetFactorysByPath = endpointServlet.getEndpointRegistry().getMessagingTargetFactorysByPath();
 
 		VelocityContext context = new VelocityContext();
+		context.put("parser", XDI3ParserRegistry.getInstance().getParser());
 		context.put("endpointservlet", endpointServlet);
 		context.put("requestinfo", requestInfo);
 		context.put("pluginfiles", pluginFiles);

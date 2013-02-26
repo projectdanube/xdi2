@@ -50,6 +50,7 @@ h1 { font-size: 1.5em; }
 	</tr>
 	<tr><th>Startup Time:</th><td>$endpointservlet.getStartupAsString()</td></tr>
 	<tr><th>Context+Servlet Path:</th><td>$requestinfo.contextPath $requestinfo.servletPath</td></tr>
+	<tr><th>Parser:</th><td>$parser.class.canonicalName</td></tr>
 </table>
 <hr style="clear: both" noshade>
 <h1>Active Plugins:</h1>

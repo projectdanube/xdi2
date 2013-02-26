@@ -9,6 +9,11 @@ import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
 import xdi2.core.xri3.parser.XDI3Parser;
 
+/**
+ * An XRI parser based on the recursive-descent APG parser generator. 
+ * Parts of this parser have been automatically generated from an ABNF.  
+ * @see http://www.coasttocoastresearch.com/
+ */
 public class XDI3ParserAParse implements XDI3Parser {
 
 	@Override
