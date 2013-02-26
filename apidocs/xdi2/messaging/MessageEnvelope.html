@@ -226,8 +226,8 @@ An XDI message envelope, represented as a graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndStatement(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">fromOperationXriAndStatement</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;operationXri,
-                             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;statement)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">fromOperationXriAndTargetAddress</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                 <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message envelope bound to a given graph.</TD>
@@ -235,8 +235,8 @@ An XDI message envelope, represented as a graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">fromOperationXriAndTargetXri</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;operationXri,
-                             <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetAddressOrTargetStatement(xdi2.core.xri3.XDI3Segment, java.lang.String)">fromOperationXriAndTargetAddressOrTargetStatement</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;targetAddressOrTargetStatement)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message envelope bound to a given graph.</TD>
@@ -244,8 +244,8 @@ An XDI message envelope, represented as a graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetXriOrStatement(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">fromOperationXriAndTargetXriOrStatement</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;operationXri,
-                                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;targetXriOrStatement)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetStatements(xdi2.core.xri3.XDI3Segment, java.util.Iterator)">fromOperationXriAndTargetStatements</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                    <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message envelope bound to a given graph.</TD>
@@ -261,7 +261,7 @@ An XDI message envelope, represented as a graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#getMessage(xdi2.core.xri3.impl.XDI3Segment, boolean)">getMessage</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;senderXri,
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#getMessage(xdi2.core.xri3.XDI3Segment, boolean)">getMessage</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri,
            boolean&nbsp;create)</CODE>
 
 <BR>
@@ -270,7 +270,7 @@ An XDI message envelope, represented as a graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#getMessageCollection(xdi2.core.xri3.impl.XDI3Segment, boolean)">getMessageCollection</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;senderXri,
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#getMessageCollection(xdi2.core.xri3.XDI3Segment, boolean)">getMessageCollection</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri,
                      boolean&nbsp;create)</CODE>
 
 <BR>
@@ -311,7 +311,7 @@ An XDI message envelope, represented as a graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#getMessages(xdi2.core.xri3.impl.XDI3Segment)">getMessages</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;senderXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#getMessages(xdi2.core.xri3.XDI3Segment)">getMessages</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds messages with a given sender in this message envelope.</TD>
@@ -467,11 +467,11 @@ public static <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class i
 </DL>
 <HR>
 
-<A NAME="fromOperationXriAndTargetXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
-fromOperationXriAndTargetXri</H3>
+<A NAME="fromOperationXriAndTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+fromOperationXriAndTargetAddress</H3>
 <PRE>
-public static <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>fromOperationXriAndTargetXri</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;operationXri,
-                                                           <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetXri)</PRE>
+public static <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>fromOperationXriAndTargetAddress</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                                               <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</PRE>
 <DL>
 <DD>Factory method that creates an XDI message envelope bound to a given graph.
 <P>
@@ -479,17 +479,17 @@ public static <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class i
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>targetXri</CODE> - The target XRI to which the operation applies.
+<DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>targetAddress</CODE> - The target address to which the operation applies.
 <DT><B>Returns:</B><DD>The XDI message envelope.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="fromOperationXriAndStatement(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)"><!-- --></A><H3>
-fromOperationXriAndStatement</H3>
+<A NAME="fromOperationXriAndTargetStatements(xdi2.core.xri3.XDI3Segment, java.util.Iterator)"><!-- --></A><H3>
+fromOperationXriAndTargetStatements</H3>
 <PRE>
-public static <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>fromOperationXriAndStatement</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;operationXri,
-                                                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;statement)</PRE>
+public static <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>fromOperationXriAndTargetStatements</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</PRE>
 <DL>
 <DD>Factory method that creates an XDI message envelope bound to a given graph.
 <P>
@@ -497,17 +497,17 @@ public static <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class i
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>statement</CODE> - The statement to which the operation applies.
+<DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>targetStatements</CODE> - The target statements to which the operation applies.
 <DT><B>Returns:</B><DD>The XDI message envelope.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="fromOperationXriAndTargetXriOrStatement(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)"><!-- --></A><H3>
-fromOperationXriAndTargetXriOrStatement</H3>
+<A NAME="fromOperationXriAndTargetAddressOrTargetStatement(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+fromOperationXriAndTargetAddressOrTargetStatement</H3>
 <PRE>
-public static final <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>fromOperationXriAndTargetXriOrStatement</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;operationXri,
-                                                                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;targetXriOrStatement)</PRE>
+public static final <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>fromOperationXriAndTargetAddressOrTargetStatement</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                                                                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;targetAddressOrTargetStatement)</PRE>
 <DL>
 <DD>Factory method that creates an XDI message envelope bound to a given graph.
 <P>
@@ -515,7 +515,7 @@ public static final <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="c
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>targetXriOrStatement</CODE> - The target XRI or statement to which the operation applies.
+<DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>targetAddressOrTargetStatement</CODE> - The target address or target statement to which the operation applies.
 <DT><B>Returns:</B><DD>The XDI message envelope.</DL>
 </DD>
 </DL>
@@ -538,10 +538,10 @@ public <A HREF="../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph
 </DL>
 <HR>
 
-<A NAME="getMessageCollection(xdi2.core.xri3.impl.XDI3Segment, boolean)"><!-- --></A><H3>
+<A NAME="getMessageCollection(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
 getMessageCollection</H3>
 <PRE>
-public <A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A> <B>getMessageCollection</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;senderXri,
+public <A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A> <B>getMessageCollection</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri,
                                               boolean&nbsp;create)</PRE>
 <DL>
 <DD>Returns an existing XDI message collection in this XDI message envelope, or creates a new one.
@@ -606,10 +606,10 @@ public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="cla
 </DL>
 <HR>
 
-<A NAME="getMessages(xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="getMessages(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getMessages</H3>
 <PRE>
-public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&gt; <B>getMessages</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;senderXri)</PRE>
+public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&gt; <B>getMessages</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri)</PRE>
 <DL>
 <DD>Finds messages with a given sender in this message envelope.
 <P>
@@ -688,10 +688,10 @@ public int <B>getOperationCount</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="getMessage(xdi2.core.xri3.impl.XDI3Segment, boolean)"><!-- --></A><H3>
+<A NAME="getMessage(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
 getMessage</H3>
 <PRE>
-public <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>getMessage</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;senderXri,
+public <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>getMessage</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri,
                           boolean&nbsp;create)</PRE>
 <DL>
 <DD>Returns or creates a new XDI message in this XDI message envelope for a given sender.

@@ -242,8 +242,8 @@ Uses of <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in x
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
-<TD><CODE><B>MessageEnvelope.</B><B><A HREF="../../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndStatement(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">fromOperationXriAndStatement</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;operationXri,
-                             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;statement)</CODE>
+<TD><CODE><B>MessageEnvelope.</B><B><A HREF="../../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">fromOperationXriAndTargetAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                 <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message envelope bound to a given graph.</TD>
@@ -251,8 +251,8 @@ Uses of <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in x
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
-<TD><CODE><B>MessageEnvelope.</B><B><A HREF="../../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">fromOperationXriAndTargetXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;operationXri,
-                             <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetXri)</CODE>
+<TD><CODE><B>MessageEnvelope.</B><B><A HREF="../../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetAddressOrTargetStatement(xdi2.core.xri3.XDI3Segment, java.lang.String)">fromOperationXriAndTargetAddressOrTargetStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;targetAddressOrTargetStatement)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message envelope bound to a given graph.</TD>
@@ -260,8 +260,8 @@ Uses of <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in x
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
-<TD><CODE><B>MessageEnvelope.</B><B><A HREF="../../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetXriOrStatement(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">fromOperationXriAndTargetXriOrStatement</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;operationXri,
-                                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;targetXriOrStatement)</CODE>
+<TD><CODE><B>MessageEnvelope.</B><B><A HREF="../../../xdi2/messaging/MessageEnvelope.html#fromOperationXriAndTargetStatements(xdi2.core.xri3.XDI3Segment, java.util.Iterator)">fromOperationXriAndTargetStatements</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                    <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message envelope bound to a given graph.</TD>

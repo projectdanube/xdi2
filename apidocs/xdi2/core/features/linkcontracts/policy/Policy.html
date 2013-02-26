@@ -152,7 +152,7 @@ An XDI policy, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingRelationPolicyStatementIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingRelationPolicyStatementIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingRelationOperatorIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -187,11 +187,11 @@ An XDI policy, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/policystatement/PolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement">PolicyStatement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#addPolicyStatement(xdi2.core.features.linkcontracts.policystatement.PolicyStatement)">addPolicyStatement</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/policystatement/PolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement">PolicyStatement</A>&nbsp;policyStatement)</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#addOperator(xdi2.core.features.linkcontracts.operator.Operator)">addOperator</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A>&nbsp;policyStatement)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds an XDI policy statement to this XDI policy.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds an XDI operator to this XDI policy.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -243,7 +243,7 @@ An XDI policy, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#evaluate(xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext)">evaluate</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A>&nbsp;policyEvaluationContext)</CODE>
 
 <BR>
@@ -251,7 +251,7 @@ An XDI policy, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected abstract &nbsp;boolean</CODE></FONT></TD>
+<CODE>protected abstract &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#evaluateInternal(xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext)">evaluateInternal</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A>&nbsp;policyEvaluationContext)</CODE>
 
 <BR>
@@ -275,6 +275,14 @@ An XDI policy, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getOperators()">getOperators</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the XDI operators underneath this XDI policy.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getPolicies()">getPolicies</A></B>()</CODE>
 
@@ -283,15 +291,7 @@ An XDI policy, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/core/features/linkcontracts/policystatement/PolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement">PolicyStatement</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getPolicyStatements()">getPolicyStatements</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the XDI policy statements underneath this XDI policy.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getPolicyXri()">getPolicyXri</A></B>()</CODE>
 
 <BR>
@@ -457,7 +457,7 @@ public <A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in x
 <A NAME="getPolicyXri()"><!-- --></A><H3>
 getPolicyXri</H3>
 <PRE>
-public <A HREF="../../../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A> <B>getPolicyXri</B>()</PRE>
+public <A HREF="../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getPolicyXri</B>()</PRE>
 <DL>
 <DD>Returns the policy XRI of the XDI operation (e.g. $and, $or).
 <P>
@@ -535,12 +535,12 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.
 </DL>
 <HR>
 
-<A NAME="getPolicyStatements()"><!-- --></A><H3>
-getPolicyStatements</H3>
+<A NAME="getOperators()"><!-- --></A><H3>
+getOperators</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/core/features/linkcontracts/policystatement/PolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement">PolicyStatement</A>&gt; <B>getPolicyStatements</B>()</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A>&gt; <B>getOperators</B>()</PRE>
 <DL>
-<DD>Returns the XDI policy statements underneath this XDI policy.
+<DD>Returns the XDI operators underneath this XDI policy.
 <P>
 <DD><DL>
 </DL>
@@ -551,18 +551,18 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.
 </DL>
 <HR>
 
-<A NAME="addPolicyStatement(xdi2.core.features.linkcontracts.policystatement.PolicyStatement)"><!-- --></A><H3>
-addPolicyStatement</H3>
+<A NAME="addOperator(xdi2.core.features.linkcontracts.operator.Operator)"><!-- --></A><H3>
+addOperator</H3>
 <PRE>
-public <A HREF="../../../../../xdi2/core/features/linkcontracts/policystatement/PolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement">PolicyStatement</A> <B>addPolicyStatement</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/policystatement/PolicyStatement.html" title="class in xdi2.core.features.linkcontracts.policystatement">PolicyStatement</A>&nbsp;policyStatement)</PRE>
+public <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A> <B>addOperator</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A>&nbsp;policyStatement)</PRE>
 <DL>
-<DD>Adds an XDI policy statement to this XDI policy.
+<DD>Adds an XDI operator to this XDI policy.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the XDI policy statement.<DD><CODE>statement</CODE> - The statement of the XDI condition.</DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the XDI operator.<DD><CODE>statement</CODE> - The statement of the XDI condition.</DL>
 </DD>
 </DL>
 <HR>
@@ -570,7 +570,7 @@ public <A HREF="../../../../../xdi2/core/features/linkcontracts/policystatement/
 <A NAME="evaluate(xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext)"><!-- --></A><H3>
 evaluate</H3>
 <PRE>
-public final boolean <B>evaluate</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A>&nbsp;policyEvaluationContext)</PRE>
+public final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A> <B>evaluate</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A>&nbsp;policyEvaluationContext)</PRE>
 <DL>
 <DD>Checks if the XDI policy evaluates to true or false.
 <P>
@@ -587,7 +587,7 @@ public final boolean <B>evaluate</B>(<A HREF="../../../../../xdi2/core/features/
 <A NAME="evaluateInternal(xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext)"><!-- --></A><H3>
 evaluateInternal</H3>
 <PRE>
-protected abstract boolean <B>evaluateInternal</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A>&nbsp;policyEvaluationContext)</PRE>
+protected abstract <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A> <B>evaluateInternal</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A>&nbsp;policyEvaluationContext)</PRE>
 <DL>
 <DD><DL>
 </DL>

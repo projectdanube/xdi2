@@ -1,0 +1,519 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+xdi2.core.xri3.parser.aparse (xdi2 0.1-SNAPSHOT API)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="xdi2.core.xri3.parser.aparse (xdi2 0.1-SNAPSHOT API)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Package</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <FONT CLASS="NavBarFont1">Class</FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-use.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../xdi2/core/xri3/parser/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/xri3/parser/apg/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?xdi2/core/xri3/parser/aparse/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<H2>
+Package xdi2.core.xri3.parser.aparse
+</H2>
+EXPERIMENTAL implementation of a 3.0 syntax parser.
+<P>
+<B>See:</B>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="#package_description"><B>Description</B></A>
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Interface Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Visitor.html" title="interface in xdi2.core.xri3.parser.aparse">Visitor</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/AbstractVisitor.html" title="class in xdi2.core.xri3.parser.aparse">AbstractVisitor</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/CountVisitor.html" title="class in xdi2.core.xri3.parser.aparse">CountVisitor</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/DequesVisitor.html" title="class in xdi2.core.xri3.parser.aparse">DequesVisitor</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Displayer.html" title="class in xdi2.core.xri3.parser.aparse">Displayer</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Parser.html" title="class in xdi2.core.xri3.parser.aparse">Parser</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/ParserContext.html" title="class in xdi2.core.xri3.parser.aparse">ParserContext</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/ParserRules.html" title="class in xdi2.core.xri3.parser.aparse">ParserRules</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule.html" title="class in xdi2.core.xri3.parser.aparse">Rule</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ALPHA.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ALPHA</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_BIT.html" title="class in xdi2.core.xri3.parser.aparse">Rule_BIT</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_CHAR.html" title="class in xdi2.core.xri3.parser.aparse">Rule_CHAR</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_CR.html" title="class in xdi2.core.xri3.parser.aparse">Rule_CR</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_CRLF.html" title="class in xdi2.core.xri3.parser.aparse">Rule_CRLF</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_CTL.html" title="class in xdi2.core.xri3.parser.aparse">Rule_CTL</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_dec_octet.html" title="class in xdi2.core.xri3.parser.aparse">Rule_dec_octet</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_DIGIT.html" title="class in xdi2.core.xri3.parser.aparse">Rule_DIGIT</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_DQUOTE.html" title="class in xdi2.core.xri3.parser.aparse">Rule_DQUOTE</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_gcs_char.html" title="class in xdi2.core.xri3.parser.aparse">Rule_gcs_char</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_gen_delims.html" title="class in xdi2.core.xri3.parser.aparse">Rule_gen_delims</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_global_subseg.html" title="class in xdi2.core.xri3.parser.aparse">Rule_global_subseg</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_h16.html" title="class in xdi2.core.xri3.parser.aparse">Rule_h16</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_HEXDIG.html" title="class in xdi2.core.xri3.parser.aparse">Rule_HEXDIG</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_HTAB.html" title="class in xdi2.core.xri3.parser.aparse">Rule_HTAB</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iauthority.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iauthority</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ifragment.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ifragment</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ihier_part.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ihier_part</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ihost.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ihost</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IP_literal.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IP_literal</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipath_abempty.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipath_abempty</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipath_abs.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipath_abs</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipath_empty.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipath_empty</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipath_rootless.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipath_rootless</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipchar.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipchar</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iprivate.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iprivate</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IPv4address.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IPv4address</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IPv6address.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IPv6address</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IPvFuture.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IPvFuture</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iquery.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iquery</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ireg_name.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ireg_name</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IRI.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IRI</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_isegment.html" title="class in xdi2.core.xri3.parser.aparse">Rule_isegment</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_isegment_nz.html" title="class in xdi2.core.xri3.parser.aparse">Rule_isegment_nz</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iunreserved.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iunreserved</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iuserinfo.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iuserinfo</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_lcs_char.html" title="class in xdi2.core.xri3.parser.aparse">Rule_lcs_char</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_LF.html" title="class in xdi2.core.xri3.parser.aparse">Rule_LF</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_literal.html" title="class in xdi2.core.xri3.parser.aparse">Rule_literal</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_local_subseg.html" title="class in xdi2.core.xri3.parser.aparse">Rule_local_subseg</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ls32.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ls32</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_LWSP.html" title="class in xdi2.core.xri3.parser.aparse">Rule_LWSP</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_OCTET.html" title="class in xdi2.core.xri3.parser.aparse">Rule_OCTET</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_pct_encoded.html" title="class in xdi2.core.xri3.parser.aparse">Rule_pct_encoded</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_port.html" title="class in xdi2.core.xri3.parser.aparse">Rule_port</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_reserved.html" title="class in xdi2.core.xri3.parser.aparse">Rule_reserved</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_scheme.html" title="class in xdi2.core.xri3.parser.aparse">Rule_scheme</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_SP.html" title="class in xdi2.core.xri3.parser.aparse">Rule_SP</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_sub_delims.html" title="class in xdi2.core.xri3.parser.aparse">Rule_sub_delims</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_subseg.html" title="class in xdi2.core.xri3.parser.aparse">Rule_subseg</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ucschar.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ucschar</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_unreserved.html" title="class in xdi2.core.xri3.parser.aparse">Rule_unreserved</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_VCHAR.html" title="class in xdi2.core.xri3.parser.aparse">Rule_VCHAR</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_WSP.html" title="class in xdi2.core.xri3.parser.aparse">Rule_WSP</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_context.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_context</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_object.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_object</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_pchar.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_pchar</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_predicate.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_predicate</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_segment.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_segment</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_statement.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_statement</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_subject.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_subject</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_empty.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_empty</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_IRI.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_IRI</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_literal.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_literal</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_segment.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_segment</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_statement.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_statement</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_subject_predicate.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_subject_predicate</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Terminal_NumericValue.html" title="class in xdi2.core.xri3.parser.aparse">Terminal_NumericValue</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Terminal_StringValue.html" title="class in xdi2.core.xri3.parser.aparse">Terminal_StringValue</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/TreeDisplayer.html" title="class in xdi2.core.xri3.parser.aparse">TreeDisplayer</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/XDI3ParserAParse.html" title="class in xdi2.core.xri3.parser.aparse">XDI3ParserAParse</A></B></TD>
+<TD>An XRI parser based on the recursive-descent APG parser generator.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/XmlDisplayer.html" title="class in xdi2.core.xri3.parser.aparse">XmlDisplayer</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Exception Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/ParserException.html" title="class in xdi2.core.xri3.parser.aparse">ParserException</A></B></TD>
+<TD>Signals that a parse failure has occurred.</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P>
+<A NAME="package_description"><!-- --></A><H2>
+Package xdi2.core.xri3.parser.aparse Description
+</H2>
+
+<P>
+EXPERIMENTAL implementation of a 3.0 syntax parser. Note that this does NOT reflect any official standard and is likely to change.
+<P>
+
+<P>
+<DL>
+</DL>
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Package</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <FONT CLASS="NavBarFont1">Class</FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-use.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../xdi2/core/xri3/parser/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/xri3/parser/apg/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?xdi2/core/xri3/parser/aparse/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Copyright &#169; 2013. All Rights Reserved.
+</BODY>
+</HTML>

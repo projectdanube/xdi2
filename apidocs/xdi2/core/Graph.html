@@ -159,7 +159,7 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsContextNode(xdi2.core.xri3.impl.XDI3Segment)">containsContextNode</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsContextNode(xdi2.core.xri3.XDI3Segment)">containsContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node exists in this graph.</TD>
@@ -167,7 +167,7 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsLiteral(xdi2.core.xri3.impl.XDI3Segment)">containsLiteral</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsLiteral(xdi2.core.xri3.XDI3Segment)">containsLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a literal exists in this graph.</TD>
@@ -175,7 +175,7 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">containsLiteral</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">containsLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
@@ -184,9 +184,9 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">containsRelation</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                 <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-                 <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">containsRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                 <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                 <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if relations exists in this graph.</TD>
@@ -194,8 +194,8 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsRelations(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">containsRelations</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                  <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">containsRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                  <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if relations exists in this graph.</TD>
@@ -203,7 +203,7 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsStatement(xdi2.core.xri3.impl.XDI3Statement)">containsStatement</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#containsStatement(xdi2.core.xri3.XDI3Statement)">containsStatement</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A simple way to check if a statement exists in this graph.</TD>
@@ -211,7 +211,7 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#createStatement(xdi2.core.xri3.impl.XDI3Statement)">createStatement</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#createStatement(xdi2.core.xri3.XDI3Statement)">createStatement</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A simple way to create a statement in this graph.</TD>
@@ -219,7 +219,7 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)">findContextNode</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findContextNode(xdi2.core.xri3.XDI3Segment, boolean)">findContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                 boolean&nbsp;create)</CODE>
 
 <BR>
@@ -228,7 +228,7 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment)">findLiteral</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findLiteral(xdi2.core.xri3.XDI3Segment)">findLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a literal at any depth in this graph.</TD>
@@ -236,7 +236,7 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">findLiteral</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">findLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
@@ -245,8 +245,8 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-             <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">findRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+             <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a relation at any depth in this graph.</TD>
@@ -254,9 +254,9 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelation</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-             <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-             <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">findRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+             <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+             <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a relation at any depth in this graph.</TD>
@@ -264,8 +264,8 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findRelations(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">findRelations</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-              <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">findRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+              <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds relations at any depth in this graph.</TD>
@@ -273,7 +273,7 @@ This interface represents a whole XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findStatement(xdi2.core.xri3.impl.XDI3Statement)">findStatement</A></B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/Graph.html#findStatement(xdi2.core.xri3.XDI3Statement)">findStatement</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A simple way to find a statement in this graph.</TD>
@@ -292,7 +292,7 @@ This interface represents a whole XDI graph.
 <TD><CODE><B><A HREF="../../xdi2/core/Graph.html#getRootContextNode()">getRootContextNode</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the root context node of this graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the local root context node of this graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -380,14 +380,14 @@ getRootContextNode</H3>
 <PRE>
 <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getRootContextNode</B>()</PRE>
 <DL>
-<DD>Gets the root context node of this graph.
+<DD>Gets the local root context node of this graph.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>The graph's root context node.</DL>
+<DT><B>Returns:</B><DD>The graph's local root context node.</DL>
 </DD>
 </DL>
 <HR>
@@ -442,10 +442,10 @@ boolean <B>isEmpty</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="findContextNode(xdi2.core.xri3.impl.XDI3Segment, boolean)"><!-- --></A><H3>
+<A NAME="findContextNode(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
 findContextNode</H3>
 <PRE>
-<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>findContextNode</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>findContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                             boolean&nbsp;create)</PRE>
 <DL>
 <DD>Finds a context node at any depth in this graph.
@@ -460,12 +460,12 @@ findContextNode</H3>
 </DL>
 <HR>
 
-<A NAME="findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="findRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 findRelation</H3>
 <PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>findRelation</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                      <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-                      <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
+<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>findRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                      <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                      <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
 <DD>Finds a relation at any depth in this graph.
 <P>
@@ -479,11 +479,11 @@ findRelation</H3>
 </DL>
 <HR>
 
-<A NAME="findRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="findRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 findRelation</H3>
 <PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>findRelation</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                      <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</PRE>
+<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>findRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                      <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Finds a relation at any depth in this graph.
 <P>
@@ -497,11 +497,11 @@ findRelation</H3>
 </DL>
 <HR>
 
-<A NAME="findRelations(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="findRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 findRelations</H3>
 <PRE>
-<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>findRelations</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                                         <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</PRE>
+<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>findRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                                         <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Finds relations at any depth in this graph.
 <P>
@@ -515,10 +515,10 @@ findRelations</H3>
 </DL>
 <HR>
 
-<A NAME="findLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+<A NAME="findLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
 findLiteral</H3>
 <PRE>
-<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>findLiteral</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>findLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
 <DL>
 <DD>Finds a literal at any depth in this graph.
@@ -533,10 +533,10 @@ findLiteral</H3>
 </DL>
 <HR>
 
-<A NAME="findLiteral(xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="findLiteral(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 findLiteral</H3>
 <PRE>
-<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>findLiteral</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>findLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
 <DD>Finds a literal at any depth in this graph.
 <P>
@@ -550,10 +550,10 @@ findLiteral</H3>
 </DL>
 <HR>
 
-<A NAME="containsContextNode(xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="containsContextNode(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 containsContextNode</H3>
 <PRE>
-boolean <B>containsContextNode</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
+boolean <B>containsContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
 <DD>Checks if a context node exists in this graph.
 <P>
@@ -567,12 +567,12 @@ boolean <B>containsContextNode</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segmen
 </DL>
 <HR>
 
-<A NAME="containsRelation(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="containsRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 containsRelation</H3>
 <PRE>
-boolean <B>containsRelation</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                         <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-                         <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
+boolean <B>containsRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                         <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                         <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
 <DD>Checks if relations exists in this graph.
 <P>
@@ -586,11 +586,11 @@ boolean <B>containsRelation</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.h
 </DL>
 <HR>
 
-<A NAME="containsRelations(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="containsRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 containsRelations</H3>
 <PRE>
-boolean <B>containsRelations</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                          <A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri)</PRE>
+boolean <B>containsRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                          <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Checks if relations exists in this graph.
 <P>
@@ -604,10 +604,10 @@ boolean <B>containsRelations</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.
 </DL>
 <HR>
 
-<A NAME="containsLiteral(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+<A NAME="containsLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
 containsLiteral</H3>
 <PRE>
-boolean <B>containsLiteral</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+boolean <B>containsLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                         <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
 <DL>
 <DD>Checks if a literal exists in this graph.
@@ -622,10 +622,10 @@ boolean <B>containsLiteral</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.ht
 </DL>
 <HR>
 
-<A NAME="containsLiteral(xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="containsLiteral(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 containsLiteral</H3>
 <PRE>
-boolean <B>containsLiteral</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
+boolean <B>containsLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
 <DD>Checks if a literal exists in this graph.
 <P>
@@ -672,10 +672,10 @@ toString</H3>
 </DL>
 <HR>
 
-<A NAME="createStatement(xdi2.core.xri3.impl.XDI3Statement)"><!-- --></A><H3>
+<A NAME="createStatement(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
 createStatement</H3>
 <PRE>
-<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>createStatement</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement)</PRE>
+<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>createStatement</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</PRE>
 <DL>
 <DD>A simple way to create a statement in this graph.
 <P>
@@ -688,10 +688,10 @@ createStatement</H3>
 </DL>
 <HR>
 
-<A NAME="findStatement(xdi2.core.xri3.impl.XDI3Statement)"><!-- --></A><H3>
+<A NAME="findStatement(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
 findStatement</H3>
 <PRE>
-<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>findStatement</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement)</PRE>
+<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>findStatement</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</PRE>
 <DL>
 <DD>A simple way to find a statement in this graph.
 <P>
@@ -704,10 +704,10 @@ findStatement</H3>
 </DL>
 <HR>
 
-<A NAME="containsStatement(xdi2.core.xri3.impl.XDI3Statement)"><!-- --></A><H3>
+<A NAME="containsStatement(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
 containsStatement</H3>
 <PRE>
-boolean <B>containsStatement</B>(<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A>&nbsp;statement)</PRE>
+boolean <B>containsStatement</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</PRE>
 <DL>
 <DD>A simple way to check if a statement exists in this graph.
 <P>

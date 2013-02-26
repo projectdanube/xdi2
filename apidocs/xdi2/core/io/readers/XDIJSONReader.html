@@ -186,22 +186,22 @@ Class XDIJSONReader</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIJSONReader.html#read(xdi2.core.Graph, com.alibaba.fastjson.JSONObject, xdi2.core.io.readers.XDIJSONReader.State)">read</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-     com.alibaba.fastjson.JSONObject&nbsp;graphObject,
-     xdi2.core.io.readers.XDIJSONReader.State&nbsp;state)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io">Reader</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIJSONReader.html#read(xdi2.core.Graph, java.io.Reader)">read</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
      <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io">Reader</A>&nbsp;reader)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reads an XDI graph from a character stream.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIJSONReader.html#read(xdi2.core.features.roots.Root, com.alibaba.fastjson.JSONObject, xdi2.core.io.readers.XDIJSONReader.State)">read</A></B>(<A HREF="../../../../xdi2/core/features/roots/Root.html" title="interface in xdi2.core.features.roots">Root</A>&nbsp;root,
+     com.alibaba.fastjson.JSONObject&nbsp;graphObject,
+     xdi2.core.io.readers.XDIJSONReader.State&nbsp;state)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_xdi2.core.io.AbstractXDIReader"><!-- --></A>
@@ -305,10 +305,10 @@ protected void <B>init</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="read(xdi2.core.Graph, com.alibaba.fastjson.JSONObject, xdi2.core.io.readers.XDIJSONReader.State)"><!-- --></A><H3>
+<A NAME="read(xdi2.core.features.roots.Root, com.alibaba.fastjson.JSONObject, xdi2.core.io.readers.XDIJSONReader.State)"><!-- --></A><H3>
 read</H3>
 <PRE>
-public void <B>read</B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+public void <B>read</B>(<A HREF="../../../../xdi2/core/features/roots/Root.html" title="interface in xdi2.core.features.roots">Root</A>&nbsp;root,
                  com.alibaba.fastjson.JSONObject&nbsp;graphObject,
                  xdi2.core.io.readers.XDIJSONReader.State&nbsp;state)
           throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A>,

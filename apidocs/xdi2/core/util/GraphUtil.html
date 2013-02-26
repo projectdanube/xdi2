@@ -123,15 +123,25 @@ Various utility methods for working with context nodes, relations and literals.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#contextNodeFromComponents(xdi2.core.xri3.impl.XDI3Segment)">contextNodeFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#contextNodeFromComponents(xdi2.core.xri3.XDI3Segment)">contextNodeFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a context node from its components.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/roots/InnerRoot.html" title="class in xdi2.core.features.roots">InnerRoot</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#innerRootFromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.util.Iterator)">innerRootFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;subject,
+                        <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;predicate,
+                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;statementXris)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI inner root from its components.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#literalFromComponents(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)">literalFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#literalFromComponents(xdi2.core.xri3.XDI3Segment, java.lang.String)">literalFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
@@ -140,9 +150,9 @@ Various utility methods for working with context nodes, relations and literals.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#relationFromComponents(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">relationFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                       <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-                       <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#relationFromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">relationFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                       <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                       <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a relation from its components.</TD>
@@ -170,10 +180,10 @@ Various utility methods for working with context nodes, relations and literals.
 </TR>
 </TABLE>
 
-<A NAME="contextNodeFromComponents(xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="contextNodeFromComponents(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 contextNodeFromComponents</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>contextNodeFromComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
+public static <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>contextNodeFromComponents</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
 <DD>Creates a context node from its components.
 <P>
@@ -184,12 +194,12 @@ public static <A HREF="../../../xdi2/core/ContextNode.html" title="interface in 
 </DL>
 <HR>
 
-<A NAME="relationFromComponents(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="relationFromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 relationFromComponents</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>relationFromComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
-                                              <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-                                              <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
+public static <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>relationFromComponents</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                                              <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                                              <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
 <DD>Creates a relation from its components.
 <P>
@@ -200,10 +210,10 @@ public static <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi
 </DL>
 <HR>
 
-<A NAME="literalFromComponents(xdi2.core.xri3.impl.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+<A NAME="literalFromComponents(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
 literalFromComponents</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>literalFromComponents</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;contextNodeXri,
+public static <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>literalFromComponents</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                                             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
 <DL>
 <DD>Creates a literal from its components.
@@ -211,6 +221,22 @@ public static <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>contextNodeXri</CODE> - The XRI of the context node containing the literal.<DD><CODE>literalData</CODE> - The literal data of the literal.
 <DT><B>Returns:</B><DD>A literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="innerRootFromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.util.Iterator)"><!-- --></A><H3>
+innerRootFromComponents</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/features/roots/InnerRoot.html" title="class in xdi2.core.features.roots">InnerRoot</A> <B>innerRootFromComponents</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;subject,
+                                                <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;predicate,
+                                                <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;statementXris)</PRE>
+<DL>
+<DD>Creates an XDI inner root from its components.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>subject</CODE> - The subject XRI of the XDI inner root.<DD><CODE>predicate</CODE> - The predicate XRI of the XDI inner root.
+<DT><B>Returns:</B><DD>An XDI inner root.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

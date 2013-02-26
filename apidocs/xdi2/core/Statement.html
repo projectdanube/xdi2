@@ -169,7 +169,7 @@ This interface represents a statement in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/Statement.html#getContextNodeXri()">getContextNodeXri</A></B>()</CODE>
 
 <BR>
@@ -185,7 +185,7 @@ This interface represents a statement in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/Statement.html#getObject()">getObject</A></B>()</CODE>
 
 <BR>
@@ -193,7 +193,7 @@ This interface represents a statement in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/Statement.html#getPredicate()">getPredicate</A></B>()</CODE>
 
 <BR>
@@ -201,7 +201,7 @@ This interface represents a statement in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/Statement.html#getSubject()">getSubject</A></B>()</CODE>
 
 <BR>
@@ -209,11 +209,19 @@ This interface represents a statement in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/Statement.html#getXdiStatement()">getXdiStatement</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/Statement.html#getXri()">getXri</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expresses the statement as an XDI statement in the form subject/predicate/object</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/Statement.html#isImplied()">isImplied</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if this statement is implied by other statements in the graph.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>
@@ -241,7 +249,7 @@ This interface represents a statement in an XDI graph.
 <A NAME="getSubject()"><!-- --></A><H3>
 getSubject</H3>
 <PRE>
-<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getSubject</B>()</PRE>
+<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getSubject</B>()</PRE>
 <DL>
 <DD>Gets the subject of this statement.
 <P>
@@ -258,7 +266,7 @@ getSubject</H3>
 <A NAME="getPredicate()"><!-- --></A><H3>
 getPredicate</H3>
 <PRE>
-<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getPredicate</B>()</PRE>
+<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getPredicate</B>()</PRE>
 <DL>
 <DD>Gets the predicate of this statement.
 <P>
@@ -275,7 +283,7 @@ getPredicate</H3>
 <A NAME="getObject()"><!-- --></A><H3>
 getObject</H3>
 <PRE>
-<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getObject</B>()</PRE>
+<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getObject</B>()</PRE>
 <DL>
 <DD>Gets the object of this statement.
 <P>
@@ -309,7 +317,7 @@ getGraph</H3>
 <A NAME="getContextNodeXri()"><!-- --></A><H3>
 getContextNodeXri</H3>
 <PRE>
-<A HREF="../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>getContextNodeXri</B>()</PRE>
+<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getContextNodeXri</B>()</PRE>
 <DL>
 <DD>Returns the context node XRI of this statement.
 <P>
@@ -318,6 +326,23 @@ getContextNodeXri</H3>
 </DD>
 <DD><DL>
 </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isImplied()"><!-- --></A><H3>
+isImplied</H3>
+<PRE>
+boolean <B>isImplied</B>()</PRE>
+<DL>
+<DD>Checks if this statement is implied by other statements in the graph.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>True, if this statement is implied by other statements in the graph.</DL>
 </DD>
 </DL>
 <HR>
@@ -338,10 +363,10 @@ void <B>delete</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="getXdiStatement()"><!-- --></A><H3>
-getXdiStatement</H3>
+<A NAME="getXri()"><!-- --></A><H3>
+getXri</H3>
 <PRE>
-<A HREF="../../xdi2/core/xri3/impl/XDI3Statement.html" title="class in xdi2.core.xri3.impl">XDI3Statement</A> <B>getXdiStatement</B>()</PRE>
+<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>getXri</B>()</PRE>
 <DL>
 <DD>Expresses the statement as an XDI statement in the form subject/predicate/object
 <P>

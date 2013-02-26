@@ -121,7 +121,7 @@ Various utility methods for working with XRIs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;? super <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&gt;</CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;? super <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#XDI3Segment_ASCENDING_COMPARATOR">XDI3Segment_ASCENDING_COMPARATOR</A></B></CODE>
 
 <BR>
@@ -129,7 +129,7 @@ Various utility methods for working with XRIs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;? super <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&gt;</CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;? super <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#XDI3Segment_DESCENDING_COMPARATOR">XDI3Segment_DESCENDING_COMPARATOR</A></B></CODE>
 
 <BR>
@@ -147,8 +147,17 @@ Various utility methods for working with XRIs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#expandXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">expandXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+          <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an expanded XRI from a base XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#isIllegalContextNodeArcXri(xdi2.core.xri3.impl.XDI3SubSegment)">isIllegalContextNodeArcXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#isIllegalContextNodeArcXri(xdi2.core.xri3.XDI3SubSegment)">isIllegalContextNodeArcXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a subsegment is illegal as an arc XRI for a context node.</TD>
@@ -156,16 +165,16 @@ Various utility methods for working with XRIs.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#isIllegalRelationArcXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">isIllegalRelationArcXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-                        <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetXri)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#isIllegalRelationArcXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">isIllegalRelationArcXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                        <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a subsegment is illegal as an arc XRI for a relation.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#localXri(xdi2.core.xri3.impl.XDI3Segment, int)">localXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#localXri(xdi2.core.xri3.XDI3Segment, int)">localXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
          int&nbsp;numSubSegments)</CODE>
 
 <BR>
@@ -173,8 +182,8 @@ Various utility methods for working with XRIs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#parentXri(xdi2.core.xri3.impl.XDI3Segment, int)">parentXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#parentXri(xdi2.core.xri3.XDI3Segment, int)">parentXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
           int&nbsp;numSubSegments)</CODE>
 
 <BR>
@@ -182,30 +191,30 @@ Various utility methods for working with XRIs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#relativeXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">relativeXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-            <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#reduceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">reduceXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+          <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracts a relative XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a reduced XRI from a base XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#relativeXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, boolean, boolean)">relativeXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-            <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base,
-            boolean&nbsp;variablesInXri,
-            boolean&nbsp;variablesInBase)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#reduceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)">reduceXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+          <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
+          boolean&nbsp;variablesInXri,
+          boolean&nbsp;variablesInBase)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracts a relative XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a reduced XRI from a base XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#replaceXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3SubSegment, xdi2.core.xri3.impl.XDI3Segment)">replaceXri</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-           <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;oldXri,
-           <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;newXri)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#replaceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)">replaceXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+           <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;oldXri,
+           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;newXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Replaces all occurences of a subsegment with a segment.</TD>
@@ -213,8 +222,8 @@ Various utility methods for working with XRIs.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#startsWith(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)">startsWith</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-           <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#startsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">startsWith</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI starts with a certain other XRI.</TD>
@@ -222,8 +231,8 @@ Various utility methods for working with XRIs.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#startsWith(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, boolean, boolean)">startsWith</A></B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-           <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base,
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRIUtil.html#startsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)">startsWith</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
            boolean&nbsp;variablesInXri,
            boolean&nbsp;variablesInBase)</CODE>
 
@@ -256,7 +265,7 @@ Various utility methods for working with XRIs.
 <A NAME="XDI3Segment_ASCENDING_COMPARATOR"><!-- --></A><H3>
 XDI3Segment_ASCENDING_COMPARATOR</H3>
 <PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;? super <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&gt; <B>XDI3Segment_ASCENDING_COMPARATOR</B></PRE>
+public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;? super <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt; <B>XDI3Segment_ASCENDING_COMPARATOR</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -266,7 +275,7 @@ public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/u
 <A NAME="XDI3Segment_DESCENDING_COMPARATOR"><!-- --></A><H3>
 XDI3Segment_DESCENDING_COMPARATOR</H3>
 <PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;? super <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&gt; <B>XDI3Segment_DESCENDING_COMPARATOR</B></PRE>
+public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;? super <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt; <B>XDI3Segment_DESCENDING_COMPARATOR</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -282,11 +291,11 @@ public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/u
 </TR>
 </TABLE>
 
-<A NAME="startsWith(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
+<A NAME="startsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
 startsWith</H3>
 <PRE>
-public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-                                 <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base,
+public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                 <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
                                  boolean&nbsp;variablesInXri,
                                  boolean&nbsp;variablesInBase)</PRE>
 <DL>
@@ -298,11 +307,11 @@ public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/impl/XD
 </DL>
 <HR>
 
-<A NAME="startsWith(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="startsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 startsWith</H3>
 <PRE>
-public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-                                 <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base)</PRE>
+public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                 <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</PRE>
 <DL>
 <DD>Checks if an XRI starts with a certain other XRI.
 <P>
@@ -312,42 +321,10 @@ public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/impl/XD
 </DL>
 <HR>
 
-<A NAME="relativeXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
-relativeXri</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>relativeXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-                                      <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base,
-                                      boolean&nbsp;variablesInXri,
-                                      boolean&nbsp;variablesInBase)</PRE>
-<DL>
-<DD>Extracts a relative XRI.
- E.g. for =a*b*c*d and =a*b, this returns *c*d
-<P>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="relativeXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
-relativeXri</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>relativeXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-                                      <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;base)</PRE>
-<DL>
-<DD>Extracts a relative XRI.
- E.g. for =a*b*c*d and =a*b, this returns *c*d
-<P>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="parentXri(xdi2.core.xri3.impl.XDI3Segment, int)"><!-- --></A><H3>
+<A NAME="parentXri(xdi2.core.xri3.XDI3Segment, int)"><!-- --></A><H3>
 parentXri</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>parentXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>parentXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
                                     int&nbsp;numSubSegments)</PRE>
 <DL>
 <DD>Extracts an XRI's parent subsegment(s), counting either from the start or the end.
@@ -360,10 +337,10 @@ public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="cla
 </DL>
 <HR>
 
-<A NAME="localXri(xdi2.core.xri3.impl.XDI3Segment, int)"><!-- --></A><H3>
+<A NAME="localXri(xdi2.core.xri3.XDI3Segment, int)"><!-- --></A><H3>
 localXri</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>localXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>localXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
                                    int&nbsp;numSubSegments)</PRE>
 <DL>
 <DD>Extracts an XRI's local subsegment(s).
@@ -376,10 +353,57 @@ public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="cla
 </DL>
 <HR>
 
-<A NAME="isIllegalContextNodeArcXri(xdi2.core.xri3.impl.XDI3SubSegment)"><!-- --></A><H3>
+<A NAME="expandXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+expandXri</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>expandXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</PRE>
+<DL>
+<DD>Creates an expanded XRI from a base XRI.
+ E.g. for *c*d and =a*b, this returns =a*b*c*d
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="reduceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
+reduceXri</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>reduceXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
+                                    boolean&nbsp;variablesInXri,
+                                    boolean&nbsp;variablesInBase)</PRE>
+<DL>
+<DD>Creates a reduced XRI from a base XRI.
+ E.g. for =a*b*c*d and =a*b, this returns *c*d
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="reduceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+reduceXri</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>reduceXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</PRE>
+<DL>
+<DD>Creates a reduced XRI from a base XRI.
+ E.g. for =a*b*c*d and =a*b, this returns *c*d
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isIllegalContextNodeArcXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
 isIllegalContextNodeArcXri</H3>
 <PRE>
-public static boolean <B>isIllegalContextNodeArcXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+public static boolean <B>isIllegalContextNodeArcXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Checks if a subsegment is illegal as an arc XRI for a context node.
 <P>
@@ -389,11 +413,11 @@ public static boolean <B>isIllegalContextNodeArcXri</B>(<A HREF="../../../xdi2/c
 </DL>
 <HR>
 
-<A NAME="isIllegalRelationArcXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="isIllegalRelationArcXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 isIllegalRelationArcXri</H3>
 <PRE>
-public static boolean <B>isIllegalRelationArcXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;arcXri,
-                                              <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;targetXri)</PRE>
+public static boolean <B>isIllegalRelationArcXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                                              <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetXri)</PRE>
 <DL>
 <DD>Checks if a subsegment is illegal as an arc XRI for a relation.
 <P>
@@ -403,12 +427,12 @@ public static boolean <B>isIllegalRelationArcXri</B>(<A HREF="../../../xdi2/core
 </DL>
 <HR>
 
-<A NAME="replaceXri(xdi2.core.xri3.impl.XDI3Segment, xdi2.core.xri3.impl.XDI3SubSegment, xdi2.core.xri3.impl.XDI3Segment)"><!-- --></A><H3>
+<A NAME="replaceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 replaceXri</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A> <B>replaceXri</B>(<A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;xri,
-                                     <A HREF="../../../xdi2/core/xri3/impl/XDI3SubSegment.html" title="class in xdi2.core.xri3.impl">XDI3SubSegment</A>&nbsp;oldXri,
-                                     <A HREF="../../../xdi2/core/xri3/impl/XDI3Segment.html" title="class in xdi2.core.xri3.impl">XDI3Segment</A>&nbsp;newXri)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>replaceXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;oldXri,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;newXri)</PRE>
 <DL>
 <DD>Replaces all occurences of a subsegment with a segment.
 <P>
