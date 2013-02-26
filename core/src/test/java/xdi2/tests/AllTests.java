@@ -29,6 +29,7 @@ import xdi2.tests.core.util.XRIUtilTest;
 import xdi2.tests.core.util.iterators.IteratorTest;
 import xdi2.tests.core.xri3.XDI3ParserAPGTest;
 import xdi2.tests.core.xri3.XDI3ParserAParseTest;
+import xdi2.tests.core.xri3.XDI3ParserManualTest;
 
 public class AllTests {
 
@@ -37,6 +38,7 @@ public class AllTests {
 		//$JUnit-BEGIN$
 		suite.addTestSuite(XDI3ParserAParseTest.class);
 		suite.addTestSuite(XDI3ParserAPGTest.class);
+		suite.addTestSuite(XDI3ParserManualTest.class);
 		suite.addTestSuite(MemoryGraphTest.class);
 		suite.addTestSuite(MapGraphTest.class);
 		suite.addTestSuite(PropertiesGraphTest.class);

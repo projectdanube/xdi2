@@ -1,0 +1,66 @@
+{
+    "(@!(https://example-registrar.xdi.net))/$add": [
+        "@!(https://example-registrar.xdi.net)$($msg)$(!1234)"
+    ],
+    "@!(https://example-registrar.xdi.net)$($msg)$(!1234)$!($t)/!": [
+        "2010-09-20T10:11:12Z"
+    ],
+    "@!(https://example-registrar.xdi.net)$($msg)$(!1234)/$do": [
+        "=+registrar$($do)$(!1)"
+    ],
+    "@!(https://example-registrar.xdi.net)$($msg)$(!1234)/$is()": [
+        "(=)"
+    ],
+    "@!(https://example-registrar.xdi.net)$(!1234)$do/$add": [
+        {
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$!($uri)/$ref": [
+                "=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001)$($uri)$!1"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$($uri)$!($ttl)/!": [
+                "2500000"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$($uri)$!1/!": [
+                "https://json.example.com/12345678/"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$($uri)$!1/$is+": [
+                "$json$!($uri)"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$($uri)$!2/!": [
+                "https://xdi.example.com/12345678/xdi/"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$($uri)$!2/$is+": [
+                "$xdi$!($uri)"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$json$!($uri)/$ref": [
+                "=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001)$($uri)$!1"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$json$($uri)$*1/$ref": [
+                "=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001)$($uri)$!1"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$xdi$!($uri)/$ref": [
+                "=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001)$($uri)$!2"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))$xdi$($uri)$*1/$ref": [
+                "=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001)$($uri)$!2"
+            ],
+            "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))/+registrar": [
+                "@!(https://example-registrar.xdi.net)"
+            ],
+            "(@!(https://example-registrar.xdi.net)$do$if/$true)($from)/$is": [
+                "(@!(https://example-registrar.xdi.net)$do$if/$true)@!(https://example-registrar.xdi.net)"
+            ],
+            "(https://respect.xdi.net)/()": [
+                "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))"
+            ],
+            "@!(https://example-registrar.xdi.net)$do$if/$true": [
+                "(@!(https://example-registrar.xdi.net)$do$if/$true)"
+            ],
+            "@!(https://example-registrar.xdi.net)$do/$all": [
+                "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))"
+            ],
+            "@!(https://registrar.xdi.net)/$is+registrar": [
+                "(=!(uuid:f81d4fae-7dec-11d0-a765-00a0c91e0001))"
+            ]
+        }
+    ]
+}

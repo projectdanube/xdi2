@@ -46,16 +46,16 @@ function updateSamples() {
 
 	<form action="XDILocalMessenger" method="post">
 
-		<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<!--  		<table width="100%" cellspacing="0" cellpadding="0" border="0">
 		<tr>
-		<td width="50%" style="padding-right: 10px">
-			<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
-		</td>
-		<td width="50%" style="padding-left: 10px">
-			<textarea class="input" name="message" style="width: 100%" rows="12"><%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %></textarea><br>
-		</td>
+		<td width="50%" style="padding-right: 10px"> -->
+			<textarea class="input" name="input" style="width: 100%" rows="12" wrap="off"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
+<!-- 		</td>
+		<td width="50%" style="padding-left: 10px"> -->
+			<textarea class="input" name="message" style="width: 100%" rows="12" wrap="off"><%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %></textarea><br>
+<!--		</td>
 		</tr>
-		</table>
+		</table> -->
 
 		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
 		<% String writeContexts = (String) request.getAttribute("writeContexts"); if (writeContexts == null) writeContexts = ""; %>

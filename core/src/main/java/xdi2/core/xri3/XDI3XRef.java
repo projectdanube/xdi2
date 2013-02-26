@@ -3,7 +3,6 @@ package xdi2.core.xri3;
 import xdi2.core.xri3.parser.XDI3Parser;
 import xdi2.core.xri3.parser.XDI3ParserRegistry;
 
-
 public class XDI3XRef extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 4875921569202236777L;

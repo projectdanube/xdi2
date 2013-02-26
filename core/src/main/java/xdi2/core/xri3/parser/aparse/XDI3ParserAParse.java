@@ -69,31 +69,13 @@ public class XDI3ParserAParse implements XDI3Parser {
 	private XDI3Segment parseXDI3Segment(Rule rule) {
 
 		String string = rule.spelling;
-		String literal = null;
 		List<XDI3SubSegment> subSegments = new ArrayList<XDI3SubSegment> ();
-
-		// read literal or subseg from xdi_segment
-
-		List<Rule> list_xdi_segment = ((Rule_xdi_segment) rule).rules;
-		rule = list_xdi_segment.get(0);	// literal or subseg
-
-		// literal or subseg?
-
-		if (rule instanceof Rule_literal) {
-
-			literal = ((Rule_literal) rule).spelling;
-		} else if (rule instanceof Rule_subseg) {
-
-			subSegments.add(parseXDI3SubSegment(rule));
-		} else {
-
-			throw new ClassCastException(rule.getClass().getName());
-		}
 
 		// read subsegs from xdi_segment
 
-		if (list_xdi_segment.size() < 2) return new XDI3Segment(rule.spelling, literal, subSegments);
-		for (int i=1; i<list_xdi_segment.size(); i++) {
+		List<Rule> list_xdi_segment = ((Rule_xdi_segment) rule).rules;
+
+		for (int i=0; i<list_xdi_segment.size(); i++) {
 
 			rule = list_xdi_segment.get(i);	// subseg
 			subSegments.add(parseXDI3SubSegment(rule));
@@ -101,7 +83,7 @@ public class XDI3ParserAParse implements XDI3Parser {
 
 		// done
 
-		return new XDI3Segment(string, literal, subSegments);
+		return new XDI3Segment(string, subSegments);
 	}
 
 	@Override

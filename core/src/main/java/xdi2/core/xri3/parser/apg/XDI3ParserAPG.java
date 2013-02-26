@@ -172,15 +172,12 @@ public class XDI3ParserAPG implements XDI3Parser {
 
 			if (this.ruleName.equals(RuleNames.XDI_SEGMENT)) {
 
-				Node nodeLiteral = this.myAstContext.currentNode.findNode(RuleNames.LITERAL);
 				List<Node> nodesSubseg = this.myAstContext.currentNode.findNodes(RuleNames.SUBSEG);
-
-				String literal = nodeLiteral == null ? null : nodeLiteral.value;
 
 				List<XDI3SubSegment> subSegments = new ArrayList<XDI3SubSegment> ();
 				for (Node nodeSubseg : nodesSubseg) subSegments.add((XDI3SubSegment) nodeSubseg.xri);
 
-				this.myAstContext.currentNode.xri = new XDI3Segment(this.myAstContext.currentNode.value, literal, subSegments);
+				this.myAstContext.currentNode.xri = new XDI3Segment(this.myAstContext.currentNode.value, subSegments);
 			}
 
 			if (this.ruleName.equals(RuleNames.SUBSEG)) {
