@@ -127,13 +127,13 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 
 	@Override
-	public ContextNode createContextNodes(XDI3Segment arcXri) {
+	public ContextNode createContextNodes(XDI3Segment arcXris) {
 
 		ContextNode contextNode = this;
 
-		for (int i = 0; i < arcXri.getNumSubSegments(); i++) {
+		for (int i = 0; i < arcXris.getNumSubSegments(); i++) {
 
-			contextNode = contextNode.createContextNode(arcXri.getSubSegment(i));
+			contextNode = contextNode.createContextNode(arcXris.getSubSegment(i));
 		}
 
 		return contextNode;

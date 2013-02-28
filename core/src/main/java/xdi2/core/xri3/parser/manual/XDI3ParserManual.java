@@ -33,10 +33,8 @@ public class XDI3ParserManual implements XDI3Parser {
 
 		String temp = stripParens(string);
 
-		int segments = StringUtils.countMatches(temp, "/") + 1;
-		if (segments != 3) throw new ParserException("Invalid statement: " + string + " (wrong number of segments: " + segments + ")");
-
 		String[] parts = temp.split("/");
+		if (parts.length != 3) throw new ParserException("Invalid statement: " + string + " (wrong number of segments: " + parts.length + ")");
 		int split0 = parts[0].length();
 		int split1 = parts[1].length();
 
@@ -57,7 +55,7 @@ public class XDI3ParserManual implements XDI3Parser {
 
 		while (pos < string.length()) {
 
-			if (pos + 1 < string.length() && isGcs(string.charAt(pos)) && isLcs(string.charAt(pos+1))) pos += 2;
+			if (pos + 1 < string.length() && isGcs(string.charAt(pos)) && isLcs(string.charAt(pos + 1))) pos += 2;
 			else if (isGcs(string.charAt(pos))) pos++;
 			else if (isLcs(string.charAt(pos))) pos++;
 
