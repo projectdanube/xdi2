@@ -48,21 +48,21 @@ public abstract class AbstractRoot implements Root {
 	}
 
 	/**
-	 * Finds and returns an XDI remote root under this XDI root.
-	 * @param xri The XRI whose XDI remote root to find.
-	 * @param create Whether the XDI remote root should be created, if it does not exist.
-	 * @return The XDI remote root.
+	 * Finds and returns an XDI peer root under this XDI root.
+	 * @param xri The XRI whose XDI peer root to find.
+	 * @param create Whether the XDI peer root should be created, if it does not exist.
+	 * @return The XDI peer root.
 	 */
 	@Override
-	public RemoteRoot findRemoteRoot(XDI3Segment xri, boolean create) {
+	public PeerRoot findPeerRoot(XDI3Segment xri, boolean create) {
 
-		XDI3SubSegment remoteRootXri = RemoteRoot.createRemoteRootXri(xri);
+		XDI3SubSegment peerRootXri = PeerRoot.createPeerRootXri(xri);
 
-		ContextNode remoteRootContextNode = this.getContextNode().getContextNode(remoteRootXri);
-		if (remoteRootContextNode == null && create) remoteRootContextNode = this.getContextNode().createContextNode(remoteRootXri);
-		if (remoteRootContextNode == null) return null;
+		ContextNode peerRootContextNode = this.getContextNode().getContextNode(peerRootXri);
+		if (peerRootContextNode == null && create) peerRootContextNode = this.getContextNode().createContextNode(peerRootXri);
+		if (peerRootContextNode == null) return null;
 
-		return new RemoteRoot(remoteRootContextNode);
+		return new PeerRoot(peerRootContextNode);
 	}
 
 	/**
@@ -124,13 +124,13 @@ public abstract class AbstractRoot implements Root {
 	@Override
 	public Root findRoot(XDI3SubSegment arcXri, boolean create) {
 
-		if (RemoteRoot.isRemoteRootXri(arcXri)) {
+		if (PeerRoot.isPeerRootXri(arcXri)) {
 
-			ContextNode remoteRootContextNode = this.getContextNode().getContextNode(arcXri);
-			if (remoteRootContextNode == null && create) remoteRootContextNode = this.getContextNode().createContextNode(arcXri);
-			if (remoteRootContextNode == null) return null;
+			ContextNode peerRootContextNode = this.getContextNode().getContextNode(arcXri);
+			if (peerRootContextNode == null && create) peerRootContextNode = this.getContextNode().createContextNode(arcXri);
+			if (peerRootContextNode == null) return null;
 
-			return new RemoteRoot(remoteRootContextNode);
+			return new PeerRoot(peerRootContextNode);
 		}
 
 		if (InnerRoot.isInnerRootXri(arcXri)) {

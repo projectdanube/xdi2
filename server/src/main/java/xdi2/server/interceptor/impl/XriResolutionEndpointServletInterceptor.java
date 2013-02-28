@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
-import xdi2.core.features.roots.RemoteRoot;
+import xdi2.core.features.roots.PeerRoot;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
@@ -66,36 +66,36 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		// look into registry
 
-		RemoteRoot remoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(XDI3Segment.create("" + providerid + query), false);
+		PeerRoot peerRoot = Roots.findLocalRoot(this.getRegistryGraph()).findPeerRoot(XDI3Segment.create("" + providerid + query), false);
 
-		if (remoteRoot == null) {
+		if (peerRoot == null) {
 
 			for (XDI3Segment provideridSynonym : provideridSynonyms) {
 
-				remoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(XDI3Segment.create("" + provideridSynonym + query), false);
-				if (remoteRoot != null) break;
+				peerRoot = Roots.findLocalRoot(this.getRegistryGraph()).findPeerRoot(XDI3Segment.create("" + provideridSynonym + query), false);
+				if (peerRoot != null) break;
 			}
 		}
 
-		if (remoteRoot == null) {
+		if (peerRoot == null) {
 
-			log.warn("Remote root for " + query + " not found in the registry graph. Ignoring.");
+			log.warn("Peer root for " + query + " not found in the registry graph. Ignoring.");
 			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
 			return true;
 		}
 
-		if (remoteRoot.isSelfRemoteRoot()) {
+		if (peerRoot.isSelfPeerRoot()) {
 
-			log.warn("Remote root for " + query + " is the owner of the registry graph. Ignoring.");
+			log.warn("Peer root for " + query + " is the owner of the registry graph. Ignoring.");
 			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
 			return true;
 		}
 
-		ContextNode referenceRemoteRootContextNode = Equivalence.getReferenceContextNode(remoteRoot.getContextNode());
-		RemoteRoot referenceRemoteRoot = (referenceRemoteRootContextNode == null) ? null : RemoteRoot.fromContextNode(referenceRemoteRootContextNode);
-		if (referenceRemoteRoot == null) referenceRemoteRoot = remoteRoot;
+		ContextNode referencePeerRootContextNode = Equivalence.getReferenceContextNode(peerRoot.getContextNode());
+		PeerRoot referencePeerRoot = (referencePeerRootContextNode == null) ? null : PeerRoot.fromContextNode(referencePeerRootContextNode);
+		if (referencePeerRoot == null) referencePeerRoot = peerRoot;
 
-		XDI3Segment canonicalid = referenceRemoteRoot.getXriOfRemoteRoot();
+		XDI3Segment canonicalid = referencePeerRoot.getXriOfPeerRoot();
 		XDI3SubSegment localid = query;
 		String uri = constructUri(requestInfo, this.getTargetPath(), canonicalid);
 
@@ -150,46 +150,24 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 	private static XDI3Segment getProviderId(Graph graph) {
 
-		RemoteRoot selfRemoteRoot = Roots.findLocalRoot(graph).getSelfRemoteRoot();
-		if (selfRemoteRoot == null) return null;
+		PeerRoot selfPeerRoot = Roots.findLocalRoot(graph).getSelfPeerRoot();
+		if (selfPeerRoot == null) return null;
 
-		return selfRemoteRoot.getXriOfRemoteRoot();
+		return selfPeerRoot.getXriOfPeerRoot();
 	}
 
 	private static XDI3Segment[] getProviderIdSynonyms(Graph graph, XDI3Segment providerid) {
 
-		RemoteRoot selfRemoteRoot = Roots.findLocalRoot(graph).getSelfRemoteRoot();
-		if (selfRemoteRoot == null) return new XDI3Segment[0];
+		PeerRoot selfPeerRoot = Roots.findLocalRoot(graph).getSelfPeerRoot();
+		if (selfPeerRoot == null) return new XDI3Segment[0];
 
-		Iterator<ContextNode> selfRemoteRootIncomingReferenceContextNodes = Equivalence.getIncomingReferenceContextNodes(selfRemoteRoot.getContextNode());
+		Iterator<ContextNode> selfPeerRootIncomingReferenceContextNodes = Equivalence.getIncomingReferenceContextNodes(selfPeerRoot.getContextNode());
 
-		XDI3Segment[] selfSynonyms = new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(selfRemoteRootIncomingReferenceContextNodes)).array(XDI3Segment.class);
-		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = RemoteRoot.getXriOfRemoteRootXri(selfSynonyms[i].getLastSubSegment());
+		XDI3Segment[] selfSynonyms = new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(selfPeerRootIncomingReferenceContextNodes)).array(XDI3Segment.class);
+		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = PeerRoot.getXriOfPeerRootXri(selfSynonyms[i].getLastSubSegment());
 
 		return selfSynonyms;
 	}
-
-	/*	private static XDI3Segment getCanonicalId(Graph graph, XDI3Segment providerid, XDI3SubSegment localid) {
-
-		XDI3Segment canonicalid = XDI3Segment.create("" + providerid + localid);
-
-		ContextNode canonicalidRemoteRootContextNode = RemoteRoots.findRemoteRootContextNode(graph, canonicalid, false);
-
-		if (canonicalidRemoteRootContextNode != null) {
-
-			while (true) {
-
-				Relation canonicalidRelation = canonicalidRemoteRootContextNode.getRelation(XDIDictionaryConstants.XRI_S_IS);
-				if (canonicalidRelation == null) break;
-
-				canonicalidRemoteRootContextNode = canonicalidRelation.follow();
-			}
-
-			canonicalid = RemoteRoots.xriOfRemoteRootXri(canonicalidRemoteRootContextNode.getXri());
-		}
-
-		return canonicalid;
-	}*/
 
 	private void sendNotFoundXrd(EndpointServlet endpointServlet, RequestInfo requestInfo, XDI3SubSegment query, HttpServletResponse response) throws IOException {
 

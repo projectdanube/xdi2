@@ -49,29 +49,29 @@ public class LocalRoot extends AbstractRoot {
 	 * Instance methods
 	 */
 
-	public RemoteRoot setSelfRemoteRoot(XDI3Segment xri) {
+	public PeerRoot setSelfPeerRoot(XDI3Segment xri) {
 
-		RemoteRoot selfRemoteRoot = this.getSelfRemoteRoot();
-		if (selfRemoteRoot != null) selfRemoteRoot.getContextNode().delete();
+		PeerRoot selfPeerRoot = this.getSelfPeerRoot();
+		if (selfPeerRoot != null) selfPeerRoot.getContextNode().delete();
 
 		if (xri == null) return null;
 
-		selfRemoteRoot = this.findRemoteRoot(xri, true);
+		selfPeerRoot = this.findPeerRoot(xri, true);
 
 		ContextNode localRootContextNode = this.getContextNode();
-		ContextNode selfRemoteRootContextNode = selfRemoteRoot.getContextNode();
+		ContextNode selfPeerRootContextNode = selfPeerRoot.getContextNode();
 
-		localRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_REF, selfRemoteRootContextNode);
-		selfRemoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, localRootContextNode);
+		localRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_REF, selfPeerRootContextNode);
+		selfPeerRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, localRootContextNode);
 
-		return selfRemoteRoot;
+		return selfPeerRoot;
 	}
 
-	public RemoteRoot getSelfRemoteRoot() {
+	public PeerRoot getSelfPeerRoot() {
 
 		Relation relation = this.getContextNode().getRelation(XDIDictionaryConstants.XRI_S_IS_REF);
 		if (relation == null) return null;
 
-		return RemoteRoot.fromContextNode(relation.follow());
+		return PeerRoot.fromContextNode(relation.follow());
 	}
 }

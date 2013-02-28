@@ -32,7 +32,7 @@ public class Roots {
 
 		return
 				LocalRoot.isValid(contextNode) ||
-				RemoteRoot.isValid(contextNode) ||
+				PeerRoot.isValid(contextNode) ||
 				InnerRoot.isValid(contextNode);
 	}
 
@@ -44,7 +44,7 @@ public class Roots {
 	public static Root fromContextNode(ContextNode contextNode) {
 
 		if (LocalRoot.isValid(contextNode)) return new LocalRoot(contextNode);
-		if (RemoteRoot.isValid(contextNode)) return new RemoteRoot(contextNode);
+		if (PeerRoot.isValid(contextNode)) return new PeerRoot(contextNode);
 		if (InnerRoot.isValid(contextNode)) return new InnerRoot(contextNode);
 
 		return null;

@@ -31,9 +31,9 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * 
  * @author animesh
  */
-public class LinkContractsInterceptor extends AbstractInterceptor implements MessageInterceptor, TargetInterceptor, Prototype<LinkContractsInterceptor> {
+public class LinkContractPolicyInterceptor extends AbstractInterceptor implements MessageInterceptor, TargetInterceptor, Prototype<LinkContractPolicyInterceptor> {
 
-	private static Logger log = LoggerFactory.getLogger(LinkContractsInterceptor.class.getName());
+	private static Logger log = LoggerFactory.getLogger(LinkContractPolicyInterceptor.class.getName());
 
 	private Graph linkContractsGraph;
 
@@ -42,11 +42,11 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 	 */
 
 	@Override
-	public LinkContractsInterceptor instanceFor(PrototypingContext prototypingContext) {
+	public LinkContractPolicyInterceptor instanceFor(PrototypingContext prototypingContext) {
 
 		// create new interceptor
 
-		LinkContractsInterceptor interceptor = new LinkContractsInterceptor();
+		LinkContractPolicyInterceptor interceptor = new LinkContractPolicyInterceptor();
 
 		// set the link contracts graph
 
@@ -197,14 +197,14 @@ public class LinkContractsInterceptor extends AbstractInterceptor implements Mes
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE = LinkContractsInterceptor.class.getCanonicalName() + "#linkcontractpermessage";
+	private static final String EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE = LinkContractPolicyInterceptor.class.getCanonicalName() + "#linkcontractpermessage";
 
-	private static LinkContract getLinkContract(ExecutionContext executionContext) {
+	public static LinkContract getLinkContract(ExecutionContext executionContext) {
 
 		return (LinkContract) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE);
 	}
 
-	private static void putLinkContract(ExecutionContext executionContext, LinkContract linkContract) {
+	public static void putLinkContract(ExecutionContext executionContext, LinkContract linkContract) {
 
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE, linkContract);
 	}

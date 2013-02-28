@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
-import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.multiplicity.XdiCollection;
@@ -66,7 +66,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public static Policy fromSubGraph(XdiSubGraph xdiSubGraph) {
 
-		if (PolicyRoot.isValid(xdiSubGraph)) return PolicyRoot.fromLinkContractAndSubGraph(null, xdiSubGraph);
+		if (PolicyRoot.isValid(xdiSubGraph)) return PolicyRoot.fromSubGraph(xdiSubGraph);
 		if (PolicyAnd.isValid(xdiSubGraph)) return PolicyAnd.fromSubGraph(xdiSubGraph);
 		if (PolicyOr.isValid(xdiSubGraph)) return PolicyOr.fromSubGraph(xdiSubGraph);
 		if (PolicyNot.isValid(xdiSubGraph)) return PolicyNot.fromSubGraph(xdiSubGraph);
@@ -127,7 +127,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyAnd createAndPolicy() {
 
-		XdiEntitySingleton policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_AND, true);
+		XdiEntitySingleton policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_AND, true);
 
 		return PolicyAnd.fromSubGraph(policyAndEntitySingleton);
 	}
@@ -137,7 +137,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyOr createOrPolicy() {
 
-		XdiEntitySingleton policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_OR, true);
+		XdiEntitySingleton policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_OR, true);
 
 		return PolicyOr.fromSubGraph(policyOrEntitySingleton);
 	}
@@ -147,7 +147,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyNot createNotPolicy() {
 
-		XdiEntitySingleton policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_NOT, true);
+		XdiEntitySingleton policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, true);
 
 		return PolicyNot.fromSubGraph(policyNotEntitySingleton);
 	}
@@ -161,9 +161,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		// add policies that are XDI entity singletons
 
-		XdiEntitySingleton policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_AND, false);
-		XdiEntitySingleton policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_OR, false);
-		XdiEntitySingleton policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDILinkContractConstants.XRI_SS_NOT, false);
+		XdiEntitySingleton policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_AND, false);
+		XdiEntitySingleton policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_OR, false);
+		XdiEntitySingleton policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, false);
 
 		if (policyAndEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyAnd.fromSubGraph(policyAndEntitySingleton)));
 		if (policyOrEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyOr.fromSubGraph(policyOrEntitySingleton)));
@@ -171,9 +171,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		// add policies that are XDI entity members
 
-		XdiCollection policyAndCollection = this.getSubGraph().getCollection(XDILinkContractConstants.XRI_SS_AND, false);
-		XdiCollection policyOrCollection = this.getSubGraph().getCollection(XDILinkContractConstants.XRI_SS_OR, false);
-		XdiCollection policyNotCollection = this.getSubGraph().getCollection(XDILinkContractConstants.XRI_SS_NOT, false);
+		XdiCollection policyAndCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_AND, false);
+		XdiCollection policyOrCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_OR, false);
+		XdiCollection policyNotCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_NOT, false);
 
 		if (policyAndCollection != null) iterators.add(new CastingIterator<PolicyAnd, Policy> (new MappingEntityMemberPolicyAndIterator(policyAndCollection.entities())));
 		if (policyOrCollection != null) iterators.add(new CastingIterator<PolicyOr, Policy> (new MappingEntityMemberPolicyOrIterator(policyOrCollection.entities())));

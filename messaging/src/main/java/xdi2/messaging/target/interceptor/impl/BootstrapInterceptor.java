@@ -16,8 +16,8 @@ import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.policy.PolicyAnd;
 import xdi2.core.features.linkcontracts.policy.PolicyUtil;
-import xdi2.core.features.roots.RemoteRoot;
-import xdi2.core.features.roots.RemoteRoot.MappingContextNodeRemoteRootIterator;
+import xdi2.core.features.roots.PeerRoot;
+import xdi2.core.features.roots.PeerRoot.MappingContextNodePeerRootIterator;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.xri3.XDI3Segment;
@@ -70,13 +70,13 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		XDI3Segment[] ownerSynonyms = null;
 
-		if (prototypingContext.getOwnerRemoteRoot() != null) {
+		if (prototypingContext.getOwnerPeerRoot() != null) {
 
-			Iterator<ContextNode> ownerSynonymRemoteRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerRemoteRoot().getContextNode());
-			RemoteRoot[] ownerSynonymRemoteRoots = (new IteratorArrayMaker<RemoteRoot> (new MappingContextNodeRemoteRootIterator(ownerSynonymRemoteRootContextNodes))).array(RemoteRoot.class);
+			Iterator<ContextNode> ownerSynonymPeerRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerPeerRoot().getContextNode());
+			PeerRoot[] ownerSynonymPeerRoots = (new IteratorArrayMaker<PeerRoot> (new MappingContextNodePeerRootIterator(ownerSynonymPeerRootContextNodes))).array(PeerRoot.class);
 
-			ownerSynonyms = new XDI3Segment[ownerSynonymRemoteRoots.length];
-			for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = ownerSynonymRemoteRoots[i].getXriOfRemoteRoot();
+			ownerSynonyms = new XDI3Segment[ownerSynonymPeerRoots.length];
+			for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = ownerSynonymPeerRoots[i].getXriOfPeerRoot();
 		}
 
 		interceptor.setBootstrapOwnerSynonyms(ownerSynonyms);
@@ -115,17 +115,17 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		// check if the owner statement exists
 
-		if (Roots.findLocalRoot(graph).getSelfRemoteRoot() != null) return;
+		if (Roots.findLocalRoot(graph).getSelfPeerRoot() != null) return;
 
 		// create bootstrap owner
 
 		ContextNode bootstrapOwnerContextNode = null;
-		ContextNode bootstrapOwnerSelfRemoteRootContextNode = null;
+		ContextNode bootstrapOwnerSelfPeerRootContextNode = null;
 
 		if (this.bootstrapOwner != null) {
 
 			bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
-			bootstrapOwnerSelfRemoteRootContextNode = Roots.findLocalRoot(graph).setSelfRemoteRoot(this.bootstrapOwner).getContextNode();
+			bootstrapOwnerSelfPeerRootContextNode = Roots.findLocalRoot(graph).setSelfPeerRoot(this.bootstrapOwner).getContextNode();
 		}
 
 		// create bootstrap owner synonyms
@@ -137,8 +137,8 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 				ContextNode bootstrapOwnerSynonymContextNode = graph.findContextNode(bootstrapOwnerSynonym, true);
 				bootstrapOwnerSynonymContextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerContextNode);
 
-				ContextNode bootstrapOwnerSynonymRemoteRootContextNode = Roots.findLocalRoot(graph).findRemoteRoot(bootstrapOwnerSynonym, true).getContextNode();
-				bootstrapOwnerSynonymRemoteRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfRemoteRootContextNode);
+				ContextNode bootstrapOwnerSynonymPeerRootContextNode = Roots.findLocalRoot(graph).findPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
+				bootstrapOwnerSynonymPeerRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfPeerRootContextNode);
 			}
 		}
 

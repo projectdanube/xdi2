@@ -221,18 +221,18 @@ public class BasicTest extends TestCase {
 		LinkContract linkContract = LinkContracts.findLinkContractByAddress(messageEnvelope.getGraph(), message.getLinkContractXri());
 		assertNotNull(linkContract);
 
-		assertEquals(message.getSenderAuthority(), XDI3Segment.create("(=!1111)(!3)"));
-		assertEquals(message.getRecipientAuthority(), XDI3Segment.create("(=!2222)"));
+		assertEquals(message.getFromAddress(), XDI3Segment.create("(=!1111)(!3)"));
+		assertEquals(message.getToAddress(), XDI3Segment.create("(=!2222)"));
 		assertEquals(message.getTimestamp(), calendar.getTime());
 	}
 
-	public void testSenderAndRecipientAuthority() throws Exception {
+	public void testSenderAndRecipientAddress() throws Exception {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDI3Segment.create("=sender"), true);
-		message.setSenderAuthority(XDI3Segment.create("(=!1111)"));
-		message.setRecipientAuthority(XDI3Segment.create("(=!2222)"));
-		assertEquals(message.getSenderAuthority(), XDI3Segment.create("(=!1111)"));
-		assertEquals(message.getRecipientAuthority(), XDI3Segment.create("(=!2222)"));
+		message.setFromAddress(XDI3Segment.create("(=!1111)"));
+		message.setToAddress(XDI3Segment.create("(=!2222)"));
+		assertEquals(message.getFromAddress(), XDI3Segment.create("(=!1111)"));
+		assertEquals(message.getToAddress(), XDI3Segment.create("(=!2222)"));
 	}
 }

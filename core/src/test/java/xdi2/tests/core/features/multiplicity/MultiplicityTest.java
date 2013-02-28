@@ -10,7 +10,7 @@ import xdi2.core.features.multiplicity.XdiCollection;
 import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.features.multiplicity.XdiEntitySingleton;
 import xdi2.core.features.multiplicity.XdiSubGraph;
-import xdi2.core.features.roots.RemoteRoot;
+import xdi2.core.features.roots.PeerRoot;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.IteratorContains;
@@ -52,11 +52,11 @@ public class MultiplicityTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode root = graph.getRootContextNode();
 		ContextNode markus = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
-		RemoteRoot remoteRoot = Roots.findLocalRoot(graph).findRemoteRoot(XDI3Segment.create("=!91F2.8153.F600.AE24"), true);
+		PeerRoot peerRoot = Roots.findLocalRoot(graph).findPeerRoot(XDI3Segment.create("=!91F2.8153.F600.AE24"), true);
 
 		assertNotNull(XdiSubGraph.fromContextNode(root));
 		assertNotNull(XdiSubGraph.fromContextNode(markus));
-		assertNotNull(XdiSubGraph.fromContextNode(remoteRoot.getContextNode()));
+		assertNotNull(XdiSubGraph.fromContextNode(peerRoot.getContextNode()));
 	}
 
 	public void testContextNodes() throws Exception {	

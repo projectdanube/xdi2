@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.roots.RemoteRoot;
+import xdi2.core.features.roots.PeerRoot;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -37,19 +37,19 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		XDI3Segment owner = XDI3Segment.create(ownerString);
 
-		// find the owner's XDI remote root
+		// find the owner's XDI peer root
 
-		RemoteRoot ownerRemoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(owner, false);
+		PeerRoot ownerPeerRoot = Roots.findLocalRoot(this.getRegistryGraph()).findPeerRoot(owner, false);
 
-		if (ownerRemoteRoot == null) {
+		if (ownerPeerRoot == null) {
 
-			log.warn("Remote root for " + owner + " not found in the registry graph. Ignoring.");
+			log.warn("Peer root for " + owner + " not found in the registry graph. Ignoring.");
 			return;
 		}
 
-		if (ownerRemoteRoot.isSelfRemoteRoot()) {
+		if (ownerPeerRoot.isSelfPeerRoot()) {
 
-			log.warn("Remote root for " + owner + " is the owner of the registry graph. Ignoring.");
+			log.warn("Peer root for " + owner + " is the owner of the registry graph. Ignoring.");
 			return;
 		}
 
@@ -61,7 +61,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		log.info("Will create messaging target for " + owner);
 		
-		super.mountMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerRemoteRoot, ownerContextNode);
+		super.mountMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerPeerRoot, ownerContextNode);
 	}
 
 	@Override
@@ -74,13 +74,13 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		XDI3Segment owner = XDI3Segment.create(ownerString);
 
-		// find the owner's remote root context node
+		// find the owner's peer root context node
 
-		RemoteRoot ownerRemoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(owner, false);
+		PeerRoot ownerPeerRoot = Roots.findLocalRoot(this.getRegistryGraph()).findPeerRoot(owner, false);
 
-		if (ownerRemoteRoot == null) {
+		if (ownerPeerRoot == null) {
 
-			log.warn("Remote root for " + owner + " no longer found in the registry graph. Removing messaging target.");
+			log.warn("Peer root for " + owner + " no longer found in the registry graph. Removing messaging target.");
 
 			try {
 

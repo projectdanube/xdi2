@@ -14,7 +14,7 @@ public interface Root extends Serializable, Comparable<Root> {
 	public ContextNode getContextNode();
 
 	public LocalRoot findLocalRoot();
-	public RemoteRoot findRemoteRoot(XDI3Segment xri, boolean create);
+	public PeerRoot findPeerRoot(XDI3Segment xri, boolean create);
 	public InnerRoot findInnerRoot(XDI3Segment subject, XDI3Segment predicate, boolean create);
 
 	public Root findRoot(XDI3Segment xri, boolean create);

@@ -7,7 +7,10 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.multiplicity.XdiEntityMember;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.features.roots.InnerRoot;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.features.timestamps.Timestamps;
@@ -127,15 +130,15 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Return the sender authority.
+	 * Return the FROM address.
 	 */
-	public XDI3Segment getSenderAuthority() {
+	public XDI3Segment getFromAddress() {
 
 		for (Iterator<Relation> incomingRelations = this.getContextNode().getIncomingRelations(); incomingRelations.hasNext(); ) {
 
 			Relation incomingRelation = incomingRelations.next();
 
-			if (incomingRelation.getArcXri().equals(XDIMessagingConstants.XRI_S_FROM_GRAPH)) {
+			if (incomingRelation.getArcXri().equals(XDIMessagingConstants.XRI_S_FROM_ADDRESS)) {
 
 				return incomingRelation.getContextNode().getXri();
 			}
@@ -145,34 +148,32 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Set the sender authority.
+	 * Set the FROM address.
 	 */
-	public void setSenderAuthority(XDI3Segment senderAuthority) {
+	public void setFromAddress(XDI3Segment fromAddress) {
 
-		ContextNode senderAuthorityContextNode = this.getMessageEnvelope().getGraph().findContextNode(senderAuthority, true);
+		ContextNode fromAddressContextNode = this.getMessageEnvelope().getGraph().findContextNode(fromAddress, true);
 
-		senderAuthorityContextNode.createRelation(XDIMessagingConstants.XRI_S_FROM_GRAPH, this.getContextNode());
+		fromAddressContextNode.createRelation(XDIMessagingConstants.XRI_S_FROM_ADDRESS, this.getContextNode());
 	}
 
 	/**
-	 * Return the recipient authority.
+	 * Return the TO address of the message.
 	 */
-	public XDI3Segment getRecipientAuthority() {
+	public XDI3Segment getToAddress() {
 
-		Relation recipientAuthorityRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_GRAPH);
-		if (recipientAuthorityRelation == null) return null;
+		Relation toAddressRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_ADDRESS);
+		if (toAddressRelation == null) return null;
 
-		return recipientAuthorityRelation.getTargetContextNodeXri();
+		return toAddressRelation.getTargetContextNodeXri();
 	}
 
 	/**
-	 * Set the recipient authority.
+	 * Set the TO address of the message.
 	 */
-	public void setRecipientAuthority(XDI3Segment recipientAuthority) {
+	public void setToAddress(XDI3Segment toAddress) {
 
-		ContextNode recipientContextNode = this.getMessageEnvelope().getGraph().findContextNode(recipientAuthority, true);
-
-		this.getContextNode().createRelation(XDIMessagingConstants.XRI_S_TO_GRAPH, recipientContextNode);
+		this.getContextNode().createRelation(XDIMessagingConstants.XRI_S_TO_ADDRESS, toAddress);
 	}
 
 	/**
@@ -194,6 +195,22 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (linkContractRelation == null) return null;
 
 		return linkContractRelation.getTargetContextNodeXri();
+	}
+
+	/**
+	 * Returns an existing XDI root policy in this XDI messages, or creates a new one.
+	 * @param create Whether to create an XDI root policy if it does not exist.
+	 * @return The existing or newly created XDI root policy.
+	 */
+	public PolicyRoot getPolicyRoot(boolean create) {
+
+		ContextNode contextNode = this.getContextNode().getContextNode(XDIPolicyConstants.XRI_SS_IF);
+		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDIPolicyConstants.XRI_SS_IF);
+		if (contextNode == null) return null;
+
+		XdiSubGraph xdiSubGraph = XdiSubGraph.fromContextNode(contextNode);
+
+		return PolicyRoot.fromSubGraph(xdiSubGraph);
 	}
 
 	/**

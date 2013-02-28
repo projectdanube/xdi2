@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
@@ -77,19 +78,14 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		ContextNode contextNode = this.getContextNode().getContextNode(XDILinkContractConstants.XRI_SS_IF);
-		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDILinkContractConstants.XRI_SS_IF);
+		ContextNode contextNode = this.getContextNode().getContextNode(XDIPolicyConstants.XRI_SS_IF);
+		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDIPolicyConstants.XRI_SS_IF);
 		if (contextNode == null) return null;
 
 		XdiSubGraph xdiSubGraph = XdiSubGraph.fromContextNode(contextNode);
 
-		return PolicyRoot.fromLinkContractAndSubGraph(this, xdiSubGraph);
+		return PolicyRoot.fromSubGraph(xdiSubGraph);
 	}
-
-	/**
-	 * Adds a assignment relationship of the XDI link contract to a target assignee node.
-	 * @param assignee The context node to whom this XDI link contract is being assigned to.
-	 */
 
 	/**
 	 * Adds a permission (one of $get, $add, $mod, $del, $copy, $move, $all) from this XDI link contract to a target context node XRI.

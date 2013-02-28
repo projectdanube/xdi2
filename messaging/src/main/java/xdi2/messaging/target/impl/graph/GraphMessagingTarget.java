@@ -3,7 +3,7 @@ package xdi2.messaging.target.impl.graph;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.features.roots.RemoteRoot;
+import xdi2.core.features.roots.PeerRoot;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -56,12 +56,12 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public XDI3Segment getOwnerAuthority() {
+	public XDI3Segment getOwnerAddress() {
 
-		RemoteRoot selfRemoteRoot = Roots.findLocalRoot(this.getGraph()).getSelfRemoteRoot();
-		if (selfRemoteRoot == null) return null;
+		PeerRoot selfPeerRoot = Roots.findLocalRoot(this.getGraph()).getSelfPeerRoot();
+		if (selfPeerRoot == null) return null;
 
-		return selfRemoteRoot.getContextNode().getXri();
+		return selfPeerRoot.getContextNode().getXri();
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 
 		try {
 
-			String identifier = RemoteRoot.createRemoteRootXri(prototypingContext.getOwner()).toString();
+			String identifier = PeerRoot.createPeerRootXri(prototypingContext.getOwner()).toString();
 
 			graph = this.getGraph().getGraphFactory().openGraph(identifier);
 		} catch (IOException ex) {

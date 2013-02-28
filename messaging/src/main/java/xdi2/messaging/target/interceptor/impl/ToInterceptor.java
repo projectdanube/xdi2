@@ -17,20 +17,20 @@ import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
- * This interceptor checks if the recipient authority of a message matches the owner of the messaging target.
+ * This interceptor checks if the <to-graph> address of a message matches the owner of the messaging target.
  * 
  * @author markus
  */
-public class CheckOwnerInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<CheckOwnerInterceptor> {
+public class ToInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<ToInterceptor> {
 
-	private static Logger log = LoggerFactory.getLogger(CheckOwnerInterceptor.class.getName());
+	private static Logger log = LoggerFactory.getLogger(ToInterceptor.class.getName());
 
 	/*
 	 * Prototype
 	 */
 
 	@Override
-	public CheckOwnerInterceptor instanceFor(PrototypingContext prototypingContext) {
+	public ToInterceptor instanceFor(PrototypingContext prototypingContext) {
 
 		// done
 
@@ -45,17 +45,17 @@ public class CheckOwnerInterceptor extends AbstractInterceptor implements Messag
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
-		XDI3Segment recipientAuthority = message.getRecipientAuthority();
+		XDI3Segment ownerAddress = messagingTarget.getOwnerAddress();
+		XDI3Segment toAddress = message.getToAddress();
 
 		Graph g = MemoryGraphFactory.getInstance().openGraph();
 		CopyUtil.copyContextNode(message.getContextNode(), g, null);
 
-		if (log.isDebugEnabled()) log.debug("ownerAuthority=" + ownerAuthority + ", recipientAuthority=" + recipientAuthority);
+		if (log.isDebugEnabled()) log.debug("ownerAddress=" + ownerAddress + ", recipientAddress=" + toAddress);
 
-		if (recipientAuthority == null) throw new Xdi2MessagingException("No recipient authority found in message.", null, null);
+		if (toAddress == null) throw new Xdi2MessagingException("No TO address found in message.", null, null);
 
-		if (! recipientAuthority.equals(ownerAuthority)) throw new Xdi2MessagingException("Invalid recipient authority: " + recipientAuthority, null, null);
+		if (! toAddress.equals(ownerAddress)) throw new Xdi2MessagingException("Invalid TO address: " + toAddress, null, null);
 
 		return false;
 	}

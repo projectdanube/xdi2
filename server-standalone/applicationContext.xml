@@ -92,8 +92,8 @@
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor" />
 				<ref bean="facebookContributor" />
 				<ref bean="personalContributor" />
 				<ref bean="allfiledContributor" />
@@ -148,8 +148,8 @@
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor">
 					<property name="linkContractsGraph" ref="registrygraph" />
 				</bean>
 			</util:list>
@@ -231,8 +231,8 @@
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor">
 					<property name="linkContractsGraph" ref="graph4" />
 				</bean>
 			</util:list>

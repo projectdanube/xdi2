@@ -19,8 +19,8 @@ public final class XDIMessagingConstants {
 	public static final XDI3Segment XRI_S_MOD = XDI3Segment.create("$mod");
 	public static final XDI3Segment XRI_S_DEL = XDI3Segment.create("$del");
 	public static final XDI3Segment XRI_S_DO = XDI3Segment.create("$do");
-	public static final XDI3Segment XRI_S_FROM_GRAPH = XDI3Segment.create("$add");
-	public static final XDI3Segment XRI_S_TO_GRAPH = XDI3Segment.create("$is()");
+	public static final XDI3Segment XRI_S_FROM_ADDRESS = XDI3Segment.create("$add");
+	public static final XDI3Segment XRI_S_TO_ADDRESS = XDI3Segment.create("$is()");
 
 	public static final XDI3Segment XRI_S_SECRET_TOKEN = XDI3Segment.create("" + Multiplicity.entitySingletonArcXri(XDI3SubSegment.create("$secret")) + Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("$token")));
 	public static final XDI3Segment XRI_S_OAUTH_TOKEN = XDI3Segment.create("" + Multiplicity.entitySingletonArcXri(XDI3SubSegment.create("$oauth")) + Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("$token")));

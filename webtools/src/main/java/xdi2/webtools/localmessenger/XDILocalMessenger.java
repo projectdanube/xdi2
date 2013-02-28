@@ -30,8 +30,8 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor;
-import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
+import xdi2.messaging.target.interceptor.impl.ToInterceptor;
+import xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor;
 import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
@@ -214,7 +214,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 			messagingTarget.setGraph(graphInput);
 
-			CheckOwnerInterceptor checkOwnerInterceptor = new CheckOwnerInterceptor();
+			ToInterceptor checkOwnerInterceptor = new ToInterceptor();
 			messagingTarget.getInterceptors().add(checkOwnerInterceptor);
 
 			if ("on".equals(variablesSupport)) {
@@ -231,7 +231,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			if ("on".equals(linkContractsSupport)) {
 
-				LinkContractsInterceptor linkContractsInterceptor = new LinkContractsInterceptor();
+				LinkContractPolicyInterceptor linkContractsInterceptor = new LinkContractPolicyInterceptor();
 				linkContractsInterceptor.setLinkContractsGraph(graphInput);
 				messagingTarget.getInterceptors().add(linkContractsInterceptor);
 			}

@@ -2,8 +2,7 @@ package xdi2.core.features.linkcontracts.policy;
 
 import java.util.Iterator;
 
-import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.LinkContract;
+import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.multiplicity.XdiEntityMember;
@@ -19,15 +18,9 @@ public final class PolicyRoot extends Policy {
 
 	private static final long serialVersionUID = -9212794041490417047L;
 
-	private LinkContract linkContract;
-
-	protected PolicyRoot(LinkContract linkContract, XdiSubGraph xdiSubGraph) {
+	protected PolicyRoot(XdiSubGraph xdiSubGraph) {
 
 		super(xdiSubGraph);
-
-		if (linkContract == null) throw new NullPointerException();
-
-		this.linkContract = linkContract;
 	}
 
 	/*
@@ -42,38 +35,28 @@ public final class PolicyRoot extends Policy {
 	public static boolean isValid(XdiSubGraph xdiSubGraph) {
 
 		if (xdiSubGraph instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) xdiSubGraph).getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_IF);
+			return ((XdiEntitySingleton) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
 		else if (xdiSubGraph instanceof XdiEntityMember)
-			return ((XdiEntityMember) xdiSubGraph).getParentCollection().getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_IF);
+			return ((XdiEntityMember) xdiSubGraph).getParentCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
 
 		return false;
 	}
 
 	/**
 	 * Factory method that creates an XDI root policy bound to a given XDI subgraph.
-	 * @param linkContract The XDI link contract to which this XDI policy root belongs.
 	 * @param xdiSubGraph The XDI subgraph that is an XDI root policy.
 	 * @return The XDI root policy.
 	 */
-	public static PolicyRoot fromLinkContractAndSubGraph(LinkContract linkContract, XdiSubGraph xdiSubGraph) {
+	public static PolicyRoot fromSubGraph(XdiSubGraph xdiSubGraph) {
 
 		if (! isValid(xdiSubGraph)) return null;
 
-		return new PolicyRoot(linkContract, xdiSubGraph);
+		return new PolicyRoot(xdiSubGraph);
 	}
 
 	/*
 	 * Instance methods
 	 */
-
-	/**
-	 * Returns the XDI link contract to which this XDI root policy belongs.
-	 * @return An XDI link contract.
-	 */
-	public LinkContract getLinkContract() {
-
-		return this.linkContract;
-	}
 
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
