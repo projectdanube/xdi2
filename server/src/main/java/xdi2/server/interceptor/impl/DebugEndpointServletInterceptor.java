@@ -27,7 +27,7 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.plugins.PluginsLoader;
-import xdi2.core.xri3.parser.XDI3ParserRegistry;
+import xdi2.core.xri3.XDI3ParserRegistry;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.server.EndpointServlet;

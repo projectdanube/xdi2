@@ -33,7 +33,7 @@ h1 { font-size: 1.5em; }
 <h1>General Information:</h1>
 <table>
 	<tr><th>Servlet Class:</th><td>$endpointservlet.class.canonicalName</td>
-		<td rowspan="3" valign="top">
+		<td rowspan="4" valign="top">
 			<table>
 				<tr>
 				<th>Interceptors</th>
