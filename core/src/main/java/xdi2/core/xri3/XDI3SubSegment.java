@@ -1,7 +1,5 @@
 package xdi2.core.xri3;
 
-import xdi2.core.xri3.parser.XDI3Parser;
-import xdi2.core.xri3.parser.XDI3ParserRegistry;
 
 
 public class XDI3SubSegment extends XDI3SyntaxComponent {
@@ -13,7 +11,7 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 	private String literal;
 	private XDI3XRef xref;
 
-	public XDI3SubSegment(String string, Character gcs, Character lcs, String literal, XDI3XRef xref) {
+	XDI3SubSegment(String string, Character gcs, Character lcs, String literal, XDI3XRef xref) {
 
 		super(string);
 

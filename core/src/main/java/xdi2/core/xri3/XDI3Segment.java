@@ -2,8 +2,6 @@ package xdi2.core.xri3;
 
 import java.util.List;
 
-import xdi2.core.xri3.parser.XDI3Parser;
-import xdi2.core.xri3.parser.XDI3ParserRegistry;
 
 public class XDI3Segment extends XDI3SyntaxComponent {
 
@@ -11,7 +9,7 @@ public class XDI3Segment extends XDI3SyntaxComponent {
 
 	private List<XDI3SubSegment> subSegments;
 
-	public XDI3Segment(String string, List<XDI3SubSegment> subSegments) {
+	XDI3Segment(String string, List<XDI3SubSegment> subSegments) {
 
 		super(string);
 

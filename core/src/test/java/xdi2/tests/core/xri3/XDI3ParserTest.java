@@ -2,11 +2,11 @@ package xdi2.tests.core.xri3;
 
 import junit.framework.TestCase;
 import xdi2.core.util.XDIUtil;
+import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3XRef;
 import xdi2.core.xri3.XRI3Constants;
-import xdi2.core.xri3.parser.XDI3Parser;
 
 public abstract class XDI3ParserTest extends TestCase {
 

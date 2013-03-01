@@ -8,7 +8,7 @@ public abstract class XDI3SyntaxComponent implements Serializable, Cloneable, Co
 
 	protected String string;
 
-	public XDI3SyntaxComponent(String string) {
+	XDI3SyntaxComponent(String string) {
 
 		this.string = string;
 	}

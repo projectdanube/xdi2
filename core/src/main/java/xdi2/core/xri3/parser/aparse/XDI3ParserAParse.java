@@ -3,18 +3,18 @@ package xdi2.core.xri3.parser.aparse;
 import java.util.ArrayList;
 import java.util.List;
 
+import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
-import xdi2.core.xri3.parser.XDI3Parser;
 
 /**
  * An XRI parser based on the recursive-descent APG parser generator. 
  * Parts of this parser have been automatically generated from an ABNF.  
  * @see http://www.coasttocoastresearch.com/
  */
-public class XDI3ParserAParse implements XDI3Parser {
+public class XDI3ParserAParse extends XDI3Parser {
 
 	@Override
 	public XDI3Statement parseXDI3Statement(String string) {
@@ -62,7 +62,7 @@ public class XDI3ParserAParse implements XDI3Parser {
 
 		// done
 
-		return new XDI3Statement(string, subject, predicate, object);
+		return this.makeXDI3Statement(string, subject, predicate, object);
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class XDI3ParserAParse implements XDI3Parser {
 
 		// done
 
-		return new XDI3Segment(string, subSegments);
+		return this.makeXDI3Segment(string, subSegments);
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class XDI3ParserAParse implements XDI3Parser {
 
 			// read local_subseg or xref or literal from global_subseg
 
-			if (list_global_subseg.size() < 2) return new XDI3SubSegment(rule.spelling, gcs, lcs, literal, xref);
+			if (list_global_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, lcs, literal, xref);
 			rule = list_global_subseg.get(1);	// local_subseg or xref or literal
 		}
 
@@ -143,7 +143,7 @@ public class XDI3ParserAParse implements XDI3Parser {
 
 			// read xref or literal from local_subseg
 
-			if (list_local_subseg.size() < 2) return new XDI3SubSegment(rule.spelling, gcs, lcs, literal, xref);
+			if (list_local_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, lcs, literal, xref);
 			rule = list_local_subseg.get(1);	// xref or literal
 		}
 
@@ -159,7 +159,7 @@ public class XDI3ParserAParse implements XDI3Parser {
 
 		// done
 
-		return new XDI3SubSegment(string, gcs, lcs, literal, xref);
+		return this.makeXDI3SubSegment(string, gcs, lcs, literal, xref);
 	}
 
 	@Override
@@ -264,6 +264,6 @@ public class XDI3ParserAParse implements XDI3Parser {
 
 		// done
 
-		return new XDI3XRef(string, segment, statement, partialSubject, partialPredicate, IRI, literal);
+		return this.makeXDI3XRef(string, segment, statement, partialSubject, partialPredicate, IRI, literal);
 	}
 }

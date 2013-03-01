@@ -2,8 +2,6 @@ package xdi2.core.xri3;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.parser.XDI3Parser;
-import xdi2.core.xri3.parser.XDI3ParserRegistry;
 
 public class XDI3Statement extends XDI3SyntaxComponent {
 
@@ -16,7 +14,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 	private XDI3Segment predicate;
 	private XDI3Segment object;
 
-	public XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, XDI3Segment object) {
+	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, XDI3Segment object) {
 
 		super(string);
 

@@ -1,6 +1,6 @@
 package xdi2.tests.core.xri3;
 
-import xdi2.core.xri3.parser.XDI3Parser;
+import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.parser.apg.XDI3ParserAPG;
 
 public class XDI3ParserAPGTest extends XDI3ParserTest {

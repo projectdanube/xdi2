@@ -14,6 +14,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.DescendingIterator;
+import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorFirstItem;
 import xdi2.core.util.iterators.MappingIterator;
@@ -496,12 +497,13 @@ public abstract class AbstractContextNode implements ContextNode {
 
 				@Override
 				public Iterator<Statement> descend(ContextNode contextNode) {
-
-					List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+					
+/*					List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
 					list.add(new SingleItemIterator<Statement> (contextNode.getStatement()));
 					list.add(contextNode.getAllStatements());
 
-					return new CompositeIterator<Statement> (list.iterator());
+					return new CompositeIterator<Statement> (list.iterator());*/
+					return new EmptyIterator<Statement> ();
 				}
 			};
 		}

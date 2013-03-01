@@ -11,18 +11,18 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
 import xdi2.core.xri3.XRI3Constants;
-import xdi2.core.xri3.parser.XDI3Parser;
 
 /**
  * An XRI parser implemented manually in pure Java.
  * This parse has not been automatically generated from an ABNF. 
  */
-public class XDI3ParserManual implements XDI3Parser {
+public class XDI3ParserManual extends XDI3Parser {
 
 	private static final Logger log = LoggerFactory.getLogger(XDI3ParserManual.class);
 
@@ -42,7 +42,7 @@ public class XDI3ParserManual implements XDI3Parser {
 		XDI3Segment predicate = this.parseXDI3Segment(string.substring(split0 + 1, split0 + split1 + 1));
 		XDI3Segment object = this.parseXDI3Segment(string.substring(split0 + split1 + 2));
 
-		return new XDI3Statement(string, subject, predicate, object);
+		return this.makeXDI3Statement(string, subject, predicate, object);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class XDI3ParserManual implements XDI3Parser {
 			start = pos;
 		}
 
-		return new XDI3Segment(string, subSegments);
+		return this.makeXDI3Segment(string, subSegments);
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class XDI3ParserManual implements XDI3Parser {
 			}
 		}
 
-		return new XDI3SubSegment(string, gcs, lcs, literal, xref);
+		return this.makeXDI3SubSegment(string, gcs, lcs, literal, xref);
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class XDI3ParserManual implements XDI3Parser {
 
 		if (string.charAt(0) != '(') throw new ParserException("Invalid xref: " + string + " (no opening parentheses)");
 		if (string.charAt(string.length() - 1) != ')') throw new ParserException("Invalid xref: " + string + " (no closing parentheses)");
-		if (string.length() == 2) return new XDI3XRef(string, null, null, null, null, null, null);
+		if (string.length() == 2) return this.makeXDI3XRef(string, null, null, null, null, null, null);
 
 		string = string.substring(1, string.length() - 1);
 
@@ -167,7 +167,7 @@ public class XDI3ParserManual implements XDI3Parser {
 			}
 		}
 
-		return new XDI3XRef(string, segment, statement, partialSubject, partialPredicate, IRI, literal);
+		return this.makeXDI3XRef(string, segment, statement, partialSubject, partialPredicate, IRI, literal);
 	}
 
 	private static String stripParens(String string) {

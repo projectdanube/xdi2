@@ -1,4 +1,4 @@
-package xdi2.core.xri3.parser;
+package xdi2.core.xri3;
 
 import xdi2.core.xri3.parser.manual.XDI3ParserManual;
 
