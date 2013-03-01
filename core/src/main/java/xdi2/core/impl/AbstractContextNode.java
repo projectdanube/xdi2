@@ -497,13 +497,12 @@ public abstract class AbstractContextNode implements ContextNode {
 
 				@Override
 				public Iterator<Statement> descend(ContextNode contextNode) {
-					
-/*					List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+
+					List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
 					list.add(new SingleItemIterator<Statement> (contextNode.getStatement()));
 					list.add(contextNode.getAllStatements());
 
-					return new CompositeIterator<Statement> (list.iterator());*/
-					return new EmptyIterator<Statement> ();
+					return new CompositeIterator<Statement> (list.iterator());
 				}
 			};
 		}
