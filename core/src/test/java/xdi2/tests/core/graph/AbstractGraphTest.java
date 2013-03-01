@@ -56,9 +56,16 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		markus = graph0.getRootContextNode().getContextNode(XDI3SubSegment.create("=markus"));
 		assertNotNull(markus);
+		assertFalse(markus.isEmpty());
+		assertTrue(markus.isLeafContextNode());
 		assertTrue(markus.containsRelations());
 		assertTrue(markus.containsLiteral());
 
+		ContextNode drummond = graph0.getRootContextNode().getContextNode(XDI3SubSegment.create("=drummond"));
+		assertNotNull(drummond);
+		assertTrue(drummond.isEmpty());
+		assertTrue(drummond.isLeafContextNode());
+		
 		graph0.close();
 	}
 
