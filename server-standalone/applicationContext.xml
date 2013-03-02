@@ -93,7 +93,7 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractInterceptor" />
 				<ref bean="facebookContributor" />
 				<ref bean="personalContributor" />
 				<ref bean="allfiledContributor" />
@@ -149,7 +149,7 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractInterceptor">
 					<property name="linkContractsGraph" ref="registrygraph" />
 				</bean>
 			</util:list>
@@ -232,7 +232,7 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractInterceptor">
 					<property name="linkContractsGraph" ref="graph4" />
 				</bean>
 			</util:list>

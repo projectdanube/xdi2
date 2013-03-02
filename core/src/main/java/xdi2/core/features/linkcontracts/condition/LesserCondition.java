@@ -1,7 +1,7 @@
 package xdi2.core.features.linkcontracts.condition;
 
+import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
@@ -63,6 +63,21 @@ public class LesserCondition extends Condition {
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		throw new Xdi2RuntimeException("Not implemented.");
+		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
+		ContextNode object = policyEvaluationContext.getContextNode(this.getStatement().getObject());
+
+		if (subject == null || object == null) return Boolean.FALSE;
+
+		if (subject.containsLiteral()) {
+
+			if (! object.containsLiteral()) return Boolean.FALSE;
+
+			String subjectLiteralData = subject.getLiteral().getLiteralData();
+			String objectLiteralData = object.getLiteral().getLiteralData();
+
+			return Boolean.valueOf(Integer.parseInt(subjectLiteralData) > Integer.parseInt(objectLiteralData));
+		}
+
+		return Boolean.FALSE;
 	}
 }

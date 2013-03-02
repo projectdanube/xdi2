@@ -10,7 +10,6 @@ import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 
-
 public abstract class AbstractInterceptor implements Interceptor {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);

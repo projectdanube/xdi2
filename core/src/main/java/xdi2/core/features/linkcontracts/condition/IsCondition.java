@@ -70,18 +70,18 @@ public class IsCondition extends Condition {
 
 		// check if subject XRI and object XRI are the same
 
-		XDI3Segment subjectXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getSubject());
-		XDI3Segment objectXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getObject());
+		XDI3Segment subject = policyEvaluationContext.getContextNodeXri(this.getStatement().getSubject());
+		XDI3Segment object = policyEvaluationContext.getContextNodeXri(this.getStatement().getObject());
 
-		if (subjectXri != null && subjectXri.equals(objectXri)) return Boolean.TRUE;
+		if (subject != null && subject.equals(object)) return Boolean.TRUE;
 
 		// check if the statement exists
 
-		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
-		ContextNode object = policyEvaluationContext.getContextNode(this.getStatement().getObject());
+		ContextNode subjectContextNode = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
+		ContextNode objectContextNode = policyEvaluationContext.getContextNode(this.getStatement().getObject());
 
-		Iterator<ContextNode> equivalenceContextNodes = subject == null ? new EmptyIterator<ContextNode> () : Equivalence.getIdentityContextNodes(subject);
-		if (new IteratorContains<ContextNode> (equivalenceContextNodes, object).contains()) return Boolean.TRUE;
+		Iterator<ContextNode> equivalenceContextNodes = subjectContextNode == null ? new EmptyIterator<ContextNode> () : Equivalence.getIdentityContextNodes(subjectContextNode);
+		if (new IteratorContains<ContextNode> (equivalenceContextNodes, objectContextNode).contains()) return Boolean.TRUE;
 
 		// done
 

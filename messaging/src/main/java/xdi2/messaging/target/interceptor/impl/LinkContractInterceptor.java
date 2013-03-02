@@ -31,9 +31,9 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * 
  * @author animesh
  */
-public class LinkContractPolicyInterceptor extends AbstractInterceptor implements MessageInterceptor, TargetInterceptor, Prototype<LinkContractPolicyInterceptor> {
+public class LinkContractInterceptor extends AbstractInterceptor implements MessageInterceptor, TargetInterceptor, Prototype<LinkContractInterceptor> {
 
-	private static Logger log = LoggerFactory.getLogger(LinkContractPolicyInterceptor.class.getName());
+	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 
 	private Graph linkContractsGraph;
 
@@ -42,11 +42,11 @@ public class LinkContractPolicyInterceptor extends AbstractInterceptor implement
 	 */
 
 	@Override
-	public LinkContractPolicyInterceptor instanceFor(PrototypingContext prototypingContext) {
+	public LinkContractInterceptor instanceFor(PrototypingContext prototypingContext) {
 
 		// create new interceptor
 
-		LinkContractPolicyInterceptor interceptor = new LinkContractPolicyInterceptor();
+		LinkContractInterceptor interceptor = new LinkContractInterceptor();
 
 		// set the link contracts graph
 
@@ -197,7 +197,7 @@ public class LinkContractPolicyInterceptor extends AbstractInterceptor implement
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE = LinkContractPolicyInterceptor.class.getCanonicalName() + "#linkcontractpermessage";
+	private static final String EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE = LinkContractInterceptor.class.getCanonicalName() + "#linkcontractpermessage";
 
 	public static LinkContract getLinkContract(ExecutionContext executionContext) {
 

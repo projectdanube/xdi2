@@ -41,6 +41,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		return
 				EqualsCondition.isValid(statement) ||
+				MatchesCondition.isValid(statement) ||
 				GreaterCondition.isValid(statement) ||
 				LesserCondition.isValid(statement) ||
 				IsCondition.isValid(statement) ||
@@ -55,6 +56,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	public static Condition fromStatement(XDI3Statement statement) {
 
 		if (EqualsCondition.isValid(statement)) return EqualsCondition.fromStatement(statement);
+		if (MatchesCondition.isValid(statement)) return MatchesCondition.fromStatement(statement);
 		if (GreaterCondition.isValid(statement)) return GreaterCondition.fromStatement(statement);
 		if (LesserCondition.isValid(statement)) return LesserCondition.fromStatement(statement);
 		if (IsCondition.isValid(statement)) return IsCondition.fromStatement(statement);

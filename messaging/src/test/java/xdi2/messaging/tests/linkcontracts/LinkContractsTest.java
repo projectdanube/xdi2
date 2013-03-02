@@ -13,7 +13,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor;
+import xdi2.messaging.target.interceptor.impl.LinkContractInterceptor;
 import xdi2.messaging.tests.messagingtarget.AbstractGraphMessagingTargetTest;
 
 public class LinkContractsTest extends TestCase {
@@ -54,7 +54,7 @@ public class LinkContractsTest extends TestCase {
 
 				log.info("Authorized " + i + "." + ii);
 
-				LinkContractPolicyInterceptor linkContractsInterceptor = new LinkContractPolicyInterceptor();
+				LinkContractInterceptor linkContractsInterceptor = new LinkContractInterceptor();
 				linkContractsInterceptor.setLinkContractsGraph(graph);
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
@@ -88,7 +88,7 @@ public class LinkContractsTest extends TestCase {
 
 				log.info("Not Authorized " + i + "." + ii);
 
-				LinkContractPolicyInterceptor linkContractsInterceptor = new LinkContractPolicyInterceptor();
+				LinkContractInterceptor linkContractsInterceptor = new LinkContractInterceptor();
 				linkContractsInterceptor.setLinkContractsGraph(graph);
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();

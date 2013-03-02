@@ -204,7 +204,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		ContextNode contextNode = this.getContextNode().getContextNode(XDIPolicyConstants.XRI_SS_IF);
+		ContextNode contextNode = this.getOperationsContextNode().getContextNode(XDIPolicyConstants.XRI_SS_IF);
 		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDIPolicyConstants.XRI_SS_IF);
 		if (contextNode == null) return null;
 

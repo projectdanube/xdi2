@@ -1,22 +1,10 @@
 package xdi2.messaging.target.interceptor.impl;
 
-import java.util.Iterator;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.ExecutionContext;
@@ -24,18 +12,15 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
-import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
- * This interceptor enforces link contracts while a message is executed.
+ * This interceptor evaluates message policies.
  * 
- * @author animesh
+ * @author markus
  */
-public class MessagePolicyInterceptor extends AbstractInterceptor implements MessageInterceptor, TargetInterceptor, Prototype<MessagePolicyInterceptor> {
+public class MessagePolicyInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<MessagePolicyInterceptor> {
 
-	private static Logger log = LoggerFactory.getLogger(MessagePolicyInterceptor.class.getName());
-
-	private Graph linkContractsGraph;
+	private Graph messagePolicyGraph;
 
 	/*
 	 * Prototype
@@ -48,11 +33,11 @@ public class MessagePolicyInterceptor extends AbstractInterceptor implements Mes
 
 		MessagePolicyInterceptor interceptor = new MessagePolicyInterceptor();
 
-		// set the link contracts graph
+		// set the XDI message policy graph
 
-		if (this.linkContractsGraph == null && prototypingContext.getMessagingTarget() instanceof GraphMessagingTarget) {
+		if (this.messagePolicyGraph == null && prototypingContext.getMessagingTarget() instanceof GraphMessagingTarget) {
 
-			interceptor.setLinkContractsGraph(((GraphMessagingTarget) prototypingContext.getMessagingTarget()).getGraph());
+			interceptor.setMessagePolicyGraph(((GraphMessagingTarget) prototypingContext.getMessagingTarget()).getGraph());
 		}
 
 		// done
@@ -67,29 +52,16 @@ public class MessagePolicyInterceptor extends AbstractInterceptor implements Mes
 	@Override
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// find the XDI link contract referenced by the message
+		// evaluate the XDI policy of this message
 
-		XDI3Segment linkContractXri = message.getLinkContractXri();
-		if (linkContractXri == null) return false;
-
-		ContextNode linkContractContextNode = this.getLinkContractsGraph().findContextNode(linkContractXri, false);
-		if (linkContractContextNode == null) return false;
-
-		LinkContract linkContract = LinkContract.fromContextNode(linkContractContextNode);
-		if (linkContract == null) return false;
-
-		putLinkContract(executionContext, linkContract);
-
-		// evaluate the XDI policy against this message
-
-		PolicyRoot policyRoot = linkContract.getPolicyRoot(false);
+		PolicyRoot policyRoot = message.getPolicyRoot(false);
 		if (policyRoot == null) return false;
 
-		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(this.getLinkContractsGraph(), message);
+		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(this.getMessagePolicyGraph(), message);
 
 		if (! Boolean.TRUE.equals(policyRoot.evaluate(policyEvaluationContext))) {
 
-			throw new Xdi2NotAuthorizedException("Link contract policy violation for message " + message.toString() + " in link contract " + linkContract.toString() + ".", null, executionContext);
+			throw new Xdi2NotAuthorizedException("Message policy violation for message " + message.toString() + ".", null, executionContext);
 		}
 
 		// done
@@ -105,107 +77,13 @@ public class MessagePolicyInterceptor extends AbstractInterceptor implements Mes
 		return false;
 	}
 
-	/*
-	 * TargetInterceptor
-	 */
+	public Graph getMessagePolicyGraph() {
 
-	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Segment contextNodeXri, ExecutionContext executionContext) {
-
-		LinkContract linkContract = getLinkContract(executionContext);
-
-		// check if the link contract covers the context node XRI
-
-		for (Iterator<ContextNode> contextNodes = linkContract.getNodesWithPermission(operation.getOperationXri()); contextNodes.hasNext(); ) {
-
-			ContextNode contextNode = contextNodes.next();
-
-			if (contextNode.isRootContextNode() || XRIUtil.startsWith(contextNodeXri, contextNode.getXri())) {
-
-				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
-				return true;
-			}
-		}
-
-		for (Iterator<ContextNode> contextNodes = linkContract.getNodesWithPermission(XDILinkContractConstants.XRI_S_ALL); contextNodes.hasNext(); ) {
-
-			ContextNode contextNode = contextNodes.next();
-
-			if (contextNode.isRootContextNode() || XRIUtil.startsWith(contextNodeXri, contextNode.getXri())) {
-
-				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
-				return true;
-			}
-		}
-
-		// done
-
-		log.debug("Link contract " + linkContract + " does not allow " + operation.getOperationXri() + " on " + contextNodeXri);
-		return false;
+		return this.messagePolicyGraph;
 	}
 
-	@Override
-	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void setMessagePolicyGraph(Graph messagePolicyGraph) {
 
-		// read the referenced link contract from the execution context
-
-		LinkContract linkContract = getLinkContract(executionContext);
-		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
-
-		XDI3Segment contextNodeXri = targetStatement.getContextNodeXri();
-
-		if (! checkLinkContractAuthorization(operation, contextNodeXri, executionContext)) {
-
-			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target statement: " + targetStatement, null, executionContext);
-		}
-
-		// done
-
-		return targetStatement;
-	}
-
-	@Override
-	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		// read the referenced link contract from the execution context
-
-		LinkContract linkContract = getLinkContract(executionContext);
-		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
-
-		XDI3Segment contextNodeXri = targetAddress;
-
-		if (! checkLinkContractAuthorization(operation, contextNodeXri, executionContext)) {
-
-			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target address: " + targetAddress, null, executionContext);
-		}
-
-		// done
-
-		return targetAddress;
-	}
-
-	public Graph getLinkContractsGraph() {
-
-		return this.linkContractsGraph;
-	}
-
-	public void setLinkContractsGraph(Graph linkContractsGraph) {
-
-		this.linkContractsGraph = linkContractsGraph;
-	}
-
-	/*
-	 * ExecutionContext helper methods
-	 */
-
-	private static final String EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE = MessagePolicyInterceptor.class.getCanonicalName() + "#linkcontractpermessage";
-
-	private static LinkContract getLinkContract(ExecutionContext executionContext) {
-
-		return (LinkContract) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE);
-	}
-
-	private static void putLinkContract(ExecutionContext executionContext, LinkContract linkContract) {
-
-		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE, linkContract);
+		this.messagePolicyGraph = messagePolicyGraph;
 	}
 }

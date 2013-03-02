@@ -20,6 +20,7 @@ public final class XDIPolicyConstants {
 	public static final XDI3SubSegment XRI_SS_NOT = Multiplicity.entitySingletonArcXri(XDI3SubSegment.create("$not"));
 
 	public static final XDI3Segment XRI_S_EQUALS = XDI3Segment.create("$equals");
+	public static final XDI3Segment XRI_S_MATCHES = XDI3Segment.create("$matches");
 	public static final XDI3Segment XRI_S_GREATER = XDI3Segment.create("$greater");
 	public static final XDI3Segment XRI_S_LESSER = XDI3Segment.create("$lesser");
 	public static final XDI3Segment XRI_S_IS = XDI3Segment.create("$is");

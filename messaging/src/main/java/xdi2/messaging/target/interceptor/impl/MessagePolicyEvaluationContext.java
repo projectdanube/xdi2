@@ -31,14 +31,14 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 
 			XDI3Segment reducedXri = XRIUtil.reduceXri(xri, XRI_MSG);
 
-			return XDI3Segment.create("" + this.getMessage().getContextNode().getXri() + (reducedXri == null ? "" : reducedXri));
+			return XRIUtil.expandXri(reducedXri, this.getMessage().getContextNode().getXri());
 		}
 
 		if (XRIUtil.startsWith(xri, XRI_FROM)) {
 
 			XDI3Segment reducedXri = XRIUtil.reduceXri(xri, XRI_FROM);
 
-			return XDI3Segment.create("" + this.getMessage().getSender() + (reducedXri == null ? "" : reducedXri));
+			return XRIUtil.expandXri(reducedXri, this.getMessage().getSender());
 		}
 
 		return super.getContextNodeXri(xri);
