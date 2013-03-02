@@ -5,6 +5,8 @@ import java.util.Date;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
+import xdi2.core.Relation;
+import xdi2.core.Statement.RelationStatement;
 import xdi2.core.features.multiplicity.XdiAttributeSingleton;
 import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.features.roots.InnerRoot;
@@ -89,11 +91,9 @@ public class ErrorMessageResult extends MessageResult {
 		// information specific to certain exceptions
 
 		if (ex instanceof Xdi2MessagingException) {
-System.err.println("XDI2MESS -----------------------");
+
 			ExecutionContext executionContext = ((Xdi2MessagingException) ex).getExecutionContext();
-			System.err.println("EXCONTEXT -----------------------" + executionContext);
 			Operation operation = executionContext == null ? null : executionContext.getExceptionOperation();
-			System.err.println("OPERATION -----------------------" + operation);
 
 			if (operation != null) errorMessageResult.setErrorOperation(operation);
 		}
@@ -150,6 +150,8 @@ System.err.println("XDI2MESS -----------------------");
 		InnerRoot innerRoot = Roots.findLocalRoot(this.getGraph()).findInnerRoot(XRI_S_FALSE, XRI_S_ERROR, true);
 		innerRoot.getContextNode().clear();
 
-		CopyUtil.copyRelation(operation.getRelation(), innerRoot.getContextNode(), null);
+		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getXri())).getRelation();
+
+		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);
 	}
 }

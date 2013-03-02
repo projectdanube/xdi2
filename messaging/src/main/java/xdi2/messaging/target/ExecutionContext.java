@@ -355,6 +355,9 @@ public final class ExecutionContext implements Serializable {
 		buffer.append("\n");
 		for (int i=0; i<depth; i++) buffer.append("  ");
 		buffer.append(parentExecutionPosition.toString());
+		
+		if (parentExecutionPosition == this.currentExecutionPosition) buffer.append(" <-- (CURRENT)");
+		if (parentExecutionPosition == this.exceptionExecutionPosition) buffer.append(" <-- (EXCEPTION)");
 
 		for (ExecutionPosition<?> executionPosition : parentExecutionPosition.childExecutionPositions) {
 
