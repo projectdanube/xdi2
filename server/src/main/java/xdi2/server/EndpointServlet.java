@@ -540,7 +540,7 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 		} catch (Exception ex) {
 
-			log.error("Exception: " + ex.getMessage(), ex);
+			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
 			handleException(request, response, ex);
 			return null;
 		}

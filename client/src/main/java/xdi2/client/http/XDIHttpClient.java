@@ -257,9 +257,9 @@ public class XDIHttpClient implements XDIClient {
 
 			ErrorMessageResult errorMessageResult = ErrorMessageResult.fromGraph(messageResult.getGraph());
 
-			log.debug("Error message result received: " + "(" + errorMessageResult.getErrorCode().toString() + ") " + errorMessageResult.getErrorString());
+			log.debug("Error message result received: " + errorMessageResult.getErrorString());
 
-			throw new Xdi2ClientException("Error message result received: " + "(" + errorMessageResult.getErrorCode().toString() + ") " + errorMessageResult.getErrorString(), null, errorMessageResult);
+			throw new Xdi2ClientException("Error message result received: " + errorMessageResult.getErrorString(), null, errorMessageResult);
 		}
 
 		// done

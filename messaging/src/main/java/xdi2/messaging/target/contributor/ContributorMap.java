@@ -147,6 +147,9 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 					if (log.isDebugEnabled()) log.debug("Address has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
 					return true;
 				}
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popContributor();
@@ -192,6 +195,9 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 					if (log.isDebugEnabled()) log.debug("Statement has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
 					return true;
 				}
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popContributor();

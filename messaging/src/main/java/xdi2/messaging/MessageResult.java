@@ -16,7 +16,7 @@ public class MessageResult implements Serializable, Comparable<MessageResult> {
 
 	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
-	protected Graph graph;
+	private Graph graph;
 
 	protected MessageResult(Graph graph) {
 
