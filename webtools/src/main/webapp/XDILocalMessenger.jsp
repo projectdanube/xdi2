@@ -23,10 +23,11 @@ function updateSamples() {
 }
 </script>
 </head>
-<body style="background-image: url('images/back.png'); background-repeat: repeat-y; margin-left: 60px;" onload="updateSamples();">
-
+<body onload="updateSamples();">
+	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
+	<div id="main">
 	<div class="header">
-	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Local Messenger</span>
+	<span id="appname">XDI Local Messenger</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<select id="categorySelect" onchange="updateSamples();">
 	<% for (int i=0; i<((List<String>) request.getAttribute("sampleCategories")).size(); i++) { %>
@@ -46,16 +47,8 @@ function updateSamples() {
 
 	<form action="XDILocalMessenger" method="post">
 
-<!--  		<table width="100%" cellspacing="0" cellpadding="0" border="0">
-		<tr>
-		<td width="50%" style="padding-right: 10px"> -->
-			<textarea class="input" name="input" style="width: 100%" rows="12" wrap="off"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
-<!-- 		</td>
-		<td width="50%" style="padding-left: 10px"> -->
-			<textarea class="input" name="message" style="width: 100%" rows="12" wrap="off"><%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %></textarea><br>
-<!--		</td>
-		</tr>
-		</table> -->
+		<textarea class="input" name="input" style="width: 100%" rows="12" wrap="off"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
+		<textarea class="input" name="message" style="width: 100%" rows="12" wrap="off"><%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %></textarea><br>
 
 		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
 		<% String writeContexts = (String) request.getAttribute("writeContexts"); if (writeContexts == null) writeContexts = ""; %>
@@ -104,6 +97,7 @@ function updateSamples() {
 	<% if (request.getAttribute("output") != null) { %>
 		<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
 	<% } %>
-	
+
+	</div>	
 </body>
 </html>

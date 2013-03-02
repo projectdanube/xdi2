@@ -31,7 +31,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.RefInterceptor;
-import xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor;
+import xdi2.messaging.target.interceptor.impl.LinkContractInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
 /**
@@ -192,7 +192,7 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 
 			if ("on".equals(linkContractsSupport)) {
 
-				LinkContractPolicyInterceptor linkContractsInterceptor = new LinkContractPolicyInterceptor();
+				LinkContractInterceptor linkContractsInterceptor = new LinkContractInterceptor();
 				linkContractsInterceptor.setLinkContractsGraph(graphInput);
 				messagingTarget.getInterceptors().add(linkContractsInterceptor);
 			}

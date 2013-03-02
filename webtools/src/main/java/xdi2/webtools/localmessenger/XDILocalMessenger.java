@@ -30,9 +30,10 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.ToInterceptor;
-import xdi2.messaging.target.interceptor.impl.LinkContractPolicyInterceptor;
+import xdi2.messaging.target.interceptor.impl.LinkContractInterceptor;
+import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
 import xdi2.messaging.target.interceptor.impl.RefInterceptor;
+import xdi2.messaging.target.interceptor.impl.ToInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
 /**
@@ -214,8 +215,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 			messagingTarget.setGraph(graphInput);
 
-			ToInterceptor checkOwnerInterceptor = new ToInterceptor();
-			messagingTarget.getInterceptors().add(checkOwnerInterceptor);
+			ToInterceptor toInterceptor = new ToInterceptor();
+			messagingTarget.getInterceptors().add(toInterceptor);
+
+			MessagePolicyInterceptor messagePolicyInterceptor = new MessagePolicyInterceptor();
+			messagePolicyInterceptor.setMessagePolicyGraph(graphInput);
+			messagingTarget.getInterceptors().add(messagePolicyInterceptor);
 
 			if ("on".equals(variablesSupport)) {
 
@@ -225,15 +230,15 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			if ("on".equals(dollarRefSupport)) {
 
-				RefInterceptor dollarRefInterceptor = new RefInterceptor();
-				messagingTarget.getInterceptors().add(dollarRefInterceptor);
+				RefInterceptor refInterceptor = new RefInterceptor();
+				messagingTarget.getInterceptors().add(refInterceptor);
 			}
 
 			if ("on".equals(linkContractsSupport)) {
 
-				LinkContractPolicyInterceptor linkContractsInterceptor = new LinkContractPolicyInterceptor();
-				linkContractsInterceptor.setLinkContractsGraph(graphInput);
-				messagingTarget.getInterceptors().add(linkContractsInterceptor);
+				LinkContractInterceptor linkContractInterceptor = new LinkContractInterceptor();
+				linkContractInterceptor.setLinkContractsGraph(graphInput);
+				messagingTarget.getInterceptors().add(linkContractInterceptor);
 			}
 
 			messagingTarget.init();

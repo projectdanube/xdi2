@@ -8,10 +8,11 @@
 <title>XDI (Test) Local Messenger</title>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 </head>
-<body style="background-image: url('images/back.png'); background-repeat: repeat-y; margin-left: 60px;">
-
+<body>
+	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
+	<div id="main">
 	<div class="header">
-	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI (Test) Local Messenger</span>
+	<span id="appname">XDI (Test) Local Messenger</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
@@ -89,6 +90,7 @@
 	<% if (request.getAttribute("output") != null) { %>
 		<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
 	<% } %>
-	
+
+	</div>	
 </body>
 </html>

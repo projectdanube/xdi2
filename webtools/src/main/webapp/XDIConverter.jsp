@@ -7,10 +7,11 @@
 <title>XDI Converter</title>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 </head>
-<body style="background-image: url('images/back.png'); background-repeat: repeat-y; margin-left: 60px;">
-
+<body>
+	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
+	<div id="main">
 	<div class="header">
-	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Converter</span>
+	<span id="appname">XDI Converter</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
 		<a href="XDIConverter?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
@@ -72,6 +73,7 @@
 	<% if (request.getAttribute("output") != null) { %>
 		<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
 	<% } %>
-	
+
+	</div>	
 </body>
 </html>
