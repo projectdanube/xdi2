@@ -38,7 +38,7 @@ public class Ordering {
 
 		XDI3SubSegment indexArcXri = indexArcXri(index);
 		ContextNode indexContextNode = contextNode.getContextNode(indexArcXri);
-		Relation indexRelation = indexContextNode == null ? null : indexContextNode.getRelation(XDIDictionaryConstants.XRI_S_IS);
+		Relation indexRelation = indexContextNode == null ? null : indexContextNode.getRelation(XDIDictionaryConstants.XRI_S_REF);
 		ContextNode orderedContextNode = indexRelation == null ? null : indexRelation.follow();
 
 		return orderedContextNode;

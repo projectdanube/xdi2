@@ -133,7 +133,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		// get all context nodes that are valid XDI messages
 
-		Iterator<XdiEntityMember> messages = this.getCollection().entities();
+		Iterator<XdiEntityMember> messages = this.getCollection().entities(true, true);
 
 		return new MappingEntityMemberMessageIterator(this, messages);
 	}
