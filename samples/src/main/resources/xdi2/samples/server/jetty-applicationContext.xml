@@ -3,11 +3,6 @@
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-	<bean id="filterHolder" class="org.eclipse.jetty.servlet.FilterHolder">
-		<property name="filter" ref="EndpointFilter" />
-		<property name="name" value="EndpointFilter" />
-	</bean>
-
 	<bean id="servletHolder" class="org.eclipse.jetty.servlet.ServletHolder">
 		<property name="servlet" ref="EndpointServlet" />
 		<property name="name" value="EndpointServlet" />
@@ -18,16 +13,9 @@
 		<property name="pathSpec" value="/xdi/*" />
 	</bean>
 
-	<bean id="filterMapping" class="org.eclipse.jetty.servlet.FilterMapping">
-		<property name="filterName" value="EndpointFilter" />
-		<property name="servletName" value="EndpointServlet" />
-	</bean>
-
 	<bean id="servletHandler" class="org.eclipse.jetty.servlet.ServletHandler">
 		<property name="servlets" ref="servletHolder" />
-		<property name="filters" ref="filterHolder" />
 		<property name="servletMappings" ref="servletMapping" />
-		<property name="filterMappings" ref="filterMapping" />
 	</bean>
 
 	<bean id="servletContextHandler" class="org.eclipse.jetty.servlet.ServletContextHandler">

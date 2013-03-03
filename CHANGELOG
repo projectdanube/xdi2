@@ -1,6 +1,13 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2013-03-03:
+------------------------
+
+*** support for message policies
+
+*** support for ordered messages and operations
+
 2013-02-28:
 ------------------------
 

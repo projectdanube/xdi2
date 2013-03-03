@@ -19,25 +19,13 @@ public class EndpointServer extends Server {
 	public static final String FALLBACK_APPLICATIONCONTEXT = "fallback-applicationContext.xml";
 	public static final String FALLBACK_JETTY_APPLICATIONCONTEXT = "fallback-jetty-applicationContext.xml";
 
-	private EndpointFilter endpointFilter;
 	private EndpointServlet endpointServlet;
 
 	public EndpointServer() {
 
-		this.endpointFilter = null;
 		this.endpointServlet = null;
 
 		this.setStopAtShutdown(true);
-	}
-
-	public EndpointFilter getEndpointFilter() {
-
-		return this.endpointFilter;
-	}
-
-	public void setEndpointFilter(EndpointFilter endpointFilter) {
-
-		this.endpointFilter = endpointFilter;
 	}
 
 	public EndpointServlet getEndpointServlet() {
@@ -50,21 +38,16 @@ public class EndpointServer extends Server {
 		this.endpointServlet = endpointServlet;
 	}
 
-	/*	public static EndpointServer newServer(EndpointFilter endpointFilter, EndpointServlet endpointServlet, String contextPath, String servletPath, int port) {
+	/*public static EndpointServer newServer(EndpointServlet endpointServlet, String contextPath, String servletPath, int port) {
 
 		if (! contextPath.endsWith("/")) contextPath += "/";
 		if (! servletPath.endsWith("/")) servletPath += "/";
 
 		EndpointServer endpointServer = new EndpointServer();
-		endpointServer.setEndpointFilter(endpointFilter);
 		endpointServer.setEndpointServlet(endpointServlet);
 
 		Connector connector = new org.eclipse.jetty.server.nio.SelectChannelConnector();
 		connector.setPort(port);
-
-		FilterHolder filterHolder = new FilterHolder();
-		filterHolder.setFilter(endpointFilter);
-		filterHolder.setName("EndpointFilter");
 
 		ServletHolder servletHolder = new ServletHolder();
 		servletHolder.setServlet(endpointServlet);
@@ -74,15 +57,9 @@ public class EndpointServer extends Server {
 		servletMapping.setServletName("EndpointServlet");
 		servletMapping.setPathSpec(servletPath + "*");
 
-		FilterMapping filterMapping = new FilterMapping();
-		filterMapping.setFilterName("EndpointFilter");
-		filterMapping.setServletName("EndpointServlet");
-
 		ServletHandler servletHandler = new ServletHandler();
 		servletHandler.setServlets(new ServletHolder[] { servletHolder });
-		servletHandler.setFilters(new FilterHolder[] { filterHolder });
 		servletHandler.setServletMappings(new ServletMapping[] { servletMapping });
-		servletHandler.setFilterMappings(new FilterMapping[] { filterMapping });
 
 		ServletContextHandler servletContextHandler = new ServletContextHandler();
 		servletContextHandler.setServletHandler(servletHandler);

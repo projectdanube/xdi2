@@ -2,10 +2,14 @@ package xdi2.server;
 
 import java.io.Serializable;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
+import xdi2.server.exceptions.Xdi2ServerException;
+import xdi2.server.factory.MessagingTargetFactory;
+import xdi2.server.registry.EndpointRegistry;
 
 /**
  * This class encapsulates path information about a request to the server.
@@ -19,46 +23,61 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 	private static final long serialVersionUID = 5362137617270494532L;
 
 	private String uri;
-	private String requestUri;
-	private String contextPath;
-	private String servletPath;
 	private String requestPath;
+
 	private String messagingTargetPath;
+	private MessagingTarget messagingTarget;
 
 	private static Logger log = LoggerFactory.getLogger(RequestInfo.class.getName());
 
-	public RequestInfo(String uri, String requestUri, String contextPath, String servletPath, String requestPath, String messagingTargetPath) {
+	public RequestInfo(String uri, String requestPath) {
 
 		this.uri = uri;
-		this.requestUri = requestUri;
-		this.contextPath = contextPath;
-		this.servletPath = servletPath;
 		this.requestPath = requestPath;
-		this.messagingTargetPath = messagingTargetPath;
 	}
 
-	public static RequestInfo parse(HttpServletRequest request) {
+	public void lookup(EndpointRegistry endpointRegistry) throws Xdi2ServerException, Xdi2MessagingException {
 
-		String uri = request.getRequestURL().toString();
+		// check which messaging target this request applies to
 
-		String requestUri = request.getRequestURI();
+		String messagingTargetPath = endpointRegistry.findMessagingTargetPath(this.getRequestPath());
+		MessagingTarget messagingTarget = messagingTargetPath == null ? null : endpointRegistry.getMessagingTarget(messagingTargetPath);
 
-		String contextPath = request.getContextPath(); 
-		if (contextPath.endsWith("/")) contextPath = contextPath.substring(0, contextPath.length() - 1);
+		log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
 
-		String servletPath = request.getServletPath();
-		if (servletPath.endsWith("/")) servletPath = servletPath.substring(0, servletPath.length() - 1);
+		// check which messaging target factory this request applies to
 
-		String requestPath = requestUri.substring(contextPath.length() + servletPath.length());
-		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
+		String messagingTargetFactoryPath = endpointRegistry.findMessagingTargetFactoryPath(this.getRequestPath());
+		MessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : endpointRegistry.getMessagingTargetFactory(messagingTargetFactoryPath);
 
-		log.debug("uri: " + uri);
-		log.debug("requestUri: " + requestUri);
-		log.debug("contextPath: " + contextPath);
-		log.debug("servletPath: " + servletPath);
-		log.debug("requestPath: " + requestPath);
+		log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? null : messagingTargetFactory.getClass().getSimpleName()));
 
-		return new RequestInfo(uri, requestUri, contextPath, servletPath, requestPath, null);
+		if (messagingTargetFactory != null) {
+
+			if (messagingTarget == null) {
+
+				// if we don't have a messaging target, see if the messaging target factory can create one
+
+				messagingTargetFactory.mountMessagingTarget(endpointRegistry, messagingTargetFactoryPath, this.getRequestPath());
+			} else {
+
+				// if we do have a messaging target, see if the messaging target factory wants to modify or remove it
+
+				messagingTargetFactory.updateMessagingTarget(endpointRegistry, messagingTargetFactoryPath, this.getRequestPath(), messagingTarget);
+			}
+
+			// after the messaging target factory did its work, look for the messaging target again
+
+			messagingTargetPath = endpointRegistry.findMessagingTargetPath(this.getRequestPath());
+			messagingTarget = messagingTargetPath == null ? null : endpointRegistry.getMessagingTarget(messagingTargetPath);
+
+			log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
+		}
+
+		// update request info
+
+		this.setMessagingTargetPath(messagingTargetPath);
+		this.setMessagingTarget(messagingTarget);
 	}
 
 	public String getUri() {
@@ -69,36 +88,6 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 	public void setUri(String uri) {
 
 		this.uri = uri;
-	}
-
-	public String getRequestUri() {
-
-		return this.requestUri;
-	}
-
-	public void setRequestUri(String requestUri) {
-
-		this.requestUri = requestUri;
-	}
-
-	public String getContextPath() {
-
-		return this.contextPath;
-	}
-
-	public void setContextPath(String contextPath) {
-
-		this.contextPath = contextPath;
-	}
-
-	public String getServletPath() {
-
-		return this.servletPath;
-	}
-
-	public void setServletPath(String servletPath) {
-
-		this.servletPath = servletPath;
 	}
 
 	public String getRequestPath() {
@@ -120,6 +109,16 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 
 		this.messagingTargetPath = messagingTargetPath;
 	}
+	
+	public MessagingTarget getMessagingTarget() {
+	
+		return this.messagingTarget;
+	}
+
+	public void setMessagingTarget(MessagingTarget messagingTarget) {
+	
+		this.messagingTarget = messagingTarget;
+	}
 
 	@Override
 	public String toString() {
@@ -135,7 +134,7 @@ public class RequestInfo implements Serializable, Comparable<RequestInfo> {
 
 		RequestInfo other = (RequestInfo) object;
 
-		return this.getRequestUri().equals(other.getUri());
+		return this.getUri().equals(other.getUri());
 	}
 
 	@Override

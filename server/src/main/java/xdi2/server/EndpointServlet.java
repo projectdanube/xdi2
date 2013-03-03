@@ -270,10 +270,21 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	protected void processGetRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// get request info and messaging target
+		// get request info and lookup messaging target
 
-		RequestInfo requestInfo = (RequestInfo) request.getAttribute("requestInfo");
-		MessagingTarget messagingTarget = (MessagingTarget) request.getAttribute("messagingTarget");
+		RequestInfo requestInfo = requestInfoFromHttpServletRequest(request);
+		
+		try {
+
+			requestInfo.lookup(this.getEndpointRegistry());
+		} catch (Exception ex) {
+
+			log.error("Unexpected exception: " + ex.getMessage(), ex);
+			handleInternalException(request, response, ex);
+			return;
+		}
+
+		MessagingTarget messagingTarget = requestInfo.getMessagingTarget();
 
 		// execute interceptors
 
@@ -312,10 +323,21 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	protected void processPostRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// get request info and messaging target
+		// get request info and lookup messaging target
 
-		RequestInfo requestInfo = (RequestInfo) request.getAttribute("requestInfo");
-		MessagingTarget messagingTarget = (MessagingTarget) request.getAttribute("messagingTarget");
+		RequestInfo requestInfo = requestInfoFromHttpServletRequest(request);
+		
+		try {
+
+			requestInfo.lookup(this.getEndpointRegistry());
+		} catch (Exception ex) {
+
+			log.error("Unexpected exception: " + ex.getMessage(), ex);
+			handleInternalException(request, response, ex);
+			return;
+		}
+
+		MessagingTarget messagingTarget = requestInfo.getMessagingTarget();
 
 		// execute interceptors
 
@@ -354,11 +376,22 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	protected void processPutRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// get request info and messaging target
+		// get request info and lookup messaging target
 
-		RequestInfo requestInfo = (RequestInfo) request.getAttribute("requestInfo");
-		MessagingTarget messagingTarget = (MessagingTarget) request.getAttribute("messagingTarget");
+		RequestInfo requestInfo = requestInfoFromHttpServletRequest(request);
+		
+		try {
 
+			requestInfo.lookup(this.getEndpointRegistry());
+		} catch (Exception ex) {
+
+			log.error("Unexpected exception: " + ex.getMessage(), ex);
+			handleInternalException(request, response, ex);
+			return;
+		}
+
+		MessagingTarget messagingTarget = requestInfo.getMessagingTarget();
+	
 		// execute interceptors
 
 		if (this.getInterceptors().executeEndpointServletInterceptorsPut(this, request, response, requestInfo, messagingTarget)) {
@@ -396,10 +429,21 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 
 	protected void processDeleteRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// get request info and messaging target
+		// get request info and lookup messaging target
 
-		RequestInfo requestInfo = (RequestInfo) request.getAttribute("requestInfo");
-		MessagingTarget messagingTarget = (MessagingTarget) request.getAttribute("messagingTarget");
+		RequestInfo requestInfo = requestInfoFromHttpServletRequest(request);
+		
+		try {
+
+			requestInfo.lookup(this.getEndpointRegistry());
+		} catch (Exception ex) {
+
+			log.error("Unexpected exception: " + ex.getMessage(), ex);
+			handleInternalException(request, response, ex);
+			return;
+		}
+
+		MessagingTarget messagingTarget = requestInfo.getMessagingTarget();
 
 		// execute interceptors
 
@@ -561,6 +605,34 @@ public final class EndpointServlet extends HttpServlet implements HttpRequestHan
 		return executionContext;
 	}
 
+	/*
+	 * Helper methods
+	 */
+	
+	private static RequestInfo requestInfoFromHttpServletRequest(HttpServletRequest request) {
+
+		String uri = request.getRequestURL().toString();
+
+		String requestUri = request.getRequestURI();
+
+		String contextPath = request.getContextPath(); 
+		if (contextPath.endsWith("/")) contextPath = contextPath.substring(0, contextPath.length() - 1);
+
+		String servletPath = request.getServletPath();
+		if (servletPath.endsWith("/")) servletPath = servletPath.substring(0, servletPath.length() - 1);
+
+		String requestPath = requestUri.substring(contextPath.length() + servletPath.length());
+		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
+
+		log.debug("uri: " + uri);
+		log.debug("requestUri: " + requestUri);
+		log.debug("contextPath: " + contextPath);
+		log.debug("servletPath: " + servletPath);
+		log.debug("requestPath: " + requestPath);
+
+		return new RequestInfo(uri, requestPath);
+	}
+	
 	private static void sendResult(MessageResult messageResult, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		// find a suitable writer based on accept headers
