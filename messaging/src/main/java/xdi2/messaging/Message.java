@@ -1,8 +1,10 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
@@ -11,12 +13,15 @@ import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.features.multiplicity.XdiSubGraph;
+import xdi2.core.features.ordering.Ordering;
 import xdi2.core.features.roots.InnerRoot;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.features.timestamps.Timestamps;
+import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NoDuplicatesIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -380,11 +385,13 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ReadOnlyIterator<Operation> getOperations() {
 
-		// look for valid relations
+		// get all relations that are valid XDI operations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
+		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		iterators.add(Ordering.getOrderedRelations(this.getOperationsContextNode()));
+		iterators.add(this.getOperationsContextNode().getRelations());
 
-		return new MappingRelationOperationIterator(this, relations);
+		return new MappingRelationOperationIterator(this, new NoDuplicatesIterator<Relation> (new CompositeIterator<Relation> (iterators.iterator())));
 	}
 
 	/**
@@ -393,7 +400,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ReadOnlyIterator<Operation> getOperations(XDI3Segment operationXri) {
 
-		// look for valid relations
+		// get all relations that are valid XDI operations
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(operationXri);
 
@@ -406,7 +413,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ReadOnlyIterator<GetOperation> getGetOperations() {
 
-		// look for valid relations
+		// get all relations that are valid XDI $get operations
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_GET);
 
@@ -419,7 +426,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ReadOnlyIterator<AddOperation> getAddOperations() {
 
-		// look for valid relations
+		// get all relations that are valid XDI $add operations
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_ADD);
 
@@ -432,7 +439,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ReadOnlyIterator<ModOperation> getModOperations() {
 
-		// look for valid relations
+		// get all relations that are valid XDI $mod operations
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_MOD);
 
@@ -445,7 +452,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ReadOnlyIterator<DelOperation> getDelOperations() {
 
-		// look for valid relations
+		// get all relations that are valid XDI $del operations
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_DEL);
 
@@ -458,7 +465,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ReadOnlyIterator<DoOperation> getDoOperations() {
 
-		// look for valid relations
+		// get all relations that are valid XDI $do operations
 
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_DO);
 

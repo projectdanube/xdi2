@@ -103,6 +103,87 @@ public final class XRIUtil {
 	}
 
 	/**
+	 * Checks if an XRI ends with a certain other XRI.
+	 */
+	public static boolean endsWith(XDI3Segment xri, XDI3Segment base, boolean variablesInXri, boolean variablesInBase) {
+
+		if (log.isTraceEnabled()) log.trace("endsWith(" + xri + "," + base + "," + variablesInXri + "," + variablesInBase + ")");
+
+		if (xri == null) return false;
+		if (base == null) return true;
+
+		int xriIndex = xri.getNumSubSegments() - 1, baseIndex = base.getNumSubSegments() - 1;
+
+		while (true) {
+
+			if (baseIndex == -1) return true;
+			if (xriIndex == -1) return false;
+
+			XDI3SubSegment xriSubSegment = xri.getSubSegment(xriIndex);
+			XDI3SubSegment baseSubSegment = base.getSubSegment(baseIndex);
+
+			// check variables
+
+			if (variablesInXri && Variables.isVariableSingle(xriSubSegment)) {
+
+				if (Variables.isVariableSingle(xriSubSegment)) {
+
+					xriIndex--;
+					baseIndex--;
+
+					continue; 
+				}
+
+				if (Variables.isVariableMultipleLocal(xriSubSegment)) {
+
+					xriIndex--;
+					baseIndex--;
+
+					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasGCS())) baseIndex--;
+
+					continue;
+				}
+			}
+
+			if (variablesInBase) {
+
+				if (Variables.isVariableSingle(baseSubSegment)) {
+
+					xriIndex--;
+					baseIndex--;
+
+					continue; 
+				}
+
+				if (Variables.isVariableMultipleLocal(baseSubSegment)) {
+
+					xriIndex--;
+					baseIndex--;
+
+					while (xriIndex > -1 && (! xri.getSubSegment(xriIndex).hasGCS())) xriIndex--;
+
+					continue;
+				}
+			}
+
+			// no variables? just match the subsegment
+
+			if (! (xriSubSegment.equals(baseSubSegment))) return false;
+
+			xriIndex--;
+			baseIndex--;
+		}
+	}
+
+	/**
+	 * Checks if an XRI ends with a certain other XRI.
+	 */
+	public static boolean endsWith(XDI3Segment xri, XDI3Segment base) {
+
+		return endsWith(xri, base, false, false);
+	}
+
+	/**
 	 * Extracts an XRI's parent subsegment(s), counting either from the start or the end.
 	 * For =a*b*c*d and 1, this returns =a
 	 * For =a*b*c*d and -1, this returns =a*b*c

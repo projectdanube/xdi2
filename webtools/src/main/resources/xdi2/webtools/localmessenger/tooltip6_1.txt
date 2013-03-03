@@ -1,1 +1,1 @@
-Ordering multiple messages in the message envelope
+Ordering multiple messages in a message envelope

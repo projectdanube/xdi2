@@ -7,6 +7,7 @@ import java.util.List;
 import xdi2.core.ContextNode;
 import xdi2.core.features.multiplicity.Multiplicity.MappingContextNodeAttributeMemberIterator;
 import xdi2.core.features.multiplicity.Multiplicity.MappingContextNodeEntityMemberIterator;
+import xdi2.core.features.ordering.Ordering;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;

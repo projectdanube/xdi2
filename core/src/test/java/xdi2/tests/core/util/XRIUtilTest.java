@@ -59,6 +59,34 @@ public class XRIUtilTest extends TestCase {
 		assertTrue(XRIUtil.startsWith(xri2, XDI3Segment.create("=x"), true, false));
 		assertFalse(XRIUtil.startsWith(xri2, XDI3Segment.create("=a*x*c"), true, false));
 
+		assertTrue(XRIUtil.endsWith(xri1, XDI3Segment.create("*d")));
+		assertTrue(XRIUtil.endsWith(xri1, XDI3Segment.create("*c*d")));
+		assertTrue(XRIUtil.endsWith(xri1, XDI3Segment.create("*b*c*d")));
+		assertTrue(XRIUtil.endsWith(xri1, XDI3Segment.create("=a*b*c*d")));
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("*y")));
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("*b*y*d")));
+
+		assertTrue(XRIUtil.endsWith(xri1, XDI3Segment.create("($)"), false, true));
+		assertTrue(XRIUtil.endsWith(xri1, XDI3Segment.create("($)*d"), false, true));
+		assertTrue(XRIUtil.endsWith(xri1, XDI3Segment.create("*b($)($)"), false, true));
+		assertTrue(XRIUtil.endsWith(xri1, XDI3Segment.create("=a*b*c($)"), false, true));
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("*y"), false, true));
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("*b*y*d"), false, true));
+
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("($)"), false, false));
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("($)*d"), false, false));
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("*b($)($)"), false, false));
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("=a*b*c($)"), false, false));
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("*y"), false, false));
+		assertFalse(XRIUtil.endsWith(xri1, XDI3Segment.create("*b*y*d"), false, false));
+
+		assertTrue(XRIUtil.endsWith(xri2, XDI3Segment.create("*d"), true, false));
+		assertTrue(XRIUtil.endsWith(xri2, XDI3Segment.create("*c*d"), true, false));
+		assertTrue(XRIUtil.endsWith(xri2, XDI3Segment.create("*b*c*d"), true, false));
+		assertTrue(XRIUtil.endsWith(xri2, XDI3Segment.create("=a*b*c*d"), true, false));
+		assertTrue(XRIUtil.endsWith(xri2, XDI3Segment.create("*y*d"), true, false));
+		assertFalse(XRIUtil.endsWith(xri2, XDI3Segment.create("*y*c*d"), true, false));
+
 		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("=a")), XDI3Segment.create("*b*c*d"));
 		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("=a*b")), XDI3Segment.create("*c*d"));
 		assertEquals(XRIUtil.reduceXri(xri1, XDI3Segment.create("=a*b*c")), XDI3Segment.create("*d"));
