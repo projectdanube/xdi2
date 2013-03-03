@@ -12,6 +12,7 @@ A sample deployment of XDI2 is available at http://xdi2.projectdanube.org.
 * [xdi2-messaging](https://github.com/peacekeeper/xdi2/wiki/xdi2-messaging) - Implementation of XDI messaging functionality [.jar]
 * [xdi2-client](https://github.com/peacekeeper/xdi2/wiki/xdi2-client) - An XDI client that can send messages to an XDI endpoint [.jar]
 * [xdi2-server](https://github.com/peacekeeper/xdi2/wiki/xdi2-server) - An XDI server exposing XDI endpoints that can process incoming XDI messages [.jar]
+* [xdi2-server-embedded](https://github.com/peacekeeper/xdi2/wiki/xdi2-server-embedded) - The XDI server embedded in another application [.jar]
 * [xdi2-server-standalone](https://github.com/peacekeeper/xdi2/wiki/xdi2-server-standalone) - The XDI server as a standalone application [.jar]
 * [xdi2-server-war](https://github.com/peacekeeper/xdi2/wiki/xdi2-server-war) - The XDI server as a web application [.war]
 * [xdi2-webtools](https://github.com/peacekeeper/xdi2/wiki/xdi2-webtools) - A collection of web-based XDI tools for testing [.war]
