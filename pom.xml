@@ -13,6 +13,7 @@
 		<module>messaging</module>
 		<module>client</module>
 		<module>server</module>
+		<module>server-embedded</module>
 		<module>server-standalone</module>
 		<module>server-war</module>
 		<module>p2p</module>

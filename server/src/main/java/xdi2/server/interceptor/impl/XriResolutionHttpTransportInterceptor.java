@@ -6,8 +6,6 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.util.Iterator;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.velocity.VelocityContext;
@@ -26,18 +24,20 @@ import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.target.MessagingTarget;
-import xdi2.server.EndpointServlet;
-import xdi2.server.RequestInfo;
-import xdi2.server.interceptor.AbstractEndpointServletInterceptor;
+import xdi2.server.exceptions.Xdi2ServerException;
+import xdi2.server.interceptor.AbstractHttpTransportInterceptor;
+import xdi2.server.transport.HttpRequest;
+import xdi2.server.transport.HttpResponse;
+import xdi2.server.transport.HttpTransport;
 
 /**
  * This interceptor can act as a lightweight XRI resolution server based on a "registry graph".
  * 
  * @author markus
  */
-public class XriResolutionEndpointServletInterceptor extends AbstractEndpointServletInterceptor {
+public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransportInterceptor {
 
-	private static final Logger log = LoggerFactory.getLogger(XriResolutionEndpointServletInterceptor.class);
+	private static final Logger log = LoggerFactory.getLogger(XriResolutionHttpTransportInterceptor.class);
 
 	private String resolvePath;
 	private String targetPath;
@@ -46,7 +46,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 	private VelocityEngine velocityEngine;
 
 	@Override
-	public void init(EndpointServlet endpointServlet) {
+	public void init(HttpTransport httpTransport) {
 
 		this.velocityEngine = new VelocityEngine();
 		this.velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "");
@@ -54,13 +54,13 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 	}
 
 	@Override
-	public boolean processGetRequest(EndpointServlet endpointServlet, HttpServletRequest request, HttpServletResponse response, RequestInfo requestInfo, MessagingTarget messagingTarget) throws ServletException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTarget messagingTarget) throws Xdi2ServerException, IOException {
 
-		if (! requestInfo.getRequestPath().startsWith(this.getResolvePath())) return false;
+		if (! request.getRequestPath().startsWith(this.getResolvePath())) return false;
 
 		// prepare resolution information
 
-		XDI3SubSegment query = parseQuery(requestInfo);
+		XDI3SubSegment query = parseQuery(request);
 		XDI3Segment providerid = getProviderId(this.getRegistryGraph());
 		XDI3Segment[] provideridSynonyms = getProviderIdSynonyms(this.getRegistryGraph(), providerid);
 
@@ -80,14 +80,14 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		if (peerRoot == null) {
 
 			log.warn("Peer root for " + query + " not found in the registry graph. Ignoring.");
-			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
+			this.sendNotFoundXrd(httpTransport, request, query, response);
 			return true;
 		}
 
 		if (peerRoot.isSelfPeerRoot()) {
 
 			log.warn("Peer root for " + query + " is the owner of the registry graph. Ignoring.");
-			this.sendNotFoundXrd(endpointServlet, requestInfo, query, response);
+			this.sendNotFoundXrd(httpTransport, request, query, response);
 			return true;
 		}
 
@@ -97,13 +97,13 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 
 		XDI3Segment canonicalid = referencePeerRoot.getXriOfPeerRoot();
 		XDI3SubSegment localid = query;
-		String uri = constructUri(requestInfo, this.getTargetPath(), canonicalid);
+		String uri = constructUri(request, this.getTargetPath(), canonicalid);
 
 		// prepare velocity
 
 		VelocityContext context = new VelocityContext();
-		context.put("endpointservlet", endpointServlet);
-		context.put("requestinfo", requestInfo);
+		context.put("httptransport", httpTransport);
+		context.put("request", request);
 		context.put("query", query);
 		context.put("providerid", providerid);
 		context.put("localid", localid);
@@ -113,7 +113,7 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		// send response
 
 		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrds-ok.vm"));
-		PrintWriter writer = response.getWriter();
+		PrintWriter writer = new PrintWriter(response.getBodyWriter());
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("application/xrd+xml");
@@ -129,9 +129,9 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 	 * Helper methods
 	 */
 
-	private static XDI3SubSegment parseQuery(RequestInfo requestInfo) {
+	private static XDI3SubSegment parseQuery(HttpRequest request) {
 
-		String query = requestInfo.getRequestPath();
+		String query = request.getRequestPath();
 		if (query.endsWith("/")) query = query.substring(0, query.length() - 1);
 		query = query.substring(query.lastIndexOf('/') + 1);
 
@@ -140,9 +140,9 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		return XDI3SubSegment.create(query);
 	}
 
-	private static String constructUri(RequestInfo requestInfo, String targetPath, XDI3Segment canonicalid) {
+	private static String constructUri(HttpRequest request, String targetPath, XDI3Segment canonicalid) {
 
-		String uri = requestInfo.getUri().substring(0, requestInfo.getUri().length() - requestInfo.getRequestPath().length());
+		String uri = request.getUri().substring(0, request.getUri().length() - request.getRequestPath().length());
 		uri += targetPath + "/" + canonicalid.toString();
 
 		return uri;
@@ -169,19 +169,19 @@ public class XriResolutionEndpointServletInterceptor extends AbstractEndpointSer
 		return selfSynonyms;
 	}
 
-	private void sendNotFoundXrd(EndpointServlet endpointServlet, RequestInfo requestInfo, XDI3SubSegment query, HttpServletResponse response) throws IOException {
+	private void sendNotFoundXrd(HttpTransport httpTransport, HttpRequest request, XDI3SubSegment query, HttpResponse response) throws IOException {
 
 		// prepare velocity
 
 		VelocityContext context = new VelocityContext();
-		context.put("endpointservlet", endpointServlet);
-		context.put("requestinfo", requestInfo);
+		context.put("httptransport", httpTransport);
+		context.put("request", request);
 		context.put("query", query);
 
 		// send response
 
 		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrds-notfound.vm"));
-		PrintWriter writer = response.getWriter();
+		PrintWriter writer = new PrintWriter(response.getBodyWriter());
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("application/xrd+xml");

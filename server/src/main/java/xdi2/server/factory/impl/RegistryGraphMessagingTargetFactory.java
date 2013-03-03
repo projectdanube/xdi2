@@ -11,7 +11,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
-import xdi2.server.registry.EndpointRegistry;
+import xdi2.server.registry.HttpEndpointRegistry;
 
 /**
  * This messaging target factory uses a "registry graph" as a basis to decide what 
@@ -26,7 +26,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	private Graph registryGraph;
 
 	@Override
-	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
+	public void mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -61,11 +61,11 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		log.info("Will create messaging target for " + owner);
 		
-		super.mountMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerPeerRoot, ownerContextNode);
+		super.mountMessagingTarget(httpEndpointRegistry, messagingTargetPath, owner, ownerPeerRoot, ownerContextNode);
 	}
 
 	@Override
-	public void updateMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException, Xdi2MessagingException {
+	public void updateMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -92,7 +92,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 			// unmount the messaging target
 
-			endpointRegistry.unmountMessagingTarget(messagingTarget);
+			httpEndpointRegistry.unmountMessagingTarget(messagingTarget);
 		}
 	}
 

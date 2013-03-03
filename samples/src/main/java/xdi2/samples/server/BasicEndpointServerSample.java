@@ -5,7 +5,7 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.BootstrapInterceptor;
-import xdi2.server.EndpointServer;
+import xdi2.server.EndpointServerEmbedded;
 
 public class BasicEndpointServerSample {
 
@@ -13,7 +13,7 @@ public class BasicEndpointServerSample {
 
 		// create the XDI2 server
 
-		EndpointServer endpointServer = EndpointServer.newServer();
+		EndpointServerEmbedded endpointServer = EndpointServerEmbedded.newServer();
 
 		// set up graph messaging target
 
@@ -32,7 +32,7 @@ public class BasicEndpointServerSample {
 
 		// mount messaging target
 
-		endpointServer.getEndpointServlet().getEndpointRegistry().mountMessagingTarget("/", messagingTarget);
+		endpointServer.getEndpointServlet().getHttpEndpointRegistry().mountMessagingTarget("/", messagingTarget);
 
 		// start the server
 

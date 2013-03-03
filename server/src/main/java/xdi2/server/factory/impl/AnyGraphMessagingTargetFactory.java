@@ -7,7 +7,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
-import xdi2.server.registry.EndpointRegistry;
+import xdi2.server.registry.HttpEndpointRegistry;
 
 /**
  * This messaging target factory create messaging targets for any path.
@@ -19,7 +19,7 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 	private static final Logger log = LoggerFactory.getLogger(AnyGraphMessagingTargetFactory.class);
 
 	@Override
-	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
+	public void mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -34,11 +34,11 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 
 		log.info("Will create messaging target for " + owner);
 
-		super.mountMessagingTarget(endpointRegistry, messagingTargetPath, owner, null, null);
+		super.mountMessagingTarget(httpEndpointRegistry, messagingTargetPath, owner, null, null);
 	}
 
 	@Override
-	public void updateMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException {
+	public void updateMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException {
 
 	}
 }

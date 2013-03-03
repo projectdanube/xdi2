@@ -115,7 +115,7 @@
 
 	<servlet>
 		<servlet-name>EndpointServlet</servlet-name>
-		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+		<servlet-class>xdi2.server.servlet.EndpointServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -127,7 +127,7 @@
 	<!-- LISTENERS -->
 
 	<listener>
-		<listener-class>xdi2.server.plugins.PluginsLoaderListener</listener-class>
+		<listener-class>xdi2.server.spring.PluginsLoaderListener</listener-class>
 	</listener>
 
 	<listener>

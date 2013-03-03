@@ -3,7 +3,7 @@ package xdi2.samples.server;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
-import xdi2.server.EndpointServer;
+import xdi2.server.EndpointServerEmbedded;
 
 public class ConfiguredEndpointServerSample {
 
@@ -16,7 +16,7 @@ public class ConfiguredEndpointServerSample {
 
 		// create the XDI2 server
 
-		EndpointServer endpointServer = EndpointServer.newServer(applicationContextResource, jettyApplicationContextResource);
+		EndpointServerEmbedded endpointServer = EndpointServerEmbedded.newServer(applicationContextResource, jettyApplicationContextResource);
 
 		// start the server
 

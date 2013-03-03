@@ -1,4 +1,4 @@
-package xdi2.server.plugins;
+package xdi2.server.spring;
 
 import java.io.IOException;
 

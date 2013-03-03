@@ -9,7 +9,9 @@ import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
@@ -20,9 +22,9 @@ import xdi2.server.factory.MessagingTargetFactory;
  * 
  * @author markus
  */
-public class EndpointRegistry {
+public class HttpEndpointRegistry implements ApplicationContextAware {
 
-	private static final Logger log = LoggerFactory.getLogger(EndpointRegistry.class);
+	private static final Logger log = LoggerFactory.getLogger(HttpEndpointRegistry.class);
 
 	private List<MessagingTarget> messagingTargets;
 	private Map<String, MessagingTarget> messagingTargetsByPath;
@@ -31,7 +33,7 @@ public class EndpointRegistry {
 
 	private ApplicationContext applicationContext;
 
-	public EndpointRegistry() {
+	public HttpEndpointRegistry() {
 
 		this.messagingTargets = new ArrayList<MessagingTarget> ();
 		this.messagingTargetsByPath = new HashMap<String, MessagingTarget> ();
@@ -41,11 +43,19 @@ public class EndpointRegistry {
 		this.applicationContext = null;
 	}
 
-	public synchronized void init(ApplicationContext applicationContext) throws Xdi2ServerException {
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
+		log.debug("Setting application context.");
+
+		this.applicationContext = applicationContext;
+	}
+
+	public synchronized void init() throws Xdi2ServerException {
 
 		// no application context?
 
-		if (applicationContext == null) {
+		if (this.applicationContext == null) {
 
 			log.info("No application context. No messaging targets loaded.");
 			return;
@@ -55,7 +65,7 @@ public class EndpointRegistry {
 
 		log.info("Mounting messaging targets...");
 
-		Map<String, MessagingTarget> messagingTargets = applicationContext.getBeansOfType(MessagingTarget.class);
+		Map<String, MessagingTarget> messagingTargets = this.applicationContext.getBeansOfType(MessagingTarget.class);
 
 		for (Map.Entry<String, MessagingTarget> entry : messagingTargets.entrySet()) {
 
@@ -71,7 +81,7 @@ public class EndpointRegistry {
 
 		log.info("Mounting messaging target factories...");
 
-		Map<String, MessagingTargetFactory> messagingTargetFactorys = applicationContext.getBeansOfType(MessagingTargetFactory.class);
+		Map<String, MessagingTargetFactory> messagingTargetFactorys = this.applicationContext.getBeansOfType(MessagingTargetFactory.class);
 
 		for (Map.Entry<String, MessagingTargetFactory> entry : messagingTargetFactorys.entrySet()) {
 
@@ -83,10 +93,6 @@ public class EndpointRegistry {
 
 			this.mountMessagingTargetFactory(path, messagingTargetFactory);
 		}
-
-		// remember application context
-
-		this.applicationContext = applicationContext;
 
 		// done
 
@@ -119,15 +125,8 @@ public class EndpointRegistry {
 
 	public synchronized void reload() throws Xdi2ServerException {
 
-		if (this.applicationContext == null) {
-
-			throw new Xdi2ServerException("Not initialized");
-		}
-
-		ApplicationContext applicationContext = this.applicationContext;
-
 		this.shutdown();
-		this.init(applicationContext);
+		this.init();
 	}
 
 	/**
