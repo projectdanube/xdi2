@@ -3,11 +3,13 @@ package xdi2.messaging;
 import java.io.Serializable;
 import java.util.Iterator;
 
+import xdi2.core.ContextNode;
+import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.features.roots.InnerRoot;
-import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI messaging operation, represented as a relation.
@@ -127,15 +129,6 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the operation extension XRI of the XDI operation.
-	 * @return The operation extension XRI of the XDI operation.
-	 */
-	public XDI3Segment getOperationExtensionXri() {
-
-		return XRIUtil.localXri(this.getOperationXri(), -1);
-	}
-
-	/**
 	 * Returns the target address of the operation.
 	 * @return The target address of the operation.
 	 */
@@ -167,6 +160,54 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 			return null;
 		}
+	}
+
+	/**
+	 * Sets a parameter value of this operation.
+	 * @param parameterXri The parameter XRI.
+	 * @param parameterValue The parameter value.
+	 */
+	public void setParameter(XDI3SubSegment parameterXri, Object parameterValue) {
+
+		ContextNode parametersContextNode = this.getMessage().getContextNode().findContextNode(this.getOperationXri(), true);
+
+		ContextNode parameterContextNode = parametersContextNode.getContextNode(parameterXri);
+		if (parameterContextNode == null) parameterContextNode = parametersContextNode.createContextNode(parameterXri);
+
+		Literal parameterLiteral = parameterContextNode.getLiteral();
+
+		if (parameterLiteral == null) 
+			parameterLiteral = parameterContextNode.createLiteral(parameterValue.toString()); 
+		else 
+			parameterLiteral.setLiteralData(parameterValue.toString());
+	}
+
+	/**
+	 * Returns a parameter value of this operation.
+	 * @param parameterXri The parameter XRI.
+	 * @return The parameter value.
+	 */
+	public String getParameter(XDI3SubSegment parameterXri) {
+
+		ContextNode parametersContextNode = this.getMessage().getContextNode().findContextNode(this.getOperationXri(), false);
+		if (parametersContextNode == null) return null;
+
+		ContextNode parameterContextNode = parametersContextNode.getContextNode(parameterXri);
+		if (parameterContextNode == null) return null;
+
+		Literal parameterLiteral = parameterContextNode.getLiteral();
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralData();
+	}
+	/**
+	 * Returns a parameter value of this operation as a boolean.
+	 * @param parameterXri The parameter XRI.
+	 * @return The parameter value.
+	 */
+	public Boolean getParameterAsBoolean(XDI3SubSegment parameterXri) {
+
+		return Boolean.valueOf(this.getParameter(parameterXri));
 	}
 
 	/**

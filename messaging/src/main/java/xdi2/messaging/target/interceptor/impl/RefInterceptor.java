@@ -102,7 +102,10 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 				Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 				feedbackMessage.deleteOperations();
-				feedbackMessage.createOperation(XDI3Segment.create("" + XDIMessagingConstants.XRI_S_GET + (operation.getOperationExtensionXri() == null ? "" : operation.getOperationExtensionXri())), refRepRelation.getContextNode().getXri());
+
+				Operation feedbackOperation = feedbackMessage.createOperation(XDIMessagingConstants.XRI_S_GET, refRepRelation.getContextNode().getXri());
+				if (Boolean.TRUE.equals(operation.getParameterAsBoolean(GetOperation.XRI_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XRI_PARAMETER_DEREF, Boolean.TRUE);
+
 				Deque<Relation> tempRefRepRelations = getRefRepRelations(executionContext);
 				resetReferenceRelations(executionContext);
 				this.feedback(feedbackMessage, operationMessageResult, executionContext);
@@ -126,8 +129,8 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 			XDI3Segment arcXri = refRepRelation.getArcXri();
 			XDI3Segment targetContextNodeXri = refRepRelation.getTargetContextNodeXri();
 
-			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XRI_S_REP.equals(arcXri) || (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && GetOperation.XRI_EXTENSION_DEREF.equals(operation.getOperationExtensionXri()));
-			boolean doIncludeRefRelations = (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! GetOperation.XRI_EXTENSION_DEREF.equals(operation.getOperationExtensionXri()));
+			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XRI_S_REP.equals(arcXri) || (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && Boolean.TRUE.equals(operation.getParameterAsBoolean(GetOperation.XRI_PARAMETER_DEREF)));
+			boolean doIncludeRefRelations = (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! Boolean.TRUE.equals(operation.getParameterAsBoolean(GetOperation.XRI_PARAMETER_DEREF)));
 
 			// replace $ref/$rep relations?
 
