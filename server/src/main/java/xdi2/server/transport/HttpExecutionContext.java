@@ -9,7 +9,7 @@ public class HttpExecutionContext {
 
 	private static final String EXECUTIONCONTEXT_KEY_HTTPTRANSPORT = HttpExecutionContext.class.getCanonicalName() + "#httptransport";
 	private static final String EXECUTIONCONTEXT_KEY_HTTPREQUEST = HttpExecutionContext.class.getCanonicalName() + "#httprequest";
-	private static final String EXECUTIONCONTEXT_KEY_HTTPRESPONSE = HttpExecutionContext.class.getCanonicalName() + "hHttpresponse";
+	private static final String EXECUTIONCONTEXT_KEY_HTTPRESPONSE = HttpExecutionContext.class.getCanonicalName() + "#httpresponse";
 
 	private HttpExecutionContext() { }
 
