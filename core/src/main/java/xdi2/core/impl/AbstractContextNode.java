@@ -14,7 +14,6 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.DescendingIterator;
-import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorFirstItem;
 import xdi2.core.util.iterators.MappingIterator;

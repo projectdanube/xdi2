@@ -38,8 +38,6 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 	@Override
 	public void setLiteralData(String literalData) {
 
-		if (literalData == null) throw new NullPointerException();
-
 		this.keyValueStore.replace(this.key, literalData);
 
 		this.literalData = literalData;

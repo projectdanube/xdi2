@@ -16,6 +16,9 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
+import xdi2.core.features.roots.InnerRoot;
+import xdi2.core.features.roots.Root;
+import xdi2.core.features.roots.Roots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
@@ -25,6 +28,8 @@ import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 public class XDIDisplayWriter extends AbstractXDIWriter {
 
@@ -42,8 +47,9 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	private boolean writeContexts;
 	private boolean writeOrdered;
+	private boolean writeInner;
+	private boolean writePretty;
 	private boolean writeHtml;
-	private boolean prettyPrint;
 
 	public XDIDisplayWriter(Properties parameters) {
 
@@ -57,18 +63,11 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
+		this.writeInner = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_INNER, XDIWriterRegistry.DEFAULT_INNER));
+		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
 
-		try {
-
-			int prettyParam = Integer.parseInt(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
-			this.prettyPrint = prettyParam > 0 ? true : false;
-		} catch (NumberFormatException nfe) {
-
-			this.prettyPrint = false;
-		}
-
-		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeOrdered=" + this.writeOrdered + ", writeHtml=" + this.writeHtml + ", prettyPrint=" + this.prettyPrint);
+		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeOrdered=" + this.writeOrdered + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty + ", writeHtml=" + this.writeHtml);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
@@ -116,22 +115,22 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 				if (statement instanceof ContextNodeStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_CONTEXTNODE + "\">");
-					writeStatement(bufferedWriter, statement, this.prettyPrint, true);
+					writeStatement(bufferedWriter, statement, this.writeInner, this.writePretty, true);
 					bufferedWriter.write("</span>\n");
 				} else if (statement instanceof RelationStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_RELATION + "\">");
-					writeStatement(bufferedWriter, statement, this.prettyPrint, true);
+					writeStatement(bufferedWriter, statement, this.writeInner, this.writePretty, true);
 					bufferedWriter.write("</span>\n");
 				} else if (statement instanceof LiteralStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_LITERAL + "\">");
-					writeStatement(bufferedWriter, statement, this.prettyPrint, true);
+					writeStatement(bufferedWriter, statement, this.writeInner, this.writePretty, true);
 					bufferedWriter.write("</span>\n");
 				}
 			} else {
 
-				writeStatement(bufferedWriter, statement, this.prettyPrint, false);
+				writeStatement(bufferedWriter, statement, this.writeInner, this.writePretty, false);
 			}
 		}
 
@@ -144,15 +143,45 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		bufferedWriter.flush();
 	}
 
-	private static void writeStatement(BufferedWriter bufferedWriter, Statement statement, boolean pretty, boolean html) throws IOException {
+	private static void writeStatement(BufferedWriter bufferedWriter, Statement statement, boolean inner, boolean pretty, boolean html) throws IOException {
+
+		XDI3Statement statementXri = statement.getXri();
+
+		if (inner) {
+
+			Root root = Roots.findLocalRoot(statement.getGraph());
+
+			while (true) {
+
+				Root nextRoot = root.findRoot(statementXri.getSubject(), false);
+				if (nextRoot == root) break;
+				if (! (nextRoot instanceof InnerRoot)) break;
+				root = nextRoot;
+
+				InnerRoot innerRoot = (InnerRoot) root;
+
+				XDI3Segment subject = innerRoot.getSubjectOfInnerRoot();
+				XDI3Segment predicate = innerRoot.getPredicateOfInnerRoot();
+
+				XDI3Segment relativeSubject = root.getRelativePart(statement.getSubject());
+				XDI3Segment relativePredicate = statement.getPredicate();
+				XDI3Segment relativeObject = root.getRelativePart(statement.getObject());
+
+				System.err.println("BEFORE: " + statementXri);
+				statementXri = XDI3Statement.create("" + subject + "/" + predicate + "/(" + relativeSubject + "/" + relativePredicate + "/" + relativeObject + ")");
+				System.err.println("AFTER: " + statementXri);
+
+				root = innerRoot;
+			}
+		}
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(statement.getSubject());
+		builder.append(statementXri.getSubject());
 		builder.append(pretty ? "\t" : "/");
-		builder.append(statement.getPredicate());
+		builder.append(statementXri.getPredicate());
 		builder.append(pretty ? "\t" : "/");
-		builder.append(statement.getObject());
+		builder.append(statementXri.getObject());
 		builder.append(html ? "<br>\n" : "\n");
 
 		String string = builder.toString();

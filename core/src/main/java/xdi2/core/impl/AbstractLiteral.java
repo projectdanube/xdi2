@@ -4,6 +4,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Statement.LiteralStatement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
 import xdi2.core.util.XDIUtil;
 import xdi2.core.xri3.XDI3Segment;
@@ -114,6 +115,8 @@ public abstract class AbstractLiteral implements Literal {
 
 		@Override
 		public XDI3Segment getObject() {
+
+			if (AbstractLiteral.this.getLiteralData() == null) return XDIConstants.XRI_S_CONTEXT;
 
 			return XDIUtil.stringToDataXriSegment(AbstractLiteral.this.getLiteralData(), false);
 		}

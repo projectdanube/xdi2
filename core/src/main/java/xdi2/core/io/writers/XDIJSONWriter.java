@@ -42,8 +42,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
 
 	private boolean writeContexts;
-
-	private int prettyIndent;
+	private boolean writePretty;
 
 	public XDIJSONWriter(Properties parameters) {
 
@@ -56,16 +55,9 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		// check parameters
 
 		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
+		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 
-		try {
-
-			this.prettyIndent = Integer.parseInt(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
-		} catch (NumberFormatException nfe) {
-
-			this.prettyIndent = Integer.parseInt(XDIWriterRegistry.DEFAULT_PRETTY);
-		}
-
-		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", prettyIndent=" + this.prettyIndent);
+		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", writePretty=" + this.writePretty);
 	}
 
 	private void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, State state) throws IOException {
@@ -213,7 +205,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		// write
 
-		if (this.prettyIndent > 0) {
+		if (this.writePretty) {
 
 			try {
 
@@ -221,7 +213,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 				this.write(graph, new BufferedWriter(stringWriter));
 
 				JSONObject json = JSON.parseObject(stringWriter.toString());
-				writer.write(JSON.toJSONString(json, this.prettyIndent > 0));
+				writer.write(JSON.toJSONString(json, this.writePretty));
 			} catch (JSONException ex) {
 
 				throw new IOException("Problem while constructing JSON object: " + ex.getMessage(), ex);

@@ -260,8 +260,6 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	@Override
 	public synchronized Literal createLiteral(String literalData) {
 
-		if (literalData == null) throw new NullPointerException();
-
 		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
 
 		MemoryLiteral literal = new MemoryLiteral(this.getGraph(), this, literalData);
