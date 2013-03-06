@@ -184,7 +184,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		if (literal != null) {
 
 			startItem(bufferedWriter, state);
-			bufferedWriter.write("\"" + xri + "/!\":[" + JSON.toJSONString(literal.getLiteralData()) + "]");
+			bufferedWriter.write("\"" + xri + "/!\":[" + (literal.getLiteralData() == null ? "" : JSON.toJSONString(literal.getLiteralData())) + "]");
 			finishItem(bufferedWriter, state);
 		}
 	}
