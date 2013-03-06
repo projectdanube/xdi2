@@ -1,0 +1,83 @@
+xdi-graph               = xdi-statement *( %x0A xdi-statement ) ;
+xdi-statement           = contextual / relational / literal ;
+
+contextual              = direct / inverse ;
+direct                  = absolute / peer-relative / context-relative / collection-relative ;
+inverse                 = absolute-inverse / peer-inverse / context-inverse / collection-inverse ;
+absolute                = "()/()/" context ;
+peer-relative           = peer "/()/" context ;
+context-relative        = context "/()/" relative-context ;
+collection-relative     = [ peer ] collection-context "/()/" member-context ;
+absolute-inverse        = context "/$is()/()" ;
+peer-inverse            = context "/$is()/" peer ;
+context-inverse         = relative-context "/$is()/" context ;
+collection-inverse      = member-context "/$is()/" [ peer ] collection-context ;
+
+relational              = direct-relation / inverse-relation ;
+direct-relation         = context "/" context "/" context ;
+inverse-relation        = context "/$is" context "/" context ;
+
+literal                 = literal-value / literal-ref ;
+literal-value           = [ peer ] literal-context "/!/" data-xref ;
+literal-ref             = [ peer ] literal-context "/!/()" ;
+
+context                 = peer / peer-relative-context / relative-context ;
+peer                    = 1*xref ;
+peer-relative-context   = peer relative-context ;
+relative-context        = 1*( singleton / ( collection [ member ] ) ) ;
+
+collection-context      = ( singleton collection-context ) / ( collection collection-context ) / ( collection member collection-context ) / collection ;
+
+member-context          = member [ relative-context ] ;
+
+literal-context         = ( singleton literal-context ) / ( collection literal-context ) / ( collection member literal-context ) / attribute-member / attribute-singleton ;
+
+xref                    = "(" ( context / inner-root / xdi-statement / iri-literal / xdi-literal ) ")" ;
+inner-root              = context "/" context ;
+iri-literal             = iri-scheme ":" *iri-char ;
+xdi-literal             = 1*xdi-char ;
+
+subgraph                = collection / member / singleton ;
+
+collection              = "$" xref ;
+
+member                  = entity-member / attribute-member / order-ref ;
+entity-member           = "$(" immutable ")" ;
+attribute-member        = "$!(" immutable ")" ;
+order-ref               = "$*" 1*DIGIT ;
+
+singleton               = attribute-singleton / entity-singleton ;
+
+attribute-singleton     = "$!(" type ")" ;
+
+entity-singleton        = global / local ;
+global                  = type / instance ;
+local                   = immutable / mutable ;
+type                    = specific / generic ;
+instance                = person / organization ;
+specific                = "$" [ xdi-literal ] ;
+generic                 = "+" [ local / xref / xdi-literal ] ;
+person                  = "=" [ local / xref / xdi-literal ] ;
+organization            = "@" [ local / xref / xdi-literal ] ;
+immutable               = "!" [ xref / xdi-literal ] ;
+mutable                 = "*" [ xref / xdi-literal ] ;
+
+data-xref               = "(" data-iri ")" ;
+data-iri                = "data:," 1*iri-char ;
+
+iri-scheme              = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." ) ;  
+iri-char                = xdi-char / nonparen-delim ;                                          # "(" and ")" are excluded
+nonparen-delim          = ":" / "/" / "?" / "#" / "[" / "]" / "@" / "!" / "$" / "&" / "'" ;
+
+xdi-char                = iunreserved / pct-encoded ;
+iunreserved             = ALPHA / DIGIT / "-" / "." / "_" / "~" / ucschar ;
+pct-encoded             = "%" HEXDIG HEXDIG ;
+ucschar                 = %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF
+                        / %x10000-1FFFD / %x20000-2FFFD / %x30000-3FFFD
+                        / %x40000-4FFFD / %x50000-5FFFD / %x60000-6FFFD
+                        / %x70000-7FFFD / %x80000-8FFFD / %x90000-9FFFD
+                        / %xA0000-AFFFD / %xB0000-BFFFD / %xC0000-CFFFD
+                        / %xD0000-DFFFD / %xE1000-EFFFD ;
+ALPHA                   =  %x41-5A / %x61-7A ;   # A-Z / a-z
+DIGIT                   =  %x30-39 ;    # 0-9
+HEXDIG                  =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F" ;
