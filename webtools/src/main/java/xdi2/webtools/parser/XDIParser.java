@@ -196,20 +196,23 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				output4 = html(new String(buffer4.toByteArray(), "UTF-8"));
 			} else if ("apg".equals(parser)) {
 
-				com.coasttocoastresearch.apg.Grammar g = xdi2.core.xri3.parser.apg.XDI3Grammar.getInstance();
-				com.coasttocoastresearch.apg.Parser p = new com.coasttocoastresearch.apg.Parser(g);
+				com.coasttocoastresearch.apg.Grammar g;
 				int r = -1;
 
 				if ("segment".equals(abnf)) {
 
+					g = xdi2.core.xri3.parser.apg.XDI3Grammar.getInstance();
 					for (xdi2.core.xri3.parser.apg.XDI3Grammar.RuleNames rule : xdi2.core.xri3.parser.apg.XDI3Grammar.RuleNames.values()) if (rule.ruleName().equals(rulename)) r = rule.ruleID();
-				}else if ("full".equals(abnf)) {
+				} else if ("full".equals(abnf)) {
 
+					g = xdi2.core.xri3.parser.full.apg.XDI3Grammar.getInstance();
 					for (xdi2.core.xri3.parser.full.apg.XDI3Grammar.RuleNames rule : xdi2.core.xri3.parser.full.apg.XDI3Grammar.RuleNames.values()) if (rule.ruleName().equals(rulename)) r = rule.ruleID();
 				} else {
 
 					throw new IllegalStateException(abnf);
 				}
+
+				com.coasttocoastresearch.apg.Parser p = new com.coasttocoastresearch.apg.Parser(g);
 
 				p.setStartRule(r);
 				p.setInputString(input);
