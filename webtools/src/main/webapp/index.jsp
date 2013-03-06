@@ -24,15 +24,10 @@
 	
 	<p>It is designed to be a general-purpose, lightweight and modular implementation of XDI specifications, in order to support a wide range of use cases.</p>
 
-	<p class="subheader">XRI Applications</p>
-	
-	<p>
-	<a href="XRIParser">XRI Parser</a>
-	</p>
-
 	<p class="subheader">XDI Applications</p>
 	
 	<p>
+	<a href="XDIParser">XDI Parser</a>&nbsp;&nbsp;
 	<a href="XDIValidator">XDI Validator</a>&nbsp;&nbsp;
 	<a href="XDIConverter">XDI Converter</a>&nbsp;&nbsp;
 	<a href="XDIMessenger">XDI Messenger</a>&nbsp;&nbsp;

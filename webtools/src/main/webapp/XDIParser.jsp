@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>XRI Parser</title>
+<title>XDI Parser</title>
 <script type="text/javascript" src="tabber.js"></script>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 </head>
@@ -12,7 +12,7 @@
 	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
 	<div id="main">
 	<div class="header">
-	<span id="appname">XRI Parser</span>
+	<span id="appname">XDI Parser</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	&nbsp;&nbsp;&nbsp;&nbsp;
@@ -25,12 +25,14 @@
 
 	<% } %>
 
-	<form action="XRIParser" method="post">
+	<form action="XDIParser" method="post">
 
-		Parse ABNF:
+		<table><tr>
+		<td width="250">Parse Segment-based ABNF:</td>
+		<td>
 		<select name="rulename" style="width: 200px">
 		
-		<% for (String rule : (String[]) request.getAttribute("rules")) { %>
+		<% for (String rule : (String[]) request.getAttribute("rules-segment")) { %>
 			<option class="input" name="rulename" value="<%= rule %>" <%= rule.equals(request.getAttribute("rulename")) ? "selected" : "" %>><%= rule %></option>
 		<% } %>
 		</select>
@@ -42,6 +44,36 @@
 		<input type="radio" name="parser" value="apg" <%= "apg".equals(request.getAttribute("parser")) ? "checked" : "" %>>APG
 		&nbsp;
 		<input type="submit" value="Go!">
+
+		<input type="hidden" name="abnf" value="segment">
+		</td>
+		</tr></table>
+
+	</form>
+
+	<form action="XDIParser" method="post">
+
+		<table><tr>
+		<td width="250">Parse Full Graph Model ABNF:</td>
+		<td>
+		<select name="rulename" style="width: 200px">
+		
+		<% for (String rule : (String[]) request.getAttribute("rules-full")) { %>
+			<option class="input" name="rulename" value="<%= rule %>" <%= rule.equals(request.getAttribute("rulename")) ? "selected" : "" %>><%= rule %></option>
+		<% } %>
+		</select>
+		&nbsp;
+		<input type="text" class="input" name="input" style="width: 500px" value="<%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %>">
+		&nbsp;
+		<input type="radio" name="parser" value="aparse" <%= "aparse".equals(request.getAttribute("parser")) ? "checked" : "" %>>aParse
+		&nbsp;
+		<input type="radio" name="parser" value="apg" <%= "apg".equals(request.getAttribute("parser")) ? "checked" : "" %>>APG
+		&nbsp;
+		<input type="submit" value="Go!">
+
+		<input type="hidden" name="abnf" value="full">
+		</td>
+		</tr></table>
 
 	</form>
 

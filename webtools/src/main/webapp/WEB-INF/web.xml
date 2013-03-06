@@ -10,17 +10,17 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
-	<!-- XRI AND XDI WEBTOOLS -->
+	<!-- XDI WEBTOOLS -->
 
 	<servlet>
 		<description></description>
-		<display-name>XRIParser</display-name>
-		<servlet-name>XRIParser</servlet-name>
-		<servlet-class>xdi2.webtools.parser.XRIParser</servlet-class>
+		<display-name>XDIParser</display-name>
+		<servlet-name>XDIParser</servlet-name>
+		<servlet-class>xdi2.webtools.parser.XDIParser</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>XRIParser</servlet-name>
-		<url-pattern>/XRIParser</url-pattern>
+		<servlet-name>XDIParser</servlet-name>
+		<url-pattern>/XDIParser</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

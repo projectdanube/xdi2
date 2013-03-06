@@ -102,7 +102,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(statement.getSubject(), XDI3Segment.create(parser, "=markus$!(+email)"));
 		assertEquals(statement.getPredicate(), XDI3Segment.create(parser, "!"));
 		assertEquals(statement.getObject(), XDI3Segment.create(parser, "(data:,markus.sabadello@gmail.com)"));
-		assertEquals(XDIUtil.dataXriSegmentToString(statement.getObject()), "markus.sabadello@gmail.com");
+		assertEquals(XDIUtil.literalSegmentToString(statement.getObject()), "markus.sabadello@gmail.com");
 		assertFalse(statement.isContextNodeStatement());
 		assertTrue(statement.isLiteralStatement());
 		assertFalse(statement.isRelationStatement());
