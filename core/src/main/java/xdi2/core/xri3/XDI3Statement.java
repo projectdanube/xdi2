@@ -1,6 +1,5 @@
 package xdi2.core.xri3;
 
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.util.XDIUtil;
 import xdi2.core.util.XRIUtil;
 
@@ -56,7 +55,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 	public boolean isLiteralStatement() {
 
-		return XRI_S_LITERAL.equals(this.getPredicate()) && ( XDIUtil.isDataXriSegment(this.getObject()) || XRI_S_CONTEXT.equals(this.getObject()) );
+		return XRI_S_LITERAL.equals(this.getPredicate()) && XDIUtil.isLiteralSegment(this.getObject());
 	}
 
 	public boolean isRelationStatement() {
@@ -101,9 +100,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 		if (! this.isLiteralStatement()) return null;
 
-		if (XRI_S_CONTEXT.equals(this.getObject())) return null;
-
-		return XDIUtil.dataXriSegmentToString(this.getObject());
+		return XDIUtil.literalSegmentToString(this.getObject());
 	}
 
 	public XDI3Statement getInnerRootStatement() {

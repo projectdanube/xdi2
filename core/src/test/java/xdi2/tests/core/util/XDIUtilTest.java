@@ -19,8 +19,8 @@ public class XDIUtilTest extends TestCase {
 
 		for (XDI3Segment alternative : alternatives) {
 
-			assertTrue(XDIUtil.isDataXriSegment(alternative));
-			assertEquals("+1 206 555 1212", XDIUtil.dataXriSegmentToString(alternative));
+			assertTrue(XDIUtil.isLiteralSegment(alternative));
+			assertEquals("+1 206 555 1212", XDIUtil.literalSegmentToString(alternative));
 		}
 	}
 
@@ -50,9 +50,9 @@ public class XDIUtilTest extends TestCase {
 
 		for (int i=0; i<dataXriSegments.length; i++) {
 
-			assertTrue(XDIUtil.isDataXriSegment(dataXriSegments[i]));
-			assertEquals(dataXriSegments[i], XDIUtil.stringToDataXriSegment(strings[i], false));
-			assertEquals(strings[i], XDIUtil.dataXriSegmentToString(dataXriSegments[i]));
+			assertTrue(XDIUtil.isLiteralSegment(dataXriSegments[i]));
+			assertEquals(dataXriSegments[i], XDIUtil.stringToLiteralSegment(strings[i], false));
+			assertEquals(strings[i], XDIUtil.literalSegmentToString(dataXriSegments[i]));
 		}
 	}
 }

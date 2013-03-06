@@ -9,6 +9,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -27,11 +28,11 @@ public class XDIUtil {
 
 	private XDIUtil() { }
 
-	public static boolean isDataXriSegment(XDI3Segment xriSegment) {
+	public static boolean isLiteralSegment(XDI3Segment xriSegment) {
 
 		try {
 
-			dataXriSegmentToString(xriSegment);
+			literalSegmentToString(xriSegment);
 		} catch (Exception ex) {
 
 			return false;
@@ -40,9 +41,11 @@ public class XDIUtil {
 		return true;
 	}
 
-	public static String dataXriSegmentToString(XDI3Segment xriSegment) {
+	public static String literalSegmentToString(XDI3Segment xriSegment) {
 
-		if (log.isTraceEnabled()) log.trace("Converting from data URI: " + xriSegment.toString());
+		if (log.isTraceEnabled()) log.trace("Converting from literal segment: " + xriSegment.toString());
+
+		if (XDIConstants.XRI_S_CONTEXT.equals(xriSegment)) return null;
 
 		XDI3SubSegment subSegment = xriSegment.getFirstSubSegment();
 		if (subSegment == null) throw new Xdi2RuntimeException("Invalid data URI (no subsegment): " + subSegment);
@@ -73,13 +76,15 @@ public class XDIUtil {
 			}
 		} catch (Exception ex) {
 
-			throw new Xdi2RuntimeException(ex);
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
 		}
 	}
 
-	public static XDI3Segment stringToDataXriSegment(String string, boolean base64) {
+	public static XDI3Segment stringToLiteralSegment(String string, boolean base64) {
 
-		if (log.isTraceEnabled()) log.trace("Converting to data URI: " + string);
+		if (log.isTraceEnabled()) log.trace("Converting to literal segment: " + string);
+
+		if (string == null) return XDIConstants.XRI_S_CONTEXT;
 
 		String dataUri;
 
@@ -100,9 +105,9 @@ public class XDIUtil {
 		return XDI3Segment.create("(" + dataUri + ")");
 	}
 
-	public static XDI3Segment stringToDataXriSegment(String string) {
+	public static XDI3Segment stringToLiteralSegment(String string) {
 
-		return stringToDataXriSegment(string, false);
+		return stringToLiteralSegment(string, false);
 	}
 
 	private static String makeDataUri(String string) throws URISyntaxException {

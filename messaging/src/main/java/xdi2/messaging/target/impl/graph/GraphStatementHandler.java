@@ -152,7 +152,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		String literalStatementData = XDIUtil.dataXriSegmentToString(literalStatement.getObject());
+		String literalStatementData = XDIUtil.literalSegmentToString(literalStatement.getObject());
 
 		if (literalStatementData.isEmpty() || literalStatementData.equals(literal.getLiteralData())) {
 
@@ -169,7 +169,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, executionContext);
 
-		literal.setLiteralData(XDIUtil.dataXriSegmentToString(literalStatement.getObject()));
+		literal.setLiteralData(XDIUtil.literalSegmentToString(literalStatement.getObject()));
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, executionContext);
 
-		String literalStatementData = XDIUtil.dataXriSegmentToString(literalStatement.getObject());
+		String literalStatementData = XDIUtil.literalSegmentToString(literalStatement.getObject());
 
 		if (literalStatementData.isEmpty() || literalStatementData.equals(literal.getLiteralData())) {
 

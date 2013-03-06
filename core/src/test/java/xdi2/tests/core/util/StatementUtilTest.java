@@ -84,7 +84,7 @@ public class StatementUtilTest extends TestCase {
 		assertTrue(relationStatement.getObject().equals(XDI3Segment.create("=animesh")));
 
 		XDI3Statement literalStatement = XDI3Statement.create("=markus+name/!/(data:,Markus%20Sabadello)");
-		XDI3Statement literalStatement2 = StatementUtil.fromComponents(XDI3Segment.create("=markus+name"), XDIConstants.XRI_S_LITERAL, XDIUtil.stringToDataXriSegment("Markus Sabadello"));
+		XDI3Statement literalStatement2 = StatementUtil.fromComponents(XDI3Segment.create("=markus+name"), XDIConstants.XRI_S_LITERAL, XDIUtil.stringToLiteralSegment("Markus Sabadello"));
 		XDI3Statement literalStatement3 = StatementUtil.fromLiteralComponents(XDI3Segment.create("=markus+name"), "Markus Sabadello");
 
 		assertTrue(literalStatement.getSubject().equals(XDI3Segment.create("=markus+name")));

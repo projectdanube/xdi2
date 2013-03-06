@@ -63,7 +63,7 @@ public final class StatementUtil {
 	 */
 	public static XDI3Statement fromLiteralComponents(final XDI3Segment contextNodeXri, final String literalData) {
 
-		return fromComponents(contextNodeXri, XDIConstants.XRI_S_LITERAL, XDIUtil.stringToDataXriSegment(literalData));
+		return fromComponents(contextNodeXri, XDIConstants.XRI_S_LITERAL, XDIUtil.stringToLiteralSegment(literalData));
 	}
 
 	/**
