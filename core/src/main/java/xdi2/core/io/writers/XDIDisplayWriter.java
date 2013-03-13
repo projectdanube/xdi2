@@ -45,7 +45,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	private static final String HTML_COLOR_RELATION = "#ff8888";
 	private static final String HTML_COLOR_LITERAL = "#8888ff";
 
-	private boolean writeContexts;
+	private boolean writeImplied;
 	private boolean writeOrdered;
 	private boolean writeInner;
 	private boolean writePretty;
@@ -61,13 +61,13 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		// check parameters
 
-		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
+		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
 		this.writeInner = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_INNER, XDIWriterRegistry.DEFAULT_INNER));
 		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
 
-		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeOrdered=" + this.writeOrdered + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty + ", writeHtml=" + this.writeHtml);
+		if (log.isDebugEnabled()) log.debug("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty + ", writeHtml=" + this.writeHtml);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
@@ -106,7 +106,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		// ignore implied statements
 
-		if (! this.writeContexts) statements = new SelectingNotImpliedStatementIterator<Statement> (statements);
+		if (! this.writeImplied) statements = new SelectingNotImpliedStatementIterator<Statement> (statements);
 
 		// write the statements
 		

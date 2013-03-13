@@ -21,7 +21,7 @@ public class XDIHTMLWriter extends XDIDisplayWriter {
 	@Override
 	protected void init() {
 		
-		this.parameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
+		this.parameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "1");
 		this.parameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
 		this.parameters.setProperty(XDIWriterRegistry.PARAMETER_HTML, "1");
 		

@@ -117,7 +117,7 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 		if (sample == null) sample = "1";
 
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
-		request.setAttribute("writeContexts", null);
+		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);
 		request.setAttribute("variablesSupport", "on");
@@ -133,7 +133,7 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String resultFormat = request.getParameter("resultFormat");
-		String writeContexts = request.getParameter("writeContexts");
+		String writeImplied = request.getParameter("writeImplied");
 		String writeOrdered = request.getParameter("writeOrdered");
 		String writePretty = request.getParameter("writePretty");
 		String variablesSupport = request.getParameter("variablesSupport");
@@ -147,7 +147,7 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 
 		Properties xdiResultWriterParameters = new Properties();
 
-		if ("on".equals(writeContexts)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
+		if ("on".equals(writeImplied)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "1");
 		if ("on".equals(writeOrdered)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
 		if ("on".equals(writePretty)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "1");
 		
@@ -251,7 +251,7 @@ public class XDITestLocalMessenger extends javax.servlet.http.HttpServlet implem
 
 		request.setAttribute("sampleMessages", sampleMessages);
 		request.setAttribute("resultFormat", resultFormat);
-		request.setAttribute("writeContexts", writeContexts);
+		request.setAttribute("writeImplied", writeImplied);
 		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("variablesSupport", variablesSupport);

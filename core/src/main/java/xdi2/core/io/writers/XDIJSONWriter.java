@@ -49,7 +49,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 	public static final String FILE_EXTENSION = "json";
 	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
 
-	private boolean writeContexts;
+	private boolean writeImplied;
 	private boolean writeInner;
 	private boolean writePretty;
 
@@ -63,11 +63,11 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		// check parameters
 
-		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
+		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
 		this.writeInner = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_INNER, XDIWriterRegistry.DEFAULT_INNER));
 		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 
-		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty);
+		if (log.isDebugEnabled()) log.debug("Parameters: writeImplied=" + this.writeImplied + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty);
 	}
 
 	private void writeContextNode(Root root, ContextNode baseContextNode, BufferedWriter bufferedWriter, State state) throws IOException {
@@ -78,7 +78,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		// ignore implied context nodes
 
-		if (! this.writeContexts) contextNodeStatements = new SelectingNotImpliedStatementIterator<ContextNodeStatement> (contextNodeStatements);
+		if (! this.writeImplied) contextNodeStatements = new SelectingNotImpliedStatementIterator<ContextNodeStatement> (contextNodeStatements);
 
 		// write them
 

@@ -100,7 +100,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 
 			Properties xdiWriterParameters = new Properties();
 
-			if ("on".equals(writecontexts)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
+			if ("on".equals(writecontexts)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "1");
 			if ("on".equals(writeordered)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
 			if ("on".equals(writepretty)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "1");
 

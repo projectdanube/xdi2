@@ -24,12 +24,12 @@ public final class XDIWriterRegistry {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIWriterRegistry.class);
 
-	public static final String PARAMETER_CONTEXTS = "contexts";
+	public static final String PARAMETER_IMPLIED = "implied";
 	public static final String PARAMETER_ORDERED = "ordered";
 	public static final String PARAMETER_INNER = "inner";
 	public static final String PARAMETER_PRETTY = "pretty";
 	public static final String PARAMETER_HTML = "html";
-	public static final String DEFAULT_CONTEXTS = "0";
+	public static final String DEFAULT_IMPLIED = "0";
 	public static final String DEFAULT_ORDERED = "0";
 	public static final String DEFAULT_INNER = "0";
 	public static final String DEFAULT_PRETTY = "0";
