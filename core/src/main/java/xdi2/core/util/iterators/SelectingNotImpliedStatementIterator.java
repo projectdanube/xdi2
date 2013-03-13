@@ -2,6 +2,9 @@ package xdi2.core.util.iterators;
 
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Statement;
 
 /**
@@ -9,9 +12,11 @@ import xdi2.core.Statement;
  * 
  * @author markus
  */
-public class SelectingNotImpliedStatementIterator extends SelectingIterator<Statement> {
+public class SelectingNotImpliedStatementIterator<T extends Statement> extends SelectingIterator<T> {
 
-	public SelectingNotImpliedStatementIterator(Iterator<Statement> statements) {
+	private static final Logger log = LoggerFactory.getLogger(SelectingNotImpliedStatementIterator.class);
+
+	public SelectingNotImpliedStatementIterator(Iterator<? extends T> statements) {
 
 		super(statements);
 	}
@@ -19,6 +24,13 @@ public class SelectingNotImpliedStatementIterator extends SelectingIterator<Stat
 	@Override
 	public boolean select(Statement statement) {
 
-		return ! statement.isImplied();
+		if (statement.isImplied()) {
+
+			if (log.isTraceEnabled()) log.trace("Skipping implied statement: " + statement);
+
+			return false;
+		}
+
+		return true;
 	}
 }

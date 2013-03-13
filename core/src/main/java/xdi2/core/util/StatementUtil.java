@@ -110,11 +110,21 @@ public final class StatementUtil {
 
 		XDI3Segment subject = XRIUtil.reduceXri(statement.getSubject(), base, variablesInXri, variablesInBase);
 		XDI3Segment predicate = statement.getPredicate();
-		XDI3Segment object = (statement.isRelationStatement() && ! statement.hasInnerRootStatement()) ? XRIUtil.reduceXri(statement.getObject(), base) : statement.getObject();
+		XDI3Segment object;
 
 		if (subject == null && statement.getSubject().equals(base)) subject = XDIConstants.XRI_S_ROOT;
-
 		if (subject == null) return null;
+
+		if (statement.isRelationStatement()) {
+
+			object = XRIUtil.reduceXri(statement.getObject(), base, variablesInXri, variablesInBase);
+
+			if (object == null && statement.getObject().equals(base)) object = XDIConstants.XRI_S_ROOT;
+			if (object == null) return null;
+		} else {
+
+			object = statement.getObject();
+		}
 
 		return fromComponents(subject, predicate, object);
 	}

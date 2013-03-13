@@ -23,10 +23,6 @@ public abstract class AbstractRoot implements Root {
 		this.contextNode = contextNode;
 	}
 
-	/**
-	 * Returns the underlying context node to which this XDI root is bound.
-	 * @return A context node that represents the XDI root.
-	 */
 	@Override
 	public ContextNode getContextNode() {
 
@@ -34,25 +30,15 @@ public abstract class AbstractRoot implements Root {
 	}
 
 	/*
-	 * Methods for XDI roots
+	 * Finding roots related to this root
 	 */
 
-	/**
-	 * Finds and returns the XDI local root for this XDI root.
-	 * @return The XDI local root.
-	 */
 	@Override
 	public LocalRoot findLocalRoot() {
 
 		return new LocalRoot(this.getContextNode().getGraph().getRootContextNode());
 	}
 
-	/**
-	 * Finds and returns an XDI peer root under this XDI root.
-	 * @param xri The XRI whose XDI peer root to find.
-	 * @param create Whether the XDI peer root should be created, if it does not exist.
-	 * @return The XDI peer root.
-	 */
 	@Override
 	public PeerRoot findPeerRoot(XDI3Segment xri, boolean create) {
 
@@ -65,13 +51,6 @@ public abstract class AbstractRoot implements Root {
 		return new PeerRoot(peerRootContextNode);
 	}
 
-	/**
-	 * Finds and returns an XDI inner root under this XDI root.
-	 * @param subject The subject XRI whose XDI inner root to find.
-	 * @param predicate The predicate XRI whose XDI inner root to find.
-	 * @param create Whether the XDI inner root should be created, if it does not exist.
-	 * @return The XDI inner root.
-	 */
 	@Override
 	public InnerRoot findInnerRoot(XDI3Segment subject, XDI3Segment predicate, boolean create) {
 
@@ -91,12 +70,6 @@ public abstract class AbstractRoot implements Root {
 		return new InnerRoot(innerRootContextNode);
 	}
 
-	/**
-	 * Finds and returns an XDI root under this XDI root.
-	 * @param xri The XRI contained in the XDI root.
-	 * @param create Whether the XDI root should be created, if it does not exist.
-	 * @return The XDI root.
-	 */
 	@Override
 	public Root findRoot(XDI3Segment xri, boolean create) {
 
@@ -115,12 +88,6 @@ public abstract class AbstractRoot implements Root {
 		return root;
 	}
 
-	/**
-	 * Finds and returns an XDI root under this XDI root.
-	 * @param arcXri The arc XRI whose XDI root to find.
-	 * @param create Whether the XDI root should be created, if it does not exist.
-	 * @return The XDI root.
-	 */
 	@Override
 	public Root findRoot(XDI3SubSegment arcXri, boolean create) {
 
@@ -153,15 +120,9 @@ public abstract class AbstractRoot implements Root {
 	}
 
 	/*
-	 * Methods for relative statements.
+	 * Statements relative to this root.
 	 */
 
-	/**
-	 * Given an XRI, returns the part of it that is relative to this XDI root.
-	 * This returns null if the XRI is not contained in the XDI root.
-	 * @param xri The XRI.
-	 * @return The relative part of the XRI.
-	 */
 	@Override
 	public XDI3Segment getRelativePart(XDI3Segment xri) {
 
@@ -170,9 +131,6 @@ public abstract class AbstractRoot implements Root {
 		return XRIUtil.reduceXri(xri, this.getContextNode().getXri());
 	}
 
-	/**
-	 * A simple way to create a relative statement in this XDI root.
-	 */
 	@Override
 	public Statement createRelativeStatement(XDI3Statement statementXri) {
 
@@ -181,9 +139,6 @@ public abstract class AbstractRoot implements Root {
 		return this.getContextNode().getGraph().createStatement(statementXri);
 	}
 
-	/**
-	 * A simple way to find a relative statement in this XDI root.
-	 */
 	@Override
 	public Statement findRelativeStatement(XDI3Statement statementXri) {
 
@@ -192,9 +147,6 @@ public abstract class AbstractRoot implements Root {
 		return this.getContextNode().getGraph().findStatement(statementXri);
 	}
 
-	/**
-	 * A simple way to check if a relative statement exists in this XDI root.
-	 */
 	@Override
 	public boolean containsRelativeStatement(XDI3Statement statementXri) {
 
@@ -203,11 +155,6 @@ public abstract class AbstractRoot implements Root {
 		return this.getContextNode().getGraph().containsStatement(statementXri);
 	}
 
-	/**
-	 * Returns the relative statements under this XDI root.
-	 * @param ignoreImplied Whether to ignore implied statements.
-	 * @return The relative statements.
-	 */
 	@Override
 	public Iterator<XDI3Statement> getRelativeStatements(final boolean ignoreImplied) {
 

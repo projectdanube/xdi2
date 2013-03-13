@@ -115,7 +115,7 @@ public final class XdiCollection extends XdiSubGraph {
 			contextNodes = this.getContextNode().getContextNodes();
 		} else if (ordered && unordered) {
 
-			List<Iterator<ContextNode>> iterators = new ArrayList<Iterator<ContextNode>> ();
+			List<Iterator<? extends ContextNode>> iterators = new ArrayList<Iterator<? extends ContextNode>> ();
 			iterators.add(Ordering.getOrderedContextNodes(this.getContextNode()));
 			iterators.add(this.getContextNode().getContextNodes());
 
@@ -148,7 +148,7 @@ public final class XdiCollection extends XdiSubGraph {
 			contextNodes = this.getContextNode().getContextNodes();
 		} else if (ordered && unordered) {
 
-			List<Iterator<ContextNode>> iterators = new ArrayList<Iterator<ContextNode>> ();
+			List<Iterator<? extends ContextNode>> iterators = new ArrayList<Iterator<? extends ContextNode>> ();
 			iterators.add(Ordering.getOrderedContextNodes(this.getContextNode()));
 			iterators.add(this.getContextNode().getContextNodes());
 

@@ -9,9 +9,9 @@ import java.util.Iterator;
  */
 public abstract class SelectingIterator<T> extends LookaheadIterator<T> {
 
-	protected Iterator<T> iterator;
+	protected Iterator<? extends T> iterator;
 
-	public SelectingIterator(Iterator<T> iterator) {
+	public SelectingIterator(Iterator<? extends T> iterator) {
 
 		this.iterator = iterator;
 

@@ -8,25 +8,21 @@ import java.util.Iterator;
  * 
  * @author markus
  */
-public class CompositeIterator<T> extends DescendingIterator<Iterator<T>, T> {
+public class CompositeIterator<T> extends DescendingIterator<Iterator<? extends T>, T> {
 
-	protected Iterator<Iterator<T>> iterators;
-	protected Iterator<T> currentIterator;
-	protected boolean allowRemove;
-
-	public CompositeIterator(Iterator<Iterator<T>> iterators) {
+	public CompositeIterator(Iterator<Iterator<? extends T>> iterators) {
 
 		super(iterators);
 	}
 
-	public CompositeIterator(Iterator<T>... iterators) {
+	public CompositeIterator(Iterator<? extends T>... iterators) {
 
 		this(Arrays.asList(iterators).iterator());
 	}
 
 	@Override
-	public Iterator<T> descend(Iterator<T> item) {
+	public Iterator<T> descend(Iterator<? extends T> item) {
 
-		return item;
+		return new CastingIterator<T, T> (item);
 	}
 }

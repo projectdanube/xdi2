@@ -166,7 +166,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			}
 		};
 
-		List<Iterator<ContextNode>> list = new ArrayList<Iterator<ContextNode>> ();
+		List<Iterator<? extends ContextNode>> list = new ArrayList<Iterator<? extends ContextNode>> ();
 		list.add(this.getContextNodes());
 		list.add(descendingIterator);
 
@@ -325,7 +325,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			}
 		};
 
-		List<Iterator<Relation>> list = new ArrayList<Iterator<Relation>> ();
+		List<Iterator<? extends Relation>> list = new ArrayList<Iterator<? extends Relation>> ();
 		list.add(this.getRelations());
 		list.add(descendingIterator);
 
@@ -424,7 +424,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		Literal literal = this.getLiteral();
 
-		List<Iterator<Literal>> list = new ArrayList<Iterator<Literal>> ();
+		List<Iterator<? extends Literal>> list = new ArrayList<Iterator<? extends Literal>> ();
 		if (literal != null) list.add(new SingleItemIterator<Literal> (literal));
 		list.add(descendingIterator);
 
@@ -497,7 +497,7 @@ public abstract class AbstractContextNode implements ContextNode {
 				@Override
 				public Iterator<Statement> descend(ContextNode contextNode) {
 
-					List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+					List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
 					list.add(new SingleItemIterator<Statement> (contextNode.getStatement()));
 					list.add(contextNode.getAllStatements());
 
@@ -523,7 +523,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			literalStatement = new SingleItemIterator<Statement> (this.getLiteral().getStatement());
 		}
 
-		List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+		List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
 		if (contextNodesStatements != null) list.add(contextNodesStatements);
 		if (relationsStatements != null) list.add(relationsStatements);
 		if (literalStatement != null) list.add(literalStatement);

@@ -39,7 +39,7 @@ public class Equivalence {
 
 		Iterator<Relation> identityRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS);
 
-		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(identityRelations);
 
 		return new CompositeIterator<Relation> (iterators.iterator());
@@ -81,7 +81,7 @@ public class Equivalence {
 
 		Iterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REF);
 
-		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(referenceRelations);
 
 		return new CompositeIterator<Relation> (iterators.iterator());
@@ -120,7 +120,7 @@ public class Equivalence {
 
 		Iterator<Relation> replacementRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REP);
 
-		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(replacementRelations);
 
 		return new CompositeIterator<Relation> (iterators.iterator());

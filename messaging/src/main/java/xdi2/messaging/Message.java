@@ -387,7 +387,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		// get all relations that are valid XDI operations
 
-		List<Iterator<Relation>> iterators = new ArrayList<Iterator<Relation>> ();
+		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(Ordering.getOrderedRelations(this.getOperationsContextNode()));
 		iterators.add(this.getOperationsContextNode().getRelations());
 

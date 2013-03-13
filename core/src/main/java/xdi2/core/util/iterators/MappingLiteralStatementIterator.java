@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import xdi2.core.Literal;
-import xdi2.core.Statement;
+import xdi2.core.Statement.LiteralStatement;
 
 /**
  * A MappingIterator that maps XDI literals to their statements.
  * 
  * @author markus
  */
-public class MappingLiteralStatementIterator extends MappingIterator<Literal, Statement> {
+public class MappingLiteralStatementIterator extends MappingIterator<Literal, LiteralStatement> {
 
 	public MappingLiteralStatementIterator(Iterator<Literal> literals) {
 
@@ -24,7 +24,7 @@ public class MappingLiteralStatementIterator extends MappingIterator<Literal, St
 	}
 
 	@Override
-	public Statement map(Literal literal) {
+	public LiteralStatement map(Literal literal) {
 
 		return literal.getStatement();
 	}

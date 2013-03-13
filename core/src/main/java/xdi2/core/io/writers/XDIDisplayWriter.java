@@ -16,20 +16,20 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.features.roots.InnerRoot;
-import xdi2.core.features.roots.Root;
-import xdi2.core.features.roots.Roots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
+import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class XDIDisplayWriter extends AbstractXDIWriter {
 
@@ -72,6 +72,8 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
 
+		// write html?
+		
 		if (this.writeHtml) {
 
 			bufferedWriter.write("<html><head><title>XDI Graph</title></head>\n");
@@ -79,6 +81,8 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			bufferedWriter.write("<pre>\n");
 		}
 
+		// write ordered?
+		
 		Iterator<Statement> statements;
 
 		if (this.writeOrdered) {
@@ -89,7 +93,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			CopyUtil.copyGraph(graph, orderedGraph, null);
 			graph = orderedGraph;
 
-			List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+			List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
 			list.add(new MappingContextNodeStatementIterator(graph.getRootContextNode().getAllContextNodes()));
 			list.add(new MappingRelationStatementIterator(graph.getRootContextNode().getAllRelations()));
 			list.add(new MappingLiteralStatementIterator(graph.getRootContextNode().getAllLiterals()));
@@ -100,13 +104,15 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			statements = graph.getRootContextNode().getAllStatements();
 		}
 
+		// ignore implied statements
+
+		if (! this.writeContexts) statements = new SelectingNotImpliedStatementIterator<Statement> (statements);
+
+		// write the statements
+		
 		while (statements.hasNext()) {
 
 			Statement statement = statements.next();
-
-			// ignore implied context nodes
-
-			if ((! this.writeContexts) && statement.isImplied()) continue;
 
 			// HTML output
 
@@ -147,33 +153,11 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		XDI3Statement statementXri = statement.getXri();
 
-		if (inner) {
+		// inner root short notation?
 
-			Root root = Roots.findLocalRoot(statement.getGraph());
+		if (inner) statementXri = transformStatementInInnerRoot(statementXri);
 
-			while (true) {
-
-				Root nextRoot = root.findRoot(statementXri.getSubject(), false);
-				if (nextRoot == root) break;
-				if (! (nextRoot instanceof InnerRoot)) break;
-				root = nextRoot;
-
-				InnerRoot innerRoot = (InnerRoot) root;
-
-				XDI3Segment subject = innerRoot.getSubjectOfInnerRoot();
-				XDI3Segment predicate = innerRoot.getPredicateOfInnerRoot();
-
-				XDI3Segment relativeSubject = root.getRelativePart(statement.getSubject());
-				XDI3Segment relativePredicate = statement.getPredicate();
-				XDI3Segment relativeObject = root.getRelativePart(statement.getObject());
-
-				System.err.println("BEFORE: " + statementXri);
-				statementXri = XDI3Statement.create("" + subject + "/" + predicate + "/(" + relativeSubject + "/" + relativePredicate + "/" + relativeObject + ")");
-				System.err.println("AFTER: " + statementXri);
-
-				root = innerRoot;
-			}
-		}
+		// write the statement
 
 		StringBuilder builder = new StringBuilder();
 
@@ -188,6 +172,22 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		if (html) string = string.replaceAll("\t", "&#9;");
 
 		bufferedWriter.write(string);
+	}
+
+	private static XDI3Statement transformStatementInInnerRoot(XDI3Statement statementXri) {
+
+		XDI3SubSegment subjectFirstSubSegment = statementXri.getSubject().getFirstSubSegment();
+
+		if ((! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return statementXri;
+
+		XDI3Segment innerRootSubject = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
+		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
+
+		XDI3Statement reducedStatementXri = StatementUtil.reduceStatement(statementXri, XDI3Segment.create("" + subjectFirstSubSegment));
+
+		if (reducedStatementXri == null || statementXri.equals(reducedStatementXri)) return statementXri;
+
+		return XDI3Statement.create("" + innerRootSubject + "/" + innerRootPredicate + "/(" + transformStatementInInnerRoot(reducedStatementXri) + ")");
 	}
 
 	@Override

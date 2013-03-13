@@ -9,9 +9,9 @@ import java.util.Iterator;
  */
 public class CastingIterator<I, O> implements Iterator<O> {
 
-	private Iterator<I> iterator;
+	private Iterator<? extends I> iterator;
 
-	public CastingIterator(Iterator<I> iterator) {
+	public CastingIterator(Iterator<? extends I> iterator) {
 
 		this.iterator = iterator;
 	}

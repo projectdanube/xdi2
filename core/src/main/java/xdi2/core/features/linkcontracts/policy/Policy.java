@@ -18,7 +18,6 @@ import xdi2.core.features.multiplicity.XdiEntityMember;
 import xdi2.core.features.multiplicity.XdiEntitySingleton;
 import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
@@ -157,7 +156,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public Iterator<Policy> getPolicies() {
 
-		List<Iterator<Policy>> iterators = new ArrayList<Iterator<Policy>> ();
+		List<Iterator<? extends Policy>> iterators = new ArrayList<Iterator<? extends Policy>> ();
 
 		// add policies that are XDI entity singletons
 
@@ -175,9 +174,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		XdiCollection policyOrCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_OR, false);
 		XdiCollection policyNotCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_NOT, false);
 
-		if (policyAndCollection != null) iterators.add(new CastingIterator<PolicyAnd, Policy> (new MappingEntityMemberPolicyAndIterator(policyAndCollection.entities())));
-		if (policyOrCollection != null) iterators.add(new CastingIterator<PolicyOr, Policy> (new MappingEntityMemberPolicyOrIterator(policyOrCollection.entities())));
-		if (policyNotCollection != null) iterators.add(new CastingIterator<PolicyNot, Policy> (new MappingEntityMemberPolicyNotIterator(policyNotCollection.entities())));
+		if (policyAndCollection != null) iterators.add(new MappingEntityMemberPolicyAndIterator(policyAndCollection.entities()));
+		if (policyOrCollection != null) iterators.add(new MappingEntityMemberPolicyOrIterator(policyOrCollection.entities()));
+		if (policyNotCollection != null) iterators.add(new MappingEntityMemberPolicyNotIterator(policyNotCollection.entities()));
 
 		return new CompositeIterator<Policy> (iterators.iterator());
 	}

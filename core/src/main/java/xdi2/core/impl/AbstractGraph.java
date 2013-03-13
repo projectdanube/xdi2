@@ -14,6 +14,7 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.roots.InnerRoot;
 import xdi2.core.features.roots.Root;
@@ -175,15 +176,19 @@ public abstract class AbstractGraph implements Graph {
 	@Override
 	public Statement createStatement(XDI3Statement statementXri) {
 
-		// inner root statement?
+		// find the root and the base context node of this statement
+
+		Root root = Roots.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
+		XDI3Segment relativePart = root.getRelativePart(statementXri.getSubject());
+		ContextNode baseContextNode = relativePart == null ? root.getContextNode() : root.getContextNode().findContextNode(relativePart, true);
+
+		// inner root short notation?
 
 		if (statementXri.hasInnerRootStatement()) {
 
-			Root root = Roots.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
-
-			XDI3Segment subject = root.getRelativePart(statementXri.getSubject());
+			XDI3Segment subject = relativePart;
 			XDI3Segment predicate = statementXri.getPredicate();
-			
+
 			InnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
 
 			return innerRoot.createRelativeStatement(statementXri.getInnerRootStatement());
@@ -191,12 +196,10 @@ public abstract class AbstractGraph implements Graph {
 
 		// add the statement
 
-		ContextNode baseContextNode = this.findContextNode(statementXri.getSubject(), true);
-
 		if (statementXri.isContextNodeStatement()) {
 
 			ContextNode contextNode = baseContextNode.createContextNodes(statementXri.getObject());
-			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created context node --> " + contextNode.getXri());
+			if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Created context node --> " + contextNode.getXri());
 
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
@@ -213,7 +216,7 @@ public abstract class AbstractGraph implements Graph {
 			return literal.getStatement();
 		} else {
 
-			throw new Xdi2RuntimeException("Invalid statement XRI: " + statementXri);
+			throw new Xdi2GraphException("Invalid statement XRI: " + statementXri);
 		}
 	}
 

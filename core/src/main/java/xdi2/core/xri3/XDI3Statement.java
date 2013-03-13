@@ -105,6 +105,8 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 	public XDI3Statement getInnerRootStatement() {
 
+		if (! this.isRelationStatement()) return null;
+
 		XDI3Segment targetContextNodeXri = this.getTargetContextNodeXri();
 		if (targetContextNodeXri == null) return null;
 
