@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------
- * Rule_specific.java
+ * Rule_ipv6.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.full.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_specific extends Rule
+final public class Rule_ipv6 extends Rule
 {
-  private Rule_specific(String spelling, ArrayList<Rule> rules)
+  private Rule_ipv6(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_specific extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_specific parse(ParserContext context)
+  public static Rule_ipv6 parse(ParserContext context)
   {
-    context.push("specific");
+    context.push("ipv6");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -46,7 +46,7 @@ final public class Rule_specific extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "$");
+            rule = Terminal_StringValue.parse(context, ":ipv6:");
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -58,9 +58,23 @@ final public class Rule_specific extends Rule
         if (parsed)
         {
           boolean f1 = true;
-          @SuppressWarnings("unused")
           int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
+          for (int i1 = 0; i1 < 4 && f1; i1++)
+          {
+            rule = Rule_HEXDIG.parse(context);
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 4;
+        }
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 7 && f1; i1++)
           {
             int g1 = context.index;
             parsed = false;
@@ -76,7 +90,7 @@ final public class Rule_specific extends Rule
                   int c2 = 0;
                   for (int i2 = 0; i2 < 1 && f2; i2++)
                   {
-                    rule = Rule_xref.parse(context);
+                    rule = Terminal_StringValue.parse(context, ":");
                     if ((f2 = rule != null))
                     {
                       e2.add(rule);
@@ -86,11 +100,33 @@ final public class Rule_specific extends Rule
                   parsed = c2 == 1;
                 }
                 if (parsed)
+                {
+                  boolean f2 = true;
+                  int c2 = 0;
+                  for (int i2 = 0; i2 < 4 && f2; i2++)
+                  {
+                    rule = Rule_HEXDIG.parse(context);
+                    if ((f2 = rule != null))
+                    {
+                      e2.add(rule);
+                      c2++;
+                    }
+                  }
+                  parsed = c2 == 4;
+                }
+                if (parsed)
                   e1.addAll(e2);
                 else
                   context.index = s2;
               }
             }
+            f1 = context.index > g1;
+            if (parsed) c1++;
+          }
+          while (f1)
+          {
+            int g1 = context.index;
+            parsed = false;
             if (!parsed)
             {
               {
@@ -103,7 +139,7 @@ final public class Rule_specific extends Rule
                   int c2 = 0;
                   for (int i2 = 0; i2 < 1 && f2; i2++)
                   {
-                    rule = Rule_xdi_literal.parse(context);
+                    rule = Terminal_StringValue.parse(context, ":");
                     if ((f2 = rule != null))
                     {
                       e2.add(rule);
@@ -111,6 +147,21 @@ final public class Rule_specific extends Rule
                     }
                   }
                   parsed = c2 == 1;
+                }
+                if (parsed)
+                {
+                  boolean f2 = true;
+                  int c2 = 0;
+                  for (int i2 = 0; i2 < 4 && f2; i2++)
+                  {
+                    rule = Rule_HEXDIG.parse(context);
+                    if ((f2 = rule != null))
+                    {
+                      e2.add(rule);
+                      c2++;
+                    }
+                  }
+                  parsed = c2 == 4;
                 }
                 if (parsed)
                   e1.addAll(e2);
@@ -121,7 +172,7 @@ final public class Rule_specific extends Rule
             f1 = context.index > g1;
             if (parsed) c1++;
           }
-          parsed = true;
+          parsed = c1 >= 7;
         }
         if (parsed)
           e0.addAll(e1);
@@ -132,13 +183,13 @@ final public class Rule_specific extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_specific(context.text.substring(s0, context.index), e0);
+      rule = new Rule_ipv6(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("specific", parsed);
+    context.pop("ipv6", parsed);
 
-    return (Rule_specific)rule;
+    return (Rule_ipv6)rule;
   }
 }
 

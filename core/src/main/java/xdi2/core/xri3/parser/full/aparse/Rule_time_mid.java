@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule_local.java
+ * Rule_time_mid.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Mar 06 20:17:36 CET 2013
+ * Produced : Thu Mar 14 12:16:33 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.full.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_local extends Rule
+final public class Rule_time_mid extends Rule
 {
-  private Rule_local(String spelling, ArrayList<Rule> rules)
+  private Rule_time_mid(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_local extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_local parse(ParserContext context)
+  public static Rule_time_mid parse(ParserContext context)
   {
-    context.push("local");
+    context.push("time-mid");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -44,43 +44,25 @@ final public class Rule_local extends Rule
         {
           boolean f1 = true;
           int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
+          for (int i1 = 0; i1 < 2 && f1; i1++)
           {
-            rule = Rule_immutable.parse(context);
+            rule = Rule_hexoctet.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
               c1++;
             }
           }
-          parsed = c1 == 1;
-        }
-        if (parsed)
-          e0.addAll(e1);
-        else
-          context.index = s1;
-      }
-    }
-    if (!parsed)
-    {
-      {
-        ArrayList<Rule> e1 = new ArrayList<Rule>();
-        int s1 = context.index;
-        parsed = true;
-        if (parsed)
-        {
-          boolean f1 = true;
-          int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
+          while (f1)
           {
-            rule = Rule_mutable.parse(context);
+            rule = Rule_hexoctet.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
               c1++;
             }
           }
-          parsed = c1 == 1;
+          parsed = c1 >= 2;
         }
         if (parsed)
           e0.addAll(e1);
@@ -91,13 +73,13 @@ final public class Rule_local extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_local(context.text.substring(s0, context.index), e0);
+      rule = new Rule_time_mid(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("local", parsed);
+    context.pop("time-mid", parsed);
 
-    return (Rule_local)rule;
+    return (Rule_time_mid)rule;
   }
 }
 

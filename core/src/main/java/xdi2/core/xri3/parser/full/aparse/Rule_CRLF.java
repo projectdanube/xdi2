@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------
- * Rule_context_relative.java
+ * Rule_CRLF.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.full.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_context_relative extends Rule
+final public class Rule_CRLF extends Rule
 {
-  private Rule_context_relative(String spelling, ArrayList<Rule> rules)
+  private Rule_CRLF(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_context_relative extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_context_relative parse(ParserContext context)
+  public static Rule_CRLF parse(ParserContext context)
   {
-    context.push("context-relative");
+    context.push("CRLF");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -46,7 +46,7 @@ final public class Rule_context_relative extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_context.parse(context);
+            rule = Rule_CR.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -61,22 +61,7 @@ final public class Rule_context_relative extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "/()/");
-            if ((f1 = rule != null))
-            {
-              e1.add(rule);
-              c1++;
-            }
-          }
-          parsed = c1 == 1;
-        }
-        if (parsed)
-        {
-          boolean f1 = true;
-          int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
-          {
-            rule = Rule_relative_context.parse(context);
+            rule = Rule_LF.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -94,13 +79,13 @@ final public class Rule_context_relative extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_context_relative(context.text.substring(s0, context.index), e0);
+      rule = new Rule_CRLF(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("context-relative", parsed);
+    context.pop("CRLF", parsed);
 
-    return (Rule_context_relative)rule;
+    return (Rule_CRLF)rule;
   }
 }
 

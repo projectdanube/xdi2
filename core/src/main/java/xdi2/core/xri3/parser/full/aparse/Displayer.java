@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Mar 06 20:17:36 CET 2013
+ * Produced : Thu Mar 14 12:16:33 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -210,16 +210,6 @@ public class Displayer implements Visitor
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_global rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_local rule)
-  {
-    return visitRules(rule.rules);
-  }
-
   public Object visit(Rule_type rule)
   {
     return visitRules(rule.rules);
@@ -250,12 +240,62 @@ public class Displayer implements Visitor
     return visitRules(rule.rules);
   }
 
+  public Object visit(Rule_mutable rule)
+  {
+    return visitRules(rule.rules);
+  }
+
   public Object visit(Rule_immutable rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_mutable rule)
+  public Object visit(Rule_xdi_scheme rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_uuid rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_time_low rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_time_mid rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_time_high_and_version rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_clock_seq_and_reserved rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_clock_seq_low rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_node rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_hexoctet rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_ipv6 rule)
   {
     return visitRules(rule.rules);
   }
@@ -316,6 +356,21 @@ public class Displayer implements Visitor
   }
 
   public Object visit(Rule_HEXDIG rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_CRLF rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_CR rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_LF rule)
   {
     return visitRules(rule.rules);
   }

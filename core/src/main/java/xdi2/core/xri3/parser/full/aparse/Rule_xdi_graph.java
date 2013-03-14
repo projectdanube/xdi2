@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Mar 06 20:17:36 CET 2013
+ * Produced : Thu Mar 14 12:16:33 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -76,12 +76,91 @@ final public class Rule_xdi_graph extends Rule
                   int c2 = 0;
                   for (int i2 = 0; i2 < 1 && f2; i2++)
                   {
-                    rule = Terminal_NumericValue.parse(context, "%x0A", "[\\x0A]", 1);
-                    if ((f2 = rule != null))
+                    int g2 = context.index;
+                    parsed = false;
+                    if (!parsed)
                     {
-                      e2.add(rule);
-                      c2++;
+                      {
+                        ArrayList<Rule> e3 = new ArrayList<Rule>();
+                        int s3 = context.index;
+                        parsed = true;
+                        if (parsed)
+                        {
+                          boolean f3 = true;
+                          int c3 = 0;
+                          for (int i3 = 0; i3 < 1 && f3; i3++)
+                          {
+                            rule = Rule_CR.parse(context);
+                            if ((f3 = rule != null))
+                            {
+                              e3.add(rule);
+                              c3++;
+                            }
+                          }
+                          parsed = c3 == 1;
+                        }
+                        if (parsed)
+                          e2.addAll(e3);
+                        else
+                          context.index = s3;
+                      }
                     }
+                    if (!parsed)
+                    {
+                      {
+                        ArrayList<Rule> e3 = new ArrayList<Rule>();
+                        int s3 = context.index;
+                        parsed = true;
+                        if (parsed)
+                        {
+                          boolean f3 = true;
+                          int c3 = 0;
+                          for (int i3 = 0; i3 < 1 && f3; i3++)
+                          {
+                            rule = Rule_LF.parse(context);
+                            if ((f3 = rule != null))
+                            {
+                              e3.add(rule);
+                              c3++;
+                            }
+                          }
+                          parsed = c3 == 1;
+                        }
+                        if (parsed)
+                          e2.addAll(e3);
+                        else
+                          context.index = s3;
+                      }
+                    }
+                    if (!parsed)
+                    {
+                      {
+                        ArrayList<Rule> e3 = new ArrayList<Rule>();
+                        int s3 = context.index;
+                        parsed = true;
+                        if (parsed)
+                        {
+                          boolean f3 = true;
+                          int c3 = 0;
+                          for (int i3 = 0; i3 < 1 && f3; i3++)
+                          {
+                            rule = Rule_CRLF.parse(context);
+                            if ((f3 = rule != null))
+                            {
+                              e3.add(rule);
+                              c3++;
+                            }
+                          }
+                          parsed = c3 == 1;
+                        }
+                        if (parsed)
+                          e2.addAll(e3);
+                        else
+                          context.index = s3;
+                      }
+                    }
+                    f2 = context.index > g2;
+                    if (parsed) c2++;
                   }
                   parsed = c2 == 1;
                 }

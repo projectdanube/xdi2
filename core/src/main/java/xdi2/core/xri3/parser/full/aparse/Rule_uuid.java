@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------
- * Rule_iunreserved.java
+ * Rule_uuid.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.full.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_iunreserved extends Rule
+final public class Rule_uuid extends Rule
 {
-  private Rule_iunreserved(String spelling, ArrayList<Rule> rules)
+  private Rule_uuid(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_iunreserved extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_iunreserved parse(ParserContext context)
+  public static Rule_uuid parse(ParserContext context)
   {
-    context.push("iunreserved");
+    context.push("uuid");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -46,7 +46,7 @@ final public class Rule_iunreserved extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_ALPHA.parse(context);
+            rule = Terminal_StringValue.parse(context, ":uuid:");
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -55,25 +55,13 @@ final public class Rule_iunreserved extends Rule
           }
           parsed = c1 == 1;
         }
-        if (parsed)
-          e0.addAll(e1);
-        else
-          context.index = s1;
-      }
-    }
-    if (!parsed)
-    {
-      {
-        ArrayList<Rule> e1 = new ArrayList<Rule>();
-        int s1 = context.index;
-        parsed = true;
         if (parsed)
         {
           boolean f1 = true;
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_DIGIT.parse(context);
+            rule = Rule_time_low.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -82,18 +70,6 @@ final public class Rule_iunreserved extends Rule
           }
           parsed = c1 == 1;
         }
-        if (parsed)
-          e0.addAll(e1);
-        else
-          context.index = s1;
-      }
-    }
-    if (!parsed)
-    {
-      {
-        ArrayList<Rule> e1 = new ArrayList<Rule>();
-        int s1 = context.index;
-        parsed = true;
         if (parsed)
         {
           boolean f1 = true;
@@ -110,24 +86,12 @@ final public class Rule_iunreserved extends Rule
           parsed = c1 == 1;
         }
         if (parsed)
-          e0.addAll(e1);
-        else
-          context.index = s1;
-      }
-    }
-    if (!parsed)
-    {
-      {
-        ArrayList<Rule> e1 = new ArrayList<Rule>();
-        int s1 = context.index;
-        parsed = true;
-        if (parsed)
         {
           boolean f1 = true;
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, ".");
+            rule = Rule_time_mid.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -137,24 +101,12 @@ final public class Rule_iunreserved extends Rule
           parsed = c1 == 1;
         }
         if (parsed)
-          e0.addAll(e1);
-        else
-          context.index = s1;
-      }
-    }
-    if (!parsed)
-    {
-      {
-        ArrayList<Rule> e1 = new ArrayList<Rule>();
-        int s1 = context.index;
-        parsed = true;
-        if (parsed)
         {
           boolean f1 = true;
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "_");
+            rule = Terminal_StringValue.parse(context, "-");
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -164,24 +116,12 @@ final public class Rule_iunreserved extends Rule
           parsed = c1 == 1;
         }
         if (parsed)
-          e0.addAll(e1);
-        else
-          context.index = s1;
-      }
-    }
-    if (!parsed)
-    {
-      {
-        ArrayList<Rule> e1 = new ArrayList<Rule>();
-        int s1 = context.index;
-        parsed = true;
-        if (parsed)
         {
           boolean f1 = true;
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "~");
+            rule = Rule_time_high_and_version.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -191,24 +131,72 @@ final public class Rule_iunreserved extends Rule
           parsed = c1 == 1;
         }
         if (parsed)
-          e0.addAll(e1);
-        else
-          context.index = s1;
-      }
-    }
-    if (!parsed)
-    {
-      {
-        ArrayList<Rule> e1 = new ArrayList<Rule>();
-        int s1 = context.index;
-        parsed = true;
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Terminal_StringValue.parse(context, "-");
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 1;
+        }
         if (parsed)
         {
           boolean f1 = true;
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_ucschar.parse(context);
+            rule = Rule_clock_seq_and_reserved.parse(context);
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 1;
+        }
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Rule_clock_seq_low.parse(context);
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 1;
+        }
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Terminal_StringValue.parse(context, "-");
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 1;
+        }
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Rule_node.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -226,13 +214,13 @@ final public class Rule_iunreserved extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_iunreserved(context.text.substring(s0, context.index), e0);
+      rule = new Rule_uuid(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("iunreserved", parsed);
+    context.pop("uuid", parsed);
 
-    return (Rule_iunreserved)rule;
+    return (Rule_uuid)rule;
   }
 }
 

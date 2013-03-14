@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Mar 06 20:17:36 CET 2013
+ * Produced : Thu Mar 14 12:16:33 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -484,30 +484,6 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_global rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<global>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</global>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_local rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<local>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</local>");
-    terminal = false;
-    return null;
-  }
-
   public Object visit(Rule_type rule)
   {
     if (!terminal) System.out.println();
@@ -580,6 +556,18 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
+  public Object visit(Rule_mutable rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<mutable>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</mutable>");
+    terminal = false;
+    return null;
+  }
+
   public Object visit(Rule_immutable rule)
   {
     if (!terminal) System.out.println();
@@ -592,14 +580,122 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_mutable rule)
+  public Object visit(Rule_xdi_scheme rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<mutable>");
+    System.out.print("<xdi-scheme>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</mutable>");
+    System.out.print("</xdi-scheme>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_uuid rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<uuid>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</uuid>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_time_low rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<time-low>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</time-low>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_time_mid rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<time-mid>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</time-mid>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_time_high_and_version rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<time-high-and-version>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</time-high-and-version>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_clock_seq_and_reserved rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<clock-seq-and-reserved>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</clock-seq-and-reserved>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_clock_seq_low rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<clock-seq-low>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</clock-seq-low>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_node rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<node>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</node>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_hexoctet rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<hexoctet>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</hexoctet>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_ipv6 rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<ipv6>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</ipv6>");
     terminal = false;
     return null;
   }
@@ -744,6 +840,42 @@ public class XmlDisplayer implements Visitor
     visitRules(rule.rules);
     if (!terminal) System.out.println();
     System.out.print("</HEXDIG>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_CRLF rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<CRLF>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</CRLF>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_CR rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<CR>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</CR>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_LF rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<LF>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</LF>");
     terminal = false;
     return null;
   }

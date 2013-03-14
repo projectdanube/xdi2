@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Mar 06 20:17:36 CET 2013
+ * Produced : Thu Mar 14 12:16:33 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -199,16 +199,24 @@ public class Parser
     else if (rulename.equalsIgnoreCase("singleton")) rule = Rule_singleton.parse(context);
     else if (rulename.equalsIgnoreCase("attribute-singleton")) rule = Rule_attribute_singleton.parse(context);
     else if (rulename.equalsIgnoreCase("entity-singleton")) rule = Rule_entity_singleton.parse(context);
-    else if (rulename.equalsIgnoreCase("global")) rule = Rule_global.parse(context);
-    else if (rulename.equalsIgnoreCase("local")) rule = Rule_local.parse(context);
     else if (rulename.equalsIgnoreCase("type")) rule = Rule_type.parse(context);
     else if (rulename.equalsIgnoreCase("instance")) rule = Rule_instance.parse(context);
     else if (rulename.equalsIgnoreCase("specific")) rule = Rule_specific.parse(context);
     else if (rulename.equalsIgnoreCase("generic")) rule = Rule_generic.parse(context);
     else if (rulename.equalsIgnoreCase("person")) rule = Rule_person.parse(context);
     else if (rulename.equalsIgnoreCase("organization")) rule = Rule_organization.parse(context);
-    else if (rulename.equalsIgnoreCase("immutable")) rule = Rule_immutable.parse(context);
     else if (rulename.equalsIgnoreCase("mutable")) rule = Rule_mutable.parse(context);
+    else if (rulename.equalsIgnoreCase("immutable")) rule = Rule_immutable.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-scheme")) rule = Rule_xdi_scheme.parse(context);
+    else if (rulename.equalsIgnoreCase("uuid")) rule = Rule_uuid.parse(context);
+    else if (rulename.equalsIgnoreCase("time-low")) rule = Rule_time_low.parse(context);
+    else if (rulename.equalsIgnoreCase("time-mid")) rule = Rule_time_mid.parse(context);
+    else if (rulename.equalsIgnoreCase("time-high-and-version")) rule = Rule_time_high_and_version.parse(context);
+    else if (rulename.equalsIgnoreCase("clock-seq-and-reserved")) rule = Rule_clock_seq_and_reserved.parse(context);
+    else if (rulename.equalsIgnoreCase("clock-seq-low")) rule = Rule_clock_seq_low.parse(context);
+    else if (rulename.equalsIgnoreCase("node")) rule = Rule_node.parse(context);
+    else if (rulename.equalsIgnoreCase("hexoctet")) rule = Rule_hexoctet.parse(context);
+    else if (rulename.equalsIgnoreCase("ipv6")) rule = Rule_ipv6.parse(context);
     else if (rulename.equalsIgnoreCase("data-xref")) rule = Rule_data_xref.parse(context);
     else if (rulename.equalsIgnoreCase("data-iri")) rule = Rule_data_iri.parse(context);
     else if (rulename.equalsIgnoreCase("iri-scheme")) rule = Rule_iri_scheme.parse(context);
@@ -221,6 +229,9 @@ public class Parser
     else if (rulename.equalsIgnoreCase("ALPHA")) rule = Rule_ALPHA.parse(context);
     else if (rulename.equalsIgnoreCase("DIGIT")) rule = Rule_DIGIT.parse(context);
     else if (rulename.equalsIgnoreCase("HEXDIG")) rule = Rule_HEXDIG.parse(context);
+    else if (rulename.equalsIgnoreCase("CRLF")) rule = Rule_CRLF.parse(context);
+    else if (rulename.equalsIgnoreCase("CR")) rule = Rule_CR.parse(context);
+    else if (rulename.equalsIgnoreCase("LF")) rule = Rule_LF.parse(context);
     else throw new IllegalArgumentException("unknown rule");
 
     if (rule == null)

@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Mar 06 20:17:36 CET 2013
+ * Produced : Thu Mar 14 12:16:33 CET 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -51,16 +51,24 @@ public interface Visitor
   public Object visit(Rule_singleton rule);
   public Object visit(Rule_attribute_singleton rule);
   public Object visit(Rule_entity_singleton rule);
-  public Object visit(Rule_global rule);
-  public Object visit(Rule_local rule);
   public Object visit(Rule_type rule);
   public Object visit(Rule_instance rule);
   public Object visit(Rule_specific rule);
   public Object visit(Rule_generic rule);
   public Object visit(Rule_person rule);
   public Object visit(Rule_organization rule);
-  public Object visit(Rule_immutable rule);
   public Object visit(Rule_mutable rule);
+  public Object visit(Rule_immutable rule);
+  public Object visit(Rule_xdi_scheme rule);
+  public Object visit(Rule_uuid rule);
+  public Object visit(Rule_time_low rule);
+  public Object visit(Rule_time_mid rule);
+  public Object visit(Rule_time_high_and_version rule);
+  public Object visit(Rule_clock_seq_and_reserved rule);
+  public Object visit(Rule_clock_seq_low rule);
+  public Object visit(Rule_node rule);
+  public Object visit(Rule_hexoctet rule);
+  public Object visit(Rule_ipv6 rule);
   public Object visit(Rule_data_xref rule);
   public Object visit(Rule_data_iri rule);
   public Object visit(Rule_iri_scheme rule);
@@ -73,6 +81,9 @@ public interface Visitor
   public Object visit(Rule_ALPHA rule);
   public Object visit(Rule_DIGIT rule);
   public Object visit(Rule_HEXDIG rule);
+  public Object visit(Rule_CRLF rule);
+  public Object visit(Rule_CR rule);
+  public Object visit(Rule_LF rule);
 
   public Object visit(Terminal_StringValue value);
   public Object visit(Terminal_NumericValue value);
