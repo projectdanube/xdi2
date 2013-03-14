@@ -108,18 +108,24 @@ public final class StatementUtil {
 
 		if (log.isTraceEnabled()) log.trace("reduceStatement(" + statement + "," + base + "," + variablesInXri + "," + variablesInBase + ")");
 
-		XDI3Segment subject = XRIUtil.reduceXri(statement.getSubject(), base, variablesInXri, variablesInBase);
-		XDI3Segment predicate = statement.getPredicate();
+		XDI3Segment subject;
+		XDI3Segment predicate;
 		XDI3Segment object;
 
-		if (subject == null && statement.getSubject().equals(base)) subject = XDIConstants.XRI_S_ROOT;
+		// subject
+
+		subject = statement.getSubject().equals(base) ? XDIConstants.XRI_S_ROOT : XRIUtil.reduceXri(statement.getSubject(), base, variablesInXri, variablesInBase);
 		if (subject == null) return null;
+
+		// predicate
+
+		predicate = statement.getPredicate();
+
+		// object
 
 		if (statement.isRelationStatement()) {
 
-			object = XRIUtil.reduceXri(statement.getObject(), base, variablesInXri, variablesInBase);
-
-			if (object == null && statement.getObject().equals(base)) object = XDIConstants.XRI_S_ROOT;
+			object = statement.getObject().equals(base) ? XDIConstants.XRI_S_ROOT : XRIUtil.reduceXri(statement.getObject(), base, variablesInXri, variablesInBase);
 			if (object == null) return null;
 		} else {
 

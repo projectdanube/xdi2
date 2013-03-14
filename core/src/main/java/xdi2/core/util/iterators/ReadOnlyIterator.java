@@ -7,7 +7,7 @@ import java.util.Iterator;
  *  
  * @author markus
  */
-public class ReadOnlyIterator<T> implements Iterator<T> {
+public class ReadOnlyIterator<T> extends IterableIterator<T> {
 
 	private Iterator<T> iterator;
 
@@ -36,5 +36,11 @@ public class ReadOnlyIterator<T> implements Iterator<T> {
 	public void remove() {
 
 		throw new UnsupportedOperationException("remove() is not supported.");
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+
+		return this;
 	}
 }

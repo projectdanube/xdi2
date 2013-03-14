@@ -23,6 +23,7 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.CompositeIterator;
+import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
@@ -73,7 +74,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
 
 		// write html?
-		
+
 		if (this.writeHtml) {
 
 			bufferedWriter.write("<html><head><title>XDI Graph</title></head>\n");
@@ -82,8 +83,8 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		}
 
 		// write ordered?
-		
-		Iterator<Statement> statements;
+
+		IterableIterator<Statement> statements;
 
 		if (this.writeOrdered) {
 
@@ -109,10 +110,8 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		if (! this.writeImplied) statements = new SelectingNotImpliedStatementIterator<Statement> (statements);
 
 		// write the statements
-		
-		while (statements.hasNext()) {
 
-			Statement statement = statements.next();
+		for (Statement statement : statements) {
 
 			// HTML output
 
@@ -121,22 +120,22 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 				if (statement instanceof ContextNodeStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_CONTEXTNODE + "\">");
-					writeStatement(bufferedWriter, statement, this.writeInner, this.writePretty, true);
+					this.writeStatement(bufferedWriter, statement);
 					bufferedWriter.write("</span>\n");
 				} else if (statement instanceof RelationStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_RELATION + "\">");
-					writeStatement(bufferedWriter, statement, this.writeInner, this.writePretty, true);
+					this.writeStatement(bufferedWriter, statement);
 					bufferedWriter.write("</span>\n");
 				} else if (statement instanceof LiteralStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_LITERAL + "\">");
-					writeStatement(bufferedWriter, statement, this.writeInner, this.writePretty, true);
+					this.writeStatement(bufferedWriter, statement);
 					bufferedWriter.write("</span>\n");
 				}
 			} else {
 
-				writeStatement(bufferedWriter, statement, this.writeInner, this.writePretty, false);
+				this.writeStatement(bufferedWriter, statement);
 			}
 		}
 
@@ -149,27 +148,27 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		bufferedWriter.flush();
 	}
 
-	private static void writeStatement(BufferedWriter bufferedWriter, Statement statement, boolean inner, boolean pretty, boolean html) throws IOException {
+	private void writeStatement(BufferedWriter bufferedWriter, Statement statement) throws IOException {
 
 		XDI3Statement statementXri = statement.getXri();
 
 		// inner root short notation?
 
-		if (inner) statementXri = transformStatementInInnerRoot(statementXri);
+		if (this.writeInner) statementXri = transformStatementInInnerRoot(statementXri);
 
 		// write the statement
 
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(statementXri.getSubject());
-		builder.append(pretty ? "\t" : "/");
+		builder.append(this.writePretty ? "\t" : "/");
 		builder.append(statementXri.getPredicate());
-		builder.append(pretty ? "\t" : "/");
+		builder.append(this.writePretty ? "\t" : "/");
 		builder.append(statementXri.getObject());
-		builder.append(html ? "<br>\n" : "\n");
+		builder.append(this.writeHtml ? "<br>\n" : "\n");
 
 		String string = builder.toString();
-		if (html) string = string.replaceAll("\t", "&#9;");
+		if (this.writeHtml) string = string.replaceAll("\t", "&#9;");
 
 		bufferedWriter.write(string);
 	}
@@ -184,8 +183,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
 
 		XDI3Statement reducedStatementXri = StatementUtil.reduceStatement(statementXri, XDI3Segment.create("" + subjectFirstSubSegment));
-
-		if (reducedStatementXri == null || statementXri.equals(reducedStatementXri)) return statementXri;
+		if (reducedStatementXri == null) return statementXri;
 
 		return XDI3Statement.create("" + innerRootSubject + "/" + innerRootPredicate + "/(" + transformStatementInInnerRoot(reducedStatementXri) + ")");
 	}

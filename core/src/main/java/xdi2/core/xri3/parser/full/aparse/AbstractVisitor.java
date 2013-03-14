@@ -239,18 +239,6 @@ public abstract class AbstractVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(Rule_global rule) {
-
-		return visitRule(rule);
-	}
-
-	@Override
-	public Object visit(Rule_local rule) {
-
-		return visitRule(rule);
-	}
-
-	@Override
 	public Object visit(Rule_type rule) {
 
 		return visitRule(rule);
@@ -366,6 +354,84 @@ public abstract class AbstractVisitor implements Visitor {
 
 	@Override
 	public Object visit(Rule_HEXDIG rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_xdi_scheme rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_uuid rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_time_low rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_time_mid rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_time_high_and_version rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_clock_seq_and_reserved rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_clock_seq_low rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_node rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_hexoctet rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_ipv6 rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_CRLF rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_CR rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_LF rule) {
 
 		return visitRule(rule);
 	}
