@@ -18,7 +18,7 @@ public class XDI3Grammar extends Grammar{
     public enum RuleNames{
         ABSOLUTE("absolute", 5, 26, 3),
         ABSOLUTE_INVERSE("absolute-inverse", 9, 43, 3),
-        ALPHA("ALPHA", 66, 338, 3),
+        ALPHA("ALPHA", 66, 324, 3),
         ATTRIBUTE_MEMBER("attribute-member", 34, 168, 3),
         ATTRIBUTE_SINGLETON("attribute-singleton", 37, 178, 4),
         CLOCK_SEQ_AND_RESERVED("clock-seq-and-reserved", 52, 252, 1),
@@ -31,17 +31,17 @@ public class XDI3Grammar extends Grammar{
         CONTEXT_INVERSE("context-inverse", 11, 50, 4),
         CONTEXT_RELATIVE("context-relative", 7, 33, 4),
         CONTEXTUAL("contextual", 2, 13, 3),
-        CR("CR", 70, 353, 1),
-        CRLF("CRLF", 69, 350, 3),
+        CR("CR", 70, 339, 1),
+        CRLF("CRLF", 69, 336, 3),
         DATA_IRI("data-iri", 58, 272, 4),
         DATA_XREF("data-xref", 57, 268, 4),
-        DIGIT("DIGIT", 67, 341, 1),
+        DIGIT("DIGIT", 67, 327, 1),
         DIRECT("direct", 3, 16, 5),
         DIRECT_RELATION("direct-relation", 14, 63, 6),
         ENTITY_MEMBER("entity-member", 33, 165, 3),
         ENTITY_SINGLETON("entity-singleton", 38, 182, 3),
         GENERIC("generic", 42, 199, 6),
-        HEXDIG("HEXDIG", 68, 342, 8),
+        HEXDIG("HEXDIG", 68, 328, 8),
         HEXOCTET("hexoctet", 55, 256, 3),
         IMMUTABLE("immutable", 46, 224, 7),
         INNER_ROOT("inner-root", 27, 143, 4),
@@ -53,7 +53,7 @@ public class XDI3Grammar extends Grammar{
         IRI_LITERAL("iri-literal", 28, 147, 5),
         IRI_SCHEME("iri-scheme", 59, 276, 9),
         IUNRESERVED("iunreserved", 63, 308, 8),
-        LF("LF", 71, 354, 1),
+        LF("LF", 71, 340, 1),
         LITERAL("literal", 16, 75, 3),
         LITERAL_CONTEXT("literal-context", 25, 121, 13),
         LITERAL_REF("literal-ref", 18, 84, 5),
@@ -80,7 +80,7 @@ public class XDI3Grammar extends Grammar{
         TIME_LOW("time-low", 49, 246, 2),
         TIME_MID("time-mid", 50, 248, 2),
         TYPE("type", 39, 185, 3),
-        UCSCHAR("ucschar", 65, 320, 18),
+        UCSCHAR("ucschar", 65, 320, 4),
         UUID("uuid", 48, 234, 12),
         XDI_CHAR("xdi-char", 62, 305, 3),
         XDI_GRAPH("xdi-graph", 0, 0, 9),
@@ -130,15 +130,15 @@ public class XDI3Grammar extends Grammar{
 
         // opcodes
     private static Opcode[] getOpcodes(){
-    	Opcode[] op = new Opcode[355];
+    	Opcode[] op = new Opcode[341];
         {int[] a = {1,2}; op[0] = getOpcodeCat(a);}
         op[1] = getOpcodeRnm(1, 9); // xdi-statement
         op[2] = getOpcodeRep((char)0, Character.MAX_VALUE, 3);
         {int[] a = {4,8}; op[3] = getOpcodeCat(a);}
         {int[] a = {5,6,7}; op[4] = getOpcodeAlt(a);}
-        op[5] = getOpcodeRnm(70, 353); // CR
-        op[6] = getOpcodeRnm(71, 354); // LF
-        op[7] = getOpcodeRnm(69, 350); // CRLF
+        op[5] = getOpcodeRnm(70, 339); // CR
+        op[6] = getOpcodeRnm(71, 340); // LF
+        op[7] = getOpcodeRnm(69, 336); // CRLF
         op[8] = getOpcodeRnm(1, 9); // xdi-statement
         {int[] a = {10,11,12}; op[9] = getOpcodeAlt(a);}
         op[10] = getOpcodeRnm(2, 13); // contextual
@@ -221,8 +221,8 @@ public class XDI3Grammar extends Grammar{
         op[87] = getOpcodeRnm(25, 121); // literal-context
         {char[] a = {47,33,47,40,41}; op[88] = getOpcodeTls(a);}
         {int[] a = {90,91,92}; op[89] = getOpcodeAlt(a);}
-        op[90] = getOpcodeRnm(20, 93); // peer
-        op[91] = getOpcodeRnm(21, 95); // peer-relative-context
+        op[90] = getOpcodeRnm(21, 95); // peer-relative-context
+        op[91] = getOpcodeRnm(20, 93); // peer
         op[92] = getOpcodeRnm(22, 98); // relative-context
         op[93] = getOpcodeRep((char)1, Character.MAX_VALUE, 94);
         op[94] = getOpcodeRnm(26, 134); // xref
@@ -305,7 +305,7 @@ public class XDI3Grammar extends Grammar{
         {int[] a = {172,173}; op[171] = getOpcodeCat(a);}
         {char[] a = {36}; op[172] = getOpcodeTls(a);}
         op[173] = getOpcodeRep((char)1, Character.MAX_VALUE, 174);
-        op[174] = getOpcodeRnm(67, 341); // DIGIT
+        op[174] = getOpcodeRnm(67, 327); // DIGIT
         {int[] a = {176,177}; op[175] = getOpcodeAlt(a);}
         op[176] = getOpcodeRnm(37, 178); // attribute-singleton
         op[177] = getOpcodeRnm(38, 182); // entity-singleton
@@ -388,17 +388,17 @@ public class XDI3Grammar extends Grammar{
         op[254] = getOpcodeRep((char)6, Character.MAX_VALUE, 255);
         op[255] = getOpcodeRnm(55, 256); // hexoctet
         {int[] a = {257,258}; op[256] = getOpcodeCat(a);}
-        op[257] = getOpcodeRnm(68, 342); // HEXDIG
-        op[258] = getOpcodeRnm(68, 342); // HEXDIG
+        op[257] = getOpcodeRnm(68, 328); // HEXDIG
+        op[258] = getOpcodeRnm(68, 328); // HEXDIG
         {int[] a = {260,261,263}; op[259] = getOpcodeCat(a);}
         {char[] a = {58,105,112,118,54,58}; op[260] = getOpcodeTls(a);}
         op[261] = getOpcodeRep((char)4, (char)4, 262);
-        op[262] = getOpcodeRnm(68, 342); // HEXDIG
+        op[262] = getOpcodeRnm(68, 328); // HEXDIG
         op[263] = getOpcodeRep((char)7, Character.MAX_VALUE, 264);
         {int[] a = {265,266}; op[264] = getOpcodeCat(a);}
         {char[] a = {58}; op[265] = getOpcodeTls(a);}
         op[266] = getOpcodeRep((char)4, (char)4, 267);
-        op[267] = getOpcodeRnm(68, 342); // HEXDIG
+        op[267] = getOpcodeRnm(68, 328); // HEXDIG
         {int[] a = {269,270,271}; op[268] = getOpcodeCat(a);}
         {char[] a = {40}; op[269] = getOpcodeTls(a);}
         op[270] = getOpcodeRnm(58, 272); // data-iri
@@ -408,11 +408,11 @@ public class XDI3Grammar extends Grammar{
         op[274] = getOpcodeRep((char)1, Character.MAX_VALUE, 275);
         op[275] = getOpcodeRnm(60, 285); // iri-char
         {int[] a = {277,278}; op[276] = getOpcodeCat(a);}
-        op[277] = getOpcodeRnm(66, 338); // ALPHA
+        op[277] = getOpcodeRnm(66, 324); // ALPHA
         op[278] = getOpcodeRep((char)0, Character.MAX_VALUE, 279);
         {int[] a = {280,281,282,283,284}; op[279] = getOpcodeAlt(a);}
-        op[280] = getOpcodeRnm(66, 338); // ALPHA
-        op[281] = getOpcodeRnm(67, 341); // DIGIT
+        op[280] = getOpcodeRnm(66, 324); // ALPHA
+        op[281] = getOpcodeRnm(67, 327); // DIGIT
         {char[] a = {43}; op[282] = getOpcodeTls(a);}
         {char[] a = {45}; op[283] = getOpcodeTls(a);}
         {char[] a = {46}; op[284] = getOpcodeTls(a);}
@@ -440,8 +440,8 @@ public class XDI3Grammar extends Grammar{
         op[306] = getOpcodeRnm(63, 308); // iunreserved
         op[307] = getOpcodeRnm(64, 316); // pct-encoded
         {int[] a = {309,310,311,312,313,314,315}; op[308] = getOpcodeAlt(a);}
-        op[309] = getOpcodeRnm(66, 338); // ALPHA
-        op[310] = getOpcodeRnm(67, 341); // DIGIT
+        op[309] = getOpcodeRnm(66, 324); // ALPHA
+        op[310] = getOpcodeRnm(67, 327); // DIGIT
         {char[] a = {45}; op[311] = getOpcodeTls(a);}
         {char[] a = {46}; op[312] = getOpcodeTls(a);}
         {char[] a = {95}; op[313] = getOpcodeTls(a);}
@@ -449,43 +449,29 @@ public class XDI3Grammar extends Grammar{
         op[315] = getOpcodeRnm(65, 320); // ucschar
         {int[] a = {317,318,319}; op[316] = getOpcodeCat(a);}
         {char[] a = {37}; op[317] = getOpcodeTls(a);}
-        op[318] = getOpcodeRnm(68, 342); // HEXDIG
-        op[319] = getOpcodeRnm(68, 342); // HEXDIG
-        {int[] a = {321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337}; op[320] = getOpcodeAlt(a);}
+        op[318] = getOpcodeRnm(68, 328); // HEXDIG
+        op[319] = getOpcodeRnm(68, 328); // HEXDIG
+        {int[] a = {321,322,323}; op[320] = getOpcodeAlt(a);}
         op[321] = getOpcodeTrg((char)160, (char)55295);
         op[322] = getOpcodeTrg((char)63744, (char)64975);
         op[323] = getOpcodeTrg((char)65008, (char)65519);
-        op[324] = getOpcodeTrg((char)0, (char)65533);
-        op[325] = getOpcodeTrg((char)0, (char)65533);
-        op[326] = getOpcodeTrg((char)0, (char)65533);
-        op[327] = getOpcodeTrg((char)0, (char)65533);
-        op[328] = getOpcodeTrg((char)0, (char)65533);
-        op[329] = getOpcodeTrg((char)0, (char)65533);
-        op[330] = getOpcodeTrg((char)0, (char)65533);
-        op[331] = getOpcodeTrg((char)0, (char)65533);
-        op[332] = getOpcodeTrg((char)0, (char)65533);
-        op[333] = getOpcodeTrg((char)0, (char)65533);
-        op[334] = getOpcodeTrg((char)0, (char)65533);
-        op[335] = getOpcodeTrg((char)0, (char)65533);
-        op[336] = getOpcodeTrg((char)0, (char)65533);
-        op[337] = getOpcodeTrg((char)4096, (char)65533);
-        {int[] a = {339,340}; op[338] = getOpcodeAlt(a);}
-        op[339] = getOpcodeTrg((char)65, (char)90);
-        op[340] = getOpcodeTrg((char)97, (char)122);
-        op[341] = getOpcodeTrg((char)48, (char)57);
-        {int[] a = {343,344,345,346,347,348,349}; op[342] = getOpcodeAlt(a);}
-        op[343] = getOpcodeRnm(67, 341); // DIGIT
-        {char[] a = {65}; op[344] = getOpcodeTls(a);}
-        {char[] a = {66}; op[345] = getOpcodeTls(a);}
-        {char[] a = {67}; op[346] = getOpcodeTls(a);}
-        {char[] a = {68}; op[347] = getOpcodeTls(a);}
-        {char[] a = {69}; op[348] = getOpcodeTls(a);}
-        {char[] a = {70}; op[349] = getOpcodeTls(a);}
-        {int[] a = {351,352}; op[350] = getOpcodeCat(a);}
-        op[351] = getOpcodeRnm(70, 353); // CR
-        op[352] = getOpcodeRnm(71, 354); // LF
-        {char[] a = {13}; op[353] = getOpcodeTbs(a);}
-        {char[] a = {10}; op[354] = getOpcodeTbs(a);}
+        {int[] a = {325,326}; op[324] = getOpcodeAlt(a);}
+        op[325] = getOpcodeTrg((char)65, (char)90);
+        op[326] = getOpcodeTrg((char)97, (char)122);
+        op[327] = getOpcodeTrg((char)48, (char)57);
+        {int[] a = {329,330,331,332,333,334,335}; op[328] = getOpcodeAlt(a);}
+        op[329] = getOpcodeRnm(67, 327); // DIGIT
+        {char[] a = {65}; op[330] = getOpcodeTls(a);}
+        {char[] a = {66}; op[331] = getOpcodeTls(a);}
+        {char[] a = {67}; op[332] = getOpcodeTls(a);}
+        {char[] a = {68}; op[333] = getOpcodeTls(a);}
+        {char[] a = {69}; op[334] = getOpcodeTls(a);}
+        {char[] a = {70}; op[335] = getOpcodeTls(a);}
+        {int[] a = {337,338}; op[336] = getOpcodeCat(a);}
+        op[337] = getOpcodeRnm(70, 339); // CR
+        op[338] = getOpcodeRnm(71, 340); // LF
+        {char[] a = {13}; op[339] = getOpcodeTbs(a);}
+        {char[] a = {10}; op[340] = getOpcodeTbs(a);}
         return op;
     }
 
@@ -516,7 +502,7 @@ public class XDI3Grammar extends Grammar{
         out.println("literal-value           = [ peer ] literal-context \"/!/\" data-xref");
         out.println("literal-ref             = [ peer ] literal-context \"/!/()\"");
         out.println("");
-        out.println("context                 = peer / peer-relative-context / relative-context");
+        out.println("context                 = peer-relative-context / peer / relative-context");
         out.println("peer                    = 1*xref");
         out.println("peer-relative-context   = peer relative-context");
         out.println("relative-context        = 1*( singleton / ( collection [ member ] ) )");
@@ -576,11 +562,6 @@ public class XDI3Grammar extends Grammar{
         out.println("iunreserved             = ALPHA / DIGIT / \"-\" / \".\" / \"_\" / \"~\" / ucschar");
         out.println("pct-encoded             = \"%\" HEXDIG HEXDIG");
         out.println("ucschar                 = %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF");
-        out.println("                        / %x10000-1FFFD / %x20000-2FFFD / %x30000-3FFFD");
-        out.println("                        / %x40000-4FFFD / %x50000-5FFFD / %x60000-6FFFD");
-        out.println("                        / %x70000-7FFFD / %x80000-8FFFD / %x90000-9FFFD");
-        out.println("                        / %xA0000-AFFFD / %xB0000-BFFFD / %xC0000-CFFFD");
-        out.println("                        / %xD0000-DFFFD / %xE1000-EFFFD");
         out.println("ALPHA                   =  %x41-5A / %x61-7A   ; A-Z / a-z");
         out.println("DIGIT                   =  %x30-39     ; 0-9");
         out.println("HEXDIG                  =  DIGIT / \"A\" / \"B\" / \"C\" / \"D\" / \"E\" / \"F\"");
