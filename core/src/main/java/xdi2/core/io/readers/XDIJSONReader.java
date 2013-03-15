@@ -21,6 +21,7 @@ import xdi2.core.features.roots.Root;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
+import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -60,49 +61,45 @@ public class XDIJSONReader extends AbstractXDIReader {
 			String key = entry.getKey();
 			JSONArray value = (JSONArray) entry.getValue();
 
+			XDI3Statement statementXri = makeStatement(key + "/()", state);
+			ContextNode baseContextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
+
 			if (key.endsWith("/" + XDIConstants.XRI_S_CONTEXT.toString())) {
 
-				XDI3Statement statementXri = makeStatement(key + "/()", state);
-
 				// add context nodes
-
-				ContextNode contextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
 
 				for (int i=0; i<value.size(); i++) {
 
 					XDI3SubSegment arcXri = makeXDI3SubSegment(value.getString(i), state);
 
-					// ignore implied context nodes
+					ContextNode contextNode = baseContextNode.getContextNode(arcXri);
 
-					if (contextNode.containsContextNode(arcXri)) {
+					if (contextNode != null && contextNode.getStatement().isImplied()) {
+
+						// ignore implied context nodes
 
 						continue;
 					} else {
 
-						ContextNode innerContextNode = contextNode.createContextNode(arcXri);
-						if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created context node " + innerContextNode.getArcXri() + " --> " + innerContextNode.getXri());
+						contextNode = baseContextNode.createContextNode(arcXri);
+						if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Created context node " + contextNode.getArcXri() + " --> " + contextNode.getXri());
 					}
 				}
 			} else if (key.endsWith("/" + XDIConstants.XRI_S_LITERAL.toString())) {
 
-				XDI3Statement statementXri = makeStatement(key + "/()", state);
-
 				// add literal
-
-				ContextNode contextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
 
 				if (value.size() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
 
 				String literalData = value.getString(0);
 
-				Literal literal = contextNode.createLiteral(literalData);
-				if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
+				Literal literal = baseContextNode.createLiteral(literalData);
+				if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 			} else {
 
-				XDI3Statement statementXri = makeStatement(key + "/()", state);
-				XDI3Segment arcXri = statementXri.getPredicate();
+				// add inner root and/or relations
 
-				// add relations
+				XDI3Segment arcXri = statementXri.getPredicate();
 
 				for (int i=0; i<value.size(); i++) {
 
@@ -118,30 +115,33 @@ public class XDIJSONReader extends AbstractXDIReader {
 						jsonObjectInnerRoot = null;
 					}
 
-					if (jsonObjectInnerRoot != null) {
+					// inner root or relation?
 
-						// add inner root
+					if (jsonObjectInnerRoot != null) {
 
 						root = root.findRoot(statementXri.getSubject(), true);
 
 						XDI3Segment subject = root.getRelativePart(statementXri.getSubject());
 						XDI3Segment predicate = statementXri.getPredicate();
-						
+
 						InnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
 
 						this.read(innerRoot, jsonObjectInnerRoot, state);
 					} else {
 
-						// add relation
+						XDI3Segment targetContextNodeXri = makeXDI3Segment(value.getString(i), state);
+						targetContextNodeXri = XRIUtil.expandXri(targetContextNodeXri, root.getContextNode().getXri());
 
-						ContextNode contextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
+						Relation relation = baseContextNode.getRelation(arcXri, targetContextNodeXri);
 
-						String valueString = value.getString(i);
+						if (relation != null && relation.getStatement().isImplied()) {
 
-						XDI3Segment targetContextNodeXri = makeXDI3Segment(valueString, state);
+							continue;
+						} else {
 
-						Relation relation = contextNode.createRelation(arcXri, root.getContextNode().findContextNode(targetContextNodeXri, true));
-						if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+							relation = baseContextNode.createRelation(arcXri, targetContextNodeXri);
+							if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Created relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+						}
 					}
 				}
 			}
