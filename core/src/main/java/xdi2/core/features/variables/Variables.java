@@ -28,7 +28,7 @@ public class Variables {
 		if (! var.hasXRef()) return false;
 
 		XDI3XRef xref = var.getXRef();
-		if (xref.hasIRI()) return false;
+		if (xref.hasIri()) return false;
 		if (! xref.hasSegment()) return false;
 
 		XDI3Segment node = xref.getSegment();
@@ -54,7 +54,7 @@ public class Variables {
 		if (! var.hasXRef()) return false;
 
 		XDI3XRef xref = var.getXRef();
-		if (xref.hasIRI()) return false;
+		if (xref.hasIri()) return false;
 		if (! xref.hasSegment()) return false;
 
 		XDI3Segment node = xref.getSegment();
@@ -86,7 +86,7 @@ public class Variables {
 		if (! var.hasXRef()) return false;
 
 		XDI3XRef xref = var.getXRef();
-		if (xref.hasIRI()) return false;
+		if (xref.hasIri()) return false;
 		if (! xref.hasSegment()) return false;
 
 		XDI3Segment node = xref.getSegment();

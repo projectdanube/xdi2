@@ -2,8 +2,7 @@ package xdi2.core.xri3;
 
 import java.util.List;
 
-
-public class XDI3Segment extends XDI3SyntaxComponent {
+public final class XDI3Segment extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 2153450076797516335L;
 

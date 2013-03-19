@@ -43,7 +43,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getStatement());
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getPartialSubject());
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getPartialPredicate());
-		assertNull(statement.getSubject().getSubSegment(1).getXRef().getIRI());
+		assertNull(statement.getSubject().getSubSegment(1).getXRef().getIri());
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getLiteral());
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getNumSubSegments(), 2);
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0), statement.getSubject().getSubSegment(1).getXRef().getSegment().getFirstSubSegment());
@@ -61,7 +61,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getXRef().getPartialPredicate(), parser.parseXDI3Segment("+test"));
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getXRef().getPartialPredicate().getNumSubSegments(), 1);
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getXRef().getPartialPredicate().getSubSegment(0), parser.parseXDI3SubSegment("+test"));
-		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getXRef().getIRI());
+		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getXRef().getIri());
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getXRef().getLiteral());
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1), parser.parseXDI3SubSegment("+(email)"));
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getGCS(), XRI3Constants.GCS_PLUS);
@@ -72,7 +72,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getXRef().getStatement());
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getXRef().getPartialSubject());
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getXRef().getPartialPredicate());
-		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getXRef().getIRI());
+		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getXRef().getIri());
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getXRef().getLiteral(), "email");
 
 		assertEquals(statement.getPredicate().getNumSubSegments(), 1);
@@ -88,7 +88,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertNull(statement.getObject().getSubSegment(0).getXRef().getStatement());
 		assertNull(statement.getObject().getSubSegment(0).getXRef().getPartialSubject());
 		assertNull(statement.getObject().getSubSegment(0).getXRef().getPartialPredicate());
-		assertEquals(statement.getObject().getSubSegment(0).getXRef().getIRI(), "data:,xxx");
+		assertEquals(statement.getObject().getSubSegment(0).getXRef().getIri(), "data:,xxx");
 		assertNull(statement.getObject().getSubSegment(0).getXRef().getLiteral());
 	}
 
@@ -149,7 +149,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(XDI3Statement.create(parser, "=markus/+friend/=drummond"), xref.getStatement());
 
 		xref = XDI3XRef.create(parser, "(data:,markus.sabadello@gmail.com)");
-		assertEquals("data:,markus.sabadello@gmail.com", xref.getIRI());
+		assertEquals("data:,markus.sabadello@gmail.com", xref.getIri());
 
 		xref = XDI3XRef.create(parser, "(email)");
 		assertEquals("email", xref.getLiteral());

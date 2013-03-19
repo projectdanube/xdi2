@@ -1,22 +1,18 @@
 package xdi2.core.xri3;
 
-
-
 public class XDI3SubSegment extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = -645927779266394209L;
 
-	private Character gcs;
-	private Character lcs;
+	private Character cs;
 	private String literal;
 	private XDI3XRef xref;
 
-	XDI3SubSegment(String string, Character gcs, Character lcs, String literal, XDI3XRef xref) {
+	XDI3SubSegment(String string, Character cs, String literal, XDI3XRef xref) {
 
 		super(string);
 
-		this.gcs = gcs;
-		this.lcs = lcs;
+		this.cs = cs;
 		this.literal = literal;
 		this.xref = xref;
 	}
@@ -33,7 +29,7 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 
 	public boolean hasGCS() {
 
-		return this.gcs != null;
+		return this.cs != null;
 	}
 
 	public boolean hasLCS() {
@@ -53,7 +49,7 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 
 	public Character getGCS() {
 
-		return this.gcs;
+		return this.cs;
 	}
 
 	public Character getLCS() {

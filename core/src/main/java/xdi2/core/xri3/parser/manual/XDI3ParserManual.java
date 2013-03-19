@@ -172,7 +172,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 	private static String stripParens(String string) {
 
-		Pattern pattern = Pattern.compile(".*(\\([^()]*\\)).*");
+		Pattern pattern = Pattern.compile(".*(\\([^(){}<>\\[\\]]*\\)).*");
 
 		String temp = string;
 

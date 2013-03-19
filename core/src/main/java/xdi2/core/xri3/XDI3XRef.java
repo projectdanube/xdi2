@@ -5,22 +5,24 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 4875921569202236777L;
 
+	private Character delimiter;
 	private XDI3Segment segment;
 	private XDI3Statement statement;
 	private XDI3Segment partialSubject;
 	private XDI3Segment partialPredicate;
-	private String IRI;
+	private String iri;
 	private String literal;
 
-	XDI3XRef(String string, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String IRI, String literal) {
+	XDI3XRef(String string, Character delimiter, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
 
 		super(string);
 
+		this.delimiter = delimiter;
 		this.segment = segment;
 		this.statement = statement;
 		this.partialSubject = partialSubject;
 		this.partialPredicate = partialPredicate;
-		this.IRI = IRI;
+		this.iri = iri;
 		this.literal = literal;
 	}
 
@@ -49,14 +51,19 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return this.partialSubject != null && this.partialPredicate != null;
 	}
 
-	public boolean hasIRI() {
+	public boolean hasIri() {
 
-		return this.IRI != null;
+		return this.iri != null;
 	}
 
 	public boolean hasLiteral() {
 
 		return this.literal != null;
+	}
+
+	public Character getDelimiter() {
+
+		return this.delimiter;
 	}
 
 	public XDI3Segment getSegment() {
@@ -79,9 +86,9 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return this.partialPredicate;
 	}
 
-	public String getIRI() {
+	public String getIri() {
 
-		return this.IRI;
+		return this.iri;
 	}
 
 	public String getLiteral() {
@@ -94,7 +101,7 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		if (this.segment != null) return this.segment.toString();
 		if (this.statement != null) return this.statement.toString();
 		if (this.partialSubject != null && this.partialPredicate != null) return this.partialSubject.toString() + "/" + this.partialPredicate.toString();
-		if (this.IRI != null) return this.IRI;
+		if (this.iri != null) return this.iri;
 		if (this.literal != null) return this.literal;
 
 		return null;

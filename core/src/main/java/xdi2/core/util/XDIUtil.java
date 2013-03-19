@@ -53,7 +53,7 @@ public class XDIUtil {
 		XDI3XRef xref = subSegment.getXRef();
 		if (xref == null) throw new Xdi2RuntimeException("Invalid data URI (no xref): " + subSegment);
 
-		String iri = xref.getIRI();		
+		String iri = xref.getIri();		
 		if (iri == null) throw new Xdi2RuntimeException("Invalid data URI (no iri): " + subSegment);
 
 		URI uri = URI.create(iri);
