@@ -24,6 +24,7 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NoDuplicatesIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -255,6 +256,17 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new operation and adds it to this XDI message.
+	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 */
+	public Operation createOperation(XDI3Segment operationXri, XDI3Statement targetStatement) {
+
+		return this.createOperation(operationXri, new SingleItemIterator<XDI3Statement> (targetStatement));
+	}
+
+	/**
 	 * Creates a new $get operation and adds it to this XDI message.
 	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $get operation.
@@ -280,9 +292,19 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $get operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $get operation.
+	 */
+	public GetOperation createGetOperation(XDI3Statement targetStatement) {
+
+		return this.createGetOperation(new SingleItemIterator<XDI3Statement> (targetStatement));
+	}
+
+	/**
 	 * Creates a new $add operation and adds it to this XDI message.
 	 * @param targetAddress The target address to which the operation applies.
-	 * @return The newly created $get operation.
+	 * @return The newly created $add operation.
 	 */
 	public AddOperation createAddOperation(XDI3Segment targetAddress) {
 
@@ -294,7 +316,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Creates a new $add operation and adds it to this XDI message.
 	 * @param targetStatements The target statements to which the operation applies.
-	 * @return The newly created $get operation.
+	 * @return The newly created $add operation.
 	 */
 	public AddOperation createAddOperation(Iterator<XDI3Statement> targetStatements) {
 
@@ -302,6 +324,16 @@ public final class Message implements Serializable, Comparable<Message> {
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
 		return AddOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
+	}
+
+	/**
+	 * Creates a new $add operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $add operation.
+	 */
+	public AddOperation createAddOperation(XDI3Statement targetStatement) {
+
+		return this.createAddOperation(new SingleItemIterator<XDI3Statement> (targetStatement));
 	}
 
 	/**
@@ -330,6 +362,16 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $mod operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $mod operation.
+	 */
+	public ModOperation createModOperation(XDI3Statement targetStatement) {
+
+		return this.createModOperation(new SingleItemIterator<XDI3Statement> (targetStatement));
+	}
+
+	/**
 	 * Creates a new $del operation and adds it to this XDI message.
 	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $del operation.
@@ -355,6 +397,16 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $del operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $del operation.
+	 */
+	public DelOperation createDelOperation(XDI3Statement targetStatement) {
+
+		return this.createDelOperation(new SingleItemIterator<XDI3Statement> (targetStatement));
+	}
+
+	/**
 	 * Creates a new $do operation and adds it to this XDI message.
 	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $do operation.
@@ -377,6 +429,16 @@ public final class Message implements Serializable, Comparable<Message> {
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
 		return DoOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
+	}
+
+	/**
+	 * Creates a new $do operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $do operation.
+	 */
+	public DoOperation createDoOperation(XDI3Statement targetStatement) {
+
+		return this.createDoOperation(new SingleItemIterator<XDI3Statement> (targetStatement));
 	}
 
 	/**
