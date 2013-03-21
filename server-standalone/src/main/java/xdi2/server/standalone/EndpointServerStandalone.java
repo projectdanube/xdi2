@@ -7,7 +7,7 @@ import org.eclipse.jetty.server.Server;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
-import xdi2.server.EndpointServerEmbedded;
+import xdi2.server.embedded.EndpointServerEmbedded;
 
 public class EndpointServerStandalone extends Server {
 

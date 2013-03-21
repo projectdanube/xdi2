@@ -36,7 +36,7 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 		String requestPath = requestUri.substring(contextPath.length() + servletPath.length());
 		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
 
-		return new ServletHttpRequest(httpServletRequest, uri, requestUri);
+		return new ServletHttpRequest(httpServletRequest, uri, requestPath);
 	}
 
 	public HttpServletRequest getHttpServletRequest() {

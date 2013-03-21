@@ -110,6 +110,7 @@ public class HttpTransport {
 
 		try {
 
+			request.lookup(this.getHttpEndpointRegistry());
 			this.processGetRequest(request, response);
 		} catch (Exception ex) {
 
@@ -127,6 +128,7 @@ public class HttpTransport {
 
 		try {
 
+			request.lookup(this.getHttpEndpointRegistry());
 			this.processPostRequest(request, response);
 		} catch (Exception ex) {
 
@@ -144,6 +146,7 @@ public class HttpTransport {
 
 		try {
 
+			request.lookup(this.getHttpEndpointRegistry());
 			this.processPutRequest(request, response);
 		} catch (Exception ex) {
 
@@ -161,6 +164,7 @@ public class HttpTransport {
 
 		try {
 
+			request.lookup(this.getHttpEndpointRegistry());
 			this.processDeleteRequest(request, response);
 		} catch (Exception ex) {
 
@@ -173,7 +177,7 @@ public class HttpTransport {
 	}
 
 	protected void processGetRequest(HttpRequest request, HttpResponse response) throws Xdi2ServerException, IOException {
-
+		
 		MessagingTarget messagingTarget = request.getMessagingTarget();
 
 		// execute interceptors

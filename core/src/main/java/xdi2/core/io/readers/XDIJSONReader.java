@@ -136,6 +136,8 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 						if (relation != null && relation.getStatement().isImplied()) {
 
+							// ignore implied context nodes
+
 							continue;
 						} else {
 
