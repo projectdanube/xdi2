@@ -49,7 +49,8 @@ h1 { font-size: 1.5em; }
 		</td>
 	</tr>
 	<tr><th>Startup Time:</th><td>$httptransport.getStartupAsString()</td></tr>
-	<tr><th>URI:</th><td>$request.uri</td></tr>
+	<tr><th>Base URI:</th><td>$request.baseUri</td></tr>
+	<tr><th>Request Path:</th><td>$request.requestPath</td></tr>
 	<tr><th>Parser:</th><td>$parser.class.canonicalName</td></tr>
 </table>
 <hr style="clear: both" noshade>
@@ -75,8 +76,8 @@ h1 { font-size: 1.5em; }
 #foreach($messagingtargetbypath in $messagingtargetsbypath.entrySet())
 	<tr>
     <td valign="top">
-    	<a href="$messagingtargetbypath.key">
-    		$messagingtargetbypath.key
+    	<a href="$request.baseUri$messagingtargetbypath.key">
+    		$request.baseUri$messagingtargetbypath.key
     	</a>
 		<p><form action="" method="post">
 			<input type="hidden" name="cmd" value="unmount_messaging_target">
@@ -155,8 +156,8 @@ h1 { font-size: 1.5em; }
 #foreach($messagingtargetfactorybypath in $messagingtargetfactorysbypath.entrySet())
 	<tr>
     <td valign="top">
-    	<a href="$messagingtargetfactorybypath.key">
-    		$messagingtargetfactorybypath.key
+    	<a href="$request.baseUri$messagingtargetfactorybypath.key">
+    		$request.baseUri$messagingtargetfactorybypath.key
     	</a>
 		<p><form action="" method="post">
 			<input type="hidden" name="cmd" value="unmount_messaging_target_factory">

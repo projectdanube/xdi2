@@ -16,7 +16,7 @@ import xdi2.server.registry.HttpEndpointRegistry;
  */
 public interface HttpRequest {
 
-	public String getUri();
+	public String getBaseUri();
 	public String getRequestPath();
 	public String getParameter(String name);
 	public String getHeader(String name);
