@@ -1,8 +1,7 @@
 ()/$is$ref/(=!BDF3.1FB.E70C.3958)
 $do/$all/()
-$do$if$and/$true/($do$if$and/$true)
-($do$if$and/$true)($from)/$is/($do$if$and/$true)=!BDF3.1FB.E70C.3958
-($do$if$and/$true)($msg)$secret$!($token)/$equals/($do$if$and/$true)$secret$!($token)
+$do$if$and/$true/(($from)/$is/=!BDF3.1FB.E70C.3958)
+$do$if$and/$true/(($msg)$secret$!($token)/$equals/$secret$!($token))
 (=!BDF3.1FB.E70C.3958)/$is/()
 (=danube)/$ref/(=!BDF3.1FB.E70C.3958)
 (=danube*animesh)/$ref/(=!BDF3.1FB.E70C.3958!2222)
