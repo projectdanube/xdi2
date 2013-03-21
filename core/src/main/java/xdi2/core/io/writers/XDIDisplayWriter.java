@@ -121,17 +121,17 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_CONTEXTNODE + "\">");
 					this.writeStatement(bufferedWriter, statement);
-					bufferedWriter.write("</span>\n");
+					bufferedWriter.write("</span><br>\n");
 				} else if (statement instanceof RelationStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_RELATION + "\">");
 					this.writeStatement(bufferedWriter, statement);
-					bufferedWriter.write("</span>\n");
+					bufferedWriter.write("</span><br>\n");
 				} else if (statement instanceof LiteralStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_LITERAL + "\">");
 					this.writeStatement(bufferedWriter, statement);
-					bufferedWriter.write("</span>\n");
+					bufferedWriter.write("</span><br>\n");
 				}
 			} else {
 
@@ -165,7 +165,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		builder.append(statementXri.getPredicate());
 		builder.append(this.writePretty ? "\t" : "/");
 		builder.append(statementXri.getObject());
-		builder.append(this.writeHtml ? "<br>\n" : "\n");
+		builder.append(this.writeHtml ? "" : "\n");
 
 		String string = builder.toString();
 		if (this.writeHtml) string = string.replaceAll("\t", "&#9;");

@@ -31,7 +31,7 @@ public final class XDIWriterRegistry {
 	public static final String PARAMETER_HTML = "html";
 	public static final String DEFAULT_IMPLIED = "0";
 	public static final String DEFAULT_ORDERED = "0";
-	public static final String DEFAULT_INNER = "0";
+	public static final String DEFAULT_INNER = "1";
 	public static final String DEFAULT_PRETTY = "0";
 	public static final String DEFAULT_HTML = "0";
 
