@@ -1,4 +1,4 @@
-package xdi2.server;
+package xdi2.server.embedded;
 
 import java.io.IOException;
 
@@ -43,9 +43,9 @@ public class EndpointServerEmbedded extends Server {
 
 		if (applicationContext == null) throw new NullPointerException();
 
-		EndpointServerEmbedded endpointServer = (EndpointServerEmbedded) applicationContext.getBean("EndpointServer");
+		EndpointServerEmbedded endpointServerEmbedded = (EndpointServerEmbedded) applicationContext.getBean("EndpointServerEmbedded");
 
-		return endpointServer;
+		return endpointServerEmbedded;
 	}
 
 	public static EndpointServerEmbedded newServer(Resource... resources) throws Xdi2ServerException {

@@ -142,8 +142,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 	private static String constructUri(HttpRequest request, String targetPath, XDI3Segment canonicalid) {
 
-		String uri = request.getUri().substring(0, request.getUri().length() - request.getRequestPath().length());
-		uri += targetPath + "/" + canonicalid.toString();
+		String uri = request.getBaseUri() + targetPath + "/" + canonicalid.toString();
 
 		return uri;
 	}

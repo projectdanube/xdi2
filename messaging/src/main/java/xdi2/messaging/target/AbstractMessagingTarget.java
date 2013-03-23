@@ -88,7 +88,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		executionContext.pushMessagingTarget(this, null);
 		executionContext.pushMessageEnvelope(messageEnvelope, null);
 
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message envelope.");
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message envelope (" + messageEnvelope.getMessageCount() + " messages).");
 
 		try {
 

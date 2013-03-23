@@ -5,7 +5,7 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.BootstrapInterceptor;
-import xdi2.server.EndpointServerEmbedded;
+import xdi2.server.embedded.EndpointServerEmbedded;
 
 public class BasicEndpointServerSample {
 

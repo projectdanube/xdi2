@@ -32,7 +32,7 @@ h1 { font-size: 1.5em; }
 <hr style="clear: both" noshade>
 <h1>General Information:</h1>
 <table>
-	<tr><th>Servlet Class:</th><td>$endpointservlet.class.canonicalName</td>
+	<tr><th>Request Class:</th><td>$request.class.canonicalName</td>
 		<td rowspan="4" valign="top">
 			<table>
 				<tr>
@@ -40,7 +40,7 @@ h1 { font-size: 1.5em; }
 				</tr>
 				<tr>
 				<td valign="top">
-				#foreach($interceptor in $endpointservlet.interceptors) 
+				#foreach($interceptor in $httptransport.interceptors) 
 					$interceptor.class.canonicalName<br>
 				#end
 				</td>
@@ -48,8 +48,9 @@ h1 { font-size: 1.5em; }
 			</table>
 		</td>
 	</tr>
-	<tr><th>Startup Time:</th><td>$endpointservlet.getStartupAsString()</td></tr>
-	<tr><th>URI:</th><td>$requestinfo.uri</td></tr>
+	<tr><th>Startup Time:</th><td>$httptransport.getStartupAsString()</td></tr>
+	<tr><th>Base URI:</th><td>$request.baseUri</td></tr>
+	<tr><th>Request Path:</th><td>$request.requestPath</td></tr>
 	<tr><th>Parser:</th><td>$parser.class.canonicalName</td></tr>
 </table>
 <hr style="clear: both" noshade>
@@ -75,8 +76,8 @@ h1 { font-size: 1.5em; }
 #foreach($messagingtargetbypath in $messagingtargetsbypath.entrySet())
 	<tr>
     <td valign="top">
-    	<a href="$requestinfo.contextPath$requestinfo.servletPath$messagingtargetbypath.key">
-    		$requestinfo.contextPath$requestinfo.servletPath$messagingtargetbypath.key
+    	<a href="$request.baseUri$messagingtargetbypath.key">
+    		$request.baseUri$messagingtargetbypath.key
     	</a>
 		<p><form action="" method="post">
 			<input type="hidden" name="cmd" value="unmount_messaging_target">
@@ -155,8 +156,8 @@ h1 { font-size: 1.5em; }
 #foreach($messagingtargetfactorybypath in $messagingtargetfactorysbypath.entrySet())
 	<tr>
     <td valign="top">
-    	<a href="$requestinfo.contextPath$requestinfo.servletPath$messagingtargetfactorybypath.key">
-    		$requestinfo.contextPath$requestinfo.servletPath$messagingtargetfactorybypath.key
+    	<a href="$request.baseUri$messagingtargetfactorybypath.key">
+    		$request.baseUri$messagingtargetfactorybypath.key
     	</a>
 		<p><form action="" method="post">
 			<input type="hidden" name="cmd" value="unmount_messaging_target_factory">

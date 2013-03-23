@@ -11,19 +11,17 @@ import xdi2.server.transport.HttpRequest;
 public final class ServletHttpRequest extends AbstractHttpRequest implements HttpRequest {
 
 	private HttpServletRequest httpServletRequest;
-	private String uri;
+	private String baseUri;
 	private String requestPath;
 
 	private ServletHttpRequest(HttpServletRequest httpServletRequest, String uri, String requestPath) { 
 
 		this.httpServletRequest = httpServletRequest;
-		this.uri = uri;
+		this.baseUri = uri;
 		this.requestPath = requestPath;
 	}
 
 	public static ServletHttpRequest fromHttpServletRequest(HttpServletRequest httpServletRequest) {
-
-		String uri = httpServletRequest.getRequestURL().toString();
 
 		String requestUri = httpServletRequest.getRequestURI();
 
@@ -36,7 +34,10 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 		String requestPath = requestUri.substring(contextPath.length() + servletPath.length());
 		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
 
-		return new ServletHttpRequest(httpServletRequest, uri, requestUri);
+		String baseUri = httpServletRequest.getRequestURL().toString().substring(0, httpServletRequest.getRequestURL().length() - requestPath.length() + 1);
+		if (baseUri.endsWith("/")) baseUri = baseUri.substring(0, baseUri.length() - 1);
+
+		return new ServletHttpRequest(httpServletRequest, baseUri, requestPath);
 	}
 
 	public HttpServletRequest getHttpServletRequest() {
@@ -45,9 +46,9 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 	}
 
 	@Override
-	public String getUri() {
+	public String getBaseUri() {
 
-		return this.uri;
+		return this.baseUri;
 	}
 
 	@Override

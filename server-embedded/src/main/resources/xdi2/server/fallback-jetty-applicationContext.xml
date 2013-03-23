@@ -23,7 +23,7 @@
 		<property name="contextPath" value="/" />
 	</bean>
 
-	<bean id="EndpointServer" class="xdi2.server.EndpointServer">
+	<bean id="EndpointServerEmbedded" class="xdi2.server.embedded.EndpointServerEmbedded">
 
 		<property name="endpointServlet" ref="EndpointServlet" />
 
@@ -38,5 +38,7 @@
 		<property name="handler" ref="servletContextHandler" />
 
 	</bean>
+
+	<bean id="EndpointServlet" class="xdi2.server.servlet.EndpointServlet" init-method="init" destroy-method="destroy" />
 
 </beans>

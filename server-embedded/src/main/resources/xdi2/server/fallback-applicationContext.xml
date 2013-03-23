@@ -3,8 +3,22 @@
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-	<!-- XDI SERVLET -->
+	<!-- XDI ENDPOINT REGISTRY AND TRANSPORT -->
 
-	<bean id="EndpointServlet" class="xdi2.server.EndpointServlet" init-method="init" destroy-method="destroy" />
+	<bean id="HttpEndpointRegistry" class="xdi2.server.registry.HttpEndpointRegistry" init-method="init" destroy-method="shutdown" />
+
+	<bean id="HttpTransport" class="xdi2.server.transport.HttpTransport" init-method="init" destroy-method="shutdown">
+		<property name="httpEndpointRegistry" ref="HttpEndpointRegistry" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.server.interceptor.impl.DebugHttpTransportInterceptor" />
+				<bean class="xdi2.server.interceptor.impl.XriResolutionHttpTransportInterceptor">
+					<property name="resolvePath" value="/resolve" />
+					<property name="targetPath" value="/users" />
+					<property name="registryGraph" ref="registrygraph" />
+				</bean>
+			</util:list>
+		</property>
+	</bean>
 
 </beans>
