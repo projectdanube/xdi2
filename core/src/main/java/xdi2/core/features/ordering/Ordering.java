@@ -21,13 +21,13 @@ public class Ordering {
 
 	public static XDI3SubSegment indexToXri(int index) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + XDI3Constants.LCS_STAR + Integer.toString(index));
+		return XDI3SubSegment.create("" + XDI3Constants.CS_STAR + Integer.toString(index));
 	}
 
 	public static int xriToIndex(XDI3SubSegment arcXri) {
 
-		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return -1;
-		if (! XDI3Constants.LCS_STAR.equals(arcXri.getLCS())) return -1;
+		if (! arcXri.hasCs()) return -1;
+		if (! XDI3Constants.CS_STAR.equals(arcXri.getCs())) return -1;
 		if (! arcXri.hasLiteral()) return -1;
 
 		return Integer.parseInt(arcXri.getLiteral());

@@ -78,12 +78,12 @@ public class Multiplicity {
 
 			if (isAttributeCollectionArcXri(arcXri)) {
 
-				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
+				return arcXri.getXRef().getSegment().getFirstSubSegment().getXRef().getSegment().getFirstSubSegment();
 			}
 
 			if (isMemberArcXri(arcXri)) {
 
-				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
+				return arcXri.getXRef().getSegment().getFirstSubSegment();
 			}
 		} catch (ParserException ex) {
 
@@ -121,6 +121,7 @@ public class Multiplicity {
 		if (arcXri.hasCs()) return false;
 		if (! arcXri.hasXRef()) return false;
 		if (! Arrays.equals(arcXri.getXRef().getCf(), XDI3Constants.CF_COLLECTION)) return false;
+		if (arcXri.getXRef().hasSegment() && arcXri.getXRef().getSegment().getNumSubSegments() == 1 && arcXri.getXRef().getSegment().getFirstSubSegment().hasXRef() && Arrays.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getXRef().getCf(), XDI3Constants.CF_ATTRIBUTE)) return false;
 
 		return true;
 	}

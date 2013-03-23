@@ -20,13 +20,12 @@ public class Dictionary {
 
 	public static XDI3SubSegment instanceXriToDictionaryXri(XDI3SubSegment instanceXri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.GCS_PLUS + "(" + instanceXri + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.CS_PLUS + "(" + instanceXri + ")");
 	}
 
 	public static XDI3SubSegment dictionaryXriToInstanceXri(XDI3SubSegment dictionaryXri) {
 
-		if (! XDI3Constants.GCS_PLUS.equals(dictionaryXri.getGCS())) return null;
-		if (dictionaryXri.hasLCS()) return null;
+		if (! XDI3Constants.CS_PLUS.equals(dictionaryXri.getCs())) return null;
 		if (! dictionaryXri.hasXRef()) return null;
 
 		return XDI3SubSegment.create(dictionaryXri.getXRef().getValue());
@@ -34,7 +33,7 @@ public class Dictionary {
 
 	public static XDI3SubSegment nativeIdentifierToInstanceXri(String nativeIdentifier) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.GCS_PLUS + "(" + nativeIdentifier + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.CS_PLUS + "(" + nativeIdentifier + ")");
 	}
 
 	public static String instanceXriToNativeIdentifier(XDI3SubSegment instanceXri) {

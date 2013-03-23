@@ -11,18 +11,17 @@ public class Variables {
 
 	public static boolean isVariable(XDI3SubSegment var) {
 
-		return isVariableSingle(var) || isVariableMultiple(var) | isVariableMultipleLocal(var);
+		return isVariableSingle(var)/* || isVariableMultiple(var) | isVariableMultipleLocal(var)*/;
 	}
 
 	public static boolean isVariable(XDI3Segment var) {
 
-		return isVariableSingle(var) || isVariableMultiple(var) | isVariableMultipleLocal(var);
+		return isVariableSingle(var)/* || isVariableMultiple(var) | isVariableMultipleLocal(var)*/;
 	}
 
 	public static boolean isVariableSingle(XDI3SubSegment var) {
 
 		if (var.hasCs()) return false;
-		if (var.hasLCS()) return false;
 
 		if (var.hasLiteral()) return false;
 		if (! var.hasXRef()) return false;
@@ -35,7 +34,8 @@ public class Variables {
 		if (node.getNumSubSegments() != 1) return false;
 
 		XDI3SubSegment firstSubSegment = node.getSubSegment(0);
-		if (! XDI3Constants.GCS_DOLLAR.equals(firstSubSegment.getGCS())) return false;
+		if (! firstSubSegment.hasCs()) return false;
+		if (! XDI3Constants.CS_DOLLAR.equals(firstSubSegment.getCs())) return false;
 
 		return true;
 	}
@@ -45,6 +45,8 @@ public class Variables {
 		return var.getNumSubSegments() == 1 ? isVariableSingle(var.getFirstSubSegment()) : false;
 	}
 
+	/*
+	 *  TODO
 	public static boolean isVariableMultiple(XDI3SubSegment var) {
 
 		if (var.hasCs()) return false;
@@ -70,14 +72,14 @@ public class Variables {
 		if (secondSubSegment.hasXRef()) return false;
 
 		return true;
-	}
+	}*/
 
-	public static boolean isVariableMultiple(XDI3Segment var) {
+/*	public static boolean isVariableMultiple(XDI3Segment var) {
 
 		return var.getNumSubSegments() == 1 ? isVariableMultiple(var.getFirstSubSegment()) : false;
-	}
+	}*/
 
-	public static boolean isVariableMultipleLocal(XDI3SubSegment var) {
+/*	public static boolean isVariableMultipleLocal(XDI3SubSegment var) {
 
 		if (var.hasCs()) return false;
 
@@ -101,10 +103,10 @@ public class Variables {
 		if (secondSubSegment.hasXRef()) return false;
 
 		return true;
-	}
+	}*/
 
-	public static boolean isVariableMultipleLocal(XDI3Segment var) {
+/*	public static boolean isVariableMultipleLocal(XDI3Segment var) {
 
 		return var.getNumSubSegments() == 1 ? isVariableMultipleLocal(var.getFirstSubSegment()) : false;
-	}
+	}*/
 }
