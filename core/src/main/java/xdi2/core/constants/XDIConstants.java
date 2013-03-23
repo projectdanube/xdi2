@@ -12,7 +12,7 @@ public class XDIConstants {
 
 	public static final XDI3Segment XRI_S_ROOT = XDI3Segment.create("()");
 	public static final XDI3Segment XRI_S_CONTEXT = XDI3Segment.create("()");
-	public static final XDI3Segment XRI_S_LITERAL = XDI3Segment.create("!");
+	public static final XDI3Segment XRI_S_LITERAL = XDI3Segment.create("<>");
 
 	public static final XDI3Segment XRI_S_VARIABLE_SINGLE = XDI3Segment.create("($)");
 	public static final XDI3Segment XRI_S_VARIABLE_MULTIPLE_LOCAL = XDI3Segment.create("($$!)");
@@ -26,7 +26,7 @@ public class XDIConstants {
 	public static final XDI3Segment XRI_S_PUBLIC = XDI3Segment.create("$public");
 
 	public static final XDI3SubSegment XRI_SS_CONTEXT = XDI3SubSegment.create("()");
-	public static final XDI3SubSegment XRI_SS_LITERAL = XDI3SubSegment.create("!");
+	public static final XDI3SubSegment XRI_SS_LITERAL = XDI3SubSegment.create("<>");
 
 	private XDIConstants() { }
 }

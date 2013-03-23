@@ -14,7 +14,7 @@ import xdi2.core.features.multiplicity.XdiAttributeSingleton;
 import xdi2.core.features.multiplicity.XdiCollection;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XRI3Constants;
+import xdi2.core.xri3.XDI3Constants;
 
 /**
  * A helper class to work with data types, i.e. get or set them. Supported data
@@ -28,11 +28,11 @@ public class DataTypes {
 	}
 
 	public static final XDI3Segment XRI_DATATYPE_XSD = XDI3Segment.create(""
-			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "xsd");
+			+ XDI3Constants.GCS_PLUS + XDI3Constants.GCS_DOLLAR + "xsd");
 	public static final XDI3Segment XRI_DATATYPE_JSON = XDI3Segment.create(""
-			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "json");
+			+ XDI3Constants.GCS_PLUS + XDI3Constants.GCS_DOLLAR + "json");
 	public static final XDI3Segment XRI_DATATYPE_MIME = XDI3Segment.create(""
-			+ XRI3Constants.GCS_PLUS + XRI3Constants.GCS_DOLLAR + "mime");
+			+ XDI3Constants.GCS_PLUS + XDI3Constants.GCS_DOLLAR + "mime");
 	private static final String xriBoolean = "+$binary!";
 
 	/*
@@ -47,8 +47,8 @@ public class DataTypes {
 	 */
 	public static XDI3Segment dataTypeXriFromXsdType(String xsdType) {
 
-		return XDI3Segment.create("" + XRI_DATATYPE_XSD + XRI3Constants.GCS_DOLLAR
-				+ xsdType + XRI3Constants.LCS_BANG);
+		return XDI3Segment.create("" + XRI_DATATYPE_XSD + XDI3Constants.GCS_DOLLAR
+				+ xsdType + XDI3Constants.LCS_BANG);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class DataTypes {
 	public static XDI3Segment dataTypeXriFromJsonType(String jsonType) {
 
 		return XDI3Segment.create("" + XRI_DATATYPE_JSON
-				+ XRI3Constants.GCS_DOLLAR + jsonType + XRI3Constants.LCS_BANG);
+				+ XDI3Constants.GCS_DOLLAR + jsonType + XDI3Constants.LCS_BANG);
 	}
 
 	/**
@@ -104,9 +104,9 @@ public class DataTypes {
 		try {
 			parts = mimeType.split("/");
 			xriSeg = XDI3Segment.create("" + XRI_DATATYPE_MIME
-					+ XRI3Constants.GCS_DOLLAR + parts[0]
-							+ XRI3Constants.GCS_DOLLAR + parts[1]
-									+ XRI3Constants.LCS_BANG);
+					+ XDI3Constants.GCS_DOLLAR + parts[0]
+							+ XDI3Constants.GCS_DOLLAR + parts[1]
+									+ XDI3Constants.LCS_BANG);
 		} catch (Exception ex) {
 			throw new Xdi2RuntimeException("Invalid MIME Type ", ex);
 		}

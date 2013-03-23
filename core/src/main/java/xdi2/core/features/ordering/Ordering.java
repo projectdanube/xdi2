@@ -9,7 +9,7 @@ import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.TerminatingOnNullIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.core.xri3.XRI3Constants;
+import xdi2.core.xri3.XDI3Constants;
 
 public class Ordering {
 
@@ -21,13 +21,13 @@ public class Ordering {
 
 	public static XDI3SubSegment indexToXri(int index) {
 
-		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_STAR + Integer.toString(index));
+		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + XDI3Constants.LCS_STAR + Integer.toString(index));
 	}
 
 	public static int xriToIndex(XDI3SubSegment arcXri) {
 
-		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return -1;
-		if (! XRI3Constants.LCS_STAR.equals(arcXri.getLCS())) return -1;
+		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return -1;
+		if (! XDI3Constants.LCS_STAR.equals(arcXri.getLCS())) return -1;
 		if (! arcXri.hasLiteral()) return -1;
 
 		return Integer.parseInt(arcXri.getLiteral());

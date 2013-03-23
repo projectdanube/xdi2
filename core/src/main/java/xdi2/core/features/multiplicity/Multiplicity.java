@@ -7,7 +7,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.core.xri3.XRI3Constants;
+import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.parser.aparse.ParserException;
 
 /**
@@ -16,11 +16,11 @@ import xdi2.core.xri3.parser.aparse.ParserException;
  * 
  * Examples:
  * 
- * Collection: $(+tel), $(+passport)
- * Entity Singleton: =!1111, +passport
- * Attribute Singleton: $!(+tel)
- * Entity Member: $(!1)
- * Attribute Member: $!(!1)
+ * Entity Singleton: =markus, =!1111
+ * Attribute Singleton: <+email>
+ * Entity Collection: {+printer}
+ * Attribute Collection: {<+email>}
+ * Member: [!1]
  * 
  * @author markus
  */
@@ -34,12 +34,12 @@ public class Multiplicity {
 
 	public static XDI3SubSegment collectionArcXri(XDI3SubSegment arcXri) {
 
-		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
 	}
 
 	public static XDI3SubSegment collectionArcXri(String identifier) {
 
-		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + "(" + identifier + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + "(" + identifier + ")");
 	}
 
 	public static XDI3SubSegment entitySingletonArcXri(XDI3SubSegment arcXri) {
@@ -49,7 +49,7 @@ public class Multiplicity {
 
 	public static XDI3SubSegment entityMemberArcXri(String identifier) {
 
-		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + "(" + XRI3Constants.LCS_BANG + identifier + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + "(" + XDI3Constants.LCS_BANG + identifier + ")");
 	}
 
 	public static XDI3SubSegment entityMemberArcXriRandom() {
@@ -59,12 +59,12 @@ public class Multiplicity {
 
 	public static XDI3SubSegment attributeSingletonArcXri(XDI3SubSegment arcXri) {
 
-		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + arcXri + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + XDI3Constants.LCS_BANG + "(" + arcXri + ")");
 	}
 
 	public static XDI3SubSegment attributeMemberArcXri(String identifier) {
 
-		return XDI3SubSegment.create("" + XRI3Constants.GCS_DOLLAR + XRI3Constants.LCS_BANG + "(" + XRI3Constants.LCS_BANG + identifier + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + XDI3Constants.LCS_BANG + "(" + XDI3Constants.LCS_BANG + identifier + ")");
 	}
 
 	public static XDI3SubSegment attributeMemberArcXriRandom() {
@@ -115,7 +115,7 @@ public class Multiplicity {
 	public static boolean isCollectionArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
-		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
+		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
 		if (! arcXri.hasXRef()) return false;
 		if (! arcXri.getXRef().hasSegment()) return false;
@@ -136,8 +136,8 @@ public class Multiplicity {
 	public static boolean isAttributeSingletonArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
-		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
-		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
+		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
+		if (! XDI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (! arcXri.hasXRef()) return false;
 		if (! arcXri.getXRef().hasSegment()) return false;
 
@@ -147,13 +147,13 @@ public class Multiplicity {
 	public static boolean isEntityMemberArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
-		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
+		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
 		if (arcXri.hasLCS()) return false;
 		if (! arcXri.hasXRef()) return false;
 		if (! arcXri.getXRef().hasSegment()) return false;
 		if (arcXri.getXRef().getSegment().getNumSubSegments() <= 0) return false;
 		if (arcXri.getXRef().getSegment().getFirstSubSegment().hasGCS()) return false;
-		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getLCS())) return false;
+		if (! XDI3Constants.LCS_BANG.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getLCS())) return false;
 
 		return true;
 	}
@@ -161,13 +161,13 @@ public class Multiplicity {
 	public static boolean isAttributeMemberArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
-		if (! XRI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
-		if (! XRI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
+		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
+		if (! XDI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
 		if (! arcXri.hasXRef()) return false;
 		if (! arcXri.getXRef().hasSegment()) return false;
 		if (arcXri.getXRef().getSegment().getNumSubSegments() <= 0) return false;
 		if (arcXri.getXRef().getSegment().getFirstSubSegment().hasGCS()) return false;
-		if (! XRI3Constants.LCS_BANG.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getLCS())) return false;
+		if (! XDI3Constants.LCS_BANG.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getLCS())) return false;
 
 		return true;
 	}

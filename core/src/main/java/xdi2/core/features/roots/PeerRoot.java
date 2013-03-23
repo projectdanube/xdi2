@@ -1,10 +1,12 @@
 package xdi2.core.features.roots;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
@@ -80,7 +82,7 @@ public final class PeerRoot extends AbstractRoot {
 	 */
 	public static XDI3SubSegment createPeerRootXri(XDI3Segment xri) {
 
-		return XDI3SubSegment.create("(" + xri.toString() + ")");
+		return XDI3SubSegment.create(XDI3Constants.CF_ROOT[0] + xri.toString() + XDI3Constants.CF_ROOT[1]);
 	}
 
 	/**
@@ -90,10 +92,10 @@ public final class PeerRoot extends AbstractRoot {
 	 */
 	public static XDI3Segment getXriOfPeerRootXri(XDI3SubSegment xri) {
 
-		if (xri.hasGCS()) return null;
-		if (xri.hasLCS()) return null;
+		if (xri.hasCs()) return null;
 		
 		if (! xri.hasXRef()) return null;
+		if (! Arrays.equals(XDI3Constants.CF_ROOT, xri.getXRef().getCf())) return null;
 
 		XDI3XRef xref = xri.getXRef();
 		if (! xref.hasSegment()) return null;

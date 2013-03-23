@@ -17,7 +17,7 @@ import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.core.xri3.XRI3Constants;
+import xdi2.core.xri3.XDI3Constants;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -200,7 +200,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		if (entityMember) newSubSegment = Multiplicity.entityMemberArcXri(newIdentifier);
 		else if (attributeMember) newSubSegment = Multiplicity.attributeMemberArcXri(newIdentifier);
-		else newSubSegment = XDI3SubSegment.create("" + XRI3Constants.LCS_BANG + newIdentifier);
+		else newSubSegment = XDI3SubSegment.create("" + XDI3Constants.LCS_BANG + newIdentifier);
 
 		// done
 

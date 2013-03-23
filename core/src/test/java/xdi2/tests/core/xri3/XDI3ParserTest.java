@@ -6,7 +6,7 @@ import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3XRef;
-import xdi2.core.xri3.XRI3Constants;
+import xdi2.core.xri3.XDI3Constants;
 
 public abstract class XDI3ParserTest extends TestCase {
 
@@ -30,13 +30,13 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(statement.getSubject().getSubSegment(0), statement.getSubject().getFirstSubSegment());
 		assertEquals(statement.getSubject().getSubSegment(1), statement.getSubject().getLastSubSegment());
 		assertEquals(statement.getSubject().getSubSegment(0), parser.parseXDI3SubSegment("=markus"));
-		assertEquals(statement.getSubject().getSubSegment(0).getGCS(), XRI3Constants.GCS_EQUALS);
+		assertEquals(statement.getSubject().getSubSegment(0).getGCS(), XDI3Constants.GCS_EQUALS);
 		assertNull(statement.getSubject().getSubSegment(0).getLCS());
 		assertEquals(statement.getSubject().getSubSegment(0).getLiteral(), "markus");
 		assertNull(statement.getSubject().getSubSegment(0).getXRef());
 		assertEquals(statement.getSubject().getSubSegment(1), parser.parseXDI3SubSegment("$!(+(+email/+test)+(email))"));
-		assertEquals(statement.getSubject().getSubSegment(1).getGCS(), XRI3Constants.GCS_DOLLAR);
-		assertEquals(statement.getSubject().getSubSegment(1).getLCS(), XRI3Constants.LCS_BANG);
+		assertEquals(statement.getSubject().getSubSegment(1).getGCS(), XDI3Constants.GCS_DOLLAR);
+		assertEquals(statement.getSubject().getSubSegment(1).getLCS(), XDI3Constants.LCS_BANG);
 		assertNull(statement.getSubject().getSubSegment(1).getLiteral());
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef(), parser.parseXDI3XRef("(+(+email/+test)+(email))"));
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment(), parser.parseXDI3Segment("+(+email/+test)+(email)"));
@@ -49,7 +49,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0), statement.getSubject().getSubSegment(1).getXRef().getSegment().getFirstSubSegment());
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1), statement.getSubject().getSubSegment(1).getXRef().getSegment().getLastSubSegment());
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0), parser.parseXDI3SubSegment("+(+email/+test)"));
-		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getGCS(), XRI3Constants.GCS_PLUS);
+		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getGCS(), XDI3Constants.GCS_PLUS);
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getLCS());
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getLiteral());
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getXRef(), parser.parseXDI3XRef("(+email/+test)"));
@@ -64,7 +64,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getXRef().getIri());
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(0).getXRef().getLiteral());
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1), parser.parseXDI3SubSegment("+(email)"));
-		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getGCS(), XRI3Constants.GCS_PLUS);
+		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getGCS(), XDI3Constants.GCS_PLUS);
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getLCS());
 		assertNull(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getLiteral());
 		assertEquals(statement.getSubject().getSubSegment(1).getXRef().getSegment().getSubSegment(1).getXRef(), parser.parseXDI3XRef("(email)"));

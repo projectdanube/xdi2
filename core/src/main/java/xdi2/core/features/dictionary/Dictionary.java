@@ -8,7 +8,7 @@ import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.core.xri3.XRI3Constants;
+import xdi2.core.xri3.XDI3Constants;
 
 public class Dictionary {
 
@@ -20,12 +20,12 @@ public class Dictionary {
 
 	public static XDI3SubSegment instanceXriToDictionaryXri(XDI3SubSegment instanceXri) {
 
-		return XDI3SubSegment.create("" + XRI3Constants.GCS_PLUS + "(" + instanceXri + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.GCS_PLUS + "(" + instanceXri + ")");
 	}
 
 	public static XDI3SubSegment dictionaryXriToInstanceXri(XDI3SubSegment dictionaryXri) {
 
-		if (! XRI3Constants.GCS_PLUS.equals(dictionaryXri.getGCS())) return null;
+		if (! XDI3Constants.GCS_PLUS.equals(dictionaryXri.getGCS())) return null;
 		if (dictionaryXri.hasLCS()) return null;
 		if (! dictionaryXri.hasXRef()) return null;
 
@@ -34,7 +34,7 @@ public class Dictionary {
 
 	public static XDI3SubSegment nativeIdentifierToInstanceXri(String nativeIdentifier) {
 
-		return XDI3SubSegment.create("" + XRI3Constants.GCS_PLUS + "(" + nativeIdentifier + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.GCS_PLUS + "(" + nativeIdentifier + ")");
 	}
 
 	public static String instanceXriToNativeIdentifier(XDI3SubSegment instanceXri) {

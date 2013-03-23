@@ -19,13 +19,13 @@ public abstract class XDI3Parser {
 		return new XDI3Segment(string, subSegments);
 	}
 
-	protected XDI3SubSegment makeXDI3SubSegment(String string, Character gcs, Character lcs, String literal, XDI3XRef xref) {
+	protected XDI3SubSegment makeXDI3SubSegment(String string, Character cs, String literal, XDI3XRef xref) {
 
-		return new XDI3SubSegment(string, gcs, lcs, literal, xref);
+		return new XDI3SubSegment(string, cs, literal, xref);
 	}
 
-	protected XDI3XRef makeXDI3XRef(String string, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String IRI, String literal) {
+	protected XDI3XRef makeXDI3XRef(String string, Character[] cf, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
 
-		return new XDI3XRef(string, segment, statement, partialSubject, partialPredicate, IRI, literal);
+		return new XDI3XRef(string, cf, segment, statement, partialSubject, partialPredicate, iri, literal);
 	}
 }

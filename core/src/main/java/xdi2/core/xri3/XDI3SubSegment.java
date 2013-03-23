@@ -27,14 +27,9 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 		return create(XDI3ParserRegistry.getInstance().getParser(), string);
 	}
 
-	public boolean hasGCS() {
+	public boolean hasCs() {
 
 		return this.cs != null;
-	}
-
-	public boolean hasLCS() {
-
-		return this.lcs != null;
 	}
 
 	public boolean hasLiteral() {
@@ -47,14 +42,9 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 		return this.xref != null;
 	}
 
-	public Character getGCS() {
+	public Character getCs() {
 
 		return this.cs;
-	}
-
-	public Character getLCS() {
-
-		return this.lcs;
 	}
 
 	public String getLiteral() {
@@ -65,25 +55,5 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 	public XDI3XRef getXRef() {
 
 		return this.xref;
-	}
-
-	public boolean isGlobal() {
-
-		return this.hasGCS();
-	}
-
-	public boolean isLocal() {
-
-		return this.hasLCS() && ! this.hasGCS();
-	}
-
-	public boolean isPersistent() {
-
-		return this.hasLCS() && this.getLCS().equals(XRI3Constants.LCS_BANG);
-	}
-
-	public boolean isReassignable() {
-
-		return (this.hasGCS() && ! this.hasLCS()) || (this.hasLCS() && this.getLCS().equals(XRI3Constants.LCS_STAR));
 	}
 }

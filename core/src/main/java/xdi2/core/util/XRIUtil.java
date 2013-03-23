@@ -58,7 +58,7 @@ public final class XRIUtil {
 					xriIndex++;
 					baseIndex++;
 
-					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasGCS())) baseIndex++;
+					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasCs())) baseIndex++;
 
 					continue;
 				}
@@ -79,7 +79,7 @@ public final class XRIUtil {
 					xriIndex++;
 					baseIndex++;
 
-					while (xriIndex < xri.getNumSubSegments() && (! xri.getSubSegment(xriIndex).hasGCS())) xriIndex++;
+					while (xriIndex < xri.getNumSubSegments() && (! xri.getSubSegment(xriIndex).hasCs())) xriIndex++;
 
 					continue;
 				}
@@ -139,7 +139,7 @@ public final class XRIUtil {
 					xriIndex--;
 					baseIndex--;
 
-					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasGCS())) baseIndex--;
+					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasCs())) baseIndex--;
 
 					continue;
 				}
@@ -160,7 +160,7 @@ public final class XRIUtil {
 					xriIndex--;
 					baseIndex--;
 
-					while (xriIndex > -1 && (! xri.getSubSegment(xriIndex).hasGCS())) xriIndex--;
+					while (xriIndex > -1 && (! xri.getSubSegment(xriIndex).hasCs())) xriIndex--;
 
 					continue;
 				}
@@ -292,7 +292,7 @@ public final class XRIUtil {
 					xriIndex++;
 					baseIndex++;
 
-					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasGCS())) baseIndex++;
+					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasCs())) baseIndex++;
 
 					continue;
 				}
@@ -313,7 +313,7 @@ public final class XRIUtil {
 					xriIndex++;
 					baseIndex++;
 
-					while (xriIndex < xri.getNumSubSegments() && (! xri.getSubSegment(xriIndex).hasGCS())) xriIndex++;
+					while (xriIndex < xri.getNumSubSegments() && (! xri.getSubSegment(xriIndex).hasCs())) xriIndex++;
 
 					continue;
 				}

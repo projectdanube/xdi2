@@ -1,11 +1,10 @@
 package xdi2.core.xri3;
 
-
 public class XDI3XRef extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 4875921569202236777L;
 
-	private Character delimiter;
+	private Character[] cf;
 	private XDI3Segment segment;
 	private XDI3Statement statement;
 	private XDI3Segment partialSubject;
@@ -13,11 +12,11 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 	private String iri;
 	private String literal;
 
-	XDI3XRef(String string, Character delimiter, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
+	XDI3XRef(String string, Character[] cf, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
 
 		super(string);
 
-		this.delimiter = delimiter;
+		this.cf = cf;
 		this.segment = segment;
 		this.statement = statement;
 		this.partialSubject = partialSubject;
@@ -61,9 +60,9 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return this.literal != null;
 	}
 
-	public Character getDelimiter() {
+	public Character[] getCf() {
 
-		return this.delimiter;
+		return this.cf;
 	}
 
 	public XDI3Segment getSegment() {

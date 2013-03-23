@@ -54,18 +54,6 @@ public final class XDI3Segment extends XDI3SyntaxComponent {
 		return this.subSegments.get(this.subSegments.size() - 1);
 	}
 
-	public boolean isINumber() {
-
-		// all subsegments must be persistent
-
-		for (XDI3SubSegment subSegment : this.getSubSegments()) {
-
-			if (! subSegment.isPersistent()) return false;
-		}
-
-		return true;
-	}
-
 	public boolean startsWith(XDI3SubSegment[] subSegments) {
 
 		if (this.subSegments.size() < subSegments.length) return false;

@@ -3,7 +3,7 @@ package xdi2.core.features.variables;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
-import xdi2.core.xri3.XRI3Constants;
+import xdi2.core.xri3.XDI3Constants;
 
 public class Variables {
 
@@ -21,7 +21,7 @@ public class Variables {
 
 	public static boolean isVariableSingle(XDI3SubSegment var) {
 
-		if (var.hasGCS()) return false;
+		if (var.hasCs()) return false;
 		if (var.hasLCS()) return false;
 
 		if (var.hasLiteral()) return false;
@@ -35,7 +35,7 @@ public class Variables {
 		if (node.getNumSubSegments() != 1) return false;
 
 		XDI3SubSegment firstSubSegment = node.getSubSegment(0);
-		if (! XRI3Constants.GCS_DOLLAR.equals(firstSubSegment.getGCS())) return false;
+		if (! XDI3Constants.GCS_DOLLAR.equals(firstSubSegment.getGCS())) return false;
 
 		return true;
 	}
@@ -47,7 +47,7 @@ public class Variables {
 
 	public static boolean isVariableMultiple(XDI3SubSegment var) {
 
-		if (var.hasGCS()) return false;
+		if (var.hasCs()) return false;
 		if (var.hasLCS()) return false;
 
 		if (var.hasLiteral()) return false;
@@ -61,10 +61,10 @@ public class Variables {
 		if (node.getNumSubSegments() != 2) return false;
 
 		XDI3SubSegment firstSubSegment = node.getSubSegment(0);
-		if (! XRI3Constants.GCS_DOLLAR.equals(firstSubSegment.getGCS())) return false;
+		if (! XDI3Constants.GCS_DOLLAR.equals(firstSubSegment.getGCS())) return false;
 
 		XDI3SubSegment secondSubSegment = node.getSubSegment(1);
-		if (! XRI3Constants.GCS_DOLLAR.equals(secondSubSegment.getGCS())) return false;
+		if (! XDI3Constants.GCS_DOLLAR.equals(secondSubSegment.getGCS())) return false;
 		if (secondSubSegment.hasLCS()) return false;
 		if (secondSubSegment.hasLiteral()) return false;
 		if (secondSubSegment.hasXRef()) return false;
@@ -79,8 +79,7 @@ public class Variables {
 
 	public static boolean isVariableMultipleLocal(XDI3SubSegment var) {
 
-		if (var.hasGCS()) return false;
-		if (var.hasLCS()) return false;
+		if (var.hasCs()) return false;
 
 		if (var.hasLiteral()) return false;
 		if (! var.hasXRef()) return false;
@@ -93,11 +92,11 @@ public class Variables {
 		if (node.getNumSubSegments() != 2) return false;
 
 		XDI3SubSegment firstSubSegment = node.getSubSegment(0);
-		if (! (XRI3Constants.GCS_DOLLAR.equals(firstSubSegment.getGCS()))) return false;
+		if (! (XDI3Constants.GCS_DOLLAR.equals(firstSubSegment.getGCS()))) return false;
 
 		XDI3SubSegment secondSubSegment = node.getSubSegment(1);
-		if (! XRI3Constants.GCS_DOLLAR.equals(secondSubSegment.getGCS())) return false;
-		if (! XRI3Constants.LCS_BANG.equals(secondSubSegment.getLCS())) return false;
+		if (! XDI3Constants.GCS_DOLLAR.equals(secondSubSegment.getGCS())) return false;
+		if (! XDI3Constants.LCS_BANG.equals(secondSubSegment.getLCS())) return false;
 		if (secondSubSegment.hasLiteral()) return false;
 		if (secondSubSegment.hasXRef()) return false;
 
