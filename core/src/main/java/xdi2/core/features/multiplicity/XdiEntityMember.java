@@ -3,11 +3,11 @@ package xdi2.core.features.multiplicity;
 import xdi2.core.ContextNode;
 
 /**
- * An XDI entity member of a collection according to the multiplicity pattern, represented as a context node.
+ * An XDI entity member of a collection (context function), represented as a context node.
  * 
  * @author markus
  */
-public final class XdiEntityMember extends XdiEntity {
+public final class XdiEntityMember extends XdiMember implements XdiEntity {
 
 	private static final long serialVersionUID = -1075885367630005576L;
 
@@ -28,8 +28,8 @@ public final class XdiEntityMember extends XdiEntity {
 	public static boolean isValid(ContextNode contextNode) {
 
 		return
-				Multiplicity.isEntityMemberArcXri(contextNode.getArcXri()) &&
-				XdiCollection.isValid(contextNode.getContextNode());
+				Multiplicity.isMemberArcXri(contextNode.getArcXri()) &&
+				XdiEntityCollection.isValid(contextNode.getContextNode());
 	}
 
 	/**
@@ -49,11 +49,12 @@ public final class XdiEntityMember extends XdiEntity {
 	 */
 
 	/**
-	 * Gets or returns the parent XDI collection of this XDI entity member.
-	 * @return The parent XDI collection.
+	 * Gets or returns the parent XDI entity collection of this XDI entity member.
+	 * @return The parent XDI entity collection.
 	 */
-	public XdiCollection getParentCollection() {
+	@Override
+	public XdiEntityCollection getCollection() {
 
-		return new XdiCollection(this.getContextNode().getContextNode());
+		return new XdiEntityCollection(this.getContextNode().getContextNode());
 	}
 }

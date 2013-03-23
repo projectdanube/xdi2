@@ -11,7 +11,7 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.features.multiplicity.XdiEntityMember;
+import xdi2.core.features.multiplicity.XdiMember;
 import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.features.ordering.Ordering;
 import xdi2.core.features.roots.InnerRoot;
@@ -40,9 +40,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	private MessageCollection messageCollection;
-	private XdiEntityMember entityMember;
+	private XdiMember entityMember;
 
-	protected Message(MessageCollection messageCollection, XdiEntityMember entityMember) {
+	protected Message(MessageCollection messageCollection, XdiMember entityMember) {
 
 		if (messageCollection == null || entityMember == null) throw new NullPointerException();
 
@@ -59,7 +59,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * @param xdiEntityMember The XDI entity member to check.
 	 * @return True if the XDI entity member is a valid XDI message.
 	 */
-	public static boolean isValid(XdiEntityMember xdiEntityMember) {
+	public static boolean isValid(XdiMember xdiEntityMember) {
 
 		return xdiEntityMember.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
 	}
@@ -70,7 +70,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * @param xdiEntityMember The XDI entity member that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageCollectionAndEntityMember(MessageCollection messageCollection, XdiEntityMember xdiEntityMember) {
+	public static Message fromMessageCollectionAndEntityMember(MessageCollection messageCollection, XdiMember xdiEntityMember) {
 
 		if (! isValid(xdiEntityMember)) return null;
 
@@ -103,7 +103,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns the underlying XDI entity member to which this XDI message is bound.
 	 * @return An XDI entity member that represents the XDI message.
 	 */
-	public XdiEntityMember getEntityMember() {
+	public XdiMember getEntityMember() {
 
 		return this.entityMember;
 	}

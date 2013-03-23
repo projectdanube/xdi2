@@ -7,7 +7,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.features.multiplicity.XdiAttributeMember;
-import xdi2.core.features.multiplicity.XdiCollection;
+import xdi2.core.features.multiplicity.XdiEntityCollection;
 import xdi2.core.features.ordering.Ordering;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReaderRegistry;
@@ -38,7 +38,7 @@ public class OrderingTest extends TestCase {
 		assertEquals(iterator.next().getLiteral().getLiteralData(), "+1.206.555.3333");
 		assertFalse(iterator.hasNext());
 
-		XdiCollection xdiCollection = XdiCollection.fromContextNode(contextNode);
+		XdiEntityCollection xdiCollection = XdiEntityCollection.fromContextNode(contextNode);
 
 		Iterator<XdiAttributeMember> attributes = xdiCollection.attributes(true, true);
 		assertEquals(attributes.next().getContextNode().getLiteral().getLiteralData(), "+1.206.555.2222");

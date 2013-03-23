@@ -82,7 +82,7 @@ public final class PeerRoot extends AbstractRoot {
 	 */
 	public static XDI3SubSegment createPeerRootXri(XDI3Segment xri) {
 
-		return XDI3SubSegment.create(XDI3Constants.CF_ROOT[0] + xri.toString() + XDI3Constants.CF_ROOT[1]);
+		return XDI3SubSegment.create("" + XDI3Constants.CF_ROOT[0] + xri + XDI3Constants.CF_ROOT[1]);
 	}
 
 	/**

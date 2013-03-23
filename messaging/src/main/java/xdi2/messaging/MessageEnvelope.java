@@ -7,8 +7,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.multiplicity.Multiplicity;
-import xdi2.core.features.multiplicity.Multiplicity.MappingContextNodeCollectionIterator;
-import xdi2.core.features.multiplicity.XdiCollection;
+import xdi2.core.features.multiplicity.Multiplicity.MappingContextNodeEntityCollectionIterator;
+import xdi2.core.features.multiplicity.XdiEntityCollection;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
@@ -152,7 +152,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		if (contextNode == null) return null;
 
-		XdiCollection xdiCollection = XdiCollection.fromContextNode(contextNode);
+		XdiEntityCollection xdiCollection = XdiEntityCollection.fromContextNode(contextNode);
 
 		return new MessageCollection(this, xdiCollection);
 	}
@@ -167,7 +167,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode().getAllContextNodes();
 
-		return new MappingCollectionMessageCollectionIterator(this, new MappingContextNodeCollectionIterator(contextNodes));
+		return new MappingCollectionMessageCollectionIterator(this, new MappingContextNodeEntityCollectionIterator(contextNodes));
 	}
 
 	/**
@@ -316,12 +316,12 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	public static class MappingCollectionMessageCollectionIterator extends NotNullIterator<MessageCollection> {
 
-		public MappingCollectionMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<XdiCollection> xdiCollections) {
+		public MappingCollectionMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<XdiEntityCollection> xdiCollections) {
 
-			super(new MappingIterator<XdiCollection, MessageCollection> (xdiCollections) {
+			super(new MappingIterator<XdiEntityCollection, MessageCollection> (xdiCollections) {
 
 				@Override
-				public MessageCollection map(XdiCollection xdiCollection) {
+				public MessageCollection map(XdiEntityCollection xdiCollection) {
 
 					return MessageCollection.fromMessageEnvelopeAndXdiCollection(messageEnvelope, xdiCollection);
 				}

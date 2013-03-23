@@ -11,7 +11,7 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.multiplicity.XdiAttributeMember;
 import xdi2.core.features.multiplicity.XdiAttributeSingleton;
-import xdi2.core.features.multiplicity.XdiCollection;
+import xdi2.core.features.multiplicity.XdiEntityCollection;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Constants;
@@ -202,12 +202,12 @@ public class DataTypes {
 	 * that a bit later
 	 */
 
-	public static void setLiteralDataType(XdiCollection xdiCollection,
+	public static void setLiteralDataType(XdiEntityCollection xdiCollection,
 			XDI3Segment dataType) {
 
 	}
 
-	public static XDI3Segment getLiteralDataType(XdiCollection xdiCollection) {
+	public static XDI3Segment getLiteralDataType(XdiEntityCollection xdiCollection) {
 
 		return null;
 	}

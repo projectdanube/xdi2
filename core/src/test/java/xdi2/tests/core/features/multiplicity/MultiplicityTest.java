@@ -6,8 +6,8 @@ import xdi2.core.Graph;
 import xdi2.core.features.multiplicity.Multiplicity;
 import xdi2.core.features.multiplicity.XdiAttributeMember;
 import xdi2.core.features.multiplicity.XdiAttributeSingleton;
-import xdi2.core.features.multiplicity.XdiCollection;
-import xdi2.core.features.multiplicity.XdiEntityMember;
+import xdi2.core.features.multiplicity.XdiEntityCollection;
+import xdi2.core.features.multiplicity.XdiMember;
 import xdi2.core.features.multiplicity.XdiEntitySingleton;
 import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.features.roots.PeerRoot;
@@ -66,8 +66,8 @@ public class MultiplicityTest extends TestCase {
 
 		assertTrue(XdiSubGraph.fromContextNode(contextNode) instanceof XdiEntitySingleton);
 
-		XdiCollection passportCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(XDI3SubSegment.create("+passport"), true);
-		XdiCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(XDI3SubSegment.create("+tel"), true);
+		XdiEntityCollection passportCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(XDI3SubSegment.create("+passport"), true);
+		XdiEntityCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(XDI3SubSegment.create("+tel"), true);
 		XdiEntitySingleton passportEntitySingleton = XdiSubGraph.fromContextNode(contextNode).getEntitySingleton(XDI3SubSegment.create("+passport"), true);
 		XdiAttributeSingleton telAttributeSingleton = XdiSubGraph.fromContextNode(contextNode).getAttributeSingleton(XDI3SubSegment.create("+tel"), true);
 
@@ -91,8 +91,8 @@ public class MultiplicityTest extends TestCase {
 		assertFalse(Multiplicity.isAttributeMemberArcXri(passport2ContextNode.getArcXri()));
 
 		assertEquals(passportCollection.entitiesSize(), 2);
-		assertTrue(new IteratorContains<XdiEntityMember>(passportCollection.entities(), XdiEntityMember.fromContextNode(passport1ContextNode)).contains());
-		assertTrue(new IteratorContains<XdiEntityMember>(passportCollection.entities(), XdiEntityMember.fromContextNode(passport2ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiMember>(passportCollection.entities(), XdiMember.fromContextNode(passport1ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiMember>(passportCollection.entities(), XdiMember.fromContextNode(passport2ContextNode)).contains());
 		assertEquals(telCollection.attributesSize(), 2);
 		assertTrue(new IteratorContains<XdiAttributeMember>(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel1ContextNode)).contains());
 		assertTrue(new IteratorContains<XdiAttributeMember>(telCollection.attributes(), XdiAttributeMember.fromContextNode(tel2ContextNode)).contains());

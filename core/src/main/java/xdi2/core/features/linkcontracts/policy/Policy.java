@@ -13,8 +13,8 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
-import xdi2.core.features.multiplicity.XdiCollection;
-import xdi2.core.features.multiplicity.XdiEntityMember;
+import xdi2.core.features.multiplicity.XdiEntityCollection;
+import xdi2.core.features.multiplicity.XdiMember;
 import xdi2.core.features.multiplicity.XdiEntitySingleton;
 import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.CopyUtil;
@@ -115,8 +115,8 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		if (this.getSubGraph() instanceof XdiEntitySingleton)
 			return ((XdiEntitySingleton) this.getSubGraph()).getBaseArcXri();
-		else if (this.getSubGraph() instanceof XdiEntityMember)
-			return ((XdiEntityMember) this.getSubGraph()).getParentCollection().getBaseArcXri();
+		else if (this.getSubGraph() instanceof XdiMember)
+			return ((XdiMember) this.getSubGraph()).getParentCollection().getBaseArcXri();
 
 		return null;
 	}
@@ -170,9 +170,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		// add policies that are XDI entity members
 
-		XdiCollection policyAndCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_AND, false);
-		XdiCollection policyOrCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_OR, false);
-		XdiCollection policyNotCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_NOT, false);
+		XdiEntityCollection policyAndCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_AND, false);
+		XdiEntityCollection policyOrCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_OR, false);
+		XdiEntityCollection policyNotCollection = this.getSubGraph().getCollection(XDIPolicyConstants.XRI_SS_NOT, false);
 
 		if (policyAndCollection != null) iterators.add(new MappingEntityMemberPolicyAndIterator(policyAndCollection.entities()));
 		if (policyOrCollection != null) iterators.add(new MappingEntityMemberPolicyOrIterator(policyOrCollection.entities()));
@@ -266,12 +266,12 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingEntityMemberPolicyAndIterator extends NotNullIterator<PolicyAnd> {
 
-		public MappingEntityMemberPolicyAndIterator(Iterator<XdiEntityMember> iterator) {
+		public MappingEntityMemberPolicyAndIterator(Iterator<XdiMember> iterator) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyAnd> (iterator) {
+			super(new MappingIterator<XdiMember, PolicyAnd> (iterator) {
 
 				@Override
-				public PolicyAnd map(XdiEntityMember xdiEntityMember) {
+				public PolicyAnd map(XdiMember xdiEntityMember) {
 
 					return PolicyAnd.fromSubGraph(xdiEntityMember);
 				}
@@ -281,12 +281,12 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingEntityMemberPolicyOrIterator extends NotNullIterator<PolicyOr> {
 
-		public MappingEntityMemberPolicyOrIterator(Iterator<XdiEntityMember> relations) {
+		public MappingEntityMemberPolicyOrIterator(Iterator<XdiMember> relations) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyOr> (relations) {
+			super(new MappingIterator<XdiMember, PolicyOr> (relations) {
 
 				@Override
-				public PolicyOr map(XdiEntityMember xdiEntityMember) {
+				public PolicyOr map(XdiMember xdiEntityMember) {
 
 					return PolicyOr.fromSubGraph(xdiEntityMember);
 				}
@@ -296,12 +296,12 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingEntityMemberPolicyNotIterator extends NotNullIterator<PolicyNot> {
 
-		public MappingEntityMemberPolicyNotIterator(Iterator<XdiEntityMember> relations) {
+		public MappingEntityMemberPolicyNotIterator(Iterator<XdiMember> relations) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyNot> (relations) {
+			super(new MappingIterator<XdiMember, PolicyNot> (relations) {
 
 				@Override
-				public PolicyNot map(XdiEntityMember xdiEntityMember) {
+				public PolicyNot map(XdiMember xdiEntityMember) {
 
 					return PolicyNot.fromSubGraph(xdiEntityMember);
 				}

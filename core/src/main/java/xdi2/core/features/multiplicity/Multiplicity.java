@@ -1,13 +1,13 @@
 package xdi2.core.features.multiplicity;
 
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.UUID;
 
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3Constants;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.parser.aparse.ParserException;
 
 /**
@@ -32,53 +32,38 @@ public class Multiplicity {
 	 * Methods for building arc XRIs.
 	 */
 
-	public static XDI3SubSegment collectionArcXri(XDI3SubSegment arcXri) {
-
-		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + "(" + arcXri + ")");
-	}
-
-	public static XDI3SubSegment collectionArcXri(String identifier) {
-
-		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + "(" + identifier + ")");
-	}
-
 	public static XDI3SubSegment entitySingletonArcXri(XDI3SubSegment arcXri) {
 
 		return arcXri;
 	}
 
-	public static XDI3SubSegment entityMemberArcXri(String identifier) {
-
-		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + "(" + XDI3Constants.LCS_BANG + identifier + ")");
-	}
-
-	public static XDI3SubSegment entityMemberArcXriRandom() {
-
-		return entityMemberArcXri(UUID.randomUUID().toString());
-	}
-
 	public static XDI3SubSegment attributeSingletonArcXri(XDI3SubSegment arcXri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + XDI3Constants.LCS_BANG + "(" + arcXri + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.CF_ATTRIBUTE[0] + arcXri + XDI3Constants.CF_ATTRIBUTE[1]);
 	}
 
-	public static XDI3SubSegment attributeMemberArcXri(String identifier) {
+	public static XDI3SubSegment entityCollectionArcXri(XDI3SubSegment arcXri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.GCS_DOLLAR + XDI3Constants.LCS_BANG + "(" + XDI3Constants.LCS_BANG + identifier + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.CF_COLLECTION[0] + arcXri + XDI3Constants.CF_COLLECTION[1]);
 	}
 
-	public static XDI3SubSegment attributeMemberArcXriRandom() {
+	public static XDI3SubSegment attributeCollectionArcXri(XDI3SubSegment arcXri) {
 
-		return attributeMemberArcXri(UUID.randomUUID().toString());
+		return XDI3SubSegment.create("" + XDI3Constants.CF_COLLECTION[0] + XDI3Constants.CF_ATTRIBUTE[0] + arcXri + XDI3Constants.CF_ATTRIBUTE[1] + XDI3Constants.CF_COLLECTION[1]);
+	}
+
+	public static XDI3SubSegment memberArcXri(XDI3SubSegment arcXri) {
+
+		return XDI3SubSegment.create("" + XDI3Constants.CF_MEMBER[0] + arcXri + XDI3Constants.CF_MEMBER[1]);
 	}
 
 	public static XDI3SubSegment baseArcXri(XDI3SubSegment arcXri) {
 
 		try {
 
-			if (isCollectionArcXri(arcXri)) {
+			if (isEntityCollectionArcXri(arcXri)) {
 
-				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
+				return arcXri.getXRef().getSegment().getFirstSubSegment();
 			}
 
 			if (isEntitySingletonArcXri(arcXri)) {
@@ -88,15 +73,15 @@ public class Multiplicity {
 
 			if (isAttributeSingletonArcXri(arcXri)) {
 
+				return arcXri.getXRef().getSegment().getFirstSubSegment();
+			}
+
+			if (isAttributeCollectionArcXri(arcXri)) {
+
 				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
 			}
 
-			if (isEntityMemberArcXri(arcXri)) {
-
-				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
-			}
-
-			if (isAttributeMemberArcXri(arcXri)) {
+			if (isMemberArcXri(arcXri)) {
 
 				return XDI3SubSegment.create("" + arcXri.getXRef().getSegment().toString());
 			}
@@ -112,62 +97,54 @@ public class Multiplicity {
 	 * Methods for checking arc XRIs.
 	 */
 
-	public static boolean isCollectionArcXri(XDI3SubSegment arcXri) {
-
-		if (arcXri == null) return false;
-		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
-		if (arcXri.hasLCS()) return false;
-		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasSegment()) return false;
-
-		return true;
-	}
-
 	public static boolean isEntitySingletonArcXri(XDI3SubSegment arcXri) {
 
-		if (isCollectionArcXri(arcXri)) return false;
-		if (isAttributeSingletonArcXri(arcXri)) return false;
-		if (isEntityMemberArcXri(arcXri)) return false;
-		if (isAttributeMemberArcXri(arcXri)) return false;
+		if (arcXri == null) throw new NullPointerException();
+		if (arcXri.hasXRef()) return false;
 
 		return true;
 	}
 
 	public static boolean isAttributeSingletonArcXri(XDI3SubSegment arcXri) {
 
-		if (arcXri == null) return false;
-		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
-		if (! XDI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
+		if (arcXri == null) throw new NullPointerException();
+		if (arcXri.hasCs()) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasSegment()) return false;
+		if (! Arrays.equals(arcXri.getXRef().getCf(), XDI3Constants.CF_ATTRIBUTE)) return false;
 
 		return true;
 	}
 
-	public static boolean isEntityMemberArcXri(XDI3SubSegment arcXri) {
+	public static boolean isEntityCollectionArcXri(XDI3SubSegment arcXri) {
 
-		if (arcXri == null) return false;
-		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
-		if (arcXri.hasLCS()) return false;
+		if (arcXri == null) throw new NullPointerException();
+		if (arcXri.hasCs()) return false;
 		if (! arcXri.hasXRef()) return false;
-		if (! arcXri.getXRef().hasSegment()) return false;
-		if (arcXri.getXRef().getSegment().getNumSubSegments() <= 0) return false;
-		if (arcXri.getXRef().getSegment().getFirstSubSegment().hasGCS()) return false;
-		if (! XDI3Constants.LCS_BANG.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getLCS())) return false;
+		if (! Arrays.equals(arcXri.getXRef().getCf(), XDI3Constants.CF_COLLECTION)) return false;
 
 		return true;
 	}
 
-	public static boolean isAttributeMemberArcXri(XDI3SubSegment arcXri) {
+	public static boolean isAttributeCollectionArcXri(XDI3SubSegment arcXri) {
 
-		if (arcXri == null) return false;
-		if (! XDI3Constants.GCS_DOLLAR.equals(arcXri.getGCS())) return false;
-		if (! XDI3Constants.LCS_BANG.equals(arcXri.getLCS())) return false;
+		if (arcXri == null) throw new NullPointerException();
+		if (arcXri.hasCs()) return false;
 		if (! arcXri.hasXRef()) return false;
+		if (! Arrays.equals(arcXri.getXRef().getCf(), XDI3Constants.CF_COLLECTION)) return false;
 		if (! arcXri.getXRef().hasSegment()) return false;
-		if (arcXri.getXRef().getSegment().getNumSubSegments() <= 0) return false;
-		if (arcXri.getXRef().getSegment().getFirstSubSegment().hasGCS()) return false;
-		if (! XDI3Constants.LCS_BANG.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getLCS())) return false;
+		if (arcXri.getXRef().getSegment().getNumSubSegments() != 1) return false;
+		if (! arcXri.getXRef().getSegment().getFirstSubSegment().hasXRef()) return false;
+		if (! Arrays.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getXRef().getCf(), XDI3Constants.CF_ATTRIBUTE)) return false;
+
+		return true;
+	}
+
+	public static boolean isMemberArcXri(XDI3SubSegment arcXri) {
+
+		if (arcXri == null) throw new NullPointerException();
+		if (arcXri.hasCs()) return false;
+		if (! arcXri.hasXRef()) return false;
+		if (! Arrays.equals(arcXri.getXRef().getCf(), XDI3Constants.CF_MEMBER)) return false;
 
 		return true;
 	}
@@ -175,21 +152,6 @@ public class Multiplicity {
 	/*
 	 * Helper classes
 	 */
-
-	public static class MappingContextNodeCollectionIterator extends NotNullIterator<XdiCollection> {
-
-		public MappingContextNodeCollectionIterator(Iterator<ContextNode> contextNodes) {
-
-			super(new MappingIterator<ContextNode, XdiCollection> (contextNodes) {
-
-				@Override
-				public XdiCollection map(ContextNode contextNode) {
-
-					return XdiCollection.fromContextNode(contextNode);
-				}
-			});
-		}
-	}
 
 	public static class MappingContextNodeEntitySingletonIterator extends NotNullIterator<XdiEntitySingleton> {
 
@@ -216,6 +178,36 @@ public class Multiplicity {
 				public XdiAttributeSingleton map(ContextNode contextNode) {
 
 					return XdiAttributeSingleton.fromContextNode(contextNode);
+				}
+			});
+		}
+	}
+
+	public static class MappingContextNodeEntityCollectionIterator extends NotNullIterator<XdiEntityCollection> {
+
+		public MappingContextNodeEntityCollectionIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiEntityCollection> (contextNodes) {
+
+				@Override
+				public XdiEntityCollection map(ContextNode contextNode) {
+
+					return XdiEntityCollection.fromContextNode(contextNode);
+				}
+			});
+		}
+	}
+
+	public static class MappingContextNodeAttributeCollectionIterator extends NotNullIterator<XdiAttributeCollection> {
+
+		public MappingContextNodeAttributeCollectionIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiAttributeCollection> (contextNodes) {
+
+				@Override
+				public XdiAttributeCollection map(ContextNode contextNode) {
+
+					return XdiAttributeCollection.fromContextNode(contextNode);
 				}
 			});
 		}

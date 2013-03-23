@@ -5,8 +5,8 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.multiplicity.Multiplicity;
-import xdi2.core.features.multiplicity.XdiCollection;
-import xdi2.core.features.multiplicity.XdiEntityMember;
+import xdi2.core.features.multiplicity.XdiEntityCollection;
+import xdi2.core.features.multiplicity.XdiMember;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -26,9 +26,9 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	private static final long serialVersionUID = -7493408194946194153L;
 
 	private MessageEnvelope messageEnvelope;
-	private XdiCollection xdiCollection;
+	private XdiEntityCollection xdiCollection;
 
-	protected MessageCollection(MessageEnvelope messageEnvelope, XdiCollection xdiCollection) {
+	protected MessageCollection(MessageEnvelope messageEnvelope, XdiEntityCollection xdiCollection) {
 
 		if (messageEnvelope == null || xdiCollection == null) throw new NullPointerException();
 
@@ -45,7 +45,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * @param xdiCollection The XDI collection to check.
 	 * @return True if the XDI collection is a valid XDI message collection.
 	 */
-	public static boolean isValid(XdiCollection xdiCollection) {
+	public static boolean isValid(XdiEntityCollection xdiCollection) {
 
 		return xdiCollection.getContextNode().getArcXri().equals(Multiplicity.collectionArcXri(XDIMessagingConstants.XRI_SS_MSG));
 	}
@@ -56,7 +56,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * @param xdiCollection The XDI collection that is an XDI message collection.
 	 * @return The XDI message collection.
 	 */
-	public static MessageCollection fromMessageEnvelopeAndXdiCollection(MessageEnvelope messageEnvelope, XdiCollection xdiCollection) {
+	public static MessageCollection fromMessageEnvelopeAndXdiCollection(MessageEnvelope messageEnvelope, XdiEntityCollection xdiCollection) {
 
 		if (! isValid(xdiCollection)) return null;
 
@@ -80,7 +80,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Returns the underlying XDI collection to which this XDI message collection is bound.
 	 * @return An XDI collection that represents the XDI message collection.
 	 */
-	public XdiCollection getCollection() {
+	public XdiEntityCollection getCollection() {
 
 		return this.xdiCollection;
 	}
@@ -115,7 +115,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		if (create) {
 
-			XdiEntityMember entityMember = this.xdiCollection.createEntityMember();
+			XdiMember entityMember = this.xdiCollection.createEntityMember();
 			entityMember.getContextNode().createContextNode(XDIMessagingConstants.XRI_SS_DO);
 
 			return new Message(this, entityMember);
@@ -133,7 +133,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		// get all context nodes that are valid XDI messages
 
-		Iterator<XdiEntityMember> messages = this.getCollection().entities(true, true);
+		Iterator<XdiMember> messages = this.getCollection().entities(true, true);
 
 		return new MappingEntityMemberMessageIterator(this, messages);
 	}
@@ -226,12 +226,12 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 	public static class MappingEntityMemberMessageIterator extends NotNullIterator<Message> {
 
-		public MappingEntityMemberMessageIterator(final MessageCollection messageCollection, Iterator<XdiEntityMember> xdiEntityMembers) {
+		public MappingEntityMemberMessageIterator(final MessageCollection messageCollection, Iterator<XdiMember> xdiEntityMembers) {
 
-			super(new MappingIterator<XdiEntityMember, Message> (xdiEntityMembers) {
+			super(new MappingIterator<XdiMember, Message> (xdiEntityMembers) {
 
 				@Override
-				public Message map(XdiEntityMember xdiEntityMember) {
+				public Message map(XdiMember xdiEntityMember) {
 
 					return Message.fromMessageCollectionAndEntityMember(messageCollection, xdiEntityMember);
 				}

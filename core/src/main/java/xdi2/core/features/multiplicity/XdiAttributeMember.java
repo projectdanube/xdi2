@@ -3,13 +3,13 @@ package xdi2.core.features.multiplicity;
 import xdi2.core.ContextNode;
 
 /**
- * An XDI attribute member of a collection according to the multiplicity pattern, represented as a context node.
+ * An XDI attribute member of a collection (context function), represented as a context node.
  * 
  * @author markus
  */
-public final class XdiAttributeMember extends XdiAttribute {
+public final class XdiAttributeMember extends XdiMember implements XdiAttribute {
 
-	private static final long serialVersionUID = 1027868266675630350L;
+	private static final long serialVersionUID = -1075885367630005576L;
 
 	protected XdiAttributeMember(ContextNode contextNode) {
 
@@ -28,8 +28,8 @@ public final class XdiAttributeMember extends XdiAttribute {
 	public static boolean isValid(ContextNode contextNode) {
 
 		return
-				Multiplicity.isAttributeMemberArcXri(contextNode.getArcXri()) &&
-				XdiCollection.isValid(contextNode.getContextNode());
+				Multiplicity.isMemberArcXri(contextNode.getArcXri()) &&
+				XdiAttributeCollection.isValid(contextNode.getContextNode());
 	}
 
 	/**
@@ -49,11 +49,12 @@ public final class XdiAttributeMember extends XdiAttribute {
 	 */
 
 	/**
-	 * Gets or returns the parent XDI collection of this XDI attribute member.
-	 * @return The parent XDI collection.
+	 * Gets or returns the parent XDI attribute collection of this XDI attribute member.
+	 * @return The parent XDI attribute collection.
 	 */
-	public XdiCollection getParentCollection() {
+	@Override
+	public XdiAttributeCollection getCollection() {
 
-		return new XdiCollection(this.getContextNode().getContextNode());
+		return new XdiAttributeCollection(this.getContextNode().getContextNode());
 	}
 }
