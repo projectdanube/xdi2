@@ -192,6 +192,14 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Set the timestamp.
+	 */
+	public void setTimestamp(Date timestamp) {
+
+		Timestamps.setContextNodeTimestamp(this.getContextNode(), timestamp);
+	}
+
+	/**
 	 * Returns the link contract XRI.
 	 * @return The link contract XRI.
 	 */
@@ -201,6 +209,15 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (linkContractRelation == null) return null;
 
 		return linkContractRelation.getTargetContextNodeXri();
+	}
+
+	/**
+	 * Set the link contract XRI.
+	 */
+	public void setLinkContractXri(XDI3Segment linkContractXri) {
+
+		this.getContextNode().deleteRelations(XDILinkContractConstants.XRI_S_DO);
+		this.getContextNode().createRelation(XDILinkContractConstants.XRI_S_DO, linkContractXri);
 	}
 
 	/**
