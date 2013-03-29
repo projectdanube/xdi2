@@ -3,9 +3,9 @@ package xdi2.core.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.features.multiplicity.XdiElement;
-import xdi2.core.features.multiplicity.XdiMember;
-import xdi2.core.features.multiplicity.XdiValue;
+import xdi2.core.features.contextfunctions.XdiElement;
+import xdi2.core.features.contextfunctions.XdiMember;
+import xdi2.core.features.contextfunctions.XdiValue;
 import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
@@ -31,7 +31,7 @@ public final class VariableUtil {
 
 		return variable.hasXRef() &&
 				XDI3Constants.CF_VARIABLE.equals(variable.getXRef().getCf()) &&
-				( variable.getXRef().isEmpty() || variable.getXRef().hasSegment() );
+				( variable.getXRef().isEmpty() || variable.getXRef().hasSegment() || variable.getXRef().hasLiteral() );
 	}
 
 	/**
@@ -67,13 +67,16 @@ public final class VariableUtil {
 			XDI3Segment innerSegment = variable.getXRef().getSegment();
 			XDI3SubSegment innerSubSegment = innerSegment.getFirstSubSegment();
 
-			if (innerSubSegment.hasXRef() && innerSubSegment.getXRef().hasSegment()) {
+			if (innerSubSegment.hasXRef()) {
 
-				XDI3Segment innerInnerSegment = innerSubSegment.getXRef().getSegment();
+				if (innerSubSegment.getXRef().hasSegment()) {
 
-				for (int i=0; i<innerInnerSegment.getNumSubSegments(); i++) {
+					XDI3Segment innerInnerSegment = innerSubSegment.getXRef().getSegment();
 
-					css += innerInnerSegment.getSubSegment(i).getCs();
+					for (int i=0; i<innerInnerSegment.getNumSubSegments(); i++) {
+
+						css += innerInnerSegment.getSubSegment(i).getCs();
+					}
 				}
 			} else {
 

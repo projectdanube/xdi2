@@ -5,9 +5,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.multiplicity.XdiAttributeMember;
-import xdi2.core.features.multiplicity.XdiEntityCollection;
-import xdi2.core.features.multiplicity.XdiSubGraph;
+import xdi2.core.features.contextfunctions.XdiAttributeMember;
+import xdi2.core.features.contextfunctions.XdiEntityCollection;
+import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReaderRegistry;

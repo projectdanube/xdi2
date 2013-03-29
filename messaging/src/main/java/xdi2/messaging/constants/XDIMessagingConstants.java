@@ -1,6 +1,6 @@
 package xdi2.messaging.constants;
 
-import xdi2.core.features.multiplicity.ContextFunctions;
+import xdi2.core.features.contextfunctions.ContextFunctions;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 

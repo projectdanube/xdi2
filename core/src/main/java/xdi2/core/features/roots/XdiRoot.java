@@ -5,7 +5,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
-import xdi2.core.features.multiplicity.XdiSubGraph;
+import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.SelectingMappingIterator;

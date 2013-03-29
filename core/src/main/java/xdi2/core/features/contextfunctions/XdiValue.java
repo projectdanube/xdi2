@@ -1,4 +1,4 @@
-package xdi2.core.features.multiplicity;
+package xdi2.core.features.contextfunctions;
 
 import xdi2.core.ContextNode;
 import xdi2.core.xri3.XDI3Constants;

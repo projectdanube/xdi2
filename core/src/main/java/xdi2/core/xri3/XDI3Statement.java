@@ -1,14 +1,12 @@
 package xdi2.core.xri3;
 
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.XDIUtil;
 import xdi2.core.util.XRIUtil;
 
 public class XDI3Statement extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = -1416735368366011077L;
-
-	public static final XDI3Segment XRI_S_CONTEXT = XDI3Segment.create("()");
-	public static final XDI3Segment XRI_S_LITERAL = XDI3Segment.create("!");
 
 	private XDI3Segment subject;
 	private XDI3Segment predicate;
@@ -50,17 +48,17 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 	public boolean isContextNodeStatement() {
 
-		return XRI_S_CONTEXT.equals(this.getPredicate());
+		return XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate());
 	}
 
 	public boolean isLiteralStatement() {
 
-		return XRI_S_LITERAL.equals(this.getPredicate()) && XDIUtil.isLiteralSegment(this.getObject());
+		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && XDIUtil.isLiteralSegment(this.getObject());
 	}
 
 	public boolean isRelationStatement() {
 
-		return (! XRI_S_CONTEXT.equals(this.getPredicate())) && (! XRI_S_LITERAL.equals(this.getPredicate()));
+		return (! XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate())) && (! XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()));
 	}
 
 	public boolean hasInnerRootStatement() {

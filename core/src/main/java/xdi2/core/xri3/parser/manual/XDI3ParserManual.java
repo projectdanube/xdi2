@@ -48,7 +48,7 @@ public class XDI3ParserManual extends XDI3Parser {
 	@Override
 	public XDI3Segment parseXDI3Segment(String string) {
 
-		log.info("Parsing segment: " + string);
+		log.trace("Parsing segment: " + string);
 
 		int start = 0, pos = 0;
 		String cf = null;
@@ -126,7 +126,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		String cf = cf(string.charAt(0));
 		if (cf == null) throw new ParserException("Invalid xref: " + string + " (no opening delimiter)");
 		if (string.charAt(string.length() - 1) != cf.charAt(1)) throw new ParserException("Invalid xref: " + string + " (no closing delimiter)");
-		if (string.length() == 2) return this.makeXDI3XRef(string, null, null, null, null, null, null, null);
+		if (string.length() == 2) return this.makeXDI3XRef(string, cf, null, null, null, null, null, null);
 
 		string = string.substring(1, string.length() - 1);
 
@@ -171,7 +171,7 @@ public class XDI3ParserManual extends XDI3Parser {
 	private static String stripCf(String string) {
 
 		string = stripCf(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));
-		string = stripCf(string, Pattern.compile(".*(\\<[^\\>\\>]*\\>).*"));
+		string = stripCf(string, Pattern.compile(".*(\\<[^\\<\\>]*\\>).*"));
 		string = stripCf(string, Pattern.compile(".*(\\{[^\\{\\}]*\\}).*"));
 		string = stripCf(string, Pattern.compile(".*(\\[[^\\[\\]]*\\]).*"));
 

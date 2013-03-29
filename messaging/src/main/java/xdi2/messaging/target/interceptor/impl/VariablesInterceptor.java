@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.multiplicity.ContextFunctions;
+import xdi2.core.features.contextfunctions.ContextFunctions;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;

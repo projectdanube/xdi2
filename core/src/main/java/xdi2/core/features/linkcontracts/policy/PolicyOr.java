@@ -3,11 +3,11 @@ package xdi2.core.features.linkcontracts.policy;
 import java.util.Iterator;
 
 import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.features.contextfunctions.XdiElement;
+import xdi2.core.features.contextfunctions.XdiMember;
+import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
-import xdi2.core.features.multiplicity.XdiElement;
-import xdi2.core.features.multiplicity.XdiMember;
-import xdi2.core.features.multiplicity.XdiSubGraph;
 
 /**
  * An XDI $or policy, represented as an XDI subgraph.

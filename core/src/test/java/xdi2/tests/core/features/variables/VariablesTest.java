@@ -1,77 +1,68 @@
 package xdi2.tests.core.features.variables;
 
 import junit.framework.TestCase;
-import xdi2.core.features.variables.Variables;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.util.VariableUtil;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class VariablesTest extends TestCase {
 
 	public void testVariables() throws Exception {
 
-		XDI3Segment xriSegments[] = new XDI3Segment[] {
-				XDI3Segment.create("($)"),
-				XDI3Segment.create("($1)"),
-				XDI3Segment.create("($34)"),
-				XDI3Segment.create("!($)"),
-				XDI3Segment.create("+($)"),
-				XDI3Segment.create("*($)"),
-				XDI3Segment.create("(!)"),
-				XDI3Segment.create("(!12)"),
-				XDI3Segment.create("(=abc)"),
-				XDI3Segment.create("($)$1"),
-				XDI3Segment.create("($)()"),
-				XDI3Segment.create("$1"),
-				XDI3Segment.create("$()"),
-				XDI3Segment.create("$()"),
-				XDI3Segment.create("($$)"),
-				XDI3Segment.create("($$!)"),
-				XDI3Segment.create("($1$!)"),
-				XDI3Segment.create("($34$!)"),
+		XDI3SubSegment variables[] = new XDI3SubSegment[] {
+				XDI3SubSegment.create("{}"),
+				XDI3SubSegment.create("{1}"),
+				XDI3SubSegment.create("{$msg}"),
+				XDI3SubSegment.create("{$from}"),
+				XDI3SubSegment.create("{()}"),
+				XDI3SubSegment.create("{{}}"),
+				XDI3SubSegment.create("{[]}"),
+				XDI3SubSegment.create("{<>}"),
+				XDI3SubSegment.create("{=}"),
+				XDI3SubSegment.create("{(+)}"),
+				XDI3SubSegment.create("{[!]}"),
+				XDI3SubSegment.create("{{=@}}"),
+				XDI3SubSegment.create("{<>}"),
+				XDI3SubSegment.create("{(){}}"),
+				XDI3SubSegment.create("{{+*!4}{}}")
 		};
 
-		boolean isVariableSingle[] = new boolean [] {
-				true,
-				true,
-				true,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false
+		String variablesCf[] = new String[] {
+				null,
+				null,
+				null,
+				null,
+				"()",
+				"{}",
+				"[]",
+				"<>",
+				null,
+				"()",
+				"[]",
+				"{}",
+				"<>",
+				"()",
+				"{}"
 		};
 
-		boolean isVariableMultiple[] = new boolean [] {
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				true,
-				false,
-				false,
-				false
+		String variablesCss[] = new String[] {
+				"",
+				"",
+				"$",
+				"$",
+				"",
+				"",
+				"",
+				"",
+				"=",
+				"+",
+				"!",
+				"=@",
+				"",
+				"",
+				"+*!"
 		};
 
-		boolean isVariableMultipleLocal[] = new boolean [] {
+		boolean variablesMultiple[] = new boolean[] {
 				false,
 				false,
 				false,
@@ -85,47 +76,21 @@ public class VariablesTest extends TestCase {
 				false,
 				false,
 				false,
-				false,
-				false,
-				true,
 				true,
 				true
 		};
 
-		assertEquals(xriSegments.length, isVariableSingle.length);
-		assertEquals(xriSegments.length, isVariableMultipleLocal.length);
+		for (XDI3SubSegment variable : variables) assertTrue(VariableUtil.isVariable(variable));
 
-		for (int i=0; i<xriSegments.length; i++) {
-
-			if (isVariableSingle[i]) {
-
-				assertTrue(Variables.isVariableSingle(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertTrue(Variables.isVariableSingle(xriSegments[i].getFirstSubSegment()));
-			} else {
-
-				assertFalse(Variables.isVariableSingle(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertFalse(Variables.isVariableSingle(xriSegments[i].getFirstSubSegment()));
-			}
-
-			if (isVariableMultiple[i]) {
-
-				assertTrue(Variables.isVariableMultiple(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertTrue(Variables.isVariableMultiple(xriSegments[i].getFirstSubSegment()));
-			} else {
-
-				assertFalse(Variables.isVariableMultiple(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertFalse(Variables.isVariableMultiple(xriSegments[i].getFirstSubSegment()));
-			}
-
-			if (isVariableMultipleLocal[i]) {
-
-				assertTrue(Variables.isVariableMultipleLocal(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertTrue(Variables.isVariableMultipleLocal(xriSegments[i].getFirstSubSegment()));
-			} else {
-
-				assertFalse(Variables.isVariableMultipleLocal(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertFalse(Variables.isVariableMultipleLocal(xriSegments[i].getFirstSubSegment()));
-			}
+		assertEquals(variables.length, variablesCf.length);
+		assertEquals(variables.length, variablesCss.length);
+		assertEquals(variables.length, variablesMultiple.length);
+		
+		for (int i=0; i<variables.length; i++) {
+System.err.println("" + i + ": " + VariableUtil.getCss(variables[i]));
+			assertEquals(variablesCf[i], VariableUtil.getCf(variables[i]));
+			assertEquals(variablesCss[i], VariableUtil.getCss(variables[i]));
+			assertEquals(Boolean.valueOf(variablesMultiple[i]), Boolean.valueOf(VariableUtil.isMultiple(variables[i])));
 		}
 	}
 }

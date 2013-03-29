@@ -1,4 +1,4 @@
-package xdi2.core.features.multiplicity;
+package xdi2.core.features.contextfunctions;
 
 import java.io.Serializable;
 

@@ -6,8 +6,8 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.xri3.XDI3Segment;
 

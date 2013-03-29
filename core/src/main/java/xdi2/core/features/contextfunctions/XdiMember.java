@@ -1,11 +1,11 @@
-package xdi2.core.features.multiplicity;
+package xdi2.core.features.contextfunctions;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.multiplicity.XdiElement.MappingContextNodeElementIterator;
+import xdi2.core.features.contextfunctions.XdiElement.MappingContextNodeElementIterator;
 import xdi2.core.features.ordering.Ordering;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.CompositeIterator;
