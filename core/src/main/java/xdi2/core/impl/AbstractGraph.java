@@ -17,6 +17,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
@@ -177,7 +178,7 @@ public abstract class AbstractGraph implements Graph {
 
 		// find the root and the base context node of this statement
 
-		XdiRoot root = XdiRoot.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
+		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
 		XDI3Segment relativePart = root.getRelativePart(statementXri.getSubject());
 		ContextNode baseContextNode = relativePart == null ? root.getContextNode() : root.getContextNode().findContextNode(relativePart, true);
 

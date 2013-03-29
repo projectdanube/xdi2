@@ -23,8 +23,8 @@ import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.roots.XdiRoot;
-import xdi2.core.features.roots.Roots;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
@@ -189,7 +189,7 @@ public class CopyOfXDIJSONWriter extends AbstractXDIWriter {
 	private void writeInternal(Graph graph, Writer writer) throws IOException {
 
 		State state = new State();
-		XdiRoot root = Roots.findLocalRoot(graph);
+		XdiRoot root = XdiLocalRoot.findLocalRoot(graph);
 
 		startGraph(writer, state);
 		this.writeInternal(root, graph.getRootContextNode(), writer, state);

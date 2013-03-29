@@ -19,7 +19,9 @@ import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.dictionary.Dictionary;
-import xdi2.core.features.multiplicity.ContextFunctions;
+import xdi2.core.features.multiplicity.XdiElement;
+import xdi2.core.features.multiplicity.XdiMember;
+import xdi2.core.features.multiplicity.XdiValue;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.xri3.XDI3Segment;
@@ -64,19 +66,19 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (value instanceof JSONObject) {
 
-				XDI3SubSegment arcXri = ContextFunctions.entitySingletonArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
+				XDI3SubSegment arcXri = XdiMember.createMemberArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				readJSONObject(innerContextNode, (JSONObject) value);
 			} else if (value instanceof JSONArray) {
 
-				XDI3SubSegment arcXri = ContextFunctions.collectionArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
+				XDI3SubSegment arcXri = XdiMember.createMemberArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				readJSONArray(innerContextNode, (JSONArray) value);
 			} else {
 
-				XDI3SubSegment arcXri = ContextFunctions.attributeSingletonArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
+				XDI3SubSegment arcXri = XdiValue.createValueArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				createLiteral(innerContextNode, value);
@@ -92,19 +94,19 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (value instanceof JSONObject) {
 
-				XDI3SubSegment arcXri = ContextFunctions.entityMemberArcXri(jsonContentId);
+				XDI3SubSegment arcXri = XdiElement.createElementArcXri(jsonContentId);
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				readJSONObject(innerContextNode, (JSONObject) value);
 			} else if (value instanceof JSONArray) {
 
-				XDI3SubSegment arcXri = ContextFunctions.collectionArcXri(jsonContentId);
+				XDI3SubSegment arcXri = XdiElement.createElementArcXri(jsonContentId);
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				readJSONArray(innerContextNode, (JSONArray) value);
 			} else {
 
-				XDI3SubSegment arcXri = ContextFunctions.attributeMemberArcXri(jsonContentId);
+				XDI3SubSegment arcXri = XdiValue.createValueArcXri(jsonContentId);
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				createLiteral(innerContextNode, value);

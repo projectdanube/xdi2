@@ -6,9 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.impl.AbstractContextNode;
-import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.MappingIterator;
@@ -60,11 +58,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized ContextNode createContextNode(XDI3SubSegment arcXri) {
 
-		if (arcXri == null) throw new NullPointerException();
-
-		if (XRIUtil.isIllegalContextNodeArcXri(arcXri)) throw new Xdi2GraphException("Invalid context node: " + arcXri);
-
-		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
+		this.checkCreateContextNode(arcXri);
 
 		String contextNodesKey = this.getContextNodesKey();
 		String contextNodeKey = this.getContextNodeKey(arcXri);
@@ -172,14 +166,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
-		if (arcXri == null) throw new NullPointerException();
-		if (targetContextNode == null) throw new NullPointerException();
+		this.checkCreateRelation(arcXri, targetContextNode);
 
 		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
-
-		if (XRIUtil.isIllegalRelationArcXri(arcXri, targetContextNodeXri)) throw new Xdi2GraphException("Invalid relation: " + arcXri + "/" + targetContextNodeXri);
-
-		if (this.containsRelation(arcXri, targetContextNodeXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNodeXri + ".");
 
 		this.getGraph().findContextNode(targetContextNodeXri, true);
 
@@ -363,7 +352,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized Literal createLiteral(String literalData) {
 
-		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
+		this.checkCreateLiteral(literalData);
 
 		String literalKey = this.getLiteralKey();
 

@@ -7,7 +7,7 @@ import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.multiplicity.XdiElement;
 import xdi2.core.features.multiplicity.XdiMember;
-import xdi2.core.features.multiplicity.ContextFunction;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 
 /**
  * An XDI $and policy, represented as an XDI subgraph.
@@ -18,7 +18,7 @@ public class PolicyAnd extends Policy {
 
 	private static final long serialVersionUID = 5732150498065911411L;
 
-	protected PolicyAnd(ContextFunction xdiSubGraph) {
+	protected PolicyAnd(XdiSubGraph xdiSubGraph) {
 
 		super(xdiSubGraph);
 	}
@@ -32,12 +32,12 @@ public class PolicyAnd extends Policy {
 	 * @param xdiSubGraph The XDI subgraph to check.
 	 * @return True if the XDI subgraph is a valid XDI $and policy.
 	 */
-	public static boolean isValid(ContextFunction xdiSubGraph) {
+	public static boolean isValid(XdiSubGraph xdiSubGraph) {
 
 		if (xdiSubGraph instanceof XdiMember)
 			return ((XdiMember) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
 		else if (xdiSubGraph instanceof XdiElement)
-			return ((XdiElement) xdiSubGraph).getCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
+			return ((XdiElement) xdiSubGraph).getXdiMember().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
 
 		return false;
 	}
@@ -47,7 +47,7 @@ public class PolicyAnd extends Policy {
 	 * @param xdiSubGraph The XDI subgraph that is an XDI root policy.
 	 * @return The XDI $and policy.
 	 */
-	public static PolicyAnd fromSubGraph(ContextFunction xdiSubGraph) {
+	public static PolicyAnd fromSubGraph(XdiSubGraph xdiSubGraph) {
 
 		if (! isValid(xdiSubGraph)) return null;
 

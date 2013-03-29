@@ -12,7 +12,7 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.multiplicity.XdiMember;
-import xdi2.core.features.multiplicity.ContextFunction;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.features.ordering.Ordering;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.features.roots.Roots;
@@ -231,7 +231,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDIPolicyConstants.XRI_SS_IF);
 		if (contextNode == null) return null;
 
-		ContextFunction xdiSubGraph = ContextFunction.fromContextNode(contextNode);
+		XdiSubGraph xdiSubGraph = XdiSubGraph.fromContextNode(contextNode);
 
 		return PolicyRoot.fromSubGraph(xdiSubGraph);
 	}

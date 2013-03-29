@@ -1,8 +1,7 @@
 package xdi2.core.features.multiplicity;
 
 import xdi2.core.ContextNode;
-import xdi2.core.xri3.XDI3Constants;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.util.VariableUtil;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -10,7 +9,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiVariable extends ContextFunction {
+public final class XdiVariable extends XdiSubGraph {
 
 	private static final long serialVersionUID = -5443590668167159237L;
 
@@ -46,40 +45,16 @@ public final class XdiVariable extends ContextFunction {
 	}
 
 	/*
-	 * Instance methods
-	 */
-
-	public XDI3Segment getXriOfPeerRoot() {
-
-		return getXriOfPeerRootArcXri(this.getContextNode().getArcXri());
-	}
-	
-	/*
 	 * Methods for XDI variable XRIs.
 	 */
 
-	public static XDI3SubSegment createValueArcXri(XDI3Segment xri) {
-
-		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + xri + XDI3Constants.CF_VALUE.charAt(1));
-	}
-
-	public static XDI3SubSegment createValueArcXri(XDI3SubSegment xri) {
-
-		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + xri + XDI3Constants.CF_VALUE.charAt(1));
-	}
-
 	/**
-	 * Checks if a given XRI is an XDI value XRI.
-	 * @param arcXri An XDI value XRI.
-	 * @return True, if the XRI is an XDI value XRI.
+	 * Checks if a given XRI is an XDI variable XRI.
+	 * @param arcXri An XDI variable XRI.
+	 * @return True, if the XRI is an XDI variable XRI.
 	 */
 	public static boolean isVariableArcXri(XDI3SubSegment arcXri) {
 
-		if (arcXri.hasCs()) return false;
-		
-		if (! arcXri.hasXRef()) return false;
-		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getCf())) return false;
-
-		return true;
+		return VariableUtil.isVariable(arcXri);
 	}
 }

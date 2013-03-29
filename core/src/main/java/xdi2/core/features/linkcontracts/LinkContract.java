@@ -7,7 +7,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.features.multiplicity.ContextFunction;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.xri3.XDI3Segment;
 
@@ -82,7 +82,7 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDIPolicyConstants.XRI_SS_IF);
 		if (contextNode == null) return null;
 
-		ContextFunction xdiSubGraph = ContextFunction.fromContextNode(contextNode);
+		XdiSubGraph xdiSubGraph = XdiSubGraph.fromContextNode(contextNode);
 
 		return PolicyRoot.fromSubGraph(xdiSubGraph);
 	}

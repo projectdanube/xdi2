@@ -11,7 +11,9 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.variables.Variables;
+import xdi2.core.exceptions.Xdi2GraphException;
+import xdi2.core.features.multiplicity.XdiSubGraph;
+import xdi2.core.features.multiplicity.XdiValue;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -545,30 +547,40 @@ public abstract class AbstractContextNode implements ContextNode {
 	/**
 	 * Checks if a context node can be created.
 	 */
-	public void checkCreateContextNode(XDI3SubSegment arcXri) {
+	protected void checkCreateContextNode(XDI3SubSegment arcXri) throws Xdi2GraphException {
 
-		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) return true;
-		if (arcXri.hasXRef() && arcXri.getXRef().hasStatement()) return true;
+		if (arcXri == null) throw new NullPointerException();
 
-		return false;
+		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid context node arc XRI: " + arcXri);
+		if (! XdiSubGraph.isValid(new BasicContextNode(this.getGraph(), this, arcXri, null, null, null))) throw new Xdi2GraphException("Invalid subgraph: " + arcXri);
+
+		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 	}
 
 	/**
 	 * Checks if a relation can be created.
 	 */
-	public static boolean checkCreateRelation(XDI3Segment arcXri, XDI3Segment targetXri) {
+	protected void checkCreateRelation(XDI3Segment arcXri, ContextNode targetContextNode) throws Xdi2GraphException {
 
-		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) return true;
-		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri) && (! Variables.isVariable(targetXri))) return true;
+		if (arcXri == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
 
-		return false;
+		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
+		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
+
+		if (this.containsRelation(arcXri, targetContextNode.getXri())) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
 	}
 
 	/**
 	 * Checks if a literal can be created.
 	 */
-	public static boolean checkCreateLiteral(String literalData) {
+	protected void checkCreateLiteral(String literalData) throws Xdi2GraphException {
 
+		if (literalData == null) throw new NullPointerException();
+
+		if (! XdiValue.isValid(this)) throw new Xdi2GraphException("Can only create a literal in a value context.");
+
+		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
 	}
 
 	/*

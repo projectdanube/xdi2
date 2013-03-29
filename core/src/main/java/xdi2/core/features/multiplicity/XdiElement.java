@@ -14,7 +14,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiElement extends ContextFunction {
+public final class XdiElement extends XdiSubGraph {
 
 	private static final long serialVersionUID = -1075885367630005576L;
 
@@ -34,9 +34,7 @@ public final class XdiElement extends ContextFunction {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return
-				isElementArcXri(contextNode.getArcXri()) &&
-				XdiMember.isValid(contextNode.getContextNode());
+		return isElementArcXri(contextNode.getArcXri());
 	}
 
 	/**
@@ -59,7 +57,7 @@ public final class XdiElement extends ContextFunction {
 	 * Gets or returns the parent XDI member of this XDI element.
 	 * @return The parent XDI member.
 	 */
-	public XdiMember getMember() {
+	public XdiMember getXdiMember() {
 
 		return new XdiMember(this.getContextNode().getContextNode());
 	}
@@ -76,6 +74,11 @@ public final class XdiElement extends ContextFunction {
 	public static XDI3SubSegment createElementArcXri(XDI3SubSegment xri) {
 
 		return XDI3SubSegment.create("" + XDI3Constants.CF_ELEMENT.charAt(0) + xri + XDI3Constants.CF_ELEMENT.charAt(1));
+	}
+
+	public static XDI3SubSegment createElementArcXri(String identifier) {
+
+		return XDI3SubSegment.create("" + XDI3Constants.CF_ELEMENT.charAt(0) + identifier + XDI3Constants.CF_ELEMENT.charAt(1));
 	}
 
 	/**

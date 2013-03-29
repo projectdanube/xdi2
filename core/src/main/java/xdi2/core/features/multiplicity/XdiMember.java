@@ -19,7 +19,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiMember extends ContextFunction {
+public final class XdiMember extends XdiSubGraph {
 
 	private static final long serialVersionUID = -1075885367630005576L;
 

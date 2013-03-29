@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.variables.Variables;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
@@ -52,45 +51,41 @@ public final class XRIUtil {
 
 			// check variables
 
-			if (variablesInXri && Variables.isVariableSingle(xriSubSegment)) {
+			if (variablesInXri && VariableUtil.isVariable(xriSubSegment)) {
 
-				if (Variables.isVariableSingle(xriSubSegment)) {
-
-					xriIndex++;
-					baseIndex++;
-
-					continue; 
-				}
-
-				if (Variables.isVariableMultipleLocal(xriSubSegment)) {
+				if (VariableUtil.matches(xriSubSegment, baseSubSegment)) {
 
 					xriIndex++;
 					baseIndex++;
 
-					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasCs())) baseIndex++;
+					if (VariableUtil.isMultiple(xriSubSegment)) {
+
+						while (baseIndex < base.getNumSubSegments() && VariableUtil.matches(xriSubSegment, baseSubSegment)) baseIndex++;
+					}
 
 					continue;
+				} else {
+
+					return false;
 				}
 			}
 
-			if (variablesInBase) {
+			if (variablesInBase && VariableUtil.isVariable(baseSubSegment)) {
 
-				if (Variables.isVariableSingle(baseSubSegment)) {
-
-					xriIndex++;
-					baseIndex++;
-
-					continue; 
-				}
-
-				if (Variables.isVariableMultipleLocal(baseSubSegment)) {
+				if (VariableUtil.matches(baseSubSegment, xriSubSegment)) {
 
 					xriIndex++;
 					baseIndex++;
 
-					while (xriIndex < xri.getNumSubSegments() && (! xri.getSubSegment(xriIndex).hasCs())) xriIndex++;
+					if (VariableUtil.isMultiple(baseSubSegment)) {
+
+						while (xriIndex < xri.getNumSubSegments() && VariableUtil.matches(baseSubSegment, xriSubSegment)) xriIndex++;
+					}
 
 					continue;
+				} else {
+
+					return false;
 				}
 			}
 
@@ -133,45 +128,41 @@ public final class XRIUtil {
 
 			// check variables
 
-			if (variablesInXri && Variables.isVariableSingle(xriSubSegment)) {
+			if (variablesInXri && VariableUtil.isVariable(xriSubSegment)) {
 
-				if (Variables.isVariableSingle(xriSubSegment)) {
-
-					xriIndex--;
-					baseIndex--;
-
-					continue; 
-				}
-
-				if (Variables.isVariableMultipleLocal(xriSubSegment)) {
+				if (VariableUtil.matches(xriSubSegment, baseSubSegment)) {
 
 					xriIndex--;
 					baseIndex--;
 
-					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasCs())) baseIndex--;
+					if (VariableUtil.isMultiple(xriSubSegment)) {
+
+						while (baseIndex > -1 && VariableUtil.matches(xriSubSegment, baseSubSegment)) baseIndex--;
+					}
 
 					continue;
+				} else {
+
+					return false;
 				}
 			}
 
-			if (variablesInBase) {
+			if (variablesInBase && VariableUtil.isVariable(baseSubSegment)) {
 
-				if (Variables.isVariableSingle(baseSubSegment)) {
-
-					xriIndex--;
-					baseIndex--;
-
-					continue; 
-				}
-
-				if (Variables.isVariableMultipleLocal(baseSubSegment)) {
+				if (VariableUtil.matches(baseSubSegment, xriSubSegment)) {
 
 					xriIndex--;
 					baseIndex--;
 
-					while (xriIndex > -1 && (! xri.getSubSegment(xriIndex).hasCs())) xriIndex--;
+					if (VariableUtil.isMultiple(baseSubSegment)) {
+
+						while (xriIndex > -1 && VariableUtil.matches(baseSubSegment, xriSubSegment)) xriIndex--;
+					}
 
 					continue;
+				} else {
+
+					return false;
 				}
 			}
 
@@ -286,45 +277,41 @@ public final class XRIUtil {
 
 			// check variables
 
-			if (variablesInXri && Variables.isVariableSingle(xriSubSegment)) {
+			if (variablesInXri && VariableUtil.isVariable(xriSubSegment)) {
 
-				if (Variables.isVariableSingle(xriSubSegment)) {
-
-					xriIndex++;
-					baseIndex++;
-
-					continue; 
-				}
-
-				if (Variables.isVariableMultipleLocal(xriSubSegment)) {
+				if (VariableUtil.matches(xriSubSegment, baseSubSegment)) {
 
 					xriIndex++;
 					baseIndex++;
 
-					while (baseIndex < base.getNumSubSegments() && (! base.getSubSegment(baseIndex).hasCs())) baseIndex++;
+					if (VariableUtil.isMultiple(xriSubSegment)) {
+
+						while (baseIndex < base.getNumSubSegments() && VariableUtil.matches(xriSubSegment, baseSubSegment)) baseIndex++;
+					}
 
 					continue;
+				} else {
+
+					return null;
 				}
 			}
 
-			if (variablesInBase) {
+			if (variablesInBase && VariableUtil.isVariable(baseSubSegment)) {
 
-				if (Variables.isVariableSingle(baseSubSegment)) {
-
-					xriIndex++;
-					baseIndex++;
-
-					continue; 
-				}
-
-				if (Variables.isVariableMultipleLocal(baseSubSegment)) {
+				if (VariableUtil.matches(baseSubSegment, xriSubSegment)) {
 
 					xriIndex++;
 					baseIndex++;
 
-					while (xriIndex < xri.getNumSubSegments() && (! xri.getSubSegment(xriIndex).hasCs())) xriIndex++;
+					if (VariableUtil.isMultiple(baseSubSegment)) {
+
+						while (xriIndex < xri.getNumSubSegments() && VariableUtil.matches(baseSubSegment, xriSubSegment)) xriIndex++;
+					}
 
 					continue;
+				} else {
+
+					return null;
 				}
 			}
 

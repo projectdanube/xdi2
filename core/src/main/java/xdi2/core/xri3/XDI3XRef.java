@@ -35,6 +35,11 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return create(XDI3ParserRegistry.getInstance().getParser(), string);
 	}
 
+	public boolean isEmpty() {
+
+		return this.toString().length() == 2;
+	}
+
 	public boolean hasSegment() {
 
 		return this.segment != null;

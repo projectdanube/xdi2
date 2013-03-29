@@ -17,8 +17,8 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.roots.XdiRoot;
-import xdi2.core.features.roots.Roots;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.util.XRIUtil;
@@ -160,7 +160,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 			graphString.append(line + "\n");
 		}
 
-		this.read(Roots.findLocalRoot(graph), JSON.parseObject(graphString.toString()), state);
+		this.read(XdiLocalRoot.findLocalRoot(graph), JSON.parseObject(graphString.toString()), state);
 	}
 
 	@Override

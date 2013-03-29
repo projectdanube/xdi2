@@ -48,7 +48,7 @@ public class XDI3ParserManual extends XDI3Parser {
 	@Override
 	public XDI3Segment parseXDI3Segment(String string) {
 
-		log.trace("Parsing segment: " + string);
+		log.info("Parsing segment: " + string);
 
 		int start = 0, pos = 0;
 		String cf = null;
@@ -59,7 +59,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 			if (cs(string.charAt(pos)) != null) pos++;
 
-			if (cf(string.charAt(pos)) != null && pos < string.length()) { cf = cf(string.charAt(pos)); cfcount = 1; pos++; }
+			if (pos < string.length() && cf(string.charAt(pos)) != null) { cf = cf(string.charAt(pos)); cfcount = 1; pos++; }
 
 			while (pos < string.length()) {
 

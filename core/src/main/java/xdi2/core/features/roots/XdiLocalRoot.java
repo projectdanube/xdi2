@@ -1,6 +1,7 @@
 package xdi2.core.features.roots;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -24,6 +25,18 @@ public class XdiLocalRoot extends XdiRoot {
 	/*
 	 * Static methods
 	 */
+
+	/**
+	 * Given a graph, finds and returns the XDI local root.
+	 * @param graph The graph.
+	 * @return The XDI local root.
+	 */
+	public static XdiLocalRoot findLocalRoot(Graph graph) {
+
+		ContextNode localRootContextNode = graph.getRootContextNode();
+
+		return new XdiLocalRoot(localRootContextNode);
+	}
 
 	/**
 	 * Checks if a context node is a valid XDI local root.

@@ -7,7 +7,7 @@ import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.multiplicity.XdiElement;
 import xdi2.core.features.multiplicity.XdiMember;
-import xdi2.core.features.multiplicity.ContextFunction;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 
 /**
  * An XDI $not policy, represented as an XDI subgraph.
@@ -18,7 +18,7 @@ public class PolicyNot extends Policy {
 
 	private static final long serialVersionUID = 5732150467865911411L;
 
-	protected PolicyNot(ContextFunction xdiSubGraph) {
+	protected PolicyNot(XdiSubGraph xdiSubGraph) {
 
 		super(xdiSubGraph);
 	}
@@ -32,12 +32,12 @@ public class PolicyNot extends Policy {
 	 * @param xdiSubGraph The XDI subgraph to check.
 	 * @return True if the XDI subgraph is a valid XDI $not policy.
 	 */
-	public static boolean isValid(ContextFunction xdiSubGraph) {
+	public static boolean isValid(XdiSubGraph xdiSubGraph) {
 
 		if (xdiSubGraph instanceof XdiMember)
 			return ((XdiMember) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
 		else if (xdiSubGraph instanceof XdiElement)
-			return ((XdiElement) xdiSubGraph).getCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
+			return ((XdiElement) xdiSubGraph).getXdiMember().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
 
 		return false;
 	}
@@ -47,7 +47,7 @@ public class PolicyNot extends Policy {
 	 * @param xdiSubGraph The XDI subgraph that is an XDI root policy.
 	 * @return The XDI $and policy.
 	 */
-	public static PolicyNot fromSubGraph(ContextFunction xdiSubGraph) {
+	public static PolicyNot fromSubGraph(XdiSubGraph xdiSubGraph) {
 
 		if (! isValid(xdiSubGraph)) return null;
 

@@ -3,14 +3,14 @@ package xdi2.tests.core.features.multiplicity;
 import junit.framework.TestCase;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.multiplicity.ContextFunctions;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.features.multiplicity.XdiAttributeCollection;
 import xdi2.core.features.multiplicity.XdiAttributeMember;
 import xdi2.core.features.multiplicity.XdiValue;
 import xdi2.core.features.multiplicity.XdiEntityCollection;
 import xdi2.core.features.multiplicity.XdiElement;
 import xdi2.core.features.multiplicity.XdiMember;
-import xdi2.core.features.multiplicity.ContextFunction;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -62,9 +62,9 @@ public class MultiplicityTest extends TestCase {
 		ContextNode markus = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
 		XdiPeerRoot peerRoot = Roots.findLocalRoot(graph).findPeerRoot(XDI3Segment.create("=!91F2.8153.F600.AE24"), true);
 
-		assertNotNull(ContextFunction.fromContextNode(root));
-		assertNotNull(ContextFunction.fromContextNode(markus));
-		assertNotNull(ContextFunction.fromContextNode(peerRoot.getContextNode()));
+		assertNotNull(XdiSubGraph.fromContextNode(root));
+		assertNotNull(XdiSubGraph.fromContextNode(markus));
+		assertNotNull(XdiSubGraph.fromContextNode(peerRoot.getContextNode()));
 	}
 
 	public void testContextNodes() throws Exception {	
@@ -72,12 +72,12 @@ public class MultiplicityTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
 
-		assertTrue(ContextFunction.fromContextNode(contextNode) instanceof XdiMember);
+		assertTrue(XdiSubGraph.fromContextNode(contextNode) instanceof XdiMember);
 
-		XdiMember addressEntitySingleton = ContextFunction.fromContextNode(contextNode).getEntitySingleton(XDI3SubSegment.create("+address"), true);
-		XdiValue telAttributeSingleton = ContextFunction.fromContextNode(contextNode).getAttributeSingleton(XDI3SubSegment.create("+tel"), true);
-		XdiEntityCollection addressCollection = ContextFunction.fromContextNode(contextNode).getEntityCollection(XDI3SubSegment.create("+address"), true);
-		XdiAttributeCollection telCollection = ContextFunction.fromContextNode(contextNode).getAttributeCollection(XDI3SubSegment.create("+tel"), true);
+		XdiMember addressEntitySingleton = XdiSubGraph.fromContextNode(contextNode).getEntitySingleton(XDI3SubSegment.create("+address"), true);
+		XdiValue telAttributeSingleton = XdiSubGraph.fromContextNode(contextNode).getAttributeSingleton(XDI3SubSegment.create("+tel"), true);
+		XdiEntityCollection addressCollection = XdiSubGraph.fromContextNode(contextNode).getEntityCollection(XDI3SubSegment.create("+address"), true);
+		XdiAttributeCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getAttributeCollection(XDI3SubSegment.create("+tel"), true);
 
 		assertTrue(ContextFunctions.isMemberArcXri(addressEntitySingleton.getContextNode().getArcXri()));
 		assertTrue(ContextFunctions.isAttributeSingletonArcXri(telAttributeSingleton.getContextNode().getArcXri()));

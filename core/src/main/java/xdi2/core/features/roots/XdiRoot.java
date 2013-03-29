@@ -3,10 +3,9 @@ package xdi2.core.features.roots;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
-import xdi2.core.features.multiplicity.ContextFunction;
+import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.SelectingMappingIterator;
@@ -14,7 +13,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiRoot extends ContextFunction {
+public abstract class XdiRoot extends XdiSubGraph {
 
 	private static final long serialVersionUID = 8157589883719452790L;
 
@@ -26,18 +25,6 @@ public abstract class XdiRoot extends ContextFunction {
 	/*
 	 * Static methods
 	 */
-
-	/**
-	 * Given a graph, finds and returns the XDI local root.
-	 * @param graph The graph.
-	 * @return The XDI local root.
-	 */
-	public static XdiLocalRoot findLocalRoot(Graph graph) {
-
-		ContextNode localRootContextNode = graph.getRootContextNode();
-
-		return new XdiLocalRoot(localRootContextNode);
-	}
 
 	/**
 	 * Checks if a context node is a valid XDI root.
@@ -59,9 +46,11 @@ public abstract class XdiRoot extends ContextFunction {
 	 */
 	public static XdiRoot fromContextNode(ContextNode contextNode) {
 
-		if (XdiLocalRoot.isValid(contextNode)) return new XdiLocalRoot(contextNode);
-		if (XdiPeerRoot.isValid(contextNode)) return new XdiPeerRoot(contextNode);
-		if (XdiInnerRoot.isValid(contextNode)) return new XdiInnerRoot(contextNode);
+		XdiRoot xdiRoot;
+
+		if ((xdiRoot = XdiLocalRoot.fromContextNode(contextNode)) != null) return xdiRoot;
+		if ((xdiRoot = XdiPeerRoot.fromContextNode(contextNode)) != null) return xdiRoot;
+		if ((xdiRoot = XdiInnerRoot.fromContextNode(contextNode)) != null) return xdiRoot;
 
 		return null;
 	}

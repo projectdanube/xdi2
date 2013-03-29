@@ -8,9 +8,6 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.multiplicity.XdiAttributeMember;
-import xdi2.core.features.multiplicity.XdiValue;
-import xdi2.core.features.multiplicity.XdiEntityCollection;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
@@ -143,38 +140,6 @@ public class DataTypes {
 	public static List<XDI3Segment> getLiteralDataType(Literal literal) {
 
 		return getLiteralDatatypes(literal);
-	}
-
-	/*
-	 * Methods for data types of multiplicity contexts TODO: we'll think about
-	 * that a bit later
-	 */
-
-	public static void setLiteralDataType(XdiEntityCollection xdiCollection, XDI3Segment dataType) {
-
-	}
-
-	public static XDI3Segment getLiteralDataType(XdiEntityCollection xdiCollection) {
-
-		return null;
-	}
-
-	public static void setLiteralDataType(XdiAttributeMember xdiAttributeMember, XDI3Segment dataType) {
-
-	}
-
-	public static XDI3Segment getLiteralDataType(XdiAttributeMember xdiAttributeMember) {
-
-		return null;
-	}
-
-	public static void setLiteralDataType(XdiValue xdiAttributeSingleton, XDI3Segment dataType) {
-
-	}
-
-	public static XDI3Segment getLiteralDataType(XdiValue xdiAttributeSingleton) {
-
-		return null;
 	}
 
 	/**

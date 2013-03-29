@@ -10,7 +10,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiValue extends ContextFunction {
+public final class XdiValue extends XdiSubGraph {
 
 	private static final long serialVersionUID = -5769813522592588864L;
 
@@ -48,7 +48,7 @@ public final class XdiValue extends ContextFunction {
 	/*
 	 * Instance methods
 	 */
-	
+
 	/*
 	 * Methods for XDI value XRIs
 	 */
@@ -63,6 +63,11 @@ public final class XdiValue extends ContextFunction {
 		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + xri + XDI3Constants.CF_VALUE.charAt(1));
 	}
 
+	public static XDI3SubSegment createValueArcXri(String identifier) {
+
+		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + identifier + XDI3Constants.CF_VALUE.charAt(1));
+	}
+
 	/**
 	 * Checks if a given XRI is an XDI value XRI.
 	 * @param arcXri An XDI value XRI.
@@ -71,7 +76,7 @@ public final class XdiValue extends ContextFunction {
 	public static boolean isValueArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri.hasCs()) return false;
-		
+
 		if (! arcXri.hasXRef()) return false;
 		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getCf())) return false;
 
