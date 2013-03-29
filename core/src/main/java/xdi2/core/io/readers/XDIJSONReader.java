@@ -16,8 +16,8 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
-import xdi2.core.features.roots.InnerRoot;
-import xdi2.core.features.roots.Root;
+import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
@@ -52,7 +52,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	}
 
-	public void read(Root root, JSONObject graphObject, State state) throws IOException, Xdi2ParseException, JSONException {
+	public void read(XdiRoot root, JSONObject graphObject, State state) throws IOException, Xdi2ParseException, JSONException {
 
 		for (Entry<String, Object> entry : graphObject.entrySet()) {
 
@@ -124,7 +124,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 						XDI3Segment subject = root.getRelativePart(statementXri.getSubject());
 						XDI3Segment predicate = statementXri.getPredicate();
 
-						InnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
+						XdiInnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
 
 						this.read(innerRoot, jsonObjectInnerRoot, state);
 					} else {

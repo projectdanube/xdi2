@@ -1,6 +1,6 @@
 package xdi2.messaging.constants;
 
-import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.features.multiplicity.ContextFunctions;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
@@ -22,8 +22,8 @@ public final class XDIMessagingConstants {
 	public static final XDI3Segment XRI_S_FROM_ADDRESS = XDI3Segment.create("$add");
 	public static final XDI3Segment XRI_S_TO_ADDRESS = XDI3Segment.create("$is()");
 
-	public static final XDI3Segment XRI_S_SECRET_TOKEN = XDI3Segment.create("" + Multiplicity.entitySingletonArcXri(XDI3SubSegment.create("$secret")) + Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("$token")));
-	public static final XDI3Segment XRI_S_OAUTH_TOKEN = XDI3Segment.create("" + Multiplicity.entitySingletonArcXri(XDI3SubSegment.create("$oauth")) + Multiplicity.attributeSingletonArcXri(XDI3SubSegment.create("$token")));
+	public static final XDI3Segment XRI_S_SECRET_TOKEN = XDI3Segment.create("" + ContextFunctions.entitySingletonArcXri(XDI3SubSegment.create("$secret")) + ContextFunctions.attributeSingletonArcXri(XDI3SubSegment.create("$token")));
+	public static final XDI3Segment XRI_S_OAUTH_TOKEN = XDI3Segment.create("" + ContextFunctions.entitySingletonArcXri(XDI3SubSegment.create("$oauth")) + ContextFunctions.attributeSingletonArcXri(XDI3SubSegment.create("$token")));
 
 	public static final XDI3SubSegment XRI_SS_MSG = XDI3SubSegment.create("$msg");
 	public static final XDI3SubSegment XRI_SS_GET = XDI3SubSegment.create("$get");

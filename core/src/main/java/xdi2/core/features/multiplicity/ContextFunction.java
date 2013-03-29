@@ -3,20 +3,21 @@ package xdi2.core.features.multiplicity;
 import java.io.Serializable;
 
 import xdi2.core.ContextNode;
+import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI subgraph according to the multiplicity pattern, represented as a context node.
+ * An XDI context function, represented as a context node.
  * 
  * @author markus
  */
-public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
+public abstract class ContextFunction implements Serializable, Comparable<ContextFunction> {
 
 	private static final long serialVersionUID = -8756059289169602694L;
 
 	private ContextNode contextNode;
 
-	protected XdiSubGraph(ContextNode contextNode) {
+	protected ContextFunction(ContextNode contextNode) {
 
 		if (contextNode == null) throw new NullPointerException();
 
@@ -39,7 +40,11 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return true;
+		return
+				XdiRoot.isValid(contextNode) ||
+				XdiMember.isValid(contextNode) ||
+				XdiElement.isValid(contextNode) ||
+				XdiValue.isValid(contextNode);
 	}
 
 	/**
@@ -47,16 +52,16 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 * @param contextNode The context node that is a subgraph.
 	 * @return The subgraph.
 	 */
-	public static XdiSubGraph fromContextNode(ContextNode contextNode) {
+	public static ContextFunction fromContextNode(ContextNode contextNode) {
 
-		if (XdiEntitySingleton.isValid(contextNode)) return new XdiEntitySingleton(contextNode);
-		if (XdiAttributeSingleton.isValid(contextNode)) return new XdiAttributeSingleton(contextNode);
-		if (XdiEntityCollection.isValid(contextNode)) return new XdiEntityCollection(contextNode);
-		if (XdiAttributeCollection.isValid(contextNode)) return new XdiEntityCollection(contextNode);
-		if (XdiEntityMember.isValid(contextNode)) return new XdiEntityMember(contextNode);
-		if (XdiAttributeMember.isValid(contextNode)) return new XdiAttributeMember(contextNode);
+		ContextFunction contextFunction;
+		
+		if ((contextFunction = XdiRoot.fromContextNode(contextNode)) != null) return contextFunction;
+		if ((contextFunction = XdiMember.fromContextNode(contextNode)) != null) return contextFunction;
+		if ((contextFunction = XdiElement.fromContextNode(contextNode)) != null) return contextFunction;
+		if ((contextFunction = XdiValue.fromContextNode(contextNode)) != null) return contextFunction;
 
-		return new XdiSubGraph(contextNode);
+		return null;
 	}
 
 	/*
@@ -69,23 +74,23 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 */
 	public XDI3SubSegment getBaseArcXri() {
 		
-		return Multiplicity.baseArcXri(this.getContextNode().getArcXri());
+		return ContextFunctions.baseArcXri(this.getContextNode().getArcXri());
 	}
 
 	/**
-	 * Gets or returns an XDI entity singleton under a context node.
+	 * Gets or returns an XDI member under a context node.
 	 * @param arcXri The "base" arc XRI of the XDI entity singleton, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI entity singleton.
 	 */
-	public XdiEntitySingleton getEntitySingleton(XDI3SubSegment arcXri, boolean create) {
+	public XdiMember getMember(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment entitySingletonArcXri = Multiplicity.entitySingletonArcXri(arcXri);
-		ContextNode entitySingletonContextNode = this.getContextNode().getContextNode(entitySingletonArcXri);
-		if (entitySingletonContextNode == null && create) entitySingletonContextNode = this.getContextNode().createContextNode(entitySingletonArcXri);
-		if (entitySingletonContextNode == null) return null;
+		XDI3SubSegment memberArcXri = XdiMember.createMemberArcXri(arcXri);
+		ContextNode memberContextNode = this.getContextNode().getContextNode(memberArcXri);
+		if (memberContextNode == null && create) memberContextNode = this.getContextNode().createContextNode(memberArcXri);
+		if (memberContextNode == null) return null;
 
-		return new XdiEntitySingleton(entitySingletonContextNode);
+		return new XdiMember(memberContextNode);
 	}
 
 	/**
@@ -94,14 +99,14 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI attribute singleton.
 	 */
-	public XdiAttributeSingleton getAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
+	public XdiValue getAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment attributeSingletonArcXri = Multiplicity.attributeSingletonArcXri(arcXri);
+		XDI3SubSegment attributeSingletonArcXri = ContextFunctions.attributeSingletonArcXri(arcXri);
 		ContextNode attributeSingletonContextNode = this.getContextNode().getContextNode(attributeSingletonArcXri);
 		if (attributeSingletonContextNode == null && create) attributeSingletonContextNode = this.getContextNode().createContextNode(attributeSingletonArcXri);
 		if (attributeSingletonContextNode == null) return null;
 
-		return new XdiAttributeSingleton(attributeSingletonContextNode);
+		return new XdiValue(attributeSingletonContextNode);
 	}
 	
 	/**
@@ -112,7 +117,7 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 */
 	public XdiEntityCollection getEntityCollection(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment entityCollectionArcXri = Multiplicity.entityCollectionArcXri(arcXri);
+		XDI3SubSegment entityCollectionArcXri = ContextFunctions.entityCollectionArcXri(arcXri);
 		ContextNode entityCollectionContextNode = this.getContextNode().getContextNode(entityCollectionArcXri);
 		if (entityCollectionContextNode == null && create) entityCollectionContextNode = this.getContextNode().createContextNode(entityCollectionArcXri);
 		if (entityCollectionContextNode == null) return null;
@@ -128,7 +133,7 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 */
 	public XdiAttributeCollection getAttributeCollection(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment attributeCollectionArcXri = Multiplicity.attributeCollectionArcXri(arcXri);
+		XDI3SubSegment attributeCollectionArcXri = ContextFunctions.attributeCollectionArcXri(arcXri);
 		ContextNode attributeCollectionContextNode = this.getContextNode().getContextNode(attributeCollectionArcXri);
 		if (attributeCollectionContextNode == null && create) attributeCollectionContextNode = this.getContextNode().createContextNode(attributeCollectionArcXri);
 		if (attributeCollectionContextNode == null) return null;
@@ -149,10 +154,10 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	@Override
 	public boolean equals(Object object) {
 
-		if (object == null || ! (object instanceof XdiSubGraph)) return false;
+		if (object == null || ! (object instanceof ContextFunction)) return false;
 		if (object == this) return true;
 
-		XdiSubGraph other = (XdiSubGraph) object;
+		ContextFunction other = (ContextFunction) object;
 
 		// two multiplicity objects are equal if their context nodes are equal
 
@@ -170,7 +175,7 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	}
 
 	@Override
-	public int compareTo(XdiSubGraph other) {
+	public int compareTo(ContextFunction other) {
 
 		if (other == null || other == this) return 0;
 

@@ -51,7 +51,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		log.trace("Parsing segment: " + string);
 
 		int start = 0, pos = 0;
-		Character[] cf = null;
+		String cf = null;
 		int cfcount = 0;
 		List<XDI3SubSegment> subSegments = new ArrayList<XDI3SubSegment> ();
 
@@ -66,12 +66,12 @@ public class XDI3ParserManual extends XDI3Parser {
 				if (cs(string.charAt(pos)) != null && cfcount == 0) break;
 				if (cf(string.charAt(pos)) != null && cfcount == 0) break;
 
-				if (cf != null && string.charAt(pos) == cf[0].charValue()) {
+				if (cf != null && string.charAt(pos) == cf.charAt(0)) {
 
 					cfcount++;
 				}
 
-				if (cf != null && string.charAt(pos) == cf[1].charValue()) {
+				if (cf != null && string.charAt(pos) == cf.charAt(1)) {
 
 					cfcount--;
 					if (cfcount == -1) throw new ParserException("Invalid segment: " + string + " (wrong closing parentheses at position " + pos + ")");
@@ -123,9 +123,9 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		log.trace("Parsing xref: " + string);
 
-		Character[] cf = cf(string.charAt(0));
+		String cf = cf(string.charAt(0));
 		if (cf == null) throw new ParserException("Invalid xref: " + string + " (no opening delimiter)");
-		if (string.charAt(string.length() - 1) != cf[1].charValue()) throw new ParserException("Invalid xref: " + string + " (no closing delimiter)");
+		if (string.charAt(string.length() - 1) != cf.charAt(1)) throw new ParserException("Invalid xref: " + string + " (no closing delimiter)");
 		if (string.length() == 2) return this.makeXDI3XRef(string, null, null, null, null, null, null, null);
 
 		string = string.substring(1, string.length() - 1);
@@ -209,9 +209,9 @@ public class XDI3ParserManual extends XDI3Parser {
 		return null;
 	}
 
-	private static Character[] cf(char c) {
+	private static String cf(char c) {
 
-		for (Character[] cf : XDI3Constants.CF_ARRAY) if (cf[0].charValue() == c) return cf;
+		for (String cf : XDI3Constants.CF_ARRAY) if (cf.charAt(0) == c) return cf;
 
 		return null;
 	}

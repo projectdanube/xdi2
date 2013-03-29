@@ -6,8 +6,8 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.multiplicity.Multiplicity;
-import xdi2.core.features.multiplicity.Multiplicity.MappingContextNodeEntityCollectionIterator;
+import xdi2.core.features.multiplicity.ContextFunctions;
+import xdi2.core.features.multiplicity.ContextFunctions.MappingContextNodeMemberIterator;
 import xdi2.core.features.multiplicity.XdiEntityCollection;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -147,7 +147,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public MessageCollection getMessageCollection(XDI3Segment senderXri, boolean create) {
 
-		XDI3Segment messageCollectionXri = XDI3Segment.create(senderXri.toString() + Multiplicity.collectionArcXri(XDIMessagingConstants.XRI_SS_MSG));
+		XDI3Segment messageCollectionXri = XDI3Segment.create(senderXri.toString() + ContextFunctions.collectionArcXri(XDIMessagingConstants.XRI_SS_MSG));
 		ContextNode contextNode = this.getGraph().findContextNode(messageCollectionXri, create);
 
 		if (contextNode == null) return null;
@@ -167,7 +167,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode().getAllContextNodes();
 
-		return new MappingCollectionMessageCollectionIterator(this, new MappingContextNodeEntityCollectionIterator(contextNodes));
+		return new MappingCollectionMessageCollectionIterator(this, new MappingContextNodeMemberIterator(contextNodes));
 	}
 
 	/**

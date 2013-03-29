@@ -16,8 +16,8 @@ import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.policy.PolicyAnd;
 import xdi2.core.features.linkcontracts.policy.PolicyUtil;
-import xdi2.core.features.roots.PeerRoot;
-import xdi2.core.features.roots.PeerRoot.MappingContextNodePeerRootIterator;
+import xdi2.core.features.roots.XdiPeerRoot;
+import xdi2.core.features.roots.XdiPeerRoot.MappingContextNodePeerRootIterator;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.xri3.XDI3Segment;
@@ -73,7 +73,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 		if (prototypingContext.getOwnerPeerRoot() != null) {
 
 			Iterator<ContextNode> ownerSynonymPeerRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerPeerRoot().getContextNode());
-			PeerRoot[] ownerSynonymPeerRoots = (new IteratorArrayMaker<PeerRoot> (new MappingContextNodePeerRootIterator(ownerSynonymPeerRootContextNodes))).array(PeerRoot.class);
+			XdiPeerRoot[] ownerSynonymPeerRoots = (new IteratorArrayMaker<XdiPeerRoot> (new MappingContextNodePeerRootIterator(ownerSynonymPeerRootContextNodes))).array(XdiPeerRoot.class);
 
 			ownerSynonyms = new XDI3Segment[ownerSynonymPeerRoots.length];
 			for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = ownerSynonymPeerRoots[i].getXriOfPeerRoot();

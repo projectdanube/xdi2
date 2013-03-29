@@ -1,13 +1,25 @@
 package xdi2.core.features.multiplicity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import xdi2.core.ContextNode;
+import xdi2.core.features.multiplicity.XdiElement.MappingContextNodeElementIterator;
+import xdi2.core.features.ordering.Ordering;
+import xdi2.core.util.XRIUtil;
+import xdi2.core.util.iterators.CompositeIterator;
+import xdi2.core.util.iterators.EmptyIterator;
+import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.NoDuplicatesIterator;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI member of a collection (context function), represented as a context node.
+ * An XDI member (context function), represented as a context node.
  * 
  * @author markus
  */
-public abstract class XdiMember extends XdiSubGraph {
+public final class XdiMember extends ContextFunction {
 
 	private static final long serialVersionUID = -1075885367630005576L;
 
@@ -27,7 +39,7 @@ public abstract class XdiMember extends XdiSubGraph {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return XdiEntityMember.isValid(contextNode) || XdiAttributeMember.isValid(contextNode);
+		return isMemberArcXri(contextNode.getArcXri());
 	}
 
 	/**
@@ -37,10 +49,9 @@ public abstract class XdiMember extends XdiSubGraph {
 	 */
 	public static XdiMember fromContextNode(ContextNode contextNode) {
 
-		if (XdiEntityMember.isValid(contextNode)) return XdiEntityMember.fromContextNode(contextNode);
-		if (XdiAttributeMember.isValid(contextNode)) return XdiAttributeMember.fromContextNode(contextNode);
+		if (! isValid(contextNode)) return null;
 
-		return null;
+		return new XdiMember(contextNode);
 	}
 
 	/*
@@ -48,8 +59,85 @@ public abstract class XdiMember extends XdiSubGraph {
 	 */
 
 	/**
-	 * Gets or returns the parent XDI collection of this XDI entity member.
-	 * @return The parent XDI collection.
+	 * Creates a new XDI element and adds it to this XDI member.
+	 * @return The newly created XDI element.
 	 */
-	public abstract XdiCollection getCollection();
+	public XdiElement createElement() {
+
+		ContextNode contextNode = this.getContextNode().createContextNode(XdiElement.createElementArcXri(XRIUtil.randomUuidSubSegment()));
+
+		return new XdiElement(contextNode);
+	}
+
+	/**
+	 * Returns all XDI elements in this XDI member.
+	 * @return An iterator over all XDI elements.
+	 */
+	public Iterator<XdiElement> elements() {
+
+		return this.elements(false, true);
+	}
+
+	/**
+	 * Returns all XDI elements in this XDI member.
+	 * @return An iterator over all XDI elements.
+	 */
+	public Iterator<XdiElement> elements(boolean ordered, boolean unordered) {
+
+		// ordered or unordered or both?
+
+		Iterator<ContextNode> contextNodes;
+
+		if (ordered && (! unordered)) {
+
+			contextNodes = Ordering.getOrderedContextNodes(this.getContextNode());
+		} else if ((! ordered) && unordered) {
+
+			contextNodes = this.getContextNode().getContextNodes();
+		} else if (ordered && unordered) {
+
+			List<Iterator<? extends ContextNode>> iterators = new ArrayList<Iterator<? extends ContextNode>> ();
+			iterators.add(Ordering.getOrderedContextNodes(this.getContextNode()));
+			iterators.add(this.getContextNode().getContextNodes());
+
+			contextNodes = new NoDuplicatesIterator<ContextNode> (new CompositeIterator<ContextNode> (iterators.iterator()));
+		} else {
+
+			return new EmptyIterator<XdiElement> ();
+		}
+
+		// look for context nodes that are valid XDI elements
+
+		return new MappingContextNodeElementIterator(contextNodes);
+	}
+
+	/**
+	 * Returns the number of XDI elements in this XDI member.
+	 */
+	public int elementsSize() {
+
+		return new IteratorCounter(this.elements()).count();
+	}
+
+	/*
+	 * Methods for XDI member XRIs
+	 */
+
+	public static XDI3SubSegment createMemberArcXri(XDI3SubSegment arcXri) {
+
+		return arcXri;
+	}
+
+	/**
+	 * Checks if a given XRI is an XDI member XRI.
+	 * @param xri An XDI member XRI.
+	 * @return True, if the XRI is an XDI member XRI.
+	 */
+	public static boolean isMemberArcXri(XDI3SubSegment arcXri) {
+
+		if (arcXri == null) throw new NullPointerException();
+		if (arcXri.hasXRef()) return false;
+
+		return true;
+	}
 }

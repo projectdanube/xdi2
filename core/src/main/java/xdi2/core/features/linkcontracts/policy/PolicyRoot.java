@@ -5,9 +5,9 @@ import java.util.Iterator;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
-import xdi2.core.features.multiplicity.XdiEntityMember;
-import xdi2.core.features.multiplicity.XdiEntitySingleton;
-import xdi2.core.features.multiplicity.XdiSubGraph;
+import xdi2.core.features.multiplicity.XdiElement;
+import xdi2.core.features.multiplicity.XdiMember;
+import xdi2.core.features.multiplicity.ContextFunction;
 
 /**
  * An XDI root policy, represented as an XDI subgraph.
@@ -18,7 +18,7 @@ public final class PolicyRoot extends Policy {
 
 	private static final long serialVersionUID = -9212794041490417047L;
 
-	protected PolicyRoot(XdiSubGraph xdiSubGraph) {
+	protected PolicyRoot(ContextFunction xdiSubGraph) {
 
 		super(xdiSubGraph);
 	}
@@ -32,12 +32,12 @@ public final class PolicyRoot extends Policy {
 	 * @param xdiSubGraph The XDI subgraph to check.
 	 * @return True if the XDI subgraph is a valid XDI root policy.
 	 */
-	public static boolean isValid(XdiSubGraph xdiSubGraph) {
+	public static boolean isValid(ContextFunction xdiSubGraph) {
 
-		if (xdiSubGraph instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
-		else if (xdiSubGraph instanceof XdiEntityMember)
-			return ((XdiEntityMember) xdiSubGraph).getCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
+		if (xdiSubGraph instanceof XdiMember)
+			return ((XdiMember) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
+		else if (xdiSubGraph instanceof XdiElement)
+			return ((XdiElement) xdiSubGraph).getCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
 
 		return false;
 	}
@@ -47,7 +47,7 @@ public final class PolicyRoot extends Policy {
 	 * @param xdiSubGraph The XDI subgraph that is an XDI root policy.
 	 * @return The XDI root policy.
 	 */
-	public static PolicyRoot fromSubGraph(XdiSubGraph xdiSubGraph) {
+	public static PolicyRoot fromSubGraph(ContextFunction xdiSubGraph) {
 
 		if (! isValid(xdiSubGraph)) return null;
 

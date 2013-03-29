@@ -6,6 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
@@ -15,11 +16,11 @@ import xdi2.core.xri3.XDI3XRef;
  * 
  * @author markus
  */
-public class InnerRoot extends AbstractRoot {
+public class XdiInnerRoot extends XdiRoot {
 
 	private static final long serialVersionUID = -203126514430691007L;
 
-	protected InnerRoot(ContextNode contextNode) {
+	protected XdiInnerRoot(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -36,8 +37,8 @@ public class InnerRoot extends AbstractRoot {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		XDI3Segment subject = InnerRoot.getSubjectOfInnerRootXri(contextNode.getArcXri());
-		XDI3Segment predicate = InnerRoot.getPredicateOfInnerRootXri(contextNode.getArcXri());
+		XDI3Segment subject = XdiInnerRoot.getSubjectOfInnerRootXri(contextNode.getArcXri());
+		XDI3Segment predicate = XdiInnerRoot.getPredicateOfInnerRootXri(contextNode.getArcXri());
 		if (subject == null || predicate == null) return false;
 
 		ContextNode parentContextNode = contextNode.getContextNode();
@@ -56,11 +57,11 @@ public class InnerRoot extends AbstractRoot {
 	 * @param contextNode The context node that is an XDI inner root.
 	 * @return The XDI inner root.
 	 */
-	public static InnerRoot fromContextNode(ContextNode contextNode) {
+	public static XdiInnerRoot fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new InnerRoot(contextNode);
+		return new XdiInnerRoot(contextNode);
 	}
 
 	/*
@@ -73,7 +74,7 @@ public class InnerRoot extends AbstractRoot {
 	 */
 	public ContextNode getSubjectContexNode() {
 
-		XDI3Segment subject = InnerRoot.getSubjectOfInnerRootXri(this.getContextNode().getArcXri());
+		XDI3Segment subject = XdiInnerRoot.getSubjectOfInnerRootXri(this.getContextNode().getArcXri());
 		if (subject == null) return null;
 
 		ContextNode parentContextNode = this.getContextNode().getContextNode();
@@ -91,7 +92,7 @@ public class InnerRoot extends AbstractRoot {
 	 */
 	public Relation getPredicateRelation() {
 
-		XDI3Segment predicate = InnerRoot.getPredicateOfInnerRootXri(this.getContextNode().getArcXri());
+		XDI3Segment predicate = XdiInnerRoot.getPredicateOfInnerRootXri(this.getContextNode().getArcXri());
 		if (predicate == null) return null;
 
 		ContextNode subjectContextNode = this.getSubjectContexNode();
@@ -122,7 +123,7 @@ public class InnerRoot extends AbstractRoot {
 	}
 
 	/*
-	 * Methods for XDI inner root XRIs.
+	 * Methods for XDI inner root XRIs
 	 */
 
 	/**
@@ -131,23 +132,24 @@ public class InnerRoot extends AbstractRoot {
 	 * @param predicate A subject XRI.
 	 * @return The inner root XRI of the subject XRI and the predicate XRI.
 	 */
-	public static XDI3SubSegment createInnerRootXri(XDI3Segment subject, XDI3Segment predicate) {
+	public static XDI3SubSegment createInnerRootArcXri(XDI3Segment subject, XDI3Segment predicate) {
 
-		return XDI3SubSegment.create("(" + subject.toString() + "/" + predicate.toString() + ")");
+		return XDI3SubSegment.create("" + XDI3Constants.CF_ROOT.charAt(0) + subject.toString() + "/" + predicate.toString() + XDI3Constants.CF_ROOT.charAt(1));
 	}
 
 	/**
 	 * Returns the subject XRI of the inner root XRI.
-	 * @param xri An inner root XRI.
+	 * @param arcXri An inner root XRI.
 	 * @return The subject XRI of the inner root XRI.
 	 */
-	public static XDI3Segment getSubjectOfInnerRootXri(XDI3SubSegment xri) {
+	public static XDI3Segment getSubjectOfInnerRootXri(XDI3SubSegment arcXri) {
 
-		if (xri == null) return null;
+		if (arcXri == null) return null;
 		
-		if (! xri.hasXRef()) return null;
+		if (! arcXri.hasXRef()) return null;
 
-		XDI3XRef xref = xri.getXRef();
+		XDI3XRef xref = arcXri.getXRef();
+		if (! XDI3Constants.CF_ROOT.equals(xref.getCf())) return null;
 		if (! xref.hasPartialSubjectAndPredicate()) return null;
 
 		return xref.getPartialSubject();
@@ -155,16 +157,17 @@ public class InnerRoot extends AbstractRoot {
 
 	/**
 	 * Returns the predicate XRI of the inner root XRI.
-	 * @param xri An inner root XRI.
+	 * @param arcXri An inner root XRI.
 	 * @return The predicate XRI of the inner root XRI.
 	 */
-	public static XDI3Segment getPredicateOfInnerRootXri(XDI3SubSegment xri) {
+	public static XDI3Segment getPredicateOfInnerRootXri(XDI3SubSegment arcXri) {
 
-		if (xri == null) return null;
+		if (arcXri == null) return null;
 		
-		if (! xri.hasXRef()) return null;
+		if (! arcXri.hasXRef()) return null;
 
-		XDI3XRef xref = xri.getXRef();
+		XDI3XRef xref = arcXri.getXRef();
+		if (! XDI3Constants.CF_ROOT.equals(xref.getCf())) return null;
 		if (! xref.hasPartialSubjectAndPredicate()) return null;
 
 		return xref.getPartialPredicate();
@@ -172,28 +175,28 @@ public class InnerRoot extends AbstractRoot {
 
 	/**
 	 * Checks if a given XRI is an inner root XRI.
-	 * @param xri An inner root XRI.
+	 * @param arcXri An inner root XRI.
 	 * @return True, if the XRI is an inner root XRI.
 	 */
-	public static boolean isInnerRootXri(XDI3SubSegment xri) {
+	public static boolean isInnerRootArcXri(XDI3SubSegment arcXri) {
 
-		return getSubjectOfInnerRootXri(xri) != null && getPredicateOfInnerRootXri(xri) != null;
+		return getSubjectOfInnerRootXri(arcXri) != null && getPredicateOfInnerRootXri(arcXri) != null;
 	}
 
 	/*
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeInnerRootIterator extends NotNullIterator<InnerRoot> {
+	public static class MappingContextNodeInnerRootIterator extends NotNullIterator<XdiInnerRoot> {
 
 		public MappingContextNodeInnerRootIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, InnerRoot> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiInnerRoot> (contextNodes) {
 
 				@Override
-				public InnerRoot map(ContextNode contextNode) {
+				public XdiInnerRoot map(ContextNode contextNode) {
 
-					return InnerRoot.fromContextNode(contextNode);
+					return XdiInnerRoot.fromContextNode(contextNode);
 				}
 			});
 		}

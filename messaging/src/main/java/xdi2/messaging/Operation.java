@@ -6,7 +6,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.roots.InnerRoot;
+import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -134,7 +134,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public XDI3Segment getTargetAddress() {
 
-		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
+		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
 
 		if (innerRoot != null) {
 
@@ -151,7 +151,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public Iterator<XDI3Statement> getTargetStatements() {
 
-		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
+		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
 
 		if (innerRoot != null) {
 

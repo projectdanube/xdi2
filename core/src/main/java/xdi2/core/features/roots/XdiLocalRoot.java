@@ -2,19 +2,21 @@ package xdi2.core.features.roots;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI local root, represented as a context node.
  * 
  * @author markus
  */
-public class LocalRoot extends AbstractRoot {
+public class XdiLocalRoot extends XdiRoot {
 
 	private static final long serialVersionUID = 2956364705721958108L;
 
-	protected LocalRoot(ContextNode contextNode) {
+	protected XdiLocalRoot(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -38,20 +40,20 @@ public class LocalRoot extends AbstractRoot {
 	 * @param contextNode The context node that is an XDI local root.
 	 * @return The XDI local root.
 	 */
-	public static LocalRoot fromContextNode(ContextNode contextNode) {
+	public static XdiLocalRoot fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new LocalRoot(contextNode);
+		return new XdiLocalRoot(contextNode);
 	}
 
 	/*
 	 * Instance methods
 	 */
 
-	public PeerRoot setSelfPeerRoot(XDI3Segment xri) {
+	public XdiPeerRoot setSelfPeerRoot(XDI3Segment xri) {
 
-		PeerRoot selfPeerRoot = this.getSelfPeerRoot();
+		XdiPeerRoot selfPeerRoot = this.getSelfPeerRoot();
 		if (selfPeerRoot != null) selfPeerRoot.getContextNode().delete();
 
 		if (xri == null) return null;
@@ -67,11 +69,34 @@ public class LocalRoot extends AbstractRoot {
 		return selfPeerRoot;
 	}
 
-	public PeerRoot getSelfPeerRoot() {
+	public XdiPeerRoot getSelfPeerRoot() {
 
 		Relation relation = this.getContextNode().getRelation(XDIDictionaryConstants.XRI_S_IS_REF);
 		if (relation == null) return null;
 
-		return PeerRoot.fromContextNode(relation.follow());
+		return XdiPeerRoot.fromContextNode(relation.follow());
+	}
+
+	/*
+	 * Methods for XDI local root XRIs
+	 */
+
+	/**
+	 * Returns the local root XRI.
+	 * @return The local root XRI.
+	 */
+	public static XDI3SubSegment createLocalRootXri() {
+
+		return XDIConstants.XRI_SS_ROOT;
+	}
+
+	/**
+	 * Checks if a given XRI is a local root XRI.
+	 * @param xri A local root XRI.
+	 * @return True, if the XRI is a local root XRI.
+	 */
+	public static boolean isLocalRootXri(XDI3SubSegment xri) {
+
+		return XDIConstants.XRI_SS_ROOT.equals(xri);
 	}
 }

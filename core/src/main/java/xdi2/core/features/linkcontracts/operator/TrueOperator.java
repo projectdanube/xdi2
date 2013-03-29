@@ -9,7 +9,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.features.roots.InnerRoot;
+import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Statement;
@@ -40,7 +40,7 @@ public class TrueOperator extends ConditionOperator {
 	public static boolean isValid(Relation relation) {
 
 		if (! XDIConstants.XRI_S_TRUE.equals(relation.getArcXri())) return false;
-		if (! InnerRoot.isValid(relation.follow())) return false;
+		if (! XdiInnerRoot.isValid(relation.follow())) return false;
 
 		return true;
 	}
@@ -59,7 +59,7 @@ public class TrueOperator extends ConditionOperator {
 
 	public static TrueOperator fromCondition(Condition condition) {
 
-		InnerRoot innerRoot = GraphUtil.innerRootFromComponents(XDIConstants.XRI_S_ROOT, XDIConstants.XRI_S_TRUE, new SingleItemIterator<XDI3Statement> (condition.getStatement()));
+		XdiInnerRoot innerRoot = GraphUtil.innerRootFromComponents(XDIConstants.XRI_S_ROOT, XDIConstants.XRI_S_TRUE, new SingleItemIterator<XDI3Statement> (condition.getStatement()));
 
 		return fromRelation(innerRoot.getPredicateRelation());
 	}

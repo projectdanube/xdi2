@@ -5,9 +5,9 @@ import java.util.Iterator;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
-import xdi2.core.features.multiplicity.XdiEntityMember;
-import xdi2.core.features.multiplicity.XdiEntitySingleton;
-import xdi2.core.features.multiplicity.XdiSubGraph;
+import xdi2.core.features.multiplicity.XdiElement;
+import xdi2.core.features.multiplicity.XdiMember;
+import xdi2.core.features.multiplicity.ContextFunction;
 
 /**
  * An XDI $or policy, represented as an XDI subgraph.
@@ -18,7 +18,7 @@ public class PolicyOr extends Policy {
 
 	private static final long serialVersionUID = 5732150401265911411L;
 
-	protected PolicyOr(XdiSubGraph xdiSubGraph) {
+	protected PolicyOr(ContextFunction xdiSubGraph) {
 
 		super(xdiSubGraph);
 	}
@@ -32,12 +32,12 @@ public class PolicyOr extends Policy {
 	 * @param xdiSubGraph The XDI subgraph to check.
 	 * @return True if the XDI subgraph is a valid XDI $or policy.
 	 */
-	public static boolean isValid(XdiSubGraph xdiSubGraph) {
+	public static boolean isValid(ContextFunction xdiSubGraph) {
 
-		if (xdiSubGraph instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
-		else if (xdiSubGraph instanceof XdiEntityMember)
-			return ((XdiEntityMember) xdiSubGraph).getCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
+		if (xdiSubGraph instanceof XdiMember)
+			return ((XdiMember) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
+		else if (xdiSubGraph instanceof XdiElement)
+			return ((XdiElement) xdiSubGraph).getCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
 
 		return false;
 	}
@@ -47,7 +47,7 @@ public class PolicyOr extends Policy {
 	 * @param xdiSubGraph The XDI subgraph that is an XDI root policy.
 	 * @return The XDI $or policy.
 	 */
-	public static PolicyOr fromSubGraph(XdiSubGraph xdiSubGraph) {
+	public static PolicyOr fromSubGraph(ContextFunction xdiSubGraph) {
 
 		if (! isValid(xdiSubGraph)) return null;
 

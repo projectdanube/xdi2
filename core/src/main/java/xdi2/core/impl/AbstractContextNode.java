@@ -11,6 +11,7 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.variables.Variables;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -535,6 +536,39 @@ public abstract class AbstractContextNode implements ContextNode {
 	public int getAllStatementCount() {
 
 		return new IteratorCounter(this.getAllStatements()).count();
+	}
+
+	/*
+	 * Methods related to checking graph validity
+	 */
+
+	/**
+	 * Checks if a context node can be created.
+	 */
+	public void checkCreateContextNode(XDI3SubSegment arcXri) {
+
+		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) return true;
+		if (arcXri.hasXRef() && arcXri.getXRef().hasStatement()) return true;
+
+		return false;
+	}
+
+	/**
+	 * Checks if a relation can be created.
+	 */
+	public static boolean checkCreateRelation(XDI3Segment arcXri, XDI3Segment targetXri) {
+
+		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) return true;
+		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri) && (! Variables.isVariable(targetXri))) return true;
+
+		return false;
+	}
+
+	/**
+	 * Checks if a literal can be created.
+	 */
+	public static boolean checkCreateLiteral(String literalData) {
+
 	}
 
 	/*

@@ -14,9 +14,9 @@ import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.multiplicity.XdiEntityCollection;
-import xdi2.core.features.multiplicity.XdiEntityMember;
-import xdi2.core.features.multiplicity.XdiEntitySingleton;
-import xdi2.core.features.multiplicity.XdiSubGraph;
+import xdi2.core.features.multiplicity.XdiElement;
+import xdi2.core.features.multiplicity.XdiMember;
+import xdi2.core.features.multiplicity.ContextFunction;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
@@ -35,9 +35,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	private static final Logger log = LoggerFactory.getLogger(Policy.class);
 
-	private XdiSubGraph xdiSubGraph;
+	private ContextFunction xdiSubGraph;
 
-	protected Policy(XdiSubGraph xdiSubGraph) {
+	protected Policy(ContextFunction xdiSubGraph) {
 
 		if (xdiSubGraph == null) throw new NullPointerException();
 
@@ -49,7 +49,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 * @param contextNode The context node to check.
 	 * @return True if the context node is a valid XDI policy.
 	 */
-	public static boolean isValid(XdiSubGraph contextNode) {
+	public static boolean isValid(ContextFunction contextNode) {
 
 		return
 				PolicyRoot.isValid(contextNode) ||
@@ -63,7 +63,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 * @param xdiSubGraph The XDI subgraph that is an XDI policy.
 	 * @return The XDI policy.
 	 */
-	public static Policy fromSubGraph(XdiSubGraph xdiSubGraph) {
+	public static Policy fromSubGraph(ContextFunction xdiSubGraph) {
 
 		if (PolicyRoot.isValid(xdiSubGraph)) return PolicyRoot.fromSubGraph(xdiSubGraph);
 		if (PolicyAnd.isValid(xdiSubGraph)) return PolicyAnd.fromSubGraph(xdiSubGraph);
@@ -93,7 +93,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 * Returns the underlying XDI subgraph to which this XDI policy is bound.
 	 * @return An XDI subgraph that represents the XDI policy.
 	 */
-	public XdiSubGraph getSubGraph() {
+	public ContextFunction getSubGraph() {
 
 		return this.xdiSubGraph;
 	}
@@ -113,10 +113,10 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public XDI3SubSegment getPolicyXri() {
 
-		if (this.getSubGraph() instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) this.getSubGraph()).getBaseArcXri();
-		else if (this.getSubGraph() instanceof XdiEntityMember)
-			return ((XdiEntityMember) this.getSubGraph()).getCollection().getBaseArcXri();
+		if (this.getSubGraph() instanceof XdiMember)
+			return ((XdiMember) this.getSubGraph()).getBaseArcXri();
+		else if (this.getSubGraph() instanceof XdiElement)
+			return ((XdiElement) this.getSubGraph()).getCollection().getBaseArcXri();
 
 		return null;
 	}
@@ -126,7 +126,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyAnd createAndPolicy() {
 
-		XdiEntitySingleton policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_AND, true);
+		XdiMember policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_AND, true);
 
 		return PolicyAnd.fromSubGraph(policyAndEntitySingleton);
 	}
@@ -136,7 +136,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyOr createOrPolicy() {
 
-		XdiEntitySingleton policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_OR, true);
+		XdiMember policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_OR, true);
 
 		return PolicyOr.fromSubGraph(policyOrEntitySingleton);
 	}
@@ -146,7 +146,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyNot createNotPolicy() {
 
-		XdiEntitySingleton policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, true);
+		XdiMember policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, true);
 
 		return PolicyNot.fromSubGraph(policyNotEntitySingleton);
 	}
@@ -160,9 +160,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		// add policies that are XDI entity singletons
 
-		XdiEntitySingleton policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_AND, false);
-		XdiEntitySingleton policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_OR, false);
-		XdiEntitySingleton policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, false);
+		XdiMember policyAndEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_AND, false);
+		XdiMember policyOrEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_OR, false);
+		XdiMember policyNotEntitySingleton = this.getSubGraph().getEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, false);
 
 		if (policyAndEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyAnd.fromSubGraph(policyAndEntitySingleton)));
 		if (policyOrEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyOr.fromSubGraph(policyOrEntitySingleton)));
@@ -266,12 +266,12 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingEntityMemberPolicyAndIterator extends NotNullIterator<PolicyAnd> {
 
-		public MappingEntityMemberPolicyAndIterator(Iterator<XdiEntityMember> xdiEntityMembers) {
+		public MappingEntityMemberPolicyAndIterator(Iterator<XdiElement> xdiEntityMembers) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyAnd> (xdiEntityMembers) {
+			super(new MappingIterator<XdiElement, PolicyAnd> (xdiEntityMembers) {
 
 				@Override
-				public PolicyAnd map(XdiEntityMember xdiEntityMember) {
+				public PolicyAnd map(XdiElement xdiEntityMember) {
 
 					return PolicyAnd.fromSubGraph(xdiEntityMember);
 				}
@@ -281,12 +281,12 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingEntityMemberPolicyOrIterator extends NotNullIterator<PolicyOr> {
 
-		public MappingEntityMemberPolicyOrIterator(Iterator<XdiEntityMember> xdiEntityMembers) {
+		public MappingEntityMemberPolicyOrIterator(Iterator<XdiElement> xdiEntityMembers) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyOr> (xdiEntityMembers) {
+			super(new MappingIterator<XdiElement, PolicyOr> (xdiEntityMembers) {
 
 				@Override
-				public PolicyOr map(XdiEntityMember xdiEntityMember) {
+				public PolicyOr map(XdiElement xdiEntityMember) {
 
 					return PolicyOr.fromSubGraph(xdiEntityMember);
 				}
@@ -296,12 +296,12 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingEntityMemberPolicyNotIterator extends NotNullIterator<PolicyNot> {
 
-		public MappingEntityMemberPolicyNotIterator(Iterator<XdiEntityMember> xdiEntityMembers) {
+		public MappingEntityMemberPolicyNotIterator(Iterator<XdiElement> xdiEntityMembers) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyNot> (xdiEntityMembers) {
+			super(new MappingIterator<XdiElement, PolicyNot> (xdiEntityMembers) {
 
 				@Override
-				public PolicyNot map(XdiEntityMember xdiEntityMember) {
+				public PolicyNot map(XdiElement xdiEntityMember) {
 
 					return PolicyNot.fromSubGraph(xdiEntityMember);
 				}

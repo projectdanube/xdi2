@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.features.multiplicity.ContextFunctions;
 import xdi2.core.features.variables.Variables;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
@@ -167,14 +167,14 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		// we remember the multiplicity of the subsegment
 
-		boolean entityMember = Multiplicity.isEntityMemberArcXri(subSegment);
-		boolean attributeMember = Multiplicity.isAttributeMemberArcXri(subSegment);
+		boolean entityMember = ContextFunctions.isEntityMemberArcXri(subSegment);
+		boolean attributeMember = ContextFunctions.isAttributeMemberArcXri(subSegment);
 
 		XDI3SubSegment baseSubSegment;
 
 		if (entityMember || attributeMember) {
 
-			baseSubSegment = Multiplicity.baseArcXri(subSegment);
+			baseSubSegment = ContextFunctions.baseArcXri(subSegment);
 		} else {
 
 			baseSubSegment = subSegment;
@@ -198,8 +198,8 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		XDI3SubSegment newSubSegment;
 
-		if (entityMember) newSubSegment = Multiplicity.entityMemberArcXri(newIdentifier);
-		else if (attributeMember) newSubSegment = Multiplicity.attributeMemberArcXri(newIdentifier);
+		if (entityMember) newSubSegment = ContextFunctions.entityMemberArcXri(newIdentifier);
+		else if (attributeMember) newSubSegment = ContextFunctions.attributeMemberArcXri(newIdentifier);
 		else newSubSegment = XDI3SubSegment.create("" + XDI3Constants.LCS_BANG + newIdentifier);
 
 		// done

@@ -4,7 +4,7 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 4875921569202236777L;
 
-	private Character[] cf;
+	private String cf;
 	private XDI3Segment segment;
 	private XDI3Statement statement;
 	private XDI3Segment partialSubject;
@@ -12,7 +12,7 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 	private String iri;
 	private String literal;
 
-	XDI3XRef(String string, Character[] cf, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
+	XDI3XRef(String string, String cf, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
 
 		super(string);
 
@@ -60,7 +60,7 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return this.literal != null;
 	}
 
-	public Character[] getCf() {
+	public String getCf() {
 
 		return this.cf;
 	}

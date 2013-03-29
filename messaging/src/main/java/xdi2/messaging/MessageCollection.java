@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.multiplicity.Multiplicity;
+import xdi2.core.features.multiplicity.ContextFunctions;
 import xdi2.core.features.multiplicity.XdiEntityCollection;
 import xdi2.core.features.multiplicity.XdiMember;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -47,7 +47,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public static boolean isValid(XdiEntityCollection xdiCollection) {
 
-		return xdiCollection.getContextNode().getArcXri().equals(Multiplicity.collectionArcXri(XDIMessagingConstants.XRI_SS_MSG));
+		return xdiCollection.getContextNode().getArcXri().equals(ContextFunctions.collectionArcXri(XDIMessagingConstants.XRI_SS_MSG));
 	}
 
 	/**

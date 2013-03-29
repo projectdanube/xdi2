@@ -9,7 +9,7 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.multiplicity.XdiAttributeMember;
-import xdi2.core.features.multiplicity.XdiAttributeSingleton;
+import xdi2.core.features.multiplicity.XdiValue;
 import xdi2.core.features.multiplicity.XdiEntityCollection;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Constants;
@@ -168,11 +168,11 @@ public class DataTypes {
 		return null;
 	}
 
-	public static void setLiteralDataType(XdiAttributeSingleton xdiAttributeSingleton, XDI3Segment dataType) {
+	public static void setLiteralDataType(XdiValue xdiAttributeSingleton, XDI3Segment dataType) {
 
 	}
 
-	public static XDI3Segment getLiteralDataType(XdiAttributeSingleton xdiAttributeSingleton) {
+	public static XDI3Segment getLiteralDataType(XdiValue xdiAttributeSingleton) {
 
 		return null;
 	}

@@ -1,6 +1,5 @@
 package xdi2.core.features.roots;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
@@ -16,11 +15,11 @@ import xdi2.core.xri3.XDI3XRef;
  * 
  * @author markus
  */
-public final class PeerRoot extends AbstractRoot {
+public final class XdiPeerRoot extends XdiRoot {
 
 	private static final long serialVersionUID = -4689596452249483618L;
 
-	protected PeerRoot(ContextNode contextNode) {
+	protected XdiPeerRoot(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -36,7 +35,7 @@ public final class PeerRoot extends AbstractRoot {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return isPeerRootXri(contextNode.getArcXri());
+		return isPeerRootArcXri(contextNode.getArcXri());
 	}
 
 	/**
@@ -44,11 +43,11 @@ public final class PeerRoot extends AbstractRoot {
 	 * @param contextNode The context node that is an XDI peer root.
 	 * @return The XDI peer root.
 	 */
-	public static PeerRoot fromContextNode(ContextNode contextNode) {
+	public static XdiPeerRoot fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new PeerRoot(contextNode);
+		return new XdiPeerRoot(contextNode);
 	}
 
 	/*
@@ -61,18 +60,18 @@ public final class PeerRoot extends AbstractRoot {
 	 */
 	public boolean isSelfPeerRoot() {
 
-		PeerRoot selfPeerRoot = this.findLocalRoot().getSelfPeerRoot();
+		XdiPeerRoot selfPeerRoot = this.findLocalRoot().getSelfPeerRoot();
 
 		return this.equals(selfPeerRoot);
 	}
 
 	public XDI3Segment getXriOfPeerRoot() {
 
-		return getXriOfPeerRootXri(this.getContextNode().getArcXri());
+		return getXriOfPeerRootArcXri(this.getContextNode().getArcXri());
 	}
 
 	/*
-	 * Methods for XDI peer root XRIs.
+	 * Methods for XDI peer root XRIs
 	 */
 
 	/**
@@ -80,24 +79,24 @@ public final class PeerRoot extends AbstractRoot {
 	 * @param xri An XRI.
 	 * @return The peer root XRI of the XRI.
 	 */
-	public static XDI3SubSegment createPeerRootXri(XDI3Segment xri) {
+	public static XDI3SubSegment createPeerRootArcXri(XDI3Segment xri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.CF_ROOT[0] + xri + XDI3Constants.CF_ROOT[1]);
+		return XDI3SubSegment.create("" + XDI3Constants.CF_ROOT.charAt(0) + xri + XDI3Constants.CF_ROOT.charAt(1));
 	}
 
 	/**
 	 * Returns the XRI of the peer root XRI.
-	 * @param xri A peer root XRI.
+	 * @param arcXri A peer root XRI.
 	 * @return The XRI of the peer root XRI.
 	 */
-	public static XDI3Segment getXriOfPeerRootXri(XDI3SubSegment xri) {
+	public static XDI3Segment getXriOfPeerRootArcXri(XDI3SubSegment arcXri) {
 
-		if (xri.hasCs()) return null;
+		if (arcXri.hasCs()) return null;
 		
-		if (! xri.hasXRef()) return null;
-		if (! Arrays.equals(XDI3Constants.CF_ROOT, xri.getXRef().getCf())) return null;
+		if (! arcXri.hasXRef()) return null;
 
-		XDI3XRef xref = xri.getXRef();
+		XDI3XRef xref = arcXri.getXRef();
+		if (! XDI3Constants.CF_ROOT.equals(xref.getCf())) return null;
 		if (! xref.hasSegment()) return null;
 
 		return xref.getSegment();
@@ -105,28 +104,28 @@ public final class PeerRoot extends AbstractRoot {
 
 	/**
 	 * Checks if a given XRI is a peer root XRI.
-	 * @param xri A peer root XRI.
+	 * @param arcXri A peer root XRI.
 	 * @return True, if the XRI is a peer root XRI.
 	 */
-	public static boolean isPeerRootXri(XDI3SubSegment xri) {
+	public static boolean isPeerRootArcXri(XDI3SubSegment arcXri) {
 
-		return getXriOfPeerRootXri(xri) != null;
+		return getXriOfPeerRootArcXri(arcXri) != null;
 	}
 
 	/*
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodePeerRootIterator extends NotNullIterator<PeerRoot> {
+	public static class MappingContextNodePeerRootIterator extends NotNullIterator<XdiPeerRoot> {
 
 		public MappingContextNodePeerRootIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, PeerRoot> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiPeerRoot> (contextNodes) {
 
 				@Override
-				public PeerRoot map(ContextNode contextNode) {
+				public XdiPeerRoot map(ContextNode contextNode) {
 
-					return PeerRoot.fromContextNode(contextNode);
+					return XdiPeerRoot.fromContextNode(contextNode);
 				}
 			});
 		}

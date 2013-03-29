@@ -16,10 +16,10 @@ public class XDI3Constants {
 	public static final Character CS_STAR = new Character('*'); 
 	public static final Character CS_BANG = new Character('!'); 
 
-	public static final Character[] CF_ROOT = new Character[] { new Character('('),  new Character(')') };
-	public static final Character[] CF_ATTRIBUTE = new Character[] { new Character('<'),  new Character('>') };
-	public static final Character[] CF_COLLECTION = new Character[] { new Character('{'),  new Character('}') };
-	public static final Character[] CF_MEMBER = new Character[] { new Character('['),  new Character(']') };
+	public static final String CF_ROOT = "()";
+	public static final String CF_ELEMENT = "[]";
+	public static final String CF_VALUE = "<>";
+	public static final String CF_VARIABLE = "{}";
 
 	public static final Character[] CS_ARRAY = new Character[] {
 		CS_EQUALS,
@@ -30,10 +30,10 @@ public class XDI3Constants {
 		CS_BANG
 	};
 
-	public static final Character[][] CF_ARRAY = new Character[][] {
+	public static final String[] CF_ARRAY = new String[] {
 		CF_ROOT,
-		CF_ATTRIBUTE,
-		CF_COLLECTION,
-		CF_MEMBER
+		CF_ELEMENT,
+		CF_VALUE,
+		CF_VARIABLE
 	};
 }

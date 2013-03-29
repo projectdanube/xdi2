@@ -7,9 +7,9 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.features.multiplicity.XdiAttributeSingleton;
-import xdi2.core.features.multiplicity.XdiSubGraph;
-import xdi2.core.features.roots.InnerRoot;
+import xdi2.core.features.multiplicity.XdiValue;
+import xdi2.core.features.multiplicity.ContextFunction;
+import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.features.roots.Roots;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.CopyUtil;
@@ -124,7 +124,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public String getErrorString() {
 
-		XdiAttributeSingleton errorStringAttributeSingleton = XdiSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getAttributeSingleton(XRI_SS_FALSE, false);
+		XdiValue errorStringAttributeSingleton = ContextFunction.fromContextNode(this.getGraph().getRootContextNode()).getAttributeSingleton(XRI_SS_FALSE, false);
 		if (errorStringAttributeSingleton == null) return null;
 
 		Literal errorStringLiteral = errorStringAttributeSingleton.getContextNode().getLiteral();
@@ -135,7 +135,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorString(String errorString) {
 
-		XdiAttributeSingleton errorStringAttributeSingleton = XdiSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getAttributeSingleton(XRI_SS_FALSE, true);
+		XdiValue errorStringAttributeSingleton = ContextFunction.fromContextNode(this.getGraph().getRootContextNode()).getAttributeSingleton(XRI_SS_FALSE, true);
 
 		Literal errorStringLiteral = errorStringAttributeSingleton.getContextNode().getLiteral();
 
@@ -147,7 +147,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorOperation(Operation operation) {
 
-		InnerRoot innerRoot = Roots.findLocalRoot(this.getGraph()).findInnerRoot(XRI_S_FALSE, XRI_S_ERROR, true);
+		XdiInnerRoot innerRoot = Roots.findLocalRoot(this.getGraph()).findInnerRoot(XRI_S_FALSE, XRI_S_ERROR, true);
 		innerRoot.getContextNode().clear();
 
 		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getXri())).getRelation();

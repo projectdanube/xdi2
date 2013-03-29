@@ -6,7 +6,7 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.roots.InnerRoot;
+import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -37,7 +37,7 @@ public abstract class AbstractStatement implements Statement {
 			Relation relation = ((RelationStatement) this).getRelation();
 			if (relation == null) return false;
 
-			if (! InnerRoot.isValid(relation.follow())) return false;
+			if (! XdiInnerRoot.isValid(relation.follow())) return false;
 
 			if (! relation.follow().isEmpty()) return true;
 		}

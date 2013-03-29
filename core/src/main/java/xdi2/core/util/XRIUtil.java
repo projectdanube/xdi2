@@ -358,28 +358,6 @@ public final class XRIUtil {
 	}
 
 	/**
-	 * Checks if a subsegment is illegal as an arc XRI for a context node.
-	 */
-	public static boolean isIllegalContextNodeArcXri(XDI3SubSegment arcXri) {
-
-		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) return true;
-		if (arcXri.hasXRef() && arcXri.getXRef().hasStatement()) return true;
-
-		return false;
-	}
-
-	/**
-	 * Checks if a subsegment is illegal as an arc XRI for a relation.
-	 */
-	public static boolean isIllegalRelationArcXri(XDI3Segment arcXri, XDI3Segment targetXri) {
-
-		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) return true;
-		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri) && (! Variables.isVariable(targetXri))) return true;
-
-		return false;
-	}
-
-	/**
 	 * Replaces all occurences of a subsegment with a segment.
 	 */
 	public static XDI3Segment replaceXri(XDI3Segment xri, XDI3SubSegment oldXri, XDI3Segment newXri) {
