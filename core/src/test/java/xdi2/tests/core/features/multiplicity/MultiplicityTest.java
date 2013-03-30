@@ -21,6 +21,8 @@ public class MultiplicityTest extends TestCase {
 
 	public void testArcXris() throws Exception {
 
+		XdiPeerRoot.
+		
 		assertEquals(ContextFunctions.entitySingletonArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+address"));
 		assertEquals(ContextFunctions.attributeSingletonArcXri(XDI3SubSegment.create("+tel")), XDI3SubSegment.create("<+tel>"));
 		assertEquals(ContextFunctions.entityCollectionArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("{+address}"));

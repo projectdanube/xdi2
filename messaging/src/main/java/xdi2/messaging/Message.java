@@ -10,12 +10,12 @@ import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.features.contextfunctions.XdiMember;
+import xdi2.core.features.contextfunctions.XdiElement;
 import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.ordering.Ordering;
 import xdi2.core.features.roots.XdiInnerRoot;
-import xdi2.core.features.roots.Roots;
+import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -40,14 +40,14 @@ public final class Message implements Serializable, Comparable<Message> {
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	private MessageCollection messageCollection;
-	private XdiMember entityMember;
+	private XdiElement xdiElement;
 
-	protected Message(MessageCollection messageCollection, XdiMember entityMember) {
+	protected Message(MessageCollection messageCollection, XdiElement xdiElement) {
 
-		if (messageCollection == null || entityMember == null) throw new NullPointerException();
+		if (messageCollection == null || xdiElement == null) throw new NullPointerException();
 
 		this.messageCollection = messageCollection;
-		this.entityMember = entityMember;
+		this.xdiElement = xdiElement;
 	}
 
 	/*
@@ -55,26 +55,26 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 
 	/**
-	 * Checks if an XDI entity member is a valid XDI message.
-	 * @param xdiEntityMember The XDI entity member to check.
-	 * @return True if the XDI entity member is a valid XDI message.
+	 * Checks if an XDI element is a valid XDI message.
+	 * @param xdiElement The XDI element to check.
+	 * @return True if the XDI element is a valid XDI message.
 	 */
-	public static boolean isValid(XdiMember xdiEntityMember) {
+	public static boolean isValid(XdiElement xdiElement) {
 
-		return xdiEntityMember.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
+		return xdiElement.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
 	}
 
 	/**
-	 * Factory method that creates an XDI message bound to a given XDI entity member.
+	 * Factory method that creates an XDI message bound to a given XDI element.
 	 * @param messageCollection The XDI message collection to which this XDI message belongs.
-	 * @param xdiEntityMember The XDI entity member that is an XDI message.
+	 * @param xdiElement The XDI element that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageCollectionAndEntityMember(MessageCollection messageCollection, XdiMember xdiEntityMember) {
+	public static Message fromMessageCollectionAndXdiElement(MessageCollection messageCollection, XdiElement xdiElement) {
 
-		if (! isValid(xdiEntityMember)) return null;
+		if (! isValid(xdiElement)) return null;
 
-		return new Message(messageCollection, xdiEntityMember);
+		return new Message(messageCollection, xdiElement);
 	}
 
 	/*
@@ -100,12 +100,12 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns the underlying XDI entity member to which this XDI message is bound.
-	 * @return An XDI entity member that represents the XDI message.
+	 * Returns the underlying XDI element to which this XDI message is bound.
+	 * @return An XDI element that represents the XDI message.
 	 */
-	public XdiMember getEntityMember() {
+	public XdiElement getXdiElement() {
 
-		return this.entityMember;
+		return this.xdiElement;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ContextNode getContextNode() {
 
-		return this.getEntityMember().getContextNode();
+		return this.getXdiElement().getContextNode();
 	}
 
 	/**
@@ -266,7 +266,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public Operation createOperation(XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
 
-		XdiInnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), operationXri, true);
+		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), operationXri, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
 		return Operation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
@@ -302,7 +302,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public GetOperation createGetOperation(Iterator<XDI3Statement> targetStatements) {
 
-		XdiInnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_GET, true);
+		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_GET, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
 		return GetOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
@@ -337,7 +337,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public AddOperation createAddOperation(Iterator<XDI3Statement> targetStatements) {
 
-		XdiInnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_ADD, true);
+		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_ADD, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
 		return AddOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
@@ -372,7 +372,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ModOperation createModOperation(Iterator<XDI3Statement> targetStatements) {
 
-		XdiInnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_MOD, true);
+		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_MOD, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
 		return ModOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
@@ -407,7 +407,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public DelOperation createDelOperation(Iterator<XDI3Statement> targetStatements) {
 
-		XdiInnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DEL, true);
+		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DEL, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
 		return DelOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
@@ -442,7 +442,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public DoOperation createDoOperation(Iterator<XDI3Statement> targetStatements) {
 
-		XdiInnerRoot innerRoot = Roots.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DO, true);
+		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DO, true);
 		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
 
 		return DoOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());

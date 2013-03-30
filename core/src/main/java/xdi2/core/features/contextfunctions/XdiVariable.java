@@ -1,7 +1,11 @@
 package xdi2.core.features.contextfunctions;
 
+import java.util.Iterator;
+
 import xdi2.core.ContextNode;
 import xdi2.core.util.VariableUtil;
+import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -45,7 +49,7 @@ public final class XdiVariable extends XdiSubGraph {
 	}
 
 	/*
-	 * Methods for XDI variable XRIs.
+	 * Methods for XDI variable XRIs
 	 */
 
 	/**
@@ -56,5 +60,24 @@ public final class XdiVariable extends XdiSubGraph {
 	public static boolean isVariableArcXri(XDI3SubSegment arcXri) {
 
 		return VariableUtil.isVariable(arcXri);
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingContextNodeXdiVariableIterator extends NotNullIterator<XdiVariable> {
+
+		public MappingContextNodeXdiVariableIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiVariable> (contextNodes) {
+
+				@Override
+				public XdiVariable map(ContextNode contextNode) {
+
+					return XdiVariable.fromContextNode(contextNode);
+				}
+			});
+		}
 	}
 }

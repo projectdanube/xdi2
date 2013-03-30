@@ -16,9 +16,9 @@ import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.policy.PolicyAnd;
 import xdi2.core.features.linkcontracts.policy.PolicyUtil;
+import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.features.roots.XdiPeerRoot.MappingContextNodePeerRootIterator;
-import xdi2.core.features.roots.Roots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -115,7 +115,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		// check if the owner statement exists
 
-		if (Roots.findLocalRoot(graph).getSelfPeerRoot() != null) return;
+		if (XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot() != null) return;
 
 		// create bootstrap owner
 
@@ -125,7 +125,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 		if (this.bootstrapOwner != null) {
 
 			bootstrapOwnerContextNode = graph.findContextNode(this.bootstrapOwner, true);
-			bootstrapOwnerSelfPeerRootContextNode = Roots.findLocalRoot(graph).setSelfPeerRoot(this.bootstrapOwner).getContextNode();
+			bootstrapOwnerSelfPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(this.bootstrapOwner).getContextNode();
 		}
 
 		// create bootstrap owner synonyms
@@ -137,7 +137,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 				ContextNode bootstrapOwnerSynonymContextNode = graph.findContextNode(bootstrapOwnerSynonym, true);
 				bootstrapOwnerSynonymContextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerContextNode);
 
-				ContextNode bootstrapOwnerSynonymPeerRootContextNode = Roots.findLocalRoot(graph).findPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
+				ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).findPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
 				bootstrapOwnerSynonymPeerRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfPeerRootContextNode);
 			}
 		}
@@ -168,10 +168,10 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		if (this.bootstrapPublicLinkContract) {
 
-			ContextNode publicContextNode = graph.findContextNode(XDIConstants.XRI_S_PUBLIC, true);
+			ContextNode publicContextNode = graph.findContextNode(XDILinkContractConstants.XRI_S_PUBLIC, true);
 
 			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
-			bootstrapPublicLinkContract.addPermission(XDILinkContractConstants.XRI_S_GET, XDIConstants.XRI_S_PUBLIC);
+			bootstrapPublicLinkContract.addPermission(XDILinkContractConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_PUBLIC);
 		}
 	}
 

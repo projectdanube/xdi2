@@ -1,6 +1,10 @@
 package xdi2.core.features.contextfunctions;
 
+import java.util.Iterator;
+
 import xdi2.core.ContextNode;
+import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -81,5 +85,24 @@ public final class XdiValue extends XdiSubGraph {
 		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getCf())) return false;
 
 		return true;
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingContextNodeXdiValueIterator extends NotNullIterator<XdiValue> {
+
+		public MappingContextNodeXdiValueIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiValue> (contextNodes) {
+
+				@Override
+				public XdiValue map(ContextNode contextNode) {
+
+					return XdiValue.fromContextNode(contextNode);
+				}
+			});
+		}
 	}
 }

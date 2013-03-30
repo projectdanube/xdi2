@@ -100,9 +100,9 @@ public final class XdiElement extends XdiSubGraph {
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeElementIterator extends NotNullIterator<XdiElement> {
+	public static class MappingContextNodeXdiElementIterator extends NotNullIterator<XdiElement> {
 
-		public MappingContextNodeElementIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiElementIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiElement> (contextNodes) {
 

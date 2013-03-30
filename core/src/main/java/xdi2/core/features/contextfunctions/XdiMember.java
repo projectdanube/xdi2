@@ -5,13 +5,15 @@ import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.contextfunctions.XdiElement.MappingContextNodeElementIterator;
+import xdi2.core.features.contextfunctions.XdiElement.MappingContextNodeXdiElementIterator;
 import xdi2.core.features.ordering.Ordering;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NoDuplicatesIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -62,7 +64,7 @@ public final class XdiMember extends XdiSubGraph {
 	 * Creates a new XDI element and adds it to this XDI member.
 	 * @return The newly created XDI element.
 	 */
-	public XdiElement createElement() {
+	public XdiElement createXdiElement() {
 
 		ContextNode contextNode = this.getContextNode().createContextNode(XdiElement.createElementArcXri(XRIUtil.randomUuidSubSegment()));
 
@@ -108,7 +110,7 @@ public final class XdiMember extends XdiSubGraph {
 
 		// look for context nodes that are valid XDI elements
 
-		return new MappingContextNodeElementIterator(contextNodes);
+		return new MappingContextNodeXdiElementIterator(contextNodes);
 	}
 
 	/**
@@ -139,5 +141,24 @@ public final class XdiMember extends XdiSubGraph {
 		if (arcXri.hasXRef()) return false;
 
 		return true;
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingContextNodeXdiMemberIterator extends NotNullIterator<XdiMember> {
+
+		public MappingContextNodeXdiMemberIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiMember> (contextNodes) {
+
+				@Override
+				public XdiMember map(ContextNode contextNode) {
+
+					return XdiMember.fromContextNode(contextNode);
+				}
+			});
+		}
 	}
 }
