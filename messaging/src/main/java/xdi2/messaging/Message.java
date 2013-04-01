@@ -233,7 +233,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		XdiSubGraph xdiSubGraph = XdiSubGraph.fromContextNode(contextNode);
 
-		return PolicyRoot.fromSubGraph(xdiSubGraph);
+		return PolicyRoot.fromXdiEntity(xdiSubGraph);
 	}
 
 	/**

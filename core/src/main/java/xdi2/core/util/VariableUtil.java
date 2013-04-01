@@ -3,7 +3,7 @@ package xdi2.core.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.features.contextfunctions.XdiElement;
+import xdi2.core.features.contextfunctions.XdiAttribute;
 import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.contextfunctions.XdiValue;
 import xdi2.core.features.roots.XdiRoot;
@@ -122,9 +122,8 @@ public final class VariableUtil {
 		if (cf != null) {
 
 			if (XDI3Constants.CF_ROOT.equals(cf) && ! XdiRoot.isRootArcXri(subSegment)) return false;
-			if (XDI3Constants.CF_VARIABLE.equals(cf) && ! XdiCollection.isMemberArcXri(subSegment)) return false;
-			if (XDI3Constants.CF_ELEMENT.equals(cf) && ! XdiElement.isElementArcXri(subSegment)) return false;
-			if (XDI3Constants.CF_VALUE.equals(cf) && ! XdiValue.isValueArcXri(subSegment)) return false;
+			if (XDI3Constants.CF_COLLECTION.equals(cf) && ! XdiCollection.isCollectionArcXri(subSegment)) return false;
+			if (XDI3Constants.CF_ATTRIBUTE_VALUE.equals(cf) && ! XdiAttribute.isAttributeArcXri(subSegment) && ! XdiValue.isValueArcXri(subSegment)) return false;
 		}
 
 		if (css.length() > 0) {

@@ -6,7 +6,6 @@ import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Constants;
-import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -57,19 +56,9 @@ public final class XdiValue extends XdiSubGraph {
 	 * Methods for XDI value XRIs
 	 */
 
-	public static XDI3SubSegment createValueArcXri(XDI3Segment xri) {
+	public static XDI3SubSegment createValueArcXri(XDI3SubSegment arcXri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + xri + XDI3Constants.CF_VALUE.charAt(1));
-	}
-
-	public static XDI3SubSegment createValueArcXri(XDI3SubSegment xri) {
-
-		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + xri + XDI3Constants.CF_VALUE.charAt(1));
-	}
-
-	public static XDI3SubSegment createValueArcXri(String identifier) {
-
-		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + identifier + XDI3Constants.CF_VALUE.charAt(1));
+		return XDI3SubSegment.create("" + XDI3Constants.CF_ATTRIBUTE_VALUE.charAt(0) + arcXri + XDI3Constants.CF_ATTRIBUTE_VALUE.charAt(1));
 	}
 
 	/**
@@ -82,7 +71,7 @@ public final class XdiValue extends XdiSubGraph {
 		if (arcXri.hasCs()) return false;
 
 		if (! arcXri.hasXRef()) return false;
-		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getCf())) return false;
+		if (! XDI3Constants.CF_ATTRIBUTE_VALUE.equals(arcXri.getXRef().getCf())) return false;
 
 		return true;
 	}

@@ -17,8 +17,10 @@ import xdi2.core.Literal;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.contextfunctions.XdiElement;
+import xdi2.core.features.contextfunctions.XdiAttributeSingleton;
 import xdi2.core.features.contextfunctions.XdiCollection;
+import xdi2.core.features.contextfunctions.XdiEntitySingleton;
+import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.contextfunctions.XdiValue;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.dictionary.Dictionary;
@@ -57,7 +59,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	}
 
-	private static void readJSONObject(ContextNode contextNode, JSONObject jsonObject) throws JSONException {
+	private static void readJSONObject(XdiSubGraph xdiSubGraph, JSONObject jsonObject) throws JSONException {
 
 		for (Entry<String, Object> entry : jsonObject.entrySet()) {
 
@@ -66,27 +68,27 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (value instanceof JSONObject) {
 
-				XDI3SubSegment arcXri = XdiCollection.createMemberArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
+				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
-				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
-				readJSONObject(innerContextNode, (JSONObject) value);
+				XdiEntitySingleton innerXdiSubGraph = xdiSubGraph.getXdiEntitySingleton(arcXri, true);
+				readJSONObject(innerXdiSubGraph, (JSONObject) value);
 			} else if (value instanceof JSONArray) {
 
-				XDI3SubSegment arcXri = XdiCollection.createMemberArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
+				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
-				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
-				readJSONArray(innerContextNode, (JSONArray) value);
+				XdiCollection innerXdiSubGraph = xdiSubGraph.getXdiCollection(arcXri, true);
+				readJSONArray(innerXdiSubGraph, (JSONArray) value);
 			} else {
 
-				XDI3SubSegment arcXri = XdiValue.createValueArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
+				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
-				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
-				createLiteral(innerContextNode, value);
+				XdiAttributeSingleton innerXdiSubGraph = xdiSubGraph.createXdiAttributeSingleton(arcXri);
+				createLiteral(innerXdiSubGraph, value);
 			}
 		}
 	}
 
-	private static void readJSONArray(ContextNode contextNode, JSONArray jsonArray) throws JSONException {
+	private static void readJSONArray(XdiCollection xdiCollection, JSONArray jsonArray) throws JSONException {
 
 		for (Object value : jsonArray) {
 
@@ -95,20 +97,21 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 			if (value instanceof JSONObject) {
 
 				XDI3SubSegment arcXri = XdiElement.createElementArcXri(jsonContentId);
+				xdiCollection.createXdiAttributeMember();
 
-				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
+				ContextNode innerContextNode = xdiCollection.createContextNode(arcXri);
 				readJSONObject(innerContextNode, (JSONObject) value);
 			} else if (value instanceof JSONArray) {
 
 				XDI3SubSegment arcXri = XdiElement.createElementArcXri(jsonContentId);
 
-				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
+				ContextNode innerContextNode = xdiCollection.createContextNode(arcXri);
 				readJSONArray(innerContextNode, (JSONArray) value);
 			} else {
 
 				XDI3SubSegment arcXri = XdiValue.createValueArcXri(jsonContentId);
 
-				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
+				ContextNode innerContextNode = xdiCollection.createContextNode(arcXri);
 				createLiteral(innerContextNode, value);
 			}
 		}
@@ -160,7 +163,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	public void read(Graph graph, JSONObject graphObject) throws IOException, Xdi2ParseException, JSONException {
 
-		readJSONObject(graph.getRootContextNode(), graphObject);
+		readJSONObject(XdiSubGraph.fromContextNode(graph.getRootContextNode()), graphObject);
 	}
 
 	private void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException, JSONException {

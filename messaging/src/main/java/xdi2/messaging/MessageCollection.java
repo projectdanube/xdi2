@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.contextfunctions.XdiElement;
 import xdi2.core.features.contextfunctions.XdiCollection;
+import xdi2.core.features.contextfunctions.XdiElement;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
