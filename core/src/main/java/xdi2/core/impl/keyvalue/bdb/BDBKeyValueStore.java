@@ -389,6 +389,8 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 		private CursorDuplicatesIterator(Transaction transaction, DatabaseEntry dbKey, DatabaseEntry dbValue) {
 
+			super(null);
+			
 			this.dbKey = dbKey;
 			this.dbValue = dbValue;
 

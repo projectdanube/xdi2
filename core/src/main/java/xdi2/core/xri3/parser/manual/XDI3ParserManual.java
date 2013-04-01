@@ -236,6 +236,7 @@ public class XDI3ParserManual extends XDI3Parser {
 			if (c >= 0x30 && c <= 0x39) continue;
 			if (c == '-') continue;
 			if (c == '.') continue;
+			if (c == ':') continue;
 			if (c == '_') continue;
 			if (c == '~') continue;
 			if (c >= 0xA0 && c <= 0xD7FF) continue;

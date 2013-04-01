@@ -49,7 +49,7 @@ public class Ordering {
 
 	public static ReadOnlyIterator<ContextNode> getOrderedContextNodes(final ContextNode contextNode) {
 
-		return new TerminatingOnNullIterator<ContextNode> (new ReadOnlyIterator<ContextNode> () {
+		return new TerminatingOnNullIterator<ContextNode> (new ReadOnlyIterator<ContextNode> (null) {
 
 			private int index = 0;
 			private ContextNode nextOrderedContextNode = null;
@@ -105,7 +105,7 @@ public class Ordering {
 
 	public static ReadOnlyIterator<Relation> getOrderedRelations(final ContextNode contextNode) {
 
-		return new TerminatingOnNullIterator<Relation> (new ReadOnlyIterator<Relation> () {
+		return new TerminatingOnNullIterator<Relation> (new ReadOnlyIterator<Relation> (null) {
 
 			private int index = 0;
 			private Relation nextOrderedRelation = null;
@@ -155,7 +155,7 @@ public class Ordering {
 
 	public static ReadOnlyIterator<Relation> getOrderedRelations(final ContextNode contextNode, final XDI3Segment arcXri) {
 
-		return new TerminatingOnNullIterator<Relation> (new ReadOnlyIterator<Relation> () {
+		return new TerminatingOnNullIterator<Relation> (new ReadOnlyIterator<Relation> (null) {
 
 			private int index = 0;
 			private Relation nextOrderedRelation = null;

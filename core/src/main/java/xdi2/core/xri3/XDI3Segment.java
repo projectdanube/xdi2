@@ -1,5 +1,6 @@
 package xdi2.core.xri3;
 
+import java.util.Collections;
 import java.util.List;
 
 public final class XDI3Segment extends XDI3SyntaxComponent {
@@ -23,6 +24,11 @@ public final class XDI3Segment extends XDI3SyntaxComponent {
 	public static XDI3Segment create(String string) {
 
 		return create(XDI3ParserRegistry.getInstance().getParser(), string);
+	}
+
+	public static XDI3Segment create(XDI3SubSegment subSegment) {
+
+		return new XDI3Segment(subSegment.toString(), Collections.singletonList(subSegment));
 	}
 
 	public List<XDI3SubSegment> getSubSegments() {

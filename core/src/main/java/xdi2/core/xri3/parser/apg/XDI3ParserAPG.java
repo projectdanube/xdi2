@@ -197,7 +197,7 @@ public class XDI3ParserAPG extends XDI3Parser {
 				String literal = nodeLiteral == null ? null : nodeLiteral.value;
 				XDI3XRef xref = nodeXref == null ? null : (XDI3XRef) nodeXref.xri;
 
-				this.myAstContext.currentNode.xri = XDI3ParserAPG.this.makeXDI3SubSegment(this.myAstContext.currentNode.value, gcs, lcs, literal, xref);
+				this.myAstContext.currentNode.xri = XDI3ParserAPG.this.makeXDI3SubSegment(this.myAstContext.currentNode.value, gcs, literal, xref);
 			}
 
 			if (this.ruleName.equals(RuleNames.XREF)) {
@@ -214,7 +214,7 @@ public class XDI3ParserAPG extends XDI3Parser {
 				String IRI = nodeIRI == null ? null : nodeIRI.value;
 				String literal = nodeLiteral == null ? null : nodeLiteral.value;
 
-				this.myAstContext.currentNode.xri = XDI3ParserAPG.this.makeXDI3XRef(this.myAstContext.currentNode.value, segment, statement, partialSubject, partialPredicate, IRI, literal);
+				this.myAstContext.currentNode.xri = XDI3ParserAPG.this.makeXDI3XRef(this.myAstContext.currentNode.value, "", segment, statement, partialSubject, partialPredicate, IRI, literal);
 			}
 
 			if (this.myAstContext.currentNode.parent != null) this.myAstContext.currentNode = this.myAstContext.currentNode.parent;

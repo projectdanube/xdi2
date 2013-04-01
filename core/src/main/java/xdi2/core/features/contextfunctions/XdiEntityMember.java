@@ -74,6 +74,8 @@ public final class XdiEntityMember extends XdiEntity {
 
 	public static boolean isEntityMemberArcXri(XDI3SubSegment arcXri) {
 
+		if (arcXri == null) return false;
+		
 		if (arcXri.hasXRef()) return false;
 
 		if (! XDI3Constants.CS_BANG.equals(arcXri.getCs()) && ! XDI3Constants.CS_STAR.equals(arcXri.getCs())) return false;

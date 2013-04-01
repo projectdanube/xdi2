@@ -16,6 +16,8 @@ public abstract class DescendingIterator<D, T> extends ReadOnlyIterator<T> {
 
 	public DescendingIterator(Iterator<D> iterator) {
 
+		super(null);
+		
 		this.d = iterator;
 		this.t = null;
 	}

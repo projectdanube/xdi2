@@ -3,13 +3,12 @@ package xdi2.server.standalone;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import org.eclipse.jetty.server.Server;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 import xdi2.server.embedded.EndpointServerEmbedded;
 
-public class EndpointServerStandalone extends Server {
+public class EndpointServerStandalone {
 
 	public static void main(String... args) throws Exception {
 

@@ -10,6 +10,7 @@ import xdi2.tests.core.features.multiplicity.OrderingTest;
 import xdi2.tests.core.features.roots.InnerRootsTest;
 import xdi2.tests.core.features.roots.LocalRootsTest;
 import xdi2.tests.core.features.roots.PeerRootsTest;
+import xdi2.tests.core.features.roots.RootsTest;
 import xdi2.tests.core.features.timestamps.TimestampsTest;
 import xdi2.tests.core.features.variables.VariablesTest;
 import xdi2.tests.core.graph.BDBGraphTest;
@@ -52,6 +53,7 @@ public class AllTests {
 		suite.addTestSuite(EquivalenceTest.class);
 		suite.addTestSuite(MultiplicityTest.class);
 		suite.addTestSuite(OrderingTest.class);
+		suite.addTestSuite(RootsTest.class);
 		suite.addTestSuite(LocalRootsTest.class);
 		suite.addTestSuite(PeerRootsTest.class);
 		suite.addTestSuite(InnerRootsTest.class);

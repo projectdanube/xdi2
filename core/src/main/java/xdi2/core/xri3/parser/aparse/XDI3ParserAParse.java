@@ -127,7 +127,7 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 			// read local_subseg or xref or literal from global_subseg
 
-			if (list_global_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, lcs, literal, xref);
+			if (list_global_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, literal, xref);
 			rule = list_global_subseg.get(1);	// local_subseg or xref or literal
 		}
 
@@ -143,7 +143,7 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 			// read xref or literal from local_subseg
 
-			if (list_local_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, lcs, literal, xref);
+			if (list_local_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, literal, xref);
 			rule = list_local_subseg.get(1);	// xref or literal
 		}
 
@@ -159,7 +159,7 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 		// done
 
-		return this.makeXDI3SubSegment(string, gcs, lcs, literal, xref);
+		return this.makeXDI3SubSegment(string, gcs, literal, xref);
 	}
 
 	@Override
@@ -264,6 +264,6 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 		// done
 
-		return this.makeXDI3XRef(string, segment, statement, partialSubject, partialPredicate, IRI, literal);
+		return this.makeXDI3XRef(string, "", segment, statement, partialSubject, partialPredicate, IRI, literal);
 	}
 }

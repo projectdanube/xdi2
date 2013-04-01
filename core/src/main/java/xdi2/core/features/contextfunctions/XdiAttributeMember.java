@@ -61,6 +61,8 @@ public final class XdiAttributeMember extends XdiAttribute {
 
 	public static boolean isAttributeMemberArcXri(XDI3SubSegment arcXri) {
 
+		if (arcXri == null) return false;
+		
 		if (arcXri.hasCs()) return false;
 
 		if (! arcXri.hasXRef()) return false;

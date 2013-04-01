@@ -33,7 +33,7 @@ public final class XdiAttributeSingleton extends XdiAttribute {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return isAttributeSingletonArcXri(contextNode.getArcXri());
+		return isAttributeSingletonArcXri(contextNode.getArcXri()) && ! XdiAttributeMember.isValid(contextNode);
 	}
 
 	/**
@@ -58,6 +58,8 @@ public final class XdiAttributeSingleton extends XdiAttribute {
 	}
 
 	public static boolean isAttributeSingletonArcXri(XDI3SubSegment arcXri) {
+
+		if (arcXri == null) return false;
 
 		if (arcXri.hasCs()) return false;
 

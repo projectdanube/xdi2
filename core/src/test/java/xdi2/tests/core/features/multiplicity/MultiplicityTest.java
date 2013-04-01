@@ -1,110 +1,80 @@
 package xdi2.tests.core.features.multiplicity;
 
 import junit.framework.TestCase;
-import xdi2.core.ContextNode;
-import xdi2.core.Graph;
-import xdi2.core.features.contextfunctions.XdiAttributeCollection;
 import xdi2.core.features.contextfunctions.XdiAttributeMember;
+import xdi2.core.features.contextfunctions.XdiAttributeSingleton;
 import xdi2.core.features.contextfunctions.XdiCollection;
-import xdi2.core.features.contextfunctions.XdiElement;
-import xdi2.core.features.contextfunctions.XdiEntityCollection;
+import xdi2.core.features.contextfunctions.XdiEntityMember;
+import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.contextfunctions.XdiSubGraph;
-import xdi2.core.features.contextfunctions.XdiValue;
-import xdi2.core.features.roots.XdiPeerRoot;
-import xdi2.core.features.roots.Roots;
-import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.util.iterators.IteratorContains;
-import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 public class MultiplicityTest extends TestCase {
 
 	public void testArcXris() throws Exception {
 
-		XdiPeerRoot.
-		
-		assertEquals(ContextFunctions.entitySingletonArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+address"));
-		assertEquals(ContextFunctions.attributeSingletonArcXri(XDI3SubSegment.create("+tel")), XDI3SubSegment.create("<+tel>"));
-		assertEquals(ContextFunctions.entityCollectionArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("{+address}"));
-		assertEquals(ContextFunctions.attributeCollectionArcXri(XDI3SubSegment.create("+tel")), XDI3SubSegment.create("{<+tel>}"));
+		assertEquals(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+printer")), XDI3SubSegment.create("+printer"));
+		assertEquals(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+email")), XDI3SubSegment.create("<+email>"));
+		assertEquals(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[+address]"));
+		assertEquals(XdiEntityMember.createEntityMemberArcXri(XDI3SubSegment.create("!1")), XDI3SubSegment.create("!1"));
+		assertEquals(XdiAttributeMember.createAttributeMemberArcXri(XDI3SubSegment.create("!1")), XDI3SubSegment.create("<!1>"));
 
-		assertTrue(ContextFunctions.isMemberArcXri(ContextFunctions.entitySingletonArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(ContextFunctions.isAttributeSingletonArcXri(ContextFunctions.entitySingletonArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(ContextFunctions.isEntityCollectionArcXri(ContextFunctions.entitySingletonArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(ContextFunctions.isAttributeCollectionArcXri(ContextFunctions.entitySingletonArcXri(XDI3SubSegment.create("+address"))));
+		assertTrue(XdiEntitySingleton.isEntitySingletonArcXri(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+printer"))));
+		assertFalse(XdiAttributeSingleton.isAttributeSingletonArcXri(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+email"))));
+		assertFalse(XdiCollection.isCollectionArcXri(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+address"))));
 
-		assertFalse(ContextFunctions.isMemberArcXri(ContextFunctions.attributeSingletonArcXri(XDI3SubSegment.create("+tel"))));
-		assertTrue(ContextFunctions.isAttributeSingletonArcXri(ContextFunctions.attributeSingletonArcXri(XDI3SubSegment.create("+tel"))));
-		assertFalse(ContextFunctions.isEntityCollectionArcXri(ContextFunctions.attributeSingletonArcXri(XDI3SubSegment.create("+tel"))));
-		assertFalse(ContextFunctions.isAttributeCollectionArcXri(ContextFunctions.attributeSingletonArcXri(XDI3SubSegment.create("+tel"))));
+		assertFalse(XdiEntitySingleton.isEntitySingletonArcXri(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+printer"))));
+		assertTrue(XdiAttributeSingleton.isAttributeSingletonArcXri(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+email"))));
+		assertFalse(XdiCollection.isCollectionArcXri(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+address"))));
 
-		assertFalse(ContextFunctions.isMemberArcXri(ContextFunctions.entityCollectionArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(ContextFunctions.isAttributeSingletonArcXri(ContextFunctions.entityCollectionArcXri(XDI3SubSegment.create("+address"))));
-		assertTrue(ContextFunctions.isEntityCollectionArcXri(ContextFunctions.entityCollectionArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(ContextFunctions.isAttributeCollectionArcXri(ContextFunctions.entityCollectionArcXri(XDI3SubSegment.create("+address"))));
+		assertFalse(XdiEntitySingleton.isEntitySingletonArcXri(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+printer"))));
+		assertFalse(XdiAttributeSingleton.isAttributeSingletonArcXri(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+email"))));
+		assertTrue(XdiCollection.isCollectionArcXri(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+address"))));
 
-		assertFalse(ContextFunctions.isMemberArcXri(ContextFunctions.attributeCollectionArcXri(XDI3SubSegment.create("+tel"))));
-		assertFalse(ContextFunctions.isAttributeSingletonArcXri(ContextFunctions.attributeCollectionArcXri(XDI3SubSegment.create("+tel"))));
-		assertFalse(ContextFunctions.isEntityCollectionArcXri(ContextFunctions.attributeCollectionArcXri(XDI3SubSegment.create("+tel"))));
-		assertTrue(ContextFunctions.isAttributeCollectionArcXri(ContextFunctions.attributeCollectionArcXri(XDI3SubSegment.create("+tel"))));
-
-		assertTrue(ContextFunctions.isMemberArcXri(ContextFunctions.memberArcXri(XDI3SubSegment.create("!1"))));
-
-		assertEquals(ContextFunctions.baseArcXri(XDI3SubSegment.create("+tel")), XDI3SubSegment.create("+tel"));
-		assertEquals(ContextFunctions.baseArcXri(XDI3SubSegment.create("<+address>")), XDI3SubSegment.create("+address"));
-		assertEquals(ContextFunctions.baseArcXri(XDI3SubSegment.create("{+tel}")), XDI3SubSegment.create("+tel"));
-		assertEquals(ContextFunctions.baseArcXri(XDI3SubSegment.create("{<+address>}")), XDI3SubSegment.create("+address"));
+		assertEquals(XdiSubGraph.getBaseArcXri(XDI3SubSegment.create("+printer")), XDI3SubSegment.create("+printer"));
+		assertEquals(XdiSubGraph.getBaseArcXri(XDI3SubSegment.create("<+email>")), XDI3SubSegment.create("+email"));
+		assertEquals(XdiSubGraph.getBaseArcXri(XDI3SubSegment.create("[+address]")), XDI3SubSegment.create("+address"));
+		assertEquals(XdiSubGraph.getBaseArcXri(XDI3SubSegment.create("!1")), XDI3SubSegment.create("!1"));
+		assertEquals(XdiSubGraph.getBaseArcXri(XDI3SubSegment.create("<!1>")), XDI3SubSegment.create("!1"));
 	}
 
-	public void testSubGraph() throws Exception {
-
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode root = graph.getRootContextNode();
-		ContextNode markus = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
-		XdiPeerRoot peerRoot = Roots.findLocalRoot(graph).findPeerRoot(XDI3Segment.create("=!91F2.8153.F600.AE24"), true);
-
-		assertNotNull(XdiSubGraph.fromContextNode(root));
-		assertNotNull(XdiSubGraph.fromContextNode(markus));
-		assertNotNull(XdiSubGraph.fromContextNode(peerRoot.getContextNode()));
-	}
-
-	public void testContextNodes() throws Exception {	
+/*	public void testContextNodes() throws Exception {	
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
 
 		assertTrue(XdiSubGraph.fromContextNode(contextNode) instanceof XdiCollection);
 
-		XdiCollection addressEntitySingleton = XdiSubGraph.fromContextNode(contextNode).getEntitySingleton(XDI3SubSegment.create("+address"), true);
+		XdiCollection printerEntitySingleton = XdiSubGraph.fromContextNode(contextNode).getEntitySingleton(XDI3SubSegment.create("+printer"), true);
 		XdiValue telAttributeSingleton = XdiSubGraph.fromContextNode(contextNode).getAttributeSingleton(XDI3SubSegment.create("+tel"), true);
-		XdiEntityCollection addressCollection = XdiSubGraph.fromContextNode(contextNode).getEntityCollection(XDI3SubSegment.create("+address"), true);
+		XdiEntityCollection printerCollection = XdiSubGraph.fromContextNode(contextNode).getEntityCollection(XDI3SubSegment.create("+printer"), true);
 		XdiAttributeCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getAttributeCollection(XDI3SubSegment.create("+tel"), true);
 
-		assertTrue(ContextFunctions.isMemberArcXri(addressEntitySingleton.getContextNode().getArcXri()));
+		assertTrue(ContextFunctions.isMemberArcXri(printerEntitySingleton.getContextNode().getArcXri()));
 		assertTrue(ContextFunctions.isAttributeSingletonArcXri(telAttributeSingleton.getContextNode().getArcXri()));
-		assertTrue(ContextFunctions.isEntityCollectionArcXri(addressCollection.getContextNode().getArcXri()));
-		assertTrue(ContextFunctions.isAttributeCollectionArcXri(addressCollection.getContextNode().getArcXri()));
+		assertTrue(ContextFunctions.isEntityCollectionArcXri(printerCollection.getContextNode().getArcXri()));
+		assertTrue(ContextFunctions.isAttributeCollectionArcXri(printerCollection.getContextNode().getArcXri()));
 
-		ContextNode address1ContextNode = addressCollection.createMember().getContextNode();
-		ContextNode address2ContextNode = addressCollection.createMember().getContextNode();
+		ContextNode printer1ContextNode = printerCollection.createMember().getContextNode();
+		ContextNode printer2ContextNode = printerCollection.createMember().getContextNode();
 		ContextNode tel1ContextNode = telCollection.createMember().getContextNode();
 		ContextNode tel2ContextNode = telCollection.createMember().getContextNode();
 
-/*		assertFalse(Multiplicity.isEntityMemberArcXri(tel1ContextNode.getArcXri()));
-		assertFalse(Multiplicity.isEntityMemberArcXri(tel2ContextNode.getArcXri()));*/
+		assertFalse(Multiplicity.isEntityMemberArcXri(tel1ContextNode.getArcXri()));
+		assertFalse(Multiplicity.isEntityMemberArcXri(tel2ContextNode.getArcXri()));
 		assertTrue(ContextFunctions.isMemberArcXri(tel1ContextNode.getArcXri()));
 		assertTrue(ContextFunctions.isMemberArcXri(tel2ContextNode.getArcXri()));
 
-		assertTrue(ContextFunctions.isMemberArcXri(address1ContextNode.getArcXri()));
-		assertTrue(ContextFunctions.isMemberArcXri(address2ContextNode.getArcXri()));
-/*		assertFalse(Multiplicity.isAttributeMemberArcXri(passport1ContextNode.getArcXri()));
-		assertFalse(Multiplicity.isAttributeMemberArcXri(passport2ContextNode.getArcXri()));*/
+		assertTrue(ContextFunctions.isMemberArcXri(printer1ContextNode.getArcXri()));
+		assertTrue(ContextFunctions.isMemberArcXri(printer2ContextNode.getArcXri()));
+		assertFalse(Multiplicity.isAttributeMemberArcXri(passport1ContextNode.getArcXri()));
+		assertFalse(Multiplicity.isAttributeMemberArcXri(passport2ContextNode.getArcXri()));
 
-		assertEquals(addressCollection.membersSize(), 2);
-		assertTrue(new IteratorContains<XdiElement>(addressCollection.members(), XdiElement.fromContextNode(address1ContextNode)).contains());
-		assertTrue(new IteratorContains<XdiElement>(addressCollection.members(), XdiElement.fromContextNode(address2ContextNode)).contains());
+		assertEquals(printerCollection.membersSize(), 2);
+		assertTrue(new IteratorContains<XdiElement>(printerCollection.members(), XdiElement.fromContextNode(printer1ContextNode)).contains());
+		assertTrue(new IteratorContains<XdiElement>(printerCollection.members(), XdiElement.fromContextNode(printer2ContextNode)).contains());
 		assertEquals(telCollection.membersSize(), 2);
 		assertTrue(new IteratorContains<XdiAttributeMember>(telCollection.members(), XdiAttributeMember.fromContextNode(tel1ContextNode)).contains());
 		assertTrue(new IteratorContains<XdiAttributeMember>(telCollection.members(), XdiAttributeMember.fromContextNode(tel2ContextNode)).contains());
-	}
+	}*/
 }

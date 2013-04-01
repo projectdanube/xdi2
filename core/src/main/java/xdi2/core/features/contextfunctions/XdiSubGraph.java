@@ -3,6 +3,7 @@ package xdi2.core.features.contextfunctions;
 import java.io.Serializable;
 
 import xdi2.core.ContextNode;
+import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -49,13 +50,16 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 */
 	public static XdiSubGraph fromContextNode(ContextNode contextNode) {
 
-		if (XdiCollection.isValid(contextNode)) return XdiCollection.fromContextNode(contextNode);
-		if (XdiEntitySingleton.isValid(contextNode)) return XdiEntitySingleton.fromContextNode(contextNode);
-		if (XdiAttributeSingleton.isValid(contextNode)) return XdiAttributeSingleton.fromContextNode(contextNode);
-		if (XdiEntityMember.isValid(contextNode)) return XdiEntityMember.fromContextNode(contextNode);
-		if (XdiAttributeMember.isValid(contextNode)) return XdiAttributeMember.fromContextNode(contextNode);
+		XdiSubGraph xdiSubGraph = null;
 
-		return new XdiSubGraph(contextNode);
+		if ((xdiSubGraph = XdiRoot.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiCollection.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiEntitySingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAttributeSingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiEntityMember.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAttributeMember.fromContextNode(contextNode)) != null) return xdiSubGraph;
+
+		return null;
 	}
 
 	/**

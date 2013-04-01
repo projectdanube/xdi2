@@ -219,6 +219,8 @@ public final class XdiCollection extends XdiSubGraph {
 
 	public static boolean isCollectionArcXri(XDI3SubSegment arcXri) {
 
+		if (arcXri == null) return false;
+
 		if (arcXri.hasCs()) return false;
 
 		if (! arcXri.hasXRef()) return false;

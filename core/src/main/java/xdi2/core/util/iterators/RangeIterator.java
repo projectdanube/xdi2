@@ -11,6 +11,8 @@ public abstract class RangeIterator<T> extends ReadOnlyIterator<T> {
 
 	public RangeIterator(int from, int to) {
 
+		super(null);
+
 		this.current = from;
 		this.to = to;
 	}

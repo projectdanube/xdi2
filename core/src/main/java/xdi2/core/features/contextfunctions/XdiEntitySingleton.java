@@ -32,7 +32,7 @@ public final class XdiEntitySingleton extends XdiEntity {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return isEntitySingletonArcXri(contextNode.getArcXri());
+		return isEntitySingletonArcXri(contextNode.getArcXri()) && ! XdiEntityMember.isValid(contextNode);
 	}
 
 	/**
@@ -57,6 +57,8 @@ public final class XdiEntitySingleton extends XdiEntity {
 	}
 
 	public static boolean isEntitySingletonArcXri(XDI3SubSegment arcXri) {
+
+		if (arcXri == null) return false;
 
 		if (arcXri.hasXRef()) return false;
 

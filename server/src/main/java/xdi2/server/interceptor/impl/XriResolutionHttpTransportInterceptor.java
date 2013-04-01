@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.roots.XdiPeerRoot;
-import xdi2.core.features.roots.Roots;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -66,13 +66,13 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 		// look into registry
 
-		XdiPeerRoot peerRoot = Roots.findLocalRoot(this.getRegistryGraph()).findPeerRoot(XDI3Segment.create("" + providerid + query), false);
+		XdiPeerRoot peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(XDI3Segment.create("" + providerid + query), false);
 
 		if (peerRoot == null) {
 
 			for (XDI3Segment provideridSynonym : provideridSynonyms) {
 
-				peerRoot = Roots.findLocalRoot(this.getRegistryGraph()).findPeerRoot(XDI3Segment.create("" + provideridSynonym + query), false);
+				peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(XDI3Segment.create("" + provideridSynonym + query), false);
 				if (peerRoot != null) break;
 			}
 		}
@@ -149,7 +149,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 	private static XDI3Segment getProviderId(Graph graph) {
 
-		XdiPeerRoot selfPeerRoot = Roots.findLocalRoot(graph).getSelfPeerRoot();
+		XdiPeerRoot selfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
 		if (selfPeerRoot == null) return null;
 
 		return selfPeerRoot.getXriOfPeerRoot();
@@ -157,13 +157,13 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 	private static XDI3Segment[] getProviderIdSynonyms(Graph graph, XDI3Segment providerid) {
 
-		XdiPeerRoot selfPeerRoot = Roots.findLocalRoot(graph).getSelfPeerRoot();
+		XdiPeerRoot selfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
 		if (selfPeerRoot == null) return new XDI3Segment[0];
 
 		Iterator<ContextNode> selfPeerRootIncomingReferenceContextNodes = Equivalence.getIncomingReferenceContextNodes(selfPeerRoot.getContextNode());
 
 		XDI3Segment[] selfSynonyms = new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(selfPeerRootIncomingReferenceContextNodes)).array(XDI3Segment.class);
-		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = XdiPeerRoot.getXriOfPeerRootXri(selfSynonyms[i].getLastSubSegment());
+		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = XdiPeerRoot.getXriOfPeerRootArcXri(selfSynonyms[i].getLastSubSegment());
 
 		return selfSynonyms;
 	}

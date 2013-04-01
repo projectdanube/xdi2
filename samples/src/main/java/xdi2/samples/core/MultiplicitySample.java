@@ -6,7 +6,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.contextfunctions.XdiAttributeMember;
-import xdi2.core.features.contextfunctions.XdiEntityCollection;
+import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
@@ -18,14 +18,14 @@ public class MultiplicitySample {
 
 	public static void main(String[] args) throws Exception {
 
-		// create and print a graph with an attribute collection
+		// create and print a graph with a collection
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
 
-		XdiEntityCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getCollection(XDI3SubSegment.create("+tel"), true);
-		telCollection.createAttributeMember().getContextNode().createLiteral("+1.206.555.1111");
-		telCollection.createAttributeMember().getContextNode().createLiteral("+1.206.555.2222");
+		XdiCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getXdiCollection(XDI3SubSegment.create("+tel"), true);
+		telCollection.getXdiAttributeMember().getContextNode().createLiteral("+1.206.555.1111");
+		telCollection.getXdiAttributeMember().getContextNode().createLiteral("+1.206.555.2222");
 
 		System.out.println(graph.toString(new MimeType("application/xdi+json;pretty=1")));
 
@@ -35,7 +35,7 @@ public class MultiplicitySample {
 		XDIReaderRegistry.getAuto().read(graph2, new StringReader(graph.toString()));
 		ContextNode contextNode2 = graph.findContextNode(XDI3Segment.create("=markus"), false);
 
-		XdiEntityCollection telCollection2 = XdiSubGraph.fromContextNode(contextNode2).getCollection(XDI3SubSegment.create("+tel"), false);
+		XdiCollection telCollection2 = XdiSubGraph.fromContextNode(contextNode2).getXdiCollection(XDI3SubSegment.create("+tel"), false);
 
 		for (Iterator<XdiAttributeMember> i = telCollection2.attributes(); i.hasNext(); ) {
 

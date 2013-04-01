@@ -68,6 +68,8 @@ public final class XdiValue extends XdiSubGraph {
 	 */
 	public static boolean isValueArcXri(XDI3SubSegment arcXri) {
 
+		if (arcXri == null) return false;
+		
 		if (arcXri.hasCs()) return false;
 
 		if (! arcXri.hasXRef()) return false;
