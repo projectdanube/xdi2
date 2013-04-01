@@ -42,7 +42,7 @@ public abstract class XdiSubGraph implements Serializable, Comparable<XdiSubGrap
 
 		return
 				XdiRoot.isValid(contextNode) ||
-				XdiMember.isValid(contextNode) ||
+				XdiCollection.isValid(contextNode) ||
 				XdiElement.isValid(contextNode) ||
 				XdiValue.isValid(contextNode) ||
 				XdiVariable.isValid(contextNode);
@@ -58,7 +58,7 @@ public abstract class XdiSubGraph implements Serializable, Comparable<XdiSubGrap
 		XdiSubGraph xdiSubGraph;
 
 		if ((xdiSubGraph = XdiRoot.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiMember.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiCollection.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiElement.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiValue.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiVariable.fromContextNode(contextNode)) != null) return xdiSubGraph;
@@ -93,14 +93,14 @@ public abstract class XdiSubGraph implements Serializable, Comparable<XdiSubGrap
 	 * @param create Whether or not to create the XDI member if it doesn't exist.
 	 * @return The XDI member.
 	 */
-	public XdiMember getXdiMember(XDI3SubSegment arcXri, boolean create) {
+	public XdiCollection getXdiMember(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment memberArcXri = XdiMember.createMemberArcXri(arcXri);
+		XDI3SubSegment memberArcXri = XdiCollection.createMemberArcXri(arcXri);
 		ContextNode memberContextNode = this.getContextNode().getContextNode(memberArcXri);
 		if (memberContextNode == null && create) memberContextNode = this.getContextNode().createContextNode(memberArcXri);
 		if (memberContextNode == null) return null;
 
-		return new XdiMember(memberContextNode);
+		return new XdiCollection(memberContextNode);
 	}
 
 	/**

@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.contextfunctions.XdiElement;
-import xdi2.core.features.contextfunctions.XdiMember;
+import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -25,9 +25,9 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	private static final long serialVersionUID = -7493408194946194153L;
 
 	private MessageEnvelope messageEnvelope;
-	private XdiMember xdiMember;
+	private XdiCollection xdiMember;
 
-	protected MessageCollection(MessageEnvelope messageEnvelope, XdiMember xdiMember) {
+	protected MessageCollection(MessageEnvelope messageEnvelope, XdiCollection xdiMember) {
 
 		if (messageEnvelope == null || xdiMember == null) throw new NullPointerException();
 
@@ -44,9 +44,9 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * @param xdiMember The XDI member to check.
 	 * @return True if the XDI member is a valid XDI message collection.
 	 */
-	public static boolean isValid(XdiMember xdiMember) {
+	public static boolean isValid(XdiCollection xdiMember) {
 
-		return xdiMember.getContextNode().getArcXri().equals(XdiMember.createMemberArcXri(XDIMessagingConstants.XRI_SS_MSG));
+		return xdiMember.getContextNode().getArcXri().equals(XdiCollection.createMemberArcXri(XDIMessagingConstants.XRI_SS_MSG));
 	}
 
 	/**
@@ -55,7 +55,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * @param xdiMember The XDI collection that is an XDI message collection.
 	 * @return The XDI message collection.
 	 */
-	public static MessageCollection fromMessageEnvelopeAndXdiMember(MessageEnvelope messageEnvelope, XdiMember xdiMember) {
+	public static MessageCollection fromMessageEnvelopeAndXdiMember(MessageEnvelope messageEnvelope, XdiCollection xdiMember) {
 
 		if (! isValid(xdiMember)) return null;
 
@@ -79,7 +79,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Returns the underlying XDI member to which this XDI message collection is bound.
 	 * @return An XDI member that represents the XDI message collection.
 	 */
-	public XdiMember getXdiMember() {
+	public XdiCollection getXdiMember() {
 
 		return this.xdiMember;
 	}

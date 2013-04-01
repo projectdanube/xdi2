@@ -21,11 +21,11 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiMember extends XdiSubGraph {
+public final class XdiCollection extends XdiSubGraph {
 
 	private static final long serialVersionUID = -1075885367630005576L;
 
-	protected XdiMember(ContextNode contextNode) {
+	protected XdiCollection(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -49,11 +49,11 @@ public final class XdiMember extends XdiSubGraph {
 	 * @param contextNode The context node that is an XDI member.
 	 * @return The XDI member.
 	 */
-	public static XdiMember fromContextNode(ContextNode contextNode) {
+	public static XdiCollection fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiMember(contextNode);
+		return new XdiCollection(contextNode);
 	}
 
 	/*
@@ -147,16 +147,16 @@ public final class XdiMember extends XdiSubGraph {
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiMemberIterator extends NotNullIterator<XdiMember> {
+	public static class MappingContextNodeXdiMemberIterator extends NotNullIterator<XdiCollection> {
 
 		public MappingContextNodeXdiMemberIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiMember> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiCollection> (contextNodes) {
 
 				@Override
-				public XdiMember map(ContextNode contextNode) {
+				public XdiCollection map(ContextNode contextNode) {
 
-					return XdiMember.fromContextNode(contextNode);
+					return XdiCollection.fromContextNode(contextNode);
 				}
 			});
 		}

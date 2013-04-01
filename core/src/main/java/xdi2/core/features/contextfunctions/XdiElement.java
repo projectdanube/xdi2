@@ -57,9 +57,9 @@ public final class XdiElement extends XdiSubGraph {
 	 * Gets or returns the parent XDI member of this XDI element.
 	 * @return The parent XDI member.
 	 */
-	public XdiMember getXdiMember() {
+	public XdiCollection getXdiMember() {
 
-		return new XdiMember(this.getContextNode().getContextNode());
+		return new XdiCollection(this.getContextNode().getContextNode());
 	}
 
 	/*

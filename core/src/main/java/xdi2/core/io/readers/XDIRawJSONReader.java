@@ -18,7 +18,7 @@ import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.contextfunctions.XdiElement;
-import xdi2.core.features.contextfunctions.XdiMember;
+import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.contextfunctions.XdiValue;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.dictionary.Dictionary;
@@ -66,13 +66,13 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (value instanceof JSONObject) {
 
-				XDI3SubSegment arcXri = XdiMember.createMemberArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
+				XDI3SubSegment arcXri = XdiCollection.createMemberArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				readJSONObject(innerContextNode, (JSONObject) value);
 			} else if (value instanceof JSONArray) {
 
-				XDI3SubSegment arcXri = XdiMember.createMemberArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
+				XDI3SubSegment arcXri = XdiCollection.createMemberArcXri(Dictionary.nativeIdentifierToInstanceXri(key));
 
 				ContextNode innerContextNode = contextNode.createContextNode(arcXri);
 				readJSONArray(innerContextNode, (JSONArray) value);

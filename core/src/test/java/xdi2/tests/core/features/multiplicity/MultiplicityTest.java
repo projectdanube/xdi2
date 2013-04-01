@@ -7,7 +7,7 @@ import xdi2.core.features.contextfunctions.XdiAttributeCollection;
 import xdi2.core.features.contextfunctions.XdiAttributeMember;
 import xdi2.core.features.contextfunctions.XdiElement;
 import xdi2.core.features.contextfunctions.XdiEntityCollection;
-import xdi2.core.features.contextfunctions.XdiMember;
+import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.contextfunctions.XdiValue;
 import xdi2.core.features.roots.XdiPeerRoot;
@@ -73,9 +73,9 @@ public class MultiplicityTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
 
-		assertTrue(XdiSubGraph.fromContextNode(contextNode) instanceof XdiMember);
+		assertTrue(XdiSubGraph.fromContextNode(contextNode) instanceof XdiCollection);
 
-		XdiMember addressEntitySingleton = XdiSubGraph.fromContextNode(contextNode).getEntitySingleton(XDI3SubSegment.create("+address"), true);
+		XdiCollection addressEntitySingleton = XdiSubGraph.fromContextNode(contextNode).getEntitySingleton(XDI3SubSegment.create("+address"), true);
 		XdiValue telAttributeSingleton = XdiSubGraph.fromContextNode(contextNode).getAttributeSingleton(XDI3SubSegment.create("+tel"), true);
 		XdiEntityCollection addressCollection = XdiSubGraph.fromContextNode(contextNode).getEntityCollection(XDI3SubSegment.create("+address"), true);
 		XdiAttributeCollection telCollection = XdiSubGraph.fromContextNode(contextNode).getAttributeCollection(XDI3SubSegment.create("+tel"), true);

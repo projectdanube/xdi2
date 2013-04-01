@@ -12,7 +12,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.contextfunctions.XdiElement;
-import xdi2.core.features.contextfunctions.XdiMember;
+import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
@@ -114,8 +114,8 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public XDI3SubSegment getPolicyXri() {
 
-		if (this.getXdiSubGraph() instanceof XdiMember)
-			return ((XdiMember) this.getXdiSubGraph()).getBaseArcXri();
+		if (this.getXdiSubGraph() instanceof XdiCollection)
+			return ((XdiCollection) this.getXdiSubGraph()).getBaseArcXri();
 		else if (this.getXdiSubGraph() instanceof XdiElement)
 			return ((XdiElement) this.getXdiSubGraph()).getXdiMember().getBaseArcXri();
 
@@ -127,7 +127,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyAnd createAndPolicy() {
 
-		XdiMember policyAndMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_AND, true);
+		XdiCollection policyAndMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_AND, true);
 
 		return PolicyAnd.fromSubGraph(policyAndMember);
 	}
@@ -137,7 +137,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyOr createOrPolicy() {
 
-		XdiMember policyOrMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_OR, true);
+		XdiCollection policyOrMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_OR, true);
 
 		return PolicyOr.fromSubGraph(policyOrMember);
 	}
@@ -147,7 +147,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 */
 	public PolicyNot createNotPolicy() {
 
-		XdiMember policyNotMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_NOT, true);
+		XdiCollection policyNotMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_NOT, true);
 
 		return PolicyNot.fromSubGraph(policyNotMember);
 	}
@@ -159,9 +159,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		List<Iterator<? extends Policy>> iterators = new ArrayList<Iterator<? extends Policy>> ();
 
-		XdiMember policyAndMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_AND, false);
-		XdiMember policyOrMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_OR, false);
-		XdiMember policyNotMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_NOT, false);
+		XdiCollection policyAndMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_AND, false);
+		XdiCollection policyOrMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_OR, false);
+		XdiCollection policyNotMember = this.getXdiSubGraph().getXdiMember(XDIPolicyConstants.XRI_SS_NOT, false);
 
 		// add policies (either elements, or a member)
 

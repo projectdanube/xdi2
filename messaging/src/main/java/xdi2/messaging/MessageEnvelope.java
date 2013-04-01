@@ -6,8 +6,8 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.contextfunctions.XdiMember;
-import xdi2.core.features.contextfunctions.XdiMember.MappingContextNodeXdiMemberIterator;
+import xdi2.core.features.contextfunctions.XdiCollection;
+import xdi2.core.features.contextfunctions.XdiCollection.MappingContextNodeXdiMemberIterator;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
@@ -146,12 +146,12 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public MessageCollection getMessageCollection(XDI3Segment senderXri, boolean create) {
 
-		XDI3Segment messageCollectionXri = XDI3Segment.create(senderXri.toString() + XdiMember.createMemberArcXri(XDIMessagingConstants.XRI_SS_MSG));
+		XDI3Segment messageCollectionXri = XDI3Segment.create(senderXri.toString() + XdiCollection.createMemberArcXri(XDIMessagingConstants.XRI_SS_MSG));
 		ContextNode contextNode = this.getGraph().findContextNode(messageCollectionXri, create);
 
 		if (contextNode == null) return null;
 
-		XdiMember xdiMember = XdiMember.fromContextNode(contextNode);
+		XdiCollection xdiMember = XdiCollection.fromContextNode(contextNode);
 
 		return new MessageCollection(this, xdiMember);
 	}
@@ -315,12 +315,12 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	public static class MappingXdiMemberMessageCollectionIterator extends NotNullIterator<MessageCollection> {
 
-		public MappingXdiMemberMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<XdiMember> xdiMembers) {
+		public MappingXdiMemberMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<XdiCollection> xdiMembers) {
 
-			super(new MappingIterator<XdiMember, MessageCollection> (xdiMembers) {
+			super(new MappingIterator<XdiCollection, MessageCollection> (xdiMembers) {
 
 				@Override
-				public MessageCollection map(XdiMember xdiMember) {
+				public MessageCollection map(XdiCollection xdiMember) {
 
 					return MessageCollection.fromMessageEnvelopeAndXdiMember(messageEnvelope, xdiMember);
 				}

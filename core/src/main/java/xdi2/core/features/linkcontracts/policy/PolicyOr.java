@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.contextfunctions.XdiElement;
-import xdi2.core.features.contextfunctions.XdiMember;
+import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
@@ -34,8 +34,8 @@ public class PolicyOr extends Policy {
 	 */
 	public static boolean isValid(XdiSubGraph xdiSubGraph) {
 
-		if (xdiSubGraph instanceof XdiMember)
-			return ((XdiMember) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
+		if (xdiSubGraph instanceof XdiCollection)
+			return ((XdiCollection) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
 		else if (xdiSubGraph instanceof XdiElement)
 			return ((XdiElement) xdiSubGraph).getXdiMember().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
 
