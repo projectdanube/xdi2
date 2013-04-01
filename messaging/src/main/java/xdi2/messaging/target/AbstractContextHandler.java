@@ -6,6 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.VariableUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
@@ -329,11 +330,11 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
 		if (tempContextNode == null) return;
 
-		if (Variables.isVariableSingle(targetContextNodeXri)) {
+		if (VariableUtil.isVariable(targetContextNodeXri)) {
 
 			Iterator<Relation> relations = tempContextNode.getRelations(arcXri);
 
-			if (Variables.isVariableSingle(arcXri)) {
+			if (VariableUtil.isVariable(arcXri)) {
 
 				relations = tempContextNode.getRelations();
 			} else {

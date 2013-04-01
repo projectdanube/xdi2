@@ -71,9 +71,9 @@ public final class XdiAttributeSingleton extends XdiAttribute {
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeAttributeSingletonIterator extends NotNullIterator<XdiAttributeSingleton> {
+	public static class MappingContextNodeXdiAttributeSingletonIterator extends NotNullIterator<XdiAttributeSingleton> {
 
-		public MappingContextNodeAttributeSingletonIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiAttributeSingletonIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiAttributeSingleton> (contextNodes) {
 

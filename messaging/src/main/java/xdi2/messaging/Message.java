@@ -10,8 +10,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.features.contextfunctions.XdiElement;
-import xdi2.core.features.contextfunctions.XdiSubGraph;
+import xdi2.core.features.contextfunctions.XdiEntityMember;
+import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.ordering.Ordering;
 import xdi2.core.features.roots.XdiInnerRoot;
@@ -40,14 +40,14 @@ public final class Message implements Serializable, Comparable<Message> {
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	private MessageCollection messageCollection;
-	private XdiElement xdiElement;
+	private XdiEntityMember xdiEntityMember;
 
-	protected Message(MessageCollection messageCollection, XdiElement xdiElement) {
+	protected Message(MessageCollection messageCollection, XdiEntityMember xdiEntityMember) {
 
-		if (messageCollection == null || xdiElement == null) throw new NullPointerException();
+		if (messageCollection == null || xdiEntityMember == null) throw new NullPointerException();
 
 		this.messageCollection = messageCollection;
-		this.xdiElement = xdiElement;
+		this.xdiEntityMember = xdiEntityMember;
 	}
 
 	/*
@@ -55,26 +55,26 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 
 	/**
-	 * Checks if an XDI element is a valid XDI message.
-	 * @param xdiElement The XDI element to check.
-	 * @return True if the XDI element is a valid XDI message.
+	 * Checks if an XDI entity member is a valid XDI message.
+	 * @param xdiEntityMember The XDI entity member to check.
+	 * @return True if the XDI entity member is a valid XDI message.
 	 */
-	public static boolean isValid(XdiElement xdiElement) {
+	public static boolean isValid(XdiEntityMember xdiEntityMember) {
 
-		return xdiElement.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
+		return xdiEntityMember.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
 	}
 
 	/**
-	 * Factory method that creates an XDI message bound to a given XDI element.
+	 * Factory method that creates an XDI message bound to a given XDI entity member.
 	 * @param messageCollection The XDI message collection to which this XDI message belongs.
-	 * @param xdiElement The XDI element that is an XDI message.
+	 * @param xdiEntityMember The XDI entity member that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageCollectionAndXdiElement(MessageCollection messageCollection, XdiElement xdiElement) {
+	public static Message fromMessageCollectionAndXdiEntityMember(MessageCollection messageCollection, XdiEntityMember xdiEntityMember) {
 
-		if (! isValid(xdiElement)) return null;
+		if (! isValid(xdiEntityMember)) return null;
 
-		return new Message(messageCollection, xdiElement);
+		return new Message(messageCollection, xdiEntityMember);
 	}
 
 	/*
@@ -100,12 +100,12 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns the underlying XDI element to which this XDI message is bound.
-	 * @return An XDI element that represents the XDI message.
+	 * Returns the underlying XDI entity member to which this XDI message is bound.
+	 * @return An XDI entity member that represents the XDI message.
 	 */
-	public XdiElement getXdiElement() {
+	public XdiEntityMember getXdiEntityMember() {
 
-		return this.xdiElement;
+		return this.xdiEntityMember;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ContextNode getContextNode() {
 
-		return this.getXdiElement().getContextNode();
+		return this.getXdiEntityMember().getContextNode();
 	}
 
 	/**
@@ -231,9 +231,9 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDIPolicyConstants.XRI_SS_IF);
 		if (contextNode == null) return null;
 
-		XdiSubGraph xdiSubGraph = XdiSubGraph.fromContextNode(contextNode);
+		XdiEntitySingleton xdiEntitySingleton = XdiEntitySingleton.fromContextNode(contextNode);
 
-		return PolicyRoot.fromXdiEntity(xdiSubGraph);
+		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
 	}
 
 	/**

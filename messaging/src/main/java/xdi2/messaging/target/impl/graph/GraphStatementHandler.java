@@ -6,8 +6,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XDIUtil;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
@@ -96,11 +96,11 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) return;
 
-		if (Variables.isVariableSingle(relationStatement.getObject())) {
+		if (VariableUtil.isVariable(relationStatement.getObject())) {
 
 			Iterator<Relation> relations;
 
-			if (Variables.isVariableSingle(relationStatement.getPredicate())) {
+			if (VariableUtil.isVariable(relationStatement.getPredicate())) {
 
 				relations = contextNode.getRelations();
 			} else {
@@ -124,9 +124,9 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement, null, executionContext);
 
-		if (Variables.isVariableSingle(relationStatement.getObject())) {
+		if (VariableUtil.isVariable(relationStatement.getObject())) {
 
-			if (Variables.isVariableSingle(relationStatement.getPredicate())) {
+			if (VariableUtil.isVariable(relationStatement.getPredicate())) {
 
 				contextNode.deleteRelations();
 			} else {

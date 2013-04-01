@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -382,11 +382,11 @@ public abstract class AbstractContributor implements Contributor {
 		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
 		if (tempContextNode == null) return false;
 
-		if (Variables.isVariableSingle(targetContextNodeXri)) {
+		if (VariableUtil.isVariable(targetContextNodeXri)) {
 
 			Iterator<Relation> relations;
 
-			if (Variables.isVariableSingle(arcXri)) {
+			if (VariableUtil.isVariable(arcXri)) {
 
 				relations = tempContextNode.getRelations();
 			} else {

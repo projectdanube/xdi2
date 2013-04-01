@@ -57,7 +57,7 @@ public class BasicTest extends TestCase {
 
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, true);
 
-		assertTrue(MessageCollection.isValid(messageCollection.getXdiMember()));
+		assertTrue(MessageCollection.isValid(messageCollection.getXdiCollection()));
 
 		assertTrue(messageEnvelope.getMessageCollections().hasNext());
 		assertNotNull(messageEnvelope.getMessageCollection(SENDER, false));
@@ -75,7 +75,7 @@ public class BasicTest extends TestCase {
 
 		Message message = messageCollection.getMessage(true);
 
-		assertTrue(Message.isValid(message.getEntityMember()));
+		assertTrue(Message.isValid(message.getXdiEntityMember()));
 
 		assertTrue(messageEnvelope.getMessageCollections().hasNext());
 		assertNotNull(messageEnvelope.getMessageCollection(SENDER, false));

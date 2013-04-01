@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.contextfunctions.XdiAttributeMember.MappingContextNodeAttributeMemberIterator;
-import xdi2.core.features.contextfunctions.XdiEntityMember.MappingContextNodeEntityMemberIterator;
+import xdi2.core.features.contextfunctions.XdiAttributeMember.MappingContextNodeXdiAttributeMemberIterator;
+import xdi2.core.features.contextfunctions.XdiEntityMember.MappingContextNodeXdiEntityMemberIterator;
 import xdi2.core.features.ordering.Ordering;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.util.iterators.CompositeIterator;
@@ -156,7 +156,7 @@ public final class XdiCollection extends XdiSubGraph {
 
 		// look for context nodes that are valid XDI entity members
 
-		return new MappingContextNodeEntityMemberIterator(contextNodes);
+		return new MappingContextNodeXdiEntityMemberIterator(contextNodes);
 	}
 
 	/**
@@ -189,7 +189,7 @@ public final class XdiCollection extends XdiSubGraph {
 
 		// look for context nodes that are valid XDI attribute members
 
-		return new MappingContextNodeAttributeMemberIterator(contextNodes);
+		return new MappingContextNodeXdiAttributeMemberIterator(contextNodes);
 	}
 
 	/**
@@ -231,9 +231,9 @@ public final class XdiCollection extends XdiSubGraph {
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeCollectionIterator extends NotNullIterator<XdiCollection> {
+	public static class MappingContextNodeXdiCollectionIterator extends NotNullIterator<XdiCollection> {
 
-		public MappingContextNodeCollectionIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiCollectionIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiCollection> (contextNodes) {
 

@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.contextfunctions.XdiCollection;
-import xdi2.core.features.contextfunctions.XdiElement;
+import xdi2.core.features.contextfunctions.XdiEntityMember;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -25,14 +25,14 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	private static final long serialVersionUID = -7493408194946194153L;
 
 	private MessageEnvelope messageEnvelope;
-	private XdiCollection xdiMember;
+	private XdiCollection xdiCollection;
 
-	protected MessageCollection(MessageEnvelope messageEnvelope, XdiCollection xdiMember) {
+	protected MessageCollection(MessageEnvelope messageEnvelope, XdiCollection xdiCollection) {
 
-		if (messageEnvelope == null || xdiMember == null) throw new NullPointerException();
+		if (messageEnvelope == null || xdiCollection == null) throw new NullPointerException();
 
 		this.messageEnvelope = messageEnvelope;
-		this.xdiMember = xdiMember;
+		this.xdiCollection = xdiCollection;
 	}
 
 	/*
@@ -40,26 +40,26 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 
 	/**
-	 * Checks if an XDI member is a valid XDI message collection.
-	 * @param xdiMember The XDI member to check.
-	 * @return True if the XDI member is a valid XDI message collection.
+	 * Checks if an XDI collection is a valid XDI message collection.
+	 * @param xdiCollection The XDI collection to check.
+	 * @return True if the XDI collection is a valid XDI message collection.
 	 */
-	public static boolean isValid(XdiCollection xdiMember) {
+	public static boolean isValid(XdiCollection xdiCollection) {
 
-		return xdiMember.getContextNode().getArcXri().equals(XdiCollection.createMemberArcXri(XDIMessagingConstants.XRI_SS_MSG));
+		return xdiCollection.getContextNode().getArcXri().equals(XdiCollection.createCollectionArcXri(XDIMessagingConstants.XRI_SS_MSG));
 	}
 
 	/**
 	 * Factory method that creates an XDI message collection bound to a given XDI collection.
 	 * @param messageEnvelope The XDI message envelope to which this XDI message collection belongs.
-	 * @param xdiMember The XDI collection that is an XDI message collection.
+	 * @param xdiCollection The XDI collection that is an XDI message collection.
 	 * @return The XDI message collection.
 	 */
-	public static MessageCollection fromMessageEnvelopeAndXdiMember(MessageEnvelope messageEnvelope, XdiCollection xdiMember) {
+	public static MessageCollection fromMessageEnvelopeAndXdiCollection(MessageEnvelope messageEnvelope, XdiCollection xdiCollection) {
 
-		if (! isValid(xdiMember)) return null;
+		if (! isValid(xdiCollection)) return null;
 
-		return new MessageCollection(messageEnvelope, xdiMember);
+		return new MessageCollection(messageEnvelope, xdiCollection);
 	}
 
 	/*
@@ -76,12 +76,12 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	}
 
 	/**
-	 * Returns the underlying XDI member to which this XDI message collection is bound.
-	 * @return An XDI member that represents the XDI message collection.
+	 * Returns the underlying XDI collection to which this XDI message collection is bound.
+	 * @return An XDI collection that represents the XDI message collection.
 	 */
-	public XdiCollection getXdiMember() {
+	public XdiCollection getXdiCollection() {
 
-		return this.xdiMember;
+		return this.xdiCollection;
 	}
 
 	/**
@@ -90,7 +90,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public ContextNode getContextNode() {
 
-		return this.getXdiMember().getContextNode();
+		return this.getXdiCollection().getContextNode();
 	}
 
 	/**
@@ -114,10 +114,10 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		if (create) {
 
-			XdiElement xdiElement = this.xdiMember.createXdiElement();
-			xdiElement.getContextNode().createContextNode(XDIMessagingConstants.XRI_SS_DO);
+			XdiEntityMember xdiEntityMember = this.xdiCollection.getXdiEntityMember();
+			xdiEntityMember.getContextNode().createContextNode(XDIMessagingConstants.XRI_SS_DO);
 
-			return new Message(this, xdiElement);
+			return new Message(this, xdiEntityMember);
 		} else {
 
 			return null;
@@ -132,9 +132,9 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		// get all context nodes that are valid XDI messages
 
-		Iterator<XdiElement> xdiElements = this.getXdiMember().elements(true, true);
+		Iterator<XdiEntityMember> xdiEntityMembers = this.getXdiCollection().entities(true, true);
 
-		return new MappingXdiElementMessageIterator(this, xdiElements);
+		return new MappingXdiEntityMemberMessageIterator(this, xdiEntityMembers);
 	}
 
 	/**
@@ -223,16 +223,16 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Helper classes
 	 */
 
-	public static class MappingXdiElementMessageIterator extends NotNullIterator<Message> {
+	public static class MappingXdiEntityMemberMessageIterator extends NotNullIterator<Message> {
 
-		public MappingXdiElementMessageIterator(final MessageCollection messageCollection, Iterator<XdiElement> xdiElements) {
+		public MappingXdiEntityMemberMessageIterator(final MessageCollection messageCollection, Iterator<XdiEntityMember> xdiElements) {
 
-			super(new MappingIterator<XdiElement, Message> (xdiElements) {
+			super(new MappingIterator<XdiEntityMember, Message> (xdiElements) {
 
 				@Override
-				public Message map(XdiElement xdiElement) {
+				public Message map(XdiEntityMember xdiEntityMember) {
 
-					return Message.fromMessageCollectionAndXdiElement(messageCollection, xdiElement);
+					return Message.fromMessageCollectionAndXdiEntityMember(messageCollection, xdiEntityMember);
 				}
 			});
 		}

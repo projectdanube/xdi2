@@ -34,6 +34,13 @@ public final class VariableUtil {
 				( variable.getXRef().isEmpty() || variable.getXRef().hasSegment() || variable.getXRef().hasLiteral() );
 	}
 
+	public static boolean isVariable(XDI3Segment variable) {
+
+		if (variable.getNumSubSegments() != 1) return false;
+
+		return isVariable(variable.getFirstSubSegment());
+	}
+
 	/**
 	 * Get a variable's context function.
 	 * @param variable The variable.

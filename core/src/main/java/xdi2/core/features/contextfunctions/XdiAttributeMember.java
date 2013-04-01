@@ -88,9 +88,9 @@ public final class XdiAttributeMember extends XdiAttribute {
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeAttributeMemberIterator extends NotNullIterator<XdiAttributeMember> {
+	public static class MappingContextNodeXdiAttributeMemberIterator extends NotNullIterator<XdiAttributeMember> {
 
-		public MappingContextNodeAttributeMemberIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiAttributeMemberIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiAttributeMember> (contextNodes) {
 

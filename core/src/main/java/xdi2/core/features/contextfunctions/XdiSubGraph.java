@@ -58,6 +58,21 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 		return new XdiSubGraph(contextNode);
 	}
 
+	/**
+	 * @param Returns the "base" arc XRI, without context function syntax.
+	 * @return The "base" arc XRI.
+	 */
+	public static XDI3SubSegment getBaseArcXri(XDI3SubSegment arcXri) {
+
+		if (arcXri.hasXRef() && arcXri.getXRef().hasSegment()) {
+
+			return arcXri.getXRef().getSegment().getFirstSubSegment();
+		} else {
+
+			return arcXri;
+		}
+	}
+
 	/*
 	 * Instance methods
 	 */
@@ -68,15 +83,7 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	 */
 	public XDI3SubSegment getBaseArcXri() {
 
-		XDI3SubSegment arcXri = this.getContextNode().getArcXri();
-
-		if (arcXri.hasXRef() && arcXri.getXRef().hasSegment()) {
-
-			return arcXri.getXRef().getSegment().getFirstSubSegment();
-		} else {
-
-			return arcXri;
-		}
+		return getBaseArcXri(this.getContextNode().getArcXri());
 	}
 
 	/**
