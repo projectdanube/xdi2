@@ -80,7 +80,7 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	}
 
 	/**
-	 * Gets or returns an XDI collection under a context node.
+	 * Creates or returns an XDI collection under this XDI subgraph.
 	 * @param arcXri The "base" arc XRI of the XDI collection, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI collection.
@@ -96,7 +96,7 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	}
 
 	/**
-	 * Gets or returns an XDI attribute singleton under a context node.
+	 * Creates or returns an XDI attribute singleton under this XDI subgraph.
 	 * @param arcXri The "base" arc XRI of the XDI attribute singleton, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI attribute singleton.
@@ -112,7 +112,7 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 	}
 
 	/**
-	 * Gets or returns an XDI entity singleton under a context node.
+	 * Creates or returns an XDI entity singleton under this XDI subgraph.
 	 * @param arcXri The "base" arc XRI of the XDI entity singleton, without multiplicity syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI entity singleton.

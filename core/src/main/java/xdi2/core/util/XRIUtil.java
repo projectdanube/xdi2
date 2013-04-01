@@ -24,9 +24,9 @@ public final class XRIUtil {
 	/**
 	 * Creates a UUID subsegment
 	 */
-	public static XDI3SubSegment randomUuidSubSegment() {
+	public static XDI3SubSegment randomUuidSubSegment(Character cs) {
 
-		return XDI3SubSegment.create("!:uuid:" + UUID.randomUUID().toString());
+		return XDI3SubSegment.create("" + cs + ":uuid:" + UUID.randomUUID().toString());
 	}
 
 	/**

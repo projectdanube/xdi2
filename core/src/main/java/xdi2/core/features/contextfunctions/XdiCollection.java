@@ -63,43 +63,49 @@ public final class XdiCollection extends XdiSubGraph {
 	 */
 
 	/**
-	 * Creates a new XDI entity member and adds it to this XDI collection.
-	 * @return The newly created XDI entity member.
+	 * Creates or returns an XDI entity member under this XDI collection.
+	 * @return The XDI entity member.
 	 */
-	public XdiEntityMember createXdiEntityMember(XDI3SubSegment arcXri) {
+	public XdiEntityMember getXdiEntityMember(XDI3SubSegment arcXri, boolean create) {
 
-		ContextNode contextNode = this.getContextNode().createContextNode(XdiEntityMember.createEntityMemberArcXri(XRIUtil.randomUuidSubSegment()));
+		XDI3SubSegment entityMemberArcXri = XdiEntityMember.createEntityMemberArcXri(arcXri);
+		ContextNode entityMemberContextNode = this.getContextNode().getContextNode(entityMemberArcXri);
+		if (entityMemberContextNode == null && create) entityMemberContextNode = this.getContextNode().createContextNode(entityMemberArcXri);
+		if (entityMemberContextNode == null) return null;
 
-		return XdiEntityMember.fromContextNode(contextNode);
+		return new XdiEntityMember(entityMemberContextNode);
 	}
 
 	/**
 	 * Creates a new XDI entity member and adds it to this XDI collection.
 	 * @return The newly created XDI entity member.
 	 */
-	public XdiEntityMember createXdiEntityMember() {
+	public XdiEntityMember getXdiEntityMember() {
 
-		return this.createXdiEntityMember(XRIUtil.randomUuidSubSegment());
+		return this.getXdiEntityMember(XRIUtil.randomUuidSubSegment(XDI3Constants.CS_BANG), true);
+	}
+
+	/**
+	 * Creates or returns an XDI attribute member under this XDI collection.
+	 * @return The XDI attribute member.
+	 */
+	public XdiAttributeMember getXdiAttributeMember(XDI3SubSegment arcXri, boolean create) {
+
+		XDI3SubSegment attributeMemberArcXri = XdiAttributeMember.createAttributeMemberArcXri(arcXri);
+		ContextNode attributeMemberContextNode = this.getContextNode().getContextNode(attributeMemberArcXri);
+		if (attributeMemberContextNode == null && create) attributeMemberContextNode = this.getContextNode().createContextNode(attributeMemberArcXri);
+		if (attributeMemberContextNode == null) return null;
+
+		return new XdiAttributeMember(attributeMemberContextNode);
 	}
 
 	/**
 	 * Creates a new XDI attribute member and adds it to this XDI collection.
-	 * @return The newly created XDI attribute member.
+	 * @return The newly created XDI entity member.
 	 */
-	public XdiAttributeMember createXdiAttributeMember(XDI3SubSegment arcXri) {
+	public XdiAttributeMember getXdiAttributeMember() {
 
-		ContextNode contextNode = this.getContextNode().createContextNode(XdiAttributeMember.createAttributeMemberArcXri(arcXri));
-
-		return XdiAttributeMember.fromContextNode(contextNode);
-	}
-
-	/**
-	 * Creates a new XDI attribute member and adds it to this XDI collection.
-	 * @return The newly created XDI attribute member.
-	 */
-	public XdiAttributeMember createXdiAttributeMember() {
-
-		return this.createXdiAttributeMember(XRIUtil.randomUuidSubSegment());
+		return this.getXdiAttributeMember(XRIUtil.randomUuidSubSegment(XDI3Constants.CS_BANG), true);
 	}
 
 	/**
