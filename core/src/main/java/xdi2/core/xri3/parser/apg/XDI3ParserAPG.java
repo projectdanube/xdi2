@@ -62,13 +62,13 @@ public class XDI3ParserAPG extends XDI3Parser {
 	@Override
 	public XDI3Segment parseXDI3Segment(String input) {
 
-		return (XDI3Segment) parse(parser_xdi_segment, input, XDI3Grammar.RuleNames.XDI_SEGMENT);
+		return (XDI3Segment) parse(parser_xdi_segment, input, XDI3Grammar.RuleNames.CONTEXT);
 	}
 
 	@Override
 	public XDI3SubSegment parseXDI3SubSegment(String input) {
 
-		return (XDI3SubSegment) parse(parser_subseg, input, XDI3Grammar.RuleNames.SUBSEG);
+		return (XDI3SubSegment) parse(parser_subseg, input, XDI3Grammar.RuleNames.SUBSEGMENT);
 	}
 
 	@Override
@@ -104,8 +104,8 @@ public class XDI3ParserAPG extends XDI3Parser {
 			ast.setRuleCallback(XDI3Grammar.RuleNames.XREF.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XREF));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.GCS_CHAR.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.GCS_CHAR));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.LCS_CHAR.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.LCS_CHAR));
-			ast.setRuleCallback(XDI3Grammar.RuleNames.LITERAL.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.LITERAL));
-			ast.setRuleCallback(XDI3Grammar.RuleNames.IRI.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.IRI));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_CHARS.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_CHARS));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.IRI_CHARS.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.IRI_CHARS));
 		} catch (Exception ex) {
 
 			throw new ParserException(ex.getMessage(), ex);

@@ -19,7 +19,7 @@ import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI collection according to the multiplicity pattern, represented as a context node.
+ * An XDI collection (context function), represented as a context node.
  * 
  * @author markus
  */
