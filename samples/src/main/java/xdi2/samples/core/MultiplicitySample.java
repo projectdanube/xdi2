@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.contextfunctions.XdiAttributeMember;
+import xdi2.core.features.contextfunctions.XdiAttributeInstance;
 import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -37,7 +37,7 @@ public class MultiplicitySample {
 
 		XdiCollection telCollection2 = XdiSubGraph.fromContextNode(contextNode2).getXdiCollection(XDI3SubSegment.create("+tel"), false);
 
-		for (Iterator<XdiAttributeMember> i = telCollection2.attributes(); i.hasNext(); ) {
+		for (Iterator<XdiAttributeInstance> i = telCollection2.attributes(); i.hasNext(); ) {
 
 			System.out.println(i.next().getContextNode().getLiteral().getLiteralData());
 		}

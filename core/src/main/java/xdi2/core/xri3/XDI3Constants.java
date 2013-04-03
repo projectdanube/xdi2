@@ -17,8 +17,11 @@ public class XDI3Constants {
 	public static final Character CS_BANG = new Character('!'); 
 
 	public static final String CF_ROOT = "()";
-	public static final String CF_COLLECTION = "[]";
-	public static final String CF_ATTRIBUTE_VALUE = "<>";
+	public static final String CF_ENTITY_SINGLETON = "()";
+	public static final String CF_ATTRIBUTE_SINGLETON = "<>";
+	public static final String CF_ATTRIBUTE_CLASS = "<>";
+	public static final String CF_ELEMENT = "[]";
+	public static final String CF_VALUE = "<>";
 	public static final String CF_VARIABLE = "{}";
 
 	public static final Character[] CS_ARRAY = new Character[] {
@@ -32,8 +35,11 @@ public class XDI3Constants {
 
 	public static final String[] CF_ARRAY = new String[] {
 		CF_ROOT,
-		CF_COLLECTION,
-		CF_ATTRIBUTE_VALUE,
+		CF_ENTITY_SINGLETON,
+		CF_ATTRIBUTE_SINGLETON,
+		CF_ATTRIBUTE_CLASS,
+		CF_ELEMENT,
+		CF_VALUE,
 		CF_VARIABLE
 	};
 }

@@ -17,10 +17,10 @@ import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.contextfunctions.XdiAttribute;
-import xdi2.core.features.contextfunctions.XdiAttributeMember;
+import xdi2.core.features.contextfunctions.XdiAttributeInstance;
 import xdi2.core.features.contextfunctions.XdiAttributeSingleton;
 import xdi2.core.features.contextfunctions.XdiCollection;
-import xdi2.core.features.contextfunctions.XdiEntityMember;
+import xdi2.core.features.contextfunctions.XdiEntityInstance;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.contextfunctions.XdiValue;
@@ -99,7 +99,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (value instanceof JSONObject) {
 
-				XdiEntityMember innerXdiEntityMember = xdiCollection.getXdiEntityMember(jsonContentId, true);
+				XdiEntityInstance innerXdiEntityMember = xdiCollection.getXdiEntityMember(jsonContentId, true);
 				readJSONObject(innerXdiEntityMember, (JSONObject) value);
 			} else if (value instanceof JSONArray) {
 
@@ -109,7 +109,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XDI3SubSegment arcXri = XdiValue.createValueArcXri(jsonContentId);
 
-				XdiAttributeMember innerXdiAttributeMember = xdiCollection.getXdiAttributeMember(arcXri, true);
+				XdiAttributeInstance innerXdiAttributeMember = xdiCollection.getXdiAttributeMember(arcXri, true);
 				createLiteral(innerXdiAttributeMember, value);
 			}
 		}

@@ -53,11 +53,11 @@ public class XdiSubGraph implements Serializable, Comparable<XdiSubGraph> {
 		XdiSubGraph xdiSubGraph = null;
 
 		if ((xdiSubGraph = XdiRoot.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiCollection.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiEntitySingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiAttributeSingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiEntityMember.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiAttributeMember.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiSingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiClass.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiInstance.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiElement.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiValue.fromContextNode(contextNode)) != null) return xdiSubGraph;
 
 		return null;
 	}

@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
-import xdi2.core.features.contextfunctions.XdiAttributeMember;
+import xdi2.core.features.contextfunctions.XdiAttributeInstance;
 import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.ordering.Ordering;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -40,7 +40,7 @@ public class OrderingTest extends TestCase {
 
 		XdiCollection xdiCollection = XdiCollection.fromContextNode(contextNode);
 
-		Iterator<XdiAttributeMember> attributes = xdiCollection.attributes(true, true);
+		Iterator<XdiAttributeInstance> attributes = xdiCollection.attributes(true, true);
 		assertEquals(attributes.next().getContextNode().getLiteral().getLiteralData(), "+1.206.555.2222");
 		assertEquals(attributes.next().getContextNode().getLiteral().getLiteralData(), "+1.206.555.4444");
 		assertEquals(attributes.next().getContextNode().getLiteral().getLiteralData(), "+1.206.555.1111");

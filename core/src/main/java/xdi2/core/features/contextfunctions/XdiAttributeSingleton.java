@@ -13,7 +13,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiAttributeSingleton extends XdiAttribute {
+public final class XdiAttributeSingleton extends XdiSingleton implements XdiAttribute {
 
 	private static final long serialVersionUID = -5769813522592588864L;
 
@@ -33,7 +33,7 @@ public final class XdiAttributeSingleton extends XdiAttribute {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return isAttributeSingletonArcXri(contextNode.getArcXri()) && ! XdiAttributeMember.isValid(contextNode);
+		return isValidArcXri(contextNode.getArcXri());
 	}
 
 	/**
@@ -49,26 +49,32 @@ public final class XdiAttributeSingleton extends XdiAttribute {
 	}
 
 	/*
-	 * Methods for XDI attribute singleton XRIs
+	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createAttributeSingletonArcXri(XDI3SubSegment arcXri) {
-
-		return XDI3SubSegment.create("" + XDI3Constants.CF_ATTRIBUTE_VALUE.charAt(0) + arcXri + XDI3Constants.CF_ATTRIBUTE_VALUE.charAt(1));
-	}
-
-	public static boolean isAttributeSingletonArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 
-		if (arcXri.hasCs()) return false;
+		if (! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
 
 		if (! arcXri.hasXRef()) return false;
-		if (! XDI3Constants.CF_ATTRIBUTE_VALUE.equals(arcXri.getXRef().getCf())) return false;
+		if (! XDI3Constants.CF_ATTRIBUTE_SINGLETON.equals(arcXri.getXRef().getCf())) return false;
+
+		if (! arcXri.getXRef().hasSegment()) return false;
+
+		if (XDI3Constants.CS_DOLLAR.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getCs())) {
+
+		} else if (XDI3Constants.CS_PLUS.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getCs())) {
+
+		} else {
+
+			return false;
+		}
 
 		return true;
 	}
-	
+
 	/*
 	 * Helper classes
 	 */

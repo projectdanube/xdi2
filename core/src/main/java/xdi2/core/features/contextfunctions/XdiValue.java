@@ -15,7 +15,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  */
 public final class XdiValue extends XdiSubGraph {
 
-	private static final long serialVersionUID = -5769813522592588864L;
+	private static final long serialVersionUID = 3710989824639753381L;
 
 	protected XdiValue(ContextNode contextNode) {
 
@@ -33,7 +33,7 @@ public final class XdiValue extends XdiSubGraph {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return isValueArcXri(contextNode.getArcXri());
+		return isValidArcXri(contextNode.getArcXri());
 	}
 
 	/**
@@ -53,27 +53,29 @@ public final class XdiValue extends XdiSubGraph {
 	 */
 
 	/*
-	 * Methods for XDI value XRIs
+	 * Methods for XRIs
 	 */
-
-	public static XDI3SubSegment createValueArcXri(XDI3SubSegment arcXri) {
-
-		return XDI3SubSegment.create("" + XDI3Constants.CF_ATTRIBUTE_VALUE.charAt(0) + arcXri + XDI3Constants.CF_ATTRIBUTE_VALUE.charAt(1));
-	}
 
 	/**
 	 * Checks if a given XRI is an XDI value XRI.
 	 * @param arcXri An XDI value XRI.
 	 * @return True, if the XRI is an XDI value XRI.
 	 */
-	public static boolean isValueArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
-		
+
 		if (arcXri.hasCs()) return false;
 
 		if (! arcXri.hasXRef()) return false;
-		if (! XDI3Constants.CF_ATTRIBUTE_VALUE.equals(arcXri.getXRef().getCf())) return false;
+		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getCf())) return false;
+
+		if (! arcXri.getXRef().hasSegment()) return false;
+		
+		if (arcXri.getXRef().getSegment().getFirstSubSegment().hasCs()) return false;
+				
+		if (! arcXri.getXRef().getSegment().getFirstSubSegment().hasXRef()) return false;
+		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getXRef())) return false;
 
 		return true;
 	}

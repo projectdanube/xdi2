@@ -10,7 +10,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.features.contextfunctions.XdiEntityMember;
+import xdi2.core.features.contextfunctions.XdiEntityInstance;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.ordering.Ordering;
@@ -40,9 +40,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	private MessageCollection messageCollection;
-	private XdiEntityMember xdiEntityMember;
+	private XdiEntityInstance xdiEntityMember;
 
-	protected Message(MessageCollection messageCollection, XdiEntityMember xdiEntityMember) {
+	protected Message(MessageCollection messageCollection, XdiEntityInstance xdiEntityMember) {
 
 		if (messageCollection == null || xdiEntityMember == null) throw new NullPointerException();
 
@@ -59,7 +59,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * @param xdiEntityMember The XDI entity member to check.
 	 * @return True if the XDI entity member is a valid XDI message.
 	 */
-	public static boolean isValid(XdiEntityMember xdiEntityMember) {
+	public static boolean isValid(XdiEntityInstance xdiEntityMember) {
 
 		return xdiEntityMember.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
 	}
@@ -70,7 +70,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * @param xdiEntityMember The XDI entity member that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageCollectionAndXdiEntityMember(MessageCollection messageCollection, XdiEntityMember xdiEntityMember) {
+	public static Message fromMessageCollectionAndXdiEntityMember(MessageCollection messageCollection, XdiEntityInstance xdiEntityMember) {
 
 		if (! isValid(xdiEntityMember)) return null;
 
@@ -103,7 +103,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns the underlying XDI entity member to which this XDI message is bound.
 	 * @return An XDI entity member that represents the XDI message.
 	 */
-	public XdiEntityMember getXdiEntityMember() {
+	public XdiEntityInstance getXdiEntityMember() {
 
 		return this.xdiEntityMember;
 	}

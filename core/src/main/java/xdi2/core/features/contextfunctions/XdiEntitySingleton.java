@@ -5,6 +5,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -12,9 +13,9 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiEntitySingleton extends XdiEntity {
+public final class XdiEntitySingleton extends XdiSingleton implements XdiEntity {
 
-	private static final long serialVersionUID = -1075885367630005576L;
+	private static final long serialVersionUID = 7600443284706530972L;
 
 	protected XdiEntitySingleton(ContextNode contextNode) {
 
@@ -32,7 +33,7 @@ public final class XdiEntitySingleton extends XdiEntity {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return isEntitySingletonArcXri(contextNode.getArcXri()) && ! XdiEntityMember.isValid(contextNode);
+		return isValidArcXri(contextNode.getArcXri());
 	}
 
 	/**
@@ -48,19 +49,28 @@ public final class XdiEntitySingleton extends XdiEntity {
 	}
 
 	/*
-	 * Methods for XDI entity singleton XRIs
+	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createEntitySingletonArcXri(XDI3SubSegment arcXri) {
-
-		return arcXri;
-	}
-
-	public static boolean isEntitySingletonArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 
-		if (arcXri.hasXRef()) return false;
+		if (! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
+
+		if (! arcXri.hasXRef()) return false;
+		if (! XDI3Constants.CF_ENTITY_SINGLETON.equals(arcXri.getXRef().getCf())) return false;
+
+		if (! arcXri.getXRef().hasSegment()) return false;
+
+		if (XDI3Constants.CS_DOLLAR.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getCs())) {
+
+		} else if (XDI3Constants.CS_PLUS.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getCs())) {
+
+		} else {
+
+			return false;
+		}
 
 		return true;
 	}

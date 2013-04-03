@@ -13,7 +13,7 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.contextfunctions.XdiEntity;
-import xdi2.core.features.contextfunctions.XdiEntityMember;
+import xdi2.core.features.contextfunctions.XdiEntityInstance;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
@@ -117,8 +117,8 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		if (this.getXdiEntity() instanceof XdiEntitySingleton)
 			return ((XdiEntitySingleton) this.getXdiEntity()).getBaseArcXri();
-		else if (this.getXdiEntity() instanceof XdiEntityMember)
-			return ((XdiEntityMember) this.getXdiEntity()).getParentXdiCollection().getBaseArcXri();
+		else if (this.getXdiEntity() instanceof XdiEntityInstance)
+			return ((XdiEntityInstance) this.getXdiEntity()).getParentXdiCollection().getBaseArcXri();
 
 		return null;
 	}
@@ -268,12 +268,12 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingXdiEntityMemberPolicyAndIterator extends NotNullIterator<PolicyAnd> {
 
-		public MappingXdiEntityMemberPolicyAndIterator(Iterator<XdiEntityMember> xdiEntityMembers) {
+		public MappingXdiEntityMemberPolicyAndIterator(Iterator<XdiEntityInstance> xdiEntityMembers) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyAnd> (xdiEntityMembers) {
+			super(new MappingIterator<XdiEntityInstance, PolicyAnd> (xdiEntityMembers) {
 
 				@Override
-				public PolicyAnd map(XdiEntityMember xdiEntityMember) {
+				public PolicyAnd map(XdiEntityInstance xdiEntityMember) {
 
 					return PolicyAnd.fromXdiEntity(xdiEntityMember);
 				}
@@ -283,12 +283,12 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingXdiEntityMemberPolicyOrIterator extends NotNullIterator<PolicyOr> {
 
-		public MappingXdiEntityMemberPolicyOrIterator(Iterator<XdiEntityMember> xdiEntityMembers) {
+		public MappingXdiEntityMemberPolicyOrIterator(Iterator<XdiEntityInstance> xdiEntityMembers) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyOr> (xdiEntityMembers) {
+			super(new MappingIterator<XdiEntityInstance, PolicyOr> (xdiEntityMembers) {
 
 				@Override
-				public PolicyOr map(XdiEntityMember xdiEntityMember) {
+				public PolicyOr map(XdiEntityInstance xdiEntityMember) {
 
 					return PolicyOr.fromXdiEntity(xdiEntityMember);
 				}
@@ -298,12 +298,12 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 	public static class MappingXdiEntityMemberPolicyNotIterator extends NotNullIterator<PolicyNot> {
 
-		public MappingXdiEntityMemberPolicyNotIterator(Iterator<XdiEntityMember> xdiEntityMembers) {
+		public MappingXdiEntityMemberPolicyNotIterator(Iterator<XdiEntityInstance> xdiEntityMembers) {
 
-			super(new MappingIterator<XdiEntityMember, PolicyNot> (xdiEntityMembers) {
+			super(new MappingIterator<XdiEntityInstance, PolicyNot> (xdiEntityMembers) {
 
 				@Override
-				public PolicyNot map(XdiEntityMember xdiEntityMember) {
+				public PolicyNot map(XdiEntityInstance xdiEntityMember) {
 
 					return PolicyNot.fromXdiEntity(xdiEntityMember);
 				}

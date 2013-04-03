@@ -1,10 +1,10 @@
 package xdi2.tests.core.features.multiplicity;
 
 import junit.framework.TestCase;
-import xdi2.core.features.contextfunctions.XdiAttributeMember;
+import xdi2.core.features.contextfunctions.XdiAttributeInstance;
 import xdi2.core.features.contextfunctions.XdiAttributeSingleton;
 import xdi2.core.features.contextfunctions.XdiCollection;
-import xdi2.core.features.contextfunctions.XdiEntityMember;
+import xdi2.core.features.contextfunctions.XdiEntityInstance;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -16,19 +16,19 @@ public class MultiplicityTest extends TestCase {
 		assertEquals(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+printer")), XDI3SubSegment.create("+printer"));
 		assertEquals(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+email")), XDI3SubSegment.create("<+email>"));
 		assertEquals(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[+address]"));
-		assertEquals(XdiEntityMember.createEntityMemberArcXri(XDI3SubSegment.create("!1")), XDI3SubSegment.create("!1"));
-		assertEquals(XdiAttributeMember.createAttributeMemberArcXri(XDI3SubSegment.create("!1")), XDI3SubSegment.create("<!1>"));
+		assertEquals(XdiEntityInstance.createEntityMemberArcXri(XDI3SubSegment.create("!1")), XDI3SubSegment.create("!1"));
+		assertEquals(XdiAttributeInstance.createAttributeMemberArcXri(XDI3SubSegment.create("!1")), XDI3SubSegment.create("<!1>"));
 
-		assertTrue(XdiEntitySingleton.isEntitySingletonArcXri(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+printer"))));
-		assertFalse(XdiAttributeSingleton.isAttributeSingletonArcXri(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+email"))));
+		assertTrue(XdiEntitySingleton.isValidArcXri(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+printer"))));
+		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+email"))));
 		assertFalse(XdiCollection.isCollectionArcXri(XdiEntitySingleton.createEntitySingletonArcXri(XDI3SubSegment.create("+address"))));
 
-		assertFalse(XdiEntitySingleton.isEntitySingletonArcXri(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+printer"))));
-		assertTrue(XdiAttributeSingleton.isAttributeSingletonArcXri(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+email"))));
+		assertFalse(XdiEntitySingleton.isValidArcXri(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+printer"))));
+		assertTrue(XdiAttributeSingleton.isValidArcXri(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+email"))));
 		assertFalse(XdiCollection.isCollectionArcXri(XdiAttributeSingleton.createAttributeSingletonArcXri(XDI3SubSegment.create("+address"))));
 
-		assertFalse(XdiEntitySingleton.isEntitySingletonArcXri(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+printer"))));
-		assertFalse(XdiAttributeSingleton.isAttributeSingletonArcXri(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+email"))));
+		assertFalse(XdiEntitySingleton.isValidArcXri(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+printer"))));
+		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+email"))));
 		assertTrue(XdiCollection.isCollectionArcXri(XdiCollection.createCollectionArcXri(XDI3SubSegment.create("+address"))));
 
 		assertEquals(XdiSubGraph.getBaseArcXri(XDI3SubSegment.create("+printer")), XDI3SubSegment.create("+printer"));

@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.contextfunctions.XdiEntity;
-import xdi2.core.features.contextfunctions.XdiEntityMember;
+import xdi2.core.features.contextfunctions.XdiEntityInstance;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
@@ -36,8 +36,8 @@ public class PolicyOr extends Policy {
 
 		if (xdiEntity instanceof XdiEntitySingleton)
 			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
-		else if (xdiEntity instanceof XdiEntityMember)
-			return ((XdiEntityMember) xdiEntity).getParentXdiCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
+		else if (xdiEntity instanceof XdiEntityInstance)
+			return ((XdiEntityInstance) xdiEntity).getParentXdiCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
 
 		return false;
 	}
