@@ -128,9 +128,9 @@ public class XDI3ParserManual extends XDI3Parser {
 		if (string.charAt(string.length() - 1) != cf.charAt(1)) throw new ParserException("Invalid xref: " + string + " (no closing delimiter)");
 		if (string.length() == 2) return this.makeXDI3XRef(string, cf, null, null, null, null, null, null);
 
-		string = string.substring(1, string.length() - 1);
+		String value = string.substring(1, string.length() - 1);
 
-		String temp = stripCf(string);
+		String temp = stripCf(value);
 
 		XDI3Segment segment = null;
 		XDI3Statement statement = null;
@@ -141,27 +141,27 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		if (temp.indexOf(':') != -1) {
 
-			iri = string;
+			iri = value;
 		} else {
 
 			int segments = StringUtils.countMatches(temp, "/") + 1;
 
 			if (segments == 3) {
 
-				statement = this.parseXDI3Statement(string);
+				statement = this.parseXDI3Statement(value);
 			} else if (segments == 2) {
 
 				String[] parts = temp.split("/");
 				int split0 = parts[0].length();
 
-				partialSubject = this.parseXDI3Segment(string.substring(0, split0));
-				partialPredicate = this.parseXDI3Segment(string.substring(split0 + 1));
-			} else if (cs(string.charAt(0)) != null || cf(string.charAt(0)) != null) {
+				partialSubject = this.parseXDI3Segment(value.substring(0, split0));
+				partialPredicate = this.parseXDI3Segment(value.substring(split0 + 1));
+			} else if (cs(value.charAt(0)) != null || cf(value.charAt(0)) != null) {
 
-				segment = this.parseXDI3Segment(string);
+				segment = this.parseXDI3Segment(value);
 			} else {
 
-				literal = string;
+				literal = value;
 			}
 		}
 

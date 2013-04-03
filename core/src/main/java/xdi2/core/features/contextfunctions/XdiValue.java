@@ -75,7 +75,7 @@ public final class XdiValue extends XdiAbstractSubGraph {
 		if (arcXri.getXRef().getSegment().getFirstSubSegment().hasCs()) return false;
 				
 		if (! arcXri.getXRef().getSegment().getFirstSubSegment().hasXRef()) return false;
-		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getXRef())) return false;
+		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getXRef().getCf())) return false;
 
 		return true;
 	}

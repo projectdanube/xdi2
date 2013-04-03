@@ -17,16 +17,16 @@ public class DataTypesTest extends TestCase {
 
 		StringBuilder buffer = new StringBuilder();
 
-		buffer.append("=markus$!(+age)/!/(data:,33)\n");
-		buffer.append("=markus$!(+age)/$is+/+$xsd$int!\n");
-		buffer.append("=markus$!(+age)/$is+/+$json$number!\n");
+		buffer.append("=markus!<+age><<$string>>/<>/(data:,33)\n");
+		buffer.append("=markus!<+age>/$is+/+$xsd$int\n");
+		buffer.append("=markus!<+age>/$is+/+$json$number\n");
 		String xdiString = buffer.toString();
 
-		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
+		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString, "XDI DISPLAY", null);
 
-		DataTypes.setLiteralDataType(graph.findLiteral(XDI3Segment.create("=markus$!(+age)")), XDI3Segment.create("+$mime$image$png!"));
+		DataTypes.setLiteralDataType(graph.findLiteral(XDI3Segment.create("=markus!<+age><<$string>>")), XDI3Segment.create("+$mime$image$png"));
 
-		List<XDI3Segment> dataTypes = DataTypes.getLiteralDataType(graph.findLiteral(XDI3Segment.create("=markus$!(+age)")));
+		List<XDI3Segment> dataTypes = DataTypes.getLiteralDataType(graph.findLiteral(XDI3Segment.create("=markus!<+age><<$string>>")));
 
 		assertNotNull(dataTypes);
 

@@ -99,6 +99,18 @@ public class XDI3ParserAPG extends XDI3Parser {
 			ast.enableRuleNode(XDI3Grammar.RuleNames.CLASS.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.INSTANCE.ruleID(), true);
 			ast.enableRuleNode(XDI3Grammar.RuleNames.ELEMENT.ruleID(), true);
+			ast.enableRuleNode(XDI3Grammar.RuleNames.XREF.ruleID(), true);
+			ast.enableRuleNode(XDI3Grammar.RuleNames.XDI_CHARS.ruleID(), true);
+			ast.enableRuleNode(XDI3Grammar.RuleNames.IRI_CHARS.ruleID(), true);
+			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_STATEMENT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_STATEMENT));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.CONTEXT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.CONTEXT));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.LOCAL_ROOT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.LOCAL_ROOT));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.PEER_ROOT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.PEER_ROOT));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.INNER_ROOT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.INNER_ROOT));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.SINGLETON.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.SINGLETON));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.CLASS.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.CLASS));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.INSTANCE.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.INSTANCE));
+			ast.setRuleCallback(XDI3Grammar.RuleNames.ELEMENT.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.ELEMENT));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.XREF.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XREF));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.XDI_CHARS.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.XDI_CHARS));
 			ast.setRuleCallback(XDI3Grammar.RuleNames.IRI_CHARS.ruleID(), new MyAstCallback(ast, myAstContext, XDI3Grammar.RuleNames.IRI_CHARS));
