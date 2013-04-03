@@ -13,7 +13,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiValue extends XdiSubGraph {
+public final class XdiValue extends XdiAbstractSubGraph {
 
 	private static final long serialVersionUID = 3710989824639753381L;
 
@@ -56,11 +56,11 @@ public final class XdiValue extends XdiSubGraph {
 	 * Methods for XRIs
 	 */
 
-	/**
-	 * Checks if a given XRI is an XDI value XRI.
-	 * @param arcXri An XDI value XRI.
-	 * @return True, if the XRI is an XDI value XRI.
-	 */
+	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
+
+		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + XDI3Constants.CF_VALUE.charAt(0) + arcXri + XDI3Constants.CF_ATTRIBUTE_CLASS.charAt(1) + XDI3Constants.CF_ATTRIBUTE_CLASS.charAt(1));
+	}
+
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;

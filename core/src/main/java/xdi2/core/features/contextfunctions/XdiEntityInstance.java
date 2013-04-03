@@ -5,8 +5,6 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Constants;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI entity instance (context function), represented as a context node.
@@ -48,21 +46,6 @@ public final class XdiEntityInstance extends XdiInstance implements XdiEntity {
 		if (! isValid(contextNode)) return null;
 
 		return new XdiEntityInstance(contextNode);
-	}
-
-	/*
-	 * Methods for XRIs
-	 */
-
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
-
-		if (arcXri == null) return false;
-
-		if (! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
-
-		if (! arcXri.hasLiteral()) return false;
-
-		return true;
 	}
 
 	/*

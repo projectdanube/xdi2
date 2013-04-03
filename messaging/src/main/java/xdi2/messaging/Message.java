@@ -10,10 +10,9 @@ import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.features.contextfunctions.XdiEntityInstance;
+import xdi2.core.features.contextfunctions.XdiEntity;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.features.ordering.Ordering;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.timestamps.Timestamps;
@@ -40,14 +39,14 @@ public final class Message implements Serializable, Comparable<Message> {
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	private MessageCollection messageCollection;
-	private XdiEntityInstance xdiEntityMember;
+	private XdiEntity xdiEntity;
 
-	protected Message(MessageCollection messageCollection, XdiEntityInstance xdiEntityMember) {
+	protected Message(MessageCollection messageCollection, XdiEntity xdiEntity) {
 
-		if (messageCollection == null || xdiEntityMember == null) throw new NullPointerException();
+		if (messageCollection == null || xdiEntity == null) throw new NullPointerException();
 
 		this.messageCollection = messageCollection;
-		this.xdiEntityMember = xdiEntityMember;
+		this.xdiEntity = xdiEntity;
 	}
 
 	/*
@@ -55,26 +54,26 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 
 	/**
-	 * Checks if an XDI entity member is a valid XDI message.
-	 * @param xdiEntityMember The XDI entity member to check.
-	 * @return True if the XDI entity member is a valid XDI message.
+	 * Checks if an XDI entity is a valid XDI message.
+	 * @param xdiEntity The XDI entity to check.
+	 * @return True if the XDI entity is a valid XDI message.
 	 */
-	public static boolean isValid(XdiEntityInstance xdiEntityMember) {
+	public static boolean isValid(XdiEntity xdiEntity) {
 
-		return xdiEntityMember.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
+		return xdiEntity.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
 	}
 
 	/**
-	 * Factory method that creates an XDI message bound to a given XDI entity member.
+	 * Factory method that creates an XDI message bound to a given XDI entity.
 	 * @param messageCollection The XDI message collection to which this XDI message belongs.
-	 * @param xdiEntityMember The XDI entity member that is an XDI message.
+	 * @param xdiEntity The XDI entity that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageCollectionAndXdiEntityMember(MessageCollection messageCollection, XdiEntityInstance xdiEntityMember) {
+	public static Message fromMessageCollectionAndXdiEntity(MessageCollection messageCollection, XdiEntity xdiEntity) {
 
-		if (! isValid(xdiEntityMember)) return null;
+		if (! isValid(xdiEntity)) return null;
 
-		return new Message(messageCollection, xdiEntityMember);
+		return new Message(messageCollection, xdiEntity);
 	}
 
 	/*
@@ -100,12 +99,12 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns the underlying XDI entity member to which this XDI message is bound.
-	 * @return An XDI entity member that represents the XDI message.
+	 * Returns the underlying XDI entity to which this XDI message is bound.
+	 * @return An XDI entity that represents the XDI message.
 	 */
-	public XdiEntityInstance getXdiEntityMember() {
+	public XdiEntity getXdiEntity() {
 
-		return this.xdiEntityMember;
+		return this.xdiEntity;
 	}
 
 	/**
@@ -114,7 +113,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ContextNode getContextNode() {
 
-		return this.getXdiEntityMember().getContextNode();
+		return this.getXdiEntity().getContextNode();
 	}
 
 	/**
@@ -467,7 +466,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		// get all relations that are valid XDI operations
 
 		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
-		iterators.add(Ordering.getOrderedRelations(this.getOperationsContextNode()));
+// TODO:		iterators.add(Ordering.getOrderedRelations(this.getOperationsContextNode()));
 		iterators.add(this.getOperationsContextNode().getRelations());
 
 		return new MappingRelationOperationIterator(this, new NoDuplicatesIterator<Relation> (new CompositeIterator<Relation> (iterators.iterator())));

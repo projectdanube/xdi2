@@ -3,7 +3,7 @@ package xdi2.core.features.contextfunctions;
 import xdi2.core.ContextNode;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiSingleton extends XdiSubGraph {
+public abstract class XdiSingleton extends XdiAbstractSubGraph {
 
 	private static final long serialVersionUID = -1976646316893343570L;
 

@@ -5,7 +5,6 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -51,21 +50,6 @@ public final class XdiAttributeInstance extends XdiInstance implements XdiAttrib
 	}
 
 	/*
-	 * Methods for XRIs
-	 */
-
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
-
-		if (arcXri == null) return false;
-
-		if (! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
-
-		if (! arcXri.hasLiteral()) return false;
-
-		return true;
-	}
-
-	/*
 	 * Instance methods
 	 */
 
@@ -77,6 +61,24 @@ public final class XdiAttributeInstance extends XdiInstance implements XdiAttrib
 	public XdiAttributeClass getXdiClass() {
 
 		return new XdiAttributeClass(this.getContextNode().getContextNode());
+	}
+
+	/**
+	 * Creates or returns an XDI value under this XDI attribute element.
+	 * @param arcXri The "base" arc XRI of the XDI value, without context function syntax.
+	 * @param create Whether or not to create the context node if it doesn't exist.
+	 * @return The XDI value.
+	 */
+	@Override
+	public XdiValue getXdiValue(XDI3SubSegment arcXri, boolean create) {
+
+		XDI3SubSegment valueArcXri = XdiValue.createArcXri(arcXri);
+
+		ContextNode valueContextNode = this.getContextNode().getContextNode(valueArcXri);
+		if (valueContextNode == null && create) valueContextNode = this.getContextNode().createContextNode(valueArcXri);
+		if (valueContextNode == null) return null;
+
+		return new XdiValue(valueContextNode);
 	}
 
 	/*

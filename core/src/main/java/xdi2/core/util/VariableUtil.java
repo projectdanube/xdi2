@@ -3,10 +3,6 @@ package xdi2.core.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.features.contextfunctions.XdiAttribute;
-import xdi2.core.features.contextfunctions.XdiCollection;
-import xdi2.core.features.contextfunctions.XdiValue;
-import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -128,9 +124,15 @@ public final class VariableUtil {
 
 		if (cf != null) {
 
-			if (XDI3Constants.CF_ROOT.equals(cf) && ! XdiRoot.isRootArcXri(subSegment)) return false;
-			if (XDI3Constants.CF_COLLECTION.equals(cf) && ! XdiCollection.isCollectionArcXri(subSegment)) return false;
-			if (XDI3Constants.CF_ATTRIBUTE_VALUE.equals(cf) && ! XdiAttribute.isAttributeArcXri(subSegment) && ! XdiValue.isValueArcXri(subSegment)) return false;
+			boolean validCf = false;
+
+			/*			if (XDI3Constants.CF_ROOT.equals(cf) && XdiRoot.isRootArcXri(subSegment)) validCf = true;
+			if (XDI3Constants.CF_ENTITY_SINGLETON.equals(cf) && XdiEntity.isValidArcXri(subSegment)) validCf = true;
+			if (XDI3Constants.CF_ROOT.equals(cf) && XdiRoot.isRootArcXri(subSegment)) validCf = true;
+			if (XDI3Constants.CF_ROOT.equals(cf) && XdiRoot.isRootArcXri(subSegment)) validCf = true;
+			if (XDI3Constants.CF_ROOT.equals(cf) && XdiRoot.isRootArcXri(subSegment)) validCf = true;*/
+
+			if (! validCf) throw new RuntimeException("fix me");
 		}
 
 		if (css.length() > 0) {

@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Tue Apr 02 10:21:27 CEST 2013
+ * Produced : Wed Apr 03 23:48:03 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -61,7 +61,7 @@ final public class Rule_class_context extends Rule
                   int c2 = 0;
                   for (int i2 = 0; i2 < 1 && f2; i2++)
                   {
-                    rule = Rule_peer.parse(context);
+                    rule = Rule_peer_root.parse(context);
                     if ((f2 = rule != null))
                     {
                       e2.add(rule);

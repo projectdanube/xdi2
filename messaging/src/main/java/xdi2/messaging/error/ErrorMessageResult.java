@@ -8,7 +8,7 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.features.contextfunctions.XdiAttributeSingleton;
-import xdi2.core.features.contextfunctions.XdiSubGraph;
+import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.timestamps.Timestamps;
@@ -124,7 +124,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public String getErrorString() {
 
-		XdiAttributeSingleton errorStringAttributeSingleton = XdiSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, false);
+		XdiAttributeSingleton errorStringAttributeSingleton = XdiAbstractSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, false);
 		if (errorStringAttributeSingleton == null) return null;
 
 		Literal errorStringLiteral = errorStringAttributeSingleton.getContextNode().getLiteral();
@@ -135,7 +135,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorString(String errorString) {
 
-		XdiAttributeSingleton errorStringAttributeSingleton = XdiSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, true);
+		XdiAttributeSingleton errorStringAttributeSingleton = XdiAbstractSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, true);
 
 		Literal errorStringLiteral = errorStringAttributeSingleton.getContextNode().getLiteral();
 

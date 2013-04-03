@@ -5,9 +5,10 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiInstance extends XdiSubGraph {
+public abstract class XdiInstance extends XdiAbstractSubGraph {
 
 	private static final long serialVersionUID = -8496645644143069191L;
 
@@ -56,10 +57,20 @@ public abstract class XdiInstance extends XdiSubGraph {
 	 * Methods for XRIs
 	 */
 
+	public static XDI3SubSegment createArcXri(String identifier) {
+
+		return XDI3SubSegment.create("" + XDI3Constants.CS_BANG + identifier);
+	}
+
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiEntityInstance.isValidArcXri(arcXri) || 
-				XdiAttributeInstance.isValidArcXri(arcXri);
+		if (arcXri == null) return false;
+
+		if (! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
+
+		if (! arcXri.hasLiteral()) return false;
+
+		return true;
 	}
 
 	/*

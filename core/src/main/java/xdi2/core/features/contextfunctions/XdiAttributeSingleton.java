@@ -49,8 +49,35 @@ public final class XdiAttributeSingleton extends XdiSingleton implements XdiAttr
 	}
 
 	/*
+	 * Instance methods
+	 */
+
+	/**
+	 * Creates or returns an XDI value under this XDI attribute element.
+	 * @param arcXri The "base" arc XRI of the XDI value, without context function syntax.
+	 * @param create Whether or not to create the context node if it doesn't exist.
+	 * @return The XDI value.
+	 */
+	@Override
+	public XdiValue getXdiValue(XDI3SubSegment arcXri, boolean create) {
+
+		XDI3SubSegment valueArcXri = XdiValue.createArcXri(arcXri);
+
+		ContextNode valueContextNode = this.getContextNode().getContextNode(valueArcXri);
+		if (valueContextNode == null && create) valueContextNode = this.getContextNode().createContextNode(valueArcXri);
+		if (valueContextNode == null) return null;
+
+		return new XdiValue(valueContextNode);
+	}
+
+	/*
 	 * Methods for XRIs
 	 */
+
+	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
+
+		return XDI3SubSegment.create("" + XDI3Constants.CS_BANG + XDI3Constants.CF_ATTRIBUTE_SINGLETON.charAt(0) + arcXri + XDI3Constants.CF_ATTRIBUTE_SINGLETON.charAt(1));
+	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 

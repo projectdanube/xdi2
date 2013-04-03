@@ -13,7 +13,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiVariable extends XdiSubGraph {
+public final class XdiVariable extends XdiAbstractSubGraph {
 
 	private static final long serialVersionUID = -5443590668167159237L;
 

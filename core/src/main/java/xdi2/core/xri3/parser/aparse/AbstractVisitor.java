@@ -101,6 +101,18 @@ public abstract class AbstractVisitor implements Visitor {
 	}
 
 	@Override
+	public Object visit(Rule_inner_relational rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_inner_statement rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
 	public Object visit(Rule_literal_statement rule) {
 
 		return visitRule(rule);
@@ -161,19 +173,31 @@ public abstract class AbstractVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(Rule_peer rule) {
+	public Object visit(Rule_root rule) {
 
 		return visitRule(rule);
 	}
 
 	@Override
-	public Object visit(Rule_xref rule) {
+	public Object visit(Rule_local_root rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_peer_root rule) {
 
 		return visitRule(rule);
 	}
 
 	@Override
 	public Object visit(Rule_inner_root rule) {
+
+		return visitRule(rule);
+	}
+
+	@Override
+	public Object visit(Rule_xref rule) {
 
 		return visitRule(rule);
 	}

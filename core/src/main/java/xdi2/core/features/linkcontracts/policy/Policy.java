@@ -11,8 +11,9 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.features.contextfunctions.XdiCollection;
 import xdi2.core.features.contextfunctions.XdiEntity;
+import xdi2.core.features.contextfunctions.XdiEntityClass;
+import xdi2.core.features.contextfunctions.XdiEntityElement;
 import xdi2.core.features.contextfunctions.XdiEntityInstance;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
@@ -118,7 +119,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (this.getXdiEntity() instanceof XdiEntitySingleton)
 			return ((XdiEntitySingleton) this.getXdiEntity()).getBaseArcXri();
 		else if (this.getXdiEntity() instanceof XdiEntityInstance)
-			return ((XdiEntityInstance) this.getXdiEntity()).getParentXdiCollection().getBaseArcXri();
+			return ((XdiEntityInstance) this.getXdiEntity()).getXdiClass().getBaseArcXri();
+		else if (this.getXdiEntity() instanceof XdiEntityElement)
+			return ((XdiEntityElement) this.getXdiEntity()).getXdiClass().getBaseArcXri();
 
 		return null;
 	}
@@ -170,15 +173,15 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (policyOrEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyOr.fromXdiEntity(policyOrEntitySingleton)));
 		if (policyNotEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyNot.fromXdiEntity(policyNotEntitySingleton)));
 
-		// add policies that are XDI entity members
+		// add policies that are XDI entity instances and elements
 
-		XdiCollection policyAndCollection = this.getXdiEntity().getXdiCollection(XDIPolicyConstants.XRI_SS_AND, false);
-		XdiCollection policyOrCollection = this.getXdiEntity().getXdiCollection(XDIPolicyConstants.XRI_SS_OR, false);
-		XdiCollection policyNotCollection = this.getXdiEntity().getXdiCollection(XDIPolicyConstants.XRI_SS_NOT, false);
+		XdiEntityClass policyAndEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_AND, false);
+		XdiEntityClass policyOrEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_OR, false);
+		XdiEntityClass policyNotEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_NOT, false);
 
-		if (policyAndCollection != null) iterators.add(new MappingXdiEntityMemberPolicyAndIterator(policyAndCollection.entities()));
-		if (policyOrCollection != null) iterators.add(new MappingXdiEntityMemberPolicyOrIterator(policyOrCollection.entities()));
-		if (policyNotCollection != null) iterators.add(new MappingXdiEntityMemberPolicyNotIterator(policyNotCollection.entities()));
+		if (policyAndEntityClass != null) iterators.add(new MappingXdiEntityPolicyAndIterator(policyAndEntityClass.instancesAndElements()));
+		if (policyOrEntityClass != null) iterators.add(new MappingXdiEntityPolicyOrIterator(policyOrEntityClass.instancesAndElements()));
+		if (policyNotEntityClass != null) iterators.add(new MappingXdiEntityPolicyNotIterator(policyNotEntityClass.instancesAndElements()));
 
 		return new CompositeIterator<Policy> (iterators.iterator());
 	}
@@ -266,46 +269,46 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 * Helper classes
 	 */
 
-	public static class MappingXdiEntityMemberPolicyAndIterator extends NotNullIterator<PolicyAnd> {
+	public static class MappingXdiEntityPolicyAndIterator extends NotNullIterator<PolicyAnd> {
 
-		public MappingXdiEntityMemberPolicyAndIterator(Iterator<XdiEntityInstance> xdiEntityMembers) {
+		public MappingXdiEntityPolicyAndIterator(Iterator<XdiEntity> xdiEntities) {
 
-			super(new MappingIterator<XdiEntityInstance, PolicyAnd> (xdiEntityMembers) {
+			super(new MappingIterator<XdiEntity, PolicyAnd> (xdiEntities) {
 
 				@Override
-				public PolicyAnd map(XdiEntityInstance xdiEntityMember) {
+				public PolicyAnd map(XdiEntity xdiEntity) {
 
-					return PolicyAnd.fromXdiEntity(xdiEntityMember);
+					return PolicyAnd.fromXdiEntity(xdiEntity);
 				}
 			});
 		}
 	}
 
-	public static class MappingXdiEntityMemberPolicyOrIterator extends NotNullIterator<PolicyOr> {
+	public static class MappingXdiEntityPolicyOrIterator extends NotNullIterator<PolicyOr> {
 
-		public MappingXdiEntityMemberPolicyOrIterator(Iterator<XdiEntityInstance> xdiEntityMembers) {
+		public MappingXdiEntityPolicyOrIterator(Iterator<XdiEntity> xdiEntities) {
 
-			super(new MappingIterator<XdiEntityInstance, PolicyOr> (xdiEntityMembers) {
+			super(new MappingIterator<XdiEntity, PolicyOr> (xdiEntities) {
 
 				@Override
-				public PolicyOr map(XdiEntityInstance xdiEntityMember) {
+				public PolicyOr map(XdiEntity xdiEntity) {
 
-					return PolicyOr.fromXdiEntity(xdiEntityMember);
+					return PolicyOr.fromXdiEntity(xdiEntity);
 				}
 			});
 		}
 	}
 
-	public static class MappingXdiEntityMemberPolicyNotIterator extends NotNullIterator<PolicyNot> {
+	public static class MappingXdiEntityPolicyNotIterator extends NotNullIterator<PolicyNot> {
 
-		public MappingXdiEntityMemberPolicyNotIterator(Iterator<XdiEntityInstance> xdiEntityMembers) {
+		public MappingXdiEntityPolicyNotIterator(Iterator<XdiEntity> xdiEntities) {
 
-			super(new MappingIterator<XdiEntityInstance, PolicyNot> (xdiEntityMembers) {
+			super(new MappingIterator<XdiEntity, PolicyNot> (xdiEntities) {
 
 				@Override
-				public PolicyNot map(XdiEntityInstance xdiEntityMember) {
+				public PolicyNot map(XdiEntity xdiEntity) {
 
-					return PolicyNot.fromXdiEntity(xdiEntityMember);
+					return PolicyNot.fromXdiEntity(xdiEntity);
 				}
 			});
 		}

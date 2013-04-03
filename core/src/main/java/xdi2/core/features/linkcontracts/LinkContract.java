@@ -78,7 +78,7 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		ContextNode contextNode = this.getContextNode().getContextNode(XdiEntitySingleton.createEntitySingletonArcXri(XDIPolicyConstants.XRI_SS_IF));
+		ContextNode contextNode = this.getContextNode().getContextNode(XdiEntitySingleton.createArcXri(XDIPolicyConstants.XRI_SS_IF));
 		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDIPolicyConstants.XRI_SS_IF);
 		if (contextNode == null) return null;
 

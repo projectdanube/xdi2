@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Tue Apr 02 10:21:27 CEST 2013
+ * Produced : Wed Apr 03 23:48:03 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -28,6 +28,8 @@ public interface Visitor
   public Object visit(Rule_relational_statement rule);
   public Object visit(Rule_direct_relational rule);
   public Object visit(Rule_inverse_relational rule);
+  public Object visit(Rule_inner_relational rule);
+  public Object visit(Rule_inner_statement rule);
   public Object visit(Rule_literal_statement rule);
   public Object visit(Rule_context rule);
   public Object visit(Rule_relative_context rule);
@@ -38,9 +40,11 @@ public interface Visitor
   public Object visit(Rule_literal_path rule);
   public Object visit(Rule_attribute_pair rule);
   public Object visit(Rule_value_context rule);
-  public Object visit(Rule_peer rule);
-  public Object visit(Rule_xref rule);
+  public Object visit(Rule_root rule);
+  public Object visit(Rule_local_root rule);
+  public Object visit(Rule_peer_root rule);
   public Object visit(Rule_inner_root rule);
+  public Object visit(Rule_xref rule);
   public Object visit(Rule_subpath rule);
   public Object visit(Rule_subsegment rule);
   public Object visit(Rule_singleton rule);

@@ -52,6 +52,11 @@ public final class XdiEntitySingleton extends XdiSingleton implements XdiEntity 
 	 * Methods for XRIs
 	 */
 
+	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
+
+		return XDI3SubSegment.create("" + XDI3Constants.CS_BANG + XDI3Constants.CF_ENTITY_SINGLETON.charAt(0) + arcXri + XDI3Constants.CF_ENTITY_SINGLETON.charAt(1));
+	}
+
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;

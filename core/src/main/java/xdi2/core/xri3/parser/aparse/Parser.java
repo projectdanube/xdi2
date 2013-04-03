@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Tue Apr 02 10:21:27 CEST 2013
+ * Produced : Wed Apr 03 23:48:03 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -176,6 +176,8 @@ public class Parser
     else if (rulename.equalsIgnoreCase("relational-statement")) rule = Rule_relational_statement.parse(context);
     else if (rulename.equalsIgnoreCase("direct-relational")) rule = Rule_direct_relational.parse(context);
     else if (rulename.equalsIgnoreCase("inverse-relational")) rule = Rule_inverse_relational.parse(context);
+    else if (rulename.equalsIgnoreCase("inner-relational")) rule = Rule_inner_relational.parse(context);
+    else if (rulename.equalsIgnoreCase("inner-statement")) rule = Rule_inner_statement.parse(context);
     else if (rulename.equalsIgnoreCase("literal-statement")) rule = Rule_literal_statement.parse(context);
     else if (rulename.equalsIgnoreCase("context")) rule = Rule_context.parse(context);
     else if (rulename.equalsIgnoreCase("relative-context")) rule = Rule_relative_context.parse(context);
@@ -186,9 +188,11 @@ public class Parser
     else if (rulename.equalsIgnoreCase("literal-path")) rule = Rule_literal_path.parse(context);
     else if (rulename.equalsIgnoreCase("attribute-pair")) rule = Rule_attribute_pair.parse(context);
     else if (rulename.equalsIgnoreCase("value-context")) rule = Rule_value_context.parse(context);
-    else if (rulename.equalsIgnoreCase("peer")) rule = Rule_peer.parse(context);
-    else if (rulename.equalsIgnoreCase("xref")) rule = Rule_xref.parse(context);
+    else if (rulename.equalsIgnoreCase("root")) rule = Rule_root.parse(context);
+    else if (rulename.equalsIgnoreCase("local-root")) rule = Rule_local_root.parse(context);
+    else if (rulename.equalsIgnoreCase("peer-root")) rule = Rule_peer_root.parse(context);
     else if (rulename.equalsIgnoreCase("inner-root")) rule = Rule_inner_root.parse(context);
+    else if (rulename.equalsIgnoreCase("xref")) rule = Rule_xref.parse(context);
     else if (rulename.equalsIgnoreCase("subpath")) rule = Rule_subpath.parse(context);
     else if (rulename.equalsIgnoreCase("subsegment")) rule = Rule_subsegment.parse(context);
     else if (rulename.equalsIgnoreCase("singleton")) rule = Rule_singleton.parse(context);

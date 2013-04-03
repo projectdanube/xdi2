@@ -1,19 +1,23 @@
 package xdi2.core.features.contextfunctions;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.contextfunctions.XdiInstance.MappingContextNodeXdiInstanceIterator;
 import xdi2.core.util.XRIUtil;
+import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NoDuplicatesIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.TerminatingOnNullIterator;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiClass extends XdiSubGraph {
+public abstract class XdiClass extends XdiAbstractSubGraph {
 
 	private static final long serialVersionUID = -1976646316893343570L;
 
@@ -164,6 +168,21 @@ public abstract class XdiClass extends XdiSubGraph {
 				this.triedNextXdiElement = true;
 			}
 		});
+	}
+
+	/**
+	 * Returns all XDI instances and element in this XDI class.
+	 * @return An iterator over all XDI instances and elements.
+	 */
+	public Iterator<? extends XdiSubGraph> instancesAndElements() {
+
+		List<Iterator<? extends XdiSubGraph>> list = new ArrayList<Iterator<? extends XdiSubGraph>> ();
+		list.add(this.elements());
+		list.add(this.instances());
+
+		CompositeIterator<XdiSubGraph> iterators = new CompositeIterator<XdiSubGraph> (list.iterator());
+
+		return new NoDuplicatesIterator<XdiSubGraph> (iterators);
 	}
 
 	/*

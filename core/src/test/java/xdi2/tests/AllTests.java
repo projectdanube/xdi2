@@ -2,11 +2,10 @@ package xdi2.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import xdi2.tests.core.features.contextfunctions.ContextFunctionsTest;
 import xdi2.tests.core.features.datatypes.DataTypesTest;
 import xdi2.tests.core.features.dictionary.DictionaryTest;
 import xdi2.tests.core.features.equivalence.EquivalenceTest;
-import xdi2.tests.core.features.multiplicity.MultiplicityTest;
-import xdi2.tests.core.features.multiplicity.OrderingTest;
 import xdi2.tests.core.features.roots.InnerRootsTest;
 import xdi2.tests.core.features.roots.LocalRootsTest;
 import xdi2.tests.core.features.roots.PeerRootsTest;
@@ -51,8 +50,7 @@ public class AllTests {
 		suite.addTestSuite(DataTypesTest.class);
 		suite.addTestSuite(DictionaryTest.class);
 		suite.addTestSuite(EquivalenceTest.class);
-		suite.addTestSuite(MultiplicityTest.class);
-		suite.addTestSuite(OrderingTest.class);
+		suite.addTestSuite(ContextFunctionsTest.class);
 		suite.addTestSuite(RootsTest.class);
 		suite.addTestSuite(LocalRootsTest.class);
 		suite.addTestSuite(PeerRootsTest.class);

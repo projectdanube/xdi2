@@ -55,13 +55,13 @@ public final class XdiAttributeClass extends XdiClass {
 
 	@Override
 	public XdiAttributeInstance getXdiInstance(XDI3SubSegment arcXri, boolean create) {
-		
+
 		return (XdiAttributeInstance) super.getXdiInstance(arcXri, create);
 	}
 
 	@Override
 	public XdiAttributeInstance getXdiInstance() {
-		
+
 		return (XdiAttributeInstance) super.getXdiInstance();
 	}
 
@@ -73,7 +73,7 @@ public final class XdiAttributeClass extends XdiClass {
 
 	@Override
 	public XdiAttributeElement getXdiElement(int index, boolean create) {
-		
+
 		return (XdiAttributeElement) super.getXdiElement(index, create);
 	}
 
@@ -82,10 +82,21 @@ public final class XdiAttributeClass extends XdiClass {
 
 		return new CastingIterator<XdiInstance, XdiAttributeElement> (super.instances());
 	}
-	
+
+	@Override
+	public Iterator<XdiAttribute> instancesAndElements() {
+
+		return new CastingIterator<XdiSubGraph, XdiAttribute> (super.instances());
+	}
+
 	/*
 	 * Methods for XRIs
 	 */
+
+	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
+
+		return XDI3SubSegment.create("" + XDI3Constants.CF_ATTRIBUTE_CLASS.charAt(0) + arcXri + XDI3Constants.CF_ATTRIBUTE_CLASS.charAt(1));
+	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
@@ -97,7 +108,7 @@ public final class XdiAttributeClass extends XdiClass {
 		if (! XDI3Constants.CF_ATTRIBUTE_CLASS.equals(arcXri.getXRef().getCf())) return false;
 
 		if (! arcXri.getXRef().hasSegment()) return false;
-		
+
 		if (XDI3Constants.CS_DOLLAR.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getCs())) {
 
 		} else if (XDI3Constants.CS_PLUS.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getCs())) {

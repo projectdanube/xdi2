@@ -5,41 +5,47 @@ contextual-statement    = direct-contextual / inverse-contextual
 direct-contextual       = absolute / peer-relative / context-relative / class-relative
 inverse-contextual      = absolute-inverse / peer-inverse  / context-inverse / class-inverse
 
-absolute                =                   "()/()/" context
-peer-relative           =               peer  "/()/" context
-context-relative        =            context  "/()/" relative-context
+absolute                =          local-root "/()/" context
+peer-relative           =           peer-root "/()/" context
+context-relative        =             context "/()/" relative-context
 class-relative          =       class-context "/()/" instance-context
-absolute-inverse        =          context "/$is()/()"
-peer-inverse            =          context "/$is()/" peer
+absolute-inverse        =          context "/$is()/" local-root
+peer-inverse            =          context "/$is()/" peer-root
 context-inverse         = relative-context "/$is()/" context
 class-inverse           = instance-context "/$is()/" class-context
 
-relational-statement    = inverse-relational / direct-relational
+relational-statement    = inverse-relational / direct-relational / inner-relational
 direct-relational       = context "/"    context "/" context
 inverse-relational      = context "/$is" context "/" context
+inner-relational        = context "/"    context "/" inner-statement
+
+inner-statement         = "(" xdi-statement ")"
 
 literal-statement       = literal-context value-context "/<>/" json-value
 
-context                 = ( peer [ relative-context ] ) / relative-context
+context                 = ( peer-root [ relative-context ] ) / relative-context
 relative-context        = 1*subpath
 
-class-context           = [ peer ] class-path
+class-context           = [ peer-root ] class-path
 class-path              = ( subpath class-path ) / class
 
 instance-context        = ( instance / element ) [ relative-context ]
 
-literal-context         = [ peer ] literal-path
+literal-context         = [ peer-root ] literal-path
 literal-path            = ( subpath literal-path ) / attribute-singleton / attribute-pair
 attribute-pair          = attribute-class ( instance / element )
 
 value-context           = "<<" 1*type-class ">>"
 
-peer                    = 1*xref
-xref                    = "(" ( context / inner-root / xdi-statement / iri-chars / xdi-chars ) ")"
-inner-root              = context "/" context
+root                    = local-root / peer-root / inner-root
+local-root              = "()"
+peer-root               = "(" ( context / iri-chars ) ")"
+inner-root              = "(" context "/" context ")"
+
+xref                    = "(" ( context / iri-chars / xdi-chars ) ")"
 
 subpath                 = singleton / ( class [ instance / element ] )
-subsegment              = singleton / class / instance / element
+subsegment              = singleton / class / instance / element / root / inner-statement
 
 singleton               = entity-singleton / attribute-singleton / person-singleton / organization-singleton / relative-singleton
 entity-singleton        = "!(" type-class ")"

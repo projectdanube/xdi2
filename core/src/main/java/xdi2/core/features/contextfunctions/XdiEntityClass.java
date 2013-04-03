@@ -55,13 +55,13 @@ public final class XdiEntityClass extends XdiClass {
 
 	@Override
 	public XdiEntityInstance getXdiInstance(XDI3SubSegment arcXri, boolean create) {
-		
+
 		return (XdiEntityInstance) super.getXdiInstance(arcXri, create);
 	}
 
 	@Override
 	public XdiEntityInstance getXdiInstance() {
-		
+
 		return (XdiEntityInstance) super.getXdiInstance();
 	}
 
@@ -73,7 +73,7 @@ public final class XdiEntityClass extends XdiClass {
 
 	@Override
 	public XdiEntityElement getXdiElement(int index, boolean create) {
-		
+
 		return (XdiEntityElement) super.getXdiElement(index, create);
 	}
 
@@ -83,9 +83,20 @@ public final class XdiEntityClass extends XdiClass {
 		return new CastingIterator<XdiInstance, XdiEntityElement> (super.instances());
 	}
 
+	@Override
+	public Iterator<XdiEntity> instancesAndElements() {
+
+		return new CastingIterator<XdiSubGraph, XdiEntity> (super.instancesAndElements());
+	}
+
 	/*
 	 * Methods for XRIs
 	 */
+
+	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
+
+		return arcXri;
+	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 

@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------
- * Rule_generic.java
+ * Rule_peer_root.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_generic extends Rule
+final public class Rule_peer_root extends Rule
 {
-  private Rule_generic(String spelling, ArrayList<Rule> rules)
+  private Rule_peer_root(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_generic extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_generic parse(ParserContext context)
+  public static Rule_peer_root parse(ParserContext context)
   {
-    context.push("generic");
+    context.push("peer-root");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -46,7 +46,7 @@ final public class Rule_generic extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "+");
+            rule = Terminal_StringValue.parse(context, "(");
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -58,7 +58,6 @@ final public class Rule_generic extends Rule
         if (parsed)
         {
           boolean f1 = true;
-          @SuppressWarnings("unused")
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
@@ -76,7 +75,7 @@ final public class Rule_generic extends Rule
                   int c2 = 0;
                   for (int i2 = 0; i2 < 1 && f2; i2++)
                   {
-                    rule = Rule_xref.parse(context);
+                    rule = Rule_context.parse(context);
                     if ((f2 = rule != null))
                     {
                       e2.add(rule);
@@ -103,7 +102,7 @@ final public class Rule_generic extends Rule
                   int c2 = 0;
                   for (int i2 = 0; i2 < 1 && f2; i2++)
                   {
-                    rule = Rule_xdi_chars.parse(context);
+                    rule = Rule_iri_chars.parse(context);
                     if ((f2 = rule != null))
                     {
                       e2.add(rule);
@@ -121,7 +120,22 @@ final public class Rule_generic extends Rule
             f1 = context.index > g1;
             if (parsed) c1++;
           }
-          parsed = true;
+          parsed = c1 == 1;
+        }
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Terminal_StringValue.parse(context, ")");
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 1;
         }
         if (parsed)
           e0.addAll(e1);
@@ -132,13 +146,13 @@ final public class Rule_generic extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_generic(context.text.substring(s0, context.index), e0);
+      rule = new Rule_peer_root(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("generic", parsed);
+    context.pop("peer-root", parsed);
 
-    return (Rule_generic)rule;
+    return (Rule_peer_root)rule;
   }
 }
 

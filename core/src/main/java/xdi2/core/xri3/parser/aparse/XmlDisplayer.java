@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Tue Apr 02 10:21:27 CEST 2013
+ * Produced : Wed Apr 03 23:48:03 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -208,6 +208,30 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
+  public Object visit(Rule_inner_relational rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<inner-relational>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</inner-relational>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_inner_statement rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<inner-statement>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</inner-statement>");
+    terminal = false;
+    return null;
+  }
+
   public Object visit(Rule_literal_statement rule)
   {
     if (!terminal) System.out.println();
@@ -328,26 +352,38 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_peer rule)
+  public Object visit(Rule_root rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<peer>");
+    System.out.print("<root>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</peer>");
+    System.out.print("</root>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xref rule)
+  public Object visit(Rule_local_root rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xref>");
+    System.out.print("<local-root>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xref>");
+    System.out.print("</local-root>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_peer_root rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<peer-root>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</peer-root>");
     terminal = false;
     return null;
   }
@@ -360,6 +396,18 @@ public class XmlDisplayer implements Visitor
     visitRules(rule.rules);
     if (!terminal) System.out.println();
     System.out.print("</inner-root>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_xref rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<xref>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</xref>");
     terminal = false;
     return null;
   }

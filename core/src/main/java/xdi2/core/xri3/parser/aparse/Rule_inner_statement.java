@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule_peer.java
+ * Rule_inner_statement.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Tue Apr 02 10:21:27 CEST 2013
+ * Produced : Wed Apr 03 23:48:03 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_peer extends Rule
+final public class Rule_inner_statement extends Rule
 {
-  private Rule_peer(String spelling, ArrayList<Rule> rules)
+  private Rule_inner_statement(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_peer extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_peer parse(ParserContext context)
+  public static Rule_inner_statement parse(ParserContext context)
   {
-    context.push("peer");
+    context.push("inner-statement");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -46,23 +46,44 @@ final public class Rule_peer extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_xref.parse(context);
+            rule = Terminal_StringValue.parse(context, "(");
             if ((f1 = rule != null))
             {
               e1.add(rule);
               c1++;
             }
           }
-          while (f1)
+          parsed = c1 == 1;
+        }
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_xref.parse(context);
+            rule = Rule_xdi_statement.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
               c1++;
             }
           }
-          parsed = c1 >= 1;
+          parsed = c1 == 1;
+        }
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Terminal_StringValue.parse(context, ")");
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 1;
         }
         if (parsed)
           e0.addAll(e1);
@@ -73,13 +94,13 @@ final public class Rule_peer extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_peer(context.text.substring(s0, context.index), e0);
+      rule = new Rule_inner_statement(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("peer", parsed);
+    context.pop("inner-statement", parsed);
 
-    return (Rule_peer)rule;
+    return (Rule_inner_statement)rule;
   }
 }
 
