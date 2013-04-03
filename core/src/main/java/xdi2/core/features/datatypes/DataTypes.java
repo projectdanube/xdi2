@@ -126,7 +126,7 @@ public class DataTypes {
 	 */
 	public static void setLiteralDataType(Literal literal, XDI3Segment dataTypeXri) {
 
-		ContextNode contextNode = literal.getContextNode();
+		ContextNode contextNode = literal.getContextNode().getContextNode();
 
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, dataTypeXri);
 	}
@@ -155,7 +155,7 @@ public class DataTypes {
 
 		try {
 
-			String[] split = xriSegment.substring(xriSegment.indexOf("$") + 1, xriSegment.indexOf("!")).split("[$]");
+			String[] split = xriSegment.substring(xriSegment.indexOf("$") + 1).split("[$]");
 
 			for (int i = 0; i < split.length; i++) {
 
