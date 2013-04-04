@@ -1,6 +1,7 @@
 package xdi2.messaging;
 
 import xdi2.core.Relation;
+import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.util.XRIUtil;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -34,7 +35,7 @@ public class GetOperation extends Operation {
 	public static boolean isValid(Relation relation) {
 
 		if (! XRIUtil.startsWith(relation.getArcXri(), XDIMessagingConstants.XRI_S_GET)) return false;
-		if (! XDIMessagingConstants.XRI_S_DO.equals(relation.getContextNode().getArcXri())) return false;
+		if (! XdiEntitySingleton.createArcXri(XDIMessagingConstants.XRI_SS_DO).equals(relation.getContextNode().getArcXri())) return false;
 
 		return true;
 	}

@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
+import xdi2.core.features.contextfunctions.XdiEntity;
+import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
@@ -75,7 +78,10 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		ContextNode linkContractContextNode = this.getLinkContractsGraph().findContextNode(linkContractXri, false);
 		if (linkContractContextNode == null) return false;
 
-		LinkContract linkContract = LinkContract.fromContextNode(linkContractContextNode);
+		XdiSubGraph xdiSubGraph = XdiAbstractSubGraph.fromContextNode(linkContractContextNode);
+		if (! (xdiSubGraph instanceof XdiEntity)) return false;
+
+		LinkContract linkContract = LinkContract.fromXdiEntity((XdiEntity) xdiSubGraph);
 		if (linkContract == null) return false;
 
 		putLinkContract(executionContext, linkContract);

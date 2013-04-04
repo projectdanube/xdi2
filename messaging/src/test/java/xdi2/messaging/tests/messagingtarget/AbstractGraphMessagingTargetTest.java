@@ -53,14 +53,14 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
 			if (this.getClass().getResourceAsStream("graph" + i + ".xdi") == null) break;
 
+			log.info("Graph " + i);
+
 			Graph graph = this.openNewGraph(this.getClass().getName() + "-graph-" + i); 
 			autoReader.read(graph, this.getClass().getResourceAsStream("graph" + i + ".xdi")).close();
 
 			GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 			graphMessagingTarget.setGraph(graph);
 			graphMessagingTarget.getInterceptors().addInterceptor(new RefInterceptor());
-
-			log.info("Graph " + i);
 
 			// execute the messages
 
@@ -70,10 +70,10 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
 				if (this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi") == null) break;
 
+				log.info("Message " + i + "." + ii);
+
 				Graph message = this.openNewGraph(this.getClass().getName() + "-message-" + i + "-" + ii); 
 				autoReader.read(message, this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi")).close();
-
-				log.info("Message " + i + "." + ii);
 
 				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(message);
 				MessageResult messageResult = new MessageResult();
@@ -90,11 +90,11 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 			while (true) {
 
 				if (this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi") == null) break;
+				
+				log.info("Positive " + i + "." + ii);
 
 				Graph positive = this.openNewGraph(this.getClass().getName() + "-positive-" + i + "-" + ii); 
 				autoReader.read(positive, this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi")).close();
-
-				log.info("Positive " + i + "." + ii);
 
 				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(positive);
 				MessageResult messageResult = new MessageResult();
@@ -102,6 +102,29 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				graphMessagingTarget.execute(messageEnvelope, messageResult, null);
 
 				assertFalse(messageResult.isEmpty());
+
+				ii++;
+			}
+
+			// check negatives
+
+			ii = 1;
+
+			while (true) {
+
+				if (this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi") == null) break;
+
+				log.info("Negative " + i + "." + ii);
+
+				Graph negative = this.openNewGraph(this.getClass().getName() + "-negative-" + i + "-" + ii); 
+				autoReader.read(negative, this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi")).close();
+
+				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(negative);
+				MessageResult messageResult = new MessageResult();
+
+				graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+
+				assertTrue(messageResult.isEmpty());
 
 				ii++;
 			}
@@ -114,12 +137,12 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
 				if (this.getClass().getResourceAsStream("exception" + i + "." + ii + ".xdi") == null) break;
 
-				Graph negative = this.openNewGraph(this.getClass().getName() + "-exception-" + i + "-" + ii); 
-				autoReader.read(negative, this.getClass().getResourceAsStream("exception" + i + "." + ii + ".xdi")).close();
-
 				log.info("Exception " + i + "." + ii);
 
-				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(negative);
+				Graph exception = this.openNewGraph(this.getClass().getName() + "-exception-" + i + "-" + ii); 
+				autoReader.read(exception, this.getClass().getResourceAsStream("exception" + i + "." + ii + ".xdi")).close();
+
+				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(exception);
 				MessageResult messageResult = new MessageResult();
 
 				try {

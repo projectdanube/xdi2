@@ -36,8 +36,8 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		//$JUnit-BEGIN$
-		suite.addTestSuite(XDI3ParserAParseTest.class);
-		suite.addTestSuite(XDI3ParserAPGTest.class);
+//		suite.addTestSuite(XDI3ParserAParseTest.class);
+//		suite.addTestSuite(XDI3ParserAPGTest.class);
 		suite.addTestSuite(XDI3ParserManualTest.class);
 		suite.addTestSuite(MemoryGraphTest.class);
 		suite.addTestSuite(MapGraphTest.class);

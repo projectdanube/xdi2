@@ -29,8 +29,8 @@ public class SimpleLinkContractsTest extends TestCase {
 		assertEquals(new IteratorCounter(LinkContracts.getAllLinkContracts(graph)).count(), 1);
 		assertNull(LinkContracts.getLinkContract(contextNode1111_1, false));
 		assertNotNull(LinkContracts.getLinkContract(contextNode1111_2, false));
-		assertNotNull(LinkContracts.findLinkContractByAddress(graph, XDI3Segment.create("$(=!1111)$(!2)$do")));
-		assertNull(LinkContracts.findLinkContractByAddress(graph, XDI3Segment.create("$(=!1111)$(!2)")));
+		assertNotNull(LinkContracts.getLinkContract(graph, XDI3Segment.create("$(=!1111)$(!2)$do"), false));
+		assertNull(LinkContracts.getLinkContract(graph, XDI3Segment.create("$(=!1111)$(!2)"), false));
 
 		LinkContract linkContract = LinkContracts.getLinkContract(contextNode1111_2, false);
 		assertEquals(linkContract.getNodesWithPermission(XDILinkContractConstants.XRI_S_GET).next(), contextNode1111_2);

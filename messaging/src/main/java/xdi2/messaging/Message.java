@@ -1,10 +1,8 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
@@ -16,11 +14,9 @@ import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.timestamps.Timestamps;
-import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
-import xdi2.core.util.iterators.NoDuplicatesIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
@@ -60,7 +56,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
-		return xdiEntity.getContextNode().containsContextNode(XDIMessagingConstants.XRI_SS_DO);
+		return xdiEntity.getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, false) != null;
 	}
 
 	/**
@@ -226,11 +222,8 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		ContextNode contextNode = this.getOperationsContextNode().getContextNode(XDIPolicyConstants.XRI_SS_IF);
-		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDIPolicyConstants.XRI_SS_IF);
-		if (contextNode == null) return null;
-
-		XdiEntitySingleton xdiEntitySingleton = XdiEntitySingleton.fromContextNode(contextNode);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_IF, create);
+		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
 	}
@@ -241,7 +234,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ContextNode getOperationsContextNode() {
 
-		return this.getContextNode().getContextNode(XDIMessagingConstants.XRI_SS_DO);
+		return this.getXdiEntity().getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true).getContextNode();
 	}
 
 	/**
@@ -465,11 +458,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		// get all relations that are valid XDI operations
 
-		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
-// TODO:		iterators.add(Ordering.getOrderedRelations(this.getOperationsContextNode()));
-		iterators.add(this.getOperationsContextNode().getRelations());
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
 
-		return new MappingRelationOperationIterator(this, new NoDuplicatesIterator<Relation> (new CompositeIterator<Relation> (iterators.iterator())));
+		return new MappingRelationOperationIterator(this, relations);
 	}
 
 	/**

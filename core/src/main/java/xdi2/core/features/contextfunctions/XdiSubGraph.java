@@ -8,6 +8,7 @@ import xdi2.core.xri3.XDI3SubSegment;
 public interface XdiSubGraph extends Serializable, Comparable<XdiSubGraph> {
 
 	public ContextNode getContextNode();
+	public XDI3SubSegment getBaseArcXri();
 
 	public XdiEntityClass getXdiEntityClass(XDI3SubSegment arcXri, boolean create);
 	public XdiAttributeClass getXdiAttributeClass(XDI3SubSegment arcXri, boolean create);

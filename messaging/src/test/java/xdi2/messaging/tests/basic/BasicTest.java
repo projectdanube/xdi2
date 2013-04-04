@@ -166,66 +166,6 @@ public class BasicTest extends TestCase {
 		assertTrue(operation instanceof AddOperation);
 	}
 
-	public void testMessagingSimple1() throws Exception {
-
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		XDIReaderRegistry.getAuto().read(graph, this.getClass().getResourceAsStream("simple.1.xdi")).close();
-
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph);
-		MessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, false);
-		Message message = messageCollection.getMessage(false);
-		Operation addOperation = message.getAddOperations().next();
-		Operation getOperation = message.getGetOperations().next();
-		Operation modOperation = message.getModOperations().next();
-		Operation delOperation = message.getDelOperations().next();
-
-		assertTrue(messageCollection.equals(messageEnvelope.getMessageCollection(SENDER, false)));
-		assertTrue(message.equals(messageCollection.getMessages().next()));
-		assertTrue(addOperation.equals(message.getAddOperations().next()));
-		assertTrue(getOperation.equals(message.getGetOperations().next()));
-		assertTrue(modOperation.equals(message.getModOperations().next()));
-		assertTrue(delOperation.equals(message.getDelOperations().next()));
-
-		assertEquals(messageEnvelope.getMessageCount(), 1);
-		assertEquals(messageEnvelope.getOperationCount(), 4);
-		assertEquals(messageCollection.getMessageCount(), 1);
-		assertEquals(messageCollection.getOperationCount(), 4);
-		assertEquals(message.getOperationCount(), 4);
-		assertEquals(messageCollection.getSender(), SENDER);
-		assertEquals(message.getSender(), SENDER);
-		assertEquals(addOperation.getSender(), SENDER);
-		assertEquals(getOperation.getSender(), SENDER);
-		assertEquals(delOperation.getSender(), SENDER);
-		assertEquals(modOperation.getSender(), SENDER);
-		assertTrue(addOperation instanceof AddOperation);
-		assertTrue(getOperation instanceof GetOperation);
-		assertTrue(modOperation instanceof ModOperation);
-		assertTrue(delOperation instanceof DelOperation);
-	}
-
-	public void testMessagingSimple2() throws Exception {
-
-		XDI3Segment sender = XDI3Segment.create("=!1111");
-
-		GregorianCalendar calendar = new GregorianCalendar(2010, 11, 22, 22, 22, 22);
-		calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		XDIReaderRegistry.getAuto().read(graph, this.getClass().getResourceAsStream("simple.2.xdi")).close();
-
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph);
-		MessageCollection messageCollection = messageEnvelope.getMessageCollection(sender, false);
-		Message message = messageCollection.getMessage(false);
-
-		assertEquals(message.getLinkContractXri(), XDI3Segment.create("$(=!2222)$(!1)$do"));
-		LinkContract linkContract = LinkContracts.findLinkContractByAddress(messageEnvelope.getGraph(), message.getLinkContractXri());
-		assertNotNull(linkContract);
-
-		assertEquals(message.getFromAddress(), XDI3Segment.create("(=!1111)(!3)"));
-		assertEquals(message.getToAddress(), XDI3Segment.create("(=!2222)"));
-		assertEquals(message.getTimestamp(), calendar.getTime());
-	}
-
 	public void testSenderAndRecipientAddress() throws Exception {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();

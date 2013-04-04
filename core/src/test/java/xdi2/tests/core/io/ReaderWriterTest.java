@@ -76,6 +76,15 @@ public class ReaderWriterTest extends TestCase {
 				Graph graph2a = MemoryGraphFactory.getInstance().openGraph();
 				XDIReaderRegistry.forMimeType(mimeTypes[ii]).read(graph2a, new StringReader(graph2.toString(mimeTypes[ii])));
 
+				System.err.println(i);
+				System.err.println(ii);
+				
+				System.err.println(graph1a);
+				System.err.println(graph2a);
+				System.err.flush();
+				
+				assertEquals(graph1a.toString(new MimeType("text/xdi")), graph2a.toString(new MimeType("text/xdi")));
+
 				assertEquals(graph1a, graph2a);
 				assertEquals(graph1a, graph1);
 				assertEquals(graph2a, graph2);

@@ -116,7 +116,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 		if (create) {
 
 			XdiEntityInstance xdiEntityInstance = this.xdiEntityClass.getXdiInstance();
-			xdiEntityInstance.getContextNode().createContextNode(XDIMessagingConstants.XRI_SS_DO);
+			xdiEntityInstance.getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true);
 
 			return new Message(this, xdiEntityInstance);
 		} else {

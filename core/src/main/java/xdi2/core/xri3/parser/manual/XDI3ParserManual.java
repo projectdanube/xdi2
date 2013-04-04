@@ -139,7 +139,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		String iri = null;
 		String literal = null;
 
-		if (temp.indexOf(':') != -1) {
+		if (isIri(temp)) {
 
 			iri = value;
 		} else {
@@ -196,6 +196,28 @@ public class XDI3ParserManual extends XDI3Parser {
 		}
 
 		return temp;
+	}
+
+	private static boolean isIri(String string) {
+
+		int indexColon = string.indexOf(':');
+		int indexEquals = string.indexOf(XDI3Constants.CS_EQUALS.charValue());
+		int indexAt = string.indexOf(XDI3Constants.CS_AT.charValue());
+		int indexPlus = string.indexOf(XDI3Constants.CS_PLUS.charValue());
+		int indexDollar = string.indexOf(XDI3Constants.CS_DOLLAR.charValue());
+		int indexStar = string.indexOf(XDI3Constants.CS_STAR.charValue());
+		int indexBang = string.indexOf(XDI3Constants.CS_BANG.charValue());
+
+		if (indexColon == -1) return false;
+
+		if (indexEquals != -1 && indexEquals < indexColon) return false;
+		if (indexAt != -1 && indexAt < indexColon) return false;
+		if (indexPlus != -1 && indexPlus < indexColon) return false;
+		if (indexDollar != -1 && indexDollar < indexColon) return false;
+		if (indexStar != -1 && indexStar < indexColon) return false;
+		if (indexBang != -1 && indexBang < indexColon) return false;
+
+		return true;
 	}
 
 	/*
