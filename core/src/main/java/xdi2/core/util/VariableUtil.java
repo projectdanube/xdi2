@@ -49,6 +49,7 @@ public final class VariableUtil {
 
 		XDI3Segment innerSegment = variable.getXRef().getSegment();
 		XDI3SubSegment innerSubSegment = innerSegment.getFirstSubSegment();
+		if (innerSubSegment.hasCs()) return null;
 		if (! innerSubSegment.hasXRef()) return null;
 
 		return innerSubSegment.getXRef().getCf();
@@ -70,7 +71,13 @@ public final class VariableUtil {
 			XDI3Segment innerSegment = variable.getXRef().getSegment();
 			XDI3SubSegment innerSubSegment = innerSegment.getFirstSubSegment();
 
-			if (innerSubSegment.hasXRef()) {
+			if (innerSubSegment.hasCs()) {
+
+				for (int i=0; i<innerSegment.getNumSubSegments(); i++) {
+
+					css += innerSegment.getSubSegment(i).getCs();
+				}
+			} else if (innerSubSegment.hasXRef()) {
 
 				if (innerSubSegment.getXRef().hasSegment()) {
 
@@ -80,12 +87,6 @@ public final class VariableUtil {
 
 						css += innerInnerSegment.getSubSegment(i).getCs();
 					}
-				}
-			} else {
-
-				for (int i=0; i<innerSegment.getNumSubSegments(); i++) {
-
-					css += innerSegment.getSubSegment(i).getCs();
 				}
 			}
 		}
@@ -104,9 +105,8 @@ public final class VariableUtil {
 		if (! variable.getXRef().hasSegment()) return false;
 
 		XDI3Segment innerSegment = variable.getXRef().getSegment();
-		if (innerSegment.getNumSubSegments() < 2) return false;
 
-		return "{}".equals(innerSegment.getLastSubSegment().toString());
+		return innerSegment.toString().length() > 2 && innerSegment.toString().endsWith("{}");
 	}
 
 	/**

@@ -61,10 +61,10 @@ public class XDIJSONReader extends AbstractXDIReader {
 			String key = entry.getKey();
 			JSONArray value = (JSONArray) entry.getValue();
 
-			XDI3Statement statementXri = makeStatement(key + "/()", state);
-			ContextNode baseContextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
-
 			if (key.endsWith("/" + XDIConstants.XRI_S_CONTEXT.toString())) {
+
+				XDI3Statement statementXri = makeStatement(key + "/()", state);
+				ContextNode baseContextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
 
 				// add context nodes
 
@@ -87,6 +87,9 @@ public class XDIJSONReader extends AbstractXDIReader {
 				}
 			} else if (key.endsWith("/" + XDIConstants.XRI_S_LITERAL.toString())) {
 
+				XDI3Statement statementXri = makeStatement(key + "/\"\"", state);
+				ContextNode baseContextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
+
 				// add literal
 
 				if (value.size() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
@@ -96,6 +99,9 @@ public class XDIJSONReader extends AbstractXDIReader {
 				Literal literal = baseContextNode.createLiteral(literalData);
 				if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Created literal --> " + literal.getLiteralData());
 			} else {
+
+				XDI3Statement statementXri = makeStatement(key + "/()", state);
+				ContextNode baseContextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
 
 				// add inner root and/or relations
 

@@ -17,7 +17,7 @@ public class DataTypesTest extends TestCase {
 
 		StringBuilder buffer = new StringBuilder();
 
-		buffer.append("=markus!<+age><<$string>>/<>/(data:,33)\n");
+		buffer.append("=markus!<+age><<$string>>/<>/\"33\"\n");
 		buffer.append("=markus!<+age>/$is+/+$xsd$int\n");
 		buffer.append("=markus!<+age>/$is+/+$json$number\n");
 		String xdiString = buffer.toString();

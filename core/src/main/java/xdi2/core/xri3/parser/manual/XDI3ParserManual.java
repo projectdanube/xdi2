@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
@@ -41,16 +42,16 @@ public class XDI3ParserManual extends XDI3Parser {
 		String subjectString = string.substring(0, split0);
 		String predicateString = string.substring(split0 + 1, split0 + split1 + 1);
 		String objectString = string.substring(split0 + split1 + 2);
-		
+
 		XDI3Segment subject = this.parseXDI3Segment(subjectString);
 		XDI3Segment predicate = this.parseXDI3Segment(predicateString);
 		Object object;
-		
-		if (objectString.startsWith("\"")) {
-			
+
+		if (XDIConstants.XRI_S_LITERAL.equals(predicateString)) {
+
 			object = this.parseString(objectString);
 		} else {
-		
+
 			object = this.parseXDI3Segment(objectString);
 		}
 
@@ -105,7 +106,7 @@ public class XDI3ParserManual extends XDI3Parser {
 	public XDI3SubSegment parseXDI3SubSegment(String string) {
 
 		if (log.isTraceEnabled()) log.trace("Parsing subsegment: " + string);
-
+		
 		Character cs = null;
 		String literal = null;
 		XDI3XRef xref = null;
@@ -187,10 +188,10 @@ public class XDI3ParserManual extends XDI3Parser {
 		if (string.length() < 2) throw new ParserException("Invalid string: " + string);
 		if (string.charAt(0) != '"') throw new ParserException("Invalid string: " + string + " (no opening double quotes)");
 		if (string.charAt(string.length() - 1) != '"') throw new ParserException("Invalid string: " + string + " (no closing double quotes)");
-		
-		return string.substring(1, string.length() - 2);
+
+		return string.substring(1, string.length() - 1);
 	}
-		
+
 	private static String stripCf(String string) {
 
 		string = stripCf(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));

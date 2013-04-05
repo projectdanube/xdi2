@@ -84,6 +84,8 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		LinkContract linkContract = LinkContract.fromXdiEntity((XdiEntity) xdiSubGraph);
 		if (linkContract == null) return false;
 
+		log.debug("Found link contract " + linkContract);
+
 		putLinkContract(executionContext, linkContract);
 
 		// evaluate the XDI policy against this message

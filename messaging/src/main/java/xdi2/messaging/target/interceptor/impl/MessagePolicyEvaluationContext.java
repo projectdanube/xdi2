@@ -12,8 +12,8 @@ import xdi2.messaging.Message;
 
 public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext {
 
-	public static final XDI3Segment XRI_FROM = XDI3Segment.create("($from)");
-	public static final XDI3Segment XRI_MSG = XDI3Segment.create("($msg)");
+	public static final XDI3Segment XRI_FROM = XDI3Segment.create("{$from}");
+	public static final XDI3Segment XRI_MSG = XDI3Segment.create("{$msg}");
 
 	private Message message;
 

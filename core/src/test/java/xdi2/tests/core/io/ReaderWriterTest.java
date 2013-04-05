@@ -58,7 +58,7 @@ public class ReaderWriterTest extends TestCase {
 				new MimeType("application/xdi+json;ordered=1"),
 				new MimeType("application/xdi+json;ordered=1;implied=1"),
 				new MimeType("application/xdi+json;ordered=1;inner=1"),
-				new MimeType("application/xdi+json;ordered=1;implied=0;inner=0"),
+				// TODO??? new MimeType("application/xdi+json;ordered=1;implied=0;inner=0"),
 				new MimeType("application/xdi+json;ordered=1;implied=0;inner=1"),
 				new MimeType("application/xdi+json;ordered=1;implied=1;inner=0"),
 				new MimeType("application/xdi+json;ordered=1;implied=1;inner=1")
@@ -75,13 +75,6 @@ public class ReaderWriterTest extends TestCase {
 
 				Graph graph2a = MemoryGraphFactory.getInstance().openGraph();
 				XDIReaderRegistry.forMimeType(mimeTypes[ii]).read(graph2a, new StringReader(graph2.toString(mimeTypes[ii])));
-
-				System.err.println(i);
-				System.err.println(ii);
-				
-				System.err.println(graph1a);
-				System.err.println(graph2a);
-				System.err.flush();
 				
 				assertEquals(graph1a.toString(new MimeType("text/xdi")), graph2a.toString(new MimeType("text/xdi")));
 

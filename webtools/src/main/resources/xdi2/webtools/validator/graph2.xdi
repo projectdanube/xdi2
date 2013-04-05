@@ -30,7 +30,7 @@
    "$d",
    "$v"
 ],
-"=!1111+passport!2+country/!" : [ "New%20Zealand" ],
+"=!1111+passport!2+country/!" : [ "New Zealand" ],
 "=!1111+passport!2+num/!" : [ "123456789" ],
 "=!1111+passport!2+expires/()": [
    "$d",

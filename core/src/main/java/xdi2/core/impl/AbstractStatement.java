@@ -7,6 +7,7 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -70,7 +71,7 @@ public abstract class AbstractStatement implements Statement {
 		builder.append("/");
 		builder.append(this.getPredicate());
 		builder.append("/");
-		builder.append(this.getObject());
+		builder.append(StatementUtil.statementObjectToString(this.getObject()));
 
 		return builder.toString();
 	}

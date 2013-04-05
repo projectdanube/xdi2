@@ -7,8 +7,9 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.features.contextfunctions.XdiAttributeSingleton;
 import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
+import xdi2.core.features.contextfunctions.XdiAttributeSingleton;
+import xdi2.core.features.contextfunctions.XdiValue;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.timestamps.Timestamps;
@@ -25,7 +26,7 @@ public class ErrorMessageResult extends MessageResult {
 	private static final long serialVersionUID = 8816468280233966339L;
 
 	public static final XDI3Segment XRI_S_FALSE = XDI3Segment.create("$false");
-	public static final XDI3Segment XRI_S_ERROR = XDI3Segment.create("$error");
+	public static final XDI3Segment XRI_S_ERROR = XDI3Segment.create("!<$error>");
 
 	public static final XDI3SubSegment XRI_SS_FALSE = XDI3SubSegment.create("$false");
 
@@ -124,10 +125,13 @@ public class ErrorMessageResult extends MessageResult {
 
 	public String getErrorString() {
 
-		XdiAttributeSingleton errorStringAttributeSingleton = XdiAbstractSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, false);
-		if (errorStringAttributeSingleton == null) return null;
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, false);
+		if (xdiAttributeSingleton == null) return null;
 
-		Literal errorStringLiteral = errorStringAttributeSingleton.getContextNode().getLiteral();
+		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(XDI3SubSegment.create("<<$string>>"), false);
+		if (xdiValue == null) return null;
+
+		Literal errorStringLiteral = xdiValue.getContextNode().getLiteral();
 		if (errorStringLiteral == null) return null;
 
 		return errorStringLiteral.getLiteralData();
@@ -135,14 +139,15 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorString(String errorString) {
 
-		XdiAttributeSingleton errorStringAttributeSingleton = XdiAbstractSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, true);
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, true);
+		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(XDI3SubSegment.create("<<$string>>"), true);
 
-		Literal errorStringLiteral = errorStringAttributeSingleton.getContextNode().getLiteral();
+		Literal errorStringLiteral = xdiValue.getContextNode().getLiteral();
 
 		if (errorStringLiteral != null) 
 			errorStringLiteral.setLiteralData(errorString); 
 		else
-			errorStringAttributeSingleton.getContextNode().createLiteral(errorString);
+			xdiAttributeSingleton.getContextNode().createLiteral(errorString);
 	}
 
 	public void setErrorOperation(Operation operation) {

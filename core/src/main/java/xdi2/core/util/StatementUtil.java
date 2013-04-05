@@ -30,7 +30,7 @@ public final class StatementUtil {
 	 */
 	public static XDI3Statement fromComponents(final XDI3Segment subject, final XDI3Segment predicate, final Object object) {
 
-		return XDI3Statement.create("" + subject + "/" + predicate + "/" + object);
+		return XDI3Statement.create("" + subject + "/" + predicate + "/" + StatementUtil.statementObjectToString(object));
 	}
 
 	/**
@@ -143,4 +143,25 @@ public final class StatementUtil {
 
 		return reduceStatement(statement, base, false, false);
 	}
+
+	public static String statementObjectToString(Object object) {
+
+		if (object instanceof String) {
+
+			return "\"" + ((String) object).replace("\"", "\\\"") + "\"";
+		} else {
+
+			return object.toString();
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+

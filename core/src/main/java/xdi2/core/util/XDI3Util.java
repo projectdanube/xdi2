@@ -284,9 +284,15 @@ public final class XDI3Util {
 					xriIndex++;
 					baseIndex++;
 
-					if (VariableUtil.isMultiple(xriSubSegment)) {
+					if (VariableUtil.isMultiple(xriSubSegment) && baseIndex < base.getNumSubSegments()) {
 
-						while (baseIndex < base.getNumSubSegments() && VariableUtil.matches(xriSubSegment, baseSubSegment)) baseIndex++;
+						baseSubSegment = base.getSubSegment(baseIndex);
+
+						while (VariableUtil.matches(xriSubSegment, baseSubSegment)) {
+
+							if (++baseIndex == base.getNumSubSegments()) break;
+							baseSubSegment = base.getSubSegment(baseIndex);
+						}
 					}
 
 					continue;
@@ -303,9 +309,15 @@ public final class XDI3Util {
 					xriIndex++;
 					baseIndex++;
 
-					if (VariableUtil.isMultiple(baseSubSegment)) {
+					if (VariableUtil.isMultiple(baseSubSegment) && xriIndex < xri.getNumSubSegments()) {
 
-						while (xriIndex < xri.getNumSubSegments() && VariableUtil.matches(baseSubSegment, xriSubSegment)) xriIndex++;
+						xriSubSegment = xri.getSubSegment(xriIndex);
+
+						while (VariableUtil.matches(baseSubSegment, xriSubSegment)) {
+
+							if (++xriIndex == xri.getNumSubSegments()) break;
+							xriSubSegment = xri.getSubSegment(xriIndex);
+						}
 					}
 
 					continue;

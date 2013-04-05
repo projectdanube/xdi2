@@ -23,7 +23,9 @@ public class VariablesTest extends TestCase {
 				XDI3SubSegment.create("{{=@}}"),
 				XDI3SubSegment.create("{<>}"),
 				XDI3SubSegment.create("{(){}}"),
-				XDI3SubSegment.create("{{+*!4}{}}")
+				XDI3SubSegment.create("{{+*!4}{}}"),
+				XDI3SubSegment.create("{*={}}"),
+				XDI3SubSegment.create("{!{}}")
 		};
 
 		String variablesCf[] = new String[] {
@@ -41,7 +43,9 @@ public class VariablesTest extends TestCase {
 				"{}",
 				"<>",
 				"()",
-				"{}"
+				"{}",
+				null,
+				null
 		};
 
 		String variablesCss[] = new String[] {
@@ -59,7 +63,9 @@ public class VariablesTest extends TestCase {
 				"=@",
 				"",
 				"",
-				"+*!"
+				"+*!",
+				"*=",
+				"!"
 		};
 
 		boolean variablesMultiple[] = new boolean[] {
@@ -77,6 +83,8 @@ public class VariablesTest extends TestCase {
 				false,
 				false,
 				true,
+				true,
+				true,
 				true
 		};
 
@@ -87,7 +95,7 @@ public class VariablesTest extends TestCase {
 		assertEquals(variables.length, variablesMultiple.length);
 		
 		for (int i=0; i<variables.length; i++) {
-System.err.println("" + i + ": " + VariableUtil.getCss(variables[i]));
+
 			assertEquals(variablesCf[i], VariableUtil.getCf(variables[i]));
 			assertEquals(variablesCss[i], VariableUtil.getCss(variables[i]));
 			assertEquals(Boolean.valueOf(variablesMultiple[i]), Boolean.valueOf(VariableUtil.isMultiple(variables[i])));

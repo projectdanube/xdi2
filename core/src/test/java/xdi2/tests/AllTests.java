@@ -24,8 +24,7 @@ import xdi2.tests.core.io.ReaderWriterRegistryTest;
 import xdi2.tests.core.io.ReaderWriterTest;
 import xdi2.tests.core.util.CopyUtilTest;
 import xdi2.tests.core.util.StatementUtilTest;
-import xdi2.tests.core.util.XDIUtilTest;
-import xdi2.tests.core.util.XRIUtilTest;
+import xdi2.tests.core.util.XDI3UtilTest;
 import xdi2.tests.core.util.iterators.IteratorTest;
 import xdi2.tests.core.xri3.XDI3ParserAPGTest;
 import xdi2.tests.core.xri3.XDI3ParserAParseTest;
@@ -36,8 +35,8 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		//$JUnit-BEGIN$
-//		suite.addTestSuite(XDI3ParserAParseTest.class);
-//		suite.addTestSuite(XDI3ParserAPGTest.class);
+		suite.addTestSuite(XDI3ParserAParseTest.class);
+		suite.addTestSuite(XDI3ParserAPGTest.class);
 		suite.addTestSuite(XDI3ParserManualTest.class);
 		suite.addTestSuite(MemoryGraphTest.class);
 		suite.addTestSuite(MapGraphTest.class);
@@ -59,8 +58,7 @@ public class AllTests {
 		suite.addTestSuite(VariablesTest.class);
 		suite.addTestSuite(ReaderWriterRegistryTest.class);
 		suite.addTestSuite(ReaderWriterTest.class);
-		suite.addTestSuite(XRIUtilTest.class);
-		suite.addTestSuite(XDIUtilTest.class);
+		suite.addTestSuite(XDI3UtilTest.class);
 		suite.addTestSuite(CopyUtilTest.class);
 		suite.addTestSuite(StatementUtilTest.class);
 		suite.addTestSuite(IteratorTest.class);
