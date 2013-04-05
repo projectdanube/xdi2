@@ -1,17 +1,7 @@
-()/()/=abc
-=abc/()/$!(+age)
-=abc/()/$!(+photo)
-=abc$!(+age)/()/$!($t)
-=abc$!(+age)/()/$v
-=abc$!(+age)$v/()/$!(!1)
-=abc$!(+age)$v/()/$!(!2)
-=abc$!(+age)$v$!(!1)/()/$!($t)
-=abc$!(+age)/$is+/+$json$number!
-=abc$!(+age)/$v/=abc$!(+age)$v$!(!2)
-=abc$!(+age)$v$!(!2)/$is/=abc$!(+age)
-=abc$!(+photo)/$is+/+$mime$image$png!
-=abc$!(+age)/!/(data:,33)
-=abc$!(+age)$!($d)/!/(data:,2010-10-10T11:12:13Z)
-=abc$!(+age)$v$!(!1)/!/(data:,32)
-=abc$!(+age)$v$!(!1)$!($t)/!/(data:,2010-09-09T10:11:12Z)
-=abc$!(+photo)/!/(data:,R0lGODdhMAAwAPAAAAAAAP///ywAAAAAMAAwAAAC8IyPqcvt3wCcDkiLc7C0qwyGHhSWpjQu5yqmCYsapyuvUUlvONmOZtfzgFzByTB10QgxOR0TqBQejhRNzOfkVJ+5YiUqrXF5Y5lKh/DeuNcP5yLWGsEbtLiOSp)
+=markus<+email>!:uuid:1111<<$string>>/<>/"1@gmail.com"
+=markus<+email>!:uuid:2222<<$string>>/<>/"2@gmail.com"
+=markus<+email>!:uuid:3333<<$string>>/<>/"3@gmail.com"
+=markus<+email>[1]/$ref/=markus<+email>!:uuid:3333
+=markus<+email>[2]/$ref/=markus<+email>!:uuid:2222
+=markus<+email>[3]/$ref/=markus<+email>!:uuid:1111
+=markus!<+email>/$ref/ =markus<+email>!:uuid:1111

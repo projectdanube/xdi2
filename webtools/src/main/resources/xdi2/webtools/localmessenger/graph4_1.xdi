@@ -1,11 +1,11 @@
 =markus/$ref/=!1111
-=!1111$!(+name)/!/(data:,Markus)
-=!1111$!(+country)/!/(data:,Austria)
+=!1111!<+name>/<<$string>>/<>/(data:,Markus)
+=!1111!<+country>/<<$string>>/(data:,Austria)
 =animesh/$ref/=!2222
-=!2222$!(+name)/!/(data:,Animesh)
-=!2222$!(+country)/!/(data:,USA)
+=!2222!<+name>/<<$string>>/(data:,Animesh)
+=!2222!<+country>/<<$string>>/<>/(data:,USA)
 =pseudonym/$ref/=!3333
-=!3333$!(+name)/$rep/=!1111$!(+name)
-=!3333$!(+country)/$rep/=!2222$!(+country)
+=!3333!<+name>/$rep/=!1111!<+name>
+=!3333!<+country>/$rep/=!2222!<+country>
 (=!1111)/$ref/()
 ()/$is$ref/(=!1111)

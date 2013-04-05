@@ -1,10 +1,10 @@
 (=!91F2.8153.F600.AE24)/$ref/()
-$do$if$and/$true/(($from)/$is/=!91F2.8153.F600.AE24)
-$do$if$and/$true/(($msg)$secret$!($token)/$equals/$secret$!($token))
-$do/$all/()
-+friend$do$if/$true/(=!91F2.8153.F600.AE24/+friend/($from))
-+friend$do/$get/=!91F2.8153.F600.AE24
-=!91F2.8153.F600.AE24$!(+email)/!/(data:,markus.sabadello@gmail.com)
+!($do)!($if)!($and)/$true/({$from}/$is/=!91F2.8153.F600.AE24)
+!($do)!($if)!($and)/$true/({$msg}!($secret)!<$token><<$string>>/$equals/!($secret)!<$token><<$string>>)
+!($do)/$all/()
++friend!($do)!($if)/$true/(=!91F2.8153.F600.AE24/+friend/{$from})
++friend!($do)/$get/=!91F2.8153.F600.AE24
+=!91F2.8153.F600.AE24!<+email>/<>/(data:,markus.sabadello@gmail.com)
 =!91F2.8153.F600.AE24/+friend/=!1111
 =!91F2.8153.F600.AE24/+friend/=!2222
 =markus/$ref/=!91F2.8153.F600.AE24

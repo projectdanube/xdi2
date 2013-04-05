@@ -1,6 +1,6 @@
-=markus$($msg)$(!1)/$is()/(@!3436.F6A6.3644.4D74)
-=markus$($msg)$(!1)$do/$add/(@kynetx/()/$($uri))
-=markus$($msg)$(!1)$do/$add/(@kynetx$($uri)/()/$!($1))
-=markus$($msg)$(!1)$do/$add/(@kynetx$($uri)/()/$!($2))
-=markus$($msg)$(!1)$do/$add/(@kynetx$($uri)$!($1)/!/(data:,http://xdi.kobj.net))
-=markus$($msg)$(!1)$do/$add/(@kynetx$($uri)$!($2)/!/(data:,https://xdi.kobj.net))
+=markus$msg!1/$is()/(@!3436.F6A6.3644.4D74)
+=markus$msg!1!($do)/$add/(@kynetx/()/$uri)
+=markus$msg!1!($do)/$add/(@kynetx$uri/()/!$1
+=markus$msg!1!($do)/$add/(@kynetx$uri/()/!$2
+=markus$msg!1!($do)/$add/(@kynetx$uri!1<<s$tring>>/<>/(data:,http://xdi.kobj.net))
+=markus$msg!1!($do)/$add/(@kynetx$uri!2<<s$tring>>/<>/(data:,https://xdi.kobj.net))
