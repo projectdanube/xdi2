@@ -1,7 +1,6 @@
 package xdi2.tests.core.xri3;
 
 import junit.framework.TestCase;
-import xdi2.core.util.XDIUtil;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
@@ -67,16 +66,16 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(statement.getPredicate().getSubSegment(0), statement.getPredicate().getLastSubSegment());
 		assertEquals(statement.getPredicate().getSubSegment(0), parser.parseXDI3SubSegment("<>"));
 
-		assertEquals(statement.getObject().getNumSubSegments(), 1);
-		assertEquals(statement.getObject().getSubSegment(0), statement.getObject().getFirstSubSegment());
-		assertEquals(statement.getObject().getSubSegment(0), statement.getObject().getLastSubSegment());
-		assertEquals(statement.getObject().getSubSegment(0), parser.parseXDI3SubSegment("(data:,xxx)"));
-		assertNull(statement.getObject().getSubSegment(0).getXRef().getSegment());
-		assertNull(statement.getObject().getSubSegment(0).getXRef().getStatement());
-		assertNull(statement.getObject().getSubSegment(0).getXRef().getPartialSubject());
-		assertNull(statement.getObject().getSubSegment(0).getXRef().getPartialPredicate());
-		assertEquals(statement.getObject().getSubSegment(0).getXRef().getIri(), "data:,xxx");
-		assertNull(statement.getObject().getSubSegment(0).getXRef().getLiteral());
+		assertEquals(((XDI3Segment) statement.getObject()).getNumSubSegments(), 1);
+		assertEquals(((XDI3Segment) statement.getObject()).getSubSegment(0), ((XDI3Segment) statement.getObject()).getFirstSubSegment());
+		assertEquals(((XDI3Segment) statement.getObject()).getSubSegment(0), ((XDI3Segment) statement.getObject()).getLastSubSegment());
+		assertEquals(((XDI3Segment) statement.getObject()).getSubSegment(0), parser.parseXDI3SubSegment("(data:,xxx)"));
+		assertNull(((XDI3Segment) statement.getObject()).getSubSegment(0).getXRef().getSegment());
+		assertNull(((XDI3Segment) statement.getObject()).getSubSegment(0).getXRef().getStatement());
+		assertNull(((XDI3Segment) statement.getObject()).getSubSegment(0).getXRef().getPartialSubject());
+		assertNull(((XDI3Segment) statement.getObject()).getSubSegment(0).getXRef().getPartialPredicate());
+		assertEquals(((XDI3Segment) statement.getObject()).getSubSegment(0).getXRef().getIri(), "data:,xxx");
+		assertNull(((XDI3Segment) statement.getObject()).getSubSegment(0).getXRef().getLiteral());
 	}
 
 	public void testXDI3Statement() throws Exception {
@@ -85,11 +84,11 @@ public abstract class XDI3ParserTest extends TestCase {
 
 		XDI3Statement statement;
 
-		statement = XDI3Statement.create(parser, "=markus!<+email><<$string>>/<>/(data:,markus.sabadello@gmail.com)");
+		statement = XDI3Statement.create(parser, "=markus!<+email><<$string>>/<>/\"markus.sabadello@gmail.com\"");
 		assertEquals(statement.getSubject(), XDI3Segment.create(parser, "=markus!<+email><<$string>>"));
 		assertEquals(statement.getPredicate(), parser.parseXDI3Segment("<>"));
-		assertEquals(statement.getObject(), XDI3Segment.create(parser, "(data:,markus.sabadello@gmail.com)"));
-		assertEquals(XDIUtil.literalSegmentToString(statement.getObject()), "markus.sabadello@gmail.com");
+		assertTrue(statement.getObject() instanceof String);
+		assertEquals(statement.getObject(), "markus.sabadello@gmail.com");
 		assertFalse(statement.isContextNodeStatement());
 		assertTrue(statement.isLiteralStatement());
 		assertFalse(statement.isRelationStatement());

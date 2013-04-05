@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.VariableUtil;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -84,7 +84,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		XDI3Segment substitutedTargetSubject = substituteSegment(targetStatement.getSubject(), executionContext);
 		XDI3Segment substitutedTargetPredicate = substituteSegment(targetStatement.getPredicate(), executionContext);
-		XDI3Segment substitutedTargetObject = substituteSegment(targetStatement.getObject(), executionContext);
+		Object substitutedTargetObject = substituteObject(targetStatement.getObject(), executionContext);
 
 		if (substitutedTargetSubject == targetStatement.getSubject() && substitutedTargetPredicate == targetStatement.getPredicate() && substitutedTargetObject == targetStatement.getObject()) return targetStatement;
 
@@ -162,6 +162,13 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 		return XDI3Segment.create(newTargetAddress.toString());
 	}
 
+	private static Object substituteObject(Object object, ExecutionContext executionContext) {
+
+		if (! (object instanceof XDI3Segment)) return object;
+
+		return substituteSegment((XDI3Segment) object, executionContext);
+	}
+
 	private static XDI3SubSegment substituteSubSegment(XDI3SubSegment subSegment, ExecutionContext executionContext) {
 
 		if (! VariableUtil.isVariable(subSegment)) return null;
@@ -172,7 +179,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		if (newSubSegment == null) {
 
-			newSubSegment = XRIUtil.randomUuidSubSegment(XDI3Constants.CS_BANG);
+			newSubSegment = XDI3Util.randomUuidSubSegment(XDI3Constants.CS_BANG);
 			putVariable(executionContext, subSegment, newSubSegment);
 		}
 

@@ -7,7 +7,7 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -183,7 +183,7 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 
 		if (this.getContextNode().isRootContextNode()) return xri;
 
-		return XRIUtil.reduceXri(xri, this.getContextNode().getXri());
+		return XDI3Util.reduceXri(xri, this.getContextNode().getXri());
 	}
 
 	/**

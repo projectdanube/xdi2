@@ -5,7 +5,6 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
-import xdi2.core.util.XDIUtil;
 import xdi2.core.xri3.XDI3Segment;
 
 public abstract class AbstractLiteral implements Literal {
@@ -113,9 +112,9 @@ public abstract class AbstractLiteral implements Literal {
 		}
 
 		@Override
-		public XDI3Segment getObject() {
+		public Object getObject() {
 
-			return XDIUtil.stringToLiteralSegment(AbstractLiteral.this.getLiteralData(), false);
+			return AbstractLiteral.this.getLiteralData();
 		}
 
 		@Override

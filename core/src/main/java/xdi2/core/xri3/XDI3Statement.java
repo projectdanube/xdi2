@@ -1,8 +1,7 @@
 package xdi2.core.xri3;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.util.XDIUtil;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 
 public class XDI3Statement extends XDI3SyntaxComponent {
 
@@ -10,9 +9,9 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 	private XDI3Segment subject;
 	private XDI3Segment predicate;
-	private XDI3Segment object;
+	private Object object;
 
-	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, XDI3Segment object) {
+	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, Object object) {
 
 		super(string);
 
@@ -41,19 +40,19 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		return this.predicate;
 	}
 
-	public XDI3Segment getObject() {
+	public Object getObject() {
 
 		return this.object;
 	}
 
 	public boolean isContextNodeStatement() {
 
-		return XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate());
+		return XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate()) && this.getObject() instanceof XDI3Segment;
 	}
 
 	public boolean isLiteralStatement() {
 
-		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && XDIUtil.isLiteralSegment(this.getObject());
+		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && ! (this.getObject() instanceof XDI3Segment);
 	}
 
 	public boolean isRelationStatement() {
@@ -73,7 +72,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 		if (this.isContextNodeStatement()) {
 
-			return XRIUtil.expandXri(this.getObject(), this.getSubject());
+			return XDI3Util.expandXri((XDI3Segment) this.getObject(), this.getSubject());
 		} else {
 
 			return this.getSubject();
@@ -91,14 +90,14 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 		if (! this.isRelationStatement()) return null;
 
-		return this.getObject();
+		return (XDI3Segment) this.getObject();
 	}
 
 	public String getLiteralData() {
 
 		if (! this.isLiteralStatement()) return null;
 
-		return XDIUtil.literalSegmentToString(this.getObject());
+		return this.getObject().toString();
 	}
 
 	public XDI3Statement getInnerRootStatement() {

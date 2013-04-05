@@ -21,7 +21,7 @@ import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -130,7 +130,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 					} else {
 
 						XDI3Segment targetContextNodeXri = makeXDI3Segment(value.getString(i), state);
-						targetContextNodeXri = XRIUtil.expandXri(targetContextNodeXri, root.getContextNode().getXri());
+						targetContextNodeXri = XDI3Util.expandXri(targetContextNodeXri, root.getContextNode().getXri());
 
 						Relation relation = baseContextNode.getRelation(arcXri, targetContextNodeXri);
 

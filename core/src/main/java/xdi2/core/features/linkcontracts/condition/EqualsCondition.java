@@ -64,7 +64,7 @@ public class EqualsCondition extends Condition {
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
-		ContextNode object = policyEvaluationContext.getContextNode(this.getStatement().getObject());
+		ContextNode object = policyEvaluationContext.getContextNode((XDI3Segment) this.getStatement().getObject());
 
 		if (subject == null || object == null) return Boolean.FALSE;
 

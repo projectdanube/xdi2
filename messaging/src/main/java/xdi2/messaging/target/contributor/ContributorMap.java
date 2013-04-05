@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -122,11 +122,11 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 		XDI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
 		if (nextContributorXri == null) return false;
 
-		XDI3Segment nextRelativeTargetAddress = XRIUtil.reduceXri(relativeTargetAddress, nextContributorXri, false, true);
+		XDI3Segment nextRelativeTargetAddress = XDI3Util.reduceXri(relativeTargetAddress, nextContributorXri, false, true);
 		XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetAddress;
 
 		XDI3Segment[] nextContributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
-		nextContributorXris[nextContributorXris.length - 1] = nextRelativeContextNodeXri == null ? relativeContextNodeXri : XRIUtil.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
+		nextContributorXris[nextContributorXris.length - 1] = nextRelativeContextNodeXri == null ? relativeContextNodeXri : XDI3Util.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
 
 		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(nextContributorXris) + ", next relative target address: " + nextRelativeTargetAddress + ", target address: " + targetAddress);
 
@@ -174,7 +174,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 		XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement == null ? null : nextRelativeTargetStatement.getContextNodeXri();
 
 		XDI3Segment[] nextContributorXris = Arrays.copyOf(contributorXris, contributorXris.length + 1);
-		nextContributorXris[nextContributorXris.length - 1] = nextRelativeContextNodeXri == null ? relativeContextNodeXri : XRIUtil.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
+		nextContributorXris[nextContributorXris.length - 1] = nextRelativeContextNodeXri == null ? relativeContextNodeXri : XDI3Util.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
 
 		if (log.isDebugEnabled()) log.debug("Next contributor XRIs: " + Arrays.asList(nextContributorXris) + ", next relative target statement: " + nextRelativeTargetStatement + ", target statement: " + targetStatement);
 
@@ -222,7 +222,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		for (XDI3Segment contributorXri : this.keySet()) {
 
-			if (XRIUtil.startsWith(contextNodeXri, contributorXri, false, true)) return contributorXri;
+			if (XDI3Util.startsWith(contextNodeXri, contributorXri, false, true)) return contributorXri;
 		}
 
 		return null;
@@ -232,7 +232,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		for (XDI3Segment contributorXri : this.keySet()) {
 
-			if (XRIUtil.startsWith(contributorXri, contextNodeXri, true, false)) return contributorXri;
+			if (XDI3Util.startsWith(contributorXri, contextNodeXri, true, false)) return contributorXri;
 		}
 
 		return null;

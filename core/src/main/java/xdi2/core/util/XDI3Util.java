@@ -15,11 +15,11 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XRIUtil {
+public final class XDI3Util {
 
-	private static final Logger log = LoggerFactory.getLogger(XRIUtil.class);
+	private static final Logger log = LoggerFactory.getLogger(XDI3Util.class);
 
-	private XRIUtil() { }
+	private XDI3Util() { }
 
 	/**
 	 * Creates a UUID subsegment

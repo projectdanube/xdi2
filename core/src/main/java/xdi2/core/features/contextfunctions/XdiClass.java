@@ -6,7 +6,7 @@ import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.contextfunctions.XdiInstance.MappingContextNodeXdiInstanceIterator;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.MappingIterator;
@@ -89,7 +89,7 @@ public abstract class XdiClass extends XdiAbstractSubGraph {
 	 */
 	public XdiInstance getXdiInstance() {
 
-		return this.getXdiInstance(XRIUtil.randomUuidSubSegment(XDI3Constants.CS_BANG), true);
+		return this.getXdiInstance(XDI3Util.randomUuidSubSegment(XDI3Constants.CS_BANG), true);
 	}
 
 	/**

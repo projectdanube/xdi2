@@ -1,9 +1,9 @@
-=!1111+passport!1!<+country><<$string>>/<>/(data:,Canada)
-=!1111+passport!1!<+num><<$string>>/<>/(data:,987654321)
-=!1111+passport!1!<+expires><<$string>>/<>/(data:,2005J01J01T00:00:00Z)
-=!1111+passport!2!<+country><<$string>>/<>/(data:,New%2520Zealand)
-=!1111+passport!2!<+num><<$string>>/<>/(data:,123456789)
-=!1111+passport!2!<+expires><<$string>>/<>/(data:,2010J10J01T00:00:00Z)
+=!1111+passport!1!<+country><<$string>>/<>/"Canada"
+=!1111+passport!1!<+num><<$string>>/<>/"987654321"
+=!1111+passport!1!<+expires><<$string>>/<>/"2005J01J01T00:00:00Z"
+=!1111+passport!2!<+country><<$string>>/<>/"New%2520Zealand"
+=!1111+passport!2!<+num><<$string>>/<>/"123456789"
+=!1111+passport!2!<+expires><<$string>>/<>/"2010J10J01T00:00:00Z"
 (=!1111)/$ref/()
 =abc/$ref/=!1111
 ()/$is$ref/(=!1111)

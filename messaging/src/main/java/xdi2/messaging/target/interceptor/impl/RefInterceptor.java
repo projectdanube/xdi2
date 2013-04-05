@@ -16,7 +16,7 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -87,7 +87,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 				// don't follow $ref/$rep relations within operation target
 
 				if (XDIConstants.XRI_S_ROOT.equals(operation.getTargetAddress()) || 
-						XRIUtil.startsWith(targetContextNodeXri, operation.getTargetAddress())) {
+						XDI3Util.startsWith(targetContextNodeXri, operation.getTargetAddress())) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation within operation target (" + operation.getTargetAddress() + "): " + refRepRelation);
 
@@ -319,8 +319,8 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 					return XDI3Segment.create(privateCanonicalContextNode.getXri() + localPart);
 			}
 
-			localPart = "" + XRIUtil.localXri(contextNodeXri, 1) + localPart;
-			contextNodeXri = XRIUtil.parentXri(contextNodeXri, -1);
+			localPart = "" + XDI3Util.localXri(contextNodeXri, 1) + localPart;
+			contextNodeXri = XDI3Util.parentXri(contextNodeXri, -1);
 		}
 
 		// done

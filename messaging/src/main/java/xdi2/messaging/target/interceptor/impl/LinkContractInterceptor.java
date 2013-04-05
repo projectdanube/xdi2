@@ -14,7 +14,7 @@ import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
@@ -125,7 +125,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 			ContextNode contextNode = contextNodes.next();
 
-			if (contextNode.isRootContextNode() || XRIUtil.startsWith(contextNodeXri, contextNode.getXri())) {
+			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri())) {
 
 				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
 				return true;
@@ -136,7 +136,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 			ContextNode contextNode = contextNodes.next();
 
-			if (contextNode.isRootContextNode() || XRIUtil.startsWith(contextNodeXri, contextNode.getXri())) {
+			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri())) {
 
 				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
 				return true;

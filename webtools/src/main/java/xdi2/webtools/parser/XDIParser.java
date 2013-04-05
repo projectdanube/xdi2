@@ -141,10 +141,10 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				stream2.println("<table border='1' cellpadding='5'><tr>");
 				for (Deque<String> deque : stackDeques) {
 
-					String terminal = deque.peekLast();
+					String terminal = deque.peekLast().replace("\"", "&quot;");
 					StringBuffer stack = new StringBuffer();
 					String stackentry;
-					while ((stackentry = deque.pollFirst()) != null) stack.append(stackentry + "<br>");
+					while ((stackentry = deque.pollFirst()) != null) stack.append(stackentry.replace("\"", "&quot;") + "<br>");
 					stream2.println("<td onmouseover=\"document.getElementById('stack').innerHTML='" + stack.toString() + "';\" style='cursor:default;font-size:13pt;font-weight:bold;'>" + terminal + "</td>");
 				}
 				stream2.println("</tr></table>");
@@ -199,7 +199,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("rules", xdi2.core.xri3.parser.aparse.ParserRules.rules);
 		request.setAttribute("rulename", rulename);
 		request.setAttribute("parser", parser);
-		request.setAttribute("input", input);
+		request.setAttribute("input", input.replace("\"", "&quot;"));
 		request.setAttribute("output1", output1);
 		request.setAttribute("output2", output2);
 		request.setAttribute("output3", output3);

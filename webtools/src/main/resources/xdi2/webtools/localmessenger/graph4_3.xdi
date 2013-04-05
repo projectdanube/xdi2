@@ -1,5 +1,5 @@
 =a*b/$ref/=!1!2
 =!1!2!3/$rep/=!8!9
-=!8!9!(+first)!<+name><<$string>>/<>/(data:,Markus)
+=!8!9!(+first)!<+name><<$string>>/<>/"Markus"
 (=!1111)/$ref/()
 ()/$is$ref/(=!1111)

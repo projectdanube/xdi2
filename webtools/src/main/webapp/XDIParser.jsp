@@ -28,7 +28,7 @@
 	<form action="XDIParser" method="post">
 
 		<table><tr>
-		<td width="250">Parse ABNF:</td>
+		<td>Parse ABNF:</td>
 		<td>
 		<select name="rulename" style="width: 200px">
 		
@@ -49,8 +49,6 @@
 		</tr></table>
 
 	</form>
-
-	<br>
 
 	<div class="tabber">
 

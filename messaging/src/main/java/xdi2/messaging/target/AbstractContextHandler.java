@@ -212,7 +212,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.getRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -221,7 +221,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.addRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -230,7 +230,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.modRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -239,7 +239,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.delRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -248,7 +248,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.doRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}

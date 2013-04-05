@@ -11,12 +11,12 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
-import xdi2.core.xri3.XDI3Constants;
 
 /**
  * An XRI parser implemented manually in pure Java.
@@ -29,7 +29,7 @@ public class XDI3ParserManual extends XDI3Parser {
 	@Override
 	public XDI3Statement parseXDI3Statement(String string) {
 
-		log.trace("Parsing statement: " + string);
+		if (log.isTraceEnabled()) log.trace("Parsing statement: " + string);
 
 		String temp = stripCf(string);
 
@@ -38,9 +38,21 @@ public class XDI3ParserManual extends XDI3Parser {
 		int split0 = parts[0].length();
 		int split1 = parts[1].length();
 
-		XDI3Segment subject = this.parseXDI3Segment(string.substring(0, split0));
-		XDI3Segment predicate = this.parseXDI3Segment(string.substring(split0 + 1, split0 + split1 + 1));
-		XDI3Segment object = this.parseXDI3Segment(string.substring(split0 + split1 + 2));
+		String subjectString = string.substring(0, split0);
+		String predicateString = string.substring(split0 + 1, split0 + split1 + 1);
+		String objectString = string.substring(split0 + split1 + 2);
+		
+		XDI3Segment subject = this.parseXDI3Segment(subjectString);
+		XDI3Segment predicate = this.parseXDI3Segment(predicateString);
+		Object object;
+		
+		if (objectString.startsWith("\"")) {
+			
+			object = this.parseString(objectString);
+		} else {
+		
+			object = this.parseXDI3Segment(objectString);
+		}
 
 		return this.makeXDI3Statement(string, subject, predicate, object);
 	}
@@ -48,7 +60,7 @@ public class XDI3ParserManual extends XDI3Parser {
 	@Override
 	public XDI3Segment parseXDI3Segment(String string) {
 
-		log.trace("Parsing segment: " + string);
+		if (log.isTraceEnabled()) log.trace("Parsing segment: " + string);
 
 		int start = 0, pos = 0;
 		String cf = null;
@@ -92,7 +104,7 @@ public class XDI3ParserManual extends XDI3Parser {
 	@Override
 	public XDI3SubSegment parseXDI3SubSegment(String string) {
 
-		log.trace("Parsing subsegment: " + string);
+		if (log.isTraceEnabled()) log.trace("Parsing subsegment: " + string);
 
 		Character cs = null;
 		String literal = null;
@@ -121,7 +133,7 @@ public class XDI3ParserManual extends XDI3Parser {
 	@Override
 	public XDI3XRef parseXDI3XRef(String string) {
 
-		log.trace("Parsing xref: " + string);
+		if (log.isTraceEnabled()) log.trace("Parsing xref: " + string);
 
 		String cf = cf(string.charAt(0));
 		if (cf == null) throw new ParserException("Invalid xref: " + string + " (no opening delimiter)");
@@ -168,6 +180,17 @@ public class XDI3ParserManual extends XDI3Parser {
 		return this.makeXDI3XRef(string, cf, segment, statement, partialSubject, partialPredicate, iri, literal);
 	}
 
+	public String parseString(String string) {
+
+		if (log.isTraceEnabled()) log.trace("Parsing string: " + string);
+
+		if (string.length() < 2) throw new ParserException("Invalid string: " + string);
+		if (string.charAt(0) != '"') throw new ParserException("Invalid string: " + string + " (no opening double quotes)");
+		if (string.charAt(string.length() - 1) != '"') throw new ParserException("Invalid string: " + string + " (no closing double quotes)");
+		
+		return string.substring(1, string.length() - 2);
+	}
+		
 	private static String stripCf(String string) {
 
 		string = stripCf(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));

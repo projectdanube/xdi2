@@ -7,6 +7,6 @@
 (=danube*animesh)/$ref/(=!BDF3.1FB.E70C.3958!2222)
 (=danube*markus)/$ref/(=!BDF3.1FB.E70C.3958!1111)
 =danube/$ref/=!BDF3.1FB.E70C.3958
-!($secret)!<$token><<$string>>/<>/(data:,s3cret)
-=!BDF3.1FB.E70C.3958!1111!($secret)!<$token><<$string>>/<>/(data:,xmarkus)
-=!BDF3.1FB.E70C.3958!2222!($secret)!<$token><<$string>>/<>/(data:,xanimesh)
+!($secret)!<$token><<$string>>/<>/"s3cret"
+=!BDF3.1FB.E70C.3958!1111!($secret)!<$token><<$string>>/<>/"xmarkus"
+=!BDF3.1FB.E70C.3958!2222!($secret)!<$token><<$string>>/<>/"xanimesh"

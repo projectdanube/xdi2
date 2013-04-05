@@ -3,6 +3,6 @@
 !($do)!($if)!($and)/$true/({$msg}!($secret)!<$token>/$equals/!($secret)!<$token>)
 !($do)/$all/()
 =markus/$ref/=!91F2.8153.F600.AE24
-=!91F2.8153.F600.AE24!<+email><<$string>>/<>/(data:,markus.sabadello@gmail.com)
-!($secret)!<$token><<$string>>/<>/(data:,s3cret)
+=!91F2.8153.F600.AE24!<+email><<$string>>/<>/"markus.sabadello@gmail.com"
+!($secret)!<$token><<$string>>/<>/"s3cret"
 ()/$is$ref/(=!91F2.8153.F600.AE24)

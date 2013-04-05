@@ -198,7 +198,7 @@ public abstract class AbstractGraph implements Graph {
 
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = baseContextNode.createContextNodes(statementXri.getObject());
+			ContextNode contextNode = baseContextNode.createContextNodes((XDI3Segment) statementXri.getObject());
 			if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Created context node --> " + contextNode.getXri());
 
 			return contextNode.getStatement();
@@ -226,7 +226,7 @@ public abstract class AbstractGraph implements Graph {
 		if (statementXri.isContextNodeStatement()) {
 
 			ContextNode contextNode = this.findContextNode(statementXri.getSubject(), false);
-			contextNode = contextNode == null ? null : contextNode.findContextNode(statementXri.getObject(), false);
+			contextNode = contextNode == null ? null : contextNode.findContextNode((XDI3Segment) statementXri.getObject(), false);
 
 			return contextNode == null ? null : contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
