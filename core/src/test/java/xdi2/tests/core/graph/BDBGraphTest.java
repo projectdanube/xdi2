@@ -29,28 +29,18 @@ public class BDBGraphTest extends AbstractGraphTest {
 	}
 
 	@Override
-	protected Graph openNewGraph(String id) throws IOException {
+	protected Graph openNewGraph(String identifier) throws IOException {
 
-		String databaseName = "xdi2-test-graph." + id;
-
-		graphFactory.setDatabaseName(databaseName);
-
-		Graph graph = graphFactory.openGraph();
+		Graph graph = graphFactory.openGraph(identifier);
 
 		return graph;
 	}
 
 	@Override
-	protected Graph reopenGraph(Graph graph, String id) throws IOException {
+	protected Graph reopenGraph(Graph graph, String identifier) throws IOException {
 
 		graph.close();
 
-		String databaseName = "xdi2-test-graph." + id;
-
-		graphFactory.setDatabaseName(databaseName);
-
-		Graph newGraph = graphFactory.openGraph();
-
-		return newGraph;
+		return graphFactory.openGraph(identifier);
 	}
 }

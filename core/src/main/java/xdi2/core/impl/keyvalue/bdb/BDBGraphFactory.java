@@ -50,7 +50,7 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 
 		if (identifier != null) {
 
-			this.setDatabaseName(identifier);
+			this.setDatabaseName("xdi2-test-graph." + identifier);
 		}
 
 		// we use the current working directory
