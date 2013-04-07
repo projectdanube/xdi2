@@ -5,7 +5,7 @@ import java.util.Iterator;
 public abstract class IterableIterator<T> implements Iterator<T>, Iterable<T> {
 
 	@Override
-	public Iterator<T> iterator() {
+	public final Iterator<T> iterator() {
 
 		return this;
 	}

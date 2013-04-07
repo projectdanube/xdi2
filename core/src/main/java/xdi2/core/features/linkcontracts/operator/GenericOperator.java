@@ -6,7 +6,7 @@ import java.util.List;
 
 import xdi2.core.Relation;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.features.roots.InnerRoot;
+import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.xri3.XDI3Statement;
 
 /**
@@ -56,14 +56,14 @@ public class GenericOperator extends Operator {
 	@Override
 	public Boolean[] evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
+		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
 
 		if (innerRoot == null) {
 
 			for (Iterator<Relation> policyEvaluationContextRelations = policyEvaluationContext.getRelations(this.getRelation().getArcXri()); policyEvaluationContextRelations.hasNext(); ) {
 
 				Relation policyEvaluationContextRelation = policyEvaluationContextRelations.next();
-				InnerRoot policyEvaluationContextInnerRoot = InnerRoot.fromContextNode(policyEvaluationContextRelation.follow());
+				XdiInnerRoot policyEvaluationContextInnerRoot = XdiInnerRoot.fromContextNode(policyEvaluationContextRelation.follow());
 				if (policyEvaluationContextInnerRoot != null) continue;
 
 				if (policyEvaluationContextRelation.getTargetContextNodeXri().equals(this.getRelation().getTargetContextNodeXri())) return new Boolean[] { Boolean.TRUE };
@@ -81,7 +81,7 @@ public class GenericOperator extends Operator {
 				for (Iterator<Relation> policyEvaluationContextRelations = policyEvaluationContext.getRelations(this.getRelation().getArcXri()); policyEvaluationContextRelations.hasNext(); ) {
 
 					Relation policyEvaluationContextRelation = policyEvaluationContextRelations.next();
-					InnerRoot policyEvaluationContextInnerRoot = InnerRoot.fromContextNode(policyEvaluationContextRelation.follow());
+					XdiInnerRoot policyEvaluationContextInnerRoot = XdiInnerRoot.fromContextNode(policyEvaluationContextRelation.follow());
 					if (policyEvaluationContextInnerRoot == null) continue;
 
 					results.add(Boolean.valueOf(policyEvaluationContextInnerRoot.containsRelativeStatement(statementXri)));

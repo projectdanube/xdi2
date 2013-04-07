@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.roots.PeerRoot;
-import xdi2.core.features.roots.Roots;
+import xdi2.core.features.roots.XdiLocalRoot;
+import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -39,7 +39,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// find the owner's XDI peer root
 
-		PeerRoot ownerPeerRoot = Roots.findLocalRoot(this.getRegistryGraph()).findPeerRoot(owner, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(owner, false);
 
 		if (ownerPeerRoot == null) {
 
@@ -76,7 +76,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// find the owner's peer root context node
 
-		PeerRoot ownerPeerRoot = Roots.findLocalRoot(this.getRegistryGraph()).findPeerRoot(owner, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(owner, false);
 
 		if (ownerPeerRoot == null) {
 

@@ -1,8 +1,5 @@
 package xdi2.core.xri3.parser.aparse;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -24,7 +21,7 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 	private XDI3Statement parseXDI3Statement(Rule rule) {
 
-		String string = rule.spelling;
+		/*		String string = rule.spelling;
 		XDI3Segment subject = null;
 		XDI3Segment predicate = null;
 		XDI3Segment object = null;
@@ -62,7 +59,9 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 		// done
 
-		return this.makeXDI3Statement(string, subject, predicate, object);
+		return this.makeXDI3Statement(string, subject, predicate, object);*/
+
+		return null;
 	}
 
 	@Override
@@ -73,7 +72,7 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 	private XDI3Segment parseXDI3Segment(Rule rule) {
 
-		String string = rule.spelling;
+		/*		String string = rule.spelling;
 		List<XDI3SubSegment> subSegments = new ArrayList<XDI3SubSegment> ();
 
 		// read subsegs from xdi_segment
@@ -88,7 +87,9 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 		// done
 
-		return this.makeXDI3Segment(string, subSegments);
+		return this.makeXDI3Segment(string, subSegments);*/
+
+		return null;
 	}
 
 	@Override
@@ -99,7 +100,7 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 	private XDI3SubSegment parseXDI3SubSegment(Rule rule) {
 
-		String string = rule.spelling;
+		/*String string = rule.spelling;
 		Character gcs = null;
 		Character lcs = null;
 		String literal = null;
@@ -127,7 +128,7 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 			// read local_subseg or xref or literal from global_subseg
 
-			if (list_global_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, lcs, literal, xref);
+			if (list_global_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, literal, xref);
 			rule = list_global_subseg.get(1);	// local_subseg or xref or literal
 		}
 
@@ -143,7 +144,7 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 			// read xref or literal from local_subseg
 
-			if (list_local_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, lcs, literal, xref);
+			if (list_local_subseg.size() < 2) return this.makeXDI3SubSegment(rule.spelling, gcs, literal, xref);
 			rule = list_local_subseg.get(1);	// xref or literal
 		}
 
@@ -159,7 +160,9 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 		// done
 
-		return this.makeXDI3SubSegment(string, gcs, lcs, literal, xref);
+		return this.makeXDI3SubSegment(string, gcs, literal, xref);*/
+
+		return null;
 	}
 
 	@Override
@@ -170,7 +173,7 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 	private XDI3XRef parseXDI3XRef(Rule rule) {
 
-		String string = rule.spelling;
+		/*String string = rule.spelling;
 		XDI3Segment segment = null;
 		XDI3Statement statement = null;
 		XDI3Segment partialSubject = null;
@@ -264,6 +267,8 @@ public class XDI3ParserAParse extends XDI3Parser {
 
 		// done
 
-		return this.makeXDI3XRef(string, segment, statement, partialSubject, partialPredicate, IRI, literal);
+		return this.makeXDI3XRef(string, "", segment, statement, partialSubject, partialPredicate, IRI, literal);*/
+
+		return null;
 	}
 }

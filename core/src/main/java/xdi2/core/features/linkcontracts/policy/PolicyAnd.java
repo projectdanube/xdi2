@@ -3,14 +3,15 @@ package xdi2.core.features.linkcontracts.policy;
 import java.util.Iterator;
 
 import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.features.contextfunctions.XdiEntity;
+import xdi2.core.features.contextfunctions.XdiEntityElement;
+import xdi2.core.features.contextfunctions.XdiEntityInstance;
+import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
-import xdi2.core.features.multiplicity.XdiEntityMember;
-import xdi2.core.features.multiplicity.XdiEntitySingleton;
-import xdi2.core.features.multiplicity.XdiSubGraph;
 
 /**
- * An XDI $and policy, represented as an XDI subgraph.
+ * An XDI $and policy, represented as an XDI entity.
  * 
  * @author markus
  */
@@ -18,9 +19,9 @@ public class PolicyAnd extends Policy {
 
 	private static final long serialVersionUID = 5732150498065911411L;
 
-	protected PolicyAnd(XdiSubGraph xdiSubGraph) {
+	protected PolicyAnd(XdiEntity xdiEntity) {
 
-		super(xdiSubGraph);
+		super(xdiEntity);
 	}
 
 	/*
@@ -28,30 +29,32 @@ public class PolicyAnd extends Policy {
 	 */
 
 	/**
-	 * Checks if an XDI subgraph is a valid XDI $and policy.
-	 * @param xdiSubGraph The XDI subgraph to check.
-	 * @return True if the XDI subgraph is a valid XDI $and policy.
+	 * Checks if an XDI entity is a valid XDI $and policy.
+	 * @param xdiEntity The XDI entity to check.
+	 * @return True if the XDI entity is a valid XDI $and policy.
 	 */
-	public static boolean isValid(XdiSubGraph xdiSubGraph) {
+	public static boolean isValid(XdiEntity xdiEntity) {
 
-		if (xdiSubGraph instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) xdiSubGraph).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
-		else if (xdiSubGraph instanceof XdiEntityMember)
-			return ((XdiEntityMember) xdiSubGraph).getParentCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
+		if (xdiEntity instanceof XdiEntitySingleton)
+			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
+		else if (xdiEntity instanceof XdiEntityInstance)
+			return ((XdiEntityInstance) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
+		else if (xdiEntity instanceof XdiEntityElement)
+			return ((XdiEntityElement) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
 
 		return false;
 	}
 
 	/**
-	 * Factory method that creates an XDI $and policy bound to a given XDI subgraph.
-	 * @param xdiSubGraph The XDI subgraph that is an XDI root policy.
+	 * Factory method that creates an XDI $and policy bound to a given XDI entity.
+	 * @param xdiEntity The XDI entity that is an XDI root policy.
 	 * @return The XDI $and policy.
 	 */
-	public static PolicyAnd fromSubGraph(XdiSubGraph xdiSubGraph) {
+	public static PolicyAnd fromXdiEntity(XdiEntity xdiEntity) {
 
-		if (! isValid(xdiSubGraph)) return null;
+		if (! isValid(xdiEntity)) return null;
 
-		return new PolicyAnd(xdiSubGraph);
+		return new PolicyAnd(xdiEntity);
 	}
 
 	/*

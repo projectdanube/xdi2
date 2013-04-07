@@ -22,9 +22,9 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.features.roots.InnerRoot;
-import xdi2.core.features.roots.Root;
-import xdi2.core.features.roots.Roots;
+import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.roots.XdiLocalRoot;
+import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
@@ -75,7 +75,7 @@ public class CopyOfXDIJSONWriter extends AbstractXDIWriter {
 		if (log.isDebugEnabled()) log.debug("Parameters: writeImplied=" + this.writeImplied + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty);
 	}
 
-	private void writeInternal(Root root, ContextNode baseContextNode, Writer writer, State state) throws IOException {
+	private void writeInternal(XdiRoot root, ContextNode baseContextNode, Writer writer, State state) throws IOException {
 
 		// recursively write context node contents
 
@@ -85,7 +85,7 @@ public class CopyOfXDIJSONWriter extends AbstractXDIWriter {
 
 			// inner root short notation?
 
-			if (this.writeInner && InnerRoot.isValid(contextNode)) {
+			if (this.writeInner && XdiInnerRoot.isValid(contextNode)) {
 
 				continue;
 			} else {
@@ -189,7 +189,7 @@ public class CopyOfXDIJSONWriter extends AbstractXDIWriter {
 	private void writeInternal(Graph graph, Writer writer) throws IOException {
 
 		State state = new State();
-		Root root = Roots.findLocalRoot(graph);
+		XdiRoot root = XdiLocalRoot.findLocalRoot(graph);
 
 		startGraph(writer, state);
 		this.writeInternal(root, graph.getRootContextNode(), writer, state);

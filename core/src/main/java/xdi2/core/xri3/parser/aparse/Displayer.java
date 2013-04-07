@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Feb 20 10:37:39 CET 2013
+ * Produced : Wed Apr 03 23:48:03 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Displayer implements Visitor
 {
 
-  public Object visit(Rule_xdi_context rule)
+  public Object visit(Rule_xdi_graph rule)
   {
     return visitRules(rule.rules);
   }
@@ -25,47 +25,152 @@ public class Displayer implements Visitor
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xdi_subject rule)
+  public Object visit(Rule_contextual_statement rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xdi_predicate rule)
+  public Object visit(Rule_direct_contextual rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xdi_object rule)
+  public Object visit(Rule_inverse_contextual rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xdi_segment rule)
+  public Object visit(Rule_absolute rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_subseg rule)
+  public Object visit(Rule_peer_relative rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_global_subseg rule)
+  public Object visit(Rule_context_relative rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_local_subseg rule)
+  public Object visit(Rule_class_relative rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_gcs_char rule)
+  public Object visit(Rule_absolute_inverse rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_lcs_char rule)
+  public Object visit(Rule_peer_inverse rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_context_inverse rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_class_inverse rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_relational_statement rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_direct_relational rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_inverse_relational rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_inner_relational rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_inner_statement rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_literal_statement rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_context rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_relative_context rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_class_context rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_class_path rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_instance_context rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_literal_context rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_literal_path rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_attribute_pair rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_value_context rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_root rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_local_root rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_peer_root rule)
+  {
+    return visitRules(rule.rules);
+  }
+
+  public Object visit(Rule_inner_root rule)
   {
     return visitRules(rule.rules);
   }
@@ -75,202 +180,192 @@ public class Displayer implements Visitor
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xref_empty rule)
+  public Object visit(Rule_subpath rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xref_IRI rule)
+  public Object visit(Rule_subsegment rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xref_segment rule)
+  public Object visit(Rule_singleton rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xref_subject_predicate rule)
+  public Object visit(Rule_entity_singleton rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xref_statement rule)
+  public Object visit(Rule_attribute_singleton rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xref_literal rule)
+  public Object visit(Rule_person_singleton rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_literal rule)
+  public Object visit(Rule_organization_singleton rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_xdi_pchar rule)
+  public Object visit(Rule_relative_singleton rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_IRI rule)
+  public Object visit(Rule_class rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_scheme rule)
+  public Object visit(Rule_entity_class rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ihier_part rule)
+  public Object visit(Rule_type_class rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_iauthority rule)
+  public Object visit(Rule_instance_class rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_iuserinfo rule)
+  public Object visit(Rule_specific rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ihost rule)
+  public Object visit(Rule_generic rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_IP_literal rule)
+  public Object visit(Rule_person rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_IPvFuture rule)
+  public Object visit(Rule_organization rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_IPv6address rule)
+  public Object visit(Rule_attribute_class rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ls32 rule)
+  public Object visit(Rule_instance rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_h16 rule)
+  public Object visit(Rule_element rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_IPv4address rule)
+  public Object visit(Rule_json_value rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_dec_octet rule)
+  public Object visit(Rule_json_string rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ireg_name rule)
+  public Object visit(Rule_json_number rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_port rule)
+  public Object visit(Rule_json_boolean rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ipath_abempty rule)
+  public Object visit(Rule_json_array rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ipath_abs rule)
+  public Object visit(Rule_json_object rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ipath_rootless rule)
+  public Object visit(Rule_ipv6_literal rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ipath_empty rule)
+  public Object visit(Rule_uuid_literal rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_isegment rule)
+  public Object visit(Rule_time_low rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_isegment_nz rule)
+  public Object visit(Rule_time_mid rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_iquery rule)
+  public Object visit(Rule_time_high rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_iprivate rule)
+  public Object visit(Rule_clock_seq rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ifragment rule)
+  public Object visit(Rule_clock_seq_low rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ipchar rule)
+  public Object visit(Rule_node rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_iunreserved rule)
+  public Object visit(Rule_xdi_chars rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_pct_encoded rule)
+  public Object visit(Rule_iri_chars rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_ucschar rule)
+  public Object visit(Rule_nonparen_delim rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_reserved rule)
+  public Object visit(Rule_context_symbol rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_gen_delims rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_sub_delims rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_unreserved rule)
+  public Object visit(Rule_xdi_char rule)
   {
     return visitRules(rule.rules);
   }
@@ -280,37 +375,7 @@ public class Displayer implements Visitor
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_BIT rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_CHAR rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_CR rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_CRLF rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_CTL rule)
-  {
-    return visitRules(rule.rules);
-  }
-
   public Object visit(Rule_DIGIT rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_DQUOTE rule)
   {
     return visitRules(rule.rules);
   }
@@ -320,37 +385,12 @@ public class Displayer implements Visitor
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_HTAB rule)
+  public Object visit(Rule_CRLF rule)
   {
     return visitRules(rule.rules);
   }
 
-  public Object visit(Rule_LF rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_LWSP rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_OCTET rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_SP rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_VCHAR rule)
-  {
-    return visitRules(rule.rules);
-  }
-
-  public Object visit(Rule_WSP rule)
+  public Object visit(Rule_DQUOTE rule)
   {
     return visitRules(rule.rules);
   }

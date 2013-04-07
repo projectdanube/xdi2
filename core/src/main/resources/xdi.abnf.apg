@@ -1,114 +1,100 @@
-;
-; This file contains ABNF rules from the following sources:
-; http://wiki.oasis-open.org/xri/XriThree/SyntaxAbnf
-; http://wiki.oasis-open.org/xdi/XdiAbnf
-;
-; A few modifications have been made to the rules:
-;
-; 1) APG doesn't support prose-val. the "ipath-empty" rule has been adjusted accordingly.
-; 2) Java regular expressions only support the BMP of unicode. The "ucschar" and "iprivate"
-;    rules have been adjusted accordingly.
-; 3) The "(" and ")" characters have been removed from the sub-delims rule to avoid a conflict with the xref rule.
-;
-; =markus 01-25-2013
-;
+xdi-graph               = xdi-statement *( CRLF xdi-statement )
+xdi-statement           = contextual-statement / relational-statement / literal-statement
 
-;
-; XDI rules
-;
+contextual-statement    = direct-contextual / inverse-contextual
+direct-contextual       = absolute / peer-relative / context-relative / class-relative
+inverse-contextual      = absolute-inverse / peer-inverse  / context-inverse / class-inverse
 
-xdi-context = xdi-segment
-xdi-statement = xdi-subject "/" xdi-predicate "/" xdi-object
-xdi-subject = xdi-segment
-xdi-predicate = xdi-segment
-xdi-object = xdi-segment
-xdi-segment = 1*subseg
-subseg = global-subseg / local-subseg / xref
-global-subseg = gcs-char [ local-subseg / xref / literal ]
-local-subseg = lcs-char [ xref / literal ]
-gcs-char          = "=" / "@" / "+" / "$"
-lcs-char          = "*" / "!"
-xref = xref-empty / xref-IRI / xref-segment / xref-subject-predicate / xref-statement / xref-literal
-xref-empty = "()"
-xref-IRI = "(" IRI ")"
-xref-segment = "(" xdi-segment ")"
-xref-subject-predicate = "(" xdi-subject "/" xdi-predicate ")"
-xref-statement = "(" xdi-statement ")"
-xref-literal = "(" literal ")"
-literal           = 1*xdi-pchar
-xdi-pchar         = iunreserved / pct-encoded
+absolute                =          local-root "/()/" context
+peer-relative           =           peer-root "/()/" context
+context-relative        =             context "/()/" relative-context
+class-relative          =       class-context "/()/" instance-context
+absolute-inverse        =          context "/$is()/" local-root
+peer-inverse            =          context "/$is()/" peer-root
+context-inverse         = relative-context "/$is()/" context
+class-inverse           = instance-context "/$is()/" class-context
 
-;
-; IRI rules
-;
+relational-statement    = inverse-relational / direct-relational / inner-relational
+direct-relational       = context "/"    context "/" context
+inverse-relational      = context "/$is" context "/" context
+inner-relational        = context "/"    context "/" inner-statement
 
-IRI               = scheme ":" ihier-part [ "?" iquery ]
-                  [ "#" ifragment ]
-scheme            = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
-ihier-part        = "//" iauthority ipath-abempty
-                  / ipath-abs
-                  / ipath-rootless
-                  / ipath-empty
-iauthority        = [ iuserinfo "@" ] ihost [ ":" port ]
-iuserinfo         = *( iunreserved / pct-encoded / sub-delims / ":" )
-ihost             = IP-literal / IPv4address / ireg-name
-IP-literal        = "[" ( IPv6address / IPvFuture  ) "]"
-IPvFuture         = "v" 1*HEXDIG "." 1*( unreserved / sub-delims / ":" )
-IPv6address       =                            6( h16 ":" ) ls32
-                  /                       "::" 5( h16 ":" ) ls32
-                  / [               h16 ] "::" 4( h16 ":" ) ls32
-                  / [ *1( h16 ":" ) h16 ] "::" 3( h16 ":" ) ls32
-                  / [ *2( h16 ":" ) h16 ] "::" 2( h16 ":" ) ls32
-                  / [ *3( h16 ":" ) h16 ] "::"    h16 ":"   ls32
-                  / [ *4( h16 ":" ) h16 ] "::"              ls32
-                  / [ *5( h16 ":" ) h16 ] "::"              h16
-                  / [ *6( h16 ":" ) h16 ] "::"
-ls32              = ( h16 ":" h16 ) / IPv4address
-h16               = 1*4HEXDIG
-IPv4address       = dec-octet "." dec-octet "." dec-octet "." dec-octet
-dec-octet         = DIGIT                ; 0-9
-                  / %x31-39 DIGIT        ; 10-99
-                  / "1" 2DIGIT           ; 100-199
-                  / "2" %x30-34 DIGIT    ; 200-249
-                  / "25" %x30-35         ; 250-255
-ireg-name         = *( iunreserved / pct-encoded / sub-delims )
-port              = *DIGIT
-ipath-abempty     = *( "/" isegment )
-ipath-abs         = "/" [ isegment-nz *( "/" isegment ) ]
-ipath-rootless    = isegment-nz *( "/" isegment )
-ipath-empty       = ""
-isegment          = *ipchar
-isegment-nz       = 1*ipchar
-iquery            = *( ipchar / iprivate / "/" / "?" )
-iprivate          = %xE000-F8FF
-ifragment         = *( ipchar / "/" / "?" )
-ipchar            = iunreserved / pct-encoded / sub-delims / ":" / "@"
-iunreserved       = ALPHA / DIGIT / "-" / "." / "_" / "~" / ucschar
-pct-encoded       = "%" HEXDIG HEXDIG
-ucschar           = %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF
-reserved          = gen-delims / sub-delims
-gen-delims        = ":" / "/" / "?" / "#" / "[" / "]" / "@"
-sub-delims        = "!" / "$" / "&" / "'"
-                  / "*" / "+" / "," / ";" / "="
-unreserved        = ALPHA / DIGIT / "-" / "." / "_" / "~"
+inner-statement         = "(" xdi-statement ")"
 
-;
-; ABNF core rules
-;
+literal-statement       = literal-context value-context "/<>/" json-value
 
-ALPHA          =  %x41-5A / %x61-7A 		; A-Z / a-z
-BIT            =  "0" / "1"
-CHAR           =  %x01-7F 				; any 7-bit US-ASCII character, excluding NUL
-CR             =  %x0D					; carriage return
-CRLF           =  CR LF					; Internet standard newline
-CTL            =  %x00-1F / %x7F			; controls
-DIGIT          =  %x30-39 				; 0-9
-DQUOTE         =  %x22					; " (Double Quote)
-HEXDIG         =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
-HTAB           =  %x09					; horizontal tab
-LF             =  %x0A					; linefeed
-LWSP           =  *(WSP / CRLF WSP)		; linear white space (past newline)
-OCTET          =  %x00-FF					; 8 bits of data
-SP             =  %x20					; space
-VCHAR          =  %x21-7E					; visible (printing) characters
-WSP            =  SP / HTAB				; white space
+context                 = ( peer-root [ relative-context ] ) / relative-context
+relative-context        = 1*subpath
+
+class-context           = [ peer-root ] class-path
+class-path              = ( subpath class-path ) / class
+
+instance-context        = ( instance / element ) [ relative-context ]
+
+literal-context         = [ peer-root ] literal-path
+literal-path            = ( subpath literal-path ) / attribute-singleton / attribute-pair
+attribute-pair          = attribute-class ( instance / element )
+
+value-context           = "<<" 1*type-class ">>"
+
+root                    = local-root / peer-root / inner-root
+local-root              = "()"
+peer-root               = "(" ( context / iri-chars ) ")"
+inner-root              = "(" context "/" context ")"
+
+xref                    = "(" ( context / iri-chars / xdi-chars ) ")"
+
+subpath                 = singleton / ( class [ instance / element ] )
+subsegment              = singleton / class / instance / element / root / inner-statement
+
+singleton               = entity-singleton / attribute-singleton / person-singleton / organization-singleton / relative-singleton
+entity-singleton        = "!(" type-class ")"
+attribute-singleton     = "!<" type-class ">"
+person-singleton        = "=" ( xref / xdi-chars )
+organization-singleton  = "@" ( xref / xdi-chars )
+relative-singleton      = "*" [ xref / uuid-literal / ipv6-literal / xdi-chars ]
+
+class                   = entity-class / attribute-class
+
+entity-class            = type-class / instance-class
+type-class              = specific / generic
+instance-class          = person / organization
+specific                = "$" [ xref / xdi-chars ]
+generic                 = "+" [ xref / xdi-chars ]
+person                  = "="
+organization            = "@"
+
+attribute-class         = "<" type-class ">"
+
+instance                = "!" [ xref / uuid-literal / ipv6-literal / xdi-chars ]
+
+element                 = "[" 1*DIGIT "]"
+
+json-value              = json-string / json-number / json-boolean / json-array / json-object
+json-string             = DQUOTE *xdi-chars DQUOTE   ;needs real JSON ABNF
+json-number             = 1*DIGIT                    ;needs real JSON ABNF
+json-boolean            = "true" / "false"
+json-array              = "[" *xdi-char "]"          ;needs real JSON ABNF
+json-object             = "{" *xdi-char "}"          ;needs real JSON ABNF
+
+ipv6-literal            = ":ipv6:" 4HEXDIG 7*( ":" 4HEXDIG )
+
+uuid-literal            = ":uuid:" time-low "-" time-mid "-" time-high "-" clock-seq clock-seq-low "-" node
+time-low                = 8HEXDIG
+time-mid                = 4HEXDIG
+time-high               = 4HEXDIG   ; includes version
+clock-seq               = 2HEXDIG   ; includes reserved
+clock-seq-low           = 2HEXDIG
+node                    = 12HEXDIG
+
+xdi-chars               = 1*( xdi-char / ":" )
+
+iri-chars               = xdi-char / context-symbol / nonparen-delim ; "(" and ")" are excluded
+nonparen-delim          = "/" / "?" / "#" / "[" / "]" / "'" / ","    ; double quote included?
+context-symbol          = "!" / "*" / "=" / "@" / "+" / "$"
+xdi-char                = ALPHA / DIGIT / "-" / "." / "_" / "~" / %x80-EFFFD ; is there a way to leave high end open?
+ALPHA                   = %x41-5A / %x61-7A   ; A-Z, a-z
+DIGIT                   = %x30-39             ; 0-9
+HEXDIG                  = %x30-39 / %x41-46   ; 0-9, A-F
+CRLF                    = %x0D / %x0A / ( %x0D %x0A )
+DQUOTE                  = %x22

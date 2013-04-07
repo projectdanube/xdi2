@@ -28,9 +28,9 @@ public final class StatementUtil {
 	 * @param object The statement's object
 	 * @return An XDI statement
 	 */
-	public static XDI3Statement fromComponents(final XDI3Segment subject, final XDI3Segment predicate, final XDI3Segment object) {
+	public static XDI3Statement fromComponents(final XDI3Segment subject, final XDI3Segment predicate, final Object object) {
 
-		return XDI3Statement.create("" + subject + "/" + predicate + "/" + object);
+		return XDI3Statement.create("" + subject + "/" + predicate + "/" + StatementUtil.statementObjectToString(object));
 	}
 
 	/**
@@ -63,7 +63,7 @@ public final class StatementUtil {
 	 */
 	public static XDI3Statement fromLiteralComponents(final XDI3Segment contextNodeXri, final String literalData) {
 
-		return fromComponents(contextNodeXri, XDIConstants.XRI_S_LITERAL, XDIUtil.stringToLiteralSegment(literalData));
+		return fromComponents(contextNodeXri, XDIConstants.XRI_S_LITERAL, literalData);
 	}
 
 	/**
@@ -93,9 +93,9 @@ public final class StatementUtil {
 
 		if (log.isTraceEnabled()) log.trace("expandStatement(" + statement + "," + base + ")");
 
-		XDI3Segment subject = XRIUtil.expandXri(statement.getSubject(), base);
+		XDI3Segment subject = XDI3Util.expandXri(statement.getSubject(), base);
 		XDI3Segment predicate = statement.getPredicate();
-		XDI3Segment object = (statement.isRelationStatement() && ! statement.hasInnerRootStatement()) ? XRIUtil.expandXri(statement.getObject(), base) : statement.getObject();
+		Object object = (statement.isRelationStatement() && ! statement.hasInnerRootStatement()) ? XDI3Util.expandXri((XDI3Segment) statement.getObject(), base) : statement.getObject();
 
 		return fromComponents(subject, predicate, object);
 	}
@@ -110,11 +110,11 @@ public final class StatementUtil {
 
 		XDI3Segment subject;
 		XDI3Segment predicate;
-		XDI3Segment object;
+		Object object;
 
 		// subject
 
-		subject = statement.getSubject().equals(base) ? XDIConstants.XRI_S_ROOT : XRIUtil.reduceXri(statement.getSubject(), base, variablesInXri, variablesInBase);
+		subject = statement.getSubject().equals(base) ? XDIConstants.XRI_S_ROOT : XDI3Util.reduceXri(statement.getSubject(), base, variablesInXri, variablesInBase);
 		if (subject == null) return null;
 
 		// predicate
@@ -125,7 +125,7 @@ public final class StatementUtil {
 
 		if (statement.isRelationStatement()) {
 
-			object = statement.getObject().equals(base) ? XDIConstants.XRI_S_ROOT : XRIUtil.reduceXri(statement.getObject(), base, variablesInXri, variablesInBase);
+			object = statement.getObject().equals(base) ? XDIConstants.XRI_S_ROOT : XDI3Util.reduceXri((XDI3Segment) statement.getObject(), base, variablesInXri, variablesInBase);
 			if (object == null) return null;
 		} else {
 
@@ -143,4 +143,25 @@ public final class StatementUtil {
 
 		return reduceStatement(statement, base, false, false);
 	}
+
+	public static String statementObjectToString(Object object) {
+
+		if (object instanceof String) {
+
+			return "\"" + ((String) object).replace("\"", "\\\"") + "\"";
+		} else {
+
+			return object.toString();
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+

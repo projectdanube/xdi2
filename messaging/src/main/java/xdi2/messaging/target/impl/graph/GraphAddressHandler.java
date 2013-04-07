@@ -4,7 +4,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.AddOperation;
@@ -46,10 +46,10 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 	@Override
 	public void executeAddOnAddress(XDI3Segment targetAddress, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment parentAddress = XRIUtil.parentXri(targetAddress, -1);
+		XDI3Segment parentAddress = XDI3Util.parentXri(targetAddress, -1);
 		if (parentAddress == null) parentAddress = XDIConstants.XRI_S_CONTEXT;
 
-		XDI3SubSegment localAddress = XRIUtil.localXri(targetAddress, 1).getFirstSubSegment();
+		XDI3SubSegment localAddress = XDI3Util.localXri(targetAddress, 1).getFirstSubSegment();
 
 		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, true);
 		contextNode.createContextNode(localAddress);

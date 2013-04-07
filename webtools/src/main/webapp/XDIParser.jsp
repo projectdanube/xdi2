@@ -28,11 +28,11 @@
 	<form action="XDIParser" method="post">
 
 		<table><tr>
-		<td width="250">Parse Segment-based ABNF:</td>
+		<td>Parse ABNF:</td>
 		<td>
 		<select name="rulename" style="width: 200px">
 		
-		<% for (String rule : (String[]) request.getAttribute("rules-segment")) { %>
+		<% for (String rule : (String[]) request.getAttribute("rules")) { %>
 			<option class="input" name="rulename" value="<%= rule %>" <%= rule.equals(request.getAttribute("rulename")) ? "selected" : "" %>><%= rule %></option>
 		<% } %>
 		</select>
@@ -45,39 +45,10 @@
 		&nbsp;
 		<input type="submit" value="Go!">
 
-		<input type="hidden" name="abnf" value="segment">
 		</td>
 		</tr></table>
 
 	</form>
-
-	<form action="XDIParser" method="post">
-
-		<table><tr>
-		<td width="250">Parse Full Graph Model ABNF:</td>
-		<td>
-		<select name="rulename" style="width: 200px">
-		
-		<% for (String rule : (String[]) request.getAttribute("rules-full")) { %>
-			<option class="input" name="rulename" value="<%= rule %>" <%= rule.equals(request.getAttribute("rulename")) ? "selected" : "" %>><%= rule %></option>
-		<% } %>
-		</select>
-		&nbsp;
-		<input type="text" class="input" name="input" style="width: 500px" value="<%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %>">
-		&nbsp;
-		<input type="radio" name="parser" value="aparse" <%= "aparse".equals(request.getAttribute("parser")) ? "checked" : "" %>>aParse
-		&nbsp;
-		<input type="radio" name="parser" value="apg" <%= "apg".equals(request.getAttribute("parser")) ? "checked" : "" %>>APG
-		&nbsp;
-		<input type="submit" value="Go!">
-
-		<input type="hidden" name="abnf" value="full">
-		</td>
-		</tr></table>
-
-	</form>
-
-	<br>
 
 	<div class="tabber">
 

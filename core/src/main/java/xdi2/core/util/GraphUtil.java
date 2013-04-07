@@ -6,8 +6,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.roots.InnerRoot;
-import xdi2.core.features.roots.Roots;
+import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -67,11 +67,11 @@ public final class GraphUtil {
 	 * @pram statementXris
 	 * @return An XDI inner root.
 	 */
-	public static InnerRoot innerRootFromComponents(XDI3Segment subject, XDI3Segment predicate, Iterator<XDI3Statement> statementXris) {
+	public static XdiInnerRoot innerRootFromComponents(XDI3Segment subject, XDI3Segment predicate, Iterator<XDI3Statement> statementXris) {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		InnerRoot innerRoot = Roots.findLocalRoot(graph).findInnerRoot(subject, predicate, true);
+		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(graph).findInnerRoot(subject, predicate, true);
 		while (statementXris.hasNext()) innerRoot.createRelativeStatement(statementXris.next());
 
 		return innerRoot;

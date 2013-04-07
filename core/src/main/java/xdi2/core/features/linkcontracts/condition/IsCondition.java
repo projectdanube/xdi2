@@ -71,14 +71,14 @@ public class IsCondition extends Condition {
 		// check if subject XRI and object XRI are the same
 
 		XDI3Segment subject = policyEvaluationContext.getContextNodeXri(this.getStatement().getSubject());
-		XDI3Segment object = policyEvaluationContext.getContextNodeXri(this.getStatement().getObject());
+		XDI3Segment object = policyEvaluationContext.getContextNodeXri((XDI3Segment) this.getStatement().getObject());
 
 		if (subject != null && subject.equals(object)) return Boolean.TRUE;
 
 		// check if the statement exists
 
 		ContextNode subjectContextNode = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
-		ContextNode objectContextNode = policyEvaluationContext.getContextNode(this.getStatement().getObject());
+		ContextNode objectContextNode = policyEvaluationContext.getContextNode((XDI3Segment) this.getStatement().getObject());
 
 		Iterator<ContextNode> equivalenceContextNodes = subjectContextNode == null ? new EmptyIterator<ContextNode> () : Equivalence.getIdentityContextNodes(subjectContextNode);
 		if (new IteratorContains<ContextNode> (equivalenceContextNodes, objectContextNode).contains()) return Boolean.TRUE;

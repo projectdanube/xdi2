@@ -1,9 +1,9 @@
 package xdi2.core.xri3;
 
+import java.util.Collections;
 import java.util.List;
 
-
-public class XDI3Segment extends XDI3SyntaxComponent {
+public final class XDI3Segment extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 2153450076797516335L;
 
@@ -24,6 +24,11 @@ public class XDI3Segment extends XDI3SyntaxComponent {
 	public static XDI3Segment create(String string) {
 
 		return create(XDI3ParserRegistry.getInstance().getParser(), string);
+	}
+
+	public static XDI3Segment create(XDI3SubSegment subSegment) {
+
+		return new XDI3Segment(subSegment.toString(), Collections.singletonList(subSegment));
 	}
 
 	public List<XDI3SubSegment> getSubSegments() {
@@ -53,18 +58,6 @@ public class XDI3Segment extends XDI3SyntaxComponent {
 		if (this.subSegments.size() < 1) return null;
 
 		return this.subSegments.get(this.subSegments.size() - 1);
-	}
-
-	public boolean isINumber() {
-
-		// all subsegments must be persistent
-
-		for (XDI3SubSegment subSegment : this.getSubSegments()) {
-
-			if (! subSegment.isPersistent()) return false;
-		}
-
-		return true;
 	}
 
 	public boolean startsWith(XDI3SubSegment[] subSegments) {

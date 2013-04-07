@@ -68,8 +68,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
-		request.setAttribute("rules-segment", xdi2.core.xri3.parser.aparse.ParserRules.rules);
-		request.setAttribute("rules-full", xdi2.core.xri3.parser.full.aparse.ParserRules.rules);
+		request.setAttribute("rules", xdi2.core.xri3.parser.aparse.ParserRules.rules);
 		request.setAttribute("rulename", "xdi-statement");
 		request.setAttribute("parser", "aparse");
 		request.setAttribute("input", sampleInput);
@@ -80,7 +79,6 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String rulename = request.getParameter("rulename");
-		String abnf = request.getParameter("abnf");
 		String parser = request.getParameter("parser");
 		String input = request.getParameter("input");
 		String output1 = "";
@@ -114,72 +112,39 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				List<Deque<String>> stackDeques;
 				Set<Entry<String, Integer>> countEntrySet;
 
-				if ("segment".equals(abnf)) {
+				xdi2.core.xri3.parser.aparse.Rule rule = xdi2.core.xri3.parser.aparse.Parser.parse(rulename, input);
 
-					xdi2.core.xri3.parser.aparse.Rule rule = xdi2.core.xri3.parser.aparse.Parser.parse(rulename, input);
+				// tree
 
-					// tree
+				rule.accept(new xdi2.core.xri3.parser.aparse.TreeDisplayer(stream1));
+				output1 = html(new String(buffer1.toByteArray(), "UTF-8"));
 
-					rule.accept(new xdi2.core.xri3.parser.aparse.TreeDisplayer(stream1));
-					output1 = html(new String(buffer1.toByteArray(), "UTF-8"));
+				// stack
 
-					// stack
+				xdi2.core.xri3.parser.aparse.DequesVisitor dequesVisitor = new xdi2.core.xri3.parser.aparse.DequesVisitor();
+				rule.accept(dequesVisitor);
+				stackDeques = dequesVisitor.getDeques();
 
-					xdi2.core.xri3.parser.aparse.DequesVisitor dequesVisitor = new xdi2.core.xri3.parser.aparse.DequesVisitor();
-					rule.accept(dequesVisitor);
-					stackDeques = dequesVisitor.getDeques();
+				// xml
 
-					// xml
+				PrintStream out = System.out;
+				System.setOut(stream3);
+				rule.accept(new xdi2.core.xri3.parser.aparse.XmlDisplayer());
+				System.setOut(out);
 
-					PrintStream out = System.out;
-					System.setOut(stream3);
-					rule.accept(new xdi2.core.xri3.parser.aparse.XmlDisplayer());
-					System.setOut(out);
+				// count
 
-					// count
-
-					xdi2.core.xri3.parser.aparse.CountVisitor countVisitor = new xdi2.core.xri3.parser.aparse.CountVisitor();
-					rule.accept(countVisitor);
-					countEntrySet = countVisitor.getCount().entrySet();
-				} else if ("full".equals(abnf)) {
-
-					xdi2.core.xri3.parser.full.aparse.Rule rule = xdi2.core.xri3.parser.full.aparse.Parser.parse(rulename, input);
-
-					// tree
-
-					rule.accept(new xdi2.core.xri3.parser.full.aparse.TreeDisplayer(stream1));
-					output1 = html(new String(buffer1.toByteArray(), "UTF-8"));
-
-					// stack
-
-					xdi2.core.xri3.parser.full.aparse.DequesVisitor dequesVisitor = new xdi2.core.xri3.parser.full.aparse.DequesVisitor();
-					rule.accept(dequesVisitor);
-					stackDeques = dequesVisitor.getDeques();
-
-					// xml
-
-					PrintStream out = System.out;
-					System.setOut(stream3);
-					rule.accept(new xdi2.core.xri3.parser.full.aparse.XmlDisplayer());
-					System.setOut(out);
-
-					// count
-
-					xdi2.core.xri3.parser.full.aparse.CountVisitor countVisitor = new xdi2.core.xri3.parser.full.aparse.CountVisitor();
-					rule.accept(countVisitor);
-					countEntrySet = countVisitor.getCount().entrySet();
-				} else {
-
-					throw new IllegalStateException(abnf);
-				}
+				xdi2.core.xri3.parser.aparse.CountVisitor countVisitor = new xdi2.core.xri3.parser.aparse.CountVisitor();
+				rule.accept(countVisitor);
+				countEntrySet = countVisitor.getCount().entrySet();
 
 				stream2.println("<table border='1' cellpadding='5'><tr>");
 				for (Deque<String> deque : stackDeques) {
 
-					String terminal = deque.peekLast();
+					String terminal = deque.peekLast().replace("\"", "&quot;");
 					StringBuffer stack = new StringBuffer();
 					String stackentry;
-					while ((stackentry = deque.pollFirst()) != null) stack.append(stackentry + "<br>");
+					while ((stackentry = deque.pollFirst()) != null) stack.append(stackentry.replace("\"", "&quot;") + "<br>");
 					stream2.println("<td onmouseover=\"document.getElementById('stack').innerHTML='" + stack.toString() + "';\" style='cursor:default;font-size:13pt;font-weight:bold;'>" + terminal + "</td>");
 				}
 				stream2.println("</tr></table>");
@@ -199,18 +164,8 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				com.coasttocoastresearch.apg.Grammar g;
 				int r = -1;
 
-				if ("segment".equals(abnf)) {
-
-					g = xdi2.core.xri3.parser.apg.XDI3Grammar.getInstance();
-					for (xdi2.core.xri3.parser.apg.XDI3Grammar.RuleNames rule : xdi2.core.xri3.parser.apg.XDI3Grammar.RuleNames.values()) if (rule.ruleName().equals(rulename)) r = rule.ruleID();
-				} else if ("full".equals(abnf)) {
-
-					g = xdi2.core.xri3.parser.full.apg.XDI3Grammar.getInstance();
-					for (xdi2.core.xri3.parser.full.apg.XDI3Grammar.RuleNames rule : xdi2.core.xri3.parser.full.apg.XDI3Grammar.RuleNames.values()) if (rule.ruleName().equals(rulename)) r = rule.ruleID();
-				} else {
-
-					throw new IllegalStateException(abnf);
-				}
+				g = xdi2.core.xri3.parser.apg.XDI3Grammar.getInstance();
+				for (xdi2.core.xri3.parser.apg.XDI3Grammar.RuleNames rule : xdi2.core.xri3.parser.apg.XDI3Grammar.RuleNames.values()) if (rule.ruleName().equals(rulename)) r = rule.ruleID();
 
 				com.coasttocoastresearch.apg.Parser p = new com.coasttocoastresearch.apg.Parser(g);
 
@@ -241,11 +196,10 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 		// display results
 
-		request.setAttribute("rules-segment", xdi2.core.xri3.parser.aparse.ParserRules.rules);
-		request.setAttribute("rules-full", xdi2.core.xri3.parser.full.aparse.ParserRules.rules);
+		request.setAttribute("rules", xdi2.core.xri3.parser.aparse.ParserRules.rules);
 		request.setAttribute("rulename", rulename);
 		request.setAttribute("parser", parser);
-		request.setAttribute("input", input);
+		request.setAttribute("input", input.replace("\"", "&quot;"));
 		request.setAttribute("output1", output1);
 		request.setAttribute("output2", output2);
 		request.setAttribute("output3", output3);

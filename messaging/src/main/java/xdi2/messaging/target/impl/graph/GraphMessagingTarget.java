@@ -3,8 +3,8 @@ package xdi2.messaging.target.impl.graph;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.features.roots.PeerRoot;
-import xdi2.core.features.roots.Roots;
+import xdi2.core.features.roots.XdiLocalRoot;
+import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageEnvelope;
@@ -58,7 +58,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	@Override
 	public XDI3Segment getOwnerAddress() {
 
-		PeerRoot selfPeerRoot = Roots.findLocalRoot(this.getGraph()).getSelfPeerRoot();
+		XdiPeerRoot selfPeerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).getSelfPeerRoot();
 		if (selfPeerRoot == null) return null;
 
 		return selfPeerRoot.getContextNode().getXri();
@@ -113,7 +113,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 
 		try {
 
-			String identifier = PeerRoot.createPeerRootXri(prototypingContext.getOwner()).toString();
+			String identifier = XdiPeerRoot.createPeerRootArcXri(prototypingContext.getOwner()).toString();
 
 			graph = this.getGraph().getGraphFactory().openGraph(identifier);
 		} catch (IOException ex) {

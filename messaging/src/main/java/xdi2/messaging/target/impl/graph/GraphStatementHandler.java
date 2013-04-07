@@ -6,9 +6,9 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.XDIUtil;
+import xdi2.core.util.VariableUtil;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
@@ -64,7 +64,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, executionContext);
 
-		contextNode = contextNode.findContextNode(contextNodeStatement.getObject(), false);
+		contextNode = contextNode.findContextNode((XDI3Segment) contextNodeStatement.getObject(), false);
 		if (contextNode == null) return;
 
 		CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
@@ -78,7 +78,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, executionContext);
 
-		contextNode = contextNode.findContextNode(contextNodeStatement.getObject(), false);
+		contextNode = contextNode.findContextNode((XDI3Segment) contextNodeStatement.getObject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, executionContext);
 
 		contextNode.delete();
@@ -96,11 +96,11 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) return;
 
-		if (Variables.isVariableSingle(relationStatement.getObject())) {
+		if (VariableUtil.isVariable(relationStatement.getTargetContextNodeXri())) {
 
 			Iterator<Relation> relations;
 
-			if (Variables.isVariableSingle(relationStatement.getPredicate())) {
+			if (VariableUtil.isVariable(relationStatement.getPredicate())) {
 
 				relations = contextNode.getRelations();
 			} else {
@@ -111,7 +111,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 			while (relations.hasNext()) CopyUtil.copyRelation(relations.next(), messageResult.getGraph(), null);
 		} else {
 
-			Relation relation = contextNode.getRelation(relationStatement.getPredicate(), relationStatement.getObject());
+			Relation relation = contextNode.getRelation(relationStatement.getArcXri(), relationStatement.getTargetContextNodeXri());
 			if (relation == null) return;
 
 			CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
@@ -124,9 +124,9 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement, null, executionContext);
 
-		if (Variables.isVariableSingle(relationStatement.getObject())) {
+		if (VariableUtil.isVariable(relationStatement.getTargetContextNodeXri())) {
 
-			if (Variables.isVariableSingle(relationStatement.getPredicate())) {
+			if (VariableUtil.isVariable(relationStatement.getPredicate())) {
 
 				contextNode.deleteRelations();
 			} else {
@@ -135,7 +135,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 			}
 		} else {
 
-			contextNode.deleteRelation(relationStatement.getPredicate(), relationStatement.getObject());
+			contextNode.deleteRelation(relationStatement.getPredicate(), relationStatement.getTargetContextNodeXri());
 		}
 	}
 
@@ -152,7 +152,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		String literalStatementData = XDIUtil.literalSegmentToString(literalStatement.getObject());
+		String literalStatementData = literalStatement.getLiteralData();
 
 		if (literalStatementData.isEmpty() || literalStatementData.equals(literal.getLiteralData())) {
 
@@ -169,7 +169,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, executionContext);
 
-		literal.setLiteralData(XDIUtil.literalSegmentToString(literalStatement.getObject()));
+		literal.setLiteralData(literalStatement.getLiteralData());
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, executionContext);
 
-		String literalStatementData = XDIUtil.literalSegmentToString(literalStatement.getObject());
+		String literalStatementData = literalStatement.getLiteralData();
 
 		if (literalStatementData.isEmpty() || literalStatementData.equals(literal.getLiteralData())) {
 

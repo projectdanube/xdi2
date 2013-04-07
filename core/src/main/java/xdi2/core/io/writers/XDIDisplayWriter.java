@@ -164,7 +164,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		builder.append(this.writePretty ? "\t" : "/");
 		builder.append(statementXri.getPredicate());
 		builder.append(this.writePretty ? "\t" : "/");
-		builder.append(statementXri.getObject());
+		builder.append(StatementUtil.statementObjectToString(statementXri.getObject()));
 		builder.append(this.writeHtml ? "" : "\n");
 
 		String string = builder.toString();

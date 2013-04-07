@@ -6,14 +6,14 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.features.linkcontracts.evaluation.GraphPolicyEvaluationContext;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 
 public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext {
 
-	public static final XDI3Segment XRI_FROM = XDI3Segment.create("($from)");
-	public static final XDI3Segment XRI_MSG = XDI3Segment.create("($msg)");
+	public static final XDI3Segment XRI_FROM = XDI3Segment.create("{$from}");
+	public static final XDI3Segment XRI_MSG = XDI3Segment.create("{$msg}");
 
 	private Message message;
 
@@ -27,18 +27,18 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 	@Override
 	public XDI3Segment getContextNodeXri(XDI3Segment xri) {
 
-		if (XRIUtil.startsWith(xri, XRI_MSG)) {
+		if (XDI3Util.startsWith(xri, XRI_MSG)) {
 
-			XDI3Segment reducedXri = XRIUtil.reduceXri(xri, XRI_MSG);
+			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_MSG);
 
-			return XRIUtil.expandXri(reducedXri, this.getMessage().getContextNode().getXri());
+			return XDI3Util.expandXri(reducedXri, this.getMessage().getContextNode().getXri());
 		}
 
-		if (XRIUtil.startsWith(xri, XRI_FROM)) {
+		if (XDI3Util.startsWith(xri, XRI_FROM)) {
 
-			XDI3Segment reducedXri = XRIUtil.reduceXri(xri, XRI_FROM);
+			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_FROM);
 
-			return XRIUtil.expandXri(reducedXri, this.getMessage().getSender());
+			return XDI3Util.expandXri(reducedXri, this.getMessage().getSender());
 		}
 
 		return super.getContextNodeXri(xri);
@@ -47,9 +47,9 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 	@Override
 	public ContextNode getContextNode(XDI3Segment xri) {
 
-		if (XRIUtil.startsWith(xri, XRI_MSG)) {
+		if (XDI3Util.startsWith(xri, XRI_MSG)) {
 
-			XDI3Segment reducedXri = XRIUtil.reduceXri(xri, XRI_MSG);
+			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_MSG);
 
 			ContextNode contextNode = this.getMessage().getContextNode();
 			if (reducedXri != null) contextNode = contextNode.findContextNode(reducedXri, false);
@@ -57,9 +57,9 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 			return contextNode;
 		}
 
-		if (XRIUtil.startsWith(xri, XRI_FROM)) {
+		if (XDI3Util.startsWith(xri, XRI_FROM)) {
 
-			XDI3Segment reducedXri = XRIUtil.reduceXri(xri, XRI_FROM);
+			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_FROM);
 
 			ContextNode contextNode = this.getGraph().findContextNode(this.getMessage().getSender(), false);
 			if (reducedXri != null) contextNode = contextNode.findContextNode(reducedXri, false);

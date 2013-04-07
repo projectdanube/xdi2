@@ -1,5 +1,7 @@
 package xdi2.core.impl;
 
+import java.util.Arrays;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
@@ -22,8 +24,8 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 		super(graph, contextNode);
 
 		this.arcXri = arcXri;
-		this.contextNodes = contextNodes;
-		this.relations = relations;
+		this.contextNodes = contextNodes == null ? Arrays.asList(new ContextNode[0]) : contextNodes;
+		this.relations = relations == null ? Arrays.asList(new Relation[0]) : relations;
 		this.literal = literal;
 	}
 

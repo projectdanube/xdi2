@@ -33,7 +33,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * Gets the object of this statement.
 	 * @return An object.
 	 */
-	public XDI3Segment getObject();
+	public Object getObject();
 
 	/**
 	 * Returns the graph that contains this statement.

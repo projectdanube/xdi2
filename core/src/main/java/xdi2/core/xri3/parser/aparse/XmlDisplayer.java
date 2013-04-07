@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Feb 20 10:37:39 CET 2013
+ * Produced : Wed Apr 03 23:48:03 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -16,14 +16,14 @@ public class XmlDisplayer implements Visitor
 {
   private boolean terminal = true;
 
-  public Object visit(Rule_xdi_context rule)
+  public Object visit(Rule_xdi_graph rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xdi-context>");
+    System.out.print("<xdi-graph>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xdi-context>");
+    System.out.print("</xdi-graph>");
     terminal = false;
     return null;
   }
@@ -40,110 +40,362 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_xdi_subject rule)
+  public Object visit(Rule_contextual_statement rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xdi-subject>");
+    System.out.print("<contextual-statement>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xdi-subject>");
+    System.out.print("</contextual-statement>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xdi_predicate rule)
+  public Object visit(Rule_direct_contextual rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xdi-predicate>");
+    System.out.print("<direct-contextual>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xdi-predicate>");
+    System.out.print("</direct-contextual>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xdi_object rule)
+  public Object visit(Rule_inverse_contextual rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xdi-object>");
+    System.out.print("<inverse-contextual>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xdi-object>");
+    System.out.print("</inverse-contextual>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xdi_segment rule)
+  public Object visit(Rule_absolute rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xdi-segment>");
+    System.out.print("<absolute>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xdi-segment>");
+    System.out.print("</absolute>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_subseg rule)
+  public Object visit(Rule_peer_relative rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<subseg>");
+    System.out.print("<peer-relative>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</subseg>");
+    System.out.print("</peer-relative>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_global_subseg rule)
+  public Object visit(Rule_context_relative rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<global-subseg>");
+    System.out.print("<context-relative>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</global-subseg>");
+    System.out.print("</context-relative>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_local_subseg rule)
+  public Object visit(Rule_class_relative rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<local-subseg>");
+    System.out.print("<class-relative>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</local-subseg>");
+    System.out.print("</class-relative>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_gcs_char rule)
+  public Object visit(Rule_absolute_inverse rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<gcs-char>");
+    System.out.print("<absolute-inverse>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</gcs-char>");
+    System.out.print("</absolute-inverse>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_lcs_char rule)
+  public Object visit(Rule_peer_inverse rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<lcs-char>");
+    System.out.print("<peer-inverse>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</lcs-char>");
+    System.out.print("</peer-inverse>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_context_inverse rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<context-inverse>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</context-inverse>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_class_inverse rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<class-inverse>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</class-inverse>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_relational_statement rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<relational-statement>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</relational-statement>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_direct_relational rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<direct-relational>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</direct-relational>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_inverse_relational rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<inverse-relational>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</inverse-relational>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_inner_relational rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<inner-relational>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</inner-relational>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_inner_statement rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<inner-statement>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</inner-statement>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_literal_statement rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<literal-statement>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</literal-statement>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_context rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<context>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</context>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_relative_context rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<relative-context>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</relative-context>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_class_context rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<class-context>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</class-context>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_class_path rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<class-path>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</class-path>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_instance_context rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<instance-context>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</instance-context>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_literal_context rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<literal-context>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</literal-context>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_literal_path rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<literal-path>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</literal-path>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_attribute_pair rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<attribute-pair>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</attribute-pair>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_value_context rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<value-context>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</value-context>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_root rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<root>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</root>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_local_root rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<local-root>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</local-root>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_peer_root rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<peer-root>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</peer-root>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_inner_root rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<inner-root>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</inner-root>");
     terminal = false;
     return null;
   }
@@ -160,482 +412,458 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_xref_empty rule)
+  public Object visit(Rule_subpath rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xref-empty>");
+    System.out.print("<subpath>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xref-empty>");
+    System.out.print("</subpath>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xref_IRI rule)
+  public Object visit(Rule_subsegment rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xref-IRI>");
+    System.out.print("<subsegment>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xref-IRI>");
+    System.out.print("</subsegment>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xref_segment rule)
+  public Object visit(Rule_singleton rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xref-segment>");
+    System.out.print("<singleton>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xref-segment>");
+    System.out.print("</singleton>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xref_subject_predicate rule)
+  public Object visit(Rule_entity_singleton rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xref-subject-predicate>");
+    System.out.print("<entity-singleton>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xref-subject-predicate>");
+    System.out.print("</entity-singleton>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xref_statement rule)
+  public Object visit(Rule_attribute_singleton rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xref-statement>");
+    System.out.print("<attribute-singleton>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xref-statement>");
+    System.out.print("</attribute-singleton>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xref_literal rule)
+  public Object visit(Rule_person_singleton rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xref-literal>");
+    System.out.print("<person-singleton>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xref-literal>");
+    System.out.print("</person-singleton>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_literal rule)
+  public Object visit(Rule_organization_singleton rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<literal>");
+    System.out.print("<organization-singleton>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</literal>");
+    System.out.print("</organization-singleton>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_xdi_pchar rule)
+  public Object visit(Rule_relative_singleton rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xdi-pchar>");
+    System.out.print("<relative-singleton>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xdi-pchar>");
+    System.out.print("</relative-singleton>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_IRI rule)
+  public Object visit(Rule_class rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<IRI>");
+    System.out.print("<class>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</IRI>");
+    System.out.print("</class>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_scheme rule)
+  public Object visit(Rule_entity_class rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<scheme>");
+    System.out.print("<entity-class>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</scheme>");
+    System.out.print("</entity-class>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ihier_part rule)
+  public Object visit(Rule_type_class rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ihier-part>");
+    System.out.print("<type-class>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ihier-part>");
+    System.out.print("</type-class>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_iauthority rule)
+  public Object visit(Rule_instance_class rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<iauthority>");
+    System.out.print("<instance-class>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</iauthority>");
+    System.out.print("</instance-class>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_iuserinfo rule)
+  public Object visit(Rule_specific rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<iuserinfo>");
+    System.out.print("<specific>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</iuserinfo>");
+    System.out.print("</specific>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ihost rule)
+  public Object visit(Rule_generic rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ihost>");
+    System.out.print("<generic>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ihost>");
+    System.out.print("</generic>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_IP_literal rule)
+  public Object visit(Rule_person rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<IP-literal>");
+    System.out.print("<person>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</IP-literal>");
+    System.out.print("</person>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_IPvFuture rule)
+  public Object visit(Rule_organization rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<IPvFuture>");
+    System.out.print("<organization>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</IPvFuture>");
+    System.out.print("</organization>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_IPv6address rule)
+  public Object visit(Rule_attribute_class rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<IPv6address>");
+    System.out.print("<attribute-class>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</IPv6address>");
+    System.out.print("</attribute-class>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ls32 rule)
+  public Object visit(Rule_instance rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ls32>");
+    System.out.print("<instance>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ls32>");
+    System.out.print("</instance>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_h16 rule)
+  public Object visit(Rule_element rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<h16>");
+    System.out.print("<element>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</h16>");
+    System.out.print("</element>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_IPv4address rule)
+  public Object visit(Rule_json_value rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<IPv4address>");
+    System.out.print("<json-value>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</IPv4address>");
+    System.out.print("</json-value>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_dec_octet rule)
+  public Object visit(Rule_json_string rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<dec-octet>");
+    System.out.print("<json-string>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</dec-octet>");
+    System.out.print("</json-string>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ireg_name rule)
+  public Object visit(Rule_json_number rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ireg-name>");
+    System.out.print("<json-number>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ireg-name>");
+    System.out.print("</json-number>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_port rule)
+  public Object visit(Rule_json_boolean rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<port>");
+    System.out.print("<json-boolean>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</port>");
+    System.out.print("</json-boolean>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ipath_abempty rule)
+  public Object visit(Rule_json_array rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ipath-abempty>");
+    System.out.print("<json-array>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ipath-abempty>");
+    System.out.print("</json-array>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ipath_abs rule)
+  public Object visit(Rule_json_object rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ipath-abs>");
+    System.out.print("<json-object>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ipath-abs>");
+    System.out.print("</json-object>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ipath_rootless rule)
+  public Object visit(Rule_ipv6_literal rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ipath-rootless>");
+    System.out.print("<ipv6-literal>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ipath-rootless>");
+    System.out.print("</ipv6-literal>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ipath_empty rule)
+  public Object visit(Rule_uuid_literal rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ipath-empty>");
+    System.out.print("<uuid-literal>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ipath-empty>");
+    System.out.print("</uuid-literal>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_isegment rule)
+  public Object visit(Rule_time_low rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<isegment>");
+    System.out.print("<time-low>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</isegment>");
+    System.out.print("</time-low>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_isegment_nz rule)
+  public Object visit(Rule_time_mid rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<isegment-nz>");
+    System.out.print("<time-mid>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</isegment-nz>");
+    System.out.print("</time-mid>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_iquery rule)
+  public Object visit(Rule_time_high rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<iquery>");
+    System.out.print("<time-high>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</iquery>");
+    System.out.print("</time-high>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_iprivate rule)
+  public Object visit(Rule_clock_seq rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<iprivate>");
+    System.out.print("<clock-seq>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</iprivate>");
+    System.out.print("</clock-seq>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ifragment rule)
+  public Object visit(Rule_clock_seq_low rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ifragment>");
+    System.out.print("<clock-seq-low>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ifragment>");
+    System.out.print("</clock-seq-low>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ipchar rule)
+  public Object visit(Rule_node rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ipchar>");
+    System.out.print("<node>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ipchar>");
+    System.out.print("</node>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_iunreserved rule)
+  public Object visit(Rule_xdi_chars rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<iunreserved>");
+    System.out.print("<xdi-chars>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</iunreserved>");
+    System.out.print("</xdi-chars>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_pct_encoded rule)
+  public Object visit(Rule_iri_chars rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<pct-encoded>");
+    System.out.print("<iri-chars>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</pct-encoded>");
+    System.out.print("</iri-chars>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_ucschar rule)
+  public Object visit(Rule_nonparen_delim rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<ucschar>");
+    System.out.print("<nonparen-delim>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</ucschar>");
+    System.out.print("</nonparen-delim>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_reserved rule)
+  public Object visit(Rule_context_symbol rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<reserved>");
+    System.out.print("<context-symbol>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</reserved>");
+    System.out.print("</context-symbol>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_gen_delims rule)
+  public Object visit(Rule_xdi_char rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<gen-delims>");
+    System.out.print("<xdi-char>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</gen-delims>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_sub_delims rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<sub-delims>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</sub-delims>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_unreserved rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<unreserved>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</unreserved>");
+    System.out.print("</xdi-char>");
     terminal = false;
     return null;
   }
@@ -652,66 +880,6 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_BIT rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<BIT>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</BIT>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_CHAR rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<CHAR>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</CHAR>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_CR rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<CR>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</CR>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_CRLF rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<CRLF>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</CRLF>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_CTL rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<CTL>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</CTL>");
-    terminal = false;
-    return null;
-  }
-
   public Object visit(Rule_DIGIT rule)
   {
     if (!terminal) System.out.println();
@@ -720,18 +888,6 @@ public class XmlDisplayer implements Visitor
     visitRules(rule.rules);
     if (!terminal) System.out.println();
     System.out.print("</DIGIT>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_DQUOTE rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<DQUOTE>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</DQUOTE>");
     terminal = false;
     return null;
   }
@@ -748,86 +904,26 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_HTAB rule)
+  public Object visit(Rule_CRLF rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<HTAB>");
+    System.out.print("<CRLF>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</HTAB>");
+    System.out.print("</CRLF>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_LF rule)
+  public Object visit(Rule_DQUOTE rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<LF>");
+    System.out.print("<DQUOTE>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</LF>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_LWSP rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<LWSP>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</LWSP>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_OCTET rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<OCTET>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</OCTET>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_SP rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<SP>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</SP>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_VCHAR rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<VCHAR>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</VCHAR>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_WSP rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<WSP>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</WSP>");
+    System.out.print("</DQUOTE>");
     terminal = false;
     return null;
   }

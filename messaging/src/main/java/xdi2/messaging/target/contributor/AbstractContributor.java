@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.VariableUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
@@ -249,8 +249,8 @@ public abstract class AbstractContributor implements Contributor {
 
 		XDI3Segment relativeContextNodeXri = relativeRelationStatement == null ? null : relativeRelationStatement.getContextNodeXri();
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment arcXri = relationStatement.getArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		return this.getRelation(contributorXris, relativeContextNodeXri, contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -259,8 +259,8 @@ public abstract class AbstractContributor implements Contributor {
 
 		XDI3Segment relativeContextNodeXri = relativeRelationStatement == null ? null : relativeRelationStatement.getContextNodeXri();
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment arcXri = relationStatement.getArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		return this.addRelation(contributorXris, relativeContextNodeXri, contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -269,8 +269,8 @@ public abstract class AbstractContributor implements Contributor {
 
 		XDI3Segment relativeContextNodeXri = relativeRelationStatement == null ? null : relativeRelationStatement.getContextNodeXri();
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment arcXri = relationStatement.getArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		return this.modRelation(contributorXris, relativeContextNodeXri, contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -279,8 +279,8 @@ public abstract class AbstractContributor implements Contributor {
 
 		XDI3Segment relativeContextNodeXri = relativeRelationStatement == null ? null : relativeRelationStatement.getContextNodeXri();
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment arcXri = relationStatement.getArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		return this.delRelation(contributorXris, relativeContextNodeXri, contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -289,8 +289,8 @@ public abstract class AbstractContributor implements Contributor {
 
 		XDI3Segment relativeContextNodeXri = relativeRelationStatement == null ? null : relativeRelationStatement.getContextNodeXri();
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment arcXri = relationStatement.getArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		return this.doRelation(contributorXris, relativeContextNodeXri, contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -382,11 +382,11 @@ public abstract class AbstractContributor implements Contributor {
 		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
 		if (tempContextNode == null) return false;
 
-		if (Variables.isVariableSingle(targetContextNodeXri)) {
+		if (VariableUtil.isVariable(targetContextNodeXri)) {
 
 			Iterator<Relation> relations;
 
-			if (Variables.isVariableSingle(arcXri)) {
+			if (VariableUtil.isVariable(arcXri)) {
 
 				relations = tempContextNode.getRelations();
 			} else {
@@ -472,7 +472,7 @@ public abstract class AbstractContributor implements Contributor {
 
 	public boolean getContextFilter(XDI3Segment[] contributorXris, XDI3Segment relativeContextNodeXri, XDI3Segment contextNodeXri, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment tempContextNodeXri = XRIUtil.parentXri(contextNodeXri, - relativeContextNodeXri.getNumSubSegments());
+		XDI3Segment tempContextNodeXri = XDI3Util.parentXri(contextNodeXri, - relativeContextNodeXri.getNumSubSegments());
 
 		log.debug("Filtering " + tempContextNodeXri + " with lower context node " + relativeContextNodeXri);
 		

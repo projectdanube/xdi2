@@ -7,9 +7,9 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.VariableUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -61,10 +61,10 @@ public class GraphContextHandler extends AbstractContextHandler {
 	@Override
 	public void addContext(XDI3Segment contextNodeXri, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment parentXri = XRIUtil.parentXri(contextNodeXri, -1);
+		XDI3Segment parentXri = XDI3Util.parentXri(contextNodeXri, -1);
 		if (parentXri == null) parentXri = XDIConstants.XRI_S_CONTEXT;
 
-		XDI3SubSegment localXri = XRIUtil.localXri(contextNodeXri, 1).getFirstSubSegment();
+		XDI3SubSegment localXri = XDI3Util.localXri(contextNodeXri, 1).getFirstSubSegment();
 
 		ContextNode contextNode = this.getGraph().findContextNode(parentXri, true);
 		contextNode.createContextNode(localXri);
@@ -98,11 +98,11 @@ public class GraphContextHandler extends AbstractContextHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
 		if (contextNode == null) return;
 
-		if (Variables.isVariableSingle(targetContextNodeXri)) {
+		if (VariableUtil.isVariable(targetContextNodeXri)) {
 
 			Iterator<Relation> relations = contextNode.getRelations(arcXri);
 
-			if (Variables.isVariableSingle(arcXri)) {
+			if (VariableUtil.isVariable(arcXri)) {
 
 				relations = contextNode.getRelations();
 			} else {
@@ -126,9 +126,9 @@ public class GraphContextHandler extends AbstractContextHandler {
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
 		if (contextNode == null) return;
 
-		if (Variables.isVariableSingle(targetContextNodeXri)) {
+		if (VariableUtil.isVariable(targetContextNodeXri)) {
 
-			if (Variables.isVariableSingle(arcXri)) {
+			if (VariableUtil.isVariable(arcXri)) {
 
 				contextNode.deleteRelations();
 			} else {

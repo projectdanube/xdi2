@@ -5,8 +5,8 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.VariableUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
@@ -212,7 +212,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.getRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -221,7 +221,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.addRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -230,7 +230,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.modRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -239,7 +239,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.delRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -248,7 +248,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.doRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -330,11 +330,11 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
 		if (tempContextNode == null) return;
 
-		if (Variables.isVariableSingle(targetContextNodeXri)) {
+		if (VariableUtil.isVariable(targetContextNodeXri)) {
 
 			Iterator<Relation> relations = tempContextNode.getRelations(arcXri);
 
-			if (Variables.isVariableSingle(arcXri)) {
+			if (VariableUtil.isVariable(arcXri)) {
 
 				relations = tempContextNode.getRelations();
 			} else {

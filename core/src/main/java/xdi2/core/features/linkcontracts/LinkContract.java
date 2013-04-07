@@ -6,8 +6,9 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.features.contextfunctions.XdiEntity;
+import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.features.multiplicity.XdiSubGraph;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.xri3.XDI3Segment;
 
@@ -20,11 +21,11 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 
 	private static final long serialVersionUID = 1604380462449272148L;
 
-	private ContextNode contextNode;
+	private XdiEntity xdiEntity;
 
-	protected LinkContract(ContextNode contextNode) {
+	protected LinkContract(XdiEntity xdiEntity) {
 
-		this.contextNode = contextNode;
+		this.xdiEntity = xdiEntity;
 	}
 
 	/*
@@ -32,30 +33,25 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI link contract.
-	 * 
-	 * @param contextNode
-	 *            The context node to check.
-	 * @return True if the context node is a valid XDI link contract.
+	 * Checks if an XDI entity is a valid XDI link contract.
+	 * @param xdiEntity The XDI entity to check.
+	 * @return True if the XDI entity is a valid XDI link contract.
 	 */
-	public static boolean isValid(ContextNode contextNode) {
+	public static boolean isValid(XdiEntity xdiEntity) {
 
-		return XDILinkContractConstants.XRI_SS_DO.equals(contextNode.getArcXri());
+		return xdiEntity.getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_DO);
 	}
 
 	/**
-	 * Factory method that creates an XDI link contract bound to a given context
-	 * node.
-	 * 
-	 * @param contextNode
-	 *            The context node that is an XDI link contract.
+	 * Factory method that creates an XDI link contract bound to a given XDI entity.
+	 * @param xdiEntity The XDI entity that is an XDI link contract.
 	 * @return The XDI link contract.
 	 */
-	public static LinkContract fromContextNode(ContextNode contextNode) {
+	public static LinkContract fromXdiEntity(XdiEntity xdiEntity) {
 
-		if (! isValid(contextNode)) return null;
+		if (! isValid(xdiEntity)) return null;
 
-		return new LinkContract(contextNode);
+		return new LinkContract(xdiEntity);
 	}
 
 	/*
@@ -63,12 +59,21 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 
 	/**
+	 * Returns the underlying XDI entity to which this XDI link contract is bound.
+	 * @return An XDI entity that represents the XDI link contract.
+	 */
+	public XdiEntity getXdiEntity() {
+
+		return this.xdiEntity;
+	}
+
+	/**
 	 * Returns the underlying context node to which this XDI link contract is bound.
 	 * @return A context node that represents the XDI link contract.
 	 */
 	public ContextNode getContextNode() {
 
-		return this.contextNode;
+		return this.getXdiEntity().getContextNode();
 	}
 
 	/**
@@ -78,13 +83,10 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		ContextNode contextNode = this.getContextNode().getContextNode(XDIPolicyConstants.XRI_SS_IF);
-		if (contextNode == null && create) contextNode = this.getContextNode().createContextNode(XDIPolicyConstants.XRI_SS_IF);
-		if (contextNode == null) return null;
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_IF, create);
+		if (xdiEntitySingleton == null) return null;
 
-		XdiSubGraph xdiSubGraph = XdiSubGraph.fromContextNode(contextNode);
-
-		return PolicyRoot.fromSubGraph(xdiSubGraph);
+		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
 	}
 
 	/**

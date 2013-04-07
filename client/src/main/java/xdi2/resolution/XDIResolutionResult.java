@@ -2,9 +2,10 @@ package xdi2.resolution;
 
 import java.io.Serializable;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
-import xdi2.core.Relation;
+import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.MessageResult;
 
@@ -35,20 +36,10 @@ public class XDIResolutionResult implements Serializable {
 
 		// find I-Number
 
-		String inumber;
-
-		Relation relation = graph.findRelation(XDI3Segment.create(xri), XDI3Segment.create("$is"));		
-
-		if (relation != null && relation.getTargetContextNodeXri().isINumber()) { 
-
-			inumber = relation.getTargetContextNodeXri().toString();
-		} else if (XDI3Segment.create(xri).isINumber()) {
-
-			inumber = xri;
-		} else {
-
-			inumber = null;
-		}
+		ContextNode contextNode = graph.findContextNode(XDI3Segment.create(xri), false);
+		ContextNode referenceContextNode = contextNode == null ? null : Equivalence.getReferenceContextNode(contextNode);
+		
+		String inumber = referenceContextNode == null ? null : referenceContextNode.getXri().toString();
 
 		// find URI
 

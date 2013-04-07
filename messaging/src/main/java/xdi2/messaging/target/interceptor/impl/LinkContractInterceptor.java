@@ -8,10 +8,13 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
+import xdi2.core.features.contextfunctions.XdiEntity;
+import xdi2.core.features.contextfunctions.XdiSubGraph;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
@@ -75,8 +78,13 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		ContextNode linkContractContextNode = this.getLinkContractsGraph().findContextNode(linkContractXri, false);
 		if (linkContractContextNode == null) return false;
 
-		LinkContract linkContract = LinkContract.fromContextNode(linkContractContextNode);
+		XdiSubGraph xdiSubGraph = XdiAbstractSubGraph.fromContextNode(linkContractContextNode);
+		if (! (xdiSubGraph instanceof XdiEntity)) return false;
+
+		LinkContract linkContract = LinkContract.fromXdiEntity((XdiEntity) xdiSubGraph);
 		if (linkContract == null) return false;
+
+		log.debug("Found link contract " + linkContract);
 
 		putLinkContract(executionContext, linkContract);
 
@@ -119,7 +127,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 			ContextNode contextNode = contextNodes.next();
 
-			if (contextNode.isRootContextNode() || XRIUtil.startsWith(contextNodeXri, contextNode.getXri())) {
+			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri())) {
 
 				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
 				return true;
@@ -130,7 +138,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 			ContextNode contextNode = contextNodes.next();
 
-			if (contextNode.isRootContextNode() || XRIUtil.startsWith(contextNodeXri, contextNode.getXri())) {
+			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri())) {
 
 				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
 				return true;
