@@ -1,6 +1,11 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2013-04-07:
+------------------------
+
+*** major update to syntax, ABNF, and serialization formats
+
 2013-03-03:
 ------------------------
 
