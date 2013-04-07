@@ -4,10 +4,10 @@ import junit.framework.TestCase;
 import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
 import xdi2.core.features.contextfunctions.XdiAttributeClass;
 import xdi2.core.features.contextfunctions.XdiAttributeSingleton;
-import xdi2.core.features.contextfunctions.XdiElement;
+import xdi2.core.features.contextfunctions.XdiAbstractElement;
 import xdi2.core.features.contextfunctions.XdiEntityClass;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
-import xdi2.core.features.contextfunctions.XdiInstance;
+import xdi2.core.features.contextfunctions.XdiAbstractInstance;
 import xdi2.core.xri3.XDI3SubSegment;
 
 public class ContextFunctionsTest extends TestCase {
@@ -18,8 +18,8 @@ public class ContextFunctionsTest extends TestCase {
 		assertEquals(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("!<+address>"));
 		assertEquals(XdiEntityClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+address"));
 		assertEquals(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("<+address>"));
-		assertEquals(XdiInstance.createArcXri("1"), XDI3SubSegment.create("!1"));
-		assertEquals(XdiElement.createArcXri("1"), XDI3SubSegment.create("[1]"));
+		assertEquals(XdiAbstractInstance.createArcXri("1"), XDI3SubSegment.create("!1"));
+		assertEquals(XdiAbstractElement.createArcXri("1"), XDI3SubSegment.create("[1]"));
 
 		assertTrue(XdiEntitySingleton.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))));
 		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))));

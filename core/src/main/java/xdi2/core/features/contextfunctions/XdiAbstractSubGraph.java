@@ -33,9 +33,9 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 	 */
 
 	/**
-	 * Checks if a context node is a valid subgraph.
+	 * Checks if a context node is a valid XDI subgraph.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid subgraph.
+	 * @return True if the context node is a valid XDI subgraph.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -43,19 +43,19 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 	}
 
 	/**
-	 * Factory method that creates a subgraph bound to a given context node.
-	 * @param contextNode The context node that is a subgraph.
-	 * @return The subgraph.
+	 * Factory method that creates a XDI subgraph bound to a given context node.
+	 * @param contextNode The context node that is a XDI subgraph.
+	 * @return The XDI subgraph.
 	 */
-	public static XdiAbstractSubGraph fromContextNode(ContextNode contextNode) {
+	public static XdiSubGraph fromContextNode(ContextNode contextNode) {
 
-		XdiAbstractSubGraph xdiSubGraph = null;
+		XdiSubGraph xdiSubGraph = null;
 
 		if ((xdiSubGraph = XdiRoot.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiSingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiClass.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiInstance.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiElement.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAbstractSingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAbstractClass.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAbstractInstance.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAbstractElement.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiValue.fromContextNode(contextNode)) != null) return xdiSubGraph;
 
 		return null;
@@ -84,6 +84,7 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 	 * @param Returns the "base" arc XRI, without context function syntax.
 	 * @return The "base" arc XRI.
 	 */
+	@Override
 	public XDI3SubSegment getBaseArcXri() {
 
 		return getBaseArcXri(this.getContextNode().getArcXri());

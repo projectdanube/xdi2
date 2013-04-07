@@ -8,11 +8,11 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiElement extends XdiAbstractSubGraph {
+public abstract class XdiAbstractElement extends XdiAbstractSubGraph {
 
 	private static final long serialVersionUID = 8283064321616435273L;
 
-	protected XdiElement(ContextNode contextNode) {
+	protected XdiAbstractElement(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -37,9 +37,9 @@ public abstract class XdiElement extends XdiAbstractSubGraph {
 	 * @param contextNode The context node that is an XDI element.
 	 * @return The XDI element.
 	 */
-	public static XdiElement fromContextNode(ContextNode contextNode) {
+	public static XdiAbstractElement fromContextNode(ContextNode contextNode) {
 
-		XdiElement xdiElement;
+		XdiAbstractElement xdiElement;
 
 		if ((xdiElement = XdiEntityElement.fromContextNode(contextNode)) != null) return xdiElement;
 		if ((xdiElement = XdiAttributeElement.fromContextNode(contextNode)) != null) return xdiElement;
@@ -51,7 +51,7 @@ public abstract class XdiElement extends XdiAbstractSubGraph {
 	 * Instance methods
 	 */
 
-	public abstract XdiClass getXdiClass();
+	public abstract XdiAbstractClass getXdiClass();
 
 	/*
 	 * Methods for XRIs
@@ -80,16 +80,16 @@ public abstract class XdiElement extends XdiAbstractSubGraph {
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiElementClassIterator extends NotNullIterator<XdiElement> {
+	public static class MappingContextNodeXdiElementClassIterator extends NotNullIterator<XdiAbstractElement> {
 
 		public MappingContextNodeXdiElementClassIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiElement> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiAbstractElement> (contextNodes) {
 
 				@Override
-				public XdiElement map(ContextNode contextNode) {
+				public XdiAbstractElement map(ContextNode contextNode) {
 
-					return XdiElement.fromContextNode(contextNode);
+					return XdiAbstractElement.fromContextNode(contextNode);
 				}
 			});
 		}

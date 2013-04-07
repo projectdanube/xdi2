@@ -12,6 +12,10 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
+import xdi2.core.features.contextfunctions.XdiAbstractAttribute;
+import xdi2.core.features.contextfunctions.XdiAbstractClass;
+import xdi2.core.features.contextfunctions.XdiAbstractElement;
+import xdi2.core.features.contextfunctions.XdiAbstractInstance;
 import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
 import xdi2.core.features.contextfunctions.XdiValue;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
@@ -552,7 +556,13 @@ public abstract class AbstractContextNode implements ContextNode {
 		if (arcXri == null) throw new NullPointerException();
 
 		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid context node arc XRI: " + arcXri);
-		if (! XdiAbstractSubGraph.isValid(new BasicContextNode(this.getGraph(), this, arcXri, null, null, null))) throw new Xdi2GraphException("Invalid subgraph: " + arcXri);
+
+		ContextNode tempContextNode = new BasicContextNode(this.getGraph(), this, arcXri, null, null, null);
+
+		if (! XdiAbstractSubGraph.isValid(tempContextNode)) throw new Xdi2GraphException("Invalid subgraph: " + arcXri);
+		if (XdiValue.isValid(tempContextNode) && ! XdiAbstractAttribute.isValid(this)) throw new Xdi2GraphException("Can only create a value context in an attribute context.");
+		if (XdiAbstractInstance.isValid(tempContextNode) && ! XdiAbstractClass.isValid(this)) throw new Xdi2GraphException("Can only create an instance context in a class context.");
+		if (XdiAbstractElement.isValid(tempContextNode) && ! XdiAbstractClass.isValid(this)) throw new Xdi2GraphException("Can only create an element context in a class context.");
 
 		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 	}

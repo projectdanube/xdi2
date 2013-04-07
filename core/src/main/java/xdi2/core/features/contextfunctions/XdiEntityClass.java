@@ -14,7 +14,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiEntityClass extends XdiClass {
+public final class XdiEntityClass extends XdiAbstractClass {
 
 	private static final long serialVersionUID = -8518618921427437445L;
 
@@ -68,7 +68,7 @@ public final class XdiEntityClass extends XdiClass {
 	@Override
 	public Iterator<XdiEntityInstance> instances() {
 
-		return new CastingIterator<XdiInstance, XdiEntityInstance> (super.instances());
+		return new CastingIterator<XdiAbstractInstance, XdiEntityInstance> (super.instances());
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public final class XdiEntityClass extends XdiClass {
 	@Override
 	public Iterator<XdiEntityElement> elements() {
 
-		return new CastingIterator<XdiInstance, XdiEntityElement> (super.instances());
+		return new CastingIterator<XdiAbstractInstance, XdiEntityElement> (super.instances());
 	}
 
 	@Override

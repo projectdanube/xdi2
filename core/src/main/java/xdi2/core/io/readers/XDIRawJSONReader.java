@@ -61,7 +61,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	}
 
-	private static void readJSONObject(XdiAbstractSubGraph xdiSubGraph, JSONObject jsonObject) throws JSONException {
+	private static void readJSONObject(XdiSubGraph xdiSubGraph, JSONObject jsonObject) throws JSONException {
 
 		for (Entry<String, Object> entry : jsonObject.entrySet()) {
 

@@ -8,11 +8,11 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiInstance extends XdiAbstractSubGraph {
+public abstract class XdiAbstractInstance extends XdiAbstractSubGraph {
 
 	private static final long serialVersionUID = -8496645644143069191L;
 
-	protected XdiInstance(ContextNode contextNode) {
+	protected XdiAbstractInstance(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -37,9 +37,9 @@ public abstract class XdiInstance extends XdiAbstractSubGraph {
 	 * @param contextNode The context node that is an XDI instance.
 	 * @return The XDI instance.
 	 */
-	public static XdiInstance fromContextNode(ContextNode contextNode) {
+	public static XdiAbstractInstance fromContextNode(ContextNode contextNode) {
 
-		XdiInstance xdiInstance;
+		XdiAbstractInstance xdiInstance;
 
 		if ((xdiInstance = XdiEntityInstance.fromContextNode(contextNode)) != null) return xdiInstance;
 		if ((xdiInstance = XdiAttributeInstance.fromContextNode(contextNode)) != null) return xdiInstance;
@@ -51,7 +51,7 @@ public abstract class XdiInstance extends XdiAbstractSubGraph {
 	 * Instance methods
 	 */
 
-	public abstract XdiClass getXdiClass();
+	public abstract XdiAbstractClass getXdiClass();
 
 	/*
 	 * Methods for XRIs
@@ -77,16 +77,16 @@ public abstract class XdiInstance extends XdiAbstractSubGraph {
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiInstanceIterator extends NotNullIterator<XdiInstance> {
+	public static class MappingContextNodeXdiInstanceIterator extends NotNullIterator<XdiAbstractInstance> {
 
 		public MappingContextNodeXdiInstanceIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiInstance> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiAbstractInstance> (contextNodes) {
 
 				@Override
-				public XdiInstance map(ContextNode contextNode) {
+				public XdiAbstractInstance map(ContextNode contextNode) {
 
-					return XdiInstance.fromContextNode(contextNode);
+					return XdiAbstractInstance.fromContextNode(contextNode);
 				}
 			});
 		}

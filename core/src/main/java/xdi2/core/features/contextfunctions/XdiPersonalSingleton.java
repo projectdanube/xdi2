@@ -13,7 +13,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiPersonalSingleton extends XdiSingleton {
+public final class XdiPersonalSingleton extends XdiAbstractSingleton {
 
 	private static final long serialVersionUID = 7600443284706530972L;
 

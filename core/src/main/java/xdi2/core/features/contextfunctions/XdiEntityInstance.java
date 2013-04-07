@@ -11,7 +11,7 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public final class XdiEntityInstance extends XdiInstance implements XdiEntity {
+public final class XdiEntityInstance extends XdiAbstractInstance implements XdiEntity {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 

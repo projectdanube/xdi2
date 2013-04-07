@@ -12,7 +12,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiAttributeElement extends XdiElement implements XdiAttribute {
+public final class XdiAttributeElement extends XdiAbstractElement implements XdiAttribute {
 
 	private static final long serialVersionUID = 3562576098019686485L;
 
@@ -55,7 +55,7 @@ public final class XdiAttributeElement extends XdiElement implements XdiAttribut
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiElement.isValidArcXri(arcXri);
+		return XdiAbstractElement.isValidArcXri(arcXri);
 	}
 
 	/*
