@@ -244,6 +244,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode root = graph13.getRootContextNode();
 
 		assertEquals(root.getXri(), XDIConstants.XRI_S_ROOT);
+		assertNull(root.getArcXri());
 		assertNull(root.getContextNode());
 		assertTrue(root.isRootContextNode());
 
