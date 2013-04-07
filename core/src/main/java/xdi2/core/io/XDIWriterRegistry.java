@@ -10,10 +10,11 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.io.writers.XDIHTMLWriter;
+import xdi2.core.io.writers.XDIJSONGOMWriter;
 import xdi2.core.io.writers.XDIJSONWriter;
 import xdi2.core.io.writers.XDIKeyValueWriter;
-import xdi2.core.io.writers.XDIDisplayWriter;
 
 /**
  * Provides an appropriate XDIWriter for a given type.
@@ -39,6 +40,7 @@ public final class XDIWriterRegistry {
 
 		XDIJSONWriter.class.getName(),// first one in the array is the default
 		XDIDisplayWriter.class.getName(),
+		XDIJSONGOMWriter.class.getName(),
 		XDIKeyValueWriter.class.getName(),
 		XDIHTMLWriter.class.getName()
 	};

@@ -198,6 +198,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		string = stripCf(string, Pattern.compile(".*(\\<[^\\<\\>]*\\>).*"));
 		string = stripCf(string, Pattern.compile(".*(\\{[^\\{\\}]*\\}).*"));
 		string = stripCf(string, Pattern.compile(".*(\\[[^\\[\\]]*\\]).*"));
+		string = stripCf(string, Pattern.compile(".*(\\\"[^\\\"\\]]*\\\").*"));
 
 		return string;
 	}

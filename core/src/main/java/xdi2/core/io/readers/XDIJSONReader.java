@@ -56,7 +56,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 		for (Entry<String, Object> entry : graphObject.entrySet()) {
 
-			if (! (entry.getValue() instanceof JSONArray)) throw new Xdi2ParseException("Value for key " + entry.getKey() + " must be a JSON array");
+			if (! (entry.getValue() instanceof JSONArray)) throw new Xdi2ParseException("Value for key '" + entry.getKey() + "' must be a JSON array");
 
 			String key = entry.getKey();
 			JSONArray value = (JSONArray) entry.getValue();
@@ -127,7 +127,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 						root = root.findRoot(statementXri.getSubject(), true);
 
-						XDI3Segment subject = root.getRelativePart(statementXri.getSubject());
+						XDI3Segment subject = root.getRelativePart(XDI3Util.expandXri(statementXri.getSubject(), root.getContextNode().getXri()));
 						XDI3Segment predicate = statementXri.getPredicate();
 
 						XdiInnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);

@@ -2,6 +2,9 @@ package xdi2.core.features.roots;
 
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
@@ -16,6 +19,8 @@ import xdi2.core.xri3.XDI3SubSegment;
 public abstract class XdiRoot extends XdiAbstractSubGraph {
 
 	private static final long serialVersionUID = 8157589883719452790L;
+
+	private static final Logger log = LoggerFactory.getLogger(XdiRoot.class);
 
 	public XdiRoot(ContextNode contextNode) {
 
@@ -33,6 +38,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (log.isTraceEnabled()) log.trace("isValid(" + contextNode + ")");
+
 		return
 				XdiLocalRoot.isValid(contextNode) ||
 				XdiPeerRoot.isValid(contextNode) ||
@@ -45,6 +52,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 * @return The XDI root.
 	 */
 	public static XdiRoot fromContextNode(ContextNode contextNode) {
+
+		if (log.isTraceEnabled()) log.trace("fromContextNode(" + contextNode + ")");
 
 		XdiRoot xdiRoot;
 
@@ -65,6 +74,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 */
 	public XdiLocalRoot findLocalRoot() {
 
+		if (log.isTraceEnabled()) log.trace("findLocalRoot()");
+		
 		return new XdiLocalRoot(this.getContextNode().getGraph().getRootContextNode());
 	}
 
@@ -75,6 +86,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 * @return The XDI peer root.
 	 */
 	public XdiPeerRoot findPeerRoot(XDI3Segment xri, boolean create) {
+
+		if (log.isTraceEnabled()) log.trace("findPeerRoot(" + xri + "," + create + ")");
 
 		XDI3SubSegment peerRootArcXri = XdiPeerRoot.createPeerRootArcXri(xri);
 
@@ -93,6 +106,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 * @return The XDI inner root.
 	 */
 	public XdiInnerRoot findInnerRoot(XDI3Segment subject, XDI3Segment predicate, boolean create) {
+
+		if (log.isTraceEnabled()) log.trace("findInnerRoot(" + subject + "," + predicate + "," + create + ")");
 
 		XDI3SubSegment innerRootArcXri = XdiInnerRoot.createInnerRootArcXri(subject, predicate);
 
@@ -118,6 +133,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 */
 	public XdiRoot findRoot(XDI3Segment xri, boolean create) {
 
+		if (log.isTraceEnabled()) log.trace("findRoot(" + xri + "," + create + ")");
+
 		XdiRoot root = this;
 
 		for (int i=0; i<xri.getNumSubSegments(); i++) {
@@ -140,6 +157,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 * @return The XDI root.
 	 */
 	public XdiRoot findRoot(XDI3SubSegment arcXri, boolean create) {
+
+		if (log.isTraceEnabled()) log.trace("findRoot(" + arcXri + "," + create + ")");
 
 		if (XdiPeerRoot.isPeerRootArcXri(arcXri)) {
 
@@ -181,6 +200,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 */
 	public XDI3Segment getRelativePart(XDI3Segment xri) {
 
+		if (log.isTraceEnabled()) log.trace("getRelativePart(" + xri + ")");
+
 		if (this.getContextNode().isRootContextNode()) return xri;
 
 		return XDI3Util.reduceXri(xri, this.getContextNode().getXri());
@@ -190,6 +211,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 * A simple way to create a relative statement in this XDI root.
 	 */
 	public Statement createRelativeStatement(XDI3Statement statementXri) {
+
+		if (log.isTraceEnabled()) log.trace("createRelativeStatement(" + statementXri + ")");
 
 		statementXri = StatementUtil.expandStatement(statementXri, this.getContextNode().getXri());
 
@@ -201,6 +224,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 */
 	public Statement findRelativeStatement(XDI3Statement statementXri) {
 
+		if (log.isTraceEnabled()) log.trace("findRelativeStatement(" + statementXri + ")");
+
 		statementXri = StatementUtil.expandStatement(statementXri, this.getContextNode().getXri());
 
 		return this.getContextNode().getGraph().findStatement(statementXri);
@@ -210,6 +235,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 * A simple way to check if a relative statement exists in this XDI root.
 	 */
 	public boolean containsRelativeStatement(XDI3Statement statementXri) {
+
+		if (log.isTraceEnabled()) log.trace("containsRelativeStatement(" + statementXri + ")");
 
 		statementXri = StatementUtil.expandStatement(statementXri, this.getContextNode().getXri());
 
@@ -222,6 +249,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 * @return The relative statements.
 	 */
 	public Iterator<XDI3Statement> getRelativeStatements(final boolean ignoreImplied) {
+
+		if (log.isTraceEnabled()) log.trace("getRelativeStatements(" + ignoreImplied + ")");
 
 		return new SelectingMappingIterator<Statement, XDI3Statement> (this.getContextNode().getAllStatements()) {
 
@@ -251,6 +280,8 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 	 * @return True, if the XRI is an XDI root XRI.
 	 */
 	public static boolean isRootArcXri(XDI3SubSegment arcXri) {
+
+		if (log.isTraceEnabled()) log.trace("isRootArcXri(" + arcXri + ")");
 
 		if (XdiLocalRoot.isLocalRootXri(arcXri)) return true;
 		if (XdiPeerRoot.isPeerRootArcXri(arcXri)) return true;
