@@ -3,9 +3,12 @@ package xdi2.messaging;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
+import xdi2.core.features.contextfunctions.XdiAttribute;
+import xdi2.core.features.contextfunctions.XdiEntity;
+import xdi2.core.features.contextfunctions.XdiValue;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -169,15 +172,13 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public void setParameter(XDI3SubSegment parameterXri, Object parameterValue) {
 
-		ContextNode parametersContextNode = this.getMessage().getContextNode().findContextNode(this.getOperationXri(), true);
-
-		ContextNode parameterContextNode = parametersContextNode.getContextNode(parameterXri);
-		if (parameterContextNode == null) parameterContextNode = parametersContextNode.createContextNode(parameterXri);
-
-		Literal parameterLiteral = parameterContextNode.getLiteral();
+		XdiEntity parametersXdiEntity = XdiAbstractSubGraph.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), true);
+		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, true);
+		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(XDI3SubSegment.create("$string"), true);
+		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();
 
 		if (parameterLiteral == null) 
-			parameterLiteral = parameterContextNode.createLiteral(parameterValue.toString()); 
+			parameterLiteral = xdiValue.getContextNode().createLiteral(parameterValue.toString()); 
 		else 
 			parameterLiteral.setLiteralData(parameterValue.toString());
 	}
@@ -189,13 +190,16 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public String getParameter(XDI3SubSegment parameterXri) {
 
-		ContextNode parametersContextNode = this.getMessage().getContextNode().findContextNode(this.getOperationXri(), false);
-		if (parametersContextNode == null) return null;
+		XdiEntity parametersXdiEntity = XdiAbstractSubGraph.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), false);
+		if (parametersXdiEntity == null) return null;
 
-		ContextNode parameterContextNode = parametersContextNode.getContextNode(parameterXri);
-		if (parameterContextNode == null) return null;
+		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, false);
+		if (parameterXdiAttribute == null) return null;
 
-		Literal parameterLiteral = parameterContextNode.getLiteral();
+		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(XDI3SubSegment.create("$string"), false);
+		if (xdiValue == null) return null;
+
+		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral.getLiteralData();
