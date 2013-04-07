@@ -222,10 +222,19 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_IF, create);
+		XdiEntitySingleton xdiEntitySingleton = this.getOperationsXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_IF, create);
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
+	}
+
+	/**
+	 * Returns the XDI entity with XDI operations.
+	 * @return A XDI entity with XDI operations.
+	 */
+	public XdiEntity getOperationsXdiEntity() {
+
+		return this.getXdiEntity().getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true);
 	}
 
 	/**
@@ -234,7 +243,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ContextNode getOperationsContextNode() {
 
-		return this.getXdiEntity().getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true).getContextNode();
+		return this.getOperationsXdiEntity().getContextNode();
 	}
 
 	/**
