@@ -1,7 +1,5 @@
-=markus<+email>!:uuid:1111<<$string>>/<>/"1@gmail.com"
-=markus<+email>!:uuid:2222<<$string>>/<>/"2@gmail.com"
-=markus<+email>!:uuid:3333<<$string>>/<>/"3@gmail.com"
-=markus<+email>[1]/$ref/=markus<+email>!:uuid:3333
-=markus<+email>[2]/$ref/=markus<+email>!:uuid:2222
-=markus<+email>[3]/$ref/=markus<+email>!:uuid:1111
-=markus!<+email>/$ref/=markus<+email>!:uuid:1111
+()/$is$ref/(=!1111)
+(=!1111)/$ref/()
+=markus/+friend/=drummond
+=markus!<+email><<$string>>/<>/"markus.sabadello@gmail.com"
+=markus!<+name><<$string>>/<>/"Markus Sabadello"

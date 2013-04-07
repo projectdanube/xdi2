@@ -76,7 +76,7 @@ public final class XdiAttributeSingleton extends XdiSingleton implements XdiAttr
 
 	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.CS_BANG + XDI3Constants.CF_ATTRIBUTE_SINGLETON.charAt(0) + arcXri + XDI3Constants.CF_ATTRIBUTE_SINGLETON.charAt(1));
+		return XDI3SubSegment.create("" + XDI3Constants.CS_BANG + XDI3Constants.CF_ATTRIBUTE_SINGLETON.charAt(0) + arcXri.toString() + XDI3Constants.CF_ATTRIBUTE_SINGLETON.charAt(1));
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {

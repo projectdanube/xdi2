@@ -37,7 +37,7 @@
 		<% } %>
 		</select>
 		&nbsp;
-		<input type="text" class="input" name="input" style="width: 500px" value="<%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %>">
+		<input type="text" class="input" name="input" style="width: 500px" value="<%= request.getAttribute("input") != null ? ((String) request.getAttribute("input")).replace("\"", "&quot;") : "" %>">
 		&nbsp;
 		<input type="radio" name="parser" value="aparse" <%= "aparse".equals(request.getAttribute("parser")) ? "checked" : "" %>>aParse
 		&nbsp;

@@ -53,7 +53,7 @@ public class XDIDisplayReader extends AbstractXDIReader {
 				statementXri = XDI3Statement.create(line);
 			} catch (Exception ex) {
 
-				throw new Xdi2ParseException("XRI parser problem at line " + lineNr + ": " + ex.getMessage(), ex);
+				throw new Xdi2ParseException("Parser problem at line " + lineNr + ": " + ex.getMessage(), ex);
 			}
 
 			// ignore implied statements
@@ -69,7 +69,13 @@ public class XDIDisplayReader extends AbstractXDIReader {
 
 			// add the statement to the graph
 
-			graph.createStatement(statementXri);
+			try {
+
+				graph.createStatement(statementXri);
+			} catch (Exception ex) {
+
+				throw new Xdi2ParseException("Graph problem at line " + lineNr + ": " + ex.getMessage(), ex);
+			}
 		}
 	}
 
