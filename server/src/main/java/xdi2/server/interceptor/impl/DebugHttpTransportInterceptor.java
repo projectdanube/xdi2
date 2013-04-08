@@ -62,9 +62,10 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 		String cmdMessagingTargetPath = request.getParameter("messagingtargetpath");
 		String cmdMessagingTargetFactoryPath = request.getParameter("messagingtargetfactorypath");
 		String format = request.getParameter("format");
-		String writecontexts = request.getParameter("writecontexts");
-		String writeordered = request.getParameter("writeordered");
-		String writepretty = request.getParameter("writepretty");
+		String writeImplied = request.getParameter("writeImplied");
+		String writeOrdered = request.getParameter("writeOrdered");
+		String writeInner = request.getParameter("writeInner");
+		String writePretty = request.getParameter("writePretty");
 		String graphstring = request.getParameter("graphstring");
 
 		if ("reload".equals(cmd)) {
@@ -93,16 +94,18 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 			if (format == null) {
 
 				format = XDIDisplayWriter.FORMAT_NAME;
-				writecontexts = null;
-				writeordered = "on";
-				writepretty = null;
+				writeImplied = null;
+				writeOrdered = "on";
+				writeInner = "on";
+				writePretty = null;
 			}
 
 			Properties xdiWriterParameters = new Properties();
 
-			if ("on".equals(writecontexts)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "1");
-			if ("on".equals(writeordered)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
-			if ("on".equals(writepretty)) xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "1");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 			XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
 
@@ -121,9 +124,10 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 			context.put("messagingtarget", cmdMessagingTarget);
 			context.put("messagingtargetpath", cmdMessagingTargetPath);
 			context.put("format", format);
-			context.put("writecontexts", writecontexts);
-			context.put("writeordered", writeordered);
-			context.put("writepretty", writepretty);
+			context.put("writeImplied", writeImplied);
+			context.put("writeOrdered", writeOrdered);
+			context.put("writeInner", writeInner);
+			context.put("writePretty", writePretty);
 			context.put("graphstring", graphstring);
 
 			// send response
@@ -171,9 +175,10 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 			context.put("messagingtarget", cmdMessagingTarget);
 			context.put("messagingtargetpath", cmdMessagingTargetPath);
 			context.put("format", format);
-			context.put("writecontexts", writecontexts);
-			context.put("writeordered", writeordered);
-			context.put("writepretty", writepretty);
+			context.put("writeImplied", writeImplied);
+			context.put("writeOrdered", writeOrdered);
+			context.put("writeInner", writeInner);
+			context.put("writePretty", writePretty);
 			context.put("graphstring", graphstring);
 			context.put("error", error);
 

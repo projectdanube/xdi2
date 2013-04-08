@@ -199,18 +199,6 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	}
 
 	/**
-	 * Adds an XDI operator to this XDI policy.
-	 * @param arcXri The arc XRI of the XDI operator.
-	 * @param statement The statement of the XDI condition.
-	 */
-	public Operator addOperator(Operator policyStatement) {
-
-		Relation relation = CopyUtil.copyRelation(policyStatement.getRelation(), this.getContextNode(), null);
-
-		return Operator.fromRelation(relation);
-	}
-
-	/**
 	 * Checks if the XDI policy evaluates to true or false.
 	 * @param policyEvaluationContext An object that can locate context nodes.
 	 * @return True or false.

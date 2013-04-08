@@ -39,9 +39,10 @@ $messagingtarget.class.canonicalName at $messagingtargetpath
 	<option value="XDI/JSON" #if($format == "XDI/JSON")selected#end>XDI/JSON</option>
 	<option value="XDI DISPLAY" #if($format == "XDI DISPLAY")selected#end>XDI DISPLAY</option>
 	</select>
-	<input name="writecontexts" type="checkbox" #if($writecontexts == "on")checked#end>contexts=1
-	<input name="writeordered" type="checkbox" #if($writeordered == "on")checked#end>ordered=1
-	<input name="writepretty" type="checkbox" #if($writepretty == "on")checked#end>pretty=1
+	<input name="writeImplied" type="checkbox" #if($writeImplied == "on")checked#end>implied=1
+	<input name="writeOrdered" type="checkbox" #if($writeOrdered == "on")checked#end>ordered=1
+	<input name="writeInner" type="checkbox" #if($writeInner == "on")checked#end>inner=1
+	<input name="writePretty" type="checkbox" #if($writePretty == "on")checked#end>pretty=1
 	<input type="hidden" name="cmd" value="edit_messaging_target">
 	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
 	<input type="submit" value="refresh">
