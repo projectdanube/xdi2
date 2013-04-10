@@ -18,6 +18,7 @@ import xdi2.core.features.contextfunctions.XdiEntityInstance;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
+import xdi2.core.features.linkcontracts.operator.Operator.MappingRelationOperatorIterator;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
@@ -271,6 +272,36 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 * Helper classes
 	 */
 
+	public static class MappingXdiEntityPolicyIterator extends NotNullIterator<Policy> {
+
+		public MappingXdiEntityPolicyIterator(Iterator<XdiEntity> xdiEntities) {
+
+			super(new MappingIterator<XdiEntity, Policy> (xdiEntities) {
+
+				@Override
+				public Policy map(XdiEntity xdiEntity) {
+
+					return Policy.fromXdiEntity(xdiEntity);
+				}
+			});
+		}
+	}
+
+	public static class MappingXdiEntityPolicyRootIterator extends NotNullIterator<PolicyRoot> {
+
+		public MappingXdiEntityPolicyRootIterator(Iterator<XdiEntity> xdiEntities) {
+
+			super(new MappingIterator<XdiEntity, PolicyRoot> (xdiEntities) {
+
+				@Override
+				public PolicyRoot map(XdiEntity xdiEntity) {
+
+					return PolicyRoot.fromXdiEntity(xdiEntity);
+				}
+			});
+		}
+	}
+
 	public static class MappingXdiEntityPolicyAndIterator extends NotNullIterator<PolicyAnd> {
 
 		public MappingXdiEntityPolicyAndIterator(Iterator<XdiEntity> xdiEntities) {
@@ -311,21 +342,6 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 				public PolicyNot map(XdiEntity xdiEntity) {
 
 					return PolicyNot.fromXdiEntity(xdiEntity);
-				}
-			});
-		}
-	}
-
-	public static class MappingRelationOperatorIterator extends NotNullIterator<Operator> {
-
-		public MappingRelationOperatorIterator(Iterator<Relation> relations) {
-
-			super(new MappingIterator<Relation, Operator> (relations) {
-
-				@Override
-				public Operator map(Relation relation) {
-
-					return Operator.fromRelation(relation);
 				}
 			});
 		}

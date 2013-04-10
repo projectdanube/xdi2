@@ -1,6 +1,10 @@
 package xdi2.core.features.contextfunctions;
 
+import java.util.Iterator;
+
 import xdi2.core.ContextNode;
+import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 
 public abstract class XdiAbstractEntity extends XdiAbstractSubGraph implements XdiEntity {
 
@@ -41,5 +45,24 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph implements X
 		if ((xdiEntity = XdiEntityElement.fromContextNode(contextNode)) != null) return xdiEntity;
 
 		return null;
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingContextNodeXdiEntityIterator extends NotNullIterator<XdiEntity> {
+
+		public MappingContextNodeXdiEntityIterator(Iterator<ContextNode> contextNodes) {
+
+			super(new MappingIterator<ContextNode, XdiEntity> (contextNodes) {
+
+				@Override
+				public XdiEntity map(ContextNode contextNode) {
+
+					return XdiAbstractEntity.fromContextNode(contextNode);
+				}
+			});
+		}
 	}
 }

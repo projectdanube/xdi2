@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.Relation;
+import xdi2.core.features.contextfunctions.XdiAbstractEntity;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.Policy;
 import xdi2.core.features.roots.XdiInnerRoot;
@@ -36,6 +37,9 @@ public class GenericOperator extends Operator {
 	 * @return True if the relation is a valid XDI generic operator.
 	 */
 	public static boolean isValid(Relation relation) {
+
+		if (! XdiAbstractEntity.isValid(relation.getContextNode())) return false;
+		if (! Policy.isValid(XdiAbstractEntity.fromContextNode(relation.getContextNode()))) return false;
 
 		return true;
 	}

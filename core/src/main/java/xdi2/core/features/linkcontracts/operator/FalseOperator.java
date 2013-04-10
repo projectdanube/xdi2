@@ -7,6 +7,7 @@ import java.util.List;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.contextfunctions.XdiAbstractEntity;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.Policy;
@@ -38,6 +39,8 @@ public class FalseOperator extends ConditionOperator {
 	 */
 	public static boolean isValid(Relation relation) {
 
+		if (! XdiAbstractEntity.isValid(relation.getContextNode())) return false;
+		if (! Policy.isValid(XdiAbstractEntity.fromContextNode(relation.getContextNode()))) return false;
 		if (! XDIConstants.XRI_S_FALSE.equals(relation.getArcXri())) return false;
 		if (! XdiInnerRoot.isValid(relation.follow())) return false;
 

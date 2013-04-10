@@ -8,7 +8,7 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractInstance extends XdiAbstractSubGraph {
+public abstract class XdiAbstractInstance extends XdiAbstractSubGraph implements XdiInstance {
 
 	private static final long serialVersionUID = -8496645644143069191L;
 
@@ -51,7 +51,8 @@ public abstract class XdiAbstractInstance extends XdiAbstractSubGraph {
 	 * Instance methods
 	 */
 
-	public abstract XdiAbstractClass getXdiClass();
+	@Override
+	public abstract XdiClass getXdiClass();
 
 	/*
 	 * Methods for XRIs
