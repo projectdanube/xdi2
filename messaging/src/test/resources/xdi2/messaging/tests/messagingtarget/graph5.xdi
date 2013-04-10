@@ -1,2 +1,2 @@
-=markus!(+first)!<+name><<$string>>/<>/"Markus"
-=markus!(+last)!<+name><<$string>>/<>/"Sabadello"
+=markus!(+first)!<+name><>/<>/"Markus"
+=markus!(+last)!<+name><>/<>/"Sabadello"

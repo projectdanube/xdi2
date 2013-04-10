@@ -85,7 +85,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiAttributeSingleton xdiAttributeSingleton = xdiSubGraph.getXdiAttributeSingleton(arcXri, true);
 
-				XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(XDI3SubSegment.create("$string"), true);
+				XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 
 				xdiValue.getContextNode().createLiteral(value.toString());
 			}
@@ -113,7 +113,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiAttributeInstance xdiAttributeInstance = xdiAttributeClass.getXdiInstance(jsonContentId, true);
 
-				XdiValue xdiValue = xdiAttributeInstance.getXdiValue(XDI3SubSegment.create("$string"), true);
+				XdiValue xdiValue = xdiAttributeInstance.getXdiValue(true);
 
 				xdiValue.getContextNode().createLiteral(value.toString());
 			}

@@ -174,7 +174,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 		XdiEntity parametersXdiEntity = XdiAbstractSubGraph.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), true);
 		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, true);
-		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(XDI3SubSegment.create("$string"), true);
+		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(true);
 		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();
 
 		if (parameterLiteral == null) 
@@ -196,7 +196,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, false);
 		if (parameterXdiAttribute == null) return null;
 
-		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(XDI3SubSegment.create("$string"), false);
+		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(false);
 		if (xdiValue == null) return null;
 
 		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();

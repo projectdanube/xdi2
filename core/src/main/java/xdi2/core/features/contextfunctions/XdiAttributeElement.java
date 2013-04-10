@@ -74,14 +74,13 @@ public final class XdiAttributeElement extends XdiAbstractElement implements Xdi
 
 	/**
 	 * Creates or returns an XDI value under this XDI attribute element.
-	 * @param arcXri The "base" arc XRI of the XDI value, without context function syntax.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI value.
 	 */
 	@Override
-	public XdiValue getXdiValue(XDI3SubSegment arcXri, boolean create) {
+	public XdiValue getXdiValue(boolean create) {
 
-		XDI3SubSegment valueArcXri = XdiValue.createArcXri(arcXri);
+		XDI3SubSegment valueArcXri = XdiValue.createArcXri();
 
 		ContextNode valueContextNode = this.getContextNode().getContextNode(valueArcXri);
 		if (valueContextNode == null && create) valueContextNode = this.getContextNode().createContextNode(valueArcXri);

@@ -128,7 +128,7 @@ public class ErrorMessageResult extends MessageResult {
 		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, false);
 		if (xdiAttributeSingleton == null) return null;
 
-		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(XDI3SubSegment.create("$string"), false);
+		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(false);
 		if (xdiValue == null) return null;
 
 		Literal errorStringLiteral = xdiValue.getContextNode().getLiteral();
@@ -140,7 +140,7 @@ public class ErrorMessageResult extends MessageResult {
 	public void setErrorString(String errorString) {
 
 		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractSubGraph.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, true);
-		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(XDI3SubSegment.create("$string"), true);
+		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 
 		Literal errorStringLiteral = xdiValue.getContextNode().getLiteral();
 

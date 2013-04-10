@@ -56,9 +56,9 @@ public final class XdiValue extends XdiAbstractSubGraph {
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
+	public static XDI3SubSegment createArcXri() {
 
-		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + XDI3Constants.CF_VALUE.charAt(0) + arcXri + XDI3Constants.CF_ATTRIBUTE_CLASS.charAt(1) + XDI3Constants.CF_ATTRIBUTE_CLASS.charAt(1));
+		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + XDI3Constants.CF_VALUE.charAt(1));
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
@@ -70,12 +70,7 @@ public final class XdiValue extends XdiAbstractSubGraph {
 		if (! arcXri.hasXRef()) return false;
 		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getCf())) return false;
 
-		if (! arcXri.getXRef().hasSegment()) return false;
-		
-		if (arcXri.getXRef().getSegment().getFirstSubSegment().hasCs()) return false;
-				
-		if (! arcXri.getXRef().getSegment().getFirstSubSegment().hasXRef()) return false;
-		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getXRef().getCf())) return false;
+		if (! arcXri.getXRef().isEmpty()) return false;
 
 		return true;
 	}

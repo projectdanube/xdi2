@@ -26,15 +26,15 @@ public class StatementUtilTest extends TestCase {
 		};
 
 		String literalStatements[] = new String[] {
-				"=markus!<+name><<$string>>/<>/\"Markus%20Sabadello\"",
-				"=!1111$!<+tel><<$string>>/<>/\"+1-206-555-1212\"",
-				"=!1111+tel[1]<<$string>>/<>/\"+1.206.555.1111\""
+				"=markus!<+name><>/<>/\"Markus%20Sabadello\"",
+				"=!1111$!<+tel><>/<>/\"+1-206-555-1212\"",
+				"=!1111+tel[1]<>/<>/\"+1.206.555.1111\""
 		};
 
 		String invalidStatements[] = new String[] {
-				"=markus<<$string>>/<>/=markus",
+				"=markus<>/<>/=markus",
 				"=markus/()/()",
-				"=markus<<$string>>/<>/{}"
+				"=markus<>/<>/{}"
 		};
 
 		for (String contextNodeStatement : contextNodeStatements) assertTrue(XDI3Statement.create(contextNodeStatement).isContextNodeStatement());
@@ -82,11 +82,11 @@ public class StatementUtilTest extends TestCase {
 		assertEquals(relationStatement.getPredicate(), XDI3Segment.create("+friend"));
 		assertEquals(relationStatement.getObject(), XDI3Segment.create("=animesh"));
 
-		XDI3Statement literalStatement = XDI3Statement.create("=markus!<+name><<$string>>/<>/\"Markus Sabadello\"");
-		XDI3Statement literalStatement2 = StatementUtil.fromComponents(XDI3Segment.create("=markus!<+name><<$string>>"), XDIConstants.XRI_S_LITERAL, "Markus Sabadello");
-		XDI3Statement literalStatement3 = StatementUtil.fromLiteralComponents(XDI3Segment.create("=markus!<+name><<$string>>"), "Markus Sabadello");
+		XDI3Statement literalStatement = XDI3Statement.create("=markus!<+name><>/<>/\"Markus Sabadello\"");
+		XDI3Statement literalStatement2 = StatementUtil.fromComponents(XDI3Segment.create("=markus!<+name><>"), XDIConstants.XRI_S_LITERAL, "Markus Sabadello");
+		XDI3Statement literalStatement3 = StatementUtil.fromLiteralComponents(XDI3Segment.create("=markus!<+name><>"), "Markus Sabadello");
 
-		assertEquals(literalStatement.getSubject(), XDI3Segment.create("=markus!<+name><<$string>>"));
+		assertEquals(literalStatement.getSubject(), XDI3Segment.create("=markus!<+name><>"));
 		assertEquals(literalStatement.getPredicate(), XDIConstants.XRI_S_LITERAL);
 		assertEquals(literalStatement.getObject(), "Markus Sabadello");
 
@@ -107,16 +107,16 @@ public class StatementUtilTest extends TestCase {
 
 		assertNull(StatementUtil.reduceStatement(reducedContextStatement, XDI3Segment.create("{}"), false, true));
 
-		XDI3Statement literalStatement = XDI3Statement.create("=markus!<+name><<$string>>/<>/\"Markus Sabadello\"");
+		XDI3Statement literalStatement = XDI3Statement.create("=markus!<+name><>/<>/\"Markus Sabadello\"");
 
 		XDI3Statement reducedLiteralStatement = StatementUtil.reduceStatement(literalStatement, XDI3Segment.create("=markus"));
 
-		assertEquals(reducedLiteralStatement, XDI3Statement.create("!<+name><<$string>>/<>/\"Markus Sabadello\""));
-		assertEquals(reducedLiteralStatement.getSubject(), XDI3Segment.create("!<+name><<$string>>"));
+		assertEquals(reducedLiteralStatement, XDI3Statement.create("!<+name><>/<>/\"Markus Sabadello\""));
+		assertEquals(reducedLiteralStatement.getSubject(), XDI3Segment.create("!<+name><>"));
 		assertEquals(reducedLiteralStatement.getPredicate(), XDI3Segment.create("<>"));
 		assertEquals(reducedLiteralStatement.getObject(), "Markus Sabadello");
 
-		assertEquals(StatementUtil.reduceStatement(reducedLiteralStatement, XDI3Segment.create("{}"), false, true), XDI3Statement.create("<<$string>>/<>/\"Markus Sabadello\""));
+		assertEquals(StatementUtil.reduceStatement(reducedLiteralStatement, XDI3Segment.create("{}"), false, true), XDI3Statement.create("<>/<>/\"Markus Sabadello\""));
 		assertNull(StatementUtil.reduceStatement(reducedLiteralStatement, XDI3Segment.create("{}{}"), false, true));
 
 		XDI3Statement relationStatement = XDI3Statement.create("=markus!<+name>/$ref/=markus!(+full)!<+name>");

@@ -1,5 +1,5 @@
 =markus$msg!1!($do)/$add/(=markus/+friend/=drummond)
-=markus$msg!1!($do)/$add/(=markus!<+name><<$string>>/<>/"Markus%20Sabadello")
-=markus$msg!1!($do)/$add/(=markus!<+email><<$string>>/<>/"markus.sabadello@gmail.com")
+=markus$msg!1!($do)/$add/(=markus!<+name><>/<>/"Markus%20Sabadello")
+=markus$msg!1!($do)/$add/(=markus!<+email><>/<>/"markus.sabadello@gmail.com")
 =markus$msg!1!($do)/$add/(=markus/()/!(+passport))
 =markus$msg!1!($do)/$add/=markus!(+resume)

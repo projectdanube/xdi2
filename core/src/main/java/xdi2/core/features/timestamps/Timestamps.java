@@ -13,7 +13,6 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
 import xdi2.core.features.contextfunctions.XdiAttribute;
 import xdi2.core.features.contextfunctions.XdiValue;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public class Timestamps {
 
@@ -62,7 +61,7 @@ public class Timestamps {
 		XdiAttribute xdiAttribute = XdiAbstractSubGraph.fromContextNode(contextNode).getXdiAttributeSingleton(XDITimestampsConstants.XRI_SS_T, false);
 		if (xdiAttribute == null) return null;
 		
-		XdiValue xdiValue = xdiAttribute.getXdiValue(XDI3SubSegment.create("$string"), false);
+		XdiValue xdiValue = xdiAttribute.getXdiValue(false);
 		if (xdiValue == null) return null;
 		
 		Literal timestampLiteral = xdiValue.getContextNode().getLiteral();
@@ -80,7 +79,7 @@ public class Timestamps {
 		String literalData = timestampToString(timestamp);
 
 		XdiAttribute xdiAttribute = XdiAbstractSubGraph.fromContextNode(contextNode).getXdiAttributeSingleton(XDITimestampsConstants.XRI_SS_T, true);
-		XdiValue xdiValue = xdiAttribute.getXdiValue(XDI3SubSegment.create("$string"), true);
+		XdiValue xdiValue = xdiAttribute.getXdiValue(true);
 		Literal timestampLiteral = xdiValue.getContextNode().getLiteral();
 
 		if (timestampLiteral == null) 

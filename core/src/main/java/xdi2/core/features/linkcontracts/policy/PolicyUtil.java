@@ -29,7 +29,7 @@ public final class PolicyUtil {
 
 	public static Operator createSecretTokenMatchesOperator(Policy policy) {
 
-		Condition condition = EqualsCondition.fromSubjectAndObject(XDI3Segment.create("{$msg}!($secret)!<$token><<$string>>"), XDI3Segment.create("!($secret)!<$token><<$string>>"));
+		Condition condition = EqualsCondition.fromSubjectAndObject(XDI3Segment.create("{$msg}!($secret)!<$token><>"), XDI3Segment.create("!($secret)!<$token><>"));
 
 		return TrueOperator.createTrueOperator(policy, condition);
 	}
