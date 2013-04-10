@@ -6,7 +6,10 @@ import java.util.List;
 
 import xdi2.core.Relation;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
+import xdi2.core.features.linkcontracts.policy.Policy;
 import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.roots.XdiLocalRoot;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
 /**
@@ -47,6 +50,26 @@ public class GenericOperator extends Operator {
 		if (! isValid(relation)) return null;
 
 		return new GenericOperator(relation);
+	}
+
+	public static GenericOperator createGenericOperator(Policy policy, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+
+		if (policy == null) throw new NullPointerException();
+
+		Relation relation = policy.getContextNode().createRelation(arcXri, targetContextNodeXri);
+
+		return fromRelation(relation);
+	}
+
+	public static GenericOperator createGenericOperator(Policy policy, XDI3Segment arcXri, XDI3Statement relativeStatement) {
+
+		if (policy == null) throw new NullPointerException();
+
+		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(policy.getContextNode().getGraph()).findInnerRoot(policy.getContextNode().getXri(), arcXri, true);
+
+		xdiInnerRoot.createRelativeStatement(relativeStatement);
+
+		return fromRelation(xdiInnerRoot.getPredicateRelation());
 	}
 
 	/*

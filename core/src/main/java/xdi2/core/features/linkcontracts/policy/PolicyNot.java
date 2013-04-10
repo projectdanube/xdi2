@@ -36,11 +36,11 @@ public class PolicyNot extends Policy {
 	public static boolean isValid(XdiEntity xdiEntity) {
 
 		if (xdiEntity instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
+			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
 		else if (xdiEntity instanceof XdiEntityInstance)
-			return ((XdiEntityInstance) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
+			return ((XdiEntityInstance) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
 		else if (xdiEntity instanceof XdiEntityElement)
-			return ((XdiEntityElement) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
+			return ((XdiEntityElement) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
 
 		return false;
 	}

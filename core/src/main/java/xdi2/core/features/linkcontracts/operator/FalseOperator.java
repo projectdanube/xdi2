@@ -58,6 +58,8 @@ public class FalseOperator extends ConditionOperator {
 
 	public static FalseOperator createFalseOperator(Policy policy, Condition condition) {
 
+		if (policy == null) throw new NullPointerException();
+
 		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(policy.getContextNode().getGraph()).findInnerRoot(policy.getContextNode().getXri(), XDIConstants.XRI_S_FALSE, true);
 
 		xdiInnerRoot.createRelativeStatement(condition.getStatement());

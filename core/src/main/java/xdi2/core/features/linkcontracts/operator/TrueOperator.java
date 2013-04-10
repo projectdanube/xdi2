@@ -58,6 +58,8 @@ public class TrueOperator extends ConditionOperator {
 
 	public static TrueOperator createTrueOperator(Policy policy, Condition condition) {
 
+		if (policy == null) throw new NullPointerException();
+		
 		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(policy.getContextNode().getGraph()).findInnerRoot(policy.getContextNode().getXri(), XDIConstants.XRI_S_TRUE, true);
 
 		xdiInnerRoot.createRelativeStatement(condition.getStatement());

@@ -159,7 +159,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 			LinkContract bootstrapLinkContract = LinkContracts.getLinkContract(rootContextNode, true);
 			bootstrapLinkContract.addPermission(XDILinkContractConstants.XRI_S_ALL, XDIConstants.XRI_S_ROOT);
 
-			PolicyAnd policyAnd = bootstrapLinkContract.getPolicyRoot(true).createAndPolicy();
+			PolicyAnd policyAnd = bootstrapLinkContract.getPolicyRoot(true).createAndPolicy(true);
 			PolicyUtil.createSenderMatchesOperator(policyAnd, this.bootstrapOwner);
 			PolicyUtil.createSecretTokenMatchesOperator(policyAnd);
 		}

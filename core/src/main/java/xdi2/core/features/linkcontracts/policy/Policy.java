@@ -18,7 +18,6 @@ import xdi2.core.features.contextfunctions.XdiEntityInstance;
 import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
-import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
@@ -129,31 +128,46 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	/**
 	 * Creates an XDI $and policy.
 	 */
-	public PolicyAnd createAndPolicy() {
+	public PolicyAnd createAndPolicy(boolean singleton) {
 
-		XdiEntitySingleton policyAndXdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_AND, true);
+		XdiEntity policyAndXdiEntity; 
+		
+		if (singleton)
+			policyAndXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_AND, true);
+		else
+			policyAndXdiEntity = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_AND, true).getXdiInstance();
 
-		return PolicyAnd.fromXdiEntity(policyAndXdiEntitySingleton);
+		return PolicyAnd.fromXdiEntity(policyAndXdiEntity);
 	}
 
 	/**
 	 * Creates an XDI $or policy.
 	 */
-	public PolicyOr createOrPolicy() {
+	public PolicyOr createOrPolicy(boolean singleton) {
 
-		XdiEntitySingleton policyOrXdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_OR, true);
+		XdiEntity policyOrXdiEntity; 
+		
+		if (singleton)
+			policyOrXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_OR, true);
+		else
+			policyOrXdiEntity = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_OR, true).getXdiInstance();
 
-		return PolicyOr.fromXdiEntity(policyOrXdiEntitySingleton);
+		return PolicyOr.fromXdiEntity(policyOrXdiEntity);
 	}
 
 	/**
 	 * Creates an XDI $not policy.
 	 */
-	public PolicyNot createNotPolicy() {
+	public PolicyNot createNotPolicy(boolean singleton) {
 
-		XdiEntitySingleton policyNotXdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, true);
+		XdiEntity policyNotXdiEntity; 
+		
+		if (singleton)
+			policyNotXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, true);
+		else
+			policyNotXdiEntity = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_NOT, true).getXdiInstance();
 
-		return PolicyNot.fromXdiEntity(policyNotXdiEntitySingleton);
+		return PolicyNot.fromXdiEntity(policyNotXdiEntity);
 	}
 
 	/**
