@@ -58,8 +58,9 @@ To give you a quick start into XDI2, you may download a VirtualBox image with al
 * [xdi2-connector-facebook](https://github.com/peacekeeper/xdi2-connector-facebook) - Facebook -> XDI Connector
 * [xdi2-connector-personal](https://github.com/peacekeeper/xdi2-connector-personal) - Personal.com -> XDI Connector
 * [xdi2-connector-allfiled](https://github.com/peacekeeper/xdi2-connector-allfiled) - Allfiled -> XDI Connector
+* [xdi2-connector-google-calendar](https://github.com/peacekeeper/xdi2-connector-google-calendar) - Google Calendar -> XDI Connector
+
 
 ### Tests
 
 See [Testing](https://github.com/peacekeeper/xdi2/wiki/Testing) for a description of unit tests, etc.
-
