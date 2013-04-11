@@ -23,7 +23,7 @@ public class PropertiesGraphTest extends AbstractGraphTest {
 			@Override
 			public boolean accept(File dir, String name) {
 
-				return name.startsWith("xdi2-test-graph.") && name.endsWith(".properties");
+				return name.startsWith("xdi2-graph.") && name.endsWith(".properties");
 			}
 		});
 

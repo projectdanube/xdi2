@@ -67,13 +67,13 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 	 */
 	public static XDI3SubSegment getBaseArcXri(XDI3SubSegment arcXri) {
 
-		if (arcXri.hasXRef() && arcXri.getXRef().hasSegment()) {
+		StringBuilder buffer = new StringBuilder();
 
-			return arcXri.getXRef().getSegment().getFirstSubSegment();
-		} else {
+		if (arcXri.hasCs()) buffer.append(arcXri.getCs());
+		if (arcXri.hasLiteral()) buffer.append(arcXri.getLiteral());
+		if (arcXri.hasXRef()) buffer.append(arcXri.getXRef());
 
-			return arcXri;
-		}
+		return XDI3SubSegment.create(buffer.toString());
 	}
 
 	/*

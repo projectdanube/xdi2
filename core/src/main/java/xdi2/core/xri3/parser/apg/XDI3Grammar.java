@@ -512,7 +512,7 @@ public class XDI3Grammar extends Grammar{
         out.println("");
         out.println("inner-statement         = \"(\" xdi-statement \")\"");
         out.println("");
-        out.println("literal-statement       = literal-context value-context \"/<>/\" json-value");
+        out.println("literal-statement       = literal-context value-context \"/#/\" json-value");
         out.println("");
         out.println("context                 = ( peer-root [ relative-context ] ) / relative-context");
         out.println("relative-context        = 1*subpath");

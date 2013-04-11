@@ -14,10 +14,10 @@ public class ContextFunctionsTest extends TestCase {
 
 	public void testArcXris() throws Exception {
 
-		assertEquals(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("!(+address)"));
-		assertEquals(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("!<+address>"));
+		assertEquals(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+|address"));
+		assertEquals(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+|&address"));
 		assertEquals(XdiEntityClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+address"));
-		assertEquals(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("<+address>"));
+		assertEquals(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+&address"));
 		assertEquals(XdiAbstractInstance.createArcXri("1"), XDI3SubSegment.create("!1"));
 		assertEquals(XdiAbstractElement.createArcXri("1"), XDI3SubSegment.create("[1]"));
 

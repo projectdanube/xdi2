@@ -58,7 +58,7 @@ public class ReaderWriterTest extends TestCase {
 				new MimeType("application/xdi+json;ordered=1"),
 				new MimeType("application/xdi+json;ordered=1;implied=1"),
 				new MimeType("application/xdi+json;ordered=1;inner=1"),
-				// TODO??? new MimeType("application/xdi+json;ordered=1;implied=0;inner=0"),
+				// TODO WTF ??? new MimeType("application/xdi+json;ordered=1;implied=0;inner=0"),
 				new MimeType("application/xdi+json;ordered=1;implied=0;inner=1"),
 				new MimeType("application/xdi+json;ordered=1;implied=1;inner=0"),
 				new MimeType("application/xdi+json;ordered=1;implied=1;inner=1")

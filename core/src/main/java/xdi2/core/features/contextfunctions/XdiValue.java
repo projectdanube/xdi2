@@ -71,7 +71,7 @@ public final class XdiValue extends XdiAbstractSubGraph {
 		if (arcXri.hasLiteral()) return false;
 		if (arcXri.hasXRef()) return false;
 
-		if (! XDI3Constants.CS_VALUE.equals(arcXri.getClass())) return false;
+		if (! XDI3Constants.CS_VALUE.equals(arcXri.getCs())) return false;
 
 		return true;
 	}
