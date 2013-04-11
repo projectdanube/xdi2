@@ -55,7 +55,7 @@ public class ErrorMessageResult extends MessageResult {
 
 		if (! MessageResult.isValid(graph)) return false;
 
-		if (! graph.getRootContextNode().containsContextNode(XRI_SS_FALSE)) return false;
+		if (XdiAbstractSubGraph.fromContextNode(graph.getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, false) == null) return false;
 
 		return true;
 	}

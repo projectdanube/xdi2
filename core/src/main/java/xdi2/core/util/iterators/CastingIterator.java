@@ -10,11 +10,19 @@ import java.util.Iterator;
 public class CastingIterator<I, O> implements Iterator<O> {
 
 	private Iterator<? extends I> iterator;
+	private Class<? extends O> safeClass;
+
+	public CastingIterator(Iterator<? extends I> iterator, Class<? extends O> safeClass) {
+
+		this.iterator = iterator;
+		this.safeClass = safeClass;
+	}
 
 	public CastingIterator(Iterator<? extends I> iterator) {
 
-		this.iterator = iterator;
+		this(iterator, null);
 	}
+
 
 	@Override
 	public boolean hasNext() {
@@ -26,12 +34,21 @@ public class CastingIterator<I, O> implements Iterator<O> {
 	@SuppressWarnings("unchecked")
 	public O next() {
 
-		return (O) this.iterator.next();
+		Object next = this.iterator.next();
+
+		if (this.getSafeClass() != null && (! this.getSafeClass().isAssignableFrom(next.getClass()))) return null;
+
+		return (O) next;
 	}
 
 	@Override
 	public void remove() {
 
 		this.iterator.remove();
+	}
+
+	public Class<? extends O> getSafeClass() {
+
+		return this.safeClass;
 	}
 }
