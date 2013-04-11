@@ -6,27 +6,27 @@
 
 	<display-name>xdi2-server</display-name>
 	
-		<!-- XDI SERVLET -->
-	
-		<servlet>
-			<servlet-name>EndpointServlet</servlet-name>
-			<servlet-class>xdi2.server.servlet.EndpointServlet</servlet-class>
-		</servlet>
-	
-		<servlet-mapping>
-			<servlet-name>EndpointServlet</servlet-name>
-			<url-pattern>/xdi/*</url-pattern>
-			<url-pattern>/xdi/</url-pattern>
-		</servlet-mapping>
-	
-		<!-- LISTENERS -->
-	
-		<listener>
-			<listener-class>xdi2.server.spring.PluginsLoaderListener</listener-class>
-		</listener>
-	
-		<listener>
-			<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-		</listener>
+	<!-- XDI SERVLET -->
+
+	<servlet>
+		<servlet-name>EndpointServlet</servlet-name>
+		<servlet-class>xdi2.server.servlet.EndpointServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EndpointServlet</servlet-name>
+		<url-pattern>/xdi/*</url-pattern>
+		<url-pattern>/xdi/</url-pattern>
+	</servlet-mapping>
+
+	<!-- LISTENERS -->
+
+	<listener>
+		<listener-class>xdi2.server.spring.PluginsLoaderListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
 </web-app>
