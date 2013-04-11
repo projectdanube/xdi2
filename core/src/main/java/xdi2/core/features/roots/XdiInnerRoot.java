@@ -134,7 +134,7 @@ public class XdiInnerRoot extends XdiRoot {
 	 */
 	public static XDI3SubSegment createInnerRootArcXri(XDI3Segment subject, XDI3Segment predicate) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.CF_ROOT.charAt(0) + subject.toString() + "/" + predicate.toString() + XDI3Constants.CF_ROOT.charAt(1));
+		return XDI3SubSegment.create("" + XDI3Constants.XS_ROOT.charAt(0) + subject.toString() + "/" + predicate.toString() + XDI3Constants.XS_ROOT.charAt(1));
 	}
 
 	/**
@@ -146,10 +146,13 @@ public class XdiInnerRoot extends XdiRoot {
 
 		if (arcXri == null) return null;
 		
+		if (arcXri.hasCs()) return null;
+		if (arcXri.isSingleton()) return null;
+		if (arcXri.isAttribute()) return null;
 		if (! arcXri.hasXRef()) return null;
 
 		XDI3XRef xref = arcXri.getXRef();
-		if (! XDI3Constants.CF_ROOT.equals(xref.getCf())) return null;
+		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasPartialSubjectAndPredicate()) return null;
 
 		return xref.getPartialSubject();
@@ -164,10 +167,13 @@ public class XdiInnerRoot extends XdiRoot {
 
 		if (arcXri == null) return null;
 		
+		if (arcXri.hasCs()) return null;
+		if (arcXri.isSingleton()) return null;
+		if (arcXri.isAttribute()) return null;
 		if (! arcXri.hasXRef()) return null;
 
 		XDI3XRef xref = arcXri.getXRef();
-		if (! XDI3Constants.CF_ROOT.equals(xref.getCf())) return null;
+		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasPartialSubjectAndPredicate()) return null;
 
 		return xref.getPartialPredicate();

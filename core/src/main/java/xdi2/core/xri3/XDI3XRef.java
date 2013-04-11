@@ -65,7 +65,7 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return this.literal != null;
 	}
 
-	public String getCf() {
+	public String getXs() {
 
 		return this.cf;
 	}

@@ -200,10 +200,12 @@ public class XDI3ParserAPG extends XDI3Parser {
 				Node nodeXref = this.myAstContext.currentNode.findNode(RuleNames.XREF);
 
 				Character cs = nodeCs == null ? null : Character.valueOf(nodeCs.value.charAt(0));
+				boolean singleton = false;
+				boolean attribute = false;
 				String literal = nodeLiteral == null ? null : nodeLiteral.value;
 				XDI3XRef xref = nodeXref == null ? null : (XDI3XRef) nodeXref.xri;
 
-				this.myAstContext.currentNode.xri = XDI3ParserAPG.this.makeXDI3SubSegment(this.myAstContext.currentNode.value, cs, literal, xref);
+				this.myAstContext.currentNode.xri = XDI3ParserAPG.this.makeXDI3SubSegment(this.myAstContext.currentNode.value, cs, singleton, attribute, literal, xref);
 			}
 
 			if (this.ruleName.equals(RuleNames.XREF)) {

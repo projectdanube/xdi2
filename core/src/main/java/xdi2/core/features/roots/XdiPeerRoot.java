@@ -81,7 +81,7 @@ public final class XdiPeerRoot extends XdiRoot {
 	 */
 	public static XDI3SubSegment createPeerRootArcXri(XDI3Segment xri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.CF_ROOT.charAt(0) + xri + XDI3Constants.CF_ROOT.charAt(1));
+		return XDI3SubSegment.create("" + XDI3Constants.XS_ROOT.charAt(0) + xri + XDI3Constants.XS_ROOT.charAt(1));
 	}
 
 	/**
@@ -91,12 +91,15 @@ public final class XdiPeerRoot extends XdiRoot {
 	 */
 	public static XDI3Segment getXriOfPeerRootArcXri(XDI3SubSegment arcXri) {
 
+		if (arcXri == null) return null;
+
 		if (arcXri.hasCs()) return null;
-		
+		if (arcXri.isSingleton()) return null;
+		if (arcXri.isAttribute()) return null;
 		if (! arcXri.hasXRef()) return null;
 
 		XDI3XRef xref = arcXri.getXRef();
-		if (! XDI3Constants.CF_ROOT.equals(xref.getCf())) return null;
+		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasSegment()) return null;
 
 		return xref.getSegment();

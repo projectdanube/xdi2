@@ -75,24 +75,27 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton implements
 
 	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.CS_BANG + XDI3Constants.CF_ATTRIBUTE_SINGLETON.charAt(0) + arcXri.toString() + XDI3Constants.CF_ATTRIBUTE_SINGLETON.charAt(1));
+		StringBuilder buffer = new StringBuilder();
+
+		if (arcXri.hasCs()) buffer.append(arcXri.getCs());
+		buffer.append(XDI3Constants.C_SINGLETON);
+		buffer.append(XDI3Constants.C_ATTRIBUTE);
+		if (arcXri.hasLiteral()) buffer.append(arcXri.getLiteral());
+		if (arcXri.hasXRef()) buffer.append(arcXri.getXRef());
+
+		return XDI3SubSegment.create(buffer.toString());
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 
-		if (! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
+		if (! arcXri.isSingleton()) return false;
+		if (! arcXri.isAttribute()) return false;
 
-		if (! arcXri.hasXRef()) return false;
-		if (! XDI3Constants.CF_ATTRIBUTE_SINGLETON.equals(arcXri.getXRef().getCf())) return false;
+		if (XDI3Constants.CS_PLUS.equals(arcXri.getCs()) || XDI3Constants.CS_DOLLAR.equals(arcXri.getCs())) {
 
-		if (! arcXri.getXRef().hasSegment()) return false;
-
-		if (XDI3Constants.CS_DOLLAR.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getCs())) {
-
-		} else if (XDI3Constants.CS_PLUS.equals(arcXri.getXRef().getSegment().getFirstSubSegment().getCs())) {
-
+			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
 		} else {
 
 			return false;

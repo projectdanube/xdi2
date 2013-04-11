@@ -26,8 +26,7 @@ public abstract class XdiAbstractSingleton extends XdiAbstractSubGraph {
 		return XdiEntitySingleton.isValid(contextNode) || 
 				XdiAttributeSingleton.isValid(contextNode) ||
 				XdiPersonalSingleton.isValid(contextNode) ||
-				XdiOrganizationalSingleton.isValid(contextNode) ||
-				XdiRelativeSingleton.isValid(contextNode);
+				XdiOrganizationalSingleton.isValid(contextNode);
 	}
 
 	/**
@@ -43,7 +42,6 @@ public abstract class XdiAbstractSingleton extends XdiAbstractSubGraph {
 		if ((xdiSingleton = XdiAttributeSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 		if ((xdiSingleton = XdiPersonalSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 		if ((xdiSingleton = XdiOrganizationalSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
-		if ((xdiSingleton = XdiRelativeSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 
 		return null;
 	}
@@ -57,7 +55,6 @@ public abstract class XdiAbstractSingleton extends XdiAbstractSubGraph {
 		return XdiEntitySingleton.isValidArcXri(arcXri) || 
 				XdiAttributeSingleton.isValidArcXri(arcXri) ||
 				XdiPersonalSingleton.isValidArcXri(arcXri) ||
-				XdiOrganizationalSingleton.isValidArcXri(arcXri) ||
-				XdiRelativeSingleton.isValidArcXri(arcXri);
+				XdiOrganizationalSingleton.isValidArcXri(arcXri);
 	}
 }

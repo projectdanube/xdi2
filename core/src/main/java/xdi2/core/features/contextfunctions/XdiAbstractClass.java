@@ -124,7 +124,7 @@ public abstract class XdiAbstractClass extends XdiAbstractSubGraph implements Xd
 	@Override
 	public XdiAbstractElement getXdiElement(int index, boolean create) {
 
-		XDI3SubSegment arcXri = XDI3SubSegment.create("" + XDI3Constants.CF_ELEMENT.charAt(0) + index + XDI3Constants.CF_ELEMENT.charAt(1));
+		XDI3SubSegment arcXri = XdiAbstractElement.createArcXri(Integer.toString(index));
 
 		ContextNode elementContextNode = this.getContextNode().getContextNode(arcXri);
 		if (elementContextNode == null && create) elementContextNode = this.getContextNode().createContextNode(arcXri);

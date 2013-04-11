@@ -26,7 +26,7 @@ public final class VariableUtil {
 	public static boolean isVariable(XDI3SubSegment variable) {
 
 		return variable.hasXRef() &&
-				XDI3Constants.CF_VARIABLE.equals(variable.getXRef().getCf()) &&
+				XDI3Constants.XS_VARIABLE.equals(variable.getXRef().getXs()) &&
 				( variable.getXRef().isEmpty() || variable.getXRef().hasSegment() || variable.getXRef().hasLiteral() );
 	}
 
@@ -37,29 +37,6 @@ public final class VariableUtil {
 		return isVariable(variable.getFirstSubSegment());
 	}
 
-	/**
-	 * Get a variable's context function.
-	 * @param variable The variable.
-	 * @return The variable's context function.
-	 */
-	public static String getCf(XDI3SubSegment variable) {
-
-		if (! isVariable(variable)) return null;
-		if (! variable.getXRef().hasSegment()) return null;
-
-		XDI3Segment innerSegment = variable.getXRef().getSegment();
-		XDI3SubSegment innerSubSegment = innerSegment.getFirstSubSegment();
-		if (innerSubSegment.hasCs()) return null;
-		if (! innerSubSegment.hasXRef()) return null;
-
-		return innerSubSegment.getXRef().getCf();
-	}
-
-	/**
-	 * Get a variable's context symbol(s).
-	 * @param variable The variable.
-	 * @return The variable's context symbol(s).
-	 */
 	public static String getCss(XDI3SubSegment variable) {
 
 		if (! isVariable(variable)) return null;
@@ -94,6 +71,41 @@ public final class VariableUtil {
 		return css;
 	}
 
+	public static boolean getSingleton(XDI3SubSegment variable) {
+
+		if (! isVariable(variable)) return false;
+		if (! variable.getXRef().hasSegment()) return false;
+
+		XDI3Segment innerSegment = variable.getXRef().getSegment();
+		XDI3SubSegment innerSubSegment = innerSegment.getFirstSubSegment();
+
+		return innerSubSegment.isSingleton();
+	}
+
+	public static boolean getAttribute(XDI3SubSegment variable) {
+
+		if (! isVariable(variable)) return false;
+		if (! variable.getXRef().hasSegment()) return false;
+
+		XDI3Segment innerSegment = variable.getXRef().getSegment();
+		XDI3SubSegment innerSubSegment = innerSegment.getFirstSubSegment();
+
+		return innerSubSegment.isAttribute();
+	}
+
+	public static String getXs(XDI3SubSegment variable) {
+
+		if (! isVariable(variable)) return null;
+		if (! variable.getXRef().hasSegment()) return null;
+
+		XDI3Segment innerSegment = variable.getXRef().getSegment();
+		XDI3SubSegment innerSubSegment = innerSegment.getFirstSubSegment();
+		if (innerSubSegment.hasCs()) return null;
+		if (! innerSubSegment.hasXRef()) return null;
+
+		return innerSubSegment.getXRef().getXs();
+	}
+
 	/**
 	 * Checks if a variable matches multiple subsegments.
 	 * @param variable The variable.
@@ -117,41 +129,35 @@ public final class VariableUtil {
 	 */
 	public static boolean matches(XDI3SubSegment variable, XDI3SubSegment subSegment) {
 
-		String cf = getCf(variable);
 		String css = getCss(variable);
+		boolean singleton = getSingleton(variable);
+		boolean attribute = getAttribute(variable);
+		String xs = getXs(variable);
 
-		if (log.isDebugEnabled()) log.debug("Matching variable " + variable + " against subsegment " + subSegment + " (cf=" + cf + ", css=" + css + ")");
+		if (log.isDebugEnabled()) log.debug("Matching variable " + variable + " against subsegment " + subSegment + " (css=" + css + ", singleton=" + singleton + ", attribute=" + attribute + ", xs=" + xs + ")");
 
-		if (cf != null) {
+		if (xs != null) {
 
-			boolean validCf = false;
+			if (! subSegment.hasXRef()) return false;
 
-			/*			if (XDI3Constants.CF_ROOT.equals(cf) && XdiRoot.isRootArcXri(subSegment)) validCf = true;
-			if (XDI3Constants.CF_ENTITY_SINGLETON.equals(cf) && XdiEntity.isValidArcXri(subSegment)) validCf = true;
-			if (XDI3Constants.CF_ROOT.equals(cf) && XdiRoot.isRootArcXri(subSegment)) validCf = true;
-			if (XDI3Constants.CF_ROOT.equals(cf) && XdiRoot.isRootArcXri(subSegment)) validCf = true;
-			if (XDI3Constants.CF_ROOT.equals(cf) && XdiRoot.isRootArcXri(subSegment)) validCf = true;*/
-
-			if (! validCf) throw new RuntimeException("fix me");
+			if (! xs.equals(subSegment.getXRef().getXs())) return false;
 		}
 
+		if (singleton) {
+			
+			if (! subSegment.isSingleton()) return false;
+		}
+
+		if (attribute) {
+			
+			if (! subSegment.isAttribute()) return false;
+		}
+		
 		if (css.length() > 0) {
 
-			Character cs = null;
+			if (! subSegment.hasCs()) return false;
 
-			if (subSegment.hasCs()) {
-
-				cs = subSegment.getCs();
-			} else {
-
-				if (subSegment.hasXRef() && subSegment.getXRef().hasSegment()) {
-
-					cs = subSegment.getXRef().getSegment().getFirstSubSegment().getCs();
-				}
-			}
-
-			if (cs == null) return false;
-			if (css.indexOf(cs.charValue()) == -1) return false;
+			if (css.indexOf(subSegment.getCs().charValue()) == -1) return false;
 		}
 
 		return true;

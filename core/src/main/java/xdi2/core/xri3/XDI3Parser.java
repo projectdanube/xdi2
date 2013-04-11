@@ -19,9 +19,9 @@ public abstract class XDI3Parser {
 		return new XDI3Segment(string, subSegments);
 	}
 
-	protected XDI3SubSegment makeXDI3SubSegment(String string, Character cs, String literal, XDI3XRef xref) {
+	protected XDI3SubSegment makeXDI3SubSegment(String string, Character cs, boolean singleton, boolean attribute, String literal, XDI3XRef xref) {
 
-		return new XDI3SubSegment(string, cs, literal, xref);
+		return new XDI3SubSegment(string, cs, singleton, attribute, literal, xref);
 	}
 
 	protected XDI3XRef makeXDI3XRef(String string, String cf, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {

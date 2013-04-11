@@ -165,7 +165,7 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 		if (subSegment.hasXRef()) {
 
 			JSONObject gom2 = new JSONObject();
-			gom2.put(subSegment.getXRef().getCf(), makeGom(subSegment.getXRef()));
+			gom2.put(subSegment.getXRef().getXs(), makeGom(subSegment.getXRef()));
 			gom = gom2;
 		}
 

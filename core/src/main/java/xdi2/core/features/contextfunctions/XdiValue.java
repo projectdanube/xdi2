@@ -3,6 +3,7 @@ package xdi2.core.features.contextfunctions;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Constants;
@@ -58,19 +59,19 @@ public final class XdiValue extends XdiAbstractSubGraph {
 
 	public static XDI3SubSegment createArcXri() {
 
-		return XDI3SubSegment.create("" + XDI3Constants.CF_VALUE.charAt(0) + XDI3Constants.CF_VALUE.charAt(1));
+		return XDIConstants.XRI_SS_LITERAL;
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 
-		if (arcXri.hasCs()) return false;
+		if (arcXri.isSingleton()) return false;
+		if (arcXri.isAttribute()) return false;
+		if (arcXri.hasLiteral()) return false;
+		if (arcXri.hasXRef()) return false;
 
-		if (! arcXri.hasXRef()) return false;
-		if (! XDI3Constants.CF_VALUE.equals(arcXri.getXRef().getCf())) return false;
-
-		if (! arcXri.getXRef().isEmpty()) return false;
+		if (! XDI3Constants.CS_VALUE.equals(arcXri.getClass())) return false;
 
 		return true;
 	}

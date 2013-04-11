@@ -28,26 +28,6 @@ public class VariablesTest extends TestCase {
 				XDI3SubSegment.create("{!{}}")
 		};
 
-		String variablesCf[] = new String[] {
-				null,
-				null,
-				null,
-				null,
-				"()",
-				"{}",
-				"[]",
-				"<>",
-				null,
-				"()",
-				"[]",
-				"{}",
-				"<>",
-				"()",
-				"{}",
-				null,
-				null
-		};
-
 		String variablesCss[] = new String[] {
 				"",
 				"",
@@ -66,6 +46,66 @@ public class VariablesTest extends TestCase {
 				"+*!",
 				"*=",
 				"!"
+		};
+
+		boolean variablesSingleton[] = new boolean[] {
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				true,
+				true,
+				true,
+				true
+		};
+
+		boolean variablesAttribute[] = new boolean[] {
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				true,
+				true,
+				true,
+				true
+		};
+
+		String variablesXs[] = new String[] {
+				null,
+				null,
+				null,
+				null,
+				"()",
+				"{}",
+				"[]",
+				"<>",
+				null,
+				"()",
+				"[]",
+				"{}",
+				"<>",
+				"()",
+				"{}",
+				null,
+				null
 		};
 
 		boolean variablesMultiple[] = new boolean[] {
@@ -90,13 +130,13 @@ public class VariablesTest extends TestCase {
 
 		for (XDI3SubSegment variable : variables) assertTrue(VariableUtil.isVariable(variable));
 
-		assertEquals(variables.length, variablesCf.length);
+		assertEquals(variables.length, variablesXs.length);
 		assertEquals(variables.length, variablesCss.length);
 		assertEquals(variables.length, variablesMultiple.length);
 		
 		for (int i=0; i<variables.length; i++) {
 
-			assertEquals(variablesCf[i], VariableUtil.getCf(variables[i]));
+			assertEquals(variablesXs[i], VariableUtil.getXs(variables[i]));
 			assertEquals(variablesCss[i], VariableUtil.getCss(variables[i]));
 			assertEquals(Boolean.valueOf(variablesMultiple[i]), Boolean.valueOf(VariableUtil.isMultiple(variables[i])));
 		}

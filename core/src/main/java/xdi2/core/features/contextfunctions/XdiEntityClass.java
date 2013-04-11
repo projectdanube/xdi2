@@ -102,14 +102,13 @@ public final class XdiEntityClass extends XdiAbstractClass {
 
 		if (arcXri == null) return false;
 
-		if (XDI3Constants.CS_DOLLAR.equals(arcXri.getCs())) {
+		if (arcXri.isSingleton()) return false;
+		if (arcXri.isAttribute()) return false;
 
-		} else if (XDI3Constants.CS_PLUS.equals(arcXri.getCs())) {
+		if (XDI3Constants.CS_PLUS.equals(arcXri.getCs()) || XDI3Constants.CS_DOLLAR.equals(arcXri.getCs())) {
 
-		} else if (XDI3Constants.CS_EQUALS.equals(arcXri.getCs())) {
-
-			if (arcXri.hasLiteral() || arcXri.hasXRef()) return false;
-		} else if (XDI3Constants.CS_AT.equals(arcXri.getCs())) {
+			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
+		} else if (XDI3Constants.CS_EQUALS.equals(arcXri.getCs()) || XDI3Constants.CS_AT.equals(arcXri.getCs())) {
 
 			if (arcXri.hasLiteral() || arcXri.hasXRef()) return false;
 		} else {
