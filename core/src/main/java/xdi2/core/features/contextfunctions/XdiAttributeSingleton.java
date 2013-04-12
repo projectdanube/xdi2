@@ -93,13 +93,9 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton implements
 		if (! arcXri.isSingleton()) return false;
 		if (! arcXri.isAttribute()) return false;
 
-		if (XDI3Constants.CS_PLUS.equals(arcXri.getCs()) || XDI3Constants.CS_DOLLAR.equals(arcXri.getCs())) {
+		if (! XDI3Constants.CS_PLUS.equals(arcXri.getCs()) && ! XDI3Constants.CS_DOLLAR.equals(arcXri.getCs())) return false;
 
-			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
-		} else {
-
-			return false;
-		}
+		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
 
 		return true;
 	}

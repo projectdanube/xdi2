@@ -116,7 +116,6 @@ public final class XdiEntityClass extends XdiAbstractClass {
 			return false;
 		}
 
-
 		return true;
 	}
 

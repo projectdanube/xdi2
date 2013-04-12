@@ -56,6 +56,9 @@ public final class XdiOrganizationalSingleton extends XdiAbstractSingleton {
 
 		if (arcXri == null) return false;
 
+		if (arcXri.isSingleton()) return false;
+		if (arcXri.isAttribute()) return false;
+
 		if (! XDI3Constants.CS_AT.equals(arcXri.getCs())) return false;
 
 		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;

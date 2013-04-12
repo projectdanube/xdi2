@@ -7,6 +7,6 @@ $|do$|if$|and/$true/({$msg}$|secret$|&token#/$equals/$|secret$|&token<>)
 (=danube*animesh)/$ref/(=!BDF3.1FB.E70C.3958!2222)
 (=danube*markus)/$ref/(=!BDF3.1FB.E70C.3958!1111)
 =danube/$ref/=!BDF3.1FB.E70C.3958
-$|secret$|&token#/#/"s3cret"
-=!BDF3.1FB.E70C.3958!1111$|secret$|&token#/#/"xmarkus"
-=!BDF3.1FB.E70C.3958!2222$|secret$|&token#/#/"xanimesh"
+$|secret$|&token:/:/"s3cret"
+=!BDF3.1FB.E70C.3958!1111$|secret$|&token:/:/"xmarkus"
+=!BDF3.1FB.E70C.3958!2222$|secret$|&token:/:/"xanimesh"

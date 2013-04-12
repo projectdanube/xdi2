@@ -58,16 +58,22 @@ public abstract class XdiAbstractInstance extends XdiAbstractSubGraph implements
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(String identifier) {
+	public static XDI3SubSegment createArcXri(String identifier, boolean mutable) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.CS_BANG + identifier);
+		Character cs = mutable ? XDI3Constants.CS_STAR : XDI3Constants.CS_BANG;
+		
+		return XDI3SubSegment.create("" + cs + identifier);
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 
-		if (! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
+		if (arcXri.isSingleton()) return false;
+		if (arcXri.isAttribute()) return false;
+		if (arcXri.hasXRef()) return false;
+
+		if (! XDI3Constants.CS_STAR.equals(arcXri.getCs()) && ! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
 
 		if (! arcXri.hasLiteral()) return false;
 

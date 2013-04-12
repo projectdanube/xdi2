@@ -60,21 +60,20 @@ public abstract class XdiAbstractElement extends XdiAbstractSubGraph implements 
 
 	public static XDI3SubSegment createArcXri(String identifier) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.XS_ELEMENT.charAt(0) + identifier + XDI3Constants.XS_ELEMENT.charAt(1));
+		return XDI3SubSegment.create("" + XDI3Constants.CS_ORDER + identifier);
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 
-		if (arcXri.hasCs()) return false;
 		if (arcXri.isSingleton()) return false;
 		if (arcXri.isAttribute()) return false;
-		if (! arcXri.hasXRef()) return false;
+		if (arcXri.hasXRef()) return false;
 
-		if (! XDI3Constants.XS_ELEMENT.equals(arcXri.getXRef().getXs())) return false;
+		if (! XDI3Constants.CS_ORDER.equals(arcXri.getCs())) return false;
 
-		if (! arcXri.getXRef().hasLiteral()) return false;
+		if (! arcXri.hasLiteral()) return false;
 
 		return true;
 	}
