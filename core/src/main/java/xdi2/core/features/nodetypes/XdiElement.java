@@ -1,4 +1,4 @@
-package xdi2.core.features.contextfunctions;
+package xdi2.core.features.nodetypes;
 
 public interface XdiElement extends XdiSubGraph {
 

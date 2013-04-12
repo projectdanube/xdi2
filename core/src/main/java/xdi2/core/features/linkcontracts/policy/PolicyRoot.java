@@ -3,12 +3,12 @@ package xdi2.core.features.linkcontracts.policy;
 import java.util.Iterator;
 
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.features.contextfunctions.XdiEntity;
-import xdi2.core.features.contextfunctions.XdiEntityElement;
-import xdi2.core.features.contextfunctions.XdiEntityInstance;
-import xdi2.core.features.contextfunctions.XdiEntitySingleton;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
+import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityElement;
+import xdi2.core.features.nodetypes.XdiEntityInstance;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 
 /**
  * An XDI root policy, represented as an XDI entity.

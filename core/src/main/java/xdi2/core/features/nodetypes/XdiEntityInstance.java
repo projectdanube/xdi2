@@ -1,22 +1,21 @@
-package xdi2.core.features.contextfunctions;
+package xdi2.core.features.nodetypes;
 
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI entity instance (context function), represented as a context node.
  * 
  * @author markus
  */
-public final class XdiEntityElement extends XdiAbstractElement implements XdiEntity {
+public final class XdiEntityInstance extends XdiAbstractInstance implements XdiEntity {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 
-	protected XdiEntityElement(ContextNode contextNode) {
+	protected XdiEntityInstance(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -42,20 +41,11 @@ public final class XdiEntityElement extends XdiAbstractElement implements XdiEnt
 	 * @param contextNode The context node that is an XDI entity instance.
 	 * @return The XDI entity instance.
 	 */
-	public static XdiEntityElement fromContextNode(ContextNode contextNode) {
+	public static XdiEntityInstance fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiEntityElement(contextNode);
-	}
-
-	/*
-	 * Methods for XRIs
-	 */
-
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
-
-		return XdiAbstractElement.isValidArcXri(arcXri);
+		return new XdiEntityInstance(contextNode);
 	}
 
 	/*
@@ -76,16 +66,16 @@ public final class XdiEntityElement extends XdiAbstractElement implements XdiEnt
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntityInstanceIterator extends NotNullIterator<XdiEntityElement> {
+	public static class MappingContextNodeXdiEntityInstanceIterator extends NotNullIterator<XdiEntityInstance> {
 
 		public MappingContextNodeXdiEntityInstanceIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiEntityElement> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiEntityInstance> (contextNodes) {
 
 				@Override
-				public XdiEntityElement map(ContextNode contextNode) {
+				public XdiEntityInstance map(ContextNode contextNode) {
 
-					return XdiEntityElement.fromContextNode(contextNode);
+					return XdiEntityInstance.fromContextNode(contextNode);
 				}
 			});
 		}

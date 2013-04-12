@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.Relation;
-import xdi2.core.features.contextfunctions.XdiAbstractEntity;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.Policy;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.xri3.XDI3Segment;

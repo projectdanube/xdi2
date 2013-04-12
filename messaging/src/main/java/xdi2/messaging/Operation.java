@@ -5,10 +5,10 @@ import java.util.Iterator;
 
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
-import xdi2.core.features.contextfunctions.XdiAttribute;
-import xdi2.core.features.contextfunctions.XdiEntity;
-import xdi2.core.features.contextfunctions.XdiValue;
+import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;

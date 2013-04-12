@@ -10,9 +10,9 @@ import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDITimestampsConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
-import xdi2.core.features.contextfunctions.XdiAttribute;
-import xdi2.core.features.contextfunctions.XdiValue;
+import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiValue;
 
 public class Timestamps {
 

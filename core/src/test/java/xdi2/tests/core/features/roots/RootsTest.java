@@ -2,7 +2,7 @@ package xdi2.tests.core.features.roots;
 
 import junit.framework.TestCase;
 import xdi2.core.Graph;
-import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.roots.XdiPeerRoot;

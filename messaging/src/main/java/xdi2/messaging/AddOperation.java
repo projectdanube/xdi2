@@ -1,7 +1,7 @@
 package xdi2.messaging;
 
 import xdi2.core.Relation;
-import xdi2.core.features.contextfunctions.XdiEntitySingleton;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.XDI3Util;
 import xdi2.messaging.constants.XDIMessagingConstants;
 

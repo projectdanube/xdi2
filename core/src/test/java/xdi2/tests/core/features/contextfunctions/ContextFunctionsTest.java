@@ -1,13 +1,13 @@
 package xdi2.tests.core.features.contextfunctions;
 
 import junit.framework.TestCase;
-import xdi2.core.features.contextfunctions.XdiAbstractSubGraph;
-import xdi2.core.features.contextfunctions.XdiAttributeClass;
-import xdi2.core.features.contextfunctions.XdiAttributeSingleton;
-import xdi2.core.features.contextfunctions.XdiAbstractElement;
-import xdi2.core.features.contextfunctions.XdiEntityClass;
-import xdi2.core.features.contextfunctions.XdiEntitySingleton;
-import xdi2.core.features.contextfunctions.XdiAbstractInstance;
+import xdi2.core.features.nodetypes.XdiAbstractElement;
+import xdi2.core.features.nodetypes.XdiAbstractInstance;
+import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAttributeClass;
+import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiEntityClass;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.xri3.XDI3SubSegment;
 
 public class ContextFunctionsTest extends TestCase {
