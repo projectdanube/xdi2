@@ -11,6 +11,7 @@ import xdi2.core.Literal;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
@@ -21,7 +22,6 @@ import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.features.roots.XdiPeerRoot.MappingContextNodePeerRootIterator;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -87,7 +87,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		if (prototypingContext.getOwnerContextNode() != null) {
 
-			Literal sharedSecretLiteral = prototypingContext.getOwnerContextNode().findLiteral(XDIMessagingConstants.XRI_S_SECRET_TOKEN);
+			Literal sharedSecretLiteral = prototypingContext.getOwnerContextNode().findLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN);
 			sharedSecret = sharedSecretLiteral == null ? null : sharedSecretLiteral.getLiteralData();
 		}
 
@@ -146,7 +146,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		if (this.bootstrapSharedSecret != null) {
 
-			ContextNode bootstrapOwnerSharedSecretContextNode = graph.findContextNode(XDIMessagingConstants.XRI_S_SECRET_TOKEN, true);
+			ContextNode bootstrapOwnerSharedSecretContextNode = graph.findContextNode(XDIPolicyConstants.XRI_S_SECRET_TOKEN, true);
 			bootstrapOwnerSharedSecretContextNode.createLiteral(this.bootstrapSharedSecret);
 		}
 

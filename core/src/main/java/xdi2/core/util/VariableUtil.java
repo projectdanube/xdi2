@@ -71,7 +71,7 @@ public final class VariableUtil {
 		return css;
 	}
 
-	public static boolean getSingleton(XDI3SubSegment variable) {
+/*	public static boolean getSingleton(XDI3SubSegment variable) {
 
 		if (! isVariable(variable)) return false;
 		if (! variable.getXRef().hasSegment()) return false;
@@ -91,7 +91,7 @@ public final class VariableUtil {
 		XDI3SubSegment innerSubSegment = innerSegment.getFirstSubSegment();
 
 		return innerSubSegment.isAttribute();
-	}
+	}*/
 
 	public static String getXs(XDI3SubSegment variable) {
 
@@ -145,11 +145,11 @@ public final class VariableUtil {
 	public static boolean matches(XDI3SubSegment variable, XDI3SubSegment subSegment) {
 
 		String css = getCss(variable);
-		boolean singleton = getSingleton(variable);
-		boolean attribute = getAttribute(variable);
+//		boolean singleton = getSingleton(variable);
+//		boolean attribute = getAttribute(variable);
 		String xs = getXs(variable);
 
-		if (log.isDebugEnabled()) log.debug("Matching variable " + variable + " against subsegment " + subSegment + " (css=" + css + ", singleton=" + singleton + ", attribute=" + attribute + ", xs=" + xs + ")");
+//		if (log.isDebugEnabled()) log.debug("Matching variable " + variable + " against subsegment " + subSegment + " (css=" + css + ", singleton=" + singleton + ", attribute=" + attribute + ", xs=" + xs + ")");
 
 		if (xs != null) {
 
@@ -158,15 +158,15 @@ public final class VariableUtil {
 			if (! xs.equals(subSegment.getXRef().getXs())) return false;
 		}
 
-		if (singleton) {
+/*		if (singleton) {
 
 			if (! subSegment.isSingleton()) return false;
-		}
+		}*/
 
-		if (attribute) {
+/*		if (attribute) {
 
 			if (! subSegment.isAttribute()) return false;
-		}
+		}*/
 
 		if (css.length() > 0) {
 
