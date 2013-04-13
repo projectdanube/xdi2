@@ -71,7 +71,9 @@ public class XDI3ParserManual extends XDI3Parser {
 		while (pos < string.length()) {
 
 			if (cs(string.charAt(pos)) != null) pos++;
-
+			if (pos < string.length() && sin(string.charAt(pos))) pos++;
+			if (pos < string.length() && att(string.charAt(pos))) pos++;
+			
 			if (pos < string.length() && xs(string.charAt(pos)) != null) { xs = xs(string.charAt(pos)); xscount = 1; pos++; }
 
 			while (pos < string.length()) {
@@ -294,7 +296,6 @@ public class XDI3ParserManual extends XDI3Parser {
 
 			throw new ParserException(ex.getMessage(), ex);
 		}
-
 
 		for (int pos=0; pos<string.length(); pos++) {
 

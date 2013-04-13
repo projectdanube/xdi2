@@ -8,7 +8,7 @@ import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3XRef;
 
 public abstract class XDI3ParserTest extends TestCase {
-
+	
 	public void testBasic() throws Exception {
 
 		XDI3Parser parser = this.getParser();
@@ -55,6 +55,17 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(statement.getPredicate().getSubSegment(0), statement.getPredicate().getFirstSubSegment());
 		assertEquals(statement.getPredicate().getSubSegment(0), statement.getPredicate().getLastSubSegment());
 		assertEquals(statement.getPredicate().getSubSegment(0), parser.parseXDI3SubSegment(":"));
+	}
+
+	public void testBasicXRef() throws Exception {
+
+		XDI3Parser parser = this.getParser();
+
+		XDI3Segment segment = parser.parseXDI3Segment("+|(user)+|&(first_name)");
+
+		assertEquals(segment.getNumSubSegments(), 2);
+		assertEquals(segment.getSubSegment(0), parser.parseXDI3SubSegment("+|(user)"));
+		assertEquals(segment.getSubSegment(1), parser.parseXDI3SubSegment("+|&(first_name)"));
 	}
 
 	public void testXDI3Statement() throws Exception {
