@@ -120,7 +120,7 @@ public final class VariableUtil {
 			}
 		}
 
-		if (subSegment.hasXRef()) {
+		if (subSegment.hasXRef() && ! subSegment.hasCs()) {
 
 			if (variableXs == null) {
 

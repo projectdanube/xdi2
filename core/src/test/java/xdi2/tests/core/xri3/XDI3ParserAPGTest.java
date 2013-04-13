@@ -19,6 +19,11 @@ public class XDI3ParserAPGTest extends XDI3ParserTest {
 	}
 
 	@Override
+	public void testBasicXRef() throws Exception {
+		
+	}
+
+	@Override
 	public void testXDI3Statement() throws Exception {
 
 	}
