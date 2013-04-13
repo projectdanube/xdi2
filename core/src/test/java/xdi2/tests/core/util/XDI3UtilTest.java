@@ -97,16 +97,16 @@ public class XDI3UtilTest extends TestCase {
 
 		XDI3Segment xri1 = XDI3Segment.create("=a*b+c!d@e$f*g");
 
-/*		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{}"), false, true), XDI3Segment.create("*b+c!d@e$f*g"));
+		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{}"), false, true), XDI3Segment.create("*b+c!d@e$f*g"));
 		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{=}"), false, true), XDI3Segment.create("*b+c!d@e$f*g"));
-		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{}{}"), false, true), XDI3Segment.create("+c!d@e$f*g"));*/
-		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{=*{}}"), false, true), XDI3Segment.create("+c!d@e$f*g"));
+		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{}{}"), false, true), XDI3Segment.create("+c!d@e$f*g"));
+		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{{=*}}"), false, true), XDI3Segment.create("+c!d@e$f*g"));
 		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{}{*}"), false, true), XDI3Segment.create("+c!d@e$f*g"));
-		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{*={}}{!+{}}"), false, true), XDI3Segment.create("@e$f*g"));
-		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{*={}}{}{!}"), false, true), XDI3Segment.create("@e$f*g"));
-		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{*={}}{}{!}{}"), false, true), XDI3Segment.create("$f*g"));
-		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{*={}}{}{!{}}{@}"), false, true), XDI3Segment.create("$f*g"));
-		assertNull(XDI3Util.reduceXri(xri1, XDI3Segment.create("{*={}}{}{!}{@}{*}"), false, true));
-		assertNull(XDI3Util.reduceXri(xri1, XDI3Segment.create("{=+@$*!{}}"), false, true));
+		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{{*=}}{{!+}}"), false, true), XDI3Segment.create("@e$f*g"));
+		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{{*=}}{}{!}"), false, true), XDI3Segment.create("@e$f*g"));
+		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{{*=}}{}{!}{}"), false, true), XDI3Segment.create("$f*g"));
+		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("{{*=}}{}{{!}}{@}"), false, true), XDI3Segment.create("$f*g"));
+		assertNull(XDI3Util.reduceXri(xri1, XDI3Segment.create("{{*=}}{}{!}{@}{*}"), false, true));
+		assertNull(XDI3Util.reduceXri(xri1, XDI3Segment.create("{{=+@$*!}}"), false, true));
 	}
 }
