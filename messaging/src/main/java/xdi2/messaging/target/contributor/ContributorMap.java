@@ -169,7 +169,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 		
 		// find an address with contributors
 
-		XDI3Segment relativeContextNodeXri = targetStatement.getContextNodeXri();
+		XDI3Segment relativeContextNodeXri = relativeTargetStatement.getContextNodeXri();
 
 		XDI3Segment nextContributorXri = this.findHigherContributorXri(relativeContextNodeXri);
 		if (nextContributorXri == null) return false;
@@ -228,7 +228,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 			if (XDI3Util.startsWith(contextNodeXri, contributorXri, false, true)) {
 
-				if (log.isDebugEnabled()) log.debug("Finding higher contributor XRI for " + contextNodeXri + ": Match at " + contributorXri + ": " + this.get(contributorXri).getClass().getSimpleName());
+				if (log.isDebugEnabled()) log.debug("Finding higher contributor XRI for " + contextNodeXri + ": Match at " + contributorXri + ": " + this.get(contributorXri));
 
 				return contributorXri;
 			}
@@ -243,7 +243,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		for (XDI3Segment contributorXri : this.keySet()) {
 
-			if (log.isDebugEnabled()) log.debug("Finding lower contributor XRI for " + contextNodeXri + ": Match at " + contributorXri + ": " + this.get(contributorXri).getClass().getSimpleName());
+			if (log.isDebugEnabled()) log.debug("Finding lower contributor XRI for " + contextNodeXri + ": Match at " + contributorXri + ": " + this.get(contributorXri));
 
 			if (XDI3Util.startsWith(contributorXri, contextNodeXri, true, false)) return contributorXri;
 		}
