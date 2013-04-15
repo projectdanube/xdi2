@@ -18,6 +18,7 @@ import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
+import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractContextHandler;
 import xdi2.messaging.target.ExecutionContext;
@@ -80,6 +81,12 @@ public class GraphContextHandler extends AbstractContextHandler {
 	}
 
 	@Override
+	public void setContext(XDI3Segment contextNodeXri, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		this.getGraph().findContextNode(contextNodeXri, true);
+	}
+
+	@Override
 	public void delContext(XDI3Segment contextNodeXri, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
@@ -118,6 +125,17 @@ public class GraphContextHandler extends AbstractContextHandler {
 
 			CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
 		}
+	}
+
+	@Override
+	public void setRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, true);
+
+		boolean contains = contextNode.containsRelation(arcXri, targetContextNodeXri);
+		if (! contains) contextNode.createRelation(arcXri, targetContextNodeXri);
+
+		return;
 	}
 
 	@Override
@@ -170,6 +188,19 @@ public class GraphContextHandler extends AbstractContextHandler {
 		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + contextNodeXri, null, executionContext);
 
 		literal.setLiteralData(literalData);
+	}
+
+	@Override
+	public void setLiteral(XDI3Segment contextNodeXri, String literalData, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, true);
+
+		Literal literal = contextNode.getLiteral();
+
+		if (literal == null) 
+			contextNode.createLiteral(literalData);
+		else
+			literal.setLiteralData(literalData);
 	}
 
 	@Override

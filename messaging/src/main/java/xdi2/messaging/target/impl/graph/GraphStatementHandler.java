@@ -15,6 +15,7 @@ import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
+import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractStatementHandler;
 import xdi2.messaging.target.ExecutionContext;
@@ -73,6 +74,16 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	}
 
 	@Override
+	public void executeSetOnContextNodeStatement(XDI3Statement contextNodeStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), true);
+
+		contextNode.findContextNode((XDI3Segment) contextNodeStatement.getObject(), true);
+
+		return;
+	}
+
+	@Override
 	public void executeDelOnContextNodeStatement(XDI3Statement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), false);
@@ -116,6 +127,17 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 
 			CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
 		}
+	}
+
+	@Override
+	public void executeSetOnRelationStatement(XDI3Statement relationStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), true);
+
+		boolean contains = contextNode.containsRelation(relationStatement.getArcXri(), relationStatement.getTargetContextNodeXri());
+		if (! contains) contextNode.createRelation(relationStatement.getArcXri(), relationStatement.getTargetContextNodeXri());
+
+		return;
 	}
 
 	@Override
@@ -170,6 +192,19 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, executionContext);
 
 		literal.setLiteralData(literalStatement.getLiteralData());
+	}
+
+	@Override
+	public void executeSetOnLiteralStatement(XDI3Statement literalStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), true);
+
+		Literal literal = contextNode.getLiteral();
+
+		if (literal == null) 
+			contextNode.createLiteral(literalStatement.getLiteralData());
+		else
+			literal.setLiteralData(literalStatement.getLiteralData());
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractAddressHandler;
 import xdi2.messaging.target.ExecutionContext;
@@ -55,6 +56,12 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 		contextNode.createContextNode(localAddress);
 	}
 
+	@Override
+	public void executeSetOnAddress(XDI3Segment targetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		this.getGraph().findContextNode(targetAddress, true);
+	}
+	
 	@Override
 	public void executeDelOnAddress(XDI3Segment targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 

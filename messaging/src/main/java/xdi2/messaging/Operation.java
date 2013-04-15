@@ -49,6 +49,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 				GetOperation.isValid(relation) ||
 				AddOperation.isValid(relation) ||
 				ModOperation.isValid(relation) ||
+				SetOperation.isValid(relation) ||
 				DelOperation.isValid(relation) ||
 				DoOperation.isValid(relation);
 	}
@@ -64,6 +65,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		if (GetOperation.isValid(relation)) return new GetOperation(message, relation);
 		if (AddOperation.isValid(relation)) return new AddOperation(message, relation);
 		if (ModOperation.isValid(relation)) return new ModOperation(message, relation);
+		if (SetOperation.isValid(relation)) return new SetOperation(message, relation);
 		if (DelOperation.isValid(relation)) return new DelOperation(message, relation);
 		if (DoOperation.isValid(relation)) return new DoOperation(message, relation);
 
@@ -240,6 +242,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 		if (this instanceof AddOperation) return true;
 		if (this instanceof ModOperation) return true;
+		if (this instanceof SetOperation) return true;
 		if (this instanceof DelOperation) return true;
 
 		return false;

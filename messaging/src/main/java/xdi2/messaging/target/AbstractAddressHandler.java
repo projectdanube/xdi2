@@ -8,6 +8,7 @@ import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
+import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 /**
@@ -32,6 +33,8 @@ public class AbstractAddressHandler implements AddressHandler {
 			this.executeAddOnAddress(targetAddress, (AddOperation) operation, messageResult, executionContext);
 		else if (operation instanceof ModOperation)
 			this.executeModOnAddress(targetAddress, (ModOperation) operation, messageResult, executionContext);
+		else if (operation instanceof SetOperation)
+			this.executeSetOnAddress(targetAddress, (SetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			this.executeDelOnAddress(targetAddress, (DelOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DoOperation)
@@ -49,6 +52,10 @@ public class AbstractAddressHandler implements AddressHandler {
 	}
 
 	public void executeModOnAddress(XDI3Segment targetAddress, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeSetOnAddress(XDI3Segment targetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 

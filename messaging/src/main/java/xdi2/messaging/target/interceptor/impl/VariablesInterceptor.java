@@ -21,6 +21,7 @@ import xdi2.messaging.AddOperation;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.Prototype;
@@ -80,7 +81,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	@Override
 	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (! (operation instanceof AddOperation)) return targetStatement;
+		if (! (operation instanceof AddOperation) && ! (operation instanceof SetOperation)) return targetStatement;
 
 		XDI3Segment substitutedTargetSubject = substituteSegment(targetStatement.getSubject(), executionContext);
 		XDI3Segment substitutedTargetPredicate = substituteSegment(targetStatement.getPredicate(), executionContext);
@@ -94,7 +95,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	@Override
 	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (! (operation instanceof AddOperation)) return targetAddress;
+		if (! (operation instanceof AddOperation) && ! (operation instanceof SetOperation)) return targetAddress;
 
 		return substituteSegment(targetAddress, executionContext);
 	}

@@ -390,6 +390,41 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $set operation and adds it to this XDI message.
+	 * @param targetAddress The target address to which the operation applies.
+	 * @return The newly created $set operation.
+	 */
+	public SetOperation createSetOperation(XDI3Segment targetAddress) {
+
+		Relation relation = this.getOperationsContextNode().createRelation(XDIMessagingConstants.XRI_S_SET, targetAddress);
+
+		return SetOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $set operation and adds it to this XDI message.
+	 * @param targetStatements The target statements to which the operation applies.
+	 * @return The newly created $set operation.
+	 */
+	public SetOperation createSetOperation(Iterator<XDI3Statement> targetStatements) {
+
+		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_SET, true);
+		while (targetStatements.hasNext()) innerRoot.createRelativeStatement(targetStatements.next());
+
+		return SetOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
+	}
+
+	/**
+	 * Creates a new $set operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $set operation.
+	 */
+	public SetOperation createSetOperation(XDI3Statement targetStatement) {
+
+		return this.createSetOperation(new SingleItemIterator<XDI3Statement> (targetStatement));
+	}
+
+	/**
 	 * Creates a new $del operation and adds it to this XDI message.
 	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $del operation.
@@ -522,6 +557,19 @@ public final class Message implements Serializable, Comparable<Message> {
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_MOD);
 
 		return new MappingRelationModOperationIterator(this, relations);
+	}
+
+	/**
+	 * Returns all XDI $set operations in this XDI message.
+	 * @return An iterator over all XDI $set operations.
+	 */
+	public ReadOnlyIterator<SetOperation> getSetOperations() {
+
+		// get all relations that are valid XDI $set operations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XRI_S_SET);
+
+		return new MappingRelationSetOperationIterator(this, relations);
 	}
 
 	/**
@@ -669,6 +717,21 @@ public final class Message implements Serializable, Comparable<Message> {
 				public ModOperation map(Relation relation) {
 
 					return ModOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationSetOperationIterator extends NotNullIterator<SetOperation> {
+
+		public MappingRelationSetOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, SetOperation> (relations) {
+
+				@Override
+				public SetOperation map(Relation relation) {
+
+					return SetOperation.fromMessageAndRelation(message, relation);
 				}
 			});
 		}

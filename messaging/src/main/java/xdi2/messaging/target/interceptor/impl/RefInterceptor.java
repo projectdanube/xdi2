@@ -25,6 +25,7 @@ import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.SetOperation;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
@@ -238,7 +239,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 			// cannot add a $ref or $rep arc to non-empty context node
 
-			if (operation instanceof AddOperation) {
+			if (operation instanceof AddOperation || operation instanceof SetOperation) {
 
 				XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
 				ContextNode targetContextNode = graph.findContextNode(targetContextNodeXri, false);
