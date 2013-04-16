@@ -19,9 +19,10 @@ public class VariablesTest extends TestCase {
 				XDI3SubSegment.create("{{(=@)}}"),
 				XDI3SubSegment.create("{=}"),
 				XDI3SubSegment.create("{!*}"),
-				XDI3SubSegment.create("{{+|}}"),
-				XDI3SubSegment.create("{{$&}}"),
-				XDI3SubSegment.create("{{+|$&}}"),
+				XDI3SubSegment.create("{{[+]}}"),
+				XDI3SubSegment.create("{{<$>}}"),
+				XDI3SubSegment.create("{{[+]<$>}}"),
+				XDI3SubSegment.create("{[<+>][<$>]}"),
 				XDI3SubSegment.create("{+}")
 		};
 
@@ -34,9 +35,10 @@ public class VariablesTest extends TestCase {
 				new XDI3SubSegment[] { XDI3SubSegment.create("="), XDI3SubSegment.create("@") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("=") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("!"), XDI3SubSegment.create("*") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+|") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("$&") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+|"), XDI3SubSegment.create("$&") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<$>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+]"), XDI3SubSegment.create("<$>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[<+>]"), XDI3SubSegment.create("[<$>]") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("+") }
 		};
 
@@ -47,6 +49,7 @@ public class VariablesTest extends TestCase {
 				null,
 				"()",
 				"()",
+				null,
 				null,
 				null,
 				null,
@@ -67,6 +70,7 @@ public class VariablesTest extends TestCase {
 				true,
 				true,
 				true,
+				false,
 				false
 		};
 
@@ -79,10 +83,11 @@ public class VariablesTest extends TestCase {
 				new XDI3SubSegment[] { XDI3SubSegment.create("(=)"), XDI3SubSegment.create("(=markus)"), XDI3SubSegment.create("(@)"), XDI3SubSegment.create("(@org)") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("="), XDI3SubSegment.create("=markus") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("!"), XDI3SubSegment.create("*"), XDI3SubSegment.create("!1234"), XDI3SubSegment.create("*work") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+|"), XDI3SubSegment.create("+|address"), XDI3SubSegment.create("[<+email>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("$&"), XDI3SubSegment.create("$&uri"), XDI3SubSegment.create("$|&uri") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+|"), XDI3SubSegment.create("+|address"), XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("$&"), XDI3SubSegment.create("$&uri"), XDI3SubSegment.create("$|&uri") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+|&(email)"), XDI3SubSegment.create("+&(email)"), XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("<+email>") }
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+]"), XDI3SubSegment.create("[+address]"), XDI3SubSegment.create("[<+email>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<$>"), XDI3SubSegment.create("<$uri>"), XDI3SubSegment.create("[<$uri>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+]"), XDI3SubSegment.create("[+address]"), XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("<$>"), XDI3SubSegment.create("<$uri>"), XDI3SubSegment.create("[<$uri>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("[<$uri>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[<+(email)>]"), XDI3SubSegment.create("<+(email)>"), XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("<+email>") }
 		};
 
 		XDI3SubSegment variablesMatchesFalse[][] = new XDI3SubSegment[][] {
@@ -94,9 +99,10 @@ public class VariablesTest extends TestCase {
 				new XDI3SubSegment[] { XDI3SubSegment.create("=markus"), XDI3SubSegment.create("@org") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("@"), XDI3SubSegment.create("@org"), XDI3SubSegment.create("(@org)"), XDI3SubSegment.create("(=markus)") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("@org"), XDI3SubSegment.create("=markus") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("+&"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("$|v"), XDI3SubSegment.create("$|&uri") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("$"), XDI3SubSegment.create("$|"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("$|uri"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[<+email>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("+&"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("$|v"), XDI3SubSegment.create("$"), XDI3SubSegment.create("$|"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("$|uri"), XDI3SubSegment.create("<+email>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("<+>"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[$v]"), XDI3SubSegment.create("[<$uri>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("$"), XDI3SubSegment.create("[$]"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("[$uri]"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[<+email>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("<+>"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[$v]"), XDI3SubSegment.create("$"), XDI3SubSegment.create("[$]"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("[$uri]"), XDI3SubSegment.create("<+email>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("<+>"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("$"), XDI3SubSegment.create("<$>"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("[$uri]"), XDI3SubSegment.create("<$uri>") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("(+name)") }
 		};
 		

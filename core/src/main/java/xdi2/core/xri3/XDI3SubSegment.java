@@ -21,14 +21,9 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 		this.xref = xref;
 	}
 
-	public static XDI3SubSegment create(XDI3Parser parser, String string) {
-
-		return parser.parseXDI3SubSegment(string);
-	}
-
 	public static XDI3SubSegment create(String string) {
 
-		return create(XDI3ParserRegistry.getInstance().getParser(), string);
+		return XDI3ParserRegistry.getInstance().getParser().parseXDI3SubSegment(string);
 	}
 
 	public boolean hasCs() {

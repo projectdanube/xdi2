@@ -64,7 +64,13 @@ public class XDIJSONReader extends AbstractXDIReader {
 			if (key.endsWith("/" + XDIConstants.XRI_S_CONTEXT.toString())) {
 
 				XDI3Statement statementXri = makeStatement(key + "/()", state);
-				ContextNode baseContextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
+
+				// find the root and the base context node of this statement
+
+				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
+				XDI3Segment absoluteSubject = XDI3Util.expandXri(statementXri.getSubject(), root.getContextNode().getXri());
+				XDI3Segment relativePart = statementRoot.getRelativePart(absoluteSubject);
+				ContextNode baseContextNode = relativePart == null ? statementRoot.getContextNode() : statementRoot.getContextNode().findContextNode(relativePart, true);
 
 				// add context nodes
 
@@ -88,7 +94,13 @@ public class XDIJSONReader extends AbstractXDIReader {
 			} else if (key.endsWith("/" + XDIConstants.XRI_S_LITERAL.toString())) {
 
 				XDI3Statement statementXri = makeStatement(key + "/\"\"", state);
-				ContextNode baseContextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
+
+				// find the root and the base context node of this statement
+
+				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
+				XDI3Segment absoluteSubject = XDI3Util.expandXri(statementXri.getSubject(), root.getContextNode().getXri());
+				XDI3Segment relativePart = statementRoot.getRelativePart(absoluteSubject);
+				ContextNode baseContextNode = relativePart == null ? statementRoot.getContextNode() : statementRoot.getContextNode().findContextNode(relativePart, true);
 
 				// add literal
 
@@ -101,7 +113,13 @@ public class XDIJSONReader extends AbstractXDIReader {
 			} else {
 
 				XDI3Statement statementXri = makeStatement(key + "/()", state);
-				ContextNode baseContextNode = root.getContextNode().findContextNode(statementXri.getSubject(), true);
+
+				// find the root and the base context node of this statement
+
+				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
+				XDI3Segment absoluteSubject = XDI3Util.expandXri(statementXri.getSubject(), root.getContextNode().getXri());
+				XDI3Segment relativePart = statementRoot.getRelativePart(absoluteSubject);
+				ContextNode baseContextNode = relativePart == null ? statementRoot.getContextNode() : statementRoot.getContextNode().findContextNode(relativePart, true);
 
 				// add inner root and/or relations
 

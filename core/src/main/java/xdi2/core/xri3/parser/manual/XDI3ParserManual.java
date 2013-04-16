@@ -153,7 +153,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		
 		if (pos < len && (sin = sin(string.charAt(pos))) != null) {
 
-			if (string.charAt(len - 1) != sin.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (missing closing '" + sin.charAt(1) + "' character for singleton)");
+			if (string.charAt(len - 1) != sin.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + sin.charAt(1) + "' character for singleton)");
 
 			pos++; len--;
 		}
@@ -162,7 +162,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		
 		if (pos < len && (att = att(string.charAt(pos))) != null) {
 
-			if (string.charAt(len - 1) != att.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (missing closing '" + att.charAt(1) + "' character for attribute)");
+			if (string.charAt(len - 1) != att.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + att.charAt(1) + "' character for attribute)");
 
 			pos++; len--;
 		}
@@ -200,7 +200,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		String xs = xs(string.charAt(0));
 		if (xs == null) throw new ParserException("Invalid xref: " + string + " (no opening delimiter)");
-		if (string.charAt(string.length() - 1) != xs.charAt(1)) throw new ParserException("Invalid xref: " + string + " (no closing delimiter)");
+		if (string.charAt(string.length() - 1) != xs.charAt(1)) throw new ParserException("Invalid xref: " + string + " (invalid closing '" + xs.charAt(1) + "' character)");
 		if (string.length() == 2) return this.makeXDI3XRef(string, xs, null, null, null, null, null, null);
 
 		String value = string.substring(1, string.length() - 1);
@@ -231,7 +231,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 				partialSubject = this.parseXDI3Segment(value.substring(0, split0));
 				partialPredicate = this.parseXDI3Segment(value.substring(split0 + 1));
-			} else if (cs(value.charAt(0)) != null || xs(value.charAt(0)) != null) {
+			} else if (cs(value.charAt(0)) != null || sin(value.charAt(0)) != null || att(value.charAt(0)) != null || xs(value.charAt(0)) != null) {
 
 				segment = this.parseXDI3Segment(value);
 			} else {

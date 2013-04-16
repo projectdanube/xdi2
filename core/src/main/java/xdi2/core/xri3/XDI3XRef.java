@@ -25,14 +25,9 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		this.literal = literal;
 	}
 
-	public static XDI3XRef create(XDI3Parser parser, String string) {
-
-		return parser.parseXDI3XRef(string);
-	}
-
 	public static XDI3XRef create(String string) {
 
-		return create(XDI3ParserRegistry.getInstance().getParser(), string);
+		return XDI3ParserRegistry.getInstance().getParser().parseXDI3XRef(string);
 	}
 
 	public boolean isEmpty() {

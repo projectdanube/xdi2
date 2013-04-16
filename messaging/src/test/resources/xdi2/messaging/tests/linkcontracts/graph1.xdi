@@ -5,8 +5,8 @@
 =markus<+email>!1:/:/"markus.sabadello@gmail.com"
 =markus<+email>!2:/:/"markus.sabadello@hotmail.com"
 =markus/+friend/=drummond
-=markus[$do]$|if/$true/({$from}/$is/=drummond)
-=markus[$do]$|if/$true/({$from}/$is/=markus)
+=markus[$do][$if]/$true/({$from}/$is/=drummond)
+=markus[$do][$if]/$true/({$from}/$is/=markus)
 =markus[$do]/$get/=markus
 =markus[$do]/$mod/=markus
 =markus[$do]/$add/=markus

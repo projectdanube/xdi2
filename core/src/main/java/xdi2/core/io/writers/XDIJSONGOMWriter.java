@@ -24,6 +24,7 @@ import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
+import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -162,6 +163,20 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 
 		Object gom = "";
 
+		if (subSegment.isSingleton()) {
+
+			JSONObject gom2 = new JSONObject();
+			gom2.put(XDI3Constants.XS_SINGLETON, gom);
+			gom = gom2;
+		}
+
+		if (subSegment.isAttribute()) {
+
+			JSONObject gom2 = new JSONObject();
+			gom2.put(XDI3Constants.XS_ATTRIBUTE, gom);
+			gom = gom2;
+		}
+		
 		if (subSegment.hasXRef()) {
 
 			JSONObject gom2 = new JSONObject();

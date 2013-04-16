@@ -20,14 +20,9 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		this.object = object;
 	}
 
-	public static XDI3Statement create(XDI3Parser parser, String string) {
-
-		return parser.parseXDI3Statement(string);
-	}
-
 	public static XDI3Statement create(String string) {
 
-		return create(XDI3ParserRegistry.getInstance().getParser(), string);
+		return XDI3ParserRegistry.getInstance().getParser().parseXDI3Statement(string);
 	}
 
 	public XDI3Segment getSubject() {

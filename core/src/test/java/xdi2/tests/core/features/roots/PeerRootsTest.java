@@ -11,14 +11,17 @@ import xdi2.core.xri3.XDI3SubSegment;
 public class PeerRootsTest extends TestCase {
 
 	public void testPeerRootXris() throws Exception {
-
+		
 		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("()")));
 		assertTrue(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("(=!1111!23)")));
 		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("(=a*b/+c*d)")));
 
-		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("+|&c")));
+		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("[<+c>]")));
 		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("{1}")));
-		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("+|&(name)")));
+		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("{[<+(name)>]}")));
+		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("<+(name)>")));
+		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("[+(name)]")));
+		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("+(name)")));
 
 		assertEquals(XdiPeerRoot.createPeerRootArcXri(XDI3Segment.create("=!1111!23")), XDI3SubSegment.create("(=!1111!23)"));
 		assertEquals(XdiPeerRoot.getXriOfPeerRootArcXri(XDI3SubSegment.create("(=!1111!23)")), XDI3Segment.create("=!1111!23"));
