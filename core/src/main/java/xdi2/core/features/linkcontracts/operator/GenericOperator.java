@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Relation;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.Policy;
@@ -21,6 +24,8 @@ import xdi2.core.xri3.XDI3Statement;
 public class GenericOperator extends Operator {
 
 	private static final long serialVersionUID = 4296419491079293469L;
+
+	private static final Logger log = LoggerFactory.getLogger(Policy.class);
 
 	protected GenericOperator(Relation relation) {
 
@@ -93,6 +98,8 @@ public class GenericOperator extends Operator {
 				XdiInnerRoot policyEvaluationContextInnerRoot = XdiInnerRoot.fromContextNode(policyEvaluationContextRelation.follow());
 				if (policyEvaluationContextInnerRoot != null) continue;
 
+				if (log.isDebugEnabled()) log.debug("Evaluating " + policyEvaluationContextRelation + " against " + this.getRelation()); 
+
 				if (policyEvaluationContextRelation.getTargetContextNodeXri().equals(this.getRelation().getTargetContextNodeXri())) return new Boolean[] { Boolean.TRUE };
 			}
 
@@ -103,7 +110,7 @@ public class GenericOperator extends Operator {
 
 			for (Iterator<XDI3Statement> relativeStatements = innerRoot.getRelativeStatements(true); relativeStatements.hasNext(); ) {
 
-				XDI3Statement statementXri = relativeStatements.next();
+				XDI3Statement relativeStatement = relativeStatements.next();
 
 				for (Iterator<Relation> policyEvaluationContextRelations = policyEvaluationContext.getRelations(this.getRelation().getArcXri()); policyEvaluationContextRelations.hasNext(); ) {
 
@@ -111,7 +118,9 @@ public class GenericOperator extends Operator {
 					XdiInnerRoot policyEvaluationContextInnerRoot = XdiInnerRoot.fromContextNode(policyEvaluationContextRelation.follow());
 					if (policyEvaluationContextInnerRoot == null) continue;
 
-					results.add(Boolean.valueOf(policyEvaluationContextInnerRoot.containsRelativeStatement(statementXri)));
+					if (log.isDebugEnabled()) log.debug("Evaluating " + policyEvaluationContextRelation + " against " + relativeStatement); 
+
+					results.add(Boolean.valueOf(policyEvaluationContextInnerRoot.containsRelativeStatement(relativeStatement)));
 				}
 			}
 
