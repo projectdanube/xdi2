@@ -54,14 +54,7 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton implements Xd
 
 	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
 
-		StringBuilder buffer = new StringBuilder();
-
-		if (arcXri.hasCs()) buffer.append(arcXri.getCs());
-		if (XDI3Constants.CS_PLUS.equals(arcXri.getCs()) || XDI3Constants.CS_DOLLAR.equals(arcXri.getCs())) buffer.append(XDI3Constants.C_SINGLETON);
-		if (arcXri.hasLiteral()) buffer.append(arcXri.getLiteral());
-		if (arcXri.hasXRef()) buffer.append(arcXri.getXRef());
-
-		return XDI3SubSegment.create(buffer.toString());
+		return XDI3SubSegment.create("" + XDI3Constants.XS_SINGLETON.charAt(0) + arcXri + XDI3Constants.XS_SINGLETON.charAt(1));
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {

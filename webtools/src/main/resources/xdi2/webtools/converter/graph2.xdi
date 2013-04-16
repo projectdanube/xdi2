@@ -1,5 +1,5 @@
 (=!1111)/$ref/()
 =markus!<+name>:/:/"Markus Sabadello"
-=markus+|&email:/:/"markus.sabadello@gmail.com"
+=markus[<+email>]:/:/"markus.sabadello@gmail.com"
 =markus/+friend/=drummond
 ()/$is$ref/(=!1111)

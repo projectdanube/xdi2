@@ -11,12 +11,10 @@ public class XDI3Constants {
 	public static final Character CS_ORDER = new Character('#');
 	public static final Character CS_VALUE = new Character(':');
 
-	public static final Character C_SINGLETON = new Character('|');
-
-	public static final Character C_ATTRIBUTE = new Character('&');
-
 	public static final String XS_ROOT = "()";
 	public static final String XS_VARIABLE = "{}";
+	public static final String XS_SINGLETON = "[]";
+	public static final String XS_ATTRIBUTE = "<>";
 
 	public static final Character[] CS_ARRAY = new Character[] {
 		CS_EQUALS,
@@ -27,10 +25,5 @@ public class XDI3Constants {
 		CS_BANG,
 		CS_ORDER,
 		CS_VALUE
-	};
-
-	public static final String[] XS_ARRAY = new String[] {
-		XS_ROOT,
-		XS_VARIABLE
 	};
 }

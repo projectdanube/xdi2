@@ -1,1 +1,1 @@
-=markus$msg!1$|do/$get/(=markus!(+last)+|&name:/:/"Sabadello")
+=markus$msg!1[$do]/$get/(=markus!(+last)[<+name>]:/:/"Sabadello")

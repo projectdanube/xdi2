@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +33,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		if (log.isTraceEnabled()) log.trace("Parsing statement: " + string);
 
-		String temp = stripCf(string);
+		String temp = stripXs(string);
 
 		String[] parts = temp.split("/");
 		if (parts.length != 3) throw new ParserException("Invalid statement: " + string + " (wrong number of segments: " + parts.length + ")");
@@ -64,43 +65,74 @@ public class XDI3ParserManual extends XDI3Parser {
 		if (log.isTraceEnabled()) log.trace("Parsing segment: " + string);
 
 		int start = 0, pos = 0;
-		String xs = null;
-		int xscount = 0;
+		String pair;
+		Stack<String> pairs = new Stack<String> ();
 		List<XDI3SubSegment> subSegments = new ArrayList<XDI3SubSegment> ();
 
 		while (pos < string.length()) {
 
-			if (cs(string.charAt(pos)) != null) pos++;
-			if (pos < string.length() && sin(string.charAt(pos))) pos++;
-			if (pos < string.length() && att(string.charAt(pos))) pos++;
-			
-			if (pos < string.length() && xs(string.charAt(pos)) != null) { xs = xs(string.charAt(pos)); xscount = 1; pos++; }
+			// parse beginning of subsegment
+
+			if (pos < string.length() && (pair = sin(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
+			if (pos < string.length() && (pair = att(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
+			if (pos < string.length() && cs(string.charAt(pos)) != null) pos++;
+			if (pos < string.length() && (pair = xs(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
+
+			// parse to the end of the subsegment
 
 			while (pos < string.length()) {
 
-				if (cs(string.charAt(pos)) != null && xscount == 0) break;
-				if (xs(string.charAt(pos)) != null && xscount == 0) break;
+				// no open pairs?
 
-				if (xs != null && string.charAt(pos) == xs.charAt(0)) {
+				if (pairs.isEmpty()) {
 
-					xscount++;
+					// reached beginning of the next subsegment
+
+					if (sin(string.charAt(pos)) != null) break;
+					if (att(string.charAt(pos)) != null) break;
+					if (cs(string.charAt(pos)) != null) break;
+					if (xs(string.charAt(pos)) != null) break;
 				}
 
-				if (xs != null && string.charAt(pos) == xs.charAt(1)) {
+				// at least one pair still open?
 
-					xscount--;
-					if (xscount == -1) throw new ParserException("Invalid segment: " + string + " (wrong closing parentheses at position " + pos + ")");
-					if (xscount == 0) { pos++; break; }
+				if (! pairs.isEmpty()) {
+
+					// new pair being opened?
+
+					pair = sin(string.charAt(pos));
+					if (pair == null) pair = att(string.charAt(pos));
+					if (pair == null) pair = xs(string.charAt(pos));
+
+					if (pair != null) { 
+
+						pairs.push(pair); 
+						pos++; 
+						continue;
+					}
+
+					// pair being closed?
+
+					if (string.charAt(pos) == pairs.peek().charAt(1)) {
+
+						pairs.pop();
+						pos++;
+						continue;
+					}
 				}
 
 				pos++;
 			}
+
+			if (! pairs.isEmpty()) throw new ParserException("Missing closing character '" + pairs.peek().charAt(1) + "'.");
 
 			subSegments.add(this.parseXDI3SubSegment(string.substring(start, pos)));
 
 			start = pos;
 		}
 
+		// done
+		
 		return this.makeXDI3Segment(string, subSegments);
 	}
 
@@ -110,41 +142,55 @@ public class XDI3ParserManual extends XDI3Parser {
 		if (log.isTraceEnabled()) log.trace("Parsing subsegment: " + string);
 
 		Character cs = null;
-		boolean singleton = false;
-		boolean attribute = false;
+		String sin = null;
+		String att = null;
 		String literal = null;
 		XDI3XRef xref = null;
 
-		int pos = 0;
+		int pos = 0, len = string.length();
 
-		cs = cs(string.charAt(pos));
-		if (cs != null) pos++;
+		// extract singleton pair
+		
+		if (pos < len && (sin = sin(string.charAt(pos))) != null) {
 
-		if (pos < string.length()) {
+			if (string.charAt(len - 1) != sin.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (missing closing '" + sin.charAt(1) + "' character for singleton)");
 
-			singleton = sin(string.charAt(pos));
-			if (singleton == true) pos++;
+			pos++; len--;
 		}
 
-		if (pos < string.length()) {
+		// extract attribute pair
+		
+		if (pos < len && (att = att(string.charAt(pos))) != null) {
 
-			attribute = att(string.charAt(pos));
-			if (attribute == true) pos++;
+			if (string.charAt(len - 1) != att.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (missing closing '" + att.charAt(1) + "' character for attribute)");
+
+			pos++; len--;
 		}
 
-		if (pos < string.length()) {
+		// extract cs
+		
+		if (pos < len && (cs = cs(string.charAt(pos))) != null) {
+
+			pos++;
+		}
+
+		// parse the rest, either xref or literal
+		
+		if (pos < len) {
 
 			if (xs(string.charAt(pos)) != null) {
 
-				xref = this.parseXDI3XRef(string.substring(pos));
+				xref = this.parseXDI3XRef(string.substring(pos, len));
 			} else {
 
 				if (pos == 0) throw new ParserException("Invalid subsegment: " + string + " (no cs, xref)");
-				literal = parseLiteral(string.substring(pos));
+				literal = parseLiteral(string.substring(pos, len));
 			}
 		}
 
-		return this.makeXDI3SubSegment(string, cs, singleton, attribute, literal, xref);
+		// done
+		
+		return this.makeXDI3SubSegment(string, cs, sin != null, att != null, literal, xref);
 	}
 
 	@Override
@@ -159,7 +205,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		String value = string.substring(1, string.length() - 1);
 
-		String temp = stripCf(value);
+		String temp = stripXs(value);
 
 		XDI3Segment segment = null;
 		XDI3Statement statement = null;
@@ -208,16 +254,16 @@ public class XDI3ParserManual extends XDI3Parser {
 		return string.substring(1, string.length() - 1);
 	}
 
-	private static String stripCf(String string) {
+	private static String stripXs(String string) {
 
-		string = stripCf(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));
-		string = stripCf(string, Pattern.compile(".*(\\{[^\\{\\}]*\\}).*"));
-		string = stripCf(string, Pattern.compile(".*(\\\"[^\\\"\\]]*\\\").*"));
+		string = stripXs(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));
+		string = stripXs(string, Pattern.compile(".*(\\{[^\\{\\}]*\\}).*"));
+		string = stripXs(string, Pattern.compile(".*(\\\"[^\\\"\\]]*\\\").*"));
 
 		return string;
 	}
 
-	private static String stripCf(String string, Pattern pattern) {
+	private static String stripXs(String string, Pattern pattern) {
 
 		String temp = string;
 
@@ -270,19 +316,24 @@ public class XDI3ParserManual extends XDI3Parser {
 		return null;
 	}
 
-	private static boolean sin(char c) {
+	private static String sin(char c) {
 
-		return XDI3Constants.C_SINGLETON.charValue() == c;
+		if (XDI3Constants.XS_SINGLETON.charAt(0) == c) return XDI3Constants.XS_SINGLETON;
+
+		return null;
 	}
 
-	private static boolean att(char c) {
+	private static String att(char c) {
 
-		return XDI3Constants.C_ATTRIBUTE.charValue() == c;
+		if (XDI3Constants.XS_ATTRIBUTE.charAt(0) == c) return XDI3Constants.XS_ATTRIBUTE;
+
+		return null;
 	}
 
 	private static String xs(char c) {
 
-		for (String xs : XDI3Constants.XS_ARRAY) if (xs.charAt(0) == c) return xs;
+		if (XDI3Constants.XS_ROOT.charAt(0) == c) return XDI3Constants.XS_ROOT;
+		if (XDI3Constants.XS_VARIABLE.charAt(0) == c) return XDI3Constants.XS_VARIABLE;
 
 		return null;
 	}

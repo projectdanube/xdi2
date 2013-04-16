@@ -75,15 +75,7 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton implements
 
 	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
 
-		StringBuilder buffer = new StringBuilder();
-
-		if (arcXri.hasCs()) buffer.append(arcXri.getCs());
-		buffer.append(XDI3Constants.C_SINGLETON);
-		buffer.append(XDI3Constants.C_ATTRIBUTE);
-		if (arcXri.hasLiteral()) buffer.append(arcXri.getLiteral());
-		if (arcXri.hasXRef()) buffer.append(arcXri.getXRef());
-
-		return XDI3SubSegment.create(buffer.toString());
+		return XDI3SubSegment.create("" + XDI3Constants.XS_SINGLETON.charAt(0) + XDI3Constants.XS_ATTRIBUTE.charAt(0) + arcXri + XDI3Constants.XS_ATTRIBUTE.charAt(1) + XDI3Constants.XS_SINGLETON.charAt(1));
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {

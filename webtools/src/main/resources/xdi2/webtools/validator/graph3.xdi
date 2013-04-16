@@ -4,4 +4,4 @@
 =markus<+email>[1]/$ref/=markus<+email>!.uuid.3333
 =markus<+email>[2]/$ref/=markus<+email>!.uuid.2222
 =markus<+email>[3]/$ref/=markus<+email>!.uuid.1111
-=markus+|&email/$ref/=markus<+email>!.uuid.1111
+=markus[<+email>]/$ref/=markus<+email>!.uuid.1111
