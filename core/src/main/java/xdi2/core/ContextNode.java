@@ -387,7 +387,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 */
 
 	/**
-	 * Gets the statement that contains this context node.
+	 * Gets the statement that represents this context node.
 	 * @return A statement.
 	 */
 	public ContextNodeStatement getStatement();

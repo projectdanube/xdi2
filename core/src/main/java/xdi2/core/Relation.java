@@ -56,7 +56,7 @@ public interface Relation extends Serializable, Comparable<Relation> {
 	 */
 
 	/**
-	 * Gets the statement that contains this literal.
+	 * Gets the statement that represents this relation.
 	 * @return A statement.
 	 */
 	public RelationStatement getStatement();
