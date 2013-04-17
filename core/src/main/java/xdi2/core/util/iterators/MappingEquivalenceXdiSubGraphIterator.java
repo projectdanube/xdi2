@@ -12,31 +12,22 @@ import xdi2.core.features.nodetypes.XdiSubGraph;
  * 
  * @author markus
  */
-public class MappingEquivalenceXdiSubGraphIterator<I extends XdiSubGraph> extends MappingIterator<I, I> {
+public class MappingEquivalenceXdiSubGraphIterator extends MappingIterator<XdiSubGraph, XdiSubGraph> {
 
-	private Class<? extends I> i;
-
-	public MappingEquivalenceXdiSubGraphIterator(Iterator<? extends I> xdiSubGraphs, Class<? extends I> i) {
+	public MappingEquivalenceXdiSubGraphIterator(Iterator<? extends XdiSubGraph> xdiSubGraphs) {
 
 		super(xdiSubGraphs);
-
-		this.i = i;
 	}
 
 	@Override
-	public I map(I xdiSubGraph) {
+	public XdiSubGraph map(XdiSubGraph xdiSubGraph) {
 
 		ContextNode referenceContextNode = Equivalence.getReferenceContextNode(xdiSubGraph.getContextNode());
-		if (referenceContextNode != null) return XdiAbstractSubGraph.fromContextNode(referenceContextNode, this.getI());
+		if (referenceContextNode != null) return XdiAbstractSubGraph.fromContextNode(referenceContextNode);
 
 		ContextNode replacementContextNode = Equivalence.getReplacementContextNode(xdiSubGraph.getContextNode());
-		if (replacementContextNode != null) return XdiAbstractSubGraph.fromContextNode(replacementContextNode, this.getI());
+		if (replacementContextNode != null) return XdiAbstractSubGraph.fromContextNode(replacementContextNode);
 
 		return xdiSubGraph;
-	}
-
-	public Class<? extends I> getI() {
-
-		return this.i;
 	}
 }

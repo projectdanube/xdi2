@@ -195,7 +195,7 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 
 		if (deref) {
 
-			iterator = new MappingEquivalenceXdiSubGraphIterator<I> (iterator, this.getIE());
+			iterator = new CastingIterator<XdiSubGraph, I> (new MappingEquivalenceXdiSubGraphIterator(iterator));
 			iterator = new NoDuplicatesIterator<I> (iterator);
 		}
 
@@ -212,7 +212,7 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 		return this.o;
 	}
 
-	public Class<I> getIE() {
+	public Class<I> getI() {
 
 		return this.i;
 	}

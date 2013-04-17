@@ -1,15 +1,7 @@
 package xdi2.messaging.tests.basic;
 
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
 import junit.framework.TestCase;
 import xdi2.core.ContextNode;
-import xdi2.core.Graph;
-import xdi2.core.features.linkcontracts.LinkContract;
-import xdi2.core.features.linkcontracts.LinkContracts;
-import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;

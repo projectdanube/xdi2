@@ -76,8 +76,7 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
 	}
-	
-	
+
 	/**
 	 * @param Returns the "base" arc XRI, without context function syntax.
 	 * @return The "base" arc XRI.
