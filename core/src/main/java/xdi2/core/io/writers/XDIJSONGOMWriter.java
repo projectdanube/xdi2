@@ -162,20 +162,6 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 	private static Object makeGom(XDI3SubSegment subSegment) {
 
 		Object gom = "";
-
-		if (subSegment.isSingleton()) {
-
-			JSONObject gom2 = new JSONObject();
-			gom2.put(XDI3Constants.XS_SINGLETON, gom);
-			gom = gom2;
-		}
-
-		if (subSegment.isAttribute()) {
-
-			JSONObject gom2 = new JSONObject();
-			gom2.put(XDI3Constants.XS_ATTRIBUTE, gom);
-			gom = gom2;
-		}
 		
 		if (subSegment.hasXRef()) {
 
@@ -193,6 +179,20 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 
 			JSONObject gom2 = new JSONObject();
 			gom2.put(subSegment.getCs().toString(), gom);
+			gom = gom2;
+		}
+
+		if (subSegment.isAttribute()) {
+
+			JSONObject gom2 = new JSONObject();
+			gom2.put(XDI3Constants.XS_ATTRIBUTE, gom);
+			gom = gom2;
+		}
+
+		if (subSegment.isSingleton()) {
+
+			JSONObject gom2 = new JSONObject();
+			gom2.put(XDI3Constants.XS_SINGLETON, gom);
 			gom = gom2;
 		}
 
