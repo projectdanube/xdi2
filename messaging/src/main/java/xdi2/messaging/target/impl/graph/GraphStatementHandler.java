@@ -62,10 +62,10 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeGetOnContextNodeStatement(XDI3Statement contextNodeStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeStatement.getSubject());
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, executionContext);
 
-		contextNode = contextNode.findContextNode((XDI3Segment) contextNodeStatement.getObject(), false);
+		contextNode = contextNode.getDeepContextNode((XDI3Segment) contextNodeStatement.getObject());
 		if (contextNode == null) return;
 
 		CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
@@ -76,9 +76,9 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeSetOnContextNodeStatement(XDI3Statement contextNodeStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), true);
+		ContextNode contextNode = this.getGraph().setDeepContextNode(contextNodeStatement.getSubject());
 
-		contextNode.findContextNode((XDI3Segment) contextNodeStatement.getObject(), true);
+		contextNode.setDeepContextNode((XDI3Segment) contextNodeStatement.getObject());
 
 		return;
 	}
@@ -86,10 +86,10 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeDelOnContextNodeStatement(XDI3Statement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(contextNodeStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeStatement.getSubject());
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, executionContext);
 
-		contextNode = contextNode.findContextNode((XDI3Segment) contextNodeStatement.getObject(), false);
+		contextNode = contextNode.getDeepContextNode((XDI3Segment) contextNodeStatement.getObject());
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeStatement, null, executionContext);
 
 		contextNode.delete();
@@ -104,7 +104,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeGetOnRelationStatement(XDI3Statement relationStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(relationStatement.getSubject());
 		if (contextNode == null) return;
 
 		if (VariableUtil.isVariable(relationStatement.getTargetContextNodeXri())) {
@@ -132,7 +132,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeSetOnRelationStatement(XDI3Statement relationStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), true);
+		ContextNode contextNode = this.getGraph().setDeepContextNode(relationStatement.getSubject());
 
 		boolean contains = contextNode.containsRelation(relationStatement.getArcXri(), relationStatement.getTargetContextNodeXri());
 		if (! contains) contextNode.createRelation(relationStatement.getArcXri(), relationStatement.getTargetContextNodeXri());
@@ -143,7 +143,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeDelOnRelationStatement(XDI3Statement relationStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(relationStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(relationStatement.getSubject());
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + relationStatement, null, executionContext);
 
 		if (VariableUtil.isVariable(relationStatement.getTargetContextNodeXri())) {
@@ -168,7 +168,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeGetOnLiteralStatement(XDI3Statement literalStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(literalStatement.getSubject());
 		if (contextNode == null) return;
 
 		Literal literal = contextNode.getLiteral();
@@ -185,7 +185,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeModOnLiteralStatement(XDI3Statement literalStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(literalStatement.getSubject());
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + literalStatement, null, executionContext);
 
 		Literal literal = contextNode.getLiteral();
@@ -197,7 +197,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeSetOnLiteralStatement(XDI3Statement literalStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), true);
+		ContextNode contextNode = this.getGraph().setDeepContextNode(literalStatement.getSubject());
 
 		Literal literal = contextNode.getLiteral();
 
@@ -210,7 +210,7 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 	@Override
 	public void executeDelOnLiteralStatement(XDI3Statement literalStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(literalStatement.getSubject(), false);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(literalStatement.getSubject());
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + literalStatement, null, executionContext);
 
 		Literal literal = contextNode.getLiteral();

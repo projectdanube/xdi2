@@ -25,7 +25,7 @@ public class GraphPolicyEvaluationContext implements PolicyEvaluationContext {
 	@Override
 	public ContextNode getContextNode(XDI3Segment xri) {
 
-		return this.getGraph().getContextNode(xri);
+		return this.getGraph().getDeepContextNode(xri);
 	}
 
 	@Override

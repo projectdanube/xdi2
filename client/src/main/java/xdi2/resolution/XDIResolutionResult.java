@@ -36,7 +36,7 @@ public class XDIResolutionResult implements Serializable {
 
 		// find I-Number
 
-		ContextNode contextNode = graph.findContextNode(XDI3Segment.create(xri), false);
+		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create(xri));
 		ContextNode referenceContextNode = contextNode == null ? null : Equivalence.getReferenceContextNode(contextNode);
 		
 		String inumber = referenceContextNode == null ? null : referenceContextNode.getXri().toString();
@@ -49,10 +49,10 @@ public class XDIResolutionResult implements Serializable {
 
 		if (inumber != null) {
 
-			literal = graph.findLiteral(XDI3Segment.create("(" + inumber + ")" + "$!($uri)"));
+			literal = graph.getDeepLiteral(XDI3Segment.create("(" + inumber + ")" + "$!($uri)"));
 		} else {
 
-			literal = graph.findLiteral(XDI3Segment.create("(" + xri + ")" + "$!($uri)"));
+			literal = graph.getDeepLiteral(XDI3Segment.create("(" + xri + ")" + "$!($uri)"));
 		}
 
 		if (literal != null) {

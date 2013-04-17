@@ -87,7 +87,7 @@ public class BasicTest extends TestCase {
 		// create some operations
 
 		ContextNode[] contextNodes = new ContextNode[CONTEXTNODEXRIS.length]; 
-		for (int i=0; i<CONTEXTNODEXRIS.length; i++) contextNodes[i] = messageEnvelope.getGraph().findContextNode(CONTEXTNODEXRIS[i], true);
+		for (int i=0; i<CONTEXTNODEXRIS.length; i++) contextNodes[i] = messageEnvelope.getGraph().setDeepContextNode(CONTEXTNODEXRIS[i]);
 
 		Operation addOperation = message.createAddOperation(contextNodes[0].getXri());
 		Operation getOperation = message.createGetOperation(contextNodes[1].getXri());

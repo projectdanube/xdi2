@@ -52,7 +52,7 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_MSG);
 
 			ContextNode contextNode = this.getMessage().getContextNode();
-			if (reducedXri != null) contextNode = contextNode.findContextNode(reducedXri, false);
+			if (reducedXri != null) contextNode = contextNode.getDeepContextNode(reducedXri);
 
 			return contextNode;
 		}
@@ -61,8 +61,8 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 
 			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_FROM);
 
-			ContextNode contextNode = this.getGraph().findContextNode(this.getMessage().getSender(), false);
-			if (reducedXri != null) contextNode = contextNode.findContextNode(reducedXri, false);
+			ContextNode contextNode = this.getGraph().getDeepContextNode(this.getMessage().getSender());
+			if (reducedXri != null) contextNode = contextNode.getDeepContextNode(reducedXri);
 
 			return contextNode;
 		}

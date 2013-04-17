@@ -75,7 +75,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		XDI3Segment linkContractXri = message.getLinkContractXri();
 		if (linkContractXri == null) return false;
 
-		ContextNode linkContractContextNode = this.getLinkContractsGraph().findContextNode(linkContractXri, false);
+		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXri);
 		if (linkContractContextNode == null) return false;
 
 		XdiSubGraph xdiSubGraph = XdiAbstractSubGraph.fromContextNode(linkContractContextNode);

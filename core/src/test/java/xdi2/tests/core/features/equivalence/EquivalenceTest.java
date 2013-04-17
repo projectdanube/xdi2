@@ -6,7 +6,6 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 public class EquivalenceTest extends TestCase {
@@ -15,7 +14,7 @@ public class EquivalenceTest extends TestCase {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
-		ContextNode identityContextNode = graph.getRootContextNode().createContextNode(XDI3Segment.create("!1111"));
+		ContextNode identityContextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("!1111"));
 
 		// test $is
 

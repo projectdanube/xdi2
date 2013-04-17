@@ -147,7 +147,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	public MessageCollection getMessageCollection(XDI3Segment senderXri, boolean create) {
 
 		XDI3Segment messageCollectionXri = XDI3Segment.create(senderXri.toString() + XdiEntityClass.createArcXri(XDIMessagingConstants.XRI_SS_MSG));
-		ContextNode contextNode = this.getGraph().findContextNode(messageCollectionXri, create);
+		ContextNode contextNode = create ? this.getGraph().setDeepContextNode(messageCollectionXri) : this.getGraph().getDeepContextNode(messageCollectionXri);
 
 		if (contextNode == null) return null;
 

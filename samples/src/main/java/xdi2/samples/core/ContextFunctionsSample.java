@@ -33,7 +33,7 @@ public class ContextFunctionsSample {
 
 		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
 		XDIReaderRegistry.getAuto().read(graph2, new StringReader(graph.toString()));
-		ContextNode contextNode2 = graph.findContextNode(XDI3Segment.create("=markus"), false);
+		ContextNode contextNode2 = graph.getDeepContextNode(XDI3Segment.create("=markus"));
 
 		XdiAttributeClass telCollection2 = XdiAbstractSubGraph.fromContextNode(contextNode2).getXdiAttributeClass(XDI3SubSegment.create("+tel"), false);
 

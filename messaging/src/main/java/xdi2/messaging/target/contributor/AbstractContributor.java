@@ -436,7 +436,7 @@ public abstract class AbstractContributor implements Contributor {
 
 		this.getContext(contributorXris, relativeContextNodeXri, contextNodeXri, operation, tempMessageResult, executionContext);
 
-		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
+		ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(contextNodeXri);
 		if (tempContextNode == null) return false;
 
 		if (VariableUtil.isVariable(targetContextNodeXri)) {
@@ -494,7 +494,7 @@ public abstract class AbstractContributor implements Contributor {
 
 		this.getContext(contributorXris, relativeContextNodeXri, contextNodeXri, operation, tempMessageResult, executionContext);
 
-		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
+		ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(contextNodeXri);
 		if (tempContextNode == null) return false;
 
 		Literal tempLiteral = tempContextNode.getLiteral();
@@ -545,7 +545,7 @@ public abstract class AbstractContributor implements Contributor {
 		
 		MessageResult tempMessageResult = new MessageResult();
 		this.getContext(contributorXris, null, tempContextNodeXri, operation, tempMessageResult, executionContext);
-		ContextNode contextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
+		ContextNode contextNode = tempMessageResult.getGraph().getDeepContextNode(contextNodeXri);
 		if (contextNode != null) CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
 
 		return true;

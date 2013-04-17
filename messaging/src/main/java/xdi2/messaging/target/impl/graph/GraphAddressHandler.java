@@ -36,7 +36,7 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 	@Override
 	public void executeGetOnAddress(XDI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(targetAddress);
 
 		if (contextNode != null) {
 
@@ -52,20 +52,20 @@ public class GraphAddressHandler extends AbstractAddressHandler {
 
 		XDI3SubSegment localAddress = XDI3Util.localXri(targetAddress, 1).getFirstSubSegment();
 
-		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, true);
+		ContextNode contextNode = this.getGraph().setDeepContextNode(targetAddress);
 		contextNode.createContextNode(localAddress);
 	}
 
 	@Override
 	public void executeSetOnAddress(XDI3Segment targetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		this.getGraph().findContextNode(targetAddress, true);
+		this.getGraph().setDeepContextNode(targetAddress);
 	}
 	
 	@Override
 	public void executeDelOnAddress(XDI3Segment targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(targetAddress, false);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(targetAddress);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + targetAddress, null, executionContext);
 
 		contextNode.delete();

@@ -89,7 +89,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ContextNode createContextNode(XDI3SubSegment contextNodeArcXri);
 
 	/**
-	 * Deep version of createContextNode(XDI3SubSegment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createContextNode(XDI3SubSegment), operates at a context node further down in the graph.
 	 */
 	public ContextNode createDeepContextNode(XDI3Segment contextNodeArcXris);
 
@@ -101,7 +101,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ContextNode setContextNode(XDI3SubSegment contextNodeArcXri);
 
 	/**
-	 * Deep version of setContextNode(XDI3SubSegment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setContextNode(XDI3SubSegment), operates at a context node further down in the graph.
 	 */
 	public ContextNode setDeepContextNode(XDI3Segment contextNodeArcXris);
 
@@ -113,7 +113,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ContextNode getContextNode(XDI3SubSegment contextNodeArcXri);
 
 	/**
-	 * Deep version of getDeepContextNode(XDI3SubSegment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getContextNode(XDI3SubSegment), operates at a context node further down in the graph.
 	 */
 	public ContextNode getDeepContextNode(XDI3Segment contextNodeArcXris);
 
@@ -122,6 +122,11 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return An iterator over context nodes.
 	 */
 	public ReadOnlyIterator<ContextNode> getContextNodes();
+
+	/**
+	 * Deep version of ContextNode.getContextNodes(), operates at a context node further down in the graph.
+	 */
+	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDI3Segment contextNodeArcXris);
 
 	/**
 	 * Returns all context nodes of this context node.
@@ -184,7 +189,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation createRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Deep version of ContextNode.createRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
@@ -197,7 +202,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode);
 
 	/**
-	 * Deep version of ContextNode.createRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
 	 */
 	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode);
 
@@ -210,7 +215,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation setRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Deep version of ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation setDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
@@ -223,7 +228,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode);
 
 	/**
-	 * Deep version of ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
 	 */
 	public Relation setDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode);
 
@@ -236,7 +241,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Deep version of ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation getDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
@@ -248,7 +253,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation getRelation(XDI3Segment arcXri);
 
 	/**
-	 * Deep version of ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation getDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri);
 
@@ -260,7 +265,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ReadOnlyIterator<Relation> getRelations(XDI3Segment arcXri);
 
 	/**
-	 * Deep version of ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris, XDI3Segment arcXri);
 
@@ -271,7 +276,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ReadOnlyIterator<Relation> getRelations();
 
 	/**
-	 * Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.getRelations(), operates at a context node further down in the graph.
 	 */
 	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris);
 
@@ -364,7 +369,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal createLiteral(String literalData);
 
 	/**
-	 * Deep version of ContextNode.createLiteral(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.createLiteral(String), operates at a context node further down in the graph.
 	 */
 	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, String literalData);
 
@@ -376,7 +381,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal setLiteral(String literalData);
 
 	/**
-	 * Deep version of ContextNode.setLiteral(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.setLiteral(String), operates at a context node further down in the graph.
 	 */
 	public Literal setDeepLiteral(XDI3Segment contextNodeArcXris, String literalData);
 
@@ -388,7 +393,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal getLiteral(String literalData);
 
 	/**
-	 * Deep version of ContextNode.getLiteral(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.getLiteral(String), operates at a context node further down in the graph.
 	 */
 	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris, String literalData);
 
@@ -399,7 +404,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal getLiteral();
 
 	/**
-	 * Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.ContextNode.getLiteral(), operates at a context node further down in the graph.
 	 */
 	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris);
 

@@ -55,7 +55,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// find the owner's context node
 
-		ContextNode ownerContextNode = this.getRegistryGraph().findContextNode(owner, false);
+		ContextNode ownerContextNode = this.getRegistryGraph().getDeepContextNode(owner);
 
 		// create and mount the new messaging target
 

@@ -137,14 +137,14 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 			if (doReplaceRefRepRelations) {
 
-				ContextNode targetContextNode = operationMessageResult.getGraph().findContextNode(targetContextNodeXri, false);
+				ContextNode targetContextNode = operationMessageResult.getGraph().getDeepContextNode(targetContextNodeXri);
 
 				if (targetContextNode != null && ! operationMessageResult.getGraph().isEmpty()) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Replacing $ref/$rep relation: " + refRepRelation);
 
 					Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
-					ContextNode tempContextNode = tempGraph.findContextNode(contextNode.getXri(), true);
+					ContextNode tempContextNode = tempGraph.setDeepContextNode(contextNode.getXri());
 					CopyUtil.copyContextNodeContents(targetContextNode, tempContextNode, null);
 					targetContextNode.clear();
 					targetContextNode.deleteWhileEmpty();
@@ -242,7 +242,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 			if (operation instanceof AddOperation || operation instanceof SetOperation) {
 
 				XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
-				ContextNode targetContextNode = graph.findContextNode(targetContextNodeXri, false);
+				ContextNode targetContextNode = graph.getDeepContextNode(targetContextNodeXri);
 
 				if (targetContextNode != null && ! targetContextNode.isEmpty()) {
 
@@ -290,7 +290,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 		while (contextNodeXri != null) {
 
-			ContextNode contextNode = graph.findContextNode(contextNodeXri, false);
+			ContextNode contextNode = graph.getDeepContextNode(contextNodeXri);
 			Relation refRelation = contextNode == null ? null : Equivalence.getReferenceRelation(contextNode);
 			Relation repRelation = contextNode == null ? null : Equivalence.getReplacementRelation(contextNode);
 

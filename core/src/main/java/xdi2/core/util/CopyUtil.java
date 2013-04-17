@@ -68,7 +68,7 @@ public final class CopyUtil {
 		} else {
 
 			XDI3Segment parentContextNodeXri = contextNode.getContextNode().getXri();
-			ContextNode targetParentContextNode = targetGraph.setContextNode(parentContextNodeXri);
+			ContextNode targetParentContextNode = targetGraph.setDeepContextNode(parentContextNodeXri);
 			targetContextNode = targetParentContextNode.createContextNode(contextNode.getArcXri());
 		}
 
@@ -114,7 +114,7 @@ public final class CopyUtil {
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		XDI3Segment contextNodeXri = relation.getContextNode().getXri();
-		ContextNode targetContextNode = targetGraph.setContextNode(contextNodeXri);
+		ContextNode targetContextNode = targetGraph.setDeepContextNode(contextNodeXri);
 
 		return copyRelation(relation, targetContextNode, copyStrategy);
 	}
@@ -154,7 +154,7 @@ public final class CopyUtil {
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		XDI3Segment contextNodeXri = literal.getContextNode().getXri();
-		ContextNode targetContextNode = targetGraph.setContextNode(contextNodeXri);
+		ContextNode targetContextNode = targetGraph.setDeepContextNode(contextNodeXri);
 
 		return copyLiteral(literal, targetContextNode, copyStrategy);
 	}
