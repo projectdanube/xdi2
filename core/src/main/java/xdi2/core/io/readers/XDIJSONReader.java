@@ -70,7 +70,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
 				XDI3Segment absoluteSubject = XDI3Util.expandXri(statementXri.getSubject(), root.getContextNode().getXri());
 				XDI3Segment relativePart = statementRoot.getRelativePart(absoluteSubject);
-				ContextNode baseContextNode = relativePart == null ? statementRoot.getContextNode() : statementRoot.getContextNode().findContextNode(relativePart, true);
+				ContextNode baseContextNode = relativePart == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setContextNode(relativePart);
 
 				// add context nodes
 
@@ -100,7 +100,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
 				XDI3Segment absoluteSubject = XDI3Util.expandXri(statementXri.getSubject(), root.getContextNode().getXri());
 				XDI3Segment relativePart = statementRoot.getRelativePart(absoluteSubject);
-				ContextNode baseContextNode = relativePart == null ? statementRoot.getContextNode() : statementRoot.getContextNode().findContextNode(relativePart, true);
+				ContextNode baseContextNode = relativePart == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setContextNode(relativePart);
 
 				// add literal
 
@@ -119,7 +119,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
 				XDI3Segment absoluteSubject = XDI3Util.expandXri(statementXri.getSubject(), root.getContextNode().getXri());
 				XDI3Segment relativePart = statementRoot.getRelativePart(absoluteSubject);
-				ContextNode baseContextNode = relativePart == null ? statementRoot.getContextNode() : statementRoot.getContextNode().findContextNode(relativePart, true);
+				ContextNode baseContextNode = relativePart == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setContextNode(relativePart);
 
 				// add inner root and/or relations
 

@@ -379,7 +379,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		this.getContext(contextNodeXri, operation, tempMessageResult, executionContext);
 
-		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
+		ContextNode tempContextNode = tempMessageResult.getGraph().getContextNode(contextNodeXri);
 		if (tempContextNode == null) return;
 
 		if (VariableUtil.isVariable(targetContextNodeXri)) {
@@ -430,7 +430,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		this.getContext(contextNodeXri, operation, tempMessageResult, executionContext);
 
-		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
+		ContextNode tempContextNode = tempMessageResult.getGraph().getContextNode(contextNodeXri);
 		if (tempContextNode == null) return;
 
 		Literal tempLiteral = tempContextNode.getLiteral();

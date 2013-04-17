@@ -152,7 +152,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorOperation(Operation operation) {
 
-		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).findInnerRoot(XRI_S_FALSE, XRI_S_ERROR, true);
+		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).setInnerRoot(XRI_S_FALSE, XRI_S_ERROR, true);
 		innerRoot.getContextNode().clear();
 
 		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getXri())).getRelation();

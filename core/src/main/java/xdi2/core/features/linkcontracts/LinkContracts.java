@@ -54,7 +54,7 @@ public class LinkContracts {
 	 */
 	public static LinkContract getLinkContract(Graph graph, XDI3Segment contextNodeXri, boolean create) {
 
-		ContextNode contextNode = graph.findContextNode(contextNodeXri, create);
+		ContextNode contextNode = create ? graph.setContextNode(contextNodeXri) : graph.getContextNode(contextNodeXri);
 
 		return getLinkContract(contextNode, create);
 	}

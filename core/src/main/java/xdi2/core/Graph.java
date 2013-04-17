@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.Properties;
 
 import xdi2.core.io.MimeType;
-import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -53,91 +52,38 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	public boolean isEmpty();
 
 	/**
-	 * Finds a context node at any depth in this graph.
-	 * @param contextNodeXri The XRI of the context node.
-	 * @param create Whether or not to create context nodes if they don't exist.
-	 * @return A context node or null
+	 * Creates new context nodes and adds them to this graph.
+	 * @param contextNodeArcXris The path of arc XRIs of the context node.
+	 * @return The newly created final context node.
 	 */
-	public ContextNode findContextNode(XDI3Segment contextNodeXri, boolean create);
+	public ContextNode createContextNode(XDI3Segment contextNodeArcXris);
 
 	/**
-	 * Finds a relation at any depth in this graph.
-	 * @param contextNodeXri The relation XRI of the context node containing the relation.
-	 * @param arcXri The arc XRI of the relation.
-	 * @param targetContextNodeXri The target context node XRI of the relation.
-	 * @return A relation or null.
+	 * Creates new context nodes and adds them to this graph, or returns an existing context node.
+	 * @param contextNodeArcXris The path of arc XRIs of the context node.
+	 * @return The newly created or existing final context node.
 	 */
-	public Relation findRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
+	public ContextNode setContextNode(XDI3Segment contextNodeArcXris);
 
 	/**
-	 * Finds a relation at any depth in this graph.
-	 * @param contextNodeXri The XRI of the context node containing the relation.
-	 * @param arcXri The arc XRI of the relation.
-	 * @return A relation or null.
+	 * Returns a context node from this graph.
+	 * @param contextNodeArcXris The path of arc XRIs of the context node.
+	 * @return The context node with the given path of arc XRIs, or null.
 	 */
-	public Relation findRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri);
-
-	/**
-	 * Finds relations at any depth in this graph.
-	 * @param contextNodeXri The XRI of the context node containing the relations.
-	 * @param arcXri The arc XRI of the relations.
-	 * @return An iterator over relations.
-	 */
-	public ReadOnlyIterator<Relation> findRelations(XDI3Segment contextNodeXri, XDI3Segment arcXri);
-
-	/**
-	 * Finds a literal at any depth in this graph.
-	 * @param contextNodeXri The XRI of the context node containing the literal.
-	 * @param literalData The data of the literal.
-	 * @return A literal or null.
-	 */
-	public Literal findLiteral(XDI3Segment contextNodeXri, String literalData);
-
-	/**
-	 * Finds a literal at any depth in this graph.
-	 * @param contextNodeXri The XRI of the context node containing the literal.
-	 * @return A literal or null.
-	 */
-	public Literal findLiteral(XDI3Segment contextNodeXri);
+	public ContextNode getContextNode(XDI3Segment contextNodeArcXris);
 
 	/**
 	 * Checks if a context node exists in this graph.
-	 * @param contextNodeXri The XRI of the context node.
-	 * @return True, if the context node exists.
+	 * @param contextNodeArcXris The path of arc XRIs of the context node.
+	 * @return True if this graph has a context node with the given path of arc XRIs.
 	 */
-	public boolean containsContextNode(XDI3Segment contextNodeXri);
+	public boolean containsContextNode(XDI3Segment contextNodeArcXris);
 
 	/**
-	 * Checks if relations exists in this graph.
-	 * @param contextNodeXri The XRI of the context node containing the relation.
-	 * @param arcXri The arc XRI of the relation.
-	 * @param targetContextNodeXri The target context node XRI of the relation.
-	 * @return True, if the relation exists.
+	 * Deletes a context node from this graph.
+	 * @param contextNodeArcXris The path of arc XRIs of the context node.
 	 */
-	public boolean containsRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
-
-	/**
-	 * Checks if relations exists in this graph.
-	 * @param contextNodeXri The XRI of the context node containing the relation.
-	 * @param arcXri The arc XRI of the relation.
-	 * @return True, if the relation exists.
-	 */
-	public boolean containsRelations(XDI3Segment contextNodeXri, XDI3Segment arcXri);
-
-	/**
-	 * Checks if a literal exists in this graph.
-	 * @param contextNodeXri The XRI of the context node containing the literal.
-	 * @param literalData The data of the literal.
-	 * @return True, if the literal exists.
-	 */
-	public boolean containsLiteral(XDI3Segment contextNodeXri, String literalData);
-
-	/**
-	 * Checks if a literal exists in this graph.
-	 * @param contextNodeXri The XRI of the context node containing the literal.
-	 * @return True, if the literal exists.
-	 */
-	public boolean containsLiteral(XDI3Segment contextNodeXri);
+	public void deleteContextNode(XDI3Segment contextNodeArcXris);
 
 	/**
 	 * Converts the graph to a string in the given serialization format.
@@ -162,9 +108,14 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	public Statement createStatement(XDI3Statement statementXri);
 
 	/**
-	 * A simple way to find a statement in this graph.
+	 * A simple way to set a statement in this graph.
 	 */
-	public Statement findStatement(XDI3Statement statementXri);
+	public Statement setStatement(XDI3Statement statementXri);
+
+	/**
+	 * A simple way to get a statement in this graph.
+	 */
+	public Statement getStatement(XDI3Statement statementXri);
 
 	/**
 	 * A simple way to check if a statement exists in this graph.

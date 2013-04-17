@@ -25,7 +25,7 @@ public final class GraphUtil {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.findContextNode(contextNodeXri, true);
+		return graph.setContextNode(contextNodeXri);
 	}
 
 	/**
@@ -39,7 +39,7 @@ public final class GraphUtil {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.findContextNode(contextNodeXri, true).createRelation(arcXri, targetContextNodeXri);
+		return graph.setContextNode(contextNodeXri).createRelation(arcXri, targetContextNodeXri);
 	}
 
 	/**
@@ -52,6 +52,6 @@ public final class GraphUtil {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.findContextNode(contextNodeXri, true).createLiteral(literalData);
+		return graph.setContextNode(contextNodeXri).createLiteral(literalData);
 	}
 }

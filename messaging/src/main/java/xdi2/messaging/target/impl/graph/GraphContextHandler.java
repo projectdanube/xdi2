@@ -60,18 +60,6 @@ public class GraphContextHandler extends AbstractContextHandler {
 	 */
 
 	@Override
-	public void addContext(XDI3Segment contextNodeXri, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		XDI3Segment parentXri = XDI3Util.parentXri(contextNodeXri, -1);
-		if (parentXri == null) parentXri = XDIConstants.XRI_S_CONTEXT;
-
-		XDI3SubSegment localXri = XDI3Util.localXri(contextNodeXri, 1).getFirstSubSegment();
-
-		ContextNode contextNode = this.getGraph().findContextNode(parentXri, true);
-		contextNode.createContextNode(localXri);
-	}
-
-	@Override
 	public void getContext(XDI3Segment contextNodeXri, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
@@ -81,15 +69,27 @@ public class GraphContextHandler extends AbstractContextHandler {
 	}
 
 	@Override
+	public void addContext(XDI3Segment contextNodeXri, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment parentXri = XDI3Util.parentXri(contextNodeXri, -1);
+		if (parentXri == null) parentXri = XDIConstants.XRI_S_CONTEXT;
+
+		XDI3SubSegment localXri = XDI3Util.localXri(contextNodeXri, 1).getFirstSubSegment();
+
+		ContextNode contextNode = this.getGraph().setContextNode(parentXri);
+		contextNode.createContextNode(localXri);
+	}
+
+	@Override
 	public void setContext(XDI3Segment contextNodeXri, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		this.getGraph().findContextNode(contextNodeXri, true);
+		this.getGraph().setContextNode(contextNodeXri);
 	}
 
 	@Override
 	public void delContext(XDI3Segment contextNodeXri, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().findContextNode(contextNodeXri, false);
+		ContextNode contextNode = this.getGraph().getContextNode(contextNodeXri);
 		if (contextNode == null) return;
 
 		contextNode.delete();

@@ -34,7 +34,7 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 		else if (operation instanceof ModOperation)
 			this.executeModOnStatement(targetStatement, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof SetOperation)
-			this.executeModOnStatement(targetStatement, (ModOperation) operation, messageResult, executionContext);
+			this.executeSetOnStatement(targetStatement, (SetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			this.executeDelOnStatement(targetStatement, (DelOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DoOperation)

@@ -44,7 +44,7 @@ public class XdiInnerRoot extends XdiRoot {
 		ContextNode parentContextNode = contextNode.getContextNode();
 		if (parentContextNode == null) return false;
 
-		ContextNode subjectContextNode = parentContextNode.findContextNode(subject, false);
+		ContextNode subjectContextNode = parentContextNode.getContextNode(subject);
 		if (subjectContextNode == null) return false;
 
 		if (! subjectContextNode.containsRelation(predicate, contextNode.getXri())) return false;
@@ -80,7 +80,7 @@ public class XdiInnerRoot extends XdiRoot {
 		ContextNode parentContextNode = this.getContextNode().getContextNode();
 		if (parentContextNode == null) return null;
 
-		ContextNode subjectContextNode = parentContextNode.findContextNode(subject, false);
+		ContextNode subjectContextNode = parentContextNode.getContextNode(subject);
 		if (subjectContextNode == null) return null;
 
 		return subjectContextNode;

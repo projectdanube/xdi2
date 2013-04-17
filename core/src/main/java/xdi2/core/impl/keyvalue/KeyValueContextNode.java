@@ -170,8 +170,6 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
 
-		this.getGraph().findContextNode(targetContextNodeXri, true);
-
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
 

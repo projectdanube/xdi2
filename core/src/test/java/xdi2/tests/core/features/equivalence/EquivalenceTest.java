@@ -15,7 +15,7 @@ public class EquivalenceTest extends TestCase {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
-		ContextNode identityContextNode = graph.getRootContextNode().createContextNodes(XDI3Segment.create("!1111"));
+		ContextNode identityContextNode = graph.getRootContextNode().createContextNode(XDI3Segment.create("!1111"));
 
 		// test $is
 
