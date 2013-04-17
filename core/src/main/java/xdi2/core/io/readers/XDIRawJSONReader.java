@@ -18,10 +18,10 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
-import xdi2.core.features.nodetypes.XdiAttributeInstance;
+import xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntityClass;
-import xdi2.core.features.nodetypes.XdiEntityInstance;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.nodetypes.XdiValue;
@@ -102,7 +102,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiEntityClass xdiEntityClass = xdiSubGraph.getXdiEntityClass(arcXri, true);
 
-				XdiEntityInstance xdiEntityInstance = xdiEntityClass.getXdiInstance(jsonContentId, true);
+				XdiEntityInstanceUnordered xdiEntityInstance = xdiEntityClass.setXdiInstanceUnordered(jsonContentId);
 				readJSONObject(xdiEntityInstance, (JSONObject) value);
 			} else if (value instanceof JSONArray) {
 
@@ -111,7 +111,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiAttributeClass xdiAttributeClass = xdiSubGraph.getXdiAttributeClass(arcXri, true);
 
-				XdiAttributeInstance xdiAttributeInstance = xdiAttributeClass.getXdiInstance(jsonContentId, true);
+				XdiAttributeInstanceUnordered xdiAttributeInstance = xdiAttributeClass.setXdiInstanceUnordered(jsonContentId);
 
 				XdiValue xdiValue = xdiAttributeInstance.getXdiValue(true);
 

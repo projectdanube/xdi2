@@ -14,8 +14,8 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractClass;
-import xdi2.core.features.nodetypes.XdiAbstractElement;
-import xdi2.core.features.nodetypes.XdiAbstractInstance;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
@@ -561,8 +561,8 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		if (! XdiAbstractSubGraph.isValid(tempContextNode)) throw new Xdi2GraphException("Invalid subgraph: " + arcXri);
 		if (XdiValue.isValid(tempContextNode) && ! XdiAbstractAttribute.isValid(this)) throw new Xdi2GraphException("Can only create a value context in an attribute context.");
-		if (XdiAbstractInstance.isValid(tempContextNode) && ! XdiAbstractClass.isValid(this)) throw new Xdi2GraphException("Can only create an instance context in a class context.");
-		if (XdiAbstractElement.isValid(tempContextNode) && ! XdiAbstractClass.isValid(this)) throw new Xdi2GraphException("Can only create an element context in a class context.");
+		if (XdiAbstractInstanceUnordered.isValid(tempContextNode) && ! XdiAbstractClass.isValid(this)) throw new Xdi2GraphException("Can only create an instance context in a class context.");
+		if (XdiAbstractInstanceOrdered.isValid(tempContextNode) && ! XdiAbstractClass.isValid(this)) throw new Xdi2GraphException("Can only create an element context in a class context.");
 
 		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 	}

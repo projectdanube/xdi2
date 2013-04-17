@@ -1,6 +1,5 @@
 package xdi2.core.features.nodetypes;
 
-public interface XdiInstance {
+public interface XdiInstance extends XdiSubGraph {
 
-	public XdiClass getXdiClass();
 }

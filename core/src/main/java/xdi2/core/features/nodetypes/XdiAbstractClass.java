@@ -4,26 +4,40 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
-import xdi2.core.features.nodetypes.XdiAbstractInstance.MappingContextNodeXdiInstanceIterator;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered.MappingContextNodeXdiInstanceUnorderedIterator;
 import xdi2.core.util.XDI3Util;
+import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.MappingEquivalenceXdiSubGraphIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NoDuplicatesIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.util.iterators.TerminatingOnNullIterator;
 import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractClass extends XdiAbstractSubGraph implements XdiClass {
+public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends XdiInstanceOrdered, I extends XdiInstance> extends XdiAbstractSubGraph implements XdiClass<U, O, I> {
 
 	private static final long serialVersionUID = -1976646316893343570L;
 
-	protected XdiAbstractClass(ContextNode contextNode) {
+	private static final Logger log = LoggerFactory.getLogger(XdiAbstractClass.class);
+
+	private Class<U> u;
+	private Class<O> o;
+	private Class<I> i;
+
+	protected XdiAbstractClass(ContextNode contextNode, Class<U> u, Class<O> o, Class<I> i) {
 
 		super(contextNode);
+
+		this.u = u;
+		this.o = o;
+		this.i = i;
 	}
 
 	/*
@@ -46,9 +60,9 @@ public abstract class XdiAbstractClass extends XdiAbstractSubGraph implements Xd
 	 * @param contextNode The context node that is an XDI class.
 	 * @return The XDI class.
 	 */
-	public static XdiAbstractClass fromContextNode(ContextNode contextNode) {
+	public static XdiAbstractClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance> fromContextNode(ContextNode contextNode) {
 
-		XdiAbstractClass xdiClass;
+		XdiAbstractClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance> xdiClass;
 
 		if ((xdiClass = XdiEntityClass.fromContextNode(contextNode)) != null) return xdiClass;
 		if ((xdiClass = XdiAttributeClass.fromContextNode(contextNode)) != null) return xdiClass;
@@ -71,27 +85,31 @@ public abstract class XdiAbstractClass extends XdiAbstractSubGraph implements Xd
 	 */
 
 	/**
-	 * Creates or returns an XDI instance under this XDI class.
+	 * Sets an XDI instance under this XDI class.
 	 * @return The XDI instance.
 	 */
 	@Override
-	public XdiAbstractInstance getXdiInstance(XDI3SubSegment arcXri, boolean create) {
+	public U setXdiInstanceUnordered(XDI3SubSegment arcXri) {
 
+		if (arcXri == null) arcXri = XDI3Util.randomUuidSubSegment(XDI3Constants.CS_BANG);
+		
 		ContextNode instanceContextNode = this.getContextNode().getContextNode(arcXri);
-		if (instanceContextNode == null && create) instanceContextNode = this.getContextNode().createContextNode(arcXri);
-		if (instanceContextNode == null) return null;
+		if (instanceContextNode == null) instanceContextNode = this.getContextNode().createContextNode(arcXri);
 
-		return XdiAbstractInstance.fromContextNode(instanceContextNode);
+		return XdiAbstractSubGraph.fromContextNode(instanceContextNode, this.getU());
 	}
 
 	/**
-	 * Creates a new XDI instance and adds it to this XDI class.
-	 * @return The newly created XDI instance.
+	 * gets an XDI instance under this XDI class.
+	 * @return The XDI instance.
 	 */
 	@Override
-	public XdiAbstractInstance getXdiInstance() {
+	public U getXdiInstanceUnordered(XDI3SubSegment arcXri) {
 
-		return this.getXdiInstance(XDI3Util.randomUuidSubSegment(XDI3Constants.CS_BANG), true);
+		ContextNode instanceContextNode = this.getContextNode().getContextNode(arcXri);
+		if (instanceContextNode == null) return null;
+
+		return XdiAbstractSubGraph.fromContextNode(instanceContextNode, this.getU());
 	}
 
 	/**
@@ -99,38 +117,48 @@ public abstract class XdiAbstractClass extends XdiAbstractSubGraph implements Xd
 	 * @return An iterator over all XDI instances.
 	 */
 	@Override
-	public Iterator<? extends XdiAbstractInstance> instances() {
+	public ReadOnlyIterator<U> getXdiInstancesUnordered() {
 
-		// get all context nodes that are valid XDI instances
-
-		Iterator<ContextNode> contextNodes = this.getContextNode().getContextNodes();
-
-		return new MappingContextNodeXdiInstanceIterator(contextNodes);
+		return new XdiInstancesUnorderedIterator();
 	}
 
 	/**
 	 * Returns the number of XDI instances in this XDI class.
 	 */
 	@Override
-	public int instancesSize() {
+	public int getXdiInstancesUnorderedCount() {
 
-		return new IteratorCounter(this.instances()).count();
+		return new IteratorCounter(this.getXdiInstancesUnordered()).count();
 	}
 
 	/**
-	 * Creates or returns an XDI element under this XDI class.
+	 * Sets an XDI element under this XDI class.
 	 * @return The XDI element.
 	 */
 	@Override
-	public XdiAbstractElement getXdiElement(int index, boolean create) {
+	public O setXdiInstanceOrdered(int index) {
 
-		XDI3SubSegment arcXri = XdiAbstractElement.createArcXri(Integer.toString(index));
+		XDI3SubSegment arcXri = XdiAbstractInstanceOrdered.createArcXri(Integer.toString(index));
 
-		ContextNode elementContextNode = this.getContextNode().getContextNode(arcXri);
-		if (elementContextNode == null && create) elementContextNode = this.getContextNode().createContextNode(arcXri);
-		if (elementContextNode == null) return null;
+		ContextNode contextNode = this.getContextNode().getContextNode(arcXri);
+		if (contextNode == null) contextNode = this.getContextNode().createContextNode(arcXri);
 
-		return XdiAbstractElement.fromContextNode(elementContextNode);
+		return XdiAbstractSubGraph.fromContextNode(contextNode, this.getO());
+	}
+
+	/**
+	 * Gets an XDI element under this XDI class.
+	 * @return The XDI element.
+	 */
+	@Override
+	public O getXdiInstanceOrdered(int index) {
+
+		XDI3SubSegment arcXri = XdiAbstractInstanceOrdered.createArcXri(Integer.toString(index));
+
+		ContextNode contextNode = this.getContextNode().getContextNode(arcXri);
+		if (contextNode == null) return null;
+
+		return XdiAbstractSubGraph.fromContextNode(contextNode, this.getO());
 	}
 
 	/**
@@ -138,51 +166,18 @@ public abstract class XdiAbstractClass extends XdiAbstractSubGraph implements Xd
 	 * @return An iterator over all XDI elements.
 	 */
 	@Override
-	public Iterator<? extends XdiAbstractElement> elements() {
+	public ReadOnlyIterator<O> getXdiInstancesOrdered() {
 
-		return new TerminatingOnNullIterator<XdiAbstractElement> (new ReadOnlyIterator<XdiAbstractElement> (null) {
-
-			private int index = 0;
-			private XdiAbstractElement nextXdiElement = null;
-			private boolean triedNextXdiElement = false;
-
-			@Override
-			public boolean hasNext() {
-
-				this.tryNextXdiElement();
-
-				return this.nextXdiElement != null;
-			}
-
-			@Override
-			public XdiAbstractElement next() {
-
-				this.tryNextXdiElement();
-
-				this.index++;
-				this.triedNextXdiElement = false;
-
-				return this.nextXdiElement;
-			}
-
-			private void tryNextXdiElement() {
-
-				if (this.triedNextXdiElement) return;
-
-				this.nextXdiElement = XdiAbstractClass.this.getXdiElement(this.index, false);
-
-				this.triedNextXdiElement = true;
-			}
-		});
+		return new XdiInstancesOrderedIterator();
 	}
 
 	/**
 	 * Returns the number of XDI elements in this XDI class.
 	 */
 	@Override
-	public int elementsSize() {
+	public int getXdiInstancesOrderedCount() {
 
-		return new IteratorCounter(this.elements()).count();
+		return new IteratorCounter(this.getXdiInstancesOrdered()).count();
 	}
 
 	/**
@@ -190,33 +185,104 @@ public abstract class XdiAbstractClass extends XdiAbstractSubGraph implements Xd
 	 * @return An iterator over all XDI instances and elements.
 	 */
 	@Override
-	public Iterator<? extends XdiSubGraph> instancesAndElements() {
+	public ReadOnlyIterator<I> getXdiInstances(boolean deref) {
 
-		List<Iterator<? extends XdiSubGraph>> list = new ArrayList<Iterator<? extends XdiSubGraph>> ();
-		list.add(this.elements());
-		list.add(this.instances());
+		List<Iterator<? extends I>> list = new ArrayList<Iterator<? extends I>> ();
+		list.add(new CastingIterator<O, I> (this.getXdiInstancesOrdered()));
+		list.add(new CastingIterator<U, I> (this.getXdiInstancesUnordered()));
 
-		CompositeIterator<XdiSubGraph> iterators = new CompositeIterator<XdiSubGraph> (list.iterator());
+		Iterator<I> iterator = new CompositeIterator<I> (list.iterator());
 
-		return new NoDuplicatesIterator<XdiSubGraph> (iterators);
+		if (deref) {
+
+			iterator = new MappingEquivalenceXdiSubGraphIterator<I> (iterator, this.getIE());
+			iterator = new NoDuplicatesIterator<I> (iterator);
+		}
+
+		return (ReadOnlyIterator<I>) iterator;
+	}
+
+	public Class<U> getU() {
+
+		return this.u;
+	}
+
+	public Class<O> getO() {
+
+		return this.o;
+	}
+
+	public Class<I> getIE() {
+
+		return this.i;
 	}
 
 	/*
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiClassIterator extends NotNullIterator<XdiClass> {
+	public static class MappingContextNodeXdiClassIterator extends NotNullIterator<XdiClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance>> {
 
 		public MappingContextNodeXdiClassIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiClass> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance>> (contextNodes) {
 
 				@Override
-				public XdiClass map(ContextNode contextNode) {
+				public XdiClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance> map(ContextNode contextNode) {
 
 					return XdiAbstractClass.fromContextNode(contextNode);
 				}
 			});
+		}
+	}
+
+	public class XdiInstancesUnorderedIterator extends ReadOnlyIterator<U> {
+
+		public XdiInstancesUnorderedIterator() {
+
+			super(new CastingIterator<XdiInstanceUnordered, U> (new MappingContextNodeXdiInstanceUnorderedIterator(XdiAbstractClass.this.getContextNode().getContextNodes())));
+		}
+	}
+
+	public class XdiInstancesOrderedIterator extends ReadOnlyIterator<O> {
+
+		private int index = 1;
+		private O nextXdiElement = null;
+		private boolean triedNextXdiElement = false;
+
+		public XdiInstancesOrderedIterator() {
+
+			super(null);
+		}
+
+		@Override
+		public boolean hasNext() {
+
+			this.tryNextXdiElement();
+
+			return this.nextXdiElement != null;
+		}
+
+		@Override
+		public O next() {
+
+			this.tryNextXdiElement();
+
+			this.index++;
+			this.triedNextXdiElement = false;
+
+			return this.nextXdiElement;
+		}
+
+		private void tryNextXdiElement() {
+
+			if (this.triedNextXdiElement) return;
+
+			this.nextXdiElement = XdiAbstractClass.this.getXdiInstanceOrdered(this.index);
+
+			if (log.isDebugEnabled()) log.debug("Next element at index " + this.index + ": " + this.nextXdiElement);
+
+			this.triedNextXdiElement = true;
 		}
 	}
 }

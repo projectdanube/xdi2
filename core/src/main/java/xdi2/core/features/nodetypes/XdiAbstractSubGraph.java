@@ -1,5 +1,7 @@
 package xdi2.core.features.nodetypes;
 
+import java.lang.reflect.Method;
+
 import xdi2.core.ContextNode;
 import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -54,13 +56,28 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 		if ((xdiSubGraph = XdiRoot.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiAbstractSingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiAbstractClass.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiAbstractInstance.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiAbstractElement.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAbstractInstanceUnordered.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAbstractInstanceOrdered.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiValue.fromContextNode(contextNode)) != null) return xdiSubGraph;
 
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <S extends XdiSubGraph> S fromContextNode(ContextNode contextNode, Class<S> s) {
+
+		try {
+
+			Method fromContextNode = s.getMethod("fromContextNode", ContextNode.class);
+
+			return (S) fromContextNode.invoke(null, contextNode);
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
+	}
+	
+	
 	/**
 	 * @param Returns the "base" arc XRI, without context function syntax.
 	 * @return The "base" arc XRI.

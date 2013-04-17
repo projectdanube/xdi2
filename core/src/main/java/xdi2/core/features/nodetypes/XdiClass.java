@@ -1,19 +1,19 @@
 package xdi2.core.features.nodetypes;
 
-import java.util.Iterator;
-
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public interface XdiClass extends XdiSubGraph {
+public interface XdiClass<U extends XdiInstanceUnordered, O extends XdiInstanceOrdered, I extends XdiInstance> extends XdiSubGraph {
 
-	public XdiAbstractInstance getXdiInstance(XDI3SubSegment arcXri, boolean create);
-	public XdiAbstractInstance getXdiInstance();
-	public Iterator<? extends XdiAbstractInstance> instances();
-	public int instancesSize();
-	
-	public XdiAbstractElement getXdiElement(int index, boolean create);
-	public Iterator<? extends XdiAbstractElement> elements();
-	public int elementsSize();
+	public U setXdiInstanceUnordered(XDI3SubSegment arcXri);
+	public U getXdiInstanceUnordered(XDI3SubSegment arcXri);
+	public ReadOnlyIterator<U> getXdiInstancesUnordered();
+	public int getXdiInstancesUnorderedCount();
 
-	public Iterator<? extends XdiSubGraph> instancesAndElements();
+	public O setXdiInstanceOrdered(int index);
+	public O getXdiInstanceOrdered(int index);
+	public ReadOnlyIterator<O> getXdiInstancesOrdered();
+	public int getXdiInstancesOrderedCount();
+
+	public ReadOnlyIterator<I> getXdiInstances(boolean deref);
 }

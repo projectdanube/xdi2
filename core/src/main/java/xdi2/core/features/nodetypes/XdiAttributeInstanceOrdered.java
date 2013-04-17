@@ -8,15 +8,15 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI attribute element (context function), represented as a context node.
+ * An XDI ordered attribute instance (context function), represented as a context node.
  * 
  * @author markus
  */
-public final class XdiAttributeElement extends XdiAbstractElement implements XdiAttribute {
+public final class XdiAttributeInstanceOrdered extends XdiAbstractInstanceOrdered implements XdiAttributeInstance {
 
 	private static final long serialVersionUID = 3562576098019686485L;
 
-	protected XdiAttributeElement(ContextNode contextNode) {
+	protected XdiAttributeInstanceOrdered(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -26,9 +26,9 @@ public final class XdiAttributeElement extends XdiAbstractElement implements Xdi
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI attribute element.
+	 * Checks if a context node is a valid XDI ordered attribute instance.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI attribute element.
+	 * @return True if the context node is a valid XDI ordered attribute instance.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -38,15 +38,15 @@ public final class XdiAttributeElement extends XdiAbstractElement implements Xdi
 	}
 
 	/**
-	 * Factory method that creates an XDI attribute element bound to a given context node.
-	 * @param contextNode The context node that is an XDI attribute element.
-	 * @return The XDI attribute element.
+	 * Factory method that creates an XDI ordered attribute instance bound to a given context node.
+	 * @param contextNode The context node that is an XDI ordered attribute instance.
+	 * @return The XDI ordered attribute instance.
 	 */
-	public static XdiAttributeElement fromContextNode(ContextNode contextNode) {
+	public static XdiAttributeInstanceOrdered fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiAttributeElement(contextNode);
+		return new XdiAttributeInstanceOrdered(contextNode);
 	}
 
 	/*
@@ -55,7 +55,7 @@ public final class XdiAttributeElement extends XdiAbstractElement implements Xdi
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiAbstractElement.isValidArcXri(arcXri);
+		return XdiAbstractInstanceOrdered.isValidArcXri(arcXri);
 	}
 
 	/*
@@ -63,7 +63,7 @@ public final class XdiAttributeElement extends XdiAbstractElement implements Xdi
 	 */
 
 	/**
-	 * Gets or returns the parent XDI class of this XDI attribute element.
+	 * Gets or returns the parent XDI class of this XDI ordered attribute instance.
 	 * @return The parent XDI class.
 	 */
 	@Override
@@ -73,7 +73,7 @@ public final class XdiAttributeElement extends XdiAbstractElement implements Xdi
 	}
 
 	/**
-	 * Creates or returns an XDI value under this XDI attribute element.
+	 * Creates or returns an XDI value under this XDI ordered attribute instance.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI value.
 	 */
@@ -93,16 +93,16 @@ public final class XdiAttributeElement extends XdiAbstractElement implements Xdi
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiAttributeElementIterator extends NotNullIterator<XdiAttributeElement> {
+	public static class MappingContextNodeXdiAttributeInstanceOrderedIterator extends NotNullIterator<XdiAttributeInstanceOrdered> {
 
-		public MappingContextNodeXdiAttributeElementIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiAttributeInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiAttributeElement> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiAttributeInstanceOrdered> (contextNodes) {
 
 				@Override
-				public XdiAttributeElement map(ContextNode contextNode) {
+				public XdiAttributeInstanceOrdered map(ContextNode contextNode) {
 
-					return XdiAttributeElement.fromContextNode(contextNode);
+					return XdiAttributeInstanceOrdered.fromContextNode(contextNode);
 				}
 			});
 		}

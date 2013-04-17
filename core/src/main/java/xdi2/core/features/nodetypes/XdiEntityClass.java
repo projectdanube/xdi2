@@ -3,7 +3,6 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Constants;
@@ -14,13 +13,13 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiEntityClass extends XdiAbstractClass {
+public final class XdiEntityClass extends XdiAbstractClass<XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance> {
 
 	private static final long serialVersionUID = -8518618921427437445L;
 
 	protected XdiEntityClass(ContextNode contextNode) {
 
-		super(contextNode);
+		super(contextNode, XdiEntityInstanceUnordered.class, XdiEntityInstanceOrdered.class, XdiEntityInstance.class);
 	}
 
 	/*
@@ -47,46 +46,6 @@ public final class XdiEntityClass extends XdiAbstractClass {
 		if (! isValid(contextNode)) return null;
 
 		return new XdiEntityClass(contextNode);
-	}
-
-	/*
-	 * Instance methods
-	 */
-
-	@Override
-	public XdiEntityInstance getXdiInstance(XDI3SubSegment arcXri, boolean create) {
-
-		return (XdiEntityInstance) super.getXdiInstance(arcXri, create);
-	}
-
-	@Override
-	public XdiEntityInstance getXdiInstance() {
-
-		return (XdiEntityInstance) super.getXdiInstance();
-	}
-
-	@Override
-	public Iterator<XdiEntityInstance> instances() {
-
-		return new CastingIterator<XdiAbstractInstance, XdiEntityInstance> (super.instances());
-	}
-
-	@Override
-	public XdiEntityElement getXdiElement(int index, boolean create) {
-
-		return (XdiEntityElement) super.getXdiElement(index, create);
-	}
-
-	@Override
-	public Iterator<XdiEntityElement> elements() {
-
-		return new CastingIterator<XdiAbstractInstance, XdiEntityElement> (super.instances());
-	}
-
-	@Override
-	public Iterator<XdiEntity> instancesAndElements() {
-
-		return new CastingIterator<XdiSubGraph, XdiEntity> (super.instancesAndElements());
 	}
 
 	/*

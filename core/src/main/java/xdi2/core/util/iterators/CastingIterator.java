@@ -7,22 +7,23 @@ import java.util.Iterator;
  *  
  * @author markus
  */
-public class CastingIterator<I, O> implements Iterator<O> {
+public class CastingIterator<I, O> extends IterableIterator<O> {
 
 	private Iterator<? extends I> iterator;
-	private Class<? extends O> safeClass;
+	private Class<? extends O> o;
+	private boolean safe;
 
-	public CastingIterator(Iterator<? extends I> iterator, Class<? extends O> safeClass) {
+	public CastingIterator(Iterator<? extends I> iterator, Class<? extends O> o, boolean safe) {
 
 		this.iterator = iterator;
-		this.safeClass = safeClass;
+		this.o = o;
+		this.safe = safe;
 	}
 
 	public CastingIterator(Iterator<? extends I> iterator) {
 
-		this(iterator, null);
+		this(iterator, null, false);
 	}
-
 
 	@Override
 	public boolean hasNext() {
@@ -36,7 +37,7 @@ public class CastingIterator<I, O> implements Iterator<O> {
 
 		Object next = this.iterator.next();
 
-		if (this.getSafeClass() != null && (! this.getSafeClass().isAssignableFrom(next.getClass()))) return null;
+		if (this.isSafe() && (! this.getO().isAssignableFrom(next.getClass()))) return null;
 
 		return (O) next;
 	}
@@ -47,8 +48,13 @@ public class CastingIterator<I, O> implements Iterator<O> {
 		this.iterator.remove();
 	}
 
-	public Class<? extends O> getSafeClass() {
+	public Class<? extends O> getO() {
 
-		return this.safeClass;
+		return this.o;
+	}
+
+	public boolean isSafe() {
+
+		return this.safe;
 	}
 }

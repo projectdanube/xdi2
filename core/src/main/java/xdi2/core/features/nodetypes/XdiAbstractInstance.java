@@ -5,12 +5,10 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Constants;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public abstract class XdiAbstractInstance extends XdiAbstractSubGraph implements XdiInstance {
 
-	private static final long serialVersionUID = -8496645644143069191L;
+	private static final long serialVersionUID = 3673396905245169194L;
 
 	protected XdiAbstractInstance(ContextNode contextNode) {
 
@@ -28,8 +26,8 @@ public abstract class XdiAbstractInstance extends XdiAbstractSubGraph implements
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return XdiEntityInstance.isValid(contextNode) || 
-				XdiAttributeInstance.isValid(contextNode);
+		return XdiAbstractInstanceUnordered.isValid(contextNode) ||
+				XdiAbstractInstanceOrdered.isValid(contextNode);
 	}
 
 	/**
@@ -37,61 +35,28 @@ public abstract class XdiAbstractInstance extends XdiAbstractSubGraph implements
 	 * @param contextNode The context node that is an XDI instance.
 	 * @return The XDI instance.
 	 */
-	public static XdiAbstractInstance fromContextNode(ContextNode contextNode) {
+	public static XdiInstance fromContextNode(ContextNode contextNode) {
 
-		XdiAbstractInstance xdiInstance;
+		XdiInstance xdiInstance = null;
 
-		if ((xdiInstance = XdiEntityInstance.fromContextNode(contextNode)) != null) return xdiInstance;
-		if ((xdiInstance = XdiAttributeInstance.fromContextNode(contextNode)) != null) return xdiInstance;
+		if ((xdiInstance = XdiAbstractInstanceUnordered.fromContextNode(contextNode)) != null) return xdiInstance;
+		if ((xdiInstance = XdiAbstractInstanceOrdered.fromContextNode(contextNode)) != null) return xdiInstance;
 
 		return null;
-	}
-
-	/*
-	 * Instance methods
-	 */
-
-	@Override
-	public abstract XdiClass getXdiClass();
-
-	/*
-	 * Methods for XRIs
-	 */
-
-	public static XDI3SubSegment createArcXri(String identifier, boolean mutable) {
-
-		Character cs = mutable ? XDI3Constants.CS_STAR : XDI3Constants.CS_BANG;
-		
-		return XDI3SubSegment.create("" + cs + identifier);
-	}
-
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
-
-		if (arcXri == null) return false;
-
-		if (arcXri.isSingleton()) return false;
-		if (arcXri.isAttribute()) return false;
-		if (arcXri.hasXRef()) return false;
-
-		if (! XDI3Constants.CS_STAR.equals(arcXri.getCs()) && ! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
-
-		if (! arcXri.hasLiteral()) return false;
-
-		return true;
 	}
 
 	/*
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiInstanceIterator extends NotNullIterator<XdiAbstractInstance> {
+	public static class MappingContextNodeXdiInstanceIterator extends NotNullIterator<XdiInstance> {
 
 		public MappingContextNodeXdiInstanceIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiAbstractInstance> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiInstance> (contextNodes) {
 
 				@Override
-				public XdiAbstractInstance map(ContextNode contextNode) {
+				public XdiInstance map(ContextNode contextNode) {
 
 					return XdiAbstractInstance.fromContextNode(contextNode);
 				}

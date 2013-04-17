@@ -6,8 +6,8 @@ import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntityElement;
-import xdi2.core.features.nodetypes.XdiEntityInstance;
+import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 
 /**
@@ -37,10 +37,10 @@ public class PolicyNot extends Policy {
 
 		if (xdiEntity instanceof XdiEntitySingleton)
 			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
-		else if (xdiEntity instanceof XdiEntityInstance)
-			return ((XdiEntityInstance) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
-		else if (xdiEntity instanceof XdiEntityElement)
-			return ((XdiEntityElement) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
+		else if (xdiEntity instanceof XdiEntityInstanceUnordered)
+			return ((XdiEntityInstanceUnordered) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
+		else if (xdiEntity instanceof XdiEntityInstanceOrdered)
+			return ((XdiEntityInstanceOrdered) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_NOT);
 
 		return false;
 	}

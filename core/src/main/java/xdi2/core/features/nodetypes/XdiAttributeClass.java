@@ -3,7 +3,6 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Constants;
@@ -14,13 +13,13 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiAttributeClass extends XdiAbstractClass {
+public final class XdiAttributeClass extends XdiAbstractClass<XdiAttributeInstanceUnordered, XdiAttributeInstanceOrdered, XdiAttributeInstance> {
 
 	private static final long serialVersionUID = -8518618921427437445L;
 
 	protected XdiAttributeClass(ContextNode contextNode) {
 
-		super(contextNode);
+		super(contextNode, XdiAttributeInstanceUnordered.class, XdiAttributeInstanceOrdered.class, XdiAttributeInstance.class);
 	}
 
 	/*
@@ -47,46 +46,6 @@ public final class XdiAttributeClass extends XdiAbstractClass {
 		if (! isValid(contextNode)) return null;
 
 		return new XdiAttributeClass(contextNode);
-	}
-
-	/*
-	 * Instance methods
-	 */
-
-	@Override
-	public XdiAttributeInstance getXdiInstance(XDI3SubSegment arcXri, boolean create) {
-
-		return (XdiAttributeInstance) super.getXdiInstance(arcXri, create);
-	}
-
-	@Override
-	public XdiAttributeInstance getXdiInstance() {
-
-		return (XdiAttributeInstance) super.getXdiInstance();
-	}
-
-	@Override
-	public Iterator<XdiAttributeInstance> instances() {
-
-		return new CastingIterator<XdiAbstractInstance, XdiAttributeInstance> (super.instances());
-	}
-
-	@Override
-	public XdiAttributeElement getXdiElement(int index, boolean create) {
-
-		return (XdiAttributeElement) super.getXdiElement(index, create);
-	}
-
-	@Override
-	public Iterator<XdiAttributeElement> elements() {
-
-		return new CastingIterator<XdiAbstractInstance, XdiAttributeElement> (super.instances());
-	}
-
-	@Override
-	public Iterator<XdiAttribute> instancesAndElements() {
-
-		return new CastingIterator<XdiSubGraph, XdiAttribute> (super.instances());
 	}
 
 	/*
