@@ -14,6 +14,7 @@ public class StatementUtilTest extends TestCase {
 
 		String contextNodeStatements[] = new String[] {
 				"=markus/()/[<+email>]",
+				"=markus/()/()",
 				"()/()/=markus"
 		};
 
@@ -33,13 +34,29 @@ public class StatementUtilTest extends TestCase {
 
 		String invalidStatements[] = new String[] {
 				"=markus:/:/=markus",
-				"=markus/()/()",
 				"=markus:/:/{}"
 		};
 
-		for (String contextNodeStatement : contextNodeStatements) assertTrue(XDI3Statement.create(contextNodeStatement).isContextNodeStatement());
-		for (String relationStatement : relationStatements) assertTrue(XDI3Statement.create(relationStatement).isRelationStatement());
-		for (String literalStatement : literalStatements) assertTrue(XDI3Statement.create(literalStatement).isLiteralStatement());
+		for (String contextNodeStatement : contextNodeStatements) {
+
+			assertTrue(XDI3Statement.create(contextNodeStatement).isContextNodeStatement());
+			assertFalse(XDI3Statement.create(contextNodeStatement).isRelationStatement());
+			assertFalse(XDI3Statement.create(contextNodeStatement).isLiteralStatement());
+		}
+
+		for (String relationStatement : relationStatements) {
+
+			assertFalse(XDI3Statement.create(relationStatement).isContextNodeStatement());
+			assertTrue(XDI3Statement.create(relationStatement).isRelationStatement());
+			assertFalse(XDI3Statement.create(relationStatement).isLiteralStatement());
+		}
+
+		for (String literalStatement : literalStatements) {
+
+			assertFalse(XDI3Statement.create(literalStatement).isContextNodeStatement());
+			assertFalse(XDI3Statement.create(literalStatement).isRelationStatement());
+			assertTrue(XDI3Statement.create(literalStatement).isLiteralStatement());
+		}
 
 		for (String invalidStatement : invalidStatements) {
 

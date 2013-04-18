@@ -263,7 +263,7 @@ public final class XDI3Util {
 		if (log.isTraceEnabled()) log.trace("reduceXri(" + xri + "," + base + "," + variablesInXri + "," + variablesInBase + ")");
 
 		if (xri == null) return null;
-		if (base == null) return xri;
+		if (base == null || XDIConstants.XRI_S_ROOT.equals(base)) return xri;
 
 		int xriIndex = 0, baseIndex = 0;
 

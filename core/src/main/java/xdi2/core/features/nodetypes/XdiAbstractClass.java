@@ -280,7 +280,7 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 
 			this.nextXdiElement = XdiAbstractClass.this.getXdiInstanceOrdered(this.index);
 
-			if (log.isDebugEnabled()) log.debug("Next element at index " + this.index + ": " + this.nextXdiElement);
+			if (log.isTraceEnabled()) log.trace("Next element at index " + this.index + ": " + this.nextXdiElement);
 
 			this.triedNextXdiElement = true;
 		}

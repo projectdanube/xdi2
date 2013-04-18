@@ -87,13 +87,33 @@ public class XDI3UtilTest extends TestCase {
 		assertTrue(XDI3Util.endsWith(xri2, XDI3Segment.create("*y*d"), true, false));
 		assertFalse(XDI3Util.endsWith(xri2, XDI3Segment.create("*y*c*d"), true, false));
 
+		assertEquals(XDI3Util.reduceXri(xri1, null), XDI3Segment.create("=a*b*c*d"));
+		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("()")), XDI3Segment.create("=a*b*c*d"));
 		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("=a")), XDI3Segment.create("*b*c*d"));
 		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("=a*b")), XDI3Segment.create("*c*d"));
 		assertEquals(XDI3Util.reduceXri(xri1, XDI3Segment.create("=a*b*c")), XDI3Segment.create("*d"));
 		assertNull(XDI3Util.reduceXri(xri1, XDI3Segment.create("=a*b*c*d")));
 	}
 
-	public void testReduce() throws Exception {
+	public void testExpand() throws Exception {
+
+		assertEquals(XDI3Util.expandXri(XDI3Segment.create("+b"), XDI3Segment.create("+a")), XDI3Segment.create("+a+b"));
+		assertEquals(XDI3Util.expandXri(XDI3Segment.create("+c"), XDI3Segment.create("+a+b")), XDI3Segment.create("+a+b+c"));
+		assertEquals(XDI3Util.expandXri(XDI3Segment.create("+b+c"), XDI3Segment.create("+a")), XDI3Segment.create("+a+b+c"));
+
+		assertEquals(XDI3Util.expandXri(XDI3Segment.create("+a"), XDI3Segment.create("()")), XDI3Segment.create("+a"));
+		assertEquals(XDI3Util.expandXri(XDI3Segment.create("+a"), null), XDI3Segment.create("+a"));
+
+		assertEquals(XDI3Util.expandXri(XDI3Segment.create("()"), XDI3Segment.create("+a")), XDI3Segment.create("+a"));
+		assertEquals(XDI3Util.expandXri(null, XDI3Segment.create("+a")), XDI3Segment.create("+a"));
+
+		assertEquals(XDI3Util.expandXri(XDI3Segment.create("()"), XDI3Segment.create("()")), XDI3Segment.create("()"));
+		assertEquals(XDI3Util.expandXri(null, XDI3Segment.create("()")), XDI3Segment.create("()"));
+		assertEquals(XDI3Util.expandXri(XDI3Segment.create("()"), null), XDI3Segment.create("()"));
+		assertEquals(XDI3Util.expandXri(null, null), XDI3Segment.create("()"));
+	}
+
+	public void testReduceVariables() throws Exception {
 
 		XDI3Segment xri1 = XDI3Segment.create("=a*b+c!d@e$f*g");
 

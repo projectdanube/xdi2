@@ -43,8 +43,6 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	public void init() throws Exception {
 
 		super.init();
-
-		// read owner
 	}
 
 	@Override

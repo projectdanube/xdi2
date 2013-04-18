@@ -13,6 +13,7 @@ import xdi2.core.GraphFactory;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.roots.XdiInnerRoot;
@@ -21,6 +22,7 @@ import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -213,7 +215,6 @@ public abstract class AbstractGraph implements Graph {
 
 		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
 		XDI3Segment relativePart = root.getRelativePart(statementXri.getSubject());
-		ContextNode baseContextNode = relativePart == null ? root.getContextNode() : root.getContextNode().setDeepContextNode(relativePart);
 
 		// inner root short notation?
 
@@ -231,17 +232,17 @@ public abstract class AbstractGraph implements Graph {
 
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = baseContextNode.createDeepContextNode((XDI3Segment) statementXri.getObject());
+			ContextNode contextNode = root.getContextNode().createDeepContextNode(XDI3Util.expandXri((XDI3Segment) statementXri.getObject(), relativePart));
 
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
 
-			Relation relation = baseContextNode.createRelation(statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
+			Relation relation = root.getContextNode().createDeepRelation(relativePart, statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
 
 			return relation.getStatement();
 		} else if (statementXri.isLiteralStatement()) {
 
-			Literal literal = baseContextNode.createLiteral(statementXri.getLiteralData());
+			Literal literal = root.getContextNode().createDeepLiteral(relativePart, statementXri.getLiteralData());
 
 			return literal.getStatement();
 		} else {
@@ -259,7 +260,6 @@ public abstract class AbstractGraph implements Graph {
 
 		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
 		XDI3Segment relativePart = root.getRelativePart(statementXri.getSubject());
-		ContextNode baseContextNode = relativePart == null ? root.getContextNode() : root.getContextNode().setDeepContextNode(relativePart);
 
 		// inner root short notation?
 
@@ -273,21 +273,21 @@ public abstract class AbstractGraph implements Graph {
 			return innerRoot.setRelativeStatement(statementXri.getInnerRootStatement());
 		}
 
-		// add the statement
+		// set the statement
 
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = baseContextNode.setDeepContextNode((XDI3Segment) statementXri.getObject());
+			ContextNode contextNode = root.getContextNode().setDeepContextNode(XDI3Util.expandXri((XDI3Segment) statementXri.getObject(), relativePart));
 
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
 
-			Relation relation = baseContextNode.setRelation(statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
+			Relation relation = root.getContextNode().setDeepRelation(relativePart, statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
 
 			return relation.getStatement();
 		} else if (statementXri.isLiteralStatement()) {
 
-			Literal literal = baseContextNode.setLiteral(statementXri.getLiteralData());
+			Literal literal = root.getContextNode().setDeepLiteral(relativePart, statementXri.getLiteralData());
 
 			return literal.getStatement();
 		} else {

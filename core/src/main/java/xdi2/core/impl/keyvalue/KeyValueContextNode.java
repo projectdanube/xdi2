@@ -6,6 +6,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.impl.AbstractContextNode;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
@@ -58,7 +60,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized ContextNode createContextNode(XDI3SubSegment arcXri) {
 
-		this.checkCreateContextNode(arcXri);
+		this.checkContextNode(arcXri);
+
+		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 
 		String contextNodesKey = this.getContextNodesKey();
 		String contextNodeKey = this.getContextNodeKey(arcXri);
@@ -166,7 +170,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
-		this.checkCreateRelation(arcXri, targetContextNode);
+		this.checkRelation(arcXri, targetContextNode);
+
+		if (this.containsRelation(arcXri, targetContextNode.getXri())) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
 
 		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
 
@@ -350,7 +356,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized Literal createLiteral(String literalData) {
 
-		this.checkCreateLiteral(literalData);
+		this.checkLiteral(literalData);
+
+		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
 
 		String literalKey = this.getLiteralKey();
 

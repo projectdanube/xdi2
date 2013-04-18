@@ -12,7 +12,7 @@ import xdi2.core.xri3.XDI3Statement;
 /**
  * This interface represents a whole XDI graph.
  * XDI graphs consist of context nodes, relations, and literals.
- * Also, XDI graphs can be expressed a set of XDI statements.
+ * Also, an XDI graph can be expressed as a set of XDI statements.
  * 
  * @author markus
  */
@@ -90,62 +90,63 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDI3Segment contextNodeArcXris);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
 	 */
 	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation setDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
 	 */
 	public Relation setDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation getDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation getDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris, XDI3Segment arcXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getRelations(), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.
 	 */
 	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.createLiteral(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createLiteral(String), operates at a context node further down in the graph.
 	 */
 	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.setLiteral(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setLiteral(String), operates at a context node further down in the graph.
 	 */
 	public Literal setDeepLiteral(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getLiteral(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getLiteral(String), operates at a context node further down in the graph.
+	 * @see ContextNode#getLiteral(String)
 	 */
 	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getLiteral(), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.
 	 */
 	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris);
 

@@ -196,8 +196,6 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 
 		if (log.isTraceEnabled()) log.trace("getRelativePart(" + xri + ")");
 
-		if (this.getContextNode().isRootContextNode()) return xri;
-
 		return XDI3Util.reduceXri(xri, this.getContextNode().getXri());
 	}
 

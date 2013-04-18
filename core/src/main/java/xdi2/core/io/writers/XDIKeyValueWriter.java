@@ -46,7 +46,7 @@ public class XDIKeyValueWriter extends AbstractXDIWriter {
 
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
 
-		log.debug("writeOrdered=" + this.writeOrdered);
+		if (log.isTraceEnabled()) log.trace("Parameters: writeOrdered=" + this.writeOrdered);
 	}
 
 	@Override
