@@ -209,7 +209,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(graph12.getRootContextNode().getXri(), XDIConstants.XRI_S_CONTEXT);
 
 		graph12.createDeepContextNode(XDI3Segment.create("=markus[<+name>]:")).createLiteral("Markus");
-		graph12.createDeepContextNode(XDI3Segment.create("=markus")).createRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=someone"));
+		graph12.createDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=someone"));
 		graph12.createDeepContextNode(XDI3Segment.create("=markus+name[<+last>]:")).createLiteral("Sabadello");
 		graph12.createDeepContextNode(XDI3Segment.create("=markus+name+relation")).createRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=rel+test"));
 

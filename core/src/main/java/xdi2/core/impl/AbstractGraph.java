@@ -112,7 +112,7 @@ public abstract class AbstractGraph implements Graph {
 
 	@Override
 	public ContextNode setDeepContextNode(XDI3Segment contextNodeArcXris) {
-		
+
 		return this.getRootContextNode().setDeepContextNode(contextNodeArcXris);
 	}
 
@@ -282,12 +282,12 @@ public abstract class AbstractGraph implements Graph {
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
 
-			Relation relation = baseContextNode.createRelation(statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
+			Relation relation = baseContextNode.setRelation(statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
 
 			return relation.getStatement();
 		} else if (statementXri.isLiteralStatement()) {
 
-			Literal literal = baseContextNode.createLiteral(statementXri.getLiteralData());
+			Literal literal = baseContextNode.setLiteral(statementXri.getLiteralData());
 
 			return literal.getStatement();
 		} else {
