@@ -1,7 +1,5 @@
 package xdi2.core.impl.keyvalue;
 
-import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.impl.AbstractLiteral;
 
@@ -14,9 +12,9 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 
 	private String literalData;
 
-	KeyValueLiteral(Graph graph, ContextNode contextNode, KeyValueStore keyValueStore, String key, String literalData) {
+	KeyValueLiteral(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, String literalData) {
 
-		super(graph, contextNode);
+		super(contextNode);
 
 		this.keyValueStore = keyValueStore;
 		this.key = key;

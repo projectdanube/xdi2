@@ -11,19 +11,17 @@ public abstract class AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = -9055773010138710261L;
 
-	private Graph graph;
 	private ContextNode contextNode;
 
-	public AbstractRelation(Graph graph, ContextNode contextNode) {
+	public AbstractRelation(ContextNode contextNode) {
 
-		this.graph = graph;
 		this.contextNode = contextNode;
 	}
 
 	@Override
 	public Graph getGraph() {
 
-		return this.graph;
+		return this.getContextNode().getGraph();
 	}
 
 	@Override

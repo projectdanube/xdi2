@@ -13,7 +13,6 @@ import xdi2.core.GraphFactory;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.roots.XdiInnerRoot;

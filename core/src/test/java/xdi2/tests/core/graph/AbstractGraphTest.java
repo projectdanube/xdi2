@@ -102,7 +102,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON", null);
 
 		reader.read(graph3, this.getClass().getResourceAsStream("test.json")).close();
-		
+
 		testGraph(graph3);
 
 		graph3.getRootContextNode().clear();
@@ -202,7 +202,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		graph11.close();
 	}
 
-	public void testFindAndDelete() throws Exception {
+	public void testDeleteDeep() throws Exception {
 
 		Graph graph12 = this.openNewGraph(this.getClass().getName() + "-graph-12");
 		assertEquals(graph12.getRootContextNode(), graph12.getDeepContextNode(XDIConstants.XRI_S_CONTEXT));
@@ -230,21 +230,21 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus[<+name>]:")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+name>]")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+name>]:")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name[<+name>]")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]:")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name[<+last>]")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
 
 		graph12.setDeepContextNode(XDI3Segment.create("=markus"));
 
 		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus:")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus:")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus[<+name>]:")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus[<+name>]:")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name+last")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name+last:")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name+last")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]:")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name[<+last>]")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
 
 		graph12.close();
@@ -291,6 +291,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertFalse(root.isEmpty());
 		assertTrue(root.containsContextNodes());
 		assertTrue(root.containsRelations());
+		assertFalse(root.containsLiteral());
 		assertTrue(root.getAllLiterals().hasNext());
 		assertTrue(root.getContextNodes().hasNext());
 		assertTrue(root.getRelations().hasNext());
@@ -503,7 +504,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(graph16.getRootContextNode().getAllRelationCount(), 0);
 		assertEquals(new IteratorCounter(inumber.getRelations()).count(), 0);
 		assertEquals(new IteratorCounter(inumber.getIncomingRelations()).count(), 0);
-		
+
 		assertEquals(graph16.getRootContextNode().getAllContextNodeCount(), 3);
 		assertEquals(graph16.getRootContextNode().getAllRelationCount(), 0);
 		assertEquals(graph16.getRootContextNode().getAllLiteralCount(), 0);
@@ -731,6 +732,95 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		graph22.close();
 		graph23.close();
+	}
+
+	public void testCreate() throws Exception {
+
+		Graph graph24 = this.openNewGraph(this.getClass().getName() + "-graph-24");
+
+		ContextNode root = graph24.getRootContextNode();
+
+		root.createContextNode(XDI3SubSegment.create("+a"));
+		assertNotNull(root.getContextNode(XDI3SubSegment.create("+a")));
+		assertNotNull(root.getDeepContextNode(XDI3Segment.create("+a")));
+		assertNotNull(graph24.getDeepContextNode(XDI3Segment.create("+a")));
+		try { root.createContextNode(XDI3SubSegment.create("+a")); fail(); } catch (Xdi2GraphException ex) { }
+		try { root.createDeepContextNode(XDI3Segment.create("+a")); fail(); } catch (Xdi2GraphException ex) { }
+		try { graph24.createDeepContextNode(XDI3Segment.create("+a")); fail(); } catch (Xdi2GraphException ex) { }
+
+		root.createDeepContextNode(XDI3Segment.create("+a+b"));
+		assertNotNull(root.getContextNode(XDI3SubSegment.create("+a")).getContextNode(XDI3SubSegment.create("+b")));
+		assertNotNull(root.getDeepContextNode(XDI3Segment.create("+a+b")));
+		assertNotNull(graph24.getDeepContextNode(XDI3Segment.create("+a+b")));
+		try { root.createContextNode(XDI3SubSegment.create("+a")); fail(); } catch (Xdi2GraphException ex) { }
+		try { root.createDeepContextNode(XDI3Segment.create("+a")); fail(); } catch (Xdi2GraphException ex) { }
+		try { root.createDeepContextNode(XDI3Segment.create("+a+b")); fail(); } catch (Xdi2GraphException ex) { }
+		try { graph24.createDeepContextNode(XDI3Segment.create("+a")); fail(); } catch (Xdi2GraphException ex) { }
+		try { graph24.createDeepContextNode(XDI3Segment.create("+a+b")); fail(); } catch (Xdi2GraphException ex) { }
+
+		graph24.close();
+	}
+
+	public void testSet() throws Exception {
+
+		Graph graph25 = this.openNewGraph(this.getClass().getName() + "-graph-25");
+
+		ContextNode root = graph25.getRootContextNode();
+
+		root.setContextNode(XDI3SubSegment.create("+a"));
+		assertNotNull(root.getContextNode(XDI3SubSegment.create("+a")));
+		assertNotNull(root.getDeepContextNode(XDI3Segment.create("+a")));
+		assertNotNull(graph25.getDeepContextNode(XDI3Segment.create("+a")));
+		root.setContextNode(XDI3SubSegment.create("+a"));
+		root.setDeepContextNode(XDI3Segment.create("+a"));
+		graph25.setDeepContextNode(XDI3Segment.create("+a"));
+
+		root.setDeepContextNode(XDI3Segment.create("+a+b"));
+		assertNotNull(root.getContextNode(XDI3SubSegment.create("+a")).getContextNode(XDI3SubSegment.create("+b")));
+		assertNotNull(root.getDeepContextNode(XDI3Segment.create("+a+b")));
+		assertNotNull(graph25.getDeepContextNode(XDI3Segment.create("+a+b")));
+		root.setContextNode(XDI3SubSegment.create("+a"));
+		root.setDeepContextNode(XDI3Segment.create("+a"));
+		root.setDeepContextNode(XDI3Segment.create("+a+b"));
+		graph25.setDeepContextNode(XDI3Segment.create("+a"));
+		graph25.setDeepContextNode(XDI3Segment.create("+a+b"));
+
+		graph25.close();
+	}
+
+	public void testDelete() throws Exception {
+
+		Graph graph26 = this.openNewGraph(this.getClass().getName() + "-graph-26");
+
+		ContextNode root = graph26.getRootContextNode();
+
+		root.setContextNode(XDI3SubSegment.create("+a"));
+		assertTrue(root.containsContextNode(XDI3SubSegment.create("+a")));
+		assertNotNull(root.getContextNode(XDI3SubSegment.create("+a")));
+		root.deleteContextNode(XDI3SubSegment.create("+a"));
+		assertFalse(root.containsContextNode(XDI3SubSegment.create("+a")));
+		assertNull(root.getContextNode(XDI3SubSegment.create("+a")));
+
+		root.setRelation(XDI3Segment.create("+a"), XDI3Segment.create("+b"));
+		assertTrue(root.containsRelation(XDI3Segment.create("+a"), XDI3Segment.create("+b")));
+		assertNotNull(root.getRelation(XDI3Segment.create("+a"), XDI3Segment.create("+b")));
+		root.deleteRelation(XDI3Segment.create("+a"), XDI3Segment.create("+b"));
+		assertFalse(root.containsRelation(XDI3Segment.create("+a"), XDI3Segment.create("+b")));
+		assertNull(root.getRelation(XDI3Segment.create("+a"), XDI3Segment.create("+b")));
+
+		root.setDeepContextNode(XDI3Segment.create("[<+a>]:")).setLiteral("a");
+		assertTrue(root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).containsLiteral("a"));
+		assertNotNull(root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).getLiteral("a"));
+		root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).deleteLiteral();
+		assertFalse(root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).containsLiteral("a"));
+		assertNull(root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).getLiteral("a"));
+
+		root.getContextNode(XDI3SubSegment.create("+b")).delete();
+		root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).deleteWhileEmpty();
+
+		assertTrue(root.isEmpty());
+
+		graph26.close();
 	}
 
 	@SuppressWarnings("unused")

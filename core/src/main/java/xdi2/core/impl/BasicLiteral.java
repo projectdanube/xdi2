@@ -1,7 +1,6 @@
 package xdi2.core.impl;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.Literal;
 
 public class BasicLiteral extends AbstractLiteral implements Literal {
@@ -10,16 +9,16 @@ public class BasicLiteral extends AbstractLiteral implements Literal {
 
 	private String literalData;
 
-	public BasicLiteral(Graph graph, ContextNode contextNode, String literalData) {
+	public BasicLiteral(ContextNode contextNode, String literalData) {
 
-		super(graph, contextNode);
+		super(contextNode);
 
 		this.literalData = literalData;
 	}
 
 	public BasicLiteral(String literalData) {
 
-		this(null, null, literalData);
+		this(null, literalData);
 	}
 
 	@Override

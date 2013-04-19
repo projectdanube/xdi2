@@ -1,7 +1,6 @@
 package xdi2.core.impl;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.xri3.XDI3Segment;
 
@@ -12,9 +11,9 @@ public class BasicRelation extends AbstractRelation implements Relation {
 	private XDI3Segment arcXri;
 	private XDI3Segment targetContextNodeXri;
 
-	public BasicRelation(Graph graph, ContextNode contextNode, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public BasicRelation(ContextNode contextNode, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		super(graph, contextNode);
+		super(contextNode);
 
 		this.arcXri = arcXri;
 		this.targetContextNodeXri = targetContextNodeXri;
@@ -22,7 +21,7 @@ public class BasicRelation extends AbstractRelation implements Relation {
 
 	public BasicRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		this(null, null, arcXri, targetContextNodeXri);
+		this(null, arcXri, targetContextNodeXri);
 	}
 
 	@Override

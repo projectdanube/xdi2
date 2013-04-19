@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2GraphException;
@@ -24,22 +23,24 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 	private static final long serialVersionUID = 4930852359817860369L;
 
-	XDI3SubSegment arcXri;
+	private XDI3SubSegment arcXri;
 
 	private Map<XDI3SubSegment, MemoryContextNode> contextNodes;
 	private Map<XDI3Segment, Map<XDI3Segment, MemoryRelation>> relations;
 	private MemoryLiteral literal;
 
-	MemoryContextNode(Graph graph, ContextNode contextNode) {
+	MemoryContextNode(MemoryGraph graph, MemoryContextNode contextNode, XDI3SubSegment arcXri) {
 
 		super(graph, contextNode);
 
-		if (((MemoryGraph) graph).getSortMode() == MemoryGraphFactory.SORTMODE_ALPHA) {
+		this.arcXri = arcXri;
+		
+		if (graph.getSortMode() == MemoryGraphFactory.SORTMODE_ALPHA) {
 
 			this.contextNodes = new TreeMap<XDI3SubSegment, MemoryContextNode> ();
 			this.relations = new TreeMap<XDI3Segment, Map<XDI3Segment, MemoryRelation>> ();
 			this.literal = null;
-		} else if (((MemoryGraph) graph).getSortMode() == MemoryGraphFactory.SORTMODE_ORDER) {
+		} else if (graph.getSortMode() == MemoryGraphFactory.SORTMODE_ORDER) {
 
 			this.contextNodes = new LinkedHashMap<XDI3SubSegment, MemoryContextNode> ();
 			this.relations = new LinkedHashMap<XDI3Segment, Map<XDI3Segment, MemoryRelation>> ();
@@ -62,19 +63,32 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 * Methods related to context nodes of this context node
 	 */
 
-	@Override
-	public synchronized ContextNode createContextNode(XDI3SubSegment arcXri) {
+	private synchronized ContextNode createContextNodeInternal(XDI3SubSegment arcXri) {
 
-		this.checkContextNode(arcXri);
-
-		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
-
-		MemoryContextNode contextNode = new MemoryContextNode(this.getGraph(), this);
-		contextNode.arcXri = arcXri;
+		MemoryContextNode contextNode = new MemoryContextNode((MemoryGraph) this.getGraph(), this, arcXri);
 
 		this.contextNodes.put(arcXri, contextNode);
 
 		return contextNode;
+	}
+
+	@Override
+	public synchronized ContextNode createContextNode(XDI3SubSegment arcXri) {
+
+		this.checkContextNode(arcXri, true);
+
+		return this.createContextNodeInternal(arcXri);
+	}
+
+	@Override
+	public synchronized ContextNode setContextNode(XDI3SubSegment arcXri) {
+
+		this.checkContextNode(arcXri, false);
+
+		ContextNode contextNode = this.getContextNode(arcXri);
+		if (contextNode != null) return contextNode;
+
+		return this.createContextNodeInternal(arcXri);
 	}
 
 	@Override
@@ -109,8 +123,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		ContextNode contextNode = this.getContextNode(arcXri);
 		if (contextNode == null) return;
 
-		for (Iterator<Relation> relations = contextNode.getIncomingRelations(); relations.hasNext(); ) 
-			relations.next().delete();
+		for (Iterator<Relation> relations = contextNode.getIncomingRelations(); relations.hasNext(); ) relations.next().delete();
 
 		// delete this context node
 
@@ -135,12 +148,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 * Methods related to relations of this context node
 	 */
 
-	@Override
-	public synchronized Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
-
-		this.checkRelation(arcXri, targetContextNode);
-
-		if (this.containsRelation(arcXri, targetContextNode.getXri())) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
+	private synchronized Relation createRelationInternal(XDI3Segment arcXri, ContextNode targetContextNode) {
 
 		Map<XDI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
 		if (relations == null) {
@@ -161,10 +169,31 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
 
-		MemoryRelation relation = new MemoryRelation(this.getGraph(), this, arcXri, targetContextNodeXri);
+		MemoryRelation relation = new MemoryRelation(this, arcXri, targetContextNodeXri);
 		relations.put(targetContextNodeXri, relation);
 
 		return relation;
+	}
+
+	@Override
+	public synchronized Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
+
+		this.checkRelation(arcXri, targetContextNode, true);
+
+		if (this.containsRelation(arcXri, targetContextNode.getXri())) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
+
+		return this.createRelationInternal(arcXri, targetContextNode);
+	}
+
+	@Override
+	public synchronized Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
+
+		this.checkRelation(arcXri, targetContextNode, false);
+
+		Relation relation = this.getRelation(arcXri, targetContextNode.getXri());
+		if (relation != null) return relation;
+
+		return this.createRelationInternal(arcXri, targetContextNode);
 	}
 
 	@Override
@@ -251,17 +280,36 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 * Methods related to literals of this context node
 	 */
 
-	@Override
-	public synchronized Literal createLiteral(String literalData) {
+	private synchronized Literal createLiteralInternal(String literalData) {
 
-		this.checkLiteral(literalData);
-
-		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
-
-		MemoryLiteral literal = new MemoryLiteral(this.getGraph(), this, literalData);
+		MemoryLiteral literal = new MemoryLiteral(this, literalData);
 		this.literal = literal;
 
 		return literal;
+	}
+
+	@Override
+	public synchronized Literal createLiteral(String literalData) {
+
+		this.checkLiteral(literalData, true);
+
+		return this.createLiteralInternal(literalData);
+	}
+
+	@Override
+	public synchronized Literal setLiteral(String literalData) {
+
+		this.checkLiteral(literalData, false);
+
+		Literal literal = this.getLiteral();
+
+		if (literal != null) {
+
+			literal.setLiteralData(literalData);
+			return literal;
+		}
+
+		return this.createLiteralInternal(literalData);
 	}
 
 	@Override

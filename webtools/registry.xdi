@@ -7,6 +7,7 @@
 [$do][$if][$and]/$true/({$msg}[$secret][<$token>]:/$equals/[$secret][<$token>]:)
 =danube/$ref/=!BDF3.1FB.E70C.3958
 [$do]/$all/()
+[$do][$if][$and]/$true/([$do][$if][$and]/$true)
 =!BDF3.1FB.E70C.3958!1111[$secret][<$token>]:/:/"xmarkus"
 =!BDF3.1FB.E70C.3958!2222[$secret][<$token>]:/:/"xanimesh"
 [$secret][<$token>]:/:/"s3cret"

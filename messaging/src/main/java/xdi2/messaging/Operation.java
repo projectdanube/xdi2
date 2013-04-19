@@ -160,7 +160,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 		if (innerRoot != null) {
 
-			return innerRoot.getRelativeStatements(false);
+			return innerRoot.getRelativeStatements(true);
 		} else {
 
 			return null;

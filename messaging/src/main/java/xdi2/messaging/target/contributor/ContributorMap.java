@@ -166,7 +166,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 	public boolean executeContributorsStatement(XDI3Segment contributorXris[], XDI3Statement relativeTargetStatement, XDI3Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (relativeTargetStatement == null) return false;
-		
+
 		// find an address with contributors
 
 		XDI3Segment relativeContextNodeXri = relativeTargetStatement.getContextNodeXri();
@@ -224,6 +224,8 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 	public XDI3Segment findHigherContributorXri(XDI3Segment contextNodeXri) {
 
+		if (this.isEmpty()) return null;
+
 		for (XDI3Segment contributorXri : this.keySet()) {
 
 			if (XDI3Util.startsWith(contextNodeXri, contributorXri, false, true)) {
@@ -240,6 +242,8 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 	}
 
 	public XDI3Segment findLowerContributorXri(XDI3Segment contextNodeXri) {
+
+		if (this.isEmpty()) return null;
 
 		for (XDI3Segment contributorXri : this.keySet()) {
 

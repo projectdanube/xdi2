@@ -10,9 +10,9 @@ public class WrappedLiteral extends AbstractLiteral implements Literal {
 
 	private MemoryLiteral memoryLiteral;
 
-	WrappedLiteral(WrappedGraph graph, WrappedContextNode contextNode, MemoryLiteral memoryLiteral) {
+	WrappedLiteral(WrappedContextNode contextNode, MemoryLiteral memoryLiteral) {
 
-		super(graph, contextNode);
+		super(contextNode);
 
 		this.memoryLiteral = memoryLiteral;
 	}

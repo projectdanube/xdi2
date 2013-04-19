@@ -94,7 +94,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 
 		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.createRelation(arcXri, targetContextNode);
 
-		return new WrappedRelation((WrappedGraph) this.getGraph(), this, ret);
+		return new WrappedRelation(this, ret);
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 
 		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.getRelation(arcXri, targetContextNodeXri);
 
-		return ret == null ? null : new WrappedRelation((WrappedGraph) this.getGraph(), this, ret);
+		return ret == null ? null : new WrappedRelation(this, ret);
 	}
 
 	@Override
@@ -166,7 +166,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 
 		MemoryLiteral ret = (MemoryLiteral) this.memoryContextNode.createLiteral(literalData);
 
-		return ret == null ? null : new WrappedLiteral((WrappedGraph) this.getGraph(), this, ret);
+		return ret == null ? null : new WrappedLiteral(this, ret);
 	}
 
 	@Override
@@ -174,7 +174,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 
 		MemoryLiteral ret = (MemoryLiteral) this.memoryContextNode.getLiteral();
 
-		return ret == null ? null : new WrappedLiteral((WrappedGraph) this.getGraph(), this, ret);
+		return ret == null ? null : new WrappedLiteral(this, ret);
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 		@Override
 		public Relation map(Relation memoryRelation) {
 
-			return new WrappedRelation((WrappedGraph) WrappedContextNode.this.getGraph(), WrappedContextNode.this, (MemoryRelation) memoryRelation);
+			return new WrappedRelation(WrappedContextNode.this, (MemoryRelation) memoryRelation);
 		}
 	}
 }

@@ -135,8 +135,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to context nodes of this context node
 	 */
 
-	@Override
-	public abstract ContextNode createContextNode(XDI3SubSegment contextNodeArcXri);
+//	public ContextNode createContextNode(XDI3SubSegment contextNodeArcXri);
 
 	@Override
 	public ContextNode createDeepContextNode(XDI3Segment contextNodeArcXris) {
@@ -193,6 +192,8 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new IteratorFirstItem<ContextNode> (selectingIterator).item();
 	}
 
+//	public ReadOnlyIterator<ContextNode> getContextNodes();
+	
 	@Override
 	public ContextNode getDeepContextNode(XDI3Segment contextNodeArcXris) {
 
@@ -210,8 +211,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode;
 	}
 
-	@Override
-	public abstract ReadOnlyIterator<ContextNode> getContextNodes();
+//	public ReadOnlyIterator<ContextNode> getContextNodes();
 
 	@Override
 	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDI3Segment contextNodeArcXris) {
@@ -267,6 +267,12 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	public void deleteContextNodes() {
+
+		for (ContextNode contextNode : this.getContextNodes()) contextNode.delete();
+	}
+
+	@Override
 	public int getContextNodeCount() {
 
 		return new IteratorCounter(this.getContextNodes()).count();
@@ -299,8 +305,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode.createRelation(arcXri, targetContextNodeXri);
 	}
 
-	@Override
-	public abstract Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode);
+//	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode);
 
 	@Override
 	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode) {
@@ -411,8 +416,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode.getRelations(arcXri);
 	}
 
-	@Override
-	public abstract ReadOnlyIterator<Relation> getRelations();
+//	public ReadOnlyIterator<Relation> getRelations();
 
 	@Override
 	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris) {
@@ -489,6 +493,17 @@ public abstract class AbstractContextNode implements ContextNode {
 		return this.getRelationCount() > 0;
 	}
 
+	@Override
+	public void deleteRelations(XDI3Segment arcXri) {
+
+		for (Relation relation : this.getRelations(arcXri)) relation.delete();
+	}
+
+	@Override
+	public void deleteRelations() {
+
+		for (Relation relation : this.getRelations()) relation.delete();
+	}
 
 	@Override
 	public int getRelationCount(XDI3Segment arcXri) {
@@ -512,8 +527,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to literals of this context node
 	 */
 
-	@Override
-	public abstract Literal createLiteral(String literalData);
+//	public Literal createLiteral(String literalData);
 
 	@Override
 	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, String literalData) {
@@ -569,8 +583,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode.getLiteral(literalData);
 	}
 
-	@Override
-	public abstract Literal getLiteral();
+//	public Literal getLiteral();
 
 	@Override
 	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris) {
@@ -696,14 +709,15 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	/**
 	 * Checks if a context node can be created.
-	 * Returns false, if the context node must not be created.
-	 * Throws an exception, if the context node is invalid.
+	 * Throws an exception, if the context node cannot be created.
 	 */
-	protected void checkContextNode(XDI3SubSegment arcXri) throws Xdi2GraphException {
+	protected void checkContextNode(XDI3SubSegment arcXri, boolean checkExists) throws Xdi2GraphException {
 
 		if (arcXri == null) throw new NullPointerException();
 
 		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid context node arc XRI: " + arcXri);
+
+		if (checkExists && this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 
 		ContextNode tempContextNode = new BasicContextNode(this.getGraph(), this, arcXri, null, null, null);
 
@@ -715,13 +729,14 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	/**
 	 * Checks if a relation can be created.
-	 * Returns false, if the relation must not be created.
-	 * Throws an exception, if the relation is invalid.
+	 * Throws an exception, if the relation cannot be created.
 	 */
-	protected void checkRelation(XDI3Segment arcXri, ContextNode targetContextNode) throws Xdi2GraphException {
+	protected void checkRelation(XDI3Segment arcXri, ContextNode targetContextNode, boolean checkExists) throws Xdi2GraphException {
 
 		if (arcXri == null) throw new NullPointerException();
 		if (targetContextNode == null) throw new NullPointerException();
+
+		if (checkExists && this.containsRelation(arcXri, targetContextNode.getXri())) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
 
 		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
 		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
@@ -729,12 +744,13 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	/**
 	 * Checks if a literal can be created.
-	 * Returns false, if the literal must not be created.
-	 * Throws an exception, if the literal is invalid.
+	 * Throws an exception, if the literal cannot be created.
 	 */
-	protected void checkLiteral(String literalData) throws Xdi2GraphException {
+	protected void checkLiteral(String literalData, boolean checkExists) throws Xdi2GraphException {
 
 		if (literalData == null) throw new NullPointerException();
+
+		if (checkExists && this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
 
 		if (! XdiValue.isValid(this)) throw new Xdi2GraphException("Can only create a literal in a value context.");
 	}

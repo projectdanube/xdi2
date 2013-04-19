@@ -11,9 +11,9 @@ public class WrappedRelation extends AbstractRelation implements Relation {
 
 	private MemoryRelation memoryRelation;
 
-	WrappedRelation(WrappedGraph graph, WrappedContextNode contextNode, MemoryRelation memoryRelation) {
+	WrappedRelation(WrappedContextNode contextNode, MemoryRelation memoryRelation) {
 
-		super(graph, contextNode);
+		super(contextNode);
 
 		this.memoryRelation = memoryRelation;
 	}

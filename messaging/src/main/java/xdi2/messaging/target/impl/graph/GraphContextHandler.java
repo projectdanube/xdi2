@@ -66,6 +66,18 @@ public class GraphContextHandler extends AbstractContextHandler {
 	}
 
 	@Override
+	public void addContext(XDI3Segment contextNodeXri, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		this.getGraph().createDeepContextNode(contextNodeXri);
+	}
+
+	@Override
+	public void setContext(XDI3Segment contextNodeXri, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		this.getGraph().setDeepContextNode(contextNodeXri);
+	}
+
+	@Override
 	public void delContext(XDI3Segment contextNodeXri, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri);

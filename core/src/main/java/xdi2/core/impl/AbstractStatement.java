@@ -39,9 +39,7 @@ public abstract class AbstractStatement implements Statement {
 			Relation relation = ((RelationStatement) this).getRelation();
 			if (relation == null) return false;
 
-			if (! XdiInnerRoot.isValid(relation.follow())) return false;
-
-			if (! relation.follow().isEmpty()) return true;
+			if (XdiInnerRoot.isValid(relation.follow()) && ! relation.follow().isEmpty()) return true;
 		}
 
 		return false;

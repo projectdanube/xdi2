@@ -1,7 +1,5 @@
 package xdi2.core.impl.memory;
 
-import xdi2.core.ContextNode;
-import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractRelation;
 import xdi2.core.xri3.XDI3Segment;
@@ -13,9 +11,9 @@ public class MemoryRelation extends AbstractRelation implements Relation {
 	private XDI3Segment arcXri;
 	private XDI3Segment targetContextNodeXri;
 
-	MemoryRelation(Graph graph, ContextNode contextNode, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	MemoryRelation(MemoryContextNode contextNode, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		super(graph, contextNode);
+		super(contextNode);
 
 		this.arcXri = arcXri;
 		this.targetContextNodeXri = targetContextNodeXri;
