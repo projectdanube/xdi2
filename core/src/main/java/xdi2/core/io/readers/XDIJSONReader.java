@@ -27,10 +27,11 @@ import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.parser.aparse.ParserException;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 public class XDIJSONReader extends AbstractXDIReader {
 
@@ -42,6 +43,8 @@ public class XDIJSONReader extends AbstractXDIReader {
 	public static final String FILE_EXTENSION = "json";
 	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
 
+	private static final JsonParser jsonParser = new JsonParser();
+
 	public XDIJSONReader(Properties parameters) {
 
 		super(parameters);
@@ -52,14 +55,14 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	}
 
-	public void read(XdiRoot root, JSONObject graphObject, State state) throws IOException, Xdi2ParseException, JSONException {
+	public void read(XdiRoot root, JsonObject jsonGraphObject, State state) throws IOException, Xdi2ParseException {
 
-		for (Entry<String, Object> entry : graphObject.entrySet()) {
+		for (Entry<String, JsonElement> entry : jsonGraphObject.entrySet()) {
 
-			if (! (entry.getValue() instanceof JSONArray)) throw new Xdi2ParseException("Value for key '" + entry.getKey() + "' must be a JSON array");
+			if (! (entry.getValue() instanceof JsonArray)) throw new Xdi2ParseException("Object member '" + entry.getKey() + "' must be a JSON array");
 
 			String key = entry.getKey();
-			JSONArray value = (JSONArray) entry.getValue();
+			JsonArray jsonEntryArray = (JsonArray) entry.getValue();
 
 			if (key.endsWith("/" + XDIConstants.XRI_S_CONTEXT.toString())) {
 
@@ -74,9 +77,11 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add context nodes
 
-				for (int i=0; i<value.size(); i++) {
+				for (JsonElement jsonEntryElement : jsonEntryArray) {
 
-					XDI3SubSegment arcXri = makeXDI3SubSegment(value.getString(i), state);
+					if (! (jsonEntryElement instanceof JsonPrimitive) || ! ((JsonPrimitive) jsonEntryElement).isString()) throw new Xdi2ParseException("Array element must be a string: " + jsonEntryElement);
+
+					XDI3SubSegment arcXri = makeXDI3SubSegment(((JsonPrimitive) jsonEntryElement).getAsString(), state);
 
 					ContextNode contextNode = baseContextNode.setContextNode(arcXri);
 					if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Set context node " + contextNode.getArcXri() + " --> " + contextNode.getXri());
@@ -94,9 +99,12 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add literal
 
-				if (value.size() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
+				if (jsonEntryArray.size() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
 
-				String literalData = value.getString(0);
+				JsonElement jsonEntryElement = jsonEntryArray.get(0);
+				if (! (jsonEntryElement instanceof JsonPrimitive) || ! ((JsonPrimitive) jsonEntryElement).isString()) throw new Xdi2ParseException("Array element must be a string: " + jsonEntryElement);
+
+				String literalData = ((JsonPrimitive) jsonEntryElement).getAsString();
 
 				Literal literal = baseContextNode.setLiteral(literalData);
 				if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Set literal --> " + literal.getLiteralData());
@@ -115,23 +123,11 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				XDI3Segment arcXri = statementXri.getPredicate();
 
-				for (int i=0; i<value.size(); i++) {
-
-					// inner root?
-
-					JSONObject jsonObjectInnerRoot;
-
-					try {
-
-						jsonObjectInnerRoot = value.getJSONObject(i);
-					} catch (ClassCastException ex) {
-
-						jsonObjectInnerRoot = null;
-					}
+				for (JsonElement jsonEntryElement : jsonEntryArray) {
 
 					// inner root or relation?
 
-					if (jsonObjectInnerRoot != null) {
+					if (jsonEntryElement instanceof JsonObject) {
 
 						root = root.findRoot(statementXri.getSubject(), true);
 
@@ -140,31 +136,30 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 						XdiInnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
 
-						this.read(innerRoot, jsonObjectInnerRoot, state);
-					} else {
+						this.read(innerRoot, (JsonObject) jsonEntryElement, state);
+					} else if (jsonEntryElement instanceof JsonPrimitive && ((JsonPrimitive) jsonEntryElement).isString()) {
 
-						XDI3Segment targetContextNodeXri = makeXDI3Segment(value.getString(i), state);
+						XDI3Segment targetContextNodeXri = makeXDI3Segment(((JsonPrimitive) jsonEntryElement).getAsString(), state);
 						targetContextNodeXri = XDI3Util.expandXri(targetContextNodeXri, root.getContextNode().getXri());
 
 						Relation relation = baseContextNode.setRelation(arcXri, targetContextNodeXri);
 						if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Set relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
+					} else {
+
+						throw new Xdi2ParseException("Array element must be either an object or a string: " + jsonEntryElement);
 					}
 				}
 			}
 		}
 	}
 
-	private void read(Graph graph, BufferedReader bufferedReader, State state) throws IOException, Xdi2ParseException, JSONException {
+	private void read(Graph graph, BufferedReader bufferedReader, State state) throws IOException, Xdi2ParseException {
 
-		String line;
-		StringBuilder graphString = new StringBuilder();
+		JsonElement jsonGraphElement = jsonParser.parse(bufferedReader);
 
-		while ((line = bufferedReader.readLine()) != null) {
+		if (! (jsonGraphElement instanceof JsonObject)) throw new Xdi2ParseException("JSON must be an object: " + jsonGraphElement);
 
-			graphString.append(line + "\n");
-		}
-
-		this.read(XdiLocalRoot.findLocalRoot(graph), JSON.parseObject(graphString.toString()), state);
+		this.read(XdiLocalRoot.findLocalRoot(graph), (JsonObject) jsonGraphElement, state);
 	}
 
 	@Override
@@ -175,9 +170,6 @@ public class XDIJSONReader extends AbstractXDIReader {
 		try {
 
 			this.read(graph, new BufferedReader(reader), state);
-		} catch (JSONException ex) {
-
-			throw new Xdi2ParseException("JSON parse error: " + ex.getMessage(), ex);
 		} catch (Xdi2GraphException ex) {
 
 			throw new Xdi2ParseException("Graph problem: " + ex.getMessage(), ex);

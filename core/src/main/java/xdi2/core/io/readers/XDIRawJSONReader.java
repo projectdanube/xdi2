@@ -31,10 +31,12 @@ import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 public class XDIRawJSONReader extends AbstractXDIReader {
 
@@ -51,6 +53,9 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 	public static final XDI3Segment XRI_DATATYPE_JSON_FALSE = XDI3Segment.create("+$json$false");
 	public static final XDI3Segment XRI_DATATYPE_JSON_NULL = XDI3Segment.create("+$json$null");
 
+	private static final Gson gson = new Gson();
+	private static final JsonParser jsonParser = new JsonParser();
+
 	public XDIRawJSONReader(Properties parameters) {
 
 		super(parameters);
@@ -61,25 +66,25 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	}
 
-	private static void readJSONObject(XdiSubGraph xdiSubGraph, JSONObject jsonObject) throws JSONException {
+	private static void readJsonObject(XdiSubGraph xdiSubGraph, JsonObject jsonObject) {
 
-		for (Entry<String, Object> entry : jsonObject.entrySet()) {
+		for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
 
 			String key = entry.getKey();
-			Object value = entry.getValue();
+			JsonElement jsonElement = entry.getValue();
 
-			if (value instanceof JSONObject) {
+			if (jsonElement instanceof JsonObject) {
 
 				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
 				XdiEntitySingleton xdiEntitySingleton = xdiSubGraph.getXdiEntitySingleton(arcXri, true);
-				readJSONObject(xdiEntitySingleton, (JSONObject) value);
-			} else if (value instanceof JSONArray) {
+				readJsonObject(xdiEntitySingleton, (JsonObject) jsonElement);
+			} else if (jsonElement instanceof JsonArray) {
 
 				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
-				readJSONArray(xdiSubGraph, arcXri, (JSONArray) value);
-			} else {
+				readJsonArray(xdiSubGraph, arcXri, (JsonArray) jsonElement);
+			} else if (jsonElement instanceof JsonPrimitive && ((JsonPrimitive) jsonElement).isString()){
 
 				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
@@ -87,24 +92,24 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 
-				xdiValue.getContextNode().createLiteral(value.toString());
+				xdiValue.getContextNode().createLiteral(((JsonPrimitive) jsonElement).getAsString());
 			}
 		}
 	}
 
-	private static void readJSONArray(XdiSubGraph xdiSubGraph, XDI3SubSegment arcXri, JSONArray jsonArray) throws JSONException {
+	private static void readJsonArray(XdiSubGraph xdiSubGraph, XDI3SubSegment arcXri, JsonArray jsonArray) {
 
-		for (Object value : jsonArray) {
+		for (JsonElement jsonElement : jsonArray) {
 
-			XDI3SubSegment jsonContentId = jsonContentId(value);
+			XDI3SubSegment jsonContentId = jsonContentId(jsonElement);
 
-			if (value instanceof JSONObject) {
+			if (jsonElement instanceof JsonObject) {
 
 				XdiEntityClass xdiEntityClass = xdiSubGraph.getXdiEntityClass(arcXri, true);
 
 				XdiEntityInstanceUnordered xdiEntityInstance = xdiEntityClass.setXdiInstanceUnordered(jsonContentId);
-				readJSONObject(xdiEntityInstance, (JSONObject) value);
-			} else if (value instanceof JSONArray) {
+				readJsonObject(xdiEntityInstance, (JsonObject) jsonElement);
+			} else if (jsonElement instanceof JsonArray) {
 
 				throw new RuntimeException("Nested JSON arrays not supported in XDI mapping.");
 			} else {
@@ -115,16 +120,16 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiValue xdiValue = xdiAttributeInstance.getXdiValue(true);
 
-				xdiValue.getContextNode().createLiteral(value.toString());
+				xdiValue.getContextNode().createLiteral(jsonElement.toString());
 			}
 		}
 	}
 
-	private static XDI3SubSegment jsonContentId(Object object) {
+	private static XDI3SubSegment jsonContentId(JsonElement jsonElement) {
 
 		try {
 
-			String canonicalJson = JSON.toJSONString(object);
+			String canonicalJson = gson.toJson(jsonElement);
 			if (log.isDebugEnabled()) log.debug("canonical JSON: " + canonicalJson);
 
 			MessageDigest digest;
@@ -142,22 +147,18 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 		}
 	}
 
-	public void read(Graph graph, JSONObject graphObject) throws IOException, Xdi2ParseException, JSONException {
+	public void read(Graph graph, JsonObject graphObject) throws IOException, Xdi2ParseException {
 
-		readJSONObject(XdiAbstractSubGraph.fromContextNode(graph.getRootContextNode()), graphObject);
+		readJsonObject(XdiAbstractSubGraph.fromContextNode(graph.getRootContextNode()), graphObject);
 	}
 
-	private void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException, JSONException {
+	private void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException {
 
-		String line;
-		StringBuilder graphString = new StringBuilder();
+		JsonElement jsonRootElement = jsonParser.parse(bufferedReader);
 
-		while ((line = bufferedReader.readLine()) != null) {
+		if (! (jsonRootElement instanceof JsonObject)) throw new Xdi2ParseException("JSON must be an object: " + jsonRootElement);
 
-			graphString.append(line + "\n");
-		}
-
-		this.read(graph, JSON.parseObject(graphString.toString()));
+		this.read(graph, (JsonObject) jsonRootElement);
 	}
 
 	@Override
@@ -166,9 +167,6 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 		try {
 
 			this.read(graph, new BufferedReader(reader));
-		} catch (JSONException ex) {
-
-			throw new Xdi2ParseException("JSON parse error: " + ex.getMessage(), ex);
 		} catch (Xdi2GraphException ex) {
 
 			throw new Xdi2ParseException("Graph problem: " + ex.getMessage(), ex);

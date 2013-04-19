@@ -62,8 +62,8 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 
 		if (arcXri == null) return false;
 
-		if (arcXri.isSingleton()) return false;
-		if (arcXri.isAttribute()) return false;
+		if (arcXri.isClassXs()) return false;
+		if (arcXri.isAttributeXs()) return false;
 		if (arcXri.hasXRef()) return false;
 
 		if (! XDI3Constants.CS_STAR.equals(arcXri.getCs()) && ! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;

@@ -26,7 +26,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 
 	private static final XDIReader autoReader = XDIReaderRegistry.getAuto();
 
-	protected abstract Graph openNewGraph(String id) throws IOException;
+	protected abstract Graph openNewGraph(String identifier) throws IOException;
 
 	public void testMessageEnvelope() throws Exception {
 

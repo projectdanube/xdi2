@@ -26,7 +26,7 @@ public final class XDI3Util {
 	 */
 	public static XDI3SubSegment randomUuidSubSegment(Character cs) {
 
-		return XDI3SubSegment.create("" + cs + ".uuid." + UUID.randomUUID().toString());
+		return XDI3SubSegment.create("" + cs + ":uuid:" + UUID.randomUUID().toString());
 	}
 
 	/**

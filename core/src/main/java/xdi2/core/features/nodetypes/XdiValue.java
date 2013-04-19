@@ -66,8 +66,8 @@ public final class XdiValue extends XdiAbstractSubGraph {
 
 		if (arcXri == null) return false;
 
-		if (arcXri.isSingleton()) return false;
-		if (arcXri.isAttribute()) return false;
+		if (arcXri.isClassXs()) return false;
+		if (arcXri.isAttributeXs()) return false;
 		if (arcXri.hasLiteral()) return false;
 		if (arcXri.hasXRef()) return false;
 

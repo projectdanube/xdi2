@@ -159,8 +159,8 @@ public final class VariableUtil {
 				continue;
 			}
 
-			if (variableSubSegment.isSingleton() && ! subSegment.isSingleton()) continue;
-			if (variableSubSegment.isAttribute() && ! subSegment.isAttribute()) continue;
+			if (variableSubSegment.isClassXs() && ! subSegment.isClassXs()) continue;
+			if (variableSubSegment.isAttributeXs() && ! subSegment.isAttributeXs()) continue;
 
 			if (variableSubSegment.getCs().equals(subSegment.getCs())) {
 

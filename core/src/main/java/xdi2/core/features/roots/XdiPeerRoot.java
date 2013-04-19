@@ -94,8 +94,8 @@ public final class XdiPeerRoot extends XdiRoot {
 		if (arcXri == null) return null;
 
 		if (arcXri.hasCs()) return null;
-		if (arcXri.isSingleton()) return null;
-		if (arcXri.isAttribute()) return null;
+		if (arcXri.isClassXs()) return null;
+		if (arcXri.isAttributeXs()) return null;
 		if (! arcXri.hasXRef()) return null;
 
 		XDI3XRef xref = arcXri.getXRef();

@@ -51,8 +51,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		Graph graph0 = this.openNewGraph(this.getClass().getName() + "-graph-0");
 
 		ContextNode markus = graph0.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
-		ContextNode email = markus.createContextNode(XDI3SubSegment.create("[<+email>]"));
-		ContextNode value = email.createContextNode(XDI3SubSegment.create(":"));
+		ContextNode email = markus.createContextNode(XDI3SubSegment.create("<+email>"));
+		ContextNode value = email.createContextNode(XDI3SubSegment.create("&"));
 		value.createLiteral("abc@gmail.com");
 		markus.createRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=drummond"));
 
@@ -101,7 +101,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON", null);
 
-		reader.read(graph3, this.getClass().getResourceAsStream("test.json")).close();
+		reader.read(graph3, AbstractGraphTest.class.getResourceAsStream("test.json")).close();
 
 		testGraph(graph3);
 
@@ -208,43 +208,43 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(graph12.getRootContextNode(), graph12.getDeepContextNode(XDIConstants.XRI_S_CONTEXT));
 		assertEquals(graph12.getRootContextNode().getXri(), XDIConstants.XRI_S_CONTEXT);
 
-		graph12.createDeepContextNode(XDI3Segment.create("=markus[<+name>]:")).createLiteral("Markus");
+		graph12.createDeepContextNode(XDI3Segment.create("=markus<+name>&")).createLiteral("Markus");
 		graph12.createDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=someone"));
-		graph12.createDeepContextNode(XDI3Segment.create("=markus+name[<+last>]:")).createLiteral("Sabadello");
+		graph12.createDeepContextNode(XDI3Segment.create("=markus+name<+last>&")).createLiteral("Sabadello");
 		graph12.createDeepContextNode(XDI3Segment.create("=markus+name+relation")).createRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=rel+test"));
 
 		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus[<+name>]:")));
-		assertNotNull(graph12.getDeepLiteral(XDI3Segment.create("=markus[<+name>]:")));
+		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus<+name>&")));
+		assertNotNull(graph12.getDeepLiteral(XDI3Segment.create("=markus<+name>&")));
 		assertNotNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
 		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]:")));
-		assertNotNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name[<+last>]:")));
+		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
+		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
+		assertNotNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>&")));
 		assertNotNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
 
 		graph12.getDeepContextNode(XDI3Segment.create("=markus")).delete();
 
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus[<+name>]:")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus[<+name>]:")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus<+name>&")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus<+name>&")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]:")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name[<+last>]")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
 
 		graph12.setDeepContextNode(XDI3Segment.create("=markus"));
 
 		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus[<+name>]:")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus[<+name>]:")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus<+name>&")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus<+name>&")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name[<+last>]:")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name[<+last>]")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
 
 		graph12.close();
@@ -272,7 +272,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(root.getRelationCount(), 0);
 
 		root.createRelation(XDI3Segment.create("*arc"), XDI3Segment.create("=target"));
-		root.createContextNode(XDI3SubSegment.create("[<+test>]")).createContextNode(XDI3SubSegment.create(":")).createLiteral("test");
+		root.createContextNode(XDI3SubSegment.create("<+test>")).createContextNode(XDI3SubSegment.create("&")).createLiteral("test");
 
 		assertFalse(root.isEmpty());
 		assertTrue(root.containsContextNodes());
@@ -404,7 +404,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode b = c.getContextNode();
 		ContextNode a = b.getContextNode();
 
-		ContextNode value = c.createDeepContextNode(XDI3Segment.create("[<$t>]:"));
+		ContextNode value = c.createDeepContextNode(XDI3Segment.create("<$t>&"));
 		ContextNode d = value.getContextNode();
 
 		Relation r = c.createRelation(XDI3Segment.create("+x+y"), b);
@@ -422,23 +422,23 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(a.getXri(), XDI3Segment.create("+a"));
 		assertEquals(b.getXri(), XDI3Segment.create("+a+b"));
 		assertEquals(c.getXri(), XDI3Segment.create("+a+b+c"));
-		assertEquals(d.getXri(), XDI3Segment.create("+a+b+c[<$t>]"));
-		assertEquals(value.getXri(), XDI3Segment.create("+a+b+c[<$t>]:"));
+		assertEquals(d.getXri(), XDI3Segment.create("+a+b+c<$t>"));
+		assertEquals(value.getXri(), XDI3Segment.create("+a+b+c<$t>&"));
 		assertEquals(a.getArcXri(), XDI3Segment.create("+a"));
 		assertEquals(b.getArcXri(), XDI3Segment.create("+b"));
 		assertEquals(c.getArcXri(), XDI3Segment.create("+c"));
-		assertEquals(d.getArcXri(), XDI3Segment.create("[<$t>]"));
-		assertEquals(value.getArcXri(), XDI3Segment.create(":"));
+		assertEquals(d.getArcXri(), XDI3Segment.create("<$t>"));
+		assertEquals(value.getArcXri(), XDI3Segment.create("&"));
 
-		assertEquals(graph15.getDeepContextNode(XDI3Segment.create("+a+b+c[<$t>]")), d);
-		assertEquals(a.getDeepContextNode(XDI3Segment.create("+b+c[<$t>]")), d);
-		assertEquals(b.getDeepContextNode(XDI3Segment.create("+c[<$t>]")), d);
+		assertEquals(graph15.getDeepContextNode(XDI3Segment.create("+a+b+c<$t>")), d);
+		assertEquals(a.getDeepContextNode(XDI3Segment.create("+b+c<$t>")), d);
+		assertEquals(b.getDeepContextNode(XDI3Segment.create("+c<$t>")), d);
 		assertEquals(graph15.getDeepRelation(XDI3Segment.create("+a+b+c"), XDI3Segment.create("+x+y")), r);
 		assertEquals(a.getDeepRelation(XDI3Segment.create("+b+c"), XDI3Segment.create("+x+y")), r);
 		assertEquals(b.getDeepRelation(XDI3Segment.create("+c"), XDI3Segment.create("+x+y")), r);
-		assertEquals(graph15.getDeepLiteral(XDI3Segment.create("+a+b+c[<$t>]:")), l);
-		assertEquals(a.getDeepLiteral(XDI3Segment.create("+b+c[<$t>]:")), l);
-		assertEquals(b.getDeepLiteral(XDI3Segment.create("+c[<$t>]:")), l);
+		assertEquals(graph15.getDeepLiteral(XDI3Segment.create("+a+b+c<$t>&")), l);
+		assertEquals(a.getDeepLiteral(XDI3Segment.create("+b+c<$t>&")), l);
+		assertEquals(b.getDeepLiteral(XDI3Segment.create("+c<$t>&")), l);
 
 		graph15.close();
 	}
@@ -517,7 +517,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		Graph graph17 = this.openNewGraph(this.getClass().getName() + "-graph-17");
 
-		graph17.createStatement(XDI3Statement.create("=markus[<+email>]:/:/\"Markus Sabadello\""));
+		graph17.createStatement(XDI3Statement.create("=markus<+email>&/&/\"Markus Sabadello\""));
 		graph17.createStatement(XDI3Statement.create("=markus/+friend/=neustar*les"));
 
 		ContextNode root = graph17.getRootContextNode();
@@ -535,11 +535,11 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		Graph graph18 = this.openNewGraph(this.getClass().getName() + "-graph-18");
 
-		graph18.createStatement(XDI3Statement.create("=markus[<+email>]:/:/\"Markus Sabadello\""));
+		graph18.createStatement(XDI3Statement.create("=markus<+email>&/&/\"Markus Sabadello\""));
 		graph18.createStatement(XDI3Statement.create("=markus/+friend/=neustar*les"));
 
 		ContextNode markus = graph18.getDeepContextNode(XDI3Segment.create("=markus"));
-		ContextNode value = markus.getDeepContextNode(XDI3Segment.create("[<+email>]:"));
+		ContextNode value = markus.getDeepContextNode(XDI3Segment.create("<+email>&"));
 
 		graph18.beginTransaction();
 
@@ -643,7 +643,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		try {
 
-			markus.createRelation(XDI3Segment.create(":"), XDI3Segment.create("=animesh"));
+			markus.createRelation(XDI3Segment.create("&"), XDI3Segment.create("=animesh"));
 			fail();
 		} catch (Xdi2GraphException ex){
 
@@ -659,7 +659,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode webmarkus = graph21.setDeepContextNode(XDI3Segment.create("=web*markus"));
 		ContextNode animesh = graph21.setDeepContextNode(XDI3Segment.create("=animesh"));
 		Relation friend = webmarkus.createRelation(XDI3Segment.create("+friend"), animesh);
-		ContextNode value = webmarkus.createContextNode(XDI3SubSegment.create("[<+name>]")).createContextNode(XDI3SubSegment.create(":"));
+		ContextNode value = webmarkus.createContextNode(XDI3SubSegment.create("<+name>")).createContextNode(XDI3SubSegment.create("&"));
 		Literal name = value.createLiteral("Markus Sabadello");
 		ContextNode web = webmarkus.getContextNode();
 
@@ -680,29 +680,29 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		ContextNodeStatement statement22_1 = (ContextNodeStatement) graph22.createStatement(XDI3Statement.create("=neustar/()/*les"));
 		RelationStatement statement22_2 = (RelationStatement) graph22.createStatement(XDI3Statement.create("=markus/+friend/=neustar*les"));
-		LiteralStatement statement22_3 = (LiteralStatement) graph22.createStatement(XDI3Statement.create("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\""));
+		LiteralStatement statement22_3 = (LiteralStatement) graph22.createStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\""));
 
 		assertNotNull(graph22.getDeepContextNode(XDI3Segment.create("=markus")));
 		assertNotNull(graph22.getDeepContextNode(XDI3Segment.create("=neustar")));
 		assertNotNull(graph22.getDeepContextNode(XDI3Segment.create("=neustar*les")));
 		assertNotNull(graph22.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
 		assertNotNull(graph22.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=neustar*les")));
-		assertNotNull(graph22.getDeepLiteral(XDI3Segment.create("=markus[<+email>]:")));
-		assertNotNull(graph22.getDeepLiteral(XDI3Segment.create("=markus[<+email>]:"), "markus.sabadello@gmail.com"));
+		assertNotNull(graph22.getDeepLiteral(XDI3Segment.create("=markus<+email>&")));
+		assertNotNull(graph22.getDeepLiteral(XDI3Segment.create("=markus<+email>&"), "markus.sabadello@gmail.com"));
 
 		assertTrue(graph22.containsStatement(XDI3Statement.create("=neustar/()/*les")));
 		assertTrue(graph22.containsStatement(XDI3Statement.create("=markus/+friend/=neustar*les")));
-		assertTrue(graph22.containsStatement(XDI3Statement.create("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"")));
+		assertTrue(graph22.containsStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")));
 		assertEquals(graph22.getStatement(XDI3Statement.create("=neustar/()/*les")).getXri(), XDI3Statement.create("=neustar/()/*les"));
 		assertEquals(graph22.getStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXri(), "=markus/+friend/=neustar*les");
-		assertEquals(graph22.getStatement(XDI3Statement.create("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"")).getXri(), "=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"");
+		assertEquals(graph22.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")).getXri(), "=markus<+email>&/&/\"markus.sabadello@gmail.com\"");
 
 		assertTrue(graph22.getStatement(XDI3Statement.create("=neustar/()/*les")) instanceof ContextNodeStatement);
 		assertTrue(graph22.getStatement(XDI3Statement.create("=markus/+friend/=neustar*les")) instanceof RelationStatement);
-		assertTrue(graph22.getStatement(XDI3Statement.create("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
+		assertTrue(graph22.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
 		assertTrue(graph22.getStatement(XDI3Statement.create("=neustar/()/*les")).getXri().isContextNodeStatement());
 		assertTrue(graph22.getStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXri().isRelationStatement());
-		assertTrue(graph22.getStatement(XDI3Statement.create("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"")).getXri().isLiteralStatement());
+		assertTrue(graph22.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")).getXri().isLiteralStatement());
 
 		CopyUtil.copyStatement(statement22_1, graph23, null);
 		CopyUtil.copyStatement(statement22_2, graph23, null);
@@ -713,22 +713,22 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNotNull(graph23.getDeepContextNode(XDI3Segment.create("=neustar*les")));
 		assertNotNull(graph23.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
 		assertNotNull(graph23.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=neustar*les")));
-		assertNotNull(graph23.getDeepLiteral(XDI3Segment.create("=markus[<+email>]:")));
-		assertNotNull(graph23.getDeepLiteral(XDI3Segment.create("=markus[<+email>]:"), "markus.sabadello@gmail.com"));
+		assertNotNull(graph23.getDeepLiteral(XDI3Segment.create("=markus<+email>&")));
+		assertNotNull(graph23.getDeepLiteral(XDI3Segment.create("=markus<+email>&"), "markus.sabadello@gmail.com"));
 
 		assertTrue(graph23.containsStatement(XDI3Statement.create("=neustar/()/*les")));
 		assertTrue(graph23.containsStatement(XDI3Statement.create("=markus/+friend/=neustar*les")));
-		assertTrue(graph23.containsStatement(XDI3Statement.create("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"")));
+		assertTrue(graph23.containsStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")));
 		assertEquals(graph23.getStatement(XDI3Statement.create("=neustar/()/*les")).getXri(), XDI3Statement.create("=neustar/()/*les"));
 		assertEquals(graph23.getStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXri(), "=markus/+friend/=neustar*les");
-		assertEquals(graph23.getStatement(XDI3Statement.create("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"")).getXri(), "=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"");
+		assertEquals(graph23.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")).getXri(), "=markus<+email>&/&/\"markus.sabadello@gmail.com\"");
 
 		assertTrue(graph23.getStatement(XDI3Statement.create("=neustar/()/*les")) instanceof ContextNodeStatement);
 		assertTrue(graph23.getStatement(XDI3Statement.create("=markus/+friend/=neustar*les")) instanceof RelationStatement);
-		assertTrue(graph23.getStatement(XDI3Statement.create("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
+		assertTrue(graph23.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
 		assertTrue(graph23.getStatement(XDI3Statement.create("=neustar/()/*les")).getXri().isContextNodeStatement());
 		assertTrue(graph23.getStatement(XDI3Statement.create("=markus/+friend/=neustar*les")).getXri().isRelationStatement());
-		assertTrue(graph23.getStatement(XDI3Statement.create("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"")).getXri().isLiteralStatement());
+		assertTrue(graph23.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")).getXri().isLiteralStatement());
 
 		graph22.close();
 		graph23.close();
@@ -808,15 +808,15 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertFalse(root.containsRelation(XDI3Segment.create("+a"), XDI3Segment.create("+b")));
 		assertNull(root.getRelation(XDI3Segment.create("+a"), XDI3Segment.create("+b")));
 
-		root.setDeepContextNode(XDI3Segment.create("[<+a>]:")).setLiteral("a");
-		assertTrue(root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).containsLiteral("a"));
-		assertNotNull(root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).getLiteral("a"));
-		root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).deleteLiteral();
-		assertFalse(root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).containsLiteral("a"));
-		assertNull(root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).getLiteral("a"));
+		root.setDeepContextNode(XDI3Segment.create("<+a>&")).setLiteral("a");
+		assertTrue(root.getDeepContextNode(XDI3Segment.create("<+a>&")).containsLiteral("a"));
+		assertNotNull(root.getDeepContextNode(XDI3Segment.create("<+a>&")).getLiteral("a"));
+		root.getDeepContextNode(XDI3Segment.create("<+a>&")).deleteLiteral();
+		assertFalse(root.getDeepContextNode(XDI3Segment.create("<+a>&")).containsLiteral("a"));
+		assertNull(root.getDeepContextNode(XDI3Segment.create("<+a>&")).getLiteral("a"));
 
 		root.getContextNode(XDI3SubSegment.create("+b")).delete();
-		root.getDeepContextNode(XDI3Segment.create("[<+a>]:")).deleteWhileEmpty();
+		root.getDeepContextNode(XDI3Segment.create("<+a>&")).deleteWhileEmpty();
 
 		assertTrue(root.isEmpty());
 
@@ -828,25 +828,25 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.createContextNode(XDI3SubSegment.create("=abc"));
-		ContextNode abcPassportContextNode = abcContextNode.createContextNode(XDI3SubSegment.create("+passport"));
+		ContextNode abcPassportContextNode = abcContextNode.createContextNode(XDI3SubSegment.create("[+passport]"));
 		ContextNode abcPassport1ContextNode = abcPassportContextNode.createContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassport2ContextNode = abcPassportContextNode.createContextNode(XDI3SubSegment.create("!2"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.createContextNode(XDI3SubSegment.create("$v"));
 		ContextNode abcPassportCContextNode = abcPassportContextNode.createContextNode(XDI3SubSegment.create("{}"));
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.createContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.createContextNode(XDI3SubSegment.create("!2"));
-		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.createRelation(XDI3Segment.create("$"), XDI3Segment.create("=abc+passport"));
-		Literal abcPassport1NumberLiteral = abcPassport1ContextNode.createDeepContextNode(XDI3Segment.create("[<+number>]:")).createLiteral("987654321");
-		Literal abcPassport1CountryLiteral = abcPassport1ContextNode.createDeepContextNode(XDI3Segment.create("[<+country>]:")).createLiteral("Canada");
-		Literal abcPassport1DLiteral = abcPassport1ContextNode.createDeepContextNode(XDI3Segment.create("[<$t>]:")).createLiteral("2005-01-01T00:00:00Z");
-		Literal abcPassport2NumberLiteral = abcPassport2ContextNode.createDeepContextNode(XDI3Segment.create("[<+number>]:")).createLiteral("123456789");
-		Literal abcPassport2CountryLiteral = abcPassport2ContextNode.createDeepContextNode(XDI3Segment.create("[<+country>]:")).createLiteral("New Zealand");
-		Literal abcPassport2DLiteral = abcPassport2ContextNode.createDeepContextNode(XDI3Segment.create("[<$t>]:")).createLiteral("2010-10-01T00:00:00Z");
+		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.createRelation(XDI3Segment.create("$"), XDI3Segment.create("=abc[+passport]"));
+		Literal abcPassport1NumberLiteral = abcPassport1ContextNode.createDeepContextNode(XDI3Segment.create("<+number>&")).createLiteral("987654321");
+		Literal abcPassport1CountryLiteral = abcPassport1ContextNode.createDeepContextNode(XDI3Segment.create("<+country>&")).createLiteral("Canada");
+		Literal abcPassport1DLiteral = abcPassport1ContextNode.createDeepContextNode(XDI3Segment.create("<$t>&")).createLiteral("2005-01-01T00:00:00Z");
+		Literal abcPassport2NumberLiteral = abcPassport2ContextNode.createDeepContextNode(XDI3Segment.create("<+number>&")).createLiteral("123456789");
+		Literal abcPassport2CountryLiteral = abcPassport2ContextNode.createDeepContextNode(XDI3Segment.create("<+country>&")).createLiteral("New Zealand");
+		Literal abcPassport2DLiteral = abcPassport2ContextNode.createDeepContextNode(XDI3Segment.create("<$t>&")).createLiteral("2010-10-01T00:00:00Z");
 		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.createContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.createContextNode(XDI3SubSegment.create("!2"));
-		Literal abcPassportC1DLiteral = abcPassportC1ContextNode.createDeepContextNode(XDI3Segment.create("[<$t>]:")).createLiteral("2010-11-11T11:11:11Z");
-		Literal abcPassportC2DLiteral = abcPassportC2ContextNode.createDeepContextNode(XDI3Segment.create("[<$t>]:")).createLiteral("2010-12-22T22:22:22Z");
-		Relation abcPassportRelationV = abcPassportContextNode.createRelation(XDI3Segment.create("$v"), XDI3Segment.create("=abc+passport$v!2"));
+		Literal abcPassportC1DLiteral = abcPassportC1ContextNode.createDeepContextNode(XDI3Segment.create("<$t>&")).createLiteral("2010-11-11T11:11:11Z");
+		Literal abcPassportC2DLiteral = abcPassportC2ContextNode.createDeepContextNode(XDI3Segment.create("<$t>&")).createLiteral("2010-12-22T22:22:22Z");
+		Relation abcPassportRelationV = abcPassportContextNode.createRelation(XDI3Segment.create("$v"), XDI3Segment.create("=abc[+passport]$v!2"));
 		Relation abcPassportRelation1 = abcPassportContextNode.createRelation(XDI3Segment.create("*1"), abcPassport1ContextNode);
 		Relation abcPassportRelation2 = abcPassportContextNode.createRelation(XDI3Segment.create("*2"), abcPassport2ContextNode);
 		Relation abcTestRelation1 = abcContextNode.createRelation(XDI3Segment.create("+rel"), abcPassport1ContextNode);
@@ -857,7 +857,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.getContextNode(XDI3SubSegment.create("=abc"));
-		ContextNode abcPassportContextNode = abcContextNode.getContextNode(XDI3SubSegment.create("+passport"));
+		ContextNode abcPassportContextNode = abcContextNode.getContextNode(XDI3SubSegment.create("[+passport]"));
 		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(XDI3SubSegment.create("!2"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.getContextNode(XDI3SubSegment.create("$v"));
@@ -865,94 +865,94 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(XDI3SubSegment.create("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(XDI3Segment.create("$"));
-		Literal abcPassport1NumberLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("[<+number>]:"));
-		Literal abcPassport1CountryLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("[<+country>]:"));
-		Literal abcPassport1DLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
-		Literal abcPassport2NumberLiteral = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("[<+number>]:"));
-		Literal abcPassport2CountryLiteral = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("[<+country>]:"));
-		Literal abcPassport2DLiteral = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
+		Literal abcPassport1NumberLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("<+number>&"));
+		Literal abcPassport1CountryLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("<+country>&"));
+		Literal abcPassport1DLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
+		Literal abcPassport2NumberLiteral = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("<+number>&"));
+		Literal abcPassport2CountryLiteral = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("<+country>&"));
+		Literal abcPassport2DLiteral = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
 		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(XDI3SubSegment.create("!2"));
-		Literal abcPassportC1DLiteral = abcPassportC1ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
-		Literal abcPassportC2DLiteral = abcPassportC2ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
+		Literal abcPassportC1DLiteral = abcPassportC1ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
+		Literal abcPassportC2DLiteral = abcPassportC2ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
 		Relation abcPassportRelationV = abcPassportContextNode.getRelation(XDI3Segment.create("$v"));
 		Relation abcPassportRelation1 = abcPassportContextNode.getRelation(XDI3Segment.create("*1"));
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(XDI3Segment.create("*2"));
-		Relation abcRelation1 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!1"));
-		Relation abcRelation2 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!2"));
+		Relation abcRelation1 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!1"));
+		Relation abcRelation2 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!2"));
 
 		assertEquals(rootContextNode.getXri(), XDIConstants.XRI_S_ROOT);
 		assertEquals(abcContextNode.getXri(), XDI3Segment.create("=abc"));
-		assertEquals(abcPassportContextNode.getXri(), XDI3Segment.create("=abc+passport"));
-		assertEquals(abcPassportVContextNode.getXri(), XDI3Segment.create("=abc+passport$v"));
+		assertEquals(abcPassportContextNode.getXri(), XDI3Segment.create("=abc[+passport]"));
+		assertEquals(abcPassportVContextNode.getXri(), XDI3Segment.create("=abc[+passport]$v"));
 
 		assertTrue(rootContextNode.containsContextNode(XDI3SubSegment.create("=abc")));
-		assertTrue(abcContextNode.containsContextNode(XDI3SubSegment.create("+passport")));
+		assertTrue(abcContextNode.containsContextNode(XDI3SubSegment.create("[+passport]")));
 		assertTrue(abcPassportContextNode.containsContextNode(XDI3SubSegment.create("!1")));
 		assertTrue(abcPassportContextNode.containsContextNode(XDI3SubSegment.create("!2")));
 		assertTrue(abcPassportContextNode.containsContextNode(XDI3SubSegment.create("$v")));
 		assertTrue(abcPassportContextNode.containsContextNode(XDI3SubSegment.create("{}")));
 		assertTrue(abcPassportVContextNode.containsContextNode(XDI3SubSegment.create("!1")));
 		assertTrue(abcPassportVContextNode.containsContextNode(XDI3SubSegment.create("!2")));
-		assertTrue(abcPassportV2ContextNode.containsRelation(XDI3Segment.create("$"), XDI3Segment.create("=abc+passport")));
-		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("[<+number>]")));
-		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("[<+country>]")));
-		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("[<$t>]")));
-		assertTrue(abcPassport2ContextNode.containsContextNode(XDI3SubSegment.create("[<+number>]")));
-		assertTrue(abcPassport2ContextNode.containsContextNode(XDI3SubSegment.create("[<+country>]")));
-		assertTrue(abcPassport2ContextNode.containsContextNode(XDI3SubSegment.create("[<$t>]")));
-		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("[<+number>]:")).containsLiteral());
-		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("[<+country>]:")).containsLiteral());
-		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("[<$t>]:")).containsLiteral());
-		assertTrue(abcPassport2ContextNode.getDeepContextNode(XDI3Segment.create("[<+number>]:")).containsLiteral());
-		assertTrue(abcPassport2ContextNode.getDeepContextNode(XDI3Segment.create("[<+country>]:")).containsLiteral());
-		assertTrue(abcPassport2ContextNode.getDeepContextNode(XDI3Segment.create("[<$t>]:")).containsLiteral());
+		assertTrue(abcPassportV2ContextNode.containsRelation(XDI3Segment.create("$"), XDI3Segment.create("=abc[+passport]")));
+		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("<+number>")));
+		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("<+country>")));
+		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("<$t>")));
+		assertTrue(abcPassport2ContextNode.containsContextNode(XDI3SubSegment.create("<+number>")));
+		assertTrue(abcPassport2ContextNode.containsContextNode(XDI3SubSegment.create("<+country>")));
+		assertTrue(abcPassport2ContextNode.containsContextNode(XDI3SubSegment.create("<$t>")));
+		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("<+number>&")).containsLiteral());
+		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("<+country>&")).containsLiteral());
+		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("<$t>&")).containsLiteral());
+		assertTrue(abcPassport2ContextNode.getDeepContextNode(XDI3Segment.create("<+number>&")).containsLiteral());
+		assertTrue(abcPassport2ContextNode.getDeepContextNode(XDI3Segment.create("<+country>&")).containsLiteral());
+		assertTrue(abcPassport2ContextNode.getDeepContextNode(XDI3Segment.create("<$t>&")).containsLiteral());
 		assertTrue(abcPassportCContextNode.containsContextNode(XDI3SubSegment.create("!1")));
 		assertTrue(abcPassportCContextNode.containsContextNode(XDI3SubSegment.create("!2")));
-		assertTrue(abcPassportC1ContextNode.containsContextNode(XDI3SubSegment.create("[<$t>]")));
-		assertTrue(abcPassportC2ContextNode.containsContextNode(XDI3SubSegment.create("[<$t>]")));
-		assertTrue(abcPassportC1ContextNode.getDeepContextNode(XDI3Segment.create("[<$t>]:")).containsLiteral());
-		assertTrue(abcPassportC2ContextNode.getDeepContextNode(XDI3Segment.create("[<$t>]:")).containsLiteral());
-		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("$v"), XDI3Segment.create("=abc+passport$v!2")));
-		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("*1"), XDI3Segment.create("=abc+passport!1")));
-		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("*2"), XDI3Segment.create("=abc+passport!2")));
-		assertTrue(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!1")));
-		assertTrue(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!2")));
+		assertTrue(abcPassportC1ContextNode.containsContextNode(XDI3SubSegment.create("<$t>")));
+		assertTrue(abcPassportC2ContextNode.containsContextNode(XDI3SubSegment.create("<$t>")));
+		assertTrue(abcPassportC1ContextNode.getDeepContextNode(XDI3Segment.create("<$t>&")).containsLiteral());
+		assertTrue(abcPassportC2ContextNode.getDeepContextNode(XDI3Segment.create("<$t>&")).containsLiteral());
+		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("$v"), XDI3Segment.create("=abc[+passport]$v!2")));
+		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("*1"), XDI3Segment.create("=abc[+passport]!1")));
+		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("*2"), XDI3Segment.create("=abc[+passport]!2")));
+		assertTrue(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!1")));
+		assertTrue(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!2")));
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
 				graph.getDeepContextNode(XDI3Segment.create("()")),
 				graph.getDeepContextNode(XDI3Segment.create("=abc")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!1")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!2")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport$v")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport$v!1")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport$v!2")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}!1")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}!2")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!1[<+number>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!1[<+country>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!1[<$t>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!2[<+number>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!2[<+country>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!2[<$t>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}!1[<$t>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}!2[<$t>]:"))
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!2")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]$v")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]$v!1")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]$v!2")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}!1")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}!2")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1<+number>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1<+country>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1<$t>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!2<+number>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!2<+country>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!2<$t>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}!1<$t>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}!2<$t>&"))
 		};
 
 		XDI3SubSegment[][] contextNodeArcXrisArray = new XDI3SubSegment[][] {
 				new XDI3SubSegment[] { XDI3SubSegment.create("=abc") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+passport") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+passport]") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("!1"), XDI3SubSegment.create("!2"), XDI3SubSegment.create("$v"), XDI3SubSegment.create("{}") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[<+number>]"), XDI3SubSegment.create("[<+country>]"), XDI3SubSegment.create("[<$t>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[<+number>]"), XDI3SubSegment.create("[<+country>]"), XDI3SubSegment.create("[<$t>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<+number>"), XDI3SubSegment.create("<+country>"), XDI3SubSegment.create("<$t>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<+number>"), XDI3SubSegment.create("<+country>"), XDI3SubSegment.create("<$t>") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("!1"), XDI3SubSegment.create("!2") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("!1"), XDI3SubSegment.create("!2") },
 				new XDI3SubSegment[] { },
 				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[<$t>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[<$t>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<$t>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<$t>") },
 				new XDI3SubSegment[] { },
 				new XDI3SubSegment[] { },
 				new XDI3SubSegment[] { },
@@ -1049,52 +1049,52 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(XDIConstants.XRI_S_CONTEXT, rootContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("=abc"), abcContextNode.getArcXri());
 		assertEquals(XDI3Segment.create("=abc"), abcContextNode.getXri());
-		assertEquals(XDI3SubSegment.create("+passport"), abcPassportContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport"), abcPassportContextNode.getXri());
+		assertEquals(XDI3SubSegment.create("[+passport]"), abcPassportContextNode.getArcXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]"), abcPassportContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("!1"), abcPassport1ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport!1"), abcPassport1ContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]!1"), abcPassport1ContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("!2"), abcPassport2ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport!2"), abcPassport2ContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]!2"), abcPassport2ContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("$v"), abcPassportVContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport$v"), abcPassportVContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]$v"), abcPassportVContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("{}"), abcPassportCContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport{}"), abcPassportCContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]{}"), abcPassportCContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("!1"), abcPassportV1ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport$v!1"), abcPassportV1ContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]$v!1"), abcPassportV1ContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("!2"), abcPassportV2ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport$v!2"), abcPassportV2ContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]$v!2"), abcPassportV2ContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("$"), abcPassportV2RelationDollar.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport"), abcPassportV2RelationDollar.getTargetContextNodeXri());
-		assertEquals(XDI3SubSegment.create("[<+number>]"), abcPassport1NumberLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]"), abcPassportV2RelationDollar.getTargetContextNodeXri());
+		assertEquals(XDI3SubSegment.create("<+number>"), abcPassport1NumberLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("987654321", abcPassport1NumberLiteral.getLiteralData());
-		assertEquals(XDI3SubSegment.create("[<+country>]"), abcPassport1CountryLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3SubSegment.create("<+country>"), abcPassport1CountryLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("Canada", abcPassport1CountryLiteral.getLiteralData());
-		assertEquals(XDI3SubSegment.create("[<$t>]"), abcPassport1DLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3SubSegment.create("<$t>"), abcPassport1DLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("2005-01-01T00:00:00Z", abcPassport1DLiteral.getLiteralData());
-		assertEquals(XDI3SubSegment.create("[<+number>]"), abcPassport2NumberLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3SubSegment.create("<+number>"), abcPassport2NumberLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("123456789", abcPassport2NumberLiteral.getLiteralData());
-		assertEquals(XDI3SubSegment.create("[<+country>]"), abcPassport2CountryLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3SubSegment.create("<+country>"), abcPassport2CountryLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("New Zealand", abcPassport2CountryLiteral.getLiteralData());
-		assertEquals(XDI3SubSegment.create("[<$t>]"), abcPassport2DLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3SubSegment.create("<$t>"), abcPassport2DLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("2010-10-01T00:00:00Z", abcPassport2DLiteral.getLiteralData());
 		assertEquals(XDI3SubSegment.create("!1"), abcPassportC1ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport{}!1"), abcPassportC1ContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]{}!1"), abcPassportC1ContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("!2"), abcPassportC2ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport{}!2"), abcPassportC2ContextNode.getXri());
-		assertEquals(XDI3SubSegment.create("[<$t>]"), abcPassportC1DLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]{}!2"), abcPassportC2ContextNode.getXri());
+		assertEquals(XDI3SubSegment.create("<$t>"), abcPassportC1DLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("2010-11-11T11:11:11Z", abcPassportC1DLiteral.getLiteralData());
-		assertEquals(XDI3SubSegment.create("[<$t>]"), abcPassportC2DLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3SubSegment.create("<$t>"), abcPassportC2DLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("2010-12-22T22:22:22Z", abcPassportC2DLiteral.getLiteralData());
 		assertEquals(XDI3SubSegment.create("$v"), abcPassportRelationV.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport$v!2"), abcPassportRelationV.getTargetContextNodeXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]$v!2"), abcPassportRelationV.getTargetContextNodeXri());
 		assertEquals(XDI3SubSegment.create("*1"), abcPassportRelation1.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport!1"), abcPassportRelation1.getTargetContextNodeXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]!1"), abcPassportRelation1.getTargetContextNodeXri());
 		assertEquals(XDI3SubSegment.create("*2"), abcPassportRelation2.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport!2"), abcPassportRelation2.getTargetContextNodeXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]!2"), abcPassportRelation2.getTargetContextNodeXri());
 		assertEquals(XDI3SubSegment.create("+rel"), abcRelation1.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport!1"), abcRelation1.getTargetContextNodeXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]!1"), abcRelation1.getTargetContextNodeXri());
 		assertEquals(XDI3SubSegment.create("+rel"), abcRelation2.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport!2"), abcRelation2.getTargetContextNodeXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]!2"), abcRelation2.getTargetContextNodeXri());
 
 		assertEquals(rootContextNode.getAllContextNodeCount(), 26);
 		assertEquals(rootContextNode.getAllRelationCount(), 6);
@@ -1106,7 +1106,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.getContextNode(XDI3SubSegment.create("=abc"));
-		ContextNode abcPassportContextNode = abcContextNode.getContextNode(XDI3SubSegment.create("+passport"));
+		ContextNode abcPassportContextNode = abcContextNode.getContextNode(XDI3SubSegment.create("[+passport]"));
 		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(XDI3SubSegment.create("!2"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.getContextNode(XDI3SubSegment.create("$v"));
@@ -1114,21 +1114,21 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(XDI3SubSegment.create("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(XDI3Segment.create("$"));
-		Literal abcPassport1LiteralNumber = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("[<+number>]:"));
-		Literal abcPassport1LiteralCountry = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("[<+country>]:"));
-		Literal abcPassport1LiteralD = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
-		Literal abcPassport2LiteralNumber = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("[<+number>]:"));
-		Literal abcPassport2LiteralCountry = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("[<+country>]:"));
-		Literal abcPassport2LiteralD = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
+		Literal abcPassport1LiteralNumber = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("<+number>&"));
+		Literal abcPassport1LiteralCountry = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("<+country>&"));
+		Literal abcPassport1LiteralD = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
+		Literal abcPassport2LiteralNumber = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("<+number>&"));
+		Literal abcPassport2LiteralCountry = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("<+country>&"));
+		Literal abcPassport2LiteralD = abcPassport2ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
 		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(XDI3SubSegment.create("!2"));
-		Literal abcPassportC1LiteralD = abcPassportC1ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
-		Literal abcPassportC2LiteralD = abcPassportC2ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
+		Literal abcPassportC1LiteralD = abcPassportC1ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
+		Literal abcPassportC2LiteralD = abcPassportC2ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
 		Relation abcPassportRelationV = abcPassportContextNode.getRelation(XDI3Segment.create("$v"));
 		Relation abcPassportRelation1 = abcPassportContextNode.getRelation(XDI3Segment.create("*1"));
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(XDI3Segment.create("*2"));
-		Relation abcRelation1 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!1"));
-		Relation abcRelation2 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!2"));
+		Relation abcRelation1 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!1"));
+		Relation abcRelation2 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!2"));
 
 		abcPassport2ContextNode.delete();
 		abcPassportC1LiteralD.setLiteralData("2010-03-03T03:03:03Z");
@@ -1139,7 +1139,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.getContextNode(XDI3SubSegment.create("=abc"));
-		ContextNode abcPassportContextNode = abcContextNode.getContextNode(XDI3SubSegment.create("+passport"));
+		ContextNode abcPassportContextNode = abcContextNode.getContextNode(XDI3SubSegment.create("[+passport]"));
 		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(XDI3SubSegment.create("!2"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.getContextNode(XDI3SubSegment.create("$v"));
@@ -1147,88 +1147,88 @@ public abstract class AbstractGraphTest extends TestCase {
 		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(XDI3SubSegment.create("!2"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(XDI3Segment.create("$"));
-		Literal abcPassport1NumberLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("[<+number>]:"));
-		Literal abcPassport1CountryLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("[<+country>]:"));
-		Literal abcPassport1LiteralD = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
+		Literal abcPassport1NumberLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("<+number>&"));
+		Literal abcPassport1CountryLiteral = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("<+country>&"));
+		Literal abcPassport1LiteralD = abcPassport1ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
 		Literal abcPassport2LiteralNumber = null;
 		Literal abcPassport2LiteralCountry = null;
 		Literal abcPassport2LiteralD = null;
 		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(XDI3SubSegment.create("!1"));
 		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(XDI3SubSegment.create("!2"));
-		Literal abcPassportC1LiteralD = abcPassportC1ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
-		Literal abcPassportC2LiteralD = abcPassportC2ContextNode.getDeepLiteral(XDI3Segment.create("[<$t>]:"));
+		Literal abcPassportC1LiteralD = abcPassportC1ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
+		Literal abcPassportC2LiteralD = abcPassportC2ContextNode.getDeepLiteral(XDI3Segment.create("<$t>&"));
 		Relation abcPassportRelationV = abcPassportContextNode.getRelation(XDI3Segment.create("$v"));
 		Relation abcPassportRelation1 = abcPassportContextNode.getRelation(XDI3Segment.create("*1"));
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(XDI3Segment.create("*2"));
-		Relation abcRelation1 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!1"));
-		Relation abcRelation2 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!2"));
+		Relation abcRelation1 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!1"));
+		Relation abcRelation2 = abcContextNode.getRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!2"));
 
 		assertTrue(rootContextNode.containsContextNode(XDI3SubSegment.create("=abc")));
-		assertTrue(abcContextNode.containsContextNode(XDI3SubSegment.create("+passport")));
+		assertTrue(abcContextNode.containsContextNode(XDI3SubSegment.create("[+passport]")));
 		assertTrue(abcPassportContextNode.containsContextNode(XDI3SubSegment.create("!1")));
 		assertFalse(abcPassportContextNode.containsContextNode(XDI3SubSegment.create("!2")));	// MANIPULATED
 		assertTrue(abcPassportContextNode.containsContextNode(XDI3SubSegment.create("$v")));
 		assertTrue(abcPassportContextNode.containsContextNode(XDI3SubSegment.create("{}")));
 		assertTrue(abcPassportVContextNode.containsContextNode(XDI3SubSegment.create("!1")));
 		assertTrue(abcPassportVContextNode.containsContextNode(XDI3SubSegment.create("!2")));
-		assertTrue(abcPassportV2ContextNode.containsRelation(XDI3Segment.create("$"), XDI3Segment.create("=abc+passport")));
-		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("[<+number>]")));
-		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("[<+country>]")));
-		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("[<$t>]")));
+		assertTrue(abcPassportV2ContextNode.containsRelation(XDI3Segment.create("$"), XDI3Segment.create("=abc[+passport]")));
+		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("<+number>")));
+		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("<+country>")));
+		assertTrue(abcPassport1ContextNode.containsContextNode(XDI3SubSegment.create("<$t>")));
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
-		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("[<+number>]:")).containsLiteral());
-		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("[<+country>]:")).containsLiteral());
-		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("[<$t>]:")).containsLiteral());
+		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("<+number>&")).containsLiteral());
+		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("<+country>&")).containsLiteral());
+		assertTrue(abcPassport1ContextNode.getDeepContextNode(XDI3Segment.create("<$t>&")).containsLiteral());
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertTrue(abcPassportCContextNode.containsContextNode(XDI3SubSegment.create("!1")));
 		assertTrue(abcPassportCContextNode.containsContextNode(XDI3SubSegment.create("!2")));
-		assertTrue(abcPassportC1ContextNode.containsContextNode(XDI3SubSegment.create("[<$t>]")));
-		assertFalse(abcPassportC2ContextNode.containsContextNode(XDI3SubSegment.create("[<$t>]")));	// MANIPULATED
-		assertTrue(abcPassportC1ContextNode.getDeepContextNode(XDI3Segment.create("[<$t>]:")).containsLiteral());
+		assertTrue(abcPassportC1ContextNode.containsContextNode(XDI3SubSegment.create("<$t>")));
+		assertFalse(abcPassportC2ContextNode.containsContextNode(XDI3SubSegment.create("<$t>")));	// MANIPULATED
+		assertTrue(abcPassportC1ContextNode.getDeepContextNode(XDI3Segment.create("<$t>&")).containsLiteral());
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
-		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("$v"), XDI3Segment.create("=abc+passport$v!2")));
-		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("*1"), XDI3Segment.create("=abc+passport!1")));
-		assertFalse(abcPassportContextNode.containsRelation(XDI3Segment.create("*2"), XDI3Segment.create("=abc+passport!2")));		// MANIPULATED
-		assertTrue(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!1")));
-		assertFalse(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc+passport!2")));		// MANIPULATED
+		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("$v"), XDI3Segment.create("=abc[+passport]$v!2")));
+		assertTrue(abcPassportContextNode.containsRelation(XDI3Segment.create("*1"), XDI3Segment.create("=abc[+passport]!1")));
+		assertFalse(abcPassportContextNode.containsRelation(XDI3Segment.create("*2"), XDI3Segment.create("=abc[+passport]!2")));		// MANIPULATED
+		assertTrue(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!1")));
+		assertFalse(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!2")));		// MANIPULATED
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
 				graph.getDeepContextNode(XDI3Segment.create("()")),
 				graph.getDeepContextNode(XDI3Segment.create("=abc")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!1")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!2")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport$v")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport$v!1")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport$v!2")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}!1")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}!2")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!1[<+number>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!1[<+country>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!1[<$t>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!2[<+number>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!2[<+country>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport!2[<$t>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}!1[<$t>]:")),
-				graph.getDeepContextNode(XDI3Segment.create("=abc+passport{}!2[<$t>]:"))
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!2")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]$v")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]$v!1")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]$v!2")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}!1")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}!2")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1<+number>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1<+country>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1<$t>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!2<+number>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!2<+country>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!2<$t>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}!1<$t>&")),
+				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]{}!2<$t>&"))
 		};
 
 		XDI3SubSegment[][] contextNodeArcXrisArray = new XDI3SubSegment[][] {
 				new XDI3SubSegment[] { XDI3SubSegment.create("=abc") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+passport") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+passport]") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("!1"), XDI3SubSegment.create("$v"), XDI3SubSegment.create("{}") },	// MANIPULATED
-				new XDI3SubSegment[] { XDI3SubSegment.create("[<+number>]"), XDI3SubSegment.create("[<+country>]"), XDI3SubSegment.create("[<$t>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<+number>"), XDI3SubSegment.create("<+country>"), XDI3SubSegment.create("<$t>") },
 				null,	// MANIPULATED
 				new XDI3SubSegment[] { XDI3SubSegment.create("!1"), XDI3SubSegment.create("!2") },
 				new XDI3SubSegment[] { XDI3SubSegment.create("!1"), XDI3SubSegment.create("!2") },
 				new XDI3SubSegment[] { },
 				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[<$t>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<$t>") },
 				new XDI3SubSegment[] { },	// MANIPULATED
 				new XDI3SubSegment[] { },
 				new XDI3SubSegment[] { },
@@ -1324,27 +1324,27 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(XDIConstants.XRI_S_CONTEXT, rootContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("=abc"), abcContextNode.getArcXri());
 		assertEquals(XDI3Segment.create("=abc"), abcContextNode.getXri());
-		assertEquals(XDI3SubSegment.create("+passport"), abcPassportContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport"), abcPassportContextNode.getXri());
+		assertEquals(XDI3SubSegment.create("[+passport]"), abcPassportContextNode.getArcXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]"), abcPassportContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("!1"), abcPassport1ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport!1"), abcPassport1ContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]!1"), abcPassport1ContextNode.getXri());
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertEquals(XDI3SubSegment.create("$v"), abcPassportVContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport$v"), abcPassportVContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]$v"), abcPassportVContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("{}"), abcPassportCContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport{}"), abcPassportCContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]{}"), abcPassportCContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("!1"), abcPassportV1ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport$v!1"), abcPassportV1ContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]$v!1"), abcPassportV1ContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("!2"), abcPassportV2ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport$v!2"), abcPassportV2ContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]$v!2"), abcPassportV2ContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("$"), abcPassportV2RelationDollar.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport"), abcPassportV2RelationDollar.getTargetContextNodeXri());
-		assertEquals(XDI3SubSegment.create("[<+number>]"), abcPassport1NumberLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]"), abcPassportV2RelationDollar.getTargetContextNodeXri());
+		assertEquals(XDI3SubSegment.create("<+number>"), abcPassport1NumberLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("987654321", abcPassport1NumberLiteral.getLiteralData());
-		assertEquals(XDI3SubSegment.create("[<+country>]"), abcPassport1CountryLiteral.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3SubSegment.create("<+country>"), abcPassport1CountryLiteral.getContextNode().getContextNode().getArcXri());
 		assertEquals("Canada", abcPassport1CountryLiteral.getLiteralData());
-		assertEquals(XDI3SubSegment.create("[<$t>]"), abcPassport1LiteralD.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3SubSegment.create("<$t>"), abcPassport1LiteralD.getContextNode().getContextNode().getArcXri());
 		assertEquals("2005-01-01T00:00:00Z", abcPassport1LiteralD.getLiteralData());
 		assertNull(abcPassport2LiteralNumber);	// MANIPULATED
 		assertNull(abcPassport2LiteralNumber);	// MANIPULATED
@@ -1353,21 +1353,21 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(abcPassport2LiteralD);	// MANIPULATED
 		assertNull(abcPassport2LiteralD);	// MANIPULATED
 		assertEquals(XDI3SubSegment.create("!1"), abcPassportC1ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport{}!1"), abcPassportC1ContextNode.getXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]{}!1"), abcPassportC1ContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("!2"), abcPassportC2ContextNode.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport{}!2"), abcPassportC2ContextNode.getXri());
-		assertEquals(XDI3SubSegment.create("[<$t>]"), abcPassportC1LiteralD.getContextNode().getContextNode().getArcXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]{}!2"), abcPassportC2ContextNode.getXri());
+		assertEquals(XDI3SubSegment.create("<$t>"), abcPassportC1LiteralD.getContextNode().getContextNode().getArcXri());
 		assertEquals("2010-03-03T03:03:03Z", abcPassportC1LiteralD.getLiteralData());	// MANIPULATED
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
 		assertEquals(XDI3SubSegment.create("$v"), abcPassportRelationV.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport$v!2"), abcPassportRelationV.getTargetContextNodeXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]$v!2"), abcPassportRelationV.getTargetContextNodeXri());
 		assertEquals(XDI3SubSegment.create("*1"), abcPassportRelation1.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport!1"), abcPassportRelation1.getTargetContextNodeXri());	// MANIPULATED
+		assertEquals(XDI3Segment.create("=abc[+passport]!1"), abcPassportRelation1.getTargetContextNodeXri());	// MANIPULATED
 		assertNull(abcPassportRelation2);	// MANIPULATED
 		assertNull(abcPassportRelation2);	// MANIPULATED
 		assertEquals(XDI3SubSegment.create("+rel"), abcRelation1.getArcXri());
-		assertEquals(XDI3Segment.create("=abc+passport!1"), abcRelation1.getTargetContextNodeXri());
+		assertEquals(XDI3Segment.create("=abc[+passport]!1"), abcRelation1.getTargetContextNodeXri());
 		assertNull(abcRelation2);	// MANIPULATED
 		assertNull(abcRelation2);	// MANIPULATED
 

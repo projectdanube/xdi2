@@ -1,2 +1,2 @@
-=markus$msg!1[$do]/$add/(@kynetx<$uri>!1:/:/"http://xdi.kobj.net")
-=markus$msg!1[$do]/$add/(@kynetx<$uri>!2:/:/"https://xdi.kobj.net")
+=markus[$msg]!1$do/$add/(@kynetx[<$uri>]!1&/&/"http://xdi.kobj.net")
+=markus[$msg]!1$do/$add/(@kynetx[<$uri>]!2&/&/"https://xdi.kobj.net")

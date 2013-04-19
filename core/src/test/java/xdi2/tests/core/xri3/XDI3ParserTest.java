@@ -14,13 +14,13 @@ public abstract class XDI3ParserTest extends TestCase {
 
 		XDI3Parser parser = this.getParser();
 
-		XDI3Statement statement = parser.parseXDI3Statement("=markus<+email>!1:/:/\"xxx\"");
+		XDI3Statement statement = parser.parseXDI3Statement("=markus[<+email>]!1&/&/\"xxx\"");
 
-		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=markus<+email>!1:"));
-		assertEquals(statement.getPredicate(), parser.parseXDI3Segment(":"));
+		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=markus[<+email>]!1&"));
+		assertEquals(statement.getPredicate(), parser.parseXDI3Segment("&"));
 		assertEquals(statement.getObject(), "xxx");
 
-		assertEquals(statement.getContextNodeXri(), parser.parseXDI3Segment("=markus<+email>!1:"));
+		assertEquals(statement.getContextNodeXri(), parser.parseXDI3Segment("=markus[<+email>]!1&"));
 		assertNull(statement.getArcXri());
 		assertNull(statement.getTargetContextNodeXri());
 		assertEquals(statement.getLiteralData(), "xxx");
@@ -33,29 +33,29 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(statement.getSubject().getSubSegment(0).getCs(), XDI3Constants.CS_EQUALS);
 		assertEquals(statement.getSubject().getSubSegment(0).getLiteral(), "markus");
 		assertNull(statement.getSubject().getSubSegment(0).getXRef());
-		assertEquals(statement.getSubject().getSubSegment(1), parser.parseXDI3SubSegment("<+email>"));
+		assertEquals(statement.getSubject().getSubSegment(1), parser.parseXDI3SubSegment("[<+email>]"));
 		assertEquals(statement.getSubject().getSubSegment(1).getCs(), XDI3Constants.CS_PLUS);
-		assertFalse(statement.getSubject().getSubSegment(1).isSingleton());
-		assertTrue(statement.getSubject().getSubSegment(1).isAttribute());
+		assertTrue(statement.getSubject().getSubSegment(1).isClassXs());
+		assertTrue(statement.getSubject().getSubSegment(1).isAttributeXs());
 		assertEquals(statement.getSubject().getSubSegment(1).getLiteral(), "email");
 		assertNull(statement.getSubject().getSubSegment(1).getXRef());
 		assertEquals(statement.getSubject().getSubSegment(2), parser.parseXDI3SubSegment("!1"));
 		assertEquals(statement.getSubject().getSubSegment(2).getCs(), XDI3Constants.CS_BANG);
-		assertFalse(statement.getSubject().getSubSegment(2).isSingleton());
-		assertFalse(statement.getSubject().getSubSegment(2).isAttribute());
+		assertFalse(statement.getSubject().getSubSegment(2).isClassXs());
+		assertFalse(statement.getSubject().getSubSegment(2).isAttributeXs());
 		assertEquals(statement.getSubject().getSubSegment(2).getLiteral(), "1");
 		assertNull(statement.getSubject().getSubSegment(2).getXRef());
-		assertEquals(statement.getSubject().getSubSegment(3), parser.parseXDI3SubSegment(":"));
+		assertEquals(statement.getSubject().getSubSegment(3), parser.parseXDI3SubSegment("&"));
 		assertEquals(statement.getSubject().getSubSegment(3).getCs(), XDI3Constants.CS_VALUE);
-		assertFalse(statement.getSubject().getSubSegment(3).isSingleton());
-		assertFalse(statement.getSubject().getSubSegment(3).isAttribute());
+		assertFalse(statement.getSubject().getSubSegment(3).isClassXs());
+		assertFalse(statement.getSubject().getSubSegment(3).isAttributeXs());
 		assertNull(statement.getSubject().getSubSegment(3).getLiteral());
 		assertNull(statement.getSubject().getSubSegment(3).getXRef());
 
 		assertEquals(statement.getPredicate().getNumSubSegments(), 1);
 		assertEquals(statement.getPredicate().getSubSegment(0), statement.getPredicate().getFirstSubSegment());
 		assertEquals(statement.getPredicate().getSubSegment(0), statement.getPredicate().getLastSubSegment());
-		assertEquals(statement.getPredicate().getSubSegment(0), parser.parseXDI3SubSegment(":"));
+		assertEquals(statement.getPredicate().getSubSegment(0), parser.parseXDI3SubSegment("&"));
 	}
 
 	public void testBasicXRef() throws Exception {
@@ -75,9 +75,9 @@ public abstract class XDI3ParserTest extends TestCase {
 
 		XDI3Statement statement;
 
-		statement = parser.parseXDI3Statement("=markus[<+email>]:/:/\"markus.sabadello@gmail.com\"");
-		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=markus[<+email>]:"));
-		assertEquals(statement.getPredicate(), parser.parseXDI3Segment(":"));
+		statement = parser.parseXDI3Statement("=markus<+email>&/&/\"markus.sabadello@gmail.com\"");
+		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=markus<+email>&"));
+		assertEquals(statement.getPredicate(), parser.parseXDI3Segment("&"));
 		assertTrue(statement.getObject() instanceof String);
 		assertEquals(statement.getObject(), "markus.sabadello@gmail.com");
 		assertFalse(statement.isContextNodeStatement());
@@ -92,9 +92,9 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertFalse(statement.isLiteralStatement());
 		assertTrue(statement.isRelationStatement());
 
-		statement = parser.parseXDI3Statement("=neustar*animesh[<+email>]:/:/\"animesh@gmail.com\"");
-		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=neustar*animesh[<+email>]:"));
-		assertEquals(statement.getPredicate(), parser.parseXDI3Segment(":"));
+		statement = parser.parseXDI3Statement("=neustar*animesh<+email>&/&/\"animesh@gmail.com\"");
+		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=neustar*animesh<+email>&"));
+		assertEquals(statement.getPredicate(), parser.parseXDI3Segment("&"));
 		assertEquals(statement.getObject(), "animesh@gmail.com");
 		assertFalse(statement.isContextNodeStatement());
 		assertTrue(statement.isLiteralStatement());
@@ -154,8 +154,8 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(s.getXRef().getSegment(), parser.parseXDI3Segment("[<+(name)>]"));
 		assertEquals(s.getXRef().getSegment().getNumSubSegments(), 1);
 		assertEquals(s.getXRef().getSegment().getFirstSubSegment(), parser.parseXDI3SubSegment("[<+(name)>]"));
-		assertTrue(s.getXRef().getSegment().getFirstSubSegment().isSingleton());
-		assertTrue(s.getXRef().getSegment().getFirstSubSegment().isAttribute());
+		assertTrue(s.getXRef().getSegment().getFirstSubSegment().isClassXs());
+		assertTrue(s.getXRef().getSegment().getFirstSubSegment().isAttributeXs());
 		assertTrue(s.getXRef().getSegment().getFirstSubSegment().hasXRef());
 		assertEquals(s.getXRef().getSegment().getFirstSubSegment().getXRef(), parser.parseXDI3XRef("(name)"));
 		assertEquals(s.getXRef().getSegment().getFirstSubSegment().getXRef().getXs(), XDI3Constants.XS_ROOT);

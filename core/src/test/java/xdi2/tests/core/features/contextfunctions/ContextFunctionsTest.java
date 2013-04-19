@@ -14,10 +14,10 @@ public class ContextFunctionsTest extends TestCase {
 
 	public void testArcXris() throws Exception {
 
-		assertEquals(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[+address]"));
-		assertEquals(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[<+address>]"));
-		assertEquals(XdiEntityClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+address"));
-		assertEquals(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("<+address>"));
+		assertEquals(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+address"));
+		assertEquals(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("<+address>"));
+		assertEquals(XdiEntityClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[+address]"));
+		assertEquals(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[<+address>]"));
 		assertEquals(XdiAbstractInstanceUnordered.createArcXri("1", true), XDI3SubSegment.create("*1"));
 		assertEquals(XdiAbstractInstanceUnordered.createArcXri("1", false), XDI3SubSegment.create("!1"));
 		assertEquals(XdiAbstractInstanceOrdered.createArcXri("1"), XDI3SubSegment.create("#1"));

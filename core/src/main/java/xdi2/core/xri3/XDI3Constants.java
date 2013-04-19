@@ -9,11 +9,11 @@ public class XDI3Constants {
 	public static final Character CS_STAR = new Character('*'); 
 	public static final Character CS_BANG = new Character('!'); 
 	public static final Character CS_ORDER = new Character('#');
-	public static final Character CS_VALUE = new Character(':');
+	public static final Character CS_VALUE = new Character('&');
 
 	public static final String XS_ROOT = "()";
 	public static final String XS_VARIABLE = "{}";
-	public static final String XS_SINGLETON = "[]";
+	public static final String XS_CLASS = "[]";
 	public static final String XS_ATTRIBUTE = "<>";
 
 	public static final Character[] CS_ARRAY = new Character[] {

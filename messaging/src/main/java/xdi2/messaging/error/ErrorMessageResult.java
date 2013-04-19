@@ -26,7 +26,7 @@ public class ErrorMessageResult extends MessageResult {
 	private static final long serialVersionUID = 8816468280233966339L;
 
 	public static final XDI3Segment XRI_S_FALSE = XDI3Segment.create("$false");
-	public static final XDI3Segment XRI_S_ERROR = XDI3Segment.create("[<$error>]");
+	public static final XDI3Segment XRI_S_ERROR = XDI3Segment.create("" + XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("$error")));
 
 	public static final XDI3SubSegment XRI_SS_FALSE = XDI3SubSegment.create("$false");
 

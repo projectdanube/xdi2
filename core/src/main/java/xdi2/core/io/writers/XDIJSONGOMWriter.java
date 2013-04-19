@@ -30,9 +30,12 @@ import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.stream.JsonWriter;
 
 public class XDIJSONGOMWriter extends AbstractXDIWriter {
 
@@ -43,6 +46,8 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 	public static final String FORMAT_NAME = "XDI/JSON/GOM";
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType MIME_TYPE = null;
+
+	private static final Gson gson = new Gson();
 
 	private boolean writeImplied;
 	private boolean writeOrdered;
@@ -99,17 +104,19 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 
 		// write the statements
 
-		JSONArray gom = makeGom(statements, this.writeInner);
+		JsonArray gom = makeGom(statements, this.writeInner);
 
-		writer.write(JSON.toJSONString(gom, this.writePretty));
+		JsonWriter jsonWriter = new JsonWriter(writer);
+		if (this.writePretty) jsonWriter.setIndent("  ");
+		gson.toJson(gom, jsonWriter);
 		writer.flush();
 
 		return writer;
 	}
 
-	private static JSONArray makeGom(IterableIterator<Statement> statements, boolean writeInner) {
+	private static JsonArray makeGom(IterableIterator<Statement> statements, boolean writeInner) {
 
-		JSONArray gom = new JSONArray();
+		JsonArray gom = new JsonArray();
 
 		for (Statement statement : statements) {
 
@@ -127,9 +134,9 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 		return gom;
 	}
 
-	private static JSONArray makeGom(XDI3Statement statement) {
+	private static JsonArray makeGom(XDI3Statement statement) {
 
-		JSONArray gom = new JSONArray();
+		JsonArray gom = new JsonArray();
 
 		gom.add(makeGom(statement.getSubject()));
 		gom.add(makeGom(statement.getPredicate()));
@@ -137,76 +144,76 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 		if (statement.getObject() instanceof XDI3Segment)
 			gom.add(makeGom((XDI3Segment) statement.getObject()));
 		else
-			gom.add(statement.getObject());
+			gom.add(new JsonPrimitive((String) statement.getObject()));
 
 		return gom;
 	}
 
-	private static Object makeGom(XDI3Segment segment) {
+	private static JsonElement makeGom(XDI3Segment segment) {
 
-		Object gom;
+		JsonElement gom;
 
 		if (segment.getNumSubSegments() == 1) {
 
 			gom = makeGom(segment.getFirstSubSegment());
 		} else {
 
-			gom = new JSONArray();
+			gom = new JsonArray();
 
-			for (int i=0; i<segment.getNumSubSegments(); i++) ((JSONArray) gom).add(makeGom(segment.getSubSegment(i)));
+			for (int i=0; i<segment.getNumSubSegments(); i++) ((JsonArray) gom).add(makeGom(segment.getSubSegment(i)));
 		}
 
 		return gom;
 	}
 
-	private static Object makeGom(XDI3SubSegment subSegment) {
+	private static JsonElement makeGom(XDI3SubSegment subSegment) {
 
-		Object gom = "";
+		JsonElement gom = null;
 		
 		if (subSegment.hasXRef()) {
 
-			JSONObject gom2 = new JSONObject();
-			gom2.put(subSegment.getXRef().getXs(), makeGom(subSegment.getXRef()));
+			JsonObject gom2 = new JsonObject();
+			gom2.add(subSegment.getXRef().getXs(), makeGom(subSegment.getXRef()));
 			gom = gom2;
 		}
 
 		if (subSegment.hasLiteral()) {
 
-			gom = subSegment.getLiteral();
+			gom = new JsonPrimitive(subSegment.getLiteral());
 		}
 
 		if (subSegment.hasCs()) {
 
-			JSONObject gom2 = new JSONObject();
-			gom2.put(subSegment.getCs().toString(), gom);
+			JsonObject gom2 = new JsonObject();
+			gom2.add(subSegment.getCs().toString(), gom);
 			gom = gom2;
 		}
 
-		if (subSegment.isAttribute()) {
+		if (subSegment.isAttributeXs()) {
 
-			JSONObject gom2 = new JSONObject();
-			gom2.put(XDI3Constants.XS_ATTRIBUTE, gom);
+			JsonObject gom2 = new JsonObject();
+			gom2.add(XDI3Constants.XS_ATTRIBUTE.substring(0, 1), gom);
 			gom = gom2;
 		}
 
-		if (subSegment.isSingleton()) {
+		if (subSegment.isClassXs()) {
 
-			JSONObject gom2 = new JSONObject();
-			gom2.put(XDI3Constants.XS_SINGLETON, gom);
+			JsonObject gom2 = new JsonObject();
+			gom2.add(XDI3Constants.XS_CLASS.substring(0, 1), gom);
 			gom = gom2;
 		}
 
 		return gom;
 	}
 
-	private static Object makeGom(XDI3XRef xref) {
+	private static JsonElement makeGom(XDI3XRef xref) {
 
 		if (xref.hasStatement()) {
 
 			return makeGom(xref.getStatement());
 		} else if (xref.hasPartialSubjectAndPredicate()) {
 
-			JSONArray gom = new JSONArray();
+			JsonArray gom = new JsonArray();
 			gom.add(makeGom(xref.getPartialSubject()));
 			gom.add(makeGom(xref.getPartialPredicate()));
 			return gom;
@@ -215,7 +222,7 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 			return makeGom(xref.getSegment());
 		} else {
 
-			return xref.getValue() == null ? "" : xref.getValue();
+			return xref.getValue() == null ? new JsonPrimitive("") : new JsonPrimitive(xref.getValue());
 		}
 	}
 

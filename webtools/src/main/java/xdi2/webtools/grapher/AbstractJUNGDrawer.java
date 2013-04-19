@@ -68,6 +68,7 @@ public abstract class AbstractJUNGDrawer implements Drawer {
 
 	static class MyVertexFillPaintTransformer implements Transformer<Object, Paint> {
 
+		@Override
 		public Paint transform(Object object) {
 
 			if (object instanceof ContextNode) return Color.GREEN;
@@ -83,6 +84,7 @@ public abstract class AbstractJUNGDrawer implements Drawer {
 		private final Stroke relationStatementStroke = new BasicStroke(1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, new float[] { 3.0f, 3.0f }, 0.0f);
 		private final Stroke literalStatementStroke = new BasicStroke(0.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f);
 
+		@Override
 		public Stroke transform(Statement statement) { 
 
 			if (statement instanceof ContextNodeStatement) return this.contextNodeStatementStroke;

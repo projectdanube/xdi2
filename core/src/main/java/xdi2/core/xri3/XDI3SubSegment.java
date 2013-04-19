@@ -5,18 +5,18 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 	private static final long serialVersionUID = -645927779266394209L;
 
 	private Character cs;
-	private boolean singleton;
-	private boolean attribute;
+	private boolean classXs;
+	private boolean attributeXs;
 	private String literal;
 	private XDI3XRef xref;
 
-	XDI3SubSegment(String string, Character cs, boolean singleton, boolean attribute, String literal, XDI3XRef xref) {
+	XDI3SubSegment(String string, Character cs, boolean classXs, boolean attributeXs, String literal, XDI3XRef xref) {
 
 		super(string);
 
 		this.cs = cs;
-		this.singleton = singleton;
-		this.attribute = attribute;
+		this.classXs = classXs;
+		this.attributeXs = attributeXs;
 		this.literal = literal;
 		this.xref = xref;
 	}
@@ -31,14 +31,14 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 		return this.cs != null;
 	}
 
-	public boolean isSingleton() {
+	public boolean isClassXs() {
 
-		return this.singleton;
+		return this.classXs;
 	}
 
-	public boolean isAttribute() {
+	public boolean isAttributeXs() {
 
-		return this.attribute;
+		return this.attributeXs;
 	}
 
 	public boolean hasLiteral() {

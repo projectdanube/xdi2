@@ -75,19 +75,23 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton implements
 
 	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.XS_SINGLETON.charAt(0) + XDI3Constants.XS_ATTRIBUTE.charAt(0) + arcXri + XDI3Constants.XS_ATTRIBUTE.charAt(1) + XDI3Constants.XS_SINGLETON.charAt(1));
+		return XDI3SubSegment.create("" + XDI3Constants.XS_ATTRIBUTE.charAt(0) + arcXri + XDI3Constants.XS_ATTRIBUTE.charAt(1));
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 
-		if (! arcXri.isSingleton()) return false;
-		if (! arcXri.isAttribute()) return false;
+		if (arcXri.isClassXs()) return false;
+		if (! arcXri.isAttributeXs()) return false;
 
-		if (! XDI3Constants.CS_PLUS.equals(arcXri.getCs()) && ! XDI3Constants.CS_DOLLAR.equals(arcXri.getCs())) return false;
+		if (XDI3Constants.CS_PLUS.equals(arcXri.getCs()) || XDI3Constants.CS_DOLLAR.equals(arcXri.getCs())) {
 
-		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
+			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
+		} else {
+
+			return false;
+		}
 
 		return true;
 	}

@@ -4,7 +4,7 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 4875921569202236777L;
 
-	private String cf;
+	private String xs;
 	private XDI3Segment segment;
 	private XDI3Statement statement;
 	private XDI3Segment partialSubject;
@@ -12,11 +12,11 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 	private String iri;
 	private String literal;
 
-	XDI3XRef(String string, String cf, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
+	XDI3XRef(String string, String xs, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
 
 		super(string);
 
-		this.cf = cf;
+		this.xs = xs;
 		this.segment = segment;
 		this.statement = statement;
 		this.partialSubject = partialSubject;
@@ -62,7 +62,7 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 
 	public String getXs() {
 
-		return this.cf;
+		return this.xs;
 	}
 
 	public XDI3Segment getSegment() {

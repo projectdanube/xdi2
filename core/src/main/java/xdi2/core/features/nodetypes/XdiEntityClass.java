@@ -54,15 +54,15 @@ public final class XdiEntityClass extends XdiAbstractClass<XdiEntityInstanceUnor
 
 	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
 
-		return arcXri;
+		return XDI3SubSegment.create("" + XDI3Constants.XS_CLASS.charAt(0) + arcXri + XDI3Constants.XS_CLASS.charAt(1));
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return false;
 
-		if (arcXri.isSingleton()) return false;
-		if (arcXri.isAttribute()) return false;
+		if (! arcXri.isClassXs()) return false;
+		if (arcXri.isAttributeXs()) return false;
 
 		if (XDI3Constants.CS_PLUS.equals(arcXri.getCs()) || XDI3Constants.CS_DOLLAR.equals(arcXri.getCs())) {
 
