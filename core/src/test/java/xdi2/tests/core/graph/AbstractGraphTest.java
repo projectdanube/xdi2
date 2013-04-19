@@ -71,6 +71,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(drummond.isEmpty());
 		assertTrue(drummond.isLeafContextNode());
 
+		value.setLiteral("xyz@gmail.com");
+		assertEquals(graph0.getDeepLiteral(XDI3Segment.create("=markus<+email>&")).getLiteralData(), "xyz@gmail.com");
+		
 		graph0.close();
 	}
 
