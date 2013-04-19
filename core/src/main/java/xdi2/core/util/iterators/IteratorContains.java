@@ -33,7 +33,7 @@ public final class IteratorContains<T> {
 		while (this.iterator.hasNext()) {
 
 			if (this.iterator.next().equals(this.element)) {
-				
+
 				this.contains = Boolean.TRUE;
 				return true;
 			}

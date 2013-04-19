@@ -31,6 +31,7 @@ import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -47,7 +48,7 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType MIME_TYPE = null;
 
-	private static final Gson gson = new Gson();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
 	private boolean writeImplied;
 	private boolean writeOrdered;

@@ -32,6 +32,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -53,7 +54,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 	public static final XDI3Segment XRI_DATATYPE_JSON_FALSE = XDI3Segment.create("+$json$false");
 	public static final XDI3Segment XRI_DATATYPE_JSON_NULL = XDI3Segment.create("+$json$null");
 
-	private static final Gson gson = new Gson();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 	private static final JsonParser jsonParser = new JsonParser();
 
 	public XDIRawJSONReader(Properties parameters) {
