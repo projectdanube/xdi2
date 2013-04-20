@@ -34,7 +34,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		super(graph, contextNode);
 
 		this.arcXri = arcXri;
-		
+
 		if (graph.getSortMode() == MemoryGraphFactory.SORTMODE_ALPHA) {
 
 			this.contextNodes = new TreeMap<XDI3SubSegment, MemoryContextNode> ();
@@ -300,14 +300,6 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	public synchronized Literal setLiteral(String literalData) {
 
 		this.checkLiteral(literalData, false);
-
-		Literal literal = this.getLiteral();
-
-		if (literal != null) {
-
-			literal.setLiteralData(literalData);
-			return literal;
-		}
 
 		return this.createLiteralInternal(literalData);
 	}

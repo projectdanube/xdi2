@@ -339,6 +339,11 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public void deleteRelations();
 
 	/**
+	 * Deletes the incoming relations of this context node.
+	 */
+	public void deleteIncomingRelations();
+
+	/**
 	 * Returns the number of relations of this context node.
 	 * @param arcXri The arc XRI to look for. 
 	 * @return The number of relations.

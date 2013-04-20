@@ -465,8 +465,11 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new IteratorCounter(les.getRelations()).count(), 0);
 		assertEquals(new IteratorCounter(inumber.getRelations()).count(), 1);
 		assertEquals(new IteratorCounter(markus.getIncomingRelations()).count(), 1);
+		assertEquals(new IteratorCounter(markus.getIncomingRelations(XDI3Segment.create("$is"))).count(), 1);
 		assertEquals(new IteratorCounter(animesh.getIncomingRelations()).count(), 1);
+		assertEquals(new IteratorCounter(animesh.getIncomingRelations(XDI3Segment.create("+friend"))).count(), 1);
 		assertEquals(new IteratorCounter(les.getIncomingRelations()).count(), 1);
+		assertEquals(new IteratorCounter(les.getIncomingRelations(XDI3Segment.create("+friend"))).count(), 1);
 		assertEquals(new IteratorCounter(inumber.getIncomingRelations()).count(), 0);
 
 		Relation friend1 = markus.getRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
@@ -490,7 +493,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new IteratorCounter(les.getRelations()).count(), 0);
 		assertEquals(new IteratorCounter(inumber.getRelations()).count(), 1);
 		assertEquals(new IteratorCounter(markus.getIncomingRelations()).count(), 1);
+		assertEquals(new IteratorCounter(markus.getIncomingRelations(XDI3Segment.create("$is"))).count(), 1);
 		assertEquals(new IteratorCounter(les.getIncomingRelations()).count(), 1);
+		assertEquals(new IteratorCounter(les.getIncomingRelations(XDI3Segment.create("+friend"))).count(), 1);
 		assertEquals(new IteratorCounter(inumber.getIncomingRelations()).count(), 0);
 
 		ContextNode neustar = les.getContextNode();
@@ -500,6 +505,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new IteratorCounter(markus.getRelations()).count(), 0);
 		assertEquals(new IteratorCounter(inumber.getRelations()).count(), 1);
 		assertEquals(new IteratorCounter(markus.getIncomingRelations()).count(), 1);
+		assertEquals(new IteratorCounter(markus.getIncomingRelations(XDI3Segment.create("$is"))).count(), 1);
 		assertEquals(new IteratorCounter(inumber.getIncomingRelations()).count(), 0);
 
 		graph16.getRootContextNode().deleteContextNode(XDI3SubSegment.create("=markus"));

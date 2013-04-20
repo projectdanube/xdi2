@@ -135,7 +135,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to context nodes of this context node
 	 */
 
-//	public ContextNode createContextNode(XDI3SubSegment contextNodeArcXri);
+	//	public ContextNode createContextNode(XDI3SubSegment contextNodeArcXri);
 
 	@Override
 	public ContextNode createDeepContextNode(XDI3Segment contextNodeArcXris) {
@@ -192,8 +192,8 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new IteratorFirstItem<ContextNode> (selectingIterator).item();
 	}
 
-//	public ReadOnlyIterator<ContextNode> getContextNodes();
-	
+	//	public ReadOnlyIterator<ContextNode> getContextNodes();
+
 	@Override
 	public ContextNode getDeepContextNode(XDI3Segment contextNodeArcXris) {
 
@@ -211,7 +211,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode;
 	}
 
-//	public ReadOnlyIterator<ContextNode> getContextNodes();
+	//	public ReadOnlyIterator<ContextNode> getContextNodes();
 
 	@Override
 	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDI3Segment contextNodeArcXris) {
@@ -305,7 +305,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode.createRelation(arcXri, targetContextNodeXri);
 	}
 
-//	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode);
+	//	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode);
 
 	@Override
 	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode) {
@@ -416,7 +416,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode.getRelations(arcXri);
 	}
 
-//	public ReadOnlyIterator<Relation> getRelations();
+	//	public ReadOnlyIterator<Relation> getRelations();
 
 	@Override
 	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris) {
@@ -506,6 +506,12 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	public void deleteIncomingRelations() {
+
+		for (Relation relation : this.getIncomingRelations()) relation.delete();
+	}
+
+	@Override
 	public int getRelationCount(XDI3Segment arcXri) {
 
 		return new IteratorCounter(this.getRelations(arcXri)).count();
@@ -527,7 +533,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to literals of this context node
 	 */
 
-//	public Literal createLiteral(String literalData);
+	//	public Literal createLiteral(String literalData);
 
 	@Override
 	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, String literalData) {
@@ -583,7 +589,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode.getLiteral(literalData);
 	}
 
-//	public Literal getLiteral();
+	//	public Literal getLiteral();
 
 	@Override
 	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris) {

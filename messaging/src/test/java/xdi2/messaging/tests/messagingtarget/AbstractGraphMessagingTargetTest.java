@@ -78,7 +78,14 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(message);
 				MessageResult messageResult = new MessageResult();
 
+				try {
 				graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+				} catch (Exception ex) {
+					
+					System.err.println(i);
+					System.err.println(ii);
+					throw ex;
+				}
 
 				ii++;
 			}
