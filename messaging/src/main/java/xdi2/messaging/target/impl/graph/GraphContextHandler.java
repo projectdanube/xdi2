@@ -6,10 +6,13 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.VariableUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
@@ -80,10 +83,22 @@ public class GraphContextHandler extends AbstractContextHandler {
 	@Override
 	public void delContext(XDI3Segment contextNodeXri, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri);
-		if (contextNode == null) return;
+		if (XDIConstants.XRI_S_ROOT.equals(contextNodeXri)) {
 
-		contextNode.delete();
+			this.getGraph().clear();
+		} else if (contextNodeXri.getNumSubSegments() == 1) {
+
+			this.getGraph().getRootContextNode().deleteContextNode(contextNodeXri.getFirstSubSegment());
+		} else {
+
+			XDI3Segment parentContextNodeXri = XDI3Util.parentXri(contextNodeXri, -1);
+			XDI3SubSegment localContextNodeArcXri = XDI3Util.localXri(contextNodeXri, 1).getFirstSubSegment();
+
+			ContextNode parentContextNode = this.getGraph().getDeepContextNode(parentContextNodeXri);
+			if (parentContextNode == null) return;
+
+			parentContextNode.deleteContextNode(localContextNodeArcXri);
+		}
 	}
 
 	/*
