@@ -63,6 +63,7 @@ function updateSamples() {
 		<select name="resultFormat">
 		<option value="XDI/JSON" <%= resultFormat.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
 		<option value="XDI DISPLAY" <%= resultFormat.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
+		<option value="XDI/JSON/GOM" <%= resultFormat.equals("XDI/JSON/GOM") ? "selected" : "" %>>XDI/JSON/GOM</option>
 		</select>
 		&nbsp;
 
@@ -92,13 +93,13 @@ function updateSamples() {
 		<%= request.getAttribute("stats") %>
 
 		<% if (request.getAttribute("output") != null) { %>
-			Copy&amp;Paste: <textarea style="width: 100px; height: 1.2em; overflow: hidden"><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></textarea>
+			Copy&amp;Paste: <textarea style="width: 100px; height: 1.2em; overflow: hidden"><%= request.getAttribute("output") %></textarea>
 		<% } %>
 		</p>
 	<% } %>
 
 	<% if (request.getAttribute("output") != null) { %>
-		<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
+		<div class="result"><pre><%= request.getAttribute("output") %></pre></div><br>
 	<% } %>
 
 	</div>	

@@ -226,6 +226,18 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNotNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>&")));
 		assertNotNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
 
+		graph12.getDeepContextNode(XDI3Segment.create("=markus")).deleteContextNode(XDI3SubSegment.create("<+name>"));
+
+		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
+		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus<+name>&")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus<+name>&")));
+		assertNotNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
+		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
+		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
+		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
+		assertNotNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>&")));
+		assertNotNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
+
 		graph12.getDeepContextNode(XDI3Segment.create("=markus")).delete();
 
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
@@ -235,7 +247,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>&")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
 
 		graph12.setDeepContextNode(XDI3Segment.create("=markus"));
@@ -247,7 +259,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
 		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>")));
+		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>&")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
 
 		graph12.close();

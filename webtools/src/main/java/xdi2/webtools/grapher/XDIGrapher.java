@@ -87,6 +87,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
+
 		request.getRequestDispatcher("/XDIGrapher.jsp").forward(request, response);
 	}
 

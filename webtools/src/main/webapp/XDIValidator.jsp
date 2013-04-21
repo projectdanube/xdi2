@@ -50,7 +50,7 @@
 	<% } %>
 
 	<% if (request.getAttribute("output") != null) { %>
-		<div class="result"><pre><%= request.getAttribute("output") != null ? request.getAttribute("output") : "" %></pre></div><br>
+		<div class="result"><pre><%= request.getAttribute("output") %></pre></div><br>
 	<% } %>
 
 	</div>

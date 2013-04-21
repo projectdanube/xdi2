@@ -79,6 +79,7 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
+
 		request.getRequestDispatcher("/XDIValidator.jsp").forward(request, response);
 	}
 
