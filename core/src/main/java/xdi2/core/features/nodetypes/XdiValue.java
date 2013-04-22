@@ -34,7 +34,8 @@ public final class XdiValue extends XdiAbstractSubGraph {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return isValidArcXri(contextNode.getArcXri());
+		return isValidArcXri(contextNode.getArcXri()) &&
+				XdiAbstractAttribute.isValid(contextNode.getContextNode());
 	}
 
 	/**
@@ -48,10 +49,6 @@ public final class XdiValue extends XdiAbstractSubGraph {
 
 		return new XdiValue(contextNode);
 	}
-
-	/*
-	 * Instance methods
-	 */
 
 	/*
 	 * Methods for XRIs

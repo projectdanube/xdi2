@@ -106,13 +106,55 @@ public final class XdiPeerRoot extends XdiRoot {
 	}
 
 	/**
+	 * Returns the IRI of the peer root XRI.
+	 * @param arcXri A peer root XRI.
+	 * @return The IRI of the peer root XRI.
+	 */
+	public static String getIriOfPeerRootArcXri(XDI3SubSegment arcXri) {
+
+		if (arcXri == null) return null;
+
+		if (arcXri.hasCs()) return null;
+		if (arcXri.isClassXs()) return null;
+		if (arcXri.isAttributeXs()) return null;
+		if (! arcXri.hasXRef()) return null;
+
+		XDI3XRef xref = arcXri.getXRef();
+		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
+		if (! xref.hasIri()) return null;
+
+		return xref.getIri();
+	}
+
+	/**
+	 * Returns the literal of the peer root XRI.
+	 * @param arcXri A peer root XRI.
+	 * @return The literal of the peer root XRI.
+	 */
+	public static String getLiteralOfPeerRootArcXri(XDI3SubSegment arcXri) {
+
+		if (arcXri == null) return null;
+
+		if (arcXri.hasCs()) return null;
+		if (arcXri.isClassXs()) return null;
+		if (arcXri.isAttributeXs()) return null;
+		if (! arcXri.hasXRef()) return null;
+
+		XDI3XRef xref = arcXri.getXRef();
+		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
+		if (! xref.hasLiteral()) return null;
+
+		return xref.getLiteral();
+	}
+
+	/**
 	 * Checks if a given XRI is a peer root XRI.
 	 * @param arcXri A peer root XRI.
 	 * @return True, if the XRI is a peer root XRI.
 	 */
 	public static boolean isPeerRootArcXri(XDI3SubSegment arcXri) {
 
-		return getXriOfPeerRootArcXri(arcXri) != null;
+		return getXriOfPeerRootArcXri(arcXri) != null || getIriOfPeerRootArcXri(arcXri) != null || getLiteralOfPeerRootArcXri(arcXri) != null;
 	}
 
 	/*

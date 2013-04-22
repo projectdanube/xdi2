@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule_peer_inverse.java
+ * Rule_relative_root.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_peer_inverse extends Rule
+final public class Rule_relative_root extends Rule
 {
-  private Rule_peer_inverse(String spelling, ArrayList<Rule> rules)
+  private Rule_relative_root(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_peer_inverse extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_peer_inverse parse(ParserContext context)
+  public static Rule_relative_root parse(ParserContext context)
   {
-    context.push("peer-inverse");
+    context.push("relative-root");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -40,36 +40,6 @@ final public class Rule_peer_inverse extends Rule
         ArrayList<Rule> e1 = new ArrayList<Rule>();
         int s1 = context.index;
         parsed = true;
-        if (parsed)
-        {
-          boolean f1 = true;
-          int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
-          {
-            rule = Rule_context.parse(context);
-            if ((f1 = rule != null))
-            {
-              e1.add(rule);
-              c1++;
-            }
-          }
-          parsed = c1 == 1;
-        }
-        if (parsed)
-        {
-          boolean f1 = true;
-          int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
-          {
-            rule = Terminal_StringValue.parse(context, "/$is()/");
-            if ((f1 = rule != null))
-            {
-              e1.add(rule);
-              c1++;
-            }
-          }
-          parsed = c1 == 1;
-        }
         if (parsed)
         {
           boolean f1 = true;
@@ -91,16 +61,70 @@ final public class Rule_peer_inverse extends Rule
           context.index = s1;
       }
     }
+    if (!parsed)
+    {
+      {
+        ArrayList<Rule> e1 = new ArrayList<Rule>();
+        int s1 = context.index;
+        parsed = true;
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Rule_inner_root.parse(context);
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 1;
+        }
+        if (parsed)
+          e0.addAll(e1);
+        else
+          context.index = s1;
+      }
+    }
+    if (!parsed)
+    {
+      {
+        ArrayList<Rule> e1 = new ArrayList<Rule>();
+        int s1 = context.index;
+        parsed = true;
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Rule_statement_root.parse(context);
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 1;
+        }
+        if (parsed)
+          e0.addAll(e1);
+        else
+          context.index = s1;
+      }
+    }
 
     rule = null;
     if (parsed)
-      rule = new Rule_peer_inverse(context.text.substring(s0, context.index), e0);
+      rule = new Rule_relative_root(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("peer-inverse", parsed);
+    context.pop("relative-root", parsed);
 
-    return (Rule_peer_inverse)rule;
+    return (Rule_relative_root)rule;
   }
 }
 

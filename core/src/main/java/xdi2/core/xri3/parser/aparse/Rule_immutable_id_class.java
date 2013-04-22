@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule_local_root.java
+ * Rule_immutable_id_class.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_local_root extends Rule
+final public class Rule_immutable_id_class extends Rule
 {
-  private Rule_local_root(String spelling, ArrayList<Rule> rules)
+  private Rule_immutable_id_class(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_local_root extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_local_root parse(ParserContext context)
+  public static Rule_immutable_id_class parse(ParserContext context)
   {
-    context.push("local-root");
+    context.push("immutable-id-class");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -46,7 +46,7 @@ final public class Rule_local_root extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "()");
+            rule = Terminal_StringValue.parse(context, "[!]");
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -64,13 +64,13 @@ final public class Rule_local_root extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_local_root(context.text.substring(s0, context.index), e0);
+      rule = new Rule_immutable_id_class(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("local-root", parsed);
+    context.pop("immutable-id-class", parsed);
 
-    return (Rule_local_root)rule;
+    return (Rule_immutable_id_class)rule;
   }
 }
 

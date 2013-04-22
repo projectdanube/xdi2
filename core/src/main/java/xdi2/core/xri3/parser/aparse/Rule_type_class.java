@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -46,7 +46,7 @@ final public class Rule_type_class extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_specific.parse(context);
+            rule = Rule_reserved_class.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -73,7 +73,7 @@ final public class Rule_type_class extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_generic.parse(context);
+            rule = Rule_unreserved_class.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);

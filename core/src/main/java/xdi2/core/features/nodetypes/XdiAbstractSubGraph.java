@@ -41,7 +41,13 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return true;
+		return XdiRoot.isValid(contextNode) || 
+				XdiMetaClass.isValid(contextNode) ||
+				XdiAbstractSingleton.isValid(contextNode) ||
+				XdiAbstractClass.isValid(contextNode) ||
+				XdiAbstractInstance.isValid(contextNode) ||
+				XdiValue.isValid(contextNode) ||
+				XdiVariable.isValid(contextNode);
 	}
 
 	/**
@@ -54,11 +60,12 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 		XdiSubGraph xdiSubGraph = null;
 
 		if ((xdiSubGraph = XdiRoot.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiMetaClass.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiAbstractSingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiAbstractClass.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiAbstractInstanceUnordered.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiAbstractInstanceOrdered.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAbstractInstance.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiValue.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiVariable.fromContextNode(contextNode)) != null) return xdiSubGraph;
 
 		return null;
 	}

@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -74,33 +74,6 @@ final public class Rule_relational_statement extends Rule
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
             rule = Rule_direct_relational.parse(context);
-            if ((f1 = rule != null))
-            {
-              e1.add(rule);
-              c1++;
-            }
-          }
-          parsed = c1 == 1;
-        }
-        if (parsed)
-          e0.addAll(e1);
-        else
-          context.index = s1;
-      }
-    }
-    if (!parsed)
-    {
-      {
-        ArrayList<Rule> e1 = new ArrayList<Rule>();
-        int s1 = context.index;
-        parsed = true;
-        if (parsed)
-        {
-          boolean f1 = true;
-          int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
-          {
-            rule = Rule_inner_relational.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);

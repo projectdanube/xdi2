@@ -13,7 +13,7 @@ public class XDIResolverSample {
 
 		XDIResolutionResult result = resolver.resolve("=markus");
 
-		System.out.println("I-Number: " + result.getInumber());    // =!91F2.8153.F600.AE24
-		System.out.println("URI: " + result.getUri());             // https://xdi.fullxri.com/=!91F2.8153.F600.AE24/
+		System.out.println("I-Number: " + result.getInumber());    // [=]!91F2.8153.F600.AE24
+		System.out.println("URI: " + result.getUri());             // https://xdi.fullxri.com/[=]!91F2.8153.F600.AE24/
 	}
 }

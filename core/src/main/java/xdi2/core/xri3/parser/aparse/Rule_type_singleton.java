@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule_inner_relational.java
+ * Rule_type_singleton.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_inner_relational extends Rule
+final public class Rule_type_singleton extends Rule
 {
-  private Rule_inner_relational(String spelling, ArrayList<Rule> rules)
+  private Rule_type_singleton(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_inner_relational extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_inner_relational parse(ParserContext context)
+  public static Rule_type_singleton parse(ParserContext context)
   {
-    context.push("inner-relational");
+    context.push("type-singleton");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -46,7 +46,7 @@ final public class Rule_inner_relational extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_context.parse(context);
+            rule = Rule_reserved_type.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -56,57 +56,24 @@ final public class Rule_inner_relational extends Rule
           parsed = c1 == 1;
         }
         if (parsed)
-        {
-          boolean f1 = true;
-          int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
-          {
-            rule = Terminal_StringValue.parse(context, "/");
-            if ((f1 = rule != null))
-            {
-              e1.add(rule);
-              c1++;
-            }
-          }
-          parsed = c1 == 1;
-        }
+          e0.addAll(e1);
+        else
+          context.index = s1;
+      }
+    }
+    if (!parsed)
+    {
+      {
+        ArrayList<Rule> e1 = new ArrayList<Rule>();
+        int s1 = context.index;
+        parsed = true;
         if (parsed)
         {
           boolean f1 = true;
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_context.parse(context);
-            if ((f1 = rule != null))
-            {
-              e1.add(rule);
-              c1++;
-            }
-          }
-          parsed = c1 == 1;
-        }
-        if (parsed)
-        {
-          boolean f1 = true;
-          int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
-          {
-            rule = Terminal_StringValue.parse(context, "/");
-            if ((f1 = rule != null))
-            {
-              e1.add(rule);
-              c1++;
-            }
-          }
-          parsed = c1 == 1;
-        }
-        if (parsed)
-        {
-          boolean f1 = true;
-          int c1 = 0;
-          for (int i1 = 0; i1 < 1 && f1; i1++)
-          {
-            rule = Rule_inner_statement.parse(context);
+            rule = Rule_unreserved_type.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -124,13 +91,13 @@ final public class Rule_inner_relational extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_inner_relational(context.text.substring(s0, context.index), e0);
+      rule = new Rule_type_singleton(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("inner-relational", parsed);
+    context.pop("type-singleton", parsed);
 
-    return (Rule_inner_relational)rule;
+    return (Rule_type_singleton)rule;
   }
 }
 

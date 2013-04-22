@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule_specific.java
+ * Rule_immutable_id.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_specific extends Rule
+final public class Rule_immutable_id extends Rule
 {
-  private Rule_specific(String spelling, ArrayList<Rule> rules)
+  private Rule_immutable_id(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_specific extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_specific parse(ParserContext context)
+  public static Rule_immutable_id parse(ParserContext context)
   {
-    context.push("specific");
+    context.push("immutable-id");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -46,7 +46,7 @@ final public class Rule_specific extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "$");
+            rule = Terminal_StringValue.parse(context, "!");
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -58,7 +58,6 @@ final public class Rule_specific extends Rule
         if (parsed)
         {
           boolean f1 = true;
-          @SuppressWarnings("unused")
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
@@ -103,7 +102,7 @@ final public class Rule_specific extends Rule
                   int c2 = 0;
                   for (int i2 = 0; i2 < 1 && f2; i2++)
                   {
-                    rule = Rule_xdi_chars.parse(context);
+                    rule = Rule_uuid_literal.parse(context);
                     if ((f2 = rule != null))
                     {
                       e2.add(rule);
@@ -118,10 +117,73 @@ final public class Rule_specific extends Rule
                   context.index = s2;
               }
             }
+            if (!parsed)
+            {
+              {
+                ArrayList<Rule> e2 = new ArrayList<Rule>();
+                int s2 = context.index;
+                parsed = true;
+                if (parsed)
+                {
+                  boolean f2 = true;
+                  int c2 = 0;
+                  for (int i2 = 0; i2 < 1 && f2; i2++)
+                  {
+                    rule = Rule_ipv6_literal.parse(context);
+                    if ((f2 = rule != null))
+                    {
+                      e2.add(rule);
+                      c2++;
+                    }
+                  }
+                  parsed = c2 == 1;
+                }
+                if (parsed)
+                  e1.addAll(e2);
+                else
+                  context.index = s2;
+              }
+            }
+            if (!parsed)
+            {
+              {
+                ArrayList<Rule> e2 = new ArrayList<Rule>();
+                int s2 = context.index;
+                parsed = true;
+                if (parsed)
+                {
+                  boolean f2 = true;
+                  int c2 = 0;
+                  for (int i2 = 0; i2 < 1 && f2; i2++)
+                  {
+                    rule = Rule_xdi_char.parse(context);
+                    if ((f2 = rule != null))
+                    {
+                      e2.add(rule);
+                      c2++;
+                    }
+                  }
+                  while (f2)
+                  {
+                    rule = Rule_xdi_char.parse(context);
+                    if ((f2 = rule != null))
+                    {
+                      e2.add(rule);
+                      c2++;
+                    }
+                  }
+                  parsed = c2 >= 1;
+                }
+                if (parsed)
+                  e1.addAll(e2);
+                else
+                  context.index = s2;
+              }
+            }
             f1 = context.index > g1;
             if (parsed) c1++;
           }
-          parsed = true;
+          parsed = c1 == 1;
         }
         if (parsed)
           e0.addAll(e1);
@@ -132,13 +194,13 @@ final public class Rule_specific extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_specific(context.text.substring(s0, context.index), e0);
+      rule = new Rule_immutable_id(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("specific", parsed);
+    context.pop("immutable-id", parsed);
 
-    return (Rule_specific)rule;
+    return (Rule_immutable_id)rule;
   }
 }
 

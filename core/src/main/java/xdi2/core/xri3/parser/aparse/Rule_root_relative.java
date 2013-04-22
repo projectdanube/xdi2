@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------
- * Rule_peer_relative.java
+ * Rule_root_relative.java
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -12,9 +12,9 @@ package xdi2.core.xri3.parser.aparse;
 
 import java.util.ArrayList;
 
-final public class Rule_peer_relative extends Rule
+final public class Rule_root_relative extends Rule
 {
-  private Rule_peer_relative(String spelling, ArrayList<Rule> rules)
+  private Rule_root_relative(String spelling, ArrayList<Rule> rules)
   {
     super(spelling, rules);
   }
@@ -24,9 +24,9 @@ final public class Rule_peer_relative extends Rule
     return visitor.visit(this);
   }
 
-  public static Rule_peer_relative parse(ParserContext context)
+  public static Rule_root_relative parse(ParserContext context)
   {
-    context.push("peer-relative");
+    context.push("root-relative");
 
     boolean parsed = true;
     int s0 = context.index;
@@ -46,7 +46,7 @@ final public class Rule_peer_relative extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_peer_root.parse(context);
+            rule = Rule_relative_root.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -94,13 +94,13 @@ final public class Rule_peer_relative extends Rule
 
     rule = null;
     if (parsed)
-      rule = new Rule_peer_relative(context.text.substring(s0, context.index), e0);
+      rule = new Rule_root_relative(context.text.substring(s0, context.index), e0);
     else
       context.index = s0;
 
-    context.pop("peer-relative", parsed);
+    context.pop("root-relative", parsed);
 
-    return (Rule_peer_relative)rule;
+    return (Rule_root_relative)rule;
   }
 }
 

@@ -34,7 +34,7 @@ public final class XdiAttributeInstanceOrdered extends XdiAbstractInstanceOrdere
 
 		return
 				isValidArcXri(contextNode.getArcXri()) &&
-				XdiAttributeClass.isValid(contextNode.getContextNode());
+				( XdiAttributeClass.isValid(contextNode.getContextNode()) || XdiAttributeInstanceOrdered.isValid(contextNode.getContextNode()) );
 	}
 
 	/**

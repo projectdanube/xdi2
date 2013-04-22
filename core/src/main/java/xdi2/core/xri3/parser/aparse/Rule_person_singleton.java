@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -102,14 +102,23 @@ final public class Rule_person_singleton extends Rule
                   int c2 = 0;
                   for (int i2 = 0; i2 < 1 && f2; i2++)
                   {
-                    rule = Rule_xdi_chars.parse(context);
+                    rule = Rule_xdi_char.parse(context);
                     if ((f2 = rule != null))
                     {
                       e2.add(rule);
                       c2++;
                     }
                   }
-                  parsed = c2 == 1;
+                  while (f2)
+                  {
+                    rule = Rule_xdi_char.parse(context);
+                    if ((f2 = rule != null))
+                    {
+                      e2.add(rule);
+                      c2++;
+                    }
+                  }
+                  parsed = c2 >= 1;
                 }
                 if (parsed)
                   e1.addAll(e2);

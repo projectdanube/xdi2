@@ -37,19 +37,7 @@ public class XdiInnerRoot extends XdiRoot {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		XDI3Segment subject = XdiInnerRoot.getSubjectOfInnerRootXri(contextNode.getArcXri());
-		XDI3Segment predicate = XdiInnerRoot.getPredicateOfInnerRootXri(contextNode.getArcXri());
-		if (subject == null || predicate == null) return false;
-
-		ContextNode parentContextNode = contextNode.getContextNode();
-		if (parentContextNode == null) return false;
-
-		ContextNode subjectContextNode = parentContextNode.getDeepContextNode(subject);
-		if (subjectContextNode == null) return false;
-
-		if (! subjectContextNode.containsRelation(predicate, contextNode.getXri())) return false;
-
-		return true;
+		return isInnerRootArcXri(contextNode.getArcXri());
 	}
 
 	/**
@@ -145,7 +133,7 @@ public class XdiInnerRoot extends XdiRoot {
 	public static XDI3Segment getSubjectOfInnerRootXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return null;
-		
+
 		if (arcXri.hasCs()) return null;
 		if (arcXri.isClassXs()) return null;
 		if (arcXri.isAttributeXs()) return null;
@@ -166,7 +154,7 @@ public class XdiInnerRoot extends XdiRoot {
 	public static XDI3Segment getPredicateOfInnerRootXri(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) return null;
-		
+
 		if (arcXri.hasCs()) return null;
 		if (arcXri.isClassXs()) return null;
 		if (arcXri.isAttributeXs()) return null;

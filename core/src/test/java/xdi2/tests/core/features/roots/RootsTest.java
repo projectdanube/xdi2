@@ -15,8 +15,8 @@ public class RootsTest extends TestCase {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		XdiLocalRoot localRoot = XdiLocalRoot.findLocalRoot(graph);
-		XdiPeerRoot peerRoot = localRoot.findPeerRoot(XDI3Segment.create("=!91F2.8153.F600.AE24"), true);
-		XdiInnerRoot innerRoot = peerRoot.findInnerRoot(XDI3Segment.create("=!1111"), XDI3Segment.create("$add"), true);
+		XdiPeerRoot peerRoot = localRoot.findPeerRoot(XDI3Segment.create("[=]!91F2.8153.F600.AE24"), true);
+		XdiInnerRoot innerRoot = peerRoot.findInnerRoot(XDI3Segment.create("[=]!1111"), XDI3Segment.create("$add"), true);
 
 		assertTrue(XdiAbstractSubGraph.fromContextNode(localRoot.getContextNode()) instanceof XdiLocalRoot);
 		assertTrue(XdiAbstractSubGraph.fromContextNode(peerRoot.getContextNode()) instanceof XdiPeerRoot);

@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -46,7 +46,7 @@ final public class Rule_attribute_singleton extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "!<");
+            rule = Terminal_StringValue.parse(context, "<");
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -61,7 +61,7 @@ final public class Rule_attribute_singleton extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_type_class.parse(context);
+            rule = Rule_type_singleton.parse(context);
             if ((f1 = rule != null))
             {
               e1.add(rule);

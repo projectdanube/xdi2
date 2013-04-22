@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -124,34 +124,16 @@ final public class Rule_subpath extends Rule
                               c3++;
                             }
                           }
-                          parsed = c3 == 1;
-                        }
-                        if (parsed)
-                          e2.addAll(e3);
-                        else
-                          context.index = s3;
-                      }
-                    }
-                    if (!parsed)
-                    {
-                      {
-                        ArrayList<Rule> e3 = new ArrayList<Rule>();
-                        int s3 = context.index;
-                        parsed = true;
-                        if (parsed)
-                        {
-                          boolean f3 = true;
-                          int c3 = 0;
-                          for (int i3 = 0; i3 < 1 && f3; i3++)
+                          while (f3)
                           {
-                            rule = Rule_element.parse(context);
+                            rule = Rule_instance.parse(context);
                             if ((f3 = rule != null))
                             {
                               e3.add(rule);
                               c3++;
                             }
                           }
-                          parsed = c3 == 1;
+                          parsed = c3 >= 1;
                         }
                         if (parsed)
                           e2.addAll(e3);
@@ -172,6 +154,60 @@ final public class Rule_subpath extends Rule
             }
             f1 = context.index > g1;
             if (parsed) c1++;
+          }
+          parsed = c1 == 1;
+        }
+        if (parsed)
+          e0.addAll(e1);
+        else
+          context.index = s1;
+      }
+    }
+    if (!parsed)
+    {
+      {
+        ArrayList<Rule> e1 = new ArrayList<Rule>();
+        int s1 = context.index;
+        parsed = true;
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Rule_definition.parse(context);
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
+          }
+          parsed = c1 == 1;
+        }
+        if (parsed)
+          e0.addAll(e1);
+        else
+          context.index = s1;
+      }
+    }
+    if (!parsed)
+    {
+      {
+        ArrayList<Rule> e1 = new ArrayList<Rule>();
+        int s1 = context.index;
+        parsed = true;
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Rule_variable.parse(context);
+            if ((f1 = rule != null))
+            {
+              e1.add(rule);
+              c1++;
+            }
           }
           parsed = c1 == 1;
         }

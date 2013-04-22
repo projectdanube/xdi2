@@ -2,99 +2,115 @@ xdi-graph               = xdi-statement *( CRLF xdi-statement )
 xdi-statement           = contextual-statement / relational-statement / literal-statement
 
 contextual-statement    = direct-contextual / inverse-contextual
-direct-contextual       = absolute / peer-relative / context-relative / class-relative
-inverse-contextual      = absolute-inverse / peer-inverse  / context-inverse / class-inverse
+direct-contextual       = absolute / root-relative / context-relative / class-relative
+inverse-contextual      = absolute-inverse / root-inverse  / context-inverse / class-inverse
 
-absolute                =          local-root "/()/" context
-peer-relative           =           peer-root "/()/" context
+absolute                =          outer-root "/()/" context
+root-relative           =       relative-root "/()/" context
 context-relative        =             context "/()/" relative-context
 class-relative          =       class-context "/()/" instance-context
-absolute-inverse        =          context "/$is()/" local-root
-peer-inverse            =          context "/$is()/" peer-root
+absolute-inverse        =          context "/$is()/" outer-root
+root-inverse            =          context "/$is()/" relative-root
 context-inverse         = relative-context "/$is()/" context
 class-inverse           = instance-context "/$is()/" class-context
 
-relational-statement    = inverse-relational / direct-relational / inner-relational
+relational-statement    = inverse-relational / direct-relational
 direct-relational       = context "/"    context "/" context
 inverse-relational      = context "/$is" context "/" context
-inner-relational        = context "/"    context "/" inner-statement
 
-inner-statement         = "(" xdi-statement ")"
+literal-statement       = literal-context "&/" [ *type-singleton ] "&/" json-value
 
-literal-statement       = literal-context value-context "/<>/" json-value
-
-context                 = ( peer-root [ relative-context ] ) / relative-context
+context                 = ( 1*relative-root [ relative-context ] ) / relative-context
 relative-context        = 1*subpath
 
-class-context           = [ peer-root ] class-path
+class-context           = [ 1*relative-root ] class-path
 class-path              = ( subpath class-path ) / class
 
-instance-context        = ( instance / element ) [ relative-context ]
+instance-context        = 1*instance [ relative-context ]
 
-literal-context         = [ peer-root ] literal-path
-literal-path            = ( subpath literal-path ) / attribute-singleton / attribute-pair
-attribute-pair          = attribute-class ( instance / element )
+literal-context         = [ 1*relative-root ] literal-path
+literal-path            = ( subpath literal-path ) / attribute-singleton / attribute-path
+attribute-path          = attribute-class 1*instance
 
-value-context           = "<<" 1*type-class ">>"
-
-root                    = local-root / peer-root / inner-root
-local-root              = "()"
-peer-root               = "(" ( context / iri-chars ) ")"
+root                    = outer-root / relative-root
+outer-root              = "()"
+relative-root           = peer-root / inner-root / statement-root
+peer-root               = xref
 inner-root              = "(" context "/" context ")"
+statement-root          = "(" xdi-statement ")"                          ; ISSUE #1 - works but causes full recursion
 
-xref                    = "(" ( context / iri-chars / xdi-chars ) ")"
+xref                    = "(" ( context / 1*iri-char / 1*xdi-char ) ")"  ; ISSUE #2 - needs revision for IRI compliance & valid XDI addresses
 
-subpath                 = singleton / ( class [ instance / element ] )
-subsegment              = singleton / class / instance / element / root / inner-statement
+subpath                 = singleton / ( class [ 1*instance ] ) / definition / variable
+subsegment              = root / singleton / class / instance / definition / variable
 
-singleton               = entity-singleton / attribute-singleton / person-singleton / organization-singleton / relative-singleton
-entity-singleton        = "!(" type-class ")"
-attribute-singleton     = "!<" type-class ">"
-person-singleton        = "=" ( xref / xdi-chars )
-organization-singleton  = "@" ( xref / xdi-chars )
-relative-singleton      = "*" [ xref / uuid-literal / ipv6-literal / xdi-chars ]
+singleton               = entity-singleton / attribute-singleton
+entity-singleton        = authority-singleton / type-singleton
+authority-singleton     = person-singleton / group-singleton
+type-singleton          = reserved-type / unreserved-type
+person-singleton        = "=" ( xref / 1*xdi-char )
+group-singleton         = "@" ( xref / 1*xdi-char )
+reserved-type           = "$" 1*xdi-char
+unreserved-type         = "+" ( xref / uuid-literal / ipv6-literal / 1*xdi-char )
+attribute-singleton     = "<" type-singleton ">"
 
-class                   = entity-class / attribute-class
+class                   = meta-class / concrete-class
 
-entity-class            = type-class / instance-class
-type-class              = specific / generic
-instance-class          = person / organization
-specific                = "$" [ xref / xdi-chars ]
-generic                 = "+" [ xref / xdi-chars ]
-person                  = "="
-organization            = "@"
+meta-class              = reserved-meta-class / unreserved-meta-class
+reserved-meta-class     = "[$]"
+unreserved-meta-class   = "[+]"
 
-attribute-class         = "<" type-class ">"
+concrete-class          = entity-class / attribute-class
+entity-class            = authority-class / type-class / instance-class
+authority-class         = person-class / group-class
+type-class              = reserved-class / unreserved-class
+instance-class          = mutable-id-class / immutable-id-class
+reserved-class          = "[" reserved-type "]"
+unreserved-class        = "[" unreserved-type "]"
+person-class            = "[=]"
+group-class             = "[@]"
+mutable-id-class        = "[*]"
+immutable-id-class      = "[!]"
+attribute-class         = "[" attribute-singleton "]"
 
-instance                = "!" [ xref / uuid-literal / ipv6-literal / xdi-chars ]
+instance                = ordered-instance / unordered-instance
+ordered-instance        = "#" 1*DIGIT
+unordered-instance      = mutable-id / immutable-id
+mutable-id              = "*" ( xref / uuid-literal / ipv6-literal / 1*xdi-char )
+immutable-id            = "!" ( xref / uuid-literal / ipv6-literal / 1*xdi-char )
 
-element                 = "[" 1*DIGIT "]"
+definition              = authority-definition / type-definition
+authority-definition    = "$(" ( authority-singleton / authority-path ) ")"
+authority-path          = authority-class 1*instance
+type-definition         = entity-definition / attribute-definition
+entity-definition       = "$(" type-singleton ")"
+attribute-definition    = "$(" attribute-singleton ")"
+
+variable                = "{" [ context ] "}"        ; ISSUE #3 - this needs a full definition
 
 json-value              = json-string / json-number / json-boolean / json-array / json-object
-json-string             = DQUOTE *xdi-chars DQUOTE   ;needs real JSON ABNF
-json-number             = 1*DIGIT                    ;needs real JSON ABNF
+json-string             = DQUOTE *iri-char DQUOTE    ; ISSUE #4A - needs real JSON ABNF
+json-number             = 1*DIGIT                    ; ISSUE #4B - needs real JSON ABNF
 json-boolean            = "true" / "false"
-json-array              = "[" *xdi-char "]"          ;needs real JSON ABNF
-json-object             = "{" *xdi-char "}"          ;needs real JSON ABNF
+json-array              = "[" *xdi-char "]"          ; ISSUE #4C - needs real JSON ABNF
+json-object             = "{" *xdi-char "}"          ; ISSUE #4D - needs real JSON ABNF
 
-ipv6-literal            = ":ipv6:" 4HEXDIG 7*( ":" 4HEXDIG )
+ipv6-literal            = ":ipv6:" 4HEXDIG 7*( ":" 4HEXDIG )    ; ISSUE #5 - needs revision into canonical form per RFC 5952
 
 uuid-literal            = ":uuid:" time-low "-" time-mid "-" time-high "-" clock-seq clock-seq-low "-" node
 time-low                = 8HEXDIG
 time-mid                = 4HEXDIG
-time-high               = 4HEXDIG   ; includes version
-clock-seq               = 2HEXDIG   ; includes reserved
+time-high               = 4HEXDIG
+clock-seq               = 2HEXDIG
 clock-seq-low           = 2HEXDIG
 node                    = 12HEXDIG
 
-xdi-chars               = 1*( xdi-char / ":" )
-
-iri-chars               = xdi-char / context-symbol / nonparen-delim ; "(" and ")" are excluded
-nonparen-delim          = "/" / "?" / "#" / "[" / "]" / "'" / ","    ; double quote included?
+iri-char                = xdi-char / context-symbol / nonparen-delim         ; ISSUE #6 - "(" and ")" are excluded
+nonparen-delim          = "/" / "?" / "#" / "[" / "]" / "'" / ","            ; ISSUE #7 - double quote included?
 context-symbol          = "!" / "*" / "=" / "@" / "+" / "$"
-xdi-char                = ALPHA / DIGIT / "-" / "." / "_" / "~" / %x80-EFFFD ; is there a way to leave high end open?
-ALPHA                   = %x41-5A / %x61-7A   ; A-Z, a-z
+xdi-char                = ALPHA / DIGIT / "-" / "." / "_" / "~" / %x80-EFFFD ; ISSUE #8 - is there a way to leave high end open?
+ALPHA                   = %x41-5A / %x61-7A   ; A-Z, a-z                     ; ISSUE #9A - should we exclude uppercase?
 DIGIT                   = %x30-39             ; 0-9
-HEXDIG                  = %x30-39 / %x41-46   ; 0-9, A-F
+HEXDIG                  = %x30-39 / %x41-46   ; 0-9, A-F                     ; ISSUE #9B - should we exclude uppercase?
 CRLF                    = %x0D / %x0A / ( %x0D %x0A )
 DQUOTE                  = %x22

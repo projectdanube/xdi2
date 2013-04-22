@@ -162,9 +162,9 @@ public class BasicTest extends TestCase {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDI3Segment.create("=sender"), true);
-		message.setFromAddress(XDI3Segment.create("(=!1111)"));
-		message.setToAddress(XDI3Segment.create("(=!2222)"));
-		assertEquals(message.getFromAddress(), XDI3Segment.create("(=!1111)"));
-		assertEquals(message.getToAddress(), XDI3Segment.create("(=!2222)"));
+		message.setFromAddress(XDI3Segment.create("([=]!1111)"));
+		message.setToAddress(XDI3Segment.create("([=]!2222)"));
+		assertEquals(message.getFromAddress(), XDI3Segment.create("([=]!1111)"));
+		assertEquals(message.getToAddress(), XDI3Segment.create("([=]!2222)"));
 	}
 }

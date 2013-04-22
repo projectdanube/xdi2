@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -61,7 +61,7 @@ final public class Rule_literal_statement extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Rule_value_context.parse(context);
+            rule = Terminal_StringValue.parse(context, "&/");
             if ((f1 = rule != null))
             {
               e1.add(rule);
@@ -73,10 +73,52 @@ final public class Rule_literal_statement extends Rule
         if (parsed)
         {
           boolean f1 = true;
+          @SuppressWarnings("unused")
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "&/&/");
+            int g1 = context.index;
+            parsed = false;
+            if (!parsed)
+            {
+              {
+                ArrayList<Rule> e2 = new ArrayList<Rule>();
+                int s2 = context.index;
+                parsed = true;
+                if (parsed)
+                {
+                  boolean f2 = true;
+                  @SuppressWarnings("unused")
+                  int c2 = 0;
+                  while (f2)
+                  {
+                    rule = Rule_type_singleton.parse(context);
+                    if ((f2 = rule != null))
+                    {
+                      e2.add(rule);
+                      c2++;
+                    }
+                  }
+                  parsed = true;
+                }
+                if (parsed)
+                  e1.addAll(e2);
+                else
+                  context.index = s2;
+              }
+            }
+            f1 = context.index > g1;
+            if (parsed) c1++;
+          }
+          parsed = true;
+        }
+        if (parsed)
+        {
+          boolean f1 = true;
+          int c1 = 0;
+          for (int i1 = 0; i1 < 1 && f1; i1++)
+          {
+            rule = Terminal_StringValue.parse(context, "&/");
             if ((f1 = rule != null))
             {
               e1.add(rule);

@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Apr 03 23:48:03 CEST 2013
+ * Produced : Mon Apr 22 13:14:58 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -88,14 +88,14 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_peer_relative rule)
+  public Object visit(Rule_root_relative rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<peer-relative>");
+    System.out.print("<root-relative>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</peer-relative>");
+    System.out.print("</root-relative>");
     terminal = false;
     return null;
   }
@@ -136,14 +136,14 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_peer_inverse rule)
+  public Object visit(Rule_root_inverse rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<peer-inverse>");
+    System.out.print("<root-inverse>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</peer-inverse>");
+    System.out.print("</root-inverse>");
     terminal = false;
     return null;
   }
@@ -204,30 +204,6 @@ public class XmlDisplayer implements Visitor
     visitRules(rule.rules);
     if (!terminal) System.out.println();
     System.out.print("</inverse-relational>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_inner_relational rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<inner-relational>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</inner-relational>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_inner_statement rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<inner-statement>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</inner-statement>");
     terminal = false;
     return null;
   }
@@ -328,26 +304,14 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_attribute_pair rule)
+  public Object visit(Rule_attribute_path rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<attribute-pair>");
+    System.out.print("<attribute-path>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</attribute-pair>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_value_context rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<value-context>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</value-context>");
+    System.out.print("</attribute-path>");
     terminal = false;
     return null;
   }
@@ -364,14 +328,26 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_local_root rule)
+  public Object visit(Rule_outer_root rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<local-root>");
+    System.out.print("<outer-root>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</local-root>");
+    System.out.print("</outer-root>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_relative_root rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<relative-root>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</relative-root>");
     terminal = false;
     return null;
   }
@@ -396,6 +372,18 @@ public class XmlDisplayer implements Visitor
     visitRules(rule.rules);
     if (!terminal) System.out.println();
     System.out.print("</inner-root>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_statement_root rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<statement-root>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</statement-root>");
     terminal = false;
     return null;
   }
@@ -460,14 +448,26 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_attribute_singleton rule)
+  public Object visit(Rule_authority_singleton rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<attribute-singleton>");
+    System.out.print("<authority-singleton>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</attribute-singleton>");
+    System.out.print("</authority-singleton>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_type_singleton rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<type-singleton>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</type-singleton>");
     terminal = false;
     return null;
   }
@@ -484,26 +484,50 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_organization_singleton rule)
+  public Object visit(Rule_group_singleton rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<organization-singleton>");
+    System.out.print("<group-singleton>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</organization-singleton>");
+    System.out.print("</group-singleton>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_relative_singleton rule)
+  public Object visit(Rule_reserved_type rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<relative-singleton>");
+    System.out.print("<reserved-type>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</relative-singleton>");
+    System.out.print("</reserved-type>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_unreserved_type rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<unreserved-type>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</unreserved-type>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_attribute_singleton rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<attribute-singleton>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</attribute-singleton>");
     terminal = false;
     return null;
   }
@@ -520,6 +544,54 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
+  public Object visit(Rule_meta_class rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<meta-class>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</meta-class>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_reserved_meta_class rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<reserved-meta-class>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</reserved-meta-class>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_unreserved_meta_class rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<unreserved-meta-class>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</unreserved-meta-class>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_concrete_class rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<concrete-class>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</concrete-class>");
+    terminal = false;
+    return null;
+  }
+
   public Object visit(Rule_entity_class rule)
   {
     if (!terminal) System.out.println();
@@ -528,6 +600,18 @@ public class XmlDisplayer implements Visitor
     visitRules(rule.rules);
     if (!terminal) System.out.println();
     System.out.print("</entity-class>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_authority_class rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<authority-class>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</authority-class>");
     terminal = false;
     return null;
   }
@@ -556,50 +640,74 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_specific rule)
+  public Object visit(Rule_reserved_class rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<specific>");
+    System.out.print("<reserved-class>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</specific>");
+    System.out.print("</reserved-class>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_generic rule)
+  public Object visit(Rule_unreserved_class rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<generic>");
+    System.out.print("<unreserved-class>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</generic>");
+    System.out.print("</unreserved-class>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_person rule)
+  public Object visit(Rule_person_class rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<person>");
+    System.out.print("<person-class>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</person>");
+    System.out.print("</person-class>");
     terminal = false;
     return null;
   }
 
-  public Object visit(Rule_organization rule)
+  public Object visit(Rule_group_class rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<organization>");
+    System.out.print("<group-class>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</organization>");
+    System.out.print("</group-class>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_mutable_id_class rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<mutable-id-class>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</mutable-id-class>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_immutable_id_class rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<immutable-id-class>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</immutable-id-class>");
     terminal = false;
     return null;
   }
@@ -628,14 +736,134 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_element rule)
+  public Object visit(Rule_ordered_instance rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<element>");
+    System.out.print("<ordered-instance>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</element>");
+    System.out.print("</ordered-instance>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_unordered_instance rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<unordered-instance>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</unordered-instance>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_mutable_id rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<mutable-id>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</mutable-id>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_immutable_id rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<immutable-id>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</immutable-id>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_definition rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<definition>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</definition>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_authority_definition rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<authority-definition>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</authority-definition>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_authority_path rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<authority-path>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</authority-path>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_type_definition rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<type-definition>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</type-definition>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_entity_definition rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<entity-definition>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</entity-definition>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_attribute_definition rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<attribute-definition>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</attribute-definition>");
+    terminal = false;
+    return null;
+  }
+
+  public Object visit(Rule_variable rule)
+  {
+    if (!terminal) System.out.println();
+    System.out.print("<variable>");
+    terminal = false;
+    visitRules(rule.rules);
+    if (!terminal) System.out.println();
+    System.out.print("</variable>");
     terminal = false;
     return null;
   }
@@ -808,26 +1036,14 @@ public class XmlDisplayer implements Visitor
     return null;
   }
 
-  public Object visit(Rule_xdi_chars rule)
+  public Object visit(Rule_iri_char rule)
   {
     if (!terminal) System.out.println();
-    System.out.print("<xdi-chars>");
+    System.out.print("<iri-char>");
     terminal = false;
     visitRules(rule.rules);
     if (!terminal) System.out.println();
-    System.out.print("</xdi-chars>");
-    terminal = false;
-    return null;
-  }
-
-  public Object visit(Rule_iri_chars rule)
-  {
-    if (!terminal) System.out.println();
-    System.out.print("<iri-chars>");
-    terminal = false;
-    visitRules(rule.rules);
-    if (!terminal) System.out.println();
-    System.out.print("</iri-chars>");
+    System.out.print("</iri-char>");
     terminal = false;
     return null;
   }
