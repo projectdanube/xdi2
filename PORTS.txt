@@ -1,0 +1,12 @@
+Known default HTTP ports of various XDI2 projects.
+
+8080: xdi2-server-embedded / xdi2-server-standalone / xdi2-server-war / xdi2-webtools
+12220: xdi2-xrinet
+13330: xdi2-cds
+9090: xdi2-connector-template
+9091: xdi2-connector-facebook
+9092: xdi2-connector-personal
+9093: xdi2-connector-allfiled
+9094: xdi2-connector-google-calendar
+9990: xdi2-zephyr
+9110: xdi2-pixel

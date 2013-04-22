@@ -9,20 +9,14 @@
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 <link rel="shortcut icon" href="favicon.ico" />
 </head>
-<body style="background-image: url('images/back.png'); background-repeat: repeat-y; margin-left: 60px;">
-
-	<table border="0">
-	<tr>
-	<td>
-		<div class="header">
-		<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI2</span>
-		</div>
-	</td>
-	<td valign="bottom" style="padding-left: 20px">
-	<p>See Github for the <a href="http://github.com/peacekeeper/xdi2">code</a> and <a href="https://github.com/peacekeeper/xdi2/wiki">wiki</a>.</p>
-	</td>
-	</tr>
-	</table>
+<body>
+	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
+	<div id="main">
+	<div class="header">
+	<span id="appname">XDI2</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	See Github for the <a href="http://github.com/peacekeeper/xdi2">code</a> and <a href="https://github.com/peacekeeper/xdi2/wiki">wiki</a>.
+	</div>
 	
 	<hr noshade style="clear:both">
 	
@@ -30,15 +24,10 @@
 	
 	<p>It is designed to be a general-purpose, lightweight and modular implementation of XDI specifications, in order to support a wide range of use cases.</p>
 
-	<p class="subheader">XRI Applications</p>
-	
-	<p>
-	<a href="XRIParser">XRI Parser</a>
-	</p>
-
 	<p class="subheader">XDI Applications</p>
 	
 	<p>
+	<a href="XDIParser">XDI Parser</a>&nbsp;&nbsp;
 	<a href="XDIValidator">XDI Validator</a>&nbsp;&nbsp;
 	<a href="XDIConverter">XDI Converter</a>&nbsp;&nbsp;
 	<a href="XDIMessenger">XDI Messenger</a>&nbsp;&nbsp;
@@ -64,5 +53,6 @@
 
 	<a href="mailto:markus.sabadello@xdi.org">markus.sabadello@xdi.org</a>
 
+	</div>
 </body>
 </html>

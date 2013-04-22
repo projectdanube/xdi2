@@ -5,8 +5,8 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.variables.Variables;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.VariableUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
@@ -16,6 +16,7 @@ import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
+import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 public abstract class AbstractContextHandler implements StatementHandler, AddressHandler {
@@ -39,6 +40,8 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 			this.executeAddOnAddress(targetAddress, (AddOperation) operation, messageResult, executionContext);
 		else if (operation instanceof ModOperation)
 			this.executeModOnAddress(targetAddress, (ModOperation) operation, messageResult, executionContext);
+		else if (operation instanceof SetOperation)
+			this.executeSetOnAddress(targetAddress, (SetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			this.executeDelOnAddress(targetAddress, (DelOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DoOperation)
@@ -66,6 +69,13 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		XDI3Segment contextNodeXri = targetAddress;
 
 		this.modContext(contextNodeXri, operation, messageResult, executionContext);
+	}
+
+	public void executeSetOnAddress(XDI3Segment targetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment contextNodeXri = targetAddress;
+
+		this.setContext(contextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeDelOnAddress(XDI3Segment targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -97,6 +107,8 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 			this.executeAddOnStatement(targetStatement, (AddOperation) operation, messageResult, executionContext);
 		else if (operation instanceof ModOperation)
 			this.executeModOnStatement(targetStatement, (ModOperation) operation, messageResult, executionContext);
+		else if (operation instanceof SetOperation)
+			this.executeSetOnStatement(targetStatement, (SetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			this.executeDelOnStatement(targetStatement, (DelOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DoOperation)
@@ -137,6 +149,18 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 			this.executeModOnRelationStatement(targetStatement, operation, messageResult, executionContext);
 		else if (targetStatement.isLiteralStatement())
 			this.executeModOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
+		else
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
+	}
+
+	public void executeSetOnStatement(XDI3Statement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement.isContextNodeStatement())
+			this.executeSetOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isRelationStatement())
+			this.executeSetOnRelationStatement(targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isLiteralStatement())
+			this.executeSetOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
@@ -190,6 +214,13 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		this.modContext(contextNodeXri, operation, messageResult, executionContext);
 	}
 
+	public void executeSetOnContextNodeStatement(XDI3Statement contextNodeStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXri();
+
+		this.setContext(contextNodeXri, operation, messageResult, executionContext);
+	}
+
 	public void executeDelOnContextNodeStatement(XDI3Statement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXri();
@@ -212,7 +243,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.getRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -221,7 +252,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.addRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -230,16 +261,25 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.modRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
+	}
+
+	public void executeSetOnRelationStatement(XDI3Statement relationStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
+		XDI3Segment arcXri = relationStatement.getPredicate();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
+
+		this.setRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeDelOnRelationStatement(XDI3Statement relationStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.delRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -248,7 +288,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		XDI3Segment contextNodeXri = relationStatement.getContextNodeXri();
 		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = relationStatement.getObject();
+		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
 
 		this.doRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -279,6 +319,14 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		String literalData = literalStatement.getLiteralData();
 
 		this.modLiteral(contextNodeXri, literalData, operation, messageResult, executionContext);
+	}
+
+	public void executeSetOnLiteralStatement(XDI3Statement literalStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment contextNodeXri = literalStatement.getContextNodeXri();
+		String literalData = literalStatement.getLiteralData();
+
+		this.setLiteral(contextNodeXri, literalData, operation, messageResult, executionContext);
 	}
 
 	public void executeDelOnLiteralStatement(XDI3Statement literalStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -313,6 +361,10 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 	}
 
+	public void setContext(XDI3Segment contextNodeXri, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
 	public void delContext(XDI3Segment contextNodeXri, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
@@ -330,11 +382,11 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 		ContextNode tempContextNode = tempMessageResult.getGraph().findContextNode(contextNodeXri, false);
 		if (tempContextNode == null) return;
 
-		if (Variables.isVariableSingle(targetContextNodeXri)) {
+		if (VariableUtil.isVariable(targetContextNodeXri)) {
 
 			Iterator<Relation> relations = tempContextNode.getRelations(arcXri);
 
-			if (Variables.isVariableSingle(arcXri)) {
+			if (VariableUtil.isVariable(arcXri)) {
 
 				relations = tempContextNode.getRelations();
 			} else {
@@ -357,6 +409,10 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 	}
 
 	public void modRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void setRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -391,6 +447,10 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 	}
 
 	public void modLiteral(XDI3Segment contextNodeXri, String literalData, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void setLiteral(XDI3Segment contextNodeXri, String literalData, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 

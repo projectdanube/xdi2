@@ -97,6 +97,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 					if (log.isDebugEnabled()) log.debug("Message envelope has been fully handled by interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + ".");
 					return true;
 				}
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popInterceptor();
@@ -123,6 +126,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 					if (log.isDebugEnabled()) log.debug("Message envelope has been fully handled by interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + ".");
 					return true;
 				}
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popInterceptor();
@@ -132,7 +138,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 		return false;
 	}
 
-	public void executeMessageEnvelopeInterceptorsException(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) throws Xdi2MessagingException {
+	public void executeMessageEnvelopeInterceptorsException(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
 		for (Iterator<MessageEnvelopeInterceptor> messageEnvelopeInterceptors = this.findMessageEnvelopeInterceptors(); messageEnvelopeInterceptors.hasNext(); ) {
 
@@ -145,6 +151,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 				executionContext.pushInterceptor(messageEnvelopeInterceptor, "MessageEnvelopeInterceptor: exception");
 
 				messageEnvelopeInterceptor.exception(messageEnvelope, messageResult, executionContext, ex);
+			} catch (Exception ex2) {
+
+				throw executionContext.processException(ex2);
 			} finally {
 
 				executionContext.popInterceptor();
@@ -169,6 +178,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 					if (log.isDebugEnabled()) log.debug("Message has been fully handled by interceptor " + messageInterceptor.getClass().getSimpleName() + ".");
 					return true;
 				}
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popInterceptor();
@@ -195,6 +207,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 					if (log.isDebugEnabled()) log.debug("Message has been fully handled by interceptor " + messageInterceptor.getClass().getSimpleName() + ".");
 					return true;
 				}
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popInterceptor();
@@ -221,6 +236,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 					if (log.isDebugEnabled()) log.debug("Operation has been fully handled by interceptor " + operationInterceptor.getClass().getSimpleName() + ".");
 					return true;
 				}
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popInterceptor();
@@ -247,6 +265,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 					if (log.isDebugEnabled()) log.debug("Operation has been fully handled by interceptor " + operationInterceptor.getClass().getSimpleName() + ".");
 					return true;
 				}
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popInterceptor();
@@ -277,6 +298,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 				}
 
 				if (log.isDebugEnabled()) log.debug("Interceptor " + targetInterceptor.getClass().getSimpleName() + " returned address: " + targetAddress + ".");
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popInterceptor();
@@ -307,6 +331,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 				}
 
 				if (log.isDebugEnabled()) log.debug("Interceptor " + targetInterceptor.getClass().getSimpleName() + " returned statement: " + targetStatement + ".");
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popInterceptor();
@@ -329,6 +356,9 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 				executionContext.pushInterceptor(resultInterceptor, "ResultInterceptor: finish");
 
 				resultInterceptor.finish(messageResult, executionContext);
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popInterceptor();

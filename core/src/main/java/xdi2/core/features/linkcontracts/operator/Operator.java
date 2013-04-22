@@ -2,12 +2,15 @@ package xdi2.core.features.linkcontracts.operator;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Relation;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
+import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 
 /**
  * An XDI operator, represented as a relation.
@@ -138,5 +141,24 @@ public abstract class Operator implements Serializable, Comparable<Operator> {
 		if (other == this || other == null) return(0);
 
 		return this.getRelation().compareTo(other.getRelation());
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingRelationOperatorIterator extends NotNullIterator<Operator> {
+
+		public MappingRelationOperatorIterator(Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, Operator> (relations) {
+
+				@Override
+				public Operator map(Relation relation) {
+
+					return Operator.fromRelation(relation);
+				}
+			});
+		}
 	}
 }

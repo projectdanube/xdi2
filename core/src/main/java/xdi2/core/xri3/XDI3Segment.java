@@ -1,43 +1,29 @@
 package xdi2.core.xri3;
 
+import java.util.Collections;
 import java.util.List;
 
-import xdi2.core.xri3.parser.XDI3Parser;
-import xdi2.core.xri3.parser.XDI3ParserRegistry;
-
-public class XDI3Segment extends XDI3SyntaxComponent {
+public final class XDI3Segment extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 2153450076797516335L;
 
-	private String literal;
 	private List<XDI3SubSegment> subSegments;
 
-	public XDI3Segment(String string, String literal, List<XDI3SubSegment> subSegments) {
+	XDI3Segment(String string, List<XDI3SubSegment> subSegments) {
 
 		super(string);
 
-		this.literal = literal;
 		this.subSegments = subSegments;
-	}
-
-	public static XDI3Segment create(XDI3Parser parser, String string) {
-
-		return parser.parseXDI3Segment(string);
 	}
 
 	public static XDI3Segment create(String string) {
 
-		return create(XDI3ParserRegistry.getInstance(), string);
+		return XDI3ParserRegistry.getInstance().getParser().parseXDI3Segment(string);
 	}
 
-	public boolean hasLiteral() {
+	public static XDI3Segment create(XDI3SubSegment subSegment) {
 
-		return this.literal != null;
-	}
-
-	public String getLiteral() {
-
-		return this.literal;
+		return new XDI3Segment(subSegment.toString(), Collections.singletonList(subSegment));
 	}
 
 	public List<XDI3SubSegment> getSubSegments() {
@@ -67,18 +53,6 @@ public class XDI3Segment extends XDI3SyntaxComponent {
 		if (this.subSegments.size() < 1) return null;
 
 		return this.subSegments.get(this.subSegments.size() - 1);
-	}
-
-	public boolean isINumber() {
-
-		// all subsegments must be persistent
-
-		for (XDI3SubSegment subSegment : this.getSubSegments()) {
-
-			if (! subSegment.isPersistent()) return false;
-		}
-
-		return true;
 	}
 
 	public boolean startsWith(XDI3SubSegment[] subSegments) {

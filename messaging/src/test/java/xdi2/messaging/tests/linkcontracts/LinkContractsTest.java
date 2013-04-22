@@ -13,7 +13,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
+import xdi2.messaging.target.interceptor.impl.LinkContractInterceptor;
 import xdi2.messaging.tests.messagingtarget.AbstractGraphMessagingTargetTest;
 
 public class LinkContractsTest extends TestCase {
@@ -36,10 +36,10 @@ public class LinkContractsTest extends TestCase {
 
 			if (this.getClass().getResourceAsStream("graph" + i + ".xdi") == null) break;
 
+			log.info("Graph " + i);
+
 			Graph graph = graphFactory.openGraph(); 
 			autoReader.read(graph, this.getClass().getResourceAsStream("graph" + i + ".xdi")).close();
-
-			log.info("Graph " + i);
 
 			// check authorized
 
@@ -49,12 +49,12 @@ public class LinkContractsTest extends TestCase {
 
 				if (this.getClass().getResourceAsStream("authorized" + i + "." + ii + ".xdi") == null) break;
 
+				log.info("Authorized " + i + "." + ii);
+
 				Graph authorized = graphFactory.openGraph(); 
 				autoReader.read(authorized, this.getClass().getResourceAsStream("authorized" + i + "." + ii + ".xdi")).close();
 
-				log.info("Authorized " + i + "." + ii);
-
-				LinkContractsInterceptor linkContractsInterceptor = new LinkContractsInterceptor();
+				LinkContractInterceptor linkContractsInterceptor = new LinkContractInterceptor();
 				linkContractsInterceptor.setLinkContractsGraph(graph);
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
@@ -67,9 +67,10 @@ public class LinkContractsTest extends TestCase {
 				try {
 
 					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+					continue;
 				} catch (Xdi2NotAuthorizedException ex) {
 
-					throw ex;
+					fail();
 				} finally {
 					ii++;
 				}
@@ -83,12 +84,12 @@ public class LinkContractsTest extends TestCase {
 
 				if (this.getClass().getResourceAsStream("notauthorized" + i + "." + ii + ".xdi") == null) break;
 
+				log.info("Not Authorized " + i + "." + ii);
+
 				Graph notauthorized = graphFactory.openGraph(); 
 				autoReader.read(notauthorized, this.getClass().getResourceAsStream("notauthorized" + i + "." + ii + ".xdi")).close();
 
-				log.info("Not Authorized " + i + "." + ii);
-
-				LinkContractsInterceptor linkContractsInterceptor = new LinkContractsInterceptor();
+				LinkContractInterceptor linkContractsInterceptor = new LinkContractInterceptor();
 				linkContractsInterceptor.setLinkContractsGraph(graph);
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();

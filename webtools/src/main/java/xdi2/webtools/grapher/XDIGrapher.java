@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
-import xdi2.core.features.roots.Roots;
+import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -144,9 +144,9 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 	private static byte[] makeImage(Graph graph, String type) throws IOException {
 
 		Drawer drawer = null;
-		if (type.equals("d1")) drawer = new Drawer1();
-		if (type.equals("d2")) drawer = new Drawer2();
-		if (type.equals("d3")) drawer = new Drawer3();
+		if (type.equals("d2")) drawer = new Drawer1();
+		if (type.equals("d3")) drawer = new Drawer2();
+		if (type.equals("d4")) drawer = new Drawer3();
 		if (drawer == null) drawer = new EmptyDrawer();
 
 		BufferedImage image = drawer.draw(graph);
@@ -162,7 +162,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		buffer.append("{\n");
 		buffer.append("name: \"" + contextNode.getXri() + "\",\n");
 		buffer.append("arc: \"" + (contextNode.isRootContextNode() ? "()" : contextNode.getArcXri()) + "\",\n");
-		buffer.append("root: " + Roots.isValid(contextNode) + ",\n");
+		buffer.append("root: " + XdiRoot.isValid(contextNode) + ",\n");
 		buffer.append("contents: [\n");
 
 		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {

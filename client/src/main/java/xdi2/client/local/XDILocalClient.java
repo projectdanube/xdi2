@@ -75,7 +75,7 @@ public class XDILocalClient implements XDIClient {
 			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 		} catch (Exception ex) {
 
-			log.error("Exception: " + ex.getMessage(), ex);
+			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
 			throw new Xdi2ClientException("Cannot execute message envelope: " + ex.getMessage(), ex, ErrorMessageResult.fromException(ex));
 		}
 

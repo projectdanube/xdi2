@@ -1,22 +1,17 @@
 package xdi2.core.xri3;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.util.XDIUtil;
-import xdi2.core.xri3.parser.XDI3Parser;
-import xdi2.core.xri3.parser.XDI3ParserRegistry;
+import xdi2.core.util.XDI3Util;
 
 public class XDI3Statement extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = -1416735368366011077L;
 
-	public static final XDI3Segment XRI_S_CONTEXT = XDI3Segment.create("()");
-	public static final XDI3Segment XRI_S_LITERAL = XDI3Segment.create("!");
-
 	private XDI3Segment subject;
 	private XDI3Segment predicate;
-	private XDI3Segment object;
+	private Object object;
 
-	public XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, XDI3Segment object) {
+	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, Object object) {
 
 		super(string);
 
@@ -25,14 +20,9 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		this.object = object;
 	}
 
-	public static XDI3Statement create(XDI3Parser parser, String string) {
-
-		return parser.parseXDI3Statement(string);
-	}
-
 	public static XDI3Statement create(String string) {
 
-		return create(XDI3ParserRegistry.getInstance(), string);
+		return XDI3ParserRegistry.getInstance().getParser().parseXDI3Statement(string);
 	}
 
 	public XDI3Segment getSubject() {
@@ -45,24 +35,24 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		return this.predicate;
 	}
 
-	public XDI3Segment getObject() {
+	public Object getObject() {
 
 		return this.object;
 	}
 
 	public boolean isContextNodeStatement() {
 
-		return XRI_S_CONTEXT.equals(this.getPredicate());
+		return XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate()) && this.getObject() instanceof XDI3Segment;
 	}
 
 	public boolean isLiteralStatement() {
 
-		return XRI_S_LITERAL.equals(this.getPredicate()) && XDIUtil.isDataXriSegment(this.getObject());
+		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && ! (this.getObject() instanceof XDI3Segment);
 	}
 
 	public boolean isRelationStatement() {
 
-		return (! XRI_S_CONTEXT.equals(this.getPredicate())) && (! XRI_S_LITERAL.equals(this.getPredicate()));
+		return (! XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate())) && (! XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()));
 	}
 
 	public boolean hasInnerRootStatement() {
@@ -75,15 +65,9 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 	public XDI3Segment getContextNodeXri() {
 
-		if (XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate())) {
+		if (this.isContextNodeStatement()) {
 
-			if (XDIConstants.XRI_S_ROOT.equals(this.getSubject())) {
-
-				return this.getObject();
-			} else {
-
-				return XDI3Segment.create("" + this.getSubject() + this.getObject());
-			}
+			return XDI3Util.expandXri((XDI3Segment) this.getObject(), this.getSubject());
 		} else {
 
 			return this.getSubject();
@@ -101,17 +85,19 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 		if (! this.isRelationStatement()) return null;
 
-		return this.getObject();
+		return (XDI3Segment) this.getObject();
 	}
 
 	public String getLiteralData() {
 
 		if (! this.isLiteralStatement()) return null;
 
-		return XDIUtil.dataXriSegmentToString(this.getObject());
+		return this.getObject().toString();
 	}
 
 	public XDI3Statement getInnerRootStatement() {
+
+		if (! this.isRelationStatement()) return null;
 
 		XDI3Segment targetContextNodeXri = this.getTargetContextNodeXri();
 		if (targetContextNodeXri == null) return null;

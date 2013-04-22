@@ -14,76 +14,84 @@ public class XDI3Grammar extends Grammar{
     }
 
     // rule name enum
-    public static int ruleCount = 68;
+    public static int ruleCount = 76;
     public enum RuleNames{
-        ALPHA("ALPHA", 52, 354, 3),
-        BIT("BIT", 53, 357, 3),
-        CHAR("CHAR", 54, 360, 1),
-        CR("CR", 55, 361, 1),
-        CRLF("CRLF", 56, 362, 3),
-        CTL("CTL", 57, 365, 3),
-        DEC_OCTET("dec-octet", 32, 245, 16),
-        DIGIT("DIGIT", 58, 368, 1),
-        DQUOTE("DQUOTE", 59, 369, 1),
-        GCS_CHAR("gcs-char", 9, 29, 5),
-        GEN_DELIMS("gen-delims", 49, 329, 8),
-        GLOBAL_SUBSEG("global-subseg", 7, 16, 7),
-        H16("h16", 30, 235, 2),
-        HEXDIG("HEXDIG", 60, 370, 8),
-        HTAB("HTAB", 61, 378, 1),
-        IAUTHORITY("iauthority", 23, 101, 10),
-        IFRAGMENT("ifragment", 43, 299, 5),
-        IHIER_PART("ihier-part", 22, 93, 8),
-        IHOST("ihost", 25, 117, 4),
-        IP_LITERAL("IP-literal", 26, 121, 6),
-        IPATH_ABEMPTY("ipath-abempty", 35, 268, 4),
-        IPATH_ABS("ipath-abs", 36, 272, 9),
-        IPATH_EMPTY("ipath-empty", 38, 287, 1),
-        IPATH_ROOTLESS("ipath-rootless", 37, 281, 6),
-        IPCHAR("ipchar", 44, 304, 6),
-        IPRIVATE("iprivate", 42, 298, 1),
-        IPV4ADDRESS("IPv4address", 31, 237, 8),
-        IPV6ADDRESS("IPv6address", 28, 137, 92),
-        IPVFUTURE("IPvFuture", 27, 127, 10),
-        IQUERY("iquery", 41, 292, 6),
-        IREG_NAME("ireg-name", 33, 261, 5),
-        IRI("IRI", 20, 72, 12),
-        ISEGMENT("isegment", 39, 288, 2),
-        ISEGMENT_NZ("isegment-nz", 40, 290, 2),
-        IUNRESERVED("iunreserved", 45, 310, 8),
-        IUSERINFO("iuserinfo", 24, 111, 6),
-        LCS_CHAR("lcs-char", 10, 34, 3),
-        LF("LF", 62, 379, 1),
-        LITERAL("literal", 18, 67, 2),
-        LOCAL_SUBSEG("local-subseg", 8, 23, 6),
-        LS32("ls32", 29, 229, 6),
-        LWSP("LWSP", 63, 380, 6),
-        OCTET("OCTET", 64, 386, 1),
-        PCT_ENCODED("pct-encoded", 46, 318, 4),
-        PORT("port", 34, 266, 2),
-        RESERVED("reserved", 48, 326, 3),
-        SCHEME("scheme", 21, 84, 9),
-        SP("SP", 65, 387, 1),
-        SUB_DELIMS("sub-delims", 50, 337, 10),
-        SUBSEG("subseg", 6, 12, 4),
-        UCSCHAR("ucschar", 47, 322, 4),
-        UNRESERVED("unreserved", 51, 347, 7),
-        VCHAR("VCHAR", 66, 388, 1),
-        WSP("WSP", 67, 389, 3),
-        XDI_CONTEXT("xdi-context", 0, 0, 1),
-        XDI_OBJECT("xdi-object", 4, 9, 1),
-        XDI_PCHAR("xdi-pchar", 19, 69, 3),
-        XDI_PREDICATE("xdi-predicate", 3, 8, 1),
-        XDI_SEGMENT("xdi-segment", 5, 10, 2),
-        XDI_STATEMENT("xdi-statement", 1, 1, 6),
-        XDI_SUBJECT("xdi-subject", 2, 7, 1),
-        XREF("xref", 11, 37, 7),
-        XREF_EMPTY("xref-empty", 12, 44, 1),
-        XREF_IRI("xref-IRI", 13, 45, 4),
-        XREF_LITERAL("xref-literal", 17, 63, 4),
-        XREF_SEGMENT("xref-segment", 14, 49, 4),
-        XREF_STATEMENT("xref-statement", 16, 59, 4),
-        XREF_SUBJECT_PREDICATE("xref-subject-predicate", 15, 53, 6);
+        ABSOLUTE("absolute", 5, 23, 4),
+        ABSOLUTE_INVERSE("absolute-inverse", 9, 39, 4),
+        ALPHA("ALPHA", 71, 333, 3),
+        ATTRIBUTE_CLASS("attribute-class", 49, 226, 4),
+        ATTRIBUTE_PAIR("attribute-pair", 26, 119, 5),
+        ATTRIBUTE_SINGLETON("attribute-singleton", 37, 178, 4),
+        CLASS("class", 41, 200, 3),
+        CLASS_CONTEXT("class-context", 21, 94, 4),
+        CLASS_INVERSE("class-inverse", 12, 51, 4),
+        CLASS_PATH("class-path", 22, 98, 5),
+        CLASS_RELATIVE("class-relative", 8, 35, 4),
+        CLOCK_SEQ("clock-seq", 63, 296, 2),
+        CLOCK_SEQ_LOW("clock-seq-low", 64, 298, 2),
+        CONTEXT("context", 19, 86, 6),
+        CONTEXT_INVERSE("context-inverse", 11, 47, 4),
+        CONTEXT_RELATIVE("context-relative", 7, 31, 4),
+        CONTEXT_SYMBOL("context-symbol", 69, 318, 7),
+        CONTEXTUAL_STATEMENT("contextual-statement", 2, 10, 3),
+        CRLF("CRLF", 74, 340, 6),
+        DIGIT("DIGIT", 72, 336, 1),
+        DIRECT_CONTEXTUAL("direct-contextual", 3, 13, 5),
+        DIRECT_RELATIONAL("direct-relational", 14, 59, 6),
+        DQUOTE("DQUOTE", 75, 346, 1),
+        ELEMENT("element", 51, 238, 5),
+        ENTITY_CLASS("entity-class", 42, 203, 3),
+        ENTITY_SINGLETON("entity-singleton", 36, 174, 4),
+        GENERIC("generic", 46, 218, 6),
+        HEXDIG("HEXDIG", 73, 337, 3),
+        INNER_RELATIONAL("inner-relational", 16, 71, 6),
+        INNER_ROOT("inner-root", 31, 140, 6),
+        INNER_STATEMENT("inner-statement", 17, 77, 4),
+        INSTANCE("instance", 50, 230, 8),
+        INSTANCE_CLASS("instance-class", 44, 209, 3),
+        INSTANCE_CONTEXT("instance-context", 23, 103, 6),
+        INVERSE_CONTEXTUAL("inverse-contextual", 4, 18, 5),
+        INVERSE_RELATIONAL("inverse-relational", 15, 65, 6),
+        IPV6_LITERAL("ipv6-literal", 58, 269, 9),
+        IRI_CHARS("iri-chars", 67, 306, 4),
+        JSON_ARRAY("json-array", 56, 259, 5),
+        JSON_BOOLEAN("json-boolean", 55, 256, 3),
+        JSON_NUMBER("json-number", 54, 254, 2),
+        JSON_OBJECT("json-object", 57, 264, 5),
+        JSON_STRING("json-string", 53, 249, 5),
+        JSON_VALUE("json-value", 52, 243, 6),
+        LITERAL_CONTEXT("literal-context", 24, 109, 4),
+        LITERAL_PATH("literal-path", 25, 113, 6),
+        LITERAL_STATEMENT("literal-statement", 18, 81, 5),
+        LOCAL_ROOT("local-root", 29, 133, 1),
+        NODE("node", 65, 300, 2),
+        NONPAREN_DELIM("nonparen-delim", 68, 310, 8),
+        ORGANIZATION("organization", 48, 225, 1),
+        ORGANIZATION_SINGLETON("organization-singleton", 39, 187, 5),
+        PEER_INVERSE("peer-inverse", 10, 43, 4),
+        PEER_RELATIVE("peer-relative", 6, 27, 4),
+        PEER_ROOT("peer-root", 30, 134, 6),
+        PERSON("person", 47, 224, 1),
+        PERSON_SINGLETON("person-singleton", 38, 182, 5),
+        RELATIONAL_STATEMENT("relational-statement", 13, 55, 4),
+        RELATIVE_CONTEXT("relative-context", 20, 92, 2),
+        RELATIVE_SINGLETON("relative-singleton", 40, 192, 8),
+        ROOT("root", 28, 129, 4),
+        SINGLETON("singleton", 35, 168, 6),
+        SPECIFIC("specific", 45, 212, 6),
+        SUBPATH("subpath", 33, 153, 8),
+        SUBSEGMENT("subsegment", 34, 161, 7),
+        TIME_HIGH("time-high", 62, 294, 2),
+        TIME_LOW("time-low", 60, 290, 2),
+        TIME_MID("time-mid", 61, 292, 2),
+        TYPE_CLASS("type-class", 43, 206, 3),
+        UUID_LITERAL("uuid-literal", 59, 278, 12),
+        VALUE_CONTEXT("value-context", 27, 124, 5),
+        XDI_CHAR("xdi-char", 70, 325, 8),
+        XDI_CHARS("xdi-chars", 66, 302, 4),
+        XDI_GRAPH("xdi-graph", 0, 0, 6),
+        XDI_STATEMENT("xdi-statement", 1, 6, 4),
+        XREF("xref", 32, 146, 7);
         private String name;
         private int id;
         private int offset;
@@ -112,7 +120,7 @@ public class XDI3Grammar extends Grammar{
     }
 
     private static Rule[] getRules(){
-    	Rule[] rules = new Rule[68];
+    	Rule[] rules = new Rule[76];
         for(RuleNames r : RuleNames.values()){
             rules[r.ruleID()] = getRule(r.ruleID(), r.ruleName(), r.opcodeOffset(), r.opcodeCount());
         }
@@ -126,399 +134,354 @@ public class XDI3Grammar extends Grammar{
 
         // opcodes
     private static Opcode[] getOpcodes(){
-    	Opcode[] op = new Opcode[392];
-        op[0] = getOpcodeRnm(5, 10); // xdi-segment
-        {int[] a = {2,3,4,5,6}; op[1] = getOpcodeCat(a);}
-        op[2] = getOpcodeRnm(2, 7); // xdi-subject
-        {char[] a = {47}; op[3] = getOpcodeTls(a);}
-        op[4] = getOpcodeRnm(3, 8); // xdi-predicate
-        {char[] a = {47}; op[5] = getOpcodeTls(a);}
-        op[6] = getOpcodeRnm(4, 9); // xdi-object
-        op[7] = getOpcodeRnm(5, 10); // xdi-segment
-        op[8] = getOpcodeRnm(5, 10); // xdi-segment
-        op[9] = getOpcodeRnm(5, 10); // xdi-segment
-        op[10] = getOpcodeRep((char)1, Character.MAX_VALUE, 11);
-        op[11] = getOpcodeRnm(6, 12); // subseg
-        {int[] a = {13,14,15}; op[12] = getOpcodeAlt(a);}
-        op[13] = getOpcodeRnm(7, 16); // global-subseg
-        op[14] = getOpcodeRnm(8, 23); // local-subseg
-        op[15] = getOpcodeRnm(11, 37); // xref
-        {int[] a = {17,18}; op[16] = getOpcodeCat(a);}
-        op[17] = getOpcodeRnm(9, 29); // gcs-char
-        op[18] = getOpcodeRep((char)0, (char)1, 19);
-        {int[] a = {20,21,22}; op[19] = getOpcodeAlt(a);}
-        op[20] = getOpcodeRnm(8, 23); // local-subseg
-        op[21] = getOpcodeRnm(11, 37); // xref
-        op[22] = getOpcodeRnm(18, 67); // literal
-        {int[] a = {24,25}; op[23] = getOpcodeCat(a);}
-        op[24] = getOpcodeRnm(10, 34); // lcs-char
-        op[25] = getOpcodeRep((char)0, (char)1, 26);
-        {int[] a = {27,28}; op[26] = getOpcodeAlt(a);}
-        op[27] = getOpcodeRnm(11, 37); // xref
-        op[28] = getOpcodeRnm(18, 67); // literal
-        {int[] a = {30,31,32,33}; op[29] = getOpcodeAlt(a);}
-        {char[] a = {61}; op[30] = getOpcodeTls(a);}
-        {char[] a = {64}; op[31] = getOpcodeTls(a);}
-        {char[] a = {43}; op[32] = getOpcodeTls(a);}
-        {char[] a = {36}; op[33] = getOpcodeTls(a);}
-        {int[] a = {35,36}; op[34] = getOpcodeAlt(a);}
-        {char[] a = {42}; op[35] = getOpcodeTls(a);}
-        {char[] a = {33}; op[36] = getOpcodeTls(a);}
-        {int[] a = {38,39,40,41,42,43}; op[37] = getOpcodeAlt(a);}
-        op[38] = getOpcodeRnm(12, 44); // xref-empty
-        op[39] = getOpcodeRnm(13, 45); // xref-IRI
-        op[40] = getOpcodeRnm(14, 49); // xref-segment
-        op[41] = getOpcodeRnm(15, 53); // xref-subject-predicate
-        op[42] = getOpcodeRnm(16, 59); // xref-statement
-        op[43] = getOpcodeRnm(17, 63); // xref-literal
-        {char[] a = {40,41}; op[44] = getOpcodeTls(a);}
-        {int[] a = {46,47,48}; op[45] = getOpcodeCat(a);}
-        {char[] a = {40}; op[46] = getOpcodeTls(a);}
-        op[47] = getOpcodeRnm(20, 72); // IRI
-        {char[] a = {41}; op[48] = getOpcodeTls(a);}
-        {int[] a = {50,51,52}; op[49] = getOpcodeCat(a);}
-        {char[] a = {40}; op[50] = getOpcodeTls(a);}
-        op[51] = getOpcodeRnm(5, 10); // xdi-segment
-        {char[] a = {41}; op[52] = getOpcodeTls(a);}
-        {int[] a = {54,55,56,57,58}; op[53] = getOpcodeCat(a);}
-        {char[] a = {40}; op[54] = getOpcodeTls(a);}
-        op[55] = getOpcodeRnm(2, 7); // xdi-subject
-        {char[] a = {47}; op[56] = getOpcodeTls(a);}
-        op[57] = getOpcodeRnm(3, 8); // xdi-predicate
-        {char[] a = {41}; op[58] = getOpcodeTls(a);}
-        {int[] a = {60,61,62}; op[59] = getOpcodeCat(a);}
-        {char[] a = {40}; op[60] = getOpcodeTls(a);}
-        op[61] = getOpcodeRnm(1, 1); // xdi-statement
-        {char[] a = {41}; op[62] = getOpcodeTls(a);}
-        {int[] a = {64,65,66}; op[63] = getOpcodeCat(a);}
-        {char[] a = {40}; op[64] = getOpcodeTls(a);}
-        op[65] = getOpcodeRnm(18, 67); // literal
-        {char[] a = {41}; op[66] = getOpcodeTls(a);}
-        op[67] = getOpcodeRep((char)1, Character.MAX_VALUE, 68);
-        op[68] = getOpcodeRnm(19, 69); // xdi-pchar
-        {int[] a = {70,71}; op[69] = getOpcodeAlt(a);}
-        op[70] = getOpcodeRnm(45, 310); // iunreserved
-        op[71] = getOpcodeRnm(46, 318); // pct-encoded
-        {int[] a = {73,74,75,76,80}; op[72] = getOpcodeCat(a);}
-        op[73] = getOpcodeRnm(21, 84); // scheme
-        {char[] a = {58}; op[74] = getOpcodeTls(a);}
-        op[75] = getOpcodeRnm(22, 93); // ihier-part
-        op[76] = getOpcodeRep((char)0, (char)1, 77);
-        {int[] a = {78,79}; op[77] = getOpcodeCat(a);}
-        {char[] a = {63}; op[78] = getOpcodeTls(a);}
-        op[79] = getOpcodeRnm(41, 292); // iquery
-        op[80] = getOpcodeRep((char)0, (char)1, 81);
-        {int[] a = {82,83}; op[81] = getOpcodeCat(a);}
-        {char[] a = {35}; op[82] = getOpcodeTls(a);}
-        op[83] = getOpcodeRnm(43, 299); // ifragment
-        {int[] a = {85,86}; op[84] = getOpcodeCat(a);}
-        op[85] = getOpcodeRnm(52, 354); // ALPHA
-        op[86] = getOpcodeRep((char)0, Character.MAX_VALUE, 87);
-        {int[] a = {88,89,90,91,92}; op[87] = getOpcodeAlt(a);}
-        op[88] = getOpcodeRnm(52, 354); // ALPHA
-        op[89] = getOpcodeRnm(58, 368); // DIGIT
-        {char[] a = {43}; op[90] = getOpcodeTls(a);}
-        {char[] a = {45}; op[91] = getOpcodeTls(a);}
-        {char[] a = {46}; op[92] = getOpcodeTls(a);}
-        {int[] a = {94,98,99,100}; op[93] = getOpcodeAlt(a);}
-        {int[] a = {95,96,97}; op[94] = getOpcodeCat(a);}
-        {char[] a = {47,47}; op[95] = getOpcodeTls(a);}
-        op[96] = getOpcodeRnm(23, 101); // iauthority
-        op[97] = getOpcodeRnm(35, 268); // ipath-abempty
-        op[98] = getOpcodeRnm(36, 272); // ipath-abs
-        op[99] = getOpcodeRnm(37, 281); // ipath-rootless
-        op[100] = getOpcodeRnm(38, 287); // ipath-empty
-        {int[] a = {102,106,107}; op[101] = getOpcodeCat(a);}
-        op[102] = getOpcodeRep((char)0, (char)1, 103);
-        {int[] a = {104,105}; op[103] = getOpcodeCat(a);}
-        op[104] = getOpcodeRnm(24, 111); // iuserinfo
-        {char[] a = {64}; op[105] = getOpcodeTls(a);}
-        op[106] = getOpcodeRnm(25, 117); // ihost
+    	Opcode[] op = new Opcode[347];
+        {int[] a = {1,2}; op[0] = getOpcodeCat(a);}
+        op[1] = getOpcodeRnm(1, 6); // xdi-statement
+        op[2] = getOpcodeRep((char)0, Character.MAX_VALUE, 3);
+        {int[] a = {4,5}; op[3] = getOpcodeCat(a);}
+        op[4] = getOpcodeRnm(74, 340); // CRLF
+        op[5] = getOpcodeRnm(1, 6); // xdi-statement
+        {int[] a = {7,8,9}; op[6] = getOpcodeAlt(a);}
+        op[7] = getOpcodeRnm(2, 10); // contextual-statement
+        op[8] = getOpcodeRnm(13, 55); // relational-statement
+        op[9] = getOpcodeRnm(18, 81); // literal-statement
+        {int[] a = {11,12}; op[10] = getOpcodeAlt(a);}
+        op[11] = getOpcodeRnm(3, 13); // direct-contextual
+        op[12] = getOpcodeRnm(4, 18); // inverse-contextual
+        {int[] a = {14,15,16,17}; op[13] = getOpcodeAlt(a);}
+        op[14] = getOpcodeRnm(5, 23); // absolute
+        op[15] = getOpcodeRnm(6, 27); // peer-relative
+        op[16] = getOpcodeRnm(7, 31); // context-relative
+        op[17] = getOpcodeRnm(8, 35); // class-relative
+        {int[] a = {19,20,21,22}; op[18] = getOpcodeAlt(a);}
+        op[19] = getOpcodeRnm(9, 39); // absolute-inverse
+        op[20] = getOpcodeRnm(10, 43); // peer-inverse
+        op[21] = getOpcodeRnm(11, 47); // context-inverse
+        op[22] = getOpcodeRnm(12, 51); // class-inverse
+        {int[] a = {24,25,26}; op[23] = getOpcodeCat(a);}
+        op[24] = getOpcodeRnm(29, 133); // local-root
+        {char[] a = {47,40,41,47}; op[25] = getOpcodeTls(a);}
+        op[26] = getOpcodeRnm(19, 86); // context
+        {int[] a = {28,29,30}; op[27] = getOpcodeCat(a);}
+        op[28] = getOpcodeRnm(30, 134); // peer-root
+        {char[] a = {47,40,41,47}; op[29] = getOpcodeTls(a);}
+        op[30] = getOpcodeRnm(19, 86); // context
+        {int[] a = {32,33,34}; op[31] = getOpcodeCat(a);}
+        op[32] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47,40,41,47}; op[33] = getOpcodeTls(a);}
+        op[34] = getOpcodeRnm(20, 92); // relative-context
+        {int[] a = {36,37,38}; op[35] = getOpcodeCat(a);}
+        op[36] = getOpcodeRnm(21, 94); // class-context
+        {char[] a = {47,40,41,47}; op[37] = getOpcodeTls(a);}
+        op[38] = getOpcodeRnm(23, 103); // instance-context
+        {int[] a = {40,41,42}; op[39] = getOpcodeCat(a);}
+        op[40] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47,36,105,115,40,41,47}; op[41] = getOpcodeTls(a);}
+        op[42] = getOpcodeRnm(29, 133); // local-root
+        {int[] a = {44,45,46}; op[43] = getOpcodeCat(a);}
+        op[44] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47,36,105,115,40,41,47}; op[45] = getOpcodeTls(a);}
+        op[46] = getOpcodeRnm(30, 134); // peer-root
+        {int[] a = {48,49,50}; op[47] = getOpcodeCat(a);}
+        op[48] = getOpcodeRnm(20, 92); // relative-context
+        {char[] a = {47,36,105,115,40,41,47}; op[49] = getOpcodeTls(a);}
+        op[50] = getOpcodeRnm(19, 86); // context
+        {int[] a = {52,53,54}; op[51] = getOpcodeCat(a);}
+        op[52] = getOpcodeRnm(23, 103); // instance-context
+        {char[] a = {47,36,105,115,40,41,47}; op[53] = getOpcodeTls(a);}
+        op[54] = getOpcodeRnm(21, 94); // class-context
+        {int[] a = {56,57,58}; op[55] = getOpcodeAlt(a);}
+        op[56] = getOpcodeRnm(15, 65); // inverse-relational
+        op[57] = getOpcodeRnm(14, 59); // direct-relational
+        op[58] = getOpcodeRnm(16, 71); // inner-relational
+        {int[] a = {60,61,62,63,64}; op[59] = getOpcodeCat(a);}
+        op[60] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47}; op[61] = getOpcodeTls(a);}
+        op[62] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47}; op[63] = getOpcodeTls(a);}
+        op[64] = getOpcodeRnm(19, 86); // context
+        {int[] a = {66,67,68,69,70}; op[65] = getOpcodeCat(a);}
+        op[66] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47,36,105,115}; op[67] = getOpcodeTls(a);}
+        op[68] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47}; op[69] = getOpcodeTls(a);}
+        op[70] = getOpcodeRnm(19, 86); // context
+        {int[] a = {72,73,74,75,76}; op[71] = getOpcodeCat(a);}
+        op[72] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47}; op[73] = getOpcodeTls(a);}
+        op[74] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47}; op[75] = getOpcodeTls(a);}
+        op[76] = getOpcodeRnm(17, 77); // inner-statement
+        {int[] a = {78,79,80}; op[77] = getOpcodeCat(a);}
+        {char[] a = {40}; op[78] = getOpcodeTls(a);}
+        op[79] = getOpcodeRnm(1, 6); // xdi-statement
+        {char[] a = {41}; op[80] = getOpcodeTls(a);}
+        {int[] a = {82,83,84,85}; op[81] = getOpcodeCat(a);}
+        op[82] = getOpcodeRnm(24, 109); // literal-context
+        op[83] = getOpcodeRnm(27, 124); // value-context
+        {char[] a = {47,60,62,47}; op[84] = getOpcodeTls(a);}
+        op[85] = getOpcodeRnm(52, 243); // json-value
+        {int[] a = {87,91}; op[86] = getOpcodeAlt(a);}
+        {int[] a = {88,89}; op[87] = getOpcodeCat(a);}
+        op[88] = getOpcodeRnm(30, 134); // peer-root
+        op[89] = getOpcodeRep((char)0, (char)1, 90);
+        op[90] = getOpcodeRnm(20, 92); // relative-context
+        op[91] = getOpcodeRnm(20, 92); // relative-context
+        op[92] = getOpcodeRep((char)1, Character.MAX_VALUE, 93);
+        op[93] = getOpcodeRnm(33, 153); // subpath
+        {int[] a = {95,97}; op[94] = getOpcodeCat(a);}
+        op[95] = getOpcodeRep((char)0, (char)1, 96);
+        op[96] = getOpcodeRnm(30, 134); // peer-root
+        op[97] = getOpcodeRnm(22, 98); // class-path
+        {int[] a = {99,102}; op[98] = getOpcodeAlt(a);}
+        {int[] a = {100,101}; op[99] = getOpcodeCat(a);}
+        op[100] = getOpcodeRnm(33, 153); // subpath
+        op[101] = getOpcodeRnm(22, 98); // class-path
+        op[102] = getOpcodeRnm(41, 200); // class
+        {int[] a = {104,107}; op[103] = getOpcodeCat(a);}
+        {int[] a = {105,106}; op[104] = getOpcodeAlt(a);}
+        op[105] = getOpcodeRnm(50, 230); // instance
+        op[106] = getOpcodeRnm(51, 238); // element
         op[107] = getOpcodeRep((char)0, (char)1, 108);
-        {int[] a = {109,110}; op[108] = getOpcodeCat(a);}
-        {char[] a = {58}; op[109] = getOpcodeTls(a);}
-        op[110] = getOpcodeRnm(34, 266); // port
-        op[111] = getOpcodeRep((char)0, Character.MAX_VALUE, 112);
-        {int[] a = {113,114,115,116}; op[112] = getOpcodeAlt(a);}
-        op[113] = getOpcodeRnm(45, 310); // iunreserved
-        op[114] = getOpcodeRnm(46, 318); // pct-encoded
-        op[115] = getOpcodeRnm(50, 337); // sub-delims
-        {char[] a = {58}; op[116] = getOpcodeTls(a);}
-        {int[] a = {118,119,120}; op[117] = getOpcodeAlt(a);}
-        op[118] = getOpcodeRnm(26, 121); // IP-literal
-        op[119] = getOpcodeRnm(31, 237); // IPv4address
-        op[120] = getOpcodeRnm(33, 261); // ireg-name
-        {int[] a = {122,123,126}; op[121] = getOpcodeCat(a);}
-        {char[] a = {91}; op[122] = getOpcodeTls(a);}
-        {int[] a = {124,125}; op[123] = getOpcodeAlt(a);}
-        op[124] = getOpcodeRnm(28, 137); // IPv6address
-        op[125] = getOpcodeRnm(27, 127); // IPvFuture
-        {char[] a = {93}; op[126] = getOpcodeTls(a);}
-        {int[] a = {128,129,131,132}; op[127] = getOpcodeCat(a);}
-        {char[] a = {118}; op[128] = getOpcodeTls(a);}
-        op[129] = getOpcodeRep((char)1, Character.MAX_VALUE, 130);
-        op[130] = getOpcodeRnm(60, 370); // HEXDIG
-        {char[] a = {46}; op[131] = getOpcodeTls(a);}
-        op[132] = getOpcodeRep((char)1, Character.MAX_VALUE, 133);
-        {int[] a = {134,135,136}; op[133] = getOpcodeAlt(a);}
-        op[134] = getOpcodeRnm(51, 347); // unreserved
-        op[135] = getOpcodeRnm(50, 337); // sub-delims
-        {char[] a = {58}; op[136] = getOpcodeTls(a);}
-        {int[] a = {138,144,151,160,174,188,200,210,220}; op[137] = getOpcodeAlt(a);}
-        {int[] a = {139,143}; op[138] = getOpcodeCat(a);}
-        op[139] = getOpcodeRep((char)6, (char)6, 140);
-        {int[] a = {141,142}; op[140] = getOpcodeCat(a);}
-        op[141] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[142] = getOpcodeTls(a);}
-        op[143] = getOpcodeRnm(29, 229); // ls32
-        {int[] a = {145,146,150}; op[144] = getOpcodeCat(a);}
-        {char[] a = {58,58}; op[145] = getOpcodeTls(a);}
-        op[146] = getOpcodeRep((char)5, (char)5, 147);
-        {int[] a = {148,149}; op[147] = getOpcodeCat(a);}
-        op[148] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[149] = getOpcodeTls(a);}
-        op[150] = getOpcodeRnm(29, 229); // ls32
-        {int[] a = {152,154,155,159}; op[151] = getOpcodeCat(a);}
-        op[152] = getOpcodeRep((char)0, (char)1, 153);
-        op[153] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58,58}; op[154] = getOpcodeTls(a);}
-        op[155] = getOpcodeRep((char)4, (char)4, 156);
-        {int[] a = {157,158}; op[156] = getOpcodeCat(a);}
-        op[157] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[158] = getOpcodeTls(a);}
-        op[159] = getOpcodeRnm(29, 229); // ls32
-        {int[] a = {161,168,169,173}; op[160] = getOpcodeCat(a);}
-        op[161] = getOpcodeRep((char)0, (char)1, 162);
-        {int[] a = {163,167}; op[162] = getOpcodeCat(a);}
-        op[163] = getOpcodeRep((char)0, (char)1, 164);
-        {int[] a = {165,166}; op[164] = getOpcodeCat(a);}
-        op[165] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[166] = getOpcodeTls(a);}
-        op[167] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58,58}; op[168] = getOpcodeTls(a);}
-        op[169] = getOpcodeRep((char)3, (char)3, 170);
-        {int[] a = {171,172}; op[170] = getOpcodeCat(a);}
-        op[171] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[172] = getOpcodeTls(a);}
-        op[173] = getOpcodeRnm(29, 229); // ls32
-        {int[] a = {175,182,183,187}; op[174] = getOpcodeCat(a);}
-        op[175] = getOpcodeRep((char)0, (char)1, 176);
-        {int[] a = {177,181}; op[176] = getOpcodeCat(a);}
-        op[177] = getOpcodeRep((char)0, (char)2, 178);
-        {int[] a = {179,180}; op[178] = getOpcodeCat(a);}
-        op[179] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[180] = getOpcodeTls(a);}
-        op[181] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58,58}; op[182] = getOpcodeTls(a);}
-        op[183] = getOpcodeRep((char)2, (char)2, 184);
-        {int[] a = {185,186}; op[184] = getOpcodeCat(a);}
-        op[185] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[186] = getOpcodeTls(a);}
-        op[187] = getOpcodeRnm(29, 229); // ls32
-        {int[] a = {189,196,197,198,199}; op[188] = getOpcodeCat(a);}
-        op[189] = getOpcodeRep((char)0, (char)1, 190);
-        {int[] a = {191,195}; op[190] = getOpcodeCat(a);}
-        op[191] = getOpcodeRep((char)0, (char)3, 192);
+        op[108] = getOpcodeRnm(20, 92); // relative-context
+        {int[] a = {110,112}; op[109] = getOpcodeCat(a);}
+        op[110] = getOpcodeRep((char)0, (char)1, 111);
+        op[111] = getOpcodeRnm(30, 134); // peer-root
+        op[112] = getOpcodeRnm(25, 113); // literal-path
+        {int[] a = {114,117,118}; op[113] = getOpcodeAlt(a);}
+        {int[] a = {115,116}; op[114] = getOpcodeCat(a);}
+        op[115] = getOpcodeRnm(33, 153); // subpath
+        op[116] = getOpcodeRnm(25, 113); // literal-path
+        op[117] = getOpcodeRnm(37, 178); // attribute-singleton
+        op[118] = getOpcodeRnm(26, 119); // attribute-pair
+        {int[] a = {120,121}; op[119] = getOpcodeCat(a);}
+        op[120] = getOpcodeRnm(49, 226); // attribute-class
+        {int[] a = {122,123}; op[121] = getOpcodeAlt(a);}
+        op[122] = getOpcodeRnm(50, 230); // instance
+        op[123] = getOpcodeRnm(51, 238); // element
+        {int[] a = {125,126,128}; op[124] = getOpcodeCat(a);}
+        {char[] a = {60,60}; op[125] = getOpcodeTls(a);}
+        op[126] = getOpcodeRep((char)1, Character.MAX_VALUE, 127);
+        op[127] = getOpcodeRnm(43, 206); // type-class
+        {char[] a = {62,62}; op[128] = getOpcodeTls(a);}
+        {int[] a = {130,131,132}; op[129] = getOpcodeAlt(a);}
+        op[130] = getOpcodeRnm(29, 133); // local-root
+        op[131] = getOpcodeRnm(30, 134); // peer-root
+        op[132] = getOpcodeRnm(31, 140); // inner-root
+        {char[] a = {40,41}; op[133] = getOpcodeTls(a);}
+        {int[] a = {135,136,139}; op[134] = getOpcodeCat(a);}
+        {char[] a = {40}; op[135] = getOpcodeTls(a);}
+        {int[] a = {137,138}; op[136] = getOpcodeAlt(a);}
+        op[137] = getOpcodeRnm(19, 86); // context
+        op[138] = getOpcodeRnm(67, 306); // iri-chars
+        {char[] a = {41}; op[139] = getOpcodeTls(a);}
+        {int[] a = {141,142,143,144,145}; op[140] = getOpcodeCat(a);}
+        {char[] a = {40}; op[141] = getOpcodeTls(a);}
+        op[142] = getOpcodeRnm(19, 86); // context
+        {char[] a = {47}; op[143] = getOpcodeTls(a);}
+        op[144] = getOpcodeRnm(19, 86); // context
+        {char[] a = {41}; op[145] = getOpcodeTls(a);}
+        {int[] a = {147,148,152}; op[146] = getOpcodeCat(a);}
+        {char[] a = {40}; op[147] = getOpcodeTls(a);}
+        {int[] a = {149,150,151}; op[148] = getOpcodeAlt(a);}
+        op[149] = getOpcodeRnm(19, 86); // context
+        op[150] = getOpcodeRnm(67, 306); // iri-chars
+        op[151] = getOpcodeRnm(66, 302); // xdi-chars
+        {char[] a = {41}; op[152] = getOpcodeTls(a);}
+        {int[] a = {154,155}; op[153] = getOpcodeAlt(a);}
+        op[154] = getOpcodeRnm(35, 168); // singleton
+        {int[] a = {156,157}; op[155] = getOpcodeCat(a);}
+        op[156] = getOpcodeRnm(41, 200); // class
+        op[157] = getOpcodeRep((char)0, (char)1, 158);
+        {int[] a = {159,160}; op[158] = getOpcodeAlt(a);}
+        op[159] = getOpcodeRnm(50, 230); // instance
+        op[160] = getOpcodeRnm(51, 238); // element
+        {int[] a = {162,163,164,165,166,167}; op[161] = getOpcodeAlt(a);}
+        op[162] = getOpcodeRnm(35, 168); // singleton
+        op[163] = getOpcodeRnm(41, 200); // class
+        op[164] = getOpcodeRnm(50, 230); // instance
+        op[165] = getOpcodeRnm(51, 238); // element
+        op[166] = getOpcodeRnm(28, 129); // root
+        op[167] = getOpcodeRnm(17, 77); // inner-statement
+        {int[] a = {169,170,171,172,173}; op[168] = getOpcodeAlt(a);}
+        op[169] = getOpcodeRnm(36, 174); // entity-singleton
+        op[170] = getOpcodeRnm(37, 178); // attribute-singleton
+        op[171] = getOpcodeRnm(38, 182); // person-singleton
+        op[172] = getOpcodeRnm(39, 187); // organization-singleton
+        op[173] = getOpcodeRnm(40, 192); // relative-singleton
+        {int[] a = {175,176,177}; op[174] = getOpcodeCat(a);}
+        {char[] a = {33,40}; op[175] = getOpcodeTls(a);}
+        op[176] = getOpcodeRnm(43, 206); // type-class
+        {char[] a = {41}; op[177] = getOpcodeTls(a);}
+        {int[] a = {179,180,181}; op[178] = getOpcodeCat(a);}
+        {char[] a = {33,60}; op[179] = getOpcodeTls(a);}
+        op[180] = getOpcodeRnm(43, 206); // type-class
+        {char[] a = {62}; op[181] = getOpcodeTls(a);}
+        {int[] a = {183,184}; op[182] = getOpcodeCat(a);}
+        {char[] a = {61}; op[183] = getOpcodeTls(a);}
+        {int[] a = {185,186}; op[184] = getOpcodeAlt(a);}
+        op[185] = getOpcodeRnm(32, 146); // xref
+        op[186] = getOpcodeRnm(66, 302); // xdi-chars
+        {int[] a = {188,189}; op[187] = getOpcodeCat(a);}
+        {char[] a = {64}; op[188] = getOpcodeTls(a);}
+        {int[] a = {190,191}; op[189] = getOpcodeAlt(a);}
+        op[190] = getOpcodeRnm(32, 146); // xref
+        op[191] = getOpcodeRnm(66, 302); // xdi-chars
         {int[] a = {193,194}; op[192] = getOpcodeCat(a);}
-        op[193] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[194] = getOpcodeTls(a);}
-        op[195] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58,58}; op[196] = getOpcodeTls(a);}
-        op[197] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[198] = getOpcodeTls(a);}
-        op[199] = getOpcodeRnm(29, 229); // ls32
-        {int[] a = {201,208,209}; op[200] = getOpcodeCat(a);}
-        op[201] = getOpcodeRep((char)0, (char)1, 202);
-        {int[] a = {203,207}; op[202] = getOpcodeCat(a);}
-        op[203] = getOpcodeRep((char)0, (char)4, 204);
-        {int[] a = {205,206}; op[204] = getOpcodeCat(a);}
-        op[205] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[206] = getOpcodeTls(a);}
-        op[207] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58,58}; op[208] = getOpcodeTls(a);}
-        op[209] = getOpcodeRnm(29, 229); // ls32
-        {int[] a = {211,218,219}; op[210] = getOpcodeCat(a);}
-        op[211] = getOpcodeRep((char)0, (char)1, 212);
-        {int[] a = {213,217}; op[212] = getOpcodeCat(a);}
-        op[213] = getOpcodeRep((char)0, (char)5, 214);
-        {int[] a = {215,216}; op[214] = getOpcodeCat(a);}
-        op[215] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[216] = getOpcodeTls(a);}
-        op[217] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58,58}; op[218] = getOpcodeTls(a);}
-        op[219] = getOpcodeRnm(30, 235); // h16
-        {int[] a = {221,228}; op[220] = getOpcodeCat(a);}
-        op[221] = getOpcodeRep((char)0, (char)1, 222);
-        {int[] a = {223,227}; op[222] = getOpcodeCat(a);}
-        op[223] = getOpcodeRep((char)0, (char)6, 224);
-        {int[] a = {225,226}; op[224] = getOpcodeCat(a);}
-        op[225] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[226] = getOpcodeTls(a);}
-        op[227] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58,58}; op[228] = getOpcodeTls(a);}
-        {int[] a = {230,234}; op[229] = getOpcodeAlt(a);}
-        {int[] a = {231,232,233}; op[230] = getOpcodeCat(a);}
-        op[231] = getOpcodeRnm(30, 235); // h16
-        {char[] a = {58}; op[232] = getOpcodeTls(a);}
-        op[233] = getOpcodeRnm(30, 235); // h16
-        op[234] = getOpcodeRnm(31, 237); // IPv4address
-        op[235] = getOpcodeRep((char)1, (char)4, 236);
-        op[236] = getOpcodeRnm(60, 370); // HEXDIG
-        {int[] a = {238,239,240,241,242,243,244}; op[237] = getOpcodeCat(a);}
-        op[238] = getOpcodeRnm(32, 245); // dec-octet
-        {char[] a = {46}; op[239] = getOpcodeTls(a);}
-        op[240] = getOpcodeRnm(32, 245); // dec-octet
-        {char[] a = {46}; op[241] = getOpcodeTls(a);}
-        op[242] = getOpcodeRnm(32, 245); // dec-octet
-        {char[] a = {46}; op[243] = getOpcodeTls(a);}
-        op[244] = getOpcodeRnm(32, 245); // dec-octet
-        {int[] a = {246,247,250,254,258}; op[245] = getOpcodeAlt(a);}
-        op[246] = getOpcodeRnm(58, 368); // DIGIT
-        {int[] a = {248,249}; op[247] = getOpcodeCat(a);}
-        op[248] = getOpcodeTrg((char)49, (char)57);
-        op[249] = getOpcodeRnm(58, 368); // DIGIT
-        {int[] a = {251,252}; op[250] = getOpcodeCat(a);}
-        {char[] a = {49}; op[251] = getOpcodeTls(a);}
-        op[252] = getOpcodeRep((char)2, (char)2, 253);
-        op[253] = getOpcodeRnm(58, 368); // DIGIT
-        {int[] a = {255,256,257}; op[254] = getOpcodeCat(a);}
-        {char[] a = {50}; op[255] = getOpcodeTls(a);}
-        op[256] = getOpcodeTrg((char)48, (char)52);
-        op[257] = getOpcodeRnm(58, 368); // DIGIT
-        {int[] a = {259,260}; op[258] = getOpcodeCat(a);}
-        {char[] a = {50,53}; op[259] = getOpcodeTls(a);}
-        op[260] = getOpcodeTrg((char)48, (char)53);
+        {char[] a = {42}; op[193] = getOpcodeTls(a);}
+        op[194] = getOpcodeRep((char)0, (char)1, 195);
+        {int[] a = {196,197,198,199}; op[195] = getOpcodeAlt(a);}
+        op[196] = getOpcodeRnm(32, 146); // xref
+        op[197] = getOpcodeRnm(59, 278); // uuid-literal
+        op[198] = getOpcodeRnm(58, 269); // ipv6-literal
+        op[199] = getOpcodeRnm(66, 302); // xdi-chars
+        {int[] a = {201,202}; op[200] = getOpcodeAlt(a);}
+        op[201] = getOpcodeRnm(42, 203); // entity-class
+        op[202] = getOpcodeRnm(49, 226); // attribute-class
+        {int[] a = {204,205}; op[203] = getOpcodeAlt(a);}
+        op[204] = getOpcodeRnm(43, 206); // type-class
+        op[205] = getOpcodeRnm(44, 209); // instance-class
+        {int[] a = {207,208}; op[206] = getOpcodeAlt(a);}
+        op[207] = getOpcodeRnm(45, 212); // specific
+        op[208] = getOpcodeRnm(46, 218); // generic
+        {int[] a = {210,211}; op[209] = getOpcodeAlt(a);}
+        op[210] = getOpcodeRnm(47, 224); // person
+        op[211] = getOpcodeRnm(48, 225); // organization
+        {int[] a = {213,214}; op[212] = getOpcodeCat(a);}
+        {char[] a = {36}; op[213] = getOpcodeTls(a);}
+        op[214] = getOpcodeRep((char)0, (char)1, 215);
+        {int[] a = {216,217}; op[215] = getOpcodeAlt(a);}
+        op[216] = getOpcodeRnm(32, 146); // xref
+        op[217] = getOpcodeRnm(66, 302); // xdi-chars
+        {int[] a = {219,220}; op[218] = getOpcodeCat(a);}
+        {char[] a = {43}; op[219] = getOpcodeTls(a);}
+        op[220] = getOpcodeRep((char)0, (char)1, 221);
+        {int[] a = {222,223}; op[221] = getOpcodeAlt(a);}
+        op[222] = getOpcodeRnm(32, 146); // xref
+        op[223] = getOpcodeRnm(66, 302); // xdi-chars
+        {char[] a = {61}; op[224] = getOpcodeTls(a);}
+        {char[] a = {64}; op[225] = getOpcodeTls(a);}
+        {int[] a = {227,228,229}; op[226] = getOpcodeCat(a);}
+        {char[] a = {60}; op[227] = getOpcodeTls(a);}
+        op[228] = getOpcodeRnm(43, 206); // type-class
+        {char[] a = {62}; op[229] = getOpcodeTls(a);}
+        {int[] a = {231,232}; op[230] = getOpcodeCat(a);}
+        {char[] a = {33}; op[231] = getOpcodeTls(a);}
+        op[232] = getOpcodeRep((char)0, (char)1, 233);
+        {int[] a = {234,235,236,237}; op[233] = getOpcodeAlt(a);}
+        op[234] = getOpcodeRnm(32, 146); // xref
+        op[235] = getOpcodeRnm(59, 278); // uuid-literal
+        op[236] = getOpcodeRnm(58, 269); // ipv6-literal
+        op[237] = getOpcodeRnm(66, 302); // xdi-chars
+        {int[] a = {239,240,242}; op[238] = getOpcodeCat(a);}
+        {char[] a = {91}; op[239] = getOpcodeTls(a);}
+        op[240] = getOpcodeRep((char)1, Character.MAX_VALUE, 241);
+        op[241] = getOpcodeRnm(72, 336); // DIGIT
+        {char[] a = {93}; op[242] = getOpcodeTls(a);}
+        {int[] a = {244,245,246,247,248}; op[243] = getOpcodeAlt(a);}
+        op[244] = getOpcodeRnm(53, 249); // json-string
+        op[245] = getOpcodeRnm(54, 254); // json-number
+        op[246] = getOpcodeRnm(55, 256); // json-boolean
+        op[247] = getOpcodeRnm(56, 259); // json-array
+        op[248] = getOpcodeRnm(57, 264); // json-object
+        {int[] a = {250,251,253}; op[249] = getOpcodeCat(a);}
+        op[250] = getOpcodeRnm(75, 346); // DQUOTE
+        op[251] = getOpcodeRep((char)0, Character.MAX_VALUE, 252);
+        op[252] = getOpcodeRnm(66, 302); // xdi-chars
+        op[253] = getOpcodeRnm(75, 346); // DQUOTE
+        op[254] = getOpcodeRep((char)1, Character.MAX_VALUE, 255);
+        op[255] = getOpcodeRnm(72, 336); // DIGIT
+        {int[] a = {257,258}; op[256] = getOpcodeAlt(a);}
+        {char[] a = {116,114,117,101}; op[257] = getOpcodeTls(a);}
+        {char[] a = {102,97,108,115,101}; op[258] = getOpcodeTls(a);}
+        {int[] a = {260,261,263}; op[259] = getOpcodeCat(a);}
+        {char[] a = {91}; op[260] = getOpcodeTls(a);}
         op[261] = getOpcodeRep((char)0, Character.MAX_VALUE, 262);
-        {int[] a = {263,264,265}; op[262] = getOpcodeAlt(a);}
-        op[263] = getOpcodeRnm(45, 310); // iunreserved
-        op[264] = getOpcodeRnm(46, 318); // pct-encoded
-        op[265] = getOpcodeRnm(50, 337); // sub-delims
+        op[262] = getOpcodeRnm(70, 325); // xdi-char
+        {char[] a = {93}; op[263] = getOpcodeTls(a);}
+        {int[] a = {265,266,268}; op[264] = getOpcodeCat(a);}
+        {char[] a = {123}; op[265] = getOpcodeTls(a);}
         op[266] = getOpcodeRep((char)0, Character.MAX_VALUE, 267);
-        op[267] = getOpcodeRnm(58, 368); // DIGIT
-        op[268] = getOpcodeRep((char)0, Character.MAX_VALUE, 269);
-        {int[] a = {270,271}; op[269] = getOpcodeCat(a);}
-        {char[] a = {47}; op[270] = getOpcodeTls(a);}
-        op[271] = getOpcodeRnm(39, 288); // isegment
-        {int[] a = {273,274}; op[272] = getOpcodeCat(a);}
-        {char[] a = {47}; op[273] = getOpcodeTls(a);}
-        op[274] = getOpcodeRep((char)0, (char)1, 275);
-        {int[] a = {276,277}; op[275] = getOpcodeCat(a);}
-        op[276] = getOpcodeRnm(40, 290); // isegment-nz
-        op[277] = getOpcodeRep((char)0, Character.MAX_VALUE, 278);
-        {int[] a = {279,280}; op[278] = getOpcodeCat(a);}
-        {char[] a = {47}; op[279] = getOpcodeTls(a);}
-        op[280] = getOpcodeRnm(39, 288); // isegment
-        {int[] a = {282,283}; op[281] = getOpcodeCat(a);}
-        op[282] = getOpcodeRnm(40, 290); // isegment-nz
-        op[283] = getOpcodeRep((char)0, Character.MAX_VALUE, 284);
-        {int[] a = {285,286}; op[284] = getOpcodeCat(a);}
-        {char[] a = {47}; op[285] = getOpcodeTls(a);}
-        op[286] = getOpcodeRnm(39, 288); // isegment
-        {char[] a = {}; op[287] = getOpcodeTls(a);}
-        op[288] = getOpcodeRep((char)0, Character.MAX_VALUE, 289);
-        op[289] = getOpcodeRnm(44, 304); // ipchar
-        op[290] = getOpcodeRep((char)1, Character.MAX_VALUE, 291);
-        op[291] = getOpcodeRnm(44, 304); // ipchar
-        op[292] = getOpcodeRep((char)0, Character.MAX_VALUE, 293);
-        {int[] a = {294,295,296,297}; op[293] = getOpcodeAlt(a);}
-        op[294] = getOpcodeRnm(44, 304); // ipchar
-        op[295] = getOpcodeRnm(42, 298); // iprivate
-        {char[] a = {47}; op[296] = getOpcodeTls(a);}
-        {char[] a = {63}; op[297] = getOpcodeTls(a);}
-        op[298] = getOpcodeTrg((char)57344, (char)63743);
-        op[299] = getOpcodeRep((char)0, Character.MAX_VALUE, 300);
-        {int[] a = {301,302,303}; op[300] = getOpcodeAlt(a);}
-        op[301] = getOpcodeRnm(44, 304); // ipchar
-        {char[] a = {47}; op[302] = getOpcodeTls(a);}
-        {char[] a = {63}; op[303] = getOpcodeTls(a);}
-        {int[] a = {305,306,307,308,309}; op[304] = getOpcodeAlt(a);}
-        op[305] = getOpcodeRnm(45, 310); // iunreserved
-        op[306] = getOpcodeRnm(46, 318); // pct-encoded
-        op[307] = getOpcodeRnm(50, 337); // sub-delims
-        {char[] a = {58}; op[308] = getOpcodeTls(a);}
-        {char[] a = {64}; op[309] = getOpcodeTls(a);}
+        op[267] = getOpcodeRnm(70, 325); // xdi-char
+        {char[] a = {125}; op[268] = getOpcodeTls(a);}
+        {int[] a = {270,271,273}; op[269] = getOpcodeCat(a);}
+        {char[] a = {58,105,112,118,54,58}; op[270] = getOpcodeTls(a);}
+        op[271] = getOpcodeRep((char)4, (char)4, 272);
+        op[272] = getOpcodeRnm(73, 337); // HEXDIG
+        op[273] = getOpcodeRep((char)7, Character.MAX_VALUE, 274);
+        {int[] a = {275,276}; op[274] = getOpcodeCat(a);}
+        {char[] a = {58}; op[275] = getOpcodeTls(a);}
+        op[276] = getOpcodeRep((char)4, (char)4, 277);
+        op[277] = getOpcodeRnm(73, 337); // HEXDIG
+        {int[] a = {279,280,281,282,283,284,285,286,287,288,289}; op[278] = getOpcodeCat(a);}
+        {char[] a = {58,117,117,105,100,58}; op[279] = getOpcodeTls(a);}
+        op[280] = getOpcodeRnm(60, 290); // time-low
+        {char[] a = {45}; op[281] = getOpcodeTls(a);}
+        op[282] = getOpcodeRnm(61, 292); // time-mid
+        {char[] a = {45}; op[283] = getOpcodeTls(a);}
+        op[284] = getOpcodeRnm(62, 294); // time-high
+        {char[] a = {45}; op[285] = getOpcodeTls(a);}
+        op[286] = getOpcodeRnm(63, 296); // clock-seq
+        op[287] = getOpcodeRnm(64, 298); // clock-seq-low
+        {char[] a = {45}; op[288] = getOpcodeTls(a);}
+        op[289] = getOpcodeRnm(65, 300); // node
+        op[290] = getOpcodeRep((char)8, (char)8, 291);
+        op[291] = getOpcodeRnm(73, 337); // HEXDIG
+        op[292] = getOpcodeRep((char)4, (char)4, 293);
+        op[293] = getOpcodeRnm(73, 337); // HEXDIG
+        op[294] = getOpcodeRep((char)4, (char)4, 295);
+        op[295] = getOpcodeRnm(73, 337); // HEXDIG
+        op[296] = getOpcodeRep((char)2, (char)2, 297);
+        op[297] = getOpcodeRnm(73, 337); // HEXDIG
+        op[298] = getOpcodeRep((char)2, (char)2, 299);
+        op[299] = getOpcodeRnm(73, 337); // HEXDIG
+        op[300] = getOpcodeRep((char)12, (char)12, 301);
+        op[301] = getOpcodeRnm(73, 337); // HEXDIG
+        op[302] = getOpcodeRep((char)1, Character.MAX_VALUE, 303);
+        {int[] a = {304,305}; op[303] = getOpcodeAlt(a);}
+        op[304] = getOpcodeRnm(70, 325); // xdi-char
+        {char[] a = {58}; op[305] = getOpcodeTls(a);}
+        {int[] a = {307,308,309}; op[306] = getOpcodeAlt(a);}
+        op[307] = getOpcodeRnm(70, 325); // xdi-char
+        op[308] = getOpcodeRnm(69, 318); // context-symbol
+        op[309] = getOpcodeRnm(68, 310); // nonparen-delim
         {int[] a = {311,312,313,314,315,316,317}; op[310] = getOpcodeAlt(a);}
-        op[311] = getOpcodeRnm(52, 354); // ALPHA
-        op[312] = getOpcodeRnm(58, 368); // DIGIT
-        {char[] a = {45}; op[313] = getOpcodeTls(a);}
-        {char[] a = {46}; op[314] = getOpcodeTls(a);}
-        {char[] a = {95}; op[315] = getOpcodeTls(a);}
-        {char[] a = {126}; op[316] = getOpcodeTls(a);}
-        op[317] = getOpcodeRnm(47, 322); // ucschar
-        {int[] a = {319,320,321}; op[318] = getOpcodeCat(a);}
-        {char[] a = {37}; op[319] = getOpcodeTls(a);}
-        op[320] = getOpcodeRnm(60, 370); // HEXDIG
-        op[321] = getOpcodeRnm(60, 370); // HEXDIG
-        {int[] a = {323,324,325}; op[322] = getOpcodeAlt(a);}
-        op[323] = getOpcodeTrg((char)160, (char)55295);
-        op[324] = getOpcodeTrg((char)63744, (char)64975);
-        op[325] = getOpcodeTrg((char)65008, (char)65519);
-        {int[] a = {327,328}; op[326] = getOpcodeAlt(a);}
-        op[327] = getOpcodeRnm(49, 329); // gen-delims
-        op[328] = getOpcodeRnm(50, 337); // sub-delims
-        {int[] a = {330,331,332,333,334,335,336}; op[329] = getOpcodeAlt(a);}
-        {char[] a = {58}; op[330] = getOpcodeTls(a);}
-        {char[] a = {47}; op[331] = getOpcodeTls(a);}
-        {char[] a = {63}; op[332] = getOpcodeTls(a);}
-        {char[] a = {35}; op[333] = getOpcodeTls(a);}
-        {char[] a = {91}; op[334] = getOpcodeTls(a);}
-        {char[] a = {93}; op[335] = getOpcodeTls(a);}
-        {char[] a = {64}; op[336] = getOpcodeTls(a);}
-        {int[] a = {338,339,340,341,342,343,344,345,346}; op[337] = getOpcodeAlt(a);}
-        {char[] a = {33}; op[338] = getOpcodeTls(a);}
-        {char[] a = {36}; op[339] = getOpcodeTls(a);}
-        {char[] a = {38}; op[340] = getOpcodeTls(a);}
-        {char[] a = {39}; op[341] = getOpcodeTls(a);}
-        {char[] a = {42}; op[342] = getOpcodeTls(a);}
-        {char[] a = {43}; op[343] = getOpcodeTls(a);}
-        {char[] a = {44}; op[344] = getOpcodeTls(a);}
-        {char[] a = {59}; op[345] = getOpcodeTls(a);}
-        {char[] a = {61}; op[346] = getOpcodeTls(a);}
-        {int[] a = {348,349,350,351,352,353}; op[347] = getOpcodeAlt(a);}
-        op[348] = getOpcodeRnm(52, 354); // ALPHA
-        op[349] = getOpcodeRnm(58, 368); // DIGIT
-        {char[] a = {45}; op[350] = getOpcodeTls(a);}
-        {char[] a = {46}; op[351] = getOpcodeTls(a);}
-        {char[] a = {95}; op[352] = getOpcodeTls(a);}
-        {char[] a = {126}; op[353] = getOpcodeTls(a);}
-        {int[] a = {355,356}; op[354] = getOpcodeAlt(a);}
-        op[355] = getOpcodeTrg((char)65, (char)90);
-        op[356] = getOpcodeTrg((char)97, (char)122);
-        {int[] a = {358,359}; op[357] = getOpcodeAlt(a);}
-        {char[] a = {48}; op[358] = getOpcodeTls(a);}
-        {char[] a = {49}; op[359] = getOpcodeTls(a);}
-        op[360] = getOpcodeTrg((char)1, (char)127);
-        {char[] a = {13}; op[361] = getOpcodeTbs(a);}
-        {int[] a = {363,364}; op[362] = getOpcodeCat(a);}
-        op[363] = getOpcodeRnm(55, 361); // CR
-        op[364] = getOpcodeRnm(62, 379); // LF
-        {int[] a = {366,367}; op[365] = getOpcodeAlt(a);}
-        op[366] = getOpcodeTrg((char)0, (char)31);
-        {char[] a = {127}; op[367] = getOpcodeTbs(a);}
-        op[368] = getOpcodeTrg((char)48, (char)57);
-        {char[] a = {34}; op[369] = getOpcodeTbs(a);}
-        {int[] a = {371,372,373,374,375,376,377}; op[370] = getOpcodeAlt(a);}
-        op[371] = getOpcodeRnm(58, 368); // DIGIT
-        {char[] a = {65}; op[372] = getOpcodeTls(a);}
-        {char[] a = {66}; op[373] = getOpcodeTls(a);}
-        {char[] a = {67}; op[374] = getOpcodeTls(a);}
-        {char[] a = {68}; op[375] = getOpcodeTls(a);}
-        {char[] a = {69}; op[376] = getOpcodeTls(a);}
-        {char[] a = {70}; op[377] = getOpcodeTls(a);}
-        {char[] a = {9}; op[378] = getOpcodeTbs(a);}
-        {char[] a = {10}; op[379] = getOpcodeTbs(a);}
-        op[380] = getOpcodeRep((char)0, Character.MAX_VALUE, 381);
-        {int[] a = {382,383}; op[381] = getOpcodeAlt(a);}
-        op[382] = getOpcodeRnm(67, 389); // WSP
-        {int[] a = {384,385}; op[383] = getOpcodeCat(a);}
-        op[384] = getOpcodeRnm(56, 362); // CRLF
-        op[385] = getOpcodeRnm(67, 389); // WSP
-        op[386] = getOpcodeTrg((char)0, (char)255);
-        {char[] a = {32}; op[387] = getOpcodeTbs(a);}
-        op[388] = getOpcodeTrg((char)33, (char)126);
-        {int[] a = {390,391}; op[389] = getOpcodeAlt(a);}
-        op[390] = getOpcodeRnm(65, 387); // SP
-        op[391] = getOpcodeRnm(61, 378); // HTAB
+        {char[] a = {47}; op[311] = getOpcodeTls(a);}
+        {char[] a = {63}; op[312] = getOpcodeTls(a);}
+        {char[] a = {35}; op[313] = getOpcodeTls(a);}
+        {char[] a = {91}; op[314] = getOpcodeTls(a);}
+        {char[] a = {93}; op[315] = getOpcodeTls(a);}
+        {char[] a = {39}; op[316] = getOpcodeTls(a);}
+        {char[] a = {44}; op[317] = getOpcodeTls(a);}
+        {int[] a = {319,320,321,322,323,324}; op[318] = getOpcodeAlt(a);}
+        {char[] a = {33}; op[319] = getOpcodeTls(a);}
+        {char[] a = {42}; op[320] = getOpcodeTls(a);}
+        {char[] a = {61}; op[321] = getOpcodeTls(a);}
+        {char[] a = {64}; op[322] = getOpcodeTls(a);}
+        {char[] a = {43}; op[323] = getOpcodeTls(a);}
+        {char[] a = {36}; op[324] = getOpcodeTls(a);}
+        {int[] a = {326,327,328,329,330,331,332}; op[325] = getOpcodeAlt(a);}
+        op[326] = getOpcodeRnm(71, 333); // ALPHA
+        op[327] = getOpcodeRnm(72, 336); // DIGIT
+        {char[] a = {45}; op[328] = getOpcodeTls(a);}
+        {char[] a = {46}; op[329] = getOpcodeTls(a);}
+        {char[] a = {95}; op[330] = getOpcodeTls(a);}
+        {char[] a = {126}; op[331] = getOpcodeTls(a);}
+        op[332] = getOpcodeTrg((char)128, (char)65533);
+        {int[] a = {334,335}; op[333] = getOpcodeAlt(a);}
+        op[334] = getOpcodeTrg((char)65, (char)90);
+        op[335] = getOpcodeTrg((char)97, (char)122);
+        op[336] = getOpcodeTrg((char)48, (char)57);
+        {int[] a = {338,339}; op[337] = getOpcodeAlt(a);}
+        op[338] = getOpcodeTrg((char)48, (char)57);
+        op[339] = getOpcodeTrg((char)65, (char)70);
+        {int[] a = {341,342,343}; op[340] = getOpcodeAlt(a);}
+        {char[] a = {13}; op[341] = getOpcodeTbs(a);}
+        {char[] a = {10}; op[342] = getOpcodeTbs(a);}
+        {int[] a = {344,345}; op[343] = getOpcodeCat(a);}
+        {char[] a = {13}; op[344] = getOpcodeTbs(a);}
+        {char[] a = {10}; op[345] = getOpcodeTbs(a);}
+        {char[] a = {34}; op[346] = getOpcodeTbs(a);}
         return op;
     }
 
@@ -526,119 +489,105 @@ public class XDI3Grammar extends Grammar{
         out.println(";");
         out.println("; xdi2.core.xri3.parser.apg.XDI3Grammar");
         out.println(";");
-        out.println(";");
-        out.println("; This file contains ABNF rules from the following sources:");
-        out.println("; http://wiki.oasis-open.org/xri/XriThree/SyntaxAbnf");
-        out.println("; http://wiki.oasis-open.org/xdi/XdiAbnf");
-        out.println(";");
-        out.println("; A few modifications have been made to the rules:");
-        out.println(";");
-        out.println("; 1) APG doesn't support prose-val. the \"ipath-empty\" rule has been adjusted accordingly.");
-        out.println("; 2) Java regular expressions only support the BMP of unicode. The \"ucschar\" and \"iprivate\"");
-        out.println(";    rules have been adjusted accordingly.");
-        out.println("; 3) The \"(\" and \")\" characters have been removed from the sub-delims rule to avoid a conflict with the xref rule.");
-        out.println(";");
-        out.println("; =markus 01-25-2013");
-        out.println(";");
+        out.println("xdi-graph               = xdi-statement *( CRLF xdi-statement )");
+        out.println("xdi-statement           = contextual-statement / relational-statement / literal-statement");
         out.println("");
-        out.println(";");
-        out.println("; XDI rules");
-        out.println(";");
+        out.println("contextual-statement    = direct-contextual / inverse-contextual");
+        out.println("direct-contextual       = absolute / peer-relative / context-relative / class-relative");
+        out.println("inverse-contextual      = absolute-inverse / peer-inverse  / context-inverse / class-inverse");
         out.println("");
-        out.println("xdi-context = xdi-segment");
-        out.println("xdi-statement = xdi-subject \"/\" xdi-predicate \"/\" xdi-object");
-        out.println("xdi-subject = xdi-segment");
-        out.println("xdi-predicate = xdi-segment");
-        out.println("xdi-object = xdi-segment");
-        out.println("xdi-segment = 1*subseg");
-        out.println("subseg = global-subseg / local-subseg / xref");
-        out.println("global-subseg = gcs-char [ local-subseg / xref / literal ]");
-        out.println("local-subseg = lcs-char [ xref / literal ]");
-        out.println("gcs-char          = \"=\" / \"@\" / \"+\" / \"$\"");
-        out.println("lcs-char          = \"*\" / \"!\"");
-        out.println("xref = xref-empty / xref-IRI / xref-segment / xref-subject-predicate / xref-statement / xref-literal");
-        out.println("xref-empty = \"()\"");
-        out.println("xref-IRI = \"(\" IRI \")\"");
-        out.println("xref-segment = \"(\" xdi-segment \")\"");
-        out.println("xref-subject-predicate = \"(\" xdi-subject \"/\" xdi-predicate \")\"");
-        out.println("xref-statement = \"(\" xdi-statement \")\"");
-        out.println("xref-literal = \"(\" literal \")\"");
-        out.println("literal           = 1*xdi-pchar");
-        out.println("xdi-pchar         = iunreserved / pct-encoded");
+        out.println("absolute                =          local-root \"/()/\" context");
+        out.println("peer-relative           =           peer-root \"/()/\" context");
+        out.println("context-relative        =             context \"/()/\" relative-context");
+        out.println("class-relative          =       class-context \"/()/\" instance-context");
+        out.println("absolute-inverse        =          context \"/$is()/\" local-root");
+        out.println("peer-inverse            =          context \"/$is()/\" peer-root");
+        out.println("context-inverse         = relative-context \"/$is()/\" context");
+        out.println("class-inverse           = instance-context \"/$is()/\" class-context");
         out.println("");
-        out.println(";");
-        out.println("; IRI rules");
-        out.println(";");
+        out.println("relational-statement    = inverse-relational / direct-relational / inner-relational");
+        out.println("direct-relational       = context \"/\"    context \"/\" context");
+        out.println("inverse-relational      = context \"/$is\" context \"/\" context");
+        out.println("inner-relational        = context \"/\"    context \"/\" inner-statement");
         out.println("");
-        out.println("IRI               = scheme \":\" ihier-part [ \"?\" iquery ]");
-        out.println("                  [ \"#\" ifragment ]");
-        out.println("scheme            = ALPHA *( ALPHA / DIGIT / \"+\" / \"-\" / \".\" )");
-        out.println("ihier-part        = \"//\" iauthority ipath-abempty");
-        out.println("                  / ipath-abs");
-        out.println("                  / ipath-rootless");
-        out.println("                  / ipath-empty");
-        out.println("iauthority        = [ iuserinfo \"@\" ] ihost [ \":\" port ]");
-        out.println("iuserinfo         = *( iunreserved / pct-encoded / sub-delims / \":\" )");
-        out.println("ihost             = IP-literal / IPv4address / ireg-name");
-        out.println("IP-literal        = \"[\" ( IPv6address / IPvFuture  ) \"]\"");
-        out.println("IPvFuture         = \"v\" 1*HEXDIG \".\" 1*( unreserved / sub-delims / \":\" )");
-        out.println("IPv6address       =                            6( h16 \":\" ) ls32");
-        out.println("                  /                       \"::\" 5( h16 \":\" ) ls32");
-        out.println("                  / [               h16 ] \"::\" 4( h16 \":\" ) ls32");
-        out.println("                  / [ *1( h16 \":\" ) h16 ] \"::\" 3( h16 \":\" ) ls32");
-        out.println("                  / [ *2( h16 \":\" ) h16 ] \"::\" 2( h16 \":\" ) ls32");
-        out.println("                  / [ *3( h16 \":\" ) h16 ] \"::\"    h16 \":\"   ls32");
-        out.println("                  / [ *4( h16 \":\" ) h16 ] \"::\"              ls32");
-        out.println("                  / [ *5( h16 \":\" ) h16 ] \"::\"              h16");
-        out.println("                  / [ *6( h16 \":\" ) h16 ] \"::\"");
-        out.println("ls32              = ( h16 \":\" h16 ) / IPv4address");
-        out.println("h16               = 1*4HEXDIG");
-        out.println("IPv4address       = dec-octet \".\" dec-octet \".\" dec-octet \".\" dec-octet");
-        out.println("dec-octet         = DIGIT                ; 0-9");
-        out.println("                  / %x31-39 DIGIT        ; 10-99");
-        out.println("                  / \"1\" 2DIGIT           ; 100-199");
-        out.println("                  / \"2\" %x30-34 DIGIT    ; 200-249");
-        out.println("                  / \"25\" %x30-35         ; 250-255");
-        out.println("ireg-name         = *( iunreserved / pct-encoded / sub-delims )");
-        out.println("port              = *DIGIT");
-        out.println("ipath-abempty     = *( \"/\" isegment )");
-        out.println("ipath-abs         = \"/\" [ isegment-nz *( \"/\" isegment ) ]");
-        out.println("ipath-rootless    = isegment-nz *( \"/\" isegment )");
-        out.println("ipath-empty       = \"\"");
-        out.println("isegment          = *ipchar");
-        out.println("isegment-nz       = 1*ipchar");
-        out.println("iquery            = *( ipchar / iprivate / \"/\" / \"?\" )");
-        out.println("iprivate          = %xE000-F8FF");
-        out.println("ifragment         = *( ipchar / \"/\" / \"?\" )");
-        out.println("ipchar            = iunreserved / pct-encoded / sub-delims / \":\" / \"@\"");
-        out.println("iunreserved       = ALPHA / DIGIT / \"-\" / \".\" / \"_\" / \"~\" / ucschar");
-        out.println("pct-encoded       = \"%\" HEXDIG HEXDIG");
-        out.println("ucschar           = %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF");
-        out.println("reserved          = gen-delims / sub-delims");
-        out.println("gen-delims        = \":\" / \"/\" / \"?\" / \"#\" / \"[\" / \"]\" / \"@\"");
-        out.println("sub-delims        = \"!\" / \"$\" / \"&\" / \"'\"");
-        out.println("                  / \"*\" / \"+\" / \",\" / \";\" / \"=\"");
-        out.println("unreserved        = ALPHA / DIGIT / \"-\" / \".\" / \"_\" / \"~\"");
+        out.println("inner-statement         = \"(\" xdi-statement \")\"");
         out.println("");
-        out.println(";");
-        out.println("; ABNF core rules");
-        out.println(";");
+        out.println("literal-statement       = literal-context value-context \":/:/\" json-value");
         out.println("");
-        out.println("ALPHA          =  %x41-5A / %x61-7A 		; A-Z / a-z");
-        out.println("BIT            =  \"0\" / \"1\"");
-        out.println("CHAR           =  %x01-7F 				; any 7-bit US-ASCII character, excluding NUL");
-        out.println("CR             =  %x0D					; carriage return");
-        out.println("CRLF           =  CR LF					; Internet standard newline");
-        out.println("CTL            =  %x00-1F / %x7F			; controls");
-        out.println("DIGIT          =  %x30-39 				; 0-9");
-        out.println("DQUOTE         =  %x22					; \" (Double Quote)");
-        out.println("HEXDIG         =  DIGIT / \"A\" / \"B\" / \"C\" / \"D\" / \"E\" / \"F\"");
-        out.println("HTAB           =  %x09					; horizontal tab");
-        out.println("LF             =  %x0A					; linefeed");
-        out.println("LWSP           =  *(WSP / CRLF WSP)		; linear white space (past newline)");
-        out.println("OCTET          =  %x00-FF					; 8 bits of data");
-        out.println("SP             =  %x20					; space");
-        out.println("VCHAR          =  %x21-7E					; visible (printing) characters");
-        out.println("WSP            =  SP / HTAB				; white space");
+        out.println("context                 = ( peer-root [ relative-context ] ) / relative-context");
+        out.println("relative-context        = 1*subpath");
+        out.println("");
+        out.println("class-context           = [ peer-root ] class-path");
+        out.println("class-path              = ( subpath class-path ) / class");
+        out.println("");
+        out.println("instance-context        = ( instance / element ) [ relative-context ]");
+        out.println("");
+        out.println("literal-context         = [ peer-root ] literal-path");
+        out.println("literal-path            = ( subpath literal-path ) / attribute-singleton / attribute-pair");
+        out.println("attribute-pair          = attribute-class ( instance / element )");
+        out.println("");
+        out.println("value-context           = \"<<\" 1*type-class \">>\"");
+        out.println("");
+        out.println("root                    = local-root / peer-root / inner-root");
+        out.println("local-root              = \"()\"");
+        out.println("peer-root               = \"(\" ( context / iri-chars ) \")\"");
+        out.println("inner-root              = \"(\" context \"/\" context \")\"");
+        out.println("");
+        out.println("xref                    = \"(\" ( context / iri-chars / xdi-chars ) \")\"");
+        out.println("");
+        out.println("subpath                 = singleton / ( class [ instance / element ] )");
+        out.println("subsegment              = singleton / class / instance / element / root / inner-statement");
+        out.println("");
+        out.println("singleton               = entity-singleton / attribute-singleton / person-singleton / organization-singleton / relative-singleton");
+        out.println("entity-singleton        = \"!(\" type-class \")\"");
+        out.println("attribute-singleton     = \"!<\" type-class \">\"");
+        out.println("person-singleton        = \"=\" ( xref / xdi-chars )");
+        out.println("organization-singleton  = \"@\" ( xref / xdi-chars )");
+        out.println("relative-singleton      = \"*\" [ xref / uuid-literal / ipv6-literal / xdi-chars ]");
+        out.println("");
+        out.println("class                   = entity-class / attribute-class");
+        out.println("");
+        out.println("entity-class            = type-class / instance-class");
+        out.println("type-class              = specific / generic");
+        out.println("instance-class          = person / organization");
+        out.println("specific                = \"$\" [ xref / xdi-chars ]");
+        out.println("generic                 = \"+\" [ xref / xdi-chars ]");
+        out.println("person                  = \"=\"");
+        out.println("organization            = \"@\"");
+        out.println("");
+        out.println("attribute-class         = \"<\" type-class \">\"");
+        out.println("");
+        out.println("instance                = \"!\" [ xref / uuid-literal / ipv6-literal / xdi-chars ]");
+        out.println("");
+        out.println("element                 = \"[\" 1*DIGIT \"]\"");
+        out.println("");
+        out.println("json-value              = json-string / json-number / json-boolean / json-array / json-object");
+        out.println("json-string             = DQUOTE *xdi-chars DQUOTE   ;needs real JSON ABNF");
+        out.println("json-number             = 1*DIGIT                    ;needs real JSON ABNF");
+        out.println("json-boolean            = \"true\" / \"false\"");
+        out.println("json-array              = \"[\" *xdi-char \"]\"          ;needs real JSON ABNF");
+        out.println("json-object             = \"{\" *xdi-char \"}\"          ;needs real JSON ABNF");
+        out.println("");
+        out.println("ipv6-literal            = \":ipv6:\" 4HEXDIG 7*( \":\" 4HEXDIG )");
+        out.println("");
+        out.println("uuid-literal            = \":uuid:\" time-low \"-\" time-mid \"-\" time-high \"-\" clock-seq clock-seq-low \"-\" node");
+        out.println("time-low                = 8HEXDIG");
+        out.println("time-mid                = 4HEXDIG");
+        out.println("time-high               = 4HEXDIG   ; includes version");
+        out.println("clock-seq               = 2HEXDIG   ; includes reserved");
+        out.println("clock-seq-low           = 2HEXDIG");
+        out.println("node                    = 12HEXDIG");
+        out.println("");
+        out.println("xdi-chars               = 1*( xdi-char / \":\" )");
+        out.println("");
+        out.println("iri-chars               = xdi-char / context-symbol / nonparen-delim ; \"(\" and \")\" are excluded");
+        out.println("nonparen-delim          = \"/\" / \"?\" / \"#\" / \"[\" / \"]\" / \"'\" / \",\"    ; double quote included?");
+        out.println("context-symbol          = \"!\" / \"*\" / \"=\" / \"@\" / \"+\" / \"$\"");
+        out.println("xdi-char                = ALPHA / DIGIT / \"-\" / \".\" / \"_\" / \"~\" / %x80-EFFFD ; is there a way to leave high end open?");
+        out.println("ALPHA                   = %x41-5A / %x61-7A   ; A-Z, a-z");
+        out.println("DIGIT                   = %x30-39             ; 0-9");
+        out.println("HEXDIG                  = %x30-39 / %x41-46   ; 0-9, A-F");
+        out.println("CRLF                    = %x0D / %x0A / ( %x0D %x0A )");
+        out.println("DQUOTE                  = %x22");
     }
 }

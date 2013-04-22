@@ -1,5 +1,6 @@
 package xdi2.core.features.linkcontracts.policy;
 
+import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.linkcontracts.condition.EqualsCondition;
 import xdi2.core.features.linkcontracts.condition.IsCondition;
@@ -20,17 +21,17 @@ public final class PolicyUtil {
 	 * Helper methods to create various XDI policy statements.
 	 */
 
-	public static Operator senderMatchesOperator(XDI3Segment sender) {
+	public static Operator createSenderMatchesOperator(Policy policy, XDI3Segment sender) {
 
-		Condition condition = IsCondition.fromSubjectAndObject(XDI3Segment.create("($from)"), sender);
+		Condition condition = IsCondition.fromSubjectAndObject(XDI3Segment.create("{$from}"), sender);
 
-		return TrueOperator.fromCondition(condition);
+		return TrueOperator.createTrueOperator(policy, condition);
 	}
 
-	public static Operator secretTokenMatchesOperator() {
+	public static Operator createSecretTokenMatchesOperator(Policy policy) {
 
-		Condition condition = EqualsCondition.fromSubjectAndObject(XDI3Segment.create("($msg)$secret$!($token)"), XDI3Segment.create("$secret$!($token)"));
+		Condition condition = EqualsCondition.fromSubjectAndObject(XDI3Segment.create("{$msg}" + XDIPolicyConstants.XRI_S_SECRET_TOKEN), XDI3Segment.create("" + XDIPolicyConstants.XRI_S_SECRET_TOKEN));
 
-		return TrueOperator.fromCondition(condition);
+		return TrueOperator.createTrueOperator(policy, condition);
 	}
 }

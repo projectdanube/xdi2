@@ -9,6 +9,7 @@ import java.util.Map;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.Operation;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.interceptor.Interceptor;
 
@@ -41,14 +42,14 @@ public final class ExecutionContext implements Serializable {
 	/**
 	 * The exception that happened during execution.
 	 */
-	private Exception ex;
+	private Xdi2MessagingException ex;
 
 	/**
 	 * The current execution position.
 	 * This is either a MessagingTarget, a MessageEnvelope, a Message,
 	 * an Operation, an Interceptor, or a Contributor.
 	 */
-	private ExecutionPosition<?> currentExecutionPosition, topExecutionPosition;
+	private ExecutionPosition<?> currentExecutionPosition, topExecutionPosition, exceptionExecutionPosition;
 
 	public ExecutionContext() { 
 
@@ -124,14 +125,24 @@ public final class ExecutionContext implements Serializable {
 	 * Exception
 	 */
 
-	public Exception getException() {
+	public Xdi2MessagingException getException() {
 
 		return this.ex;
 	}
 
-	public void setException(Exception ex) {
+	public Xdi2MessagingException processException(Exception ex) {
+		
+		if (this.ex != null) return this.ex;
+		
+		if (! (ex instanceof Xdi2MessagingException)) {
 
-		this.ex = ex;
+			ex = new Xdi2MessagingException(ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage(), ex, null);
+		}
+
+		this.ex = (Xdi2MessagingException) ex;
+		this.exceptionExecutionPosition = this.currentExecutionPosition;
+
+		return this.ex;
 	}
 
 	/*
@@ -200,42 +211,84 @@ public final class ExecutionContext implements Serializable {
 
 	public MessagingTarget getCurrentMessagingTarget() {
 
-		ExecutionPosition<MessagingTarget> executionPosition = this.findCurrentExecutionPosition(MessagingTarget.class);
+		ExecutionPosition<MessagingTarget> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, MessagingTarget.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
 	public MessageEnvelope getCurrentMessageEnvelope() {
 
-		ExecutionPosition<MessageEnvelope> executionPosition = this.findCurrentExecutionPosition(MessageEnvelope.class);
+		ExecutionPosition<MessageEnvelope> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, MessageEnvelope.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
 	public Message getCurrentMessage() {
 
-		ExecutionPosition<Message> executionPosition = this.findCurrentExecutionPosition(Message.class);
+		ExecutionPosition<Message> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, Message.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
 	public Operation getCurrentOperation() {
 
-		ExecutionPosition<Operation> executionPosition = this.findCurrentExecutionPosition(Operation.class);
+		ExecutionPosition<Operation> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, Operation.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
 	public Interceptor getCurrentInterceptor() {
 
-		ExecutionPosition<Interceptor> executionPosition = this.findCurrentExecutionPosition(Interceptor.class);
+		ExecutionPosition<Interceptor> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, Interceptor.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
 	public Contributor getCurrentContributor() {
 
-		ExecutionPosition<Contributor> executionPosition = this.findCurrentExecutionPosition(Contributor.class);
+		ExecutionPosition<Contributor> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, Contributor.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public MessagingTarget getExceptionMessagingTarget() {
+
+		ExecutionPosition<MessagingTarget> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, MessagingTarget.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public MessageEnvelope getExceptionMessageEnvelope() {
+
+		ExecutionPosition<MessageEnvelope> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, MessageEnvelope.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public Message getExceptionMessage() {
+
+		ExecutionPosition<Message> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, Message.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public Operation getExceptionOperation() {
+
+		ExecutionPosition<Operation> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, Operation.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public Interceptor getExceptionInterceptor() {
+
+		ExecutionPosition<Interceptor> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, Interceptor.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public Contributor getExceptionContributor() {
+
+		ExecutionPosition<Contributor> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, Contributor.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
@@ -261,9 +314,9 @@ public final class ExecutionContext implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> ExecutionPosition<T> findCurrentExecutionPosition(Class<? extends T> clazz) {
+	private <T> ExecutionPosition<T> findExecutionPosition(ExecutionPosition<?> startExecutionPosition, Class<? extends T> clazz) {
 
-		for (ExecutionPosition<?> executionPosition = this.currentExecutionPosition; executionPosition != this.topExecutionPosition; ) {
+		for (ExecutionPosition<?> executionPosition = startExecutionPosition; executionPosition != this.topExecutionPosition; ) {
 
 			if (clazz.isAssignableFrom(executionPosition.executionObject.getClass())) return (ExecutionPosition<T>) executionPosition;
 
@@ -277,14 +330,14 @@ public final class ExecutionContext implements Serializable {
 
 		StringBuffer buffer = new StringBuffer();
 
-		for (ExecutionPosition<?> position = this.currentExecutionPosition; position != this.topExecutionPosition; ) {
+		for (ExecutionPosition<?> executionPosition = this.exceptionExecutionPosition; executionPosition != this.topExecutionPosition; ) {
 
-			Object executionObject = position.executionObject;
+			Object executionObject = executionPosition.executionObject;
 
 			buffer.insert(0, executionObject.getClass().getSimpleName());
-			if (position.parentExecutionPosition != this.topExecutionPosition) buffer.insert(0, "-->");
+			if (executionPosition.parentExecutionPosition != this.topExecutionPosition) buffer.insert(0, "-->");
 
-			position = position.parentExecutionPosition;
+			executionPosition = executionPosition.parentExecutionPosition;
 		}
 
 		return buffer.toString();
@@ -302,6 +355,9 @@ public final class ExecutionContext implements Serializable {
 		buffer.append("\n");
 		for (int i=0; i<depth; i++) buffer.append("  ");
 		buffer.append(parentExecutionPosition.toString());
+		
+		if (parentExecutionPosition == this.currentExecutionPosition) buffer.append(" <-- (CURRENT)");
+		if (parentExecutionPosition == this.exceptionExecutionPosition) buffer.append(" <-- (EXCEPTION)");
 
 		for (ExecutionPosition<?> executionPosition : parentExecutionPosition.childExecutionPositions) {
 

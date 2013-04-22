@@ -5,13 +5,13 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.roots.RemoteRoot;
-import xdi2.core.features.roots.Roots;
+import xdi2.core.features.roots.XdiLocalRoot;
+import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
-import xdi2.server.registry.EndpointRegistry;
+import xdi2.server.registry.HttpEndpointRegistry;
 
 /**
  * This messaging target factory uses a "registry graph" as a basis to decide what 
@@ -26,7 +26,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	private Graph registryGraph;
 
 	@Override
-	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
+	public void mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -37,19 +37,19 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		XDI3Segment owner = XDI3Segment.create(ownerString);
 
-		// find the owner's XDI remote root
+		// find the owner's XDI peer root
 
-		RemoteRoot ownerRemoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(owner, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(owner, false);
 
-		if (ownerRemoteRoot == null) {
+		if (ownerPeerRoot == null) {
 
-			log.warn("Remote root for " + owner + " not found in the registry graph. Ignoring.");
+			log.warn("Peer root for " + owner + " not found in the registry graph. Ignoring.");
 			return;
 		}
 
-		if (ownerRemoteRoot.isSelfRemoteRoot()) {
+		if (ownerPeerRoot.isSelfPeerRoot()) {
 
-			log.warn("Remote root for " + owner + " is the owner of the registry graph. Ignoring.");
+			log.warn("Peer root for " + owner + " is the owner of the registry graph. Ignoring.");
 			return;
 		}
 
@@ -61,11 +61,11 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		log.info("Will create messaging target for " + owner);
 		
-		super.mountMessagingTarget(endpointRegistry, messagingTargetPath, owner, ownerRemoteRoot, ownerContextNode);
+		super.mountMessagingTarget(httpEndpointRegistry, messagingTargetPath, owner, ownerPeerRoot, ownerContextNode);
 	}
 
 	@Override
-	public void updateMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException, Xdi2MessagingException {
+	public void updateMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -74,13 +74,13 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		XDI3Segment owner = XDI3Segment.create(ownerString);
 
-		// find the owner's remote root context node
+		// find the owner's peer root context node
 
-		RemoteRoot ownerRemoteRoot = Roots.findLocalRoot(this.getRegistryGraph()).findRemoteRoot(owner, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(owner, false);
 
-		if (ownerRemoteRoot == null) {
+		if (ownerPeerRoot == null) {
 
-			log.warn("Remote root for " + owner + " no longer found in the registry graph. Removing messaging target.");
+			log.warn("Peer root for " + owner + " no longer found in the registry graph. Removing messaging target.");
 
 			try {
 
@@ -92,7 +92,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 			// unmount the messaging target
 
-			endpointRegistry.unmountMessagingTarget(messagingTarget);
+			httpEndpointRegistry.unmountMessagingTarget(messagingTarget);
 		}
 	}
 

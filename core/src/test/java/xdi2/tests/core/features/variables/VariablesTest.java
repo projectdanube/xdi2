@@ -1,131 +1,130 @@
 package xdi2.tests.core.features.variables;
 
+import java.util.Arrays;
+
 import junit.framework.TestCase;
-import xdi2.core.features.variables.Variables;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.util.VariableUtil;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class VariablesTest extends TestCase {
 
 	public void testVariables() throws Exception {
 
-		XDI3Segment xriSegments[] = new XDI3Segment[] {
-				XDI3Segment.create("($)"),
-				XDI3Segment.create("($1)"),
-				XDI3Segment.create("($34)"),
-				XDI3Segment.create("!($)"),
-				XDI3Segment.create("+($)"),
-				XDI3Segment.create("*($)"),
-				XDI3Segment.create("(!)"),
-				XDI3Segment.create("(!12)"),
-				XDI3Segment.create("(=abc)"),
-				XDI3Segment.create("($)$1"),
-				XDI3Segment.create("($)()"),
-				XDI3Segment.create("$1"),
-				XDI3Segment.create("$()"),
-				XDI3Segment.create("$()"),
-				XDI3Segment.create("($$)"),
-				XDI3Segment.create("($$!)"),
-				XDI3Segment.create("($1$!)"),
-				XDI3Segment.create("($34$!)"),
+		XDI3SubSegment variables[] = new XDI3SubSegment[] {
+				XDI3SubSegment.create("{}"),
+				XDI3SubSegment.create("{{}}"),
+				XDI3SubSegment.create("{1}"),
+				XDI3SubSegment.create("{$msg}"),
+				XDI3SubSegment.create("{(=)}"),
+				XDI3SubSegment.create("{{(=@)}}"),
+				XDI3SubSegment.create("{=}"),
+				XDI3SubSegment.create("{!*}"),
+				XDI3SubSegment.create("{{[+]}}"),
+				XDI3SubSegment.create("{{<$>}}"),
+				XDI3SubSegment.create("{{[+]<$>}}"),
+				XDI3SubSegment.create("{[<+>][<$>]}"),
+				XDI3SubSegment.create("{+}")
 		};
 
-		boolean isVariableSingle[] = new boolean [] {
+		XDI3SubSegment variablesSubSegments[][] = new XDI3SubSegment[][] {
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { XDI3SubSegment.create("$msg") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("=") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("="), XDI3SubSegment.create("@") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("=") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("!"), XDI3SubSegment.create("*") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<$>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+]"), XDI3SubSegment.create("<$>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[<+>]"), XDI3SubSegment.create("[<$>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("+") }
+		};
+
+		String variablesXs[] = new String[] {
+				null,
+				null,
+				null,
+				null,
+				"()",
+				"()",
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
+		};
+
+		boolean variablesMultiple[] = new boolean[] {
+				false,
+				true,
+				false,
+				false,
+				false,
+				true,
+				false,
+				false,
 				true,
 				true,
 				true,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
 				false,
 				false
 		};
 
-		boolean isVariableMultiple[] = new boolean [] {
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				true,
-				false,
-				false,
-				false
+		XDI3SubSegment variablesMatchesTrue[][] = new XDI3SubSegment[][] {
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { XDI3SubSegment.create("(=)"), XDI3SubSegment.create("(=markus)") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("(=)"), XDI3SubSegment.create("(=markus)"), XDI3SubSegment.create("(@)"), XDI3SubSegment.create("(@org)") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("="), XDI3SubSegment.create("=markus") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("!"), XDI3SubSegment.create("*"), XDI3SubSegment.create("!1234"), XDI3SubSegment.create("*work") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+]"), XDI3SubSegment.create("[+address]"), XDI3SubSegment.create("[<+email>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("<$>"), XDI3SubSegment.create("<$uri>"), XDI3SubSegment.create("[<$uri>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[+]"), XDI3SubSegment.create("[+address]"), XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("<$>"), XDI3SubSegment.create("<$uri>"), XDI3SubSegment.create("[<$uri>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("[<$uri>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("[<+(email)>]"), XDI3SubSegment.create("<+(email)>"), XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("<+email>") }
 		};
 
-		boolean isVariableMultipleLocal[] = new boolean [] {
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				true,
-				true,
-				true
+		XDI3SubSegment variablesMatchesFalse[][] = new XDI3SubSegment[][] {
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { },
+				new XDI3SubSegment[] { XDI3SubSegment.create("(@)"), XDI3SubSegment.create("(@org)"), XDI3SubSegment.create("@org"), XDI3SubSegment.create("=markus") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("=markus"), XDI3SubSegment.create("@org") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("@"), XDI3SubSegment.create("@org"), XDI3SubSegment.create("(@org)"), XDI3SubSegment.create("(=markus)") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("@org"), XDI3SubSegment.create("=markus") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("<+>"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[$v]"), XDI3SubSegment.create("[<$uri>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("$"), XDI3SubSegment.create("[$]"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("[$uri]"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[<+email>]") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("<+>"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[$v]"), XDI3SubSegment.create("$"), XDI3SubSegment.create("[$]"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("[$uri]"), XDI3SubSegment.create("<+email>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("<+>"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("$"), XDI3SubSegment.create("<$>"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("[$uri]"), XDI3SubSegment.create("<$uri>") },
+				new XDI3SubSegment[] { XDI3SubSegment.create("(+name)") }
 		};
+		
+		for (XDI3SubSegment variable : variables) assertTrue(VariableUtil.isVariable(variable));
 
-		assertEquals(xriSegments.length, isVariableSingle.length);
-		assertEquals(xriSegments.length, isVariableMultipleLocal.length);
+		assertEquals(variables.length, variablesSubSegments.length);
+		assertEquals(variables.length, variablesXs.length);
+		assertEquals(variables.length, variablesMultiple.length);
+		assertEquals(variables.length, variablesMatchesTrue.length);
+		assertEquals(variables.length, variablesMatchesFalse.length);
 
-		for (int i=0; i<xriSegments.length; i++) {
+		for (int i=0; i<variables.length; i++) {
 
-			if (isVariableSingle[i]) {
+			assertTrue(Arrays.deepEquals(variablesSubSegments[i], VariableUtil.getSubSegments(variables[i]).toArray()));
+			assertEquals(variablesXs[i], VariableUtil.getXs(variables[i]));
+			assertEquals(variablesMultiple[i], VariableUtil.isMultiple(variables[i]));
 
-				assertTrue(Variables.isVariableSingle(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertTrue(Variables.isVariableSingle(xriSegments[i].getFirstSubSegment()));
-			} else {
+			for (int ii=0; ii<variablesMatchesTrue[i].length; ii++)
+				assertTrue(VariableUtil.matches(variables[i], variablesMatchesTrue[i][ii]));
 
-				assertFalse(Variables.isVariableSingle(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertFalse(Variables.isVariableSingle(xriSegments[i].getFirstSubSegment()));
-			}
-
-			if (isVariableMultiple[i]) {
-
-				assertTrue(Variables.isVariableMultiple(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertTrue(Variables.isVariableMultiple(xriSegments[i].getFirstSubSegment()));
-			} else {
-
-				assertFalse(Variables.isVariableMultiple(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertFalse(Variables.isVariableMultiple(xriSegments[i].getFirstSubSegment()));
-			}
-
-			if (isVariableMultipleLocal[i]) {
-
-				assertTrue(Variables.isVariableMultipleLocal(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertTrue(Variables.isVariableMultipleLocal(xriSegments[i].getFirstSubSegment()));
-			} else {
-
-				assertFalse(Variables.isVariableMultipleLocal(xriSegments[i]));
-				if (xriSegments[i].getNumSubSegments() == 1) assertFalse(Variables.isVariableMultipleLocal(xriSegments[i].getFirstSubSegment()));
-			}
+			for (int ii=0; ii<variablesMatchesFalse[i].length; ii++)
+				assertFalse(VariableUtil.matches(variables[i], variablesMatchesFalse[i][ii]));
 		}
 	}
 }

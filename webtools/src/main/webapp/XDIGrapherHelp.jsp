@@ -22,9 +22,6 @@
 	<h2>Information</h2>
 
 	<p>This tool implements methods for visualizing XDI graphs.</p>
-	<p>The following graphing methods are supported:</p>
-	<p><b>XDI Standard Graph</b></p> 
-	<p>Displays context nodes, relations, and literals.</p>
 
 	</div>
 	

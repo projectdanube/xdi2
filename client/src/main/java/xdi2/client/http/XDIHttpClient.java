@@ -43,8 +43,8 @@ public class XDIHttpClient implements XDIClient {
 	public static final String KEY_RECVMIMETYPE = "recvmimetype";
 	public static final String KEY_USERAGENT = "useragent";
 
-	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;contexts=0";
-	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json;contexts=0";
+	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;implied=0;inner=1";
+	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json;implied=0;inner=1";
 	public static final String DEFAULT_USERAGENT = "XDI2 Java Library";
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
@@ -257,9 +257,9 @@ public class XDIHttpClient implements XDIClient {
 
 			ErrorMessageResult errorMessageResult = ErrorMessageResult.fromGraph(messageResult.getGraph());
 
-			log.debug("Error message result received: " + "(" + errorMessageResult.getErrorCode().toString() + ") " + errorMessageResult.getErrorString());
+			log.debug("Error message result received: " + errorMessageResult.getErrorString());
 
-			throw new Xdi2ClientException("Error message result received: " + "(" + errorMessageResult.getErrorCode().toString() + ") " + errorMessageResult.getErrorString(), null, errorMessageResult);
+			throw new Xdi2ClientException("Error message result received: " + errorMessageResult.getErrorString(), null, errorMessageResult);
 		}
 
 		// done

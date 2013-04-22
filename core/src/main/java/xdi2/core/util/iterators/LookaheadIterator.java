@@ -12,6 +12,11 @@ public abstract class LookaheadIterator<T> extends ReadOnlyIterator<T> {
 	protected boolean hasNext;
 	protected T nextItem;
 
+	public LookaheadIterator() {
+
+		super(null);
+	}
+
 	@Override
 	public boolean hasNext() {
 

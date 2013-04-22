@@ -1,8 +1,8 @@
 (=!91F2.8153.F600.AE24)/$ref/()
-$do$if$and/$true/(($from)/$is/=!91F2.8153.F600.AE24)
-$do$if$and/$true/(($msg)$secret$!($token)/$equals/$secret$!($token))
-$do/$all/()
+[$do]/$all/()
+[$do][$if][$and]/$true/({$from}/$is/=!91F2.8153.F600.AE24)
+[$do][$if][$and]/$true/({$msg}[$secret][<$token>]:/$equals/[$secret][<$token>]:)
 =markus/$ref/=!91F2.8153.F600.AE24
-=!91F2.8153.F600.AE24$!(+email)/!/(data:,markus.sabadello@gmail.com)
-$secret$!($token)/!/(data:,s3cret)
+=!91F2.8153.F600.AE24[<+email>]:/:/"markus.sabadello@gmail.com"
+[$secret][<$token>]:/:/"s3cret"
 ()/$is$ref/(=!91F2.8153.F600.AE24)

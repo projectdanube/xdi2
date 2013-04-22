@@ -1,2 +1,2 @@
-=sender$($msg)$(!1)/$is()/(=!1111)
-=sender$($msg)$(!1)$do/$get/=pseudonym
+=sender$msg!1/$is()/(=!1111)
+=sender$msg!1[$do]/$get/=pseudonym

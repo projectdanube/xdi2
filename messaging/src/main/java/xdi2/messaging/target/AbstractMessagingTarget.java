@@ -40,13 +40,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
-	private XDI3Segment ownerAuthority;
+	private XDI3Segment ownerAddress;
 	private InterceptorList interceptors;
 	private ContributorMap contributors;
 
 	public AbstractMessagingTarget() {
 
-		this.ownerAuthority = null;
+		this.ownerAddress = null;
 		this.interceptors = new InterceptorList();
 		this.contributors = new ContributorMap();
 	}
@@ -88,7 +88,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		executionContext.pushMessagingTarget(this, null);
 		executionContext.pushMessageEnvelope(messageEnvelope, null);
 
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message envelope.");
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message envelope (" + messageEnvelope.getMessageCount() + " messages).");
 
 		try {
 
@@ -120,6 +120,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 					executionContext.pushMessage(message, null);
 
 					this.execute(message, messageResult, executionContext);
+				} catch (Exception ex) {
+
+					throw executionContext.processException(ex);
 				} finally {
 
 					executionContext.popMessage();
@@ -142,24 +145,31 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			this.getInterceptors().executeResultInterceptorsFinish(messageResult, executionContext);
 		} catch (Exception ex) {
 
-			// check exception
+			// process exception
 
-			if (! (ex instanceof Xdi2MessagingException)) {
-
-				ex = new Xdi2MessagingException(ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage(), ex, null);
-			}
-
-			executionContext.setException(ex);
+			ex = executionContext.processException(ex);
 
 			// execute message envelope interceptors (exception)
 
-			this.getInterceptors().executeMessageEnvelopeInterceptorsException(messageEnvelope, messageResult, executionContext, ex);
+			try {
+
+				this.getInterceptors().executeMessageEnvelopeInterceptorsException(messageEnvelope, messageResult, executionContext, (Xdi2MessagingException) ex);
+			} catch (Exception ex2) {
+
+				log.warn("Error while messaging envelope interceptor tried to handle exception: " + ex2.getMessage(), ex2);
+			}
 
 			// exception in message envelope
 
-			this.exception(messageEnvelope, messageResult, executionContext, ex);
+			try {
 
-			// throw it
+				this.exception(messageEnvelope, messageResult, executionContext, (Xdi2MessagingException) ex);
+			} catch (Exception ex2) {
+
+				log.warn("Error while messaging envelope target tried to handle exception: " + ex2.getMessage(), ex2);
+			}
+
+			// re-throw it
 
 			throw (Xdi2MessagingException) ex;
 		} finally {
@@ -217,6 +227,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.pushOperation(operation, null);
 
 				this.execute(operation, operationMessageResult, executionContext);
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
 			} finally {
 
 				executionContext.popOperation();
@@ -280,7 +293,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		} else if (targetStatements != null) {
 
 			while (targetStatements.hasNext()) {
-				
+
 				this.execute(targetStatements.next(), operation, operationMessageResult, executionContext);
 			}
 		}
@@ -403,7 +416,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	}
 
-	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) throws Xdi2MessagingException {
+	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
 	}
 
@@ -422,14 +435,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 */
 
 	@Override
-	public XDI3Segment getOwnerAuthority() {
+	public XDI3Segment getOwnerAddress() {
 
-		return this.ownerAuthority;
+		return this.ownerAddress;
 	}
 
-	public void setOwnerAuthority(XDI3Segment ownerAuthority) {
+	public void setOwnerAddress(XDI3Segment ownerAddress) {
 
-		this.ownerAuthority = ownerAuthority;
+		this.ownerAddress = ownerAddress;
 	}
 
 	public InterceptorList getInterceptors() {

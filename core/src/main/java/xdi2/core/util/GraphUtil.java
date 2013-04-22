@@ -1,16 +1,11 @@
 package xdi2.core.util;
 
-import java.util.Iterator;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.roots.InnerRoot;
-import xdi2.core.features.roots.Roots;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 
 /**
  * Various utility methods for working with context nodes, relations and literals.
@@ -58,22 +53,5 @@ public final class GraphUtil {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
 		return graph.findContextNode(contextNodeXri, true).createLiteral(literalData);
-	}
-
-	/**
-	 * Creates an XDI inner root from its components.
-	 * @param subject The subject XRI of the XDI inner root.
-	 * @param predicate The predicate XRI of the XDI inner root.
-	 * @pram statementXris
-	 * @return An XDI inner root.
-	 */
-	public static InnerRoot innerRootFromComponents(XDI3Segment subject, XDI3Segment predicate, Iterator<XDI3Statement> statementXris) {
-
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-
-		InnerRoot innerRoot = Roots.findLocalRoot(graph).findInnerRoot(subject, predicate, true);
-		while (statementXris.hasNext()) innerRoot.createRelativeStatement(statementXris.next());
-
-		return innerRoot;
 	}
 }

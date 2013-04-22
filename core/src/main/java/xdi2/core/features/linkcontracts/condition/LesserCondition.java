@@ -1,7 +1,7 @@
 package xdi2.core.features.linkcontracts.condition;
 
-import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.ContextNode;
+import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
@@ -34,7 +34,7 @@ public class LesserCondition extends Condition {
 
 		if (! statement.isRelationStatement()) return false;
 
-		if (! XDILinkContractConstants.XRI_S_LESSER.equals(statement.getArcXri())) return false;
+		if (! XDIPolicyConstants.XRI_S_LESSER.equals(statement.getArcXri())) return false;
 
 		return true;
 	}
@@ -53,7 +53,7 @@ public class LesserCondition extends Condition {
 
 	public static LesserCondition fromSubjectAndObject(XDI3Segment subject, XDI3Segment object) {
 
-		return fromStatement(StatementUtil.fromComponents(subject, XDILinkContractConstants.XRI_S_LESSER, object));
+		return fromStatement(StatementUtil.fromComponents(subject, XDIPolicyConstants.XRI_S_LESSER, object));
 	}
 
 	/*
@@ -63,6 +63,21 @@ public class LesserCondition extends Condition {
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		throw new Xdi2RuntimeException("Not implemented.");
+		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
+		ContextNode object = policyEvaluationContext.getContextNode((XDI3Segment) this.getStatement().getObject());
+
+		if (subject == null || object == null) return Boolean.FALSE;
+
+		if (subject.containsLiteral()) {
+
+			if (! object.containsLiteral()) return Boolean.FALSE;
+
+			String subjectLiteralData = subject.getLiteral().getLiteralData();
+			String objectLiteralData = object.getLiteral().getLiteralData();
+
+			return Boolean.valueOf(Integer.parseInt(subjectLiteralData) > Integer.parseInt(objectLiteralData));
+		}
+
+		return Boolean.FALSE;
 	}
 }

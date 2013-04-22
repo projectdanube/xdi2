@@ -23,7 +23,7 @@ public class PropertiesGraphMessagingTargetTest extends AbstractGraphMessagingTa
 			@Override
 			public boolean accept(File dir, String name) {
 
-				return name.startsWith("xdi2-test-graph.") && name.endsWith(".properties");
+				return name.startsWith("xdi2-graph.") && name.endsWith(".properties");
 			}
 		});
 
@@ -31,15 +31,8 @@ public class PropertiesGraphMessagingTargetTest extends AbstractGraphMessagingTa
 	}
 
 	@Override
-	protected Graph openNewGraph(String id) throws IOException {
+	protected Graph openNewGraph(String identifier) throws IOException {
 
-		String path = "xdi2-test-graph." + id + ".properties";
-
-		File file = new File(path);
-		if (file.exists()) file.delete();
-
-		graphFactory.setPath(path);
-
-		return graphFactory.openGraph();
+		return graphFactory.openGraph(identifier);
 	}
 }

@@ -1,7 +1,7 @@
 (=!1111)/$ref/()
-$do$if$and$or/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+type/+notification)
-$do$if$and$or/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+type/+subscription)
-$do$if$and$or/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+type/+deletion)
-$do$if$and/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)/+domain/+cloudos)
-$do/$do$send/=!1111$(+channel)$(!23)$(+event)
+[$do]/$do$send/=!1111+channel!23+event
+[$do][$if][$and]!($or)/$do$send/(=!1111+channel!23+event!44/+type/+notification)
+[$do][$if][$and]!($or)/$do$send/(=!1111+channel!23+event!44/+type/+subscription)
+[$do][$if][$and]!($or)/$do$send/(=!1111+channel!23+event!44/+type/+deletion)
+[$do][$if][$and]/$do$send/(=!1111+channel!23+event!44/+domain/+cloudos)
 ()/$is$ref/(=!1111)

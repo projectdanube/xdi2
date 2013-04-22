@@ -12,6 +12,7 @@ public class EmptyIterator<T> extends ReadOnlyIterator<T> {
 
 	public EmptyIterator() {
 
+		super(null);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
 ()/()/=markus
-=animesh+name/!/(data:,AnimeshC)
-=animesh$do$if/$true/(($from)/$is/=markus)
-=animesh$do/$get/=animesh
+=animesh[<+name>]:/:/"AnimeshC"
+=animesh[$do][$if]/$true/({$from}/$is/=markus)
+=animesh[$do]/$get/=animesh

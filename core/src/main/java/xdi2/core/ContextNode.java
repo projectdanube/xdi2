@@ -90,10 +90,10 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 
 	/**
 	 * Creates new context nodes and adds them to this context node.
-	 * @param arcXri The arc XRI of the new context nodes.
+	 * @param arcXris The arc XRIs of the new context nodes.
 	 * @return The newly created final context node.
 	 */
-	public ContextNode createContextNodes(XDI3Segment arcXri);
+	public ContextNode createContextNodes(XDI3Segment arcXris);
 
 	/**
 	 * Returns a context node with a given arc XRI. 
@@ -387,7 +387,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 */
 
 	/**
-	 * Gets the statement that contains this context node.
+	 * Gets the statement that represents this context node.
 	 * @return A statement.
 	 */
 	public ContextNodeStatement getStatement();

@@ -16,7 +16,7 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -25,6 +25,7 @@ import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.SetOperation;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
@@ -87,7 +88,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 				// don't follow $ref/$rep relations within operation target
 
 				if (XDIConstants.XRI_S_ROOT.equals(operation.getTargetAddress()) || 
-						XRIUtil.startsWith(targetContextNodeXri, operation.getTargetAddress())) {
+						XDI3Util.startsWith(targetContextNodeXri, operation.getTargetAddress())) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation within operation target (" + operation.getTargetAddress() + "): " + refRepRelation);
 
@@ -102,7 +103,10 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 				Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 				feedbackMessage.deleteOperations();
-				feedbackMessage.createOperation(XDI3Segment.create("" + XDIMessagingConstants.XRI_S_GET + (operation.getOperationExtensionXri() == null ? "" : operation.getOperationExtensionXri())), refRepRelation.getContextNode().getXri());
+
+				Operation feedbackOperation = feedbackMessage.createOperation(XDIMessagingConstants.XRI_S_GET, refRepRelation.getContextNode().getXri());
+				if (Boolean.TRUE.equals(operation.getParameterAsBoolean(GetOperation.XRI_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XRI_PARAMETER_DEREF, Boolean.TRUE);
+
 				Deque<Relation> tempRefRepRelations = getRefRepRelations(executionContext);
 				resetReferenceRelations(executionContext);
 				this.feedback(feedbackMessage, operationMessageResult, executionContext);
@@ -126,18 +130,18 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 			XDI3Segment arcXri = refRepRelation.getArcXri();
 			XDI3Segment targetContextNodeXri = refRepRelation.getTargetContextNodeXri();
 
-			boolean doSubstituteRefRepRelations = XDIDictionaryConstants.XRI_S_REP.equals(arcXri) || (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && GetOperation.XRI_EXTENSION_DEREF.equals(operation.getOperationExtensionXri()));
-			boolean doIncludeRefRepRelations = (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! GetOperation.XRI_EXTENSION_DEREF.equals(operation.getOperationExtensionXri()));
+			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XRI_S_REP.equals(arcXri) || (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && Boolean.TRUE.equals(operation.getParameterAsBoolean(GetOperation.XRI_PARAMETER_DEREF)));
+			boolean doIncludeRefRelations = (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! Boolean.TRUE.equals(operation.getParameterAsBoolean(GetOperation.XRI_PARAMETER_DEREF)));
 
-			// substitute $ref/$rep relations?
+			// replace $ref/$rep relations?
 
-			if (doSubstituteRefRepRelations) {
+			if (doReplaceRefRepRelations) {
 
 				ContextNode targetContextNode = operationMessageResult.getGraph().findContextNode(targetContextNodeXri, false);
 
 				if (targetContextNode != null && ! operationMessageResult.getGraph().isEmpty()) {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Substituting reference relation: " + refRepRelation);
+					if (log.isDebugEnabled()) log.debug("In message result: Replacing $ref/$rep relation: " + refRepRelation);
 
 					Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 					ContextNode tempContextNode = tempGraph.findContextNode(contextNode.getXri(), true);
@@ -147,26 +151,26 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 					CopyUtil.copyGraph(tempGraph, operationMessageResult.getGraph(), null);
 				} else {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Not substituting reference relation: " + refRepRelation);
+					if (log.isDebugEnabled()) log.debug("In message result: Not replacing $ref/$rep relation: " + refRepRelation);
 				}
 			}
 
-			// include reference relations?
+			// include $ref relations?
 
-			if (doIncludeRefRepRelations) {
+			if (doIncludeRefRelations) {
 
 				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getXri())) {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate reference relation: " + refRepRelation);
+					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate $ref relation: " + refRepRelation);
 				} else {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Including reference relation: " + refRepRelation);
+					if (log.isDebugEnabled()) log.debug("In message result: Including $ref relation: " + refRepRelation);
 
 					CopyUtil.copyStatement(refRepRelation.getStatement(), operationMessageResult.getGraph(), null);
 				}
 			}
 
-			// done with this reference relation
+			// done with this $ref/$rep relation
 
 			if (log.isDebugEnabled()) log.debug("In message result: We now have: " + operationMessageResult);
 		}
@@ -235,7 +239,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 			// cannot add a $ref or $rep arc to non-empty context node
 
-			if (operation instanceof AddOperation) {
+			if (operation instanceof AddOperation || operation instanceof SetOperation) {
 
 				XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
 				ContextNode targetContextNode = graph.findContextNode(targetContextNodeXri, false);
@@ -316,8 +320,8 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 					return XDI3Segment.create(privateCanonicalContextNode.getXri() + localPart);
 			}
 
-			localPart = "" + XRIUtil.localXri(contextNodeXri, 1) + localPart;
-			contextNodeXri = XRIUtil.parentXri(contextNodeXri, -1);
+			localPart = "" + XDI3Util.localXri(contextNodeXri, 1) + localPart;
+			contextNodeXri = XDI3Util.parentXri(contextNodeXri, -1);
 		}
 
 		// done

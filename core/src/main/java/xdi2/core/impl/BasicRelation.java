@@ -5,7 +5,6 @@ import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.xri3.XDI3Segment;
 
-@Deprecated
 public class BasicRelation extends AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = -8757473050724884998L;

@@ -7,11 +7,11 @@ import java.util.Iterator;
  * 
  * @author markus
  */
-public abstract class MappingIterator<I, O> implements Iterator<O> {
+public abstract class MappingIterator<I, O> extends IterableIterator<O> {
 
-	protected Iterator<I> iterator;
+	protected Iterator<? extends I> iterator;
 
-	public MappingIterator(Iterator<I> iterator) {
+	public MappingIterator(Iterator<? extends I> iterator) {
 
 		this.iterator = iterator;
 	}

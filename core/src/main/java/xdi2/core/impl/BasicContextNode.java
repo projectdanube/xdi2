@@ -1,5 +1,7 @@
 package xdi2.core.impl;
 
+import java.util.Arrays;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
@@ -8,7 +10,6 @@ import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
-@Deprecated
 public class BasicContextNode extends AbstractContextNode implements ContextNode {
 
 	private static final long serialVersionUID = -3684616841641336596L;
@@ -23,8 +24,8 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 		super(graph, contextNode);
 
 		this.arcXri = arcXri;
-		this.contextNodes = contextNodes;
-		this.relations = relations;
+		this.contextNodes = contextNodes == null ? Arrays.asList(new ContextNode[0]) : contextNodes;
+		this.relations = relations == null ? Arrays.asList(new Relation[0]) : relations;
 		this.literal = literal;
 	}
 

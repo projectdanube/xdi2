@@ -23,10 +23,10 @@ public interface MessagingTarget {
 	public void shutdown() throws Exception;
 
 	/**
-	 * Returns the owner authority of the messaging target.
+	 * Returns the owner address of the messaging target.
 	 * This may be null.
 	 */
-	public XDI3Segment getOwnerAuthority();
+	public XDI3Segment getOwnerAddress();
 
 	/**
 	 * Executes all messages in an XDI messaging envelope against this messaging target.

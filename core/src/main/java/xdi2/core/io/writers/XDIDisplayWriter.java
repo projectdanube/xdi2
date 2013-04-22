@@ -21,10 +21,16 @@ import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.CompositeIterator;
+import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
+import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class XDIDisplayWriter extends AbstractXDIWriter {
 
@@ -40,10 +46,11 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	private static final String HTML_COLOR_RELATION = "#ff8888";
 	private static final String HTML_COLOR_LITERAL = "#8888ff";
 
-	private boolean writeContexts;
+	private boolean writeImplied;
 	private boolean writeOrdered;
+	private boolean writeInner;
+	private boolean writePretty;
 	private boolean writeHtml;
-	private boolean prettyPrint;
 
 	public XDIDisplayWriter(Properties parameters) {
 
@@ -55,23 +62,18 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		// check parameters
 
-		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
+		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
+		this.writeInner = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_INNER, XDIWriterRegistry.DEFAULT_INNER));
+		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
 
-		try {
-
-			int prettyParam = Integer.parseInt(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
-			this.prettyPrint = prettyParam > 0 ? true : false;
-		} catch (NumberFormatException nfe) {
-
-			this.prettyPrint = false;
-		}
-
-		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", writeOrdered=" + this.writeOrdered + ", writeHtml=" + this.writeHtml + ", prettyPrint=" + this.prettyPrint);
+		if (log.isDebugEnabled()) log.debug("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty + ", writeHtml=" + this.writeHtml);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
+
+		// write html?
 
 		if (this.writeHtml) {
 
@@ -80,7 +82,9 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			bufferedWriter.write("<pre>\n");
 		}
 
-		Iterator<Statement> statements;
+		// write ordered?
+
+		IterableIterator<Statement> statements;
 
 		if (this.writeOrdered) {
 
@@ -90,7 +94,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			CopyUtil.copyGraph(graph, orderedGraph, null);
 			graph = orderedGraph;
 
-			List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+			List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
 			list.add(new MappingContextNodeStatementIterator(graph.getRootContextNode().getAllContextNodes()));
 			list.add(new MappingRelationStatementIterator(graph.getRootContextNode().getAllRelations()));
 			list.add(new MappingLiteralStatementIterator(graph.getRootContextNode().getAllLiterals()));
@@ -101,13 +105,13 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			statements = graph.getRootContextNode().getAllStatements();
 		}
 
-		while (statements.hasNext()) {
+		// ignore implied statements
 
-			Statement statement = statements.next();
+		if (! this.writeImplied) statements = new SelectingNotImpliedStatementIterator<Statement> (statements);
 
-			// ignore implied context nodes
+		// write the statements
 
-			if ((! this.writeContexts) && statement.isImplied()) continue;
+		for (Statement statement : statements) {
 
 			// HTML output
 
@@ -116,22 +120,22 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 				if (statement instanceof ContextNodeStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_CONTEXTNODE + "\">");
-					writeStatement(bufferedWriter, statement, this.prettyPrint, true);
-					bufferedWriter.write("</span>\n");
+					this.writeStatement(bufferedWriter, statement);
+					bufferedWriter.write("</span><br>\n");
 				} else if (statement instanceof RelationStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_RELATION + "\">");
-					writeStatement(bufferedWriter, statement, this.prettyPrint, true);
-					bufferedWriter.write("</span>\n");
+					this.writeStatement(bufferedWriter, statement);
+					bufferedWriter.write("</span><br>\n");
 				} else if (statement instanceof LiteralStatement) {
 
 					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_LITERAL + "\">");
-					writeStatement(bufferedWriter, statement, this.prettyPrint, true);
-					bufferedWriter.write("</span>\n");
+					this.writeStatement(bufferedWriter, statement);
+					bufferedWriter.write("</span><br>\n");
 				}
 			} else {
 
-				writeStatement(bufferedWriter, statement, this.prettyPrint, false);
+				this.writeStatement(bufferedWriter, statement);
 			}
 		}
 
@@ -144,21 +148,44 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		bufferedWriter.flush();
 	}
 
-	private static void writeStatement(BufferedWriter bufferedWriter, Statement statement, boolean pretty, boolean html) throws IOException {
+	private void writeStatement(BufferedWriter bufferedWriter, Statement statement) throws IOException {
+
+		XDI3Statement statementXri = statement.getXri();
+
+		// inner root short notation?
+
+		if (this.writeInner) statementXri = transformStatementInInnerRoot(statementXri);
+
+		// write the statement
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(statement.getSubject());
-		builder.append(pretty ? "\t" : "/");
-		builder.append(statement.getPredicate());
-		builder.append(pretty ? "\t" : "/");
-		builder.append(statement.getObject());
-		builder.append(html ? "<br>\n" : "\n");
+		builder.append(statementXri.getSubject());
+		builder.append(this.writePretty ? "\t" : "/");
+		builder.append(statementXri.getPredicate());
+		builder.append(this.writePretty ? "\t" : "/");
+		builder.append(StatementUtil.statementObjectToString(statementXri.getObject()));
+		builder.append(this.writeHtml ? "" : "\n");
 
 		String string = builder.toString();
-		if (html) string = string.replaceAll("\t", "&#9;");
+		if (this.writeHtml) string = string.replaceAll("\t", "&#9;");
 
 		bufferedWriter.write(string);
+	}
+
+	private static XDI3Statement transformStatementInInnerRoot(XDI3Statement statementXri) {
+
+		XDI3SubSegment subjectFirstSubSegment = statementXri.getSubject().getFirstSubSegment();
+
+		if ((! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return statementXri;
+
+		XDI3Segment innerRootSubject = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
+		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
+
+		XDI3Statement reducedStatementXri = StatementUtil.reduceStatement(statementXri, XDI3Segment.create("" + subjectFirstSubSegment));
+		if (reducedStatementXri == null) return statementXri;
+
+		return XDI3Statement.create("" + innerRootSubject + "/" + innerRootPredicate + "/(" + transformStatementInInnerRoot(reducedStatementXri) + ")");
 	}
 
 	@Override

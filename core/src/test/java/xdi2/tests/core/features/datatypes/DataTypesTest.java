@@ -2,10 +2,10 @@ package xdi2.tests.core.features.datatypes;
 
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -13,115 +13,54 @@ import xdi2.core.xri3.XDI3Segment;
 
 public class DataTypesTest extends TestCase {
 
-	@Test
 	public void testDatatypes() throws Exception {
-		StringBuilder sbXDI = new StringBuilder();
-		sbXDI.append("=markus$!(+age)/!/(data:,33)\n");
-		sbXDI.append("=markus$!(+age)/$is+/+$xsd$int!\n");
-		sbXDI.append("=markus$!(+age)/$is+/+$json$number!\n");
-		String xdiString = sbXDI.toString();
 
-		try {
-			// Create graph object from xdi string
-			Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
+		StringBuilder buffer = new StringBuilder();
 
-			// Set a new datatype to a literal in graph
-			DataTypes.setLiteralDataType(
-					graph.findLiteral(XDI3Segment.create("=markus$!(+age)")),
-					XDI3Segment.create("+$mime$image$png!"));
+		buffer.append("=markus[<+age>]:/:/\"33\"\n");
+		buffer.append("=markus[<+age>]/$is+/+$xsd$int\n");
+		buffer.append("=markus[<+age>]/$is+/+$json$number\n");
+		String xdiString = buffer.toString();
 
-			// Get datatype list for a literal
-			List<XDI3Segment> lst = DataTypes.getLiteralDataType(graph
-					.findLiteral(XDI3Segment.create("=markus$!(+age)")));
+		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString, "XDI DISPLAY", null);
 
-			assertNotNull(lst);
+		DataTypes.setLiteralDataType(graph.findLiteral(XDI3Segment.create("=markus[<+age>]:")), XDI3Segment.create("+$mime$image$png"));
 
-			for (XDI3Segment xriSeg : lst) {
+		List<XDI3Segment> dataTypes = DataTypes.getLiteralDataType(graph.findLiteral(XDI3Segment.create("=markus[<+age>]:")));
 
-				if (xriSeg.toString().contains("json")) {
+		assertNotNull(dataTypes);
 
-					// Get datatype from xri datatype list and assert for a
-					// valid json type
-					assertEquals("number",
-							DataTypes.jsonTypeFromDataTypeXri(xriSeg)
-									.toString());
+		for (XDI3Segment xriSeg : dataTypes) {
 
-				} else if (xriSeg.toString().contains("xsd")) {
+			if (xriSeg.toString().contains("json")) {
 
-					// Get datatype from xri datatype list and assert for a
-					// valid xsd type
-					assertEquals("xsd:int",
-							DataTypes.xsdTypeFromDataTypeXri(xriSeg).toString());
+				assertEquals("number", DataTypes.jsonTypeFromDataTypeXri(xriSeg).toString());
+			} else if (xriSeg.toString().contains("xsd")) {
 
-				} else if (xriSeg.toString().contains("mime")) {
+				assertEquals("xsd:int", DataTypes.xsdTypeFromDataTypeXri(xriSeg).toString());
+			} else if (xriSeg.toString().contains("mime")) {
 
-					// Get datatype from xri datatype list and assert for a
-					// valid mime type
-					assertEquals("image/png", DataTypes
-							.mimeTypeFromDataTypeXri(xriSeg).toString());
-
-				}
+				assertEquals("image/png", DataTypes.mimeTypeFromDataTypeXri(xriSeg).toString());
 			}
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println(ex.getMessage());
-			Assert.fail();
-
 		}
-
 	}
 
 	@Test
 	public void testDuplicateDatatypes() throws Exception {
-		StringBuilder sbXDI = new StringBuilder();
-		sbXDI.append("=markus$!(+age)/!/(data:,33)\n");
-		sbXDI.append("=markus$!(+age)/$is+/+$xsd$int!\n");
-		sbXDI.append("=markus$!(+age)/$is+/+$json$number!\n");
-		String xdiString = sbXDI.toString();
+
+		StringBuilder buffer = new StringBuilder();
+
+		buffer.append("=markus$!(+age)/!/(data:,33)\n");
+		buffer.append("=markus$!(+age)/$is+/+$xsd$int!\n");
+		buffer.append("=markus$!(+age)/$is+/+$json$number!\n");
+		String xdiString = buffer.toString();
 
 		try {
-			// Create graph object from xdi string
+
 			Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
+			DataTypes.setLiteralDataType(graph.findLiteral(XDI3Segment.create("=markus$!(+age)")), XDI3Segment.create("+$json$number!"));
 
-			// Set a new datatype to a literal in graph
-			DataTypes.setLiteralDataType(
-					graph.findLiteral(XDI3Segment.create("=markus$!(+age)")),
-					XDI3Segment.create("+$json$number!"));
-			Assert.fail();
-
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-		}
-
+			fail();
+		} catch (Exception ex) { }
 	}
-
-	@Test
-	public void testBinaryDatatypes() throws Exception {
-		StringBuilder sbXDI = new StringBuilder();
-		sbXDI.append("=markus$!(+age)/!/(data:,33)\n");
-		sbXDI.append("=markus$!(+age)/$is+/+$xsd$int!\n");
-		sbXDI.append("=markus$!(+age)/$is+/+$json$number!\n");
-		String xdiString = sbXDI.toString();
-
-		try {
-			// Create graph object from xdi string
-			Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
-
-			// Set a new datatype to a literal in graph
-			DataTypes.setLiteralDataType(
-					graph.findLiteral(XDI3Segment.create("=markus$!(+age)")),
-					XDI3Segment.create("+$binary!"));
-
-			// Get datatype from xri datatype list and assert for a binary type
-			assertEquals(true, DataTypes.isLiteralBinary(graph
-					.findLiteral(XDI3Segment.create("=markus$!(+age)"))));
-
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-			Assert.fail();
-		}
-
-	}
-
 }

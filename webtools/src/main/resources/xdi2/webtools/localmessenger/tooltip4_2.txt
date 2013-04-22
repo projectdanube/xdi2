@@ -1,1 +1,1 @@
-$del operation with $ref and $ref! arcs
+$get operation with $ref and $rep arcs and with $deref parameter

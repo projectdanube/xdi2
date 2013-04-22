@@ -14,10 +14,11 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.roots.InnerRoot;
-import xdi2.core.features.roots.Root;
-import xdi2.core.features.roots.Roots;
+import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.roots.XdiLocalRoot;
+import xdi2.core.features.roots.XdiRoot;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
@@ -167,7 +168,7 @@ public abstract class AbstractGraph implements Graph {
 
 		return buffer.toString();
 	}
-
+	
 	/*
 	 * Methods related to statements
 	 */
@@ -175,28 +176,30 @@ public abstract class AbstractGraph implements Graph {
 	@Override
 	public Statement createStatement(XDI3Statement statementXri) {
 
-		// inner root statement?
+		// find the root and the base context node of this statement
+
+		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
+		XDI3Segment relativePart = root.getRelativePart(statementXri.getSubject());
+		ContextNode baseContextNode = relativePart == null ? root.getContextNode() : root.getContextNode().findContextNode(relativePart, true);
+
+		// inner root short notation?
 
 		if (statementXri.hasInnerRootStatement()) {
 
-			Root root = Roots.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
-
-			XDI3Segment subject = root.getRelativePart(statementXri.getSubject());
+			XDI3Segment subject = relativePart;
 			XDI3Segment predicate = statementXri.getPredicate();
-			
-			InnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
+
+			XdiInnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
 
 			return innerRoot.createRelativeStatement(statementXri.getInnerRootStatement());
 		}
 
 		// add the statement
 
-		ContextNode baseContextNode = this.findContextNode(statementXri.getSubject(), true);
-
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = baseContextNode.createContextNodes(statementXri.getObject());
-			if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXri() + ": Created context node --> " + contextNode.getXri());
+			ContextNode contextNode = baseContextNode.createContextNodes((XDI3Segment) statementXri.getObject());
+			if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Created context node --> " + contextNode.getXri());
 
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
@@ -213,7 +216,7 @@ public abstract class AbstractGraph implements Graph {
 			return literal.getStatement();
 		} else {
 
-			throw new Xdi2RuntimeException("Invalid statement XRI: " + statementXri);
+			throw new Xdi2GraphException("Invalid statement XRI: " + statementXri);
 		}
 	}
 
@@ -223,7 +226,7 @@ public abstract class AbstractGraph implements Graph {
 		if (statementXri.isContextNodeStatement()) {
 
 			ContextNode contextNode = this.findContextNode(statementXri.getSubject(), false);
-			contextNode = contextNode == null ? null : contextNode.findContextNode(statementXri.getObject(), false);
+			contextNode = contextNode == null ? null : contextNode.findContextNode((XDI3Segment) statementXri.getObject(), false);
 
 			return contextNode == null ? null : contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
@@ -292,7 +295,7 @@ public abstract class AbstractGraph implements Graph {
 
 		// TODO: do this without serializing to string
 
-		return this.toString(new MimeType("text/xdi;contexts=1;ordered=1")).equals(other.toString(new MimeType("text/xdi;contexts=1;ordered=1")));
+		return this.toString(new MimeType("text/xdi;implied=1;ordered=1")).equals(other.toString(new MimeType("text/xdi;implied=1;ordered=1")));
 	}
 
 	@Override
@@ -300,7 +303,7 @@ public abstract class AbstractGraph implements Graph {
 
 		// TODO: do this without serializing to string
 
-		return this.toString(new MimeType("text/xdi;contexts=1;ordered=1")).hashCode();
+		return this.toString(new MimeType("text/xdi;implied=1;ordered=1")).hashCode();
 	}
 
 	@Override
@@ -310,8 +313,8 @@ public abstract class AbstractGraph implements Graph {
 
 		// TODO: do this without serializing to string
 
-		String string1 = this.toString(new MimeType("text/xdi;contexts=1;ordered=1"));
-		String string2 = other.toString(new MimeType("text/xdi;contexts=1;ordered=1"));
+		String string1 = this.toString(new MimeType("text/xdi;implied=1;ordered=1"));
+		String string2 = other.toString(new MimeType("text/xdi;implied=1;ordered=1"));
 
 		return string1.compareTo(string2);
 	}

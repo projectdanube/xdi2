@@ -6,6 +6,9 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.util.StatementUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -22,13 +25,24 @@ public abstract class AbstractStatement implements Statement {
 	@Override
 	public boolean isImplied() {
 
-		if (! (this instanceof ContextNodeStatement)) return false;
+		if (this instanceof ContextNodeStatement) {
 
-		ContextNode contextNode = ((ContextNodeStatement) this).getContextNode();
-		if (contextNode == null) return false;
+			ContextNode contextNode = ((ContextNodeStatement) this).getContextNode();
+			if (contextNode == null) return false;
 
-		if (! contextNode.isEmpty()) return true;
-		if (contextNode.getIncomingRelations().hasNext()) return true;
+			if (! contextNode.isEmpty()) return true;
+			if (contextNode.getIncomingRelations().hasNext()) return true;
+		}
+
+		if (this instanceof RelationStatement) {
+
+			Relation relation = ((RelationStatement) this).getRelation();
+			if (relation == null) return false;
+
+			if (! XdiInnerRoot.isValid(relation.follow())) return false;
+
+			if (! relation.follow().isEmpty()) return true;
+		}
 
 		return false;
 	}
@@ -57,7 +71,7 @@ public abstract class AbstractStatement implements Statement {
 		builder.append("/");
 		builder.append(this.getPredicate());
 		builder.append("/");
-		builder.append(this.getObject());
+		builder.append(StatementUtil.statementObjectToString(this.getObject()));
 
 		return builder.toString();
 	}
@@ -110,7 +124,7 @@ public abstract class AbstractStatement implements Statement {
 
 		// compare objects
 
-		c = this.getObject().compareTo(other.getObject());
+		c = this.getObject().toString().compareTo(other.getObject().toString());
 		if (c != 0) return c;
 
 		return 0;
@@ -127,7 +141,13 @@ public abstract class AbstractStatement implements Statement {
 		@Override
 		public XDI3Segment getContextNodeXri() {
 
-			return XDIConstants.XRI_S_ROOT.equals(this.getSubject()) ? this.getObject() : XDI3Segment.create("" + this.getSubject() + this.getObject());
+			if (XDIConstants.XRI_S_ROOT.equals(this.getSubject())) {
+
+				return (XDI3Segment) this.getObject();
+			} else {
+
+				return XDI3Util.expandXri(this.getSubject(), (XDI3Segment) this.getObject());
+			}
 		}
 
 		@Override

@@ -24,10 +24,17 @@ circle.node-context {
 	stroke-width: 2px;
 }
 
-path.link {
+path.link-context {
 	fill: none;
 	stroke: black;
 	stroke-width: 2px;
+}
+
+path.link-literal {
+	fill: none;
+	stroke: blue;
+	stroke-width: 2px;
+	stroke-dasharray: 3, 3;
 }
 
 text.link {
@@ -37,6 +44,7 @@ path.rel {
 	fill: none;
 	stroke: red;
 	stroke-width: 2px;
+	stroke-dasharray: 8, 8;
 }
 
 text.rel {
@@ -48,8 +56,8 @@ path.arrow-link {
 }
 
 path.arrow-rel {
-	fill: red;
-	stroke: red;
+	fill: black;
+	stroke: black;
 }
 </style>
 </head>
@@ -58,13 +66,13 @@ path.arrow-rel {
 	<div id="tree-container">
 	<svg>
 		<defs>
-			<marker id="arrow-link" viewBox="0 0 100 100" refX="10" refY="10"
-				markerUnits="strokeWidth" markerWidth="20" markerHeight="20" orient="auto">
-				<path d="M 0 0 L 20 10 L 0 20 z" class="arrow-link"/>
+			<marker id="arrow-link" viewBox="0 0 100 100" refX="30" refY="12"
+				markerUnits="strokeWidth" markerWidth="24" markerHeight="24" orient="auto">
+				<path d="M 0 0 L 24 12 L 0 24 z" class="arrow-link"/>
 			</marker>
-			<marker id="arrow-rel" viewBox="0 0 100 100" refX="10" refY="10"
-				markerUnits="strokeWidth" markerWidth="20" markerHeight="20" orient="auto">
-				<path d="M 0 0 L 20 10 L 0 20 z" class="arrow-rel"/>
+			<marker id="arrow-rel" viewBox="0 0 100 100" refX="30" refY="12"
+				markerUnits="strokeWidth" markerWidth="24" markerHeight="24" orient="auto">
+				<path d="M 0 0 L 24 12 L 0 24 z" class="arrow-rel"/>
 			</marker>
 		</defs>
 		<g></g>
@@ -96,7 +104,7 @@ path.arrow-rel {
 	{
 	    // build the options object
 	    var options = $.extend({
-	        nodeRadius: 7, fontSize: 12
+	        nodeRadius: 9, fontSize: 12
 	    }, customOptions);
 
 	    
@@ -117,7 +125,7 @@ path.arrow-rel {
 
 	    var tree = d3.layout.tree()
 	        .sort(null)
-	        .size([size.width - maxLabelLength*options.fontSize, size.height])
+	        .size([size.width - maxLabelLength*10, size.height])
 	        .children(function(d)
 	        {
 	            return (!d.contents || d.contents.length === 0) ? null : d.contents;
@@ -142,7 +150,6 @@ path.arrow-rel {
 	        .attr("class", "container")
 	        .attr("transform", "translate(" + maxLabelLength + ",10)");
 
-		//for (x in layoutRoot) alert(x + ": " + svg[x]);
 	    /*
 	        Nodes as
 	        <g class="node">
@@ -201,15 +208,19 @@ path.arrow-rel {
 	        .append("svg:g");
 	    
 		linkGroup.append("svg:path")
-	        .attr("class", "link")
+	        .attr("class", function(d)
+	        {
+				return d.target.arc == "!" ? "link-literal" : "link-context";
+	        })
 	        .attr("d", link)
 	    	.attr("marker-end", "url(#arrow-link)");
 
 	    linkGroup.append("svg:text")
 	        .attr("transform", function(d)
-    	        {
-    	            return "translate(" + ((d.source.x+d.target.x)/2) + "," + ((d.source.y+d.target.y)/2) + ")";
-    	        })
+    	    {
+    	        return "translate(" + ((d.source.x+d.target.x)/2) + "," + ((d.source.y+d.target.y)/2) + ")";
+    	    })
+	        .attr("dx", "5")
         	.text(function(d)
 			{
 				return d.target.arc;
@@ -258,27 +269,6 @@ path.arrow-rel {
 	     			return d.arc;
      			}
 	     	);
-	    
-/*	    var nodeRelGroup = nodeGroup.selectAll("g.node")
-	        .data(function(d) { return d.rel; } )
-	     	.enter()
-	        .append("svg:g");
-	    
-	    nodeRelGroup.append("svg:text")
-	     	.attr("class", "rel")
-	        .attr("dx", function(d)
-	        {
-	            return 20*d;
-	        })
-	     	.text(function(d)
-	     			{
-		     			return d.arc;
-	     			}
-	     	);
-	     	
-		nodeRelGroup.append("svg:path")
-        	.attr("class", "link")
-        	.attr("d", link);*/
 	}	
 </script>
 

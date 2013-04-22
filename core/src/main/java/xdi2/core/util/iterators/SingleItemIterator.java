@@ -14,6 +14,8 @@ public class SingleItemIterator<T> extends ReadOnlyIterator<T> {
 	
 	public SingleItemIterator(T item) {
 
+		super(null);
+		
 		this.hasNext = true;
 		this.item = item;
 	}

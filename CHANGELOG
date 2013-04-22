@@ -1,6 +1,25 @@
 VERSION 0.1-SNAPSHOT
 ========================
 
+2013-04-07:
+------------------------
+
+*** major update to syntax, ABNF, and serialization formats
+
+2013-03-03:
+------------------------
+
+*** support for message policies
+
+*** support for ordered messages and operations
+
+2013-02-28:
+------------------------
+
+*** modular XDI2 parser support
+
+*** work on message policies
+
 2013-02-06:
 ------------------------
 

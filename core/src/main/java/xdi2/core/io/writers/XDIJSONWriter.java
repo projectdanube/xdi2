@@ -1,34 +1,35 @@
 package xdi2.core.io.writers;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
-import xdi2.core.Relation;
+import xdi2.core.Statement;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.util.iterators.SelectingIterator;
+import xdi2.core.util.CopyUtil;
+import xdi2.core.util.StatementUtil;
+import xdi2.core.util.iterators.CompositeIterator;
+import xdi2.core.util.iterators.IterableIterator;
+import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
+import xdi2.core.util.iterators.MappingLiteralStatementIterator;
+import xdi2.core.util.iterators.MappingRelationStatementIterator;
+import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3XRef;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 public class XDIJSONWriter extends AbstractXDIWriter {
@@ -41,9 +42,10 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 	public static final String FILE_EXTENSION = "json";
 	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
 
-	private boolean writeContexts;
-
-	private int prettyIndent;
+	private boolean writeImplied;
+	private boolean writeOrdered;
+	private boolean writeInner;
+	private boolean writePretty;
 
 	public XDIJSONWriter(Properties parameters) {
 
@@ -55,157 +57,53 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		// check parameters
 
-		this.writeContexts = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, XDIWriterRegistry.DEFAULT_CONTEXTS));
+		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
+		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
+		this.writeInner = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_INNER, XDIWriterRegistry.DEFAULT_INNER));
+		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 
-		try {
-
-			this.prettyIndent = Integer.parseInt(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
-		} catch (NumberFormatException nfe) {
-
-			this.prettyIndent = Integer.parseInt(XDIWriterRegistry.DEFAULT_PRETTY);
-		}
-
-		if (log.isDebugEnabled()) log.debug("Parameters: writeContexts=" + this.writeContexts + ", prettyIndent=" + this.prettyIndent);
+		if (log.isDebugEnabled()) log.debug("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty);
 	}
 
-	private void writeContextNode(ContextNode contextNode, BufferedWriter bufferedWriter, State state) throws IOException {
+	private void writeInternal(Graph graph, JSONObject jsonObject) throws IOException {
 
-		String xri = contextNode.getXri().toString();
+		// write ordered?
 
-		// write context nodes
+		IterableIterator<Statement> statements;
 
-		if (contextNode.containsContextNodes()) {
+		if (this.writeOrdered) {
 
-			Iterator<ContextNode> needWriteContextStatements;
+			MemoryGraphFactory memoryGraphFactory = new MemoryGraphFactory();
+			memoryGraphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ALPHA);
+			Graph orderedGraph = memoryGraphFactory.openGraph();
+			CopyUtil.copyGraph(graph, orderedGraph, null);
+			graph = orderedGraph;
 
-			if (this.writeContexts) {
+			List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
+			list.add(new MappingContextNodeStatementIterator(graph.getRootContextNode().getAllContextNodes()));
+			list.add(new MappingRelationStatementIterator(graph.getRootContextNode().getAllRelations()));
+			list.add(new MappingLiteralStatementIterator(graph.getRootContextNode().getAllLiterals()));
 
-				needWriteContextStatements = contextNode.getContextNodes();
-			} else {
+			statements = new CompositeIterator<Statement> (list.iterator());
+		} else {
 
-				// ignore implied context nodes
-
-				needWriteContextStatements = new SelectingIterator<ContextNode> (contextNode.getContextNodes()) {
-
-					@Override
-					public boolean select(ContextNode contextNode) {
-
-						return ! contextNode.getStatement().isImplied();
-					}
-				};
-			}
-
-			if (needWriteContextStatements.hasNext()) {
-
-				startItem(bufferedWriter, state);
-				bufferedWriter.write("\"" + xri + "/()\":[");
-				for (; needWriteContextStatements.hasNext(); ) {
-
-					ContextNode innerContextNode = needWriteContextStatements.next();
-					bufferedWriter.write("\"" + innerContextNode.getArcXri().toString() + "\"" + (needWriteContextStatements.hasNext() ? "," : ""));
-				}
-				bufferedWriter.write("]");
-				finishItem(bufferedWriter, state);
-			}
-
-			for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
-
-				ContextNode innerContextNode = innerContextNodes.next();
-				this.writeContextNode(innerContextNode, bufferedWriter, state);
-			}
+			statements = graph.getRootContextNode().getAllStatements();
 		}
 
-		// write relations
+		// ignore implied statements
 
-		Map<XDI3Segment, List<Relation>> relationsMap = new HashMap<XDI3Segment, List<Relation>> ();
+		if (! this.writeImplied) statements = new SelectingNotImpliedStatementIterator<Statement> (statements);
 
-		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
+		// write the statements
 
-			Relation relation = relations.next();
+		for (Statement statement : statements) {
 
-			List<Relation> relationsList = relationsMap.get(relation.getArcXri());
+			XDI3Statement statementXri = statement.getXri();
+			
+			// put the statement into the JSON object
 
-			if (relationsList == null) {
-
-				relationsList = new ArrayList<Relation> ();
-				relationsMap.put(relation.getArcXri(), relationsList);
-			}
-
-			relationsList.add(relation);
+			this.putStatementIntoJSONObject(statementXri, jsonObject);
 		}
-
-		for (Entry<XDI3Segment, List<Relation>> entry : relationsMap.entrySet()) {
-
-			XDI3Segment relationArcXri = entry.getKey();
-			List<Relation> relationsList = entry.getValue();
-
-			startItem(bufferedWriter, state);
-			bufferedWriter.write("\"" + xri + "/" + relationArcXri + "\":[");
-
-			Graph tempGraph = null;
-
-			boolean missingTrailingComma = false;
-
-			for (int i = 0; i < relationsList.size(); i++) {
-
-				XDI3Segment targetContextNodeXri = relationsList.get(i).getTargetContextNodeXri();
-				XDI3XRef xref = targetContextNodeXri.getFirstSubSegment().getXRef();
-
-				// if the target context node XRI is a valid statement in a cross-reference, add it to the temporary graph
-
-				if (xref != null && xref.hasStatement()) {
-
-					if (tempGraph == null) tempGraph = MemoryGraphFactory.getInstance().openGraph();
-
-					tempGraph.createStatement(xref.getStatement());
-				} else {
-
-					bufferedWriter.write("\"" + targetContextNodeXri + "\"");
-
-					if (i < relationsList.size() - 1) {
-
-						bufferedWriter.write(",");
-					} else {
-
-						missingTrailingComma = true;
-					}
-				}
-			}
-
-			if (tempGraph != null) {
-
-				if (missingTrailingComma) bufferedWriter.write(",");
-
-				// write the temporary graph recursively
-
-				this.write(tempGraph, bufferedWriter);
-			}
-
-			bufferedWriter.write("]");
-			finishItem(bufferedWriter, state);
-		}
-
-		// write literal
-
-		Literal literal = contextNode.getLiteral();
-
-		if (literal != null) {
-
-			startItem(bufferedWriter, state);
-			bufferedWriter.write("\"" + xri + "/!\":[" + JSON.toJSONString(literal.getLiteralData()) + "]");
-			finishItem(bufferedWriter, state);
-		}
-	}
-
-	private void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
-
-		State state = new State();
-
-		startGraph(bufferedWriter, state);
-		this.writeContextNode(graph.getRootContextNode(), bufferedWriter, state);
-		finishGraph(bufferedWriter, state);
-
-		bufferedWriter.flush();
 	}
 
 	@Override
@@ -213,63 +111,107 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		// write
 
-		if (this.prettyIndent > 0) {
+		JSONObject jsonObject = new JSONObject();
 
-			try {
+		this.writeInternal(graph, jsonObject);
 
-				StringWriter stringWriter = new StringWriter();
-				this.write(graph, new BufferedWriter(stringWriter));
-
-				JSONObject json = JSON.parseObject(stringWriter.toString());
-				writer.write(JSON.toJSONString(json, this.prettyIndent > 0));
-			} catch (JSONException ex) {
-
-				throw new IOException("Problem while constructing JSON object: " + ex.getMessage(), ex);
-			}
-		} else {
-
-			this.write(graph, new BufferedWriter(writer));
-		}
-
+		writer.write(JSON.toJSONString(jsonObject, this.writePretty));
 		writer.flush();
 
 		return writer;
 	}
 
-	private static void startItem(BufferedWriter bufferedWriter, State state) throws IOException {
+	private void putStatementIntoJSONObject(XDI3Statement statementXri, JSONObject jsonObject) throws IOException {
 
-		if (state.first) {
+		// inner root short notation?
 
-			state.first = false;
+		if (this.writeInner) if (this.tryPutStatementIntoInnerJSONObject(statementXri, jsonObject)) return;
+
+		// find the JSON array
+
+		String key = statementXri.getSubject() + "/" + statementXri.getPredicate();
+
+		JSONArray jsonArray = jsonObject.getJSONArray(key);
+
+		if (jsonArray == null) {
+
+			jsonArray = new JSONArray();
+			jsonObject.put(key, jsonArray);
+		}
+
+		addObjectToJSONArray(statementXri, jsonArray);
+	}
+
+	private boolean tryPutStatementIntoInnerJSONObject(XDI3Statement statementXri, JSONObject jsonObject) throws IOException {
+
+		XDI3SubSegment subjectFirstSubSegment = statementXri.getSubject().getFirstSubSegment();
+
+		if ((! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return false;
+
+		XDI3Segment innerRootSubject = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
+		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
+
+		XDI3Statement reducedStatementXri = StatementUtil.reduceStatement(statementXri, XDI3Segment.create("" + subjectFirstSubSegment));
+		if (reducedStatementXri == null) return false;
+
+		// find the inner root JSON array
+
+		String innerRootKey = "" + innerRootSubject + "/" + innerRootPredicate;
+
+		JSONArray innerRootJsonArray = jsonObject.getJSONArray(innerRootKey);
+
+		if (innerRootJsonArray == null) {
+
+			innerRootJsonArray = new JSONArray();
+			jsonObject.put(innerRootKey, innerRootJsonArray);
+		}
+
+		// find the inner root JSON object
+
+		JSONObject innerRootJsonObject = findJSONObjectInJSONArray(innerRootJsonArray);
+
+		if (innerRootJsonObject == null) {
+
+			innerRootJsonObject = new JSONObject();
+			innerRootJsonArray.add(innerRootJsonObject);
+		}
+		
+		// put the statement into the inner root JSON object
+
+		this.putStatementIntoJSONObject(reducedStatementXri, innerRootJsonObject);
+		
+		// done
+		
+		return true;
+	}
+
+	private static JSONObject findJSONObjectInJSONArray(JSONArray jsonArray) {
+
+		for (Iterator<Object> objects = jsonArray.iterator(); objects.hasNext(); ) {
+
+			Object object = objects.next();
+
+			if (object instanceof JSONObject) return (JSONObject) object;
+		}
+
+		return null;
+	}
+
+	private static void addObjectToJSONArray(XDI3Statement statementXri, JSONArray jsonArray) throws IOException {
+
+		if (statementXri.isLiteralStatement()) {
+
+			String literalData = statementXri.getLiteralData(); 
+
+			if (literalData != null) {
+
+				jsonArray.add(literalData);
+			} else {
+
+			}
 		} else {
 
-			bufferedWriter.write(",");
-		}
-	}
-
-	private static void finishItem(BufferedWriter bufferedWriter, State state) throws IOException {
-
-	}
-
-	private static void startGraph(BufferedWriter bufferedWriter, State state) throws IOException {
-
-		state.first = true;
-
-		bufferedWriter.write("{");
-	}
-
-	private static void finishGraph(BufferedWriter bufferedWriter, State state) throws IOException {
-
-		bufferedWriter.write("}");
-	}
-
-	private static class State {
-
-		private boolean first;
-
-		private State() {
-
-			this.first = true;
+			jsonArray.add(statementXri.getObject().toString());
 		}
 	}
 }

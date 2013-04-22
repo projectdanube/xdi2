@@ -10,6 +10,9 @@ import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDITimestampsConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiValue;
 
 public class Timestamps {
 
@@ -55,7 +58,13 @@ public class Timestamps {
 	 */
 	public static Date getContextNodeTimestamp(ContextNode contextNode) {
 
-		Literal timestampLiteral = contextNode.findLiteral(XDITimestampsConstants.XRI_S_T);
+		XdiAttribute xdiAttribute = XdiAbstractSubGraph.fromContextNode(contextNode).getXdiAttributeSingleton(XDITimestampsConstants.XRI_SS_T, false);
+		if (xdiAttribute == null) return null;
+		
+		XdiValue xdiValue = xdiAttribute.getXdiValue(false);
+		if (xdiValue == null) return null;
+		
+		Literal timestampLiteral = xdiValue.getContextNode().getLiteral();
 		if (timestampLiteral == null) return null;
 
 		Date timestamp = stringToTimestamp(timestampLiteral.getLiteralData());
@@ -69,10 +78,12 @@ public class Timestamps {
 
 		String literalData = timestampToString(timestamp);
 
-		Literal timestampLiteral = contextNode.findLiteral(XDITimestampsConstants.XRI_S_T);
+		XdiAttribute xdiAttribute = XdiAbstractSubGraph.fromContextNode(contextNode).getXdiAttributeSingleton(XDITimestampsConstants.XRI_SS_T, true);
+		XdiValue xdiValue = xdiAttribute.getXdiValue(true);
+		Literal timestampLiteral = xdiValue.getContextNode().getLiteral();
 
 		if (timestampLiteral == null) 
-			timestampLiteral = contextNode.findContextNode(XDITimestampsConstants.XRI_S_T, true).createLiteral(literalData);
+			timestampLiteral = xdiValue.getContextNode().createLiteral(literalData);
 		else
 			timestampLiteral.setLiteralData(literalData);
 	}

@@ -3,11 +3,16 @@ package xdi2.messaging;
 import java.io.Serializable;
 import java.util.Iterator;
 
+import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.roots.InnerRoot;
-import xdi2.core.util.XRIUtil;
+import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiValue;
+import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI messaging operation, represented as a relation.
@@ -44,6 +49,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 				GetOperation.isValid(relation) ||
 				AddOperation.isValid(relation) ||
 				ModOperation.isValid(relation) ||
+				SetOperation.isValid(relation) ||
 				DelOperation.isValid(relation) ||
 				DoOperation.isValid(relation);
 	}
@@ -59,6 +65,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		if (GetOperation.isValid(relation)) return new GetOperation(message, relation);
 		if (AddOperation.isValid(relation)) return new AddOperation(message, relation);
 		if (ModOperation.isValid(relation)) return new ModOperation(message, relation);
+		if (SetOperation.isValid(relation)) return new SetOperation(message, relation);
 		if (DelOperation.isValid(relation)) return new DelOperation(message, relation);
 		if (DoOperation.isValid(relation)) return new DoOperation(message, relation);
 
@@ -127,21 +134,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the operation extension XRI of the XDI operation.
-	 * @return The operation extension XRI of the XDI operation.
-	 */
-	public XDI3Segment getOperationExtensionXri() {
-
-		return XRIUtil.localXri(this.getOperationXri(), -1);
-	}
-
-	/**
 	 * Returns the target address of the operation.
 	 * @return The target address of the operation.
 	 */
 	public XDI3Segment getTargetAddress() {
 
-		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
+		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
 
 		if (innerRoot != null) {
 
@@ -158,7 +156,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public Iterator<XDI3Statement> getTargetStatements() {
 
-		InnerRoot innerRoot = InnerRoot.fromContextNode(this.getRelation().follow());
+		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
 
 		if (innerRoot != null) {
 
@@ -167,6 +165,55 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 			return null;
 		}
+	}
+
+	/**
+	 * Sets a parameter value of this operation.
+	 * @param parameterXri The parameter XRI.
+	 * @param parameterValue The parameter value.
+	 */
+	public void setParameter(XDI3SubSegment parameterXri, Object parameterValue) {
+
+		XdiEntity parametersXdiEntity = XdiAbstractSubGraph.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), true);
+		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, true);
+		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(true);
+		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();
+
+		if (parameterLiteral == null) 
+			parameterLiteral = xdiValue.getContextNode().createLiteral(parameterValue.toString()); 
+		else 
+			parameterLiteral.setLiteralData(parameterValue.toString());
+	}
+
+	/**
+	 * Returns a parameter value of this operation.
+	 * @param parameterXri The parameter XRI.
+	 * @return The parameter value.
+	 */
+	public String getParameter(XDI3SubSegment parameterXri) {
+
+		XdiEntity parametersXdiEntity = XdiAbstractSubGraph.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), false);
+		if (parametersXdiEntity == null) return null;
+
+		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, false);
+		if (parameterXdiAttribute == null) return null;
+
+		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(false);
+		if (xdiValue == null) return null;
+
+		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralData();
+	}
+	/**
+	 * Returns a parameter value of this operation as a boolean.
+	 * @param parameterXri The parameter XRI.
+	 * @return The parameter value.
+	 */
+	public Boolean getParameterAsBoolean(XDI3SubSegment parameterXri) {
+
+		return Boolean.valueOf(this.getParameter(parameterXri));
 	}
 
 	/**
@@ -195,6 +242,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 		if (this instanceof AddOperation) return true;
 		if (this instanceof ModOperation) return true;
+		if (this instanceof SetOperation) return true;
 		if (this instanceof DelOperation) return true;
 
 		return false;

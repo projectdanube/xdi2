@@ -1,5 +1,11 @@
-=a*b/$ref/=!1!2
-=!1!2!3/$ref!/=!8!9
-=!8!9+first$!(+name)/!/(data:,Markus)
+=markus/$ref/=!1111
+=!1111[<+name>]:/:/"Markus"
+=!1111[<+country>]:/:/"Austria"
+=!2222[<+name>]:/:/"Animesh"
+=!2222[<+country>]:/:/"USA"
+=!3333[<+name>]/$rep/=!1111[<+name>]
+=!3333[<+country>]/$rep/=!2222[<+country>]
+=animesh/$ref/=!2222
+=pseudonym/$ref/=!3333
 (=!1111)/$ref/()
 ()/$is$ref/(=!1111)

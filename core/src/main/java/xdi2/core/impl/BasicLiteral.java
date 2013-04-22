@@ -4,7 +4,6 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 
-@Deprecated
 public class BasicLiteral extends AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = 3101871056623742994L;

@@ -23,7 +23,7 @@ public class PropertiesGraphTest extends AbstractGraphTest {
 			@Override
 			public boolean accept(File dir, String name) {
 
-				return name.startsWith("xdi2-test-graph.") && name.endsWith(".properties");
+				return name.startsWith("xdi2-graph.") && name.endsWith(".properties");
 			}
 		});
 
@@ -31,27 +31,16 @@ public class PropertiesGraphTest extends AbstractGraphTest {
 	}
 
 	@Override
-	protected Graph openNewGraph(String id) throws IOException {
+	protected Graph openNewGraph(String identifier) throws IOException {
 
-		String path = "xdi2-test-graph." + id + ".properties";
-
-		File file = new File(path);
-		if (file.exists()) file.delete();
-
-		graphFactory.setPath(path);
-
-		return graphFactory.openGraph();
+		return graphFactory.openGraph(identifier);
 	}
 
 	@Override
-	protected Graph reopenGraph(Graph graph, String id) throws IOException {
+	protected Graph reopenGraph(Graph graph, String identifier) throws IOException {
 
 		graph.close();
 
-		String path = "xdi2-test-graph." + id + ".properties";
-
-		graphFactory.setPath(path);
-
-		return graphFactory.openGraph();
+		return graphFactory.openGraph(identifier);
 	}
 }

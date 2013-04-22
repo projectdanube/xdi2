@@ -30,9 +30,10 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.CheckOwnerInterceptor;
-import xdi2.messaging.target.interceptor.impl.LinkContractsInterceptor;
+import xdi2.messaging.target.interceptor.impl.LinkContractInterceptor;
+import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
 import xdi2.messaging.target.interceptor.impl.RefInterceptor;
+import xdi2.messaging.target.interceptor.impl.ToInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 
 /**
@@ -148,8 +149,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("category", category);
 		request.setAttribute("sample", sample);
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
-		request.setAttribute("writeContexts", null);
+		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
+		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
 		request.setAttribute("variablesSupport", "on");
 		request.setAttribute("dollarRefSupport", "on");
@@ -169,8 +171,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String category = request.getParameter("category");
 		String sample = request.getParameter("sample");
 		String resultFormat = request.getParameter("resultFormat");
-		String writeContexts = request.getParameter("writeContexts");
+		String writeImplied = request.getParameter("writeImplied");
 		String writeOrdered = request.getParameter("writeOrdered");
+		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
 		String variablesSupport = request.getParameter("variablesSupport");
 		String dollarRefSupport = request.getParameter("dollarRefSupport");
@@ -183,9 +186,10 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		Properties xdiResultWriterParameters = new Properties();
 
-		if ("on".equals(writeContexts)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_CONTEXTS, "1");
-		if ("on".equals(writeOrdered)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
-		if ("on".equals(writePretty)) xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "1");
+		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
+		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
+		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
+		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiInputWriter;
@@ -214,8 +218,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 			messagingTarget.setGraph(graphInput);
 
-			CheckOwnerInterceptor checkOwnerInterceptor = new CheckOwnerInterceptor();
-			messagingTarget.getInterceptors().add(checkOwnerInterceptor);
+			ToInterceptor toInterceptor = new ToInterceptor();
+			messagingTarget.getInterceptors().add(toInterceptor);
+
+			MessagePolicyInterceptor messagePolicyInterceptor = new MessagePolicyInterceptor();
+			messagePolicyInterceptor.setMessagePolicyGraph(graphInput);
+			messagingTarget.getInterceptors().add(messagePolicyInterceptor);
 
 			if ("on".equals(variablesSupport)) {
 
@@ -225,15 +233,15 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			if ("on".equals(dollarRefSupport)) {
 
-				RefInterceptor dollarRefInterceptor = new RefInterceptor();
-				messagingTarget.getInterceptors().add(dollarRefInterceptor);
+				RefInterceptor refInterceptor = new RefInterceptor();
+				messagingTarget.getInterceptors().add(refInterceptor);
 			}
 
 			if ("on".equals(linkContractsSupport)) {
 
-				LinkContractsInterceptor linkContractsInterceptor = new LinkContractsInterceptor();
-				linkContractsInterceptor.setLinkContractsGraph(graphInput);
-				messagingTarget.getInterceptors().add(linkContractsInterceptor);
+				LinkContractInterceptor linkContractInterceptor = new LinkContractInterceptor();
+				linkContractInterceptor.setLinkContractsGraph(graphInput);
+				messagingTarget.getInterceptors().add(linkContractInterceptor);
 			}
 
 			messagingTarget.init();
@@ -295,8 +303,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("sampleMessages", sampleMessages);
 		request.setAttribute("sampleTooltips", sampleTooltips);
 		request.setAttribute("resultFormat", resultFormat);
-		request.setAttribute("writeContexts", writeContexts);
+		request.setAttribute("writeImplied", writeImplied);
 		request.setAttribute("writeOrdered", writeOrdered);
+		request.setAttribute("writeInner", writeInner);
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("variablesSupport", variablesSupport);
 		request.setAttribute("dollarRefSupport", dollarRefSupport);

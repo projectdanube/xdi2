@@ -9,10 +9,10 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.features.roots.InnerRoot;
-import xdi2.core.util.GraphUtil;
-import xdi2.core.util.iterators.SingleItemIterator;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.features.linkcontracts.policy.Policy;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
+import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.roots.XdiLocalRoot;
 
 /**
  * An XDI $false operator, represented as a relation.
@@ -39,8 +39,10 @@ public class FalseOperator extends ConditionOperator {
 	 */
 	public static boolean isValid(Relation relation) {
 
+		if (! XdiAbstractEntity.isValid(relation.getContextNode())) return false;
+		if (! Policy.isValid(XdiAbstractEntity.fromContextNode(relation.getContextNode()))) return false;
 		if (! XDIConstants.XRI_S_FALSE.equals(relation.getArcXri())) return false;
-		if (! InnerRoot.isValid(relation.follow())) return false;
+		if (! XdiInnerRoot.isValid(relation.follow())) return false;
 
 		return true;
 	}
@@ -57,11 +59,15 @@ public class FalseOperator extends ConditionOperator {
 		return new FalseOperator(relation);
 	}
 
-	public static FalseOperator fromCondition(Condition condition) {
+	public static FalseOperator createFalseOperator(Policy policy, Condition condition) {
 
-		InnerRoot innerRoot = GraphUtil.innerRootFromComponents(XDIConstants.XRI_S_ROOT, XDIConstants.XRI_S_FALSE, new SingleItemIterator<XDI3Statement> (condition.getStatement()));
+		if (policy == null) throw new NullPointerException();
 
-		return fromRelation(innerRoot.getPredicateRelation());
+		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(policy.getContextNode().getGraph()).findInnerRoot(policy.getContextNode().getXri(), XDIConstants.XRI_S_FALSE, true);
+
+		xdiInnerRoot.createRelativeStatement(condition.getStatement());
+
+		return fromRelation(xdiInnerRoot.getPredicateRelation());
 	}
 
 	/*

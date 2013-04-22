@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.roots.RemoteRoot;
+import xdi2.core.features.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractMessagingTarget;
@@ -15,7 +15,7 @@ import xdi2.messaging.target.contributor.ContributorMap;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.factory.AbstractMessagingTargetFactory;
-import xdi2.server.registry.EndpointRegistry;
+import xdi2.server.registry.HttpEndpointRegistry;
 
 public abstract class PrototypingMessagingTargetFactory extends AbstractMessagingTargetFactory {
 
@@ -24,9 +24,9 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public void mountMessagingTarget(EndpointRegistry endpointRegistry, String messagingTargetPath, XDI3Segment owner, RemoteRoot ownerRemoteRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
+	public void mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetPath, XDI3Segment owner, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
 
-		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", owner=" + owner + ", ownerRemoteRoot=" + ownerRemoteRoot + ", ownerContextNode=" + ownerContextNode);
+		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", owner=" + owner + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
 
 		// create new messaging target
 
@@ -35,7 +35,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 			throw new Xdi2MessagingException("Cannot use messaging target " + this.getPrototypeMessagingTarget().getClass().getSimpleName() + " as prototype.", null, null);
 		}
 
-		PrototypingContext prototypingContext = new PrototypingContext(owner, ownerRemoteRoot, ownerContextNode);
+		PrototypingContext prototypingContext = new PrototypingContext(owner, ownerPeerRoot, ownerContextNode);
 
 		Prototype<? extends MessagingTarget> messagingTargetPrototype; 
 		MessagingTarget prototypedMessagingTarget;
@@ -71,7 +71,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 
 		// mount the new messaging target
 
-		endpointRegistry.mountMessagingTarget(messagingTargetPath, prototypedMessagingTarget);
+		httpEndpointRegistry.mountMessagingTarget(messagingTargetPath, prototypedMessagingTarget);
 	}
 
 	public MessagingTarget getPrototypeMessagingTarget() {

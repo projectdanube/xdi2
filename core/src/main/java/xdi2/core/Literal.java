@@ -49,7 +49,7 @@ public interface Literal extends Serializable, Comparable<Literal> {
 	 */
 
 	/**
-	 * Gets the statement that contains this literal.
+	 * Gets the statement that represents this literal.
 	 * @return A statement.
 	 */
 	public LiteralStatement getStatement();

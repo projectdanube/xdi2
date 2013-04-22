@@ -29,14 +29,8 @@ public class BDBGraphMessagingTargetTest extends AbstractGraphMessagingTargetTes
 	}
 
 	@Override
-	protected Graph openNewGraph(String id) throws IOException {
+	protected Graph openNewGraph(String identifier) throws IOException {
 
-		String databaseName = "xdi2-test-graph." + id;
-
-		graphFactory.setDatabaseName(databaseName);
-
-		Graph graph = graphFactory.openGraph();
-
-		return graph;
+		return graphFactory.openGraph(identifier);
 	}
 }

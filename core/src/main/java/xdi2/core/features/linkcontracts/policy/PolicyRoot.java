@@ -2,16 +2,16 @@ package xdi2.core.features.linkcontracts.policy;
 
 import java.util.Iterator;
 
-import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.LinkContract;
+import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
-import xdi2.core.features.multiplicity.XdiEntityMember;
-import xdi2.core.features.multiplicity.XdiEntitySingleton;
-import xdi2.core.features.multiplicity.XdiSubGraph;
+import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 
 /**
- * An XDI root policy, represented as an XDI subgraph.
+ * An XDI root policy, represented as an XDI entity.
  * 
  * @author markus
  */
@@ -19,15 +19,9 @@ public final class PolicyRoot extends Policy {
 
 	private static final long serialVersionUID = -9212794041490417047L;
 
-	private LinkContract linkContract;
+	protected PolicyRoot(XdiEntity xdiEntity) {
 
-	protected PolicyRoot(LinkContract linkContract, XdiSubGraph xdiSubGraph) {
-
-		super(xdiSubGraph);
-
-		if (linkContract == null) throw new NullPointerException();
-
-		this.linkContract = linkContract;
+		super(xdiEntity);
 	}
 
 	/*
@@ -35,45 +29,37 @@ public final class PolicyRoot extends Policy {
 	 */
 
 	/**
-	 * Checks if an XDI subgraph is a valid XDI root policy.
-	 * @param xdiSubGraph The XDI subgraph to check.
-	 * @return True if the XDI subgraph is a valid XDI root policy.
+	 * Checks if an XDI entity is a valid XDI root policy.
+	 * @param xdiEntity The XDI entity to check.
+	 * @return True if the XDI entity is a valid XDI root policy.
 	 */
-	public static boolean isValid(XdiSubGraph xdiSubGraph) {
+	public static boolean isValid(XdiEntity xdiEntity) {
 
-		if (xdiSubGraph instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) xdiSubGraph).getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_IF);
-		else if (xdiSubGraph instanceof XdiEntityMember)
-			return ((XdiEntityMember) xdiSubGraph).getParentCollection().getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_IF);
+		if (xdiEntity instanceof XdiEntitySingleton)
+			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
+		else if (xdiEntity instanceof XdiEntityInstanceUnordered)
+			return ((XdiEntityInstanceUnordered) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
+		else if (xdiEntity instanceof XdiEntityInstanceOrdered)
+			return ((XdiEntityInstanceOrdered) xdiEntity).getXdiClass().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_IF);
 
 		return false;
 	}
 
 	/**
 	 * Factory method that creates an XDI root policy bound to a given XDI subgraph.
-	 * @param linkContract The XDI link contract to which this XDI policy root belongs.
-	 * @param xdiSubGraph The XDI subgraph that is an XDI root policy.
+	 * @param xdiEntity The XDI subgraph that is an XDI root policy.
 	 * @return The XDI root policy.
 	 */
-	public static PolicyRoot fromLinkContractAndSubGraph(LinkContract linkContract, XdiSubGraph xdiSubGraph) {
+	public static PolicyRoot fromXdiEntity(XdiEntity xdiEntity) {
 
-		if (! isValid(xdiSubGraph)) return null;
+		if (! isValid(xdiEntity)) return null;
 
-		return new PolicyRoot(linkContract, xdiSubGraph);
+		return new PolicyRoot(xdiEntity);
 	}
 
 	/*
 	 * Instance methods
 	 */
-
-	/**
-	 * Returns the XDI link contract to which this XDI root policy belongs.
-	 * @return An XDI link contract.
-	 */
-	public LinkContract getLinkContract() {
-
-		return this.linkContract;
-	}
 
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {

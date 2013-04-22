@@ -3,7 +3,7 @@
  * -----------------------------------------------------------------------------
  *
  * Producer : com.parse2.aparse.Parser 2.3
- * Produced : Wed Feb 20 10:37:39 CET 2013
+ * Produced : Wed Apr 03 23:48:03 CEST 2013
  *
  * -----------------------------------------------------------------------------
  */
@@ -31,7 +31,7 @@ public class Parser
     if (ok)
     {
       arguments.setProperty("Trace", "Off");
-      arguments.setProperty("Rule", "xdi-context");
+      arguments.setProperty("Rule", "xdi-graph");
 
       for (int i = 0; i < args.length; i++)
       {
@@ -160,74 +160,82 @@ public class Parser
     ParserContext context = new ParserContext(string, trace);
 
     Rule rule = null;
-    if (rulename.equalsIgnoreCase("xdi-context")) rule = Rule_xdi_context.parse(context);
+    if (rulename.equalsIgnoreCase("xdi-graph")) rule = Rule_xdi_graph.parse(context);
     else if (rulename.equalsIgnoreCase("xdi-statement")) rule = Rule_xdi_statement.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-subject")) rule = Rule_xdi_subject.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-predicate")) rule = Rule_xdi_predicate.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-object")) rule = Rule_xdi_object.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-segment")) rule = Rule_xdi_segment.parse(context);
-    else if (rulename.equalsIgnoreCase("subseg")) rule = Rule_subseg.parse(context);
-    else if (rulename.equalsIgnoreCase("global-subseg")) rule = Rule_global_subseg.parse(context);
-    else if (rulename.equalsIgnoreCase("local-subseg")) rule = Rule_local_subseg.parse(context);
-    else if (rulename.equalsIgnoreCase("gcs-char")) rule = Rule_gcs_char.parse(context);
-    else if (rulename.equalsIgnoreCase("lcs-char")) rule = Rule_lcs_char.parse(context);
+    else if (rulename.equalsIgnoreCase("contextual-statement")) rule = Rule_contextual_statement.parse(context);
+    else if (rulename.equalsIgnoreCase("direct-contextual")) rule = Rule_direct_contextual.parse(context);
+    else if (rulename.equalsIgnoreCase("inverse-contextual")) rule = Rule_inverse_contextual.parse(context);
+    else if (rulename.equalsIgnoreCase("absolute")) rule = Rule_absolute.parse(context);
+    else if (rulename.equalsIgnoreCase("peer-relative")) rule = Rule_peer_relative.parse(context);
+    else if (rulename.equalsIgnoreCase("context-relative")) rule = Rule_context_relative.parse(context);
+    else if (rulename.equalsIgnoreCase("class-relative")) rule = Rule_class_relative.parse(context);
+    else if (rulename.equalsIgnoreCase("absolute-inverse")) rule = Rule_absolute_inverse.parse(context);
+    else if (rulename.equalsIgnoreCase("peer-inverse")) rule = Rule_peer_inverse.parse(context);
+    else if (rulename.equalsIgnoreCase("context-inverse")) rule = Rule_context_inverse.parse(context);
+    else if (rulename.equalsIgnoreCase("class-inverse")) rule = Rule_class_inverse.parse(context);
+    else if (rulename.equalsIgnoreCase("relational-statement")) rule = Rule_relational_statement.parse(context);
+    else if (rulename.equalsIgnoreCase("direct-relational")) rule = Rule_direct_relational.parse(context);
+    else if (rulename.equalsIgnoreCase("inverse-relational")) rule = Rule_inverse_relational.parse(context);
+    else if (rulename.equalsIgnoreCase("inner-relational")) rule = Rule_inner_relational.parse(context);
+    else if (rulename.equalsIgnoreCase("inner-statement")) rule = Rule_inner_statement.parse(context);
+    else if (rulename.equalsIgnoreCase("literal-statement")) rule = Rule_literal_statement.parse(context);
+    else if (rulename.equalsIgnoreCase("context")) rule = Rule_context.parse(context);
+    else if (rulename.equalsIgnoreCase("relative-context")) rule = Rule_relative_context.parse(context);
+    else if (rulename.equalsIgnoreCase("class-context")) rule = Rule_class_context.parse(context);
+    else if (rulename.equalsIgnoreCase("class-path")) rule = Rule_class_path.parse(context);
+    else if (rulename.equalsIgnoreCase("instance-context")) rule = Rule_instance_context.parse(context);
+    else if (rulename.equalsIgnoreCase("literal-context")) rule = Rule_literal_context.parse(context);
+    else if (rulename.equalsIgnoreCase("literal-path")) rule = Rule_literal_path.parse(context);
+    else if (rulename.equalsIgnoreCase("attribute-pair")) rule = Rule_attribute_pair.parse(context);
+    else if (rulename.equalsIgnoreCase("value-context")) rule = Rule_value_context.parse(context);
+    else if (rulename.equalsIgnoreCase("root")) rule = Rule_root.parse(context);
+    else if (rulename.equalsIgnoreCase("local-root")) rule = Rule_local_root.parse(context);
+    else if (rulename.equalsIgnoreCase("peer-root")) rule = Rule_peer_root.parse(context);
+    else if (rulename.equalsIgnoreCase("inner-root")) rule = Rule_inner_root.parse(context);
     else if (rulename.equalsIgnoreCase("xref")) rule = Rule_xref.parse(context);
-    else if (rulename.equalsIgnoreCase("xref-empty")) rule = Rule_xref_empty.parse(context);
-    else if (rulename.equalsIgnoreCase("xref-IRI")) rule = Rule_xref_IRI.parse(context);
-    else if (rulename.equalsIgnoreCase("xref-segment")) rule = Rule_xref_segment.parse(context);
-    else if (rulename.equalsIgnoreCase("xref-subject-predicate")) rule = Rule_xref_subject_predicate.parse(context);
-    else if (rulename.equalsIgnoreCase("xref-statement")) rule = Rule_xref_statement.parse(context);
-    else if (rulename.equalsIgnoreCase("xref-literal")) rule = Rule_xref_literal.parse(context);
-    else if (rulename.equalsIgnoreCase("literal")) rule = Rule_literal.parse(context);
-    else if (rulename.equalsIgnoreCase("xdi-pchar")) rule = Rule_xdi_pchar.parse(context);
-    else if (rulename.equalsIgnoreCase("IRI")) rule = Rule_IRI.parse(context);
-    else if (rulename.equalsIgnoreCase("scheme")) rule = Rule_scheme.parse(context);
-    else if (rulename.equalsIgnoreCase("ihier-part")) rule = Rule_ihier_part.parse(context);
-    else if (rulename.equalsIgnoreCase("iauthority")) rule = Rule_iauthority.parse(context);
-    else if (rulename.equalsIgnoreCase("iuserinfo")) rule = Rule_iuserinfo.parse(context);
-    else if (rulename.equalsIgnoreCase("ihost")) rule = Rule_ihost.parse(context);
-    else if (rulename.equalsIgnoreCase("IP-literal")) rule = Rule_IP_literal.parse(context);
-    else if (rulename.equalsIgnoreCase("IPvFuture")) rule = Rule_IPvFuture.parse(context);
-    else if (rulename.equalsIgnoreCase("IPv6address")) rule = Rule_IPv6address.parse(context);
-    else if (rulename.equalsIgnoreCase("ls32")) rule = Rule_ls32.parse(context);
-    else if (rulename.equalsIgnoreCase("h16")) rule = Rule_h16.parse(context);
-    else if (rulename.equalsIgnoreCase("IPv4address")) rule = Rule_IPv4address.parse(context);
-    else if (rulename.equalsIgnoreCase("dec-octet")) rule = Rule_dec_octet.parse(context);
-    else if (rulename.equalsIgnoreCase("ireg-name")) rule = Rule_ireg_name.parse(context);
-    else if (rulename.equalsIgnoreCase("port")) rule = Rule_port.parse(context);
-    else if (rulename.equalsIgnoreCase("ipath-abempty")) rule = Rule_ipath_abempty.parse(context);
-    else if (rulename.equalsIgnoreCase("ipath-abs")) rule = Rule_ipath_abs.parse(context);
-    else if (rulename.equalsIgnoreCase("ipath-rootless")) rule = Rule_ipath_rootless.parse(context);
-    else if (rulename.equalsIgnoreCase("ipath-empty")) rule = Rule_ipath_empty.parse(context);
-    else if (rulename.equalsIgnoreCase("isegment")) rule = Rule_isegment.parse(context);
-    else if (rulename.equalsIgnoreCase("isegment-nz")) rule = Rule_isegment_nz.parse(context);
-    else if (rulename.equalsIgnoreCase("iquery")) rule = Rule_iquery.parse(context);
-    else if (rulename.equalsIgnoreCase("iprivate")) rule = Rule_iprivate.parse(context);
-    else if (rulename.equalsIgnoreCase("ifragment")) rule = Rule_ifragment.parse(context);
-    else if (rulename.equalsIgnoreCase("ipchar")) rule = Rule_ipchar.parse(context);
-    else if (rulename.equalsIgnoreCase("iunreserved")) rule = Rule_iunreserved.parse(context);
-    else if (rulename.equalsIgnoreCase("pct-encoded")) rule = Rule_pct_encoded.parse(context);
-    else if (rulename.equalsIgnoreCase("ucschar")) rule = Rule_ucschar.parse(context);
-    else if (rulename.equalsIgnoreCase("reserved")) rule = Rule_reserved.parse(context);
-    else if (rulename.equalsIgnoreCase("gen-delims")) rule = Rule_gen_delims.parse(context);
-    else if (rulename.equalsIgnoreCase("sub-delims")) rule = Rule_sub_delims.parse(context);
-    else if (rulename.equalsIgnoreCase("unreserved")) rule = Rule_unreserved.parse(context);
+    else if (rulename.equalsIgnoreCase("subpath")) rule = Rule_subpath.parse(context);
+    else if (rulename.equalsIgnoreCase("subsegment")) rule = Rule_subsegment.parse(context);
+    else if (rulename.equalsIgnoreCase("singleton")) rule = Rule_singleton.parse(context);
+    else if (rulename.equalsIgnoreCase("entity-singleton")) rule = Rule_entity_singleton.parse(context);
+    else if (rulename.equalsIgnoreCase("attribute-singleton")) rule = Rule_attribute_singleton.parse(context);
+    else if (rulename.equalsIgnoreCase("person-singleton")) rule = Rule_person_singleton.parse(context);
+    else if (rulename.equalsIgnoreCase("organization-singleton")) rule = Rule_organization_singleton.parse(context);
+    else if (rulename.equalsIgnoreCase("relative-singleton")) rule = Rule_relative_singleton.parse(context);
+    else if (rulename.equalsIgnoreCase("class")) rule = Rule_class.parse(context);
+    else if (rulename.equalsIgnoreCase("entity-class")) rule = Rule_entity_class.parse(context);
+    else if (rulename.equalsIgnoreCase("type-class")) rule = Rule_type_class.parse(context);
+    else if (rulename.equalsIgnoreCase("instance-class")) rule = Rule_instance_class.parse(context);
+    else if (rulename.equalsIgnoreCase("specific")) rule = Rule_specific.parse(context);
+    else if (rulename.equalsIgnoreCase("generic")) rule = Rule_generic.parse(context);
+    else if (rulename.equalsIgnoreCase("person")) rule = Rule_person.parse(context);
+    else if (rulename.equalsIgnoreCase("organization")) rule = Rule_organization.parse(context);
+    else if (rulename.equalsIgnoreCase("attribute-class")) rule = Rule_attribute_class.parse(context);
+    else if (rulename.equalsIgnoreCase("instance")) rule = Rule_instance.parse(context);
+    else if (rulename.equalsIgnoreCase("element")) rule = Rule_element.parse(context);
+    else if (rulename.equalsIgnoreCase("json-value")) rule = Rule_json_value.parse(context);
+    else if (rulename.equalsIgnoreCase("json-string")) rule = Rule_json_string.parse(context);
+    else if (rulename.equalsIgnoreCase("json-number")) rule = Rule_json_number.parse(context);
+    else if (rulename.equalsIgnoreCase("json-boolean")) rule = Rule_json_boolean.parse(context);
+    else if (rulename.equalsIgnoreCase("json-array")) rule = Rule_json_array.parse(context);
+    else if (rulename.equalsIgnoreCase("json-object")) rule = Rule_json_object.parse(context);
+    else if (rulename.equalsIgnoreCase("ipv6-literal")) rule = Rule_ipv6_literal.parse(context);
+    else if (rulename.equalsIgnoreCase("uuid-literal")) rule = Rule_uuid_literal.parse(context);
+    else if (rulename.equalsIgnoreCase("time-low")) rule = Rule_time_low.parse(context);
+    else if (rulename.equalsIgnoreCase("time-mid")) rule = Rule_time_mid.parse(context);
+    else if (rulename.equalsIgnoreCase("time-high")) rule = Rule_time_high.parse(context);
+    else if (rulename.equalsIgnoreCase("clock-seq")) rule = Rule_clock_seq.parse(context);
+    else if (rulename.equalsIgnoreCase("clock-seq-low")) rule = Rule_clock_seq_low.parse(context);
+    else if (rulename.equalsIgnoreCase("node")) rule = Rule_node.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-chars")) rule = Rule_xdi_chars.parse(context);
+    else if (rulename.equalsIgnoreCase("iri-chars")) rule = Rule_iri_chars.parse(context);
+    else if (rulename.equalsIgnoreCase("nonparen-delim")) rule = Rule_nonparen_delim.parse(context);
+    else if (rulename.equalsIgnoreCase("context-symbol")) rule = Rule_context_symbol.parse(context);
+    else if (rulename.equalsIgnoreCase("xdi-char")) rule = Rule_xdi_char.parse(context);
     else if (rulename.equalsIgnoreCase("ALPHA")) rule = Rule_ALPHA.parse(context);
-    else if (rulename.equalsIgnoreCase("BIT")) rule = Rule_BIT.parse(context);
-    else if (rulename.equalsIgnoreCase("CHAR")) rule = Rule_CHAR.parse(context);
-    else if (rulename.equalsIgnoreCase("CR")) rule = Rule_CR.parse(context);
-    else if (rulename.equalsIgnoreCase("CRLF")) rule = Rule_CRLF.parse(context);
-    else if (rulename.equalsIgnoreCase("CTL")) rule = Rule_CTL.parse(context);
     else if (rulename.equalsIgnoreCase("DIGIT")) rule = Rule_DIGIT.parse(context);
-    else if (rulename.equalsIgnoreCase("DQUOTE")) rule = Rule_DQUOTE.parse(context);
     else if (rulename.equalsIgnoreCase("HEXDIG")) rule = Rule_HEXDIG.parse(context);
-    else if (rulename.equalsIgnoreCase("HTAB")) rule = Rule_HTAB.parse(context);
-    else if (rulename.equalsIgnoreCase("LF")) rule = Rule_LF.parse(context);
-    else if (rulename.equalsIgnoreCase("LWSP")) rule = Rule_LWSP.parse(context);
-    else if (rulename.equalsIgnoreCase("OCTET")) rule = Rule_OCTET.parse(context);
-    else if (rulename.equalsIgnoreCase("SP")) rule = Rule_SP.parse(context);
-    else if (rulename.equalsIgnoreCase("VCHAR")) rule = Rule_VCHAR.parse(context);
-    else if (rulename.equalsIgnoreCase("WSP")) rule = Rule_WSP.parse(context);
+    else if (rulename.equalsIgnoreCase("CRLF")) rule = Rule_CRLF.parse(context);
+    else if (rulename.equalsIgnoreCase("DQUOTE")) rule = Rule_DQUOTE.parse(context);
     else throw new IllegalArgumentException("unknown rule");
 
     if (rule == null)

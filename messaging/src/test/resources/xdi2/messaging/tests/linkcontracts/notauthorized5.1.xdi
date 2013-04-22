@@ -1,4 +1,4 @@
-=!3333$($msg)$(!1)/$is()/(=!1111)
-=!3333$($msg)$(!1)/$do/$do
-=!3333$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+domain)/!/(data:,cloudos))
-=!3333$($msg)$(!1)$do/$do$send/(=!1111$(+channel)$(!23)$(+event)($1)$!(+type)/!/(data:,notification))
+=!3333$msg!1/$is()/(=!1111)
+=!3333$msg!1/$do/[$do]
+=!3333$msg!1[$do]/$do$send/(=!1111+channel!23+event{1}[<$domain>]:/:/"cloudos")
+=!3333$msg!1[$do]/$do$send/(=!1111+channel!23+event{1}[<+type>]:/:/"notification")

@@ -16,7 +16,7 @@ public class BDBKeyValueTest extends AbstractKeyValueTest {
 	@Override
 	protected KeyValueStore getKeyValueStore(String id) throws IOException {
 
-		String databaseName = "xdi2-test-graph." + id;
+		String databaseName = "xdi2-keyvalue." + id;
 
 		// we use the current working directory
 

@@ -11,6 +11,13 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2GraphException;
+import xdi2.core.features.nodetypes.XdiAbstractAttribute;
+import xdi2.core.features.nodetypes.XdiAbstractClass;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -127,13 +134,13 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 
 	@Override
-	public ContextNode createContextNodes(XDI3Segment arcXri) {
+	public ContextNode createContextNodes(XDI3Segment arcXris) {
 
 		ContextNode contextNode = this;
 
-		for (int i = 0; i < arcXri.getNumSubSegments(); i++) {
+		for (int i = 0; i < arcXris.getNumSubSegments(); i++) {
 
-			contextNode = contextNode.createContextNode(arcXri.getSubSegment(i));
+			contextNode = contextNode.createContextNode(arcXris.getSubSegment(i));
 		}
 
 		return contextNode;
@@ -166,7 +173,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			}
 		};
 
-		List<Iterator<ContextNode>> list = new ArrayList<Iterator<ContextNode>> ();
+		List<Iterator<? extends ContextNode>> list = new ArrayList<Iterator<? extends ContextNode>> ();
 		list.add(this.getContextNodes());
 		list.add(descendingIterator);
 
@@ -325,7 +332,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			}
 		};
 
-		List<Iterator<Relation>> list = new ArrayList<Iterator<Relation>> ();
+		List<Iterator<? extends Relation>> list = new ArrayList<Iterator<? extends Relation>> ();
 		list.add(this.getRelations());
 		list.add(descendingIterator);
 
@@ -424,7 +431,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		Literal literal = this.getLiteral();
 
-		List<Iterator<Literal>> list = new ArrayList<Iterator<Literal>> ();
+		List<Iterator<? extends Literal>> list = new ArrayList<Iterator<? extends Literal>> ();
 		if (literal != null) list.add(new SingleItemIterator<Literal> (literal));
 		list.add(descendingIterator);
 
@@ -497,7 +504,7 @@ public abstract class AbstractContextNode implements ContextNode {
 				@Override
 				public Iterator<Statement> descend(ContextNode contextNode) {
 
-					List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+					List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
 					list.add(new SingleItemIterator<Statement> (contextNode.getStatement()));
 					list.add(contextNode.getAllStatements());
 
@@ -523,7 +530,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			literalStatement = new SingleItemIterator<Statement> (this.getLiteral().getStatement());
 		}
 
-		List<Iterator<Statement>> list = new ArrayList<Iterator<Statement>> ();
+		List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
 		if (contextNodesStatements != null) list.add(contextNodesStatements);
 		if (relationsStatements != null) list.add(relationsStatements);
 		if (literalStatement != null) list.add(literalStatement);
@@ -535,6 +542,55 @@ public abstract class AbstractContextNode implements ContextNode {
 	public int getAllStatementCount() {
 
 		return new IteratorCounter(this.getAllStatements()).count();
+	}
+
+	/*
+	 * Methods related to checking graph validity
+	 */
+
+	/**
+	 * Checks if a context node can be created.
+	 */
+	protected void checkCreateContextNode(XDI3SubSegment arcXri) throws Xdi2GraphException {
+
+		if (arcXri == null) throw new NullPointerException();
+
+		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid context node arc XRI: " + arcXri);
+
+		ContextNode tempContextNode = new BasicContextNode(this.getGraph(), this, arcXri, null, null, null);
+
+		if (! XdiAbstractSubGraph.isValid(tempContextNode)) throw new Xdi2GraphException("Invalid subgraph: " + arcXri);
+		if (XdiValue.isValid(tempContextNode) && ! XdiAbstractAttribute.isValid(this)) throw new Xdi2GraphException("Can only create a value context in an attribute context.");
+		if (XdiAbstractInstanceUnordered.isValid(tempContextNode) && ! XdiAbstractClass.isValid(this)) throw new Xdi2GraphException("Can only create an instance context in a class context.");
+		if (XdiAbstractInstanceOrdered.isValid(tempContextNode) && ! XdiAbstractClass.isValid(this)) throw new Xdi2GraphException("Can only create an element context in a class context.");
+
+		if (this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
+	}
+
+	/**
+	 * Checks if a relation can be created.
+	 */
+	protected void checkCreateRelation(XDI3Segment arcXri, ContextNode targetContextNode) throws Xdi2GraphException {
+
+		if (arcXri == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
+
+		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
+		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
+
+		if (this.containsRelation(arcXri, targetContextNode.getXri())) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
+	}
+
+	/**
+	 * Checks if a literal can be created.
+	 */
+	protected void checkCreateLiteral(String literalData) throws Xdi2GraphException {
+
+		if (literalData == null) throw new NullPointerException();
+
+		if (! XdiValue.isValid(this)) throw new Xdi2GraphException("Can only create a literal in a value context.");
+
+		if (this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
 	}
 
 	/*

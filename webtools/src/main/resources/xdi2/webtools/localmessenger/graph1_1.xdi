@@ -1,17 +1,9 @@
-=!1111$(+passport)/()/$d
-=!1111$(+passport)/()/$v
-=!1111$(+passport)$(!2)/()/$d
-=!1111$(+passport)$(!2)/()/$v
-=!1111$(+passport)$(!2)+expires/()/$d
-=!1111$(+passport)$(!2)+expires/()/$v
-=!1111$(+passport)$(!2)+expires/!/(data:,2010J10J01T00:00:00Z)
-=!1111$(+passport)$(!2)$!(+country)/!/(data:,New%2520Zealand)
-=!1111$(+passport)$(!2)$!(+num)/!/(data:,123456789)
-=!1111$(+passport)+ca/$ref/!1
-=!1111$(+passport)+nz/$ref/!2
-=!1111$(+passport)$(!1)$!(+country)/!/(data:,Canada)
-=!1111$(+passport)$(!1)$!(+num)/!/(data:,987654321)
-=!1111$(+passport)$(!1)+expires/!/(data:,2005J01J01T00:00:00Z)
+=!1111+passport!1[<+country>]:/:/"Canada"
+=!1111+passport!1[<+num>]:/:/"987654321"
+=!1111+passport!1[<+expires>]:/:/"2005J01J01T00:00:00Z"
+=!1111+passport!2[<+country>]:/:/"New Zealand"
+=!1111+passport!2[<+num>]:/:/"123456789"
+=!1111+passport!2[<+expires>]:/:/"2010J10J01T00:00:00Z"
 (=!1111)/$ref/()
 =abc/$ref/=!1111
 ()/$is$ref/(=!1111)

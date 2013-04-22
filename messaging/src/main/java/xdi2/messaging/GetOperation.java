@@ -1,8 +1,9 @@
 package xdi2.messaging;
 
 import xdi2.core.Relation;
-import xdi2.core.util.XRIUtil;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
+import xdi2.core.util.XDI3Util;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -14,7 +15,8 @@ public class GetOperation extends Operation {
 
 	private static final long serialVersionUID = -1452297650590584104L;
 
-	public static final XDI3Segment XRI_EXTENSION_DEREF = XDI3Segment.create("$deref");
+	public static final XDI3SubSegment XRI_PARAMETER_DEREF = XDI3SubSegment.create("$deref");
+	public static final XDI3SubSegment XRI_PARAMETER_PROXY = XDI3SubSegment.create("$proxy");
 
 	protected GetOperation(Message message, Relation relation) {
 
@@ -32,8 +34,8 @@ public class GetOperation extends Operation {
 	 */
 	public static boolean isValid(Relation relation) {
 
-		if (! XRIUtil.startsWith(relation.getArcXri(), XDIMessagingConstants.XRI_S_GET)) return false;
-		if (! XDIMessagingConstants.XRI_S_DO.equals(relation.getContextNode().getArcXri())) return false;
+		if (! XDI3Util.startsWith(relation.getArcXri(), XDIMessagingConstants.XRI_S_GET)) return false;
+		if (! XdiEntitySingleton.createArcXri(XDIMessagingConstants.XRI_SS_DO).equals(relation.getContextNode().getArcXri())) return false;
 
 		return true;
 	}
