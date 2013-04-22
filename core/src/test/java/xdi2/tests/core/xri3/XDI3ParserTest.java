@@ -62,11 +62,11 @@ public abstract class XDI3ParserTest extends TestCase {
 
 		XDI3Parser parser = this.getParser();
 
-		XDI3Segment segment = parser.parseXDI3Segment("[+user][<+(first_name)>]");
+		XDI3Segment segment = parser.parseXDI3Segment("+(user)<+(first_name)>");
 
 		assertEquals(segment.getNumSubSegments(), 2);
-		assertEquals(segment.getSubSegment(0), parser.parseXDI3SubSegment("[+user]"));
-		assertEquals(segment.getSubSegment(1), parser.parseXDI3SubSegment("[<+(first_name)>]"));
+		assertEquals(segment.getSubSegment(0), parser.parseXDI3SubSegment("+(user)"));
+		assertEquals(segment.getSubSegment(1), parser.parseXDI3SubSegment("<+(first_name)>"));
 	}
 
 	public void testXDI3Statement() throws Exception {

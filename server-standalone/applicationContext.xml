@@ -85,7 +85,7 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
-					<property name="bootstrapOwner" value="=!BDF3.1FB.E70C.3958" />
+					<property name="bootstrapOwner" value="[=]!BDF3.1FB.E70C.3958" />
 					<property name="bootstrapOwnerSynonyms">
 						<util:list>
 							<value>=danube</value>
@@ -168,7 +168,7 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
-					<property name="bootstrapOwner" value="=!91F2.8153.F600.AE24" />
+					<property name="bootstrapOwner" value="[=]!91F2.8153.F600.AE24" />
 					<property name="bootstrapOwnerSynonyms">
 						<util:list>
 							<value>=markus</value>
