@@ -67,7 +67,7 @@
 
 	<bean id="registrygraphfactory" class="xdi2.core.impl.wrapped.file.FileGraphFactory">
 		<property name="path" value="registry.xdi" />
-		<property name="mimeType" value="text/xdi;contexts=0;ordered=1" />
+		<property name="mimeType" value="text/xdi;ordered=1" />
 	</bean>
 
 	<bean id="registrygraph" factory-bean="registrygraphfactory" factory-method="openGraph" />
@@ -146,7 +146,7 @@
 
 	<bean name="/file-graph" class="xdi2.messaging.target.impl.file.FileMessagingTarget">
 		<property name="path" value="./xdi2-file/graph.xdi" />
-		<property name="mimeType" value="application/xdi+json;contexts=0;ordered=1" />
+		<property name="mimeType" value="application/xdi+json;implied=1;ordered=1" />
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
