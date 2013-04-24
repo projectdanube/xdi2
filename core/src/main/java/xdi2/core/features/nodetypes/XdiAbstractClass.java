@@ -246,7 +246,7 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 
 	public class XdiInstancesOrderedIterator extends ReadOnlyIterator<O> {
 
-		private int index = 1;
+		private int index = 0;
 		private O nextXdiElement = null;
 		private boolean triedNextXdiElement = false;
 
