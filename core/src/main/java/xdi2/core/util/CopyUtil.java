@@ -72,7 +72,7 @@ public final class CopyUtil {
 			targetContextNode = targetParentContextNode.createContextNode(contextNode.getArcXri());
 		}
 
-		CopyUtil.copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
+		copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
 
 		return targetContextNode;
 	}
@@ -95,7 +95,7 @@ public final class CopyUtil {
 		ContextNode targetInnerContextNode = targetContextNode.getContextNode(contextNode.getArcXri());
 		if (targetInnerContextNode == null) targetInnerContextNode = targetContextNode.createContextNode(contextNode.getArcXri());
 
-		CopyUtil.copyContextNodeContents(contextNode, targetInnerContextNode, copyStrategy);
+		copyContextNodeContents(contextNode, targetInnerContextNode, copyStrategy);
 
 		return targetContextNode;
 	}
