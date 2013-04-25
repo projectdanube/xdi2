@@ -116,20 +116,17 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testReadWriteFormats() throws Exception {
 
-		String[] writerFormats = new String[] { "XDI/JSON", "XDI DISPLAY" };
-		String[] readerFormats = new String[] { "XDI/JSON", "XDI DISPLAY" };
+		String[] formats = new String[] { "XDI/JSON", "XDI DISPLAY" };
 
-		assertEquals(writerFormats.length, readerFormats.length);
+		for (int i=0; i<formats.length; i++) {
 
-		for (int i=0; i<readerFormats.length; i++) {
-
-			log.info("#" + i + " Write: " + writerFormats[i] + ", Read: " + readerFormats[i]);
+			log.info("#" + i + " Format: " + formats[i]);
 
 			Graph graph4 = this.openNewGraph(this.getClass().getName() + "-graph-4" + "-" + i);
 			Graph graph5 = this.openNewGraph(this.getClass().getName() + "-graph-5" + "-" + i);
 
-			XDIWriter writer = XDIWriterRegistry.forFormat(writerFormats[i], null);
-			XDIReader reader = XDIReaderRegistry.forFormat(readerFormats[i], null);
+			XDIWriter writer = XDIWriterRegistry.forFormat(formats[i], null);
+			XDIReader reader = XDIReaderRegistry.forFormat(formats[i], null);
 
 			makeGraph(graph4);
 			writer.write(graph4, new FileWriter(new File("test." + i + ".out"))).close();
