@@ -9,11 +9,11 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -180,7 +180,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		if (newSubSegment == null) {
 
-			newSubSegment = XDI3Util.randomUuidSubSegment(XDI3Constants.CS_BANG);
+			newSubSegment = XDI3Util.randomUuidSubSegment(XDIConstants.CS_BANG);
 			putVariable(executionContext, subSegment, newSubSegment);
 		}
 

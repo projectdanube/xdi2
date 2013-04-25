@@ -6,10 +6,10 @@ import java.util.List;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 
 /**
@@ -22,9 +22,9 @@ public class DataTypes {
 
 	private DataTypes() { }
 
-	public static final XDI3Segment XRI_DATATYPE_XSD = XDI3Segment.create("" + XDI3Constants.CS_PLUS + XDI3Constants.CS_DOLLAR + "xsd");
-	public static final XDI3Segment XRI_DATATYPE_JSON = XDI3Segment.create("" + XDI3Constants.CS_PLUS + XDI3Constants.CS_DOLLAR + "json");
-	public static final XDI3Segment XRI_DATATYPE_MIME = XDI3Segment.create("" + XDI3Constants.CS_PLUS + XDI3Constants.CS_DOLLAR + "mime");
+	public static final XDI3Segment XRI_DATATYPE_XSD = XDI3Segment.create("" + XDIConstants.CS_PLUS + XDIConstants.CS_DOLLAR + "xsd");
+	public static final XDI3Segment XRI_DATATYPE_JSON = XDI3Segment.create("" + XDIConstants.CS_PLUS + XDIConstants.CS_DOLLAR + "json");
+	public static final XDI3Segment XRI_DATATYPE_MIME = XDI3Segment.create("" + XDIConstants.CS_PLUS + XDIConstants.CS_DOLLAR + "mime");
 
 	/*
 	 * Methods for data type XRIs
@@ -38,7 +38,7 @@ public class DataTypes {
 	 */
 	public static XDI3Segment dataTypeXriFromXsdType(String xsdType) {
 
-		return XDI3Segment.create("" + XRI_DATATYPE_XSD + XDI3Constants.CS_DOLLAR + xsdType);
+		return XDI3Segment.create("" + XRI_DATATYPE_XSD + XDIConstants.CS_DOLLAR + xsdType);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class DataTypes {
 	 */
 	public static XDI3Segment dataTypeXriFromJsonType(String jsonType) {
 
-		return XDI3Segment.create("" + XRI_DATATYPE_JSON + XDI3Constants.CS_DOLLAR + jsonType);
+		return XDI3Segment.create("" + XRI_DATATYPE_JSON + XDIConstants.CS_DOLLAR + jsonType);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class DataTypes {
 		try {
 
 			parts = mimeType.split("/");
-			xri = XDI3Segment.create("" + XRI_DATATYPE_MIME + XDI3Constants.CS_DOLLAR + parts[0] + XDI3Constants.CS_DOLLAR + parts[1]);
+			xri = XDI3Segment.create("" + XRI_DATATYPE_MIME + XDIConstants.CS_DOLLAR + parts[0] + XDIConstants.CS_DOLLAR + parts[1]);
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Invalid MIME Type ", ex);

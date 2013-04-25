@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -68,7 +68,7 @@ public final class XdiValue extends XdiAbstractSubGraph {
 		if (arcXri.hasLiteral()) return false;
 		if (arcXri.hasXRef()) return false;
 
-		if (! XDI3Constants.CS_VALUE.equals(arcXri.getCs())) return false;
+		if (! XDIConstants.CS_VALUE.equals(arcXri.getCs())) return false;
 
 		return true;
 	}

@@ -3,9 +3,9 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
 public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance implements XdiInstanceUnordered {
@@ -53,7 +53,7 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 
 	public static XDI3SubSegment createArcXri(String identifier, boolean mutable) {
 
-		Character cs = mutable ? XDI3Constants.CS_STAR : XDI3Constants.CS_BANG;
+		Character cs = mutable ? XDIConstants.CS_STAR : XDIConstants.CS_BANG;
 		
 		return XDI3SubSegment.create("" + cs + identifier);
 	}
@@ -66,7 +66,7 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 		if (arcXri.isAttributeXs()) return false;
 		if (arcXri.hasXRef()) return false;
 
-		if (! XDI3Constants.CS_STAR.equals(arcXri.getCs()) && ! XDI3Constants.CS_BANG.equals(arcXri.getCs())) return false;
+		if (! XDIConstants.CS_STAR.equals(arcXri.getCs()) && ! XDIConstants.CS_BANG.equals(arcXri.getCs())) return false;
 
 		if (! arcXri.hasLiteral()) return false;
 

@@ -3,9 +3,9 @@ package xdi2.core.features.roots;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
@@ -81,7 +81,7 @@ public final class XdiPeerRoot extends XdiRoot {
 	 */
 	public static XDI3SubSegment createPeerRootArcXri(XDI3Segment xri) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.XS_ROOT.charAt(0) + xri + XDI3Constants.XS_ROOT.charAt(1));
+		return XDI3SubSegment.create("" + XDIConstants.XS_ROOT.charAt(0) + xri + XDIConstants.XS_ROOT.charAt(1));
 	}
 
 	/**
@@ -99,7 +99,7 @@ public final class XdiPeerRoot extends XdiRoot {
 		if (! arcXri.hasXRef()) return null;
 
 		XDI3XRef xref = arcXri.getXRef();
-		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
+		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasSegment()) return null;
 
 		return xref.getSegment();
@@ -120,7 +120,7 @@ public final class XdiPeerRoot extends XdiRoot {
 		if (! arcXri.hasXRef()) return null;
 
 		XDI3XRef xref = arcXri.getXRef();
-		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
+		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasIri()) return null;
 
 		return xref.getIri();
@@ -141,7 +141,7 @@ public final class XdiPeerRoot extends XdiRoot {
 		if (! arcXri.hasXRef()) return null;
 
 		XDI3XRef xref = arcXri.getXRef();
-		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
+		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasLiteral()) return null;
 
 		return xref.getLiteral();

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
@@ -27,7 +28,6 @@ import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
@@ -141,7 +141,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 			String jsonContentId = new String(Base64.encodeBase64URLSafe(digest.digest()), "UTF-8");
 			if (log.isDebugEnabled()) log.debug("json_content_id: " + jsonContentId);
 
-			return XDI3SubSegment.create(XDI3Constants.CS_BANG + jsonContentId);
+			return XDI3SubSegment.create(XDIConstants.CS_BANG + jsonContentId);
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException(ex.getMessage(), ex);

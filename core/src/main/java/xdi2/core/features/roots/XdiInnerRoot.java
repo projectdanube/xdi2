@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
@@ -122,7 +122,7 @@ public class XdiInnerRoot extends XdiRoot {
 	 */
 	public static XDI3SubSegment createInnerRootArcXri(XDI3Segment subject, XDI3Segment predicate) {
 
-		return XDI3SubSegment.create("" + XDI3Constants.XS_ROOT.charAt(0) + subject.toString() + "/" + predicate.toString() + XDI3Constants.XS_ROOT.charAt(1));
+		return XDI3SubSegment.create("" + XDIConstants.XS_ROOT.charAt(0) + subject.toString() + "/" + predicate.toString() + XDIConstants.XS_ROOT.charAt(1));
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class XdiInnerRoot extends XdiRoot {
 		if (! arcXri.hasXRef()) return null;
 
 		XDI3XRef xref = arcXri.getXRef();
-		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
+		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasPartialSubjectAndPredicate()) return null;
 
 		return xref.getPartialSubject();
@@ -161,7 +161,7 @@ public class XdiInnerRoot extends XdiRoot {
 		if (! arcXri.hasXRef()) return null;
 
 		XDI3XRef xref = arcXri.getXRef();
-		if (! XDI3Constants.XS_ROOT.equals(xref.getXs())) return null;
+		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasPartialSubjectAndPredicate()) return null;
 
 		return xref.getPartialPredicate();

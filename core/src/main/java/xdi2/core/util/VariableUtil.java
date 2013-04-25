@@ -6,7 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.XDI3Constants;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
@@ -30,7 +30,7 @@ public final class VariableUtil {
 	public static boolean isVariable(XDI3SubSegment variable) {
 
 		return variable.hasXRef() &&
-				XDI3Constants.XS_VARIABLE.equals(variable.getXRef().getXs()) &&
+				XDIConstants.XS_VARIABLE.equals(variable.getXRef().getXs()) &&
 				( variable.getXRef().isEmpty() || variable.getXRef().hasSegment() || variable.getXRef().hasLiteral() );
 	}
 
@@ -65,7 +65,7 @@ public final class VariableUtil {
 		XDI3XRef xref = variable.getXRef().getSegment().getFirstSubSegment().getXRef();
 		if (xref == null) return null;
 
-		if (XDI3Constants.XS_VARIABLE.equals(xref.getXs())) {
+		if (XDIConstants.XS_VARIABLE.equals(xref.getXs())) {
 
 			if (! xref.hasSegment()) return null;
 
@@ -87,7 +87,7 @@ public final class VariableUtil {
 		if (! variable.getXRef().hasSegment()) return false;
 
 		if (! variable.getXRef().getSegment().getFirstSubSegment().hasXRef()) return false;
-		if (! XDI3Constants.XS_VARIABLE.equals(variable.getXRef().getSegment().getFirstSubSegment().getXRef().getXs())) return false;
+		if (! XDIConstants.XS_VARIABLE.equals(variable.getXRef().getSegment().getFirstSubSegment().getXRef().getXs())) return false;
 
 		return true;
 	}

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.Statement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
@@ -24,7 +25,6 @@ import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -193,14 +193,14 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 		if (subSegment.isAttributeXs()) {
 
 			JsonObject gom2 = new JsonObject();
-			gom2.add(XDI3Constants.XS_ATTRIBUTE.substring(0, 1), gom);
+			gom2.add(XDIConstants.XS_ATTRIBUTE.substring(0, 1), gom);
 			gom = gom2;
 		}
 
 		if (subSegment.isClassXs()) {
 
 			JsonObject gom2 = new JsonObject();
-			gom2.add(XDI3Constants.XS_CLASS.substring(0, 1), gom);
+			gom2.add(XDIConstants.XS_CLASS.substring(0, 1), gom);
 			gom = gom2;
 		}
 

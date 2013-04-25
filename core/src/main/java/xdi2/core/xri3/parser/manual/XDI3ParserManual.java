@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.xri3.XDI3Constants;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -286,12 +286,12 @@ public class XDI3ParserManual extends XDI3Parser {
 	private static boolean isIri(String string) {
 
 		int indexColon = string.indexOf(':');
-		int indexEquals = string.indexOf(XDI3Constants.CS_EQUALS.charValue());
-		int indexAt = string.indexOf(XDI3Constants.CS_AT.charValue());
-		int indexPlus = string.indexOf(XDI3Constants.CS_PLUS.charValue());
-		int indexDollar = string.indexOf(XDI3Constants.CS_DOLLAR.charValue());
-		int indexStar = string.indexOf(XDI3Constants.CS_STAR.charValue());
-		int indexBang = string.indexOf(XDI3Constants.CS_BANG.charValue());
+		int indexEquals = string.indexOf(XDIConstants.CS_EQUALS.charValue());
+		int indexAt = string.indexOf(XDIConstants.CS_AT.charValue());
+		int indexPlus = string.indexOf(XDIConstants.CS_PLUS.charValue());
+		int indexDollar = string.indexOf(XDIConstants.CS_DOLLAR.charValue());
+		int indexStar = string.indexOf(XDIConstants.CS_STAR.charValue());
+		int indexBang = string.indexOf(XDIConstants.CS_BANG.charValue());
 
 		if (indexColon == -1) return false;
 
@@ -311,29 +311,29 @@ public class XDI3ParserManual extends XDI3Parser {
 
 	private static Character cs(char c) {
 
-		for (Character cs : XDI3Constants.CS_ARRAY) if (cs.charValue() == c) return cs;
+		for (Character cs : XDIConstants.CS_ARRAY) if (cs.charValue() == c) return cs;
 
 		return null;
 	}
 
 	private static String cla(char c) {
 
-		if (XDI3Constants.XS_CLASS.charAt(0) == c) return XDI3Constants.XS_CLASS;
+		if (XDIConstants.XS_CLASS.charAt(0) == c) return XDIConstants.XS_CLASS;
 
 		return null;
 	}
 
 	private static String att(char c) {
 
-		if (XDI3Constants.XS_ATTRIBUTE.charAt(0) == c) return XDI3Constants.XS_ATTRIBUTE;
+		if (XDIConstants.XS_ATTRIBUTE.charAt(0) == c) return XDIConstants.XS_ATTRIBUTE;
 
 		return null;
 	}
 
 	private static String xs(char c) {
 
-		if (XDI3Constants.XS_ROOT.charAt(0) == c) return XDI3Constants.XS_ROOT;
-		if (XDI3Constants.XS_VARIABLE.charAt(0) == c) return XDI3Constants.XS_VARIABLE;
+		if (XDIConstants.XS_ROOT.charAt(0) == c) return XDIConstants.XS_ROOT;
+		if (XDIConstants.XS_VARIABLE.charAt(0) == c) return XDIConstants.XS_VARIABLE;
 
 		return null;
 	}

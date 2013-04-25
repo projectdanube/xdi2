@@ -3,9 +3,9 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Constants;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -59,7 +59,7 @@ public final class XdiPersonalSingleton extends XdiAbstractSingleton {
 		if (arcXri.isClassXs()) return false;
 		if (arcXri.isAttributeXs()) return false;
 
-		if (! XDI3Constants.CS_EQUALS.equals(arcXri.getCs())) return false;
+		if (! XDIConstants.CS_EQUALS.equals(arcXri.getCs())) return false;
 
 		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
 
