@@ -73,7 +73,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		value.setLiteral("xyz@gmail.com");
 		assertEquals(graph0.getDeepLiteral(XDI3Segment.create("=markus<+email>&")).getLiteralData(), "xyz@gmail.com");
-		
+
 		graph0.close();
 	}
 
@@ -842,6 +842,31 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(root.isEmpty());
 
 		graph26.close();
+	}
+
+	public void testDeleteContextNodesDeletesRelations() throws Exception {
+
+		Graph graph27 = this.openNewGraph(this.getClass().getName() + "-graph-27");
+
+		Relation r1 = graph27.setDeepRelation(XDI3Segment.create("=animesh"), XDI3Segment.create("+friend"), XDI3Segment.create("=markus"));
+		Relation r2 = graph27.setDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
+
+		ContextNode markus = r1.follow();
+		ContextNode animesh = r2.follow();
+
+		markus.delete();
+
+		assertNotNull(graph27.getDeepContextNode(XDI3Segment.create("=animesh")));
+
+		assertFalse(animesh.getRelations().hasNext());
+		assertFalse(animesh.getRelations(XDI3Segment.create("+friend")).hasNext());
+		assertEquals(animesh.getRelationCount(), 0);
+		assertFalse(animesh.getIncomingRelations().hasNext());
+		assertFalse(animesh.getIncomingRelations(XDI3Segment.create("+friend")).hasNext());
+
+		animesh.delete();
+
+		graph27.close();
 	}
 
 	@SuppressWarnings("unused")
