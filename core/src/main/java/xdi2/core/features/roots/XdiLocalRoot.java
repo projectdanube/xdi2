@@ -76,8 +76,8 @@ public class XdiLocalRoot extends XdiRoot {
 		ContextNode localRootContextNode = this.getContextNode();
 		ContextNode selfPeerRootContextNode = selfPeerRoot.getContextNode();
 
-		localRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_REF, selfPeerRootContextNode);
-		selfPeerRootContextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, localRootContextNode);
+		localRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, selfPeerRootContextNode);
+		selfPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, localRootContextNode);
 
 		return selfPeerRoot;
 	}
