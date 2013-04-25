@@ -79,11 +79,10 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 				MessageResult messageResult = new MessageResult();
 
 				try {
-				graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+
+					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
 				} catch (Exception ex) {
-					
-					System.err.println(i);
-					System.err.println(ii);
+
 					throw ex;
 				}
 
@@ -97,7 +96,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 			while (true) {
 
 				if (this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi") == null) break;
-				
+
 				log.info("Positive " + i + "." + ii);
 
 				Graph positive = this.openNewGraph(this.getClass().getName() + "-positive-" + i + "-" + ii); 

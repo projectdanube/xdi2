@@ -206,9 +206,7 @@ public abstract class XdiRoot extends XdiAbstractSubGraph {
 
 		if (log.isTraceEnabled()) log.trace("createRelativeStatement(" + statementXri + ")");
 
-		System.err.println(statementXri);
 		statementXri = StatementUtil.expandStatement(statementXri, this.getContextNode().getXri());
-		System.err.println(statementXri);
 
 		return this.getContextNode().getGraph().createStatement(statementXri);
 	}

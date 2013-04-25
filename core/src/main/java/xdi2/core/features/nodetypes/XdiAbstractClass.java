@@ -138,6 +138,8 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 	@Override
 	public O setXdiInstanceOrdered(int index) {
 
+		if (index < 0) index = this.getXdiInstancesOrderedCount() + 1;
+
 		XDI3SubSegment arcXri = XdiAbstractInstanceOrdered.createArcXri(Integer.toString(index));
 
 		ContextNode contextNode = this.getContextNode().getContextNode(arcXri);

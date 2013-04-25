@@ -30,6 +30,41 @@ public final class XDI3Util {
 	}
 
 	/**
+	 * Creates a cloudnumber from a canonicalID
+	 */
+	public static XDI3Segment canonicalIdToCloudnumber(String canonicalId) {
+
+		canonicalId = canonicalId.substring(2).toLowerCase();
+
+		String[] parts = canonicalId.split("\\.");
+		if (parts.length != 4) return null;
+
+		for (int i=0; i<parts.length; i++) {
+
+			if (parts[i].length() > 4) return null;
+			while (parts[i].length() < 4) parts[i] = "0" + parts[i];
+		}
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("[=]!:uuid:");
+		builder.append(parts[0]);
+		builder.append(parts[1]);
+		builder.append("-");
+		builder.append(parts[2]);
+		builder.append("-");
+		builder.append(parts[3]);
+		builder.append("-");
+		builder.append(parts[0]);
+		builder.append("-");
+		builder.append(parts[1]);
+		builder.append(parts[2]);
+		builder.append(parts[3]);
+
+		return XDI3Segment.create(builder.toString());
+	}
+
+	/**
 	 * Checks if an XRI starts with a certain other XRI.
 	 */
 	public static boolean startsWith(XDI3Segment xri, XDI3Segment base, boolean variablesInXri, boolean variablesInBase) {
