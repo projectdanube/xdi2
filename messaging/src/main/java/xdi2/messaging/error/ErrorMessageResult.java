@@ -6,6 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.Statement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
@@ -13,7 +14,6 @@ import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.features.roots.XdiLocalRoot;
 import xdi2.core.features.timestamps.Timestamps;
-import xdi2.core.util.CopyUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageResult;
@@ -155,8 +155,9 @@ public class ErrorMessageResult extends MessageResult {
 		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).findInnerRoot(XRI_S_FALSE, XRI_S_ERROR, true);
 		innerRoot.getContextNode().clear();
 
-		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getXri())).getRelation();
+//		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getXri())).getRelation();
 
-		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);
+		for (Statement statement : operation.getMessage().getContextNode().getAllStatements()) innerRoot.createRelativeStatement(statement.getXri());
+//		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);
 	}
 }

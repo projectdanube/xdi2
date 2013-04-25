@@ -92,7 +92,7 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 	public U setXdiInstanceUnordered(XDI3SubSegment arcXri) {
 
 		if (arcXri == null) arcXri = XDI3Util.randomUuidSubSegment(XDI3Constants.CS_BANG);
-		
+
 		ContextNode instanceContextNode = this.getContextNode().getContextNode(arcXri);
 		if (instanceContextNode == null) instanceContextNode = this.getContextNode().createContextNode(arcXri);
 

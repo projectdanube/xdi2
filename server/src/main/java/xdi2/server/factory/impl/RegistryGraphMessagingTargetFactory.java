@@ -30,7 +30,8 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// parse owner
 
-		String ownerString = requestPath.substring(messagingTargetFactoryPath.length() + 1);
+		String ownerString = requestPath.substring(messagingTargetFactoryPath.length());
+		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
 		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
