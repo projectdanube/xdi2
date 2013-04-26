@@ -863,6 +863,19 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		animesh.delete();
 
+		graph27.createStatement(XDI3Statement.create("+a+b/$i/=x"));
+		graph27.createStatement(XDI3Statement.create("=x/$i/=y"));
+
+		graph27.getRootContextNode().getContextNode(XDI3SubSegment.create("+a")).delete();
+
+		assertEquals(graph27.getRootContextNode().getAllRelationCount(), 1);
+		assertTrue(graph27.getRootContextNode().getContextNode(XDI3SubSegment.create("=x")).getRelations().hasNext());
+		assertFalse(graph27.getRootContextNode().getContextNode(XDI3SubSegment.create("=x")).getIncomingRelations().hasNext());
+
+		graph27.getRootContextNode().getContextNode(XDI3SubSegment.create("=x")).delete();
+
+		assertEquals(graph27.getRootContextNode().getAllRelationCount(), 0);
+		
 		graph27.close();
 	}
 
