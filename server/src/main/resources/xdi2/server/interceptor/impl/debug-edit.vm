@@ -3,7 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
-body { font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt; padding: 20px; }
+body { font-family: Calibri, Arial, Helvetica, sans-serif; padding: 20px; }
+* { font-size: 12pt; }
 a { text-decoration: none; color: #540dd8; border-bottom: 3px solid #540dd8; }
 th { font-weight: bold; }
 td { margin: 5px; padding: 5px; border: 2px solid black; }
@@ -49,6 +50,11 @@ $messagingtarget.class.canonicalName at $messagingtargetpath
 </form>
 <form action="" method="post">
 	<textarea name="graphstring" style="width: 100%" rows="12">$graphstring</textarea>
+	<input name="format" type="hidden" value="$format">
+	<input name="writeImplied" type="hidden" value="$writeImplied">
+	<input name="writeOrdered" type="hidden" value="$writeOrdered">
+	<input name="writeInner" type="hidden" value="$writeInner">
+	<input name="writePretty" type="hidden" value="$writePretty">
 	<input type="hidden" name="cmd" value="save_messaging_target">
 	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
 	<input type="submit" value="save">
