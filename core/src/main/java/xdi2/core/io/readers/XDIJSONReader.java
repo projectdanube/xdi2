@@ -59,15 +59,17 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 		for (Entry<String, JsonElement> entry : jsonGraphObject.entrySet()) {
 
-			if (! (entry.getValue() instanceof JsonArray)) throw new Xdi2ParseException("Object member '" + entry.getKey() + "' must be a JSON array");
-
 			String key = entry.getKey();
-			JsonArray jsonEntryArray = (JsonArray) entry.getValue();
+			JsonElement jsonEntryElement = entry.getValue();
 
 			if (key.endsWith("/" + XDIConstants.XRI_S_CONTEXT.toString())) {
 
 				XDI3Statement statementXri = makeStatement(key + "/()", state);
 
+				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
+
+				JsonArray jsonEntryArray = (JsonArray) jsonEntryElement;
+				
 				// find the root and the base context node of this statement
 
 				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
@@ -77,11 +79,11 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add context nodes
 
-				for (JsonElement jsonEntryElement : jsonEntryArray) {
+				for (JsonElement jsonEntryArrayElement : jsonEntryArray) {
 
-					if (! (jsonEntryElement instanceof JsonPrimitive) || ! ((JsonPrimitive) jsonEntryElement).isString()) throw new Xdi2ParseException("Array element must be a string: " + jsonEntryElement);
+					if (! (jsonEntryArrayElement instanceof JsonPrimitive) || ! ((JsonPrimitive) jsonEntryArrayElement).isString()) throw new Xdi2ParseException("JSON array element must be a string: " + jsonEntryArrayElement);
 
-					XDI3SubSegment arcXri = makeXDI3SubSegment(((JsonPrimitive) jsonEntryElement).getAsString(), state);
+					XDI3SubSegment arcXri = makeXDI3SubSegment(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
 
 					ContextNode contextNode = baseContextNode.setContextNode(arcXri);
 					if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Set context node " + contextNode.getArcXri() + " --> " + contextNode.getXri());
@@ -89,6 +91,10 @@ public class XDIJSONReader extends AbstractXDIReader {
 			} else if (key.endsWith("/" + XDIConstants.XRI_S_LITERAL.toString())) {
 
 				XDI3Statement statementXri = makeStatement(key + "/\"\"", state);
+
+				if (! (jsonEntryElement instanceof JsonPrimitive) || ! ((JsonPrimitive) jsonEntryElement).isString()) throw new Xdi2ParseException("JSON object member must be a string: " + jsonEntryElement);
+
+				String literalData = ((JsonPrimitive) jsonEntryElement).getAsString();
 
 				// find the root and the base context node of this statement
 
@@ -99,18 +105,16 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add literal
 
-				if (jsonEntryArray.size() != 1) throw new Xdi2ParseException("JSON array for key " + key + " must have exactly one item");
-
-				JsonElement jsonEntryElement = jsonEntryArray.get(0);
-				if (! (jsonEntryElement instanceof JsonPrimitive) || ! ((JsonPrimitive) jsonEntryElement).isString()) throw new Xdi2ParseException("Array element must be a string: " + jsonEntryElement);
-
-				String literalData = ((JsonPrimitive) jsonEntryElement).getAsString();
-
 				Literal literal = baseContextNode.setLiteral(literalData);
 				if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Set literal --> " + literal.getLiteralData());
 			} else {
 
 				XDI3Statement statementXri = makeStatement(key + "/()", state);
+
+				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
+
+				XDI3Segment arcXri = statementXri.getPredicate();
+				JsonArray jsonEntryArray = (JsonArray) jsonEntryElement;
 
 				// find the root and the base context node of this statement
 
@@ -121,13 +125,11 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// add inner root and/or relations
 
-				XDI3Segment arcXri = statementXri.getPredicate();
-
-				for (JsonElement jsonEntryElement : jsonEntryArray) {
+				for (JsonElement jsonEntryArrayElement : jsonEntryArray) {
 
 					// inner root or relation?
 
-					if (jsonEntryElement instanceof JsonObject) {
+					if (jsonEntryArrayElement instanceof JsonObject) {
 
 						root = root.findRoot(statementXri.getSubject(), true);
 
@@ -136,17 +138,17 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 						XdiInnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
 
-						this.read(innerRoot, (JsonObject) jsonEntryElement, state);
-					} else if (jsonEntryElement instanceof JsonPrimitive && ((JsonPrimitive) jsonEntryElement).isString()) {
+						this.read(innerRoot, (JsonObject) jsonEntryArrayElement, state);
+					} else if (jsonEntryArrayElement instanceof JsonPrimitive && ((JsonPrimitive) jsonEntryArrayElement).isString()) {
 
-						XDI3Segment targetContextNodeXri = makeXDI3Segment(((JsonPrimitive) jsonEntryElement).getAsString(), state);
+						XDI3Segment targetContextNodeXri = makeXDI3Segment(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
 						targetContextNodeXri = XDI3Util.expandXri(targetContextNodeXri, root.getContextNode().getXri());
 
 						Relation relation = baseContextNode.setRelation(arcXri, targetContextNodeXri);
 						if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Set relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
 					} else {
 
-						throw new Xdi2ParseException("Array element must be either an object or a string: " + jsonEntryElement);
+						throw new Xdi2ParseException("JSON array element must be either an object or a string: " + jsonEntryArrayElement);
 					}
 				}
 			}
