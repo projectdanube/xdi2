@@ -1,8 +1,8 @@
 package xdi2.samples.client;
 
 import xdi2.client.http.XDIHttpClient;
-import xdi2.resolution.XDIResolutionResult;
-import xdi2.resolution.XDIResolver;
+import xdi2.discovery.XDIResolutionResult;
+import xdi2.discovery.XDIResolver;
 
 public class XDIResolverSample {
 
@@ -13,7 +13,7 @@ public class XDIResolverSample {
 
 		XDIResolutionResult result = resolver.resolve("=markus");
 
-		System.out.println("I-Number: " + result.getInumber());    // [=]!91F2.8153.F600.AE24
-		System.out.println("URI: " + result.getUri());             // https://xdi.fullxri.com/[=]!91F2.8153.F600.AE24/
+		System.out.println("I-Number: " + result.getCloudnumber());    // [=]!91F2.8153.F600.AE24
+		System.out.println("URI: " + result.getEndpointUri());             // https://xdi.fullxri.com/[=]!91F2.8153.F600.AE24/
 	}
 }

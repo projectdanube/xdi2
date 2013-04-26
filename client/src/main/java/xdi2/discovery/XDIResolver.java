@@ -1,4 +1,4 @@
-package xdi2.resolution;
+package xdi2.discovery;
 
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;

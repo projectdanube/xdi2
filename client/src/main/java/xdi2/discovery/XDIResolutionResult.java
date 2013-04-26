@@ -1,4 +1,4 @@
-package xdi2.resolution;
+package xdi2.discovery;
 
 import java.io.Serializable;
 
@@ -15,15 +15,15 @@ public class XDIResolutionResult implements Serializable {
 
 	private String xri;
 	private MessageResult messageResult;
-	private String inumber;
-	private String uri;
+	private String cloudnumber;
+	private String endpointUri;
 
-	private XDIResolutionResult(String xri, MessageResult messageResult, String inumber, String uri) {
+	private XDIResolutionResult(String xri, MessageResult messageResult, String cloudnumber, String endpointUri) {
 
 		this.xri = xri;
 		this.messageResult = messageResult;
-		this.inumber = inumber;
-		this.uri = uri;
+		this.cloudnumber = cloudnumber;
+		this.endpointUri = endpointUri;
 	}
 
 	/**
@@ -78,19 +78,19 @@ public class XDIResolutionResult implements Serializable {
 		return this.messageResult;
 	}
 
-	public String getInumber() {
+	public String getCloudnumber() {
 
-		return this.inumber;
+		return this.cloudnumber;
 	}
 
-	public String getUri() {
+	public String getEndpointUri() {
 
-		return this.uri;
+		return this.endpointUri;
 	}
 
 	@Override
 	public String toString() {
 
-		return this.inumber + " / " + this.uri;
+		return this.cloudnumber + " (" + this.endpointUri + ")";
 	}
 }

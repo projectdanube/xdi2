@@ -1,4 +1,4 @@
-package xdi2.resolution;
+package xdi2.discovery;
 
 public class XDIResolutionException extends Exception {
 
