@@ -16,10 +16,10 @@ public class XDIDiscoveryResult implements Serializable {
 
 	private String xri;
 	private MessageResult messageResult;
-	private String cloudNumber;
+	private XDI3Segment cloudNumber;
 	private String endpointUri;
 
-	private XDIDiscoveryResult(String xri, MessageResult messageResult, String cloudNumber, String endpointUri) {
+	private XDIDiscoveryResult(String xri, MessageResult messageResult, XDI3Segment cloudNumber, String endpointUri) {
 
 		this.xri = xri;
 		this.messageResult = messageResult;
@@ -40,7 +40,7 @@ public class XDIDiscoveryResult implements Serializable {
 		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create(xri));
 		ContextNode referenceContextNode = contextNode == null ? null : Equivalence.getReferenceContextNode(contextNode);
 
-		String cloudNumber = referenceContextNode == null ? null : referenceContextNode.getXri().toString();
+		XDI3Segment cloudNumber = referenceContextNode == null ? null : referenceContextNode.getXri();
 
 		// find URI
 
@@ -77,7 +77,7 @@ public class XDIDiscoveryResult implements Serializable {
 		return this.messageResult;
 	}
 
-	public String getCloudNumber() {
+	public XDI3Segment getCloudNumber() {
 
 		return this.cloudNumber;
 	}
