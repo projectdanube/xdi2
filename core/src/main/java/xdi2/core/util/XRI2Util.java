@@ -27,6 +27,8 @@ public final class XRI2Util {
 
 		if (log.isTraceEnabled()) log.trace("canonicalIdToCloudnumber(" + canonicalId + ")");
 		
+		char cs = canonicalId.charAt(0);
+		
 		canonicalId = canonicalId.substring(2).toLowerCase();
 
 		String[] parts = canonicalId.split("\\.");
@@ -40,7 +42,7 @@ public final class XRI2Util {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("[=]!:uuid:");
+		builder.append("[" + cs + "]!:uuid:");
 		builder.append(parts[0]);
 		builder.append(parts[1]);
 		builder.append("-");

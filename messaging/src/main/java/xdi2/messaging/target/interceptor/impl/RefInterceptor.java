@@ -20,12 +20,10 @@ import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
-import xdi2.messaging.AddOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
-import xdi2.messaging.SetOperation;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
@@ -236,19 +234,6 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 		if (targetStatement.isRelationStatement() &&
 				(XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getPredicate()) ||
 						XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getPredicate()))) {
-
-			// cannot add a $ref or $rep arc to non-empty context node
-
-			if (operation instanceof AddOperation || operation instanceof SetOperation) {
-
-				XDI3Segment targetContextNodeXri = targetStatement.getContextNodeXri();
-				ContextNode targetContextNode = graph.getDeepContextNode(targetContextNodeXri);
-
-				if (targetContextNode != null && ! targetContextNode.isEmpty()) {
-
-					throw new Xdi2MessagingException("Cannot add $ref or $rep relation to non-empty context node " + targetContextNode.getXri(), null, executionContext);
-				}
-			}
 
 			// don't do anything else if we are operating on $ref and $rep arcs
 

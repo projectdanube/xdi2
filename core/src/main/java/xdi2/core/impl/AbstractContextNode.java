@@ -11,6 +11,7 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
 import xdi2.core.features.nodetypes.XdiValue;
@@ -736,6 +737,9 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
 		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
+
+		if (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! this.isEmpty()) throw new Xdi2GraphException("Cannot add " + XDIDictionaryConstants.XRI_S_REF + " relational arc to non-empty context node.");
+		if (XDIDictionaryConstants.XRI_S_REP.equals(arcXri) && ! this.isEmpty()) throw new Xdi2GraphException("Cannot add " + XDIDictionaryConstants.XRI_S_REP + " relational arc to non-empty context node.");
 
 		if (checkExists && this.containsRelation(arcXri, targetContextNode.getXri())) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
 	}
