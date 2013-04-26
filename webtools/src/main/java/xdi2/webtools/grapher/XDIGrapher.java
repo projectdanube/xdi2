@@ -177,8 +177,9 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		if (contextNode.containsLiteral()) {
 
 			buffer.append("{\n");
+			buffer.append("type: \"literal\",\n");
 			buffer.append("name: \"\\\"" + contextNode.getLiteral().getLiteralData() + "\\\"\",\n");
-			buffer.append("arc: \"!\"\n");
+			buffer.append("arc: \"&\"\n");
 			buffer.append("}\n");
 		}
 
@@ -189,7 +190,11 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 			Relation relation = relations.next();
 
-			buffer.append("{arc: \"" + relation.getArcXri() + "\", target: \"" + relation.getTargetContextNodeXri() + "\"}");
+			buffer.append("{\n");
+			buffer.append("type: \"relation\",\n");
+			buffer.append("arc: \"" + relation.getArcXri() + "\",\n");
+			buffer.append("target: \"" + relation.getTargetContextNodeXri() + "\"\n");
+			buffer.append("}");
 			if (relations.hasNext()) buffer.append(",");
 			buffer.append("\n");
 		}

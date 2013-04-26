@@ -210,7 +210,7 @@ path.arrow-rel {
 		linkGroup.append("svg:path")
 	        .attr("class", function(d)
 	        {
-				return d.target.arc == "!" ? "link-literal" : "link-context";
+				return d.target.type == "literal" ? "link-literal" : "link-context";
 	        })
 	        .attr("d", link)
 	    	.attr("marker-end", "url(#arrow-link)");
