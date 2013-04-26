@@ -21,14 +21,14 @@ public final class XRI2Util {
 	private XRI2Util() { }
 
 	/**
-	 * Maps an XRI 2.0 canonicalID to a cloudnumber.
+	 * Maps an XRI 2.0 Canonical ID to a cloud number.
 	 */
-	public static XDI3Segment canonicalIdToCloudnumber(String canonicalId) {
+	public static XDI3Segment canonicalIdToCloudNumber(String canonicalId) {
 
-		if (log.isTraceEnabled()) log.trace("canonicalIdToCloudnumber(" + canonicalId + ")");
-		
+		if (log.isTraceEnabled()) log.trace("canonicalIdToCloudNumber(" + canonicalId + ")");
+
 		char cs = canonicalId.charAt(0);
-		
+
 		canonicalId = canonicalId.substring(2).toLowerCase();
 
 		String[] parts = canonicalId.split("\\.");

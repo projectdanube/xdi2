@@ -9,23 +9,23 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
-public class XDIResolver {
+public class XDIDiscovery {
 
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT = new XDIHttpClient("http://xri2xdi.net/");
 
 	private XDIHttpClient xdiClient;
 
-	public XDIResolver(XDIHttpClient xdiClient) {
+	public XDIDiscovery(XDIHttpClient xdiClient) {
 
 		this.xdiClient = xdiClient;
 	}
 
-	public XDIResolver() {
+	public XDIDiscovery() {
 
 		this(DEFAULT_XDI_CLIENT);
 	}
 
-	public XDIResolutionResult resolve(String xri) throws Xdi2ClientException {
+	public XDIDiscoveryResult discover(String xri) throws Xdi2ClientException {
 
 		// prepare message envelope
 
@@ -35,12 +35,12 @@ public class XDIResolver {
 
 		// send the message
 
-		XDIResolutionResult resolutionResult;
+		XDIDiscoveryResult discoveryResult;
 
 		try {
 
 			MessageResult messageResult = this.xdiClient.send(messageEnvelope, null);
-			resolutionResult = XDIResolutionResult.fromXriAndMessageResult(xri, messageResult);
+			discoveryResult = XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
 		} catch (Xdi2ClientException ex) {
 
 			throw ex;
@@ -51,7 +51,7 @@ public class XDIResolver {
 
 		// done
 
-		return resolutionResult;
+		return discoveryResult;
 	}
 
 	public XDIHttpClient getXdiClient() {

@@ -71,18 +71,24 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 		if ("reload".equals(cmd)) {
 
 			httpTransport.getHttpEndpointRegistry().reload();
+
+			return this.processGetRequest(httpTransport, request, response, messagingTarget);
 		}
 
 		if ("unmount_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
 			MessagingTarget cmdMessagingTarget = httpTransport.getHttpEndpointRegistry().getMessagingTarget(cmdMessagingTargetPath);
 			if (cmdMessagingTarget != null) httpTransport.getHttpEndpointRegistry().unmountMessagingTarget(cmdMessagingTarget);
+
+			return this.processGetRequest(httpTransport, request, response, messagingTarget);
 		}
 
 		if ("unmount_messaging_target_factory".equals(cmd) && cmdMessagingTargetFactoryPath != null) {
 
 			MessagingTargetFactory cmdMessagingTargetFactory = httpTransport.getHttpEndpointRegistry().getMessagingTargetFactory(cmdMessagingTargetFactoryPath);
 			if (cmdMessagingTargetFactory != null) httpTransport.getHttpEndpointRegistry().unmountMessagingTargetFactory(cmdMessagingTargetFactory);
+
+			return this.processGetRequest(httpTransport, request, response, messagingTarget);
 		}
 
 		if ("edit_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
@@ -142,7 +148,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 
 			// done
 
-			return true;
+			return this.processGetRequest(httpTransport, request, response, messagingTarget);
 		}
 
 		if ("save_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
@@ -154,9 +160,9 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 			XDIReader xdiReader = XDIReaderRegistry.getAuto();
 
 			Graph graph = ((GraphMessagingTarget) cmdMessagingTarget).getGraph();
-			
+
 			String error = null;
-			
+
 			try {
 
 				graph.clear();
@@ -194,10 +200,12 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 
 			// done
 
-			return true;
+			return this.processGetRequest(httpTransport, request, response, messagingTarget);
 		}
 
-		return this.processGetRequest(httpTransport, request, response, messagingTarget);
+		// done
+
+		return false;
 	}
 
 	@Override
