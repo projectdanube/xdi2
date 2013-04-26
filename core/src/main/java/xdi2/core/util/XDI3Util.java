@@ -1,7 +1,6 @@
 package xdi2.core.util;
 
 import java.util.Comparator;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * Various utility methods for working with XRIs.
+ * Various utility methods for working with XRI 3.0 syntax.
  * 
  * @author markus
  */
@@ -20,49 +19,6 @@ public final class XDI3Util {
 	private static final Logger log = LoggerFactory.getLogger(XDI3Util.class);
 
 	private XDI3Util() { }
-
-	/**
-	 * Creates a UUID subsegment
-	 */
-	public static XDI3SubSegment randomUuidSubSegment(Character cs) {
-
-		return XDI3SubSegment.create("" + cs + ":uuid:" + UUID.randomUUID().toString());
-	}
-
-	/**
-	 * Creates a cloudnumber from a canonicalID
-	 */
-	public static XDI3Segment canonicalIdToCloudnumber(String canonicalId) {
-
-		canonicalId = canonicalId.substring(2).toLowerCase();
-
-		String[] parts = canonicalId.split("\\.");
-		if (parts.length != 4) return null;
-
-		for (int i=0; i<parts.length; i++) {
-
-			if (parts[i].length() > 4) return null;
-			while (parts[i].length() < 4) parts[i] = "0" + parts[i];
-		}
-
-		StringBuilder builder = new StringBuilder();
-
-		builder.append("[=]!:uuid:");
-		builder.append(parts[0]);
-		builder.append(parts[1]);
-		builder.append("-");
-		builder.append(parts[2]);
-		builder.append("-");
-		builder.append(parts[3]);
-		builder.append("-");
-		builder.append(parts[0]);
-		builder.append("-");
-		builder.append(parts[1]);
-		builder.append(parts[2]);
-		builder.append(parts[3]);
-
-		return XDI3Segment.create(builder.toString());
-	}
 
 	/**
 	 * Checks if an XRI starts with a certain other XRI.

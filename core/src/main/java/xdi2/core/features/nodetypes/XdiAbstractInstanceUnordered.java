@@ -1,9 +1,12 @@
 package xdi2.core.features.nodetypes;
 
+import java.security.MessageDigest;
 import java.util.Iterator;
+import java.util.UUID;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -54,8 +57,39 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 	public static XDI3SubSegment createArcXri(String identifier, boolean mutable) {
 
 		Character cs = mutable ? XDIConstants.CS_STAR : XDIConstants.CS_BANG;
-		
+
 		return XDI3SubSegment.create("" + cs + identifier);
+	}
+
+	public static XDI3SubSegment createArcXriFromUuid(String uuid, boolean mutable) {
+
+		return createArcXri(":uuid:" + uuid, mutable);
+	}
+
+	public static XDI3SubSegment createArcXriFromRandom(boolean mutable) {
+
+		String uuid = UUID.randomUUID().toString();
+
+		return createArcXriFromUuid(uuid, mutable);
+	}
+
+	public static XDI3SubSegment createArcXriFromHash(String string, boolean mutable) {
+
+		byte[] output;
+
+		try {
+
+			MessageDigest digest = MessageDigest.getInstance("SHA-512");
+			digest.update(string.getBytes("UTF-8"));
+			output = digest.digest();
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
+		}
+
+		String uuid = UUID.nameUUIDFromBytes(output).toString();
+
+		return createArcXriFromUuid(uuid, mutable);
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
