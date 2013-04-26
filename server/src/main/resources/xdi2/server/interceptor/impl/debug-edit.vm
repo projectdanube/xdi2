@@ -59,7 +59,7 @@ $messagingtarget.class.canonicalName at $messagingtargetpath
 	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
 	<input type="submit" value="save">
 </form>
-<form action="" method="post">
+<form action="" method="get">
 	<input type="submit" value="back">
 </form>
 <hr noshade>
