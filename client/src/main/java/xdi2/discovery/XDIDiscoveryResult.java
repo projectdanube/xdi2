@@ -54,7 +54,7 @@ public class XDIDiscoveryResult implements Serializable {
 			endpointUriContextNode = graph.getDeepContextNode(XDI3Segment.create("(" + xri + ")" + "$xdi<$uri>"));
 		}
 
-		ContextNode referenceEndpointUriContextNode = Equivalence.getReferenceContextNode(endpointUriContextNode);
+		ContextNode referenceEndpointUriContextNode = endpointUriContextNode == null ? null : Equivalence.getReferenceContextNode(endpointUriContextNode);
 		XdiValue endpointUriXdiValue = null;
 
 		if (referenceEndpointUriContextNode != null) endpointUriXdiValue = XdiAbstractAttribute.fromContextNode(referenceEndpointUriContextNode).getXdiValue(false);
