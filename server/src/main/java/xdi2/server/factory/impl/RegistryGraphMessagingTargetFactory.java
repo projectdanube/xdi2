@@ -1,5 +1,8 @@
 package xdi2.server.factory.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +39,15 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
 
-		XDI3Segment owner = XDI3Segment.create(ownerString);
+		XDI3Segment owner;
+
+		try {
+
+			owner = XDI3Segment.create(URLDecoder.decode(ownerString, "UTF-8"));
+		} catch (UnsupportedEncodingException ex) { 
+
+			throw new Xdi2ServerException(ex.getMessage(), ex);
+		}
 
 		// find the owner's XDI peer root
 
@@ -61,7 +72,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		// create and mount the new messaging target
 
 		log.info("Will create messaging target for " + owner);
-		
+
 		super.mountMessagingTarget(httpEndpointRegistry, messagingTargetPath, owner, ownerPeerRoot, ownerContextNode);
 	}
 
