@@ -85,9 +85,9 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		String sharedSecret = null;
 
-		if (prototypingContext.getOwnerContextNode() != null) {
+		if (prototypingContext.getOwnerPeerRoot() != null) {
 
-			Literal sharedSecretLiteral = prototypingContext.getOwnerContextNode().getDeepLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN);
+			Literal sharedSecretLiteral = prototypingContext.getOwnerPeerRoot().getContextNode().getDeepLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN);
 			sharedSecret = sharedSecretLiteral == null ? null : sharedSecretLiteral.getLiteralData();
 		}
 
