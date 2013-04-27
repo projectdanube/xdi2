@@ -37,8 +37,6 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
-
 		XDI3Segment owner;
 
 		try {
@@ -71,7 +69,9 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// create and mount the new messaging target
 
-		log.info("Will create messaging target for " + owner);
+		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
+
+		log.info("Will create messaging target for " + owner + " at " + messagingTargetPath);
 
 		super.mountMessagingTarget(httpEndpointRegistry, messagingTargetPath, owner, ownerPeerRoot, ownerContextNode);
 	}
@@ -81,10 +81,19 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// parse owner
 
-		String ownerString = requestPath.substring(messagingTargetFactoryPath.length() + 1);
+		String ownerString = requestPath.substring(messagingTargetFactoryPath.length());
+		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDI3Segment owner = XDI3Segment.create(ownerString);
+		XDI3Segment owner;
+
+		try {
+
+			owner = XDI3Segment.create(URLDecoder.decode(ownerString, "UTF-8"));
+		} catch (UnsupportedEncodingException ex) { 
+
+			throw new Xdi2ServerException(ex.getMessage(), ex);
+		}
 
 		// find the owner's peer root context node
 
