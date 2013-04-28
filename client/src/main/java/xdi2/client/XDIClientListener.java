@@ -6,5 +6,5 @@ import xdi2.client.events.XDISendEvent;
 public interface XDIClientListener {
 
 	public void onSend(XDISendEvent sendEvent);
-	public void onDiscovery(XDIDiscoverEvent discoveryEvent);
+	public void onDiscover(XDIDiscoverEvent discoverEvent);
 }

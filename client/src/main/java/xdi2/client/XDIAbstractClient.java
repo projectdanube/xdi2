@@ -33,6 +33,6 @@ public abstract class XDIAbstractClient implements XDIClient {
 
 	public void fireDiscoveryEvent(XDIDiscoverEvent discoveryEvent) {
 
-		for (XDIClientListener clientListener : this.clientListeners) clientListener.onDiscovery(discoveryEvent);
+		for (XDIClientListener clientListener : this.clientListeners) clientListener.onDiscover(discoveryEvent);
 	}
 }
