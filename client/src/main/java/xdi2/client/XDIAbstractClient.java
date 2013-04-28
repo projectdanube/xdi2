@@ -15,12 +15,14 @@ public abstract class XDIAbstractClient implements XDIClient {
 		this.clientListeners = new ArrayList<XDIClientListener> ();
 	}
 
+	@Override
 	public void addClientListener(XDIClientListener clientListener) {
 
 		if (this.clientListeners.contains(clientListener)) return;
 		this.clientListeners.add(clientListener);
 	}
 
+	@Override
 	public void removeClientListener(XDIClientListener clientListener) {
 
 		this.clientListeners.remove(clientListener);

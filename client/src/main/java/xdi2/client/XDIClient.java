@@ -24,4 +24,7 @@ public interface XDIClient {
 	 * Shuts down the client.
 	 */
 	public void close();
+
+	public void addClientListener(XDIClientListener clientListener);
+	public void removeClientListener(XDIClientListener clientListener);
 }
