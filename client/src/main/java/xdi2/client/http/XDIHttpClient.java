@@ -6,12 +6,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.client.XDIAbstractClient;
 import xdi2.client.XDIClient;
+import xdi2.client.events.XDISendErrorEvent;
+import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
@@ -36,7 +40,7 @@ import xdi2.messaging.http.AcceptHeader;
  * 
  * @author markus
  */
-public class XDIHttpClient implements XDIClient {
+public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 	public static final String KEY_URL = "url";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
@@ -55,6 +59,8 @@ public class XDIHttpClient implements XDIClient {
 	protected String userAgent;
 
 	public XDIHttpClient() {
+
+		super();
 
 		this.url = null;
 		this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
@@ -115,6 +121,10 @@ public class XDIHttpClient implements XDIClient {
 	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException {
 
 		if (this.url == null) throw new Xdi2ClientException("No URL set.", null);
+
+		// timestamp
+
+		Date beginTimestamp = new Date();
 
 		// find out which XDIWriter we want to use
 
@@ -251,18 +261,26 @@ public class XDIHttpClient implements XDIClient {
 
 		if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 
+		// timestamp
+
+		Date endTimestamp = new Date();
+
 		// see if it is an error message result
 
 		if (ErrorMessageResult.isValid(messageResult.getGraph())) {
 
 			ErrorMessageResult errorMessageResult = ErrorMessageResult.fromGraph(messageResult.getGraph());
 
-			log.debug("Error message result received: " + errorMessageResult.getErrorString());
+			log.warn("Error message result: " + errorMessageResult.getErrorString());
 
-			throw new Xdi2ClientException("Error message result received: " + errorMessageResult.getErrorString(), null, errorMessageResult);
+			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, errorMessageResult, beginTimestamp, endTimestamp));
+
+			throw new Xdi2ClientException("Error message result: " + errorMessageResult.getErrorString(), null, errorMessageResult);
 		}
 
 		// done
+
+		this.fireSendEvent(new XDISendSuccessEvent(this, messageEnvelope, messageResult, beginTimestamp, endTimestamp));
 
 		return messageResult;
 	}

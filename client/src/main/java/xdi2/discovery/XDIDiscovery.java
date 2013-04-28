@@ -1,5 +1,6 @@
 package xdi2.discovery;
 
+import xdi2.client.events.XDIDiscoveryEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.features.roots.XdiPeerRoot;
@@ -35,11 +36,12 @@ public class XDIDiscovery {
 
 		// send the message
 
+		MessageResult messageResult;
 		XDIDiscoveryResult discoveryResult;
 
 		try {
 
-			MessageResult messageResult = this.xdiClient.send(messageEnvelope, null);
+			messageResult = this.xdiClient.send(messageEnvelope, null);
 			discoveryResult = XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
 		} catch (Xdi2ClientException ex) {
 
@@ -50,6 +52,8 @@ public class XDIDiscovery {
 		}
 
 		// done
+
+		this.getXdiClient().fireDiscoveryEvent(new XDIDiscoveryEvent(this, xri, messageEnvelope, discoveryResult));
 
 		return discoveryResult;
 	}
