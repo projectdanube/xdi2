@@ -164,7 +164,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		// initialize and open connection
 
-		log.debug("Connecting...");
+		log.debug("Connecting to " + this.endpointUri);
 
 		URLConnection connection;
 
