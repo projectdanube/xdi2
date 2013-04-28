@@ -3,7 +3,7 @@ package xdi2.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import xdi2.client.events.XDIDiscoveryEvent;
+import xdi2.client.events.XDIDiscoverEvent;
 import xdi2.client.events.XDISendEvent;
 
 public abstract class XDIAbstractClient implements XDIClient {
@@ -31,7 +31,7 @@ public abstract class XDIAbstractClient implements XDIClient {
 		for (XDIClientListener clientListener : this.clientListeners) clientListener.onSend(sendEvent);
 	}
 
-	public void fireDiscoveryEvent(XDIDiscoveryEvent discoveryEvent) {
+	public void fireDiscoveryEvent(XDIDiscoverEvent discoveryEvent) {
 
 		for (XDIClientListener clientListener : this.clientListeners) clientListener.onDiscovery(discoveryEvent);
 	}
