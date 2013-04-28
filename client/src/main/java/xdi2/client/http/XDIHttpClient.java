@@ -31,7 +31,7 @@ import xdi2.messaging.http.AcceptHeader;
  * An XDI client that can send XDI messages over HTTP and receive results.
  * It supports the following parameters (passed to the init method):
  * <ul>
- * <li>url - The URL of the XDI endpoint to talk to.</li>
+ * <li>endpointUri - The URL of the XDI endpoint to talk to.</li>
  * <li>sendMimeType - The mime type to use to send the XDI messages to the endpoint. The Content-type header will be set accordingly.</li>
  * <li>recvMimeType - The mime type in which we want to receive the results from the endpoint. The Accept header will be set accordingly.
  * If the endpoint replies in some other mime type than requested, we will still try to read it.</li>
@@ -42,7 +42,7 @@ import xdi2.messaging.http.AcceptHeader;
  */
 public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
-	public static final String KEY_URL = "url";
+	public static final String KEY_ENDPOINTURI = "endpointuri";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
 	public static final String KEY_RECVMIMETYPE = "recvmimetype";
 	public static final String KEY_USERAGENT = "useragent";
@@ -53,7 +53,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
 
-	protected URL url;
+	protected URL endpointUri;
 	protected MimeType sendMimeType;
 	protected MimeType recvMimeType;
 	protected String userAgent;
@@ -62,17 +62,17 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		super();
 
-		this.url = null;
+		this.endpointUri = null;
 		this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
 		this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
 		this.userAgent = DEFAULT_USERAGENT;
 	}
 
-	public XDIHttpClient(String url) {
+	public XDIHttpClient(String endpointUri) {
 
 		try {
 
-			this.url = (url != null) ? new URL(url) : null;
+			this.endpointUri = (endpointUri != null) ? new URL(endpointUri) : null;
 		} catch (MalformedURLException ex) {
 
 			throw new IllegalArgumentException(ex.getMessage(), ex);
@@ -83,11 +83,11 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		this.userAgent = DEFAULT_USERAGENT;
 	}
 
-	public XDIHttpClient(String url, MimeType sendMimeType, MimeType recvMimeType, String userAgent) {
+	public XDIHttpClient(String endpointUri, MimeType sendMimeType, MimeType recvMimeType, String userAgent) {
 
 		try {
 
-			this.url = (url != null) ? new URL(url) : null;
+			this.endpointUri = (endpointUri != null) ? new URL(endpointUri) : null;
 		} catch (MalformedURLException ex) {
 
 			throw new IllegalArgumentException(ex.getMessage(), ex);
@@ -102,13 +102,13 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		if (parameters == null) {
 
-			this.url = null;
+			this.endpointUri = null;
 			this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
 			this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
 			this.userAgent = DEFAULT_USERAGENT;
 		} else {
 
-			this.url = new URL(parameters.getProperty(KEY_URL, null));
+			this.endpointUri = new URL(parameters.getProperty(KEY_ENDPOINTURI, null));
 			this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE, DEFAULT_SENDMIMETYPE));
 			this.recvMimeType = new MimeType(parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_RECVMIMETYPE));
 			this.userAgent = parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_USERAGENT);
@@ -120,7 +120,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	@Override
 	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException {
 
-		if (this.url == null) throw new Xdi2ClientException("No URL set.", null);
+		if (this.endpointUri == null) throw new Xdi2ClientException("No URI set.", null);
 
 		// timestamp
 
@@ -170,7 +170,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
-			connection = this.url.openConnection();
+			connection = this.endpointUri.openConnection();
 		} catch (Exception ex) {
 
 			throw new Xdi2ClientException("Cannot open connection: " + ex.getMessage(), ex, null);
@@ -290,14 +290,14 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 	}
 
-	public URL getUrl() {
+	public URL getEndpointUri() {
 
-		return this.url;
+		return this.endpointUri;
 	}
 
-	public void setUrl(URL url) {
+	public void setEndpointUri(URL endpointUri) {
 
-		this.url = url;
+		this.endpointUri = endpointUri;
 	}
 
 	public MimeType getSendFormat() {
