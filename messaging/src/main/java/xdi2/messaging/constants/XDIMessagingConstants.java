@@ -19,7 +19,7 @@ public final class XDIMessagingConstants {
 	public static final XDI3Segment XRI_S_SET = XDI3Segment.create("$set");
 	public static final XDI3Segment XRI_S_DEL = XDI3Segment.create("$del");
 	public static final XDI3Segment XRI_S_DO = XDI3Segment.create("$do");
-	public static final XDI3Segment XRI_S_FROM_ADDRESS = XDI3Segment.create("$add");
+	public static final XDI3Segment XRI_S_FROM_ADDRESS = XDI3Segment.create("$set");
 	public static final XDI3Segment XRI_S_TO_ADDRESS = XDI3Segment.create("$is()");
 
 	public static final XDI3SubSegment XRI_SS_MSG = XDI3SubSegment.create("$msg");
