@@ -86,7 +86,7 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 		for (ContextNode innerContextNode : contextNode.getContextNodes()) {
 
-			if (! writeImplied && innerContextNode.getStatement().isImplied()) continue;
+			if (! writeImplied && innerContextNode.getStatement().isImplied() && innerContextNode.isEmpty()) continue;
 			
 			if (XDIConstants.CS_VALUE.equals(innerContextNode.getArcXri()) && innerContextNode.containsLiteral()) {
 
