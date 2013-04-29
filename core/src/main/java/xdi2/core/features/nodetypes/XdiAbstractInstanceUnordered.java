@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.util.Iterator;
 import java.util.UUID;
 
+import org.apache.commons.codec.binary.Hex;
+
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
@@ -79,7 +81,7 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 
 		try {
 
-			MessageDigest digest = MessageDigest.getInstance("SHA-512");
+			MessageDigest digest = MessageDigest.getInstance("SHA-384");
 			digest.update(string.getBytes("UTF-8"));
 			output = digest.digest();
 		} catch (Exception ex) {
@@ -87,9 +89,9 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 			throw new Xdi2RuntimeException(ex.getMessage(), ex);
 		}
 
-		String uuid = UUID.nameUUIDFromBytes(output).toString();
+		String hex = new String(Hex.encodeHex(output));
 
-		return createArcXriFromUuid(uuid, mutable);
+		return createArcXri(":sha384:" + hex, mutable);
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
