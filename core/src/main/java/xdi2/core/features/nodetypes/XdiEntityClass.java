@@ -70,6 +70,9 @@ public final class XdiEntityClass extends XdiAbstractClass<XdiEntityInstanceUnor
 		} else if (XDIConstants.CS_EQUALS.equals(arcXri.getCs()) || XDIConstants.CS_AT.equals(arcXri.getCs())) {
 
 			if (arcXri.hasLiteral() || arcXri.hasXRef()) return false;
+		} else if (XDIConstants.CS_STAR.equals(arcXri.getCs()) || XDIConstants.CS_BANG.equals(arcXri.getCs())) {
+
+			if (arcXri.hasLiteral() || arcXri.hasXRef()) return false;
 		} else {
 
 			return false;
