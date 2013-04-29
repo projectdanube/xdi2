@@ -38,13 +38,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.stream.JsonWriter;
 
-public class XDIJSONGOMWriter extends AbstractXDIWriter {
+public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -5510592554616900152L;
 
-	private static final Logger log = LoggerFactory.getLogger(XDIJSONGOMWriter.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIJSONPARSEWriter.class);
 
-	public static final String FORMAT_NAME = "XDI/JSON/GOM";
+	public static final String FORMAT_NAME = "XDI/JSON/PARSE";
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType MIME_TYPE = null;
 
@@ -55,7 +55,7 @@ public class XDIJSONGOMWriter extends AbstractXDIWriter {
 	private boolean writeInner;
 	private boolean writePretty;
 
-	public XDIJSONGOMWriter(Properties parameters) {
+	public XDIJSONPARSEWriter(Properties parameters) {
 
 		super(parameters);
 	}

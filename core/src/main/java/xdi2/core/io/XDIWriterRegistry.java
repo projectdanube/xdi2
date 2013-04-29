@@ -12,7 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.io.writers.XDIHTMLWriter;
-import xdi2.core.io.writers.XDIJSONGOMWriter;
+import xdi2.core.io.writers.XDIJSONPARSEWriter;
+import xdi2.core.io.writers.XDIJSONTREEWriter;
 import xdi2.core.io.writers.XDIJSONWriter;
 import xdi2.core.io.writers.XDIKeyValueWriter;
 
@@ -40,7 +41,8 @@ public final class XDIWriterRegistry {
 
 		XDIJSONWriter.class.getName(),// first one in the array is the default
 		XDIDisplayWriter.class.getName(),
-		XDIJSONGOMWriter.class.getName(),
+		XDIJSONTREEWriter.class.getName(),
+		XDIJSONPARSEWriter.class.getName(),
 		XDIKeyValueWriter.class.getName(),
 		XDIHTMLWriter.class.getName()
 	};
