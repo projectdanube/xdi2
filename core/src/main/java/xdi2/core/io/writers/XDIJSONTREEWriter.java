@@ -2,6 +2,9 @@ package xdi2.core.io.writers;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -11,19 +14,15 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.roots.XdiInnerRoot;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.util.StatementUtil;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.core.xri3.XDI3XRef;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.stream.JsonWriter;
@@ -80,6 +79,56 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 	private static JsonObject makeJson(ContextNode contextNode, boolean writeImplied, boolean writeInner) {
 
+		Map<XdiInnerRoot, JsonObject> xdiInnerRootJsons = new HashMap<XdiInnerRoot, JsonObject> ();
+
+		JsonObject json = makeJson(contextNode, writeImplied, writeInner, xdiInnerRootJsons);
+
+		if (writeInner) {
+
+			for (Entry<XdiInnerRoot, JsonObject> entry : xdiInnerRootJsons.entrySet()) {
+
+				XdiInnerRoot xdiInnerRoot = entry.getKey();
+				JsonObject xdiInnerRootJson = entry.getValue();
+
+				JsonObject tempJsonObject = json;
+				JsonArray tempJsonArray;
+
+				for (XDI3SubSegment subSegment : xdiInnerRoot.getSubjectOfInnerRoot().getSubSegments()) tempJsonObject = setJsonObject(tempJsonObject, subSegment.toString());
+
+				tempJsonObject = setJsonObject(tempJsonObject, "/");
+				tempJsonArray = setJsonArray(tempJsonObject, xdiInnerRoot.getPredicateOfInnerRoot().toString());
+
+				tempJsonArray.add(xdiInnerRootJson);
+			}
+		}
+
+		return json;
+	}
+
+	private static JsonObject setJsonObject(JsonObject json, String key) {
+
+		JsonObject innerJson = json.getAsJsonObject(key);
+		if (innerJson != null) return innerJson;
+
+		innerJson = new JsonObject();
+		json.add(key, innerJson);
+
+		return innerJson;
+	}
+
+	private static JsonArray setJsonArray(JsonObject json, String key) {
+
+		JsonArray innerJson = json.getAsJsonArray(key);
+		if (innerJson != null) return innerJson;
+
+		innerJson = new JsonArray();
+		json.add(key, innerJson);
+
+		return innerJson;
+	}
+
+	private static JsonObject makeJson(ContextNode contextNode, boolean writeImplied, boolean writeInner, Map<XdiInnerRoot, JsonObject> xdiInnerRootJsons) {
+
 		JsonObject json = new JsonObject();
 
 		// context nodes
@@ -87,13 +136,23 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 		for (ContextNode innerContextNode : contextNode.getContextNodes()) {
 
 			if (! writeImplied && innerContextNode.getStatement().isImplied() && innerContextNode.isEmpty()) continue;
-			
-			if (XDIConstants.CS_VALUE.equals(innerContextNode.getArcXri()) && innerContextNode.containsLiteral()) {
 
-				json.add(XDIConstants.CS_VALUE.toString(), new JsonPrimitive(innerContextNode.getLiteral().getLiteralData()));
-			} else {
+			if (writeInner && XdiInnerRoot.isValid(innerContextNode)) {
 
-				json.add(innerContextNode.getArcXri().toString(), makeJson(innerContextNode, writeImplied, writeInner));
+				xdiInnerRootJsons.put(XdiInnerRoot.fromContextNode(innerContextNode), makeJson(innerContextNode, writeImplied, writeInner));
+
+				continue;
+			}
+
+			if (json.get(innerContextNode.getArcXri().toString()) == null) {
+
+				if (innerContextNode.getArcXri().equals(XDIConstants.CS_VALUE.toString()) && innerContextNode.containsLiteral()) {
+
+					json.add(XDIConstants.CS_VALUE.toString(), new JsonPrimitive(innerContextNode.getLiteral().getLiteralData()));
+				} else {
+
+					json.add(innerContextNode.getArcXri().toString(), makeJson(innerContextNode, writeImplied, writeInner));
+				}
 			}
 		}
 
@@ -102,7 +161,7 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 		for (Relation relation : contextNode.getRelations()) {
 
 			if (! writeImplied && relation.getStatement().isImplied()) continue;
-			
+
 			JsonObject relationsJson = json.getAsJsonObject("/");
 			if (relationsJson == null) { relationsJson = new JsonObject(); json.add("/", relationsJson); }
 
@@ -115,112 +174,5 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 		// done
 
 		return json;
-	}
-
-	private static JsonArray makeGom(XDI3Statement statement) {
-
-		JsonArray gom = new JsonArray();
-
-		gom.add(makeGom(statement.getSubject()));
-		gom.add(makeGom(statement.getPredicate()));
-
-		if (statement.getObject() instanceof XDI3Segment)
-			gom.add(makeGom((XDI3Segment) statement.getObject()));
-		else
-			gom.add(new JsonPrimitive((String) statement.getObject()));
-
-		return gom;
-	}
-
-	private static JsonElement makeGom(XDI3Segment segment) {
-
-		JsonElement gom;
-
-		if (segment.getNumSubSegments() == 1) {
-
-			gom = makeGom(segment.getFirstSubSegment());
-		} else {
-
-			gom = new JsonArray();
-
-			for (int i=0; i<segment.getNumSubSegments(); i++) ((JsonArray) gom).add(makeGom(segment.getSubSegment(i)));
-		}
-
-		return gom;
-	}
-
-	private static JsonElement makeGom(XDI3SubSegment subSegment) {
-
-		JsonElement gom = null;
-
-		if (subSegment.hasXRef()) {
-
-			JsonObject gom2 = new JsonObject();
-			gom2.add(subSegment.getXRef().getXs(), makeGom(subSegment.getXRef()));
-			gom = gom2;
-		}
-
-		if (subSegment.hasLiteral()) {
-
-			gom = new JsonPrimitive(subSegment.getLiteral());
-		}
-
-		if (subSegment.hasCs()) {
-
-			JsonObject gom2 = new JsonObject();
-			gom2.add(subSegment.getCs().toString(), gom);
-			gom = gom2;
-		}
-
-		if (subSegment.isAttributeXs()) {
-
-			JsonObject gom2 = new JsonObject();
-			gom2.add(XDIConstants.XS_ATTRIBUTE.substring(0, 1), gom);
-			gom = gom2;
-		}
-
-		if (subSegment.isClassXs()) {
-
-			JsonObject gom2 = new JsonObject();
-			gom2.add(XDIConstants.XS_CLASS.substring(0, 1), gom);
-			gom = gom2;
-		}
-
-		return gom;
-	}
-
-	private static JsonElement makeGom(XDI3XRef xref) {
-
-		if (xref.hasStatement()) {
-
-			return makeGom(xref.getStatement());
-		} else if (xref.hasPartialSubjectAndPredicate()) {
-
-			JsonArray gom = new JsonArray();
-			gom.add(makeGom(xref.getPartialSubject()));
-			gom.add(makeGom(xref.getPartialPredicate()));
-			return gom;
-		} else if (xref.hasSegment()) {
-
-			return makeGom(xref.getSegment());
-		} else {
-
-			return xref.getValue() == null ? new JsonPrimitive("") : new JsonPrimitive(xref.getValue());
-		}
-	}
-
-	private static XDI3Statement transformStatementInInnerRoot(XDI3Statement statementXri) {
-
-		XDI3SubSegment subjectFirstSubSegment = statementXri.getSubject().getFirstSubSegment();
-
-		if ((! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return statementXri;
-
-		XDI3Segment innerRootSubject = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
-		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
-
-		XDI3Statement reducedStatementXri = StatementUtil.reduceStatement(statementXri, XDI3Segment.create("" + subjectFirstSubSegment));
-		if (reducedStatementXri == null) return statementXri;
-
-		return XDI3Statement.create("" + innerRootSubject + "/" + innerRootPredicate + "/(" + transformStatementInInnerRoot(reducedStatementXri) + ")");
 	}
 }
