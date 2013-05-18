@@ -21,14 +21,14 @@ public final class PolicyUtil {
 	 * Helper methods to create various XDI policy statements.
 	 */
 
-	public static Operator createSenderMatchesOperator(Policy policy, XDI3Segment sender) {
+	public static Operator createSenderIsOperator(Policy policy, XDI3Segment sender) {
 
 		Condition condition = IsCondition.fromSubjectAndObject(XDI3Segment.create("{$from}"), sender);
 
 		return TrueOperator.createTrueOperator(policy, condition);
 	}
 
-	public static Operator createSecretTokenMatchesOperator(Policy policy) {
+	public static Operator createSecretTokenEqualsOperator(Policy policy) {
 
 		Condition condition = EqualsCondition.fromSubjectAndObject(XDI3Segment.create("{$msg}" + XDIPolicyConstants.XRI_S_SECRET_TOKEN), XDI3Segment.create("" + XDIPolicyConstants.XRI_S_SECRET_TOKEN));
 

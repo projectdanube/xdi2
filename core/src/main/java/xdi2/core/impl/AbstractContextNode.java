@@ -189,12 +189,11 @@ public abstract class AbstractContextNode implements ContextNode {
 		return new IteratorFirstItem<ContextNode> (selectingIterator).item();
 	}
 
-	//	public ReadOnlyIterator<ContextNode> getContextNodes();
+	//	public ContextNode getContextNode(XDI3SubSegment contextNodeArcXri);
 
 	@Override
 	public ContextNode getDeepContextNode(XDI3Segment contextNodeArcXris) {
 
-		if (contextNodeArcXris == null) return this;
 		if (XDIConstants.XRI_S_ROOT.equals(contextNodeArcXris) && this.isRootContextNode()) return this;
 
 		ContextNode contextNode = this;

@@ -282,20 +282,26 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(root.getLiteral());
 		assertEquals(root.getContextNodeCount(), 0);
 		assertEquals(root.getRelationCount(), 0);
+		assertFalse(root.getAllContextNodes().hasNext());
+		assertFalse(root.getAllRelations().hasNext());
+		assertFalse(root.getAllLiterals().hasNext());
 
-		root.createRelation(XDI3Segment.create("*arc"), XDI3Segment.create("=target"));
-		root.createContextNode(XDI3SubSegment.create("<+test>")).createContextNode(XDI3SubSegment.create("&")).createLiteral("test");
+		root.setRelation(XDI3Segment.create("*arc"), XDI3Segment.create("=target"));
+		root.setContextNode(XDI3SubSegment.create("<+test>")).setContextNode(XDI3SubSegment.create("&")).setLiteral("test");
 
 		assertFalse(root.isEmpty());
 		assertTrue(root.containsContextNodes());
 		assertTrue(root.containsRelations());
-		assertTrue(root.getAllLiterals().hasNext());
+		assertFalse(root.containsLiteral());
 		assertTrue(root.getContextNodes().hasNext());
 		assertTrue(root.getRelations().hasNext());
 		assertNotNull(root.getRelations().next().follow());
 		assertNull(root.getLiteral());
 		assertEquals(root.getContextNodeCount(), 2);
 		assertEquals(root.getRelationCount(), 1);
+		assertTrue(root.getAllContextNodes().hasNext());
+		assertTrue(root.getAllRelations().hasNext());
+		assertTrue(root.getAllLiterals().hasNext());
 
 		root.createContextNode(XDI3SubSegment.create("+name"));
 		root.createContextNode(XDI3SubSegment.create("+email"));
@@ -304,12 +310,14 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(root.containsContextNodes());
 		assertTrue(root.containsRelations());
 		assertFalse(root.containsLiteral());
-		assertTrue(root.getAllLiterals().hasNext());
 		assertTrue(root.getContextNodes().hasNext());
 		assertTrue(root.getRelations().hasNext());
 		assertNull(root.getLiteral());
 		assertEquals(root.getContextNodeCount(), 4);
 		assertEquals(root.getRelationCount(), 1);
+		assertTrue(root.getAllContextNodes().hasNext());
+		assertTrue(root.getAllRelations().hasNext());
+		assertTrue(root.getAllLiterals().hasNext());
 
 		root.getRelations().next().follow().delete();
 		root.getContextNodes().next().delete();
@@ -319,12 +327,15 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(root.isEmpty());
 		assertFalse(root.containsContextNodes());
 		assertFalse(root.containsRelations());
-		assertFalse(root.getAllLiterals().hasNext());
+		assertFalse(root.containsLiteral());
 		assertFalse(root.getContextNodes().hasNext());
 		assertFalse(root.getRelations().hasNext());
 		assertNull(root.getLiteral());
 		assertEquals(root.getContextNodeCount(), 0);
 		assertEquals(root.getRelationCount(), 0);
+		assertFalse(root.getAllContextNodes().hasNext());
+		assertFalse(root.getAllRelations().hasNext());
+		assertFalse(root.getAllLiterals().hasNext());
 
 		graph13.close();
 	}
