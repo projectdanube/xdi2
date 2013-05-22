@@ -3,8 +3,8 @@ package xdi2.messaging.target.impl.graph;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.features.nodetypes.roots.XdiLocalRoot;
-import xdi2.core.features.nodetypes.roots.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageEnvelope;

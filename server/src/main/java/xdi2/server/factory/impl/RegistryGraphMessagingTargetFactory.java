@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.nodetypes.roots.XdiLocalRoot;
-import xdi2.core.features.nodetypes.roots.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;

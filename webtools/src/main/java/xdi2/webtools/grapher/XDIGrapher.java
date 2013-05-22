@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
-import xdi2.core.features.nodetypes.roots.XdiRoot;
+import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;

@@ -1,4 +1,4 @@
-package xdi2.core.features.nodetypes.roots;
+package xdi2.core.features.nodetypes;
 
 import java.util.Iterator;
 
@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
-import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.SelectingMappingIterator;

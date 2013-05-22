@@ -11,8 +11,8 @@ import xdi2.core.Relation;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.Policy;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
-import xdi2.core.features.nodetypes.roots.XdiInnerRoot;
-import xdi2.core.features.nodetypes.roots.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 

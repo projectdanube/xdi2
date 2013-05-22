@@ -1,7 +1,7 @@
-package xdi2.tests.core.features.nodetypes.roots;
+package xdi2.tests.core.features.nodetypes;
 
 import junit.framework.TestCase;
-import xdi2.core.features.nodetypes.roots.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 

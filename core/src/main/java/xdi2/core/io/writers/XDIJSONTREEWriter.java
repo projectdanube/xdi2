@@ -14,7 +14,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.nodetypes.roots.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
