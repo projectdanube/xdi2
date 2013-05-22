@@ -65,7 +65,6 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton implements Xd
 		if (arcXri.isClassXs()) return false;
 
 		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
-		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
 
 		if (XDIConstants.CS_PLUS.equals(arcXri.getCs()) || XDIConstants.CS_DOLLAR.equals(arcXri.getCs())) {
 
