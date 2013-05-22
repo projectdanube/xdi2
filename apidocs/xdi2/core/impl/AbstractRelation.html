@@ -7,6 +7,16 @@
 AbstractRelation (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.impl.AbstractRelation class">
+<META NAME="keywords" CONTENT="getGraph()">
+<META NAME="keywords" CONTENT="getContextNode()">
+<META NAME="keywords" CONTENT="delete()">
+<META NAME="keywords" CONTENT="follow()">
+<META NAME="keywords" CONTENT="getStatement()">
+<META NAME="keywords" CONTENT="toString()">
+<META NAME="keywords" CONTENT="equals()">
+<META NAME="keywords" CONTENT="hashCode()">
+<META NAME="keywords" CONTENT="compareTo()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -104,6 +114,15 @@ Class AbstractRelation</H2>
 <DL>
 <DT><PRE>public abstract class <B>AbstractRelation</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="../Relation.html" title="&#171;interface&#187; Relation (xdi2.core)" alt="" coords="273,6,359,61"/>
+<area shape="rect" id="node2" href="AbstractRelation.html" title="AbstractRelation" alt="" coords="257,101,375,126"/>
+<area shape="rect" id="node3" href="wrapped/WrappedRelation.html" title="WrappedRelation (xdi2.core.impl.wrapped)" alt="" coords="524,165,687,205"/>
+<area shape="rect" id="node4" href="memory/MemoryRelation.html" title="MemoryRelation (xdi2.core.impl.memory)" alt="" coords="332,165,495,205"/>
+<area shape="rect" id="node5" href="keyvalue/KeyValueRelation.html" title="KeyValueRelation (xdi2.core.impl.keyvalue)" alt="" coords="137,165,303,205"/>
+<area shape="rect" id="node6" href="BasicRelation.html" title="BasicRelation" alt="" coords="5,173,107,198"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="AbstractRelation.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -121,8 +140,7 @@ Class AbstractRelation</H2>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractRelation.html#AbstractRelation(xdi2.core.Graph, xdi2.core.ContextNode)">AbstractRelation</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                 <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractRelation.html#AbstractRelation(xdi2.core.ContextNode)">AbstractRelation</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -191,7 +209,7 @@ Class AbstractRelation</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractRelation.html#getStatement()">getStatement</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the statement that contains this literal.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the statement that represents this relation.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -241,11 +259,10 @@ Class AbstractRelation</H2>
 </TR>
 </TABLE>
 
-<A NAME="AbstractRelation(xdi2.core.Graph, xdi2.core.ContextNode)"><!-- --></A><H3>
+<A NAME="AbstractRelation(xdi2.core.ContextNode)"><!-- --></A><H3>
 AbstractRelation</H3>
 <PRE>
-public <B>AbstractRelation</B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                        <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+public <B>AbstractRelation</B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
 <DL>
 </DL>
 
@@ -336,7 +353,7 @@ getStatement</H3>
 public <A HREF="../../../xdi2/core/Statement.RelationStatement.html" title="interface in xdi2.core">Statement.RelationStatement</A> <B>getStatement</B>()</PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Relation.html#getStatement()">Relation</A></CODE></B></DD>
-<DD>Gets the statement that contains this literal.
+<DD>Gets the statement that represents this relation.
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Relation.html#getStatement()">getStatement</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></DL>

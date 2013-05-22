@@ -7,6 +7,20 @@
 ErrorMessageResult (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.error.ErrorMessageResult class">
+<META NAME="keywords" CONTENT="XRI_S_FALSE">
+<META NAME="keywords" CONTENT="XRI_S_ERROR">
+<META NAME="keywords" CONTENT="XRI_SS_FALSE">
+<META NAME="keywords" CONTENT="DEFAULT_ERRORSTRING">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromGraph()">
+<META NAME="keywords" CONTENT="fromException()">
+<META NAME="keywords" CONTENT="getErrorContextNode()">
+<META NAME="keywords" CONTENT="getErrorTimestamp()">
+<META NAME="keywords" CONTENT="setErrorTimestamp()">
+<META NAME="keywords" CONTENT="getErrorString()">
+<META NAME="keywords" CONTENT="setErrorString()">
+<META NAME="keywords" CONTENT="setErrorOperation()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -102,6 +116,11 @@ Class ErrorMessageResult</H2>
 <DL>
 <DT><PRE>public class <B>ErrorMessageResult</B><DT>extends <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="../MessageResult.html" title="MessageResult (xdi2.messaging)" alt="" coords="14,5,135,45"/>
+<area shape="rect" id="node2" href="ErrorMessageResult.html" title="ErrorMessageResult" alt="" coords="5,85,144,110"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="ErrorMessageResult.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -120,22 +139,6 @@ Class ErrorMessageResult</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#DEFAULT_ERRORCODE">DEFAULT_ERRORCODE</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#DEFAULT_ERROROPERATION">DEFAULT_ERROROPERATION</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#DEFAULT_ERRORSTRING">DEFAULT_ERRORSTRING</A></B></CODE>
 
 <BR>
@@ -144,7 +147,7 @@ Class ErrorMessageResult</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#XRI_S_ERRORCODE">XRI_S_ERRORCODE</A></B></CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#XRI_S_ERROR">XRI_S_ERROR</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -152,27 +155,18 @@ Class ErrorMessageResult</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#XRI_S_ERROROPERATION">XRI_S_ERROROPERATION</A></B></CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#XRI_S_FALSE">XRI_S_FALSE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#XRI_S_ERRORSTRING">XRI_S_ERRORSTRING</A></B></CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#XRI_SS_FALSE">XRI_SS_FALSE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_xdi2.messaging.MessageResult"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class xdi2.messaging.<A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../xdi2/messaging/MessageResult.html#graph">graph</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -228,16 +222,8 @@ Class ErrorMessageResult</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#getErrorCode()">getErrorCode</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#getErrorOperation()">getErrorOperation</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#getErrorContextNode()">getErrorContextNode</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -246,6 +232,14 @@ Class ErrorMessageResult</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#getErrorString()">getErrorString</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#getErrorTimestamp()">getErrorTimestamp</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -261,15 +255,7 @@ Class ErrorMessageResult</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#setErrorCode(java.lang.String)">setErrorCode</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;errorCode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#setErrorOperation(java.lang.String)">setErrorOperation</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;errorOperation)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#setErrorOperation(xdi2.messaging.Operation)">setErrorOperation</A></B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -278,6 +264,14 @@ Class ErrorMessageResult</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#setErrorString(java.lang.String)">setErrorString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;errorString)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#setErrorTimestamp(java.util.Date)">setErrorTimestamp</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</A>&nbsp;timestamp)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -314,43 +308,33 @@ Class ErrorMessageResult</H2>
 </TR>
 </TABLE>
 
-<A NAME="XRI_S_ERRORCODE"><!-- --></A><H3>
-XRI_S_ERRORCODE</H3>
+<A NAME="XRI_S_FALSE"><!-- --></A><H3>
+XRI_S_FALSE</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_ERRORCODE</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_FALSE</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="XRI_S_ERRORSTRING"><!-- --></A><H3>
-XRI_S_ERRORSTRING</H3>
+<A NAME="XRI_S_ERROR"><!-- --></A><H3>
+XRI_S_ERROR</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_ERRORSTRING</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_ERROR</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="XRI_S_ERROROPERATION"><!-- --></A><H3>
-XRI_S_ERROROPERATION</H3>
+<A NAME="XRI_SS_FALSE"><!-- --></A><H3>
+XRI_SS_FALSE</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_ERROROPERATION</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_FALSE</B></PRE>
 <DL>
 <DL>
 </DL>
-</DL>
-<HR>
-
-<A NAME="DEFAULT_ERRORCODE"><!-- --></A><H3>
-DEFAULT_ERRORCODE</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_ERRORCODE</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.messaging.error.ErrorMessageResult.DEFAULT_ERRORCODE">Constant Field Values</A></DL>
 </DL>
 <HR>
 
@@ -361,16 +345,6 @@ public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/l
 <DL>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.messaging.error.ErrorMessageResult.DEFAULT_ERRORSTRING">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="DEFAULT_ERROROPERATION"><!-- --></A><H3>
-DEFAULT_ERROROPERATION</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_ERROROPERATION</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.messaging.error.ErrorMessageResult.DEFAULT_ERROROPERATION">Constant Field Values</A></DL>
 </DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
@@ -450,10 +424,10 @@ public static <A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html" ti
 </DL>
 <HR>
 
-<A NAME="getErrorCode()"><!-- --></A><H3>
-getErrorCode</H3>
+<A NAME="getErrorContextNode()"><!-- --></A><H3>
+getErrorContextNode</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getErrorCode</B>()</PRE>
+public <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getErrorContextNode</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -461,10 +435,21 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.ht
 </DL>
 <HR>
 
-<A NAME="setErrorCode(java.lang.String)"><!-- --></A><H3>
-setErrorCode</H3>
+<A NAME="getErrorTimestamp()"><!-- --></A><H3>
+getErrorTimestamp</H3>
 <PRE>
-public void <B>setErrorCode</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;errorCode)</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</A> <B>getErrorTimestamp</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setErrorTimestamp(java.util.Date)"><!-- --></A><H3>
+setErrorTimestamp</H3>
+<PRE>
+public void <B>setErrorTimestamp</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</A>&nbsp;timestamp)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -494,21 +479,10 @@ public void <B>setErrorString</B>(<A HREF="http://download.oracle.com/javase/6/d
 </DL>
 <HR>
 
-<A NAME="getErrorOperation()"><!-- --></A><H3>
-getErrorOperation</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getErrorOperation</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setErrorOperation(java.lang.String)"><!-- --></A><H3>
+<A NAME="setErrorOperation(xdi2.messaging.Operation)"><!-- --></A><H3>
 setErrorOperation</H3>
 <PRE>
-public void <B>setErrorOperation</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;errorOperation)</PRE>
+public void <B>setErrorOperation</B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation)</PRE>
 <DL>
 <DD><DL>
 </DL>

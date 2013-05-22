@@ -7,6 +7,8 @@
 MappingLiteralStatementIterator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.iterators.MappingLiteralStatementIterator class">
+<META NAME="keywords" CONTENT="map()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -92,16 +94,22 @@ xdi2.core.util.iterators</FONT>
 Class MappingLiteralStatementIterator</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>,<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&gt;
-      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.MappingLiteralStatementIterator</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</A>&lt;O&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>,<A HREF="../../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A>&gt;
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.MappingLiteralStatementIterator</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A>&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A>&gt;</DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>MappingLiteralStatementIterator</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>,<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&gt;</DL>
+<DT><PRE>public class <B>MappingLiteralStatementIterator</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>,<A HREF="../../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="MappingIterator.html" title="MappingIterator" alt="" coords="53,6,163,31"/>
+<area shape="rect" id="node2" href="MappingLiteralStatementIterator.html" title="MappingLiteralStatementIterator" alt="" coords="5,71,211,97"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="MappingLiteralStatementIterator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 A MappingIterator that maps XDI literals to their statements.
@@ -166,7 +174,7 @@ A MappingIterator that maps XDI literals to their statements.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/MappingLiteralStatementIterator.html#map(xdi2.core.Literal)">map</A></B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
 
 <BR>
@@ -180,6 +188,15 @@ A MappingIterator that maps XDI literals to their statements.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#hasNext()">hasNext</A>, <A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#next()">next</A>, <A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#remove()">remove</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.util.iterators.IterableIterator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.util.iterators.<A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">IterableIterator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html#iterator()">iterator</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -232,10 +249,10 @@ public <B>MappingLiteralStatementIterator</B>(<A HREF="../../../../xdi2/core/Lit
 <A NAME="map(xdi2.core.Literal)"><!-- --></A><H3>
 map</H3>
 <PRE>
-public <A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>map</B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</PRE>
+public <A HREF="../../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A> <B>map</B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#map(I)">map</A></CODE> in class <CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>,<A HREF="../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#map(I)">map</A></CODE> in class <CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>,<A HREF="../../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 </DL>

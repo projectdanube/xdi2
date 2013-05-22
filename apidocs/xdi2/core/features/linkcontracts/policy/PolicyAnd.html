@@ -7,6 +7,10 @@
 PolicyAnd (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.features.linkcontracts.policy.PolicyAnd class">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromXdiEntity()">
+<META NAME="keywords" CONTENT="evaluateInternal()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -54,7 +58,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.policy"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingXdiEntityPolicyRootIterator.html" title="class in xdi2.core.features.linkcontracts.policy"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyNot.html" title="class in xdi2.core.features.linkcontracts.policy"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/features/linkcontracts/policy/PolicyAnd.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -102,9 +106,14 @@ Class PolicyAnd</H2>
 <DL>
 <DT><PRE>public class <B>PolicyAnd</B><DT>extends <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="Policy.html" title="Policy" alt="" coords="17,6,73,31"/>
+<area shape="rect" id="node2" href="PolicyAnd.html" title="PolicyAnd" alt="" coords="5,71,85,97"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="PolicyAnd.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
-An XDI $and policy, represented as an XDI subgraph.
+An XDI $and policy, represented as an XDI entity.
 <P>
 
 <P>
@@ -130,7 +139,7 @@ An XDI $and policy, represented as an XDI subgraph.
 <TH ALIGN="left"><B>Nested classes/interfaces inherited from class xdi2.core.features.linkcontracts.policy.<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingEntityMemberPolicyAndIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingEntityMemberPolicyAndIterator</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingEntityMemberPolicyNotIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingEntityMemberPolicyNotIterator</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingEntityMemberPolicyOrIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingEntityMemberPolicyOrIterator</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingRelationOperatorIterator</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingXdiEntityPolicyAndIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingXdiEntityPolicyAndIterator</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingXdiEntityPolicyIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingXdiEntityPolicyIterator</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingXdiEntityPolicyNotIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingXdiEntityPolicyNotIterator</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingXdiEntityPolicyOrIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingXdiEntityPolicyOrIterator</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingXdiEntityPolicyRootIterator.html" title="class in xdi2.core.features.linkcontracts.policy">Policy.MappingXdiEntityPolicyRootIterator</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -146,7 +155,7 @@ An XDI $and policy, represented as an XDI subgraph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyAnd.html#PolicyAnd(xdi2.core.features.multiplicity.XdiSubGraph)">PolicyAnd</A></B>(<A HREF="../../../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A>&nbsp;xdiSubGraph)</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyAnd.html#PolicyAnd(xdi2.core.features.nodetypes.XdiEntity)">PolicyAnd</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -172,18 +181,18 @@ An XDI $and policy, represented as an XDI subgraph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyAnd.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyAnd</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyAnd.html#fromSubGraph(xdi2.core.features.multiplicity.XdiSubGraph)">fromSubGraph</A></B>(<A HREF="../../../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A>&nbsp;xdiSubGraph)</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyAnd.html#fromXdiEntity(xdi2.core.features.nodetypes.XdiEntity)">fromXdiEntity</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI $and policy bound to a given XDI subgraph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI $and policy bound to a given XDI entity.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyAnd.html#isValid(xdi2.core.features.multiplicity.XdiSubGraph)">isValid</A></B>(<A HREF="../../../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A>&nbsp;xdiSubGraph)</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyAnd.html#isValid(xdi2.core.features.nodetypes.XdiEntity)">isValid</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI subgraph is a valid XDI $and policy.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI entity is a valid XDI $and policy.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.linkcontracts.policy.Policy"><!-- --></A>
@@ -192,7 +201,7 @@ An XDI $and policy, represented as an XDI subgraph.
 <TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.linkcontracts.policy.<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#addOperator(xdi2.core.features.linkcontracts.operator.Operator)">addOperator</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#castCondition(xdi2.core.features.linkcontracts.policy.Policy)">castCondition</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#compareTo(xdi2.core.features.linkcontracts.policy.Policy)">compareTo</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#createAndPolicy()">createAndPolicy</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#createNotPolicy()">createNotPolicy</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#createOrPolicy()">createOrPolicy</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#evaluate(xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext)">evaluate</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getContextNode()">getContextNode</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getOperators()">getOperators</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getPolicies()">getPolicies</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getPolicyXri()">getPolicyXri</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getSubGraph()">getSubGraph</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#hashCode()">hashCode</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#toString()">toString</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#castCondition(xdi2.core.features.linkcontracts.policy.Policy)">castCondition</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#compareTo(xdi2.core.features.linkcontracts.policy.Policy)">compareTo</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#createAndPolicy(boolean)">createAndPolicy</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#createNotPolicy(boolean)">createNotPolicy</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#createOrPolicy(boolean)">createOrPolicy</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#evaluate(xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext)">evaluate</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getContextNode()">getContextNode</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getOperators()">getOperators</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getPolicies()">getPolicies</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getPolicyXri()">getPolicyXri</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#getXdiEntity()">getXdiEntity</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#hashCode()">hashCode</A>, <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html#toString()">toString</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -217,10 +226,10 @@ An XDI $and policy, represented as an XDI subgraph.
 </TR>
 </TABLE>
 
-<A NAME="PolicyAnd(xdi2.core.features.multiplicity.XdiSubGraph)"><!-- --></A><H3>
+<A NAME="PolicyAnd(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
 PolicyAnd</H3>
 <PRE>
-protected <B>PolicyAnd</B>(<A HREF="../../../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A>&nbsp;xdiSubGraph)</PRE>
+protected <B>PolicyAnd</B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
 <DL>
 </DL>
 
@@ -234,29 +243,29 @@ protected <B>PolicyAnd</B>(<A HREF="../../../../../xdi2/core/features/multiplici
 </TR>
 </TABLE>
 
-<A NAME="isValid(xdi2.core.features.multiplicity.XdiSubGraph)"><!-- --></A><H3>
+<A NAME="isValid(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
 isValid</H3>
 <PRE>
-public static boolean <B>isValid</B>(<A HREF="../../../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A>&nbsp;xdiSubGraph)</PRE>
+public static boolean <B>isValid</B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
 <DL>
-<DD>Checks if an XDI subgraph is a valid XDI $and policy.
+<DD>Checks if an XDI entity is a valid XDI $and policy.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>xdiSubGraph</CODE> - The XDI subgraph to check.
-<DT><B>Returns:</B><DD>True if the XDI subgraph is a valid XDI $and policy.</DL>
+<DT><B>Parameters:</B><DD><CODE>xdiEntity</CODE> - The XDI entity to check.
+<DT><B>Returns:</B><DD>True if the XDI entity is a valid XDI $and policy.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="fromSubGraph(xdi2.core.features.multiplicity.XdiSubGraph)"><!-- --></A><H3>
-fromSubGraph</H3>
+<A NAME="fromXdiEntity(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
+fromXdiEntity</H3>
 <PRE>
-public static <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyAnd.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyAnd</A> <B>fromSubGraph</B>(<A HREF="../../../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A>&nbsp;xdiSubGraph)</PRE>
+public static <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyAnd.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyAnd</A> <B>fromXdiEntity</B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
 <DL>
-<DD>Factory method that creates an XDI $and policy bound to a given XDI subgraph.
+<DD>Factory method that creates an XDI $and policy bound to a given XDI entity.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>xdiSubGraph</CODE> - The XDI subgraph that is an XDI root policy.
+<DT><B>Parameters:</B><DD><CODE>xdiEntity</CODE> - The XDI entity that is an XDI root policy.
 <DT><B>Returns:</B><DD>The XDI $and policy.</DL>
 </DD>
 </DL>
@@ -305,7 +314,7 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.h
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.policy"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.MappingXdiEntityPolicyRootIterator.html" title="class in xdi2.core.features.linkcontracts.policy"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyNot.html" title="class in xdi2.core.features.linkcontracts.policy"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/features/linkcontracts/policy/PolicyAnd.html" target="_top"><B>FRAMES</B></A>  &nbsp;

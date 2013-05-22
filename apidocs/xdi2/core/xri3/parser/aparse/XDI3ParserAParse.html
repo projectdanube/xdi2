@@ -7,6 +7,11 @@
 XDI3ParserAParse (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.xri3.parser.aparse.XDI3ParserAParse class">
+<META NAME="keywords" CONTENT="parseXDI3Statement()">
+<META NAME="keywords" CONTENT="parseXDI3Segment()">
+<META NAME="keywords" CONTENT="parseXDI3SubSegment()">
+<META NAME="keywords" CONTENT="parseXDI3XRef()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -92,15 +97,18 @@ xdi2.core.xri3.parser.aparse</FONT>
 Class XDI3ParserAParse</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.xri3.parser.aparse.XDI3ParserAParse</B>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html" title="class in xdi2.core.xri3">xdi2.core.xri3.XDI3Parser</A>
+      <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.xri3.parser.aparse.XDI3ParserAParse</B>
 </PRE>
-<DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html" title="interface in xdi2.core.xri3.parser">XDI3Parser</A></DD>
-</DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>XDI3ParserAParse</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html" title="interface in xdi2.core.xri3.parser">XDI3Parser</A></DL>
+<DT><PRE>public class <B>XDI3ParserAParse</B><DT>extends <A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html" title="class in xdi2.core.xri3">XDI3Parser</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="../../XDI3Parser.html" title="XDI3Parser (xdi2.core.xri3)" alt="" coords="16,5,123,45"/>
+<area shape="rect" id="node2" href="XDI3ParserAParse.html" title="XDI3ParserAParse" alt="" coords="5,85,133,110"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="XDI3ParserAParse.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XRI parser based on the recursive-descent APG parser generator. 
@@ -171,6 +179,15 @@ An XRI parser based on the recursive-descent APG parser generator.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.xri3.XDI3Parser"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.xri3.<A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html" title="class in xdi2.core.xri3">XDI3Parser</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html#makeXDI3Segment(java.lang.String, java.util.List)">makeXDI3Segment</A>, <A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html#makeXDI3Statement(java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.lang.Object)">makeXDI3Statement</A>, <A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html#makeXDI3SubSegment(java.lang.String, java.lang.Character, boolean, boolean, java.lang.String, xdi2.core.xri3.XDI3XRef)">makeXDI3SubSegment</A>, <A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html#makeXDI3XRef(java.lang.String, java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.lang.String, java.lang.String)">makeXDI3XRef</A></CODE></TD>
+</TR>
+</TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
@@ -216,7 +233,7 @@ parseXDI3Statement</H3>
 public <A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>parseXDI3Statement</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html#parseXDI3Statement(java.lang.String)">parseXDI3Statement</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html" title="interface in xdi2.core.xri3.parser">XDI3Parser</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html#parseXDI3Statement(java.lang.String)">parseXDI3Statement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html" title="class in xdi2.core.xri3">XDI3Parser</A></CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -230,7 +247,7 @@ parseXDI3Segment</H3>
 public <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>parseXDI3Segment</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html#parseXDI3Segment(java.lang.String)">parseXDI3Segment</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html" title="interface in xdi2.core.xri3.parser">XDI3Parser</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html#parseXDI3Segment(java.lang.String)">parseXDI3Segment</A></CODE> in class <CODE><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html" title="class in xdi2.core.xri3">XDI3Parser</A></CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -244,7 +261,7 @@ parseXDI3SubSegment</H3>
 public <A HREF="../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>parseXDI3SubSegment</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html#parseXDI3SubSegment(java.lang.String)">parseXDI3SubSegment</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html" title="interface in xdi2.core.xri3.parser">XDI3Parser</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html#parseXDI3SubSegment(java.lang.String)">parseXDI3SubSegment</A></CODE> in class <CODE><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html" title="class in xdi2.core.xri3">XDI3Parser</A></CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -258,7 +275,7 @@ parseXDI3XRef</H3>
 public <A HREF="../../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A> <B>parseXDI3XRef</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html#parseXDI3XRef(java.lang.String)">parseXDI3XRef</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/core/xri3/parser/XDI3Parser.html" title="interface in xdi2.core.xri3.parser">XDI3Parser</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html#parseXDI3XRef(java.lang.String)">parseXDI3XRef</A></CODE> in class <CODE><A HREF="../../../../../xdi2/core/xri3/XDI3Parser.html" title="class in xdi2.core.xri3">XDI3Parser</A></CODE></DL>
 </DD>
 <DD><DL>
 </DL>

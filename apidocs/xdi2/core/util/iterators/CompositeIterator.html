@@ -7,6 +7,8 @@
 CompositeIterator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.iterators.CompositeIterator class">
+<META NAME="keywords" CONTENT="descend()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -75,9 +77,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_xdi2.core.util.iterators.DescendingIterator">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -92,17 +94,24 @@ xdi2.core.util.iterators</FONT>
 Class CompositeIterator&lt;T&gt;</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.ReadOnlyIterator</A>&lt;T&gt;
-      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.DescendingIterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;,T&gt;
-          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.CompositeIterator&lt;T&gt;</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</A>&lt;T&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.WrappingIterator</A>&lt;T&gt;
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.ReadOnlyIterator</A>&lt;T&gt;
+              <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.DescendingIterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends T&gt;,T&gt;
+                  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.CompositeIterator&lt;T&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;T&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;</DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>CompositeIterator&lt;T&gt;</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html" title="class in xdi2.core.util.iterators">DescendingIterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;,T&gt;</DL>
+<DT><PRE>public class <B>CompositeIterator&lt;T&gt;</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html" title="class in xdi2.core.util.iterators">DescendingIterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends T&gt;,T&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="DescendingIterator.html" title="DescendingIterator" alt="" coords="5,6,136,31"/>
+<area shape="rect" id="node2" href="CompositeIterator.html" title="CompositeIterator" alt="" coords="9,71,132,97"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="CompositeIterator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An iterator that iterates over all items of multiple other iterators.
@@ -124,30 +133,6 @@ An iterator that iterates over all items of multiple other iterators.
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Field Summary</B></FONT></TH>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html#allowRemove">allowRemove</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html#currentIterator">currentIterator</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html#iterators">iterators</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_xdi2.core.util.iterators.DescendingIterator"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -168,13 +153,13 @@ An iterator that iterates over all items of multiple other iterators.
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html#CompositeIterator(java.util.Iterator)">CompositeIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&gt;&nbsp;iterators)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html#CompositeIterator(java.util.Iterator...)">CompositeIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;...&nbsp;iterators)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html#CompositeIterator(java.util.Iterator...)">CompositeIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;...&nbsp;iterators)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html#CompositeIterator(java.util.Iterator)">CompositeIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&gt;&nbsp;iterators)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -192,7 +177,7 @@ An iterator that iterates over all items of multiple other iterators.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html#descend(java.util.Iterator)">descend</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&nbsp;item)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html#descend(java.util.Iterator)">descend</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&nbsp;item)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -216,6 +201,15 @@ An iterator that iterates over all items of multiple other iterators.
 <TD><CODE><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html#remove()">remove</A></CODE></TD>
 </TR>
 </TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.util.iterators.IterableIterator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.util.iterators.<A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">IterableIterator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html#iterator()">iterator</A></CODE></TD>
+</TR>
+</TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
@@ -227,45 +221,6 @@ An iterator that iterates over all items of multiple other iterators.
 </TABLE>
 &nbsp;
 <P>
-
-<!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="iterators"><!-- --></A><H3>
-iterators</H3>
-<PRE>
-protected <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&gt; <B>iterators</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="currentIterator"><!-- --></A><H3>
-currentIterator</H3>
-<PRE>
-protected <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt; <B>currentIterator</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="allowRemove"><!-- --></A><H3>
-allowRemove</H3>
-<PRE>
-protected boolean <B>allowRemove</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -280,7 +235,7 @@ protected boolean <B>allowRemove</B></PRE>
 <A NAME="CompositeIterator(java.util.Iterator)"><!-- --></A><H3>
 CompositeIterator</H3>
 <PRE>
-public <B>CompositeIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&gt;&nbsp;iterators)</PRE>
+public <B>CompositeIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&gt;&nbsp;iterators)</PRE>
 <DL>
 </DL>
 <HR>
@@ -288,7 +243,7 @@ public <B>CompositeIterator</B>(<A HREF="http://download.oracle.com/javase/6/doc
 <A NAME="CompositeIterator(java.util.Iterator...)"><!-- --></A><H3>
 CompositeIterator</H3>
 <PRE>
-public <B>CompositeIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;...&nbsp;iterators)</PRE>
+public <B>CompositeIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;...&nbsp;iterators)</PRE>
 <DL>
 </DL>
 
@@ -305,10 +260,10 @@ public <B>CompositeIterator</B>(<A HREF="http://download.oracle.com/javase/6/doc
 <A NAME="descend(java.util.Iterator)"><!-- --></A><H3>
 descend</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt; <B>descend</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&nbsp;item)</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt; <B>descend</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;&nbsp;item)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html#descend(D)">descend</A></CODE> in class <CODE><A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html" title="class in xdi2.core.util.iterators">DescendingIterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;,<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html#descend(D)">descend</A></CODE> in class <CODE><A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html" title="class in xdi2.core.util.iterators">DescendingIterator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;,<A HREF="../../../../xdi2/core/util/iterators/CompositeIterator.html" title="type parameter in CompositeIterator">T</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -366,9 +321,9 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_xdi2.core.util.iterators.DescendingIterator">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

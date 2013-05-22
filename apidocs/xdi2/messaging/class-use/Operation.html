@@ -93,6 +93,10 @@ Packages that use <A HREF="../../../xdi2/messaging/Operation.html" title="class 
 <TD>Support for XDI messaging documents and transport protocols.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.error"><B>xdi2.messaging.error</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target"><B>xdi2.messaging.target</B></A></TD>
 <TD>Base classes for implementing XDI messaging targets.&nbsp;</TD>
 </TR>
@@ -169,6 +173,14 @@ Uses of <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.me
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $mod XDI operation, represented as a relation.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $set XDI operation, represented as a relation.</TD>
+</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -199,6 +211,15 @@ Uses of <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.me
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
 <TD><CODE><B>Message.</B><B><A HREF="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">createOperation</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
                 <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
+<TD><CODE><B>Message.</B><B><A HREF="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">createOperation</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new operation and adds it to this XDI message.</TD>
@@ -279,6 +300,31 @@ Uses of <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.me
 </TABLE>
 &nbsp;
 <P>
+<A NAME="xdi2.messaging.error"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A> in <A HREF="../../../xdi2/messaging/error/package-summary.html">xdi2.messaging.error</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/messaging/error/package-summary.html">xdi2.messaging.error</A> with parameters of type <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ErrorMessageResult.</B><B><A HREF="../../../xdi2/messaging/error/ErrorMessageResult.html#setErrorOperation(xdi2.messaging.Operation)">setErrorOperation</A></B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.messaging.target"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -297,6 +343,14 @@ Uses of <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.me
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
 <TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getCurrentOperation()">getCurrentOperation</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
+<TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getExceptionOperation()">getExceptionOperation</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -747,7 +801,7 @@ Uses of <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.me
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B>LinkContractsInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/LinkContractsInterceptor.html#targetAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#targetAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
               <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
               <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
               <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
@@ -791,7 +845,7 @@ Uses of <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.me
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
-<TD><CODE><B>LinkContractsInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/LinkContractsInterceptor.html#targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
                 <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                 <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                 <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>

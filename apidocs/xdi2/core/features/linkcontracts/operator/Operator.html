@@ -7,6 +7,18 @@
 Operator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.features.linkcontracts.operator.Operator class">
+<META NAME="keywords" CONTENT="relation">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromRelation()">
+<META NAME="keywords" CONTENT="castOperator()">
+<META NAME="keywords" CONTENT="getRelation()">
+<META NAME="keywords" CONTENT="evaluate()">
+<META NAME="keywords" CONTENT="evaluateInternal()">
+<META NAME="keywords" CONTENT="toString()">
+<META NAME="keywords" CONTENT="equals()">
+<META NAME="keywords" CONTENT="hashCode()">
+<META NAME="keywords" CONTENT="compareTo()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -55,7 +67,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/GenericOperator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/features/linkcontracts/operator/Operator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Operator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -75,7 +87,7 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
@@ -104,6 +116,14 @@ Class Operator</H2>
 <DL>
 <DT><PRE>public abstract class <B>Operator</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="39,6,128,61"/>
+<area shape="rect" id="node2" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="159,6,249,61"/>
+<area shape="rect" id="node3" href="Operator.html" title="Operator" alt="" coords="108,101,180,126"/>
+<area shape="rect" id="node4" href="ConditionOperator.html" title="ConditionOperator" alt="" coords="5,166,131,191"/>
+<area shape="rect" id="node5" href="GenericOperator.html" title="GenericOperator" alt="" coords="161,166,279,191"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="Operator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI operator, represented as a relation.
@@ -117,7 +137,24 @@ An XDI operator, represented as a relation.
 <HR>
 
 <P>
-<!-- =========== FIELD SUMMARY =========== -->
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator.MappingRelationOperatorIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<!-- =========== FIELD SUMMARY =========== -->
 
 <A NAME="field_summary"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -485,7 +522,7 @@ public int <B>compareTo</B>(<A HREF="../../../../../xdi2/core/features/linkcontr
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/GenericOperator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/features/linkcontracts/operator/Operator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Operator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -505,7 +542,7 @@ public int <B>compareTo</B>(<A HREF="../../../../../xdi2/core/features/linkcontr
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>

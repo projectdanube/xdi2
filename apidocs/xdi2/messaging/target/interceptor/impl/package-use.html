@@ -109,16 +109,22 @@ Classes in <A HREF="../../../../../xdi2/messaging/target/interceptor/impl/packag
  such as the owner XRI of the graph, a shared secret, and an initial "root link contract".</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/class-use/CheckOwnerInterceptor.html#xdi2.messaging.target.interceptor.impl"><B>CheckOwnerInterceptor</B></A></B>
+<TD><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/class-use/FromInterceptor.html#xdi2.messaging.target.interceptor.impl"><B>FromInterceptor</B></A></B>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the recipient authority of a message matches the owner of the messaging target.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the <from-graph> address of a message matches the sender of the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/class-use/LinkContractsInterceptor.html#xdi2.messaging.target.interceptor.impl"><B>LinkContractsInterceptor</B></A></B>
+<TD><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/class-use/LinkContractInterceptor.html#xdi2.messaging.target.interceptor.impl"><B>LinkContractInterceptor</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor enforces link contracts while a message is executed.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/class-use/MessagePolicyInterceptor.html#xdi2.messaging.target.interceptor.impl"><B>MessagePolicyInterceptor</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor evaluates message policies.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/class-use/ReadOnlyInterceptor.html#xdi2.messaging.target.interceptor.impl"><B>ReadOnlyInterceptor</B></A></B>
@@ -131,6 +137,12 @@ Classes in <A HREF="../../../../../xdi2/messaging/target/interceptor/impl/packag
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor handles $ref and $ref!</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/class-use/ToInterceptor.html#xdi2.messaging.target.interceptor.impl"><B>ToInterceptor</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the <to-graph> address of a message matches the owner of the messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/class-use/VariablesInterceptor.html#xdi2.messaging.target.interceptor.impl"><B>VariablesInterceptor</B></A></B>

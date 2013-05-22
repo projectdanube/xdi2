@@ -7,6 +7,23 @@
 MessageCollection (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.MessageCollection class">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromMessageEnvelopeAndXdiEntityClass()">
+<META NAME="keywords" CONTENT="getMessageEnvelope()">
+<META NAME="keywords" CONTENT="getXdiEntityClass()">
+<META NAME="keywords" CONTENT="getContextNode()">
+<META NAME="keywords" CONTENT="getSender()">
+<META NAME="keywords" CONTENT="getMessage()">
+<META NAME="keywords" CONTENT="getMessages()">
+<META NAME="keywords" CONTENT="deleteMessages()">
+<META NAME="keywords" CONTENT="getOperations()">
+<META NAME="keywords" CONTENT="getMessageCount()">
+<META NAME="keywords" CONTENT="getOperationCount()">
+<META NAME="keywords" CONTENT="toString()">
+<META NAME="keywords" CONTENT="equals()">
+<META NAME="keywords" CONTENT="hashCode()">
+<META NAME="keywords" CONTENT="compareTo()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
 
@@ -54,8 +71,8 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationOperationIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.MappingEntityMemberMessageIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationSetOperationIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.MappingXdiEntityMessageIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/MessageCollection.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MessageCollection.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -101,6 +118,12 @@ Class MessageCollection</H2>
 <DL>
 <DT><PRE>public final class <B>MessageCollection</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="5,6,93,61"/>
+<area shape="rect" id="node2" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="124,6,215,61"/>
+<area shape="rect" id="node3" href="MessageCollection.html" title="MessageCollection" alt="" coords="43,101,175,126"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="MessageCollection.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI message collection, represented as a context node.
@@ -125,7 +148,7 @@ An XDI message collection, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.MappingEntityMemberMessageIterator.html" title="class in xdi2.messaging">MessageCollection.MappingEntityMemberMessageIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.MappingXdiEntityMessageIterator.html" title="class in xdi2.messaging">MessageCollection.MappingXdiEntityMessageIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -143,8 +166,8 @@ An XDI message collection, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#MessageCollection(xdi2.messaging.MessageEnvelope, xdi2.core.features.multiplicity.XdiCollection)">MessageCollection</A></B>(<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-                  <A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#MessageCollection(xdi2.messaging.MessageEnvelope, xdi2.core.features.nodetypes.XdiEntityClass)">MessageCollection</A></B>(<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                  <A HREF="../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A>&nbsp;xdiEntityClass)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -186,19 +209,11 @@ An XDI message collection, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#fromMessageEnvelopeAndXdiCollection(xdi2.messaging.MessageEnvelope, xdi2.core.features.multiplicity.XdiCollection)">fromMessageEnvelopeAndXdiCollection</A></B>(<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-                                    <A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#fromMessageEnvelopeAndXdiEntityClass(xdi2.messaging.MessageEnvelope, xdi2.core.features.nodetypes.XdiEntityClass)">fromMessageEnvelopeAndXdiEntityClass</A></B>(<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                     <A HREF="../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A>&nbsp;xdiEntityClass)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message collection bound to a given XDI collection.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#getCollection()">getCollection</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying XDI collection to which this XDI message collection is bound.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message collection bound to a given XDI entity class.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -266,6 +281,14 @@ An XDI message collection, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#getXdiEntityClass()">getXdiEntityClass</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying XDI entity class to which this XDI message collection is bound.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#hashCode()">hashCode</A></B>()</CODE>
 
@@ -275,10 +298,10 @@ An XDI message collection, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#isValid(xdi2.core.features.multiplicity.XdiCollection)">isValid</A></B>(<A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#isValid(xdi2.core.features.nodetypes.XdiEntityClass)">isValid</A></B>(<A HREF="../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A>&nbsp;xdiEntityClass)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI collection is a valid XDI message collection.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI entity class is a valid XDI message collection.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -311,11 +334,11 @@ An XDI message collection, represented as a context node.
 </TR>
 </TABLE>
 
-<A NAME="MessageCollection(xdi2.messaging.MessageEnvelope, xdi2.core.features.multiplicity.XdiCollection)"><!-- --></A><H3>
+<A NAME="MessageCollection(xdi2.messaging.MessageEnvelope, xdi2.core.features.nodetypes.XdiEntityClass)"><!-- --></A><H3>
 MessageCollection</H3>
 <PRE>
 protected <B>MessageCollection</B>(<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-                            <A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection)</PRE>
+                            <A HREF="../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A>&nbsp;xdiEntityClass)</PRE>
 <DL>
 </DL>
 
@@ -329,36 +352,36 @@ protected <B>MessageCollection</B>(<A HREF="../../xdi2/messaging/MessageEnvelope
 </TR>
 </TABLE>
 
-<A NAME="isValid(xdi2.core.features.multiplicity.XdiCollection)"><!-- --></A><H3>
+<A NAME="isValid(xdi2.core.features.nodetypes.XdiEntityClass)"><!-- --></A><H3>
 isValid</H3>
 <PRE>
-public static boolean <B>isValid</B>(<A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection)</PRE>
+public static boolean <B>isValid</B>(<A HREF="../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A>&nbsp;xdiEntityClass)</PRE>
 <DL>
-<DD>Checks if an XDI collection is a valid XDI message collection.
+<DD>Checks if an XDI entity class is a valid XDI message collection.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>xdiCollection</CODE> - The XDI collection to check.
-<DT><B>Returns:</B><DD>True if the XDI collection is a valid XDI message collection.</DL>
+<DT><B>Parameters:</B><DD><CODE>xdiEntityClass</CODE> - The XDI entity class to check.
+<DT><B>Returns:</B><DD>True if the XDI entity class is a valid XDI message collection.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="fromMessageEnvelopeAndXdiCollection(xdi2.messaging.MessageEnvelope, xdi2.core.features.multiplicity.XdiCollection)"><!-- --></A><H3>
-fromMessageEnvelopeAndXdiCollection</H3>
+<A NAME="fromMessageEnvelopeAndXdiEntityClass(xdi2.messaging.MessageEnvelope, xdi2.core.features.nodetypes.XdiEntityClass)"><!-- --></A><H3>
+fromMessageEnvelopeAndXdiEntityClass</H3>
 <PRE>
-public static <A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A> <B>fromMessageEnvelopeAndXdiCollection</B>(<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-                                                                    <A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection)</PRE>
+public static <A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A> <B>fromMessageEnvelopeAndXdiEntityClass</B>(<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                                                     <A HREF="../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A>&nbsp;xdiEntityClass)</PRE>
 <DL>
-<DD>Factory method that creates an XDI message collection bound to a given XDI collection.
+<DD>Factory method that creates an XDI message collection bound to a given XDI entity class.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>messageEnvelope</CODE> - The XDI message envelope to which this XDI message collection belongs.<DD><CODE>xdiCollection</CODE> - The XDI collection that is an XDI message collection.
+<DT><B>Parameters:</B><DD><CODE>messageEnvelope</CODE> - The XDI message envelope to which this XDI message collection belongs.<DD><CODE>xdiEntityClass</CODE> - The XDI entity class that is an XDI message collection.
 <DT><B>Returns:</B><DD>The XDI message collection.</DL>
 </DD>
 </DL>
@@ -381,19 +404,19 @@ public <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.
 </DL>
 <HR>
 
-<A NAME="getCollection()"><!-- --></A><H3>
-getCollection</H3>
+<A NAME="getXdiEntityClass()"><!-- --></A><H3>
+getXdiEntityClass</H3>
 <PRE>
-public <A HREF="../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A> <B>getCollection</B>()</PRE>
+public <A HREF="../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A> <B>getXdiEntityClass</B>()</PRE>
 <DL>
-<DD>Returns the underlying XDI collection to which this XDI message collection is bound.
+<DD>Returns the underlying XDI entity class to which this XDI message collection is bound.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>An XDI collection that represents the XDI message collection.</DL>
+<DT><B>Returns:</B><DD>An XDI entity class that represents the XDI message collection.</DL>
 </DD>
 </DL>
 <HR>
@@ -616,8 +639,8 @@ public int <B>compareTo</B>(<A HREF="../../xdi2/messaging/MessageCollection.html
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationOperationIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.MappingEntityMemberMessageIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationSetOperationIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../xdi2/messaging/MessageCollection.MappingXdiEntityMessageIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/MessageCollection.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MessageCollection.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

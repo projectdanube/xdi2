@@ -7,6 +7,8 @@
 MappingContextNodeXriIterator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.iterators.MappingContextNodeXriIterator class">
+<META NAME="keywords" CONTENT="map()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -55,7 +57,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingContextNodeStatementIterator.html" title="class in xdi2.core.util.iterators"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingEquivalenceContextNodeIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/util/iterators/MappingContextNodeXriIterator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MappingContextNodeXriIterator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -92,16 +94,22 @@ xdi2.core.util.iterators</FONT>
 Class MappingContextNodeXriIterator</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>,<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;
-      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.MappingContextNodeXriIterator</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</A>&lt;O&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>,<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.MappingContextNodeXriIterator</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;</DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public class <B>MappingContextNodeXriIterator</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>,<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="MappingIterator.html" title="MappingIterator" alt="" coords="50,6,160,31"/>
+<area shape="rect" id="node2" href="MappingContextNodeXriIterator.html" title="MappingContextNodeXriIterator" alt="" coords="5,71,205,97"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="MappingContextNodeXriIterator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 A MappingIterator that maps XDI context nodes to their XRIs.
@@ -174,6 +182,15 @@ A MappingIterator that maps XDI context nodes to their XRIs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#hasNext()">hasNext</A>, <A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#next()">next</A>, <A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#remove()">remove</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.util.iterators.IterableIterator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.util.iterators.<A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">IterableIterator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html#iterator()">iterator</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -259,7 +276,7 @@ public <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingContextNodeStatementIterator.html" title="class in xdi2.core.util.iterators"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingEquivalenceContextNodeIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/util/iterators/MappingContextNodeXriIterator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MappingContextNodeXriIterator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

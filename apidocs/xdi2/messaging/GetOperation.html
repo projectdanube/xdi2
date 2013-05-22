@@ -7,6 +7,11 @@
 GetOperation (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.GetOperation class">
+<META NAME="keywords" CONTENT="XRI_PARAMETER_DEREF">
+<META NAME="keywords" CONTENT="XRI_PARAMETER_PROXY">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromMessageAndRelation()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
 
@@ -102,6 +107,11 @@ Class GetOperation</H2>
 <DL>
 <DT><PRE>public class <B>GetOperation</B><DT>extends <A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="GetOperation.html" title="&#171;static&#187; GetOperation" alt="" coords="5,71,104,111"/>
+<area shape="rect" id="node2" href="Operation.html" title="Operation" alt="" coords="15,6,93,31"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="GetOperation.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 A $get XDI operation, represented as a relation.
@@ -125,8 +135,16 @@ A $get XDI operation, represented as a relation.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/GetOperation.html#XRI_EXTENSION_DEREF">XRI_EXTENSION_DEREF</A></B></CODE>
+<CODE>static&nbsp;<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/GetOperation.html#XRI_PARAMETER_DEREF">XRI_PARAMETER_DEREF</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/GetOperation.html#XRI_PARAMETER_PROXY">XRI_PARAMETER_PROXY</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -193,7 +211,7 @@ A $get XDI operation, represented as a relation.
 <TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.<A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../xdi2/messaging/Operation.html#castOperation(xdi2.messaging.Operation)">castOperation</A>, <A HREF="../../xdi2/messaging/Operation.html#compareTo(xdi2.messaging.Operation)">compareTo</A>, <A HREF="../../xdi2/messaging/Operation.html#equals(java.lang.Object)">equals</A>, <A HREF="../../xdi2/messaging/Operation.html#getMessage()">getMessage</A>, <A HREF="../../xdi2/messaging/Operation.html#getMessageCollection()">getMessageCollection</A>, <A HREF="../../xdi2/messaging/Operation.html#getMessageEnvelope()">getMessageEnvelope</A>, <A HREF="../../xdi2/messaging/Operation.html#getOperationExtensionXri()">getOperationExtensionXri</A>, <A HREF="../../xdi2/messaging/Operation.html#getOperationXri()">getOperationXri</A>, <A HREF="../../xdi2/messaging/Operation.html#getRelation()">getRelation</A>, <A HREF="../../xdi2/messaging/Operation.html#getSender()">getSender</A>, <A HREF="../../xdi2/messaging/Operation.html#getTargetAddress()">getTargetAddress</A>, <A HREF="../../xdi2/messaging/Operation.html#getTargetStatements()">getTargetStatements</A>, <A HREF="../../xdi2/messaging/Operation.html#hashCode()">hashCode</A>, <A HREF="../../xdi2/messaging/Operation.html#isReadOperation()">isReadOperation</A>, <A HREF="../../xdi2/messaging/Operation.html#isWriteOperation()">isWriteOperation</A>, <A HREF="../../xdi2/messaging/Operation.html#toString()">toString</A></CODE></TD>
+<TD><CODE><A HREF="../../xdi2/messaging/Operation.html#castOperation(xdi2.messaging.Operation)">castOperation</A>, <A HREF="../../xdi2/messaging/Operation.html#compareTo(xdi2.messaging.Operation)">compareTo</A>, <A HREF="../../xdi2/messaging/Operation.html#equals(java.lang.Object)">equals</A>, <A HREF="../../xdi2/messaging/Operation.html#getMessage()">getMessage</A>, <A HREF="../../xdi2/messaging/Operation.html#getMessageCollection()">getMessageCollection</A>, <A HREF="../../xdi2/messaging/Operation.html#getMessageEnvelope()">getMessageEnvelope</A>, <A HREF="../../xdi2/messaging/Operation.html#getOperationXri()">getOperationXri</A>, <A HREF="../../xdi2/messaging/Operation.html#getParameter(xdi2.core.xri3.XDI3SubSegment)">getParameter</A>, <A HREF="../../xdi2/messaging/Operation.html#getParameterAsBoolean(xdi2.core.xri3.XDI3SubSegment)">getParameterAsBoolean</A>, <A HREF="../../xdi2/messaging/Operation.html#getRelation()">getRelation</A>, <A HREF="../../xdi2/messaging/Operation.html#getSender()">getSender</A>, <A HREF="../../xdi2/messaging/Operation.html#getTargetAddress()">getTargetAddress</A>, <A HREF="../../xdi2/messaging/Operation.html#getTargetStatements()">getTargetStatements</A>, <A HREF="../../xdi2/messaging/Operation.html#hashCode()">hashCode</A>, <A HREF="../../xdi2/messaging/Operation.html#isReadOperation()">isReadOperation</A>, <A HREF="../../xdi2/messaging/Operation.html#isWriteOperation()">isWriteOperation</A>, <A HREF="../../xdi2/messaging/Operation.html#setParameter(xdi2.core.xri3.XDI3SubSegment, java.lang.Object)">setParameter</A>, <A HREF="../../xdi2/messaging/Operation.html#toString()">toString</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -218,10 +236,20 @@ A $get XDI operation, represented as a relation.
 </TR>
 </TABLE>
 
-<A NAME="XRI_EXTENSION_DEREF"><!-- --></A><H3>
-XRI_EXTENSION_DEREF</H3>
+<A NAME="XRI_PARAMETER_DEREF"><!-- --></A><H3>
+XRI_PARAMETER_DEREF</H3>
 <PRE>
-public static final <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_EXTENSION_DEREF</B></PRE>
+public static final <A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_PARAMETER_DEREF</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="XRI_PARAMETER_PROXY"><!-- --></A><H3>
+XRI_PARAMETER_PROXY</H3>
+<PRE>
+public static final <A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_PARAMETER_PROXY</B></PRE>
 <DL>
 <DL>
 </DL>

@@ -121,10 +121,6 @@ Packages that use <A HREF="../../../../xdi2/messaging/target/MessagingTarget.htm
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.server"><B>xdi2.server</B></A></TD>
-<TD>A servlet exposing an XDI messaging endpoint.&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.server.factory"><B>xdi2.server.factory</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -142,6 +138,10 @@ Packages that use <A HREF="../../../../xdi2/messaging/target/MessagingTarget.htm
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.server.registry"><B>xdi2.server.registry</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.server.transport"><B>xdi2.server.transport</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
@@ -222,6 +222,14 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></FONT></TD>
 <TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../xdi2/messaging/target/ExecutionContext.html#getCurrentMessagingTarget()">getCurrentMessagingTarget</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></FONT></TD>
+<TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../xdi2/messaging/target/ExecutionContext.html#getExceptionMessagingTarget()">getExceptionMessagingTarget</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -436,82 +444,6 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.server"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A> in <A HREF="../../../../xdi2/server/package-summary.html">xdi2.server</A></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/server/package-summary.html">xdi2.server</A> with parameters of type <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></CODE></FONT></TD>
-<TD><CODE><B>EndpointServlet.</B><B><A HREF="../../../../xdi2/server/EndpointServlet.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.MessagingTarget, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">execute</A></B>(<A HREF="../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-        <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
-        javax.servlet.http.HttpServletRequest&nbsp;request,
-        javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../xdi2/server/InterceptorList.html#executeEndpointServletInterceptorsDelete(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">executeEndpointServletInterceptorsDelete</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                                         javax.servlet.http.HttpServletRequest&nbsp;request,
-                                         javax.servlet.http.HttpServletResponse&nbsp;response,
-                                         <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
-                                         <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../xdi2/server/InterceptorList.html#executeEndpointServletInterceptorsGet(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">executeEndpointServletInterceptorsGet</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                                      javax.servlet.http.HttpServletRequest&nbsp;request,
-                                      javax.servlet.http.HttpServletResponse&nbsp;response,
-                                      <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
-                                      <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../xdi2/server/InterceptorList.html#executeEndpointServletInterceptorsPost(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">executeEndpointServletInterceptorsPost</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                                       javax.servlet.http.HttpServletRequest&nbsp;request,
-                                       javax.servlet.http.HttpServletResponse&nbsp;response,
-                                       <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
-                                       <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../xdi2/server/InterceptorList.html#executeEndpointServletInterceptorsPut(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">executeEndpointServletInterceptorsPut</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                                      javax.servlet.http.HttpServletRequest&nbsp;request,
-                                      javax.servlet.http.HttpServletResponse&nbsp;response,
-                                      <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
-                                      <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
 <A NAME="xdi2.server.factory"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -529,7 +461,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>MessagingTargetFactory.</B><B><A HREF="../../../../xdi2/server/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+<TD><CODE><B>MessagingTargetFactory.</B><B><A HREF="../../../../xdi2/server/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
                       <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
@@ -581,7 +513,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>RegistryGraphMessagingTargetFactory.</B><B><A HREF="../../../../xdi2/server/factory/impl/RegistryGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+<TD><CODE><B>RegistryGraphMessagingTargetFactory.</B><B><A HREF="../../../../xdi2/server/factory/impl/RegistryGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
                       <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
@@ -592,7 +524,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AnyGraphMessagingTargetFactory.</B><B><A HREF="../../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+<TD><CODE><B>AnyGraphMessagingTargetFactory.</B><B><A HREF="../../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
                       <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
@@ -620,22 +552,20 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>EndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/EndpointServletInterceptor.html#processDeleteRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processDeleteRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                     javax.servlet.http.HttpServletRequest&nbsp;request,
-                     javax.servlet.http.HttpServletResponse&nbsp;response,
-                     <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>HttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/HttpTransportInterceptor.html#processDeleteRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processDeleteRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                     <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                     <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                      <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run when the endpoint servlet receives a DELETE request.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run when the HTTP transport receives a DELETE request.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AbstractEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processDeleteRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processDeleteRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                     javax.servlet.http.HttpServletRequest&nbsp;request,
-                     javax.servlet.http.HttpServletResponse&nbsp;response,
-                     <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>AbstractHttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/AbstractHttpTransportInterceptor.html#processDeleteRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processDeleteRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                     <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                     <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                      <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
@@ -644,22 +574,20 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>EndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/EndpointServletInterceptor.html#processGetRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                  javax.servlet.http.HttpServletRequest&nbsp;request,
-                  javax.servlet.http.HttpServletResponse&nbsp;response,
-                  <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>HttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/HttpTransportInterceptor.html#processGetRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                  <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                  <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run when the endpoint servlet receives a GET request.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run when the HTTP transport receives a GET request.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AbstractEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processGetRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                  javax.servlet.http.HttpServletRequest&nbsp;request,
-                  javax.servlet.http.HttpServletResponse&nbsp;response,
-                  <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>AbstractHttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/AbstractHttpTransportInterceptor.html#processGetRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                  <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                  <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
@@ -668,22 +596,20 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>EndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/EndpointServletInterceptor.html#processPostRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPostRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                   javax.servlet.http.HttpServletRequest&nbsp;request,
-                   javax.servlet.http.HttpServletResponse&nbsp;response,
-                   <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>HttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/HttpTransportInterceptor.html#processPostRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processPostRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                   <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                   <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                    <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run when the endpoint servlet receives a POST request.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run when the HTTP transport receives a POST request.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AbstractEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processPostRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPostRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                   javax.servlet.http.HttpServletRequest&nbsp;request,
-                   javax.servlet.http.HttpServletResponse&nbsp;response,
-                   <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>AbstractHttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/AbstractHttpTransportInterceptor.html#processPostRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processPostRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                   <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                   <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                    <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
@@ -692,22 +618,20 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>EndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/EndpointServletInterceptor.html#processPutRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPutRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                  javax.servlet.http.HttpServletRequest&nbsp;request,
-                  javax.servlet.http.HttpServletResponse&nbsp;response,
-                  <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>HttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/HttpTransportInterceptor.html#processPutRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processPutRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                  <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                  <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run when the endpoint servlet receives a PUT request.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run when the HTTP transport receives a PUT request.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AbstractEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html#processPutRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPutRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                  javax.servlet.http.HttpServletRequest&nbsp;request,
-                  javax.servlet.http.HttpServletResponse&nbsp;response,
-                  <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>AbstractHttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/AbstractHttpTransportInterceptor.html#processPutRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processPutRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                  <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                  <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
@@ -733,22 +657,9 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>DelegatingEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/DelegatingEndpointServletInterceptor.html#processDeleteRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processDeleteRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                     javax.servlet.http.HttpServletRequest&nbsp;request,
-                     javax.servlet.http.HttpServletResponse&nbsp;response,
-                     <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
-                     <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XriResolutionEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html#processGetRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                  javax.servlet.http.HttpServletRequest&nbsp;request,
-                  javax.servlet.http.HttpServletResponse&nbsp;response,
-                  <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>XriResolutionHttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/XriResolutionHttpTransportInterceptor.html#processGetRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                  <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                  <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
@@ -757,10 +668,9 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>RedirectEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html#processGetRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                  javax.servlet.http.HttpServletRequest&nbsp;request,
-                  javax.servlet.http.HttpServletResponse&nbsp;response,
-                  <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>RedirectHttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/RedirectHttpTransportInterceptor.html#processGetRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                  <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                  <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
@@ -769,10 +679,9 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>DelegatingEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/DelegatingEndpointServletInterceptor.html#processGetRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                  javax.servlet.http.HttpServletRequest&nbsp;request,
-                  javax.servlet.http.HttpServletResponse&nbsp;response,
-                  <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>DebugHttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/DebugHttpTransportInterceptor.html#processGetRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                  <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                  <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
@@ -781,47 +690,10 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>DebugEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/DebugEndpointServletInterceptor.html#processGetRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processGetRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                  javax.servlet.http.HttpServletRequest&nbsp;request,
-                  javax.servlet.http.HttpServletResponse&nbsp;response,
-                  <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
-                  <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>DelegatingEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/DelegatingEndpointServletInterceptor.html#processPostRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPostRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                   javax.servlet.http.HttpServletRequest&nbsp;request,
-                   javax.servlet.http.HttpServletResponse&nbsp;response,
-                   <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
+<TD><CODE><B>DebugHttpTransportInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/DebugHttpTransportInterceptor.html#processPostRequest(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">processPostRequest</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                   <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                   <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
                    <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>DebugEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/DebugEndpointServletInterceptor.html#processPostRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPostRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                   javax.servlet.http.HttpServletRequest&nbsp;request,
-                   javax.servlet.http.HttpServletResponse&nbsp;response,
-                   <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
-                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>DelegatingEndpointServletInterceptor.</B><B><A HREF="../../../../xdi2/server/interceptor/impl/DelegatingEndpointServletInterceptor.html#processPutRequest(xdi2.server.EndpointServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, xdi2.server.RequestInfo, xdi2.messaging.target.MessagingTarget)">processPutRequest</A></B>(<A HREF="../../../../xdi2/server/EndpointServlet.html" title="class in xdi2.server">EndpointServlet</A>&nbsp;endpointServlet,
-                  javax.servlet.http.HttpServletRequest&nbsp;request,
-                  javax.servlet.http.HttpServletResponse&nbsp;response,
-                  <A HREF="../../../../xdi2/server/RequestInfo.html" title="class in xdi2.server">RequestInfo</A>&nbsp;requestInfo,
-                  <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -846,7 +718,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></FONT></TD>
-<TD><CODE><B>EndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/EndpointRegistry.html#getMessagingTarget(java.lang.String)">getMessagingTarget</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetPath)</CODE>
+<TD><CODE><B>HttpEndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html#getMessagingTarget(java.lang.String)">getMessagingTarget</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetPath)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -862,7 +734,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>EndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/EndpointRegistry.html#getMessagingTargets()">getMessagingTargets</A></B>()</CODE>
+<TD><CODE><B>HttpEndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html#getMessagingTargets()">getMessagingTargets</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -870,7 +742,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>EndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/EndpointRegistry.html#getMessagingTargetsByPath()">getMessagingTargetsByPath</A></B>()</CODE>
+<TD><CODE><B>HttpEndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html#getMessagingTargetsByPath()">getMessagingTargetsByPath</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -886,7 +758,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>EndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/EndpointRegistry.html#mountMessagingTarget(java.lang.String, xdi2.messaging.target.MessagingTarget)">mountMessagingTarget</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetPath,
+<TD><CODE><B>HttpEndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html#mountMessagingTarget(java.lang.String, xdi2.messaging.target.MessagingTarget)">mountMessagingTarget</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetPath,
                      <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
@@ -895,10 +767,114 @@ Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>EndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/EndpointRegistry.html#unmountMessagingTarget(xdi2.messaging.target.MessagingTarget)">unmountMessagingTarget</A></B>(<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
+<TD><CODE><B>HttpEndpointRegistry.</B><B><A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html#unmountMessagingTarget(xdi2.messaging.target.MessagingTarget)">unmountMessagingTarget</A></B>(<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unmounts a messaging target from the registry.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.server.transport"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A> in <A HREF="../../../../xdi2/server/transport/package-summary.html">xdi2.server.transport</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/server/transport/package-summary.html">xdi2.server.transport</A> that return <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></FONT></TD>
+<TD><CODE><B>HttpRequest.</B><B><A HREF="../../../../xdi2/server/transport/HttpRequest.html#getMessagingTarget()">getMessagingTarget</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractHttpRequest.</B><B><A HREF="../../../../xdi2/server/transport/AbstractHttpRequest.html#getMessagingTarget()">getMessagingTarget</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/server/transport/package-summary.html">xdi2.server.transport</A> with parameters of type <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></CODE></FONT></TD>
+<TD><CODE><B>HttpTransport.</B><B><A HREF="../../../../xdi2/server/transport/HttpTransport.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.target.MessagingTarget, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse)">execute</A></B>(<A HREF="../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+        <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+        <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+        <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../xdi2/server/transport/InterceptorList.html#executeHttpTransportInterceptorsDelete(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">executeHttpTransportInterceptorsDelete</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                                       <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                                       <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
+                                       <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../xdi2/server/transport/InterceptorList.html#executeHttpTransportInterceptorsGet(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">executeHttpTransportInterceptorsGet</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                                    <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                                    <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
+                                    <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../xdi2/server/transport/InterceptorList.html#executeHttpTransportInterceptorsPost(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">executeHttpTransportInterceptorsPost</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                                     <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                                     <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
+                                     <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../xdi2/server/transport/InterceptorList.html#executeHttpTransportInterceptorsPut(xdi2.server.transport.HttpTransport, xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse, xdi2.messaging.target.MessagingTarget)">executeHttpTransportInterceptorsPut</A></B>(<A HREF="../../../../xdi2/server/transport/HttpTransport.html" title="class in xdi2.server.transport">HttpTransport</A>&nbsp;httpTransport,
+                                    <A HREF="../../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                                    <A HREF="../../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response,
+                                    <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractHttpRequest.</B><B><A HREF="../../../../xdi2/server/transport/AbstractHttpRequest.html#setMessagingTarget(xdi2.messaging.target.MessagingTarget)">setMessagingTarget</A></B>(<A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;

@@ -7,6 +7,19 @@
 LinkContract (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.features.linkcontracts.LinkContract class">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromXdiEntity()">
+<META NAME="keywords" CONTENT="getXdiEntity()">
+<META NAME="keywords" CONTENT="getContextNode()">
+<META NAME="keywords" CONTENT="getPolicyRoot()">
+<META NAME="keywords" CONTENT="addPermission()">
+<META NAME="keywords" CONTENT="removePermission()">
+<META NAME="keywords" CONTENT="getNodesWithPermission()">
+<META NAME="keywords" CONTENT="toString()">
+<META NAME="keywords" CONTENT="equals()">
+<META NAME="keywords" CONTENT="hashCode()">
+<META NAME="keywords" CONTENT="compareTo()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -101,6 +114,12 @@ Class LinkContract</H2>
 <DL>
 <DT><PRE>public final class <B>LinkContract</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="5,6,93,61"/>
+<area shape="rect" id="node2" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="124,6,215,61"/>
+<area shape="rect" id="node3" href="LinkContract.html" title="LinkContract" alt="" coords="62,101,156,126"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="LinkContract.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI link contract, represented as a context node.
@@ -126,7 +145,7 @@ An XDI link contract, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#LinkContract(xdi2.core.ContextNode)">LinkContract</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#LinkContract(xdi2.core.features.nodetypes.XdiEntity)">LinkContract</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -169,11 +188,10 @@ An XDI link contract, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#fromXdiEntity(xdi2.core.features.nodetypes.XdiEntity)">fromXdiEntity</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI link contract bound to a given context
- node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI link contract bound to a given XDI entity.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -201,6 +219,14 @@ An XDI link contract, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#getXdiEntity()">getXdiEntity</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying XDI entity to which this XDI link contract is bound.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#hashCode()">hashCode</A></B>()</CODE>
 
@@ -210,10 +236,10 @@ An XDI link contract, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#isValid(xdi2.core.features.nodetypes.XdiEntity)">isValid</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI link contract.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI entity is a valid XDI link contract.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -255,10 +281,10 @@ An XDI link contract, represented as a context node.
 </TR>
 </TABLE>
 
-<A NAME="LinkContract(xdi2.core.ContextNode)"><!-- --></A><H3>
+<A NAME="LinkContract(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
 LinkContract</H3>
 <PRE>
-protected <B>LinkContract</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+protected <B>LinkContract</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
 <DL>
 </DL>
 
@@ -272,37 +298,53 @@ protected <B>LinkContract</B>(<A HREF="../../../../xdi2/core/ContextNode.html" t
 </TR>
 </TABLE>
 
-<A NAME="isValid(xdi2.core.ContextNode)"><!-- --></A><H3>
+<A NAME="isValid(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
 isValid</H3>
 <PRE>
-public static boolean <B>isValid</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+public static boolean <B>isValid</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
 <DL>
-<DD>Checks if a context node is a valid XDI link contract.
+<DD>Checks if an XDI entity is a valid XDI link contract.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - The context node to check.
-<DT><B>Returns:</B><DD>True if the context node is a valid XDI link contract.</DL>
+<DT><B>Parameters:</B><DD><CODE>xdiEntity</CODE> - The XDI entity to check.
+<DT><B>Returns:</B><DD>True if the XDI entity is a valid XDI link contract.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="fromContextNode(xdi2.core.ContextNode)"><!-- --></A><H3>
-fromContextNode</H3>
+<A NAME="fromXdiEntity(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
+fromXdiEntity</H3>
 <PRE>
-public static <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A> <B>fromContextNode</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+public static <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A> <B>fromXdiEntity</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
 <DL>
-<DD>Factory method that creates an XDI link contract bound to a given context
- node.
+<DD>Factory method that creates an XDI link contract bound to a given XDI entity.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - The context node that is an XDI link contract.
+<DT><B>Parameters:</B><DD><CODE>xdiEntity</CODE> - The XDI entity that is an XDI link contract.
 <DT><B>Returns:</B><DD>The XDI link contract.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiEntity()"><!-- --></A><H3>
+getXdiEntity</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A> <B>getXdiEntity</B>()</PRE>
+<DL>
+<DD>Returns the underlying XDI entity to which this XDI link contract is bound.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>An XDI entity that represents the XDI link contract.</DL>
 </DD>
 </DL>
 <HR>

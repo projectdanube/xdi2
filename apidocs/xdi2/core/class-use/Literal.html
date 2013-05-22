@@ -118,7 +118,7 @@ Packages that use <A HREF="../../../xdi2/core/Literal.html" title="interface in 
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.util.iterators"><B>xdi2.core.util.iterators</B></A></TD>
-<TD>Various iterators used internally by graph implementations and other components.&nbsp;</TD>
+<TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -140,6 +140,24 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>Graph.</B><B><A HREF="../../../xdi2/core/Graph.html#createDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">createDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.createLiteral(String), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../xdi2/core/ContextNode.html#createDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">createDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.createLiteral(String), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>ContextNode.</B><B><A HREF="../../../xdi2/core/ContextNode.html#createLiteral(java.lang.String)">createLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
@@ -148,36 +166,36 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B>Graph.</B><B><A HREF="../../../xdi2/core/Graph.html#findLiteral(xdi2.core.xri3.XDI3Segment)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+<TD><CODE><B>Graph.</B><B><A HREF="../../../xdi2/core/Graph.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment)">getDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a literal at any depth in this graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../xdi2/core/ContextNode.html#findLiteral(xdi2.core.xri3.XDI3Segment)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</CODE>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../xdi2/core/ContextNode.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment)">getDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a literal at any depth under this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getLiteral(), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B>Graph.</B><B><A HREF="../../../xdi2/core/Graph.html#findLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B>Graph.</B><B><A HREF="../../../xdi2/core/Graph.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">getDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a literal at any depth in this graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getLiteral(String), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../xdi2/core/ContextNode.html#findLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../xdi2/core/ContextNode.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">getDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds a literal at any depth under this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getLiteral(String), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -202,6 +220,32 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the literal of this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>Graph.</B><B><A HREF="../../../xdi2/core/Graph.html#setDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">setDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.setLiteral(String), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../xdi2/core/ContextNode.html#setDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">setDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.setLiteral(String), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../xdi2/core/ContextNode.html#setLiteral(java.lang.String)">setLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new literal and adds it to this context node, or returns an existing literal.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -246,23 +290,6 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>DataTypes.</B><B><A HREF="../../../xdi2/core/features/datatypes/DataTypes.html#isLiteralBinary(xdi2.core.Literal)">isLiteralBinary</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check if a literal has binary datatype</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>DataTypes.</B><B><A HREF="../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralBinary(xdi2.core.Literal, boolean)">setLiteralBinary</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
-                 boolean&nbsp;binary)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a "$is" relation for a literal and binary XRI segment</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B>DataTypes.</B><B><A HREF="../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralDataType(xdi2.core.Literal, xdi2.core.xri3.XDI3Segment)">setLiteralDataType</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
@@ -301,7 +328,7 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/BasicLiteral.html" title="class in xdi2.core.impl">BasicLiteral</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -314,15 +341,33 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#createDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">createDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#createDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">createDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>BasicContextNode.</B><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#createLiteral(java.lang.String)">createLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#findLiteral(xdi2.core.xri3.XDI3Segment)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment)">getDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -330,7 +375,7 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findLiteral(xdi2.core.xri3.XDI3Segment)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</CODE>
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment)">getDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -338,8 +383,8 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#findLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">getDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -347,8 +392,8 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#findLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">findLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">getDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -359,7 +404,7 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TD><CODE><B>BasicContextNode.</B><B><A HREF="../../../xdi2/core/impl/BasicContextNode.html#getLiteral()">getLiteral</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -373,6 +418,32 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getLiteral(java.lang.String)">getLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../xdi2/core/impl/AbstractGraph.html#setDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">setDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#setDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">setDeepLiteral</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#setLiteral(java.lang.String)">setLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -426,7 +497,7 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
                  <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -522,6 +593,14 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B>MemoryContextNode.</B><B><A HREF="../../../xdi2/core/impl/memory/MemoryContextNode.html#getLiteral()">getLiteral</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B>MemoryContextNode.</B><B><A HREF="../../../xdi2/core/impl/memory/MemoryContextNode.html#setLiteral(java.lang.String)">setLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -694,7 +773,7 @@ Uses of <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core"
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A></CODE></FONT></TD>
 <TD><CODE><B>MappingLiteralStatementIterator.</B><B><A HREF="../../../xdi2/core/util/iterators/MappingLiteralStatementIterator.html#map(xdi2.core.Literal)">map</A></B>(<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
 
 <BR>

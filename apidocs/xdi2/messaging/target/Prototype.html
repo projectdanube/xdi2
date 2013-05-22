@@ -7,6 +7,8 @@
 Prototype (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.target.Prototype interface">
+<META NAME="keywords" CONTENT="instanceFor()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -94,12 +96,28 @@ Interface Prototype&lt;T extends Prototype&lt;T&gt;&gt;</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang">Cloneable</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">BootstrapInterceptor</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/CheckOwnerInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">CheckOwnerInterceptor</A>, <A HREF="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A>, <A HREF="../../../xdi2/messaging/target/impl/file/FileMessagingTarget.html" title="class in xdi2.messaging.target.impl.file">FileMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html" title="class in xdi2.messaging.target.impl.graph">GraphMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/LinkContractsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">LinkContractsInterceptor</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ReadOnlyInterceptor</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">BootstrapInterceptor</A>, <A HREF="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A>, <A HREF="../../../xdi2/messaging/target/impl/file/FileMessagingTarget.html" title="class in xdi2.messaging.target.impl.file">FileMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A>, <A HREF="../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html" title="class in xdi2.messaging.target.impl.graph">GraphMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">LinkContractInterceptor</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ReadOnlyInterceptor</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A>, <A HREF="../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public interface <B>Prototype&lt;T extends Prototype&lt;T&gt;&gt;</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang">Cloneable</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="interceptor/impl/BootstrapInterceptor.html" title="BootstrapInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="368,181,619,221"/>
+<area shape="rect" id="node2" href="contributor/ContributorMap.html" title="ContributorMap (xdi2.messaging.target.contributor)" alt="" coords="382,5,605,45"/>
+<area shape="rect" id="node3" href="interceptor/impl/FromInterceptor.html" title="FromInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="368,240,619,280"/>
+<area shape="rect" id="node4" href="impl/graph/GraphMessagingTarget.html" title="GraphMessagingTarget (xdi2.messaging.target.impl.graph)" alt="" coords="382,64,605,104"/>
+<area shape="rect" id="node5" href="interceptor/InterceptorList.html" title="InterceptorList (xdi2.messaging.target.interceptor)" alt="" coords="382,123,605,163"/>
+<area shape="rect" id="node6" href="interceptor/impl/LinkContractInterceptor.html" title="LinkContractInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="368,299,619,339"/>
+<area shape="rect" id="node7" href="interceptor/impl/MessagePolicyInterceptor.html" title="MessagePolicyInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="368,357,619,397"/>
+<area shape="rect" id="node8" href="interceptor/impl/ReadOnlyInterceptor.html" title="ReadOnlyInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="368,416,619,456"/>
+<area shape="rect" id="node9" href="interceptor/impl/RefInterceptor.html" title="RefInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="368,475,619,515"/>
+<area shape="rect" id="node10" href="interceptor/impl/ToInterceptor.html" title="ToInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="368,533,619,573"/>
+<area shape="rect" id="node11" href="interceptor/impl/VariablesInterceptor.html" title="VariablesInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="368,592,619,632"/>
+<area shape="rect" id="node12" title="&#171;interface&#187; Cloneable (java.lang)" alt="" coords="5,291,91,346"/>
+<area shape="rect" id="node13" href="Prototype.html" title="&#171;interface&#187; Prototype" alt="" coords="187,299,272,339"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="Prototype.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 This interface is used to mark messaging targets, interceptors and contributors that

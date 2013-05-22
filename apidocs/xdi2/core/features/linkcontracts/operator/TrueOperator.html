@@ -7,6 +7,11 @@
 TrueOperator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.features.linkcontracts.operator.TrueOperator class">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromRelation()">
+<META NAME="keywords" CONTENT="createTrueOperator()">
+<META NAME="keywords" CONTENT="evaluateInternal()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -54,7 +59,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/features/linkcontracts/operator/TrueOperator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -75,7 +80,7 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_xdi2.core.features.linkcontracts.operator.Operator">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_xdi2.core.features.linkcontracts.operator.Operator">NESTED</A>&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_xdi2.core.features.linkcontracts.operator.Operator">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
@@ -103,6 +108,11 @@ Class TrueOperator</H2>
 <DL>
 <DT><PRE>public class <B>TrueOperator</B><DT>extends <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/ConditionOperator.html" title="class in xdi2.core.features.linkcontracts.operator">ConditionOperator</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="ConditionOperator.html" title="ConditionOperator" alt="" coords="5,6,131,31"/>
+<area shape="rect" id="node2" href="TrueOperator.html" title="TrueOperator" alt="" coords="19,71,116,97"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="TrueOperator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI $true operator, represented as a relation.
@@ -116,6 +126,25 @@ An XDI $true operator, represented as a relation.
 <HR>
 
 <P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_xdi2.core.features.linkcontracts.operator.Operator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class xdi2.core.features.linkcontracts.operator.<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator.MappingRelationOperatorIterator</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
 <!-- =========== FIELD SUMMARY =========== -->
 
 <A NAME="field_summary"><!-- --></A>
@@ -163,16 +192,17 @@ An XDI $true operator, represented as a relation.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html#evaluateInternal(xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext)">evaluateInternal</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A>&nbsp;policyEvaluationContext)</CODE>
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html" title="class in xdi2.core.features.linkcontracts.operator">TrueOperator</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html#createTrueOperator(xdi2.core.features.linkcontracts.policy.Policy, xdi2.core.features.linkcontracts.condition.Condition)">createTrueOperator</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A>&nbsp;policy,
+                   <A HREF="../../../../../xdi2/core/features/linkcontracts/condition/Condition.html" title="class in xdi2.core.features.linkcontracts.condition">Condition</A>&nbsp;condition)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html" title="class in xdi2.core.features.linkcontracts.operator">TrueOperator</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html#fromCondition(xdi2.core.features.linkcontracts.condition.Condition)">fromCondition</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/condition/Condition.html" title="class in xdi2.core.features.linkcontracts.condition">Condition</A>&nbsp;condition)</CODE>
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html#evaluateInternal(xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext)">evaluateInternal</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A>&nbsp;policyEvaluationContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -279,10 +309,11 @@ public static <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/
 </DL>
 <HR>
 
-<A NAME="fromCondition(xdi2.core.features.linkcontracts.condition.Condition)"><!-- --></A><H3>
-fromCondition</H3>
+<A NAME="createTrueOperator(xdi2.core.features.linkcontracts.policy.Policy, xdi2.core.features.linkcontracts.condition.Condition)"><!-- --></A><H3>
+createTrueOperator</H3>
 <PRE>
-public static <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html" title="class in xdi2.core.features.linkcontracts.operator">TrueOperator</A> <B>fromCondition</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/condition/Condition.html" title="class in xdi2.core.features.linkcontracts.condition">Condition</A>&nbsp;condition)</PRE>
+public static <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/TrueOperator.html" title="class in xdi2.core.features.linkcontracts.operator">TrueOperator</A> <B>createTrueOperator</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A>&nbsp;policy,
+                                              <A HREF="../../../../../xdi2/core/features/linkcontracts/condition/Condition.html" title="class in xdi2.core.features.linkcontracts.condition">Condition</A>&nbsp;condition)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -333,7 +364,7 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.h
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.linkcontracts.operator"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/features/linkcontracts/operator/TrueOperator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -354,7 +385,7 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.h
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_xdi2.core.features.linkcontracts.operator.Operator">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_xdi2.core.features.linkcontracts.operator.Operator">NESTED</A>&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_xdi2.core.features.linkcontracts.operator.Operator">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
 DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>

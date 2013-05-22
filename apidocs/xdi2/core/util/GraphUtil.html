@@ -7,6 +7,10 @@
 GraphUtil (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.GraphUtil class">
+<META NAME="keywords" CONTENT="contextNodeFromComponents()">
+<META NAME="keywords" CONTENT="relationFromComponents()">
+<META NAME="keywords" CONTENT="literalFromComponents()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -98,6 +102,10 @@ Class GraphUtil</H2>
 <DL>
 <DT><PRE>public final class <B>GraphUtil</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="GraphUtil.html" title="&#171;static&#187; GraphUtil" alt="" coords="5,5,80,45"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="GraphUtil.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 Various utility methods for working with context nodes, relations and literals.
@@ -127,16 +135,6 @@ Various utility methods for working with context nodes, relations and literals.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a context node from its components.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/roots/InnerRoot.html" title="class in xdi2.core.features.roots">InnerRoot</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#innerRootFromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.util.Iterator)">innerRootFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;subject,
-                        <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;predicate,
-                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;statementXris)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI inner root from its components.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -221,22 +219,6 @@ public static <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>contextNodeXri</CODE> - The XRI of the context node containing the literal.<DD><CODE>literalData</CODE> - The literal data of the literal.
 <DT><B>Returns:</B><DD>A literal.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="innerRootFromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.util.Iterator)"><!-- --></A><H3>
-innerRootFromComponents</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/features/roots/InnerRoot.html" title="class in xdi2.core.features.roots">InnerRoot</A> <B>innerRootFromComponents</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;subject,
-                                                <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;predicate,
-                                                <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;statementXris)</PRE>
-<DL>
-<DD>Creates an XDI inner root from its components.
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>subject</CODE> - The subject XRI of the XDI inner root.<DD><CODE>predicate</CODE> - The predicate XRI of the XDI inner root.
-<DT><B>Returns:</B><DD>An XDI inner root.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

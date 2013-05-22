@@ -7,6 +7,15 @@
 StatementUtil (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.StatementUtil class">
+<META NAME="keywords" CONTENT="fromComponents()">
+<META NAME="keywords" CONTENT="fromContextNodeComponents()">
+<META NAME="keywords" CONTENT="fromRelationComponents()">
+<META NAME="keywords" CONTENT="fromLiteralComponents()">
+<META NAME="keywords" CONTENT="fromXriSegment()">
+<META NAME="keywords" CONTENT="expandStatement()">
+<META NAME="keywords" CONTENT="reduceStatement()">
+<META NAME="keywords" CONTENT="statementObjectToString()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -55,7 +64,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../xdi2/core/util/GraphUtil.html" title="class in xdi2.core.util"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../xdi2/core/util/XDIUtil.html" title="class in xdi2.core.util"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/core/util/VariableUtil.html" title="class in xdi2.core.util"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/core/util/StatementUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="StatementUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -98,6 +107,10 @@ Class StatementUtil</H2>
 <DL>
 <DT><PRE>public final class <B>StatementUtil</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="StatementUtil.html" title="&#171;static&#187; StatementUtil" alt="" coords="5,5,107,45"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="StatementUtil.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 Various utility methods for working with statements.
@@ -132,9 +145,9 @@ Various utility methods for working with statements.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#fromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">fromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;subject,
+<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#fromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.lang.Object)">fromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;subject,
                <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;predicate,
-               <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;object)</CODE>
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;object)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI statement from its three components</TD>
@@ -195,6 +208,14 @@ Various utility methods for working with statements.
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a reduced statement from a base XRI.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#statementObjectToString(java.lang.Object)">statementObjectToString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;object)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -218,12 +239,12 @@ Various utility methods for working with statements.
 </TR>
 </TABLE>
 
-<A NAME="fromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+<A NAME="fromComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.lang.Object)"><!-- --></A><H3>
 fromComponents</H3>
 <PRE>
 public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>fromComponents</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;subject,
                                            <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;predicate,
-                                           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;object)</PRE>
+                                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;object)</PRE>
 <DL>
 <DD>Creates an XDI statement from its three components
 <P>
@@ -342,6 +363,17 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class 
 </DL>
 </DD>
 </DL>
+<HR>
+
+<A NAME="statementObjectToString(java.lang.Object)"><!-- --></A><H3>
+statementObjectToString</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>statementObjectToString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;object)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
 
@@ -374,7 +406,7 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../xdi2/core/util/GraphUtil.html" title="class in xdi2.core.util"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../xdi2/core/util/XDIUtil.html" title="class in xdi2.core.util"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/core/util/VariableUtil.html" title="class in xdi2.core.util"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/core/util/StatementUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="StatementUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

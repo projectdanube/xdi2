@@ -7,6 +7,15 @@
 MessageResult (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.MessageResult class">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromGraph()">
+<META NAME="keywords" CONTENT="getGraph()">
+<META NAME="keywords" CONTENT="isEmpty()">
+<META NAME="keywords" CONTENT="toString()">
+<META NAME="keywords" CONTENT="equals()">
+<META NAME="keywords" CONTENT="hashCode()">
+<META NAME="keywords" CONTENT="compareTo()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
 
@@ -54,7 +63,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.MappingCollectionMessageCollectionIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.MappingXdiEntityClassMessageCollectionIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/MessageResult.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -75,9 +84,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -104,6 +113,13 @@ Class MessageResult</H2>
 <DL>
 <DT><PRE>public class <B>MessageResult</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="5,6,93,61"/>
+<area shape="rect" id="node2" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="124,6,215,61"/>
+<area shape="rect" id="node3" href="MessageResult.html" title="MessageResult" alt="" coords="53,101,165,126"/>
+<area shape="rect" id="node4" href="error/ErrorMessageResult.html" title="ErrorMessageResult (xdi2.messaging.error)" alt="" coords="34,165,184,205"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="MessageResult.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI message result, represented as a graph.
@@ -117,24 +133,7 @@ An XDI message result, represented as a graph.
 <HR>
 
 <P>
-<!-- =========== FIELD SUMMARY =========== -->
 
-<A NAME="field_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageResult.html#graph">graph</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 
 <A NAME="constructor_summary"><!-- --></A>
@@ -245,25 +244,6 @@ An XDI message result, represented as a graph.
 </TABLE>
 &nbsp;
 <P>
-
-<!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="graph"><!-- --></A><H3>
-graph</H3>
-<PRE>
-protected <A HREF="../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> <B>graph</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -453,7 +433,7 @@ public int <B>compareTo</B>(<A HREF="../../xdi2/messaging/MessageResult.html" ti
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.MappingCollectionMessageCollectionIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.MappingXdiEntityClassMessageCollectionIterator.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/MessageResult.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -474,9 +454,9 @@ public int <B>compareTo</B>(<A HREF="../../xdi2/messaging/MessageResult.html" ti
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

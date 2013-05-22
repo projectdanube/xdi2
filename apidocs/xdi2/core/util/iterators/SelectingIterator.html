@@ -7,6 +7,10 @@
 SelectingIterator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.iterators.SelectingIterator class">
+<META NAME="keywords" CONTENT="iterator">
+<META NAME="keywords" CONTENT="lookahead()">
+<META NAME="keywords" CONTENT="select()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -92,20 +96,30 @@ xdi2.core.util.iterators</FONT>
 Class SelectingIterator&lt;T&gt;</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.ReadOnlyIterator</A>&lt;T&gt;
-      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.LookaheadIterator</A>&lt;T&gt;
-          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.SelectingIterator&lt;T&gt;</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</A>&lt;T&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.WrappingIterator</A>&lt;T&gt;
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.ReadOnlyIterator</A>&lt;T&gt;
+              <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.LookaheadIterator</A>&lt;T&gt;
+                  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.SelectingIterator&lt;T&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;T&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;</DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/util/iterators/NoDuplicatesIterator.html" title="class in xdi2.core.util.iterators">NoDuplicatesIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/NotNullIterator.html" title="class in xdi2.core.util.iterators">NotNullIterator</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/util/iterators/NoDuplicatesIterator.html" title="class in xdi2.core.util.iterators">NoDuplicatesIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/NotNullIterator.html" title="class in xdi2.core.util.iterators">NotNullIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/SelectingNotImpliedStatementIterator.html" title="class in xdi2.core.util.iterators">SelectingNotImpliedStatementIterator</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public abstract class <B>SelectingIterator&lt;T&gt;</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">LookaheadIterator</A>&lt;T&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="SelectingIterator.html" title="SelectingIterator" alt="" coords="167,71,284,97"/>
+<area shape="rect" id="node2" href="LookaheadIterator.html" title="LookaheadIterator" alt="" coords="162,6,288,31"/>
+<area shape="rect" id="node3" href="SelectingNotImpliedStatementIterator.html" title="SelectingNotImpliedStatementIterator" alt="" coords="307,137,544,162"/>
+<area shape="rect" id="node4" href="NotNullIterator.html" title="NotNullIterator" alt="" coords="173,137,277,162"/>
+<area shape="rect" id="node5" href="NoDuplicatesIterator.html" title="NoDuplicatesIterator" alt="" coords="5,137,144,162"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="SelectingIterator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An iterator that returns only items of another iterator that satisfy a certain condition.
@@ -129,7 +143,7 @@ An iterator that returns only items of another iterator that satisfy a certain c
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="type parameter in SelectingIterator">T</A>&gt;</CODE></FONT></TD>
+<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="type parameter in SelectingIterator">T</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html#iterator">iterator</A></B></CODE>
 
 <BR>
@@ -155,7 +169,7 @@ An iterator that returns only items of another iterator that satisfy a certain c
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html#SelectingIterator(java.util.Iterator)">SelectingIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="type parameter in SelectingIterator">T</A>&gt;&nbsp;iterator)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html#SelectingIterator(java.util.Iterator)">SelectingIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="type parameter in SelectingIterator">T</A>&gt;&nbsp;iterator)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -205,6 +219,15 @@ An iterator that returns only items of another iterator that satisfy a certain c
 <TD><CODE><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html#remove()">remove</A></CODE></TD>
 </TR>
 </TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.util.iterators.IterableIterator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.util.iterators.<A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">IterableIterator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html#iterator()">iterator</A></CODE></TD>
+</TR>
+</TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
@@ -230,7 +253,7 @@ An iterator that returns only items of another iterator that satisfy a certain c
 <A NAME="iterator"><!-- --></A><H3>
 iterator</H3>
 <PRE>
-protected <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="type parameter in SelectingIterator">T</A>&gt; <B>iterator</B></PRE>
+protected <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="type parameter in SelectingIterator">T</A>&gt; <B>iterator</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -249,7 +272,7 @@ protected <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterat
 <A NAME="SelectingIterator(java.util.Iterator)"><!-- --></A><H3>
 SelectingIterator</H3>
 <PRE>
-public <B>SelectingIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="type parameter in SelectingIterator">T</A>&gt;&nbsp;iterator)</PRE>
+public <B>SelectingIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="type parameter in SelectingIterator">T</A>&gt;&nbsp;iterator)</PRE>
 <DL>
 </DL>
 

@@ -7,6 +7,15 @@
 AbstractLiteral (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.impl.AbstractLiteral class">
+<META NAME="keywords" CONTENT="getGraph()">
+<META NAME="keywords" CONTENT="getContextNode()">
+<META NAME="keywords" CONTENT="delete()">
+<META NAME="keywords" CONTENT="getStatement()">
+<META NAME="keywords" CONTENT="toString()">
+<META NAME="keywords" CONTENT="equals()">
+<META NAME="keywords" CONTENT="hashCode()">
+<META NAME="keywords" CONTENT="compareTo()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -104,6 +113,15 @@ Class AbstractLiteral</H2>
 <DL>
 <DT><PRE>public abstract class <B>AbstractLiteral</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="../Literal.html" title="&#171;interface&#187; Literal (xdi2.core)" alt="" coords="261,6,347,61"/>
+<area shape="rect" id="node2" href="AbstractLiteral.html" title="AbstractLiteral" alt="" coords="251,101,357,126"/>
+<area shape="rect" id="node3" href="wrapped/WrappedLiteral.html" title="WrappedLiteral (xdi2.core.impl.wrapped)" alt="" coords="512,165,675,205"/>
+<area shape="rect" id="node4" href="memory/MemoryLiteral.html" title="MemoryLiteral (xdi2.core.impl.memory)" alt="" coords="320,165,483,205"/>
+<area shape="rect" id="node5" href="keyvalue/KeyValueLiteral.html" title="KeyValueLiteral (xdi2.core.impl.keyvalue)" alt="" coords="125,165,291,205"/>
+<area shape="rect" id="node6" href="BasicLiteral.html" title="BasicLiteral" alt="" coords="5,173,96,198"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="AbstractLiteral.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -121,8 +139,7 @@ Class AbstractLiteral</H2>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#AbstractLiteral(xdi2.core.Graph, xdi2.core.ContextNode)">AbstractLiteral</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#AbstractLiteral(xdi2.core.ContextNode)">AbstractLiteral</A></B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -183,7 +200,7 @@ Class AbstractLiteral</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#getStatement()">getStatement</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the statement that contains this literal.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the statement that represents this literal.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -233,11 +250,10 @@ Class AbstractLiteral</H2>
 </TR>
 </TABLE>
 
-<A NAME="AbstractLiteral(xdi2.core.Graph, xdi2.core.ContextNode)"><!-- --></A><H3>
+<A NAME="AbstractLiteral(xdi2.core.ContextNode)"><!-- --></A><H3>
 AbstractLiteral</H3>
 <PRE>
-public <B>AbstractLiteral</B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                       <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+public <B>AbstractLiteral</B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
 <DL>
 </DL>
 
@@ -310,7 +326,7 @@ getStatement</H3>
 public <A HREF="../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A> <B>getStatement</B>()</PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Literal.html#getStatement()">Literal</A></CODE></B></DD>
-<DD>Gets the statement that contains this literal.
+<DD>Gets the statement that represents this literal.
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Literal.html#getStatement()">getStatement</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></DL>

@@ -7,6 +7,46 @@
 Message (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.Message class">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromMessageCollectionAndXdiEntity()">
+<META NAME="keywords" CONTENT="getMessageCollection()">
+<META NAME="keywords" CONTENT="getMessageEnvelope()">
+<META NAME="keywords" CONTENT="getXdiEntity()">
+<META NAME="keywords" CONTENT="getContextNode()">
+<META NAME="keywords" CONTENT="getID()">
+<META NAME="keywords" CONTENT="getSender()">
+<META NAME="keywords" CONTENT="getFromAddress()">
+<META NAME="keywords" CONTENT="setFromAddress()">
+<META NAME="keywords" CONTENT="getToAddress()">
+<META NAME="keywords" CONTENT="setToAddress()">
+<META NAME="keywords" CONTENT="getTimestamp()">
+<META NAME="keywords" CONTENT="setTimestamp()">
+<META NAME="keywords" CONTENT="getLinkContractXri()">
+<META NAME="keywords" CONTENT="setLinkContractXri()">
+<META NAME="keywords" CONTENT="getPolicyRoot()">
+<META NAME="keywords" CONTENT="getOperationsXdiEntity()">
+<META NAME="keywords" CONTENT="getOperationsContextNode()">
+<META NAME="keywords" CONTENT="createOperation()">
+<META NAME="keywords" CONTENT="createGetOperation()">
+<META NAME="keywords" CONTENT="createAddOperation()">
+<META NAME="keywords" CONTENT="createModOperation()">
+<META NAME="keywords" CONTENT="createSetOperation()">
+<META NAME="keywords" CONTENT="createDelOperation()">
+<META NAME="keywords" CONTENT="createDoOperation()">
+<META NAME="keywords" CONTENT="getOperations()">
+<META NAME="keywords" CONTENT="getGetOperations()">
+<META NAME="keywords" CONTENT="getAddOperations()">
+<META NAME="keywords" CONTENT="getModOperations()">
+<META NAME="keywords" CONTENT="getSetOperations()">
+<META NAME="keywords" CONTENT="getDelOperations()">
+<META NAME="keywords" CONTENT="getDoOperations()">
+<META NAME="keywords" CONTENT="deleteOperations()">
+<META NAME="keywords" CONTENT="getOperationCount()">
+<META NAME="keywords" CONTENT="toString()">
+<META NAME="keywords" CONTENT="equals()">
+<META NAME="keywords" CONTENT="hashCode()">
+<META NAME="keywords" CONTENT="compareTo()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
 
@@ -101,6 +141,12 @@ Class Message</H2>
 <DL>
 <DT><PRE>public final class <B>Message</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="5,6,93,61"/>
+<area shape="rect" id="node2" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="124,6,215,61"/>
+<area shape="rect" id="node3" href="Message.html" title="Message" alt="" coords="72,101,147,126"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="Message.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI message, represented as a context node.
@@ -170,6 +216,14 @@ An XDI message, represented as a context node.
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationSetOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationSetOperationIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -183,8 +237,8 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#Message(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)">Message</A></B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-        <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;entityMember)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#Message(xdi2.messaging.MessageCollection, xdi2.core.features.nodetypes.XdiEntity)">Message</A></B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
+        <A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -225,6 +279,14 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createAddOperation(xdi2.core.xri3.XDI3Statement)">createAddOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $add operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createDelOperation(java.util.Iterator)">createDelOperation</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</CODE>
 
@@ -235,6 +297,14 @@ An XDI message, represented as a context node.
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createDelOperation(xdi2.core.xri3.XDI3Segment)">createDelOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $del operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createDelOperation(xdi2.core.xri3.XDI3Statement)">createDelOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $del operation and adds it to this XDI message.</TD>
@@ -257,6 +327,14 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createDoOperation(xdi2.core.xri3.XDI3Statement)">createDoOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $do operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createGetOperation(java.util.Iterator)">createGetOperation</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</CODE>
 
@@ -273,6 +351,14 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createGetOperation(xdi2.core.xri3.XDI3Statement)">createGetOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $get operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createModOperation(java.util.Iterator)">createModOperation</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</CODE>
 
@@ -283,6 +369,14 @@ An XDI message, represented as a context node.
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createModOperation(xdi2.core.xri3.XDI3Segment)">createModOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $mod operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createModOperation(xdi2.core.xri3.XDI3Statement)">createModOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $mod operation and adds it to this XDI message.</TD>
@@ -307,6 +401,39 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createOperation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">createOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                <A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createSetOperation(java.util.Iterator)">createSetOperation</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $set operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createSetOperation(xdi2.core.xri3.XDI3Segment)">createSetOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $set operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createSetOperation(xdi2.core.xri3.XDI3Statement)">createSetOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $set operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#deleteOperations()">deleteOperations</A></B>()</CODE>
 
@@ -324,11 +451,11 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#fromMessageCollectionAndEntityMember(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)">fromMessageCollectionAndEntityMember</A></B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-                                     <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;xdiEntityMember)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#fromMessageCollectionAndXdiEntity(xdi2.messaging.MessageCollection, xdi2.core.features.nodetypes.XdiEntity)">fromMessageCollectionAndXdiEntity</A></B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
+                                  <A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message bound to a given XDI entity member.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI message bound to a given XDI entity.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -364,11 +491,11 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getEntityMember()">getEntityMember</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getFromAddress()">getFromAddress</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying XDI entity member to which this XDI message is bound.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the FROM address.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -452,11 +579,19 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getRecipientAuthority()">getRecipientAuthority</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getOperationsXdiEntity()">getOperationsXdiEntity</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the recipient authority.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the XDI entity with XDI operations.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyRoot</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getPolicyRoot(boolean)">getPolicyRoot</A></B>(boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI root policy in this XDI messages, or creates a new one.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -468,11 +603,11 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getSenderAuthority()">getSenderAuthority</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getSetOperations()">getSetOperations</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the sender authority.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI $set operations in this XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -481,6 +616,22 @@ An XDI message, represented as a context node.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the timestamp.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getToAddress()">getToAddress</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the TO address of the message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getXdiEntity()">getXdiEntity</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying XDI entity to which this XDI message is bound.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -493,26 +644,42 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#isValid(xdi2.core.features.multiplicity.XdiEntityMember)">isValid</A></B>(<A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;xdiEntityMember)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#isValid(xdi2.core.features.nodetypes.XdiEntity)">isValid</A></B>(<A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI entity member is a valid XDI message.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI entity is a valid XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setRecipientAuthority(xdi2.core.xri3.XDI3Segment)">setRecipientAuthority</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;recipientAuthority)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setFromAddress(xdi2.core.xri3.XDI3Segment)">setFromAddress</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;fromAddress)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the recipient authority.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the FROM address.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setSenderAuthority(xdi2.core.xri3.XDI3Segment)">setSenderAuthority</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderAuthority)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setLinkContractXri(xdi2.core.xri3.XDI3Segment)">setLinkContractXri</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;linkContractXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the sender authority.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the link contract XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setTimestamp(java.util.Date)">setTimestamp</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</A>&nbsp;timestamp)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the timestamp.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setToAddress(xdi2.core.xri3.XDI3Segment)">setToAddress</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;toAddress)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the TO address of the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -545,11 +712,11 @@ An XDI message, represented as a context node.
 </TR>
 </TABLE>
 
-<A NAME="Message(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)"><!-- --></A><H3>
+<A NAME="Message(xdi2.messaging.MessageCollection, xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
 Message</H3>
 <PRE>
 protected <B>Message</B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-                  <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;entityMember)</PRE>
+                  <A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
 <DL>
 </DL>
 
@@ -563,36 +730,36 @@ protected <B>Message</B>(<A HREF="../../xdi2/messaging/MessageCollection.html" t
 </TR>
 </TABLE>
 
-<A NAME="isValid(xdi2.core.features.multiplicity.XdiEntityMember)"><!-- --></A><H3>
+<A NAME="isValid(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
 isValid</H3>
 <PRE>
-public static boolean <B>isValid</B>(<A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;xdiEntityMember)</PRE>
+public static boolean <B>isValid</B>(<A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
 <DL>
-<DD>Checks if an XDI entity member is a valid XDI message.
+<DD>Checks if an XDI entity is a valid XDI message.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>xdiEntityMember</CODE> - The XDI entity member to check.
-<DT><B>Returns:</B><DD>True if the XDI entity member is a valid XDI message.</DL>
+<DT><B>Parameters:</B><DD><CODE>xdiEntity</CODE> - The XDI entity to check.
+<DT><B>Returns:</B><DD>True if the XDI entity is a valid XDI message.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="fromMessageCollectionAndEntityMember(xdi2.messaging.MessageCollection, xdi2.core.features.multiplicity.XdiEntityMember)"><!-- --></A><H3>
-fromMessageCollectionAndEntityMember</H3>
+<A NAME="fromMessageCollectionAndXdiEntity(xdi2.messaging.MessageCollection, xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
+fromMessageCollectionAndXdiEntity</H3>
 <PRE>
-public static <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>fromMessageCollectionAndEntityMember</B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
-                                                           <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A>&nbsp;xdiEntityMember)</PRE>
+public static <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>fromMessageCollectionAndXdiEntity</B>(<A HREF="../../xdi2/messaging/MessageCollection.html" title="class in xdi2.messaging">MessageCollection</A>&nbsp;messageCollection,
+                                                        <A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
 <DL>
-<DD>Factory method that creates an XDI message bound to a given XDI entity member.
+<DD>Factory method that creates an XDI message bound to a given XDI entity.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>messageCollection</CODE> - The XDI message collection to which this XDI message belongs.<DD><CODE>xdiEntityMember</CODE> - The XDI entity member that is an XDI message.
+<DT><B>Parameters:</B><DD><CODE>messageCollection</CODE> - The XDI message collection to which this XDI message belongs.<DD><CODE>xdiEntity</CODE> - The XDI entity that is an XDI message.
 <DT><B>Returns:</B><DD>The XDI message.</DL>
 </DD>
 </DL>
@@ -632,19 +799,19 @@ public <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.
 </DL>
 <HR>
 
-<A NAME="getEntityMember()"><!-- --></A><H3>
-getEntityMember</H3>
+<A NAME="getXdiEntity()"><!-- --></A><H3>
+getXdiEntity</H3>
 <PRE>
-public <A HREF="../../xdi2/core/features/multiplicity/XdiEntityMember.html" title="class in xdi2.core.features.multiplicity">XdiEntityMember</A> <B>getEntityMember</B>()</PRE>
+public <A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A> <B>getXdiEntity</B>()</PRE>
 <DL>
-<DD>Returns the underlying XDI entity member to which this XDI message is bound.
+<DD>Returns the underlying XDI entity to which this XDI message is bound.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>An XDI entity member that represents the XDI message.</DL>
+<DT><B>Returns:</B><DD>An XDI entity that represents the XDI message.</DL>
 </DD>
 </DL>
 <HR>
@@ -700,12 +867,12 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
-<A NAME="getSenderAuthority()"><!-- --></A><H3>
-getSenderAuthority</H3>
+<A NAME="getFromAddress()"><!-- --></A><H3>
+getFromAddress</H3>
 <PRE>
-public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getSenderAuthority</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getFromAddress</B>()</PRE>
 <DL>
-<DD>Return the sender authority.
+<DD>Return the FROM address.
 <P>
 <DD><DL>
 </DL>
@@ -716,12 +883,12 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
-<A NAME="setSenderAuthority(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setSenderAuthority</H3>
+<A NAME="setFromAddress(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+setFromAddress</H3>
 <PRE>
-public void <B>setSenderAuthority</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderAuthority)</PRE>
+public void <B>setFromAddress</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;fromAddress)</PRE>
 <DL>
-<DD>Set the sender authority.
+<DD>Set the FROM address.
 <P>
 <DD><DL>
 </DL>
@@ -732,12 +899,12 @@ public void <B>setSenderAuthority</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.
 </DL>
 <HR>
 
-<A NAME="getRecipientAuthority()"><!-- --></A><H3>
-getRecipientAuthority</H3>
+<A NAME="getToAddress()"><!-- --></A><H3>
+getToAddress</H3>
 <PRE>
-public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getRecipientAuthority</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getToAddress</B>()</PRE>
 <DL>
-<DD>Return the recipient authority.
+<DD>Return the TO address of the message.
 <P>
 <DD><DL>
 </DL>
@@ -748,12 +915,12 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
-<A NAME="setRecipientAuthority(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setRecipientAuthority</H3>
+<A NAME="setToAddress(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+setToAddress</H3>
 <PRE>
-public void <B>setRecipientAuthority</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;recipientAuthority)</PRE>
+public void <B>setToAddress</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;toAddress)</PRE>
 <DL>
-<DD>Set the recipient authority.
+<DD>Set the TO address of the message.
 <P>
 <DD><DL>
 </DL>
@@ -781,6 +948,22 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html
 </DL>
 <HR>
 
+<A NAME="setTimestamp(java.util.Date)"><!-- --></A><H3>
+setTimestamp</H3>
+<PRE>
+public void <B>setTimestamp</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</A>&nbsp;timestamp)</PRE>
+<DL>
+<DD>Set the timestamp.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getLinkContractXri()"><!-- --></A><H3>
 getLinkContractXri</H3>
 <PRE>
@@ -794,6 +977,56 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 <DD><DL>
 
 <DT><B>Returns:</B><DD>The link contract XRI.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLinkContractXri(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+setLinkContractXri</H3>
+<PRE>
+public void <B>setLinkContractXri</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;linkContractXri)</PRE>
+<DL>
+<DD>Set the link contract XRI.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPolicyRoot(boolean)"><!-- --></A><H3>
+getPolicyRoot</H3>
+<PRE>
+public <A HREF="../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyRoot</A> <B>getPolicyRoot</B>(boolean&nbsp;create)</PRE>
+<DL>
+<DD>Returns an existing XDI root policy in this XDI messages, or creates a new one.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>create</CODE> - Whether to create an XDI root policy if it does not exist.
+<DT><B>Returns:</B><DD>The existing or newly created XDI root policy.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOperationsXdiEntity()"><!-- --></A><H3>
+getOperationsXdiEntity</H3>
+<PRE>
+public <A HREF="../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A> <B>getOperationsXdiEntity</B>()</PRE>
+<DL>
+<DD>Returns the XDI entity with XDI operations.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>A XDI entity with XDI operations.</DL>
 </DD>
 </DL>
 <HR>
@@ -851,6 +1084,24 @@ public <A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messag
 </DL>
 <HR>
 
+<A NAME="createOperation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
+createOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A> <B>createOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                 <A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created, empty operation, or null if the operation XRI is not valid.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="createGetOperation(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 createGetOperation</H3>
 <PRE>
@@ -885,6 +1136,23 @@ public <A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.mes
 </DL>
 <HR>
 
+<A NAME="createGetOperation(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
+createGetOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A> <B>createGetOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $get operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $get operation.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="createAddOperation(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 createAddOperation</H3>
 <PRE>
@@ -897,7 +1165,7 @@ public <A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.mes
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>targetAddress</CODE> - The target address to which the operation applies.
-<DT><B>Returns:</B><DD>The newly created $get operation.</DL>
+<DT><B>Returns:</B><DD>The newly created $add operation.</DL>
 </DD>
 </DL>
 <HR>
@@ -914,7 +1182,24 @@ public <A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.mes
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>targetStatements</CODE> - The target statements to which the operation applies.
-<DT><B>Returns:</B><DD>The newly created $get operation.</DL>
+<DT><B>Returns:</B><DD>The newly created $add operation.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createAddOperation(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
+createAddOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A> <B>createAddOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $add operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $add operation.</DL>
 </DD>
 </DL>
 <HR>
@@ -953,6 +1238,74 @@ public <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.mes
 </DL>
 <HR>
 
+<A NAME="createModOperation(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
+createModOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A> <B>createModOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $mod operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $mod operation.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createSetOperation(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+createSetOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A> <B>createSetOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</PRE>
+<DL>
+<DD>Creates a new $set operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetAddress</CODE> - The target address to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $set operation.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createSetOperation(java.util.Iterator)"><!-- --></A><H3>
+createSetOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A> <B>createSetOperation</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</PRE>
+<DL>
+<DD>Creates a new $set operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatements</CODE> - The target statements to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $set operation.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createSetOperation(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
+createSetOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A> <B>createSetOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $set operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $set operation.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="createDelOperation(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 createDelOperation</H3>
 <PRE>
@@ -987,6 +1340,23 @@ public <A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.mes
 </DL>
 <HR>
 
+<A NAME="createDelOperation(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
+createDelOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A> <B>createDelOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $del operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $del operation.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="createDoOperation(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 createDoOperation</H3>
 <PRE>
@@ -1016,6 +1386,23 @@ public <A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.mess
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>targetStatements</CODE> - The target statements to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created $do operation.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createDoOperation(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
+createDoOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A> <B>createDoOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
+<DL>
+<DD>Creates a new $do operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
 <DT><B>Returns:</B><DD>The newly created $do operation.</DL>
 </DD>
 </DL>
@@ -1102,6 +1489,23 @@ public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="cla
 <DD><DL>
 
 <DT><B>Returns:</B><DD>An iterator over all XDI $mod operations.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getSetOperations()"><!-- --></A><H3>
+getSetOperations</H3>
+<PRE>
+public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&gt; <B>getSetOperations</B>()</PRE>
+<DL>
+<DD>Returns all XDI $set operations in this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>An iterator over all XDI $set operations.</DL>
 </DD>
 </DL>
 <HR>

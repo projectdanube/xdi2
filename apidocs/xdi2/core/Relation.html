@@ -7,6 +7,14 @@
 Relation (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.Relation interface">
+<META NAME="keywords" CONTENT="getGraph()">
+<META NAME="keywords" CONTENT="getContextNode()">
+<META NAME="keywords" CONTENT="delete()">
+<META NAME="keywords" CONTENT="getArcXri()">
+<META NAME="keywords" CONTENT="getTargetContextNodeXri()">
+<META NAME="keywords" CONTENT="follow()">
+<META NAME="keywords" CONTENT="getStatement()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
 
@@ -100,6 +108,17 @@ Interface Relation</H2>
 <DL>
 <DT><PRE>public interface <B>Relation</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="271,6,360,61"/>
+<area shape="rect" id="node2" href="Relation.html" title="&#171;interface&#187; Relation" alt="" coords="333,100,419,140"/>
+<area shape="rect" id="node3" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="391,6,481,61"/>
+<area shape="rect" id="node4" href="impl/AbstractRelation.html" title="AbstractRelation (xdi2.core.impl)" alt="" coords="5,179,123,219"/>
+<area shape="rect" id="node5" href="impl/wrapped/WrappedRelation.html" title="WrappedRelation (xdi2.core.impl.wrapped)" alt="" coords="680,179,843,219"/>
+<area shape="rect" id="node6" href="impl/memory/MemoryRelation.html" title="MemoryRelation (xdi2.core.impl.memory)" alt="" coords="488,179,651,219"/>
+<area shape="rect" id="node7" href="impl/keyvalue/KeyValueRelation.html" title="KeyValueRelation (xdi2.core.impl.keyvalue)" alt="" coords="293,179,459,219"/>
+<area shape="rect" id="node8" href="impl/BasicRelation.html" title="BasicRelation (xdi2.core.impl)" alt="" coords="153,179,263,219"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="Relation.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 This interface represents a relation in an XDI graph.
@@ -168,7 +187,7 @@ This interface represents a relation in an XDI graph.
 <TD><CODE><B><A HREF="../../xdi2/core/Relation.html#getStatement()">getStatement</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the statement that contains this literal.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the statement that represents this relation.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -307,7 +326,7 @@ getStatement</H3>
 <PRE>
 <A HREF="../../xdi2/core/Statement.RelationStatement.html" title="interface in xdi2.core">Statement.RelationStatement</A> <B>getStatement</B>()</PRE>
 <DL>
-<DD>Gets the statement that contains this literal.
+<DD>Gets the statement that represents this relation.
 <P>
 <DD><DL>
 </DL>

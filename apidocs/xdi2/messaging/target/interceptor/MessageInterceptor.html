@@ -7,6 +7,9 @@
 MessageInterceptor (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.target.interceptor.MessageInterceptor interface">
+<META NAME="keywords" CONTENT="before()">
+<META NAME="keywords" CONTENT="after()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -94,12 +97,22 @@ Interface MessageInterceptor</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractMessageInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractMessageInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/CheckOwnerInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">CheckOwnerInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/LinkContractsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">LinkContractsInterceptor</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractMessageInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractMessageInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">LinkContractInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public interface <B>MessageInterceptor</B><DT>extends <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="MessageInterceptor.html" title="&#171;interface&#187; MessageInterceptor" alt="" coords="559,84,695,124"/>
+<area shape="rect" id="node2" href="Interceptor.html" title="&#171;interface&#187; Interceptor" alt="" coords="584,5,669,45"/>
+<area shape="rect" id="node3" href="AbstractMessageInterceptor.html" title="AbstractMessageInterceptor" alt="" coords="5,170,192,195"/>
+<area shape="rect" id="node4" href="impl/ToInterceptor.html" title="ToInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="1061,163,1312,203"/>
+<area shape="rect" id="node5" href="impl/MessagePolicyInterceptor.html" title="MessagePolicyInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="781,163,1032,203"/>
+<area shape="rect" id="node6" href="impl/LinkContractInterceptor.html" title="LinkContractInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="501,163,752,203"/>
+<area shape="rect" id="node7" href="impl/FromInterceptor.html" title="FromInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="221,163,472,203"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="MessageInterceptor.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 Interceptor that is executed before and after a message is executed.

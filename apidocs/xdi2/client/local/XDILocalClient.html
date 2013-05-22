@@ -7,6 +7,11 @@
 XDILocalClient (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.client.local.XDILocalClient class">
+<META NAME="keywords" CONTENT="log">
+<META NAME="keywords" CONTENT="close()">
+<META NAME="keywords" CONTENT="send()">
+<META NAME="keywords" CONTENT="getMessagingTarget()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -92,15 +97,22 @@ xdi2.client.local</FONT>
 Class XDILocalClient</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>xdi2.client.local.XDILocalClient</B>
+  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">xdi2.client.XDIAbstractClient</A>
+      <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>xdi2.client.local.XDILocalClient</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>XDILocalClient</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></DL>
+<DT><PRE>public class <B>XDILocalClient</B><DT>extends <A HREF="../../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">XDIAbstractClient</A><DT>implements <A HREF="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="../XDIClient.html" title="&#171;interface&#187; XDIClient (xdi2.client)" alt="" coords="5,6,93,61"/>
+<area shape="rect" id="node2" href="../XDIAbstractClient.html" title="XDIAbstractClient (xdi2.client)" alt="" coords="123,13,249,53"/>
+<area shape="rect" id="node3" href="XDILocalClient.html" title="XDILocalClient" alt="" coords="65,101,169,126"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="XDILocalClient.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI client that can apply XDI messages locally on messaging targets.
@@ -188,6 +200,15 @@ An XDI client that can apply XDI messages locally on messaging targets.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sends an XDI message envelope to an XDI endpoint and retrieves the results.</TD>
 </TR>
 </TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.client.XDIAbstractClient"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.client.<A HREF="../../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">XDIAbstractClient</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../xdi2/client/XDIAbstractClient.html#addClientListener(xdi2.client.XDIClientListener)">addClientListener</A>, <A HREF="../../../xdi2/client/XDIAbstractClient.html#fireDiscoveryEvent(xdi2.client.events.XDIDiscoverEvent)">fireDiscoveryEvent</A>, <A HREF="../../../xdi2/client/XDIAbstractClient.html#fireSendEvent(xdi2.client.events.XDISendEvent)">fireSendEvent</A>, <A HREF="../../../xdi2/client/XDIAbstractClient.html#removeClientListener(xdi2.client.XDIClientListener)">removeClientListener</A></CODE></TD>
+</TR>
+</TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
@@ -195,6 +216,15 @@ An XDI client that can apply XDI messages locally on messaging targets.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.client.XDIClient"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface xdi2.client.<A HREF="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../xdi2/client/XDIClient.html#addClientListener(xdi2.client.XDIClientListener)">addClientListener</A>, <A HREF="../../../xdi2/client/XDIClient.html#removeClientListener(xdi2.client.XDIClientListener)">removeClientListener</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;

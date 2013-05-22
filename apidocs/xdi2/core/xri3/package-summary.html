@@ -7,6 +7,7 @@
 xdi2.core.xri3 (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.xri3 package">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -55,7 +56,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../xdi2/core/util/iterators/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
-&nbsp;<A HREF="../../../xdi2/core/xri3/parser/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/core/xri3/parser/aparse/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/core/xri3/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -88,7 +89,24 @@ EXPERIMENTAL implementation of a 3.0 syntax parser.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="#package_description"><B>Description</B></A>
 <P>
 
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="parser/apg/XDI3ParserAPG.html" title="XDI3ParserAPG (xdi2.core.xri3.parser.apg)" alt="" coords="181,348,355,388"/>
+<area shape="rect" id="node2" href="parser/aparse/XDI3ParserAParse.html" title="XDI3ParserAParse (xdi2.core.xri3.parser.aparse)" alt="" coords="173,284,363,324"/>
+<area shape="rect" id="node3" href="parser/manual/XDI3ParserManual.html" title="XDI3ParserManual (xdi2.core.xri3.parser.manual)" alt="" coords="171,412,365,452"/>
+<area shape="rect" id="node4" href="XDI3ParserRegistry.html" title="XDI3ParserRegistry" alt="" coords="6,306,141,331"/>
+<area shape="rect" id="node5" href="XDI3Segment.html" title="XDI3Segment" alt="" coords="406,90,506,115"/>
+<area shape="rect" id="node6" href="XDI3Statement.html" title="XDI3Statement" alt="" coords="402,139,510,165"/>
+<area shape="rect" id="node7" href="XDI3SubSegment.html" title="XDI3SubSegment" alt="" coords="395,189,517,214"/>
+<area shape="rect" id="node8" href="XDI3XRef.html" title="XDI3XRef" alt="" coords="419,238,493,263"/>
+<area shape="rect" id="node9" href="XDI3Parser.html" title="XDI3Parser" alt="" coords="29,355,118,381"/>
+<area shape="rect" id="node10" href="XDI3SyntaxComponent.html" title="XDI3SyntaxComponent" alt="" coords="190,163,346,189"/>
+<area shape="rect" id="node11" title="&#171;interface&#187; Cloneable (java.lang)" alt="" coords="31,70,116,125"/>
+<area shape="rect" id="node12" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="28,149,119,203"/>
+<area shape="rect" id="node13" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="29,227,118,282"/>
+<area shape="rect" id="node14" href="IRIUtils.html" title="&#171;static&#187; IRIUtils" alt="" coords="39,5,107,45"/>
+</map>
+<div id="apivizContainer" style="text-align: center;margin-bottom: 1em;"><img src="package-summary.png" usemap="#APIVIZ" border="0"></div><TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Class Summary</B></FONT></TH>
@@ -96,6 +114,14 @@ EXPERIMENTAL implementation of a 3.0 syntax parser.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/core/xri3/IRIUtils.html" title="class in xdi2.core.xri3">IRIUtils</A></B></TD>
 <TD>Utility class that provides XRI-IRI-URI transformations</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../xdi2/core/xri3/XDI3Parser.html" title="class in xdi2.core.xri3">XDI3Parser</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../xdi2/core/xri3/XDI3ParserRegistry.html" title="class in xdi2.core.xri3">XDI3ParserRegistry</A></B></TD>
+<TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></B></TD>
@@ -115,10 +141,6 @@ EXPERIMENTAL implementation of a 3.0 syntax parser.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../xdi2/core/xri3/XRI3Constants.html" title="class in xdi2.core.xri3">XRI3Constants</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 </TABLE>
@@ -167,7 +189,7 @@ EXPERIMENTAL implementation of a 3.0 syntax parser. Note that this does NOT refl
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../xdi2/core/util/iterators/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
-&nbsp;<A HREF="../../../xdi2/core/xri3/parser/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/core/xri3/parser/aparse/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/core/xri3/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

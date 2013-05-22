@@ -7,6 +7,12 @@
 Prototype.PrototypingContext (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.target.Prototype.PrototypingContext class">
+<META NAME="keywords" CONTENT="instanceFor()">
+<META NAME="keywords" CONTENT="getMessagingTarget()">
+<META NAME="keywords" CONTENT="getOwner()">
+<META NAME="keywords" CONTENT="getOwnerPeerRoot()">
+<META NAME="keywords" CONTENT="getOwnerContextNode()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -106,6 +112,11 @@ Class Prototype.PrototypingContext</H2>
 <DL>
 <DT><PRE>public static class <B>Prototype.PrototypingContext</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">HashMap</A>&lt;<A HREF="../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;?&gt;,<A HREF="../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;?&gt;&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="Prototype.PrototypingContext.html" title="Prototype.PrototypingContext" alt="" coords="5,85,197,110"/>
+<area shape="rect" id="node2" title="HashMap (java.util)" alt="" coords="63,5,140,45"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="Prototype.PrototypingContext.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -142,8 +153,8 @@ Class Prototype.PrototypingContext</H2>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#Prototype.PrototypingContext(xdi2.core.xri3.XDI3Segment, xdi2.core.features.roots.RemoteRoot, xdi2.core.ContextNode)">Prototype.PrototypingContext</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;owner,
-                             <A HREF="../../../xdi2/core/features/roots/RemoteRoot.html" title="class in xdi2.core.features.roots">RemoteRoot</A>&nbsp;ownerRemoteRoot,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#Prototype.PrototypingContext(xdi2.core.xri3.XDI3Segment, xdi2.core.features.nodetypes.XdiPeerRoot, xdi2.core.ContextNode)">Prototype.PrototypingContext</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;owner,
+                             <A HREF="../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A>&nbsp;ownerPeerRoot,
                              <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;ownerContextNode)</CODE>
 
 <BR>
@@ -185,8 +196,8 @@ Class Prototype.PrototypingContext</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/features/roots/RemoteRoot.html" title="class in xdi2.core.features.roots">RemoteRoot</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#getOwnerRemoteRoot()">getOwnerRemoteRoot</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#getOwnerPeerRoot()">getOwnerPeerRoot</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -258,11 +269,11 @@ T</CODE></FONT></TD>
 </TR>
 </TABLE>
 
-<A NAME="Prototype.PrototypingContext(xdi2.core.xri3.XDI3Segment, xdi2.core.features.roots.RemoteRoot, xdi2.core.ContextNode)"><!-- --></A><H3>
+<A NAME="Prototype.PrototypingContext(xdi2.core.xri3.XDI3Segment, xdi2.core.features.nodetypes.XdiPeerRoot, xdi2.core.ContextNode)"><!-- --></A><H3>
 Prototype.PrototypingContext</H3>
 <PRE>
 public <B>Prototype.PrototypingContext</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;owner,
-                                    <A HREF="../../../xdi2/core/features/roots/RemoteRoot.html" title="class in xdi2.core.features.roots">RemoteRoot</A>&nbsp;ownerRemoteRoot,
+                                    <A HREF="../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A>&nbsp;ownerPeerRoot,
                                     <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;ownerContextNode)</PRE>
 <DL>
 </DL>
@@ -313,10 +324,10 @@ public <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.c
 </DL>
 <HR>
 
-<A NAME="getOwnerRemoteRoot()"><!-- --></A><H3>
-getOwnerRemoteRoot</H3>
+<A NAME="getOwnerPeerRoot()"><!-- --></A><H3>
+getOwnerPeerRoot</H3>
 <PRE>
-public <A HREF="../../../xdi2/core/features/roots/RemoteRoot.html" title="class in xdi2.core.features.roots">RemoteRoot</A> <B>getOwnerRemoteRoot</B>()</PRE>
+public <A HREF="../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A> <B>getOwnerPeerRoot</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>

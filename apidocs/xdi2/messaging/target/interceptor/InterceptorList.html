@@ -7,6 +7,29 @@
 InterceptorList (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.target.interceptor.InterceptorList class">
+<META NAME="keywords" CONTENT="addInterceptor()">
+<META NAME="keywords" CONTENT="removeInterceptor()">
+<META NAME="keywords" CONTENT="stringList()">
+<META NAME="keywords" CONTENT="executeMessagingTargetInterceptorsInit()">
+<META NAME="keywords" CONTENT="executeMessagingTargetInterceptorsShutdown()">
+<META NAME="keywords" CONTENT="executeMessageEnvelopeInterceptorsBefore()">
+<META NAME="keywords" CONTENT="executeMessageEnvelopeInterceptorsAfter()">
+<META NAME="keywords" CONTENT="executeMessageEnvelopeInterceptorsException()">
+<META NAME="keywords" CONTENT="executeMessageInterceptorsBefore()">
+<META NAME="keywords" CONTENT="executeMessageInterceptorsAfter()">
+<META NAME="keywords" CONTENT="executeOperationInterceptorsBefore()">
+<META NAME="keywords" CONTENT="executeOperationInterceptorsAfter()">
+<META NAME="keywords" CONTENT="executeTargetInterceptorsAddress()">
+<META NAME="keywords" CONTENT="executeTargetInterceptorsStatement()">
+<META NAME="keywords" CONTENT="executeResultInterceptorsFinish()">
+<META NAME="keywords" CONTENT="findMessagingTargetInterceptors()">
+<META NAME="keywords" CONTENT="findMessageEnvelopeInterceptors()">
+<META NAME="keywords" CONTENT="findMessageInterceptors()">
+<META NAME="keywords" CONTENT="findOperationInterceptors()">
+<META NAME="keywords" CONTENT="findTargetInterceptors()">
+<META NAME="keywords" CONTENT="findResultInterceptors()">
+<META NAME="keywords" CONTENT="instanceFor()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -104,6 +127,12 @@ Class InterceptorList</H2>
 <DL>
 <DT><PRE>public class <B>InterceptorList</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</A>&lt;<A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;<DT>implements <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="../Prototype.html" title="&#171;interface&#187; Prototype (xdi2.messaging.target)" alt="" coords="5,6,163,61"/>
+<area shape="rect" id="node2" href="InterceptorList.html" title="InterceptorList" alt="" coords="105,101,209,126"/>
+<area shape="rect" id="node3" title="ArrayList (java.util)" alt="" coords="193,13,268,53"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="InterceptorList.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -204,10 +233,10 @@ Class InterceptorList</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#executeMessageEnvelopeInterceptorsException(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, java.lang.Exception)">executeMessageEnvelopeInterceptorsException</A></B>(<A HREF="../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#executeMessageEnvelopeInterceptorsException(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, xdi2.messaging.exceptions.Xdi2MessagingException)">executeMessageEnvelopeInterceptorsException</A></B>(<A HREF="../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
                                             <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                                             <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext,
-                                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)</CODE>
+                                            <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A>&nbsp;ex)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -561,13 +590,13 @@ public boolean <B>executeMessageEnvelopeInterceptorsAfter</B>(<A HREF="../../../
 </DL>
 <HR>
 
-<A NAME="executeMessageEnvelopeInterceptorsException(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, java.lang.Exception)"><!-- --></A><H3>
+<A NAME="executeMessageEnvelopeInterceptorsException(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, xdi2.messaging.exceptions.Xdi2MessagingException)"><!-- --></A><H3>
 executeMessageEnvelopeInterceptorsException</H3>
 <PRE>
 public void <B>executeMessageEnvelopeInterceptorsException</B>(<A HREF="../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
                                                         <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                                                         <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext,
-                                                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)
+                                                        <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A>&nbsp;ex)
                                                  throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>

@@ -7,6 +7,11 @@
 XDIClient (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.client.XDIClient interface">
+<META NAME="keywords" CONTENT="send()">
+<META NAME="keywords" CONTENT="close()">
+<META NAME="keywords" CONTENT="addClientListener()">
+<META NAME="keywords" CONTENT="removeClientListener()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
 
@@ -54,8 +59,8 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../xdi2/client/XDIClientListener.html" title="interface in xdi2.client"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/client/XDIClient.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="XDIClient.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -91,12 +96,19 @@ xdi2.client</FONT>
 <BR>
 Interface XDIClient</H2>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A>, <A HREF="../../xdi2/client/local/XDILocalClient.html" title="class in xdi2.client.local">XDILocalClient</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">XDIAbstractClient</A>, <A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A>, <A HREF="../../xdi2/client/local/XDILocalClient.html" title="class in xdi2.client.local">XDILocalClient</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public interface <B>XDIClient</B></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="XDIClient.html" title="&#171;interface&#187; XDIClient" alt="" coords="176,5,261,45"/>
+<area shape="rect" id="node2" href="XDIAbstractClient.html" title="XDIAbstractClient" alt="" coords="5,91,131,117"/>
+<area shape="rect" id="node3" href="local/XDILocalClient.html" title="XDILocalClient (xdi2.client.local)" alt="" coords="305,84,425,124"/>
+<area shape="rect" id="node4" href="http/XDIHttpClient.html" title="XDIHttpClient (xdi2.client.http)" alt="" coords="161,84,276,124"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="XDIClient.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDIClient can send XDI message envelopes to an XDI endpoint, and retrieve the results.
@@ -122,10 +134,26 @@ An XDIClient can send XDI message envelopes to an XDI endpoint, and retrieve the
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/client/XDIClient.html#addClientListener(xdi2.client.XDIClientListener)">addClientListener</A></B>(<A HREF="../../xdi2/client/XDIClientListener.html" title="interface in xdi2.client">XDIClientListener</A>&nbsp;clientListener)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for XDI client events.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/client/XDIClient.html#close()">close</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shuts down the client.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/client/XDIClient.html#removeClientListener(xdi2.client.XDIClientListener)">removeClientListener</A></B>(<A HREF="../../xdi2/client/XDIClientListener.html" title="interface in xdi2.client">XDIClientListener</A>&nbsp;clientListener)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove a listener for XDI client events.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -180,6 +208,32 @@ void <B>close</B>()</PRE>
 </DL>
 </DD>
 </DL>
+<HR>
+
+<A NAME="addClientListener(xdi2.client.XDIClientListener)"><!-- --></A><H3>
+addClientListener</H3>
+<PRE>
+void <B>addClientListener</B>(<A HREF="../../xdi2/client/XDIClientListener.html" title="interface in xdi2.client">XDIClientListener</A>&nbsp;clientListener)</PRE>
+<DL>
+<DD>Add a listener for XDI client events.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeClientListener(xdi2.client.XDIClientListener)"><!-- --></A><H3>
+removeClientListener</H3>
+<PRE>
+void <B>removeClientListener</B>(<A HREF="../../xdi2/client/XDIClientListener.html" title="interface in xdi2.client">XDIClientListener</A>&nbsp;clientListener)</PRE>
+<DL>
+<DD>Remove a listener for XDI client events.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
 
@@ -211,8 +265,8 @@ void <B>close</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../xdi2/client/XDIClientListener.html" title="interface in xdi2.client"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/client/XDIClient.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="XDIClient.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

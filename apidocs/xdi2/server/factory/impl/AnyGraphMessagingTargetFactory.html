@@ -7,6 +7,9 @@
 AnyGraphMessagingTargetFactory (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.server.factory.impl.AnyGraphMessagingTargetFactory class">
+<META NAME="keywords" CONTENT="mountMessagingTarget()">
+<META NAME="keywords" CONTENT="updateMessagingTarget()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -103,6 +106,11 @@ Class AnyGraphMessagingTargetFactory</H2>
 <DL>
 <DT><PRE>public class <B>AnyGraphMessagingTargetFactory</B><DT>extends <A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">PrototypingMessagingTargetFactory</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="PrototypingMessagingTargetFactory.html" title="PrototypingMessagingTargetFactory" alt="" coords="5,6,235,31"/>
+<area shape="rect" id="node2" href="AnyGraphMessagingTargetFactory.html" title="AnyGraphMessagingTargetFactory" alt="" coords="9,71,231,97"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="AnyGraphMessagingTargetFactory.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 This messaging target factory create messaging targets for any path.
@@ -144,7 +152,7 @@ This messaging target factory create messaging targets for any path.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String)">mountMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+<TD><CODE><B><A HREF="../../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String)">mountMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath)</CODE>
 
@@ -154,7 +162,7 @@ This messaging target factory create messaging targets for any path.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+<TD><CODE><B><A HREF="../../../../xdi2/server/factory/impl/AnyGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
                       <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
@@ -169,7 +177,7 @@ This messaging target factory create messaging targets for any path.
 <TH ALIGN="left"><B>Methods inherited from class xdi2.server.factory.impl.<A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html" title="class in xdi2.server.factory.impl">PrototypingMessagingTargetFactory</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html#getPrototypeMessagingTarget()">getPrototypeMessagingTarget</A>, <A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.features.roots.RemoteRoot, xdi2.core.ContextNode)">mountMessagingTarget</A>, <A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html#setPrototypeMessagingTarget(xdi2.messaging.target.MessagingTarget)">setPrototypeMessagingTarget</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html#getPrototypeMessagingTarget()">getPrototypeMessagingTarget</A>, <A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.features.nodetypes.XdiPeerRoot, xdi2.core.ContextNode)">mountMessagingTarget</A>, <A HREF="../../../../xdi2/server/factory/impl/PrototypingMessagingTargetFactory.html#setPrototypeMessagingTarget(xdi2.messaging.target.MessagingTarget)">setPrototypeMessagingTarget</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_xdi2.server.factory.AbstractMessagingTargetFactory"><!-- --></A>
@@ -220,16 +228,16 @@ public <B>AnyGraphMessagingTargetFactory</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="mountMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="mountMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String)"><!-- --></A><H3>
 mountMessagingTarget</H3>
 <PRE>
-public void <B>mountMessagingTarget</B>(<A HREF="../../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+public void <B>mountMessagingTarget</B>(<A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath)
                           throws <A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A>,
                                  <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../xdi2/server/factory/MessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String)">MessagingTargetFactory</A></CODE></B></DD>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../xdi2/server/factory/MessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String)">MessagingTargetFactory</A></CODE></B></DD>
 <DD>Mount a new MessagingTarget.
 <P>
 <DD><DL>
@@ -241,16 +249,16 @@ public void <B>mountMessagingTarget</B>(<A HREF="../../../../xdi2/server/registr
 </DL>
 <HR>
 
-<A NAME="updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)"><!-- --></A><H3>
+<A NAME="updateMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)"><!-- --></A><H3>
 updateMessagingTarget</H3>
 <PRE>
-public void <B>updateMessagingTarget</B>(<A HREF="../../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+public void <B>updateMessagingTarget</B>(<A HREF="../../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                                   <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                                   <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
                                   <A HREF="../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)
                            throws <A HREF="../../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A></PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../xdi2/server/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">MessagingTargetFactory</A></CODE></B></DD>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../xdi2/server/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">MessagingTargetFactory</A></CODE></B></DD>
 <DD>Updates a messaging target.
 <P>
 <DD><DL>

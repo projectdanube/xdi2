@@ -7,6 +7,13 @@
 Literal (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.Literal interface">
+<META NAME="keywords" CONTENT="getGraph()">
+<META NAME="keywords" CONTENT="getContextNode()">
+<META NAME="keywords" CONTENT="delete()">
+<META NAME="keywords" CONTENT="getLiteralData()">
+<META NAME="keywords" CONTENT="setLiteralData()">
+<META NAME="keywords" CONTENT="getStatement()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
 
@@ -100,6 +107,17 @@ Interface Literal</H2>
 <DL>
 <DT><PRE>public interface <B>Literal</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="263,6,352,61"/>
+<area shape="rect" id="node2" href="Literal.html" title="&#171;interface&#187; Literal" alt="" coords="325,100,411,140"/>
+<area shape="rect" id="node3" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="383,6,473,61"/>
+<area shape="rect" id="node4" href="impl/AbstractLiteral.html" title="AbstractLiteral (xdi2.core.impl)" alt="" coords="5,179,115,219"/>
+<area shape="rect" id="node5" href="impl/wrapped/WrappedLiteral.html" title="WrappedLiteral (xdi2.core.impl.wrapped)" alt="" coords="672,179,835,219"/>
+<area shape="rect" id="node6" href="impl/memory/MemoryLiteral.html" title="MemoryLiteral (xdi2.core.impl.memory)" alt="" coords="480,179,643,219"/>
+<area shape="rect" id="node7" href="impl/keyvalue/KeyValueLiteral.html" title="KeyValueLiteral (xdi2.core.impl.keyvalue)" alt="" coords="285,179,451,219"/>
+<area shape="rect" id="node8" href="impl/BasicLiteral.html" title="BasicLiteral (xdi2.core.impl)" alt="" coords="145,179,255,219"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="Literal.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 This interface represents a literal in an XDI graph.
@@ -160,7 +178,7 @@ This interface represents a literal in an XDI graph.
 <TD><CODE><B><A HREF="../../xdi2/core/Literal.html#getStatement()">getStatement</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the statement that contains this literal.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the statement that represents this literal.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -281,7 +299,7 @@ getStatement</H3>
 <PRE>
 <A HREF="../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A> <B>getStatement</B>()</PRE>
 <DL>
-<DD>Gets the statement that contains this literal.
+<DD>Gets the statement that represents this literal.
 <P>
 <DD><DL>
 </DL>

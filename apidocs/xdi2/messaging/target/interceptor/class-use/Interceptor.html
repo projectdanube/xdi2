@@ -101,15 +101,15 @@ Packages that use <A HREF="../../../../../xdi2/messaging/target/interceptor/Inte
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.server"><B>xdi2.server</B></A></TD>
-<TD>A servlet exposing an XDI messaging endpoint.&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.server.interceptor"><B>xdi2.server.interceptor</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.server.interceptor.impl"><B>xdi2.server.interceptor.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.server.transport"><B>xdi2.server.transport</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
@@ -133,6 +133,14 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></CODE></FONT></TD>
 <TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html#getCurrentInterceptor()">getCurrentInterceptor</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></CODE></FONT></TD>
+<TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html#getExceptionInterceptor()">getExceptionInterceptor</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -353,18 +361,26 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/CheckOwnerInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">CheckOwnerInterceptor</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the recipient authority of a message matches the owner of the messaging target.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the <from-graph> address of a message matches the sender of the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/LinkContractsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">LinkContractsInterceptor</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">LinkContractInterceptor</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor enforces link contracts while a message is executed.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor evaluates message policies.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -385,59 +401,18 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the <to-graph> address of a message matches the owner of the messaging target.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor can replace XDI variables in a $add operation with automatically generated persistent XRI subsegments.</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-<A NAME="xdi2.server"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A> in <A HREF="../../../../../xdi2/server/package-summary.html">xdi2.server</A></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/server/package-summary.html">xdi2.server</A> with parameters of type <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../../xdi2/server/InterceptorList.html#addInterceptor(xdi2.messaging.target.interceptor.Interceptor)">addInterceptor</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&nbsp;interceptor)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../../xdi2/server/InterceptorList.html#removeInterceptor(xdi2.messaging.target.interceptor.Interceptor)">removeInterceptor</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&nbsp;interceptor)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Method parameters in <A HREF="../../../../../xdi2/server/package-summary.html">xdi2.server</A> with type arguments of type <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>EndpointServlet.</B><B><A HREF="../../../../../xdi2/server/EndpointServlet.html#setInterceptors(java.util.List)">setInterceptors</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;&nbsp;interceptors)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -459,10 +434,10 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/EndpointServletInterceptor.html" title="interface in xdi2.server.interceptor">EndpointServletInterceptor</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/HttpTransportInterceptor.html" title="interface in xdi2.server.interceptor">HttpTransportInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interceptor that is executed when the EndpointServlet is initialized, destroyed, or when it receives an incoming HTTP request.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interceptor that is executed when the HTTP transport is initialized, destroyed, or when it receives an incoming HTTP request.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -475,7 +450,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/AbstractEndpointServletInterceptor.html" title="class in xdi2.server.interceptor">AbstractEndpointServletInterceptor</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/AbstractHttpTransportInterceptor.html" title="class in xdi2.server.interceptor">AbstractHttpTransportInterceptor</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -500,7 +475,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/impl/DebugEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl">DebugEndpointServletInterceptor</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/impl/DebugHttpTransportInterceptor.html" title="class in xdi2.server.interceptor.impl">DebugHttpTransportInterceptor</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor prints out a list of mounted messaging targets.</TD>
@@ -508,15 +483,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/impl/DelegatingEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl">DelegatingEndpointServletInterceptor</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/impl/RedirectEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl">RedirectEndpointServletInterceptor</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/impl/RedirectHttpTransportInterceptor.html" title="class in xdi2.server.interceptor.impl">RedirectHttpTransportInterceptor</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor redirects to a specified URL in case of a GET request without path.</TD>
@@ -524,10 +491,59 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/impl/XriResolutionEndpointServletInterceptor.html" title="class in xdi2.server.interceptor.impl">XriResolutionEndpointServletInterceptor</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/server/interceptor/impl/XriResolutionHttpTransportInterceptor.html" title="class in xdi2.server.interceptor.impl">XriResolutionHttpTransportInterceptor</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor can act as a lightweight XRI resolution server based on a "registry graph".</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.server.transport"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A> in <A HREF="../../../../../xdi2/server/transport/package-summary.html">xdi2.server.transport</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/server/transport/package-summary.html">xdi2.server.transport</A> with parameters of type <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../../xdi2/server/transport/InterceptorList.html#addInterceptor(xdi2.messaging.target.interceptor.Interceptor)">addInterceptor</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&nbsp;interceptor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../../xdi2/server/transport/InterceptorList.html#removeInterceptor(xdi2.messaging.target.interceptor.Interceptor)">removeInterceptor</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&nbsp;interceptor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Method parameters in <A HREF="../../../../../xdi2/server/transport/package-summary.html">xdi2.server.transport</A> with type arguments of type <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>HttpTransport.</B><B><A HREF="../../../../../xdi2/server/transport/HttpTransport.html#setInterceptors(java.util.List)">setInterceptors</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;&nbsp;interceptors)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;

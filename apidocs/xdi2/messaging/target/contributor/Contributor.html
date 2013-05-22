@@ -7,6 +7,9 @@
 Contributor (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.target.contributor.Contributor interface">
+<META NAME="keywords" CONTENT="executeOnAddress()">
+<META NAME="keywords" CONTENT="executeOnStatement()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -97,6 +100,11 @@ Interface Contributor</H2>
 <DL>
 <DT><PRE>public interface <B>Contributor</B></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="Contributor.html" title="&#171;interface&#187; Contributor" alt="" coords="31,5,116,45"/>
+<area shape="rect" id="node2" href="AbstractContributor.html" title="AbstractContributor" alt="" coords="5,85,141,110"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="Contributor.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <HR>
@@ -165,7 +173,7 @@ boolean <B>executeOnAddress</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.
 <DD>Executes an XDI operation on an address.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contributorXris</CODE> - The base XRIs on which the contributors are mounted.<DD><CODE>relativeAddress</CODE> - The target address relative to the contributor.<DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>operationMessageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
+<DT><B>Parameters:</B><DD><CODE>contributorXris</CODE> - The base XRIs on which the contributors are mounted.<DD><CODE>relativeTargetAddress</CODE> - The target address relative to the contributor.<DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>operationMessageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
 <DT><B>Returns:</B><DD>True, if the operation has been fully handled and the server should stop processing it.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>

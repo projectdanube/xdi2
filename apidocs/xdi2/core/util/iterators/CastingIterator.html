@@ -7,6 +7,12 @@
 CastingIterator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.iterators.CastingIterator class">
+<META NAME="keywords" CONTENT="hasNext()">
+<META NAME="keywords" CONTENT="next()">
+<META NAME="keywords" CONTENT="remove()">
+<META NAME="keywords" CONTENT="getO()">
+<META NAME="keywords" CONTENT="isSafe()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -92,18 +98,25 @@ xdi2.core.util.iterators</FONT>
 Class CastingIterator&lt;I,O&gt;</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.CastingIterator&lt;I,O&gt;</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</A>&lt;O&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.CastingIterator&lt;I,O&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;O&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;O&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;O&gt;</DD>
 </DL>
 <DL>
 <DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/util/iterators/SelectingClassIterator.html" title="class in xdi2.core.util.iterators">SelectingClassIterator</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>CastingIterator&lt;I,O&gt;</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;O&gt;</DL>
+<DT><PRE>public class <B>CastingIterator&lt;I,O&gt;</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">IterableIterator</A>&lt;O&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="IterableIterator.html" title="IterableIterator" alt="" coords="27,6,133,31"/>
+<area shape="rect" id="node2" href="SelectingClassIterator.html" title="SelectingClassIterator" alt="" coords="5,137,155,162"/>
+<area shape="rect" id="node3" href="CastingIterator.html" title="CastingIterator" alt="" coords="27,71,133,97"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="CastingIterator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An iterator that doesn't alter any elements but casts them to a desired type.
@@ -127,7 +140,15 @@ An iterator that doesn't alter any elements but casts them to a desired type.
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html#CastingIterator(java.util.Iterator)">CastingIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">I</A>&gt;&nbsp;iterator)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html#CastingIterator(java.util.Iterator)">CastingIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">I</A>&gt;&nbsp;iterator)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html#CastingIterator(java.util.Iterator, java.lang.Class, boolean)">CastingIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">I</A>&gt;&nbsp;iterator,
+                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">O</A>&gt;&nbsp;o,
+                boolean&nbsp;safe)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -144,8 +165,24 @@ An iterator that doesn't alter any elements but casts them to a desired type.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">O</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html#getO()">getO</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html#hasNext()">hasNext</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html#isSafe()">isSafe</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -165,6 +202,15 @@ An iterator that doesn't alter any elements but casts them to a desired type.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.util.iterators.IterableIterator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.util.iterators.<A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">IterableIterator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html#iterator()">iterator</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -189,10 +235,20 @@ An iterator that doesn't alter any elements but casts them to a desired type.
 </TR>
 </TABLE>
 
+<A NAME="CastingIterator(java.util.Iterator, java.lang.Class, boolean)"><!-- --></A><H3>
+CastingIterator</H3>
+<PRE>
+public <B>CastingIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">I</A>&gt;&nbsp;iterator,
+                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">O</A>&gt;&nbsp;o,
+                       boolean&nbsp;safe)</PRE>
+<DL>
+</DL>
+<HR>
+
 <A NAME="CastingIterator(java.util.Iterator)"><!-- --></A><H3>
 CastingIterator</H3>
 <PRE>
-public <B>CastingIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">I</A>&gt;&nbsp;iterator)</PRE>
+public <B>CastingIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">I</A>&gt;&nbsp;iterator)</PRE>
 <DL>
 </DL>
 
@@ -212,9 +268,6 @@ hasNext</H3>
 public boolean <B>hasNext</B>()</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true#hasNext()" title="class or interface in java.util">hasNext</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">O</A>&gt;</CODE></DL>
-</DD>
-<DD><DL>
 </DL>
 </DD>
 </DL>
@@ -225,9 +278,6 @@ next</H3>
 <PRE>
 public <A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">O</A> <B>next</B>()</PRE>
 <DL>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true#next()" title="class or interface in java.util">next</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">O</A>&gt;</CODE></DL>
-</DD>
 <DD><DL>
 </DL>
 </DD>
@@ -240,8 +290,27 @@ remove</H3>
 public void <B>remove</B>()</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true#remove()" title="class or interface in java.util">remove</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">O</A>&gt;</CODE></DL>
+</DL>
 </DD>
+</DL>
+<HR>
+
+<A NAME="getO()"><!-- --></A><H3>
+getO</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;? extends <A HREF="../../../../xdi2/core/util/iterators/CastingIterator.html" title="type parameter in CastingIterator">O</A>&gt; <B>getO</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isSafe()"><!-- --></A><H3>
+isSafe</H3>
+<PRE>
+public boolean <B>isSafe</B>()</PRE>
+<DL>
 <DD><DL>
 </DL>
 </DD>

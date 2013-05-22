@@ -7,6 +7,12 @@
 GraphAddressHandler (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.target.impl.graph.GraphAddressHandler class">
+<META NAME="keywords" CONTENT="getGraph()">
+<META NAME="keywords" CONTENT="executeGetOnAddress()">
+<META NAME="keywords" CONTENT="executeAddOnAddress()">
+<META NAME="keywords" CONTENT="executeSetOnAddress()">
+<META NAME="keywords" CONTENT="executeDelOnAddress()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -105,6 +111,11 @@ Class GraphAddressHandler</H2>
 <DT><PRE><FONT SIZE="-1"><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Deprecated.html?is-external=true" title="class or interface in java.lang">@Deprecated</A>
 </FONT>public class <B>GraphAddressHandler</B><DT>extends <A HREF="../../../../../xdi2/messaging/target/AbstractAddressHandler.html" title="class in xdi2.messaging.target">AbstractAddressHandler</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="GraphAddressHandler.html" title="GraphAddressHandler" alt="" coords="12,85,161,110"/>
+<area shape="rect" id="node2" href="../../AbstractAddressHandler.html" title="AbstractAddressHandler (xdi2.messaging.target)" alt="" coords="5,5,168,45"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="GraphAddressHandler.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <HR>
@@ -146,6 +157,17 @@ Class GraphAddressHandler</H2>
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphAddressHandler.html#executeGetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnAddress</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
                     <A HREF="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
+                    <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                    <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphAddressHandler.html#executeSetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnAddress</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+                    <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                     <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                     <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
@@ -234,6 +256,26 @@ public void <B>executeAddOnAddress</B>(<A HREF="../../../../../xdi2/core/xri3/XD
 <DL>
 <DD><B>Deprecated.</B>&nbsp;<DD><DL>
 <DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractAddressHandler.html#executeAddOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.AddOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeAddOnAddress</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractAddressHandler.html" title="class in xdi2.messaging.target">AbstractAddressHandler</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="executeSetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+executeSetOnAddress</H3>
+<PRE>
+public void <B>executeSetOnAddress</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+                                <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                                <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                         throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><B>Deprecated.</B>&nbsp;<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractAddressHandler.html#executeSetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnAddress</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractAddressHandler.html" title="class in xdi2.messaging.target">AbstractAddressHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 

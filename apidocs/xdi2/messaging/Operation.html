@@ -7,6 +7,29 @@
 Operation (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.Operation class">
+<META NAME="keywords" CONTENT="message">
+<META NAME="keywords" CONTENT="relation">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromMessageAndRelation()">
+<META NAME="keywords" CONTENT="castOperation()">
+<META NAME="keywords" CONTENT="getMessage()">
+<META NAME="keywords" CONTENT="getMessageCollection()">
+<META NAME="keywords" CONTENT="getMessageEnvelope()">
+<META NAME="keywords" CONTENT="getRelation()">
+<META NAME="keywords" CONTENT="getOperationXri()">
+<META NAME="keywords" CONTENT="getTargetAddress()">
+<META NAME="keywords" CONTENT="getTargetStatements()">
+<META NAME="keywords" CONTENT="setParameter()">
+<META NAME="keywords" CONTENT="getParameter()">
+<META NAME="keywords" CONTENT="getParameterAsBoolean()">
+<META NAME="keywords" CONTENT="getSender()">
+<META NAME="keywords" CONTENT="isReadOperation()">
+<META NAME="keywords" CONTENT="isWriteOperation()">
+<META NAME="keywords" CONTENT="toString()">
+<META NAME="keywords" CONTENT="equals()">
+<META NAME="keywords" CONTENT="hashCode()">
+<META NAME="keywords" CONTENT="compareTo()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
 
@@ -55,7 +78,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/Operation.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Operation.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -98,12 +121,24 @@ Class Operation</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&gt;</DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>, <A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>, <A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>, <A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>, <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>, <A HREF="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>, <A HREF="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>, <A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>, <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>, <A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public abstract class <B>Operation</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="Operation.html" title="Operation" alt="" coords="193,159,271,185"/>
+<area shape="rect" id="node2" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="5,107,96,162"/>
+<area shape="rect" id="node3" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="6,181,95,235"/>
+<area shape="rect" id="node4" href="AddOperation.html" title="&#171;static&#187; AddOperation" alt="" coords="369,5,471,45"/>
+<area shape="rect" id="node5" href="DelOperation.html" title="&#171;static&#187; DelOperation" alt="" coords="371,64,469,104"/>
+<area shape="rect" id="node6" href="DoOperation.html" title="&#171;static&#187; DoOperation" alt="" coords="373,123,467,163"/>
+<area shape="rect" id="node7" href="GetOperation.html" title="&#171;static&#187; GetOperation" alt="" coords="371,181,469,221"/>
+<area shape="rect" id="node8" href="ModOperation.html" title="&#171;static&#187; ModOperation" alt="" coords="369,240,471,280"/>
+<area shape="rect" id="node9" href="SetOperation.html" title="&#171;static&#187; SetOperation" alt="" coords="371,299,469,339"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="Operation.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI messaging operation, represented as a relation.
@@ -230,18 +265,26 @@ An XDI messaging operation, represented as a relation.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getOperationExtensionXri()">getOperationExtensionXri</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the operation extension XRI of the XDI operation.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getOperationXri()">getOperationXri</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the operation XRI of the XDI operation (e.g.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameter(xdi2.core.xri3.XDI3SubSegment)">getParameter</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value of this operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameterAsBoolean(xdi2.core.xri3.XDI3SubSegment)">getParameterAsBoolean</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value of this operation as a boolean.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -306,6 +349,15 @@ An XDI messaging operation, represented as a relation.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Is this a write operation?</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#setParameter(xdi2.core.xri3.XDI3SubSegment, java.lang.Object)">setParameter</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri,
+             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;parameterValue)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets a parameter value of this operation.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -522,23 +574,6 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
-<A NAME="getOperationExtensionXri()"><!-- --></A><H3>
-getOperationExtensionXri</H3>
-<PRE>
-public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getOperationExtensionXri</B>()</PRE>
-<DL>
-<DD>Returns the operation extension XRI of the XDI operation.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The operation extension XRI of the XDI operation.</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getTargetAddress()"><!-- --></A><H3>
 getTargetAddress</H3>
 <PRE>
@@ -569,6 +604,57 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.
 <DD><DL>
 
 <DT><B>Returns:</B><DD>The target statements of the operation.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setParameter(xdi2.core.xri3.XDI3SubSegment, java.lang.Object)"><!-- --></A><H3>
+setParameter</H3>
+<PRE>
+public void <B>setParameter</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri,
+                         <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;parameterValue)</PRE>
+<DL>
+<DD>Sets a parameter value of this operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>parameterXri</CODE> - The parameter XRI.<DD><CODE>parameterValue</CODE> - The parameter value.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getParameter(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+getParameter</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getParameter</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</PRE>
+<DL>
+<DD>Returns a parameter value of this operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>parameterXri</CODE> - The parameter XRI.
+<DT><B>Returns:</B><DD>The parameter value.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getParameterAsBoolean(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+getParameterAsBoolean</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A> <B>getParameterAsBoolean</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</PRE>
+<DL>
+<DD>Returns a parameter value of this operation as a boolean.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>parameterXri</CODE> - The parameter XRI.
+<DT><B>Returns:</B><DD>The parameter value.</DL>
 </DD>
 </DL>
 <HR>
@@ -708,7 +794,7 @@ public int <B>compareTo</B>(<A HREF="../../xdi2/messaging/Operation.html" title=
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/Operation.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Operation.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

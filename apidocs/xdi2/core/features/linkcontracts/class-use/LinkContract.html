@@ -93,7 +93,7 @@ Packages that use <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkC
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.core.features.linkcontracts.policy"><B>xdi2.core.features.linkcontracts.policy</B></A></TD>
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl"><B>xdi2.messaging.target.interceptor.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
@@ -116,20 +116,10 @@ Uses of <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
-<TD><CODE><B>LinkContracts.</B><B><A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContracts.html#findLinkContractByAddress(xdi2.core.Graph, xdi2.core.xri3.XDI3Segment)">findLinkContractByAddress</A></B>(<A HREF="../../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                          <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;address)</CODE>
+<TD><CODE><B>LinkContract.</B><B><A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html#fromXdiEntity(xdi2.core.features.nodetypes.XdiEntity)">fromXdiEntity</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Find a Link Contract object given a graph and the XRI of the object</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
-<TD><CODE><B>LinkContract.</B><B><A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI link contract bound to a given context
- node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI link contract bound to a given XDI entity.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -138,8 +128,17 @@ Uses of <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.ht
                 boolean&nbsp;create)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI link contract under a context node, or creates a
- new one.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI link contract under a context node, or creates a new one.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
+<TD><CODE><B>LinkContracts.</B><B><A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContracts.html#getLinkContract(xdi2.core.Graph, xdi2.core.xri3.XDI3Segment, boolean)">getLinkContract</A></B>(<A HREF="../../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+                <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Find an XDI link contract given a graph and the XRI of the XDI link contract</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -176,11 +175,11 @@ Uses of <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.ht
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.core.features.linkcontracts.policy"><!-- --></A>
+<A NAME="xdi2.messaging.target.interceptor.impl"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A> in <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/package-summary.html">xdi2.core.features.linkcontracts.policy</A></FONT></TH>
+Uses of <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A> in <A HREF="../../../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</A></FONT></TH>
 </TR>
 </TABLE>
 &nbsp;
@@ -188,15 +187,15 @@ Uses of <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.ht
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/package-summary.html">xdi2.core.features.linkcontracts.policy</A> that return <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</A> that return <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
-<TD><CODE><B>PolicyRoot.</B><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html#getLinkContract()">getLinkContract</A></B>()</CODE>
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#getLinkContract(xdi2.messaging.target.ExecutionContext)">getLinkContract</A></B>(<A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the XDI link contract to which this XDI root policy belongs.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -204,28 +203,13 @@ Uses of <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.ht
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/package-summary.html">xdi2.core.features.linkcontracts.policy</A> with parameters of type <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</A> with parameters of type <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyRoot</A></CODE></FONT></TD>
-<TD><CODE><B>PolicyRoot.</B><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html#fromLinkContractAndSubGraph(xdi2.core.features.linkcontracts.LinkContract, xdi2.core.features.multiplicity.XdiSubGraph)">fromLinkContractAndSubGraph</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&nbsp;linkContract,
-                            <A HREF="../../../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A>&nbsp;xdiSubGraph)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI root policy bound to a given XDI subgraph.</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../../../xdi2/core/features/linkcontracts/policy/package-summary.html">xdi2.core.features.linkcontracts.policy</A> with parameters of type <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html#PolicyRoot(xdi2.core.features.linkcontracts.LinkContract, xdi2.core.features.multiplicity.XdiSubGraph)">PolicyRoot</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&nbsp;linkContract,
-           <A HREF="../../../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A>&nbsp;xdiSubGraph)</CODE>
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#putLinkContract(xdi2.messaging.target.ExecutionContext, xdi2.core.features.linkcontracts.LinkContract)">putLinkContract</A></B>(<A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext,
+                <A HREF="../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&nbsp;linkContract)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

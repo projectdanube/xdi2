@@ -7,6 +7,11 @@
 MessagingTargetFactory (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.server.factory.MessagingTargetFactory interface">
+<META NAME="keywords" CONTENT="init()">
+<META NAME="keywords" CONTENT="shutdown()">
+<META NAME="keywords" CONTENT="mountMessagingTarget()">
+<META NAME="keywords" CONTENT="updateMessagingTarget()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -97,6 +102,11 @@ Interface MessagingTargetFactory</H2>
 <DL>
 <DT><PRE>public interface <B>MessagingTargetFactory</B></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="MessagingTargetFactory.html" title="&#171;interface&#187; MessagingTargetFactory" alt="" coords="29,5,195,45"/>
+<area shape="rect" id="node2" href="AbstractMessagingTargetFactory.html" title="AbstractMessagingTargetFactory" alt="" coords="5,85,219,110"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="MessagingTargetFactory.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 A MessagingTargetFactory can dynamically create MessagingTargets to process incoming XDI messages..
@@ -130,7 +140,7 @@ A MessagingTargetFactory can dynamically create MessagingTargets to process inco
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/server/factory/MessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String)">mountMessagingTarget</A></B>(<A HREF="../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+<TD><CODE><B><A HREF="../../../xdi2/server/factory/MessagingTargetFactory.html#mountMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String)">mountMessagingTarget</A></B>(<A HREF="../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath)</CODE>
 
@@ -148,7 +158,7 @@ A MessagingTargetFactory can dynamically create MessagingTargets to process inco
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/server/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+<TD><CODE><B><A HREF="../../../xdi2/server/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</A></B>(<A HREF="../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
                       <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
@@ -202,10 +212,10 @@ void <B>shutdown</B>()
 </DL>
 <HR>
 
-<A NAME="mountMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="mountMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String)"><!-- --></A><H3>
 mountMessagingTarget</H3>
 <PRE>
-void <B>mountMessagingTarget</B>(<A HREF="../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+void <B>mountMessagingTarget</B>(<A HREF="../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath)
                           throws <A HREF="../../../xdi2/server/exceptions/Xdi2ServerException.html" title="class in xdi2.server.exceptions">Xdi2ServerException</A>,
@@ -222,10 +232,10 @@ void <B>mountMessagingTarget</B>(<A HREF="../../../xdi2/server/registry/Endpoint
 </DL>
 <HR>
 
-<A NAME="updateMessagingTarget(xdi2.server.registry.EndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)"><!-- --></A><H3>
+<A NAME="updateMessagingTarget(xdi2.server.registry.HttpEndpointRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)"><!-- --></A><H3>
 updateMessagingTarget</H3>
 <PRE>
-void <B>updateMessagingTarget</B>(<A HREF="../../../xdi2/server/registry/EndpointRegistry.html" title="class in xdi2.server.registry">EndpointRegistry</A>&nbsp;endpointRegistry,
+void <B>updateMessagingTarget</B>(<A HREF="../../../xdi2/server/registry/HttpEndpointRegistry.html" title="class in xdi2.server.registry">HttpEndpointRegistry</A>&nbsp;httpEndpointRegistry,
                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;messagingTargetFactoryPath,
                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;requestPath,
                            <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)

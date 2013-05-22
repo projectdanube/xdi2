@@ -7,6 +7,18 @@
 DataTypes (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.features.datatypes.DataTypes class">
+<META NAME="keywords" CONTENT="XRI_DATATYPE_XSD">
+<META NAME="keywords" CONTENT="XRI_DATATYPE_JSON">
+<META NAME="keywords" CONTENT="XRI_DATATYPE_MIME">
+<META NAME="keywords" CONTENT="dataTypeXriFromXsdType()">
+<META NAME="keywords" CONTENT="xsdTypeFromDataTypeXri()">
+<META NAME="keywords" CONTENT="dataTypeXriFromJsonType()">
+<META NAME="keywords" CONTENT="jsonTypeFromDataTypeXri()">
+<META NAME="keywords" CONTENT="dataTypeXriFromMimeType()">
+<META NAME="keywords" CONTENT="mimeTypeFromDataTypeXri()">
+<META NAME="keywords" CONTENT="setLiteralDataType()">
+<META NAME="keywords" CONTENT="getLiteralDataType()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -98,6 +110,10 @@ Class DataTypes</H2>
 <DL>
 <DT><PRE>public class <B>DataTypes</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="DataTypes.html" title="&#171;static&#187; DataTypes" alt="" coords="5,5,88,45"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="DataTypes.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 A helper class to work with data types, i.e. get or set them. Supported data
@@ -188,38 +204,6 @@ A helper class to work with data types, i.e. get or set them. Supported data
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#getLiteralDataType(xdi2.core.features.multiplicity.XdiAttributeMember)">getLiteralDataType</A></B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiAttributeMember.html" title="class in xdi2.core.features.multiplicity">XdiAttributeMember</A>&nbsp;xdiAttributeMember)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#getLiteralDataType(xdi2.core.features.multiplicity.XdiAttributeSingleton)">getLiteralDataType</A></B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiAttributeSingleton.html" title="class in xdi2.core.features.multiplicity">XdiAttributeSingleton</A>&nbsp;xdiAttributeSingleton)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#getLiteralDataType(xdi2.core.features.multiplicity.XdiCollection)">getLiteralDataType</A></B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#isLiteralBinary(xdi2.core.Literal)">isLiteralBinary</A></B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check if a literal has binary datatype</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#jsonTypeFromDataTypeXri(xdi2.core.xri3.XDI3Segment)">jsonTypeFromDataTypeXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
 
@@ -237,47 +221,11 @@ A helper class to work with data types, i.e. get or set them. Supported data
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralBinary(xdi2.core.Literal, boolean)">setLiteralBinary</A></B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
-                 boolean&nbsp;binary)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a "$is" relation for a literal and binary XRI segment</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralDataType(xdi2.core.Literal, xdi2.core.xri3.XDI3Segment)">setLiteralDataType</A></B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
                    <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a "$is" relation for a literal and datatype XRI segment</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralDataType(xdi2.core.features.multiplicity.XdiAttributeMember, xdi2.core.xri3.XDI3Segment)">setLiteralDataType</A></B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiAttributeMember.html" title="class in xdi2.core.features.multiplicity">XdiAttributeMember</A>&nbsp;xdiAttributeMember,
-                   <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataType)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralDataType(xdi2.core.features.multiplicity.XdiAttributeSingleton, xdi2.core.xri3.XDI3Segment)">setLiteralDataType</A></B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiAttributeSingleton.html" title="class in xdi2.core.features.multiplicity">XdiAttributeSingleton</A>&nbsp;xdiAttributeSingleton,
-                   <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataType)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralDataType(xdi2.core.features.multiplicity.XdiCollection, xdi2.core.xri3.XDI3Segment)">setLiteralDataType</A></B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection,
-                   <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataType)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -457,103 +405,6 @@ public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Li
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>literal</CODE> - 
 <DT><B>Returns:</B><DD>list of datatypes as XDI3Segment</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLiteralBinary(xdi2.core.Literal, boolean)"><!-- --></A><H3>
-setLiteralBinary</H3>
-<PRE>
-public static void <B>setLiteralBinary</B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
-                                    boolean&nbsp;binary)</PRE>
-<DL>
-<DD>Create a "$is" relation for a literal and binary XRI segment
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>literal</CODE> - <DD><CODE>binary</CODE> - </DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isLiteralBinary(xdi2.core.Literal)"><!-- --></A><H3>
-isLiteralBinary</H3>
-<PRE>
-public static boolean <B>isLiteralBinary</B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</PRE>
-<DL>
-<DD>Check if a literal has binary datatype
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>literal</CODE> - 
-<DT><B>Returns:</B><DD>boolean</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLiteralDataType(xdi2.core.features.multiplicity.XdiCollection, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setLiteralDataType</H3>
-<PRE>
-public static void <B>setLiteralDataType</B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection,
-                                      <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataType)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getLiteralDataType(xdi2.core.features.multiplicity.XdiCollection)"><!-- --></A><H3>
-getLiteralDataType</H3>
-<PRE>
-public static <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getLiteralDataType</B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiCollection.html" title="class in xdi2.core.features.multiplicity">XdiCollection</A>&nbsp;xdiCollection)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLiteralDataType(xdi2.core.features.multiplicity.XdiAttributeMember, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setLiteralDataType</H3>
-<PRE>
-public static void <B>setLiteralDataType</B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiAttributeMember.html" title="class in xdi2.core.features.multiplicity">XdiAttributeMember</A>&nbsp;xdiAttributeMember,
-                                      <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataType)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getLiteralDataType(xdi2.core.features.multiplicity.XdiAttributeMember)"><!-- --></A><H3>
-getLiteralDataType</H3>
-<PRE>
-public static <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getLiteralDataType</B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiAttributeMember.html" title="class in xdi2.core.features.multiplicity">XdiAttributeMember</A>&nbsp;xdiAttributeMember)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLiteralDataType(xdi2.core.features.multiplicity.XdiAttributeSingleton, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setLiteralDataType</H3>
-<PRE>
-public static void <B>setLiteralDataType</B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiAttributeSingleton.html" title="class in xdi2.core.features.multiplicity">XdiAttributeSingleton</A>&nbsp;xdiAttributeSingleton,
-                                      <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataType)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getLiteralDataType(xdi2.core.features.multiplicity.XdiAttributeSingleton)"><!-- --></A><H3>
-getLiteralDataType</H3>
-<PRE>
-public static <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getLiteralDataType</B>(<A HREF="../../../../xdi2/core/features/multiplicity/XdiAttributeSingleton.html" title="class in xdi2.core.features.multiplicity">XdiAttributeSingleton</A>&nbsp;xdiAttributeSingleton)</PRE>
-<DL>
-<DD><DL>
-</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

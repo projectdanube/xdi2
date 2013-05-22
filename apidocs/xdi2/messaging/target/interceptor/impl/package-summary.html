@@ -7,6 +7,7 @@
 xdi2.messaging.target.interceptor.impl (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.target.interceptor.impl package">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -82,7 +83,28 @@ function windowTitle()
 Package xdi2.messaging.target.interceptor.impl
 </H2>
 
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="BootstrapInterceptor.html" title="BootstrapInterceptor" alt="" coords="345,90,484,115"/>
+<area shape="rect" id="node2" href="FromInterceptor.html" title="FromInterceptor" alt="" coords="358,143,471,169"/>
+<area shape="rect" id="node3" href="../../../../core/features/linkcontracts/evaluation/GraphPolicyEvaluationContext.html" title="GraphPolicyEvaluationContext (xdi2.core.features.linkcontracts.evaluation)" alt="" coords="5,5,277,45"/>
+<area shape="rect" id="node4" href="LinkContractInterceptor.html" title="LinkContractInterceptor" alt="" coords="337,291,493,317"/>
+<area shape="rect" id="node5" href="MessagePolicyEvaluationContext.html" title="MessagePolicyEvaluationContext" alt="" coords="307,13,522,38"/>
+<area shape="rect" id="node6" href="MessagePolicyInterceptor.html" title="MessagePolicyInterceptor" alt="" coords="329,193,501,218"/>
+<area shape="rect" id="node7" href="ReadOnlyInterceptor.html" title="ReadOnlyInterceptor" alt="" coords="345,341,485,366"/>
+<area shape="rect" id="node8" href="RefInterceptor.html" title="RefInterceptor" alt="" coords="363,390,466,415"/>
+<area shape="rect" id="node9" href="ToInterceptor.html" title="ToInterceptor" alt="" coords="366,242,463,267"/>
+<area shape="rect" id="node10" href="VariablesInterceptor.html" title="VariablesInterceptor" alt="" coords="346,439,483,465"/>
+<area shape="rect" id="node11" href="../AbstractInterceptor.html" title="AbstractInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="30,307,253,347"/>
+<area shape="rect" id="node12" href="../MessageEnvelopeInterceptor.html" title="&#171;interface&#187; MessageEnvelopeInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="30,529,253,583"/>
+<area shape="rect" id="node13" href="../MessageInterceptor.html" title="&#171;interface&#187; MessageInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="30,149,253,203"/>
+<area shape="rect" id="node14" href="../MessagingTargetInterceptor.html" title="&#171;interface&#187; MessagingTargetInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="30,70,253,125"/>
+<area shape="rect" id="node15" href="../OperationInterceptor.html" title="&#171;interface&#187; OperationInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="30,450,253,505"/>
+<area shape="rect" id="node16" href="../../Prototype.html" title="&#171;interface&#187; Prototype (xdi2.messaging.target)" alt="" coords="62,227,221,282"/>
+<area shape="rect" id="node17" href="../ResultInterceptor.html" title="&#171;interface&#187; ResultInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="30,607,253,662"/>
+<area shape="rect" id="node18" href="../TargetInterceptor.html" title="&#171;interface&#187; TargetInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="30,371,253,426"/>
+</map>
+<div id="apivizContainer" style="text-align: center;margin-bottom: 1em;"><img src="package-summary.png" usemap="#APIVIZ" border="0"></div><TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Class Summary</B></FONT></TH>
@@ -93,16 +115,20 @@ Package xdi2.messaging.target.interceptor.impl
  such as the owner XRI of the graph, a shared secret, and an initial "root link contract".</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/CheckOwnerInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">CheckOwnerInterceptor</A></B></TD>
-<TD>This interceptor checks if the recipient authority of a message matches the owner of the messaging target.</TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A></B></TD>
+<TD>This interceptor checks if the <from-graph> address of a message matches the sender of the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/LinkContractsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">LinkContractsInterceptor</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">LinkContractInterceptor</A></B></TD>
 <TD>This interceptor enforces link contracts while a message is executed.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyEvaluationContext.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyEvaluationContext</A></B></TD>
 <TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</A></B></TD>
+<TD>This interceptor evaluates message policies.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ReadOnlyInterceptor</A></B></TD>
@@ -111,6 +137,10 @@ Package xdi2.messaging.target.interceptor.impl
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</A></B></TD>
 <TD>This interceptor handles $ref and $ref!</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></B></TD>
+<TD>This interceptor checks if the <to-graph> address of a message matches the owner of the messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></B></TD>

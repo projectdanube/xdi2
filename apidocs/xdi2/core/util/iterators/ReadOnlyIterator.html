@@ -7,6 +7,8 @@
 ReadOnlyIterator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.iterators.ReadOnlyIterator class">
+<META NAME="keywords" CONTENT="remove()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -92,18 +94,32 @@ xdi2.core.util.iterators</FONT>
 Class ReadOnlyIterator&lt;T&gt;</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.ReadOnlyIterator&lt;T&gt;</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</A>&lt;T&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.WrappingIterator</A>&lt;T&gt;
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.ReadOnlyIterator&lt;T&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;T&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;</DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html" title="class in xdi2.core.util.iterators">DescendingIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/EmptyIterator.html" title="class in xdi2.core.util.iterators">EmptyIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">LookaheadIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/RangeIterator.html" title="class in xdi2.core.util.iterators">RangeIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/SingleItemIterator.html" title="class in xdi2.core.util.iterators">SingleItemIterator</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/util/iterators/DescendingIterator.html" title="class in xdi2.core.util.iterators">DescendingIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/EmptyIterator.html" title="class in xdi2.core.util.iterators">EmptyIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">LookaheadIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/RangeIterator.html" title="class in xdi2.core.util.iterators">RangeIterator</A>, <A HREF="../../../../xdi2/core/util/iterators/SingleItemIterator.html" title="class in xdi2.core.util.iterators">SingleItemIterator</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractClass.XdiInstancesOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractClass.XdiInstancesOrderedIterator</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractClass.XdiInstancesUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractClass.XdiInstancesUnorderedIterator</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>ReadOnlyIterator&lt;T&gt;</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;</DL>
+<DT><PRE>public class <B>ReadOnlyIterator&lt;T&gt;</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html" title="class in xdi2.core.util.iterators">WrappingIterator</A>&lt;T&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="EmptyIterator.html" title="EmptyIterator" alt="" coords="534,167,634,193"/>
+<area shape="rect" id="node2" href="ReadOnlyIterator.html" title="ReadOnlyIterator" alt="" coords="219,167,338,193"/>
+<area shape="rect" id="node3" href="SingleItemIterator.html" title="SingleItemIterator" alt="" coords="523,299,645,325"/>
+<area shape="rect" id="node4" href="WrappingIterator.html" title="WrappingIterator" alt="" coords="5,167,123,193"/>
+<area shape="rect" id="node5" href="../../features/nodetypes/XdiAbstractClass.XdiInstancesOrderedIterator.html" title="XdiAbstractClass.XdiInstancesOrderedIterator (xdi2.core.features.nodetypes)" alt="" coords="442,5,726,45"/>
+<area shape="rect" id="node6" href="../../features/nodetypes/XdiAbstractClass.XdiInstancesUnorderedIterator.html" title="XdiAbstractClass.XdiInstancesUnorderedIterator (xdi2.core.features.nodetypes)" alt="" coords="435,64,733,104"/>
+<area shape="rect" id="node7" href="DescendingIterator.html" title="DescendingIterator" alt="" coords="519,123,649,149"/>
+<area shape="rect" id="node8" href="LookaheadIterator.html" title="LookaheadIterator" alt="" coords="521,211,647,237"/>
+<area shape="rect" id="node9" href="RangeIterator.html" title="RangeIterator" alt="" coords="534,255,634,281"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="ReadOnlyIterator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An iterator that does not support the remove() method.
@@ -127,16 +143,6 @@ An iterator that does not support the remove() method.
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html#ReadOnlyIterator()">ReadOnlyIterator</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html#ReadOnlyIterator(java.util.Iterator)">ReadOnlyIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="type parameter in ReadOnlyIterator">T</A>&gt;&nbsp;iterator)</CODE>
 
 <BR>
@@ -154,27 +160,29 @@ An iterator that does not support the remove() method.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html#hasNext()">hasNext</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="type parameter in ReadOnlyIterator">T</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html#next()">next</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html#remove()">remove</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.util.iterators.WrappingIterator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.util.iterators.<A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html" title="class in xdi2.core.util.iterators">WrappingIterator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html#hasNext()">hasNext</A>, <A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html#next()">next</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.util.iterators.IterableIterator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.util.iterators.<A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">IterableIterator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html#iterator()">iterator</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -205,14 +213,6 @@ ReadOnlyIterator</H3>
 public <B>ReadOnlyIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="type parameter in ReadOnlyIterator">T</A>&gt;&nbsp;iterator)</PRE>
 <DL>
 </DL>
-<HR>
-
-<A NAME="ReadOnlyIterator()"><!-- --></A><H3>
-ReadOnlyIterator</H3>
-<PRE>
-protected <B>ReadOnlyIterator</B>()</PRE>
-<DL>
-</DL>
 
 <!-- ============ METHOD DETAIL ========== -->
 
@@ -224,41 +224,13 @@ protected <B>ReadOnlyIterator</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="hasNext()"><!-- --></A><H3>
-hasNext</H3>
-<PRE>
-public boolean <B>hasNext</B>()</PRE>
-<DL>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true#hasNext()" title="class or interface in java.util">hasNext</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="type parameter in ReadOnlyIterator">T</A>&gt;</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="next()"><!-- --></A><H3>
-next</H3>
-<PRE>
-public <A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="type parameter in ReadOnlyIterator">T</A> <B>next</B>()</PRE>
-<DL>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true#next()" title="class or interface in java.util">next</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="type parameter in ReadOnlyIterator">T</A>&gt;</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="remove()"><!-- --></A><H3>
 remove</H3>
 <PRE>
-public void <B>remove</B>()</PRE>
+public final void <B>remove</B>()</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true#remove()" title="class or interface in java.util">remove</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="type parameter in ReadOnlyIterator">T</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true#remove()" title="class or interface in java.util">remove</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="type parameter in ReadOnlyIterator">T</A>&gt;</CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html#remove()">remove</A></CODE> in class <CODE><A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html" title="class in xdi2.core.util.iterators">WrappingIterator</A>&lt;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="type parameter in ReadOnlyIterator">T</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 </DL>

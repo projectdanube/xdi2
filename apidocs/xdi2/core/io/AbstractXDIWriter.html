@@ -7,6 +7,16 @@
 AbstractXDIWriter (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.io.AbstractXDIWriter class">
+<META NAME="keywords" CONTENT="parameters">
+<META NAME="keywords" CONTENT="init()">
+<META NAME="keywords" CONTENT="write()">
+<META NAME="keywords" CONTENT="getFormat()">
+<META NAME="keywords" CONTENT="getFileExtension()">
+<META NAME="keywords" CONTENT="getMimeType()">
+<META NAME="keywords" CONTENT="supportsFormat()">
+<META NAME="keywords" CONTENT="supportsFileExtension()">
+<META NAME="keywords" CONTENT="supportsMimeType()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -98,12 +108,22 @@ Class AbstractXDIWriter</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="../../../xdi2/core/io/XDIWriter.html" title="interface in xdi2.core.io">XDIWriter</A></DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/io/writers/XDIDisplayWriter.html" title="class in xdi2.core.io.writers">XDIDisplayWriter</A>, <A HREF="../../../xdi2/core/io/writers/XDIJSONWriter.html" title="class in xdi2.core.io.writers">XDIJSONWriter</A>, <A HREF="../../../xdi2/core/io/writers/XDIKeyValueWriter.html" title="class in xdi2.core.io.writers">XDIKeyValueWriter</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/io/writers/XDIDisplayWriter.html" title="class in xdi2.core.io.writers">XDIDisplayWriter</A>, <A HREF="../../../xdi2/core/io/writers/XDIJSONPARSEWriter.html" title="class in xdi2.core.io.writers">XDIJSONPARSEWriter</A>, <A HREF="../../../xdi2/core/io/writers/XDIJSONTREEWriter.html" title="class in xdi2.core.io.writers">XDIJSONTREEWriter</A>, <A HREF="../../../xdi2/core/io/writers/XDIJSONWriter.html" title="class in xdi2.core.io.writers">XDIJSONWriter</A>, <A HREF="../../../xdi2/core/io/writers/XDIKeyValueWriter.html" title="class in xdi2.core.io.writers">XDIKeyValueWriter</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public abstract class <B>AbstractXDIWriter</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../xdi2/core/io/XDIWriter.html" title="interface in xdi2.core.io">XDIWriter</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="XDIWriter.html" title="&#171;interface&#187; XDIWriter" alt="" coords="387,5,472,45"/>
+<area shape="rect" id="node2" href="AbstractXDIWriter.html" title="AbstractXDIWriter" alt="" coords="365,85,493,110"/>
+<area shape="rect" id="node3" href="writers/XDIKeyValueWriter.html" title="XDIKeyValueWriter (xdi2.core.io.writers)" alt="" coords="699,149,837,189"/>
+<area shape="rect" id="node4" href="writers/XDIJSONWriter.html" title="XDIJSONWriter (xdi2.core.io.writers)" alt="" coords="531,149,669,189"/>
+<area shape="rect" id="node5" href="writers/XDIJSONTREEWriter.html" title="XDIJSONTREEWriter (xdi2.core.io.writers)" alt="" coords="357,149,501,189"/>
+<area shape="rect" id="node6" href="writers/XDIJSONPARSEWriter.html" title="XDIJSONPARSEWriter (xdi2.core.io.writers)" alt="" coords="173,149,328,189"/>
+<area shape="rect" id="node7" href="writers/XDIDisplayWriter.html" title="XDIDisplayWriter (xdi2.core.io.writers)" alt="" coords="5,149,144,189"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="AbstractXDIWriter.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 If you extend this class, you only have to implement write(Graph, Writer, Properties)

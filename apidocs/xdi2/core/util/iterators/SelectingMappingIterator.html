@@ -7,6 +7,11 @@
 SelectingMappingIterator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.iterators.SelectingMappingIterator class">
+<META NAME="keywords" CONTENT="iterator">
+<META NAME="keywords" CONTENT="lookahead()">
+<META NAME="keywords" CONTENT="select()">
+<META NAME="keywords" CONTENT="map()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -55,7 +60,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="class in xdi2.core.util.iterators"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/core/util/iterators/SingleItemIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/core/util/iterators/SelectingNotImpliedStatementIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/util/iterators/SelectingMappingIterator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="SelectingMappingIterator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -92,17 +97,24 @@ xdi2.core.util.iterators</FONT>
 Class SelectingMappingIterator&lt;I,O&gt;</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.ReadOnlyIterator</A>&lt;T&gt;
-      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.LookaheadIterator</A>&lt;O&gt;
-          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.SelectingMappingIterator&lt;I,O&gt;</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</A>&lt;T&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.WrappingIterator</A>&lt;T&gt;
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.ReadOnlyIterator</A>&lt;T&gt;
+              <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.LookaheadIterator</A>&lt;O&gt;
+                  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.SelectingMappingIterator&lt;I,O&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;O&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;O&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;O&gt;</DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public abstract class <B>SelectingMappingIterator&lt;I,O&gt;</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">LookaheadIterator</A>&lt;O&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="SelectingMappingIterator.html" title="SelectingMappingIterator" alt="" coords="5,71,171,97"/>
+<area shape="rect" id="node2" href="LookaheadIterator.html" title="LookaheadIterator" alt="" coords="25,6,151,31"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="SelectingMappingIterator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An iterator that returns only items of another iterator that satisfy a certain condition.
@@ -209,6 +221,15 @@ An iterator that returns only items of another iterator that satisfy a certain c
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html#remove()">remove</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.util.iterators.IterableIterator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.util.iterators.<A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">IterableIterator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html#iterator()">iterator</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -335,7 +356,7 @@ public abstract <A HREF="../../../../xdi2/core/util/iterators/SelectingMappingIt
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../xdi2/core/util/iterators/SelectingIterator.html" title="class in xdi2.core.util.iterators"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/core/util/iterators/SingleItemIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/core/util/iterators/SelectingNotImpliedStatementIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/util/iterators/SelectingMappingIterator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="SelectingMappingIterator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

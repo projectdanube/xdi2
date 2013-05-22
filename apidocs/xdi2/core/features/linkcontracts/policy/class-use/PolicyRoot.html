@@ -97,6 +97,10 @@ Packages that use <A HREF="../../../../../../xdi2/core/features/linkcontracts/po
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging"><B>xdi2.messaging</B></A></TD>
+<TD>Support for XDI messaging documents and transport protocols.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.webtools.util"><B>xdi2.webtools.util</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -145,11 +149,35 @@ Uses of <A HREF="../../../../../../xdi2/core/features/linkcontracts/policy/Polic
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyRoot</A></CODE></FONT></TD>
-<TD><CODE><B>PolicyRoot.</B><B><A HREF="../../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html#fromLinkContractAndSubGraph(xdi2.core.features.linkcontracts.LinkContract, xdi2.core.features.multiplicity.XdiSubGraph)">fromLinkContractAndSubGraph</A></B>(<A HREF="../../../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&nbsp;linkContract,
-                            <A HREF="../../../../../../xdi2/core/features/multiplicity/XdiSubGraph.html" title="class in xdi2.core.features.multiplicity">XdiSubGraph</A>&nbsp;xdiSubGraph)</CODE>
+<TD><CODE><B>PolicyRoot.</B><B><A HREF="../../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html#fromXdiEntity(xdi2.core.features.nodetypes.XdiEntity)">fromXdiEntity</A></B>(<A HREF="../../../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI root policy bound to a given XDI subgraph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyRoot</A> in <A HREF="../../../../../../xdi2/messaging/package-summary.html">xdi2.messaging</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../../xdi2/messaging/package-summary.html">xdi2.messaging</A> that return <A HREF="../../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyRoot</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyRoot</A></CODE></FONT></TD>
+<TD><CODE><B>Message.</B><B><A HREF="../../../../../../xdi2/messaging/Message.html#getPolicyRoot(boolean)">getPolicyRoot</A></B>(boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI root policy in this XDI messages, or creates a new one.</TD>
 </TR>
 </TABLE>
 &nbsp;

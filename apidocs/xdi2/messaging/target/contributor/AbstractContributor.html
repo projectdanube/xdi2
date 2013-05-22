@@ -7,6 +7,61 @@
 AbstractContributor (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.target.contributor.AbstractContributor class">
+<META NAME="keywords" CONTENT="executeOnAddress()">
+<META NAME="keywords" CONTENT="executeGetOnAddress()">
+<META NAME="keywords" CONTENT="executeAddOnAddress()">
+<META NAME="keywords" CONTENT="executeModOnAddress()">
+<META NAME="keywords" CONTENT="executeSetOnAddress()">
+<META NAME="keywords" CONTENT="executeDelOnAddress()">
+<META NAME="keywords" CONTENT="executeDoOnAddress()">
+<META NAME="keywords" CONTENT="executeOnStatement()">
+<META NAME="keywords" CONTENT="executeGetOnStatement()">
+<META NAME="keywords" CONTENT="executeAddOnStatement()">
+<META NAME="keywords" CONTENT="executeModOnStatement()">
+<META NAME="keywords" CONTENT="executeSetOnStatement()">
+<META NAME="keywords" CONTENT="executeDelOnStatement()">
+<META NAME="keywords" CONTENT="executeDoOnStatement()">
+<META NAME="keywords" CONTENT="executeGetOnContextNodeStatement()">
+<META NAME="keywords" CONTENT="executeAddOnContextNodeStatement()">
+<META NAME="keywords" CONTENT="executeModOnContextNodeStatement()">
+<META NAME="keywords" CONTENT="executeSetOnContextNodeStatement()">
+<META NAME="keywords" CONTENT="executeDelOnContextNodeStatement()">
+<META NAME="keywords" CONTENT="executeDoOnContextNodeStatement()">
+<META NAME="keywords" CONTENT="executeGetOnRelationStatement()">
+<META NAME="keywords" CONTENT="executeAddOnRelationStatement()">
+<META NAME="keywords" CONTENT="executeModOnRelationStatement()">
+<META NAME="keywords" CONTENT="executeSetOnRelationStatement()">
+<META NAME="keywords" CONTENT="executeDelOnRelationStatement()">
+<META NAME="keywords" CONTENT="executeDoOnRelationStatement()">
+<META NAME="keywords" CONTENT="executeGetOnLiteralStatement()">
+<META NAME="keywords" CONTENT="executeAddOnLiteralStatement()">
+<META NAME="keywords" CONTENT="executeModOnLiteralStatement()">
+<META NAME="keywords" CONTENT="executeSetOnLiteralStatement()">
+<META NAME="keywords" CONTENT="executeDelOnLiteralStatement()">
+<META NAME="keywords" CONTENT="executeDoOnLiteralStatement()">
+<META NAME="keywords" CONTENT="getContext()">
+<META NAME="keywords" CONTENT="addContext()">
+<META NAME="keywords" CONTENT="modContext()">
+<META NAME="keywords" CONTENT="setContext()">
+<META NAME="keywords" CONTENT="delContext()">
+<META NAME="keywords" CONTENT="doContext()">
+<META NAME="keywords" CONTENT="getRelation()">
+<META NAME="keywords" CONTENT="addRelation()">
+<META NAME="keywords" CONTENT="modRelation()">
+<META NAME="keywords" CONTENT="setRelation()">
+<META NAME="keywords" CONTENT="delRelation()">
+<META NAME="keywords" CONTENT="doRelation()">
+<META NAME="keywords" CONTENT="getLiteral()">
+<META NAME="keywords" CONTENT="addLiteral()">
+<META NAME="keywords" CONTENT="modLiteral()">
+<META NAME="keywords" CONTENT="setLiteral()">
+<META NAME="keywords" CONTENT="delLiteral()">
+<META NAME="keywords" CONTENT="doLiteral()">
+<META NAME="keywords" CONTENT="getContextFilter()">
+<META NAME="keywords" CONTENT="getContributors()">
+<META NAME="keywords" CONTENT="setContributors()">
+<META NAME="keywords" CONTENT="setContributorsList()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -101,6 +156,11 @@ Class AbstractContributor</H2>
 <DL>
 <DT><PRE>public abstract class <B>AbstractContributor</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="Contributor.html" title="&#171;interface&#187; Contributor" alt="" coords="31,5,116,45"/>
+<area shape="rect" id="node2" href="AbstractContributor.html" title="AbstractContributor" alt="" coords="5,85,141,110"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="AbstractContributor.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <HR>
@@ -611,6 +671,71 @@ Class AbstractContributor</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                    <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeTargetAddress,
+                    <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+                    <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                    <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                    <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnContextNodeStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnContextNodeStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                                 <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeContextNodeStatement,
+                                 <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;contextNodeStatement,
+                                 <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                                 <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                 <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnLiteralStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                             <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeLiteralStatement,
+                             <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
+                             <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                             <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                             <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnRelationStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                              <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeRelationStatement,
+                              <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
+                              <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                              <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                              <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                      <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
+                      <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                      <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                      <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                      <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#getContext(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">getContext</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
            <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeContextNodeXri,
            <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
@@ -715,6 +840,19 @@ Class AbstractContributor</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#setContext(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">setContext</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeContextNodeXri,
+           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+           <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+           <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+           <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#setContributors(xdi2.messaging.target.contributor.ContributorMap)">setContributors</A></B>(<A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A>&nbsp;contributors)</CODE>
 
@@ -733,6 +871,35 @@ Class AbstractContributor</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#setContributorsList(java.util.ArrayList)">setContributorsList</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</A>&lt;<A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&nbsp;contributors)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#setLiteral(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.lang.String, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">setLiteral</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeContextNodeXri,
+           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData,
+           <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+           <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+           <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/AbstractContributor.html#setRelation(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">setRelation</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+            <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeContextNodeXri,
+            <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+            <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri,
+            <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+            <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+            <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+            <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -795,7 +962,7 @@ public boolean <B>executeOnAddress</B>(<A HREF="../../../../xdi2/core/xri3/XDI3S
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeOnAddress</A></CODE> in interface <CODE><A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contributorXris</CODE> - The base XRIs on which the contributors are mounted.<DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>messageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
+<DT><B>Parameters:</B><DD><CODE>contributorXris</CODE> - The base XRIs on which the contributors are mounted.<DD><CODE>relativeTargetAddress</CODE> - The target address relative to the contributor.<DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>messageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
 <DT><B>Returns:</B><DD>True, if the operation has been fully handled and the server should stop processing it.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
@@ -854,6 +1021,28 @@ public boolean <B>executeModOnAddress</B>(<A HREF="../../../../xdi2/core/xri3/XD
                                    <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeTargetAddress,
                                    <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
                                    <A HREF="../../../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&nbsp;operation,
+                                   <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                   <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                            throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="executeSetOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+executeSetOnAddress</H3>
+<PRE>
+public boolean <B>executeSetOnAddress</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                                   <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeTargetAddress,
+                                   <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+                                   <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                                    <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                                    <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
                             throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
@@ -1005,6 +1194,28 @@ public boolean <B>executeModOnStatement</B>(<A HREF="../../../../xdi2/core/xri3/
 </DL>
 <HR>
 
+<A NAME="executeSetOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+executeSetOnStatement</H3>
+<PRE>
+public boolean <B>executeSetOnStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                                     <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
+                                     <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                                     <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                                     <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                     <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                              throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="executeDelOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeDelOnStatement</H3>
 <PRE>
@@ -1100,6 +1311,28 @@ public boolean <B>executeModOnContextNodeStatement</B>(<A HREF="../../../../xdi2
                                                 <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeContextNodeStatement,
                                                 <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;contextNodeStatement,
                                                 <A HREF="../../../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&nbsp;operation,
+                                                <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                                <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                         throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="executeSetOnContextNodeStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+executeSetOnContextNodeStatement</H3>
+<PRE>
+public boolean <B>executeSetOnContextNodeStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                                                <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeContextNodeStatement,
+                                                <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;contextNodeStatement,
+                                                <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                                                 <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                                                 <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
                                          throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
@@ -1225,6 +1458,28 @@ public boolean <B>executeModOnRelationStatement</B>(<A HREF="../../../../xdi2/co
 </DL>
 <HR>
 
+<A NAME="executeSetOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+executeSetOnRelationStatement</H3>
+<PRE>
+public boolean <B>executeSetOnRelationStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                                             <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeRelationStatement,
+                                             <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
+                                             <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                                             <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                             <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                      throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="executeDelOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeDelOnRelationStatement</H3>
 <PRE>
@@ -1335,6 +1590,28 @@ public boolean <B>executeModOnLiteralStatement</B>(<A HREF="../../../../xdi2/cor
 </DL>
 <HR>
 
+<A NAME="executeSetOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+executeSetOnLiteralStatement</H3>
+<PRE>
+public boolean <B>executeSetOnLiteralStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                                            <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeLiteralStatement,
+                                            <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
+                                            <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                                            <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                            <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                     throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="executeDelOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 executeDelOnLiteralStatement</H3>
 <PRE>
@@ -1430,6 +1707,28 @@ public boolean <B>modContext</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment
                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeContextNodeXri,
                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                           <A HREF="../../../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&nbsp;operation,
+                          <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                          <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                   throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setContext(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+setContext</H3>
+<PRE>
+public boolean <B>setContext</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                          <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeContextNodeXri,
+                          <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                          <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                           <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                           <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
                    throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
@@ -1561,6 +1860,30 @@ public boolean <B>modRelation</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segmen
 </DL>
 <HR>
 
+<A NAME="setRelation(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+setRelation</H3>
+<PRE>
+public boolean <B>setRelation</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeContextNodeXri,
+                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri,
+                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                           <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
+                           <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                           <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                    throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="delRelation(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 delRelation</H3>
 <PRE>
@@ -1663,6 +1986,29 @@ public boolean <B>modLiteral</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment
                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData,
                           <A HREF="../../../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&nbsp;operation,
+                          <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                          <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                   throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteral(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.lang.String, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+setLiteral</H3>
+<PRE>
+public boolean <B>setLiteral</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                          <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeContextNodeXri,
+                          <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                          <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData,
+                          <A HREF="../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                           <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                           <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
                    throws <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>

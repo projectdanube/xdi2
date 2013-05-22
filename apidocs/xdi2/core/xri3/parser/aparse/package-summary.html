@@ -7,6 +7,7 @@
 xdi2.core.xri3.parser.aparse (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.xri3.parser.aparse package">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -54,7 +55,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/core/xri3/parser/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/xri3/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../xdi2/core/xri3/parser/apg/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/xri3/parser/aparse/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -88,7 +89,121 @@ EXPERIMENTAL implementation of a 3.0 syntax parser.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="#package_description"><B>Description</B></A>
 <P>
 
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="ParserException.html" title="&#171;exception&#187; ParserException" alt="" coords="199,5011,318,5051"/>
+<area shape="rect" id="node2" title="&#171;exception&#187; RuntimeException (java.lang)" alt="" coords="5,5003,133,5058"/>
+<area shape="rect" id="node3" href="CountVisitor.html" title="CountVisitor" alt="" coords="389,4813,483,4838"/>
+<area shape="rect" id="node4" href="DequesVisitor.html" title="DequesVisitor" alt="" coords="385,4862,487,4887"/>
+<area shape="rect" id="node5" href="Displayer.html" title="Displayer" alt="" coords="221,4911,297,4937"/>
+<area shape="rect" id="node6" href="ParserContext.html" title="ParserContext" alt="" coords="17,4289,122,4314"/>
+<area shape="rect" id="node7" href="ParserRules.html" title="ParserRules" alt="" coords="23,3109,116,3134"/>
+<area shape="rect" id="node8" href="Rule_ALPHA.html" title="Rule_ALPHA" alt="" coords="209,126,308,151"/>
+<area shape="rect" id="node9" href="Rule_CRLF.html" title="Rule_CRLF" alt="" coords="215,175,303,201"/>
+<area shape="rect" id="node10" href="Rule_DIGIT.html" title="Rule_DIGIT" alt="" coords="215,225,302,250"/>
+<area shape="rect" id="node11" href="Rule_DQUOTE.html" title="Rule_DQUOTE" alt="" coords="204,274,313,299"/>
+<area shape="rect" id="node12" href="Rule_HEXDIG.html" title="Rule_HEXDIG" alt="" coords="207,323,310,349"/>
+<area shape="rect" id="node13" href="Rule_absolute.html" title="Rule_absolute" alt="" coords="207,373,311,398"/>
+<area shape="rect" id="node14" href="Rule_absolute_inverse.html" title="Rule_absolute_inverse" alt="" coords="183,422,334,447"/>
+<area shape="rect" id="node15" href="Rule_attribute_class.html" title="Rule_attribute_class" alt="" coords="189,471,329,497"/>
+<area shape="rect" id="node16" href="Rule_attribute_definition.html" title="Rule_attribute_definition" alt="" coords="179,521,339,546"/>
+<area shape="rect" id="node17" href="Rule_attribute_path.html" title="Rule_attribute_path" alt="" coords="191,570,326,595"/>
+<area shape="rect" id="node18" href="Rule_attribute_singleton.html" title="Rule_attribute_singleton" alt="" coords="178,619,339,645"/>
+<area shape="rect" id="node19" href="Rule_authority_class.html" title="Rule_authority_class" alt="" coords="187,669,330,694"/>
+<area shape="rect" id="node20" href="Rule_authority_definition.html" title="Rule_authority_definition" alt="" coords="177,718,340,743"/>
+<area shape="rect" id="node21" href="Rule_authority_path.html" title="Rule_authority_path" alt="" coords="190,767,327,793"/>
+<area shape="rect" id="node22" href="Rule_authority_singleton.html" title="Rule_authority_singleton" alt="" coords="177,817,341,842"/>
+<area shape="rect" id="node23" href="Rule_class.html" title="Rule_class" alt="" coords="215,866,302,891"/>
+<area shape="rect" id="node24" href="Rule_class_context.html" title="Rule_class_context" alt="" coords="191,915,327,941"/>
+<area shape="rect" id="node25" href="Rule_class_inverse.html" title="Rule_class_inverse" alt="" coords="192,965,325,990"/>
+<area shape="rect" id="node26" href="Rule_class_path.html" title="Rule_class_path" alt="" coords="199,1014,318,1039"/>
+<area shape="rect" id="node27" href="Rule_class_relative.html" title="Rule_class_relative" alt="" coords="192,1063,325,1089"/>
+<area shape="rect" id="node28" href="Rule_clock_seq.html" title="Rule_clock_seq" alt="" coords="201,1113,316,1138"/>
+<area shape="rect" id="node29" href="Rule_clock_seq_low.html" title="Rule_clock_seq_low" alt="" coords="189,1162,329,1187"/>
+<area shape="rect" id="node30" href="Rule_concrete_class.html" title="Rule_concrete_class" alt="" coords="187,1211,330,1237"/>
+<area shape="rect" id="node31" href="Rule_context.html" title="Rule_context" alt="" coords="209,1261,308,1286"/>
+<area shape="rect" id="node32" href="Rule_context_inverse.html" title="Rule_context_inverse" alt="" coords="186,1310,331,1335"/>
+<area shape="rect" id="node33" href="Rule_context_relative.html" title="Rule_context_relative" alt="" coords="186,1359,331,1385"/>
+<area shape="rect" id="node34" href="Rule_context_symbol.html" title="Rule_context_symbol" alt="" coords="185,1409,332,1434"/>
+<area shape="rect" id="node35" href="Rule_contextual_statement.html" title="Rule_contextual_statement" alt="" coords="169,1458,349,1483"/>
+<area shape="rect" id="node36" href="Rule_definition.html" title="Rule_definition" alt="" coords="205,1507,312,1533"/>
+<area shape="rect" id="node37" href="Rule_direct_contextual.html" title="Rule_direct_contextual" alt="" coords="181,1557,336,1582"/>
+<area shape="rect" id="node38" href="Rule_direct_relational.html" title="Rule_direct_relational" alt="" coords="185,1606,332,1631"/>
+<area shape="rect" id="node39" href="Rule_entity_class.html" title="Rule_entity_class" alt="" coords="196,1655,321,1681"/>
+<area shape="rect" id="node40" href="Rule_entity_definition.html" title="Rule_entity_definition" alt="" coords="186,1705,331,1730"/>
+<area shape="rect" id="node41" href="Rule_entity_singleton.html" title="Rule_entity_singleton" alt="" coords="185,1754,332,1779"/>
+<area shape="rect" id="node42" href="Rule_group_class.html" title="Rule_group_class" alt="" coords="196,1803,321,1829"/>
+<area shape="rect" id="node43" href="Rule_group_singleton.html" title="Rule_group_singleton" alt="" coords="185,1853,332,1878"/>
+<area shape="rect" id="node44" href="Rule_immutable_id.html" title="Rule_immutable_id" alt="" coords="193,1902,325,1927"/>
+<area shape="rect" id="node45" href="Rule_immutable_id_class.html" title="Rule_immutable_id_class" alt="" coords="173,1951,344,1977"/>
+<area shape="rect" id="node46" href="Rule_inner_root.html" title="Rule_inner_root" alt="" coords="203,2001,315,2026"/>
+<area shape="rect" id="node47" href="Rule_instance.html" title="Rule_instance" alt="" coords="207,2050,311,2075"/>
+<area shape="rect" id="node48" href="Rule_instance_class.html" title="Rule_instance_class" alt="" coords="187,2099,330,2125"/>
+<area shape="rect" id="node49" href="Rule_instance_context.html" title="Rule_instance_context" alt="" coords="181,2149,336,2174"/>
+<area shape="rect" id="node50" href="Rule_inverse_contextual.html" title="Rule_inverse_contextual" alt="" coords="177,2198,340,2223"/>
+<area shape="rect" id="node51" href="Rule_inverse_relational.html" title="Rule_inverse_relational" alt="" coords="181,2247,336,2273"/>
+<area shape="rect" id="node52" href="Rule_ipv6_literal.html" title="Rule_ipv6_literal" alt="" coords="201,2297,316,2322"/>
+<area shape="rect" id="node53" href="Rule_iri_char.html" title="Rule_iri_char" alt="" coords="210,2346,307,2371"/>
+<area shape="rect" id="node54" href="Rule_json_array.html" title="Rule_json_array" alt="" coords="201,2395,316,2421"/>
+<area shape="rect" id="node55" href="Rule_json_boolean.html" title="Rule_json_boolean" alt="" coords="193,2445,324,2470"/>
+<area shape="rect" id="node56" href="Rule_json_number.html" title="Rule_json_number" alt="" coords="194,2494,323,2519"/>
+<area shape="rect" id="node57" href="Rule_json_object.html" title="Rule_json_object" alt="" coords="198,2543,319,2569"/>
+<area shape="rect" id="node58" href="Rule_json_string.html" title="Rule_json_string" alt="" coords="199,2593,318,2618"/>
+<area shape="rect" id="node59" href="Rule_json_value.html" title="Rule_json_value" alt="" coords="201,2642,316,2667"/>
+<area shape="rect" id="node60" href="Rule_literal_context.html" title="Rule_literal_context" alt="" coords="191,2691,327,2717"/>
+<area shape="rect" id="node61" href="Rule_literal_path.html" title="Rule_literal_path" alt="" coords="199,2741,318,2766"/>
+<area shape="rect" id="node62" href="Rule_literal_statement.html" title="Rule_literal_statement" alt="" coords="183,2790,334,2815"/>
+<area shape="rect" id="node63" href="Rule_meta_class.html" title="Rule_meta_class" alt="" coords="197,2839,320,2865"/>
+<area shape="rect" id="node64" href="Rule_mutable_id.html" title="Rule_mutable_id" alt="" coords="199,2889,318,2914"/>
+<area shape="rect" id="node65" href="Rule_mutable_id_class.html" title="Rule_mutable_id_class" alt="" coords="181,2938,337,2963"/>
+<area shape="rect" id="node66" href="Rule_node.html" title="Rule_node" alt="" coords="217,2987,300,3013"/>
+<area shape="rect" id="node67" href="Rule_nonparen_delim.html" title="Rule_nonparen_delim" alt="" coords="185,3037,332,3062"/>
+<area shape="rect" id="node68" href="Rule_ordered_instance.html" title="Rule_ordered_instance" alt="" coords="181,3086,336,3111"/>
+<area shape="rect" id="node69" href="Rule_outer_root.html" title="Rule_outer_root" alt="" coords="202,3135,315,3161"/>
+<area shape="rect" id="node70" href="Rule_peer_root.html" title="Rule_peer_root" alt="" coords="204,3185,313,3210"/>
+<area shape="rect" id="node71" href="Rule_person_class.html" title="Rule_person_class" alt="" coords="193,3234,325,3259"/>
+<area shape="rect" id="node72" href="Rule_person_singleton.html" title="Rule_person_singleton" alt="" coords="182,3283,335,3309"/>
+<area shape="rect" id="node73" href="Rule_relational_statement.html" title="Rule_relational_statement" alt="" coords="173,3333,345,3358"/>
+<area shape="rect" id="node74" href="Rule_relative_context.html" title="Rule_relative_context" alt="" coords="186,3382,331,3407"/>
+<area shape="rect" id="node75" href="Rule_relative_root.html" title="Rule_relative_root" alt="" coords="197,3431,321,3457"/>
+<area shape="rect" id="node76" href="Rule_reserved_class.html" title="Rule_reserved_class" alt="" coords="188,3481,329,3506"/>
+<area shape="rect" id="node77" href="Rule_reserved_meta_class.html" title="Rule_reserved_meta_class" alt="" coords="170,3530,347,3555"/>
+<area shape="rect" id="node78" href="Rule_reserved_type.html" title="Rule_reserved_type" alt="" coords="191,3579,326,3605"/>
+<area shape="rect" id="node79" href="Rule_root.html" title="Rule_root" alt="" coords="220,3629,297,3654"/>
+<area shape="rect" id="node80" href="Rule_root_inverse.html" title="Rule_root_inverse" alt="" coords="197,3678,321,3703"/>
+<area shape="rect" id="node81" href="Rule_root_relative.html" title="Rule_root_relative" alt="" coords="197,3727,321,3753"/>
+<area shape="rect" id="node82" href="Rule_singleton.html" title="Rule_singleton" alt="" coords="205,3777,312,3802"/>
+<area shape="rect" id="node83" href="Rule_statement_root.html" title="Rule_statement_root" alt="" coords="187,3826,330,3851"/>
+<area shape="rect" id="node84" href="Rule_subpath.html" title="Rule_subpath" alt="" coords="208,3875,309,3901"/>
+<area shape="rect" id="node85" href="Rule_subsegment.html" title="Rule_subsegment" alt="" coords="195,3925,322,3950"/>
+<area shape="rect" id="node86" href="Rule_time_high.html" title="Rule_time_high" alt="" coords="203,3974,314,3999"/>
+<area shape="rect" id="node87" href="Rule_time_low.html" title="Rule_time_low" alt="" coords="205,4023,312,4049"/>
+<area shape="rect" id="node88" href="Rule_time_mid.html" title="Rule_time_mid" alt="" coords="205,4073,313,4098"/>
+<area shape="rect" id="node89" href="Rule_type_class.html" title="Rule_type_class" alt="" coords="199,4122,318,4147"/>
+<area shape="rect" id="node90" href="Rule_type_definition.html" title="Rule_type_definition" alt="" coords="189,4171,328,4197"/>
+<area shape="rect" id="node91" href="Rule_type_singleton.html" title="Rule_type_singleton" alt="" coords="189,4221,328,4246"/>
+<area shape="rect" id="node92" href="Rule_unordered_instance.html" title="Rule_unordered_instance" alt="" coords="175,4270,343,4295"/>
+<area shape="rect" id="node93" href="Rule_unreserved_class.html" title="Rule_unreserved_class" alt="" coords="181,4319,336,4345"/>
+<area shape="rect" id="node94" href="Rule_unreserved_meta_class.html" title="Rule_unreserved_meta_class" alt="" coords="163,4369,354,4394"/>
+<area shape="rect" id="node95" href="Rule_unreserved_type.html" title="Rule_unreserved_type" alt="" coords="184,4418,333,4443"/>
+<area shape="rect" id="node96" href="Rule_uuid_literal.html" title="Rule_uuid_literal" alt="" coords="200,4467,317,4493"/>
+<area shape="rect" id="node97" href="Rule_variable.html" title="Rule_variable" alt="" coords="209,4517,308,4542"/>
+<area shape="rect" id="node98" href="Rule_xdi_char.html" title="Rule_xdi_char" alt="" coords="207,4566,311,4591"/>
+<area shape="rect" id="node99" href="Rule_xdi_graph.html" title="Rule_xdi_graph" alt="" coords="203,4615,314,4641"/>
+<area shape="rect" id="node100" href="Rule_xdi_statement.html" title="Rule_xdi_statement" alt="" coords="190,4665,327,4690"/>
+<area shape="rect" id="node101" href="Rule_xref.html" title="Rule_xref" alt="" coords="221,4714,297,4739"/>
+<area shape="rect" id="node102" href="Terminal_NumericValue.html" title="Terminal_NumericValue" alt="" coords="179,4763,338,4789"/>
+<area shape="rect" id="node103" href="Terminal_StringValue.html" title="Terminal_StringValue" alt="" coords="186,4813,331,4838"/>
+<area shape="rect" id="node104" href="TreeDisplayer.html" title="TreeDisplayer" alt="" coords="385,4911,487,4937"/>
+<area shape="rect" id="node105" href="XDI3ParserAParse.html" title="XDI3ParserAParse" alt="" coords="194,77,323,102"/>
+<area shape="rect" id="node106" href="XmlDisplayer.html" title="XmlDisplayer" alt="" coords="210,4961,307,4986"/>
+<area shape="rect" id="node107" href="AbstractVisitor.html" title="AbstractVisitor" alt="" coords="204,4862,313,4887"/>
+<area shape="rect" id="node108" href="Rule.html" title="Rule" alt="" coords="45,2470,93,2495"/>
+<area shape="rect" id="node109" href="../../XDI3Parser.html" title="XDI3Parser (xdi2.core.xri3)" alt="" coords="16,69,123,109"/>
+<area shape="rect" id="node110" href="Visitor.html" title="&#171;interface&#187; Visitor" alt="" coords="27,4904,112,4944"/>
+<area shape="rect" id="node111" href="Parser.html" title="&#171;static&#187; Parser" alt="" coords="35,5,103,45"/>
+</map>
+<div id="apivizContainer" style="text-align: center;margin-bottom: 1em;"><img src="package-summary.png" usemap="#APIVIZ" border="0"></div><TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Interface Summary</B></FONT></TH>
@@ -140,19 +255,99 @@ EXPERIMENTAL implementation of a 3.0 syntax parser.
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_absolute.html" title="class in xdi2.core.xri3.parser.aparse">Rule_absolute</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_absolute_inverse.html" title="class in xdi2.core.xri3.parser.aparse">Rule_absolute_inverse</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ALPHA.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ALPHA</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_BIT.html" title="class in xdi2.core.xri3.parser.aparse">Rule_BIT</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_attribute_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_attribute_class</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_CHAR.html" title="class in xdi2.core.xri3.parser.aparse">Rule_CHAR</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_attribute_definition.html" title="class in xdi2.core.xri3.parser.aparse">Rule_attribute_definition</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_CR.html" title="class in xdi2.core.xri3.parser.aparse">Rule_CR</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_attribute_path.html" title="class in xdi2.core.xri3.parser.aparse">Rule_attribute_path</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_attribute_singleton.html" title="class in xdi2.core.xri3.parser.aparse">Rule_attribute_singleton</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_authority_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_authority_class</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_authority_definition.html" title="class in xdi2.core.xri3.parser.aparse">Rule_authority_definition</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_authority_path.html" title="class in xdi2.core.xri3.parser.aparse">Rule_authority_path</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_authority_singleton.html" title="class in xdi2.core.xri3.parser.aparse">Rule_authority_singleton</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_class</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_class_context.html" title="class in xdi2.core.xri3.parser.aparse">Rule_class_context</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_class_inverse.html" title="class in xdi2.core.xri3.parser.aparse">Rule_class_inverse</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_class_path.html" title="class in xdi2.core.xri3.parser.aparse">Rule_class_path</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_class_relative.html" title="class in xdi2.core.xri3.parser.aparse">Rule_class_relative</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_clock_seq.html" title="class in xdi2.core.xri3.parser.aparse">Rule_clock_seq</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_clock_seq_low.html" title="class in xdi2.core.xri3.parser.aparse">Rule_clock_seq_low</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_concrete_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_concrete_class</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_context.html" title="class in xdi2.core.xri3.parser.aparse">Rule_context</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_context_inverse.html" title="class in xdi2.core.xri3.parser.aparse">Rule_context_inverse</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_context_relative.html" title="class in xdi2.core.xri3.parser.aparse">Rule_context_relative</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_context_symbol.html" title="class in xdi2.core.xri3.parser.aparse">Rule_context_symbol</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_contextual_statement.html" title="class in xdi2.core.xri3.parser.aparse">Rule_contextual_statement</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -160,11 +355,7 @@ EXPERIMENTAL implementation of a 3.0 syntax parser.
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_CTL.html" title="class in xdi2.core.xri3.parser.aparse">Rule_CTL</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_dec_octet.html" title="class in xdi2.core.xri3.parser.aparse">Rule_dec_octet</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_definition.html" title="class in xdi2.core.xri3.parser.aparse">Rule_definition</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -172,23 +363,35 @@ EXPERIMENTAL implementation of a 3.0 syntax parser.
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_direct_contextual.html" title="class in xdi2.core.xri3.parser.aparse">Rule_direct_contextual</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_direct_relational.html" title="class in xdi2.core.xri3.parser.aparse">Rule_direct_relational</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_DQUOTE.html" title="class in xdi2.core.xri3.parser.aparse">Rule_DQUOTE</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_gcs_char.html" title="class in xdi2.core.xri3.parser.aparse">Rule_gcs_char</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_entity_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_entity_class</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_gen_delims.html" title="class in xdi2.core.xri3.parser.aparse">Rule_gen_delims</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_entity_definition.html" title="class in xdi2.core.xri3.parser.aparse">Rule_entity_definition</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_global_subseg.html" title="class in xdi2.core.xri3.parser.aparse">Rule_global_subseg</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_entity_singleton.html" title="class in xdi2.core.xri3.parser.aparse">Rule_entity_singleton</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_h16.html" title="class in xdi2.core.xri3.parser.aparse">Rule_h16</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_group_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_group_class</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_group_singleton.html" title="class in xdi2.core.xri3.parser.aparse">Rule_group_singleton</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -196,183 +399,227 @@ EXPERIMENTAL implementation of a 3.0 syntax parser.
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_HTAB.html" title="class in xdi2.core.xri3.parser.aparse">Rule_HTAB</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_immutable_id.html" title="class in xdi2.core.xri3.parser.aparse">Rule_immutable_id</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iauthority.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iauthority</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_immutable_id_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_immutable_id_class</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ifragment.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ifragment</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_inner_root.html" title="class in xdi2.core.xri3.parser.aparse">Rule_inner_root</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ihier_part.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ihier_part</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_instance.html" title="class in xdi2.core.xri3.parser.aparse">Rule_instance</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ihost.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ihost</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_instance_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_instance_class</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IP_literal.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IP_literal</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_instance_context.html" title="class in xdi2.core.xri3.parser.aparse">Rule_instance_context</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipath_abempty.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipath_abempty</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_inverse_contextual.html" title="class in xdi2.core.xri3.parser.aparse">Rule_inverse_contextual</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipath_abs.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipath_abs</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_inverse_relational.html" title="class in xdi2.core.xri3.parser.aparse">Rule_inverse_relational</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipath_empty.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipath_empty</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipv6_literal.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipv6_literal</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipath_rootless.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipath_rootless</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iri_char.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iri_char</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ipchar.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ipchar</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_json_array.html" title="class in xdi2.core.xri3.parser.aparse">Rule_json_array</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iprivate.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iprivate</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_json_boolean.html" title="class in xdi2.core.xri3.parser.aparse">Rule_json_boolean</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IPv4address.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IPv4address</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_json_number.html" title="class in xdi2.core.xri3.parser.aparse">Rule_json_number</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IPv6address.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IPv6address</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_json_object.html" title="class in xdi2.core.xri3.parser.aparse">Rule_json_object</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IPvFuture.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IPvFuture</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_json_string.html" title="class in xdi2.core.xri3.parser.aparse">Rule_json_string</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iquery.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iquery</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_json_value.html" title="class in xdi2.core.xri3.parser.aparse">Rule_json_value</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ireg_name.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ireg_name</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_literal_context.html" title="class in xdi2.core.xri3.parser.aparse">Rule_literal_context</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_IRI.html" title="class in xdi2.core.xri3.parser.aparse">Rule_IRI</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_literal_path.html" title="class in xdi2.core.xri3.parser.aparse">Rule_literal_path</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_isegment.html" title="class in xdi2.core.xri3.parser.aparse">Rule_isegment</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_literal_statement.html" title="class in xdi2.core.xri3.parser.aparse">Rule_literal_statement</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_isegment_nz.html" title="class in xdi2.core.xri3.parser.aparse">Rule_isegment_nz</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_meta_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_meta_class</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iunreserved.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iunreserved</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_mutable_id.html" title="class in xdi2.core.xri3.parser.aparse">Rule_mutable_id</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_iuserinfo.html" title="class in xdi2.core.xri3.parser.aparse">Rule_iuserinfo</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_mutable_id_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_mutable_id_class</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_lcs_char.html" title="class in xdi2.core.xri3.parser.aparse">Rule_lcs_char</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_node.html" title="class in xdi2.core.xri3.parser.aparse">Rule_node</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_LF.html" title="class in xdi2.core.xri3.parser.aparse">Rule_LF</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_nonparen_delim.html" title="class in xdi2.core.xri3.parser.aparse">Rule_nonparen_delim</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_literal.html" title="class in xdi2.core.xri3.parser.aparse">Rule_literal</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ordered_instance.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ordered_instance</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_local_subseg.html" title="class in xdi2.core.xri3.parser.aparse">Rule_local_subseg</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_outer_root.html" title="class in xdi2.core.xri3.parser.aparse">Rule_outer_root</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ls32.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ls32</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_peer_root.html" title="class in xdi2.core.xri3.parser.aparse">Rule_peer_root</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_LWSP.html" title="class in xdi2.core.xri3.parser.aparse">Rule_LWSP</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_person_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_person_class</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_OCTET.html" title="class in xdi2.core.xri3.parser.aparse">Rule_OCTET</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_person_singleton.html" title="class in xdi2.core.xri3.parser.aparse">Rule_person_singleton</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_pct_encoded.html" title="class in xdi2.core.xri3.parser.aparse">Rule_pct_encoded</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_relational_statement.html" title="class in xdi2.core.xri3.parser.aparse">Rule_relational_statement</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_port.html" title="class in xdi2.core.xri3.parser.aparse">Rule_port</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_relative_context.html" title="class in xdi2.core.xri3.parser.aparse">Rule_relative_context</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_reserved.html" title="class in xdi2.core.xri3.parser.aparse">Rule_reserved</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_relative_root.html" title="class in xdi2.core.xri3.parser.aparse">Rule_relative_root</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_scheme.html" title="class in xdi2.core.xri3.parser.aparse">Rule_scheme</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_reserved_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_reserved_class</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_SP.html" title="class in xdi2.core.xri3.parser.aparse">Rule_SP</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_reserved_meta_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_reserved_meta_class</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_sub_delims.html" title="class in xdi2.core.xri3.parser.aparse">Rule_sub_delims</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_reserved_type.html" title="class in xdi2.core.xri3.parser.aparse">Rule_reserved_type</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_subseg.html" title="class in xdi2.core.xri3.parser.aparse">Rule_subseg</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_root.html" title="class in xdi2.core.xri3.parser.aparse">Rule_root</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_ucschar.html" title="class in xdi2.core.xri3.parser.aparse">Rule_ucschar</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_root_inverse.html" title="class in xdi2.core.xri3.parser.aparse">Rule_root_inverse</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_unreserved.html" title="class in xdi2.core.xri3.parser.aparse">Rule_unreserved</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_root_relative.html" title="class in xdi2.core.xri3.parser.aparse">Rule_root_relative</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_VCHAR.html" title="class in xdi2.core.xri3.parser.aparse">Rule_VCHAR</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_singleton.html" title="class in xdi2.core.xri3.parser.aparse">Rule_singleton</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_WSP.html" title="class in xdi2.core.xri3.parser.aparse">Rule_WSP</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_statement_root.html" title="class in xdi2.core.xri3.parser.aparse">Rule_statement_root</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_context.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_context</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_subpath.html" title="class in xdi2.core.xri3.parser.aparse">Rule_subpath</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_object.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_object</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_subsegment.html" title="class in xdi2.core.xri3.parser.aparse">Rule_subsegment</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_pchar.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_pchar</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_time_high.html" title="class in xdi2.core.xri3.parser.aparse">Rule_time_high</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_predicate.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_predicate</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_time_low.html" title="class in xdi2.core.xri3.parser.aparse">Rule_time_low</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_segment.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_segment</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_time_mid.html" title="class in xdi2.core.xri3.parser.aparse">Rule_time_mid</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_type_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_type_class</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_type_definition.html" title="class in xdi2.core.xri3.parser.aparse">Rule_type_definition</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_type_singleton.html" title="class in xdi2.core.xri3.parser.aparse">Rule_type_singleton</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_unordered_instance.html" title="class in xdi2.core.xri3.parser.aparse">Rule_unordered_instance</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_unreserved_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_unreserved_class</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_unreserved_meta_class.html" title="class in xdi2.core.xri3.parser.aparse">Rule_unreserved_meta_class</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_unreserved_type.html" title="class in xdi2.core.xri3.parser.aparse">Rule_unreserved_type</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_uuid_literal.html" title="class in xdi2.core.xri3.parser.aparse">Rule_uuid_literal</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_variable.html" title="class in xdi2.core.xri3.parser.aparse">Rule_variable</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_char.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_char</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_graph.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_graph</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -380,35 +627,7 @@ EXPERIMENTAL implementation of a 3.0 syntax parser.
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xdi_subject.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xdi_subject</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_empty.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_empty</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_IRI.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_IRI</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_literal.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_literal</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_segment.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_segment</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_statement.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_statement</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../xdi2/core/xri3/parser/aparse/Rule_xref_subject_predicate.html" title="class in xdi2.core.xri3.parser.aparse">Rule_xref_subject_predicate</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -490,7 +709,7 @@ EXPERIMENTAL implementation of a 3.0 syntax parser. Note that this does NOT refl
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../xdi2/core/xri3/parser/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../xdi2/core/xri3/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../xdi2/core/xri3/parser/apg/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?xdi2/core/xri3/parser/aparse/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;

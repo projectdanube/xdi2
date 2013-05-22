@@ -7,6 +7,16 @@
 XDIRawJSONReader (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.io.readers.XDIRawJSONReader class">
+<META NAME="keywords" CONTENT="FORMAT_NAME">
+<META NAME="keywords" CONTENT="FILE_EXTENSION">
+<META NAME="keywords" CONTENT="MIME_TYPE">
+<META NAME="keywords" CONTENT="XRI_DATATYPE_JSON_NUMBER">
+<META NAME="keywords" CONTENT="XRI_DATATYPE_JSON_TRUE">
+<META NAME="keywords" CONTENT="XRI_DATATYPE_JSON_FALSE">
+<META NAME="keywords" CONTENT="XRI_DATATYPE_JSON_NULL">
+<META NAME="keywords" CONTENT="init()">
+<META NAME="keywords" CONTENT="read()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -102,6 +112,11 @@ Class XDIRawJSONReader</H2>
 <DL>
 <DT><PRE>public class <B>XDIRawJSONReader</B><DT>extends <A HREF="../../../../xdi2/core/io/AbstractXDIReader.html" title="class in xdi2.core.io">AbstractXDIReader</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="../AbstractXDIReader.html" title="AbstractXDIReader (xdi2.core.io)" alt="" coords="9,5,143,45"/>
+<area shape="rect" id="node2" href="XDIRawJSONReader.html" title="XDIRawJSONReader" alt="" coords="5,85,147,110"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="XDIRawJSONReader.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -219,8 +234,8 @@ Class XDIRawJSONReader</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIRawJSONReader.html#read(xdi2.core.Graph, com.alibaba.fastjson.JSONObject)">read</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-     com.alibaba.fastjson.JSONObject&nbsp;graphObject)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIRawJSONReader.html#read(xdi2.core.Graph, com.google.gson.JsonObject)">read</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+     com.google.gson.JsonObject&nbsp;graphObject)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -376,21 +391,19 @@ protected void <B>init</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="read(xdi2.core.Graph, com.alibaba.fastjson.JSONObject)"><!-- --></A><H3>
+<A NAME="read(xdi2.core.Graph, com.google.gson.JsonObject)"><!-- --></A><H3>
 read</H3>
 <PRE>
 public void <B>read</B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                 com.alibaba.fastjson.JSONObject&nbsp;graphObject)
+                 com.google.gson.JsonObject&nbsp;graphObject)
           throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A>,
-                 <A HREF="../../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A>,
-                 com.alibaba.fastjson.JSONException</PRE>
+                 <A HREF="../../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
 <DL>
 <DD><DL>
 
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE>
-<DD><CODE><A HREF="../../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE>
-<DD><CODE>com.alibaba.fastjson.JSONException</CODE></DL>
+<DD><CODE><A HREF="../../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
 </DD>
 </DL>
 <HR>

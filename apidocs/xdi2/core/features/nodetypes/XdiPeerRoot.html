@@ -1,0 +1,492 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+XdiPeerRoot (xdi2 0.1-SNAPSHOT API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="xdi2.core.features.nodetypes.XdiPeerRoot class">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromContextNode()">
+<META NAME="keywords" CONTENT="isSelfPeerRoot()">
+<META NAME="keywords" CONTENT="getXriOfPeerRoot()">
+<META NAME="keywords" CONTENT="createPeerRootArcXri()">
+<META NAME="keywords" CONTENT="getXriOfPeerRootArcXri()">
+<META NAME="keywords" CONTENT="getIriOfPeerRootArcXri()">
+<META NAME="keywords" CONTENT="getLiteralOfPeerRootArcXri()">
+<META NAME="keywords" CONTENT="isPeerRootArcXri()">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="XdiPeerRoot (xdi2 0.1-SNAPSHOT API)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XdiPeerRoot.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiMetaClass.MappingContextNodeXdiMetaClassIterator.html" title="class in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.MappingContextNodePeerRootIterator.html" title="class in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?xdi2/core/features/nodetypes/XdiPeerRoot.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XdiPeerRoot.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+xdi2.core.features.nodetypes</FONT>
+<BR>
+Class XdiPeerRoot</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractSubGraph</A>
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiRoot</A>
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.features.nodetypes.XdiPeerRoot</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public final class <B>XdiPeerRoot</B><DT>extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="class in xdi2.core.features.nodetypes">XdiRoot</A></DL>
+</PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="XdiRoot.html" title="XdiRoot" alt="" coords="18,6,85,31"/>
+<area shape="rect" id="node2" href="XdiPeerRoot.html" title="XdiPeerRoot" alt="" coords="5,71,99,97"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="XdiPeerRoot.png" usemap="#APIVIZ" border="0"></div>
+
+<P>
+An XDI peer root, represented as a context node.
+<P>
+
+<P>
+<DL>
+<DT><B>Author:</B></DT>
+  <DD>markus</DD>
+<DT><B>See Also:</B><DD><A HREF="../../../../serialized-form.html#xdi2.core.features.nodetypes.XdiPeerRoot">Serialized Form</A></DL>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.MappingContextNodePeerRootIterator.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot.MappingContextNodePeerRootIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#XdiPeerRoot(xdi2.core.ContextNode)">XdiPeerRoot</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#createPeerRootArcXri(xdi2.core.xri3.XDI3Segment)">createPeerRootArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the peer root XRI of an XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI peer root bound to a given context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#getIriOfPeerRootArcXri(xdi2.core.xri3.XDI3SubSegment)">getIriOfPeerRootArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the IRI of the peer root XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#getLiteralOfPeerRootArcXri(xdi2.core.xri3.XDI3SubSegment)">getLiteralOfPeerRootArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the literal of the peer root XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#getXriOfPeerRoot()">getXriOfPeerRoot</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#getXriOfPeerRootArcXri(xdi2.core.xri3.XDI3SubSegment)">getXriOfPeerRootArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the XRI of the peer root XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#isPeerRootArcXri(xdi2.core.xri3.XDI3SubSegment)">isPeerRootArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a given XRI is a peer root XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#isSelfPeerRoot()">isSelfPeerRoot</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if this XDI peer root is the self XDI peer root of the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI peer root.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.nodetypes.XdiRoot"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="class in xdi2.core.features.nodetypes">XdiRoot</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#containsRelativeStatement(xdi2.core.xri3.XDI3Statement)">containsRelativeStatement</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#createRelativeStatement(xdi2.core.xri3.XDI3Statement)">createRelativeStatement</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#findInnerRoot(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean)">findInnerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#findLocalRoot()">findLocalRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#findPeerRoot(xdi2.core.xri3.XDI3Segment, boolean)">findPeerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#findRoot(xdi2.core.xri3.XDI3Segment, boolean)">findRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#findRoot(xdi2.core.xri3.XDI3SubSegment, boolean)">findRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#getRelativePart(xdi2.core.xri3.XDI3Segment)">getRelativePart</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#getRelativeStatement(xdi2.core.xri3.XDI3Statement)">getRelativeStatement</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#getRelativeStatements(boolean)">getRelativeStatements</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#isRootArcXri(xdi2.core.xri3.XDI3SubSegment)">isRootArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html#setRelativeStatement(xdi2.core.xri3.XDI3Statement)">setRelativeStatement</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.nodetypes.XdiAbstractSubGraph"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#compareTo(xdi2.core.features.nodetypes.XdiSubGraph)">compareTo</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#fromContextNode(xdi2.core.ContextNode, java.lang.Class)">fromContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#getBaseArcXri(xdi2.core.xri3.XDI3SubSegment)">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#getXdiAttributeClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#getXdiEntityClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#hashCode()">hashCode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#toString()">toString</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="XdiPeerRoot(xdi2.core.ContextNode)"><!-- --></A><H3>
+XdiPeerRoot</H3>
+<PRE>
+protected <B>XdiPeerRoot</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="isValid(xdi2.core.ContextNode)"><!-- --></A><H3>
+isValid</H3>
+<PRE>
+public static boolean <B>isValid</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+<DD>Checks if a context node is a valid XDI peer root.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - The context node to check.
+<DT><B>Returns:</B><DD>True if the context node is a valid XDI peer root.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fromContextNode(xdi2.core.ContextNode)"><!-- --></A><H3>
+fromContextNode</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A> <B>fromContextNode</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+<DD>Factory method that creates an XDI peer root bound to a given context node.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - The context node that is an XDI peer root.
+<DT><B>Returns:</B><DD>The XDI peer root.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isSelfPeerRoot()"><!-- --></A><H3>
+isSelfPeerRoot</H3>
+<PRE>
+public boolean <B>isSelfPeerRoot</B>()</PRE>
+<DL>
+<DD>Checks if this XDI peer root is the self XDI peer root of the graph.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>True, if this is the self XDI peer root.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXriOfPeerRoot()"><!-- --></A><H3>
+getXriOfPeerRoot</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getXriOfPeerRoot</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createPeerRootArcXri(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+createPeerRootArcXri</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>createPeerRootArcXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</PRE>
+<DL>
+<DD>Returns the peer root XRI of an XRI.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>xri</CODE> - An XRI.
+<DT><B>Returns:</B><DD>The peer root XRI of the XRI.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXriOfPeerRootArcXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+getXriOfPeerRootArcXri</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getXriOfPeerRootArcXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD>Returns the XRI of the peer root XRI.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - A peer root XRI.
+<DT><B>Returns:</B><DD>The XRI of the peer root XRI.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getIriOfPeerRootArcXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+getIriOfPeerRootArcXri</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getIriOfPeerRootArcXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD>Returns the IRI of the peer root XRI.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - A peer root XRI.
+<DT><B>Returns:</B><DD>The IRI of the peer root XRI.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteralOfPeerRootArcXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+getLiteralOfPeerRootArcXri</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getLiteralOfPeerRootArcXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD>Returns the literal of the peer root XRI.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - A peer root XRI.
+<DT><B>Returns:</B><DD>The literal of the peer root XRI.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isPeerRootArcXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+isPeerRootArcXri</H3>
+<PRE>
+public static boolean <B>isPeerRootArcXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD>Checks if a given XRI is a peer root XRI.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - A peer root XRI.
+<DT><B>Returns:</B><DD>True, if the XRI is a peer root XRI.</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XdiPeerRoot.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiMetaClass.MappingContextNodeXdiMetaClassIterator.html" title="class in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.MappingContextNodePeerRootIterator.html" title="class in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?xdi2/core/features/nodetypes/XdiPeerRoot.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XdiPeerRoot.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Copyright &#169; 2013. All Rights Reserved.
+</BODY>
+</HTML>

@@ -7,6 +7,19 @@
 GraphMessagingTarget (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.messaging.target.impl.graph.GraphMessagingTarget class">
+<META NAME="keywords" CONTENT="init()">
+<META NAME="keywords" CONTENT="shutdown()">
+<META NAME="keywords" CONTENT="getOwnerAddress()">
+<META NAME="keywords" CONTENT="before()">
+<META NAME="keywords" CONTENT="after()">
+<META NAME="keywords" CONTENT="exception()">
+<META NAME="keywords" CONTENT="getAddressHandler()">
+<META NAME="keywords" CONTENT="getStatementHandler()">
+<META NAME="keywords" CONTENT="instanceFor()">
+<META NAME="keywords" CONTENT="getGraph()">
+<META NAME="keywords" CONTENT="getGraphContextHandler()">
+<META NAME="keywords" CONTENT="setGraph()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -105,6 +118,13 @@ Class GraphMessagingTarget</H2>
 <DL>
 <DT><PRE>public class <B>GraphMessagingTarget</B><DT>extends <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target">AbstractMessagingTarget</A><DT>implements <A HREF="../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html" title="class in xdi2.messaging.target.impl.graph">GraphMessagingTarget</A>&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="../../Prototype.html" title="&#171;interface&#187; Prototype (xdi2.messaging.target)" alt="" coords="5,6,163,61"/>
+<area shape="rect" id="node2" href="../../AbstractMessagingTarget.html" title="AbstractMessagingTarget (xdi2.messaging.target)" alt="" coords="193,13,364,53"/>
+<area shape="rect" id="node3" href="GraphMessagingTarget.html" title="GraphMessagingTarget" alt="" coords="103,101,259,126"/>
+<area shape="rect" id="node4" href="../file/FileMessagingTarget.html" title="FileMessagingTarget (xdi2.messaging.target.impl.file)" alt="" coords="78,165,284,205"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="GraphMessagingTarget.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI messaging target backed by some implementation of the Graph interface.
@@ -185,10 +205,10 @@ An XDI messaging target backed by some implementation of the Graph interface.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html#exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, java.lang.Exception)">exception</A></B>(<A HREF="../../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html#exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, xdi2.messaging.exceptions.Xdi2MessagingException)">exception</A></B>(<A HREF="../../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
           <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
           <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext,
-          <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)</CODE>
+          <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A>&nbsp;ex)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -220,10 +240,10 @@ An XDI messaging target backed by some implementation of the Graph interface.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html#getOwnerAuthority()">getOwnerAuthority</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html#getOwnerAddress()">getOwnerAddress</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the owner authority of the messaging target.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the owner address of the messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -272,7 +292,7 @@ An XDI messaging target backed by some implementation of the Graph interface.
 <TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.<A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target">AbstractMessagingTarget</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#getContributors()">getContributors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#getInterceptors()">getInterceptors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setContributors(xdi2.messaging.target.contributor.ContributorMap)">setContributors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setContributors(java.util.Map)">setContributors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setContributorsList(java.util.ArrayList)">setContributorsList</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">setInterceptors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setInterceptors(java.util.List)">setInterceptors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setOwnerAuthority(xdi2.core.xri3.XDI3Segment)">setOwnerAuthority</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#after(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#before(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#execute(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#getContributors()">getContributors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#getInterceptors()">getInterceptors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setContributors(xdi2.messaging.target.contributor.ContributorMap)">setContributors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setContributors(java.util.Map)">setContributors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setContributorsList(java.util.ArrayList)">setContributorsList</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">setInterceptors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setInterceptors(java.util.List)">setInterceptors</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setOwnerAddress(xdi2.core.xri3.XDI3Segment)">setOwnerAddress</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -354,17 +374,17 @@ public void <B>shutdown</B>()
 </DL>
 <HR>
 
-<A NAME="getOwnerAuthority()"><!-- --></A><H3>
-getOwnerAuthority</H3>
+<A NAME="getOwnerAddress()"><!-- --></A><H3>
+getOwnerAddress</H3>
 <PRE>
-public <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getOwnerAuthority</B>()</PRE>
+public <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getOwnerAddress</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html#getOwnerAuthority()">MessagingTarget</A></CODE></B></DD>
-<DD>Returns the owner authority of the messaging target.
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html#getOwnerAddress()">MessagingTarget</A></CODE></B></DD>
+<DD>Returns the owner address of the messaging target.
  This may be null.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html#getOwnerAuthority()">getOwnerAuthority</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#getOwnerAuthority()">getOwnerAuthority</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target">AbstractMessagingTarget</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html#getOwnerAddress()">getOwnerAddress</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#getOwnerAddress()">getOwnerAddress</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target">AbstractMessagingTarget</A></CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -410,17 +430,17 @@ public void <B>after</B>(<A HREF="../../../../../xdi2/messaging/MessageEnvelope.
 </DL>
 <HR>
 
-<A NAME="exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, java.lang.Exception)"><!-- --></A><H3>
+<A NAME="exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, xdi2.messaging.exceptions.Xdi2MessagingException)"><!-- --></A><H3>
 exception</H3>
 <PRE>
 public void <B>exception</B>(<A HREF="../../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
                       <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                       <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext,
-                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)
+                      <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A>&nbsp;ex)
                throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, java.lang.Exception)">exception</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target">AbstractMessagingTarget</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#exception(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext, xdi2.messaging.exceptions.Xdi2MessagingException)">exception</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target">AbstractMessagingTarget</A></CODE></DL>
 </DD>
 <DD><DL>
 

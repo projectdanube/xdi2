@@ -7,6 +7,9 @@
 PolicyUtil (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.features.linkcontracts.policy.PolicyUtil class">
+<META NAME="keywords" CONTENT="createSenderIsOperator()">
+<META NAME="keywords" CONTENT="createSecretTokenEqualsOperator()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -98,6 +101,10 @@ Class PolicyUtil</H2>
 <DL>
 <DT><PRE>public final class <B>PolicyUtil</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="PolicyUtil.html" title="&#171;static&#187; PolicyUtil" alt="" coords="5,5,83,45"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="PolicyUtil.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 Various utility methods for working with XDI policies.
@@ -123,7 +130,7 @@ Various utility methods for working with XDI policies.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyUtil.html#secretTokenMatchesOperator()">secretTokenMatchesOperator</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyUtil.html#createSecretTokenEqualsOperator(xdi2.core.features.linkcontracts.policy.Policy)">createSecretTokenEqualsOperator</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A>&nbsp;policy)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -131,7 +138,8 @@ Various utility methods for working with XDI policies.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyUtil.html#senderMatchesOperator(xdi2.core.xri3.XDI3Segment)">senderMatchesOperator</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;sender)</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/policy/PolicyUtil.html#createSenderIsOperator(xdi2.core.features.linkcontracts.policy.Policy, xdi2.core.xri3.XDI3Segment)">createSenderIsOperator</A></B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A>&nbsp;policy,
+                       <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;sender)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -159,10 +167,11 @@ Various utility methods for working with XDI policies.
 </TR>
 </TABLE>
 
-<A NAME="senderMatchesOperator(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-senderMatchesOperator</H3>
+<A NAME="createSenderIsOperator(xdi2.core.features.linkcontracts.policy.Policy, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+createSenderIsOperator</H3>
 <PRE>
-public static <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A> <B>senderMatchesOperator</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;sender)</PRE>
+public static <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A> <B>createSenderIsOperator</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A>&nbsp;policy,
+                                              <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;sender)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -170,10 +179,10 @@ public static <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/
 </DL>
 <HR>
 
-<A NAME="secretTokenMatchesOperator()"><!-- --></A><H3>
-secretTokenMatchesOperator</H3>
+<A NAME="createSecretTokenEqualsOperator(xdi2.core.features.linkcontracts.policy.Policy)"><!-- --></A><H3>
+createSecretTokenEqualsOperator</H3>
 <PRE>
-public static <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A> <B>secretTokenMatchesOperator</B>()</PRE>
+public static <A HREF="../../../../../xdi2/core/features/linkcontracts/operator/Operator.html" title="class in xdi2.core.features.linkcontracts.operator">Operator</A> <B>createSecretTokenEqualsOperator</B>(<A HREF="../../../../../xdi2/core/features/linkcontracts/policy/Policy.html" title="class in xdi2.core.features.linkcontracts.policy">Policy</A>&nbsp;policy)</PRE>
 <DL>
 <DD><DL>
 </DL>

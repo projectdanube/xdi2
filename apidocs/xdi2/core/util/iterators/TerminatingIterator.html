@@ -7,6 +7,10 @@
 TerminatingIterator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
+<META NAME="keywords" CONTENT="xdi2.core.util.iterators.TerminatingIterator class">
+<META NAME="keywords" CONTENT="iterator">
+<META NAME="keywords" CONTENT="lookahead()">
+<META NAME="keywords" CONTENT="terminate()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -92,12 +96,14 @@ xdi2.core.util.iterators</FONT>
 Class TerminatingIterator&lt;T&gt;</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.ReadOnlyIterator</A>&lt;T&gt;
-      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.LookaheadIterator</A>&lt;T&gt;
-          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.TerminatingIterator&lt;T&gt;</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</A>&lt;T&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/WrappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.WrappingIterator</A>&lt;T&gt;
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.ReadOnlyIterator</A>&lt;T&gt;
+              <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.LookaheadIterator</A>&lt;T&gt;
+                  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.TerminatingIterator&lt;T&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;T&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;T&gt;</DD>
 </DL>
 <DL>
 <DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/util/iterators/TerminatingOnNullIterator.html" title="class in xdi2.core.util.iterators">TerminatingOnNullIterator</A></DD>
@@ -106,6 +112,12 @@ Class TerminatingIterator&lt;T&gt;</H2>
 <DL>
 <DT><PRE>public abstract class <B>TerminatingIterator&lt;T&gt;</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/LookaheadIterator.html" title="class in xdi2.core.util.iterators">LookaheadIterator</A>&lt;T&gt;</DL>
 </PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="TerminatingIterator.html" title="TerminatingIterator" alt="" coords="24,71,155,97"/>
+<area shape="rect" id="node2" href="LookaheadIterator.html" title="LookaheadIterator" alt="" coords="26,6,152,31"/>
+<area shape="rect" id="node3" href="TerminatingOnNullIterator.html" title="TerminatingOnNullIterator" alt="" coords="5,137,173,162"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="TerminatingIterator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An iterator that returns items of another iterator until a certain condition is satisfied.
@@ -205,6 +217,15 @@ An iterator that returns items of another iterator until a certain condition is 
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html#remove()">remove</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.util.iterators.IterableIterator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.util.iterators.<A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">IterableIterator</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html#iterator()">iterator</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>

@@ -93,10 +93,6 @@ Packages that use <A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="clas
 <TD>EXPERIMENTAL implementation of a 3.0 syntax parser.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.core.xri3.parser"><B>xdi2.core.xri3.parser</B></A></TD>
-<TD>&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.xri3.parser.aparse"><B>xdi2.core.xri3.parser.aparse</B></A></TD>
 <TD>EXPERIMENTAL implementation of a 3.0 syntax parser.&nbsp;</TD>
 </TR>
@@ -139,35 +135,31 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></CODE></FONT></TD>
-<TD><CODE><B>XDI3XRef.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3XRef.html#create(xdi2.core.xri3.parser.XDI3Parser, java.lang.String)">create</A></B>(<A HREF="../../../../xdi2/core/xri3/parser/XDI3Parser.html" title="interface in xdi2.core.xri3.parser">XDI3Parser</A>&nbsp;parser,
-       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></CODE></FONT></TD>
 <TD><CODE><B>XDI3SubSegment.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html#getXRef()">getXRef</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
-</TABLE>
-&nbsp;
-<P>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Parser.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Parser.html#makeXDI3XRef(java.lang.String, java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.lang.String, java.lang.String)">makeXDI3XRef</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string,
+             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;cf,
+             <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;segment,
+             <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement,
+             <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;partialSubject,
+             <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;partialPredicate,
+             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;iri,
+             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literal)</CODE>
 
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../../xdi2/core/xri3/package-summary.html">xdi2.core.xri3</A> with parameters of type <A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></FONT></TH>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html#XDI3SubSegment(java.lang.String, java.lang.Character, java.lang.Character, java.lang.String, xdi2.core.xri3.XDI3XRef)">XDI3SubSegment</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string,
-               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</A>&nbsp;gcs,
-               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</A>&nbsp;lcs,
-               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literal,
-               <A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A>&nbsp;xref)</CODE>
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>abstract &nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Parser.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Parser.html#parseXDI3XRef(java.lang.String)">parseXDI3XRef</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -175,24 +167,20 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.core.xri3.parser"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A> in <A HREF="../../../../xdi2/core/xri3/parser/package-summary.html">xdi2.core.xri3.parser</A></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;
-<P>
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/core/xri3/parser/package-summary.html">xdi2.core.xri3.parser</A> that return <A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/core/xri3/package-summary.html">xdi2.core.xri3</A> with parameters of type <A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></CODE></FONT></TD>
-<TD><CODE><B>XDI3Parser.</B><B><A HREF="../../../../xdi2/core/xri3/parser/XDI3Parser.html#parseXDI3XRef(java.lang.String)">parseXDI3XRef</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</CODE>
+<CODE>protected &nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Parser.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Parser.html#makeXDI3SubSegment(java.lang.String, java.lang.Character, boolean, boolean, java.lang.String, xdi2.core.xri3.XDI3XRef)">makeXDI3SubSegment</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string,
+                   <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</A>&nbsp;cs,
+                   boolean&nbsp;singleton,
+                   boolean&nbsp;attribute,
+                   <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literal,
+                   <A HREF="../../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A>&nbsp;xref)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
