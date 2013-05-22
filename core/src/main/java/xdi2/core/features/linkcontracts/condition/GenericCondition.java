@@ -25,8 +25,8 @@ public class GenericCondition extends Condition {
 
 	/**
 	 * Checks if a statement is a valid XDI generic condition.
-	 * @param relation The relation to check.
-	 * @return True if the relation is a valid XDI generic condition.
+	 * @param statement The statement to check.
+	 * @return True if the statement is a valid XDI generic condition.
 	 */
 	public static boolean isValid(XDI3Statement statement) {
 

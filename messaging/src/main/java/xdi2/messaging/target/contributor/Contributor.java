@@ -12,7 +12,7 @@ public interface Contributor {
 	/**
 	 * Executes an XDI operation on an address.
 	 * @param contributorXris The base XRIs on which the contributors are mounted.
-	 * @param relativeAddress The target address relative to the contributor.
+	 * @param relativeTargetAddress The target address relative to the contributor.
 	 * @param targetAddress The target address.
 	 * @param operation The operation that is being executed.
 	 * @param operationMessageResult The operation's message result.
