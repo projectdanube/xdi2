@@ -43,6 +43,8 @@
 		&nbsp;
 		<input type="radio" name="parser" value="apg" <%= "apg".equals(request.getAttribute("parser")) ? "checked" : "" %>>APG
 		&nbsp;
+		<input type="radio" name="parser" value="manual" <%= "manual".equals(request.getAttribute("parser")) ? "checked" : "" %>>manual (doesn't use ABNF)
+		&nbsp;
 		<input type="submit" value="Go!">
 
 		</td>
@@ -104,6 +106,17 @@
 	    <div class="tabbertab">
 		<h2>APG Trace</h2>
 		<div class="result"><pre><%= request.getAttribute("output7") %></pre></div><br>
+		</div>
+	<% } %>
+	
+	<% } %>
+
+	<% if ("manual".equals(request.getAttribute("parser"))) { %>
+
+	<% if (request.getAttribute("output8") != null) { %>
+	    <div class="tabbertab">
+		<h2>Node Types</h2>
+		<div class="result"><pre><%= request.getAttribute("output8") %></pre></div><br>
 		</div>
 	<% } %>
 	

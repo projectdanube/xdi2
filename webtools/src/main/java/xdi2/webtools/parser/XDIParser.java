@@ -16,6 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiSubGraph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
+
 import com.coasttocoastresearch.apg.Parser.Result;
 import com.coasttocoastresearch.apg.Statistics;
 import com.coasttocoastresearch.apg.Trace;
@@ -89,6 +97,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 		String output5 = "";
 		String output6 = "";
 		String output7 = "";
+		String output8 = "";
 		String error = null;
 
 		try {
@@ -100,6 +109,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 			ByteArrayOutputStream buffer5 = new ByteArrayOutputStream();
 			ByteArrayOutputStream buffer6 = new ByteArrayOutputStream();
 			ByteArrayOutputStream buffer7 = new ByteArrayOutputStream();
+			ByteArrayOutputStream buffer8 = new ByteArrayOutputStream();
 			PrintStream stream1 = new PrintStream(buffer1);
 			PrintStream stream2 = new PrintStream(buffer2);
 			PrintStream stream3 = new PrintStream(buffer3);
@@ -107,6 +117,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 			PrintStream stream5 = new PrintStream(buffer5);
 			PrintStream stream6 = new PrintStream(buffer6);
 			PrintStream stream7 = new PrintStream(buffer7);
+			PrintStream stream8 = new PrintStream(buffer8);
 
 			if ("aparse".equals(parser)) {
 
@@ -187,6 +198,46 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				output6 = html(new String(buffer6.toByteArray(), "UTF-8"));
 
 				output7 = html(new String(buffer7.toByteArray(), "UTF-8"));
+			} else if ("manual".equals(parser)) {
+
+				XDI3Segment segment;
+
+				try {
+
+					XDI3Statement statement = XDI3Statement.create(input);
+					segment = statement.getSubject();
+				} catch (Exception ex) {
+
+					segment = XDI3Segment.create(input);
+				}
+
+				Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
+
+				for (ContextNode contextNode = tempGraph.createDeepContextNode(segment); contextNode != null; contextNode = contextNode.getContextNode()) {
+
+					XdiSubGraph xdiSubGraph = XdiAbstractSubGraph.fromContextNode(contextNode);
+
+					for (Class<?> clazz = xdiSubGraph.getClass(); clazz != null; clazz = clazz.getSuperclass()) {
+
+						if (! clazz.getCanonicalName().startsWith("xdi2.core.features.nodetypes.")) continue;
+						if (clazz.getCanonicalName().contains("Abstract")) continue;
+
+						stream8.print("[" + clazz.getSimpleName());
+
+						for (Class<?> interfaze : clazz.getInterfaces()) {
+
+							if (! interfaze.getCanonicalName().startsWith("xdi2.core.features.nodetypes.")) continue;
+
+							stream8.print("(" + interfaze.getSimpleName() + ")");
+						}
+
+						stream8.print("] ");
+					}
+
+					stream8.println(": " + contextNode.getArcXri());
+				}
+
+				output8 = html(new String(buffer8.toByteArray(), "UTF-8"));
 			}
 		} catch (Exception ex) {
 
@@ -208,6 +259,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("output5", output5);
 		request.setAttribute("output6", output6);
 		request.setAttribute("output7", output7);
+		request.setAttribute("output8", output8);
 		request.setAttribute("error", error);
 
 		request.getRequestDispatcher("/XDIParser.jsp").forward(request, response);
