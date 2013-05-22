@@ -85,7 +85,8 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 	}
 
 	/**
-	 * @param Returns the "base" arc XRI, without context function syntax.
+	 * Returns the "base" arc XRI, without context node type syntax.
+	 * @param arcXri The arc XRI of a context node.
 	 * @return The "base" arc XRI.
 	 */
 	public static XDI3SubSegment getBaseArcXri(XDI3SubSegment arcXri) {
@@ -104,7 +105,7 @@ public abstract class XdiAbstractSubGraph implements XdiSubGraph {
 	 */
 
 	/**
-	 * @param Returns the "base" arc XRI, without context function syntax.
+	 * Returns the "base" arc XRI, without context node type syntax.
 	 * @return The "base" arc XRI.
 	 */
 	@Override
