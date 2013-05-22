@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;

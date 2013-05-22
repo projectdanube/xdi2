@@ -30,14 +30,15 @@ public class XdiInnerRoot extends XdiRoot {
 	 */
 
 	/**
-	 * Checks if a context node and relation are a valid XDI inner root.
+	 * Checks if a context node is a valid XDI inner root.
 	 * @param contextNode The context node to check.
-	 * @param relation The relation to check.
-	 * @return True if the context node and relation are a valid XDI inner root.
+	 * @return True if the context node is a valid XDI inner root.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return isInnerRootArcXri(contextNode.getArcXri());
+		return
+				isInnerRootArcXri(contextNode.getArcXri()) &&
+				XdiRoot.isValid(contextNode.getContextNode());
 	}
 
 	/**
