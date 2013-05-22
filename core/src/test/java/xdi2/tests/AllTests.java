@@ -2,10 +2,10 @@ package xdi2.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-import xdi2.tests.core.features.contextfunctions.ContextFunctionsTest;
 import xdi2.tests.core.features.datatypes.DataTypesTest;
 import xdi2.tests.core.features.dictionary.DictionaryTest;
 import xdi2.tests.core.features.equivalence.EquivalenceTest;
+import xdi2.tests.core.features.nodetypes.ContextFunctionsTest;
 import xdi2.tests.core.features.roots.InnerRootsTest;
 import xdi2.tests.core.features.roots.LocalRootsTest;
 import xdi2.tests.core.features.roots.PeerRootsTest;

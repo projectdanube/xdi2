@@ -1,4 +1,4 @@
-package xdi2.tests.core.features.contextfunctions;
+package xdi2.tests.core.features.nodetypes;
 
 import junit.framework.TestCase;
 import xdi2.core.features.nodetypes.XdiAbstractInstanceOrdered;
