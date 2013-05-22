@@ -1,4 +1,4 @@
-package xdi2.core.features.roots;
+package xdi2.core.features.nodetypes.roots;
 
 import java.util.Iterator;
 

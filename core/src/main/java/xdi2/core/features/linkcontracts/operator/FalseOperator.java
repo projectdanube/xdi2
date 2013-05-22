@@ -11,8 +11,8 @@ import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.Policy;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
-import xdi2.core.features.roots.XdiInnerRoot;
-import xdi2.core.features.roots.XdiLocalRoot;
+import xdi2.core.features.nodetypes.roots.XdiInnerRoot;
+import xdi2.core.features.nodetypes.roots.XdiLocalRoot;
 
 /**
  * An XDI $false operator, represented as a relation.

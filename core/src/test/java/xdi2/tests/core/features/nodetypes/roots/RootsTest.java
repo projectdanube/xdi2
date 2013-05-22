@@ -1,11 +1,11 @@
-package xdi2.tests.core.features.roots;
+package xdi2.tests.core.features.nodetypes.roots;
 
 import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
-import xdi2.core.features.roots.XdiInnerRoot;
-import xdi2.core.features.roots.XdiLocalRoot;
-import xdi2.core.features.roots.XdiPeerRoot;
+import xdi2.core.features.nodetypes.roots.XdiInnerRoot;
+import xdi2.core.features.nodetypes.roots.XdiLocalRoot;
+import xdi2.core.features.nodetypes.roots.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.XDI3Segment;
 

@@ -7,7 +7,7 @@ import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.features.roots.XdiPeerRoot;
+import xdi2.core.features.nodetypes.roots.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageResult;

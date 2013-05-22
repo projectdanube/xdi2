@@ -6,7 +6,7 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.nodetypes.roots.XdiInnerRoot;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;

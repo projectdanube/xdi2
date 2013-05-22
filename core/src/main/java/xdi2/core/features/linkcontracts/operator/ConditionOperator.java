@@ -5,7 +5,7 @@ import java.util.Iterator;
 import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.condition.Condition;
-import xdi2.core.features.roots.XdiInnerRoot;
+import xdi2.core.features.nodetypes.roots.XdiInnerRoot;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.xri3.XDI3Statement;
 

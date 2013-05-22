@@ -1,4 +1,4 @@
-package xdi2.core.features.roots;
+package xdi2.core.features.nodetypes.roots;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;

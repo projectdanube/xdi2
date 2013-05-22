@@ -62,17 +62,15 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton implements Xd
 		if (arcXri == null) return false;
 
 		if (arcXri.isAttributeXs()) return false;
+		if (arcXri.isClassXs()) return false;
+
+		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
+		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
 
 		if (XDIConstants.CS_PLUS.equals(arcXri.getCs()) || XDIConstants.CS_DOLLAR.equals(arcXri.getCs())) {
 
-			if (arcXri.isClassXs()) return false;
+		} else if (XDIConstants.CS_EQUALS.equals(arcXri.getCs()) || XDIConstants.CS_AT.equals(arcXri.getCs()) || XDIConstants.CS_STAR.equals(arcXri.getCs())) {
 
-			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
-		} else if (XDIConstants.CS_EQUALS.equals(arcXri.getCs()) || XDIConstants.CS_AT.equals(arcXri.getCs())) {
-
-			if (! arcXri.isClassXs()) return false;
-
-			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
 		} else {
 
 			return false;

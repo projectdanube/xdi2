@@ -3,7 +3,7 @@ package xdi2.core.features.nodetypes;
 import java.lang.reflect.Method;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.roots.XdiRoot;
+import xdi2.core.features.nodetypes.roots.XdiRoot;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
