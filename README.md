@@ -1,4 +1,4 @@
-<a href="http://projectdanube.org/" target="_blank"><img src="http://peacekeeper.github.com/xdi2/images/projectdanube_logo.png" align="right"></a>
+<a href="http://projectdanube.org/" target="_blank"><img src="http://projectdanube.github.com/xdi2/images/projectdanube_logo.png" align="right"></a>
 <img src="http://projectdanube.github.com/xdi2/images/logo64.png"><br>
 [![Build Status](https://secure.travis-ci.org/peacekeeper/xdi2.png)](http://travis-ci.org/peacekeeper/xdi2)
 
@@ -42,7 +42,7 @@ Weekly Call: [XDI Implementer's Call](https://github.com/projectdanube/xdi2/wiki
 
 Google Group: http://groups.google.com/group/xdi2
 
-Javadoc: http://peacekeeper.github.com/xdi2/apidocs
+Javadoc: http://projectdanube.github.com/xdi2/apidocs
 
 Changelog: https://github.com/projectdanube/xdi2/blob/master/CHANGELOG
 
