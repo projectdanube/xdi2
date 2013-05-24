@@ -4,10 +4,10 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-MappingEquivalenceXdiSubGraphIterator (xdi2 0.1-SNAPSHOT API)
+MappingEquivalenceXdiContextIterator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
-<META NAME="keywords" CONTENT="xdi2.core.util.iterators.MappingEquivalenceXdiSubGraphIterator class">
+<META NAME="keywords" CONTENT="xdi2.core.util.iterators.MappingEquivalenceXdiContextIterator class">
 <META NAME="keywords" CONTENT="map()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
@@ -16,7 +16,7 @@ MappingEquivalenceXdiSubGraphIterator (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="MappingEquivalenceXdiSubGraphIterator (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="MappingEquivalenceXdiContextIterator (xdi2 0.1-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -41,7 +41,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/MappingEquivalenceXdiSubGraphIterator.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/MappingEquivalenceXdiContextIterator.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -59,8 +59,8 @@ function windowTitle()
 &nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingEquivalenceContextNodeIterator.html" title="class in xdi2.core.util.iterators"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?xdi2/core/util/iterators/MappingEquivalenceXdiSubGraphIterator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="MappingEquivalenceXdiSubGraphIterator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?xdi2/core/util/iterators/MappingEquivalenceXdiContextIterator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="MappingEquivalenceXdiContextIterator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -91,28 +91,28 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <FONT SIZE="-1">
 xdi2.core.util.iterators</FONT>
 <BR>
-Class MappingEquivalenceXdiSubGraphIterator</H2>
+Class MappingEquivalenceXdiContextIterator</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
   <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</A>&lt;O&gt;
-      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&gt;
-          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.MappingEquivalenceXdiSubGraphIterator</B>
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.util.iterators.MappingEquivalenceXdiContextIterator</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;</DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>MappingEquivalenceXdiSubGraphIterator</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&gt;</DL>
+<DT><PRE>public class <B>MappingEquivalenceXdiContextIterator</B><DT>extends <A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;</DL>
 </PRE>
 <map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="MappingIterator.html" title="MappingIterator" alt="" coords="77,6,187,31"/>
-<area shape="rect" id="node2" href="MappingEquivalenceXdiSubGraphIterator.html" title="MappingEquivalenceXdiSubGraphIterator" alt="" coords="5,71,259,97"/>
+<area shape="rect" id="node1" href="MappingIterator.html" title="MappingIterator" alt="" coords="71,6,181,31"/>
+<area shape="rect" id="node2" href="MappingEquivalenceXdiContextIterator.html" title="MappingEquivalenceXdiContextIterator" alt="" coords="5,71,248,97"/>
 </map>
-<div id="apivizContainer" style="text-align: center;"><img src="MappingEquivalenceXdiSubGraphIterator.png" usemap="#APIVIZ" border="0"></div>
+<div id="apivizContainer" style="text-align: center;"><img src="MappingEquivalenceXdiContextIterator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
-A MappingIterator that maps XDI subgraphs to the target subgraphs of equivalence links.
+A MappingIterator that maps XDI contexts to the target contexts of equivalence links.
 <P>
 
 <P>
@@ -151,7 +151,7 @@ A MappingIterator that maps XDI subgraphs to the target subgraphs of equivalence
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/MappingEquivalenceXdiSubGraphIterator.html#MappingEquivalenceXdiSubGraphIterator(java.util.Iterator)">MappingEquivalenceXdiSubGraphIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&gt;&nbsp;xdiSubGraphs)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/MappingEquivalenceXdiContextIterator.html#MappingEquivalenceXdiContextIterator(java.util.Iterator)">MappingEquivalenceXdiContextIterator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;&nbsp;xdiContexts)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -168,8 +168,8 @@ A MappingIterator that maps XDI subgraphs to the target subgraphs of equivalence
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/MappingEquivalenceXdiSubGraphIterator.html#map(xdi2.core.features.nodetypes.XdiSubGraph)">map</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&nbsp;xdiSubGraph)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/util/iterators/MappingEquivalenceXdiContextIterator.html#map(xdi2.core.features.nodetypes.XdiContext)">map</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&nbsp;xdiContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -215,10 +215,10 @@ A MappingIterator that maps XDI subgraphs to the target subgraphs of equivalence
 </TR>
 </TABLE>
 
-<A NAME="MappingEquivalenceXdiSubGraphIterator(java.util.Iterator)"><!-- --></A><H3>
-MappingEquivalenceXdiSubGraphIterator</H3>
+<A NAME="MappingEquivalenceXdiContextIterator(java.util.Iterator)"><!-- --></A><H3>
+MappingEquivalenceXdiContextIterator</H3>
 <PRE>
-public <B>MappingEquivalenceXdiSubGraphIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&gt;&nbsp;xdiSubGraphs)</PRE>
+public <B>MappingEquivalenceXdiContextIterator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;? extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;&nbsp;xdiContexts)</PRE>
 <DL>
 </DL>
 
@@ -232,13 +232,13 @@ public <B>MappingEquivalenceXdiSubGraphIterator</B>(<A HREF="http://download.ora
 </TR>
 </TABLE>
 
-<A NAME="map(xdi2.core.features.nodetypes.XdiSubGraph)"><!-- --></A><H3>
+<A NAME="map(xdi2.core.features.nodetypes.XdiContext)"><!-- --></A><H3>
 map</H3>
 <PRE>
-public <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A> <B>map</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&nbsp;xdiSubGraph)</PRE>
+public <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A> <B>map</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&nbsp;xdiContext)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#map(I)">map</A></CODE> in class <CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html#map(I)">map</A></CODE> in class <CODE><A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -260,7 +260,7 @@ public <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/MappingEquivalenceXdiSubGraphIterator.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/MappingEquivalenceXdiContextIterator.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -278,8 +278,8 @@ public <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title
 &nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingEquivalenceContextNodeIterator.html" title="class in xdi2.core.util.iterators"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?xdi2/core/util/iterators/MappingEquivalenceXdiSubGraphIterator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="MappingEquivalenceXdiSubGraphIterator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?xdi2/core/util/iterators/MappingEquivalenceXdiContextIterator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="MappingEquivalenceXdiContextIterator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
