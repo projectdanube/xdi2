@@ -32,9 +32,9 @@ public abstract class XdiAbstractSingleton extends XdiAbstractSubGraph implement
 	 * @param contextNode The context node that is an XDI singleton.
 	 * @return The XDI singleton.
 	 */
-	public static XdiAbstractSingleton fromContextNode(ContextNode contextNode) {
+	public static XdiSingleton fromContextNode(ContextNode contextNode) {
 
-		XdiAbstractSingleton xdiSingleton;
+		XdiSingleton xdiSingleton;
 
 		if ((xdiSingleton = XdiEntitySingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 		if ((xdiSingleton = XdiAttributeSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;

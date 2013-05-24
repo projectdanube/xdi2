@@ -2,7 +2,7 @@ package xdi2.tests.core.features.nodetypes;
 
 import junit.framework.TestCase;
 import xdi2.core.Graph;
-import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -18,8 +18,8 @@ public class RootsTest extends TestCase {
 		XdiPeerRoot peerRoot = localRoot.findPeerRoot(XDI3Segment.create("[=]!91F2.8153.F600.AE24"), true);
 		XdiInnerRoot innerRoot = peerRoot.findInnerRoot(XDI3Segment.create("[=]!1111"), XDI3Segment.create("$add"), true);
 
-		assertTrue(XdiAbstractSubGraph.fromContextNode(localRoot.getContextNode()) instanceof XdiLocalRoot);
-		assertTrue(XdiAbstractSubGraph.fromContextNode(peerRoot.getContextNode()) instanceof XdiPeerRoot);
-		assertTrue(XdiAbstractSubGraph.fromContextNode(innerRoot.getContextNode()) instanceof XdiInnerRoot);
+		assertTrue(XdiAbstractContext.fromContextNode(localRoot.getContextNode()) instanceof XdiLocalRoot);
+		assertTrue(XdiAbstractContext.fromContextNode(peerRoot.getContextNode()) instanceof XdiPeerRoot);
+		assertTrue(XdiAbstractContext.fromContextNode(innerRoot.getContextNode()) instanceof XdiInnerRoot);
 	}
 }

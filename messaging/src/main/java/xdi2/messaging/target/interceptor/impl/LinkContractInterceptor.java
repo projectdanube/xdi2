@@ -11,9 +11,8 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -78,10 +77,10 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXri);
 		if (linkContractContextNode == null) return false;
 
-		XdiSubGraph xdiSubGraph = XdiAbstractSubGraph.fromContextNode(linkContractContextNode);
-		if (! (xdiSubGraph instanceof XdiEntity)) return false;
+		XdiEntity xdiEntity = XdiAbstractEntity.fromContextNode(linkContractContextNode);
+		if (xdiEntity == null) return false;
 
-		LinkContract linkContract = LinkContract.fromXdiEntity((XdiEntity) xdiSubGraph);
+		LinkContract linkContract = LinkContract.fromXdiEntity(xdiEntity);
 		if (linkContract == null) return false;
 
 		log.debug("Found link contract " + linkContract);

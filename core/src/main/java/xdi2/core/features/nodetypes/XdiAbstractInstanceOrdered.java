@@ -37,9 +37,9 @@ public abstract class XdiAbstractInstanceOrdered extends XdiAbstractInstance imp
 	 * @param contextNode The context node that is an XDI ordered instance.
 	 * @return The XDI ordered instance.
 	 */
-	public static XdiAbstractInstanceOrdered fromContextNode(ContextNode contextNode) {
+	public static XdiInstanceOrdered fromContextNode(ContextNode contextNode) {
 
-		XdiAbstractInstanceOrdered xdiElement;
+		XdiInstanceOrdered xdiElement;
 
 		if ((xdiElement = XdiEntityInstanceOrdered.fromContextNode(contextNode)) != null) return xdiElement;
 		if ((xdiElement = XdiAttributeInstanceOrdered.fromContextNode(contextNode)) != null) return xdiElement;

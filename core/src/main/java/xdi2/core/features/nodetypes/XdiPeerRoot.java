@@ -15,7 +15,7 @@ import xdi2.core.xri3.XDI3XRef;
  * 
  * @author markus
  */
-public final class XdiPeerRoot extends XdiRoot {
+public final class XdiPeerRoot extends XdiAbstractRoot {
 
 	private static final long serialVersionUID = -4689596452249483618L;
 
@@ -37,7 +37,7 @@ public final class XdiPeerRoot extends XdiRoot {
 
 		return 
 				isPeerRootArcXri(contextNode.getArcXri()) &&
-				XdiRoot.isValid(contextNode.getContextNode());
+				XdiAbstractRoot.isValid(contextNode.getContextNode());
 	}
 
 	/**

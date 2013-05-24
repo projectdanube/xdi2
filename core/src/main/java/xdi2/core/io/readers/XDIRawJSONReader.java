@@ -17,14 +17,14 @@ import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
-import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
 import xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntityClass;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.features.nodetypes.XdiSubGraph;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
@@ -67,7 +67,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	}
 
-	private static void readJsonObject(XdiSubGraph xdiSubGraph, JsonObject jsonObject) {
+	private static void readJsonObject(XdiContext xdiContext, JsonObject jsonObject) {
 
 		for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
 
@@ -78,18 +78,18 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
-				XdiEntitySingleton xdiEntitySingleton = xdiSubGraph.getXdiEntitySingleton(arcXri, true);
+				XdiEntitySingleton xdiEntitySingleton = xdiContext.getXdiEntitySingleton(arcXri, true);
 				readJsonObject(xdiEntitySingleton, (JsonObject) jsonElement);
 			} else if (jsonElement instanceof JsonArray) {
 
 				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
-				readJsonArray(xdiSubGraph, arcXri, (JsonArray) jsonElement);
+				readJsonArray(xdiContext, arcXri, (JsonArray) jsonElement);
 			} else if (jsonElement instanceof JsonPrimitive && ((JsonPrimitive) jsonElement).isString()){
 
 				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
-				XdiAttributeSingleton xdiAttributeSingleton = xdiSubGraph.getXdiAttributeSingleton(arcXri, true);
+				XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(arcXri, true);
 
 				XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 
@@ -98,7 +98,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 		}
 	}
 
-	private static void readJsonArray(XdiSubGraph xdiSubGraph, XDI3SubSegment arcXri, JsonArray jsonArray) {
+	private static void readJsonArray(XdiContext xdiContext, XDI3SubSegment arcXri, JsonArray jsonArray) {
 
 		for (JsonElement jsonElement : jsonArray) {
 
@@ -106,7 +106,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (jsonElement instanceof JsonObject) {
 
-				XdiEntityClass xdiEntityClass = xdiSubGraph.getXdiEntityClass(arcXri, true);
+				XdiEntityClass xdiEntityClass = xdiContext.getXdiEntityClass(arcXri, true);
 
 				XdiEntityInstanceUnordered xdiEntityInstance = xdiEntityClass.setXdiInstanceUnordered(jsonContentId);
 				readJsonObject(xdiEntityInstance, (JsonObject) jsonElement);
@@ -115,7 +115,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 				throw new RuntimeException("Nested JSON arrays not supported in XDI mapping.");
 			} else {
 
-				XdiAttributeClass xdiAttributeClass = xdiSubGraph.getXdiAttributeClass(arcXri, true);
+				XdiAttributeClass xdiAttributeClass = xdiContext.getXdiAttributeClass(arcXri, true);
 
 				XdiAttributeInstanceUnordered xdiAttributeInstance = xdiAttributeClass.setXdiInstanceUnordered(jsonContentId);
 
@@ -150,7 +150,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	public void read(Graph graph, JsonObject graphObject) throws IOException, Xdi2ParseException {
 
-		readJsonObject(XdiAbstractSubGraph.fromContextNode(graph.getRootContextNode()), graphObject);
+		readJsonObject(XdiAbstractContext.fromContextNode(graph.getRootContextNode()), graphObject);
 	}
 
 	private void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException {

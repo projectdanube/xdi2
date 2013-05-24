@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
@@ -174,7 +174,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public void setParameter(XDI3SubSegment parameterXri, Object parameterValue) {
 
-		XdiEntity parametersXdiEntity = XdiAbstractSubGraph.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), true);
+		XdiEntity parametersXdiEntity = XdiAbstractContext.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), true);
 		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, true);
 		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(true);
 		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();
@@ -192,7 +192,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public String getParameter(XDI3SubSegment parameterXri) {
 
-		XdiEntity parametersXdiEntity = XdiAbstractSubGraph.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), false);
+		XdiEntity parametersXdiEntity = XdiAbstractContext.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), false);
 		if (parametersXdiEntity == null) return null;
 
 		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, false);

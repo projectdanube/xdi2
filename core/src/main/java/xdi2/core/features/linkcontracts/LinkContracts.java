@@ -5,10 +5,10 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -40,7 +40,7 @@ public class LinkContracts {
 	 */
 	public static LinkContract getLinkContract(ContextNode contextNode, boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = XdiAbstractSubGraph.fromContextNode(contextNode).getXdiEntitySingleton(XDILinkContractConstants.XRI_SS_DO, create);
+		XdiEntitySingleton xdiEntitySingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiEntitySingleton(XDILinkContractConstants.XRI_SS_DO, create);
 		if (xdiEntitySingleton == null) return null;
 
 		return LinkContract.fromXdiEntity(xdiEntitySingleton);
@@ -72,10 +72,10 @@ public class LinkContracts {
 				@Override
 				public LinkContract map(ContextNode contextNode) {
 
-					XdiSubGraph xdiSubGraph = XdiAbstractSubGraph.fromContextNode(contextNode);
-					if (! (xdiSubGraph instanceof XdiEntity)) return null;
+					XdiEntity xdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
+					if (xdiEntity == null) return null;
 
-					return LinkContract.fromXdiEntity((XdiEntity) xdiSubGraph);
+					return LinkContract.fromXdiEntity(xdiEntity);
 				}
 			});
 		}

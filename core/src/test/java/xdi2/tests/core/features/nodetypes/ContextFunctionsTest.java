@@ -3,7 +3,7 @@ package xdi2.tests.core.features.nodetypes;
 import junit.framework.TestCase;
 import xdi2.core.features.nodetypes.XdiAbstractInstanceOrdered;
 import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
-import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntityClass;
@@ -42,10 +42,10 @@ public class ContextFunctionsTest extends TestCase {
 		assertFalse(XdiEntityClass.isValidArcXri(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address"))));
 		assertTrue(XdiAttributeClass.isValidArcXri(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address"))));
 
-		assertEquals(XdiAbstractSubGraph.getBaseArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
-		assertEquals(XdiAbstractSubGraph.getBaseArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
-		assertEquals(XdiAbstractSubGraph.getBaseArcXri(XdiEntityClass.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
-		assertEquals(XdiAbstractSubGraph.getBaseArcXri(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
+		assertEquals(XdiAbstractContext.getBaseArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
+		assertEquals(XdiAbstractContext.getBaseArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
+		assertEquals(XdiAbstractContext.getBaseArcXri(XdiEntityClass.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
+		assertEquals(XdiAbstractContext.getBaseArcXri(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
 	}
 
 /*	public void testContextNodes() throws Exception {	

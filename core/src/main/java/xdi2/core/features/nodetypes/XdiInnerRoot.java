@@ -16,7 +16,7 @@ import xdi2.core.xri3.XDI3XRef;
  * 
  * @author markus
  */
-public class XdiInnerRoot extends XdiRoot {
+public class XdiInnerRoot extends XdiAbstractRoot {
 
 	private static final long serialVersionUID = -203126514430691007L;
 
@@ -38,7 +38,7 @@ public class XdiInnerRoot extends XdiRoot {
 
 		return
 				isInnerRootArcXri(contextNode.getArcXri()) &&
-				XdiRoot.isValid(contextNode.getContextNode());
+				XdiAbstractRoot.isValid(contextNode.getContextNode());
 	}
 
 	/**

@@ -13,7 +13,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public class XdiLocalRoot extends XdiRoot {
+public class XdiLocalRoot extends XdiAbstractRoot {
 
 	private static final long serialVersionUID = 2956364705721958108L;
 

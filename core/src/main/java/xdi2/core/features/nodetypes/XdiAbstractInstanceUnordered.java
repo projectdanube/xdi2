@@ -42,9 +42,9 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 	 * @param contextNode The context node that is an XDI unordered instance.
 	 * @return The XDI unordered instance.
 	 */
-	public static XdiAbstractInstanceUnordered fromContextNode(ContextNode contextNode) {
+	public static XdiInstanceUnordered fromContextNode(ContextNode contextNode) {
 
-		XdiAbstractInstanceUnordered xdiInstance;
+		XdiInstanceUnordered xdiInstance;
 
 		if ((xdiInstance = XdiEntityInstanceUnordered.fromContextNode(contextNode)) != null) return xdiInstance;
 		if ((xdiInstance = XdiAttributeInstanceUnordered.fromContextNode(contextNode)) != null) return xdiInstance;

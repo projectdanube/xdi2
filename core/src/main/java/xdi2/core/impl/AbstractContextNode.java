@@ -13,7 +13,7 @@ import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
-import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.core.util.XDI3Util;
@@ -722,7 +722,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		if (checkExists && this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 
 		ContextNode tempContextNode = new BasicContextNode(this.getGraph(), this, arcXri, null, null, null);
-		if (! XdiAbstractSubGraph.isValid(tempContextNode)) throw new Xdi2GraphException("Invalid subgraph: " + arcXri);
+		if (! XdiAbstractContext.isValid(tempContextNode)) throw new Xdi2GraphException("Invalid subgraph: " + arcXri);
 	}
 
 	/**
