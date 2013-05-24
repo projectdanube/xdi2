@@ -1,9 +1,13 @@
 package xdi2.webtools.parser;
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map.Entry;
@@ -18,8 +22,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.nodetypes.XdiAbstractSubGraph;
-import xdi2.core.features.nodetypes.XdiSubGraph;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -212,29 +216,35 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				}
 
 				Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
+				List<ContextNode> contextNodes = new ArrayList<ContextNode> ();
 
 				for (ContextNode contextNode = tempGraph.createDeepContextNode(segment); contextNode != null; contextNode = contextNode.getContextNode()) {
 
-					XdiSubGraph xdiSubGraph = XdiAbstractSubGraph.fromContextNode(contextNode);
+					contextNodes.add(contextNode);
+				}
 
-					for (Class<?> clazz = xdiSubGraph.getClass(); clazz != null; clazz = clazz.getSuperclass()) {
+				Collections.reverse(contextNodes);
 
-						if (! clazz.getCanonicalName().startsWith("xdi2.core.features.nodetypes.")) continue;
-						if (clazz.getCanonicalName().contains("Abstract")) continue;
+				for (ContextNode contextNode : contextNodes) {
 
-						stream8.print("[" + clazz.getSimpleName());
+					XdiContext xdiContext = XdiAbstractContext.fromContextNode(contextNode);
+					Class<?> clazz = xdiContext.getClass();
 
-						for (Class<?> interfaze : clazz.getInterfaces()) {
+					stream8.print("<b>" + contextNode.getArcXri() + "</b>" + ": ");
 
-							if (! interfaze.getCanonicalName().startsWith("xdi2.core.features.nodetypes.")) continue;
+					stream8.print(clazz.getSimpleName() + " ");
 
-							stream8.print("(" + interfaze.getSimpleName() + ")");
-						}
+					List<Class<?>> interfazes = interfazes(clazz);
+					Collections.reverse(interfazes);
 
-						stream8.print("] ");
+					for (Class<?> interfaze : interfazes) {
+
+						if (! interfaze.getCanonicalName().startsWith("xdi2.core.features.nodetypes.")) continue;
+
+						stream8.print("(" + interfaze.getSimpleName() + ")");
 					}
 
-					stream8.println(": " + contextNode.getArcXri());
+					stream8.println();
 				}
 
 				output8 = html(new String(buffer8.toByteArray(), "UTF-8"));
@@ -265,8 +275,20 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 		request.getRequestDispatcher("/XDIParser.jsp").forward(request, response);
 	}
 
+	private static List<Class<?>> interfazes(Class<?> clazz) {
+
+		if (! clazz.getCanonicalName().startsWith("xdi2.core.features.nodetypes.")) return Collections.emptyList();
+
+		List<Class<?>> list = new ArrayList<Class<?>> ();
+
+		list.addAll(Arrays.asList(clazz.getInterfaces()));
+		list.addAll(interfazes(clazz.getSuperclass()));
+
+		return list;
+	}
+
 	private static String html(String string) {
 
-		return string.replace("<", "&lt;").replace(">", "&gt;");
+		return string.replace("<", "&lt;").replace(">", "&gt;").replace("&lt;b&gt;", "<b>").replace("&lt;/b&gt;", "</b>");
 	}
 }

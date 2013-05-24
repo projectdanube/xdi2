@@ -18,6 +18,12 @@ circle.node-root {
 	stroke-width: 2px;
 }
 
+circle.node-literal {
+	fill: black;
+	stroke: black;
+	stroke-width: 2px;
+}
+
 circle.node-context {
 	fill: gray;
 	stroke: black;
@@ -171,7 +177,10 @@ path.arrow-rel {
 	    nodeGroup.append("svg:circle")
 	        .attr("class", function(d)
 	        {
-	        	return d.root ? "node-root" : "node-context";
+	        	if (d.root == true) return "node-root";
+	        	if (d.type == "literal") return "node-literal";
+	        	
+	        	return "node-context";
 			})
 	        .attr("r", options.nodeRadius);
 

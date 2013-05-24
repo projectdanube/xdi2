@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
-import xdi2.core.features.nodetypes.XdiRoot;
+import xdi2.core.features.nodetypes.XdiAbstractRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -161,9 +161,10 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 	private static void addContextNodeToBuffer(StringBuffer buffer, ContextNode contextNode) {
 
 		buffer.append("{\n");
+		buffer.append("type: \"context\",\n");
 		buffer.append("name: \"" + contextNode.getXri() + "\",\n");
 		buffer.append("arc: \"" + (contextNode.isRootContextNode() ? "()" : contextNode.getArcXri()) + "\",\n");
-		buffer.append("root: " + XdiRoot.isValid(contextNode) + ",\n");
+		buffer.append("root: " + XdiAbstractRoot.isValid(contextNode) + ",\n");
 		buffer.append("contents: [\n");
 
 		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
