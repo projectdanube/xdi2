@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
@@ -27,6 +28,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
+import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContext;
 
 /**
  * This interceptor enforces link contracts while a message is executed.
@@ -52,9 +54,18 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		// set the link contracts graph
 
-		if (this.linkContractsGraph == null && prototypingContext.getMessagingTarget() instanceof GraphMessagingTarget) {
+		if (this.getLinkContractsGraph() == null) {
 
-			interceptor.setLinkContractsGraph(((GraphMessagingTarget) prototypingContext.getMessagingTarget()).getGraph());
+			if (prototypingContext.getMessagingTarget() instanceof GraphMessagingTarget) {
+
+				interceptor.setLinkContractsGraph(((GraphMessagingTarget) prototypingContext.getMessagingTarget()).getGraph());
+			} else {
+
+				throw new Xdi2RuntimeException("No link contracts graph.");
+			}
+		} else {
+
+			interceptor.setLinkContractsGraph(this.getLinkContractsGraph());
 		}
 
 		// done
@@ -189,6 +200,10 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		return targetAddress;
 	}
+
+	/*
+	 * Getters and setters
+	 */
 
 	public Graph getLinkContractsGraph() {
 

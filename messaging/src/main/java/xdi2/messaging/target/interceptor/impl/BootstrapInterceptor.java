@@ -7,11 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
@@ -29,7 +27,7 @@ import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 
 /**
  * This interceptor can initialize an empty XDI graph with basic bootstrapping data,
- * such as the owner XRI of the graph, a shared secret, and an initial "root link contract".
+ * such as the owner XRI of the graph, and an initial "root link contract" and "public link contract".
  * 
  * @author markus
  */
@@ -39,7 +37,6 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 	private XDI3Segment bootstrapOwner;
 	private XDI3Segment[] bootstrapOwnerSynonyms;
-	private String bootstrapSharedSecret;
 	private boolean bootstrapLinkContract;
 	private boolean bootstrapPublicLinkContract;
 
@@ -47,7 +44,6 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		this.bootstrapOwner = null;
 		this.bootstrapOwnerSynonyms = null;
-		this.bootstrapSharedSecret = null;
 		this.bootstrapLinkContract = false;
 		this.bootstrapPublicLinkContract = false;
 	}
@@ -81,18 +77,6 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		interceptor.setBootstrapOwnerSynonyms(ownerSynonyms);
 
-		// read the shared secret
-
-		String sharedSecret = null;
-
-		if (prototypingContext.getOwnerPeerRoot() != null) {
-
-			Literal sharedSecretLiteral = prototypingContext.getOwnerPeerRoot().getContextNode().getDeepLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN);
-			sharedSecret = sharedSecretLiteral == null ? null : sharedSecretLiteral.getLiteralData();
-		}
-
-		interceptor.setBootstrapSharedSecret(sharedSecret);
-
 		// done
 
 		return interceptor;
@@ -111,7 +95,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 		Graph graph = graphMessagingTarget.getGraph();
 		ContextNode rootContextNode = graph.getRootContextNode();
 
-		log.debug("bootstrapOwner=" + this.bootstrapOwner + ", bootstrapOwnerSynonyms=" + this.bootstrapOwnerSynonyms + ", bootstrapSharedSecret=" + (this.bootstrapSharedSecret == null ? null : "XXXXX") + ", bootstrapLinkContract=" + this.bootstrapLinkContract + ", bootstrapPublicLinkContract=" + this.bootstrapPublicLinkContract);
+		log.debug("bootstrapOwner=" + this.bootstrapOwner + ", bootstrapOwnerSynonyms=" + this.bootstrapOwnerSynonyms + ", bootstrapLinkContract=" + this.bootstrapLinkContract + ", bootstrapPublicLinkContract=" + this.bootstrapPublicLinkContract);
 
 		// check if the owner statement exists
 
@@ -141,13 +125,6 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 			}
 		}
 
-		// create bootstrap shared secret
-
-		if (this.bootstrapSharedSecret != null) {
-
-			graph.setDeepLiteral(XDIPolicyConstants.XRI_S_SECRET_TOKEN, this.bootstrapSharedSecret);
-		}
-
 		// create bootstrap link contract and policy
 
 		if (this.bootstrapLinkContract) {
@@ -159,7 +136,7 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 			PolicyAnd policyAnd = bootstrapLinkContract.getPolicyRoot(true).createAndPolicy(true);
 			PolicyUtil.createSenderIsOperator(policyAnd, this.bootstrapOwner);
-			PolicyUtil.createSecretTokenEqualsOperator(policyAnd);
+			PolicyUtil.createSecretTokenValidOperator(policyAnd);
 		}
 
 		// create public bootstrap link contract
@@ -206,16 +183,6 @@ public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototy
 
 		this.bootstrapOwnerSynonyms = new XDI3Segment[bootstrapOwnerSynonyms.length];
 		for (int i=0; i<this.bootstrapOwnerSynonyms.length; i++) this.bootstrapOwnerSynonyms[i] = XDI3Segment.create(bootstrapOwnerSynonyms[i]);
-	}
-
-	public String getBootstrapSharedSecret() {
-
-		return this.bootstrapSharedSecret;
-	}
-
-	public void setBootstrapSharedSecret(String bootstrapSharedSecret) {
-
-		this.bootstrapSharedSecret = bootstrapSharedSecret;
 	}
 
 	public boolean getBootstrapLinkContract() {

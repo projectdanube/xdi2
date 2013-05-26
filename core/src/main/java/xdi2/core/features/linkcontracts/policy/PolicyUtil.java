@@ -2,10 +2,11 @@ package xdi2.core.features.linkcontracts.policy;
 
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.condition.Condition;
-import xdi2.core.features.linkcontracts.condition.EqualsCondition;
+import xdi2.core.features.linkcontracts.condition.GenericCondition;
 import xdi2.core.features.linkcontracts.condition.IsCondition;
 import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.linkcontracts.operator.TrueOperator;
+import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 
 /**
@@ -28,9 +29,9 @@ public final class PolicyUtil {
 		return TrueOperator.createTrueOperator(policy, condition);
 	}
 
-	public static Operator createSecretTokenEqualsOperator(Policy policy) {
+	public static Operator createSecretTokenValidOperator(Policy policy) {
 
-		Condition condition = EqualsCondition.fromSubjectAndObject(XDI3Segment.create("{$msg}" + XDIPolicyConstants.XRI_S_SECRET_TOKEN), XDI3Segment.create("" + XDIPolicyConstants.XRI_S_SECRET_TOKEN));
+		Condition condition = GenericCondition.fromStatement(StatementUtil.fromComponents(XDI3Segment.create("{$msg}" + XDIPolicyConstants.XRI_S_SECRET_TOKEN), XDI3Segment.create("$valid"), XDI3Segment.create("$true")));
 
 		return TrueOperator.createTrueOperator(policy, condition);
 	}
