@@ -1,6 +1,6 @@
 package xdi2.core.features.linkcontracts.policy;
 
-import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.linkcontracts.condition.GenericCondition;
 import xdi2.core.features.linkcontracts.condition.IsCondition;
@@ -24,14 +24,19 @@ public final class PolicyUtil {
 
 	public static Operator createSenderIsOperator(Policy policy, XDI3Segment sender) {
 
-		Condition condition = IsCondition.fromSubjectAndObject(XDI3Segment.create("{$from}"), sender);
+		Condition condition = IsCondition.fromSubjectAndObject(
+				XDI3Segment.create("{$from}"), 
+				sender);
 
 		return TrueOperator.createTrueOperator(policy, condition);
 	}
 
 	public static Operator createSecretTokenValidOperator(Policy policy) {
 
-		Condition condition = GenericCondition.fromStatement(StatementUtil.fromComponents(XDI3Segment.create("{$msg}" + XDIPolicyConstants.XRI_S_SECRET_TOKEN), XDI3Segment.create("$valid"), XDI3Segment.create("$true")));
+		Condition condition = GenericCondition.fromStatement(StatementUtil.fromComponents(
+				XDI3Segment.create("{$msg}" + XDIAuthenticationConstants.XRI_S_SECRET_TOKEN), 
+				XDIAuthenticationConstants.XRI_S_VALID, 
+				"true"));
 
 		return TrueOperator.createTrueOperator(policy, condition);
 	}

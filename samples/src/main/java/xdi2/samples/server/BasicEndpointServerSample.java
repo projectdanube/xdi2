@@ -25,7 +25,6 @@ public class BasicEndpointServerSample {
 
 		BootstrapInterceptor bi = new BootstrapInterceptor();
 		bi.setBootstrapOwner(XDI3Segment.create("[=]!1111"));
-		bi.setBootstrapSharedSecret("s3cr3t");
 		bi.setBootstrapLinkContract(true);
 
 		messagingTarget.getInterceptors().add(bi);

@@ -206,6 +206,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 		return parameterLiteral.getLiteralData();
 	}
+
 	/**
 	 * Returns a parameter value of this operation as a boolean.
 	 * @param parameterXri The parameter XRI.
