@@ -98,7 +98,7 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
 				<ref bean="facebookContributor" />
 				<ref bean="personalContributor" />
 				<ref bean="allfiledContributor" />
@@ -152,15 +152,19 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.AuthenticationSecretTokenInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
 					<property name="secretTokenAuthenticator">
 						<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.StaticSecretTokenAuthenticator">
 							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
-							<property name="localSaltAndDigestSecretToken" ref="xdi2:00000000-0000-0000-0000-000000000000:8ae57d7c635e3f14b072850ac9cc88cdf8873661548a0c943eb4840a6fe426766fd4a087019f24467ba96990e5ff55e63111f1eb416981b4cf897cb2f45f57ac" />
+							<property name="localSaltAndDigestSecretTokens">
+								<util:map>
+									<entry key="[=]!BDF3.1FB.E70C.3958" value="xdi2-digest:00000000-0000-0000-0000-000000000000:8ae57d7c635e3f14b072850ac9cc88cdf8873661548a0c943eb4840a6fe426766fd4a087019f24467ba96990e5ff55e63111f1eb416981b4cf897cb2f45f57ac" />
+								</util:map>
+							</property>
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor">
 					<property name="linkContractsGraph" ref="registrygraph" />
 				</bean>
 			</util:list>
@@ -236,14 +240,13 @@
 							<value>=markus</value>
 						</util:list>
 					</property>
-					<property name="bootstrapSharedSecret" value="s3cret" />
 					<property name="bootstrapLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.LinkContractInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor">
 					<property name="linkContractsGraph" ref="graph4" />
 				</bean>
 			</util:list>

@@ -33,9 +33,8 @@ public final class PolicyUtil {
 
 	public static Operator createSecretTokenValidOperator(Policy policy) {
 
-		Condition condition = GenericCondition.fromStatement(StatementUtil.fromComponents(
-				XDI3Segment.create("{$msg}" + XDIAuthenticationConstants.XRI_S_SECRET_TOKEN), 
-				XDIAuthenticationConstants.XRI_S_VALID, 
+		Condition condition = GenericCondition.fromStatement(StatementUtil.fromLiteralComponents(
+				XDI3Segment.create("{$msg}" + XDIAuthenticationConstants.XRI_S_SECRET_TOKEN_VALID), 
 				"true"));
 
 		return TrueOperator.createTrueOperator(policy, condition);

@@ -30,11 +30,11 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.LinkContractInterceptor;
 import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
 import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 import xdi2.messaging.target.interceptor.impl.ToInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
+import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 
 /**
  * Servlet implementation class for Servlet: XDILocalMessenger

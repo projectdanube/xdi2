@@ -1,11 +1,16 @@
 package xdi2.messaging.target.interceptor.impl.authentication.secrettoken;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -15,6 +20,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * digested secret tokens which are stored in a dedicated graph.
  */
 public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticator {
+
+	private static Logger log = LoggerFactory.getLogger(GraphSecretTokenAuthenticator.class.getName());
 
 	private Graph secretTokenGraph;
 
@@ -65,16 +72,22 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	@Override
 	public boolean authenticate(Message message, String secretToken) {
 
-		XDI3Segment fromAddress = message.getFromAddress();
-		if (fromAddress == null) return false;
+		XDI3Segment sender = message.getSender();
+		if (sender == null) return false;
+
+		// sender address
+
+		XDI3SubSegment senderAddress = XdiPeerRoot.createPeerRootArcXri(sender);
+
+		if (log.isDebugEnabled()) log.debug("Sender address: " + senderAddress);
 
 		// look for local salt and digest secret token in the graph
 
-		ContextNode fromAddressContextNode = this.getSecretTokenGraph().getDeepContextNode(fromAddress);
-		Literal localSaltAndDigestSecretTokenLiteral = fromAddressContextNode == null ? null : fromAddressContextNode.getDeepLiteral(XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN);
-		if (localSaltAndDigestSecretTokenLiteral == null) return false;
+		ContextNode senderAddressContextNode = this.getSecretTokenGraph().getRootContextNode().getContextNode(senderAddress);
+		Literal localSaltAndDigestSecretTokenLiteral = senderAddressContextNode == null ? null : senderAddressContextNode.getDeepLiteral(XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN);
 
-		String localSaltAndDigestSecretToken = localSaltAndDigestSecretTokenLiteral.getLiteralData();
+		String localSaltAndDigestSecretToken = localSaltAndDigestSecretTokenLiteral == null ? null : localSaltAndDigestSecretTokenLiteral.getLiteralData();
+		if (localSaltAndDigestSecretToken == null) return false;
 
 		// authenticate
 

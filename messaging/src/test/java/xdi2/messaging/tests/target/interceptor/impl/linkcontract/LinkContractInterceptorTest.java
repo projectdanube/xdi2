@@ -1,4 +1,4 @@
-package xdi2.messaging.tests.linkcontracts;
+package xdi2.messaging.tests.target.interceptor.impl.linkcontract;
 
 import junit.framework.TestCase;
 
@@ -13,10 +13,10 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.LinkContractInterceptor;
+import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.messaging.tests.messagingtarget.AbstractGraphMessagingTargetTest;
 
-public class LinkContractsTest extends TestCase {
+public class LinkContractInterceptorTest extends TestCase {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractGraphMessagingTargetTest.class);
 

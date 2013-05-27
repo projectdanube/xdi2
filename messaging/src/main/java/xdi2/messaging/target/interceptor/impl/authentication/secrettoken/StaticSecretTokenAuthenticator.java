@@ -1,5 +1,8 @@
 package xdi2.messaging.target.interceptor.impl.authentication.secrettoken;
 
+import java.util.Map;
+
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
@@ -9,13 +12,13 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
  */
 public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticator {
 
-	private String localSaltAndDigestSecretToken;
+	private Map<XDI3Segment, String> localSaltAndDigestSecretTokens;
 
-	public StaticSecretTokenAuthenticator(String globalSalt, String localSaltAndDigestSecretToken) {
+	public StaticSecretTokenAuthenticator(String globalSalt, Map<XDI3Segment, String> localSaltAndDigestSecretTokens) {
 
 		super(globalSalt);
 
-		this.localSaltAndDigestSecretToken = localSaltAndDigestSecretToken;
+		this.localSaltAndDigestSecretTokens = localSaltAndDigestSecretTokens;
 	}
 
 	public StaticSecretTokenAuthenticator() {
@@ -34,18 +37,26 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 	@Override
 	public boolean authenticate(Message message, String secretToken) {
 
+		XDI3Segment sender = message.getSender();
+		if (sender == null) return false;
+
+		// look for static local salt and digest secret token
+
+		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretTokens().get(sender);
+		if (localSaltAndDigestSecretToken == null) return false;
+
 		// authenticate
-		
-		return super.authenticate(this.getLocalSaltAndDigestSecretToken(), secretToken);
+
+		return super.authenticate(localSaltAndDigestSecretToken, secretToken);
 	}
 
-	public String getLocalSaltAndDigestSecretToken() {
+	public Map<XDI3Segment, String> getLocalSaltAndDigestSecretTokens() {
 
-		return this.localSaltAndDigestSecretToken;
+		return this.localSaltAndDigestSecretTokens;
 	}
 
-	public void setLocalSaltAndDigestSecretToken(String localSaltAndDigestSecretToken) {
+	public void setLocalSaltAndDigestSecretTokens(Map<XDI3Segment, String> localSaltAndDigestSecretTokens) {
 
-		this.localSaltAndDigestSecretToken = localSaltAndDigestSecretToken;
+		this.localSaltAndDigestSecretTokens = localSaltAndDigestSecretTokens;
 	}
 }

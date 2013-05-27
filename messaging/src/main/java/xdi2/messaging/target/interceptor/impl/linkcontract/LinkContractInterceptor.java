@@ -1,4 +1,4 @@
-package xdi2.messaging.target.interceptor.impl;
+package xdi2.messaging.target.interceptor.impl.linkcontract;
 
 import java.util.Iterator;
 

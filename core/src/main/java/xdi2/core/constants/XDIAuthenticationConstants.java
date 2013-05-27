@@ -13,7 +13,7 @@ public final class XDIAuthenticationConstants {
 	public static final XDI3Segment XRI_S_DIGEST_SECRET_TOKEN = XDI3Segment.create("$digest$secret<$token>&");
 	public static final XDI3Segment XRI_S_OAUTH_TOKEN = XDI3Segment.create("$oauth<$token>&");
 
-	public static final XDI3Segment XRI_S_VALID = XDI3Segment.create("<$valid>&");
-	
+	public static final XDI3Segment XRI_S_SECRET_TOKEN_VALID = XDI3Segment.create("$secret<$token><$valid>&");
+
 	private XDIAuthenticationConstants() { }
 }
