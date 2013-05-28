@@ -15,8 +15,6 @@ BootstrapInterceptor (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="setBootstrapOwner()">
 <META NAME="keywords" CONTENT="getBootstrapOwnerSynonyms()">
 <META NAME="keywords" CONTENT="setBootstrapOwnerSynonyms()">
-<META NAME="keywords" CONTENT="getBootstrapSharedSecret()">
-<META NAME="keywords" CONTENT="setBootstrapSharedSecret()">
 <META NAME="keywords" CONTENT="getBootstrapLinkContract()">
 <META NAME="keywords" CONTENT="setBootstrapLinkContract()">
 <META NAME="keywords" CONTENT="getBootstrapPublicLinkContract()">
@@ -124,7 +122,7 @@ Class BootstrapInterceptor</H2>
 
 <P>
 This interceptor can initialize an empty XDI graph with basic bootstrapping data,
- such as the owner XRI of the graph, a shared secret, and an initial "root link contract".
+ such as the owner XRI of the graph, and an initial "root link contract" and "public link contract".
 <P>
 
 <P>
@@ -213,14 +211,6 @@ This interceptor can initialize an empty XDI graph with basic bootstrapping data
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#getBootstrapSharedSecret()">getBootstrapSharedSecret</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#init(xdi2.messaging.target.MessagingTarget)">init</A></B>(<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
@@ -271,14 +261,6 @@ This interceptor can initialize an empty XDI graph with basic bootstrapping data
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#setBootstrapPublicLinkContract(boolean)">setBootstrapPublicLinkContract</A></B>(boolean&nbsp;bootstrapPublicLinkContract)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#setBootstrapSharedSecret(java.lang.String)">setBootstrapSharedSecret</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;bootstrapSharedSecret)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -445,34 +427,6 @@ public void <B>setBootstrapOwnerSynonyms</B>(<A HREF="../../../../../xdi2/core/x
 setBootstrapOwnerSynonyms</H3>
 <PRE>
 public void <B>setBootstrapOwnerSynonyms</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>[]&nbsp;bootstrapOwnerSynonyms)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getBootstrapSharedSecret()"><!-- --></A><H3>
-getBootstrapSharedSecret</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getBootstrapSharedSecret</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setBootstrapSharedSecret(java.lang.String)"><!-- --></A><H3>
-setBootstrapSharedSecret</H3>
-<PRE>
-public void <B>setBootstrapSharedSecret</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;bootstrapSharedSecret)</PRE>
 <DL>
 <DD><DL>
 </DL>

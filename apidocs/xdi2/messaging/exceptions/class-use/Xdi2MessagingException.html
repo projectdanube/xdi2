@@ -121,6 +121,14 @@ Packages that use <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingEx
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl.authentication.secrettoken"><B>xdi2.messaging.target.interceptor.impl.authentication.secrettoken</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl.linkcontract"><B>xdi2.messaging.target.interceptor.impl.linkcontract</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.server.factory"><B>xdi2.server.factory</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -148,6 +156,14 @@ Uses of <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.ht
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="2">Subclasses of <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A> in <A HREF="../../../../xdi2/messaging/exceptions/package-summary.html">xdi2.messaging.exceptions</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/exceptions/Xdi2AuthenticationException.html" title="class in xdi2.messaging.exceptions">Xdi2AuthenticationException</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An exception that is thrown when an operation is not authorized.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -2933,16 +2949,6 @@ Uses of <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-      <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-      <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B>FromInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
       <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
       <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
@@ -2984,16 +2990,6 @@ Uses of <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.ht
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B>MessagePolicyInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-       <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-       <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
        <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
        <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
@@ -3064,17 +3060,6 @@ Uses of <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.ht
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#targetAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
-              <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-              <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-              <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B>VariablesInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html#targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
                 <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
@@ -3106,10 +3091,119 @@ Uses of <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.ht
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.interceptor.impl.authentication.secrettoken"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A> in <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.secrettoken</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.secrettoken</A> that throw <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>AuthenticationSecretTokenInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+      <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+      <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>AuthenticationSecretTokenInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+       <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+       <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/SecretTokenAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">SecretTokenAuthenticator</A></CODE></FONT></TD>
+<TD><CODE><B>StaticSecretTokenAuthenticator.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/StaticSecretTokenAuthenticator.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></B>(<A HREF="../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/SecretTokenAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">SecretTokenAuthenticator</A></CODE></FONT></TD>
+<TD><CODE><B>GraphSecretTokenAuthenticator.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/GraphSecretTokenAuthenticator.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></B>(<A HREF="../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">AuthenticationSecretTokenInterceptor</A></CODE></FONT></TD>
+<TD><CODE><B>AuthenticationSecretTokenInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></B>(<A HREF="../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.interceptor.impl.linkcontract"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A> in <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/package-summary.html">xdi2.messaging.target.interceptor.impl.linkcontract</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/package-summary.html">xdi2.messaging.target.interceptor.impl.linkcontract</A> that throw <A HREF="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">after</A></B>(<A HREF="../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+      <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+      <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+       <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+       <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#targetAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+              <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+              <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+              <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
-<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
                 <A HREF="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                 <A HREF="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
                 <A HREF="../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>

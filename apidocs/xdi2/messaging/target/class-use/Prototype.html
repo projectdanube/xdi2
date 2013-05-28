@@ -112,6 +112,14 @@ Packages that use <A HREF="../../../../xdi2/messaging/target/Prototype.html" tit
 <TD><A HREF="#xdi2.messaging.target.interceptor.impl"><B>xdi2.messaging.target.interceptor.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl.authentication.secrettoken"><B>xdi2.messaging.target.interceptor.impl.authentication.secrettoken</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl.linkcontract"><B>xdi2.messaging.target.interceptor.impl.linkcontract</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -313,7 +321,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor can initialize an empty XDI graph with basic bootstrapping data,
- such as the owner XRI of the graph, a shared secret, and an initial "root link contract".</TD>
+ such as the owner XRI of the graph, and an initial "root link contract" and "public link contract".</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -322,14 +330,6 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the <from-graph> address of a message matches the sender of the message.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">LinkContractInterceptor</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor enforces link contracts while a message is executed.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -370,6 +370,102 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor can replace XDI variables in a $add operation with automatically generated persistent XRI subsegments.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.interceptor.impl.authentication.secrettoken"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A> in <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.secrettoken</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Subinterfaces of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A> in <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.secrettoken</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/SecretTokenAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">SecretTokenAuthenticator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The purpose of this interface is to authenticate an incoming XDI message
+ using a secret token.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.secrettoken</A> that implement <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">AuthenticationSecretTokenInterceptor</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor will look for a secret token on an incoming XDI message, and authenticate it using 
+ an instance of SecretTokenAuthenticator.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/DigestSecretTokenAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">DigestSecretTokenAuthenticator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A SecretTokenAuthenticator that can authenticate a secret token against
+ a stored digested secret token, using both a global salt and local salts
+ for producing the digest.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/GraphSecretTokenAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">GraphSecretTokenAuthenticator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A SecretTokenAuthenticator that can authenticate a secret token against
+ digested secret tokens which are stored in a dedicated graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/StaticSecretTokenAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">StaticSecretTokenAuthenticator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A SecretTokenAuthenticator that can authenticate a secret token against
+ a statically configured digested secret token.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.interceptor.impl.linkcontract"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A> in <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/package-summary.html">xdi2.messaging.target.interceptor.impl.linkcontract</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/package-summary.html">xdi2.messaging.target.interceptor.impl.linkcontract</A> that implement <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor enforces link contracts while a message is executed.</TD>
 </TR>
 </TABLE>
 &nbsp;

@@ -157,6 +157,18 @@ Packages that use <A HREF="../../../xdi2/core/Graph.html" title="interface in xd
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl.authentication.secrettoken"><B>xdi2.messaging.target.interceptor.impl.authentication.secrettoken</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl.linkcontract"><B>xdi2.messaging.target.interceptor.impl.linkcontract</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl.util"><B>xdi2.messaging.target.interceptor.impl.util</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.server.factory.impl"><B>xdi2.server.factory.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -1244,14 +1256,6 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
-<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#getLinkContractsGraph()">getLinkContractsGraph</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
 <TD><CODE><B>MessagePolicyInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html#getMessagePolicyGraph()">getMessagePolicyGraph</A></B>()</CODE>
 
 <BR>
@@ -1268,15 +1272,32 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/LinkContractInterceptor.html#setLinkContractsGraph(xdi2.core.Graph)">setLinkContractsGraph</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;linkContractsGraph)</CODE>
+<TD><CODE><B>MessagePolicyInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html#setMessagePolicyGraph(xdi2.core.Graph)">setMessagePolicyGraph</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;messagePolicyGraph)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.interceptor.impl.authentication.secrettoken"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> in <A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.secrettoken</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.secrettoken</A> that return <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>MessagePolicyInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html#setMessagePolicyGraph(xdi2.core.Graph)">setMessagePolicyGraph</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;messagePolicyGraph)</CODE>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
+<TD><CODE><B>GraphSecretTokenAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/GraphSecretTokenAuthenticator.html#getSecretTokenGraph()">getSecretTokenGraph</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1287,10 +1308,91 @@ Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">G
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.secrettoken</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/MessagePolicyEvaluationContext.html#MessagePolicyEvaluationContext(xdi2.core.Graph, xdi2.messaging.Message)">MessagePolicyEvaluationContext</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>GraphSecretTokenAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/GraphSecretTokenAuthenticator.html#setSecretTokenGraph(xdi2.core.Graph)">setSecretTokenGraph</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;secretTokenGraph)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.secrettoken</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/GraphSecretTokenAuthenticator.html#GraphSecretTokenAuthenticator(java.lang.String, xdi2.core.Graph)">GraphSecretTokenAuthenticator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;globalHash,
+                              <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;secretTokenGraph)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.interceptor.impl.linkcontract"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> in <A HREF="../../../xdi2/messaging/target/interceptor/impl/linkcontract/package-summary.html">xdi2.messaging.target.interceptor.impl.linkcontract</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/messaging/target/interceptor/impl/linkcontract/package-summary.html">xdi2.messaging.target.interceptor.impl.linkcontract</A> that return <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></CODE></FONT></TD>
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#getLinkContractsGraph()">getLinkContractsGraph</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/messaging/target/interceptor/impl/linkcontract/package-summary.html">xdi2.messaging.target.interceptor.impl.linkcontract</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>LinkContractInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#setLinkContractsGraph(xdi2.core.Graph)">setLinkContractsGraph</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;linkContractsGraph)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.interceptor.impl.util"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A> in <A HREF="../../../xdi2/messaging/target/interceptor/impl/util/package-summary.html">xdi2.messaging.target.interceptor.impl.util</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/messaging/target/interceptor/impl/util/package-summary.html">xdi2.messaging.target.interceptor.impl.util</A> with parameters of type <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#MessagePolicyEvaluationContext(xdi2.core.Graph, xdi2.messaging.Message)">MessagePolicyEvaluationContext</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
                                <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
 
 <BR>

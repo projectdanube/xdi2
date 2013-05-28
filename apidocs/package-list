@@ -50,6 +50,9 @@ xdi2.messaging.target.impl.graph
 xdi2.messaging.target.impl.n
 xdi2.messaging.target.interceptor
 xdi2.messaging.target.interceptor.impl
+xdi2.messaging.target.interceptor.impl.authentication.secrettoken
+xdi2.messaging.target.interceptor.impl.linkcontract
+xdi2.messaging.target.interceptor.impl.util
 xdi2.messaging.util
 xdi2.p2p
 xdi2.samples.client
