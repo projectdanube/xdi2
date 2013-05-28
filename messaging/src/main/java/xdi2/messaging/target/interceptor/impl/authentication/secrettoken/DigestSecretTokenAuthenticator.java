@@ -77,7 +77,7 @@ public abstract class DigestSecretTokenAuthenticator implements SecretTokenAuthe
 
 		try {
 
-			return DigestUtils.sha512Hex(globalSalt + ":" + localSalt + DigestUtils.sha512Hex(globalSalt + ":" + Base64.encodeBase64String(secretToken.getBytes("UTF-8"))));
+			return DigestUtils.sha512Hex(globalSalt + ":" + localSalt + ":" + DigestUtils.sha512Hex(globalSalt + ":" + Base64.encodeBase64String(secretToken.getBytes("UTF-8"))));
 		} catch (UnsupportedEncodingException ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
