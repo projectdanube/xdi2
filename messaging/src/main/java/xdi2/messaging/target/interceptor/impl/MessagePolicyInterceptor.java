@@ -9,10 +9,12 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
+import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContext;
 
 /**
@@ -20,7 +22,7 @@ import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContex
  * 
  * @author markus
  */
-public class MessagePolicyInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<MessagePolicyInterceptor> {
+public class MessagePolicyInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, MessageInterceptor, Prototype<MessagePolicyInterceptor> {
 
 	private Graph messagePolicyGraph;
 
@@ -54,6 +56,24 @@ public class MessagePolicyInterceptor extends AbstractInterceptor implements Mes
 		// done
 
 		return interceptor;
+	}
+
+	/*
+	 * MessagingTargetInterceptor
+	 */
+
+	@Override
+	public void init(MessagingTarget messagingTarget) throws Exception {
+
+		if (this.getMessagePolicyGraph() == null && messagingTarget instanceof GraphMessagingTarget) {
+
+			this.setMessagePolicyGraph(((GraphMessagingTarget) messagingTarget).getGraph());
+		}
+	}
+
+	@Override
+	public void shutdown(MessagingTarget messagingTarget) throws Exception {
+
 	}
 
 	/*

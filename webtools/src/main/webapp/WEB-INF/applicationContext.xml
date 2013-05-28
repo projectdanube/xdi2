@@ -164,9 +164,7 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor">
-					<property name="linkContractsGraph" ref="registryGraph" />
-				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
 			</util:list>
 		</property>
 	</bean>
@@ -246,9 +244,7 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor">
-					<property name="linkContractsGraph" ref="graph4" />
-				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
 			</util:list>
 		</property>
 	</bean>
