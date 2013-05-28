@@ -7,7 +7,7 @@
 "$do/$add" : [ "=markus" ],
 "$do/$get" : [ "=markus" ],
 "$do/$mod" : [ "=markus" ],
-"$secret<$token>&/&" : "s3cret",
+"$secret<$token>&/&" : "s3cr3t",
 "=markus/$is" : [ "[=]!91F2.8153.F600.AE24" ],
 "()/$is" : [ "([=]!91F2.8153.F600.AE24)" ]
 }
