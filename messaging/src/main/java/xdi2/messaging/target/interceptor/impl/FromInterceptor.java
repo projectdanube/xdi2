@@ -17,7 +17,7 @@ import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
- * This interceptor checks if the <from-graph> address of a message matches the sender of the message.
+ * This interceptor checks if the source peer root address of a message matches the sender of the message.
  * 
  * @author markus
  */

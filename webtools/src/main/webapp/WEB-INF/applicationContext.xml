@@ -15,7 +15,7 @@
 				<bean class="xdi2.server.interceptor.impl.XriResolutionHttpTransportInterceptor">
 					<property name="resolvePath" value="/resolve" />
 					<property name="targetPath" value="/users" />
-					<property name="registryGraph" ref="registrygraph" />
+					<property name="registryGraph" ref="registryGraph" />
 				</bean>
 			</util:list>
 		</property>
@@ -94,7 +94,7 @@
 					<property name="secretTokenAuthenticator">
 						<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.GraphSecretTokenAuthenticator">
 							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
-							<property name="secretTokenGraph" ref="registrygraph" />
+							<property name="secretTokenGraph" ref="registryGraph" />
 						</bean>
 					</property>
 				</bean>
@@ -121,22 +121,22 @@
 
 	<!-- MESSAGING TARGET FACTORY at /users/* -->
 
-	<bean id="registrygraphfactory" class="xdi2.core.impl.wrapped.file.FileGraphFactory">
+	<bean id="registryGraphfactory" class="xdi2.core.impl.wrapped.file.FileGraphFactory">
 		<property name="path" value="registry.xdi" />
 		<property name="mimeType" value="text/xdi;ordered=1" />
 	</bean>
 
-	<bean id="registrygraph" factory-bean="registrygraphfactory" factory-method="openGraph" />
+	<bean id="registryGraph" factory-bean="registryGraphfactory" factory-method="openGraph" />
 
 	<bean name="/users/*" class="xdi2.server.factory.impl.RegistryGraphMessagingTargetFactory">
 		<property name="prototypeMessagingTarget" ref="prototypeMessagingTarget" />
-		<property name="registryGraph" ref="registrygraph" />
+		<property name="registryGraph" ref="registryGraph" />
 	</bean>
 
 	<!-- REGISTRY MESSAGING TARGET -->
 
 	<bean name="/registry" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
-		<property name="graph" ref="registrygraph" />
+		<property name="graph" ref="registryGraph" />
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
@@ -165,7 +165,7 @@
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor">
-					<property name="linkContractsGraph" ref="registrygraph" />
+					<property name="linkContractsGraph" ref="registryGraph" />
 				</bean>
 			</util:list>
 		</property>

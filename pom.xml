@@ -36,7 +36,7 @@
 	<scm>
 		<url>https://github.com/projectdanube/xdi2</url>
 		<connection>scm:git:git://github.com/projectdanube/xdi2.git</connection>
-		<developerConnection>scm:git:git@github.com:peacekeeper/xdi2.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:projectdanube/xdi2.git</developerConnection>
 	</scm>
 
 	<repositories>

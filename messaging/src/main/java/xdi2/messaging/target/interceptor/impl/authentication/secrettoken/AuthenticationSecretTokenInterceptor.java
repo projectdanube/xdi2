@@ -14,8 +14,8 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
- * This interceptor will look for a secret token on an incoming XDI message, and authenticate it using 
- * an instance of SecretTokenAuthenticator.
+ * This interceptor looks for a secret token on an incoming XDI message,
+ * and invokes an instance of SecretTokenAuthenticator to authenticate the message.
  */
 public class AuthenticationSecretTokenInterceptor implements MessageInterceptor, Prototype<AuthenticationSecretTokenInterceptor> {
 

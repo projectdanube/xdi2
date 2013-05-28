@@ -14,7 +14,7 @@ import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
- * This interceptor checks if the <to-graph> address of a message matches the owner of the messaging target.
+ * This interceptor checks if the target peer root address of a message matches the owner of the messaging target.
  * 
  * @author markus
  */

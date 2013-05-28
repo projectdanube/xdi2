@@ -8,6 +8,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.exceptions.Xdi2RuntimeException;
+
 /**
  * A SecretTokenAuthenticator that can authenticate a secret token against
  * a stored digested secret token, using both a global salt and local salts
@@ -70,6 +72,9 @@ public abstract class DigestSecretTokenAuthenticator implements SecretTokenAuthe
 
 	public static String digestSecretToken(String secretToken, String globalSalt, String localSalt) {
 
+		if (! isValidSalt(globalSalt)) throw new Xdi2RuntimeException("Invalid global salt.");
+		if (! isValidSalt(localSalt)) throw new Xdi2RuntimeException("Invalid local salt.");
+
 		try {
 
 			return DigestUtils.sha512Hex(globalSalt + ":" + localSalt + DigestUtils.sha512Hex(globalSalt + ":" + Base64.encodeBase64String(secretToken.getBytes("UTF-8"))));
@@ -87,5 +92,20 @@ public abstract class DigestSecretTokenAuthenticator implements SecretTokenAuthe
 	public void setGlobalSalt(String globalSalt) {
 
 		this.globalSalt = globalSalt;
+	}
+
+	public static boolean isValidSalt(String salt) {
+
+		try {
+
+			UUID.fromString(salt);
+		} catch (IllegalArgumentException ex) {
+
+			return false;
+		}
+
+		if (salt.length() != 36) return false;
+
+		return true;
 	}
 }

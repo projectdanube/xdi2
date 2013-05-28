@@ -13,6 +13,9 @@ public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 	public static String LOCAL_SALT_AND_DIGEST_SECRET_TOKEN = "xdi2-digest:08d72268-b1b7-4883-aaa7-0e2254a905cb:06c730a7e52d267f6462ea9363051553d14d844587962936ff219fb23458f4a9f77a915cd723e52e10bcf4e252cdca24d69096d046d9d6ad248bcfbf2f24467a";
 	public static String DIGEST_SECRET_TOKEN = "06c730a7e52d267f6462ea9363051553d14d844587962936ff219fb23458f4a9f77a915cd723e52e10bcf4e252cdca24d69096d046d9d6ad248bcfbf2f24467a";
 
+	public static String[] VALID_SALTS = new String[] { GLOBAL_SALT, LOCAL_SALT };
+	public static String[] INVALID_SALTS = new String[] { "3b97782d:b130:4906:b41d:f83b6968765f", "0-0-0-0-0" };
+	
 	public void testDigestSecretTokenAuthenticatorWithChosenLocalSalt() throws Exception {
 
 		String localSaltAndDigestSecretToken = DigestSecretTokenAuthenticator.localSaltAndDigestSecretToken(SECRET_TOKEN, GLOBAL_SALT, LOCAL_SALT);
@@ -43,6 +46,12 @@ public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 		assertEquals(digestSecretToken, DigestSecretTokenAuthenticator.digestSecretToken(SECRET_TOKEN, GLOBAL_SALT, localSalt)); 
 	}
 
+	public void testValidSalts() throws Exception {
+		
+		for (String salt : VALID_SALTS) assertTrue(DigestSecretTokenAuthenticator.isValidSalt(salt));
+		for (String salt : INVALID_SALTS) assertFalse(DigestSecretTokenAuthenticator.isValidSalt(salt));
+	}
+	
 	public void testStaticSecretTokenAuthenticator() throws Exception {
 
 		StaticSecretTokenAuthenticator staticSecretTokenAuthenticator = new StaticSecretTokenAuthenticator();

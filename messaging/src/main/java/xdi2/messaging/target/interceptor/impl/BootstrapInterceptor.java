@@ -27,7 +27,7 @@ import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 
 /**
  * This interceptor can initialize an empty XDI graph with basic bootstrapping data,
- * such as the owner XRI of the graph, and an initial "root link contract" and "public link contract".
+ * such as the owner XDI address of the graph, and initial link contracts.
  * 
  * @author markus
  */

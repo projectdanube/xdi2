@@ -7,8 +7,8 @@ import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 /**
- * A SecretTokenAuthenticator that can authenticate a secret token against
- * a statically configured digested secret token.
+ * A SecretTokenAuthenticator that can authenticate an XDI message using a
+ * statically configured list of sender addresses and secret tokens in digest form.
  */
 public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticator {
 

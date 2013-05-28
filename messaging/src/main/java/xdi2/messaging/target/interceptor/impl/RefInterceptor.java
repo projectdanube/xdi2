@@ -36,7 +36,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
- * This interceptor handles $ref and $ref! relations.
+ * This interceptor handles $ref and $rep relations.
  * 
  * @author markus
  */

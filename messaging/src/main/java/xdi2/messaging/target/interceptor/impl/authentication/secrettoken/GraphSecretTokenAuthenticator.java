@@ -16,8 +16,8 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
- * A SecretTokenAuthenticator that can authenticate a secret token against
- * digested secret tokens which are stored in a dedicated graph.
+ * A SecretTokenAuthenticator that can authenticate an XDI message using a "secret token graph",
+ * which contains sender addresses and secret tokens in digest form.
  */
 public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticator {
 
