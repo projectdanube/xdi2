@@ -109,11 +109,11 @@ Package xdi2.messaging.target.interceptor.impl
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">BootstrapInterceptor</A></B></TD>
 <TD>This interceptor can initialize an empty XDI graph with basic bootstrapping data,
- such as the owner XRI of the graph, and an initial "root link contract" and "public link contract".</TD>
+ such as the owner XDI address of the graph, and initial link contracts.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A></B></TD>
-<TD>This interceptor checks if the <from-graph> address of a message matches the sender of the message.</TD>
+<TD>This interceptor checks if the source peer root address of a message matches the sender of the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</A></B></TD>
@@ -121,15 +121,15 @@ Package xdi2.messaging.target.interceptor.impl
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ReadOnlyInterceptor</A></B></TD>
-<TD>This interceptor throws an exception when $add, $mod or $del operations are attempted on certain XDI addresses.</TD>
+<TD>This interceptor throws an exception when $add, $mod or $del operations are attempted on given contexts of the target graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</A></B></TD>
-<TD>This interceptor handles $ref and $ref!</TD>
+<TD>This interceptor handles $ref and $rep relations.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></B></TD>
-<TD>This interceptor checks if the <to-graph> address of a message matches the owner of the messaging target.</TD>
+<TD>This interceptor checks if the target peer root address of a message matches the owner of the messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></B></TD>

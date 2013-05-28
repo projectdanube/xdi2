@@ -364,7 +364,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor can initialize an empty XDI graph with basic bootstrapping data,
- such as the owner XRI of the graph, and an initial "root link contract" and "public link contract".</TD>
+ such as the owner XDI address of the graph, and initial link contracts.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -372,7 +372,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the <from-graph> address of a message matches the sender of the message.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the source peer root address of a message matches the sender of the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -388,7 +388,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ReadOnlyInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor throws an exception when $add, $mod or $del operations are attempted on certain XDI addresses.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor throws an exception when $add, $mod or $del operations are attempted on given contexts of the target graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -396,7 +396,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor handles $ref and $ref!</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor handles $ref and $rep relations.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -404,7 +404,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the <to-graph> address of a message matches the owner of the messaging target.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the target peer root address of a message matches the owner of the messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -437,8 +437,8 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.ht
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">AuthenticationSecretTokenInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor will look for a secret token on an incoming XDI message, and authenticate it using 
- an instance of SecretTokenAuthenticator.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor looks for a secret token on an incoming XDI message,
+ and invokes an instance of SecretTokenAuthenticator to authenticate the message.</TD>
 </TR>
 </TABLE>
 &nbsp;
