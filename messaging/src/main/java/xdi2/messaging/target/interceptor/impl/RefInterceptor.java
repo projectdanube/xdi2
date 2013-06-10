@@ -1,6 +1,7 @@
 package xdi2.messaging.target.interceptor.impl;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -31,6 +33,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
@@ -40,7 +43,7 @@ import xdi2.messaging.util.MessagingCloneUtil;
  * 
  * @author markus
  */
-public class RefInterceptor extends AbstractInterceptor implements OperationInterceptor, TargetInterceptor, Prototype<RefInterceptor> {
+public class RefInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, OperationInterceptor, TargetInterceptor, Prototype<RefInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(RefInterceptor.class);
 
@@ -57,13 +60,36 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 	}
 
 	/*
+	 * MessageEnvelopeInterceptor
+	 */
+
+	@Override
+	public boolean before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		resetCompletedAddresses(executionContext);
+
+		return false;
+	}
+
+	@Override
+	public boolean after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		return false;
+	}
+
+	@Override
+	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
+
+	}
+
+	/*
 	 * OperationInterceptor
 	 */
 
 	@Override
 	public boolean before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		resetReferenceRelations(executionContext);
+		resetRefRepRelations(executionContext);
 
 		return false;
 	}
@@ -83,17 +109,19 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 				XDI3Segment targetContextNodeXri = refRepRelation.getTargetContextNodeXri();
 
-				// don't follow $ref/$rep relations within operation target
+				// don't follow $ref/$rep relations to target we covered already
 
-				if (XDIConstants.XRI_S_ROOT.equals(operation.getTargetAddress()) || 
-						XDI3Util.startsWith(targetContextNodeXri, operation.getTargetAddress())) {
+				for (XDI3Segment completedAddress : getCompletedAddresses(executionContext)) {
+					
+					if (XDI3Util.startsWith(targetContextNodeXri, completedAddress)) {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation within operation target (" + operation.getTargetAddress() + "): " + refRepRelation);
+						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation to already completed address (" + completedAddress + "): " + refRepRelation);
 
-					if (XDIDictionaryConstants.XRI_S_REP.equals(refRepRelation.getArcXri())) refRepRelation.delete();
-					continue;
+						if (XDIDictionaryConstants.XRI_S_REP.equals(refRepRelation.getArcXri())) refRepRelation.delete();
+						continue;
+					}
 				}
-
+				
 				// delete the $ref/$rep relation, and perform a $get on its source
 
 				refRepRelation.delete();
@@ -106,9 +134,9 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 				if (Boolean.TRUE.equals(operation.getParameterAsBoolean(GetOperation.XRI_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XRI_PARAMETER_DEREF, Boolean.TRUE);
 
 				Deque<Relation> tempRefRepRelations = getRefRepRelations(executionContext);
-				resetReferenceRelations(executionContext);
+				resetRefRepRelations(executionContext);
 				this.feedback(feedbackMessage, operationMessageResult, executionContext);
-				putReferenceRelations(executionContext, tempRefRepRelations);
+				putRefRepRelations(executionContext, tempRefRepRelations);
 
 				// done with this $ref/$rep relation
 
@@ -192,7 +220,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 		Graph graph = ((GraphMessagingTarget) currentMessagingTarget).getGraph();
 
-		// apply following
+		// follow any $ref and $rep arcs
 
 		XDI3Segment originalTargetAddress = targetAddress;
 		XDI3Segment followedTargetAddress = originalTargetAddress;
@@ -211,8 +239,12 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 		if (followedTargetAddress != originalTargetAddress) {
 
-			return followedTargetAddress;
+			targetAddress = followedTargetAddress;
 		}
+
+		// remember that we completed this target
+
+		addCompletedAddress(executionContext, targetAddress);
 
 		// done
 
@@ -259,8 +291,12 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 		if (followedTargetSubject != originalTargetSubject) {
 
-			return StatementUtil.fromComponents(followedTargetSubject, targetStatement.getPredicate(), targetStatement.getObject());
+			targetStatement = StatementUtil.fromComponents(followedTargetSubject, targetStatement.getPredicate(), targetStatement.getObject());
 		}
+
+		// remember that we completed this target
+
+		addCompletedAddress(executionContext, targetStatement.getContextNodeXri());
 
 		// done
 
@@ -284,7 +320,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 				ContextNode canonicalContextNode = refRelation.follow();
 				if (canonicalContextNode.equals(contextNode)) break;
 
-				pushReferenceRelation(executionContext, refRelation);
+				pushRefRepRelation(executionContext, refRelation);
 
 				if (canonicalContextNode.isRootContextNode())
 					return XDI3Segment.create("" + (localPart.isEmpty() ? XDIConstants.XRI_S_ROOT : localPart));
@@ -297,7 +333,7 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 				ContextNode privateCanonicalContextNode  = repRelation.follow();
 				if (repRelation.equals(privateCanonicalContextNode)) break;
 
-				pushReferenceRelation(executionContext, repRelation);
+				pushRefRepRelation(executionContext, repRelation);
 
 				if (privateCanonicalContextNode.isRootContextNode())
 					return XDI3Segment.create("" + (localPart.isEmpty() ? XDIConstants.XRI_S_ROOT : localPart));
@@ -318,17 +354,18 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_REFERENCERELATIONS_PER_OPERATION = RefInterceptor.class.getCanonicalName() + "#referencerelationsperoperation";
+	private static final String EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION = RefInterceptor.class.getCanonicalName() + "#refreprelationsperoperation";
+	private static final String EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE = RefInterceptor.class.getCanonicalName() + "#completedaddressespermessageenvelope";
 
 	@SuppressWarnings("unchecked")
 	private static Deque<Relation> getRefRepRelations(ExecutionContext executionContext) {
 
-		return (Deque<Relation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFERENCERELATIONS_PER_OPERATION);
+		return (Deque<Relation>) executionContext.getOperationAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION);
 	}
 
-	private static void putReferenceRelations(ExecutionContext executionContext, Deque<Relation> referenceRelations) {
+	private static void putRefRepRelations(ExecutionContext executionContext, Deque<Relation> referenceRelations) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFERENCERELATIONS_PER_OPERATION, referenceRelations);
+		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION, referenceRelations);
 	}
 
 	private static Relation popRefRepRelation(ExecutionContext executionContext) {
@@ -338,20 +375,38 @@ public class RefInterceptor extends AbstractInterceptor implements OperationInte
 
 		Relation referenceRelation = referenceRelations.pop();
 
-		if (log.isDebugEnabled()) log.debug("Popping reference relation: " + referenceRelation);
+		if (log.isDebugEnabled()) log.debug("Popping $ref/$rep relation: " + referenceRelation);
 
 		return referenceRelation;
 	}
 
-	private static void pushReferenceRelation(ExecutionContext executionContext, Relation referenceRelation) {
+	private static void pushRefRepRelation(ExecutionContext executionContext, Relation referenceRelation) {
 
 		getRefRepRelations(executionContext).push(referenceRelation);
 
-		if (log.isDebugEnabled()) log.debug("Pushing reference relation: " + referenceRelation);
+		if (log.isDebugEnabled()) log.debug("Pushing $ref/$rep relation: " + referenceRelation);
 	}
 
-	private static void resetReferenceRelations(ExecutionContext executionContext) {
+	private static void resetRefRepRelations(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFERENCERELATIONS_PER_OPERATION, new ArrayDeque<Relation> ());
+		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION, new ArrayDeque<Relation> ());
+	}
+
+	@SuppressWarnings("unchecked")
+	private static List<XDI3Segment> getCompletedAddresses(ExecutionContext executionContext) {
+
+		return (List<XDI3Segment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE);
+	}
+
+	private static void addCompletedAddress(ExecutionContext executionContext, XDI3Segment completedAddress) {
+
+		getCompletedAddresses(executionContext).add(completedAddress);
+
+		if (log.isDebugEnabled()) log.debug("Added completed address: " + completedAddress);
+	}
+
+	private static void resetCompletedAddresses(ExecutionContext executionContext) {
+
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE, new ArrayList<XDI3Segment> ());
 	}
 }
