@@ -113,6 +113,19 @@ public class XDI3UtilTest extends TestCase {
 		assertEquals(XDI3Util.expandXri(null, null), XDI3Segment.create("()"));
 	}
 
+	public void testConcatXris() throws Exception {
+
+		XDI3Segment[] xris = new XDI3Segment[] {
+				XDI3Segment.create("()"),
+				XDI3Segment.create("=a+b"),
+				XDI3Segment.create("+c"),
+				XDI3Segment.create("()"),
+				XDI3Segment.create("+d+e")
+		};
+
+		assertEquals(XDI3Util.concatXris(xris), XDI3Segment.create("=a+b+c+d+e"));
+	}
+
 	public void testReduceVariables() throws Exception {
 
 		XDI3Segment xri1 = XDI3Segment.create("=a*b+c!d@e$f*g");

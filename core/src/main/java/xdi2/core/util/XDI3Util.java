@@ -1,5 +1,6 @@
 package xdi2.core.util;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 import org.slf4j.Logger;
@@ -361,6 +362,25 @@ public final class XDI3Util {
 			else
 				buffer.append(subSegment.toString());
 		}
+
+		return XDI3Segment.create(buffer.toString());
+	}
+
+	/**
+	 * Concats all segments into a new segment.
+	 */
+	public static XDI3Segment concatXris(XDI3Segment[] xris) {
+
+		if (log.isTraceEnabled()) log.trace("concatXris(" + Arrays.asList(xris) + ")");
+
+		StringBuffer buffer = new StringBuffer();
+
+		for (XDI3Segment xri : xris) {
+
+			if (xri != null && ! XDIConstants.XRI_S_ROOT.equals(xri)) buffer.append(xri.toString());
+		}
+
+		if (buffer.length() == 0) buffer.append("()");
 
 		return XDI3Segment.create(buffer.toString());
 	}

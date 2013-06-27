@@ -329,7 +329,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// execute contributors (address)
 
-		if (this.getContributors().executeContributorsAddress(new XDI3Segment[0], targetAddress, targetAddress, operation, operationMessageResult, executionContext)) {
+		if (this.getContributors().executeContributorsAddress(new XDI3Segment[0], targetAddress, operation, operationMessageResult, executionContext)) {
 
 			return;
 		}
@@ -368,7 +368,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// execute contributors (statement)
 
-		if (this.getContributors().executeContributorsStatement(new XDI3Segment[0], targetStatement, targetStatement, operation, operationMessageResult, executionContext)) {
+		if (this.getContributors().executeContributorsStatement(new XDI3Segment[0], targetStatement, operation, operationMessageResult, executionContext)) {
 
 			return;
 		}
