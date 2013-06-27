@@ -14,11 +14,10 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
-import xdi2.messaging.tests.messagingtarget.AbstractGraphMessagingTargetTest;
 
 public class LinkContractInterceptorTest extends TestCase {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractGraphMessagingTargetTest.class);
+	private static final Logger log = LoggerFactory.getLogger(LinkContractInterceptorTest.class);
 
 	private static final XDIReader autoReader = XDIReaderRegistry.getAuto();
 
