@@ -4,6 +4,7 @@ Known default HTTP ports of various XDI2 projects.
 11110: danube-desktop (DEPRECATED)
 11120: danube-clouds-desktop
 12220: xdi2-xrinet
+12230: xdi2-crsnet
 13330: xdi2-cds
 14440: danube-clouds
 9090: xdi2-connector-template
