@@ -67,9 +67,7 @@ public final class CopyUtil {
 			targetContextNode = targetGraph.getRootContextNode();
 		} else {
 
-			XDI3Segment parentContextNodeXri = contextNode.getContextNode().getXri();
-			ContextNode targetParentContextNode = targetGraph.setDeepContextNode(parentContextNodeXri);
-			targetContextNode = targetParentContextNode.createContextNode(contextNode.getArcXri());
+			targetContextNode = contextNode.setDeepContextNode(contextNode.getXri());
 		}
 
 		copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
@@ -92,8 +90,7 @@ public final class CopyUtil {
 
 		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
 
-		ContextNode targetInnerContextNode = targetContextNode.getContextNode(contextNode.getArcXri());
-		if (targetInnerContextNode == null) targetInnerContextNode = targetContextNode.createContextNode(contextNode.getArcXri());
+		ContextNode targetInnerContextNode = targetContextNode.setContextNode(contextNode.getArcXri());
 
 		copyContextNodeContents(contextNode, targetInnerContextNode, copyStrategy);
 
@@ -134,8 +131,7 @@ public final class CopyUtil {
 
 		if ((relation = copyStrategy.replaceRelation(relation)) == null) return null;
 
-		Relation targetRelation = targetContextNode.getRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
-		if (targetRelation == null) targetRelation = targetContextNode.createRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
+		Relation targetRelation = targetContextNode.setRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
 
 		return targetRelation;
 	}
@@ -174,9 +170,7 @@ public final class CopyUtil {
 
 		if ((literal = copyStrategy.replaceLiteral(literal)) == null) return null;
 
-		Literal targetLiteral = targetContextNode.getLiteral();
-		if (targetLiteral != null) targetLiteral.setLiteralData(literal.getLiteralData());
-		if (targetLiteral == null) targetLiteral = targetContextNode.createLiteral(literal.getLiteralData());
+		Literal targetLiteral = targetContextNode.setLiteral(literal.getLiteralData());
 
 		return targetLiteral;
 	}
