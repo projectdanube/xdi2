@@ -114,7 +114,7 @@ public final class StatementUtil {
 
 		// subject
 
-		subject = statement.getSubject().equals(base) ? XDIConstants.XRI_S_ROOT : XDI3Util.reduceXri(statement.getSubject(), base, variablesInXri, variablesInBase);
+		subject = XDI3Util.reduceXri(statement.getSubject(), base, variablesInXri, variablesInBase);
 		if (subject == null) return null;
 
 		// predicate
@@ -125,7 +125,7 @@ public final class StatementUtil {
 
 		if (statement.isRelationStatement()) {
 
-			object = statement.getObject().equals(base) ? XDIConstants.XRI_S_ROOT : XDI3Util.reduceXri((XDI3Segment) statement.getObject(), base, variablesInXri, variablesInBase);
+			object = XDI3Util.reduceXri((XDI3Segment) statement.getObject(), base, variablesInXri, variablesInBase);
 			if (object == null) return null;
 		} else {
 

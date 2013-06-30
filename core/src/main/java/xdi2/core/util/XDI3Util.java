@@ -334,7 +334,7 @@ public final class XDI3Util {
 			buffer.append(xri.getSubSegment(xriIndex).toString());
 		}
 
-		if (buffer.length() == 0) return null;
+		if (buffer.length() == 0) return XDIConstants.XRI_S_ROOT;
 
 		return XDI3Segment.create(buffer.toString());
 	}
