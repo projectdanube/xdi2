@@ -157,7 +157,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 			ContextNode contextNode = contextNodes.next();
 
-			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri())) {
+			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri()) != null) {
 
 				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
 				return true;
@@ -168,7 +168,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 			ContextNode contextNode = contextNodes.next();
 
-			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri())) {
+			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri()) != null) {
 
 				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
 				return true;

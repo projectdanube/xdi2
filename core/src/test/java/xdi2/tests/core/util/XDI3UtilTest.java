@@ -78,6 +78,9 @@ public class XDI3UtilTest extends TestCase {
 		assertEquals(XDI3Util.startsWith(xri2, XDI3Segment.create("=a*b*c*d"), true, false), XDI3Segment.create("{}*b{}*d"));
 		assertEquals(XDI3Util.startsWith(xri2, XDI3Segment.create("=x*b"), true, false), XDI3Segment.create("{}*b"));
 		assertNull(XDI3Util.startsWith(xri2, XDI3Segment.create("=a*x*c"), true, false));
+
+		assertEquals(XDI3Util.startsWith(XDI3Segment.create("=xxx"), XDI3Segment.create("()")), XDI3Segment.create("()"));
+		assertNull(XDI3Util.startsWith(XDI3Segment.create("()"), XDI3Segment.create("=xxx")));
 	}
 
 	public void testEndsWith() throws Exception {
@@ -112,6 +115,9 @@ public class XDI3UtilTest extends TestCase {
 		assertEquals(XDI3Util.endsWith(xri2, XDI3Segment.create("=a*b*c*d"), true, false), XDI3Segment.create("{}*b{}*d"));
 		assertEquals(XDI3Util.endsWith(xri2, XDI3Segment.create("*y*d"), true, false), XDI3Segment.create("{}*d"));
 		assertNull(XDI3Util.endsWith(xri2, XDI3Segment.create("*y*c*d"), true, false));
+
+		assertEquals(XDI3Util.endsWith(XDI3Segment.create("=xxx"), XDI3Segment.create("()")), XDI3Segment.create("()"));
+		assertNull(XDI3Util.endsWith(XDI3Segment.create("()"), XDI3Segment.create("=xxx")));
 	}
 
 	public void testRemoveStartXri() throws Exception {

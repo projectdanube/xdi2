@@ -112,8 +112,8 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 				// don't follow $ref/$rep relations to target we covered already
 
 				for (XDI3Segment completedAddress : getCompletedAddresses(executionContext)) {
-					
-					if (XDI3Util.startsWith(targetContextNodeXri, completedAddress)) {
+
+					if (XDI3Util.startsWith(targetContextNodeXri, completedAddress) != null) {
 
 						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation to already completed address (" + completedAddress + "): " + refRepRelation);
 
@@ -121,7 +121,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 						continue;
 					}
 				}
-				
+
 				// delete the $ref/$rep relation, and perform a $get on its source
 
 				refRepRelation.delete();

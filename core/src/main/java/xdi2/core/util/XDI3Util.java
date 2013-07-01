@@ -31,6 +31,9 @@ public final class XDI3Util {
 		if (xri == null) throw new NullPointerException();
 		if (start == null) throw new NullPointerException();
 
+		if (start.equals(XDIConstants.XRI_S_ROOT)) return XDIConstants.XRI_S_ROOT;
+		if (xri.equals(XDIConstants.XRI_S_ROOT)) return null;
+
 		int xriIndex = 0, startIndex = 0;
 
 		while (true) {
@@ -108,6 +111,9 @@ public final class XDI3Util {
 
 		if (xri == null) throw new NullPointerException();
 		if (end == null) throw new NullPointerException();
+
+		if (end.equals(XDIConstants.XRI_S_ROOT)) return XDIConstants.XRI_S_ROOT;
+		if (xri.equals(XDIConstants.XRI_S_ROOT)) return null;
 
 		int xriIndex = xri.getNumSubSegments() - 1, endIndex = end.getNumSubSegments() - 1;
 
@@ -284,7 +290,7 @@ public final class XDI3Util {
 
 		if (end.equals(XDIConstants.XRI_S_ROOT)) return xri;
 		if (xri.equals(XDIConstants.XRI_S_ROOT)) return null;
-		
+
 		XDI3Segment endXri = XDI3Util.endsWith(xri, end, variablesInXri, variablesInEnd);
 		if (endXri == null) return null;
 

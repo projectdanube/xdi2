@@ -231,7 +231,7 @@ public abstract class AbstractGraph implements Graph {
 
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = root.getContextNode().createDeepContextNode(XDI3Util.expandXri((XDI3Segment) statementXri.getObject(), relativePart));
+			ContextNode contextNode = root.getContextNode().createDeepContextNode(XDI3Util.concatXris(relativePart, (XDI3Segment) statementXri.getObject()));
 
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
@@ -276,7 +276,7 @@ public abstract class AbstractGraph implements Graph {
 
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = root.getContextNode().setDeepContextNode(XDI3Util.expandXri((XDI3Segment) statementXri.getObject(), relativePart));
+			ContextNode contextNode = root.getContextNode().setDeepContextNode(XDI3Util.concatXris(relativePart, (XDI3Segment) statementXri.getObject()));
 
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {

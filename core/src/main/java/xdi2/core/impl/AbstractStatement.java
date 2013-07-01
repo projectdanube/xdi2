@@ -140,13 +140,7 @@ public abstract class AbstractStatement implements Statement {
 		@Override
 		public XDI3Segment getContextNodeXri() {
 
-			if (XDIConstants.XRI_S_ROOT.equals(this.getSubject())) {
-
-				return (XDI3Segment) this.getObject();
-			} else {
-
-				return XDI3Util.expandXri(this.getSubject(), (XDI3Segment) this.getObject());
-			}
+			return XDI3Util.concatXris(this.getSubject(), (XDI3Segment) this.getObject());
 		}
 
 		@Override

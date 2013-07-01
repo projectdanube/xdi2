@@ -34,7 +34,7 @@ public class GetOperation extends Operation {
 	 */
 	public static boolean isValid(Relation relation) {
 
-		if (! XDI3Util.startsWith(relation.getArcXri(), XDIMessagingConstants.XRI_S_GET)) return false;
+		if (XDI3Util.startsWith(relation.getArcXri(), XDIMessagingConstants.XRI_S_GET) == null) return false;
 		if (! XdiEntitySingleton.createArcXri(XDIMessagingConstants.XRI_SS_DO).equals(relation.getContextNode().getArcXri())) return false;
 
 		return true;

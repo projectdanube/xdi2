@@ -27,18 +27,18 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 	@Override
 	public XDI3Segment getContextNodeXri(XDI3Segment xri) {
 
-		if (XDI3Util.startsWith(xri, XRI_MSG)) {
+		if (XDI3Util.startsWith(xri, XRI_MSG) != null) {
 
-			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_MSG);
+			XDI3Segment endXri = XDI3Util.removeStartXri(xri, XRI_MSG);
 
-			return XDI3Util.expandXri(reducedXri, this.getMessage().getContextNode().getXri());
+			return XDI3Util.concatXris(this.getMessage().getContextNode().getXri(), endXri);
 		}
 
-		if (XDI3Util.startsWith(xri, XRI_FROM)) {
+		if (XDI3Util.startsWith(xri, XRI_FROM) != null) {
 
-			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_FROM);
+			XDI3Segment endXri = XDI3Util.removeStartXri(xri, XRI_FROM);
 
-			return XDI3Util.expandXri(reducedXri, this.getMessage().getSender());
+			return XDI3Util.concatXris(this.getMessage().getSender(), endXri);
 		}
 
 		return super.getContextNodeXri(xri);
@@ -47,9 +47,9 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 	@Override
 	public ContextNode getContextNode(XDI3Segment xri) {
 
-		if (XDI3Util.startsWith(xri, XRI_MSG)) {
+		if (XDI3Util.startsWith(xri, XRI_MSG) != null) {
 
-			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_MSG);
+			XDI3Segment reducedXri = XDI3Util.removeStartXri(xri, XRI_MSG);
 
 			ContextNode contextNode = this.getMessage().getContextNode();
 			if (reducedXri != null) contextNode = contextNode.getDeepContextNode(reducedXri);
@@ -57,9 +57,9 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 			return contextNode;
 		}
 
-		if (XDI3Util.startsWith(xri, XRI_FROM)) {
+		if (XDI3Util.startsWith(xri, XRI_FROM) != null) {
 
-			XDI3Segment reducedXri = XDI3Util.reduceXri(xri, XRI_FROM);
+			XDI3Segment reducedXri = XDI3Util.removeStartXri(xri, XRI_FROM);
 
 			ContextNode contextNode = this.getGraph().getDeepContextNode(this.getMessage().getSender());
 			if (reducedXri != null) contextNode = contextNode.getDeepContextNode(reducedXri);
