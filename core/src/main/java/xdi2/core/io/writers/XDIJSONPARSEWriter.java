@@ -236,7 +236,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 		XDI3Segment innerRootSubject = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
 		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
 
-		XDI3Statement reducedStatementXri = StatementUtil.reduceStatement(statementXri, XDI3Segment.create("" + subjectFirstSubSegment));
+		XDI3Statement reducedStatementXri = StatementUtil.removeStartXriStatement(statementXri, XDI3Segment.create(subjectFirstSubSegment));
 		if (reducedStatementXri == null) return statementXri;
 
 		return XDI3Statement.create("" + innerRootSubject + "/" + innerRootPredicate + "/(" + transformStatementInInnerRoot(reducedStatementXri) + ")");
