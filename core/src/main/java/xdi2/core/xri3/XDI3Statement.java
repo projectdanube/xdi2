@@ -67,7 +67,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 		if (this.isContextNodeStatement()) {
 
-			return XDI3Util.expandXri((XDI3Segment) this.getObject(), this.getSubject());
+			return XDI3Util.concatXris(this.getSubject(), (XDI3Segment) this.getObject());
 		} else {
 
 			return this.getSubject();

@@ -166,7 +166,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 
 		if (log.isTraceEnabled()) log.trace("getRelativePart(" + xri + ")");
 
-		return XDI3Util.reduceXri(xri, this.getContextNode().getXri());
+		return XDI3Util.removeStartXri(xri, this.getContextNode().getXri());
 	}
 
 	@Override
@@ -174,7 +174,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 
 		if (log.isTraceEnabled()) log.trace("createRelativeStatement(" + statementXri + ")");
 
-		statementXri = StatementUtil.expandStatement(statementXri, this.getContextNode().getXri());
+		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri);
 
 		return this.getContextNode().getGraph().createStatement(statementXri);
 	}
@@ -184,7 +184,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 
 		if (log.isTraceEnabled()) log.trace("setRelativeStatement(" + statementXri + ")");
 
-		statementXri = StatementUtil.expandStatement(statementXri, this.getContextNode().getXri());
+		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri);
 
 		return this.getContextNode().getGraph().setStatement(statementXri);
 	}
@@ -194,7 +194,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 
 		if (log.isTraceEnabled()) log.trace("getRelativeStatement(" + statementXri + ")");
 
-		statementXri = StatementUtil.expandStatement(statementXri, this.getContextNode().getXri());
+		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri);
 
 		return this.getContextNode().getGraph().getStatement(statementXri);
 	}
@@ -204,7 +204,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 
 		if (log.isTraceEnabled()) log.trace("containsRelativeStatement(" + statementXri + ")");
 
-		statementXri = StatementUtil.expandStatement(statementXri, this.getContextNode().getXri());
+		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri);
 
 		return this.getContextNode().getGraph().containsStatement(statementXri);
 	}
@@ -227,7 +227,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 			@Override
 			public XDI3Statement map(Statement statement) {
 
-				return StatementUtil.reduceStatement(statement.getXri(), XdiAbstractRoot.this.getContextNode().getXri());
+				return StatementUtil.removeStartXriStatement(statement.getXri(), XdiAbstractRoot.this.getContextNode().getXri());
 			}
 		};
 	}
