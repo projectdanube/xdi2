@@ -4,6 +4,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 import xdi2.messaging.tests.basic.BasicTest;
 import xdi2.messaging.tests.http.AcceptHeaderTest;
+import xdi2.messaging.tests.target.contributor.ContributorTest;
 import xdi2.messaging.tests.target.impl.graph.BDBGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.FileGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.MapGraphMessagingTargetTest;
@@ -26,6 +27,7 @@ public class AllTests {
 		suite.addTestSuite(FileGraphMessagingTargetTest.class);
 		suite.addTestSuite(LinkContractInterceptorTest.class);
 		suite.addTestSuite(AuthenticationSecretTokenInterceptorTest.class);
+		suite.addTestSuite(ContributorTest.class);
 		//$JUnit-END$
 		return suite;
 	}

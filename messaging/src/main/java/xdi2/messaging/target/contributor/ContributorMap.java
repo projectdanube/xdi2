@@ -2,6 +2,7 @@ package xdi2.messaging.target.contributor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
@@ -117,16 +119,16 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 	public boolean executeContributorsAddress(XDI3Segment[] contributorChainXris, XDI3Segment relativeTargetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (relativeTargetAddress == null) return false;
-
 		// find an address with contributors
 
 		XDI3Segment relativeContextNodeXri = relativeTargetAddress;
 
-		XDI3Segment contributorXris[] = this.findMatchingContributorXri(relativeContextNodeXri);
-		if (contributorXris.length == 0) contributorXris = this.findHigherContributorXri(relativeContextNodeXri);
-		if (contributorXris.length == 0) contributorXris = this.findLowerContributorXris(relativeContextNodeXri);
-		if (contributorXris.length == 0) return false;
+		List<ContributorMatch> contributorXris = new ArrayList<ContributorMatch> ();
+		contributorXris.addAll(this.findHigherContributors(relativeContextNodeXri));
+		contributorXris.addAll(this.findLowerContributorXris(relativeContextNodeXri));
+		if (contributorXris.size() == 0) return false;
+
+		if (log.isDebugEnabled()) log.debug("For relative target address: " + relativeTargetAddress + " found contributor XRIs: " + contributorXris);
 
 		for (XDI3Segment contributorXri : contributorXris) {
 
@@ -134,9 +136,9 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetAddress;
 
 			XDI3Segment[] nextContributorChainXris = Arrays.copyOf(contributorChainXris, contributorChainXris.length + 1);
-			if (contributorXri.getNumSubSegments() == relativeContextNodeXri.getNumSubSegments()) nextContributorChainXris[nextContributorChainXris.length - 1] = relativeContextNodeXri;
-			if (contributorXri.getNumSubSegments() < relativeContextNodeXri.getNumSubSegments()) nextContributorChainXris[nextContributorChainXris.length - 1] = XDI3Util.parentXri(relativeContextNodeXri, contributorXri.getNumSubSegments());
-			if (contributorXri.getNumSubSegments() > relativeContextNodeXri.getNumSubSegments()) nextContributorChainXris[nextContributorChainXris.length - 1] = contributorXri;
+			if (nextRelativeContextNodeXri == null) nextContributorChainXris[nextContributorChainXris.length - 1] = contributorXri;
+			else if (nextRelativeContextNodeXri.equals(XDIConstants.XRI_S_ROOT)) nextContributorChainXris[nextContributorChainXris.length - 1] = relativeContextNodeXri;
+			else nextContributorChainXris[nextContributorChainXris.length - 1] = XDI3Util.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
 
 			XDI3Segment nextContributorChainXri = XDI3Util.concatXris(nextContributorChainXris);
 
@@ -194,26 +196,26 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 	public boolean executeContributorsStatement(XDI3Segment contributorChainXris[], XDI3Statement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (relativeTargetStatement == null) return false;
-
 		// find an address with contributors
 
 		XDI3Segment relativeContextNodeXri = relativeTargetStatement.getContextNodeXri();
 
-		XDI3Segment contributorXris[] = this.findMatchingContributorXri(relativeContextNodeXri);
-		if (contributorXris.length == 0) contributorXris = this.findHigherContributorXri(relativeContextNodeXri);
-		if (contributorXris.length == 0) contributorXris = this.findLowerContributorXris(relativeContextNodeXri);
-		if (contributorXris.length == 0) return false;
+		List<XDI3Segment> contributorXris = new ArrayList<XDI3Segment> ();
+		contributorXris.addAll(this.findHigherContributors(relativeContextNodeXri));
+		contributorXris.addAll(this.findLowerContributorXris(relativeContextNodeXri));
+		if (contributorXris.size() == 0) return false;
+
+		if (log.isDebugEnabled()) log.debug("For relative target statement: " + relativeTargetStatement + " found contributor XRIs: " + contributorXris);
 
 		for (XDI3Segment contributorXri : contributorXris) {
 
 			XDI3Statement nextRelativeTargetStatement = StatementUtil.reduceStatement(relativeTargetStatement, contributorXri, false, true);
-			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement == null ? null : nextRelativeTargetStatement.getContextNodeXri();
+			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement.getContextNodeXri();
 
 			XDI3Segment[] nextContributorChainXris = Arrays.copyOf(contributorChainXris, contributorChainXris.length + 1);
-			if (contributorXri.getNumSubSegments() == relativeContextNodeXri.getNumSubSegments()) nextContributorChainXris[nextContributorChainXris.length - 1] = relativeContextNodeXri;
-			if (contributorXri.getNumSubSegments() < relativeContextNodeXri.getNumSubSegments()) nextContributorChainXris[nextContributorChainXris.length - 1] = XDI3Util.parentXri(relativeContextNodeXri, contributorXri.getNumSubSegments());
-			if (contributorXri.getNumSubSegments() > relativeContextNodeXri.getNumSubSegments()) nextContributorChainXris[nextContributorChainXris.length - 1] = contributorXri;
+			if (nextRelativeContextNodeXri == null) nextContributorChainXris[nextContributorChainXris.length - 1] = contributorXri;
+			else if (nextRelativeContextNodeXri.equals(XDIConstants.XRI_S_ROOT)) nextContributorChainXris[nextContributorChainXris.length - 1] = relativeContextNodeXri;
+			else nextContributorChainXris[nextContributorChainXris.length - 1] = XDI3Util.parentXri(relativeContextNodeXri, - nextRelativeContextNodeXri.getNumSubSegments());
 
 			XDI3Segment nextContributorChainXri = XDI3Util.concatXris(nextContributorChainXris);
 
@@ -273,24 +275,37 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 	 * Methods for finding contributors
 	 */
 
-	public XDI3Segment[] findMatchingContributorXri(XDI3Segment contextNodeXri) {
+	/*	public XDI3Segment[] findMatchingContributorXri(XDI3Segment contextNodeXri) {
 
+		if (contextNodeXri == null) throw new NullPointerException();
 		if (this.isEmpty()) return new XDI3Segment[0];
 
-		return this.containsKey(contextNodeXri) ? new XDI3Segment[] { contextNodeXri } : new XDI3Segment[0];
-	}
+		XDI3Segment matchingContributorXri = this.containsKey(contextNodeXri) ? contextNodeXri : null;
 
-	public XDI3Segment[] findHigherContributorXri(XDI3Segment contextNodeXri) {
+		if (matchingContributorXri == null) {
 
-		if (this.isEmpty()) return new XDI3Segment[0];
+			if (log.isDebugEnabled()) log.debug("Finding matching contributor XRI for " + contextNodeXri + ": No match.");
+		} else {
+
+			if (log.isDebugEnabled()) log.debug("Finding matching contributor XRI for " + contextNodeXri + ": Match at " + matchingContributorXri);
+		}
+
+		return matchingContributorXri != null ? new XDI3Segment[] { matchingContributorXri } : new XDI3Segment[0];
+	}*/
+
+	public List<ContributorMatch> findHigherContributors(XDI3Segment contextNodeXri) {
+
+		if (contextNodeXri == null) return new ArrayList<ContributorMatch> ();
+		if (this.isEmpty()) return new ArrayList<ContributorMatch> ();
 
 		XDI3Segment higherContributorXri = null;
+		List<ContributorMatch> higherContributorMatches = new ArrayList<ContributorMatch> ();
 
-		for (XDI3Segment contributorXri : this.keySet()) {
+		for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.entrySet()) {
 
-			if (contributorXri.equals(contextNodeXri)) continue;
+			XDI3Segment contributorXri = XDI3Util.startsWith(contextNodeXri, contributorEntry.getKey(), false, true);
 
-			if (XDI3Util.startsWith(contextNodeXri, contributorXri, false, true)) {
+			if (contributorXri != null) {
 
 				if (higherContributorXri == null || contributorXri.getNumSubSegments() > higherContributorXri.getNumSubSegments()) {
 
@@ -299,30 +314,37 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 			}
 		}
 
-		if (higherContributorXri == null) {
+		if (higherContributorMatches.isEmpty()) {
 
-			if (log.isDebugEnabled()) log.debug("Finding higher contributor XRI for " + contextNodeXri + ": No match.");
+			if (log.isDebugEnabled()) log.debug("Finding higher contributors for " + contextNodeXri + ": No match.");
 		} else {
 
-			if (log.isDebugEnabled()) log.debug("Finding higher contributor XRI for " + contextNodeXri + ": Match at " + higherContributorXri);
+			if (log.isDebugEnabled()) log.debug("Finding higher contributors for " + contextNodeXri + ": Match at " + higherContributorMatches);
 		}
 
-		return higherContributorXri != null ? new XDI3Segment[] { higherContributorXri } : new XDI3Segment[0];
+		return higherContributorMatches;
 	}
 
-	public XDI3Segment[] findLowerContributorXris(XDI3Segment contextNodeXri) {
+	public List<XDI3Segment> findLowerContributorXris(XDI3Segment contextNodeXri) {
 
-		if (this.isEmpty()) return new XDI3Segment[0];
+		if (contextNodeXri == null) contextNodeXri = XDIConstants.XRI_S_ROOT;
+		if (this.isEmpty()) return new ArrayList<XDI3Segment> ();
 
 		List<XDI3Segment> lowerContributorXris = new ArrayList<XDI3Segment> ();
 
-		for (XDI3Segment contributorXri : this.keySet()) {
+		if (XDIConstants.XRI_S_ROOT.equals(contextNodeXri)) {
 
-			if (contributorXri.equals(contextNodeXri)) continue;
+			lowerContributorXris.addAll(this.keySet());
+		} else {
 
-			if (XDI3Util.startsWith(contributorXri, contextNodeXri, true, false)) {
+			for (XDI3Segment contributorXri : this.keySet()) {
 
-				lowerContributorXris.add(contributorXri);
+				if (contributorXri.equals(contextNodeXri)) continue;
+
+				if (XDI3Util.startsWith(contributorXri, contextNodeXri, true, false)) {
+
+					lowerContributorXris.add(contributorXri);
+				}
 			}
 		}
 
@@ -334,7 +356,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 			if (log.isDebugEnabled()) log.debug("Finding lower contributor XRI for " + contextNodeXri + ": Match at " + lowerContributorXris);
 		}
 
-		return lowerContributorXris.toArray(new XDI3Segment[lowerContributorXris.size()]);
+		return lowerContributorXris;
 	}
 
 	/*
@@ -379,5 +401,37 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 		// done
 
 		return contributorMap;
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	private static class ContributorMatch {
+
+		private XDI3Segment contributorXri;
+		private Contributor contributor;
+
+		public ContributorMatch(XDI3Segment contributorXri, Contributor contributor) {
+
+			this.contributorXri = contributorXri;
+			this.contributor = contributor;
+		}
+
+		public XDI3Segment getContributorXri() {
+
+			return this.contributorXri;
+		}
+
+		public Contributor getContributor() {
+
+			return this.contributor;
+		}
+
+		@Override
+		public String toString() {
+
+			return this.contributorXri;
+		}
 	}
 }
