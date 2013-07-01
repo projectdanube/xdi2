@@ -28,16 +28,16 @@ public class ContributorTest extends TestCase {
 
 
 	static String[] targetStrings = new String[] {
-		"(+con)=a",
+/*		"(+con)=a",
 		"(+con)=a<+b>",
 		"(+con)=a<+b>&",
 		"(+con)=x",
 		"(+con)=d",
 		"(+con)<+email>",
-		"(+con)<+email>&",
+		"(+con)<+email>&",*/
 		"()",
-		"(+con)",
-		"(+test)"
+/*		"(+con)",
+		"(+test)"*/
 	};
 
 	public void testContributor() throws Exception {
@@ -75,7 +75,7 @@ public class ContributorTest extends TestCase {
 
 			messagingTarget.execute(envelope, result, null);
 
-			log.info(result.getGraph().toString());
+			log.info("Result: " + result.getGraph().toString());
 
 			// validate result
 

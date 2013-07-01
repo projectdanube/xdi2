@@ -192,6 +192,8 @@ public final class XDI3Util {
 
 		if (log.isTraceEnabled()) log.trace("parentXri(" + xri + "," + numSubSegments + ")");
 
+		if (xri == null) throw new NullPointerException();
+
 		StringBuilder buffer = new StringBuilder();
 
 		if (numSubSegments > 0) {
@@ -219,6 +221,8 @@ public final class XDI3Util {
 
 		if (log.isTraceEnabled()) log.trace("localXri(" + xri + "," + numSubSegments + ")");
 
+		if (xri == null) throw new NullPointerException();
+		
 		StringBuilder buffer = new StringBuilder();
 
 		if (numSubSegments > 0) {
