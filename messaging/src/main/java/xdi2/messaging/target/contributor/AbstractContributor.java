@@ -5,11 +5,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.VariableUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.AddOperation;
@@ -24,6 +28,8 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 
 public abstract class AbstractContributor implements Contributor {
+
+	private static final Logger log = LoggerFactory.getLogger(AbstractContributor.class);
 
 	private ContributorMap contributors;
 
@@ -390,9 +396,11 @@ public abstract class AbstractContributor implements Contributor {
 
 		MessageResult tempMessageResult = new MessageResult();
 
-		this.getContext(contributorXris, contributorsXri, contextNodeXri, operation, tempMessageResult, executionContext);
+		boolean handled = this.getContext(contributorXris, contributorsXri, contextNodeXri, operation, tempMessageResult, executionContext);
 
-		ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(contextNodeXri);
+		if (log.isDebugEnabled()) log.debug("Temp result: " + tempMessageResult);
+
+		ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(XDI3Util.concatXris(contributorsXri, contextNodeXri));
 		if (tempContextNode == null) return false;
 
 		if (VariableUtil.isVariable(targetContextNodeXri)) {
@@ -416,7 +424,7 @@ public abstract class AbstractContributor implements Contributor {
 			CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
 		}
 
-		return false;
+		return handled;
 	}
 
 	public boolean addRelation(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -448,20 +456,22 @@ public abstract class AbstractContributor implements Contributor {
 
 		MessageResult tempMessageResult = new MessageResult();
 
-		this.getContext(contributorXris, contributorsXri, contextNodeXri, operation, tempMessageResult, executionContext);
+		boolean handled = this.getContext(contributorXris, contributorsXri, contextNodeXri, operation, tempMessageResult, executionContext);
 
-		ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(contextNodeXri);
+		if (log.isDebugEnabled()) log.debug("Temp result: " + tempMessageResult);
+
+		ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(XDI3Util.concatXris(contributorsXri, contextNodeXri));
 		if (tempContextNode == null) return false;
 
 		Literal tempLiteral = tempContextNode.getLiteral();
 		if (tempLiteral == null) return false;
 
-		if (literalData.isEmpty() || literalData.equals(tempLiteral.getLiteralData())) {
+		if (literalData.equals(tempLiteral.getLiteralData())) {
 
 			CopyUtil.copyLiteral(tempLiteral, messageResult.getGraph(), null);
 		}
 
-		return false;
+		return handled;
 	}
 
 	public boolean addLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, String literalData, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {

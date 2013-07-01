@@ -128,6 +128,8 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		if (log.isDebugEnabled()) log.debug("For relative target address: " + relativeTargetAddress + " found contributors: " + contributorFounds);
 
+		boolean result = false;
+
 		for (ContributorFound contributorFound : contributorFounds) {
 
 			XDI3Segment contributorXri = contributorFound.getContributorXri();
@@ -172,7 +174,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 				if (handled) {
 
 					if (log.isDebugEnabled()) log.debug("Address has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
-					return true;
+					result = true;
 				}
 			} catch (Exception ex) {
 
@@ -185,7 +187,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		// done
 
-		return false;
+		return result;
 	}
 
 	public boolean executeContributorsStatement(XDI3Segment contributorChainXris[], XDI3Statement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -200,6 +202,8 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 		if (contributorFounds.size() == 0) return false;
 
 		if (log.isDebugEnabled()) log.debug("For relative target statement: " + relativeTargetStatement + " found contributors: " + contributorFounds);
+
+		boolean result = false;
 
 		for (ContributorFound contributorFound : contributorFounds) {
 
@@ -245,7 +249,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 				if (handled) {
 
 					if (log.isDebugEnabled()) log.debug("Statement has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
-					return true;
+					result = true;
 				}
 			} catch (Exception ex) {
 
@@ -258,7 +262,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		// done
 
-		return false;
+		return result;
 	}
 
 	/*

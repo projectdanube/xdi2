@@ -1,9 +1,10 @@
 package xdi2.messaging.target.interceptor.impl;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,16 +112,20 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 
 				// don't follow $ref/$rep relations to target we covered already
 
+				boolean skip = false;
+
 				for (XDI3Segment completedAddress : getCompletedAddresses(executionContext)) {
 
 					if (XDI3Util.startsWith(targetContextNodeXri, completedAddress) != null) {
 
-						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation to already completed address (" + completedAddress + "): " + refRepRelation);
+						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation to " + targetContextNodeXri + " because of already completed address (" + completedAddress + "): " + refRepRelation);
 
 						if (XDIDictionaryConstants.XRI_S_REP.equals(refRepRelation.getArcXri())) refRepRelation.delete();
-						continue;
+						skip = true;
 					}
 				}
+
+				if (skip) continue;
 
 				// delete the $ref/$rep relation, and perform a $get on its source
 
@@ -393,9 +398,9 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 	}
 
 	@SuppressWarnings("unchecked")
-	private static List<XDI3Segment> getCompletedAddresses(ExecutionContext executionContext) {
+	private static Set<XDI3Segment> getCompletedAddresses(ExecutionContext executionContext) {
 
-		return (List<XDI3Segment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE);
+		return (Set<XDI3Segment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE);
 	}
 
 	private static void addCompletedAddress(ExecutionContext executionContext, XDI3Segment completedAddress) {
@@ -407,6 +412,6 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 
 	private static void resetCompletedAddresses(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE, new ArrayList<XDI3Segment> ());
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE, new HashSet<XDI3Segment> ());
 	}
 }
