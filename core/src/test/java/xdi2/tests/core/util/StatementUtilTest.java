@@ -111,40 +111,40 @@ public class StatementUtilTest extends TestCase {
 		assertEquals(literalStatement, literalStatement3);
 	}
 
-	public void testReduceStatement() throws Exception {
+	public void testremoveStartXriStatement() throws Exception {
 
 		XDI3Statement contextStatement = XDI3Statement.create("=markus+full/()/<+name>");
 
-		XDI3Statement reducedContextStatement = StatementUtil.reduceStatement(contextStatement, XDI3Segment.create("=markus"));
+		XDI3Statement reducedContextStatement = StatementUtil.removeStartXriStatement(contextStatement, XDI3Segment.create("=markus"));
 
 		assertEquals(reducedContextStatement, XDI3Statement.create("+full/()/<+name>"));
 		assertEquals(reducedContextStatement.getSubject(), XDI3Segment.create("+full"));
 		assertEquals(reducedContextStatement.getPredicate(), XDI3Segment.create("()"));
 		assertEquals(reducedContextStatement.getObject(), "<+name>");
 
-		assertNull(StatementUtil.reduceStatement(reducedContextStatement, XDI3Segment.create("{}"), false, true));
+		assertEquals(StatementUtil.removeStartXriStatement(reducedContextStatement, XDI3Segment.create("{}"), false, true), XDI3Statement.create("()/()/<+name>"));
 
 		XDI3Statement literalStatement = XDI3Statement.create("=markus<+name>&/&/\"Markus Sabadello\"");
 
-		XDI3Statement reducedLiteralStatement = StatementUtil.reduceStatement(literalStatement, XDI3Segment.create("=markus"));
+		XDI3Statement reducedLiteralStatement = StatementUtil.removeStartXriStatement(literalStatement, XDI3Segment.create("=markus"));
 
 		assertEquals(reducedLiteralStatement, XDI3Statement.create("<+name>&/&/\"Markus Sabadello\""));
 		assertEquals(reducedLiteralStatement.getSubject(), XDI3Segment.create("<+name>&"));
 		assertEquals(reducedLiteralStatement.getPredicate(), XDI3Segment.create("&"));
 		assertEquals(reducedLiteralStatement.getObject(), "Markus Sabadello");
 
-		assertEquals(StatementUtil.reduceStatement(reducedLiteralStatement, XDI3Segment.create("{}"), false, true), XDI3Statement.create("&/&/\"Markus Sabadello\""));
-		assertNull(StatementUtil.reduceStatement(reducedLiteralStatement, XDI3Segment.create("{}{}"), false, true));
+		assertEquals(StatementUtil.removeStartXriStatement(reducedLiteralStatement, XDI3Segment.create("{}"), false, true), XDI3Statement.create("&/&/\"Markus Sabadello\""));
+		assertEquals(StatementUtil.removeStartXriStatement(reducedLiteralStatement, XDI3Segment.create("{}{}"), false, true), XDI3Statement.create("()/&/\"Markus Sabadello\""));
 
 		XDI3Statement relationStatement = XDI3Statement.create("=markus<+name>/$ref/=markus+full<+name>");
 
-		XDI3Statement reducedRelationStatement = StatementUtil.reduceStatement(relationStatement, XDI3Segment.create("=markus"));
+		XDI3Statement reducedRelationStatement = StatementUtil.removeStartXriStatement(relationStatement, XDI3Segment.create("=markus"));
 
 		assertEquals(reducedRelationStatement, XDI3Statement.create("<+name>/$ref/+full<+name>"));
 		assertEquals(reducedRelationStatement.getSubject(), XDI3Segment.create("<+name>"));
 		assertEquals(reducedRelationStatement.getPredicate(), XDI3Segment.create("$ref"));
 		assertEquals(reducedRelationStatement.getObject(), "+full<+name>");
 
-		assertNull(StatementUtil.reduceStatement(reducedRelationStatement, XDI3Segment.create("{}"), false, true));
+		assertEquals(StatementUtil.removeStartXriStatement(reducedRelationStatement, XDI3Segment.create("{}"), false, true), XDI3Statement.create("()/$ref/<+name>"));
 	}
 }

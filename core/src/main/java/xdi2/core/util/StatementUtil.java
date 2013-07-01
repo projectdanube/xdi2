@@ -86,27 +86,27 @@ public final class StatementUtil {
 	}
 
 	/**
-	 * Creates an expanded statement from a base XRI.
-	 * E.g. for *c*d/!/... and =a*b, this returns =a*b*c*d/!/...
+	 * Concats an XRI and a statement into a new statement.
+	 * E.g. for *c*d&/&/... and =a*b, this returns =a*b*c*d&/&/...
 	 */
-	public static XDI3Statement expandStatement(XDI3Statement statement, XDI3Segment base) {
+	public static XDI3Statement concatXriStatement(XDI3Segment xri, XDI3Statement statement) {
 
-		if (log.isTraceEnabled()) log.trace("expandStatement(" + statement + "," + base + ")");
+		if (log.isTraceEnabled()) log.trace("concatXriStatement(" + xri + "," + statement + ")");
 
-		XDI3Segment subject = XDI3Util.expandXri(statement.getSubject(), base);
+		XDI3Segment subject = XDI3Util.concatXris(xri, statement.getSubject());
 		XDI3Segment predicate = statement.getPredicate();
-		Object object = (statement.isRelationStatement() && ! statement.hasInnerRootStatement()) ? XDI3Util.expandXri((XDI3Segment) statement.getObject(), base) : statement.getObject();
+		Object object = (statement.isRelationStatement() && ! statement.hasInnerRootStatement()) ? XDI3Util.concatXris(xri, (XDI3Segment) statement.getObject()) : statement.getObject();
 
 		return fromComponents(subject, predicate, object);
 	}
 
 	/**
-	 * Creates a reduced statement from a base XRI.
-	 * E.g. for =a*b*c*d/!/... and =a*b, this returns *c*d/!/...
+	 * Removes a start XRI from a statement.
+	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
 	 */
-	public static XDI3Statement reduceStatement(XDI3Statement statement, XDI3Segment base, boolean variablesInXri, boolean variablesInBase) {
+	public static XDI3Statement removeStartXriStatement(XDI3Statement statement, XDI3Segment start, boolean variablesInXri, boolean variablesInStart) {
 
-		if (log.isTraceEnabled()) log.trace("reduceStatement(" + statement + "," + base + "," + variablesInXri + "," + variablesInBase + ")");
+		if (log.isTraceEnabled()) log.trace("removeStartXriStatement(" + statement + "," + start + "," + variablesInXri + "," + variablesInStart + ")");
 
 		XDI3Segment subject;
 		XDI3Segment predicate;
@@ -114,7 +114,7 @@ public final class StatementUtil {
 
 		// subject
 
-		subject = XDI3Util.reduceXri(statement.getSubject(), base, variablesInXri, variablesInBase);
+		subject = XDI3Util.removeStartXri(statement.getSubject(), start, variablesInXri, variablesInStart);
 		if (subject == null) return null;
 
 		// predicate
@@ -125,7 +125,7 @@ public final class StatementUtil {
 
 		if (statement.isRelationStatement()) {
 
-			object = XDI3Util.reduceXri((XDI3Segment) statement.getObject(), base, variablesInXri, variablesInBase);
+			object = XDI3Util.removeStartXri((XDI3Segment) statement.getObject(), start, variablesInXri, variablesInStart);
 			if (object == null) return null;
 		} else {
 
@@ -136,12 +136,12 @@ public final class StatementUtil {
 	}
 
 	/**
-	 * Creates a reduced statement from a base XRI.
-	 * E.g. for =a*b*c*d/!/... and =a*b, this returns *c*d/!/...
+	 * Removes a start XRI from a statement.
+	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
 	 */
-	public static XDI3Statement reduceStatement(XDI3Statement statement, XDI3Segment base) {
+	public static XDI3Statement removeStartXriStatement(XDI3Statement statement, XDI3Segment start) {
 
-		return reduceStatement(statement, base, false, false);
+		return removeStartXriStatement(statement, start, false, false);
 	}
 
 	public static String statementObjectToString(Object object) {
