@@ -61,7 +61,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 * Returns the underlying subject context node of this XDI inner root.
 	 * @return The subject context node of this XDI inner root.
 	 */
-	public ContextNode getSubjectContexNode() {
+	public ContextNode getSubjectContextNode() {
 
 		XDI3Segment subject = XdiInnerRoot.getSubjectOfInnerRootXri(this.getContextNode().getArcXri());
 		if (subject == null) return null;
@@ -84,7 +84,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 		XDI3Segment predicate = XdiInnerRoot.getPredicateOfInnerRootXri(this.getContextNode().getArcXri());
 		if (predicate == null) return null;
 
-		ContextNode subjectContextNode = this.getSubjectContexNode();
+		ContextNode subjectContextNode = this.getSubjectContextNode();
 		if (subjectContextNode == null) return null;
 
 		Relation predicateRelation = subjectContextNode.getRelation(predicate, this.getContextNode().getXri());
