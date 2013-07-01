@@ -49,20 +49,20 @@ public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext
 
 		if (XDI3Util.startsWith(xri, XRI_MSG) != null) {
 
-			XDI3Segment reducedXri = XDI3Util.removeStartXri(xri, XRI_MSG);
+			XDI3Segment endXri = XDI3Util.removeStartXri(xri, XRI_MSG);
 
 			ContextNode contextNode = this.getMessage().getContextNode();
-			if (reducedXri != null) contextNode = contextNode.getDeepContextNode(reducedXri);
+			if (contextNode != null && endXri != null) contextNode = contextNode.getDeepContextNode(endXri);
 
 			return contextNode;
 		}
 
 		if (XDI3Util.startsWith(xri, XRI_FROM) != null) {
 
-			XDI3Segment reducedXri = XDI3Util.removeStartXri(xri, XRI_FROM);
+			XDI3Segment endXri = XDI3Util.removeStartXri(xri, XRI_FROM);
 
 			ContextNode contextNode = this.getGraph().getDeepContextNode(this.getMessage().getSender());
-			if (reducedXri != null) contextNode = contextNode.getDeepContextNode(reducedXri);
+			if (contextNode != null && endXri != null) contextNode = contextNode.getDeepContextNode(endXri);
 
 			return contextNode;
 		}

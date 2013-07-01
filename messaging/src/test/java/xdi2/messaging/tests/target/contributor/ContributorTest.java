@@ -26,18 +26,17 @@ public class ContributorTest extends TestCase {
 					"(+con)<+email>&/&/\"val\"" + "\n" + 
 					"(+test)=markus/+friend/(+test)=animesh" + "\n";
 
-
 	static String[] targetStrings = new String[] {
-/*		"(+con)=a",
+		"(+con)=a",
 		"(+con)=a<+b>",
 		"(+con)=a<+b>&",
 		"(+con)=x",
 		"(+con)=d",
 		"(+con)<+email>",
-		"(+con)<+email>&",*/
+		"(+con)<+email>&",
 		"()",
-/*		"(+con)",
-		"(+test)"*/
+		"(+con)",
+		"(+test)"
 	};
 
 	public void testContributor() throws Exception {
