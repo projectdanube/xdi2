@@ -656,7 +656,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		try {
 
-			markus.createDeepContextNode(XDI3Segment.create("()"));
+			markus.createContextNode(XDI3SubSegment.create("()"));
 			fail();
 		} catch (Xdi2GraphException ex){
 
