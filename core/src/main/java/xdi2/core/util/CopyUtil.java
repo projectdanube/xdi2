@@ -67,7 +67,7 @@ public final class CopyUtil {
 			targetContextNode = targetGraph.getRootContextNode();
 		} else {
 
-			targetContextNode = contextNode.setDeepContextNode(contextNode.getXri());
+			targetContextNode = targetGraph.setDeepContextNode(contextNode.getXri());
 		}
 
 		copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
