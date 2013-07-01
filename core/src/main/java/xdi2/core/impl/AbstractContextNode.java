@@ -137,6 +137,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public ContextNode createDeepContextNode(XDI3Segment contextNodeArcXris) {
 
+		if (contextNodeArcXris == null) return this;
+		if (XDIConstants.XRI_S_ROOT.equals(contextNodeArcXris)) return this;
+
 		XDI3SubSegment contextNodeArcXri = XDI3Util.localXri(contextNodeArcXris, 1).getFirstSubSegment();
 		contextNodeArcXris = XDI3Util.parentXri(contextNodeArcXris, -1);
 
@@ -162,7 +165,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	public ContextNode setDeepContextNode(XDI3Segment contextNodeArcXris) {
 
 		if (contextNodeArcXris == null) return this;
-		if (XDIConstants.XRI_S_ROOT.equals(contextNodeArcXris) && this.isRootContextNode()) return this;
+		if (XDIConstants.XRI_S_ROOT.equals(contextNodeArcXris)) return this;
 
 		ContextNode contextNode = this;
 
