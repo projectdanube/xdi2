@@ -104,9 +104,9 @@ public final class StatementUtil {
 	 * Removes a start XRI from a statement.
 	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
 	 */
-	public static XDI3Statement removeStartXriStatement(XDI3Statement statement, XDI3Segment start, boolean variablesInXri, boolean variablesInStart) {
+	public static XDI3Statement removeStartXriStatement(XDI3Statement statement, XDI3Segment start, boolean removeFromTargetContextNodeXri, boolean variablesInXri, boolean variablesInStart) {
 
-		if (log.isTraceEnabled()) log.trace("removeStartXriStatement(" + statement + "," + start + "," + variablesInXri + "," + variablesInStart + ")");
+		if (log.isTraceEnabled()) log.trace("removeStartXriStatement(" + statement + "," + start + "," + removeFromTargetContextNodeXri + "," + variablesInXri + "," + variablesInStart + ")");
 
 		XDI3Segment subject;
 		XDI3Segment predicate;
@@ -123,7 +123,7 @@ public final class StatementUtil {
 
 		// object
 
-		if (statement.isRelationStatement()) {
+		if (statement.isRelationStatement() && removeFromTargetContextNodeXri) {
 
 			object = XDI3Util.removeStartXri((XDI3Segment) statement.getObject(), start, variablesInXri, variablesInStart);
 			if (object == null) return null;
@@ -139,9 +139,9 @@ public final class StatementUtil {
 	 * Removes a start XRI from a statement.
 	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
 	 */
-	public static XDI3Statement removeStartXriStatement(XDI3Statement statement, XDI3Segment start) {
+	public static XDI3Statement removeStartXriStatement(XDI3Statement statement, XDI3Segment start, boolean removeFromTargetContextNodeXri) {
 
-		return removeStartXriStatement(statement, start, false, false);
+		return removeStartXriStatement(statement, start, removeFromTargetContextNodeXri, false, false);
 	}
 
 	public static String statementObjectToString(Object object) {

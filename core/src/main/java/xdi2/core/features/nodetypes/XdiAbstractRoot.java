@@ -227,7 +227,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 			@Override
 			public XDI3Statement map(Statement statement) {
 
-				return StatementUtil.removeStartXriStatement(statement.getXri(), XdiAbstractRoot.this.getContextNode().getXri());
+				return StatementUtil.removeStartXriStatement(statement.getXri(), XdiAbstractRoot.this.getContextNode().getXri(), true);
 			}
 		};
 	}

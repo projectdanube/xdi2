@@ -267,10 +267,6 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 	@Override
 	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// remember that we completed this target
-
-		addCompletedAddress(executionContext, targetStatement.getContextNodeXri());
-
 		// are we operating on a $ref or $rep arc?
 
 		if (targetStatement.isRelationStatement() &&
@@ -279,8 +275,14 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 			// don't do anything special
 
+			if (log.isDebugEnabled()) log.debug("Not operating on $ref/$rep target statement: " + targetStatement);
+
 			return targetStatement;
 		}
+
+		// remember that we completed this target
+
+		addCompletedAddress(executionContext, targetStatement.getContextNodeXri());
 
 		// follow any $ref and $rep arcs
 

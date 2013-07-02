@@ -85,12 +85,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		if (messageResult == null) throw new NullPointerException();
 		if (executionContext == null) executionContext = new ExecutionContext();
 
-		executionContext.pushMessagingTarget(this, null);
-		executionContext.pushMessageEnvelope(messageEnvelope, null);
-
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message envelope (" + messageEnvelope.getMessageCount() + " messages).");
 
 		try {
+
+			executionContext.pushMessagingTarget(this, null);
 
 			// clear execution context
 
@@ -107,26 +106,26 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				return;
 			}
 
-			// execute the messages
+			// execute the messages in the message envelope
 
 			Iterator<Message> messages = messageEnvelope.getMessages();
 
-			while (messages.hasNext()) {
+			try {
 
-				Message message = messages.next();
+				executionContext.pushMessageEnvelope(messageEnvelope, null);
 
-				try {
+				while (messages.hasNext()) {
 
-					executionContext.pushMessage(message, null);
+					Message message = messages.next();
 
 					this.execute(message, messageResult, executionContext);
-				} catch (Exception ex) {
-
-					throw executionContext.processException(ex);
-				} finally {
-
-					executionContext.popMessage();
 				}
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
+			} finally {
+
+				executionContext.popMessageEnvelope();
 			}
 
 			// execute message envelope interceptors (after)
@@ -174,7 +173,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw (Xdi2MessagingException) ex;
 		} finally {
 
-			executionContext.popMessageEnvelope();
 			executionContext.popMessagingTarget();
 
 			if (log.isDebugEnabled()) log.debug("Trace: " + executionContext.getTraceBlock());
@@ -211,31 +209,31 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			return;
 		}
 
-		// execute the operations
+		// execute the operations in the message
 
 		Iterator<Operation> operations = message.getOperations();
 
-		while (operations.hasNext()) {
+		try {
 
-			Operation operation = operations.next();
-			operation = Operation.castOperation(operation);
+			executionContext.pushMessage(message, null);
 
-			MessageResult operationMessageResult = new MessageResult();
+			while (operations.hasNext()) {
 
-			try {
+				Operation operation = operations.next();
+				operation = Operation.castOperation(operation);
 
-				executionContext.pushOperation(operation, null);
+				MessageResult operationMessageResult = new MessageResult();
 
 				this.execute(operation, operationMessageResult, executionContext);
-			} catch (Exception ex) {
 
-				throw executionContext.processException(ex);
-			} finally {
-
-				executionContext.popOperation();
+				CopyUtil.copyGraph(operationMessageResult.getGraph(), messageResult.getGraph(), null);
 			}
+		} catch (Exception ex) {
 
-			CopyUtil.copyGraph(operationMessageResult.getGraph(), messageResult.getGraph(), null);
+			throw executionContext.processException(ex);
+		} finally {
+
+			executionContext.popMessage();
 		}
 
 		// execute message interceptors (after)
@@ -280,46 +278,33 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			return;
 		}
 
-		// check if the target is an address or set of statements
+		// execute the address or statements in the operation
 
 		XDI3Segment targetAddress = operation.getTargetAddress();
 		Iterator<XDI3Statement> targetStatements = operation.getTargetStatements();
 
-		// execute on address or statement
+		try {
 
-		if (targetAddress != null) {
+			executionContext.pushOperation(operation, null);
 
-			try {
-
-				executionContext.pushTargetAddress(targetAddress, targetAddress.toString());
+			if (targetAddress != null) {
 
 				this.execute(targetAddress, operation, operationMessageResult, executionContext);
-			} catch (Exception ex) {
+			} else if (targetStatements != null) {
 
-				throw executionContext.processException(ex);
-			} finally {
+				while (targetStatements.hasNext()) {
 
-				executionContext.popTargetAddress();
-			}
-		} else if (targetStatements != null) {
-
-			while (targetStatements.hasNext()) {
-
-				XDI3Statement targetStatement = targetStatements.next();
-
-				try {
-
-					executionContext.pushTargetStatement(targetStatement, targetStatement.toString());
+					XDI3Statement targetStatement = targetStatements.next();
 
 					this.execute(targetStatement, operation, operationMessageResult, executionContext);
-				} catch (Exception ex) {
-
-					throw executionContext.processException(ex);
-				} finally {
-
-					executionContext.popTargetStatement();
 				}
 			}
+		} catch (Exception ex) {
+
+			throw executionContext.processException(ex);
+		} finally {
+
+			executionContext.popOperation();
 		}
 
 		// execute operation interceptors (after)
@@ -366,7 +351,18 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on target address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
 
-			addressHandler.executeOnAddress(targetAddress, operation, operationMessageResult, executionContext);
+			try {
+
+				executionContext.pushTargetAddress(targetAddress, targetAddress.toString());
+
+				addressHandler.executeOnAddress(targetAddress, operation, operationMessageResult, executionContext);
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
+			} finally {
+
+				executionContext.popTargetAddress();
+			}
 		} else {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No address handler for target address " + targetAddress + ".");
@@ -405,7 +401,18 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on target statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
 
-			statementHandler.executeOnStatement(targetStatement, operation, operationMessageResult, executionContext);
+			try {
+
+				executionContext.pushTargetStatement(targetStatement, targetStatement.toString());
+
+				statementHandler.executeOnStatement(targetStatement, operation, operationMessageResult, executionContext);
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
+			} finally {
+
+				executionContext.popTargetStatement();
+			}
 		} else {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No statement handler for target statement " + targetStatement + ".");
