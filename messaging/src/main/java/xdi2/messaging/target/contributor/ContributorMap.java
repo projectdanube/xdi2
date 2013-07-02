@@ -135,6 +135,12 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 			XDI3Segment contributorXri = contributorFound.getContributorXri();
 			Contributor contributor = contributorFound.getContributor();
 
+			if (! contributor.isEnabled()) {
+
+				if (log.isDebugEnabled()) log.debug("Skipping disabled contributor: " + contributor.getClass().getSimpleName()+ " (address).");
+				continue;
+			}
+
 			XDI3Segment nextRelativeTargetAddress = relativeTargetAddress == null ? null : XDI3Util.removeStartXri(relativeTargetAddress, contributorXri);
 			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetAddress;
 
@@ -194,11 +200,10 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		// find an address with contributors
 
-		XDI3Segment relativeContextNodeXri = relativeTargetStatement.getContextNodeXri();
+		XDI3Segment relativeContextNodeXri = relativeTargetStatement == null ? null : relativeTargetStatement.getContextNodeXri();
 
 		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
 		contributorFounds.addAll(this.findHigherContributors(relativeContextNodeXri));
-		contributorFounds.addAll(this.findLowerContributorMatches(relativeContextNodeXri));
 		if (contributorFounds.size() == 0) return false;
 
 		if (log.isDebugEnabled()) log.debug("For relative target statement: " + relativeTargetStatement + " found contributors: " + contributorFounds);
@@ -209,6 +214,12 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 			XDI3Segment contributorXri = contributorFound.getContributorXri();
 			Contributor contributor = contributorFound.getContributor();
+
+			if (! contributor.isEnabled()) {
+
+				if (log.isDebugEnabled()) log.debug("Skipping disabled contributor: " + contributor.getClass().getSimpleName()+ " (statement).");
+				continue;
+			}
 
 			XDI3Statement nextRelativeTargetStatement = relativeTargetStatement == null ? null : StatementUtil.removeStartXriStatement(relativeTargetStatement, contributorXri, false, true);
 			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement == null ? null : nextRelativeTargetStatement.getContextNodeXri();

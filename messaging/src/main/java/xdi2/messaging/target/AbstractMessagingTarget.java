@@ -289,12 +289,36 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		if (targetAddress != null) {
 
-			this.execute(targetAddress, operation, operationMessageResult, executionContext);
+			try {
+
+				executionContext.pushTargetAddress(targetAddress, targetAddress.toString());
+
+				this.execute(targetAddress, operation, operationMessageResult, executionContext);
+			} catch (Exception ex) {
+
+				throw executionContext.processException(ex);
+			} finally {
+
+				executionContext.popTargetAddress();
+			}
 		} else if (targetStatements != null) {
 
 			while (targetStatements.hasNext()) {
 
-				this.execute(targetStatements.next(), operation, operationMessageResult, executionContext);
+				XDI3Statement targetStatement = targetStatements.next();
+
+				try {
+
+					executionContext.pushTargetStatement(targetStatement, targetStatement.toString());
+
+					this.execute(targetStatement, operation, operationMessageResult, executionContext);
+				} catch (Exception ex) {
+
+					throw executionContext.processException(ex);
+				} finally {
+
+					executionContext.popTargetStatement();
+				}
 			}
 		}
 

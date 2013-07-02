@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.Operation;
@@ -131,9 +133,9 @@ public final class ExecutionContext implements Serializable {
 	}
 
 	public Xdi2MessagingException processException(Exception ex) {
-		
+
 		if (this.ex != null) return this.ex;
-		
+
 		if (! (ex instanceof Xdi2MessagingException)) {
 
 			ex = new Xdi2MessagingException(ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage(), ex, this);
@@ -169,6 +171,16 @@ public final class ExecutionContext implements Serializable {
 		this.pushExecutionPosition(operation, comment);
 	}
 
+	public void pushTargetAddress(XDI3Segment targetAddress, String comment) {
+
+		this.pushExecutionPosition(targetAddress, comment);
+	}
+
+	public void pushTargetStatement(XDI3Statement targetStatement, String comment) {
+
+		this.pushExecutionPosition(targetStatement, comment);
+	}
+
 	public void pushInterceptor(Interceptor interceptor, String comment) {
 
 		this.pushExecutionPosition(interceptor, comment);
@@ -197,6 +209,16 @@ public final class ExecutionContext implements Serializable {
 	public void popOperation() {
 
 		this.popExecutionPosition(Operation.class);
+	}
+
+	public void popTargetAddress() {
+
+		this.popExecutionPosition(XDI3Segment.class);
+	}
+
+	public void popTargetStatement() {
+
+		this.popExecutionPosition(XDI3Statement.class);
 	}
 
 	public void popInterceptor() {
@@ -233,6 +255,20 @@ public final class ExecutionContext implements Serializable {
 	public Operation getCurrentOperation() {
 
 		ExecutionPosition<Operation> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, Operation.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public XDI3Segment getCurrentTargetAddress() {
+
+		ExecutionPosition<XDI3Segment> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, XDI3Segment.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public XDI3Statement getCurrentTargetStatement() {
+
+		ExecutionPosition<XDI3Statement> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, XDI3Statement.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
@@ -275,6 +311,20 @@ public final class ExecutionContext implements Serializable {
 	public Operation getExceptionOperation() {
 
 		ExecutionPosition<Operation> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, Operation.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public XDI3Segment getExceptionTargetAddress() {
+
+		ExecutionPosition<XDI3Segment> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, XDI3Segment.class);
+
+		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public XDI3Statement getExceptionTargetStatement() {
+
+		ExecutionPosition<XDI3Statement> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, XDI3Statement.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
@@ -355,7 +405,7 @@ public final class ExecutionContext implements Serializable {
 		buffer.append("\n");
 		for (int i=0; i<depth; i++) buffer.append("  ");
 		buffer.append(parentExecutionPosition.toString());
-		
+
 		if (parentExecutionPosition == this.currentExecutionPosition) buffer.append(" <-- (CURRENT)");
 		if (parentExecutionPosition == this.exceptionExecutionPosition) buffer.append(" <-- (EXCEPTION)");
 
