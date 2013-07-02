@@ -23,6 +23,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 
 /**
@@ -31,7 +32,7 @@ import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
  * 
  * @author markus
  */
-public class BootstrapInterceptor implements MessagingTargetInterceptor, Prototype<BootstrapInterceptor> {
+public class BootstrapInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, Prototype<BootstrapInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 

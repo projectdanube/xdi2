@@ -11,13 +11,14 @@ import xdi2.messaging.exceptions.Xdi2AuthenticationException;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.Prototype;
+import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
  * This interceptor looks for a secret token on an incoming XDI message,
  * and invokes an instance of SecretTokenAuthenticator to authenticate the message.
  */
-public class AuthenticationSecretTokenInterceptor implements MessageInterceptor, Prototype<AuthenticationSecretTokenInterceptor> {
+public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<AuthenticationSecretTokenInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(AuthenticationSecretTokenInterceptor.class.getName());
 
