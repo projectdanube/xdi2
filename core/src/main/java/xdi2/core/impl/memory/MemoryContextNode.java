@@ -10,7 +10,6 @@ import java.util.TreeMap;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.impl.AbstractContextNode;
 import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -179,8 +178,6 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	public synchronized Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
 		this.checkRelation(arcXri, targetContextNode, true);
-
-		if (this.containsRelation(arcXri, targetContextNode.getXri())) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the relation " + arcXri + "/" + targetContextNode + ".");
 
 		return this.createRelationInternal(arcXri, targetContextNode);
 	}
