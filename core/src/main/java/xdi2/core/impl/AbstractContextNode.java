@@ -79,20 +79,6 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public synchronized void deleteWhileEmpty() {
-
-		ContextNode currentContextNode = this;
-		ContextNode parentContextNode;
-
-		while (currentContextNode.isEmpty() && (! currentContextNode.isRootContextNode())) {
-
-			parentContextNode = currentContextNode.getContextNode();
-			currentContextNode.delete();
-			currentContextNode = parentContextNode;
-		}
-	}
-
-	@Override
 	public synchronized void clear() {
 
 		this.deleteContextNodes();

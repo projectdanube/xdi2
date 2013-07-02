@@ -845,7 +845,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNull(root.getDeepContextNode(XDI3Segment.create("<+a>&")).getLiteral("a"));
 
 		root.getContextNode(XDI3SubSegment.create("+b")).delete();
-		root.getDeepContextNode(XDI3Segment.create("<+a>&")).deleteWhileEmpty();
+		root.getDeepContextNode(XDI3Segment.create("<+a>&")).delete();
+		root.getDeepContextNode(XDI3Segment.create("<+a>")).delete();
 
 		assertTrue(root.isEmpty());
 
