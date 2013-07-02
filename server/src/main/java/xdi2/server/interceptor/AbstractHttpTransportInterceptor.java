@@ -3,12 +3,13 @@ package xdi2.server.interceptor;
 import java.io.IOException;
 
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.transport.HttpRequest;
 import xdi2.server.transport.HttpResponse;
 import xdi2.server.transport.HttpTransport;
 
-public abstract class AbstractHttpTransportInterceptor implements HttpTransportInterceptor {
+public abstract class AbstractHttpTransportInterceptor extends AbstractInterceptor implements HttpTransportInterceptor {
 
 	@Override
 	public void init(HttpTransport httpTransport) throws Xdi2ServerException {
