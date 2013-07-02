@@ -157,7 +157,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 			try {
 
-				executionContext.pushContributor(contributor, "Contributor: address");
+				executionContext.pushContributor(contributor, "Contributor: address: " + nextRelativeTargetAddress + " [" + nextContributorChainXri + "]");
 
 				// execute sub-contributors (address)
 
@@ -237,7 +237,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 			try {
 
-				executionContext.pushContributor(contributor, "Contributor: statement");
+				executionContext.pushContributor(contributor, "Contributor: statement: " + nextRelativeTargetStatement + " [" + nextContributorChainXri + "]");
 
 				// execute sub-contributors (statement)
 

@@ -347,7 +347,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 			try {
 
-				executionContext.pushInterceptor(targetInterceptor, "TargetInterceptor: address");
+				executionContext.pushInterceptor(targetInterceptor, "TargetInterceptor: address: " + targetAddress);
 
 				targetAddress = targetInterceptor.targetAddress(targetAddress, operation, messageResult, executionContext);
 
@@ -386,7 +386,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 			try {
 
-				executionContext.pushInterceptor(targetInterceptor, "TargetInterceptor: statement");
+				executionContext.pushInterceptor(targetInterceptor, "TargetInterceptor: statement: " + targetStatement);
 
 				targetStatement = targetInterceptor.targetStatement(targetStatement, operation, messageResult, executionContext);
 
