@@ -603,7 +603,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		for (Operation operation : new IteratorListMaker<Operation> (this.getOperations()).list()) {
 
-			operation.getRelation().delete();
+			operation.getRelation().follow().delete();
 		}
 	}
 
