@@ -603,7 +603,15 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		for (Operation operation : new IteratorListMaker<Operation> (this.getOperations()).list()) {
 
-			operation.getRelation().follow().delete();
+			XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(operation.getRelation().follow());
+
+			if (innerRoot != null) {
+
+				innerRoot.getContextNode().delete();
+			} else {
+
+				operation.getRelation().delete();
+			}
 		}
 	}
 

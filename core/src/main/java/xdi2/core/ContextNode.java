@@ -295,17 +295,17 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ReadOnlyIterator<Relation> getAllRelations();
 
 	/**
-	 * Checks if a relation with a given arc XRI exists in this context node.
-	 * @param arcXri The arc XRI of the relation. 
+	 * Checks if a relation with a given arc XRI and target context node XRI exists in this context node.
+	 * @param arcXri The arc XRI of the relations. 
 	 * @param targetContextNodeXri The target context node XRI of the relation.
-	 * @return True if this context nod has a relation with the given arc XRI.
+	 * @return True if this context node has a relation with the given arc XRI and target context node XRI.
 	 */
 	public boolean containsRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Checks if relations with a given arc XRI exists in this context node.
-	 * @param arcXri The arc XRI of the relation. 
-	 * @return True if this context nod has a relation with the given arc XRI.
+	 * Checks if relations with a given arc XRI exist in this context node.
+	 * @param arcXri The arc XRI of the relations. 
+	 * @return True if this context node has relations with the given arc XRI.
 	 */
 	public boolean containsRelations(XDI3Segment arcXri);
 
@@ -314,6 +314,19 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @return True if this context node has relations.
 	 */
 	public boolean containsRelations();
+
+	/**
+	 * Checks if incoming relations with a given arc XRI exist in this context node.
+	 * @param arcXri The arc XRI of the incoming relations. 
+	 * @return True if this context node has incoming relations with the given arc XRI.
+	 */
+	public boolean containsIncomingRelations(XDI3Segment arcXri);
+
+	/**
+	 * Checks if this context node has one or more incoming relations.
+	 * @return True if this context node has incoming relations.
+	 */
+	public boolean containsIncomingRelations();
 
 	/**
 	 * Deletes the relation with a given arc XRI from this context node.

@@ -148,7 +148,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 				ContextNode refRepContextNode = refRepRelation.getContextNode();
 				ContextNode refRepTargetContextNode = refRepRelation.follow();
 				refRepRelation.delete();
-				refRepTargetContextNode.deleteWhileEmpty();
+				deleteWhileEmptyAndNoIncomingRelations(refRepTargetContextNode);
 
 				// $get feedback on the source of the $ref/$rep relation
 
@@ -192,8 +192,10 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 					Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 					ContextNode tempContextNode = tempGraph.setDeepContextNode(refRepContextNode.getXri());
 					CopyUtil.copyContextNodeContents(refRepTargetContextNode, tempContextNode, null);
+
 					refRepTargetContextNode.clear();
-					refRepTargetContextNode.deleteWhileEmpty();
+					deleteWhileEmptyAndNoIncomingRelations(refRepTargetContextNode);
+
 					CopyUtil.copyGraph(tempGraph, operationMessageResult.getGraph(), null);
 				} else {
 
@@ -363,6 +365,10 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		return originalContextNodeXri;
 	}
 
+	/*
+	 * Feedback methods
+	 */
+
 	private MessageResult feedbackOnSourceOfRefRepRelation(ContextNode refRepContextNode, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Initiating $get feedback on source of $ref/$rep relation: " + refRepContextNode);
@@ -428,6 +434,23 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Completed $get feedback to find $ref/$rep relations in context: " + contextNodeXri + ", message result: " + feedbackMessageResult);
 
 		return feedbackMessageResult;
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	private static void deleteWhileEmptyAndNoIncomingRelations(ContextNode contextNode) {
+
+		ContextNode currentContextNode = contextNode;
+		ContextNode parentContextNode;
+
+		while (currentContextNode.isEmpty() && (! currentContextNode.containsIncomingRelations()) && (! currentContextNode.isRootContextNode())) {
+
+			parentContextNode = currentContextNode.getContextNode();
+			currentContextNode.delete();
+			currentContextNode = parentContextNode;
+		}
 	}
 
 	/*

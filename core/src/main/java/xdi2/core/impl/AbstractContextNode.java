@@ -469,13 +469,25 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public boolean containsRelations(XDI3Segment arcXri) {
 
-		return this.getRelation(arcXri) != null;
+		return this.getRelations(arcXri).hasNext();
 	}
 
 	@Override
 	public boolean containsRelations() {
 
-		return this.getRelationCount() > 0;
+		return this.getRelations().hasNext();
+	}
+
+	@Override
+	public boolean containsIncomingRelations(XDI3Segment arcXri) {
+
+		return this.getIncomingRelations(arcXri).hasNext();
+	}
+
+	@Override
+	public boolean containsIncomingRelations() {
+
+		return this.getIncomingRelations().hasNext();
 	}
 
 	@Override
