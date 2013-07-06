@@ -109,6 +109,7 @@ public abstract class DigestSecretTokenAuthenticator implements SecretTokenAuthe
 		if (args.length < 2 || args.length > 3) {
 
 			System.out.println("Parameters: secretToken globalSalt [localSalt]");
+			return;
 		}
 
 		String secretToken = args[0];
