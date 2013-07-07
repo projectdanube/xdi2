@@ -86,6 +86,11 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 			this.setLinkContractsGraph(((GraphMessagingTarget) messagingTarget).getGraph());
 		}
+
+		if (this.getLinkContractsGraph() == null) {
+
+			throw new Xdi2MessagingException("No link contracts graph.", null, null);
+		}
 	}
 
 	@Override

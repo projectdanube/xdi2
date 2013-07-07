@@ -20,6 +20,8 @@ import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -40,6 +42,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 	private XDI3Segment[] bootstrapOwnerSynonyms;
 	private boolean bootstrapLinkContract;
 	private boolean bootstrapPublicLinkContract;
+	private XDI3Statement[] bootstrapStatements;
 
 	public BootstrapInterceptor() {
 
@@ -47,6 +50,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 		this.bootstrapOwnerSynonyms = null;
 		this.bootstrapLinkContract = false;
 		this.bootstrapPublicLinkContract = false;
+		this.bootstrapStatements = null;
 	}
 
 	/*
@@ -96,7 +100,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 		Graph graph = graphMessagingTarget.getGraph();
 		ContextNode rootContextNode = graph.getRootContextNode();
 
-		log.debug("bootstrapOwner=" + this.bootstrapOwner + ", bootstrapOwnerSynonyms=" + this.bootstrapOwnerSynonyms + ", bootstrapLinkContract=" + this.bootstrapLinkContract + ", bootstrapPublicLinkContract=" + this.bootstrapPublicLinkContract);
+		log.debug("bootstrapOwner=" + this.getBootstrapOwner() + ", bootstrapOwnerSynonyms=" + this.getBootstrapOwnerSynonyms() + ", bootstrapLinkContract=" + this.getBootstrapLinkContract() + ", bootstrapPublicLinkContract=" + this.getBootstrapPublicLinkContract());
 
 		// check if the owner statement exists
 
@@ -107,17 +111,21 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 		ContextNode bootstrapOwnerContextNode = null;
 		ContextNode bootstrapOwnerSelfPeerRootContextNode = null;
 
-		if (this.bootstrapOwner != null) {
+		if (this.getBootstrapOwner() != null) {
 
-			bootstrapOwnerContextNode = graph.setDeepContextNode(this.bootstrapOwner);
-			bootstrapOwnerSelfPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(this.bootstrapOwner).getContextNode();
+			if (log.isDebugEnabled()) log.debug("Creating bootstrap owner: " + this.getBootstrapOwner());
+
+			bootstrapOwnerContextNode = graph.setDeepContextNode(this.getBootstrapOwner());
+			bootstrapOwnerSelfPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(this.getBootstrapOwner()).getContextNode();
 		}
 
 		// create bootstrap owner synonyms
 
-		if (this.bootstrapOwner != null && this.bootstrapOwnerSynonyms != null) {
+		if (this.getBootstrapOwner() != null && this.getBootstrapOwnerSynonyms() != null) {
 
-			for (XDI3Segment bootstrapOwnerSynonym : this.bootstrapOwnerSynonyms) {
+			if (log.isDebugEnabled()) log.debug("Creating bootstrap owner synonyms: " + this.getBootstrapOwnerSynonyms());
+
+			for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 
 				graph.setDeepRelation(bootstrapOwnerSynonym, XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerContextNode);
 
@@ -126,28 +134,49 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 			}
 		}
 
-		// create bootstrap link contract and policy
+		// create bootstrap link contract
 
-		if (this.bootstrapLinkContract) {
+		if (this.getBootstrapLinkContract()) {
 
-			bootstrapOwnerContextNode = graph.setDeepContextNode(this.bootstrapOwner);
+			if (this.getBootstrapOwner() == null) {
+
+				throw new Xdi2MessagingException("Can only create the bootstrap link contract if a bootstrap owner is given.", null, null);
+			}
+
+			if (log.isDebugEnabled()) log.debug("Creating bootstrap link contract: " + this.getBootstrapLinkContract());
+
+			bootstrapOwnerContextNode = graph.setDeepContextNode(this.getBootstrapOwner());
 
 			LinkContract bootstrapLinkContract = LinkContracts.getLinkContract(rootContextNode, true);
 			bootstrapLinkContract.addPermission(XDILinkContractConstants.XRI_S_ALL, XDIConstants.XRI_S_ROOT);
 
 			PolicyAnd policyAnd = bootstrapLinkContract.getPolicyRoot(true).createAndPolicy(true);
-			PolicyUtil.createSenderIsOperator(policyAnd, this.bootstrapOwner);
+			PolicyUtil.createSenderIsOperator(policyAnd, this.getBootstrapOwner());
 			PolicyUtil.createSecretTokenValidOperator(policyAnd);
 		}
 
 		// create public bootstrap link contract
 
-		if (this.bootstrapPublicLinkContract) {
+		if (this.getBootstrapPublicLinkContract()) {
+
+			if (log.isDebugEnabled()) log.debug("Creating bootstrap public link contract.");
 
 			ContextNode publicContextNode = graph.setDeepContextNode(XDILinkContractConstants.XRI_S_PUBLIC);
 
 			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
 			bootstrapPublicLinkContract.addPermission(XDILinkContractConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_PUBLIC);
+		}
+
+		// create bootstrap statements
+
+		if (this.getBootstrapStatements() != null) {
+
+			if (log.isDebugEnabled()) log.debug("Creating bootstrap statements.");
+
+			for (XDI3Statement bootstrapStatement : this.getBootstrapStatements()) {
+
+				graph.setStatement(bootstrapStatement);
+			}
 		}
 	}
 
@@ -204,5 +233,15 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 	public void setBootstrapPublicLinkContract(boolean bootstrapPublicLinkContract) {
 
 		this.bootstrapPublicLinkContract = bootstrapPublicLinkContract;
+	}
+
+	public XDI3Statement[] getBootstrapStatements() {
+
+		return this.bootstrapStatements;
+	}
+
+	public void setBootstrapStatements(XDI3Statement[] bootstrapStatements) {
+
+		this.bootstrapStatements = bootstrapStatements;
 	}
 }
