@@ -53,10 +53,8 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor im
 
 		// look for secret token on the message
 
-		Literal secretTokenLiteral = message.getContextNode().getDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN);
-		if (secretTokenLiteral == null) return false;
-
-		String secretToken = secretTokenLiteral.getLiteralData();
+		String secretToken = message.getSecretToken();
+		if (secretToken == null) return false;
 
 		// authenticate
 

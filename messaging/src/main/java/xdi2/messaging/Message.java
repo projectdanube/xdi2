@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
@@ -224,6 +226,34 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
+	}
+
+	/**
+	 * Set a secret token on the message.
+	 * @param secretToken The secret token to set.
+	 */
+	public void setSecretToken(String secretToken) {
+
+		if (secretToken == null) {
+
+			this.getContextNode().setDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN, secretToken);
+		} else {
+
+			Literal secretTokenLiteral = this.getContextNode().getDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN);
+			if (secretTokenLiteral != null) secretTokenLiteral.delete();
+		}
+	}
+
+	/**
+	 * Returns the secret token from the message.
+	 * @return The secret token.
+	 */
+	public String getSecretToken() {
+
+		Literal secretTokenLiteral = this.getContextNode().getDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN);
+		if (secretTokenLiteral == null) return null;
+
+		return secretTokenLiteral.getLiteralData();
 	}
 
 	/**
