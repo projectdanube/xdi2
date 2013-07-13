@@ -18,7 +18,7 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 
 public class XDIDiscovery {
 
-	public static final XDIHttpClient DEFAULT_REGISTRY_XDI_CLIENT = new XDIHttpClient("http://xri2xdi.net/");
+	public static final XDIHttpClient DEFAULT_REGISTRY_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
 
 	private XDIHttpClient registryXdiClient;
 
