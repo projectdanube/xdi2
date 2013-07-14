@@ -29,7 +29,7 @@ import xdi2.messaging.target.interceptor.InterceptorList;
  *   in the messages will be executed).
  * - Support for interceptors and contributors.
  * - Maintaining an "execution context" object where state can be kept between
- *   individual operations.
+ *   individual phases.
  * 
  * Subclasses must do the following:
  * - Implement execute() with an operation.
@@ -347,25 +347,25 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		AddressHandler addressHandler = this.getAddressHandler(targetAddress);
 
-		if (addressHandler != null) {
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on target address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
-
-			try {
-
-				executionContext.pushTargetAddress(targetAddress, targetAddress.toString());
-
-				addressHandler.executeOnAddress(targetAddress, operation, operationMessageResult, executionContext);
-			} catch (Exception ex) {
-
-				throw executionContext.processException(ex);
-			} finally {
-
-				executionContext.popTargetAddress();
-			}
-		} else {
+		if (addressHandler == null) {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No address handler for target address " + targetAddress + ".");
+			return;
+		}
+
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on target address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
+
+		try {
+
+			executionContext.pushTargetAddress(targetAddress, targetAddress.toString());
+
+			addressHandler.executeOnAddress(targetAddress, operation, operationMessageResult, executionContext);
+		} catch (Exception ex) {
+
+			throw executionContext.processException(ex);
+		} finally {
+
+			executionContext.popTargetAddress();
 		}
 	}
 
@@ -397,25 +397,25 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		StatementHandler statementHandler = this.getStatementHandler(targetStatement);
 
-		if (statementHandler != null) {
-
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on target statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
-
-			try {
-
-				executionContext.pushTargetStatement(targetStatement, targetStatement.toString());
-
-				statementHandler.executeOnStatement(targetStatement, operation, operationMessageResult, executionContext);
-			} catch (Exception ex) {
-
-				throw executionContext.processException(ex);
-			} finally {
-
-				executionContext.popTargetStatement();
-			}
-		} else {
+		if (statementHandler == null) {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No statement handler for target statement " + targetStatement + ".");
+			return;
+		}
+
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on target statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
+
+		try {
+
+			executionContext.pushTargetStatement(targetStatement, targetStatement.toString());
+
+			statementHandler.executeOnStatement(targetStatement, operation, operationMessageResult, executionContext);
+		} catch (Exception ex) {
+
+			throw executionContext.processException(ex);
+		} finally {
+
+			executionContext.popTargetStatement();
 		}
 	}
 
