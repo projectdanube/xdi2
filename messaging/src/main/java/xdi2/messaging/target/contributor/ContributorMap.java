@@ -123,7 +123,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
 		contributorFounds.addAll(this.findHigherContributors(relativeContextNodeXri));
-		contributorFounds.addAll(this.findLowerContributorMatches(relativeContextNodeXri));
+		contributorFounds.addAll(this.findLowerContributors(relativeContextNodeXri));
 		if (contributorFounds.size() == 0) return false;
 
 		if (log.isDebugEnabled()) log.debug("For relative target address: " + relativeTargetAddress + " found contributors: " + contributorFounds);
@@ -314,7 +314,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 		return higherContributors;
 	}
 
-	public List<ContributorFound> findLowerContributorMatches(XDI3Segment contextNodeXri) {
+	public List<ContributorFound> findLowerContributors(XDI3Segment contextNodeXri) {
 
 		if (this.isEmpty()) return new ArrayList<ContributorFound> ();
 
