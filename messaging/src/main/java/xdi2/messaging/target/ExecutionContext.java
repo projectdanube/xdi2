@@ -16,7 +16,7 @@ import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.interceptor.Interceptor;
 
 /**
- * Messaging tarets as well as contributors and interceptors can use the ExecutionContext
+ * Messaging targets as well as contributors and interceptors can use the ExecutionContext
  * to store and share state. The ExecutionContext is created before a MessageEnvelope is
  * executed, and is deleted when execution of the MessageEnvelope is complete. It contains
  * the current position in the execution process, and attributes associated with various
