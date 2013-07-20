@@ -11,13 +11,28 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 	private XDI3Segment predicate;
 	private Object object;
 
-	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, Object object) {
+	private XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, Object object) {
 
 		super(string);
 
 		this.subject = subject;
 		this.predicate = predicate;
 		this.object = object;
+	}
+
+	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, XDI3SubSegment object) {
+
+		this(string, subject, predicate, (Object) object);
+	}
+
+	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, XDI3Segment object) {
+
+		this(string, subject, predicate, (Object) object);
+	}
+
+	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, String object) {
+
+		this(string, subject, predicate, (Object) object);
 	}
 
 	public static XDI3Statement create(String string) {
@@ -45,14 +60,14 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		return XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate()) && this.getObject() instanceof XDI3Segment;
 	}
 
-	public boolean isLiteralStatement() {
-
-		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && ! (this.getObject() instanceof XDI3Segment);
-	}
-
 	public boolean isRelationStatement() {
 
 		return (! XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate())) && (! XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()));
+	}
+
+	public boolean isLiteralStatement() {
+
+		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && ! (this.getObject() instanceof XDI3SubSegment);
 	}
 
 	public boolean hasInnerRootStatement() {
@@ -63,51 +78,70 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 				this.getTargetContextNodeXri().getFirstSubSegment().getXRef().hasStatement();
 	}
 
-	public XDI3Segment getContextNodeXri() {
+	public XDI3Segment getContextNodeXriii() {
+
+		return this.getSubject();
+	}
+
+	public XDI3SubSegment getContextNodeArcXri() {
 
 		if (this.isContextNodeStatement()) {
 
-			return XDI3Util.concatXris(this.getSubject(), (XDI3Segment) this.getObject());
-		} else {
-
-			return this.getSubject();
+			return (XDI3SubSegment) this.getObject();
 		}
+
+		return null;
 	}
 
-	public XDI3Segment getArcXri() {
+	public XDI3Segment getRelationArcXri() {
 
-		if (! this.isRelationStatement()) return null;
+		if (this.isRelationStatement()) {
 
-		return this.getPredicate();
+			return this.getPredicate();
+		}
+
+		return null;
 	}
 
 	public XDI3Segment getTargetContextNodeXri() {
 
-		if (! this.isRelationStatement()) return null;
+		if (this.isContextNodeStatement()) {
 
-		return (XDI3Segment) this.getObject();
-	}
+			return XDI3Util.concatXris(this.getSubject(), (XDI3SubSegment) this.getObject());
+		} else if (this.isRelationStatement()) {
 
-	public String getLiteralData() {
+			return (XDI3Segment) this.getObject();
+		}
 
-		if (! this.isLiteralStatement()) return null;
-
-		return this.getObject().toString();
+		return null;
 	}
 
 	public XDI3Statement getInnerRootStatement() {
 
-		if (! this.isRelationStatement()) return null;
+		if (this.isRelationStatement()) {
 
-		XDI3Segment targetContextNodeXri = this.getTargetContextNodeXri();
-		if (targetContextNodeXri == null) return null;
+			XDI3Segment targetContextNodeXri = this.getTargetContextNodeXri();
+			if (targetContextNodeXri == null) return null;
 
-		XDI3XRef xref = targetContextNodeXri.getFirstSubSegment().getXRef();
-		if (xref == null) return null;
+			XDI3XRef xref = targetContextNodeXri.getFirstSubSegment().getXRef();
+			if (xref == null) return null;
 
-		XDI3Statement statement = xref.getStatement();
-		if (statement == null) return null;
+			XDI3Statement statement = xref.getStatement();
+			if (statement == null) return null;
 
-		return statement;
+			return statement;
+		}
+
+		return null;
+	}
+
+	public String getLiteralData() {
+
+		if (this.isLiteralStatement()) {
+
+			return (String) this.getObject();
+		}
+
+		return null;
 	}
 }

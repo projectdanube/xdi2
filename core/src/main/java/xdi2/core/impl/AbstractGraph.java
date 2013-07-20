@@ -212,8 +212,8 @@ public abstract class AbstractGraph implements Graph {
 
 		// find the root and the base context node of this statement
 
-		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
-		XDI3Segment relativePart = root.getRelativePart(statementXri.getSubject());
+		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getContextNodeXriii(), true);
+		XDI3Segment relativePart = root.getRelativePart(statementXri.getContextNodeXriii());
 
 		// inner root short notation?
 
@@ -231,12 +231,12 @@ public abstract class AbstractGraph implements Graph {
 
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = root.getContextNode().createDeepContextNode(XDI3Util.concatXris(relativePart, (XDI3Segment) statementXri.getObject()));
+			ContextNode contextNode = root.getContextNode().createDeepContextNode(XDI3Util.concatXris(relativePart, statementXri.getContextNodeArcXri()));
 
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
 
-			Relation relation = root.getContextNode().createDeepRelation(relativePart, statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
+			Relation relation = root.getContextNode().createDeepRelation(relativePart, statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
 
 			return relation.getStatement();
 		} else if (statementXri.isLiteralStatement()) {
@@ -257,8 +257,8 @@ public abstract class AbstractGraph implements Graph {
 
 		// find the root and the base context node of this statement
 
-		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getSubject(), true);
-		XDI3Segment relativePart = root.getRelativePart(statementXri.getSubject());
+		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getContextNodeXriii(), true);
+		XDI3Segment relativePart = root.getRelativePart(statementXri.getContextNodeXriii());
 
 		// inner root short notation?
 
@@ -276,12 +276,12 @@ public abstract class AbstractGraph implements Graph {
 
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = root.getContextNode().setDeepContextNode(XDI3Util.concatXris(relativePart, (XDI3Segment) statementXri.getObject()));
+			ContextNode contextNode = root.getContextNode().setDeepContextNode(XDI3Util.concatXris(relativePart, statementXri.getContextNodeArcXri()));
 
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
 
-			Relation relation = root.getContextNode().setDeepRelation(relativePart, statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
+			Relation relation = root.getContextNode().setDeepRelation(relativePart, statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
 
 			return relation.getStatement();
 		} else if (statementXri.isLiteralStatement()) {
@@ -305,12 +305,12 @@ public abstract class AbstractGraph implements Graph {
 
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = baseContextNode.getDeepContextNode((XDI3Segment) statementXri.getObject());
+			ContextNode contextNode = baseContextNode.getContextNode(statementXri.getContextNodeArcXri());
 
 			return contextNode == null ? null : contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
 
-			Relation relation = baseContextNode.getRelation(statementXri.getArcXri(), statementXri.getTargetContextNodeXri());
+			Relation relation = baseContextNode.getRelation(statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
 
 			return relation == null ? null : relation.getStatement();
 		} else if (statementXri.isLiteralStatement()) {

@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -46,17 +45,23 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		XDI3Segment subject = this.parseXDI3Segment(subjectString);
 		XDI3Segment predicate = this.parseXDI3Segment(predicateString);
-		Object object;
 
 		if (XDIConstants.XRI_S_LITERAL.equals(predicateString)) {
 
-			object = this.parseString(objectString);
+			String object = this.parseString(objectString);
+
+			return this.makeXDI3Statement(string, subject, predicate, object);
+		} else if (XDIConstants.XRI_S_CONTEXT.equals(predicateString)) {
+
+			XDI3SubSegment object = this.parseXDI3SubSegment(objectString);
+
+			return this.makeXDI3Statement(string, subject, predicate, object);
 		} else {
 
-			object = this.parseXDI3Segment(objectString);
-		}
+			XDI3Segment object = this.parseXDI3Segment(objectString);
 
-		return this.makeXDI3Statement(string, subject, predicate, object);
+			return this.makeXDI3Statement(string, subject, predicate, object);
+		}
 	}
 
 	@Override
@@ -132,7 +137,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		}
 
 		// done
-		
+
 		return this.makeXDI3Segment(string, subSegments);
 	}
 
@@ -150,7 +155,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		int pos = 0, len = string.length();
 
 		// extract class pair
-		
+
 		if (pos < len && (cla = cla(string.charAt(pos))) != null) {
 
 			if (string.charAt(len - 1) != cla.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + cla.charAt(1) + "' character for class)");
@@ -159,7 +164,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		}
 
 		// extract attribute pair
-		
+
 		if (pos < len && (att = att(string.charAt(pos))) != null) {
 
 			if (string.charAt(len - 1) != att.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + att.charAt(1) + "' character for attribute)");
@@ -168,14 +173,14 @@ public class XDI3ParserManual extends XDI3Parser {
 		}
 
 		// extract cs
-		
+
 		if (pos < len && (cs = cs(string.charAt(pos))) != null) {
 
 			pos++;
 		}
 
 		// parse the rest, either xref or literal
-		
+
 		if (pos < len) {
 
 			if (xs(string.charAt(pos)) != null) {
@@ -189,7 +194,7 @@ public class XDI3ParserManual extends XDI3Parser {
 		}
 
 		// done
-		
+
 		return this.makeXDI3SubSegment(string, cs, cla != null, att != null, literal, xref);
 	}
 

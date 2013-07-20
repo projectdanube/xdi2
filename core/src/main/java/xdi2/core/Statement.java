@@ -42,11 +42,6 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	public Graph getGraph();
 
 	/**
-	 * Returns the context node XRI of this statement.
-	 */
-	public XDI3Segment getContextNodeXri();
-
-	/**
 	 * Checks if this statement is implied by other statements in the graph.
 	 * @return True, if this statement is implied by other statements in the graph.
 	 */

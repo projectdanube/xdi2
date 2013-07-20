@@ -8,7 +8,6 @@ import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -138,12 +137,6 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -7006808512493295364L;
 
 		@Override
-		public XDI3Segment getContextNodeXri() {
-
-			return XDI3Util.concatXris(this.getSubject(), (XDI3Segment) this.getObject());
-		}
-
-		@Override
 		public final XDI3Segment getPredicate() {
 
 			return XDIConstants.XRI_S_CONTEXT;
@@ -161,12 +154,6 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -2393268622327844933L;
 
 		@Override
-		public XDI3Segment getContextNodeXri() {
-
-			return this.getSubject();
-		}
-
-		@Override
 		public Relation getRelation() {
 
 			return null;
@@ -176,12 +163,6 @@ public abstract class AbstractStatement implements Statement {
 	public static abstract class AbstractLiteralStatement extends AbstractStatement implements LiteralStatement {
 
 		private static final long serialVersionUID = -7876412291137305476L;
-
-		@Override
-		public XDI3Segment getContextNodeXri() {
-
-			return this.getSubject();
-		}
 
 		@Override
 		public final XDI3Segment getPredicate() {

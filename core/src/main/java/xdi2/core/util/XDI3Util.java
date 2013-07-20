@@ -368,6 +368,30 @@ public final class XDI3Util {
 		return XDI3Segment.create(buffer.toString());
 	}
 
+	/**
+	 * Concats two XRIs into a new XRI.
+	 */
+	public static XDI3Segment concatXris(XDI3Segment xri1, XDI3SubSegment xri2) {
+
+		return concatXris(xri1, xri2 == null ? null : XDI3Segment.create(xri2));
+	}
+
+	/**
+	 * Concats two XRIs into a new XRI.
+	 */
+	public static XDI3Segment concatXris(XDI3SubSegment xri1, XDI3Segment xri2) {
+
+		return concatXris(xri1 == null ? null : XDI3Segment.create(xri1), xri2);
+	}
+
+	/**
+	 * Concats two XRIs into a new XRI.
+	 */
+	public static XDI3Segment concatXris(XDI3SubSegment xri1, XDI3SubSegment xri2) {
+
+		return concatXris(xri1 == null ? null : XDI3Segment.create(xri1), xri2 == null ? null : XDI3Segment.create(xri2));
+	}
+
 	/*
 	 * Helper classes
 	 */

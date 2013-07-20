@@ -1,5 +1,6 @@
 package xdi2.messaging.target.interceptor.impl;
 
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageResult;
@@ -43,7 +44,10 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 	@Override
 	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		this.checkReadOnly(operation, targetStatement.getContextNodeXri(), executionContext);
+		XDI3Segment targetAddress;
+		if (targetStatement.isContextNodeStatement()) targetAddress = XDI3Util.concatXris(targetStatement.getSubject(), xri2)
+		
+		this.checkReadOnly(operation, targetStatement.getContextNodeXrii(), executionContext);
 
 		return targetStatement;
 	}

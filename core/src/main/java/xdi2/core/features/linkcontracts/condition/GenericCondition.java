@@ -4,6 +4,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI generic condition, represented as a statement.
@@ -54,26 +55,27 @@ public class GenericCondition extends Condition {
 
 		if (this.getStatement().isContextNodeStatement()) {
 
-			ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
+			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
+			XDI3SubSegment contextNodeArcXri = this.getStatement().getContextNodeArcXri();
 
-			return Boolean.valueOf(subject != null);
+			return Boolean.valueOf(contextNode != null && contextNode.containsContextNode(contextNodeArcXri));
 		}
 
 		if (this.getStatement().isRelationStatement()) {
 
-			ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
+			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
 			XDI3Segment arcXri = this.getStatement().getArcXri();
 			XDI3Segment targetContextNodeXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getTargetContextNodeXri());
 
-			return Boolean.valueOf(subject != null && subject.containsRelation(arcXri, targetContextNodeXri));
+			return Boolean.valueOf(contextNode != null && contextNode.containsRelation(arcXri, targetContextNodeXri));
 		}
 
 		if (this.getStatement().isLiteralStatement()) {
 
-			ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
+			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
 			String literalData = this.getStatement().getLiteralData();
 
-			return Boolean.valueOf(subject != null && subject.containsLiteral(literalData));
+			return Boolean.valueOf(contextNode != null && contextNode.containsLiteral(literalData));
 		}
 
 		return Boolean.FALSE;

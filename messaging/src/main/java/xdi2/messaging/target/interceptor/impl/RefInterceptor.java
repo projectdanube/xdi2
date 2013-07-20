@@ -284,7 +284,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// remember that we completed this target
 
-		addCompletedAddress(executionContext, targetStatement.getContextNodeXri());
+		addCompletedAddress(executionContext, targetStatement.getContextNodeXrii());
 
 		// follow any $ref and $rep arcs
 

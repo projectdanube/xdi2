@@ -9,7 +9,17 @@ public abstract class XDI3Parser {
 	public abstract XDI3SubSegment parseXDI3SubSegment(String string);
 	public abstract XDI3XRef parseXDI3XRef(String string);
 
-	protected XDI3Statement makeXDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, Object object) {
+	protected XDI3Statement makeXDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, XDI3SubSegment object) {
+
+		return new XDI3Statement(string, subject, predicate, object);
+	}
+
+	protected XDI3Statement makeXDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, XDI3Segment object) {
+
+		return new XDI3Statement(string, subject, predicate, object);
+	}
+
+	protected XDI3Statement makeXDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, String object) {
 
 		return new XDI3Statement(string, subject, predicate, object);
 	}
