@@ -291,7 +291,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		if (targetStatement.isContextNodeStatement()) 
 			contextNodeXri = targetStatement.getTargetContextNodeXri();
 		else
-			contextNodeXri = targetStatement.getContextNodeXriii();
+			contextNodeXri = targetStatement.getContextNodeXri();
 
 		addCompletedAddress(executionContext, contextNodeXri);
 

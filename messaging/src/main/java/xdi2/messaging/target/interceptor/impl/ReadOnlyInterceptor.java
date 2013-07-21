@@ -48,7 +48,7 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 		if (targetStatement.isContextNodeStatement()) 
 			contextNodeXri = targetStatement.getTargetContextNodeXri();
 		else
-			contextNodeXri = targetStatement.getContextNodeXriii();
+			contextNodeXri = targetStatement.getContextNodeXri();
 
 		this.checkReadOnly(operation, contextNodeXri, executionContext);
 

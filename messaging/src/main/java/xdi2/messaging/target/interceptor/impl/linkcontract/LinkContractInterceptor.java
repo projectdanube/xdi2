@@ -199,7 +199,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		if (targetStatement.isContextNodeStatement()) 
 			contextNodeXri = targetStatement.getTargetContextNodeXri();
 		else
-			contextNodeXri = targetStatement.getContextNodeXriii();
+			contextNodeXri = targetStatement.getContextNodeXri();
 
 		if (! checkLinkContractAuthorization(operation, contextNodeXri, executionContext)) {
 

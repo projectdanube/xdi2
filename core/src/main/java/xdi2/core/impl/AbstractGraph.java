@@ -212,8 +212,8 @@ public abstract class AbstractGraph implements Graph {
 
 		// find the root and the base context node of this statement
 
-		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getContextNodeXriii(), true);
-		XDI3Segment relativePart = root.getRelativePart(statementXri.getContextNodeXriii());
+		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getContextNodeXri(), true);
+		XDI3Segment relativePart = root.getRelativePart(statementXri.getContextNodeXri());
 
 		// inner root short notation?
 
@@ -257,8 +257,8 @@ public abstract class AbstractGraph implements Graph {
 
 		// find the root and the base context node of this statement
 
-		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getContextNodeXriii(), true);
-		XDI3Segment relativePart = root.getRelativePart(statementXri.getContextNodeXriii());
+		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getContextNodeXri(), true);
+		XDI3Segment relativePart = root.getRelativePart(statementXri.getContextNodeXri());
 
 		// inner root short notation?
 

@@ -78,7 +78,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 				this.getTargetContextNodeXri().getFirstSubSegment().getXRef().hasStatement();
 	}
 
-	public XDI3Segment getContextNodeXriii() {
+	public XDI3Segment getContextNodeXri() {
 
 		return this.getSubject();
 	}

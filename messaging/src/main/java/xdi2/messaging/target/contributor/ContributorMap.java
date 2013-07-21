@@ -200,7 +200,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		// find an address with contributors
 
-		XDI3Segment relativeContextNodeXri = relativeTargetStatement == null ? null : relativeTargetStatement.getContextNodeXriii();
+		XDI3Segment relativeContextNodeXri = relativeTargetStatement == null ? null : relativeTargetStatement.getContextNodeXri();
 
 		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
 		contributorFounds.addAll(this.findHigherContributors(relativeContextNodeXri));
@@ -222,7 +222,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 			}
 
 			XDI3Statement nextRelativeTargetStatement = relativeTargetStatement == null ? null : StatementUtil.removeStartXriStatement(relativeTargetStatement, contributorXri, false, false, true);
-			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement == null ? null : nextRelativeTargetStatement.getContextNodeXriii();
+			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement == null ? null : nextRelativeTargetStatement.getContextNodeXri();
 
 			XDI3Segment[] nextContributorChainXris = Arrays.copyOf(contributorChainXris, contributorChainXris.length + 1);
 			nextContributorChainXris[nextContributorChainXris.length - 1] = contributorXri;
