@@ -55,7 +55,7 @@ public class GenericCondition extends Condition {
 
 		if (this.getStatement().isContextNodeStatement()) {
 
-			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
+			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXriii());
 			XDI3SubSegment contextNodeArcXri = this.getStatement().getContextNodeArcXri();
 
 			return Boolean.valueOf(contextNode != null && contextNode.containsContextNode(contextNodeArcXri));
@@ -63,8 +63,8 @@ public class GenericCondition extends Condition {
 
 		if (this.getStatement().isRelationStatement()) {
 
-			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
-			XDI3Segment arcXri = this.getStatement().getArcXri();
+			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXriii());
+			XDI3Segment arcXri = this.getStatement().getRelationArcXri();
 			XDI3Segment targetContextNodeXri = policyEvaluationContext.getContextNodeXri(this.getStatement().getTargetContextNodeXri());
 
 			return Boolean.valueOf(contextNode != null && contextNode.containsRelation(arcXri, targetContextNodeXri));
@@ -72,7 +72,7 @@ public class GenericCondition extends Condition {
 
 		if (this.getStatement().isLiteralStatement()) {
 
-			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
+			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXriii());
 			String literalData = this.getStatement().getLiteralData();
 
 			return Boolean.valueOf(contextNode != null && contextNode.containsLiteral(literalData));

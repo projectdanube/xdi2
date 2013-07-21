@@ -237,7 +237,9 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// remember that we completed this target
 
-		addCompletedAddress(executionContext, targetAddress);
+		XDI3Segment contextNodeXri = targetAddress;
+		
+		addCompletedAddress(executionContext, contextNodeXri);
 
 		// follow any $ref and $rep arcs
 
@@ -284,7 +286,14 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// remember that we completed this target
 
-		addCompletedAddress(executionContext, targetStatement.getContextNodeXrii());
+		XDI3Segment contextNodeXri;
+
+		if (targetStatement.isContextNodeStatement()) 
+			contextNodeXri = targetStatement.getTargetContextNodeXri();
+		else
+			contextNodeXri = targetStatement.getContextNodeXriii();
+
+		addCompletedAddress(executionContext, contextNodeXri);
 
 		// follow any $ref and $rep arcs
 
@@ -501,11 +510,11 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		return (Set<XDI3Segment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE);
 	}
 
-	private static void addCompletedAddress(ExecutionContext executionContext, XDI3Segment completedAddress) {
+	private static void addCompletedAddress(ExecutionContext executionContext, XDI3Segment contextNodeXri) {
 
-		getCompletedAddresses(executionContext).add(completedAddress);
+		getCompletedAddresses(executionContext).add(contextNodeXri);
 
-		if (log.isDebugEnabled()) log.debug("Added completed address: " + completedAddress);
+		if (log.isDebugEnabled()) log.debug("Added completed address: " + contextNodeXri);
 	}
 
 	private static void resetCompletedAddresses(ExecutionContext executionContext) {

@@ -34,7 +34,7 @@ public class LesserCondition extends Condition {
 
 		if (! statement.isRelationStatement()) return false;
 
-		if (! XDIPolicyConstants.XRI_S_LESSER.equals(statement.getArcXri())) return false;
+		if (! XDIPolicyConstants.XRI_S_LESSER.equals(statement.getRelationArcXri())) return false;
 
 		return true;
 	}

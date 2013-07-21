@@ -194,7 +194,12 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
-		XDI3Segment contextNodeXri = targetStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri;
+
+		if (targetStatement.isContextNodeStatement()) 
+			contextNodeXri = targetStatement.getTargetContextNodeXri();
+		else
+			contextNodeXri = targetStatement.getContextNodeXriii();
 
 		if (! checkLinkContractAuthorization(operation, contextNodeXri, executionContext)) {
 

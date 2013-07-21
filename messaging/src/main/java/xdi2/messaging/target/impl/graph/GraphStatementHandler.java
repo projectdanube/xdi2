@@ -116,13 +116,13 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 				relations = contextNode.getRelations();
 			} else {
 
-				relations = contextNode.getRelations(relationStatement.getPredicate());
+				relations = contextNode.getRelations(relationStatement.getRelationArcXri());
 			}
 
 			while (relations.hasNext()) CopyUtil.copyRelation(relations.next(), messageResult.getGraph(), null);
 		} else {
 
-			Relation relation = contextNode.getRelation(relationStatement.getArcXri(), relationStatement.getTargetContextNodeXri());
+			Relation relation = contextNode.getRelation(relationStatement.getRelationArcXri(), relationStatement.getTargetContextNodeXri());
 			if (relation == null) return;
 
 			CopyUtil.copyRelation(relation, messageResult.getGraph(), null);
@@ -134,8 +134,8 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 
 		ContextNode contextNode = this.getGraph().setDeepContextNode(relationStatement.getSubject());
 
-		boolean contains = contextNode.containsRelation(relationStatement.getArcXri(), relationStatement.getTargetContextNodeXri());
-		if (! contains) contextNode.createRelation(relationStatement.getArcXri(), relationStatement.getTargetContextNodeXri());
+		boolean contains = contextNode.containsRelation(relationStatement.getRelationArcXri(), relationStatement.getTargetContextNodeXri());
+		if (! contains) contextNode.createRelation(relationStatement.getRelationArcXri(), relationStatement.getTargetContextNodeXri());
 
 		return;
 	}

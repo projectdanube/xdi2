@@ -151,15 +151,15 @@ public class XDI3UtilTest extends TestCase {
 		assertEquals(XDI3Util.concatXris(XDI3Segment.create("+a"), XDI3Segment.create("+b+c")), XDI3Segment.create("+a+b+c"));
 
 		assertEquals(XDI3Util.concatXris(XDI3Segment.create("+a"), XDI3Segment.create("()")), XDI3Segment.create("+a"));
-		assertEquals(XDI3Util.concatXris(XDI3Segment.create("+a"), null), XDI3Segment.create("+a"));
+		assertEquals(XDI3Util.concatXris(XDI3Segment.create("+a"), (XDI3Segment) null), XDI3Segment.create("+a"));
 
 		assertEquals(XDI3Util.concatXris(XDI3Segment.create("()"), XDI3Segment.create("+a")), XDI3Segment.create("+a"));
-		assertEquals(XDI3Util.concatXris(null, XDI3Segment.create("+a")), XDI3Segment.create("+a"));
+		assertEquals(XDI3Util.concatXris((XDI3Segment) null, XDI3Segment.create("+a")), XDI3Segment.create("+a"));
 
 		assertEquals(XDI3Util.concatXris(XDI3Segment.create("()"), XDI3Segment.create("()")), XDI3Segment.create("()"));
-		assertEquals(XDI3Util.concatXris(null, XDI3Segment.create("()")), XDI3Segment.create("()"));
-		assertEquals(XDI3Util.concatXris(XDI3Segment.create("()"), null), XDI3Segment.create("()"));
-		assertEquals(XDI3Util.concatXris(null, null), XDI3Segment.create("()"));
+		assertEquals(XDI3Util.concatXris((XDI3Segment) null, XDI3Segment.create("()")), XDI3Segment.create("()"));
+		assertEquals(XDI3Util.concatXris(XDI3Segment.create("()"), (XDI3Segment) null), XDI3Segment.create("()"));
+		assertEquals(XDI3Util.concatXris((XDI3Segment) null, (XDI3Segment) null), XDI3Segment.create("()"));
 
 		XDI3Segment[] xris = new XDI3Segment[] {
 				XDI3Segment.create("()"),

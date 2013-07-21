@@ -36,7 +36,7 @@ public class MatchesCondition extends Condition {
 
 		if (! statement.isRelationStatement()) return false;
 
-		if (! XDIPolicyConstants.XRI_S_MATCHES.equals(statement.getArcXri())) return false;
+		if (! XDIPolicyConstants.XRI_S_MATCHES.equals(statement.getRelationArcXri())) return false;
 
 		return true;
 	}

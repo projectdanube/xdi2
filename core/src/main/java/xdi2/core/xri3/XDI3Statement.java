@@ -57,17 +57,17 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 	public boolean isContextNodeStatement() {
 
-		return XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate()) && this.getObject() instanceof XDI3Segment;
+		return XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate()) && (this.getObject() instanceof XDI3SubSegment);
 	}
 
 	public boolean isRelationStatement() {
 
-		return (! XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate())) && (! XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()));
+		return (! XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate())) && (! XDIConstants.XRI_S_LITERAL.equals(this.getPredicate())) && (this.getObject() instanceof XDI3Segment);
 	}
 
 	public boolean isLiteralStatement() {
 
-		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && ! (this.getObject() instanceof XDI3SubSegment);
+		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && (this.getObject() instanceof String);
 	}
 
 	public boolean hasInnerRootStatement() {

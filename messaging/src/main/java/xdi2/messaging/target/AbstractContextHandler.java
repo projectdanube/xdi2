@@ -195,42 +195,42 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 	public void executeGetOnContextNodeStatement(XDI3Statement contextNodeStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = contextNodeStatement.getTargetContextNodeXri();
 
 		this.getContext(contextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeAddOnContextNodeStatement(XDI3Statement contextNodeStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = contextNodeStatement.getTargetContextNodeXri();
 
 		this.addContext(contextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeModOnContextNodeStatement(XDI3Statement contextNodeStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = contextNodeStatement.getTargetContextNodeXri();
 
 		this.modContext(contextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeSetOnContextNodeStatement(XDI3Statement contextNodeStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = contextNodeStatement.getTargetContextNodeXri();
 
 		this.setContext(contextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeDelOnContextNodeStatement(XDI3Statement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = contextNodeStatement.getTargetContextNodeXri();
 
 		this.delContext(contextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeDoOnContextNodeStatement(XDI3Statement contextNodeStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = contextNodeStatement.getTargetContextNodeXri();
 
 		this.doContext(contextNodeXri, operation, messageResult, executionContext);
 	}
@@ -241,54 +241,54 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 	public void executeGetOnRelationStatement(XDI3Statement relationStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = relationStatement.getContextNodeXrii();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
+		XDI3Segment contextNodeXri = relationStatement.getContextNodeXriii();
+		XDI3Segment arcXri = relationStatement.getRelationArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		this.getRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeAddOnRelationStatement(XDI3Statement relationStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = relationStatement.getContextNodeXrii();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
+		XDI3Segment contextNodeXri = relationStatement.getContextNodeXriii();
+		XDI3Segment arcXri = relationStatement.getRelationArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		this.addRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeModOnRelationStatement(XDI3Statement relationStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = relationStatement.getContextNodeXrii();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
+		XDI3Segment contextNodeXri = relationStatement.getContextNodeXriii();
+		XDI3Segment arcXri = relationStatement.getRelationArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		this.modRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeSetOnRelationStatement(XDI3Statement relationStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = relationStatement.getContextNodeXrii();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
+		XDI3Segment contextNodeXri = relationStatement.getContextNodeXriii();
+		XDI3Segment arcXri = relationStatement.getRelationArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		this.setRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeDelOnRelationStatement(XDI3Statement relationStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = relationStatement.getContextNodeXrii();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
+		XDI3Segment contextNodeXri = relationStatement.getContextNodeXriii();
+		XDI3Segment arcXri = relationStatement.getRelationArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		this.delRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
 
 	public void executeDoOnRelationStatement(XDI3Statement relationStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = relationStatement.getContextNodeXrii();
-		XDI3Segment arcXri = relationStatement.getPredicate();
-		XDI3Segment targetContextNodeXri = (XDI3Segment) relationStatement.getObject();
+		XDI3Segment contextNodeXri = relationStatement.getContextNodeXriii();
+		XDI3Segment arcXri = relationStatement.getRelationArcXri();
+		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
 		this.doRelation(contextNodeXri, arcXri, targetContextNodeXri, operation, messageResult, executionContext);
 	}
@@ -299,7 +299,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 	public void executeGetOnLiteralStatement(XDI3Statement literalStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = literalStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = literalStatement.getContextNodeXriii();
 		String literalData = literalStatement.getLiteralData();
 
 		this.getLiteral(contextNodeXri, literalData, operation, messageResult, executionContext);
@@ -307,7 +307,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 	public void executeAddOnLiteralStatement(XDI3Statement literalStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = literalStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = literalStatement.getContextNodeXriii();
 		String literalData = literalStatement.getLiteralData();
 
 		this.addLiteral(contextNodeXri, literalData, operation, messageResult, executionContext);
@@ -315,7 +315,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 	public void executeModOnLiteralStatement(XDI3Statement literalStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = literalStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = literalStatement.getContextNodeXriii();
 		String literalData = literalStatement.getLiteralData();
 
 		this.modLiteral(contextNodeXri, literalData, operation, messageResult, executionContext);
@@ -323,7 +323,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 	public void executeSetOnLiteralStatement(XDI3Statement literalStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = literalStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = literalStatement.getContextNodeXriii();
 		String literalData = literalStatement.getLiteralData();
 
 		this.setLiteral(contextNodeXri, literalData, operation, messageResult, executionContext);
@@ -331,7 +331,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 	public void executeDelOnLiteralStatement(XDI3Statement literalStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = literalStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = literalStatement.getContextNodeXriii();
 		String literalData = literalStatement.getLiteralData();
 
 		this.delLiteral(contextNodeXri, literalData, operation, messageResult, executionContext);
@@ -339,7 +339,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 	public void executeDoOnLiteralStatement(XDI3Statement literalStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = literalStatement.getContextNodeXrii();
+		XDI3Segment contextNodeXri = literalStatement.getContextNodeXriii();
 		String literalData = literalStatement.getLiteralData();
 
 		this.doLiteral(contextNodeXri, literalData, operation, messageResult, executionContext);
