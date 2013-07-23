@@ -234,7 +234,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public void setSecretToken(String secretToken) {
 
-		if (secretToken == null) {
+		if (secretToken != null) {
 
 			this.getContextNode().setDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN, secretToken);
 		} else {
