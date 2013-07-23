@@ -18,7 +18,6 @@
 		<module>server-war</module>
 		<module>p2p</module>
 		<module>webtools</module>
-		<module>samples</module>
 	</modules>
 
 	<issueManagement>
