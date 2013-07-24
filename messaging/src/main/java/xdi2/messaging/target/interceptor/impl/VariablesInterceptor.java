@@ -172,6 +172,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	private static XDI3SubSegment substituteSubSegment(XDI3SubSegment subSegment, ExecutionContext executionContext) {
 
 		if (! VariableUtil.isVariable(subSegment)) return null;
+		if (! subSegment.getXRef().isEmpty()) return null;
 
 		// substitute the subsegment
 
