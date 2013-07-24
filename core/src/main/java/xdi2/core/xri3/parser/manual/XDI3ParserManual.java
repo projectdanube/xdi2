@@ -259,16 +259,23 @@ public class XDI3ParserManual extends XDI3Parser {
 		return string.substring(1, string.length() - 1);
 	}
 
+	private static String stripQuotes(String string) {
+		
+		string = stripPattern(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));
+		
+		return string;
+	}
+	
 	private static String stripXs(String string) {
 
-		string = stripXs(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));
-		string = stripXs(string, Pattern.compile(".*(\\{[^\\{\\}]*\\}).*"));
-		string = stripXs(string, Pattern.compile(".*(\\\"[^\\\"\\]]*\\\").*"));
+		string = stripPattern(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));
+		string = stripPattern(string, Pattern.compile(".*(\\{[^\\{\\}]*\\}).*"));
+		string = stripPattern(string, Pattern.compile(".*(\"[^\"]*\").*"));
 
 		return string;
 	}
 
-	private static String stripXs(String string, Pattern pattern) {
+	private static String stripPattern(String string, Pattern pattern) {
 
 		String temp = string;
 
