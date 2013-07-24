@@ -288,7 +288,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		if (this.transaction) throw new Xdi2RuntimeException("Already have an open transaction.");
 
-		log.debug("Beginning Transaction...");
+		if (log.isDebugEnabled()) log.debug("Beginning Transaction...");
 
 		try {
 
@@ -299,7 +299,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 			throw new Xdi2RuntimeException("Cannot begin transaction: " + ex.getMessage(), ex);
 		}
 
-		log.debug("Began transaction...");
+		if (log.isDebugEnabled()) log.debug("Began transaction...");
 	}
 
 	@Override
@@ -318,7 +318,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 			throw new Xdi2RuntimeException("Cannot commit transaction: " + ex.getMessage(), ex);
 		}
 
-		log.debug("Committed transaction...");
+		if (log.isDebugEnabled()) log.debug("Committed transaction...");
 	}
 
 	@Override
@@ -337,7 +337,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 			throw new Xdi2RuntimeException("Cannot roll back transaction: " + ex.getMessage(), ex);
 		}
 
-		log.debug("Rolled back transaction...");
+		if (log.isDebugEnabled()) log.debug("Rolled back transaction...");
 	}
 	
 	public String getPath() {

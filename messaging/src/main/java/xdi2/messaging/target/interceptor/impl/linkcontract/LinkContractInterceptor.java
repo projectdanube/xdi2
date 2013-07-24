@@ -119,7 +119,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		LinkContract linkContract = LinkContract.fromXdiEntity(xdiEntity);
 		if (linkContract == null) return false;
 
-		log.debug("Found link contract " + linkContract);
+		if (log.isDebugEnabled()) log.debug("Found link contract " + linkContract);
 
 		putLinkContract(executionContext, linkContract);
 
@@ -164,7 +164,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri()) != null) {
 
-				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
+				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
 				return true;
 			}
 		}
@@ -175,14 +175,14 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri()) != null) {
 
-				log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
+				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
 				return true;
 			}
 		}
 
 		// done
 
-		log.debug("Link contract " + linkContract + " does not allow " + operation.getOperationXri() + " on " + contextNodeXri);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + operation.getOperationXri() + " on " + contextNodeXri);
 		return false;
 	}
 

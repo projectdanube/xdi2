@@ -49,7 +49,7 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
-		log.debug("Setting application context.");
+		if (log.isDebugEnabled()) log.debug("Setting application context.");
 
 		this.httpEndpointRegistry = (HttpEndpointRegistry) applicationContext.getBean("HttpEndpointRegistry");
 		if (this.httpEndpointRegistry == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpEndpointRegistry' not found.");

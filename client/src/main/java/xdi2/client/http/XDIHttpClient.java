@@ -113,7 +113,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			this.recvMimeType = new MimeType(parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_RECVMIMETYPE));
 			this.userAgent = parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_USERAGENT);
 
-			log.debug("Initialized with " + parameters.toString() + ".");
+			if (log.isDebugEnabled()) log.debug("Initialized with " + parameters.toString() + ".");
 		}
 	}
 
@@ -139,7 +139,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		if (writer == null) throw new Xdi2ClientException("Cannot find a suitable XDI writer.", null);
 
-		log.debug("Using writer " + writer.getClass().getName() + ".");
+		if (log.isDebugEnabled()) log.debug("Using writer " + writer.getClass().getName() + ".");
 
 		// find out which XDIReader we want to use
 
@@ -154,17 +154,17 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		if (reader == null) throw new Xdi2ClientException("Cannot find a suitable XDI reader.", null);
 
-		log.debug("Using reader " + reader.getClass().getName() + ".");
+		if (log.isDebugEnabled()) log.debug("Using reader " + reader.getClass().getName() + ".");
 
 		// prepare Accept: header
 
 		AcceptHeader acceptHeader = AcceptHeader.create(recvMimeType);
 
-		log.debug("Using Accept header " + acceptHeader.toString() + ".");
+		if (log.isDebugEnabled()) log.debug("Using Accept header " + acceptHeader.toString() + ".");
 
 		// initialize and open connection
 
-		log.debug("Connecting to " + this.endpointUri);
+		if (log.isDebugEnabled()) log.debug("Connecting to " + this.endpointUri);
 
 		URLConnection connection;
 
@@ -226,7 +226,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		String contentType = http.getContentType();
 		int contentLength = http.getContentLength();
 
-		log.debug("Received result. Content-Type: " + contentType + ", Content-Length: " + contentLength);
+		if (log.isDebugEnabled()) log.debug("Received result. Content-Type: " + contentType + ", Content-Length: " + contentLength);
 
 		if (contentType != null) {
 

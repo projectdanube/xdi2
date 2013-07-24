@@ -36,7 +36,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 	public void addContributor(XDI3Segment contributorXri, Contributor contributor) {
 
-		log.debug("Adding contributor " + contributor.getClass().getSimpleName() + " under " + contributorXri);
+		if (log.isDebugEnabled()) log.debug("Adding contributor " + contributor.getClass().getSimpleName() + " under " + contributorXri);
 
 		List<Contributor> contributors = this.get(contributorXri);
 
@@ -61,7 +61,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 	public void removeContributor(XDI3Segment contributorXri, Contributor contributor) {
 
-		log.debug("Removing contributor " + contributor.getClass().getSimpleName() + " from " + contributorXri);
+		if (log.isDebugEnabled()) log.debug("Removing contributor " + contributor.getClass().getSimpleName() + " from " + contributorXri);
 
 		List<Contributor> contributors = this.get(contributorXri);
 		if (contributors == null) return;

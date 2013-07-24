@@ -75,7 +75,7 @@ public class JarClassLoader extends URLClassLoader {
 			int readCount;
 			byte[] buffer = new byte[4096];
 
-			log.debug("Writing temp file: " + file);
+			if (log.isDebugEnabled()) log.debug("Writing temp file: " + file);
 
 			while ((readCount = input.read(buffer)) != -1) {
 
@@ -92,7 +92,7 @@ public class JarClassLoader extends URLClassLoader {
 
 	private void addJarResource(File file) throws IOException {
 
-		log.debug("Adding .jar to classpath: " + file.getAbsolutePath());
+		if (log.isDebugEnabled()) log.debug("Adding .jar to classpath: " + file.getAbsolutePath());
 
 		JarFile jarFile = new JarFile(file);
 		addURL(file.toURI().toURL());

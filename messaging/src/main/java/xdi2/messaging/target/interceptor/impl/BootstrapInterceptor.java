@@ -100,7 +100,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 		Graph graph = graphMessagingTarget.getGraph();
 		ContextNode rootContextNode = graph.getRootContextNode();
 
-		log.debug("bootstrapOwner=" + this.getBootstrapOwner() + ", bootstrapOwnerSynonyms=" + this.getBootstrapOwnerSynonyms() + ", bootstrapLinkContract=" + this.getBootstrapLinkContract() + ", bootstrapPublicLinkContract=" + this.getBootstrapPublicLinkContract());
+		if (log.isDebugEnabled()) log.debug("bootstrapOwner=" + this.getBootstrapOwner() + ", bootstrapOwnerSynonyms=" + this.getBootstrapOwnerSynonyms() + ", bootstrapLinkContract=" + this.getBootstrapLinkContract() + ", bootstrapPublicLinkContract=" + this.getBootstrapPublicLinkContract());
 
 		// check if the owner statement exists
 

@@ -30,21 +30,21 @@ public abstract class AbstractHttpRequest implements HttpRequest {
 	@Override
 	public void lookup(HttpEndpointRegistry httpEndpointRegistry) throws Xdi2ServerException, Xdi2MessagingException {
 
-		log.debug("Looking up messaging target for request path " + this.getRequestPath());
+		if (log.isDebugEnabled()) log.debug("Looking up messaging target for request path " + this.getRequestPath());
 
 		// check which messaging target this request applies to
 
 		String messagingTargetPath = httpEndpointRegistry.findMessagingTargetPath(this.getRequestPath());
 		MessagingTarget messagingTarget = messagingTargetPath == null ? null : httpEndpointRegistry.getMessagingTarget(messagingTargetPath);
 
-		log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
+		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
 
 		// check which messaging target factory this request applies to
 
 		String messagingTargetFactoryPath = httpEndpointRegistry.findMessagingTargetFactoryPath(this.getRequestPath());
 		MessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : httpEndpointRegistry.getMessagingTargetFactory(messagingTargetFactoryPath);
 
-		log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? null : messagingTargetFactory.getClass().getSimpleName()));
+		if (log.isDebugEnabled()) log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? null : messagingTargetFactory.getClass().getSimpleName()));
 
 		if (messagingTargetFactory != null) {
 
@@ -65,7 +65,7 @@ public abstract class AbstractHttpRequest implements HttpRequest {
 			messagingTargetPath = httpEndpointRegistry.findMessagingTargetPath(this.getRequestPath());
 			messagingTarget = messagingTargetPath == null ? null : httpEndpointRegistry.getMessagingTarget(messagingTargetPath);
 
-			log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
+			if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
 		}
 
 		// update request info

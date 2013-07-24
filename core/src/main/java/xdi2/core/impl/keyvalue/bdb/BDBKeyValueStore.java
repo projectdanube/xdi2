@@ -56,7 +56,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	@Override
 	public void init() throws IOException {
 
-		log.debug("Opening environment and database...");
+		if (log.isDebugEnabled()) log.debug("Opening environment and database...");
 
 		this.environment = new Environment(new File(this.databasePath), this.environmentConfig);
 		this.database = this.environment.openDatabase(null, this.databaseName, this.databaseConfig);
@@ -66,7 +66,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	@Override
 	public void close() {
 
-		log.debug("Closing environment and database...");
+		if (log.isDebugEnabled()) log.debug("Closing environment and database...");
 
 		try {
 
@@ -310,7 +310,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 		if (this.transaction != null) throw new Xdi2RuntimeException("Already have an open transaction.");
 
-		log.debug("Beginning Transaction...");
+		if (log.isDebugEnabled()) log.debug("Beginning Transaction...");
 
 		try {
 
@@ -320,7 +320,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			throw new Xdi2RuntimeException("Cannot begin transaction: " + ex.getMessage(), ex);
 		}
 
-		log.debug("Began transaction...");
+		if (log.isDebugEnabled()) log.debug("Began transaction...");
 	}
 
 	@Override
@@ -339,7 +339,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			throw new Xdi2RuntimeException("Cannot commit transaction: " + ex.getMessage(), ex);
 		}
 
-		log.debug("Committed transaction...");
+		if (log.isDebugEnabled()) log.debug("Committed transaction...");
 	}
 
 	@Override
@@ -349,7 +349,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 		if (this.transaction == null) throw new Xdi2RuntimeException("No open transaction.");
 
-		log.debug("Rolling back transaction...");
+		if (log.isDebugEnabled()) log.debug("Rolling back transaction...");
 
 		try {
 
@@ -367,7 +367,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			}
 		}
 
-		log.debug("Rolled back transaction...");
+		if (log.isDebugEnabled()) log.debug("Rolled back transaction...");
 	}
 
 	public String getDatabasePath() {

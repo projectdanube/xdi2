@@ -46,7 +46,7 @@ public class HttpEndpointRegistry implements ApplicationContextAware {
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
-		log.debug("Setting application context.");
+		if (log.isDebugEnabled()) log.debug("Setting application context.");
 
 		this.applicationContext = applicationContext;
 	}
