@@ -123,7 +123,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 			for (Relation refRepRelation : refRepRelations) {
 
-				if (log.isDebugEnabled()) log.debug("In message result: Found $ref/$rep relation: " + refRepRelation);
+				log.debug("In message result: Found $ref/$rep relation: " + refRepRelation);
 
 				XDI3Segment targetContextNodeXri = refRepRelation.getTargetContextNodeXri();
 
@@ -135,7 +135,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 					if (XDI3Util.startsWith(targetContextNodeXri, completedAddress) != null) {
 
-						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation to " + targetContextNodeXri + " because of already completed address (" + completedAddress + "): " + refRepRelation);
+						log.debug("In message result: Skipping $ref/$rep relation to " + targetContextNodeXri + " because of already completed address (" + completedAddress + "): " + refRepRelation);
 
 						if (XDIDictionaryConstants.XRI_S_REP.equals(refRepRelation.getArcXri())) refRepRelation.delete();
 						skip = true;
@@ -161,7 +161,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 				// done with this $ref/$rep relation
 
-				if (log.isDebugEnabled()) log.debug("In message result: We now have: " + operationMessageResult);
+				log.debug("In message result: We now have: " + operationMessageResult);
 			}
 		}
 
@@ -188,7 +188,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 				if (refRepTargetContextNode != null && ! operationMessageResult.getGraph().isEmpty()) {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Replacing $ref/$rep relation: " + refRepRelation);
+					log.debug("In message result: Replacing $ref/$rep relation: " + refRepRelation);
 
 					Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 					ContextNode tempContextNode = tempGraph.setDeepContextNode(refRepContextNode.getXri());
@@ -200,7 +200,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 					CopyUtil.copyGraph(tempGraph, operationMessageResult.getGraph(), null);
 				} else {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Not replacing $ref/$rep relation: " + refRepRelation);
+					log.debug("In message result: Not replacing $ref/$rep relation: " + refRepRelation);
 				}
 			}
 
@@ -210,10 +210,10 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getXri())) {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate $ref relation: " + refRepRelation);
+					log.debug("In message result: Not including duplicate $ref relation: " + refRepRelation);
 				} else {
 
-					if (log.isDebugEnabled()) log.debug("In message result: Including $ref relation: " + refRepRelation);
+					log.debug("In message result: Including $ref relation: " + refRepRelation);
 
 					CopyUtil.copyStatement(refRepRelation.getStatement(), operationMessageResult.getGraph(), null);
 				}
@@ -221,7 +221,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 			// done with this $ref/$rep relation
 
-			if (log.isDebugEnabled()) log.debug("In message result: We now have: " + operationMessageResult);
+			log.debug("In message result: We now have: " + operationMessageResult);
 		}
 
 		// done
@@ -256,7 +256,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 			if (followedTargetAddress == tempTargetAddress) break;
 
-			if (log.isDebugEnabled()) log.debug("In message envelope: Followed " + tempTargetAddress + " to " + followedTargetAddress);
+			log.debug("In message envelope: Followed " + tempTargetAddress + " to " + followedTargetAddress);
 		}
 
 		if (followedTargetAddress != originalTargetAddress) {
@@ -280,7 +280,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 			// don't do anything special
 
-			if (log.isDebugEnabled()) log.debug("Not operating on $ref/$rep target statement: " + targetStatement);
+			log.debug("Not operating on $ref/$rep target statement: " + targetStatement);
 
 			return targetStatement;
 		}
@@ -310,7 +310,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 			if (followedTargetSubject == tempTargetSubject) break;
 
-			if (log.isDebugEnabled()) log.debug("In message envelope: Followed " + tempTargetSubject + " to " + followedTargetSubject);
+			log.debug("In message envelope: Followed " + tempTargetSubject + " to " + followedTargetSubject);
 		}
 
 		if (followedTargetSubject != originalTargetSubject) {
@@ -381,7 +381,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 	private static MessageResult feedbackOnSourceOfRefRepRelation(ContextNode refRepContextNode, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Initiating $get feedback on source of $ref/$rep relation: " + refRepContextNode);
+		log.debug("Initiating $get feedback on source of $ref/$rep relation: " + refRepContextNode);
 
 		// prepare messaging target and message result
 
@@ -406,14 +406,14 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Completed $get feedback on source of $ref/$rep relation: " + refRepContextNode + ", message result: " + feedbackMessageResult);
+		log.debug("Completed $get feedback on source of $ref/$rep relation: " + refRepContextNode + ", message result: " + feedbackMessageResult);
 
 		return feedbackMessageResult;
 	}
 
 	private static MessageResult feedbackFindRefRepRelationsInContext(XDI3Segment contextNodeXri, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to find $ref/$rep relations in context: " + contextNodeXri);
+		log.debug("Initiating $get feedback to find $ref/$rep relations in context: " + contextNodeXri);
 
 		// prepare messaging target and message result
 
@@ -441,7 +441,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 			messagingTarget.execute(feedbackMessageRef, feedbackMessageResult, executionContext);
 		} catch (Xdi2NotAuthorizedException ex) {
 
-			if (log.isDebugEnabled()) log.debug("Not authorized to find $ref relation in context: " + contextNodeXri);
+			log.debug("Not authorized to find $ref relation in context: " + contextNodeXri);
 		} catch (Xdi2MessagingException ex) {
 
 			if (log.isWarnEnabled()) log.warn("Exception while attemping to find $ref relation in context: " + contextNodeXri);
@@ -452,7 +452,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 			messagingTarget.execute(feedbackMessageRep, feedbackMessageResult, executionContext);
 		} catch (Xdi2NotAuthorizedException ex) {
 
-			if (log.isDebugEnabled()) log.debug("Not authorized to find $rep relation in context: " + contextNodeXri);
+			log.debug("Not authorized to find $rep relation in context: " + contextNodeXri);
 		} catch (Xdi2MessagingException ex) {
 
 			if (log.isWarnEnabled()) log.warn("Exception while attemping to find $rep relation in context: " + contextNodeXri);
@@ -462,7 +462,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Completed $get feedback to find $ref/$rep relations in context: " + contextNodeXri + ", message result: " + feedbackMessageResult);
+		log.debug("Completed $get feedback to find $ref/$rep relations in context: " + contextNodeXri + ", message result: " + feedbackMessageResult);
 
 		return feedbackMessageResult;
 	}
@@ -509,7 +509,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		Relation referenceRelation = referenceRelations.pop();
 
-		if (log.isDebugEnabled()) log.debug("Popping $ref/$rep relation: " + referenceRelation);
+		log.debug("Popping $ref/$rep relation: " + referenceRelation);
 
 		return referenceRelation;
 	}
@@ -518,7 +518,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		getRefRepRelations(executionContext).push(referenceRelation);
 
-		if (log.isDebugEnabled()) log.debug("Pushing $ref/$rep relation: " + referenceRelation);
+		log.debug("Pushing $ref/$rep relation: " + referenceRelation);
 	}
 
 	private static void resetRefRepRelations(ExecutionContext executionContext) {
@@ -536,7 +536,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		getCompletedAddresses(executionContext).add(contextNodeXri);
 
-		if (log.isDebugEnabled()) log.debug("Added completed address: " + contextNodeXri);
+		log.debug("Added completed address: " + contextNodeXri);
 	}
 
 	private static void resetCompletedAddresses(ExecutionContext executionContext) {
