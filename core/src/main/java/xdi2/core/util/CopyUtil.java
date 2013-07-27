@@ -1,10 +1,6 @@
 package xdi2.core.util;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -326,58 +322,31 @@ public final class CopyUtil {
 
 	}
 
-	/**
-	 * A strategy that excludes certain context nodes.
-	 */
-	public static class ExcludeContextNodesCopyStrategy extends CopyStrategy {
+	public static class SafeGraphCopyStrategy extends CopyStrategy {
 
-		private Set<ContextNode> excludeContextNodes;
+		private Graph graph;
 
-		public ExcludeContextNodesCopyStrategy(Collection<ContextNode> excludeContextNodes) {
+		public SafeGraphCopyStrategy(Graph graph) {
 
-			this.excludeContextNodes = new HashSet<ContextNode> ();
-			this.excludeContextNodes.addAll(excludeContextNodes);
-		}
-
-		public ExcludeContextNodesCopyStrategy() {
-
-			this(Arrays.asList(new ContextNode[0]));
+			this.graph = graph;
 		}
 
 		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {
 
-			if (this.excludeContextNodes.contains(contextNode)) return null;
-
-			return contextNode;
-		}
-
-		public void addExcludeContextNode(ContextNode contextNode) {
-
-			this.excludeContextNodes.add(contextNode);
-		}
-	}
-
-	/**
-	 * A strategy that excludes duplicate context nodes.
-	 */
-	public static class ExcludeDuplicateContextNodesCopyStrategy extends ExcludeContextNodesCopyStrategy {
-
-		public ExcludeDuplicateContextNodesCopyStrategy() {
-
-			super();
+			return this.graph.getDeepContextNode(contextNode.getXri()) == null ? contextNode : null;
 		}
 
 		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
+		public Relation replaceRelation(Relation relation) {
 
-			try {
+			return this.graph.getDeepRelation(relation.getContextNode().getXri(), relation.getArcXri(), relation.getTargetContextNodeXri()) == null ? relation : null;
+		}
 
-				return super.replaceContextNode(contextNode);
-			} finally {
+		@Override
+		public Literal replaceLiteral(Literal literal) {
 
-				this.addExcludeContextNode(contextNode);
-			}
+			return this.graph.getDeepLiteral(literal.getContextNode().getXri(), literal.getLiteralData()) == null ? literal : null;
 		}
 	}
 }
