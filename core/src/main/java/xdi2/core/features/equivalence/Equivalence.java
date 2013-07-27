@@ -74,6 +74,9 @@ public class Equivalence {
 		Relation referenceRelation = getReferenceRelation(contextNode);
 		if (referenceRelation != null) referenceRelation.delete();
 
+		Relation replacementRelation = getReplacementRelation(contextNode);
+		if (replacementRelation != null) replacementRelation.delete();
+
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, referenceContextNode);
 	}
 
@@ -112,6 +115,12 @@ public class Equivalence {
 	}
 
 	public static void setReplacementContextNode(ContextNode contextNode, ContextNode replacementContextNode) {
+
+		Relation referenceRelation = getReferenceRelation(contextNode);
+		if (referenceRelation != null) referenceRelation.delete();
+
+		Relation replacementRelation = getReplacementRelation(contextNode);
+		if (replacementRelation != null) replacementRelation.delete();
 
 		contextNode.createRelation(XDIDictionaryConstants.XRI_S_REP, replacementContextNode);
 	}
