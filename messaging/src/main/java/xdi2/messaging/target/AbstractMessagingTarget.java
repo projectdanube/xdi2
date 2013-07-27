@@ -226,6 +226,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				this.execute(operation, operationMessageResult, executionContext);
 
+				log.debug(operationMessageResult.getGraph().toString());
+				log.debug(messageResult.getGraph().toString());
+
 				CopyUtil.copyGraph(operationMessageResult.getGraph(), messageResult.getGraph(), null);
 			}
 		} catch (Exception ex) {
