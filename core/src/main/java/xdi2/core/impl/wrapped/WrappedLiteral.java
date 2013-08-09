@@ -18,13 +18,13 @@ public class WrappedLiteral extends AbstractLiteral implements Literal {
 	}
 
 	@Override
-	public String getLiteralData() {
+	public Object getLiteralData() {
 
 		return this.memoryLiteral.getLiteralData();
 	}
 
 	@Override
-	public void setLiteralData(String literalData) {
+	public void setLiteralData(Object literalData) {
 
 		this.memoryLiteral.setLiteralData(literalData);
 	}

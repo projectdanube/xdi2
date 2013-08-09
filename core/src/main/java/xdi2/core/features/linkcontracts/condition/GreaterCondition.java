@@ -72,8 +72,8 @@ public class GreaterCondition extends Condition {
 
 			if (! object.containsLiteral()) return Boolean.FALSE;
 
-			String subjectLiteralData = subject.getLiteral().getLiteralData();
-			String objectLiteralData = object.getLiteral().getLiteralData();
+			Object subjectLiteralData = subject.getLiteral().getLiteralData();
+			Object objectLiteralData = object.getLiteral().getLiteralData();
 
 			return Boolean.valueOf(Integer.parseInt(subjectLiteralData) > Integer.parseInt(objectLiteralData));
 		}

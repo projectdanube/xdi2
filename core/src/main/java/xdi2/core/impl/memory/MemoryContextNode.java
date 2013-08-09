@@ -277,7 +277,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 * Methods related to literals of this context node
 	 */
 
-	private synchronized Literal createLiteralInternal(String literalData) {
+	private synchronized Literal createLiteralInternal(Object literalData) {
 
 		MemoryLiteral literal = new MemoryLiteral(this, literalData);
 		this.literal = literal;
@@ -286,7 +286,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public synchronized Literal createLiteral(String literalData) {
+	public synchronized Literal createLiteral(Object literalData) {
 
 		this.checkLiteral(literalData, true);
 
@@ -294,7 +294,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public synchronized Literal setLiteral(String literalData) {
+	public synchronized Literal setLiteral(Object literalData) {
 
 		this.checkLiteral(literalData, false);
 

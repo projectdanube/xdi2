@@ -33,6 +33,8 @@ public class Timestamps {
 
 	public static Date stringToTimestamp(String string) {
 
+		if (string == null) return null;
+
 		if (string.charAt(string.length() - 1) == 'Z') string = string.substring(0, string.length() - 1) + "UTC";
 
 		for (DateFormat dateFormat : XDITimestampsConstants.FORMATS_TIMESTAMP) {
@@ -60,14 +62,14 @@ public class Timestamps {
 
 		XdiAttribute xdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XDITimestampsConstants.XRI_SS_T, false);
 		if (xdiAttribute == null) return null;
-		
+
 		XdiValue xdiValue = xdiAttribute.getXdiValue(false);
 		if (xdiValue == null) return null;
-		
+
 		Literal timestampLiteral = xdiValue.getContextNode().getLiteral();
 		if (timestampLiteral == null) return null;
 
-		Date timestamp = stringToTimestamp(timestampLiteral.getLiteralData());
+		Date timestamp = stringToTimestamp(timestampLiteral.getLiteralDataString());
 		return timestamp;
 	}
 

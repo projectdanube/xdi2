@@ -36,6 +36,51 @@ public abstract class AbstractLiteral implements Literal {
 		this.getContextNode().deleteLiteral();
 	}
 
+	@Override
+	public String getLiteralDataString() {
+
+		Object literalData = this.getLiteralData();
+		if (! (literalData instanceof String)) return null;
+
+		return (String) literalData;
+	}
+
+	@Override
+	public Number getLiteralDataNumber() {
+
+		Object literalData = this.getLiteralData();
+		if (! (literalData instanceof Number)) return null;
+
+		return (Number) literalData;
+	}
+
+	@Override
+	public Boolean getLiteralDataBoolean() {
+
+		Object literalData = this.getLiteralData();
+		if (! (literalData instanceof Boolean)) return null;
+
+		return (Boolean) literalData;
+	}
+
+	@Override
+	public void setLiteralDataString(String literalData) {
+
+		this.setLiteralData(literalData);
+	}
+
+	@Override
+	public void setLiteralDataNumber(Number literalData) {
+
+		this.setLiteralData(literalData);
+	}
+
+	@Override
+	public void setLiteralDataBoolean(Boolean literalData) {
+
+		this.setLiteralData(literalData);
+	}
+
 	/*
 	 * Methods related to statements
 	 */
@@ -82,6 +127,7 @@ public abstract class AbstractLiteral implements Literal {
 		return hashCode;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public int compareTo(Literal other) {
 
@@ -90,7 +136,7 @@ public abstract class AbstractLiteral implements Literal {
 		int compare;
 
 		if ((compare = this.getContextNode().compareTo(other.getContextNode())) != 0) return compare;
-		if ((compare = this.getLiteralData().compareTo(other.getLiteralData())) != 0) return compare;
+		if ((compare = ((Comparable) this.getLiteralData()).compareTo((Comparable) other.getLiteralData())) != 0) return compare;
 
 		return 0;
 	}

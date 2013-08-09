@@ -1,5 +1,7 @@
 package xdi2.core.impl.keyvalue;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 import xdi2.core.Literal;
 import xdi2.core.impl.AbstractLiteral;
 
@@ -10,9 +12,9 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 	private KeyValueStore keyValueStore;
 	private String key;
 
-	private String literalData;
+	private Object literalData;
 
-	KeyValueLiteral(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, String literalData) {
+	KeyValueLiteral(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, Object literalData) {
 
 		super(contextNode);
 
@@ -23,22 +25,71 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 	}
 
 	@Override
-	public String getLiteralData() {
+	public Object getLiteralData() {
 
 		if (this.literalData == null) {
 
-			this.literalData = this.keyValueStore.getOne(this.key);
+			this.literalData = stringToLiteralData(this.keyValueStore.getOne(this.key));
 		}
 
 		return this.literalData;
 	}
 
 	@Override
-	public void setLiteralData(String literalData) {
+	public void setLiteralData(Object literalData) {
 
-		this.keyValueStore.replace(this.key, literalData);
+		this.keyValueStore.replace(this.key, literalDataToString(literalData));
 
 		this.literalData = literalData;
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	private static String literalDataToString(Object literalData) {
+
+		if (literalData == null) throw new NullPointerException();
+
+		if (literalData instanceof String) {
+
+			return "\"" + ((String) literalData).replace("\"", "\\\"") + "\"";
+		} else if (literalData instanceof Number) {
+
+			return literalData.toString();
+		} else if (literalData instanceof Boolean) {
+
+			return literalData.toString();
+		} else {
+
+			throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
+		}
+	}
+
+	private static Object stringToLiteralData(String string) {
+
+		if (string == null) throw new NullPointerException();
+		if (string.isEmpty()) throw new IllegalArgumentException("Invalid emtpy string.");
+
+		if (string.startsWith("\"") && string.endsWith("\"")) {
+
+			return string.substring(1, string.length() - 2).replace("\\\"", "\"");
+		} else {
+
+			try {
+
+				return NumberUtils.createNumber(string);
+			} catch (Exception ex) {
+
+				try {
+
+					return Boolean.parseBoolean(string);
+				} catch (Exception ex2) {
+
+					throw new IllegalArgumentException("Invalid string: " + string);
+				}
+			}
+		}
 	}
 
 	/*

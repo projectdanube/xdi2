@@ -77,6 +77,10 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 		return writer;
 	}
 
+	/*
+	 * Helper methods
+	 */
+
 	private static JsonObject makeJson(ContextNode contextNode, boolean writeImplied, boolean writeInner) {
 
 		Map<XdiInnerRoot, JsonObject> xdiInnerRootJsons = new HashMap<XdiInnerRoot, JsonObject> ();
@@ -148,7 +152,7 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 				if (innerContextNode.getArcXri().equals(XDIConstants.CS_VALUE.toString()) && innerContextNode.containsLiteral()) {
 
-					json.add(XDIConstants.CS_VALUE.toString(), new JsonPrimitive(innerContextNode.getLiteral().getLiteralData()));
+					json.add(XDIConstants.CS_VALUE.toString(), literalDataToJsonPrimitive(innerContextNode.getLiteral().getLiteralData()));
 				} else {
 
 					json.add(innerContextNode.getArcXri().toString(), makeJson(innerContextNode, writeImplied, writeInner));
@@ -174,5 +178,22 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 		// done
 
 		return json;
+	}
+
+	private static JsonPrimitive literalDataToJsonPrimitive(Object literalData) {
+
+		if (literalData instanceof String) {
+
+			return new JsonPrimitive((String) literalData);
+		} else if (literalData instanceof Number) {
+
+			return new JsonPrimitive((Number) literalData);
+		} else if (literalData instanceof Boolean) {
+
+			return new JsonPrimitive((Boolean) literalData);
+		} else {
+
+			throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
+		}
 	}
 }

@@ -7,7 +7,7 @@ public class BasicLiteral extends AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = 3101871056623742994L;
 
-	private String literalData;
+	private Object literalData;
 
 	public BasicLiteral(ContextNode contextNode, String literalData) {
 
@@ -22,13 +22,13 @@ public class BasicLiteral extends AbstractLiteral implements Literal {
 	}
 
 	@Override
-	public String getLiteralData() {
+	public Object getLiteralData() {
 
 		return this.literalData;
 	}
 
 	@Override
-	public void setLiteralData(String literalData) {
+	public void setLiteralData(Object literalData) {
 
 		this.literalData = literalData;
 	}

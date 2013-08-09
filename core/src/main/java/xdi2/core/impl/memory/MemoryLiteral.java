@@ -7,9 +7,9 @@ public class MemoryLiteral extends AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = -7857969624385707741L;
 
-	private String literalData;
+	private Object literalData;
 
-	MemoryLiteral(MemoryContextNode contextNode, String literalData) {
+	MemoryLiteral(MemoryContextNode contextNode, Object literalData) {
 
 		super(contextNode);
 
@@ -17,13 +17,13 @@ public class MemoryLiteral extends AbstractLiteral implements Literal {
 	}
 
 	@Override
-	public String getLiteralData() {
+	public Object getLiteralData() {
 
 		return this.literalData;
 	}
 
 	@Override
-	public void setLiteralData(String literalData) {
+	public void setLiteralData(Object literalData) {
 
 		this.literalData = literalData;
 	}

@@ -162,7 +162,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	 */
 
 	@Override
-	public synchronized Literal createLiteral(String literalData) {
+	public synchronized Literal createLiteral(Object literalData) {
 
 		MemoryLiteral ret = (MemoryLiteral) this.memoryContextNode.createLiteral(literalData);
 

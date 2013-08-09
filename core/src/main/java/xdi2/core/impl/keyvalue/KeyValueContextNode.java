@@ -346,7 +346,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	 */
 
 	@Override
-	public synchronized Literal createLiteral(String literalData) {
+	public synchronized Literal createLiteral(Object literalData) {
 
 		this.checkLiteral(literalData, true);
 

@@ -90,7 +90,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public Literal createLiteral(String literalData) {
+	public Literal createLiteral(Object literalData) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
