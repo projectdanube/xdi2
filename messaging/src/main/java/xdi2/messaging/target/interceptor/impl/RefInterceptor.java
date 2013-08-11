@@ -18,6 +18,7 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
+import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.xri3.XDI3Segment;
@@ -264,7 +265,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// are we operating on a $ref or $rep arc?
 
-		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri()) ||
+		/*		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri()) ||
 				XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) {
 
 			// don't do anything special
@@ -272,21 +273,43 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 			if (log.isDebugEnabled()) log.debug("Not operating on $ref/$rep target statement: " + targetStatement);
 
 			return targetStatement;
-		}
+		}*/
 
 		// remember that we completed this target
 
-		if (operation instanceof GetOperation && targetStatement.isContextNodeStatement()) {
+		if (operation instanceof GetOperation) {
 
-			XDI3Segment contextNodeXri = targetStatement.getTargetContextNodeXri();
+			XDI3Segment contextNodeXri;
+			
+			if (targetStatement.isContextNodeStatement()) {
 
-			addCompletedAddress(executionContext, contextNodeXri);
+				contextNodeXri = targetStatement.getTargetContextNodeXri();
+
+				addCompletedAddress(executionContext, contextNodeXri);
+			}
+
+			if (targetStatement.isRelationStatement() &&
+					( XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri()) ||
+							XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri()))) {
+
+				contextNodeXri = targetStatement.getContextNodeXri();
+
+				addCompletedAddress(executionContext, contextNodeXri);
+			}
 		}
 
 		// follow any $ref and $rep arcs
 
-		XDI3Segment followedTargetSubject = followAllRefRepRelations(targetStatement.getSubject(), operation, executionContext);
-		Object followedTargetObject = targetStatement.isRelationStatement() ? followAllRefRepRelations(targetStatement.getTargetContextNodeXri(), operation, executionContext) : targetStatement.getObject();
+		boolean doFollowTargetSubject = true;
+		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
+		if (XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
+
+		boolean doFollowTargetObject = true;
+		if (! targetStatement.isRelationStatement()) doFollowTargetObject = false;
+		if (targetStatement.isRelationStatement() && VariableUtil.isVariable(targetStatement.getTargetContextNodeXri())) doFollowTargetObject = false;
+
+		XDI3Segment followedTargetSubject = doFollowTargetSubject ? followAllRefRepRelations(targetStatement.getSubject(), operation, executionContext) : targetStatement.getSubject();
+		Object followedTargetObject = doFollowTargetObject ? followAllRefRepRelations((XDI3Segment) targetStatement.getObject(), operation, executionContext) : targetStatement.getObject();
 
 		if (followedTargetSubject != targetStatement.getSubject() || followedTargetObject != targetStatement.getObject()) {
 
@@ -528,6 +551,8 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 	private static void addCompletedAddress(ExecutionContext executionContext, XDI3Segment contextNodeXri) {
 
+		if ("{}".equals(contextNodeXri.toString())) throw new Error("BLA");
+		
 		getCompletedAddresses(executionContext).add(contextNodeXri);
 
 		if (log.isDebugEnabled()) log.debug("Added completed address: " + contextNodeXri);
