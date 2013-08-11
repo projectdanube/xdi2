@@ -38,8 +38,6 @@ Then go to:
 
 ### Community
 
-Weekly Call: [XDI Implementer's Call](https://github.com/projectdanube/xdi2/wiki/XDI Implementer's Call)
-
 Google Group: http://groups.google.com/group/xdi2
 
 Javadoc: http://projectdanube.github.com/xdi2/apidocs
