@@ -73,7 +73,7 @@ public class GenericCondition extends Condition {
 		if (this.getStatement().isLiteralStatement()) {
 
 			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
-			String literalData = this.getStatement().getLiteralData();
+			Object literalData = this.getStatement().getLiteralData();
 
 			return Boolean.valueOf(contextNode != null && contextNode.containsLiteral(literalData));
 		}

@@ -184,7 +184,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation createRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
@@ -197,7 +197,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
 	 */
 	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode);
 
@@ -210,7 +210,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation setRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation setDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
@@ -223,7 +223,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
 	 */
 	public Relation setDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode);
 
@@ -236,7 +236,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation getDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
@@ -248,7 +248,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Relation getRelation(XDI3Segment arcXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public Relation getDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri);
 
@@ -260,7 +260,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ReadOnlyIterator<Relation> getRelations(XDI3Segment arcXri);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.
 	 */
 	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris, XDI3Segment arcXri);
 
@@ -271,7 +271,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ReadOnlyIterator<Relation> getRelations();
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getRelations(), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.
 	 */
 	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris);
 
@@ -403,22 +403,22 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal createLiteralBoolean(Boolean literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.createLiteral(Object), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createLiteral(Object), operates at a context node further down in the graph.
 	 */
 	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.createLiteralString(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createLiteralString(String), operates at a context node further down in the graph.
 	 */
 	public Literal createDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.createLiteralNumber(Number), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createLiteralNumber(Number), operates at a context node further down in the graph.
 	 */
 	public Literal createDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.createLiteralBoolean(Boolean), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createLiteralBoolean(Boolean), operates at a context node further down in the graph.
 	 */
 	public Literal createDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData);
 
@@ -451,22 +451,22 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal setLiteralBoolean(Boolean literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.setLiteral(Object), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setLiteral(Object), operates at a context node further down in the graph.
 	 */
-		public Literal setDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData);
+	public Literal setDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.setLiteralString(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setLiteralString(String), operates at a context node further down in the graph.
 	 */
 	public Literal setDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.setLiteralNumber(Number), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setLiteralNumber(Number), operates at a context node further down in the graph.
 	 */
 	public Literal setDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.
 	 */
 	public Literal setDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData);
 
@@ -499,22 +499,22 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal getLiteralBoolean(Boolean literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getLiteral(Object), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getLiteral(Object), operates at a context node further down in the graph.
 	 */
 	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getLiteralString(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getLiteralString(String), operates at a context node further down in the graph.
 	 */
 	public Literal getDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getLiteraNumber(Number), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getLiteraNumber(Number), operates at a context node further down in the graph.
 	 */
 	public Literal getDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData);
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.
 	 */
 	public Literal getDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData);
 
@@ -525,7 +525,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal getLiteral();
 
 	/**
-	 * Deep version of ContextNode.ContextNode.getLiteral(), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.
 	 */
 	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris);
 
@@ -537,10 +537,31 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 
 	/**
 	 * Checks if this context node has a literal with the given data.
-	 * @param literalData The data of the literal.
+	 * @param literalData The literal data associated with the literal.
 	 * @return True if this context node has a literal with the given data.
 	 */
-	public boolean containsLiteral(String literalData);
+	public boolean containsLiteral(Object literalData);
+
+	/**
+	 * Checks if this context node has a literal with the given data.
+	 * @param literalData The literal data string associated with the literal.
+	 * @return True if this context node has a literal with the given data.
+	 */
+	public boolean containsLiteralString(String literalData);
+
+	/**
+	 * Checks if this context node has a literal with the given data.
+	 * @param literalData The literal data number associated with the literal.
+	 * @return True if this context node has a literal with the given data.
+	 */
+	public boolean containsLiteralNumber(Number literalData);
+
+	/**
+	 * Checks if this context node has a literal with the given data.
+	 * @param literalData The literal data boolean associated with the literal.
+	 * @return True if this context node has a literal with the given data.
+	 */
+	public boolean containsLiteralBoolean(Boolean literalData);
 
 	/**
 	 * Checks if this context node has a literal.

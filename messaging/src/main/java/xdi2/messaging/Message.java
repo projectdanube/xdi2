@@ -253,7 +253,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		Literal secretTokenLiteral = this.getContextNode().getDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN);
 		if (secretTokenLiteral == null) return null;
 
-		return secretTokenLiteral.getLiteralData();
+		return secretTokenLiteral.getLiteralDataString();
 	}
 
 	/**

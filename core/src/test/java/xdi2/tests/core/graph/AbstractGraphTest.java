@@ -887,8 +887,41 @@ public abstract class AbstractGraphTest extends TestCase {
 		graph27.getRootContextNode().getContextNode(XDI3SubSegment.create("=x")).delete();
 
 		assertEquals(graph27.getRootContextNode().getAllRelationCount(), 0);
-		
+
 		graph27.close();
+	}
+
+	public void testLiteralData() throws Exception {
+
+		Graph graph28 = this.openNewGraph(this.getClass().getName() + "-graph-28");
+
+		ContextNode c = graph28.createDeepContextNode(XDI3Segment.create("=markus<+test>&"));
+
+		c.setLiteral("Markus");
+		assertEquals(c.getLiteral().getLiteralData(), "Markus");
+		assertEquals(c.getLiteral().getLiteralDataString(), "Markus");
+		assertNull(c.getLiteral().getLiteralDataNumber());
+		assertNull(c.getLiteral().getLiteralDataBoolean());
+		assertTrue(c.containsLiteral("Markus"));
+		assertTrue(c.containsLiteralString("Markus"));
+
+		c.setLiteral(Integer.valueOf(34));
+		assertEquals(c.getLiteral().getLiteralData(), Integer.valueOf(34));
+		assertNull(c.getLiteral().getLiteralDataString());
+		assertEquals(c.getLiteral().getLiteralDataNumber(), Integer.valueOf(34));
+		assertNull(c.getLiteral().getLiteralDataBoolean());
+		assertTrue(c.containsLiteral(Integer.valueOf(34)));
+		assertTrue(c.containsLiteralNumber(Integer.valueOf(34)));
+
+		c.setLiteral(Boolean.valueOf(false));
+		assertEquals(c.getLiteral().getLiteralData(), Boolean.valueOf(false));
+		assertNull(c.getLiteral().getLiteralDataString());
+		assertNull(c.getLiteral().getLiteralDataNumber());
+		assertEquals(c.getLiteral().getLiteralDataBoolean(), Boolean.valueOf(false));
+		assertTrue(c.containsLiteral(Boolean.valueOf(false)));
+		assertTrue(c.containsLiteralBoolean(Boolean.valueOf(false)));
+
+		graph28.close();
 	}
 
 	@SuppressWarnings("unused")

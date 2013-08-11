@@ -1,6 +1,7 @@
 package xdi2.core.xri3;
 
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.util.XDI3Util;
 
 public class XDI3Statement extends XDI3SyntaxComponent {
@@ -10,15 +11,6 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 	private XDI3Segment subject;
 	private XDI3Segment predicate;
 	private Object object;
-
-	private XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, Object object) {
-
-		super(string);
-
-		this.subject = subject;
-		this.predicate = predicate;
-		this.object = object;
-	}
 
 	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, XDI3SubSegment object) {
 
@@ -30,9 +22,13 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		this(string, subject, predicate, (Object) object);
 	}
 
-	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, String object) {
+	XDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, Object object) {
 
-		this(string, subject, predicate, (Object) object);
+		super(string);
+
+		this.subject = subject;
+		this.predicate = predicate;
+		this.object = object;
 	}
 
 	public static XDI3Statement create(String string) {
@@ -67,7 +63,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 	public boolean isLiteralStatement() {
 
-		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && (this.getObject() instanceof String);
+		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && AbstractLiteral.isValidLiteralData(this.getObject());
 	}
 
 	public boolean hasInnerRootStatement() {
@@ -135,11 +131,11 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		return null;
 	}
 
-	public String getLiteralData() {
+	public Object getLiteralData() {
 
 		if (this.isLiteralStatement()) {
 
-			return (String) this.getObject();
+			return this.getObject();
 		}
 
 		return null;

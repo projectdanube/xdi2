@@ -19,6 +19,7 @@ import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.util.XDI3Util;
@@ -92,9 +93,9 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				XDI3Statement statementXri = makeStatement(key + "/\"\"", state);
 
-				if (! (jsonEntryElement instanceof JsonPrimitive) || ! ((JsonPrimitive) jsonEntryElement).isString()) throw new Xdi2ParseException("JSON object member must be a string: " + jsonEntryElement);
+				if (! (jsonEntryElement instanceof JsonPrimitive)) throw new Xdi2ParseException("JSON object member must be a primitive: " + jsonEntryElement);
 
-				String literalData = ((JsonPrimitive) jsonEntryElement).getAsString();
+				Object literalData = AbstractLiteral.jsonPrimitiveToLiteralData(((JsonPrimitive) jsonEntryElement));
 
 				// find the root and the base context node of this statement
 

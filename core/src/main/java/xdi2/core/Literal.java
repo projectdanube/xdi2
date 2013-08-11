@@ -54,7 +54,7 @@ public interface Literal extends Serializable, Comparable<Literal> {
 	 * Get the literal data boolean.
 	 * @return The literal data boolean associated with the literal.
 	 */
-	public Object getLiteralDataBoolean();
+	public Boolean getLiteralDataBoolean();
 
 	/**
 	 * Set the literal data.

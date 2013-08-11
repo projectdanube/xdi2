@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.Statement;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
@@ -199,9 +200,9 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		if (statementXri.isLiteralStatement()) {
 
-			String literalData = statementXri.getLiteralData(); 
+			Object literalData = statementXri.getLiteralData(); 
 
-			jsonObject.add(key, new JsonPrimitive(literalData));
+			jsonObject.add(key, AbstractLiteral.literalDataToJsonPrimitive(literalData));
 		} else {
 
 			JsonArray jsonArray = (JsonArray) jsonObject.get(key);

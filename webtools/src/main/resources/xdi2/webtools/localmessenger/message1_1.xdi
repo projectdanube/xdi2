@@ -1,2 +1,6 @@
-[=]!2222[$msg]!1/$is()/([=]!1111)
-[=]!2222[$msg]!1$do/$get/[=]!1111[+passport]!1
+=markus[$msg]!1/$is()/([=]!1111)
+=markus[$msg]!1$do/$add/(=markus<+name>&/&/"Markus Sabadello")
+=markus[$msg]!1$do/$add/(=markus<+email>&/&/"markus.sabadello@gmail.com")
+=markus[$msg]!1$do/$add/(=markus<+age>&/&/34)
+=markus[$msg]!1$do/$add/(=markus<+smoker>&/&/false)
+=markus[$msg]!1$do/$add/(=markus/+friend/=drummond)

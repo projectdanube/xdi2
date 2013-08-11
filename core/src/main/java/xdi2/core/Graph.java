@@ -130,20 +130,64 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris);
 
 	/**
-	 * Deep version of ContextNode.createLiteral(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createLiteral(Object), operates at a context node further down in the graph.
 	 */
-	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, String literalData);
+	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData);
 
 	/**
-	 * Deep version of ContextNode.setLiteral(String), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createLiteralString(String), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteral(XDI3Segment contextNodeArcXris, String literalData);
+	public Literal createDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.getLiteral(String), operates at a context node further down in the graph.
-	 * @see ContextNode#getLiteral(String)
+	 * Deep version of ContextNode.createLiteralNumber(Number), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris, String literalData);
+	public Literal createDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData);
+
+	/**
+	 * Deep version of ContextNode.createLiteralBoolean(Boolean), operates at a context node further down in the graph.
+	 */
+	public Literal createDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData);
+
+	/**
+	 * Deep version of ContextNode.setLiteral(Object), operates at a context node further down in the graph.
+	 */
+	public Literal setDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData);
+
+	/**
+	 * Deep version of ContextNode.setLiteralString(String), operates at a context node further down in the graph.
+	 */
+	public Literal setDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData);
+
+	/**
+	 * Deep version of ContextNode.setLiteralNumber(Number), operates at a context node further down in the graph.
+	 */
+	public Literal setDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData);
+
+	/**
+	 * Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.
+	 */
+	public Literal setDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData);
+
+	/**
+	 * Deep version of ContextNode.getLiteral(Object), operates at a context node further down in the graph.
+	 */
+	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData);
+
+	/**
+	 * Deep version of ContextNode.getLiteralString(String), operates at a context node further down in the graph.
+	 */
+	public Literal getDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData);
+
+	/**
+	 * Deep version of ContextNode.getLiteralNumber(Number), operates at a context node further down in the graph.
+	 */
+	public Literal getDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData);
+
+	/**
+	 * Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.
+	 */
+	public Literal getDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.

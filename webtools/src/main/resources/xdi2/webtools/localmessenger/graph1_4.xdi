@@ -1,5 +1,9 @@
+[=]!1111[+passport]!1<+country>&/&/"Canada"
+[=]!1111[+passport]!1<+num>&/&/"987654321"
+[=]!1111[+passport]!1<+expires>&/&/"2005J01J01T00:00:00Z"
+[=]!1111[+passport]!2<+country>&/&/"New Zealand"
+[=]!1111[+passport]!2<+num>&/&/"123456789"
+[=]!1111[+passport]!2<+expires>&/&/"2010J10J01T00:00:00Z"
 ([=]!1111)/$ref/()
-=markus<+name>&/&/"Markus Sabadello"
-=markus<+email>&/&/"markus.sabadello@gmail.com"
-=markus/+friend/=drummond
+=abc/$ref/[=]!1111
 ()/$is$ref/([=]!1111)

@@ -190,7 +190,54 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * @param parameterXri The parameter XRI.
 	 * @return The parameter value.
 	 */
-	public String getParameter(XDI3SubSegment parameterXri) {
+	public Object getParameter(XDI3SubSegment parameterXri) {
+
+		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralData();
+	}
+
+	/**
+	 * Returns a parameter value string of this operation.
+	 * @param parameterXri The parameter XRI.
+	 * @return The parameter value string.
+	 */
+	public String getParameterString(XDI3SubSegment parameterXri) {
+
+		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralDataString();
+	}
+
+	/**
+	 * Returns a parameter value number of this operation.
+	 * @param parameterXri The parameter XRI.
+	 * @return The parameter value number.
+	 */
+	public Number getParameterNumber(XDI3SubSegment parameterXri) {
+
+		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralDataNumber();
+	}
+
+	/**
+	 * Returns a parameter value boolean of this operation.
+	 * @param parameterXri The parameter XRI.
+	 * @return The parameter value boolean.
+	 */
+	public Boolean getParameterBoolean(XDI3SubSegment parameterXri) {
+
+		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralDataBoolean();
+	}
+
+	private Literal getParameterLiteral(XDI3SubSegment parameterXri) {
 
 		XdiEntity parametersXdiEntity = XdiAbstractContext.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), false);
 		if (parametersXdiEntity == null) return null;
@@ -204,17 +251,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();
 		if (parameterLiteral == null) return null;
 
-		return parameterLiteral.getLiteralData();
-	}
-
-	/**
-	 * Returns a parameter value of this operation as a boolean.
-	 * @param parameterXri The parameter XRI.
-	 * @return The parameter value.
-	 */
-	public Boolean getParameterAsBoolean(XDI3SubSegment parameterXri) {
-
-		return Boolean.valueOf(this.getParameter(parameterXri));
+		return parameterLiteral;
 	}
 
 	/**

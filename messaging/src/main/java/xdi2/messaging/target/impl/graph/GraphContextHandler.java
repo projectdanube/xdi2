@@ -156,7 +156,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	 */
 
 	@Override
-	public void getLiteral(XDI3Segment contextNodeXri, String literalData, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void getLiteral(XDI3Segment contextNodeXri, Object literalData, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri);
 		if (contextNode == null) return;
@@ -164,14 +164,14 @@ public class GraphContextHandler extends AbstractContextHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		if (literalData.isEmpty() || literalData.equals(literal.getLiteralData())) {
+		if (literalData.equals(literal.getLiteralData())) {
 
 			CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
 		}
 	}
 
 	@Override
-	public void modLiteral(XDI3Segment contextNodeXri, String literalData, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void modLiteral(XDI3Segment contextNodeXri, Object literalData, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri);
 		if (contextNode == null) throw new Xdi2MessagingException("Context node not found: " + contextNodeXri, null, executionContext);
@@ -183,7 +183,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	}
 
 	@Override
-	public void delLiteral(XDI3Segment contextNodeXri, String literalData, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void delLiteral(XDI3Segment contextNodeXri, Object literalData, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri);
 		if (contextNode == null) return;
@@ -191,7 +191,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		if (literalData.isEmpty() || literalData.equals(literal.getLiteralData())) {
+		if (literalData.equals(literal.getLiteralData())) {
 
 			literal.delete();
 		}

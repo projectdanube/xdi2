@@ -178,21 +178,75 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
-	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, String literalData) {
+	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData) {
 
 		return this.getRootContextNode().createDeepLiteral(contextNodeArcXris, literalData);
 	}
 
 	@Override
-	public Literal setDeepLiteral(XDI3Segment contextNodeArcXris, String literalData) {
+	public Literal createDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData) {
+
+		return this.getRootContextNode().createDeepLiteralString(contextNodeArcXris, literalData);
+	}
+
+	@Override
+	public Literal createDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData) {
+
+		return this.getRootContextNode().createDeepLiteralNumber(contextNodeArcXris, literalData);
+	}
+
+	@Override
+	public Literal createDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData) {
+
+		return this.getRootContextNode().createDeepLiteralBoolean(contextNodeArcXris, literalData);
+	}
+
+	@Override
+	public Literal setDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData) {
 
 		return this.getRootContextNode().setDeepLiteral(contextNodeArcXris, literalData);
 	}
 
 	@Override
-	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris, String literalData) {
+	public Literal setDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData) {
+
+		return this.getRootContextNode().setDeepLiteralString(contextNodeArcXris, literalData);
+	}
+
+	@Override
+	public Literal setDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData) {
+
+		return this.getRootContextNode().setDeepLiteralNumber(contextNodeArcXris, literalData);
+	}
+
+	@Override
+	public Literal setDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData) {
+
+		return this.getRootContextNode().setDeepLiteralBoolean(contextNodeArcXris, literalData);
+	}
+
+	@Override
+	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData) {
 
 		return this.getRootContextNode().getDeepLiteral(contextNodeArcXris, literalData);
+	}
+
+	@Override
+	public Literal getDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData) {
+
+		return this.getRootContextNode().getDeepLiteralString(contextNodeArcXris, literalData);
+	}
+
+	@Override
+	public Literal getDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData) {
+
+		return this.getRootContextNode().getDeepLiteralNumber(contextNodeArcXris, literalData);
+	}
+
+	@Override
+	public Literal getDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData) {
+
+		return this.getRootContextNode().getDeepLiteralBoolean(contextNodeArcXris, literalData);
 	}
 
 	@Override

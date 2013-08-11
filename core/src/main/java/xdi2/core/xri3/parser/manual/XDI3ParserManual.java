@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.xri3.XDI3Parser;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -48,7 +49,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		if (XDIConstants.XRI_S_LITERAL.equals(predicateString)) {
 
-			String object = this.parseString(objectString);
+			Object object = this.parseLiteralData(objectString);
 
 			return this.makeXDI3Statement(string, subject, predicate, object);
 		} else if (XDIConstants.XRI_S_CONTEXT.equals(predicateString)) {
@@ -248,24 +249,19 @@ public class XDI3ParserManual extends XDI3Parser {
 		return this.makeXDI3XRef(string, xs, segment, statement, partialSubject, partialPredicate, iri, literal);
 	}
 
-	public String parseString(String string) {
+	public Object parseLiteralData(String string) {
 
-		if (log.isTraceEnabled()) log.trace("Parsing string: " + string);
+		if (log.isTraceEnabled()) log.trace("Parsing literal data: " + string);
 
-		if (string.length() < 2) throw new ParserException("Invalid string: " + string);
-		if (string.charAt(0) != '"') throw new ParserException("Invalid string: " + string + " (no opening double quotes)");
-		if (string.charAt(string.length() - 1) != '"') throw new ParserException("Invalid string: " + string + " (no closing double quotes)");
+		try {
 
-		return string.substring(1, string.length() - 1);
-	}
+			return AbstractLiteral.stringToLiteralData(string);
+		} catch (Exception ex) {
 
-	private static String stripQuotes(String string) {
-		
-		string = stripPattern(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));
-		
-		return string;
-	}
-	
+			throw new ParserException("Invalid literal data: " + string);
+		}
+	}	
+
 	private static String stripXs(String string) {
 
 		string = stripPattern(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));

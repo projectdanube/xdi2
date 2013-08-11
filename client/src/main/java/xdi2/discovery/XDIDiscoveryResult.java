@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Literal;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -65,7 +66,8 @@ public class XDIDiscoveryResult implements Serializable {
 		if (referenceEndpointUriContextNode != null) endpointUriXdiValue = XdiAbstractAttribute.fromContextNode(referenceEndpointUriContextNode).getXdiValue(false);
 		else if (endpointUriContextNode != null) endpointUriXdiValue = XdiAbstractAttribute.fromContextNode(endpointUriContextNode).getXdiValue(false);
 
-		String endpointUri = endpointUriXdiValue == null ? null : endpointUriXdiValue.getContextNode().getLiteral().getLiteralData();
+		Literal endpointUriLiteral = endpointUriXdiValue == null ? null : endpointUriXdiValue.getContextNode().getLiteral();
+		String endpointUri = endpointUriLiteral == null ? null : endpointUriLiteral.getLiteralDataString();
 
 		// done
 

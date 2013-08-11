@@ -74,8 +74,10 @@ public class MatchesCondition extends Condition {
 
 			if (! object.containsLiteral()) return Boolean.FALSE;
 
-			String subjectLiteralData = subject.getLiteral().getLiteralData();
-			String objectLiteralData = object.getLiteral().getLiteralData();
+			String subjectLiteralData = subject.getLiteral().getLiteralDataString();
+			String objectLiteralData = object.getLiteral().getLiteralDataString();
+
+			if (subjectLiteralData == null || objectLiteralData == null) return Boolean.FALSE;
 
 			return Boolean.valueOf(Pattern.matches(objectLiteralData, subjectLiteralData));
 		}

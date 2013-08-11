@@ -174,9 +174,9 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		String literalStatementData = literalStatement.getLiteralData();
+		Object literalStatementData = literalStatement.getLiteralData();
 
-		if (literalStatementData.isEmpty() || literalStatementData.equals(literal.getLiteralData())) {
+		if (literalStatementData.equals(literal.getLiteralData())) {
 
 			CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
 		}
@@ -216,9 +216,9 @@ public class GraphStatementHandler extends AbstractStatementHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) throw new Xdi2MessagingException("Literal not found: " + literalStatement, null, executionContext);
 
-		String literalStatementData = literalStatement.getLiteralData();
+		Object literalStatementData = literalStatement.getLiteralData();
 
-		if (literalStatementData.isEmpty() || literalStatementData.equals(literal.getLiteralData())) {
+		if (literalStatementData.equals(literal.getLiteralData())) {
 
 			literal.delete();
 		}

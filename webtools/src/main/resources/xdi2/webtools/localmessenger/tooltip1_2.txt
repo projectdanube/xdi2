@@ -1,1 +1,1 @@
-Adding 3 statements to an empty graph
+Modifying a literal value

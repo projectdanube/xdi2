@@ -3,6 +3,7 @@ package xdi2.core.features.linkcontracts.condition;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -72,10 +73,10 @@ public class LesserCondition extends Condition {
 
 			if (! object.containsLiteral()) return Boolean.FALSE;
 
-			String subjectLiteralData = subject.getLiteral().getLiteralData();
-			String objectLiteralData = object.getLiteral().getLiteralData();
+			Object subjectLiteralData = subject.getLiteral().getLiteralData();
+			Object objectLiteralData = object.getLiteral().getLiteralData();
 
-			return Boolean.valueOf(Integer.parseInt(subjectLiteralData) > Integer.parseInt(objectLiteralData));
+			return Boolean.valueOf(AbstractLiteral.LITERALDATACOMPARATOR.compare(subjectLiteralData, objectLiteralData) < 0);
 		}
 
 		return Boolean.FALSE;

@@ -1,1 +1,1 @@
-Modifying a literal value
+Deleting a relational arc

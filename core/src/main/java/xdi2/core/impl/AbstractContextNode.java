@@ -530,16 +530,19 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to literals of this context node
 	 */
 
+	@Override
 	public Literal createLiteralString(String literalData) {
 
 		return this.createLiteral(literalData);
 	}
 
+	@Override
 	public Literal createLiteralNumber(Number literalData) {
 
 		return this.createLiteral(literalData);
 	}
 
+	@Override
 	public Literal createLiteralBoolean(Boolean literalData) {
 
 		return this.createLiteral(literalData);
@@ -722,9 +725,27 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public boolean containsLiteral(String literalData) {
+	public boolean containsLiteral(Object literalData) {
 
 		return this.getLiteral(literalData) != null;
+	}
+
+	@Override
+	public boolean containsLiteralString(String literalData) {
+
+		return this.getLiteralString(literalData) != null;
+	}
+
+	@Override
+	public boolean containsLiteralNumber(Number literalData) {
+
+		return this.getLiteralNumber(literalData) != null;
+	}
+
+	@Override
+	public boolean containsLiteralBoolean(Boolean literalData) {
+
+		return this.getLiteralBoolean(literalData) != null;
 	}
 
 	@Override
@@ -823,6 +844,9 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid context node arc XRI: " + arcXri);
 
+		if (this.containsRelations(XDIDictionaryConstants.XRI_S_REF)) throw new Xdi2GraphException("Cannot add " + arcXri + " context node to context node containing a " + XDIDictionaryConstants.XRI_S_REF + " relation");
+		if (this.containsRelations(XDIDictionaryConstants.XRI_S_REP)) throw new Xdi2GraphException("Cannot add " + arcXri + " context node to context node containing a " + XDIDictionaryConstants.XRI_S_REP + " relation");
+		
 		if (checkExists && this.containsContextNode(arcXri)) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains the context node " + arcXri + ".");
 
 		ContextNode tempContextNode = new BasicContextNode(this.getGraph(), this, arcXri, null, null, null);
@@ -865,7 +889,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		if (! XdiValue.isValid(this)) throw new Xdi2GraphException("Can only create a literal in a value context.");
 
-		if (! (literalData instanceof String) && ! (literalData instanceof Number) && ! (literalData instanceof Boolean)) throw new Xdi2GraphException("Literal data can only be a string, number, or boolean.");
+		if (! (literalData instanceof String) && ! (literalData instanceof Number) && ! (literalData instanceof Boolean)) throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
 	}
 
 	/*

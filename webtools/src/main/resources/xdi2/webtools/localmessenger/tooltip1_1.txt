@@ -1,1 +1,1 @@
-Simple $get operation
+Adding 3 statements to an empty graph

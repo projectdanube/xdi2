@@ -1,5 +1,6 @@
 package xdi2.tests.core.xri3;
 
+
 import junit.framework.TestCase;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.xri3.XDI3Parser;
@@ -7,9 +8,10 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
+import xdi2.core.xri3.parser.manual.ParserException;
 
 public abstract class XDI3ParserTest extends TestCase {
-	
+
 	public void testBasic() throws Exception {
 
 		XDI3Parser parser = this.getParser();
@@ -100,6 +102,30 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertTrue(statement.isLiteralStatement());
 		assertFalse(statement.isRelationStatement());
 
+		statement = parser.parseXDI3Statement("=neustar*animesh<+age>&/&/99");
+		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=neustar*animesh<+age>&"));
+		assertEquals(statement.getPredicate(), parser.parseXDI3Segment("&"));
+		assertEquals(statement.getObject(), Integer.valueOf(99));
+		assertFalse(statement.isContextNodeStatement());
+		assertTrue(statement.isLiteralStatement());
+		assertFalse(statement.isRelationStatement());
+
+		statement = parser.parseXDI3Statement("=neustar*animesh<+smoker>&/&/false");
+		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=neustar*animesh<+smoker>&"));
+		assertEquals(statement.getPredicate(), parser.parseXDI3Segment("&"));
+		assertEquals(statement.getObject(), Boolean.valueOf(false));
+		assertFalse(statement.isContextNodeStatement());
+		assertTrue(statement.isLiteralStatement());
+		assertFalse(statement.isRelationStatement());
+
+		try {
+
+			statement = parser.parseXDI3Statement("=neustar*animesh<+smoker>&/&/null");
+			fail();
+		} catch (ParserException ex) {
+
+		}
+
 		statement = parser.parseXDI3Statement("=neustar*animesh/+friend/=markus");
 		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=neustar*animesh"));
 		assertEquals(statement.getPredicate(), parser.parseXDI3Segment("+friend"));
@@ -145,7 +171,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		XDI3Parser parser = this.getParser();
 
 		XDI3SubSegment s;
-		
+
 		s = parser.parseXDI3SubSegment("{[<+(name)>]}");
 		assertTrue(s.hasXRef());
 		assertEquals(s.getXRef(), parser.parseXDI3XRef("{[<+(name)>]}"));

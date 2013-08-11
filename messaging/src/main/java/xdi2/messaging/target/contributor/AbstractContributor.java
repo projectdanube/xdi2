@@ -315,7 +315,7 @@ public abstract class AbstractContributor implements Contributor {
 	public boolean executeGetOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment contextNodeXri = relativeTargetStatement.getContextNodeXri();
-		String literalData = relativeTargetStatement.getLiteralData();
+		Object literalData = relativeTargetStatement.getLiteralData();
 
 		return this.getLiteral(contributorXris, contributorsXri, contextNodeXri, literalData, operation, messageResult, executionContext);
 	}
@@ -323,7 +323,7 @@ public abstract class AbstractContributor implements Contributor {
 	public boolean executeAddOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment contextNodeXri = relativeTargetStatement.getContextNodeXri();
-		String literalData = relativeTargetStatement.getLiteralData();
+		Object literalData = relativeTargetStatement.getLiteralData();
 
 		return this.addLiteral(contributorXris, contributorsXri, contextNodeXri, literalData, operation, messageResult, executionContext);
 	}
@@ -331,7 +331,7 @@ public abstract class AbstractContributor implements Contributor {
 	public boolean executeModOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment contextNodeXri = relativeTargetStatement.getContextNodeXri();
-		String literalData = relativeTargetStatement.getLiteralData();
+		Object literalData = relativeTargetStatement.getLiteralData();
 
 		return this.modLiteral(contributorXris, contributorsXri, contextNodeXri, literalData, operation, messageResult, executionContext);
 	}
@@ -339,7 +339,7 @@ public abstract class AbstractContributor implements Contributor {
 	public boolean executeSetOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment contextNodeXri = relativeTargetStatement.getContextNodeXri();
-		String literalData = relativeTargetStatement.getLiteralData();
+		Object literalData = relativeTargetStatement.getLiteralData();
 
 		return this.setLiteral(contributorXris, contributorsXri, contextNodeXri, literalData, operation, messageResult, executionContext);
 	}
@@ -347,7 +347,7 @@ public abstract class AbstractContributor implements Contributor {
 	public boolean executeDelOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment contextNodeXri = relativeTargetStatement.getContextNodeXri();
-		String literalData = relativeTargetStatement.getLiteralData();
+		Object literalData = relativeTargetStatement.getLiteralData();
 
 		return this.delLiteral(contributorXris, contributorsXri, contextNodeXri, literalData, operation, messageResult, executionContext);
 	}
@@ -355,7 +355,7 @@ public abstract class AbstractContributor implements Contributor {
 	public boolean executeDoOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment contextNodeXri = relativeTargetStatement.getContextNodeXri();
-		String literalData = relativeTargetStatement.getLiteralData();
+		Object literalData = relativeTargetStatement.getLiteralData();
 
 		return this.doLiteral(contributorXris, contributorsXri, contextNodeXri, literalData, operation, messageResult, executionContext);
 	}
@@ -454,7 +454,7 @@ public abstract class AbstractContributor implements Contributor {
 		return false;
 	}
 
-	public boolean getLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, String literalData, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean getLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, Object literalData, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		MessageResult tempMessageResult = new MessageResult();
 
@@ -476,27 +476,27 @@ public abstract class AbstractContributor implements Contributor {
 		return handled;
 	}
 
-	public boolean addLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, String literalData, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean addLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, Object literalData, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean modLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, String literalData, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean modLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, Object literalData, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean setLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, String literalData, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean setLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, Object literalData, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean delLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, String literalData, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean delLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, Object literalData, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}
 
-	public boolean doLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, String literalData, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean doLiteral(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment contextNodeXri, Object literalData, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
 	}

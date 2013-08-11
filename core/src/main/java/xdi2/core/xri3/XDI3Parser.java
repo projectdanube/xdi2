@@ -19,7 +19,7 @@ public abstract class XDI3Parser {
 		return new XDI3Statement(string, subject, predicate, object);
 	}
 
-	protected XDI3Statement makeXDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, String object) {
+	protected XDI3Statement makeXDI3Statement(String string, XDI3Segment subject, XDI3Segment predicate, Object object) {
 
 		return new XDI3Statement(string, subject, predicate, object);
 	}

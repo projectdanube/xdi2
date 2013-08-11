@@ -132,7 +132,7 @@ public class ErrorMessageResult extends MessageResult {
 		Literal errorStringLiteral = xdiValue.getContextNode().getLiteral();
 		if (errorStringLiteral == null) return null;
 
-		return errorStringLiteral.getLiteralData();
+		return errorStringLiteral.getLiteralDataString();
 	}
 
 	public void setErrorString(String errorString) {

@@ -6,6 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractContextNode;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.MappingIterator;
@@ -352,7 +353,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		String literalKey = this.getLiteralKey();
 
-		this.keyValueStore.put(literalKey, literalData.toString());
+		this.keyValueStore.put(literalKey, AbstractLiteral.literalDataToString(literalData));
 
 		KeyValueLiteral literal = new KeyValueLiteral(this, this.keyValueStore, literalKey, literalData);
 
