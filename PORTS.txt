@@ -13,5 +13,6 @@ Known default HTTP ports of various XDI2 projects.
 9093: xdi2-connector-allfiled
 9094: xdi2-connector-google-calendar
 9990: xdi2-zephyr
+9991: xdi2-redis
 9110: xdi2-pixel
 9120: xdi2-oauth2
