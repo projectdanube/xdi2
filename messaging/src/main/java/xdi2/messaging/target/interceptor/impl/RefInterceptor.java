@@ -274,9 +274,8 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// are we operating on a $ref or $rep arc?
 
-		if (targetStatement.isRelationStatement() &&
-				(XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getPredicate()) ||
-						XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getPredicate()))) {
+		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri()) ||
+				XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) {
 
 			// don't do anything special
 
