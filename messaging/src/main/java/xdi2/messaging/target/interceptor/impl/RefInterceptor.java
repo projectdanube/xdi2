@@ -238,28 +238,18 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// remember that we completed this target
 
-		XDI3Segment contextNodeXri = targetAddress;
+		if (operation instanceof GetOperation) {
 
-		addCompletedAddress(executionContext, contextNodeXri);
+			XDI3Segment contextNodeXri = targetAddress;
+
+			addCompletedAddress(executionContext, contextNodeXri);
+		}
 
 		// follow any $ref and $rep arcs
 
-		XDI3Segment originalTargetAddress = targetAddress;
-		XDI3Segment followedTargetAddress = originalTargetAddress;
+		XDI3Segment followedTargetAddress = followAllRefRepRelations(targetAddress, operation, executionContext);
 
-		XDI3Segment tempTargetAddress;
-
-		while (true) { 
-
-			tempTargetAddress = followedTargetAddress;
-			followedTargetAddress = followRefRepRelations(tempTargetAddress, operation, executionContext);
-
-			if (followedTargetAddress == tempTargetAddress) break;
-
-			if (log.isDebugEnabled()) log.debug("In message envelope: Followed " + tempTargetAddress + " to " + followedTargetAddress);
-		}
-
-		if (followedTargetAddress != originalTargetAddress) {
+		if (followedTargetAddress != targetAddress) {
 
 			targetAddress = followedTargetAddress;
 		}
@@ -286,40 +276,47 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// remember that we completed this target
 
-		XDI3Segment contextNodeXri;
+		/*		XDI3Segment contextNodeXri;
 
 		if (targetStatement.isContextNodeStatement()) 
 			contextNodeXri = targetStatement.getTargetContextNodeXri();
 		else
 			contextNodeXri = targetStatement.getContextNodeXri();
 
-		addCompletedAddress(executionContext, contextNodeXri);
+		addCompletedAddress(executionContext, contextNodeXri);*/
 
 		// follow any $ref and $rep arcs
 
-		XDI3Segment originalTargetSubject = targetStatement.getSubject();
-		XDI3Segment followedTargetSubject = originalTargetSubject;
+		XDI3Segment followedTargetSubject = followAllRefRepRelations(targetStatement.getSubject(), operation, executionContext);
+		Object followedTargetObject = targetStatement.isRelationStatement() ? followAllRefRepRelations(targetStatement.getTargetContextNodeXri(), operation, executionContext) : targetStatement.getObject();
 
-		XDI3Segment tempTargetSubject;
+		if (followedTargetSubject != targetStatement.getSubject() || followedTargetObject != targetStatement.getObject()) {
 
-		while (true) {
-
-			tempTargetSubject = followedTargetSubject;
-			followedTargetSubject = followRefRepRelations(tempTargetSubject, operation, executionContext);
-
-			if (followedTargetSubject == tempTargetSubject) break;
-
-			if (log.isDebugEnabled()) log.debug("In message envelope: Followed " + tempTargetSubject + " to " + followedTargetSubject);
-		}
-
-		if (followedTargetSubject != originalTargetSubject) {
-
-			targetStatement = StatementUtil.fromComponents(followedTargetSubject, targetStatement.getPredicate(), targetStatement.getObject());
+			targetStatement = StatementUtil.fromComponents(followedTargetSubject, targetStatement.getPredicate(), followedTargetObject);
 		}
 
 		// done
 
 		return targetStatement;
+	}
+
+	private static XDI3Segment followAllRefRepRelations(XDI3Segment contextNodeXri, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDI3Segment followedContextNodeXri = contextNodeXri;
+
+		XDI3Segment tempContextNodeXri;
+
+		while (true) { 
+
+			tempContextNodeXri = followedContextNodeXri;
+			followedContextNodeXri = followRefRepRelations(tempContextNodeXri, operation, executionContext);
+
+			if (followedContextNodeXri == tempContextNodeXri) break;
+
+			if (log.isDebugEnabled()) log.debug("In message envelope: Followed " + tempContextNodeXri + " to " + followedContextNodeXri);
+		}
+
+		return followedContextNodeXri;
 	}
 
 	private static XDI3Segment followRefRepRelations(XDI3Segment contextNodeXri, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
