@@ -1,2 +1,2 @@
 =markus[$msg]!1$do/$get/(=z<+name>&/&/"xxx")
-=markus[$msg]!1$get<$deref>&/&/"true"
+=markus[$msg]!1$get<$deref>&/&/true
