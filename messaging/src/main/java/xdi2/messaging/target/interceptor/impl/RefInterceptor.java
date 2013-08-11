@@ -276,14 +276,12 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// remember that we completed this target
 
-		/*		XDI3Segment contextNodeXri;
+		if (operation instanceof GetOperation && targetStatement.isContextNodeStatement()) {
 
-		if (targetStatement.isContextNodeStatement()) 
-			contextNodeXri = targetStatement.getTargetContextNodeXri();
-		else
-			contextNodeXri = targetStatement.getContextNodeXri();
+			XDI3Segment contextNodeXri = targetStatement.getTargetContextNodeXri();
 
-		addCompletedAddress(executionContext, contextNodeXri);*/
+			addCompletedAddress(executionContext, contextNodeXri);
+		}
 
 		// follow any $ref and $rep arcs
 
