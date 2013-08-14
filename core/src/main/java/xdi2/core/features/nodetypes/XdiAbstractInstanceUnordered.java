@@ -56,26 +56,24 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(String identifier, boolean mutable) {
+	public static XDI3SubSegment createArcXri(String identifier, boolean attribute) {
 
-		Character cs = mutable ? XDIConstants.CS_STAR : XDIConstants.CS_BANG;
-
-		return XDI3SubSegment.create("" + cs + identifier);
+		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_BANG + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
 	}
 
-	public static XDI3SubSegment createArcXriFromUuid(String uuid, boolean mutable) {
+	public static XDI3SubSegment createArcXriFromUuid(String uuid, boolean attribute) {
 
-		return createArcXri(":uuid:" + uuid, mutable);
+		return createArcXri(":uuid:" + uuid, attribute);
 	}
 
-	public static XDI3SubSegment createArcXriFromRandom(boolean mutable) {
+	public static XDI3SubSegment createArcXriFromRandom(boolean attribute) {
 
 		String uuid = UUID.randomUUID().toString();
 
-		return createArcXriFromUuid(uuid, mutable);
+		return createArcXriFromUuid(uuid, attribute);
 	}
 
-	public static XDI3SubSegment createArcXriFromHash(String string, boolean mutable) {
+	public static XDI3SubSegment createArcXriFromHash(String string, boolean attribute) {
 
 		byte[] output;
 
@@ -91,18 +89,19 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 
 		String hex = new String(Hex.encodeHex(output));
 
-		return createArcXri(":sha384:" + hex, mutable);
+		return createArcXri(":sha384:" + hex, attribute);
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidArcXri(XDI3SubSegment arcXri, boolean attribute) {
 
 		if (arcXri == null) return false;
 
 		if (arcXri.isClassXs()) return false;
-		if (arcXri.isAttributeXs()) return false;
+		if (attribute && ! arcXri.isAttributeXs()) return false;
+		if (! attribute && arcXri.isAttributeXs()) return false;
 		if (arcXri.hasXRef()) return false;
 
-		if (! XDIConstants.CS_STAR.equals(arcXri.getCs()) && ! XDIConstants.CS_BANG.equals(arcXri.getCs())) return false;
+		if (! XDIConstants.CS_BANG.equals(arcXri.getCs())) return false;
 
 		if (! arcXri.hasLiteral()) return false;
 

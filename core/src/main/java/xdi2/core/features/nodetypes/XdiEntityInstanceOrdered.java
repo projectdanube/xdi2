@@ -55,7 +55,7 @@ public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered i
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiAbstractInstanceOrdered.isValidArcXri(arcXri);
+		return XdiAbstractInstanceOrdered.isValidArcXri(arcXri, false);
 	}
 
 	/*

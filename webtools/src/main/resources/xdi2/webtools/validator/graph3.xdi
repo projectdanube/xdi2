@@ -1,7 +1,7 @@
-=markus[<+email>]!:uuid:1111&/&/"1@gmail.com"
-=markus[<+email>]!:uuid:2222&/&/"2@gmail.com"
-=markus[<+email>]!:uuid:3333&/&/"3@gmail.com"
-=markus[<+email>]#0/$ref/=markus[<+email>]!:uuid:3333
-=markus[<+email>]#1/$ref/=markus[<+email>]!:uuid:2222
-=markus[<+email>]#2/$ref/=markus[<+email>]!:uuid:1111
-=markus<+email>/$ref/=markus[<+email>]!:uuid:1111
+=markus[<+email>]<!:uuid:1111>&/&/"1@gmail.com"
+=markus[<+email>]<!:uuid:2222>&/&/"2@gmail.com"
+=markus[<+email>]<!:uuid:3333>&/&/"3@gmail.com"
+=markus[<+email>]<#0>/$ref/=markus[<+email>]<!:uuid:3333>
+=markus[<+email>]<#1>/$ref/=markus[<+email>]<!:uuid:2222>
+=markus[<+email>]<#2>/$ref/=markus[<+email>]<!:uuid:1111>
+=markus<+email>/$ref/=markus[<+email>]<!:uuid:1111>

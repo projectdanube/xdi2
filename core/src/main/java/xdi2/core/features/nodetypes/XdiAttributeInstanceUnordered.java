@@ -33,7 +33,7 @@ public final class XdiAttributeInstanceUnordered extends XdiAbstractInstanceUnor
 	public static boolean isValid(ContextNode contextNode) {
 
 		return
-				isValidArcXri(contextNode.getArcXri()) &&
+				isValidArcXri(contextNode.getArcXri(), true) &&
 				( XdiAttributeClass.isValid(contextNode.getContextNode()) || XdiAttributeInstanceUnordered.isValid(contextNode.getContextNode()) );
 	}
 

@@ -55,7 +55,7 @@ public final class XdiAttributeInstanceOrdered extends XdiAbstractInstanceOrdere
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiAbstractInstanceOrdered.isValidArcXri(arcXri);
+		return XdiAbstractInstanceOrdered.isValidArcXri(arcXri, true);
 	}
 
 	/*

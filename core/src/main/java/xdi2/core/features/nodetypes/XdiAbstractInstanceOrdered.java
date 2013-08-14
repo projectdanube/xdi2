@@ -51,17 +51,18 @@ public abstract class XdiAbstractInstanceOrdered extends XdiAbstractInstance imp
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(String identifier) {
+	public static XDI3SubSegment createArcXri(String identifier, boolean attribute) {
 
-		return XDI3SubSegment.create("" + XDIConstants.CS_ORDER + identifier);
+		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_ORDER + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidArcXri(XDI3SubSegment arcXri, boolean attribute) {
 
 		if (arcXri == null) return false;
 
 		if (arcXri.isClassXs()) return false;
-		if (arcXri.isAttributeXs()) return false;
+		if (attribute && ! arcXri.isAttributeXs()) return false;
+		if (! attribute && arcXri.isAttributeXs()) return false;
 		if (arcXri.hasXRef()) return false;
 
 		if (! XDIConstants.CS_ORDER.equals(arcXri.getCs())) return false;
