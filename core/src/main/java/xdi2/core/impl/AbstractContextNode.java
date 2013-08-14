@@ -258,13 +258,13 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public int getContextNodeCount() {
+	public long getContextNodeCount() {
 
 		return new IteratorCounter(this.getContextNodes()).count();
 	}
 
 	@Override
-	public int getAllContextNodeCount() {
+	public long getAllContextNodeCount() {
 
 		return new IteratorCounter(this.getAllContextNodes()).count();
 	}
@@ -509,19 +509,19 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public int getRelationCount(XDI3Segment arcXri) {
+	public long getRelationCount(XDI3Segment arcXri) {
 
 		return new IteratorCounter(this.getRelations(arcXri)).count();
 	}
 
 	@Override
-	public int getRelationCount() {
+	public long getRelationCount() {
 
 		return new IteratorCounter(this.getRelations()).count();
 	}
 
 	@Override
-	public int getAllRelationCount() {
+	public long getAllRelationCount() {
 
 		return new IteratorCounter(this.getAllRelations()).count();
 	}
@@ -755,7 +755,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public int getAllLiteralCount() {
+	public long getAllLiteralCount() {
 
 		return new IteratorCounter(this.getAllLiterals()).count();
 	}
@@ -825,7 +825,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public int getAllStatementCount() {
+	public long getAllStatementCount() {
 
 		return new IteratorCounter(this.getAllStatements()).count();
 	}

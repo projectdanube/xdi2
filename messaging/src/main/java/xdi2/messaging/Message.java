@@ -648,7 +648,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Returns the number of XDI operations in this XDI message.
 	 */
-	public int getOperationCount() {
+	public long getOperationCount() {
 
 		Iterator<Operation> iterator = this.getOperations();
 

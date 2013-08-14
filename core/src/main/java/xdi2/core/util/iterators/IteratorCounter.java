@@ -9,7 +9,7 @@ import java.util.Iterator;
  */
 public final class IteratorCounter {
 
-	private int count;
+	private long count;
 	private Iterator<?> iterator;
 
 	public IteratorCounter(Iterator<?> iterator) {
@@ -24,7 +24,7 @@ public final class IteratorCounter {
 	 * Counts and returns the number of elements in an Iterator.
 	 * @return The number of elements.
 	 */
-	public int count() {
+	public long count() {
 
 		if (this.count != -1) return this.count;
 

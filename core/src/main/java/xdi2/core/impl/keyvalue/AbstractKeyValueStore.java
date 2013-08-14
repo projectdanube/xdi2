@@ -61,11 +61,11 @@ public abstract class AbstractKeyValueStore implements KeyValueStore {
 	public void replace(String key, String value) {
 
 		this.delete(key);
-		if (value != null) this.put(key, value);
+		if (value != null) this.set(key, value);
 	}
 
 	@Override
-	public int count(String key) {
+	public long count(String key) {
 
 		return new IteratorCounter(this.getAll(key)).count();
 	}
