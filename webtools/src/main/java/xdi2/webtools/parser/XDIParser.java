@@ -283,12 +283,12 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 		List<Class<?>> list = new ArrayList<Class<?>> ();
 
-//		list.add(clazz);
 		for (Class<?> interfaze : clazz.getInterfaces()) {
-			
+
 			list.add(interfaze);
 			list.addAll(interfazes(interfaze));
 		}
+
 		list.addAll(interfazes(clazz.getSuperclass()));
 
 		return list;
