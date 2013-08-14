@@ -16,8 +16,8 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-1");
 		keyValueStore.clear();
 
-		keyValueStore.put("a", "b");
-		keyValueStore.put("c", "d");
+		keyValueStore.set("a", "b");
+		keyValueStore.set("c", "d");
 
 		assertEquals(keyValueStore.getOne("a"), "b");
 		assertEquals(keyValueStore.getOne("c"), "d");
@@ -60,11 +60,11 @@ public abstract class AbstractKeyValueTest extends TestCase {
 
 		String buf;
 
-		keyValueStore.put("a", "b");
-		keyValueStore.put("a", "bb");
-		keyValueStore.put("a", "bbbb");
-		keyValueStore.put("c", "d");
-		keyValueStore.put("c", "ddd");
+		keyValueStore.set("a", "b");
+		keyValueStore.set("a", "bb");
+		keyValueStore.set("a", "bbbb");
+		keyValueStore.set("c", "d");
+		keyValueStore.set("c", "ddd");
 
 		assertTrue(keyValueStore.contains("a"));
 		assertTrue(keyValueStore.contains("c"));
@@ -82,7 +82,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 
 		keyValueStore.delete("a", "bb");
 		keyValueStore.delete("c");
-		keyValueStore.put("c", "x");
+		keyValueStore.set("c", "x");
 
 		assertEquals(keyValueStore.getOne("c"), "x");
 		assertTrue(keyValueStore.contains("a"));
@@ -124,11 +124,11 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-3");
 		keyValueStore.clear();
 
-		keyValueStore.put("a", "b");
-		keyValueStore.put("a", "bb");
-		keyValueStore.put("a", "bbbb");
-		keyValueStore.put("c", "d");
-		keyValueStore.put("c", "ddd");
+		keyValueStore.set("a", "b");
+		keyValueStore.set("a", "bb");
+		keyValueStore.set("a", "bbbb");
+		keyValueStore.set("c", "d");
+		keyValueStore.set("c", "ddd");
 
 		keyValueStore.clear();
 
@@ -153,7 +153,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		KeyValueStore keyValueStore = this.getKeyValueStore(this.getClass().getName() + "-keyvalue-4");
 		keyValueStore.clear();
 
-		keyValueStore.put("a", "b");
+		keyValueStore.set("a", "b");
 
 		assertEquals(keyValueStore.getOne("a"), "b");
 
@@ -171,9 +171,9 @@ public abstract class AbstractKeyValueTest extends TestCase {
 
 		String buf;
 
-		keyValueStore.put("a", "b");
-		keyValueStore.put("a", "c");
-		keyValueStore.put("a", "b");
+		keyValueStore.set("a", "b");
+		keyValueStore.set("a", "c");
+		keyValueStore.set("a", "b");
 
 		assertTrue(keyValueStore.contains("a"));
 		assertTrue(keyValueStore.contains("a", "b"));
@@ -200,7 +200,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		assertEquals(new IteratorCounter(keyValueStore.getAll("a")).count(), 0);
 		buf = ""; for (Iterator<String> i = keyValueStore.getAll("a"); i.hasNext(); ) buf += i.next(); assertEquals(buf, "");
 
-		keyValueStore.put("a", "c");
+		keyValueStore.set("a", "c");
 
 		assertTrue(keyValueStore.contains("a"));
 		assertFalse(keyValueStore.contains("a", "b"));
@@ -218,7 +218,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		keyValueStore.clear();
 
 		keyValueStore.beginTransaction();
-		keyValueStore.put("a", "b");
+		keyValueStore.set("a", "b");
 		keyValueStore.rollbackTransaction();
 
 		if (keyValueStore.supportsTransactions()) {
@@ -234,7 +234,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		}
 
 		keyValueStore.beginTransaction();
-		keyValueStore.put("a", "b");
+		keyValueStore.set("a", "b");
 		keyValueStore.commitTransaction();
 
 		assertTrue(keyValueStore.contains("a"));
@@ -258,7 +258,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		}
 
 		keyValueStore.beginTransaction();
-		keyValueStore.put("x", "y");
+		keyValueStore.set("x", "y");
 		keyValueStore.commitTransaction();
 
 		keyValueStore.beginTransaction();
@@ -278,7 +278,7 @@ public abstract class AbstractKeyValueTest extends TestCase {
 		}
 
 		keyValueStore.beginTransaction();
-		keyValueStore.put("x", "y");
+		keyValueStore.set("x", "y");
 		keyValueStore.commitTransaction();
 
 		keyValueStore.beginTransaction();

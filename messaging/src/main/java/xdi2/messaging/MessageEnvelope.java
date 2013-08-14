@@ -228,7 +228,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Returns the number of message collections in the message envelope.
 	 */
-	public int getMessageCollectionCount() {
+	public long getMessageCollectionCount() {
 
 		Iterator<MessageCollection> iterator = this.getMessageCollections();
 
@@ -238,7 +238,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Returns the number of messages in the message envelope.
 	 */
-	public int getMessageCount() {
+	public long getMessageCount() {
 
 		Iterator<Message> iterator = this.getMessages();
 
@@ -248,7 +248,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Returns the number of operations in all messages of the message envelope.
 	 */
-	public int getOperationCount() {
+	public long getOperationCount() {
 
 		Iterator<Operation> iterator = this.getOperations();
 

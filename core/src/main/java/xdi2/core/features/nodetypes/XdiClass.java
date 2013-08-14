@@ -8,12 +8,12 @@ public interface XdiClass<U extends XdiInstanceUnordered, O extends XdiInstanceO
 	public U setXdiInstanceUnordered(XDI3SubSegment arcXri);
 	public U getXdiInstanceUnordered(XDI3SubSegment arcXri);
 	public ReadOnlyIterator<U> getXdiInstancesUnordered();
-	public int getXdiInstancesUnorderedCount();
+	public long getXdiInstancesUnorderedCount();
 
-	public O setXdiInstanceOrdered(int index);
-	public O getXdiInstanceOrdered(int index);
+	public O setXdiInstanceOrdered(long index);
+	public O getXdiInstanceOrdered(long index);
 	public ReadOnlyIterator<O> getXdiInstancesOrdered();
-	public int getXdiInstancesOrderedCount();
+	public long getXdiInstancesOrderedCount();
 
 	public ReadOnlyIterator<I> getXdiInstances(boolean deref);
 }

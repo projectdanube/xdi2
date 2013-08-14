@@ -374,7 +374,7 @@ public class HttpTransport {
 
 		Graph graph = graphFactory.openGraph();
 		MessageEnvelope messageEnvelope;
-		int messageCount;
+		long messageCount;
 
 		try {
 

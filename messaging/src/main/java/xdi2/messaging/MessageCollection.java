@@ -164,7 +164,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	/**
 	 * Returns the number of messages in the message collection.
 	 */
-	public int getMessageCount() {
+	public long getMessageCount() {
 
 		return new IteratorCounter(this.getMessages()).count();
 	}
@@ -172,7 +172,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	/**
 	 * Returns the number of operations in all messages of the message envelope.
 	 */
-	public int getOperationCount() {
+	public long getOperationCount() {
 
 		return new IteratorCounter(this.getOperations()).count();
 	}

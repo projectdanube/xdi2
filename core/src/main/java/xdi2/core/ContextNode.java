@@ -163,13 +163,13 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Returns the number of context nodes of this context node.
 	 * @return The number of context nodes.
 	 */
-	public int getContextNodeCount();
+	public long getContextNodeCount();
 
 	/**
 	 * Returns the number of all context nodes of this context node.
 	 * @return The number of context nodes.
 	 */
-	public int getAllContextNodeCount();
+	public long getAllContextNodeCount();
 
 	/*
 	 * Methods related to relations of this context node
@@ -356,19 +356,19 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI to look for. 
 	 * @return The number of relations.
 	 */
-	public int getRelationCount(XDI3Segment arcXri);
+	public long getRelationCount(XDI3Segment arcXri);
 
 	/**
 	 * Returns the number of relations of this context node.
 	 * @return The number of relations.
 	 */
-	public int getRelationCount();
+	public long getRelationCount();
 
 	/**
 	 * Returns the number of all relations of this context node.
 	 * @return The number of relations.
 	 */
-	public int getAllRelationCount();
+	public long getAllRelationCount();
 
 	/*
 	 * Methods related to literals of this context node
@@ -578,7 +578,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Returns the number of all literals of this context node.
 	 * @return The number of literals.
 	 */
-	public int getAllLiteralCount();
+	public long getAllLiteralCount();
 
 	/*
 	 * Methods related to statements
@@ -600,5 +600,5 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Returns the number of all statements rooted in this context node.
 	 * @return The number of statements.
 	 */
-	public int getAllStatementCount();
+	public long getAllStatementCount();
 }

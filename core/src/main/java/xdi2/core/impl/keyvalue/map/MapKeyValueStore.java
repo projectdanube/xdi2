@@ -39,7 +39,7 @@ public class MapKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	}
 
 	@Override
-	public void put(String key, String value) {
+	public void set(String key, String value) {
 
 		Set<String> set = this.map.get(key);
 

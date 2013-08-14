@@ -61,7 +61,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 	}
 
 	@Override
-	public void put(String key, String value) {
+	public void set(String key, String value) {
 
 		String hash = hash(value);
 

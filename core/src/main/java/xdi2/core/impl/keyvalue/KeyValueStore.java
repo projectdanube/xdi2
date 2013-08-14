@@ -14,7 +14,7 @@ public interface KeyValueStore {
 	public void init() throws IOException;
 	public void close();
 
-	public void put(String key, String value);
+	public void set(String key, String value);
 	public String getOne(String key);
 	public Iterator<String> getAll(String key);
 	public boolean contains(String key);
@@ -22,7 +22,7 @@ public interface KeyValueStore {
 	public void delete(String key);
 	public void delete(String key, String value);
 	public void replace(String key, String value);
-	public int count(String key);
+	public long count(String key);
 	public void clear();
 
 	public boolean supportsTransactions();
