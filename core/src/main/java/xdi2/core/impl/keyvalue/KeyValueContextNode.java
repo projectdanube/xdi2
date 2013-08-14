@@ -81,10 +81,13 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		String contextNodesKey = this.getContextNodesKey();
 		String contextNodeKey = this.getContextNodeKey(arcXri);
 
-		this.keyValueStore.set(contextNodesKey, arcXri.toString());
-		this.keyValueStore.delete(contextNodeKey + "/--C");
-		this.keyValueStore.delete(contextNodeKey + "/--R");
-		this.keyValueStore.delete(contextNodeKey + "/--L");
+		if (! this.keyValueStore.contains(contextNodesKey, arcXri.toString())) {
+
+			this.keyValueStore.set(contextNodesKey, arcXri.toString());
+			this.keyValueStore.delete(contextNodeKey + "/--C");
+			this.keyValueStore.delete(contextNodeKey + "/--R");
+			this.keyValueStore.delete(contextNodeKey + "/--L");
+		}
 
 		KeyValueContextNode contextNode = new KeyValueContextNode((KeyValueGraph) this.getGraph(), this, this.keyValueStore, contextNodeKey, arcXri);
 
