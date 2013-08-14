@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -236,6 +236,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 					List<Class<?>> interfazes = interfazes(clazz);
 					Collections.reverse(interfazes);
+					interfazes = dedupe(interfazes);
 
 					for (Class<?> interfaze : interfazes) {
 
@@ -277,14 +278,25 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 	private static List<Class<?>> interfazes(Class<?> clazz) {
 
+		if (clazz == null) return Collections.emptyList();
 		if (! clazz.getCanonicalName().startsWith("xdi2.core.features.nodetypes.")) return Collections.emptyList();
 
 		List<Class<?>> list = new ArrayList<Class<?>> ();
 
-		list.addAll(Arrays.asList(clazz.getInterfaces()));
+//		list.add(clazz);
+		for (Class<?> interfaze : clazz.getInterfaces()) {
+			
+			list.add(interfaze);
+			list.addAll(interfazes(interfaze));
+		}
 		list.addAll(interfazes(clazz.getSuperclass()));
 
 		return list;
+	}
+
+	private static List<Class<?>> dedupe(List<Class<?>> list) {
+
+		return new ArrayList<Class<?>>(new LinkedHashSet<Class<?>> (list));
 	}
 
 	private static String html(String string) {
