@@ -207,4 +207,15 @@ public class XDI3UtilTest extends TestCase {
 		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{{=+@$*!}}"), false, true), XDI3Segment.create("()"));
 		assertNull(XDI3Util.removeEndXri(xri, XDI3Segment.create("{!}"), false, true));
 	}
+
+	public void testIsCloudNumber() throws Exception {
+
+		assertFalse(XDI3Util.isCloudNumber(XDI3Segment.create("=markus")));
+		assertFalse(XDI3Util.isCloudNumber(XDI3Segment.create("=markus*web")));
+		assertFalse(XDI3Util.isCloudNumber(XDI3Segment.create("[=]")));
+		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[=]!1111")));
+		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[=]!1111!2222")));
+		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[@]!1111")));
+		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[@]!1111!2222")));
+	}
 }

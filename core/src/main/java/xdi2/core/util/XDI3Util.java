@@ -392,6 +392,24 @@ public final class XDI3Util {
 		return concatXris(xri1 == null ? null : XDI3Segment.create(xri1), xri2 == null ? null : XDI3Segment.create(xri2));
 	}
 
+	/**
+	 * Checks if an XRI is a valid Cloud Number.
+	 */
+	public static boolean isCloudNumber(XDI3Segment xri) {
+
+		if (xri.getNumSubSegments() < 2) return false;
+
+		if (! xri.getSubSegment(0).isClassXs()) return false;
+		if (! XDIConstants.CS_EQUALS.equals(xri.getSubSegment(0).getCs()) && ! XDIConstants.CS_AT.equals(xri.getSubSegment(0).getCs())) return false;
+
+		for (int i=1; i< xri.getNumSubSegments(); i++) {
+
+			if (! XDIConstants.CS_BANG.equals(xri.getSubSegment(i).getCs())) return false;
+		}
+
+		return true;
+	}
+
 	/*
 	 * Helper classes
 	 */

@@ -9,6 +9,7 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageResult;
@@ -47,6 +48,8 @@ public class XDIDiscoveryResult implements Serializable {
 
 		XDI3SubSegment cloudNumberPeerRootArcXri = referenceContextNode == null ? null : referenceContextNode.getXri().getFirstSubSegment();
 		XDI3Segment cloudNumber = cloudNumberPeerRootArcXri == null ? null : XdiPeerRoot.getXriOfPeerRootArcXri(cloudNumberPeerRootArcXri);
+
+		if (cloudNumber == null && XDI3Util.isCloudNumber(xri)) cloudNumber = xri;
 
 		// find URI
 
