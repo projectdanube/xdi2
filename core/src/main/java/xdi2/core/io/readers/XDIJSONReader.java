@@ -70,7 +70,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
 				JsonArray jsonEntryArray = (JsonArray) jsonEntryElement;
-				
+
 				// find the root and the base context node of this statement
 
 				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);

@@ -10,13 +10,13 @@ public class MemoryGraphTest extends AbstractGraphTest {
 	private MemoryGraphFactory graphFactory = new MemoryGraphFactory();
 
 	@Override
-	protected Graph openNewGraph(String id) {
+	protected Graph openNewGraph(String identifier) {
 
-		return this.graphFactory.openGraph();
+		return this.graphFactory.openGraph(identifier);
 	}
 
 	@Override
-	protected Graph reopenGraph(Graph graph, String id) throws IOException {
+	protected Graph reopenGraph(Graph graph, String identifier) throws IOException {
 
 		return graph;
 	}

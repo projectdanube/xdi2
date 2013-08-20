@@ -27,7 +27,7 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 
 		if (this.literalData == null) {
 
-			this.literalData = stringToLiteralData(this.keyValueStore.getOne(this.key));
+			this.literalData = AbstractLiteral.stringToLiteralData(this.keyValueStore.getOne(this.key));
 		}
 
 		return this.literalData;

@@ -15,9 +15,9 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 
 	private final KeyValueContextNode rootContextNode;
 
-	KeyValueGraph(AbstractKeyValueGraphFactory graphFactory, KeyValueStore keyValueStore, boolean supportGetContextNodes, boolean supportGetRelations) {
+	KeyValueGraph(AbstractKeyValueGraphFactory graphFactory, String identifier, KeyValueStore keyValueStore, boolean supportGetContextNodes, boolean supportGetRelations) {
 
-		super(graphFactory);
+		super(graphFactory, identifier);
 
 		this.keyValueStore = keyValueStore;
 

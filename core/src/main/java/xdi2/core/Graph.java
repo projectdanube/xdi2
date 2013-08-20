@@ -29,6 +29,12 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	public GraphFactory getGraphFactory();
 
 	/**
+	 * Returns an optional identifier to distinguish graphs from one another.
+	 * @return The graph identifier.
+	 */
+	public String getIdentifier();
+	
+	/**
 	 * Gets the local root context node of this graph.
 	 * @return The graph's local root context node.
 	 */

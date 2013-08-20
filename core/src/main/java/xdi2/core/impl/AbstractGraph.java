@@ -33,10 +33,12 @@ public abstract class AbstractGraph implements Graph {
 	private static final Logger log = LoggerFactory.getLogger(AbstractContextNode.class);
 
 	private GraphFactory graphFactory;
+	private String identifier;
 
-	protected AbstractGraph(GraphFactory graphFactory) {
+	protected AbstractGraph(GraphFactory graphFactory, String identifier) {
 
 		this.graphFactory = graphFactory;
+		this.identifier = identifier;
 	}
 
 	/*
@@ -50,6 +52,12 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
+	public String getIdentifier() {
+
+		return this.identifier;
+	}
+
+	@Override
 	public void clear() {
 
 		this.getRootContextNode().clear();
@@ -60,7 +68,7 @@ public abstract class AbstractGraph implements Graph {
 
 		return this.getRootContextNode().isEmpty();
 	}
-	
+
 	@Override
 	public String toString(String format, Properties parameters) {
 
@@ -107,7 +115,7 @@ public abstract class AbstractGraph implements Graph {
 
 	@Override
 	public ContextNode createDeepContextNode(XDI3Segment contextNodeArcXris) {
-		
+
 		return this.getRootContextNode().createDeepContextNode(contextNodeArcXris);
 	}
 
@@ -119,7 +127,7 @@ public abstract class AbstractGraph implements Graph {
 
 	@Override
 	public ContextNode getDeepContextNode(XDI3Segment contextNodeArcXris) {
-		
+
 		return this.getRootContextNode().getDeepContextNode(contextNodeArcXris);
 	}
 
@@ -137,13 +145,13 @@ public abstract class AbstractGraph implements Graph {
 
 	@Override
 	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode) {
-		
+
 		return this.getRootContextNode().createDeepRelation(contextNodeArcXris, arcXri, targetContextNode);
 	}
 
 	@Override
 	public Relation setDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
-		
+
 		return this.getRootContextNode().setDeepRelation(contextNodeArcXris, arcXri, targetContextNodeXri);
 	}
 
@@ -254,7 +262,7 @@ public abstract class AbstractGraph implements Graph {
 
 		return this.getRootContextNode().getDeepLiteral(contextNodeArcXris);
 	}
-	
+
 	/*
 	 * Methods related to statements
 	 */

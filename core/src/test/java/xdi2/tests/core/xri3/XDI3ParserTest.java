@@ -105,7 +105,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		statement = parser.parseXDI3Statement("=neustar*animesh<+age>&/&/99");
 		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=neustar*animesh<+age>&"));
 		assertEquals(statement.getPredicate(), parser.parseXDI3Segment("&"));
-		assertEquals(statement.getObject(), Integer.valueOf(99));
+		assertEquals(statement.getObject(), Double.valueOf(99));
 		assertFalse(statement.isContextNodeStatement());
 		assertTrue(statement.isLiteralStatement());
 		assertFalse(statement.isRelationStatement());

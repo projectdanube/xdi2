@@ -48,7 +48,7 @@ public interface Literal extends Serializable, Comparable<Literal> {
 	 * Get the literal data number.
 	 * @return The literal data number associated with the literal.
 	 */
-	public Number getLiteralDataNumber();
+	public Double getLiteralDataNumber();
 
 	/**
 	 * Get the literal data boolean.
@@ -72,7 +72,7 @@ public interface Literal extends Serializable, Comparable<Literal> {
 	 * Set the literal data number.
 	 * @param literalData The literal data number associated with the literal.
 	 */
-	public void setLiteralDataNumber(Number literalData);
+	public void setLiteralDataNumber(Double literalData);
 
 	/**
 	 * Set the literal data boolean.

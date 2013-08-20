@@ -27,7 +27,7 @@ public abstract class AbstractKeyValueGraphFactory extends AbstractGraphFactory 
 
 		KeyValueStore keyValueStore = this.openKeyValueStore(identifier);
 
-		return new KeyValueGraph(this, keyValueStore, this.getSupportGetContextNodes(), this.getSupportGetRelations());
+		return new KeyValueGraph(this, identifier, keyValueStore, this.getSupportGetContextNodes(), this.getSupportGetRelations());
 	}
 
 	/**

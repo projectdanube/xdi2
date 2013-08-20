@@ -2,8 +2,6 @@ package xdi2.core.impl;
 
 import java.util.Comparator;
 
-import org.apache.commons.lang.math.NumberUtils;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
@@ -52,12 +50,12 @@ public abstract class AbstractLiteral implements Literal {
 	}
 
 	@Override
-	public Number getLiteralDataNumber() {
+	public Double getLiteralDataNumber() {
 
 		Object literalData = this.getLiteralData();
-		if (! (literalData instanceof Number)) return null;
+		if (! (literalData instanceof Double)) return null;
 
-		return (Number) literalData;
+		return (Double) literalData;
 	}
 
 	@Override
@@ -76,7 +74,7 @@ public abstract class AbstractLiteral implements Literal {
 	}
 
 	@Override
-	public void setLiteralDataNumber(Number literalData) {
+	public void setLiteralDataNumber(Double literalData) {
 
 		this.setLiteralData(literalData);
 	}
@@ -189,7 +187,7 @@ public abstract class AbstractLiteral implements Literal {
 		if (literalData instanceof String) {
 
 			return "\"" + ((String) literalData).replace("\"", "\\\"") + "\"";
-		} else if (literalData instanceof Number) {
+		} else if (literalData instanceof Double) {
 
 			return literalData.toString();
 		} else if (literalData instanceof Boolean) {
@@ -213,7 +211,7 @@ public abstract class AbstractLiteral implements Literal {
 
 			try {
 
-				return NumberUtils.createNumber(string);
+				return Double.valueOf(string);
 			} catch (Exception ex) {
 
 				if ("true".equals(string)) return Boolean.TRUE;
@@ -240,7 +238,7 @@ public abstract class AbstractLiteral implements Literal {
 		if (jsonPrimitive == null) throw new NullPointerException();
 
 		if (jsonPrimitive.isString()) return jsonPrimitive.getAsString();
-		if (jsonPrimitive.isNumber()) return jsonPrimitive.getAsNumber();
+		if (jsonPrimitive.isNumber()) return Double.valueOf(jsonPrimitive.getAsDouble());
 		if (jsonPrimitive.isBoolean()) return Boolean.valueOf(jsonPrimitive.getAsBoolean());
 
 		throw new IllegalArgumentException("Invalid JSON primitive: " + jsonPrimitive);

@@ -41,7 +41,7 @@ public abstract class WrappedGraphFactory extends AbstractGraphFactory implement
 
 		MemoryGraph memoryGraph = this.memoryGraphFactory.openGraph();
 
-		return new WrappedGraph(this, wrapper, memoryGraph);
+		return new WrappedGraph(this, identifier, wrapper, memoryGraph);
 	}
 
 	/**

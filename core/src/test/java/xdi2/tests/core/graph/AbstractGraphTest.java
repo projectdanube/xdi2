@@ -208,56 +208,10 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(graph12.getRootContextNode(), graph12.getDeepContextNode(XDIConstants.XRI_S_CONTEXT));
 		assertEquals(graph12.getRootContextNode().getXri(), XDIConstants.XRI_S_CONTEXT);
 
-		graph12.createDeepContextNode(XDI3Segment.create("=markus<+name>&")).createLiteral("Markus");
 		graph12.createDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=someone"));
-		graph12.createDeepContextNode(XDI3Segment.create("=markus+name<+last>&")).createLiteral("Sabadello");
-		graph12.createDeepContextNode(XDI3Segment.create("=markus+name+relation")).createRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=rel+test"));
-
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus<+name>&")));
-		assertNotNull(graph12.getDeepLiteral(XDI3Segment.create("=markus<+name>&")));
-		assertNotNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
-		assertNotNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>&")));
-		assertNotNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
-
-		graph12.getDeepContextNode(XDI3Segment.create("=markus")).deleteContextNode(XDI3SubSegment.create("<+name>"));
-
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus<+name>&")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus<+name>&")));
-		assertNotNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
-		assertNotNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>&")));
-		assertNotNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
-
 		graph12.getDeepContextNode(XDI3Segment.create("=markus")).delete();
-
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus<+name>&")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus<+name>&")));
-		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>&")));
-		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
-
 		graph12.setDeepContextNode(XDI3Segment.create("=markus"));
-
-		assertNotNull(graph12.getDeepContextNode(XDI3Segment.create("=markus")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus<+name>&")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus<+name>&")));
 		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>")));
-		assertNull(graph12.getDeepContextNode(XDI3Segment.create("=markus+name<+last>&")));
-		assertNull(graph12.getDeepLiteral(XDI3Segment.create("=markus+name<+last>&")));
-		assertNull(graph12.getDeepRelation(XDI3Segment.create("=markus+name+relation"), XDI3Segment.create("+rel")));
 
 		graph12.close();
 	}
@@ -827,7 +781,9 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(root.containsContextNode(XDI3SubSegment.create("+a")));
 		assertNotNull(root.getContextNode(XDI3SubSegment.create("+a")));
 		root.deleteContextNode(XDI3SubSegment.create("+a"));
+		assertFalse(graph26.getRootContextNode().containsContextNode(XDI3SubSegment.create("+a")));
 		assertFalse(root.containsContextNode(XDI3SubSegment.create("+a")));
+		assertNull(graph26.getRootContextNode().getContextNode(XDI3SubSegment.create("+a")));
 		assertNull(root.getContextNode(XDI3SubSegment.create("+a")));
 
 		root.setRelation(XDI3Segment.create("+a"), XDI3Segment.create("+b"));
@@ -867,6 +823,11 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		assertNotNull(graph27.getDeepContextNode(XDI3Segment.create("=animesh")));
 
+		assertFalse(graph27.getDeepContextNode(XDI3Segment.create("=animesh")).getRelations().hasNext());
+		assertFalse(graph27.getDeepContextNode(XDI3Segment.create("=animesh")).getRelations(XDI3Segment.create("+friend")).hasNext());
+		assertEquals(graph27.getDeepContextNode(XDI3Segment.create("=animesh")).getRelationCount(), 0);
+		assertFalse(graph27.getDeepContextNode(XDI3Segment.create("=animesh")).getIncomingRelations().hasNext());
+		assertFalse(graph27.getDeepContextNode(XDI3Segment.create("=animesh")).getIncomingRelations(XDI3Segment.create("+friend")).hasNext());
 		assertFalse(animesh.getRelations().hasNext());
 		assertFalse(animesh.getRelations(XDI3Segment.create("+friend")).hasNext());
 		assertEquals(animesh.getRelationCount(), 0);
@@ -905,13 +866,13 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(c.containsLiteral("Markus"));
 		assertTrue(c.containsLiteralString("Markus"));
 
-		c.setLiteral(Integer.valueOf(34));
-		assertEquals(c.getLiteral().getLiteralData(), Integer.valueOf(34));
+		c.setLiteral(Double.valueOf(34));
+		assertEquals(c.getLiteral().getLiteralData(), Double.valueOf(34));
 		assertNull(c.getLiteral().getLiteralDataString());
-		assertEquals(c.getLiteral().getLiteralDataNumber(), Integer.valueOf(34));
+		assertEquals(c.getLiteral().getLiteralDataNumber(), Double.valueOf(34));
 		assertNull(c.getLiteral().getLiteralDataBoolean());
-		assertTrue(c.containsLiteral(Integer.valueOf(34)));
-		assertTrue(c.containsLiteralNumber(Integer.valueOf(34)));
+		assertTrue(c.containsLiteral(Double.valueOf(34)));
+		assertTrue(c.containsLiteralNumber(Double.valueOf(34)));
 
 		c.setLiteral(Boolean.valueOf(false));
 		assertEquals(c.getLiteral().getLiteralData(), Boolean.valueOf(false));

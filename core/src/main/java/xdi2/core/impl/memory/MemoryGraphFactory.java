@@ -42,20 +42,21 @@ public class MemoryGraphFactory extends AbstractGraphFactory implements GraphFac
 
 		// create new graph
 
-		return new MemoryGraph(this, this.sortmode);
+		return new MemoryGraph(this, null, this.sortmode);
 	}
 
 	@Override
 	public MemoryGraph openGraph(String identifier) {
 
 		MemoryGraph graph = this.graphs.get(identifier);
-		
+
 		if (graph == null) {
-			
-			graph = this.openGraph();
+
+			graph = new MemoryGraph(this, identifier, this.sortmode);
+
 			this.graphs.put(identifier, graph);
 		}
-		
+
 		return graph;
 	}
 

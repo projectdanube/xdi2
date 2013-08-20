@@ -13,10 +13,10 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 	private GraphWrapper graphWrapper;
 	private MemoryGraph memoryGraph;
 
-	WrappedGraph(WrappedGraphFactory graphFactory, GraphWrapper wrapper, MemoryGraph memoryGraph) {
+	WrappedGraph(WrappedGraphFactory graphFactory, String identifier, GraphWrapper wrapper, MemoryGraph memoryGraph) {
 
-		super(graphFactory);
-		
+		super(graphFactory, identifier);
+
 		this.graphWrapper = wrapper;
 		this.memoryGraph = memoryGraph;
 
@@ -60,12 +60,12 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 	}
 
 	public GraphWrapper getGraphWrapper() {
-	
+
 		return this.graphWrapper;
 	}
 
 	public MemoryGraph getMemoryGraph() {
-	
+
 		return this.memoryGraph;
 	}
 }
