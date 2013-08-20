@@ -177,7 +177,7 @@ public abstract class AbstractLiteral implements Literal {
 
 	public static boolean isValidLiteralData(Object literalData) {
 
-		return literalData instanceof String || literalData instanceof Number || literalData instanceof Boolean;
+		return literalData instanceof String || literalData instanceof Double || literalData instanceof Boolean;
 	}
 
 	public static String literalDataToString(Object literalData) {
