@@ -19,7 +19,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonStore = jsonStore;
 
-		this.jsonRootContextNode = new JSONContextNode(this, null, jsonStore, "", null);
+		this.jsonRootContextNode = new JSONContextNode(this, null, jsonStore, "()", null);
 	}
 
 	@Override

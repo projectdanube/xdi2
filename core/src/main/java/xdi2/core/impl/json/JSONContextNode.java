@@ -59,7 +59,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		JsonObject jsonObject = this.loadJson();
 		if (jsonObject == null) jsonObject = new JsonObject();
 
-		String id = this.id + arcXri.toString();
+		String id = this.getContextNodeId(arcXri);
 
 		JsonObject jsonObjectContexts = jsonObject.getAsJsonObject(XDIConstants.XRI_SS_CONTEXT.toString());
 		if (jsonObjectContexts == null) { jsonObjectContexts = new JsonObject(); jsonObject.add(XDIConstants.XRI_SS_CONTEXT.toString(), jsonObjectContexts); }
@@ -112,7 +112,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 			public ContextNode map(Entry<String, JsonElement> entry) {
 
 				XDI3SubSegment arcXri = XDI3SubSegment.create(entry.getKey());
-				String id = JSONContextNode.this.id + arcXri.toString();
+				String id = JSONContextNode.this.getContextNodeId(arcXri);
 
 				return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, JSONContextNode.this.jsonStore, id, arcXri);
 			}
@@ -131,7 +131,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		List<Relation> incomingRelations = new IteratorListMaker<Relation> (contextNode.getAllIncomingRelations()).list();
 		for (Relation incomingRelation : incomingRelations) incomingRelation.delete();
 
-		String id = this.id + arcXri.toString();
+		String id = this.getContextNodeId(arcXri);
 
 		JsonObject jsonObject = this.loadJson();
 
@@ -320,6 +320,11 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	/*
 	 * Helper methods
 	 */
+
+	private String getContextNodeId(XDI3SubSegment arcXri) {
+
+		return (this.isRootContextNode() ? "" : this.id) + arcXri.toString();
+	}
 
 	JsonObject loadJson() {
 

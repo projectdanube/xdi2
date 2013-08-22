@@ -440,7 +440,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	/*
-	 * Misc methods
+	 * Helper methods
 	 */
 
 	private String getContextNodesKey() {
