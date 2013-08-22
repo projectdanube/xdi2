@@ -19,12 +19,15 @@ import xdi2.core.impl.AbstractContextNode;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
+import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.util.iterators.IteratorListMaker;
+import xdi2.core.util.iterators.IteratorRemover;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -61,9 +64,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		String id = this.getContextNodeId(arcXri);
 
-		JsonObject jsonObjectContexts = jsonObject.getAsJsonObject(XDIConstants.XRI_SS_CONTEXT.toString());
-		if (jsonObjectContexts == null) { jsonObjectContexts = new JsonObject(); jsonObject.add(XDIConstants.XRI_SS_CONTEXT.toString(), jsonObjectContexts); }
-		jsonObjectContexts.add(arcXri.toString(), new JsonPrimitive(Boolean.TRUE));
+		JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XRI_SS_CONTEXT.toString());
+		if (jsonArrayContexts == null) { jsonArrayContexts = new JsonArray(); jsonObject.add(XDIConstants.XRI_SS_CONTEXT.toString(), jsonArrayContexts); }
+		if (! new IteratorContains<JsonElement> (jsonArrayContexts.iterator(), new JsonPrimitive(arcXri.toString())).contains()) jsonArrayContexts.add(new JsonPrimitive(arcXri.toString()));
 
 		this.saveJson(jsonObject);
 
@@ -100,18 +103,18 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		JsonObject jsonObject = this.loadJson();
 		if (jsonObject == null) return new EmptyIterator<ContextNode> ();
 
-		final JsonObject jsonObjectContexts = jsonObject.getAsJsonObject(XDIConstants.XRI_SS_CONTEXT.toString());
-		if (jsonObjectContexts == null) return new EmptyIterator<ContextNode> ();
-		if (jsonObjectContexts.entrySet().isEmpty()) return new EmptyIterator<ContextNode> ();
+		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XRI_SS_CONTEXT.toString());
+		if (jsonArrayContexts == null) return new EmptyIterator<ContextNode> ();
+		if (jsonArrayContexts.size() < 1) return new EmptyIterator<ContextNode> ();
 
-		final Set<Entry<String, JsonElement>> entrySet = new HashSet<Entry<String, JsonElement>> (jsonObjectContexts.entrySet());
+		final List<JsonElement> entryList = new IteratorListMaker<JsonElement> (jsonArrayContexts.iterator()).list();
 
-		return new ReadOnlyIterator<ContextNode> (new MappingIterator<Entry<String, JsonElement>, ContextNode> (entrySet.iterator()) {
+		return new ReadOnlyIterator<ContextNode> (new MappingIterator<JsonElement, ContextNode> (entryList.iterator()) {
 
 			@Override
-			public ContextNode map(Entry<String, JsonElement> entry) {
+			public ContextNode map(JsonElement jsonElement) {
 
-				XDI3SubSegment arcXri = XDI3SubSegment.create(entry.getKey());
+				XDI3SubSegment arcXri = XDI3SubSegment.create(((JsonPrimitive) jsonElement).getAsString());
 				String id = JSONContextNode.this.getContextNodeId(arcXri);
 
 				return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, JSONContextNode.this.jsonStore, id, arcXri);
@@ -135,8 +138,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		JsonObject jsonObject = this.loadJson();
 
-		JsonObject jsonObjectContexts = jsonObject.getAsJsonObject(XDIConstants.XRI_SS_CONTEXT.toString());
-		jsonObjectContexts.remove(arcXri.toString());
+		JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XRI_SS_CONTEXT.toString());
+		if (jsonArrayContexts == null) { jsonArrayContexts = new JsonArray(); jsonObject.add(XDIConstants.XRI_SS_CONTEXT.toString(), jsonArrayContexts); }
+		new IteratorRemover<JsonElement> (jsonArrayContexts.iterator(), new JsonPrimitive(arcXri.toString())).remove();
 
 		this.deleteJson(id);
 		this.saveJson(jsonObject);
@@ -152,25 +156,25 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		if (jsonObject == null) jsonObject = new JsonObject();
 		if (jsonObjectTarget == null) jsonObjectTarget = new JsonObject();
 
-		JsonObject jsonObjectRelations = jsonObject.getAsJsonObject(arcXri.toString());
+		JsonArray jsonArrayRelations = jsonObject.getAsJsonArray(arcXri.toString());
 
-		if (jsonObjectRelations == null) {
+		if (jsonArrayRelations == null) {
 
-			jsonObjectRelations = new JsonObject();
-			jsonObject.add(arcXri.toString(), jsonObjectRelations);
+			jsonArrayRelations = new JsonArray();
+			jsonObject.add(arcXri.toString(), jsonArrayRelations);
 		}
 
-		jsonObjectRelations.add(targetContextNode.getXri().toString(), new JsonPrimitive(Boolean.TRUE));
+		jsonArrayRelations.add(new JsonPrimitive(targetContextNode.getXri().toString()));
 
-		JsonObject jsonObjectIncomingRelations = jsonObjectTarget.getAsJsonObject("_" + arcXri.toString());
+		JsonArray jsonArrayIncomingRelations = jsonObjectTarget.getAsJsonArray("_" + arcXri.toString());
 
-		if (jsonObjectIncomingRelations == null) {
+		if (jsonArrayIncomingRelations == null) {
 
-			jsonObjectIncomingRelations = new JsonObject();
-			jsonObjectTarget.add("_" + arcXri.toString(), jsonObjectIncomingRelations);
+			jsonArrayIncomingRelations = new JsonArray();
+			jsonObjectTarget.add("_" + arcXri.toString(), jsonArrayIncomingRelations);
 		}
 
-		jsonObjectIncomingRelations.add(this.getXri().toString(), new JsonPrimitive(Boolean.TRUE));
+		jsonArrayIncomingRelations.add(new JsonPrimitive(this.getXri().toString()));
 
 		this.saveJson(jsonObject);
 		((JSONContextNode) targetContextNode).saveJson(jsonObjectTarget);
@@ -197,20 +201,20 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 				if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) return null;
 				if (XDIConstants.XRI_SS_LITERAL.equals(arcXri)) return null;
 
-				JsonObject jsonObjectRelations = (JsonObject) entry.getValue();
+				JsonArray jsonArrayRelations = (JsonArray) entry.getValue();
 
-				final Set<Entry<String, JsonElement>> entrySet = new HashSet<Entry<String, JsonElement>> (jsonObjectRelations.entrySet());
+				final List<JsonElement> entryList = new IteratorListMaker<JsonElement> (jsonArrayRelations.iterator()).list();
 
-				return new MappingIterator<Entry<String, JsonElement>, Relation> (entrySet.iterator()) {
+				return new ReadOnlyIterator<Relation> (new MappingIterator<JsonElement, Relation> (entryList.iterator()) {
 
 					@Override
-					public Relation map(Entry<String, JsonElement> entry) {
+					public Relation map(JsonElement jsonElement) {
 
-						XDI3Segment targetContextNodeXri = XDI3Segment.create(entry.getKey());
+						XDI3Segment targetContextNodeXri = XDI3Segment.create(((JsonPrimitive) jsonElement).getAsString());
 
 						return new JSONRelation(JSONContextNode.this, arcXri, targetContextNodeXri);
 					}
-				};
+				});
 			}
 		};
 	}
@@ -232,22 +236,22 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 				final XDI3Segment arcXri = XDI3Segment.create(entry.getKey().substring(1));
 
-				JsonObject jsonObjectIncomingRelations = (JsonObject) entry.getValue();
+				JsonArray jsonArrayIncomingRelations = (JsonArray) entry.getValue();
 
-				final Set<Entry<String, JsonElement>> entrySet = new HashSet<Entry<String, JsonElement>> (jsonObjectIncomingRelations.entrySet());
+				final List<JsonElement> entryList = new IteratorListMaker<JsonElement> (jsonArrayIncomingRelations.iterator()).list();
 
-				return new MappingIterator<Entry<String, JsonElement>, Relation> (entrySet.iterator()) {
+				return new ReadOnlyIterator<Relation> (new MappingIterator<JsonElement, Relation> (entryList.iterator()) {
 
 					@Override
-					public Relation map(Entry<String, JsonElement> entry) {
+					public Relation map(JsonElement jsonElement) {
 
-						XDI3Segment contextNodeXri = XDI3Segment.create(entry.getKey());
+						XDI3Segment contextNodeXri = XDI3Segment.create(((JsonPrimitive) jsonElement).getAsString());
 
 						ContextNode contextNode = JSONContextNode.this.getGraph().getDeepContextNode(contextNodeXri);
 
 						return new JSONRelation(contextNode, arcXri, JSONContextNode.this.getXri());
 					}
-				};
+				});
 			}
 		};
 	}
@@ -261,9 +265,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		if (jsonObject != null) {
 
-			JsonObject jsonObjectRelations = jsonObject.getAsJsonObject(arcXri.toString());
-			jsonObjectRelations.remove(targetContextNodeXri.toString());
-			if (jsonObjectRelations.entrySet().isEmpty()) jsonObject.remove(arcXri.toString());
+			JsonArray jsonArrayRelations = jsonObject.getAsJsonArray(arcXri.toString());
+			new IteratorRemover<JsonElement> (jsonArrayRelations.iterator(), new JsonPrimitive(targetContextNodeXri.toString())).remove();
+			if (jsonArrayRelations.size() < 1) jsonObject.remove(arcXri.toString());
 
 			this.saveJson(jsonObject);
 		}
@@ -272,9 +276,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		if (jsonObjectTarget != null) {
 
-			JsonObject jsonObjectIncomingRelations = jsonObjectTarget.getAsJsonObject("_" + arcXri.toString());
-			jsonObjectIncomingRelations.remove(this.getXri().toString());
-			if (jsonObjectIncomingRelations.entrySet().isEmpty()) jsonObjectTarget.remove("_" + arcXri.toString());
+			JsonArray jsonArrayIncomingRelations = jsonObjectTarget.getAsJsonArray("_" + arcXri.toString());
+			new IteratorRemover<JsonElement> (jsonArrayIncomingRelations.iterator(), new JsonPrimitive(this.getXri().toString())).remove();
+			if (jsonArrayIncomingRelations.size() < 1) jsonObjectTarget.remove("_" + arcXri.toString());
 
 			((JSONContextNode) targetContextNode).saveJson(jsonObjectTarget);
 		}

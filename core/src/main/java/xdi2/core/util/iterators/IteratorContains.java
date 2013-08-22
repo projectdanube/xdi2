@@ -10,7 +10,7 @@ import java.util.Iterator;
 public final class IteratorContains<T> {
 
 	private Boolean contains;
-	private Iterator<?> iterator;
+	private Iterator<T> iterator;
 	private T element;
 
 	public IteratorContains(Iterator<T> iterator, T element) {
