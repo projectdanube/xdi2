@@ -1,0 +1,5 @@
+=markus[$msg]!1$do/$get/(=test2<+s>&/&/"Markus Sabadello")
+=markus[$msg]!1$do/$get/(=test2<+d>&/&/34)
+=markus[$msg]!1$do/$get/(=test2<+b>&/&/false)
+=markus[$msg]!1$do/$get/(=test2<+a>&/&/["test",5,false])
+=markus[$msg]!1$do/$get/(=test2<+o>&/&/{"one":"Markus Sabadello","two":34,"three":false})

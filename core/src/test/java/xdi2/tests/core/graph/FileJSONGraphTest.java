@@ -5,11 +5,11 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.impl.json.JSONGraphFactory;
+import xdi2.core.impl.json.file.FileJSONGraphFactory;
 
-public class JSONGraphTest extends AbstractGraphTest {
+public class FileJSONGraphTest extends AbstractGraphTest {
 
-	private JSONGraphFactory graphFactory = new JSONGraphFactory();
+	private static FileJSONGraphFactory graphFactory = new FileJSONGraphFactory();
 
 	static {
 
@@ -33,12 +33,14 @@ public class JSONGraphTest extends AbstractGraphTest {
 	@Override
 	protected Graph openNewGraph(String identifier) throws IOException {
 
-		return this.graphFactory.openGraph(identifier);
+		return graphFactory.openGraph(identifier);
 	}
 
 	@Override
 	protected Graph reopenGraph(Graph graph, String identifier) throws IOException {
 
-		return graph;
+		graph.close();
+		
+		return graphFactory.openGraph(identifier);
 	}
 }

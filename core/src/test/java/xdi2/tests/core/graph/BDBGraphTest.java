@@ -31,9 +31,7 @@ public class BDBGraphTest extends AbstractGraphTest {
 	@Override
 	protected Graph openNewGraph(String identifier) throws IOException {
 
-		Graph graph = graphFactory.openGraph(identifier);
-
-		return graph;
+		return graphFactory.openGraph(identifier);
 	}
 
 	@Override

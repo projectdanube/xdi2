@@ -906,7 +906,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		if (! XdiValue.isValid(this)) throw new Xdi2GraphException("Can only create a literal in a value context.");
 
-		if (! (literalData instanceof String) && ! (literalData instanceof Double) && ! (literalData instanceof Boolean)) throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
+		if (! AbstractLiteral.isValidLiteralData(literalData)) throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
 	}
 
 	/*

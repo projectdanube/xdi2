@@ -202,7 +202,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 			Object literalData = statementXri.getLiteralData(); 
 
-			jsonObject.add(key, AbstractLiteral.literalDataToJsonPrimitive(literalData));
+			jsonObject.add(key, AbstractLiteral.literalDataToJsonElement(literalData));
 		} else {
 
 			JsonArray jsonArray = (JsonArray) jsonObject.get(key);

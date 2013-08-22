@@ -15,9 +15,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		super(graphFactory, identifier);
 
-		String id = identifier != null ? (identifier + "_") : "";
-
-		this.jsonRootContextNode = new JSONContextNode(this, null, null, jsonStore, id);
+		this.jsonRootContextNode = new JSONContextNode(this, null, jsonStore, "", null);
 	}
 
 	@Override

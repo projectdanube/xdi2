@@ -1,0 +1,5 @@
+=test<+s>&/&/"Markus Sabadello"
+=test<+d>&/&/34
+=test<+b>&/&/false
+=test<+a>&/&/["test",5,false]
+=test<+o>&/&/{"one":"Markus Sabadello","two":34,"three":false}

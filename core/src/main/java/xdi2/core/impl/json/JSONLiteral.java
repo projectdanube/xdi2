@@ -6,7 +6,6 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractLiteral;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 public class JSONLiteral extends AbstractLiteral implements Literal {
 
@@ -24,7 +23,7 @@ public class JSONLiteral extends AbstractLiteral implements Literal {
 
 		JsonObject jsonObject = jsonContextNode.loadJson();
 
-		return AbstractLiteral.jsonPrimitiveToLiteralData((JsonPrimitive) jsonObject.get(XDIConstants.XRI_SS_LITERAL.toString()));
+		return AbstractLiteral.jsonElementToLiteralData(jsonObject.get(XDIConstants.XRI_SS_LITERAL.toString()));
 	}
 
 	@Override
@@ -34,7 +33,7 @@ public class JSONLiteral extends AbstractLiteral implements Literal {
 
 		JsonObject jsonObject = jsonContextNode.loadJson();
 
-		jsonObject.add(XDIConstants.XRI_SS_LITERAL.toString(), AbstractLiteral.literalDataToJsonPrimitive(literalData));
+		jsonObject.add(XDIConstants.XRI_SS_LITERAL.toString(), AbstractLiteral.literalDataToJsonElement(literalData));
 
 		jsonContextNode.saveJson(jsonObject);
 	}

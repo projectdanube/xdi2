@@ -48,20 +48,21 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 
 		// check identifier
 
+		String databaseName = this.getDatabaseName();
+		String databasePath = this.getDatabasePath();
+
 		if (identifier != null) {
 
-			this.setDatabaseName("xdi2-test-graph." + identifier);
+			databaseName = "xdi2-bdb-graph." + identifier;
 		}
 
-		// we use the current working directory
+		// open store
 
-		File file = new File(this.databasePath);
+		File file = new File(databasePath);
 
 		KeyValueStore keyValueStore;
 
 		try {
-
-			// open store
 
 			if (! file.exists()) file.mkdir();
 
@@ -75,7 +76,7 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 			databaseConfig.setSortedDuplicates(true);
 			databaseConfig.setTransactional(true);
 
-			keyValueStore = new BDBKeyValueStore(this.databasePath, this.databaseName, environmentConfig, databaseConfig);
+			keyValueStore = new BDBKeyValueStore(databasePath, databaseName, environmentConfig, databaseConfig);
 			keyValueStore.init();
 		} catch (Exception ex) {
 
@@ -91,7 +92,7 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 
 		// we use the current working directory
 
-		File file = new File(this.databasePath);
+		File file = new File(this.getDatabasePath());
 
 		try {
 
@@ -114,8 +115,8 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 			DatabaseEntry dbKey = new DatabaseEntry();
 			DatabaseEntry dbValue = new DatabaseEntry();
 
-			Environment environment = new Environment(new File(this.databasePath), environmentConfig);
-			Database database = environment.openDatabase(null, this.databaseName, databaseConfig);
+			Environment environment = new Environment(new File(this.getDatabasePath()), environmentConfig);
+			Database database = environment.openDatabase(null, this.getDatabaseName(), databaseConfig);
 			Transaction transaction = CurrentTransaction.getInstance(environment).beginTransaction(null);
 			Cursor cursor = database.openCursor(transaction, null);
 

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * The key/value based graph implementation needs a KeyValueStore in order
- * to work. This defines basic operations on a key/value pair based datastore.
+ * The key/value based graph storage implementations needs a KeyValueStore to function.
+ * This defines basic operations on a key/value pair based datastore.
  * 
  * @author markus
  */

@@ -9,11 +9,20 @@ import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
 import xdi2.core.xri3.XDI3Segment;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 public abstract class AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = -3376866498591508078L;
+
+	private static final JsonParser jsonParser = new JsonParser();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
 	private ContextNode contextNode;
 
@@ -177,26 +186,34 @@ public abstract class AbstractLiteral implements Literal {
 
 	public static boolean isValidLiteralData(Object literalData) {
 
-		return literalData instanceof String || literalData instanceof Double || literalData instanceof Boolean;
+		return literalData instanceof String || literalData instanceof Double || literalData instanceof Boolean || literalData instanceof JsonArray || literalData instanceof JsonObject;
 	}
 
 	public static String literalDataToString(Object literalData) {
 
 		if (literalData == null) throw new NullPointerException();
 
-		if (literalData instanceof String) {
+		return gson.toJson(literalDataToJsonElement(literalData));
+		
+/*		if (literalData instanceof String) {
 
-			return "\"" + ((String) literalData).replace("\"", "\\\"") + "\"";
+			return "\"" + ((String) literalData).replace("\"", "\\\"");
 		} else if (literalData instanceof Double) {
 
-			return literalData.toString();
+			return ((Double) literalData).toString();
 		} else if (literalData instanceof Boolean) {
 
-			return literalData.toString();
+			return ((Boolean) literalData).toString();
+		} else if (literalData instanceof List<?>) {
+
+			return gson.toJson(literalData);
+		} else if (literalData instanceof Map<?, ?>) {
+
+			return gson.toJson(literalData);
 		} else {
 
 			throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
-		}
+		}*/
 	}
 
 	public static Object stringToLiteralData(String string) {
@@ -204,9 +221,23 @@ public abstract class AbstractLiteral implements Literal {
 		if (string == null) throw new NullPointerException();
 		if (string.isEmpty()) throw new IllegalArgumentException("Invalid empty string.");
 
-		if (string.startsWith("\"") && string.endsWith("\"")) {
+		return jsonElementToLiteralData(jsonParser.parse(string));
+		
+/*		if (string.startsWith("\"") && string.endsWith("\"")) {
 
 			return string.substring(1, string.length() - 1).replace("\\\"", "\"");
+		} else if (string.startsWith("[") && string.endsWith("]")) {
+
+			return gson.fromJson(string.substring(1, string.length() - 1), List.class);
+		} else if (string.startsWith("{") && string.endsWith("}")) {
+
+			return gson.fromJson(string.substring(1, string.length() - 1), Map.class);
+		} else if ("true".equals(string)) {
+
+			return Boolean.TRUE;
+		} else if ("false".equals(string)) {
+
+			return Boolean.FALSE;
 		} else {
 
 			try {
@@ -214,34 +245,42 @@ public abstract class AbstractLiteral implements Literal {
 				return Double.valueOf(string);
 			} catch (Exception ex) {
 
-				if ("true".equals(string)) return Boolean.TRUE;
-				if ("false".equals(string)) return Boolean.FALSE;
-
 				throw new IllegalArgumentException("Invalid string: " + string);
 			}
-		}
+		}*/
 	}
 
-	public static JsonPrimitive literalDataToJsonPrimitive(Object literalData) {
+	public static JsonElement literalDataToJsonElement(Object literalData) {
 
 		if (literalData == null) throw new NullPointerException();
 
 		if (literalData instanceof String) return new JsonPrimitive((String) literalData);
-		if (literalData instanceof Number) return new JsonPrimitive((Number) literalData);
+		if (literalData instanceof Double) return new JsonPrimitive((Double) literalData);
 		if (literalData instanceof Boolean) return new JsonPrimitive((Boolean) literalData);
+		if (literalData instanceof JsonArray) return (JsonArray) literalData;
+		if (literalData instanceof JsonObject) return (JsonObject) literalData;
 
 		throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
 	}
 
-	public static Object jsonPrimitiveToLiteralData(JsonPrimitive jsonPrimitive) {
+	public static Object jsonElementToLiteralData(JsonElement jsonElement) {
 
-		if (jsonPrimitive == null) throw new NullPointerException();
+		if (jsonElement == null) throw new NullPointerException();
 
-		if (jsonPrimitive.isString()) return jsonPrimitive.getAsString();
-		if (jsonPrimitive.isNumber()) return Double.valueOf(jsonPrimitive.getAsDouble());
-		if (jsonPrimitive.isBoolean()) return Boolean.valueOf(jsonPrimitive.getAsBoolean());
+		if (jsonElement instanceof JsonPrimitive) {
 
-		throw new IllegalArgumentException("Invalid JSON primitive: " + jsonPrimitive);
+			if (((JsonPrimitive) jsonElement).isString()) return jsonElement.getAsString();
+			if (((JsonPrimitive) jsonElement).isNumber()) return Double.valueOf(jsonElement.getAsDouble());
+			if (((JsonPrimitive) jsonElement).isBoolean()) return Boolean.valueOf(jsonElement.getAsBoolean());
+		} else if (jsonElement instanceof JsonArray) {
+			
+			return (JsonArray) jsonElement;
+		} else if (jsonElement instanceof JsonObject) {
+			
+			return (JsonObject) jsonElement;
+		}
+
+		throw new IllegalArgumentException("Invalid JSON element: " + jsonElement);
 	}
 
 	/**

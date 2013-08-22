@@ -1,4 +1,4 @@
-package xdi2.core.impl.json;
+package xdi2.core.impl.json.file;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+
+import xdi2.core.impl.json.JSONStore;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,10 +22,27 @@ public class FileJSONStore implements JSONStore {
 	private static final JsonParser jsonParser = new JsonParser();
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
+	private String prefix;
+
+	public FileJSONStore(String prefix) {
+
+		this.prefix = prefix;
+	}
+
+	@Override
+	public void init() throws IOException {
+
+	}
+
+	@Override
+	public void close() {
+
+	}
+
 	@Override
 	public JsonObject load(String id) throws IOException {
 
-		String filename = filename(id);
+		String filename = filename(this.getPrefix(), id);
 
 		File file = new File(filename);
 		if (! file.exists()) return new JsonObject();
@@ -40,7 +59,7 @@ public class FileJSONStore implements JSONStore {
 	@Override
 	public void save(String id, JsonObject object) throws IOException {
 
-		String filename = filename(id);
+		String filename = filename(this.getPrefix(), id);
 
 		FileWriter fileWriter = new FileWriter(new File(filename));
 		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -67,9 +86,21 @@ public class FileJSONStore implements JSONStore {
 		for (File file : files) file.delete();
 	}
 
-	private static String filename(String id) {
+	public String getPrefix() {
+
+		return this.prefix;
+	}
+
+	private static String filename(String prefix, String id) {
 
 		StringBuilder buffer = new StringBuilder();
+
+		if (prefix != null) {
+
+			buffer.append(prefix);
+			buffer.append("_");
+		}
+
 		buffer.append(id);
 		buffer.append(".json");
 

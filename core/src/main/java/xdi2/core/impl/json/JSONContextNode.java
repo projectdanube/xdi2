@@ -35,17 +35,19 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 	private static final Logger log = LoggerFactory.getLogger(JSONContextNode.class);
 
-	private XDI3SubSegment arcXri;
 	private JSONStore jsonStore;
 	private String id;
 
-	JSONContextNode(JSONGraph graph, JSONContextNode contextNode, XDI3SubSegment arcXri, JSONStore jsonStore, String id) {
+	private XDI3SubSegment arcXri;
+
+	JSONContextNode(JSONGraph graph, JSONContextNode contextNode, JSONStore jsonStore, String id, XDI3SubSegment arcXri) {
 
 		super(graph, contextNode);
 
-		this.arcXri = arcXri;
 		this.jsonStore = jsonStore;
 		this.id = id;
+
+		this.arcXri = arcXri;
 	}
 
 	/*
@@ -65,7 +67,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		this.saveJson(jsonObject);
 
-		JSONContextNode jsonContextNode = new JSONContextNode((JSONGraph) this.getGraph(), this, arcXri, this.jsonStore, id);
+		JSONContextNode jsonContextNode = new JSONContextNode((JSONGraph) this.getGraph(), this, this.jsonStore, id, arcXri);
 
 		return jsonContextNode;
 	}
@@ -112,7 +114,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 				XDI3SubSegment arcXri = XDI3SubSegment.create(entry.getKey());
 				String id = JSONContextNode.this.id + arcXri.toString();
 
-				return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, arcXri, JSONContextNode.this.jsonStore, id);
+				return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, JSONContextNode.this.jsonStore, id, arcXri);
 			}
 		});
 	}
@@ -286,7 +288,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		JsonObject jsonObject = this.loadJson();
 		if (jsonObject == null) jsonObject = new JsonObject();
 
-		jsonObject.add(XDIConstants.XRI_SS_LITERAL.toString(), AbstractLiteral.literalDataToJsonPrimitive(literalData));
+		jsonObject.add(XDIConstants.XRI_SS_LITERAL.toString(), AbstractLiteral.literalDataToJsonElement(literalData));
 
 		this.saveJson(jsonObject);
 

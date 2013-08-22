@@ -10,7 +10,7 @@ import xdi2.core.features.nodetypes.XdiEntityClass;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public class ContextFunctionsTest extends TestCase {
+public class NodeTypesTest extends TestCase {
 
 	public void testArcXris() throws Exception {
 

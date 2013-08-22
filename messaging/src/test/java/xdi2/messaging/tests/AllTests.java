@@ -7,6 +7,8 @@ import xdi2.messaging.tests.http.AcceptHeaderTest;
 import xdi2.messaging.tests.target.contributor.ContributorTest;
 import xdi2.messaging.tests.target.impl.graph.BDBGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.FileGraphMessagingTargetTest;
+import xdi2.messaging.tests.target.impl.graph.JSONFileGraphMessagingTargetTest;
+import xdi2.messaging.tests.target.impl.graph.JSONMemoryGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.MapGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.MemoryGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.PropertiesGraphMessagingTargetTest;
@@ -25,6 +27,8 @@ public class AllTests {
 		suite.addTestSuite(PropertiesGraphMessagingTargetTest.class);
 		suite.addTestSuite(BDBGraphMessagingTargetTest.class);
 		suite.addTestSuite(FileGraphMessagingTargetTest.class);
+		suite.addTestSuite(JSONMemoryGraphMessagingTargetTest.class);
+		suite.addTestSuite(JSONFileGraphMessagingTargetTest.class);
 		suite.addTestSuite(LinkContractInterceptorTest.class);
 		suite.addTestSuite(AuthenticationSecretTokenInterceptorTest.class);
 		suite.addTestSuite(ContributorTest.class);

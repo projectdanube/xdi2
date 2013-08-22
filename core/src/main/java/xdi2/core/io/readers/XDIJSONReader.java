@@ -95,7 +95,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				if (! (jsonEntryElement instanceof JsonPrimitive)) throw new Xdi2ParseException("JSON object member must be a primitive: " + jsonEntryElement);
 
-				Object literalData = AbstractLiteral.jsonPrimitiveToLiteralData(((JsonPrimitive) jsonEntryElement));
+				Object literalData = AbstractLiteral.jsonElementToLiteralData((jsonEntryElement));
 
 				// find the root and the base context node of this statement
 

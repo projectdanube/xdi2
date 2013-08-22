@@ -1,10 +1,12 @@
-package xdi2.core.impl.json;
+package xdi2.core.impl.json.memory;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import xdi2.core.impl.json.JSONStore;
 
 import com.google.gson.JsonObject;
 
@@ -15,6 +17,16 @@ public class MemoryJSONStore implements JSONStore {
 	public MemoryJSONStore() {
 
 		this.jsonObjects = new HashMap<String, JsonObject> ();
+	}
+
+	@Override
+	public void init() throws IOException {
+
+	}
+
+	@Override
+	public void close() {
+
 	}
 
 	@Override
