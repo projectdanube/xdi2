@@ -6,11 +6,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import xdi2.core.impl.json.AbstractJSONStore;
 import xdi2.core.impl.json.JSONStore;
 
 import com.google.gson.JsonObject;
 
-public class MemoryJSONStore implements JSONStore {
+public class MemoryJSONStore extends AbstractJSONStore implements JSONStore {
 
 	private Map<String, JsonObject> jsonObjects;
 
@@ -30,19 +31,19 @@ public class MemoryJSONStore implements JSONStore {
 	}
 
 	@Override
-	public JsonObject load(String id) throws IOException {
+	protected JsonObject loadInternal(String id) throws IOException {
 
 		return this.jsonObjects.get(id);
 	}
 
 	@Override
-	public void save(String id, JsonObject jsonObject) throws IOException {
+	protected void saveInternal(String id, JsonObject jsonObject) throws IOException {
 
 		this.jsonObjects.put(id, jsonObject);
 	}
 
 	@Override
-	public void delete(String id) throws IOException {
+	protected void deleteInternal(String id) throws IOException {
 
 		for (Iterator<Entry<String, JsonObject>> iterator = this.jsonObjects.entrySet().iterator(); iterator.hasNext(); ) {
 

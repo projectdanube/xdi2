@@ -7,7 +7,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
+import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.impl.json.AbstractJSONStore;
 import xdi2.core.impl.json.JSONStore;
 
 import com.google.gson.Gson;
@@ -17,7 +21,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonWriter;
 
-public class FileJSONStore implements JSONStore {
+public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 
 	private static final JsonParser jsonParser = new JsonParser();
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
@@ -40,7 +44,7 @@ public class FileJSONStore implements JSONStore {
 	}
 
 	@Override
-	public JsonObject load(String id) throws IOException {
+	protected JsonObject loadInternal(String id) throws IOException {
 
 		String filename = filename(this.getPrefix(), id);
 
@@ -57,7 +61,7 @@ public class FileJSONStore implements JSONStore {
 	}
 
 	@Override
-	public void save(String id, JsonObject object) throws IOException {
+	protected void saveInternal(String id, JsonObject object) throws IOException {
 
 		String filename = filename(this.getPrefix(), id);
 
@@ -72,7 +76,7 @@ public class FileJSONStore implements JSONStore {
 		fileWriter.flush();
 	}
 
-	public void delete(final String id) throws IOException {
+	protected void deleteInternal(final String id) throws IOException {
 
 		File[] files = new File(".").listFiles(new FilenameFilter() {
 
@@ -95,13 +99,20 @@ public class FileJSONStore implements JSONStore {
 
 		StringBuilder buffer = new StringBuilder();
 
-		if (prefix != null) {
+		try {
 
-			buffer.append(prefix);
-			buffer.append("_");
+			if (prefix != null) {
+
+				buffer.append(URLEncoder.encode(prefix, "UTF-8"));
+				buffer.append("_");
+			}
+
+			buffer.append(URLEncoder.encode(id, "UTF-8"));
+		} catch (UnsupportedEncodingException ex) {
+
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
 		}
 
-		buffer.append(id);
 		buffer.append(".json");
 
 		return buffer.toString();
