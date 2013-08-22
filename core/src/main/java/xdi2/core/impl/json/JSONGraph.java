@@ -9,11 +9,15 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	private static final long serialVersionUID = -7459785412219244590L;
 
-	private JSONContextNode jsonRootContextNode;
+	private final JSONStore jsonStore;
+
+	private final JSONContextNode jsonRootContextNode;
 
 	JSONGraph(GraphFactory graphFactory, String identifier, JSONStore jsonStore) {
 
 		super(graphFactory, identifier);
+
+		this.jsonStore = jsonStore;
 
 		this.jsonRootContextNode = new JSONContextNode(this, null, jsonStore, "", null);
 	}
@@ -27,5 +31,6 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	@Override
 	public void close() {
 
+		this.jsonStore.close();
 	}
 }

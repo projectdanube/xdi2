@@ -9,10 +9,6 @@ public class MemoryJSONGraphTest extends AbstractGraphTest {
 
 	private static MemoryJSONGraphFactory graphFactory = new MemoryJSONGraphFactory();
 
-	static {
-
-	}
-
 	@Override
 	protected Graph openNewGraph(String identifier) throws IOException {
 

@@ -5,13 +5,9 @@ import java.io.IOException;
 import xdi2.core.Graph;
 import xdi2.core.impl.json.memory.MemoryJSONGraphFactory;
 
-public class JSONMemoryGraphMessagingTargetTest extends AbstractGraphMessagingTargetTest {
+public class MemoryJSONGraphMessagingTargetTest extends AbstractGraphMessagingTargetTest {
 
 	private static MemoryJSONGraphFactory graphFactory = new MemoryJSONGraphFactory();
-
-	static {
-
-	}
 
 	@Override
 	protected Graph openNewGraph(String identifier) throws IOException {

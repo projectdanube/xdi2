@@ -95,6 +95,10 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 		return this.prefix;
 	}
 
+	/*
+	 * Helper methods
+	 */
+
 	private static String filename(String prefix, String id) {
 
 		StringBuilder buffer = new StringBuilder();
@@ -116,5 +120,24 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 		buffer.append(".json");
 
 		return buffer.toString();
+	}
+
+	public static void cleanup() {
+
+		cleanup(new File("."));
+	}
+
+	public static void cleanup(File path) {
+
+		File[] files = path.listFiles(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File file, String filename) {
+
+				return filename.endsWith(".json");
+			}
+		});
+
+		for (File file : files) file.delete();
 	}
 }
