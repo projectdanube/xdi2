@@ -3,16 +3,14 @@ package xdi2.messaging.tests.target.impl.graph;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.impl.json.AbstractJSONGraphFactory;
-import xdi2.core.impl.json.memory.MemoryJSONStore;
+import xdi2.core.impl.json.memory.MemoryJSONGraphFactory;
 
 public class JSONMemoryGraphMessagingTargetTest extends AbstractGraphMessagingTargetTest {
 
-	private static AbstractJSONGraphFactory graphFactory = new AbstractJSONGraphFactory();
+	private static MemoryJSONGraphFactory graphFactory = new MemoryJSONGraphFactory();
 
 	static {
 
-		graphFactory.setJsonStore(new MemoryJSONStore());
 	}
 
 	@Override

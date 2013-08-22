@@ -5,18 +5,15 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.impl.json.AbstractJSONGraphFactory;
-import xdi2.core.impl.json.file.FileJSONStore;
+import xdi2.core.impl.json.file.FileJSONGraphFactory;
 
 public class JSONFileGraphMessagingTargetTest extends AbstractGraphMessagingTargetTest {
 
-	private static AbstractJSONGraphFactory graphFactory = new AbstractJSONGraphFactory();
+	private static FileJSONGraphFactory graphFactory = new FileJSONGraphFactory();
 
 	static {
 
 		cleanup();
-
-		graphFactory.setJsonStore(new FileJSONStore());
 	}
 
 	public static void cleanup() {
