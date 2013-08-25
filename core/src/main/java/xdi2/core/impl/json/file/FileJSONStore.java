@@ -16,14 +16,11 @@ import xdi2.core.impl.json.JSONStore;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonWriter;
 
 public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 
-	private static final JsonParser jsonParser = new JsonParser();
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
 	private String prefix;
@@ -53,11 +50,9 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
-		JsonElement jsonGraphElement = jsonParser.parse(bufferedReader);
+		JsonObject jsonGraphObject = gson.getAdapter(JsonObject.class).fromJson(bufferedReader);
 
-		if (! (jsonGraphElement instanceof JsonObject)) throw new IOException("JSON must be an object: " + jsonGraphElement);
-
-		return (JsonObject) jsonGraphElement;
+		return jsonGraphObject;
 	}
 
 	@Override
@@ -76,6 +71,7 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 		fileWriter.flush();
 	}
 
+	@Override
 	protected void deleteInternal(final String id) throws IOException {
 
 		File[] files = new File(".").listFiles(new FilenameFilter() {

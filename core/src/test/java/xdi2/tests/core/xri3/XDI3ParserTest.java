@@ -118,9 +118,17 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertTrue(statement.isLiteralStatement());
 		assertFalse(statement.isRelationStatement());
 
+		statement = parser.parseXDI3Statement("=neustar*animesh<+color>&/&/null");
+		assertEquals(statement.getSubject(), parser.parseXDI3Segment("=neustar*animesh<+color>&"));
+		assertEquals(statement.getPredicate(), parser.parseXDI3Segment("&"));
+		assertNull(statement.getObject());
+		assertFalse(statement.isContextNodeStatement());
+		assertTrue(statement.isLiteralStatement());
+		assertFalse(statement.isRelationStatement());
+
 		try {
 
-			statement = parser.parseXDI3Statement("=neustar*animesh<+smoker>&/&/null");
+			statement = parser.parseXDI3Statement("=neustar*animesh<+err>&/&/test");
 			fail();
 		} catch (ParserException ex) {
 

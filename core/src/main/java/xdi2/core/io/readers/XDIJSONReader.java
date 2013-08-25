@@ -28,10 +28,11 @@ import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.parser.aparse.ParserException;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 public class XDIJSONReader extends AbstractXDIReader {
@@ -44,7 +45,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 	public static final String FILE_EXTENSION = "json";
 	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
 
-	private static final JsonParser jsonParser = new JsonParser();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
 	public XDIJSONReader(Properties parameters) {
 
@@ -158,7 +159,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	private void read(Graph graph, BufferedReader bufferedReader, State state) throws IOException, Xdi2ParseException {
 
-		JsonElement jsonGraphElement = jsonParser.parse(bufferedReader);
+		JsonElement jsonGraphElement = gson.getAdapter(JsonObject.class).fromJson(bufferedReader);
 
 		if (! (jsonGraphElement instanceof JsonObject)) throw new Xdi2ParseException("JSON must be an object: " + jsonGraphElement);
 

@@ -21,10 +21,10 @@ import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
 import xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntityClass;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
@@ -36,7 +36,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 public class XDIRawJSONReader extends AbstractXDIReader {
@@ -55,7 +54,6 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 	public static final XDI3Segment XRI_DATATYPE_JSON_NULL = XDI3Segment.create("+$json$null");
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-	private static final JsonParser jsonParser = new JsonParser();
 
 	public XDIRawJSONReader(Properties parameters) {
 
@@ -155,7 +153,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	private void read(Graph graph, BufferedReader bufferedReader) throws IOException, Xdi2ParseException {
 
-		JsonElement jsonRootElement = jsonParser.parse(bufferedReader);
+		JsonElement jsonRootElement = gson.getAdapter(JsonObject.class).fromJson(bufferedReader);
 
 		if (! (jsonRootElement instanceof JsonObject)) throw new Xdi2ParseException("JSON must be an object: " + jsonRootElement);
 

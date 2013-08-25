@@ -1,11 +1,13 @@
 package xdi2.core.impl;
 
+import java.io.IOException;
 import java.util.Comparator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Statement.LiteralStatement;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
 import xdi2.core.xri3.XDI3Segment;
 
@@ -15,14 +17,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 public abstract class AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = -3376866498591508078L;
 
-	private static final JsonParser jsonParser = new JsonParser();
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
 	private ContextNode contextNode;
@@ -220,7 +220,15 @@ public abstract class AbstractLiteral implements Literal {
 		if (string == null) throw new NullPointerException();
 		if (string.isEmpty()) throw new IllegalArgumentException("Invalid empty string.");
 
-		return jsonElementToLiteralData(jsonParser.parse(string));
+		try {
+
+			JsonArray jsonArray = gson.getAdapter(JsonArray.class).fromJson("[" + string + "]");
+
+			return jsonElementToLiteralData(jsonArray.get(0));
+		} catch (IOException ex) {
+
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
+		}
 
 		/*		if (string.startsWith("\"") && string.endsWith("\"")) {
 
