@@ -21,11 +21,11 @@ public class AbstractLiteralTest extends TestCase {
 	static {
 
 		a.add(new JsonPrimitive("test"));
-		a.add(new JsonPrimitive(Double.valueOf(5)));
+		a.add(new JsonPrimitive(Integer.valueOf(5)));
 		a.add(new JsonPrimitive(Boolean.FALSE));
 
 		o.add("one", new JsonPrimitive("Markus Sabadello"));
-		o.add("two", new JsonPrimitive(Double.valueOf(34)));
+		o.add("two", new JsonPrimitive(Integer.valueOf(34)));
 		o.add("three", new JsonPrimitive(Boolean.FALSE));
 	}
 
