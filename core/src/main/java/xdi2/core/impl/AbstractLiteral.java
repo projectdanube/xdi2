@@ -194,8 +194,8 @@ public abstract class AbstractLiteral implements Literal {
 		if (literalData == null) throw new NullPointerException();
 
 		return gson.toJson(literalDataToJsonElement(literalData));
-		
-/*		if (literalData instanceof String) {
+
+		/*		if (literalData instanceof String) {
 
 			return "\"" + ((String) literalData).replace("\"", "\\\"");
 		} else if (literalData instanceof Double) {
@@ -222,8 +222,8 @@ public abstract class AbstractLiteral implements Literal {
 		if (string.isEmpty()) throw new IllegalArgumentException("Invalid empty string.");
 
 		return jsonElementToLiteralData(jsonParser.parse(string));
-		
-/*		if (string.startsWith("\"") && string.endsWith("\"")) {
+
+		/*		if (string.startsWith("\"") && string.endsWith("\"")) {
 
 			return string.substring(1, string.length() - 1).replace("\\\"", "\"");
 		} else if (string.startsWith("[") && string.endsWith("]")) {
@@ -273,11 +273,11 @@ public abstract class AbstractLiteral implements Literal {
 			if (((JsonPrimitive) jsonElement).isNumber()) return Double.valueOf(jsonElement.getAsDouble());
 			if (((JsonPrimitive) jsonElement).isBoolean()) return Boolean.valueOf(jsonElement.getAsBoolean());
 		} else if (jsonElement instanceof JsonArray) {
-			
-			return (JsonArray) jsonElement;
+
+			return jsonElement;
 		} else if (jsonElement instanceof JsonObject) {
-			
-			return (JsonObject) jsonElement;
+
+			return jsonElement;
 		}
 
 		throw new IllegalArgumentException("Invalid JSON element: " + jsonElement);

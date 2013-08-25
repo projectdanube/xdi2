@@ -399,7 +399,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param literalData The literal data number associated with the literal.
 	 * @return The newly created literal.
 	 */
-	public Literal createLiteralNumber(Number literalData);
+	public Literal createLiteralNumber(Double literalData);
 
 	/**
 	 * Creates a new literal and adds it to this context node.
@@ -419,9 +419,9 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal createDeepLiteralString(XDI3Segment contextNodeXri, String literalData);
 
 	/**
-	 * Deep version of ContextNode.createLiteralNumber(Number), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createLiteralNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal createDeepLiteralNumber(XDI3Segment contextNodeXri, Number literalData);
+	public Literal createDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.createLiteralBoolean(Boolean), operates at a context node further down in the graph.
@@ -447,7 +447,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param literalData The literal data number associated with the literal.
 	 * @return The newly created or existing literal.
 	 */
-	public Literal setLiteralNumber(Number literalData);
+	public Literal setLiteralNumber(Double literalData);
 
 	/**
 	 * Creates a new literal and adds it to this context node, or returns an existing literal.
@@ -467,9 +467,9 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal setDeepLiteralString(XDI3Segment contextNodeXri, String literalData);
 
 	/**
-	 * Deep version of ContextNode.setLiteralNumber(Number), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setLiteralNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteralNumber(XDI3Segment contextNodeXri, Number literalData);
+	public Literal setDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.
@@ -495,7 +495,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param literalData The literal data number associated with the literal.
 	 * @return The literal.
 	 */
-	public Literal getLiteralNumber(Number literalData);
+	public Literal getLiteralNumber(Double literalData);
 
 	/**
 	 * Returns the literal of this context node.
@@ -515,9 +515,9 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Literal getDeepLiteralString(XDI3Segment contextNodeXri, String literalData);
 
 	/**
-	 * Deep version of ContextNode.getLiteraNumber(Number), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getLiteraNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteralNumber(XDI3Segment contextNodeXri, Number literalData);
+	public Literal getDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.
@@ -560,7 +560,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param literalData The literal data number associated with the literal.
 	 * @return True if this context node has a literal with the given data.
 	 */
-	public boolean containsLiteralNumber(Number literalData);
+	public boolean containsLiteralNumber(Double literalData);
 
 	/**
 	 * Checks if this context node has a literal with the given data.

@@ -146,9 +146,9 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	public Literal createDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.createLiteralNumber(Number), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.createLiteralNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal createDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData);
+	public Literal createDeepLiteralNumber(XDI3Segment contextNodeArcXris, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.createLiteralBoolean(Boolean), operates at a context node further down in the graph.
@@ -166,9 +166,9 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	public Literal setDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.setLiteralNumber(Number), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setLiteralNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData);
+	public Literal setDeepLiteralNumber(XDI3Segment contextNodeArcXris, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.
@@ -186,9 +186,9 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	public Literal getDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData);
 
 	/**
-	 * Deep version of ContextNode.getLiteralNumber(Number), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getLiteralNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData);
+	public Literal getDeepLiteralNumber(XDI3Segment contextNodeArcXris, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.

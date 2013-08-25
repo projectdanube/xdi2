@@ -554,7 +554,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Literal createLiteralNumber(Number literalData) {
+	public Literal createLiteralNumber(Double literalData) {
 
 		return this.createLiteral(literalData);
 	}
@@ -581,7 +581,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Literal createDeepLiteralNumber(XDI3Segment contextNodeXri, Number literalData) {
+	public Literal createDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData) {
 
 		return this.createDeepLiteral(contextNodeXri, literalData);
 	}
@@ -615,7 +615,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Literal setLiteralNumber(Number literalData) {
+	public Literal setLiteralNumber(Double literalData) {
 
 		return this.setLiteral(literalData);
 	}
@@ -642,7 +642,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Literal setDeepLiteralNumber(XDI3Segment contextNodeXri, Number literalData) {
+	public Literal setDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData) {
 
 		return this.setDeepLiteralNumber(contextNodeXri, literalData);
 	}
@@ -671,7 +671,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Literal getLiteralNumber(Number literalData) {
+	public Literal getLiteralNumber(Double literalData) {
 
 		return this.getLiteral(literalData);
 	}
@@ -698,7 +698,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Literal getDeepLiteralNumber(XDI3Segment contextNodeXri, Number literalData) {
+	public Literal getDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData) {
 
 		return this.getDeepLiteral(contextNodeXri, literalData);
 	}
@@ -754,7 +754,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public boolean containsLiteralNumber(Number literalData) {
+	public boolean containsLiteralNumber(Double literalData) {
 
 		return this.getLiteralNumber(literalData) != null;
 	}

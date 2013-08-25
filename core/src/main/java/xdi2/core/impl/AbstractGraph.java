@@ -198,7 +198,7 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
-	public Literal createDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData) {
+	public Literal createDeepLiteralNumber(XDI3Segment contextNodeArcXris, Double literalData) {
 
 		return this.getRootContextNode().createDeepLiteralNumber(contextNodeArcXris, literalData);
 	}
@@ -222,7 +222,7 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
-	public Literal setDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData) {
+	public Literal setDeepLiteralNumber(XDI3Segment contextNodeArcXris, Double literalData) {
 
 		return this.getRootContextNode().setDeepLiteralNumber(contextNodeArcXris, literalData);
 	}
@@ -246,7 +246,7 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
-	public Literal getDeepLiteralNumber(XDI3Segment contextNodeArcXris, Number literalData) {
+	public Literal getDeepLiteralNumber(XDI3Segment contextNodeArcXris, Double literalData) {
 
 		return this.getRootContextNode().getDeepLiteralNumber(contextNodeArcXris, literalData);
 	}
