@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
@@ -186,7 +187,7 @@ public abstract class AbstractLiteral implements Literal {
 
 	public static boolean isValidLiteralData(Object literalData) {
 
-		return literalData instanceof String || literalData instanceof Double || literalData instanceof Boolean || literalData instanceof JsonArray || literalData instanceof JsonObject;
+		return literalData instanceof String || literalData instanceof Double || literalData instanceof Boolean || literalData instanceof JsonArray || literalData instanceof JsonObject || literalData == null;
 	}
 
 	public static String literalDataToString(Object literalData) {
@@ -252,13 +253,12 @@ public abstract class AbstractLiteral implements Literal {
 
 	public static JsonElement literalDataToJsonElement(Object literalData) {
 
-		if (literalData == null) throw new NullPointerException();
-
 		if (literalData instanceof String) return new JsonPrimitive((String) literalData);
 		if (literalData instanceof Double) return new JsonPrimitive((Double) literalData);
 		if (literalData instanceof Boolean) return new JsonPrimitive((Boolean) literalData);
 		if (literalData instanceof JsonArray) return (JsonArray) literalData;
 		if (literalData instanceof JsonObject) return (JsonObject) literalData;
+		if (literalData == null) return JsonNull.INSTANCE;
 
 		throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
 	}
@@ -278,6 +278,9 @@ public abstract class AbstractLiteral implements Literal {
 		} else if (jsonElement instanceof JsonObject) {
 
 			return jsonElement;
+		} else if (jsonElement instanceof JsonNull) {
+
+			return null;
 		}
 
 		throw new IllegalArgumentException("Invalid JSON element: " + jsonElement);
