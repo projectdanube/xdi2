@@ -192,8 +192,6 @@ public abstract class AbstractLiteral implements Literal {
 
 	public static String literalDataToString(Object literalData) {
 
-		if (literalData == null) throw new NullPointerException();
-
 		return gson.toJson(literalDataToJsonElement(literalData));
 
 		/*		if (literalData instanceof String) {
