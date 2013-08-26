@@ -164,7 +164,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		if (literalData.equals(literal.getLiteralData())) {
+		if ((literalData == null && literal.getLiteralData() == null) || (literalData != null && literalData.equals(literal.getLiteralData()))) {
 
 			CopyUtil.copyLiteral(literal, messageResult.getGraph(), null);
 		}
@@ -191,7 +191,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		Literal literal = contextNode.getLiteral();
 		if (literal == null) return;
 
-		if (literalData.equals(literal.getLiteralData())) {
+		if ((literalData == null && literal.getLiteralData() == null) || (literalData != null && literalData.equals(literal.getLiteralData()))) {
 
 			literal.delete();
 		}
