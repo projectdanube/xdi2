@@ -900,8 +900,6 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 	protected void checkLiteral(Object literalData, boolean checkExists) throws Xdi2GraphException {
 
-		if (literalData == null) throw new NullPointerException();
-
 		if (checkExists && this.containsLiteral()) throw new Xdi2GraphException("Context node " + this.getXri() + " already contains a literal.");
 
 		if (! XdiValue.isValid(this)) throw new Xdi2GraphException("Can only create a literal in a value context.");
