@@ -5,6 +5,9 @@ import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
@@ -88,6 +91,18 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 		if (relation == null) return null;
 
 		return XdiPeerRoot.fromContextNode(relation.follow());
+	}
+
+	public ReadOnlyIterator<XdiPeerRoot> getPeerRoots() {
+
+		return new NotNullIterator<XdiPeerRoot> (new MappingIterator<ContextNode, XdiPeerRoot> (this.getContextNode().getContextNodes()) {
+
+			@Override
+			public XdiPeerRoot map(ContextNode contextNode) {
+
+				return XdiPeerRoot.fromContextNode(contextNode);
+			}
+		});
 	}
 
 	/*
