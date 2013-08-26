@@ -17,7 +17,6 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -313,7 +312,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		if (followedTargetSubject != targetStatement.getSubject() || followedTargetObject != targetStatement.getObject()) {
 
-			targetStatement = StatementUtil.fromComponents(followedTargetSubject, targetStatement.getPredicate(), followedTargetObject);
+			targetStatement = XDI3Statement.fromComponents(followedTargetSubject, targetStatement.getPredicate(), followedTargetObject);
 		}
 
 		// done
@@ -445,8 +444,8 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		feedbackMessageRef.deleteOperations();
 		feedbackMessageRep.deleteOperations();
 
-		feedbackMessageRef.createOperation(XDIMessagingConstants.XRI_S_GET, StatementUtil.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDIConstants.XRI_S_VARIABLE));
-		feedbackMessageRep.createOperation(XDIMessagingConstants.XRI_S_GET, StatementUtil.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDIConstants.XRI_S_VARIABLE));
+		feedbackMessageRef.createOperation(XDIMessagingConstants.XRI_S_GET, XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDIConstants.XRI_S_VARIABLE));
+		feedbackMessageRep.createOperation(XDIMessagingConstants.XRI_S_GET, XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDIConstants.XRI_S_VARIABLE));
 
 		// execute messages
 

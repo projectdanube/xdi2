@@ -3,7 +3,6 @@ package xdi2.core.features.linkcontracts.condition;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -53,7 +52,7 @@ public class EqualsCondition extends Condition {
 
 	public static EqualsCondition fromSubjectAndObject(XDI3Segment subject, XDI3Segment object) {
 
-		return fromStatement(StatementUtil.fromComponents(subject, XDIPolicyConstants.XRI_S_EQUALS, object));
+		return fromStatement(XDI3Statement.fromRelationComponents(subject, XDIPolicyConstants.XRI_S_EQUALS, object));
 	}
 
 	/*

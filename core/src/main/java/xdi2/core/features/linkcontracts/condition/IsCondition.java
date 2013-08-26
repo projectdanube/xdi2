@@ -6,7 +6,6 @@ import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.xri3.XDI3Segment;
@@ -58,7 +57,7 @@ public class IsCondition extends Condition {
 
 	public static IsCondition fromSubjectAndObject(XDI3Segment subject, XDI3Segment object) {
 
-		return fromStatement(StatementUtil.fromComponents(subject, XDIPolicyConstants.XRI_S_IS, object));
+		return fromStatement(XDI3Statement.fromRelationComponents(subject, XDIPolicyConstants.XRI_S_IS, object));
 	}
 
 	/*

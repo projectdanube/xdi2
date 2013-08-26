@@ -373,7 +373,7 @@ public final class XDI3Util {
 	 */
 	public static XDI3Segment concatXris(XDI3Segment xri1, XDI3SubSegment xri2) {
 
-		return concatXris(xri1, xri2 == null ? null : XDI3Segment.create(xri2));
+		return concatXris(xri1, xri2 == null ? null : XDI3Segment.fromComponent(xri2));
 	}
 
 	/**
@@ -381,7 +381,7 @@ public final class XDI3Util {
 	 */
 	public static XDI3Segment concatXris(XDI3SubSegment xri1, XDI3Segment xri2) {
 
-		return concatXris(xri1 == null ? null : XDI3Segment.create(xri1), xri2);
+		return concatXris(xri1 == null ? null : XDI3Segment.fromComponent(xri1), xri2);
 	}
 
 	/**
@@ -389,7 +389,7 @@ public final class XDI3Util {
 	 */
 	public static XDI3Segment concatXris(XDI3SubSegment xri1, XDI3SubSegment xri2) {
 
-		return concatXris(xri1 == null ? null : XDI3Segment.create(xri1), xri2 == null ? null : XDI3Segment.create(xri2));
+		return concatXris(xri1 == null ? null : XDI3Segment.fromComponent(xri1), xri2 == null ? null : XDI3Segment.fromComponent(xri2));
 	}
 
 	/**

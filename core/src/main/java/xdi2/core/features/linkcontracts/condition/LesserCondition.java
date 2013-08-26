@@ -4,7 +4,6 @@ import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.impl.AbstractLiteral;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -54,7 +53,7 @@ public class LesserCondition extends Condition {
 
 	public static LesserCondition fromSubjectAndObject(XDI3Segment subject, XDI3Segment object) {
 
-		return fromStatement(StatementUtil.fromComponents(subject, XDIPolicyConstants.XRI_S_LESSER, object));
+		return fromStatement(XDI3Statement.fromRelationComponents(subject, XDIPolicyConstants.XRI_S_LESSER, object));
 	}
 
 	/*

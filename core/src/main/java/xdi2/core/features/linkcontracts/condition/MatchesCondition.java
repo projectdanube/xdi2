@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -55,7 +54,7 @@ public class MatchesCondition extends Condition {
 
 	public static MatchesCondition fromSubjectAndObject(XDI3Segment subject, XDI3Segment object) {
 
-		return fromStatement(StatementUtil.fromComponents(subject, XDIPolicyConstants.XRI_S_MATCHES, object));
+		return fromStatement(XDI3Statement.fromRelationComponents(subject, XDIPolicyConstants.XRI_S_MATCHES, object));
 	}
 
 	/*

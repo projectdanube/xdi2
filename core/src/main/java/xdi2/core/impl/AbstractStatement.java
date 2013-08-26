@@ -7,7 +7,6 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -53,7 +52,18 @@ public abstract class AbstractStatement implements Statement {
 	@Override
 	public XDI3Statement getXri() {
 
-		return XDI3Statement.create(this.toString());
+		if (this instanceof ContextNodeStatement) {
+
+			return XDI3Statement.fromContextNodeComponents(((ContextNodeStatement) this).getSubject(), ((ContextNodeStatement) this).getObject());
+		} else if (this instanceof RelationStatement) {
+
+			return XDI3Statement.fromRelationComponents(((RelationStatement) this).getSubject(), ((RelationStatement) this).getPredicate(), ((RelationStatement) this).getObject());
+		} else if (this instanceof LiteralStatement) {
+
+			return XDI3Statement.fromLiteralComponents(((LiteralStatement) this).getSubject(), ((LiteralStatement) this).getObject());
+		}
+
+		throw new IllegalStateException("Invalid statement: " + this.getClass().getSimpleName());
 	}
 
 	/*
@@ -63,15 +73,7 @@ public abstract class AbstractStatement implements Statement {
 	@Override
 	public String toString() {
 
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(this.getSubject());
-		builder.append("/");
-		builder.append(this.getPredicate());
-		builder.append("/");
-		builder.append(StatementUtil.statementObjectToString(this.getObject()));
-
-		return builder.toString();
+		return this.getXri().toString();
 	}
 
 	@Override

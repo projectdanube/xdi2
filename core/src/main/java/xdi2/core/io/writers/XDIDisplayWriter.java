@@ -165,7 +165,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		builder.append(this.writePretty ? "\t" : "/");
 		builder.append(statementXri.getPredicate());
 		builder.append(this.writePretty ? "\t" : "/");
-		builder.append(StatementUtil.statementObjectToString(statementXri.getObject()));
+		builder.append(statementXri.getObjectAsString());
 
 		String string = builder.toString();
 		if (this.writePretty && this.writeHtml) string = string.replaceAll("\t", "&#9;");
@@ -182,7 +182,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		XDI3Segment innerRootSubject = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
 		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
 
-		XDI3Statement reducedStatementXri = StatementUtil.removeStartXriStatement(statementXri, XDI3Segment.create(subjectFirstSubSegment), true);
+		XDI3Statement reducedStatementXri = StatementUtil.removeStartXriStatement(statementXri, XDI3Segment.fromComponent(subjectFirstSubSegment), true);
 		if (reducedStatementXri == null) return statementXri;
 
 		return XDI3Statement.create("" + innerRootSubject + "/" + innerRootPredicate + "/(" + transformStatementInInnerRoot(reducedStatementXri) + ")");

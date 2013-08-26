@@ -8,8 +8,8 @@ import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -40,7 +40,7 @@ public class XDIDiscovery {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createGetOperation(XDI3Segment.create(peerRootArcXri));
+		message.createGetOperation(XDI3Segment.fromComponent(peerRootArcXri));
 
 		// send the message
 
@@ -77,7 +77,7 @@ public class XDIDiscovery {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createGetOperation(StatementUtil.fromComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
+		message.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
 
 		// send the message
 

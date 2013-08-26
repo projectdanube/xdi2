@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.util.VariableUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -88,7 +87,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		if (substitutedTargetSubject == targetStatement.getSubject() && substitutedTargetPredicate == targetStatement.getPredicate() && substitutedTargetObject == targetStatement.getObject()) return targetStatement;
 
-		return StatementUtil.fromComponents(substitutedTargetSubject, substitutedTargetPredicate, substitutedTargetObject);
+		return XDI3Statement.fromComponents(substitutedTargetSubject, substitutedTargetPredicate, substitutedTargetObject);
 	}
 
 	@Override
@@ -114,7 +113,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 			XDI3Segment predicate = XDIDictionaryConstants.XRI_S_IS;
 			XDI3Segment object = XDI3Segment.create(entry.getValue().toString());
 
-			XDI3Statement statement = StatementUtil.fromComponents(subject, predicate, object);
+			XDI3Statement statement = XDI3Statement.fromComponents(subject, predicate, object);
 
 			messageResult.getGraph().createStatement(statement);
 		}

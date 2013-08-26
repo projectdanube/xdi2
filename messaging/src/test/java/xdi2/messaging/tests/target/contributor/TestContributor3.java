@@ -1,7 +1,7 @@
 package xdi2.messaging.tests.target.contributor;
 
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -21,7 +21,7 @@ public class TestContributor3 extends AbstractContributor {
 			MessageResult messageResult,
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		messageResult.getGraph().createStatement(StatementUtil.fromRelationComponents(
+		messageResult.getGraph().createStatement(XDI3Statement.fromRelationComponents(
 				XDI3Segment.create("" + contributorsXri + "=markus"),
 				XDI3Segment.create("" + "+friend"),
 				XDI3Segment.create("" + contributorsXri + "=animesh")));

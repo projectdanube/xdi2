@@ -21,9 +21,17 @@ public final class XDI3Segment extends XDI3SyntaxComponent {
 		return XDI3ParserRegistry.getInstance().getParser().parseXDI3Segment(string);
 	}
 
-	public static XDI3Segment create(XDI3SubSegment subSegment) {
+	public static XDI3Segment fromComponent(XDI3SubSegment subSegment) {
 
 		return new XDI3Segment(subSegment.toString(), Collections.singletonList(subSegment));
+	}
+
+	public static XDI3Segment fromComponents(List<XDI3SubSegment> subSegments) {
+
+		StringBuffer buffer = new StringBuffer();
+		for (XDI3SubSegment subSegment : subSegments) buffer.append(subSegment.toString());
+
+		return new XDI3Segment(buffer.toString(), subSegments);
 	}
 
 	public List<XDI3SubSegment> getSubSegments() {

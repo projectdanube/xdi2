@@ -965,9 +965,9 @@ public abstract class AbstractContextNode implements ContextNode {
 		}
 
 		@Override
-		public XDI3Segment getObject() {
+		public XDI3SubSegment getObject() {
 
-			return XDI3Segment.create(AbstractContextNode.this.getArcXri().toString());
+			return AbstractContextNode.this.getArcXri();
 		}
 
 		@Override

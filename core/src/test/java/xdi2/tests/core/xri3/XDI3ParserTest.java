@@ -197,5 +197,41 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(s.getXRef().getSegment().getFirstSubSegment().getXRef().getLiteral(), "name");
 	}
 
+	public void testComponents() throws Exception {
+
+		XDI3Statement contextNodeStatement = XDI3Statement.create("=markus/()/[<+email>]");
+		XDI3Statement contextNodeStatement2 = XDI3Statement.fromComponents(XDI3Segment.create("=markus"), XDIConstants.XRI_S_CONTEXT, XDI3SubSegment.create("[<+email>]"));
+		XDI3Statement contextNodeStatement3 = XDI3Statement.fromContextNodeComponents(XDI3Segment.create("=markus"), XDI3SubSegment.create("[<+email>]"));
+
+		assertEquals(contextNodeStatement.getSubject(), XDI3Segment.create("=markus"));
+		assertEquals(contextNodeStatement.getPredicate(), XDIConstants.XRI_S_CONTEXT);
+		assertEquals(contextNodeStatement.getObject(), XDI3SubSegment.create("[<+email>]"));
+
+		assertEquals(contextNodeStatement, contextNodeStatement2);
+		assertEquals(contextNodeStatement, contextNodeStatement3);
+
+		XDI3Statement relationStatement = XDI3Statement.create("=markus/+friend/=animesh");
+		XDI3Statement relationStatement2 = XDI3Statement.fromComponents(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
+		XDI3Statement relationStatement3 = XDI3Statement.fromRelationComponents(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
+
+		assertEquals(relationStatement, relationStatement2);
+		assertEquals(relationStatement, relationStatement3);
+
+		assertEquals(relationStatement.getSubject(), XDI3Segment.create("=markus"));
+		assertEquals(relationStatement.getPredicate(), XDI3Segment.create("+friend"));
+		assertEquals(relationStatement.getObject(), XDI3Segment.create("=animesh"));
+
+		XDI3Statement literalStatement = XDI3Statement.create("=markus<+name>&/&/\"Markus Sabadello\"");
+		XDI3Statement literalStatement2 = XDI3Statement.fromComponents(XDI3Segment.create("=markus<+name>&"), XDIConstants.XRI_S_LITERAL, "Markus Sabadello");
+		XDI3Statement literalStatement3 = XDI3Statement.fromLiteralComponents(XDI3Segment.create("=markus<+name>&"), "Markus Sabadello");
+
+		assertEquals(literalStatement.getSubject(), XDI3Segment.create("=markus<+name>&"));
+		assertEquals(literalStatement.getPredicate(), XDIConstants.XRI_S_LITERAL);
+		assertEquals(literalStatement.getObject(), "Markus Sabadello");
+
+		assertEquals(literalStatement, literalStatement2);
+		assertEquals(literalStatement, literalStatement3);
+	}
+
 	public abstract XDI3Parser getParser();
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * This interface represents a statement in an XDI graph.
@@ -64,15 +65,42 @@ public interface Statement extends Serializable, Comparable<Statement> {
 
 	public interface ContextNodeStatement extends Statement {
 
+		@Override
+		public XDI3Segment getSubject();
+
+		@Override
+		public XDI3Segment getPredicate();
+
+		@Override
+		public XDI3SubSegment getObject();
+
 		public ContextNode getContextNode();
 	}
 
 	public interface RelationStatement extends Statement {
 
+		@Override
+		public XDI3Segment getSubject();
+
+		@Override
+		public XDI3Segment getPredicate();
+
+		@Override
+		public XDI3Segment getObject();
+
 		public Relation getRelation();
 	}
 
 	public interface LiteralStatement extends Statement {
+
+		@Override
+		public XDI3Segment getSubject();
+
+		@Override
+		public XDI3Segment getPredicate();
+
+		@Override
+		public Object getObject();
 
 		public Literal getLiteral();
 	}

@@ -6,8 +6,8 @@ import xdi2.core.features.linkcontracts.condition.GenericCondition;
 import xdi2.core.features.linkcontracts.condition.IsCondition;
 import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.linkcontracts.operator.TrueOperator;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 /**
  * Various utility methods for working with XDI policies.
@@ -33,9 +33,9 @@ public final class PolicyUtil {
 
 	public static Operator createSecretTokenValidOperator(Policy policy) {
 
-		Condition condition = GenericCondition.fromStatement(StatementUtil.fromLiteralComponents(
+		Condition condition = GenericCondition.fromStatement(XDI3Statement.fromLiteralComponents(
 				XDI3Segment.create("{$msg}" + XDIAuthenticationConstants.XRI_S_SECRET_TOKEN_VALID), 
-				"true"));
+				Boolean.TRUE));
 
 		return TrueOperator.createTrueOperator(policy, condition);
 	}

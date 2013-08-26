@@ -43,7 +43,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find Cloud Number
 
-		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create(peerRootArcXri));
+		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.fromComponent(peerRootArcXri));
 		ContextNode referenceContextNode = contextNode == null ? null : Equivalence.getReferenceContextNode(contextNode);
 
 		XDI3SubSegment cloudNumberPeerRootArcXri = referenceContextNode == null ? null : referenceContextNode.getXri().getFirstSubSegment();
