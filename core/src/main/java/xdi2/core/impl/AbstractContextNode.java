@@ -638,19 +638,19 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public Literal setDeepLiteralString(XDI3Segment contextNodeXri, String literalData) {
 
-		return this.setDeepLiteralString(contextNodeXri, literalData);
+		return this.setDeepLiteral(contextNodeXri, literalData);
 	}
 
 	@Override
 	public Literal setDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData) {
 
-		return this.setDeepLiteralNumber(contextNodeXri, literalData);
+		return this.setDeepLiteral(contextNodeXri, literalData);
 	}
 
 	@Override
 	public Literal setDeepLiteralBoolean(XDI3Segment contextNodeXri, Boolean literalData) {
 
-		return this.setDeepLiteralBoolean(contextNodeXri, literalData);
+		return this.setDeepLiteral(contextNodeXri, literalData);
 	}
 
 	@Override
