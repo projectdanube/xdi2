@@ -62,16 +62,4 @@ public final class XDI3Segment extends XDI3SyntaxComponent {
 
 		return this.subSegments.get(this.subSegments.size() - 1);
 	}
-
-	public boolean startsWith(XDI3SubSegment[] subSegments) {
-
-		if (this.subSegments.size() < subSegments.length) return false;
-
-		for (int i=0; i<subSegments.length; i++) {
-
-			if (! (this.subSegments.get(i).equals(subSegments[i]))) return false;
-		}
-
-		return true;
-	}
 }
