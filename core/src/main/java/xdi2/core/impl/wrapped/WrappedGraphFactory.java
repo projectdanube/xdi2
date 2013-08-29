@@ -19,7 +19,7 @@ public abstract class WrappedGraphFactory extends AbstractGraphFactory implement
 	public static final String DEFAULT_PATH = "xdi2-graph.xdi";
 	public static final String DEFAULT_MIMETYPE = XDIWriterRegistry.getDefault().getMimeType().toString();
 
-	private GraphWrapper wrapper;
+	private WrapperStore wrapper;
 	private MemoryGraphFactory memoryGraphFactory;
 
 	public WrappedGraphFactory() { 
@@ -35,7 +35,7 @@ public abstract class WrappedGraphFactory extends AbstractGraphFactory implement
 
 		// get wrapper
 
-		GraphWrapper wrapper = this.openWrapper(identifier);
+		WrapperStore wrapper = this.openWrapper(identifier);
 
 		// initialize graph
 
@@ -48,14 +48,14 @@ public abstract class WrappedGraphFactory extends AbstractGraphFactory implement
 	 * This must be overridden by subclasses to instantiate the wrapper
 	 * @param identifier An optional identifier to distinguish wrappers from one another.
 	 */
-	public abstract GraphWrapper openWrapper(String identifier) throws IOException;
+	public abstract WrapperStore openWrapper(String identifier) throws IOException;
 
-	public GraphWrapper getWrapper() {
+	public WrapperStore getWrapper() {
 
 		return this.wrapper;
 	}
 
-	public void setWrapper(GraphWrapper wrapper) {
+	public void setWrapper(WrapperStore wrapper) {
 
 		this.wrapper = wrapper;
 	}

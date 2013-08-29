@@ -1,10 +1,10 @@
-package xdi2.core.impl.wrapped.classpath;
+package xdi2.core.impl.wrapped.file;
 
 import java.io.IOException;
 
 import xdi2.core.GraphFactory;
 import xdi2.core.impl.wrapped.WrappedGraphFactory;
-import xdi2.core.impl.wrapped.GraphWrapper;
+import xdi2.core.impl.wrapped.WrapperStore;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -12,45 +12,52 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 
 /**
- * GraphFactory that creates classpath-based graphs.
+ * GraphFactory that creates file-based graphs.
  * 
  * @author markus
  */
-public class ClasspathGraphFactory extends WrappedGraphFactory implements GraphFactory {
+public class FileWrapperGraphFactory extends WrappedGraphFactory implements GraphFactory {
 
-	public static final String DEFAULT_CLASSPATH = null;
+	public static final String DEFAULT_PATH = "xdi2-graph.xdi";
 	public static final String DEFAULT_MIMETYPE = XDIWriterRegistry.getDefault().getMimeType().toString();
 
-	private String classpath;
+	private String path;
 	private String mimeType;
 
-	public ClasspathGraphFactory() { 
+	public FileWrapperGraphFactory() { 
 
 		super();
 
-		this.classpath = DEFAULT_CLASSPATH;
+		this.path = DEFAULT_PATH;
 		this.mimeType = DEFAULT_MIMETYPE;
 	}
 
 	@Override
-	public GraphWrapper openWrapper(String identifier) throws IOException {
+	public WrapperStore openWrapper(String identifier) throws IOException {
+
+		// check identifier
+
+		if (identifier != null) {
+
+			this.setPath("xdi2-graph." + identifier + ".xdi");
+		}
 
 		// initialize graph
 
 		XDIReader xdiReader = XDIReaderRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 		XDIWriter xdiWriter = XDIWriterRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 
-		return new ClasspathGraphWrapper(this.classpath, this.mimeType, xdiReader, xdiWriter);
+		return new FileWrapperStore(this.path, this.mimeType, xdiReader, xdiWriter);
 	}
 
-	public String getClasspath() {
+	public String getPath() {
 
-		return this.classpath;
+		return this.path;
 	}
 
-	public void setClasspath(String classpath) {
+	public void setPath(String path) {
 
-		this.classpath = classpath;
+		this.path = path;
 	}
 
 	public String getMimeType() {

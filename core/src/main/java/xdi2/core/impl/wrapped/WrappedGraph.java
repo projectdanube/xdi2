@@ -10,17 +10,17 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 
 	private static final long serialVersionUID = 8979035878235290607L;
 
-	private GraphWrapper graphWrapper;
+	private WrapperStore wrapperStore;
 	private MemoryGraph memoryGraph;
 
-	WrappedGraph(WrappedGraphFactory graphFactory, String identifier, GraphWrapper wrapper, MemoryGraph memoryGraph) {
+	WrappedGraph(WrappedGraphFactory graphFactory, String identifier, WrapperStore wrapper, MemoryGraph memoryGraph) {
 
 		super(graphFactory, identifier);
 
-		this.graphWrapper = wrapper;
+		this.wrapperStore = wrapper;
 		this.memoryGraph = memoryGraph;
 
-		this.getGraphWrapper().load(this.getMemoryGraph());
+		this.getWrapperStore().load(this.getMemoryGraph());
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 	@Override
 	public void close() {
 
-		this.getGraphWrapper().save(this.getMemoryGraph());
+		this.getWrapperStore().save(this.getMemoryGraph());
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 	@Override
 	public void commitTransaction() {
 
-		this.getGraphWrapper().save(this.getMemoryGraph());
+		this.getWrapperStore().save(this.getMemoryGraph());
 	}
 
 	@Override
@@ -59,9 +59,9 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 
 	}
 
-	public GraphWrapper getGraphWrapper() {
+	public WrapperStore getWrapperStore() {
 
-		return this.graphWrapper;
+		return this.wrapperStore;
 	}
 
 	public MemoryGraph getMemoryGraph() {

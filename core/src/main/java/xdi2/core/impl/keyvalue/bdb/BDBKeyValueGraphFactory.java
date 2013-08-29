@@ -23,7 +23,7 @@ import com.sleepycat.je.Transaction;
  * 
  * @author markus
  */
-public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements GraphFactory {
+public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implements GraphFactory {
 
 	public static final boolean DEFAULT_SUPPORT_GET_CONTEXTNODES = true; 
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 
@@ -35,7 +35,7 @@ public class BDBGraphFactory extends AbstractKeyValueGraphFactory implements Gra
 	private String databasePath;
 	private String databaseName;
 
-	public BDBGraphFactory() { 
+	public BDBKeyValueGraphFactory() { 
 
 		super(DEFAULT_SUPPORT_GET_CONTEXTNODES, DEFAULT_SUPPORT_GET_RELATIONS);
 

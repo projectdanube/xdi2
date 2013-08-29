@@ -5,11 +5,11 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.impl.keyvalue.properties.PropertiesGraphFactory;
+import xdi2.core.impl.keyvalue.properties.PropertiesKeyValueGraphFactory;
 
 public class PropertiesGraphMessagingTargetTest extends AbstractGraphMessagingTargetTest {
 
-	private static PropertiesGraphFactory graphFactory = new PropertiesGraphFactory();
+	private static PropertiesKeyValueGraphFactory graphFactory = new PropertiesKeyValueGraphFactory();
 
 	static {
 

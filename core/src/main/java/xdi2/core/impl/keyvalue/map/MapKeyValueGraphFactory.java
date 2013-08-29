@@ -11,7 +11,7 @@ import xdi2.core.impl.keyvalue.KeyValueStore;
  * 
  * @author markus
  */
-public final class MapGraphFactory extends AbstractKeyValueGraphFactory implements GraphFactory {
+public final class MapKeyValueGraphFactory extends AbstractKeyValueGraphFactory implements GraphFactory {
 
 	public static final boolean DEFAULT_SUPPORT_GET_CONTEXTNODES = true; 
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 
@@ -22,7 +22,7 @@ public final class MapGraphFactory extends AbstractKeyValueGraphFactory implemen
 	private MapFactory mapFactory;
 	private SetFactory setFactory;
 
-	public MapGraphFactory() {
+	public MapKeyValueGraphFactory() {
 
 		super(DEFAULT_SUPPORT_GET_CONTEXTNODES, DEFAULT_SUPPORT_GET_RELATIONS);
 

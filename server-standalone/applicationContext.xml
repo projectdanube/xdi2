@@ -121,7 +121,7 @@
 
 	<!-- MESSAGING TARGET FACTORY at /users/* -->
 
-	<bean id="registrygraphfactory" class="xdi2.core.impl.wrapped.file.FileGraphFactory">
+	<bean id="registrygraphfactory" class="xdi2.core.impl.wrapped.file.FileWrapperGraphFactory">
 		<property name="path" value="registry.xdi" />
 		<property name="mimeType" value="text/xdi;ordered=1" />
 	</bean>
@@ -192,7 +192,7 @@
 	<!-- MESSAGING TARGET at /bdb-graph -->
 	<!-- MessagingTarget: GraphMessagingTarget backed by a BDBGraph -->
 
-	<bean id="graphfactory2" class="xdi2.core.impl.keyvalue.bdb.BDBGraphFactory">
+	<bean id="graphfactory2" class="xdi2.core.impl.keyvalue.bdb.BDBKeyValueGraphFactory">
 	</bean>
 
 	<bean id="graph2" factory-bean="graphfactory2" factory-method="openGraph" />

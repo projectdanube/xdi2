@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.impl.keyvalue.bdb.BDBGraphFactory;
+import xdi2.core.impl.keyvalue.bdb.BDBKeyValueGraphFactory;
 
 public class BDBGraphTest extends AbstractGraphTest {
 
-	private static BDBGraphFactory graphFactory = new BDBGraphFactory();
+	private static BDBKeyValueGraphFactory graphFactory = new BDBKeyValueGraphFactory();
 
 	static {
 

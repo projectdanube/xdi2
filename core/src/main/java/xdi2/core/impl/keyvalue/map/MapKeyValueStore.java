@@ -11,7 +11,7 @@ import xdi2.core.util.iterators.EmptyIterator;
 
 /**
  * This class defines access to a map. It is used by the
- * MapGraphFactory class to create graphs stored in maps.
+ * MapKeyValueGraphFactory class to create graphs stored in maps.
  * 
  * @author markus
  */

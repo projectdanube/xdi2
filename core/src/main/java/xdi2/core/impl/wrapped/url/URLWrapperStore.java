@@ -1,28 +1,29 @@
-package xdi2.core.impl.wrapped.classpath;
+package xdi2.core.impl.wrapped.url;
 
 import java.io.InputStream;
+import java.net.URL;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.memory.MemoryGraph;
-import xdi2.core.impl.wrapped.GraphWrapper;
+import xdi2.core.impl.wrapped.WrapperStore;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIWriter;
 
-public class ClasspathGraphWrapper implements GraphWrapper {
+public class URLWrapperStore implements WrapperStore {
 
-	private static final Logger log = LoggerFactory.getLogger(ClasspathGraphWrapper.class);
+	private static final Logger log = LoggerFactory.getLogger(URLWrapperStore.class);
 
-	private String classpath;
+	private URL url;
 	private String mimeType;
 	private XDIReader xdiReader;
 	private XDIWriter xdiWriter;
 
-	public ClasspathGraphWrapper(String classpath, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter) {
+	public URLWrapperStore(URL url , String mimeType, XDIReader xdiReader, XDIWriter xdiWriter) {
 
-		this.classpath = classpath;
+		this.url = url;
 		this.mimeType = mimeType;
 		this.xdiReader = xdiReader;
 		this.xdiWriter = xdiWriter;
@@ -35,15 +36,15 @@ public class ClasspathGraphWrapper implements GraphWrapper {
 
 		try {
 
-			if (log.isDebugEnabled()) log.debug("Loading classpath " + this.classpath);
+			if (log.isDebugEnabled()) log.debug("Loading URL " + this.url);
 
-			InputStream stream = this.getClass().getClassLoader().getResourceAsStream(this.classpath);
+			InputStream stream = this.url.openStream();
 
 			this.xdiReader.read(memoryGraph, stream);
 			stream.close();
 		} catch (Exception ex) {
 
-			throw new Xdi2RuntimeException("Cannot load classpath at " + this.classpath, ex);
+			throw new Xdi2RuntimeException("Cannot load URL at " + this.url, ex);
 		}
 	}
 
@@ -52,14 +53,14 @@ public class ClasspathGraphWrapper implements GraphWrapper {
 
 	}
 
-	public String getClasspath() {
-
-		return this.classpath;
+	public URL getUrl() {
+	
+		return this.url;
 	}
 
-	public void setClasspath(String classpath) {
-
-		this.classpath = classpath;
+	public void setUrl(URL url) {
+	
+		this.url = url;
 	}
 
 	public String getMimeType() {

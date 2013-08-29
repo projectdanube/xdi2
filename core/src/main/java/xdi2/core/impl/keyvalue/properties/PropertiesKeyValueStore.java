@@ -24,7 +24,7 @@ import xdi2.core.impl.keyvalue.KeyValueStore;
 
 /**
  * This class defines access to a properties file. It is used by the
- * PropertiesGraphFactory class to create graphs stored in properties files.
+ * PropertiesKeyValueGraphFactory class to create graphs stored in properties files.
  * 
  * @author markus
  */

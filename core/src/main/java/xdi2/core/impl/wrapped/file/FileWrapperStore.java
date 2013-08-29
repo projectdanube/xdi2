@@ -11,20 +11,20 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.memory.MemoryGraph;
-import xdi2.core.impl.wrapped.GraphWrapper;
+import xdi2.core.impl.wrapped.WrapperStore;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIWriter;
 
-public class FileGraphWrapper implements GraphWrapper {
+public class FileWrapperStore implements WrapperStore {
 
-	private static final Logger log = LoggerFactory.getLogger(FileGraphWrapper.class);
+	private static final Logger log = LoggerFactory.getLogger(FileWrapperStore.class);
 
 	private String path;
 	private String mimeType;
 	private XDIReader xdiReader;
 	private XDIWriter xdiWriter;
 
-	public FileGraphWrapper(String path, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter) {
+	public FileWrapperStore(String path, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter) {
 
 		this.path = path;
 		this.mimeType = mimeType;

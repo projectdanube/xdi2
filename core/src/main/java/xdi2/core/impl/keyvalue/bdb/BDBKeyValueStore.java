@@ -26,7 +26,7 @@ import com.sleepycat.je.Transaction;
 
 /**
  * This class defines access to a BDB based datastore. It is used by the
- * BDBGraphFactory class to create graphs stored in BDB.
+ * BDBKeyValueGraphFactory class to create graphs stored in BDB.
  * 
  * @author markus
  */

@@ -5,11 +5,11 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.impl.wrapped.file.FileGraphFactory;
+import xdi2.core.impl.wrapped.file.FileWrapperGraphFactory;
 
 public class FileGraphTest extends AbstractGraphTest {
 
-	private static FileGraphFactory graphFactory = new FileGraphFactory();
+	private static FileWrapperGraphFactory graphFactory = new FileWrapperGraphFactory();
 
 	static {
 

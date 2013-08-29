@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.impl.keyvalue.KeyValueGraph;
 import xdi2.core.impl.keyvalue.map.MapFactory;
-import xdi2.core.impl.keyvalue.map.MapGraphFactory;
+import xdi2.core.impl.keyvalue.map.MapKeyValueGraphFactory;
 import xdi2.core.impl.keyvalue.map.MapKeyValueStore;
 import xdi2.core.impl.keyvalue.map.SetFactory;
 import xdi2.core.io.AbstractXDIWriter;
@@ -52,7 +52,7 @@ public class XDIKeyValueWriter extends AbstractXDIWriter {
 	@Override
 	public Writer write(Graph graph, Writer writer) throws IOException {
 
-		MapGraphFactory mapGraphFactory = new MapGraphFactory();
+		MapKeyValueGraphFactory mapGraphFactory = new MapKeyValueGraphFactory();
 
 		if (this.writeOrdered) {
 
