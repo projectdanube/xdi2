@@ -46,13 +46,13 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 		String filename = filename(this.getPrefix(), id);
 
 		File file = new File(filename);
-		if (! file.exists()) return new JsonObject();
+		if (! file.exists()) return null;
 
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
-		JsonObject jsonGraphObject = gson.getAdapter(JsonObject.class).fromJson(bufferedReader);
+		JsonObject jsonObject = gson.getAdapter(JsonObject.class).fromJson(bufferedReader);
 
-		return jsonGraphObject;
+		return jsonObject;
 	}
 
 	@Override
