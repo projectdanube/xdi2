@@ -59,7 +59,7 @@ public class FalseOperator extends ConditionOperator {
 		return new FalseOperator(relation);
 	}
 
-	public static FalseOperator setFalseOperator(Policy policy, Condition condition) {
+	public static FalseOperator createFalseOperator(Policy policy, Condition condition) {
 
 		if (policy == null) throw new NullPointerException();
 

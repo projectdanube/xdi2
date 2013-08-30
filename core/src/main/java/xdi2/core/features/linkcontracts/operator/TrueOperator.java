@@ -59,7 +59,7 @@ public class TrueOperator extends ConditionOperator {
 		return new TrueOperator(relation);
 	}
 
-	public static TrueOperator setTrueOperator(Policy policy, Condition condition) {
+	public static TrueOperator createTrueOperator(Policy policy, Condition condition) {
 
 		if (policy == null) throw new NullPointerException();
 

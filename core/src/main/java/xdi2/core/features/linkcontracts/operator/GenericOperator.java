@@ -61,7 +61,7 @@ public class GenericOperator extends Operator {
 		return new GenericOperator(relation);
 	}
 
-	public static GenericOperator setGenericOperator(Policy policy, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public static GenericOperator createGenericOperator(Policy policy, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		if (policy == null) throw new NullPointerException();
 
@@ -70,7 +70,7 @@ public class GenericOperator extends Operator {
 		return fromRelation(relation);
 	}
 
-	public static GenericOperator setGenericOperator(Policy policy, XDI3Segment arcXri, XDI3Statement relativeStatement) {
+	public static GenericOperator createGenericOperator(Policy policy, XDI3Segment arcXri, XDI3Statement relativeStatement) {
 
 		if (policy == null) throw new NullPointerException();
 

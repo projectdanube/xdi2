@@ -12,6 +12,7 @@ public abstract class AbstractJSONStore implements JSONStore {
 	public AbstractJSONStore() {
 
 		this.logBuffer = new StringBuffer();
+		this.logEnabled = false;
 	}
 
 	@Override

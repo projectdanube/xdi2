@@ -28,7 +28,7 @@ public final class PolicyUtil {
 				XDI3Segment.create("{$from}"), 
 				sender);
 
-		return TrueOperator.setTrueOperator(policy, condition);
+		return TrueOperator.createTrueOperator(policy, condition);
 	}
 
 	public static Operator createSecretTokenValidOperator(Policy policy) {
@@ -37,6 +37,6 @@ public final class PolicyUtil {
 				XDI3Segment.create("{$msg}" + XDIAuthenticationConstants.XRI_S_SECRET_TOKEN_VALID), 
 				Boolean.TRUE));
 
-		return TrueOperator.setTrueOperator(policy, condition);
+		return TrueOperator.createTrueOperator(policy, condition);
 	}
 }
