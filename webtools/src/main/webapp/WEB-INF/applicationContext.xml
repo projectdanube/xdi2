@@ -140,7 +140,7 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
-					<property name="bootstrapOwner" value="[=]!BDF3.1FB.E70C.3958" />
+					<property name="bootstrapOwner" value="[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958" />
 					<property name="bootstrapOwnerSynonyms">
 						<util:list>
 							<value>=danube</value>
@@ -158,7 +158,7 @@
 							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 							<property name="localSaltAndDigestSecretTokens">
 								<util:map>
-									<entry key="[=]!BDF3.1FB.E70C.3958" value="xdi2-digest:00000000-0000-0000-0000-000000000000:a7292f2347aef29a9e4c05d35764019106143a339b6e9bb39faee53103e1d6f55e49213d77d16a326a91bab0fc6885779d04e2e4470125720860cf54f872b3bb" />
+									<entry key="[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958" value="xdi2-digest:00000000-0000-0000-0000-000000000000:a7292f2347aef29a9e4c05d35764019106143a339b6e9bb39faee53103e1d6f55e49213d77d16a326a91bab0fc6885779d04e2e4470125720860cf54f872b3bb" />
 								</util:map>
 							</property>
 						</bean>
