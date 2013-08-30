@@ -1,1 +1,1 @@
-=markus[$msg]!1$do/$mod/(=markus<+email>&/&/"markus@test.com")
+=markus[$msg]!1$do/$set/(=markus<+email>&/&/"markus@test.com")

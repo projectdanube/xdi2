@@ -47,7 +47,7 @@ public abstract class AbstractLiteral implements Literal {
 	@Override
 	public void delete() {
 
-		this.getContextNode().deleteLiteral();
+		this.getContextNode().delLiteral();
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public abstract class AbstractLiteral implements Literal {
 
 		return
 				this.getContextNode().equals(other.getContextNode()) &&
-				this.getLiteralData().equals(other.getLiteralData());
+				AbstractLiteral.isLiteralDataEqual(this.getLiteralData(), other.getLiteralData());
 	}
 
 	@Override
@@ -188,6 +188,14 @@ public abstract class AbstractLiteral implements Literal {
 	public static boolean isValidLiteralData(Object literalData) {
 
 		return literalData instanceof String || literalData instanceof Double || literalData instanceof Boolean || literalData instanceof JsonArray || literalData instanceof JsonObject || literalData == null;
+	}
+
+	public static boolean isLiteralDataEqual(Object literalData1, Object literalData2) {
+
+		if (literalData1 == null && literalData2 == null) return true;
+		if (literalData1 == null || literalData2 == null) return false;
+
+		return literalData1.equals(literalData2);
 	}
 
 	public static String literalDataToString(Object literalData) {

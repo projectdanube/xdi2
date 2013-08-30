@@ -1,12 +1,10 @@
 package xdi2.messaging.target;
 
 import xdi2.core.xri3.XDI3Statement;
-import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
 import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -14,7 +12,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 /**
  * Checks what kind of statement and what kind of operation is being
  * executed ($add, $get, ...) and calls the appropriate executeXXX() method
- * 
+ * @deprecated Use AbstractContextHandler instead
  * @author markus
  */
 @Deprecated
@@ -29,10 +27,6 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 
 		if (operation instanceof GetOperation)
 			this.executeGetOnStatement(targetStatement, (GetOperation) operation, messageResult, executionContext);
-		else if (operation instanceof AddOperation)
-			this.executeAddOnStatement(targetStatement, (AddOperation) operation, messageResult, executionContext);
-		else if (operation instanceof ModOperation)
-			this.executeModOnStatement(targetStatement, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof SetOperation)
 			this.executeSetOnStatement(targetStatement, (SetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
@@ -51,30 +45,6 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 			this.executeGetOnRelationStatement(targetStatement, operation, messageResult, executionContext);
 		else if (targetStatement.isLiteralStatement())
 			this.executeGetOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
-		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
-	}
-
-	public void executeAddOnStatement(XDI3Statement targetStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		if (targetStatement.isContextNodeStatement())
-			this.executeAddOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
-		else if (targetStatement.isRelationStatement())
-			this.executeAddOnRelationStatement(targetStatement, operation, messageResult, executionContext);
-		else if (targetStatement.isLiteralStatement())
-			this.executeAddOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
-		else
-			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
-	}
-
-	public void executeModOnStatement(XDI3Statement targetStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		if (targetStatement.isContextNodeStatement())
-			this.executeModOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
-		else if (targetStatement.isRelationStatement())
-			this.executeModOnRelationStatement(targetStatement, operation, messageResult, executionContext);
-		else if (targetStatement.isLiteralStatement())
-			this.executeModOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
 	}
@@ -123,14 +93,6 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 
 	}
 
-	public void executeAddOnContextNodeStatement(XDI3Statement contextNodeStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
-	public void executeModOnContextNodeStatement(XDI3Statement contextNodeStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
 	public void executeSetOnContextNodeStatement(XDI3Statement contextNodeStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
@@ -151,14 +113,6 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 
 	}
 
-	public void executeAddOnRelationStatement(XDI3Statement relationStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
-	public void executeModOnRelationStatement(XDI3Statement relationStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
 	public void executeSetOnRelationStatement(XDI3Statement relationStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
@@ -176,14 +130,6 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 	 */
 
 	public void executeGetOnLiteralStatement(XDI3Statement literalStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
-	public void executeAddOnLiteralStatement(XDI3Statement literalStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
-	public void executeModOnLiteralStatement(XDI3Statement literalStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 

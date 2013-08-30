@@ -52,6 +52,8 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		JsonObject jsonObject = gson.getAdapter(JsonObject.class).fromJson(bufferedReader);
 
+		fileReader.close();
+
 		return jsonObject;
 	}
 
@@ -69,6 +71,8 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 		jsonWriter.flush();
 		bufferedWriter.flush();
 		fileWriter.flush();
+
+		fileWriter.close();
 	}
 
 	@Override

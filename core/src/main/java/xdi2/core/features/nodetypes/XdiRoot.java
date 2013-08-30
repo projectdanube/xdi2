@@ -65,11 +65,6 @@ public interface XdiRoot extends XdiContext {
 	public XDI3Segment getRelativePart(XDI3Segment xri);
 
 	/**
-	 * A simple way to create a relative statement in this XDI root.
-	 */
-	public Statement createRelativeStatement(XDI3Statement statementXri);
-
-	/**
 	 * A simple way to set a relative statement in this XDI root.
 	 */
 	public Statement setRelativeStatement(XDI3Statement statementXri);

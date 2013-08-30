@@ -1,2 +1,2 @@
 =markus[$msg]!1/$is()/([@]!3436.F6A6.3644.4D74)
-=markus[$msg]!1$do/$add/(@kynetx[$uri]{}&/&/"https://xdi.kobj.net")
+=markus[$msg]!1$do/$set/(@kynetx[$uri]{}&/&/"https://xdi.kobj.net")

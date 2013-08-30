@@ -57,7 +57,16 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	 * Methods related to context nodes of this context node
 	 */
 
-	private synchronized ContextNode createContextNodeInternal(XDI3SubSegment arcXri) {
+	@Override
+	public XDI3SubSegment getArcXri() {
+
+		return this.arcXri;
+	}
+
+	@Override
+	public ContextNode setContextNode(XDI3SubSegment arcXri) {
+
+		this.checkContextNode(arcXri);
 
 		JsonObject jsonObject = this.loadJson();
 		if (jsonObject == null) jsonObject = new JsonObject();
@@ -73,28 +82,6 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		JSONContextNode jsonContextNode = new JSONContextNode((JSONGraph) this.getGraph(), this, this.jsonStore, id, arcXri);
 
 		return jsonContextNode;
-	}
-
-	@Override
-	public XDI3SubSegment getArcXri() {
-
-		return this.arcXri;
-	}
-
-	@Override
-	public ContextNode createContextNode(XDI3SubSegment arcXri) {
-
-		this.checkContextNode(arcXri, true);
-
-		return this.createContextNodeInternal(arcXri);
-	}
-
-	@Override
-	public ContextNode setContextNode(XDI3SubSegment arcXri) {
-
-		this.checkContextNode(arcXri, false);
-
-		return this.createContextNodeInternal(arcXri);
 	}
 
 	@Override
@@ -123,7 +110,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	}
 
 	@Override
-	public void deleteContextNode(XDI3SubSegment arcXri) {
+	public void delContextNode(XDI3SubSegment arcXri) {
 
 		ContextNode contextNode = this.getContextNode(arcXri);
 		if (contextNode == null) return;
@@ -147,9 +134,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	}
 
 	@Override
-	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
+	public Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
-		this.checkRelation(arcXri, targetContextNode, true);
+		this.checkRelation(arcXri, targetContextNode);
 
 		JsonObject jsonObject = this.loadJson();
 		JsonObject jsonObjectTarget = ((JSONContextNode) targetContextNode).loadJson();
@@ -257,7 +244,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	}
 
 	@Override
-	public void deleteRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public void delRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		ContextNode targetContextNode = this.getGraph().getDeepContextNode(targetContextNodeXri);
 
@@ -266,10 +253,14 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		if (jsonObject != null) {
 
 			JsonArray jsonArrayRelations = jsonObject.getAsJsonArray(arcXri.toString());
-			new IteratorRemover<JsonElement> (jsonArrayRelations.iterator(), new JsonPrimitive(targetContextNodeXri.toString())).remove();
-			if (jsonArrayRelations.size() < 1) jsonObject.remove(arcXri.toString());
 
-			this.saveJson(jsonObject);
+			if (jsonArrayRelations != null) {
+
+				new IteratorRemover<JsonElement> (jsonArrayRelations.iterator(), new JsonPrimitive(targetContextNodeXri.toString())).remove();
+				if (jsonArrayRelations.size() < 1) jsonObject.remove(arcXri.toString());
+
+				this.saveJson(jsonObject);
+			}
 		}
 
 		JsonObject jsonObjectTarget = ((JSONContextNode) targetContextNode).loadJson();
@@ -277,17 +268,21 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		if (jsonObjectTarget != null) {
 
 			JsonArray jsonArrayIncomingRelations = jsonObjectTarget.getAsJsonArray("_" + arcXri.toString());
-			new IteratorRemover<JsonElement> (jsonArrayIncomingRelations.iterator(), new JsonPrimitive(this.getXri().toString())).remove();
-			if (jsonArrayIncomingRelations.size() < 1) jsonObjectTarget.remove("_" + arcXri.toString());
 
-			((JSONContextNode) targetContextNode).saveJson(jsonObjectTarget);
+			if (jsonArrayIncomingRelations != null) {
+
+				new IteratorRemover<JsonElement> (jsonArrayIncomingRelations.iterator(), new JsonPrimitive(this.getXri().toString())).remove();
+				if (jsonArrayIncomingRelations.size() < 1) jsonObjectTarget.remove("_" + arcXri.toString());
+
+				((JSONContextNode) targetContextNode).saveJson(jsonObjectTarget);
+			}
 		}
 	}
 
 	@Override
-	public Literal createLiteral(Object literalData) {
+	public Literal setLiteral(Object literalData) {
 
-		this.checkLiteral(literalData, true);
+		this.checkLiteral(literalData);
 
 		JsonObject jsonObject = this.loadJson();
 		if (jsonObject == null) jsonObject = new JsonObject();
@@ -311,7 +306,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	}
 
 	@Override
-	public void deleteLiteral() {
+	public void delLiteral() {
 
 		JsonObject jsonObject = this.loadJson();
 		if (jsonObject == null) return;

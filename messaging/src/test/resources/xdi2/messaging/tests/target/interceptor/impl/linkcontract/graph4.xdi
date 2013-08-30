@@ -4,9 +4,9 @@
   "{$msg}$secret<$token>&/$equals": [ "$secret<$token>&" ], 
   "{$from}/$is": [ "[=]!91F2.8153.F600.AE24" ]
 } ],
-"$do/$add" : [ "=markus" ],
+"$do/$set" : [ "=markus" ],
 "$do/$get" : [ "=markus" ],
-"$do/$mod" : [ "=markus" ],
+"$do/$set" : [ "=markus" ],
 "$secret<$token>&/&" : "s3cr3t",
 "=markus/$is" : [ "[=]!91F2.8153.F600.AE24" ],
 "()/$is" : [ "([=]!91F2.8153.F600.AE24)" ]

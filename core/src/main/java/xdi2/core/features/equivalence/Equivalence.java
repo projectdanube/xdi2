@@ -30,9 +30,9 @@ public class Equivalence {
 		return new MappingRelationTargetContextNodeIterator(getIdentityRelations(contextNode));
 	}
 
-	public static void addIdentityContextNode(ContextNode contextNode, ContextNode identityContextNode) {
+	public static void setIdentityContextNode(ContextNode contextNode, ContextNode identityContextNode) {
 
-		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS, identityContextNode);
+		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS, identityContextNode);
 	}
 
 	public static Iterator<Relation> getIncomingIdentityRelations(ContextNode contextNode) {
@@ -77,7 +77,7 @@ public class Equivalence {
 		Relation replacementRelation = getReplacementRelation(contextNode);
 		if (replacementRelation != null) replacementRelation.delete();
 
-		contextNode.createRelation(XDIDictionaryConstants.XRI_S_REF, referenceContextNode);
+		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, referenceContextNode);
 	}
 
 	public static Iterator<Relation> getIncomingReferenceRelations(ContextNode contextNode) {
@@ -122,7 +122,7 @@ public class Equivalence {
 		Relation replacementRelation = getReplacementRelation(contextNode);
 		if (replacementRelation != null) replacementRelation.delete();
 
-		contextNode.createRelation(XDIDictionaryConstants.XRI_S_REP, replacementContextNode);
+		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REP, replacementContextNode);
 	}
 
 	public static Iterator<Relation> getIncomingReplacementRelations(ContextNode contextNode) {

@@ -39,7 +39,7 @@ public final class GraphUtil {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.setDeepContextNode(contextNodeXri).createRelation(arcXri, targetContextNodeXri);
+		return graph.setDeepContextNode(contextNodeXri).setRelation(arcXri, targetContextNodeXri);
 	}
 
 	/**
@@ -52,6 +52,6 @@ public final class GraphUtil {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.setDeepContextNode(contextNodeXri).createLiteral(literalData);
+		return graph.setDeepContextNode(contextNodeXri).setLiteral(literalData);
 	}
 }

@@ -6,5 +6,5 @@
 =markus$do$if/$true/({$from}/$is/=drummond)
 =markus$do$if/$true/({$from}/$is/=markus)
 =markus$do/$get/=markus
-=markus$do/$mod/=markus
-=markus$do/$add/=markus
+=markus$do/$set/=markus
+=markus$do/$set/=markus

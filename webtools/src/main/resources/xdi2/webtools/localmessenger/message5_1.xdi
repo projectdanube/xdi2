@@ -1,4 +1,4 @@
 [=]!2222[$msg]!1/$is()/([=]!1111)
-[=]!2222[$msg]!1$do/$mod/([=]!1111+last<+name>&/&/"Oldman")
+[=]!2222[$msg]!1$do/$set/([=]!1111+last<+name>&/&/"Oldman")
 [=]!2222[$msg]!1$do$if/$true/([=]!1111<+age>&/$greater/{$msg}<+oldage>&)
 [=]!2222[$msg]!1<+oldage>&/&/"80"

@@ -1,11 +1,11 @@
 =markus[$msg]!9c4ee918-e058-4568-ae4b-3eb7a4d5d92a/$is()/([=]!1111)
-=markus[$msg]!9c4ee918-e058-4568-ae4b-3eb7a4d5d92a$do/$add/(=markus<+email>&/&/"markus.sabadello@gmail.com")
+=markus[$msg]!9c4ee918-e058-4568-ae4b-3eb7a4d5d92a$do/$set/(=markus<+email>&/&/"markus.sabadello@gmail.com")
 =markus[$msg]!4a469d79-ce36-4d19-81a2-9098e112b5e7/$is()/([=]!1111)
 =markus[$msg]!4a469d79-ce36-4d19-81a2-9098e112b5e7$do/$del/=markus<+email>
 =markus[$msg]!3f95a3dd-ff94-4d30-9c6a-3ba94cd5e996/$is()/([=]!1111)
-=markus[$msg]!3f95a3dd-ff94-4d30-9c6a-3ba94cd5e996$do/$add/(=markus<+email>&/&/"markus@projectdanube.org")
+=markus[$msg]!3f95a3dd-ff94-4d30-9c6a-3ba94cd5e996$do/$set/(=markus<+email>&/&/"markus@projectdanube.org")
 =markus[$msg]!bcd7f327-aca5-4d84-9459-a521514a52ad/$is()/([=]!1111)
-=markus[$msg]!bcd7f327-aca5-4d84-9459-a521514a52ad$do/$mod/(=markus<+email>&/&/"markus.sabadello@xdi.org")
+=markus[$msg]!bcd7f327-aca5-4d84-9459-a521514a52ad$do/$set/(=markus<+email>&/&/"markus.sabadello@xdi.org")
 =markus[$msg]#0/$ref/=markus[$msg]!9c4ee918-e058-4568-ae4b-3eb7a4d5d92a
 =markus[$msg]#1/$ref/=markus[$msg]!4a469d79-ce36-4d19-81a2-9098e112b5e7
 =markus[$msg]#2/$ref/=markus[$msg]!3f95a3dd-ff94-4d30-9c6a-3ba94cd5e996

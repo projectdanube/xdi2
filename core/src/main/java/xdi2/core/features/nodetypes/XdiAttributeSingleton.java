@@ -62,8 +62,7 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton implements
 
 		XDI3SubSegment valueArcXri = XdiValue.createArcXri();
 
-		ContextNode valueContextNode = this.getContextNode().getContextNode(valueArcXri);
-		if (valueContextNode == null && create) valueContextNode = this.getContextNode().createContextNode(valueArcXri);
+		ContextNode valueContextNode = create ? this.getContextNode().setContextNode(valueArcXri) : this.getContextNode().getContextNode(valueArcXri);
 		if (valueContextNode == null) return null;
 
 		return new XdiValue(valueContextNode);

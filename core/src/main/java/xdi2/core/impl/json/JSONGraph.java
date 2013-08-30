@@ -33,4 +33,18 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonStore.close();
 	}
+
+	/*
+	 * Misc methods
+	 */
+
+	/**
+	 * Returns the JSON store this graph is based on.
+	 * WARNING: Do not alter the contents of the store using this method, or your XDI graph may get corrupted.
+	 * @return The JSON store backing this graph.
+	 */
+	public JSONStore getJSONStore() {
+
+		return this.jsonStore;
+	}
 }

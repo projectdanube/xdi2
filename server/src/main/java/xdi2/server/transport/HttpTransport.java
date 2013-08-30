@@ -262,7 +262,7 @@ public class HttpTransport {
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(request, response, messagingTarget, XDIMessagingConstants.XRI_S_ADD);
+		MessageEnvelope messageEnvelope = readFromUrl(request, response, messagingTarget, XDIMessagingConstants.XRI_S_SET);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result

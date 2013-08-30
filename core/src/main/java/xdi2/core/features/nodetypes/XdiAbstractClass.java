@@ -93,8 +93,7 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 
 		if (arcXri == null) arcXri = XdiAbstractInstanceUnordered.createArcXriFromRandom(attribute);
 
-		ContextNode instanceContextNode = this.getContextNode().getContextNode(arcXri);
-		if (instanceContextNode == null) instanceContextNode = this.getContextNode().createContextNode(arcXri);
+		ContextNode instanceContextNode = this.getContextNode().setContextNode(arcXri);
 
 		return XdiAbstractContext.fromContextNode(instanceContextNode, this.getU());
 	}
@@ -144,8 +143,7 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 
 		XDI3SubSegment arcXri = XdiAbstractInstanceOrdered.createArcXri(Long.toString(index), attribute);
 
-		ContextNode contextNode = this.getContextNode().getContextNode(arcXri);
-		if (contextNode == null) contextNode = this.getContextNode().createContextNode(arcXri);
+		ContextNode contextNode = this.getContextNode().setContextNode(arcXri);
 
 		return XdiAbstractContext.fromContextNode(contextNode, this.getO());
 	}

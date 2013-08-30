@@ -218,7 +218,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 				List<ContextNode> contextNodes = new ArrayList<ContextNode> ();
 
-				for (ContextNode contextNode = tempGraph.createDeepContextNode(segment); contextNode != null; contextNode = contextNode.getContextNode()) {
+				for (ContextNode contextNode = tempGraph.setDeepContextNode(segment); contextNode != null; contextNode = contextNode.getContextNode()) {
 
 					contextNodes.add(contextNode);
 				}

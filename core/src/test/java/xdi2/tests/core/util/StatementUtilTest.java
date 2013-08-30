@@ -64,7 +64,7 @@ public class StatementUtilTest extends TestCase {
 			try {
 
 				graph = MemoryGraphFactory.getInstance().openGraph();
-				graph.createStatement(XDI3Statement.create(invalidStatement));
+				graph.setStatement(XDI3Statement.create(invalidStatement));
 
 				fail();
 			} catch (Exception ex) {

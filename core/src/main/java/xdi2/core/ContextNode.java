@@ -48,7 +48,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public void delete();
 
 	/**
-	 * Clears the context node. This is equivalent to calling deleteContextNodes(), deleteRelations() and deleteLiterals().
+	 * Clears the context node. This is equivalent to calling delContextNodes(), delRelations() and delLiterals().
 	 */
 	public void clear();
 
@@ -75,18 +75,6 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/*
 	 * Methods related to context nodes of this context node
 	 */
-
-	/**
-	 * Creates a new context node and adds it to this context node.
-	 * @param arcXri The arc XRI of the new context node.
-	 * @return The newly created context node.
-	 */
-	public ContextNode createContextNode(XDI3SubSegment arcXri);
-
-	/**
-	 * Deep version of ContextNode.createContextNode(XDI3SubSegment), operates at a context node further down in the graph.
-	 */
-	public ContextNode createDeepContextNode(XDI3Segment contextNodeXri);
 
 	/**
 	 * Creates a new context node and adds it to this context node, or returns an existing context node.
@@ -152,12 +140,12 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Deletes the context node with a given arc XRI.
 	 * @param arcXri The arc XRI of this context arc.
 	 */
-	public void deleteContextNode(XDI3SubSegment arcXri);
+	public void delContextNode(XDI3SubSegment arcXri);
 
 	/**
 	 * Deletes all context nodes from this context node.
 	 */
-	public void deleteContextNodes();
+	public void delContextNodes();
 
 	/**
 	 * Returns the number of context nodes of this context node.
@@ -174,32 +162,6 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/*
 	 * Methods related to relations of this context node
 	 */
-
-	/**
-	 * Creates a new relation and adds it to this context node.
-	 * @param arcXri The arc XRI of the relation.
-	 * @param targetContextNodeXri The target context node XRI of the relation.
-	 * @return The newly created relation.
-	 */
-	public Relation createRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
-
-	/**
-	 * Deep version of ContextNode.createRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
-	 */
-	public Relation createDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
-
-	/**
-	 * Creates a new relation and adds it to this context node.
-	 * @param arcXri The arc XRI of the relation.
-	 * @param targetContextNode The target context node of the relation.
-	 * @return The newly created relation.
-	 */
-	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode);
-
-	/**
-	 * Deep version of ContextNode.createRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
-	 */
-	public Relation createDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, ContextNode targetContextNode);
 
 	/**
 	 * Creates a new relation and adds it to this context node, or returns an existing relation.
@@ -339,23 +301,23 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arcXri The arc XRI of the relation.
 	 * @param targetContextNodeXri The target context node XRI of the relation.
 	 */
-	public void deleteRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
+	public void delRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri);
 
 	/**
 	 * Deletes the relation with a given arc XRI from this context node.
 	 * @param arcXri The arc XRI of the relation.
 	 */
-	public void deleteRelations(XDI3Segment arcXri);
+	public void delRelations(XDI3Segment arcXri);
 
 	/**
 	 * Deletes all relations from this context node.
 	 */
-	public void deleteRelations();
+	public void delRelations();
 
 	/**
 	 * Deletes the incoming relations of this context node.
 	 */
-	public void deleteIncomingRelations();
+	public void delIncomingRelations();
 
 	/**
 	 * Returns the number of relations of this context node.
@@ -379,54 +341,6 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/*
 	 * Methods related to literals of this context node
 	 */
-
-	/**
-	 * Creates a new literal and adds it to this context node.
-	 * @param literalData The literal data associated with the literal.
-	 * @return The newly created literal.
-	 */
-	public Literal createLiteral(Object literalData);
-
-	/**
-	 * Creates a new literal and adds it to this context node.
-	 * @param literalData The literal data string associated with the literal.
-	 * @return The newly created literal.
-	 */
-	public Literal createLiteralString(String literalData);
-
-	/**
-	 * Creates a new literal and adds it to this context node.
-	 * @param literalData The literal data number associated with the literal.
-	 * @return The newly created literal.
-	 */
-	public Literal createLiteralNumber(Double literalData);
-
-	/**
-	 * Creates a new literal and adds it to this context node.
-	 * @param literalData The literal data boolean associated with the literal.
-	 * @return The newly created literal.
-	 */
-	public Literal createLiteralBoolean(Boolean literalData);
-
-	/**
-	 * Deep version of ContextNode.createLiteral(Object), operates at a context node further down in the graph.
-	 */
-	public Literal createDeepLiteral(XDI3Segment contextNodeXri, Object literalData);
-
-	/**
-	 * Deep version of ContextNode.createLiteralString(String), operates at a context node further down in the graph.
-	 */
-	public Literal createDeepLiteralString(XDI3Segment contextNodeXri, String literalData);
-
-	/**
-	 * Deep version of ContextNode.createLiteralNumber(Double), operates at a context node further down in the graph.
-	 */
-	public Literal createDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData);
-
-	/**
-	 * Deep version of ContextNode.createLiteralBoolean(Boolean), operates at a context node further down in the graph.
-	 */
-	public Literal createDeepLiteralBoolean(XDI3Segment contextNodeXri, Boolean literalData);
 
 	/**
 	 * Creates a new literal and adds it to this context node, or returns an existing literal.
@@ -578,7 +492,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Deletes the literal from this context node.
 	 */
-	public void deleteLiteral();
+	public void delLiteral();
 
 	/**
 	 * Returns the number of all literals of this context node.

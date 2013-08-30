@@ -3,6 +3,7 @@ package xdi2.core.features.linkcontracts.condition;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -74,7 +75,7 @@ public class EqualsCondition extends Condition {
 			Object subjectLiteralData = subject.getLiteral().getLiteralData();
 			Object objectLiteralData = object.getLiteral().getLiteralData();
 
-			return Boolean.valueOf(subjectLiteralData.equals(objectLiteralData));
+			return Boolean.valueOf(AbstractLiteral.isLiteralDataEqual(subjectLiteralData, objectLiteralData));
 		}
 
 		return Boolean.FALSE;

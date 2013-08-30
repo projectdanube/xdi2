@@ -30,7 +30,7 @@ public class TimestampsTest extends TestCase {
 	public void testTimestampsOnContextNode() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.getRootContextNode().createContextNode(XDI3SubSegment.create("=markus"));
+		ContextNode contextNode = graph.getRootContextNode().setContextNode(XDI3SubSegment.create("=markus"));
 
 		GregorianCalendar calendar = new GregorianCalendar(2010, 11, 22, 11, 22, 33);
 		calendar.setTimeZone(TimeZone.getTimeZone("UTC"));

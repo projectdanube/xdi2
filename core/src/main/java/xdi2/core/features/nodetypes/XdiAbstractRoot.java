@@ -170,16 +170,6 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 	}
 
 	@Override
-	public Statement createRelativeStatement(XDI3Statement statementXri) {
-
-		if (log.isTraceEnabled()) log.trace("createRelativeStatement(" + statementXri + ")");
-
-		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri);
-
-		return this.getContextNode().getGraph().createStatement(statementXri);
-	}
-
-	@Override
 	public Statement setRelativeStatement(XDI3Statement statementXri) {
 
 		if (log.isTraceEnabled()) log.trace("setRelativeStatement(" + statementXri + ")");

@@ -13,15 +13,15 @@ import xdi2.messaging.target.contributor.ContributorXri;
 public class TestContributor3 extends AbstractContributor {
 
 	@Override
-	public boolean getContext(
+	public boolean executeGetOnAddress(
 			XDI3Segment[] contributorXris,
 			XDI3Segment contributorsXri,
-			XDI3Segment contextNodeXri,
+			XDI3Segment relativeTargetAddress,
 			GetOperation operation,
 			MessageResult messageResult,
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		messageResult.getGraph().createStatement(XDI3Statement.fromRelationComponents(
+		messageResult.getGraph().setStatement(XDI3Statement.fromRelationComponents(
 				XDI3Segment.create("" + contributorsXri + "=markus"),
 				XDI3Segment.create("" + "+friend"),
 				XDI3Segment.create("" + contributorsXri + "=animesh")));

@@ -59,13 +59,13 @@ public class FalseOperator extends ConditionOperator {
 		return new FalseOperator(relation);
 	}
 
-	public static FalseOperator createFalseOperator(Policy policy, Condition condition) {
+	public static FalseOperator setFalseOperator(Policy policy, Condition condition) {
 
 		if (policy == null) throw new NullPointerException();
 
 		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(policy.getContextNode().getGraph()).findInnerRoot(policy.getContextNode().getXri(), XDIConstants.XRI_S_FALSE, true);
 
-		xdiInnerRoot.createRelativeStatement(condition.getStatement());
+		xdiInnerRoot.setRelativeStatement(condition.getStatement());
 
 		return fromRelation(xdiInnerRoot.getPredicateRelation());
 	}

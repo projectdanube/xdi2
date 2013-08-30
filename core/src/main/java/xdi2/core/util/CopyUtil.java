@@ -10,9 +10,6 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
-import xdi2.core.Statement.ContextNodeStatement;
-import xdi2.core.Statement.LiteralStatement;
-import xdi2.core.Statement.RelationStatement;
 import xdi2.core.xri3.XDI3Segment;
 
 /**
@@ -184,9 +181,7 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		if (statement instanceof ContextNodeStatement) return copyContextNode(((ContextNodeStatement) statement).getContextNode(), targetGraph, null).getStatement();
-		if (statement instanceof RelationStatement) return copyRelation(((RelationStatement) statement).getRelation(), targetGraph, null).getStatement();
-		if (statement instanceof LiteralStatement) return copyLiteral(((LiteralStatement) statement).getLiteral(), targetGraph, null).getStatement();
+		targetGraph.setStatement(statement.getXri());
 
 		return null;
 	}

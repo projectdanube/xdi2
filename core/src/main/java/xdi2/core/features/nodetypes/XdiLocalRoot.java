@@ -79,7 +79,10 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 		ContextNode localRootContextNode = this.getContextNode();
 		ContextNode selfPeerRootContextNode = selfPeerRoot.getContextNode();
 
+		localRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
 		localRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, selfPeerRootContextNode);
+
+		selfPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 		selfPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, localRootContextNode);
 
 		return selfPeerRoot;

@@ -128,7 +128,7 @@ public class DataTypes {
 
 		ContextNode contextNode = literal.getContextNode().getContextNode();
 
-		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, dataTypeXri);
+		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, dataTypeXri);
 	}
 
 	/**

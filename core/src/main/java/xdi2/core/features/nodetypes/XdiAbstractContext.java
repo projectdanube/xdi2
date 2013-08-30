@@ -114,8 +114,7 @@ public abstract class XdiAbstractContext implements XdiContext {
 
 		XDI3SubSegment entityClassArcXri = XdiEntityClass.createArcXri(arcXri);
 
-		ContextNode entityClassContextNode = this.getContextNode().getContextNode(entityClassArcXri);
-		if (entityClassContextNode == null && create) entityClassContextNode = this.getContextNode().createContextNode(entityClassArcXri);
+		ContextNode entityClassContextNode = create ? this.getContextNode().setContextNode(entityClassArcXri) : this.getContextNode().getContextNode(entityClassArcXri);
 		if (entityClassContextNode == null) return null;
 
 		return new XdiEntityClass(entityClassContextNode);
@@ -132,8 +131,7 @@ public abstract class XdiAbstractContext implements XdiContext {
 
 		XDI3SubSegment attributeClassArcXri = XdiAttributeClass.createArcXri(arcXri);
 
-		ContextNode attributeClassContextNode = this.getContextNode().getContextNode(attributeClassArcXri);
-		if (attributeClassContextNode == null && create) attributeClassContextNode = this.getContextNode().createContextNode(attributeClassArcXri);
+		ContextNode attributeClassContextNode = create ? this.getContextNode().setContextNode(attributeClassArcXri) : this.getContextNode().getContextNode(attributeClassArcXri);
 		if (attributeClassContextNode == null) return null;
 
 		return new XdiAttributeClass(attributeClassContextNode);
@@ -150,8 +148,7 @@ public abstract class XdiAbstractContext implements XdiContext {
 
 		XDI3SubSegment attributeSingletonArcXri = XdiAttributeSingleton.createArcXri(arcXri);
 
-		ContextNode attributeSingletonContextNode = this.getContextNode().getContextNode(attributeSingletonArcXri);
-		if (attributeSingletonContextNode == null && create) attributeSingletonContextNode = this.getContextNode().createContextNode(attributeSingletonArcXri);
+		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setContextNode(attributeSingletonArcXri) : this.getContextNode().getContextNode(attributeSingletonArcXri);
 		if (attributeSingletonContextNode == null) return null;
 
 		return new XdiAttributeSingleton(attributeSingletonContextNode);
@@ -168,8 +165,7 @@ public abstract class XdiAbstractContext implements XdiContext {
 
 		XDI3SubSegment entitySingletonArcXri = XdiEntitySingleton.createArcXri(arcXri);
 
-		ContextNode entitySingletonContextNode = this.getContextNode().getContextNode(entitySingletonArcXri);
-		if (entitySingletonContextNode == null && create) entitySingletonContextNode = this.getContextNode().createContextNode(entitySingletonArcXri);
+		ContextNode entitySingletonContextNode = create ? this.getContextNode().setContextNode(entitySingletonArcXri) : this.getContextNode().getContextNode(entitySingletonArcXri);
 		if (entitySingletonContextNode == null) return null;
 
 		return new XdiEntitySingleton(entitySingletonContextNode);

@@ -22,19 +22,19 @@ public class TestContributor1 extends AbstractContributor {
 	}
 	
 	@Override
-	public boolean getContext(
+	public boolean executeGetOnAddress(
 			XDI3Segment[] contributorXris,
 			XDI3Segment contributorsXri,
-			XDI3Segment contextNodeXri,
+			XDI3Segment relativeTargetAddress,
 			GetOperation operation,
 			MessageResult messageResult,
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		messageResult.getGraph().createStatement(XDI3Statement.fromLiteralComponents(
+		messageResult.getGraph().setStatement(XDI3Statement.fromLiteralComponents(
 				XDI3Segment.create("" + contributorsXri + "=a<+b>&"),
 				this.value));
 
-		messageResult.getGraph().createStatement(XDI3Statement.fromRelationComponents(
+		messageResult.getGraph().setStatement(XDI3Statement.fromRelationComponents(
 				XDI3Segment.create("" + contributorsXri + "=x*y"),
 				XDI3Segment.create("" + "+c"),
 				XDI3Segment.create("" + contributorsXri + "=d*e")));

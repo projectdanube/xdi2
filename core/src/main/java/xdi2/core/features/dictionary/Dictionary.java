@@ -62,24 +62,24 @@ public class Dictionary {
 		return contextNode.containsRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
 	}
 
-	public static void addContextNodeType(ContextNode contextNode, XDI3Segment type) {
-
-		contextNode.createRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
-	}
-
-	public static void removeContextNodeType(ContextNode contextNode, XDI3Segment type) {
-
-		contextNode.deleteRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
-	}
-
-	public static void removeContextNodeTypes(ContextNode contextNode) {
-
-		contextNode.deleteRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
-	}
-
 	public static void setContextNodeType(ContextNode contextNode, XDI3Segment type) {
 
-		removeContextNodeTypes(contextNode);
-		addContextNodeType(contextNode, type);
+		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
+	}
+
+	public static void delContextNodeType(ContextNode contextNode, XDI3Segment type) {
+
+		contextNode.delRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
+	}
+
+	public static void delContextNodeTypes(ContextNode contextNode) {
+
+		contextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
+	}
+
+	public static void replaceContextNodeType(ContextNode contextNode, XDI3Segment type) {
+
+		delContextNodeTypes(contextNode);
+		setContextNodeType(contextNode, type);
 	}
 }

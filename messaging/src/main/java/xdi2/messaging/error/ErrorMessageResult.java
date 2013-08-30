@@ -140,12 +140,7 @@ public class ErrorMessageResult extends MessageResult {
 		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, true);
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 
-		Literal errorStringLiteral = xdiValue.getContextNode().getLiteral();
-
-		if (errorStringLiteral != null) 
-			errorStringLiteral.setLiteralData(errorString); 
-		else
-			xdiValue.getContextNode().createLiteral(errorString);
+		xdiValue.getContextNode().setLiteralString(errorString);
 	}
 
 	public void setErrorOperation(Operation operation) {
@@ -155,7 +150,7 @@ public class ErrorMessageResult extends MessageResult {
 
 //		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getXri())).getRelation();
 
-		for (Statement statement : operation.getMessage().getContextNode().getAllStatements()) innerRoot.createRelativeStatement(statement.getXri());
+		for (Statement statement : operation.getMessage().getContextNode().getAllStatements()) innerRoot.setRelativeStatement(statement.getXri());
 //		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);
 	}
 }

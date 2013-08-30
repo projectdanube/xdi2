@@ -90,11 +90,11 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	}
 
 	/**
-	 * Adds a permission (one of $get, $add, $mod, $del, $copy, $move, $all) from this XDI link contract to a target context node XRI.
+	 * Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract to a target context node XRI.
 	 * @param permissionXri The permission XRI.
 	 * @param targetContextNodeXri The target context node XRI of the permission.
 	 */
-	public void addPermission(XDI3Segment permissionXri, XDI3Segment targetContextNodeXri) {
+	public void setPermission(XDI3Segment permissionXri, XDI3Segment targetContextNodeXri) {
 
 		if (permissionXri == null || targetContextNodeXri == null) throw new NullPointerException();
 
@@ -110,24 +110,24 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 
 		if (permissionXri.equals(XDILinkContractConstants.XRI_S_ALL)) {
 
-			this.getContextNode().deleteRelation(XDILinkContractConstants.XRI_S_GET, targetContextNodeXri);
-			this.getContextNode().deleteRelation(XDILinkContractConstants.XRI_S_ADD, targetContextNodeXri);
-			this.getContextNode().deleteRelation(XDILinkContractConstants.XRI_S_MOD, targetContextNodeXri);
-			this.getContextNode().deleteRelation(XDILinkContractConstants.XRI_S_DEL, targetContextNodeXri);
+			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_GET, targetContextNodeXri);
+			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_ADD, targetContextNodeXri);
+			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_MOD, targetContextNodeXri);
+			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_DEL, targetContextNodeXri);
 		}
 
-		// create the permission arc
+		// set the permission arc
 
-		this.getContextNode().createRelation(permissionXri, targetContextNodeXri);
+		this.getContextNode().setRelation(permissionXri, targetContextNodeXri);
 	}
 
-	public void removePermission(XDI3Segment permissionXri, XDI3Segment targetContextNodeXri) {
+	public void delPermission(XDI3Segment permissionXri, XDI3Segment targetContextNodeXri) {
 
 		if (permissionXri == null || targetContextNodeXri == null) throw new NullPointerException();
 
 		// delete the permission arc
 
-		this.getContextNode().deleteRelation(permissionXri, targetContextNodeXri);
+		this.getContextNode().delRelation(permissionXri, targetContextNodeXri);
 	}
 
 	public Iterator<ContextNode> getNodesWithPermission(XDI3Segment permissionXri) {

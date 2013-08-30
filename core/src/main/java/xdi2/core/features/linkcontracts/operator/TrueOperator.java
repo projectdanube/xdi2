@@ -59,13 +59,13 @@ public class TrueOperator extends ConditionOperator {
 		return new TrueOperator(relation);
 	}
 
-	public static TrueOperator createTrueOperator(Policy policy, Condition condition) {
+	public static TrueOperator setTrueOperator(Policy policy, Condition condition) {
 
 		if (policy == null) throw new NullPointerException();
-		
+
 		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(policy.getContextNode().getGraph()).findInnerRoot(policy.getContextNode().getXri(), XDIConstants.XRI_S_TRUE, true);
 
-		xdiInnerRoot.createRelativeStatement(condition.getStatement());
+		xdiInnerRoot.setRelativeStatement(condition.getStatement());
 
 		return fromRelation(xdiInnerRoot.getPredicateRelation());
 	}

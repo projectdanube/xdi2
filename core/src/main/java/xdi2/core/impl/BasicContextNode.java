@@ -36,7 +36,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public ContextNode createContextNode(XDI3SubSegment arcXri) {
+	public ContextNode setContextNode(XDI3SubSegment arcXri) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -48,19 +48,19 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void deleteContextNode(XDI3SubSegment arcXri) {
+	public void delContextNode(XDI3SubSegment arcXri) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
 
 	@Override
-	public void deleteContextNodes() {
+	public void delContextNodes() {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
 
 	@Override
-	public Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
+	public Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -72,25 +72,25 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void deleteRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public void delRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
 
 	@Override
-	public void deleteRelations(XDI3Segment arcXri) {
+	public void delRelations(XDI3Segment arcXri) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
 
 	@Override
-	public void deleteRelations() {
+	public void delRelations() {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
 
 	@Override
-	public Literal createLiteral(Object literalData) {
+	public Literal setLiteral(Object literalData) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -102,7 +102,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void deleteLiteral() {
+	public void delLiteral() {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}

@@ -91,7 +91,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 
-				xdiValue.getContextNode().createLiteral(((JsonPrimitive) jsonElement).getAsString());
+				xdiValue.getContextNode().setLiteral(((JsonPrimitive) jsonElement).getAsString());
 			}
 		}
 	}
@@ -119,7 +119,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiValue xdiValue = xdiAttributeInstance.getXdiValue(true);
 
-				xdiValue.getContextNode().createLiteral(jsonElement.toString());
+				xdiValue.getContextNode().setLiteral(jsonElement.toString());
 			}
 		}
 	}

@@ -15,15 +15,15 @@ public class TestContributor2 extends AbstractContributor {
 	private String value = "val";
 
 	@Override
-	public boolean getContext(
+	public boolean executeGetOnAddress(
 			XDI3Segment[] contributorXris,
 			XDI3Segment contributorsXri,
-			XDI3Segment contextNodeXri,
+			XDI3Segment relativeTargetAddress,
 			GetOperation operation,
 			MessageResult messageResult,
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		messageResult.getGraph().createStatement(XDI3Statement.fromLiteralComponents(
+		messageResult.getGraph().setStatement(XDI3Statement.fromLiteralComponents(
 				XDI3Segment.create("" + contributorsXri + "&"),
 				this.value));
 

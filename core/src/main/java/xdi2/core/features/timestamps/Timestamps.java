@@ -82,11 +82,6 @@ public class Timestamps {
 
 		XdiAttribute xdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XDITimestampsConstants.XRI_SS_T, true);
 		XdiValue xdiValue = xdiAttribute.getXdiValue(true);
-		Literal timestampLiteral = xdiValue.getContextNode().getLiteral();
-
-		if (timestampLiteral == null) 
-			timestampLiteral = xdiValue.getContextNode().createLiteral(literalData);
-		else
-			timestampLiteral.setLiteralData(literalData);
+		xdiValue.getContextNode().setLiteralString(literalData);
 	}
 }

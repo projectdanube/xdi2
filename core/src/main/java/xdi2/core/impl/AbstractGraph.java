@@ -114,203 +114,116 @@ public abstract class AbstractGraph implements Graph {
 	 */
 
 	@Override
-	public ContextNode createDeepContextNode(XDI3Segment contextNodeArcXris) {
+	public ContextNode setDeepContextNode(XDI3Segment contextNodeXri) {
 
-		return this.getRootContextNode().createDeepContextNode(contextNodeArcXris);
+		return this.getRootContextNode().setDeepContextNode(contextNodeXri);
 	}
 
 	@Override
-	public ContextNode setDeepContextNode(XDI3Segment contextNodeArcXris) {
+	public ContextNode getDeepContextNode(XDI3Segment contextNodeXri) {
 
-		return this.getRootContextNode().setDeepContextNode(contextNodeArcXris);
+		return this.getRootContextNode().getDeepContextNode(contextNodeXri);
 	}
 
 	@Override
-	public ContextNode getDeepContextNode(XDI3Segment contextNodeArcXris) {
+	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDI3Segment contextNodeXri) {
 
-		return this.getRootContextNode().getDeepContextNode(contextNodeArcXris);
+		return this.getRootContextNode().getDeepContextNodes(contextNodeXri);
 	}
 
 	@Override
-	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDI3Segment contextNodeArcXris) {
+	public Relation setDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		return this.getRootContextNode().getDeepContextNodes(contextNodeArcXris);
+		return this.getRootContextNode().setDeepRelation(contextNodeXri, arcXri, targetContextNodeXri);
 	}
 
 	@Override
-	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public Relation setDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, ContextNode targetContextNode) {
 
-		return this.getRootContextNode().createDeepRelation(contextNodeArcXris, arcXri, targetContextNodeXri);
+		return this.getRootContextNode().setDeepRelation(contextNodeXri, arcXri, targetContextNode);
 	}
 
 	@Override
-	public Relation createDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode) {
+	public Relation getDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		return this.getRootContextNode().createDeepRelation(contextNodeArcXris, arcXri, targetContextNode);
+		return this.getRootContextNode().getDeepRelation(contextNodeXri, arcXri, targetContextNodeXri);
 	}
 
 	@Override
-	public Relation setDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public Relation getDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri) {
 
-		return this.getRootContextNode().setDeepRelation(contextNodeArcXris, arcXri, targetContextNodeXri);
+		return this.getRootContextNode().getDeepRelation(contextNodeXri, arcXri);
 	}
 
 	@Override
-	public Relation setDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, ContextNode targetContextNode) {
+	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeXri, XDI3Segment arcXri) {
 
-		return this.getRootContextNode().setDeepRelation(contextNodeArcXris, arcXri, targetContextNode);
+		return this.getRootContextNode().getDeepRelations(contextNodeXri, arcXri);
 	}
 
 	@Override
-	public Relation getDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeXri) {
 
-		return this.getRootContextNode().getDeepRelation(contextNodeArcXris, arcXri, targetContextNodeXri);
+		return this.getRootContextNode().getDeepRelations(contextNodeXri);
 	}
 
 	@Override
-	public Relation getDeepRelation(XDI3Segment contextNodeArcXris, XDI3Segment arcXri) {
+	public Literal setDeepLiteral(XDI3Segment contextNodeXri, Object literalData) {
 
-		return this.getRootContextNode().getDeepRelation(contextNodeArcXris, arcXri);
+		return this.getRootContextNode().setDeepLiteral(contextNodeXri, literalData);
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris, XDI3Segment arcXri) {
+	public Literal setDeepLiteralString(XDI3Segment contextNodeXri, String literalData) {
 
-		return this.getRootContextNode().getDeepRelations(contextNodeArcXris, arcXri);
+		return this.getRootContextNode().setDeepLiteralString(contextNodeXri, literalData);
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeArcXris) {
+	public Literal setDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData) {
 
-		return this.getRootContextNode().getDeepRelations(contextNodeArcXris);
+		return this.getRootContextNode().setDeepLiteralNumber(contextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal createDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData) {
+	public Literal setDeepLiteralBoolean(XDI3Segment contextNodeXri, Boolean literalData) {
 
-		return this.getRootContextNode().createDeepLiteral(contextNodeArcXris, literalData);
+		return this.getRootContextNode().setDeepLiteralBoolean(contextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal createDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData) {
+	public Literal getDeepLiteral(XDI3Segment contextNodeXri, Object literalData) {
 
-		return this.getRootContextNode().createDeepLiteralString(contextNodeArcXris, literalData);
+		return this.getRootContextNode().getDeepLiteral(contextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal createDeepLiteralNumber(XDI3Segment contextNodeArcXris, Double literalData) {
+	public Literal getDeepLiteralString(XDI3Segment contextNodeXri, String literalData) {
 
-		return this.getRootContextNode().createDeepLiteralNumber(contextNodeArcXris, literalData);
+		return this.getRootContextNode().getDeepLiteralString(contextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal createDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData) {
+	public Literal getDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData) {
 
-		return this.getRootContextNode().createDeepLiteralBoolean(contextNodeArcXris, literalData);
+		return this.getRootContextNode().getDeepLiteralNumber(contextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal setDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData) {
+	public Literal getDeepLiteralBoolean(XDI3Segment contextNodeXri, Boolean literalData) {
 
-		return this.getRootContextNode().setDeepLiteral(contextNodeArcXris, literalData);
+		return this.getRootContextNode().getDeepLiteralBoolean(contextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal setDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData) {
+	public Literal getDeepLiteral(XDI3Segment contextNodeXri) {
 
-		return this.getRootContextNode().setDeepLiteralString(contextNodeArcXris, literalData);
-	}
-
-	@Override
-	public Literal setDeepLiteralNumber(XDI3Segment contextNodeArcXris, Double literalData) {
-
-		return this.getRootContextNode().setDeepLiteralNumber(contextNodeArcXris, literalData);
-	}
-
-	@Override
-	public Literal setDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData) {
-
-		return this.getRootContextNode().setDeepLiteralBoolean(contextNodeArcXris, literalData);
-	}
-
-	@Override
-	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris, Object literalData) {
-
-		return this.getRootContextNode().getDeepLiteral(contextNodeArcXris, literalData);
-	}
-
-	@Override
-	public Literal getDeepLiteralString(XDI3Segment contextNodeArcXris, String literalData) {
-
-		return this.getRootContextNode().getDeepLiteralString(contextNodeArcXris, literalData);
-	}
-
-	@Override
-	public Literal getDeepLiteralNumber(XDI3Segment contextNodeArcXris, Double literalData) {
-
-		return this.getRootContextNode().getDeepLiteralNumber(contextNodeArcXris, literalData);
-	}
-
-	@Override
-	public Literal getDeepLiteralBoolean(XDI3Segment contextNodeArcXris, Boolean literalData) {
-
-		return this.getRootContextNode().getDeepLiteralBoolean(contextNodeArcXris, literalData);
-	}
-
-	@Override
-	public Literal getDeepLiteral(XDI3Segment contextNodeArcXris) {
-
-		return this.getRootContextNode().getDeepLiteral(contextNodeArcXris);
+		return this.getRootContextNode().getDeepLiteral(contextNodeXri);
 	}
 
 	/*
 	 * Methods related to statements
 	 */
-
-	@Override
-	public Statement createStatement(XDI3Statement statementXri) {
-
-		if (log.isTraceEnabled()) log.trace("createStatement(" + statementXri + ")");
-
-		// find the root and the base context node of this statement
-
-		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getContextNodeXri(), true);
-		XDI3Segment relativePart = root.getRelativePart(statementXri.getContextNodeXri());
-
-		// inner root short notation?
-
-		if (statementXri.hasInnerRootStatement()) {
-
-			XDI3Segment subject = relativePart;
-			XDI3Segment predicate = statementXri.getPredicate();
-
-			XdiInnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
-
-			return innerRoot.createRelativeStatement(statementXri.getInnerRootStatement());
-		}
-
-		// add the statement
-
-		if (statementXri.isContextNodeStatement()) {
-
-			ContextNode contextNode = root.getContextNode().createDeepContextNode(XDI3Util.concatXris(relativePart, statementXri.getContextNodeArcXri()));
-
-			return contextNode.getStatement();
-		} else if (statementXri.isRelationStatement()) {
-
-			Relation relation = root.getContextNode().createDeepRelation(relativePart, statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
-
-			return relation.getStatement();
-		} else if (statementXri.isLiteralStatement()) {
-
-			Literal literal = root.getContextNode().createDeepLiteral(relativePart, statementXri.getLiteralData());
-
-			return literal.getStatement();
-		} else {
-
-			throw new Xdi2GraphException("Invalid statement XRI: " + statementXri);
-		}
-	}
 
 	@Override
 	public Statement setStatement(XDI3Statement statementXri) {

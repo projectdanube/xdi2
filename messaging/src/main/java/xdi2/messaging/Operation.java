@@ -47,8 +47,6 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 		return
 				GetOperation.isValid(relation) ||
-				AddOperation.isValid(relation) ||
-				ModOperation.isValid(relation) ||
 				SetOperation.isValid(relation) ||
 				DelOperation.isValid(relation) ||
 				DoOperation.isValid(relation);
@@ -63,8 +61,6 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	public static Operation fromMessageAndRelation(Message message, Relation relation) {
 
 		if (GetOperation.isValid(relation)) return new GetOperation(message, relation);
-		if (AddOperation.isValid(relation)) return new AddOperation(message, relation);
-		if (ModOperation.isValid(relation)) return new ModOperation(message, relation);
 		if (SetOperation.isValid(relation)) return new SetOperation(message, relation);
 		if (DelOperation.isValid(relation)) return new DelOperation(message, relation);
 		if (DoOperation.isValid(relation)) return new DoOperation(message, relation);
@@ -177,12 +173,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		XdiEntity parametersXdiEntity = XdiAbstractContext.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), true);
 		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, true);
 		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(true);
-		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();
 
-		if (parameterLiteral == null) 
-			parameterLiteral = xdiValue.getContextNode().createLiteral(parameterValue.toString()); 
-		else 
-			parameterLiteral.setLiteralData(parameterValue.toString());
+		xdiValue.getContextNode().setLiteral(parameterValue);
 	}
 
 	/**
@@ -278,8 +270,6 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public boolean isWriteOperation() {
 
-		if (this instanceof AddOperation) return true;
-		if (this instanceof ModOperation) return true;
 		if (this instanceof SetOperation) return true;
 		if (this instanceof DelOperation) return true;
 

@@ -56,27 +56,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	 */
 
 	@Override
-	public synchronized ContextNode createContextNode(XDI3SubSegment arcXri) {
-
-		this.checkContextNode(arcXri, true);
-
-		String contextNodesKey = this.getContextNodesKey();
-		String contextNodeKey = this.getContextNodeKey(arcXri);
-
-		this.keyValueStore.set(contextNodesKey, arcXri.toString());
-		this.keyValueStore.delete(contextNodeKey + "/--C");
-		this.keyValueStore.delete(contextNodeKey + "/--R");
-		this.keyValueStore.delete(contextNodeKey + "/--L");
-
-		KeyValueContextNode contextNode = new KeyValueContextNode((KeyValueGraph) this.getGraph(), this, this.keyValueStore, contextNodeKey, arcXri);
-
-		return contextNode;
-	}
-
-	@Override
 	public synchronized ContextNode setContextNode(XDI3SubSegment arcXri) {
 
-		this.checkContextNode(arcXri, false);
+		this.checkContextNode(arcXri);
 
 		String contextNodesKey = this.getContextNodesKey();
 		String contextNodeKey = this.getContextNodeKey(arcXri);
@@ -139,7 +121,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized void deleteContextNode(XDI3SubSegment arcXri) {
+	public synchronized void delContextNode(XDI3SubSegment arcXri) {
 
 		// delete incoming relations
 
@@ -156,7 +138,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized void deleteContextNodes() {
+	public synchronized void delContextNodes() {
 
 		// delete incoming relations
 
@@ -184,27 +166,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	 */
 
 	@Override
-	public synchronized Relation createRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
-
-		this.checkRelation(arcXri, targetContextNode, true);
-
-		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
-
-		String relationsKey = this.getRelationsKey();
-		String relationKey = this.getRelationKey(arcXri);
-
-		this.keyValueStore.set(relationsKey, arcXri.toString());
-		this.keyValueStore.set(relationKey, targetContextNodeXri.toString());
-
-		KeyValueRelation relation = new KeyValueRelation(this, this.keyValueStore, relationKey, arcXri, targetContextNodeXri);
-
-		return relation;
-	}
-
-	@Override
 	public synchronized Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
-		this.checkRelation(arcXri, targetContextNode, false);
+		this.checkRelation(arcXri, targetContextNode);
 
 		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
 
@@ -318,7 +282,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized void deleteRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public synchronized void delRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
@@ -332,7 +296,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized void deleteRelations(XDI3Segment arcXri) {
+	public synchronized void delRelations(XDI3Segment arcXri) {
 
 		String relationsKey = this.getRelationsKey();
 
@@ -340,7 +304,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized void deleteRelations() {
+	public synchronized void delRelations() {
 
 		String relationsKey = this.getRelationsKey();
 
@@ -386,23 +350,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	 */
 
 	@Override
-	public synchronized Literal createLiteral(Object literalData) {
-
-		this.checkLiteral(literalData, true);
-
-		String literalKey = this.getLiteralKey();
-
-		this.keyValueStore.replace(literalKey, AbstractLiteral.literalDataToString(literalData));
-
-		KeyValueLiteral literal = new KeyValueLiteral(this, this.keyValueStore, literalKey, literalData);
-
-		return literal;
-	}
-
-	@Override
 	public synchronized Literal setLiteral(Object literalData) {
 
-		this.checkLiteral(literalData, false);
+		this.checkLiteral(literalData);
 
 		String literalKey = this.getLiteralKey();
 
@@ -432,7 +382,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized void deleteLiteral() {
+	public synchronized void delLiteral() {
 
 		String literalKey = this.getLiteralKey();
 
