@@ -21,7 +21,7 @@ import com.google.gson.stream.JsonWriter;
 
 public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 
-	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
 	private String prefix;
 

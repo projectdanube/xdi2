@@ -15,6 +15,7 @@ import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
@@ -37,7 +38,7 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType MIME_TYPE = null;
 
-	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
 	private boolean writeImplied;
 	private boolean writeOrdered;
@@ -152,7 +153,7 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 				if (innerContextNode.getArcXri().equals(XDIConstants.CS_VALUE.toString()) && innerContextNode.containsLiteral()) {
 
-					json.add(XDIConstants.CS_VALUE.toString(), literalDataToJsonPrimitive(innerContextNode.getLiteral().getLiteralData()));
+					json.add(XDIConstants.CS_VALUE.toString(), AbstractLiteral.literalDataToJsonElement(innerContextNode.getLiteral().getLiteralData()));
 				} else {
 
 					json.add(innerContextNode.getArcXri().toString(), makeJson(innerContextNode, writeImplied, writeInner));
@@ -178,22 +179,5 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 		// done
 
 		return json;
-	}
-
-	private static JsonPrimitive literalDataToJsonPrimitive(Object literalData) {
-
-		if (literalData instanceof String) {
-
-			return new JsonPrimitive((String) literalData);
-		} else if (literalData instanceof Number) {
-
-			return new JsonPrimitive((Number) literalData);
-		} else if (literalData instanceof Boolean) {
-
-			return new JsonPrimitive((Boolean) literalData);
-		} else {
-
-			throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
-		}
 	}
 }

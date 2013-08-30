@@ -45,7 +45,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 	public static final String FILE_EXTENSION = "json";
 	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
 
-	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
 	public XDIJSONReader(Properties parameters) {
 

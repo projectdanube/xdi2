@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
@@ -48,7 +49,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType MIME_TYPE = null;
 
-	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
 	private boolean writeImplied;
 	private boolean writeOrdered;
@@ -144,8 +145,10 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		if (statement.getObject() instanceof XDI3Segment)
 			gom.add(makeGom((XDI3Segment) statement.getObject()));
+		else if (statement.getObject() instanceof XDI3SubSegment)
+			gom.add(makeGom((XDI3SubSegment) statement.getObject()));
 		else
-			gom.add(new JsonPrimitive((String) statement.getObject()));
+			gom.add(AbstractLiteral.literalDataToJsonElement(statement.getObject()));
 
 		return gom;
 	}
@@ -170,7 +173,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 	private static JsonElement makeGom(XDI3SubSegment subSegment) {
 
 		JsonElement gom = null;
-		
+
 		if (subSegment.hasXRef()) {
 
 			JsonObject gom2 = new JsonObject();
@@ -185,9 +188,15 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		if (subSegment.hasCs()) {
 
-			JsonObject gom2 = new JsonObject();
-			gom2.add(subSegment.getCs().toString(), gom);
-			gom = gom2;
+			if (gom != null) {
+
+				JsonObject gom2 = new JsonObject();
+				gom2.add(subSegment.getCs().toString(), gom);
+				gom = gom2;
+			} else {
+
+				gom = new JsonPrimitive(subSegment.getCs().toString());
+			}
 		}
 
 		if (subSegment.isAttributeXs()) {

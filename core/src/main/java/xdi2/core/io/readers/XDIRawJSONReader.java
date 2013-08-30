@@ -53,7 +53,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 	public static final XDI3Segment XRI_DATATYPE_JSON_FALSE = XDI3Segment.create("+$json$false");
 	public static final XDI3Segment XRI_DATATYPE_JSON_NULL = XDI3Segment.create("+$json$null");
 
-	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
 	public XDIRawJSONReader(Properties parameters) {
 

@@ -23,7 +23,7 @@ public abstract class AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = -3376866498591508078L;
 
-	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
 	private ContextNode contextNode;
 
