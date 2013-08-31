@@ -1,10 +1,11 @@
-package xdi2.tests.core.graph;
+package xdi2.tests.core.impl.json;
 
 import java.io.IOException;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.json.file.FileJSONGraphFactory;
 import xdi2.core.impl.json.file.FileJSONStore;
+import xdi2.tests.core.impl.AbstractGraphTest;
 
 public class FileJSONGraphTest extends AbstractGraphTest {
 

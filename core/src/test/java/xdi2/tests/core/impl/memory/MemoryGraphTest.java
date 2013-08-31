@@ -1,9 +1,10 @@
-package xdi2.tests.core.graph;
+package xdi2.tests.core.impl.memory;
 
 import java.io.IOException;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.tests.core.impl.AbstractGraphTest;
 
 public class MemoryGraphTest extends AbstractGraphTest {
 

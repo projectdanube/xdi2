@@ -1,11 +1,12 @@
-package xdi2.tests.core.graph;
+package xdi2.tests.core.impl.keyvalue;
 
 import java.io.IOException;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.keyvalue.map.MapKeyValueGraphFactory;
+import xdi2.tests.core.impl.AbstractGraphTest;
 
-public class MapGraphTest extends AbstractGraphTest {
+public class MapKeyValueGraphTest extends AbstractGraphTest {
 
 	private MapKeyValueGraphFactory graphFactory = new MapKeyValueGraphFactory();
 

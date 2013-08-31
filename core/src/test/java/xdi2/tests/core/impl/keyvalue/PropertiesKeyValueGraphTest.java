@@ -1,4 +1,4 @@
-package xdi2.tests.core.graph;
+package xdi2.tests.core.impl.keyvalue;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -6,8 +6,9 @@ import java.io.IOException;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.keyvalue.properties.PropertiesKeyValueGraphFactory;
+import xdi2.tests.core.impl.AbstractGraphTest;
 
-public class PropertiesGraphTest extends AbstractGraphTest {
+public class PropertiesKeyValueGraphTest extends AbstractGraphTest {
 
 	private static PropertiesKeyValueGraphFactory graphFactory = new PropertiesKeyValueGraphFactory();
 

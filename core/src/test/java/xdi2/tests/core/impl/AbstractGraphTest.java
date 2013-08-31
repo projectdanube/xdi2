@@ -1,4 +1,4 @@
-package xdi2.tests.core.graph;
+package xdi2.tests.core.impl;
 
 import java.io.File;
 import java.io.FileReader;

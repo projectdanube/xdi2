@@ -1,12 +1,13 @@
-package xdi2.tests.core.graph;
+package xdi2.tests.core.impl.keyvalue;
 
 import java.io.File;
 import java.io.IOException;
 
 import xdi2.core.Graph;
 import xdi2.core.impl.keyvalue.bdb.BDBKeyValueGraphFactory;
+import xdi2.tests.core.impl.AbstractGraphTest;
 
-public class BDBGraphTest extends AbstractGraphTest {
+public class BDBKeyValueGraphTest extends AbstractGraphTest {
 
 	private static BDBKeyValueGraphFactory graphFactory = new BDBKeyValueGraphFactory();
 
