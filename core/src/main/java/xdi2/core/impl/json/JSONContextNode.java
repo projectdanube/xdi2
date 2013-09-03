@@ -151,17 +151,17 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 			jsonObject.add(arcXri.toString(), jsonArrayRelations);
 		}
 
-		/*if (! new IteratorContains<JsonElement> (jsonArrayRelations.iterator(), new JsonPrimitive(targetContextNode.getXri().toString())).contains()) */ jsonArrayRelations.add(new JsonPrimitive(targetContextNode.getXri().toString()));
+		if (! new IteratorContains<JsonElement> (jsonArrayRelations.iterator(), new JsonPrimitive(targetContextNode.getXri().toString())).contains()) jsonArrayRelations.add(new JsonPrimitive(targetContextNode.getXri().toString()));
 
-		JsonArray jsonArrayIncomingRelations = jsonObjectTarget.getAsJsonArray("_" + arcXri.toString());
+		JsonArray jsonArrayIncomingRelations = jsonObjectTarget.getAsJsonArray("/" + arcXri.toString());
 
 		if (jsonArrayIncomingRelations == null) {
 
 			jsonArrayIncomingRelations = new JsonArray();
-			jsonObjectTarget.add("_" + arcXri.toString(), jsonArrayIncomingRelations);
+			jsonObjectTarget.add("/" + arcXri.toString(), jsonArrayIncomingRelations);
 		}
 
-		/* if (! new IteratorContains<JsonElement> (jsonArrayIncomingRelations.iterator(), new JsonPrimitive(this.getXri().toString())).contains()) */ jsonArrayIncomingRelations.add(new JsonPrimitive(this.getXri().toString()));
+		if (! new IteratorContains<JsonElement> (jsonArrayIncomingRelations.iterator(), new JsonPrimitive(this.getXri().toString())).contains()) jsonArrayIncomingRelations.add(new JsonPrimitive(this.getXri().toString()));
 
 		this.saveJson(jsonObject);
 		((JSONContextNode) targetContextNode).saveJson(jsonObjectTarget);
@@ -182,7 +182,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 			@Override
 			public Iterator<Relation> descend(Entry<String, JsonElement> entry) {
 
-				if (entry.getKey().startsWith("_")) return null;
+				if (entry.getKey().startsWith("/")) return null;
 
 				final XDI3Segment arcXri = XDI3Segment.create(entry.getKey());
 				if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) return null;
@@ -219,7 +219,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 			@Override
 			public Iterator<Relation> descend(Entry<String, JsonElement> entry) {
 
-				if (! entry.getKey().startsWith("_")) return null;
+				if (! entry.getKey().startsWith("/")) return null;
 
 				final XDI3Segment arcXri = XDI3Segment.create(entry.getKey().substring(1));
 
@@ -267,12 +267,12 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		if (jsonObjectTarget != null) {
 
-			JsonArray jsonArrayIncomingRelations = jsonObjectTarget.getAsJsonArray("_" + arcXri.toString());
+			JsonArray jsonArrayIncomingRelations = jsonObjectTarget.getAsJsonArray("/" + arcXri.toString());
 
 			if (jsonArrayIncomingRelations != null) {
 
 				new IteratorRemover<JsonElement> (jsonArrayIncomingRelations.iterator(), new JsonPrimitive(this.getXri().toString())).remove();
-				if (jsonArrayIncomingRelations.size() < 1) jsonObjectTarget.remove("_" + arcXri.toString());
+				if (jsonArrayIncomingRelations.size() < 1) jsonObjectTarget.remove("/" + arcXri.toString());
 
 				((JSONContextNode) targetContextNode).saveJson(jsonObjectTarget);
 			}

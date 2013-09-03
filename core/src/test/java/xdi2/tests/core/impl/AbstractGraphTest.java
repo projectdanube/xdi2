@@ -1173,7 +1173,8 @@ public abstract class AbstractGraphTest extends TestCase {
 			List<XDI3Segment> arcXris = new ArrayList<XDI3Segment> (Arrays.asList(relationArcXrisArray[i]));
 			for (Iterator<XDI3Segment> it = arcXris.iterator(); it.hasNext(); ) assertTrue(contextNodesArray[i].getGraph().getDeepRelations(contextNodesArray[i].getXri(), it.next()) != null);
 			assertEquals(arcXris.size(), contextNodesArray[i].getRelationCount());
-			if (i == 1) fail();
+//			System.err.println(arcXris);
+//			System.err.println(Arrays.asList(contextNodesArray));
 			assertEquals(arcXris.size(), new IteratorCounter(contextNodesArray[i].getRelations()).count());
 			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcXris.remove(it.next().getArcXri()));
 			assertTrue(arcXris.isEmpty());

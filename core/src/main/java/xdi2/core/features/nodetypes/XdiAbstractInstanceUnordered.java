@@ -79,7 +79,7 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 
 		try {
 
-			MessageDigest digest = MessageDigest.getInstance("SHA-384");
+			MessageDigest digest = MessageDigest.getInstance("SHA-512");
 			digest.update(string.getBytes("UTF-8"));
 			output = digest.digest();
 		} catch (Exception ex) {
@@ -89,7 +89,7 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 
 		String hex = new String(Hex.encodeHex(output));
 
-		return createArcXri(":sha384:" + hex, attribute);
+		return createArcXri(":sha512:" + hex, attribute);
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri, boolean attribute) {

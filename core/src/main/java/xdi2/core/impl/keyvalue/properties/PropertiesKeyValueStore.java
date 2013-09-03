@@ -387,7 +387,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 
 		try {
 
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			MessageDigest digest = MessageDigest.getInstance("SHA-512");
 			digest.reset();
 			digest.update(str.getBytes());
 			hash = new String(Base64.encodeBase64(digest.digest()), "UTF-8");

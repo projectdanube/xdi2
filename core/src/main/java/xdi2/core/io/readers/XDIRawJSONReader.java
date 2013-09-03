@@ -133,7 +133,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			MessageDigest digest;
 
-			digest = MessageDigest.getInstance("SHA-256");
+			digest = MessageDigest.getInstance("SHA-512");
 			digest.update(canonicalJson.getBytes("UTF-8"));
 
 			String jsonContentId = new String(Base64.encodeBase64URLSafe(digest.digest()), "UTF-8");
