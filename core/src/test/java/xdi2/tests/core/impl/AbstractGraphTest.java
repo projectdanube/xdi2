@@ -39,6 +39,10 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
 public abstract class AbstractGraphTest extends TestCase {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractGraphTest.class);
@@ -169,37 +173,44 @@ public abstract class AbstractGraphTest extends TestCase {
 		Graph graph10 = this.openNewGraph(this.getClass().getName() + "-graph-10");
 		Graph graph11 = this.openNewGraph(this.getClass().getName() + "-graph-11");
 
-		makeGraph(graph10);
-		CopyUtil.copyGraph(graph10, graph11, null);
-		testGraph(graph11);
+		try {
 
-		assertEquals(graph10, graph11);
-		assertEquals(graph10.hashCode(), graph11.hashCode());
-		assertEquals(graph10.compareTo(graph11), 0);
-		assertEquals(graph11.compareTo(graph10), 0);
+			makeGraph(graph10);
+			CopyUtil.copyGraph(graph10, graph11, null);
+			testGraph(graph11);
 
-		StringWriter buffer1 = new StringWriter();
-		StringWriter buffer2 = new StringWriter();
-		XDIWriterRegistry.forFormat("XDI/JSON", null).write(graph10, buffer1);
-		XDIWriterRegistry.forFormat("XDI DISPLAY", null).write(graph11, buffer2);
-		graph10.clear();
-		graph11.clear();
-		XDIReaderRegistry.forFormat("XDI/JSON", null).read(graph10, new StringReader(buffer1.toString()));
-		XDIReaderRegistry.forFormat("XDI DISPLAY", null).read(graph11, new StringReader(buffer2.toString()));
+			assertEquals(graph10, graph11);
+			assertEquals(graph10.hashCode(), graph11.hashCode());
+			assertEquals(graph10.compareTo(graph11), 0);
+			assertEquals(graph11.compareTo(graph10), 0);
 
-		assertEquals(graph10, graph11);
-		assertEquals(graph10.hashCode(), graph11.hashCode());
-		assertEquals(graph10.compareTo(graph11), 0);
-		assertEquals(graph11.compareTo(graph10), 0);
+			StringWriter buffer1 = new StringWriter();
+			StringWriter buffer2 = new StringWriter();
+			XDIWriterRegistry.forFormat("XDI/JSON", null).write(graph10, buffer1);
+			XDIWriterRegistry.forFormat("XDI DISPLAY", null).write(graph11, buffer2);
+			graph10.clear();
+			graph11.clear();
+			XDIReaderRegistry.forFormat("XDI/JSON", null).read(graph10, new StringReader(buffer1.toString()));
+			XDIReaderRegistry.forFormat("XDI DISPLAY", null).read(graph11, new StringReader(buffer2.toString()));
 
-		graph11.getRootContextNode().setContextNode(XDI3SubSegment.create("=xxx"));
+			assertEquals(graph10, graph11);
+			assertEquals(graph10.hashCode(), graph11.hashCode());
+			assertEquals(graph10.compareTo(graph11), 0);
+			assertEquals(graph11.compareTo(graph10), 0);
 
-		assertNotEquals(graph10, graph11);
-		assertNotEquals(graph10.hashCode(), graph11.hashCode());
-		assertNotEquals(graph10.compareTo(graph11), 0);
+			graph11.getRootContextNode().setContextNode(XDI3SubSegment.create("=xxx"));
 
-		graph10.close();
-		graph11.close();
+			System.out.println(graph10);
+			System.out.println(graph11);
+
+			assertNotEquals(graph10, graph11);
+			assertNotEquals(graph10.hashCode(), graph11.hashCode());
+			assertNotEquals(graph10.compareTo(graph11), 0);
+		} finally {
+
+			graph10.close();
+			graph11.close();
+		}
 	}
 
 	public void testDeleteDeep() throws Exception {
@@ -858,31 +869,100 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		ContextNode c = graph28.setDeepContextNode(XDI3Segment.create("=markus<+test>&"));
 
-		c.setLiteral("Markus");
-		assertEquals(c.getLiteral().getLiteralData(), "Markus");
-		assertEquals(c.getLiteral().getLiteralDataString(), "Markus");
+		String s = new String("Markus Sabadello");
+		Double d = new Double(34);
+		Boolean b = new Boolean(false);
+		JsonArray a = new JsonArray();
+		JsonObject o = new JsonObject();
+		Object n = null;
+
+		a.add(new JsonPrimitive("test"));
+		a.add(new JsonPrimitive(Integer.valueOf(5)));
+		a.add(new JsonPrimitive(Boolean.FALSE));
+
+		o.add("one", new JsonPrimitive("Markus Sabadello"));
+		o.add("two", new JsonPrimitive(Integer.valueOf(34)));
+		o.add("three", new JsonPrimitive(Boolean.FALSE));
+
+		c.setLiteral(s);
+		assertEquals(c.getLiteral().getLiteralData(), s);
+		assertEquals(c.getLiteral().getLiteralDataString(), s);
 		assertNull(c.getLiteral().getLiteralDataNumber());
 		assertNull(c.getLiteral().getLiteralDataBoolean());
-		assertTrue(c.containsLiteral("Markus"));
-		assertTrue(c.containsLiteralString("Markus"));
+		assertTrue(c.containsLiteral(s));
+		assertTrue(c.containsLiteralString(s));
 
-		c.setLiteral(Double.valueOf(34));
-		assertEquals(c.getLiteral().getLiteralData(), Double.valueOf(34));
+		c.setLiteral(d);
+		assertEquals(c.getLiteral().getLiteralData(), d);
 		assertNull(c.getLiteral().getLiteralDataString());
-		assertEquals(c.getLiteral().getLiteralDataNumber(), Double.valueOf(34));
+		assertEquals(c.getLiteral().getLiteralDataNumber(), d);
 		assertNull(c.getLiteral().getLiteralDataBoolean());
-		assertTrue(c.containsLiteral(Double.valueOf(34)));
-		assertTrue(c.containsLiteralNumber(Double.valueOf(34)));
+		assertTrue(c.containsLiteral(d));
+		assertTrue(c.containsLiteralNumber(d));
 
-		c.setLiteral(Boolean.valueOf(false));
-		assertEquals(c.getLiteral().getLiteralData(), Boolean.valueOf(false));
+		c.setLiteral(b);
+		assertEquals(c.getLiteral().getLiteralData(), b);
 		assertNull(c.getLiteral().getLiteralDataString());
 		assertNull(c.getLiteral().getLiteralDataNumber());
-		assertEquals(c.getLiteral().getLiteralDataBoolean(), Boolean.valueOf(false));
-		assertTrue(c.containsLiteral(Boolean.valueOf(false)));
-		assertTrue(c.containsLiteralBoolean(Boolean.valueOf(false)));
+		assertEquals(c.getLiteral().getLiteralDataBoolean(), b);
+		assertTrue(c.containsLiteral(b));
+		assertTrue(c.containsLiteralBoolean(b));
+
+		c.setLiteral(a);
+		assertEquals(c.getLiteral().getLiteralData(), a);
+		assertNull(c.getLiteral().getLiteralDataString());
+		assertNull(c.getLiteral().getLiteralDataNumber());
+		assertNull(c.getLiteral().getLiteralDataBoolean());
+		assertTrue(c.containsLiteral(a));
+
+		c.setLiteral(o);
+		assertEquals(c.getLiteral().getLiteralData(), o);
+		assertNull(c.getLiteral().getLiteralDataString());
+		assertNull(c.getLiteral().getLiteralDataNumber());
+		assertNull(c.getLiteral().getLiteralDataBoolean());
+		assertTrue(c.containsLiteral(o));
+
+		c.setLiteral(n);
+		assertEquals(c.getLiteral().getLiteralData(), n);
+		assertNull(c.getLiteral().getLiteralDataString());
+		assertNull(c.getLiteral().getLiteralDataNumber());
+		assertNull(c.getLiteral().getLiteralDataBoolean());
+		assertTrue(c.containsLiteral(n));
 
 		graph28.close();
+	}
+
+	public void testDoubleSet() throws Exception {
+
+		Graph graph29 = this.openNewGraph(this.getClass().getName() + "-graph-29");
+
+		ContextNode c = graph29.setDeepContextNode(XDI3Segment.create("=markus"));
+		ContextNode a = graph29.setDeepContextNode(XDI3Segment.create("=animesh"));
+
+		c.setContextNode(XDI3SubSegment.create("<+email>"));
+		c.setContextNode(XDI3SubSegment.create("<+email>"));
+
+		c.setRelation(XDI3Segment.create("+friend"), a);
+		c.setRelation(XDI3Segment.create("+friend"), a);
+		c.setRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
+		c.setRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
+
+		assertEquals(c.getContextNodeCount(), 1);
+		assertEquals(c.getAllContextNodeCount(), 1);
+		assertEquals(c.getRelationCount(XDI3Segment.create("+friend")), 1);
+		assertEquals(c.getRelationCount(), 1);
+		assertEquals(c.getAllRelationCount(), 1);
+
+		c.delContextNode(XDI3SubSegment.create("<+email>"));
+		c.delRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
+
+		assertEquals(c.getContextNodeCount(), 0);
+		assertEquals(c.getAllContextNodeCount(), 0);
+		assertEquals(c.getRelationCount(XDI3Segment.create("+friend")), 0);
+		assertEquals(c.getRelationCount(), 0);
+		assertEquals(c.getAllRelationCount(), 0);
+
+		graph29.close();
 	}
 
 	@SuppressWarnings("unused")
@@ -1093,6 +1173,7 @@ public abstract class AbstractGraphTest extends TestCase {
 			List<XDI3Segment> arcXris = new ArrayList<XDI3Segment> (Arrays.asList(relationArcXrisArray[i]));
 			for (Iterator<XDI3Segment> it = arcXris.iterator(); it.hasNext(); ) assertTrue(contextNodesArray[i].getGraph().getDeepRelations(contextNodesArray[i].getXri(), it.next()) != null);
 			assertEquals(arcXris.size(), contextNodesArray[i].getRelationCount());
+			if (i == 1) fail();
 			assertEquals(arcXris.size(), new IteratorCounter(contextNodesArray[i].getRelations()).count());
 			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcXris.remove(it.next().getArcXri()));
 			assertTrue(arcXris.isEmpty());

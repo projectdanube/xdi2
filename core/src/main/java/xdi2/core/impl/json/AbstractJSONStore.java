@@ -12,21 +12,23 @@ public abstract class AbstractJSONStore implements JSONStore {
 	public AbstractJSONStore() {
 
 		this.logBuffer = new StringBuffer();
-		this.logEnabled = false;
+		this.logEnabled = true;
 	}
 
 	@Override
 	public final JsonObject load(String id) throws IOException {
 
-		if (this.getLogEnabled()) this.logBuffer.append("load(" + id + ")");
+		JsonObject jsonObject = this.loadInternal(id);
 
-		return this.loadInternal(id);
+		if (this.getLogEnabled()) this.logBuffer.append("load( " + id + " , " + jsonObject + " )\n");
+
+		return jsonObject;
 	}
 
 	@Override
 	public final void save(String id, JsonObject jsonObject) throws IOException {
 
-		if (this.getLogEnabled()) this.logBuffer.append("save(" + id + "," + jsonObject.toString() + ")");
+		if (this.getLogEnabled()) this.logBuffer.append("save( " + id + " , " + jsonObject + " )\n");
 
 		this.saveInternal(id, jsonObject);
 	}
@@ -34,7 +36,7 @@ public abstract class AbstractJSONStore implements JSONStore {
 	@Override
 	public final void delete(String id) throws IOException {
 
-		if (this.getLogEnabled()) this.logBuffer.append("delete(" + id + ")");
+		if (this.getLogEnabled()) this.logBuffer.append("delete( " + id + " )\n");
 
 		this.deleteInternal(id);
 	}

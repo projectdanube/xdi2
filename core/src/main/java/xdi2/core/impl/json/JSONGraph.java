@@ -31,6 +31,8 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	@Override
 	public void close() {
 
+		System.out.println(((AbstractJSONStore) this.jsonStore).getLogBuffer());
+		
 		this.jsonStore.close();
 	}
 

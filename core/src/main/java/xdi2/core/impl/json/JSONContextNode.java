@@ -151,7 +151,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 			jsonObject.add(arcXri.toString(), jsonArrayRelations);
 		}
 
-		jsonArrayRelations.add(new JsonPrimitive(targetContextNode.getXri().toString()));
+		/*if (! new IteratorContains<JsonElement> (jsonArrayRelations.iterator(), new JsonPrimitive(targetContextNode.getXri().toString())).contains()) */ jsonArrayRelations.add(new JsonPrimitive(targetContextNode.getXri().toString()));
 
 		JsonArray jsonArrayIncomingRelations = jsonObjectTarget.getAsJsonArray("_" + arcXri.toString());
 
@@ -161,7 +161,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 			jsonObjectTarget.add("_" + arcXri.toString(), jsonArrayIncomingRelations);
 		}
 
-		jsonArrayIncomingRelations.add(new JsonPrimitive(this.getXri().toString()));
+		/* if (! new IteratorContains<JsonElement> (jsonArrayIncomingRelations.iterator(), new JsonPrimitive(this.getXri().toString())).contains()) */ jsonArrayIncomingRelations.add(new JsonPrimitive(this.getXri().toString()));
 
 		this.saveJson(jsonObject);
 		((JSONContextNode) targetContextNode).saveJson(jsonObjectTarget);
