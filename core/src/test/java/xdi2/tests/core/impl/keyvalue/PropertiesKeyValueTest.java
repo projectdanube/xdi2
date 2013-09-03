@@ -27,7 +27,7 @@ public class PropertiesKeyValueTest extends AbstractKeyValueTest {
 	@Override
 	protected KeyValueStore getKeyValueStore(String id) throws IOException {
 
-		String path = "xdi2-keyvalue." + id + ".properties";
+		String path = "xdi2-properties-keyvalue-graph." + id + ".properties";
 
 		File file = new File(path);
 		if (file.exists()) file.delete();
