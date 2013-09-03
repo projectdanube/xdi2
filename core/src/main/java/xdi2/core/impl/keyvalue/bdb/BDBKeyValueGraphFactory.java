@@ -48,8 +48,8 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 
 		// check identifier
 
-		String databaseName = this.getDatabaseName();
 		String databasePath = this.getDatabasePath();
+		String databaseName = this.getDatabaseName();
 
 		if (databaseName == null) {
 
