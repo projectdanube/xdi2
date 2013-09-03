@@ -31,9 +31,9 @@ public class FileJSONGraphFactory extends AbstractJSONGraphFactory implements Gr
 
 		String prefix = this.getPrefix();
 
-		if (identifier != null) {
+		if (prefix == null) {
 
-			prefix = "xdi2-bdb-graph." + identifier;
+			prefix = "xdi2-file-json-graph." + identifier;
 		}
 
 		// open store

@@ -51,9 +51,9 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 		String databaseName = this.getDatabaseName();
 		String databasePath = this.getDatabasePath();
 
-		if (identifier != null) {
+		if (databaseName == null) {
 
-			databaseName = "xdi2-bdb-graph." + identifier;
+			databaseName = "xdi2-bdb-keyvalue-graph." + identifier;
 		}
 
 		// open store

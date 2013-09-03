@@ -32,9 +32,11 @@ public class PropertiesKeyValueGraphFactory extends AbstractKeyValueGraphFactory
 
 		// check identifier
 
-		if (identifier != null) {
+		String path = this.getPath();
+		
+		if (path == null) {
 
-			this.setPath("xdi2-graph." + identifier + ".properties");
+			path = "xdi2-graph." + identifier + ".properties";
 		}
 
 		// open store

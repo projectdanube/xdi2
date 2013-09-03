@@ -1,6 +1,7 @@
 package xdi2.core.impl.json;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import xdi2.core.Graph;
 import xdi2.core.GraphFactory;
@@ -20,6 +21,8 @@ public abstract class AbstractJSONGraphFactory extends AbstractGraphFactory impl
 
 	@Override
 	public final Graph openGraph(String identifier) throws IOException {
+
+		if (identifier == null) identifier = UUID.randomUUID().toString();
 
 		JSONStore jsonStore = this.openJSONStore(identifier);
 
