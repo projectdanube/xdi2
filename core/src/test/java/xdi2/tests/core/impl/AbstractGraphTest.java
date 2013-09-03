@@ -126,6 +126,8 @@ public abstract class AbstractGraphTest extends TestCase {
 
 			log.info("#" + i + " Format: " + formats[i]);
 
+			File file = new File("xdi.out");
+
 			Graph graph4 = this.openNewGraph(this.getClass().getName() + "-graph-4" + "-" + i);
 			Graph graph5 = this.openNewGraph(this.getClass().getName() + "-graph-5" + "-" + i);
 
@@ -133,14 +135,16 @@ public abstract class AbstractGraphTest extends TestCase {
 			XDIReader reader = XDIReaderRegistry.forFormat(formats[i], null);
 
 			makeGraph(graph4);
-			writer.write(graph4, new FileWriter(new File("test." + i + ".out"))).close();
-			reader.read(graph5, new FileReader(new File("test." + i + ".out"))).close();
+			writer.write(graph4, new FileWriter(file)).close();
+			reader.read(graph5, new FileReader(file)).close();
 
 			testGraph(graph5);
 			testGraphsEqual(graph4, graph5);
 
 			graph4.close();
 			graph5.close();
+
+			file.delete();
 		}
 	}
 
@@ -1173,8 +1177,8 @@ public abstract class AbstractGraphTest extends TestCase {
 			List<XDI3Segment> arcXris = new ArrayList<XDI3Segment> (Arrays.asList(relationArcXrisArray[i]));
 			for (Iterator<XDI3Segment> it = arcXris.iterator(); it.hasNext(); ) assertTrue(contextNodesArray[i].getGraph().getDeepRelations(contextNodesArray[i].getXri(), it.next()) != null);
 			assertEquals(arcXris.size(), contextNodesArray[i].getRelationCount());
-//			System.err.println(arcXris);
-//			System.err.println(Arrays.asList(contextNodesArray));
+			//			System.err.println(arcXris);
+			//			System.err.println(Arrays.asList(contextNodesArray));
 			assertEquals(arcXris.size(), new IteratorCounter(contextNodesArray[i].getRelations()).count());
 			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcXris.remove(it.next().getArcXri()));
 			assertTrue(arcXris.isEmpty());
