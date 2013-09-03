@@ -16,7 +16,7 @@ public class PropertiesKeyValueGraphFactory extends AbstractKeyValueGraphFactory
 	public static final boolean DEFAULT_SUPPORT_GET_CONTEXTNODES = true; 
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 
 
-	public static final String DEFAULT_PROPERTIES_PATH = "xdi2-graph.properties";
+	public static final String DEFAULT_PROPERTIES_PATH = null;
 
 	private String path;
 
@@ -36,14 +36,14 @@ public class PropertiesKeyValueGraphFactory extends AbstractKeyValueGraphFactory
 		
 		if (path == null) {
 
-			path = "xdi2-graph." + identifier + ".properties";
+			path = "xdi2-properties-keyvalue-graph." + identifier + ".properties";
 		}
 
 		// open store
 
 		KeyValueStore keyValueStore;
 
-		keyValueStore = new PropertiesKeyValueStore(this.path);
+		keyValueStore = new PropertiesKeyValueStore(path);
 		keyValueStore.init();
 
 		// done

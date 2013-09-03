@@ -37,9 +37,11 @@ public class FileWrapperGraphFactory extends WrappedGraphFactory implements Grap
 
 		// check identifier
 
-		if (identifier != null) {
+		String path = this.getPath();
 
-			this.setPath("xdi2-graph." + identifier + ".xdi");
+		if (path == null) {
+
+			path = "xdi2-graph." + identifier + ".xdi";
 		}
 
 		// initialize graph
@@ -47,7 +49,7 @@ public class FileWrapperGraphFactory extends WrappedGraphFactory implements Grap
 		XDIReader xdiReader = XDIReaderRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 		XDIWriter xdiWriter = XDIWriterRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 
-		return new FileWrapperStore(this.path, this.mimeType, xdiReader, xdiWriter);
+		return new FileWrapperStore(path, this.mimeType, xdiReader, xdiWriter);
 	}
 
 	public String getPath() {

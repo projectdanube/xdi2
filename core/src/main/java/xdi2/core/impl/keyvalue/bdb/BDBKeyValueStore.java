@@ -371,14 +371,35 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	}
 
 	public String getDatabasePath() {
-	
+
 		return this.databasePath;
 	}
 
 	public String getDatabaseName() {
-	
+
 		return this.databaseName;
 	}
+
+	/*
+	 * Helper methods
+	 */
+
+	public static void cleanup(String databasePath) {
+
+		File path = new File(databasePath);
+
+		if (path.exists()) {
+
+			for (File file : path.listFiles()) {
+
+				file.delete();
+			}
+		}
+	}
+
+	/*
+	 * Helper classes
+	 */
 
 	private class CursorDuplicatesIterator extends ReadOnlyIterator<String> {
 
@@ -390,7 +411,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		private CursorDuplicatesIterator(Transaction transaction, DatabaseEntry dbKey, DatabaseEntry dbValue) {
 
 			super(null);
-			
+
 			this.dbKey = dbKey;
 			this.dbValue = dbValue;
 

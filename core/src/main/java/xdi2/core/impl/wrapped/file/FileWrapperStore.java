@@ -3,6 +3,7 @@ package xdi2.core.impl.wrapped.file;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.Reader;
 import java.io.Writer;
 
@@ -120,5 +121,23 @@ public class FileWrapperStore implements WrapperStore {
 	public void setXdiWriter(XDIWriter xdiWriter) {
 
 		this.xdiWriter = xdiWriter;
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	public static void cleanup() {
+
+		File[] files = new File(".").listFiles(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+
+				return name.startsWith("xdi2-graph.") && name.endsWith(".xdi");
+			}
+		});
+
+		for (File file : files) file.delete();
 	}
 }

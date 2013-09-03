@@ -13,6 +13,24 @@ public class BDBKeyValueTest extends AbstractKeyValueTest {
 
 	public static final String DEFAULT_DATABASE_PATH = "./xdi2-bdb/";
 
+	public static final String DATABASE_PATH = "./xdi2-bdb/";
+
+	@Override
+	protected void setUp() throws Exception {
+
+		super.setUp();
+
+		BDBKeyValueStore.cleanup(DATABASE_PATH);
+	}
+
+	@Override
+	protected void tearDown() throws Exception {
+
+		super.tearDown();
+
+		BDBKeyValueStore.cleanup(DATABASE_PATH);
+	}
+
 	@Override
 	protected KeyValueStore getKeyValueStore(String id) throws IOException {
 

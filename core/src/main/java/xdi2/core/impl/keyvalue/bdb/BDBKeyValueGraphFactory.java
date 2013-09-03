@@ -30,7 +30,7 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 	public static final boolean DEFAULT_SUPPORT_GET_LITERALS = true; 
 
 	public static final String DEFAULT_DATABASE_PATH = "./xdi2-bdb/";
-	public static final String DEFAULT_DATABASE_NAME = "default";
+	public static final String DEFAULT_DATABASE_NAME = null;
 
 	private String databasePath;
 	private String databaseName;
