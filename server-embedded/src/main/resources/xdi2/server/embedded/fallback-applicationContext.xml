@@ -12,11 +12,6 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.server.interceptor.impl.DebugHttpTransportInterceptor" />
-				<bean class="xdi2.server.interceptor.impl.XriResolutionHttpTransportInterceptor">
-					<property name="resolvePath" value="/resolve" />
-					<property name="targetPath" value="/users" />
-					<property name="registryGraph" ref="registrygraph" />
-				</bean>
 			</util:list>
 		</property>
 	</bean>

@@ -73,7 +73,7 @@ public final class XdiAttributeInstanceUnordered extends XdiAbstractInstanceUnor
 
 		XDI3SubSegment valueArcXri = XdiValue.createArcXri();
 
-		ContextNode valueContextNode = create ? this.getContextNode().getContextNode(valueArcXri) : this.getContextNode().getContextNode(valueArcXri);
+		ContextNode valueContextNode = create ? this.getContextNode().setContextNode(valueArcXri) : this.getContextNode().getContextNode(valueArcXri);
 		if (valueContextNode == null) return null;
 
 		return new XdiValue(valueContextNode);
