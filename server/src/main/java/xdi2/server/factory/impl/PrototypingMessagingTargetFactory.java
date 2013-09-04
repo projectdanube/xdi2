@@ -24,7 +24,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public void mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetPath, XDI3Segment owner, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
+	public MessagingTarget mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetPath, XDI3Segment owner, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
 
 		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", owner=" + owner + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
 
@@ -72,6 +72,10 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 		// mount the new messaging target
 
 		httpEndpointRegistry.mountMessagingTarget(messagingTargetPath, prototypedMessagingTarget);
+
+		// done
+
+		return prototypedMessagingTarget;
 	}
 
 	public MessagingTarget getPrototypeMessagingTarget() {

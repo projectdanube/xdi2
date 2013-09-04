@@ -22,7 +22,7 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 	private static final Logger log = LoggerFactory.getLogger(AnyGraphMessagingTargetFactory.class);
 
 	@Override
-	public void mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
+	public MessagingTarget mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -45,11 +45,12 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 
 		log.info("Will create messaging target for " + owner);
 
-		super.mountMessagingTarget(httpEndpointRegistry, messagingTargetPath, owner, null, null);
+		return super.mountMessagingTarget(httpEndpointRegistry, messagingTargetPath, owner, null, null);
 	}
 
 	@Override
-	public void updateMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException {
+	public MessagingTarget updateMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException {
 
+		return messagingTarget;
 	}
 }

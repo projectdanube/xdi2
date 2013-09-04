@@ -4,8 +4,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.util.iterators.MappingIterator;
-import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 
@@ -96,13 +95,6 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 
 	public ReadOnlyIterator<XdiPeerRoot> getPeerRoots() {
 
-		return new NotNullIterator<XdiPeerRoot> (new MappingIterator<ContextNode, XdiPeerRoot> (this.getContextNode().getContextNodes()) {
-
-			@Override
-			public XdiPeerRoot map(ContextNode contextNode) {
-
-				return XdiPeerRoot.fromContextNode(contextNode);
-			}
-		});
+		return new MappingContextNodePeerRootIterator(this.getContextNode().getContextNodes());
 	}
 }

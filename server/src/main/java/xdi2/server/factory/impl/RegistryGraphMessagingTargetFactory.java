@@ -29,7 +29,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	private Graph registryGraph;
 
 	@Override
-	public void mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
+	public MessagingTarget mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -54,13 +54,13 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		if (ownerPeerRoot == null) {
 
 			log.warn("Peer root for " + owner + " not found in the registry graph. Ignoring.");
-			return;
+			return null;
 		}
 
 		if (ownerPeerRoot.isSelfPeerRoot()) {
 
 			log.warn("Peer root for " + owner + " is the owner of the registry graph. Ignoring.");
-			return;
+			return null;
 		}
 
 		// find the owner's context node
@@ -73,11 +73,11 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		log.info("Will create messaging target for " + owner + " at " + messagingTargetPath);
 
-		super.mountMessagingTarget(httpEndpointRegistry, messagingTargetPath, owner, ownerPeerRoot, ownerContextNode);
+		return super.mountMessagingTarget(httpEndpointRegistry, messagingTargetPath, owner, ownerPeerRoot, ownerContextNode);
 	}
 
 	@Override
-	public void updateMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException, Xdi2MessagingException {
+	public MessagingTarget updateMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -114,6 +114,11 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 			// unmount the messaging target
 
 			httpEndpointRegistry.unmountMessagingTarget(messagingTarget);
+
+			return null;
+		} else {
+
+			return messagingTarget;
 		}
 	}
 
