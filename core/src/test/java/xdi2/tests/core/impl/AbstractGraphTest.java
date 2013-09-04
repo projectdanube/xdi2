@@ -204,9 +204,6 @@ public abstract class AbstractGraphTest extends TestCase {
 
 			graph11.getRootContextNode().setContextNode(XDI3SubSegment.create("=xxx"));
 
-			System.out.println(graph10);
-			System.out.println(graph11);
-
 			assertNotEquals(graph10, graph11);
 			assertNotEquals(graph10.hashCode(), graph11.hashCode());
 			assertNotEquals(graph10.compareTo(graph11), 0);
