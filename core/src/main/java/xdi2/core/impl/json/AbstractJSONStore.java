@@ -2,7 +2,12 @@ package xdi2.core.impl.json;
 
 import java.io.IOException;
 
+import xdi2.core.util.iterators.IteratorContains;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 public abstract class AbstractJSONStore implements JSONStore {
 
@@ -34,6 +39,22 @@ public abstract class AbstractJSONStore implements JSONStore {
 	}
 
 	@Override
+	public final void saveToArray(String id, String key, JsonPrimitive jsonPrimitive) throws IOException {
+
+		if (this.getLogEnabled()) this.logBuffer.append("saveToArray( " + id + " , " + key + " , " + jsonPrimitive + " )\n");
+
+		this.saveToArrayInternal(id, key, jsonPrimitive);
+	}
+
+	@Override
+	public final void saveToObject(String id, String key, JsonElement jsonElement) throws IOException {
+
+		if (this.getLogEnabled()) this.logBuffer.append("saveToObject( " + id + " , " + key + " , " + jsonElement + " )\n");
+
+		this.saveToObjectInternal(id, key, jsonElement);
+	}
+
+	@Override
 	public final void delete(String id) throws IOException {
 
 		if (this.getLogEnabled()) this.logBuffer.append("delete( " + id + " )\n");
@@ -62,7 +83,57 @@ public abstract class AbstractJSONStore implements JSONStore {
 		this.logBuffer = new StringBuffer();
 	}
 
+	/*
+	 * Internal methods
+	 */
+
 	protected abstract JsonObject loadInternal(String id) throws IOException;
+
 	protected abstract void saveInternal(String id, JsonObject jsonObject) throws IOException;
+
+	protected void saveToArrayInternal(String id, String key, JsonPrimitive jsonPrimitive) throws IOException {
+
+		JsonObject jsonObject = this.load(id);
+
+		if (jsonObject == null) {
+
+			jsonObject = new JsonObject();
+			JsonArray jsonArray = new JsonArray();
+			jsonArray.add(jsonPrimitive);
+			jsonObject.add(key, jsonArray);
+		} else {
+
+			JsonArray jsonArray = jsonObject.getAsJsonArray(key);
+
+			if (jsonArray == null) { 
+
+				jsonArray = new JsonArray();
+				jsonArray.add(jsonPrimitive);
+				jsonObject.add(key, jsonArray);
+			} else {
+
+				if (! new IteratorContains<JsonElement> (jsonArray.iterator(), jsonPrimitive).contains()) jsonArray.add(jsonPrimitive);
+			}
+		}
+
+		this.save(id, jsonObject);
+	}
+
+	protected void saveToObjectInternal(String id, String key, JsonElement jsonElement) throws IOException {
+
+		JsonObject jsonObject = this.load(id);
+
+		if (jsonObject == null) {
+
+			jsonObject = new JsonObject();
+			jsonObject.add(key, jsonElement);
+		} else {
+
+			jsonObject.add(key, jsonElement);
+		}
+
+		this.save(id, jsonObject);
+	}
+
 	protected abstract void deleteInternal(String id) throws IOException;
 }

@@ -21,7 +21,7 @@ public class JSONLiteral extends AbstractLiteral implements Literal {
 
 		JSONContextNode jsonContextNode = (JSONContextNode) this.getContextNode();
 
-		JsonObject jsonObject = jsonContextNode.loadJson();
+		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(jsonContextNode.id);
 
 		return AbstractLiteral.jsonElementToLiteralData(jsonObject.get(XDIConstants.XRI_SS_LITERAL.toString()));
 	}
@@ -31,10 +31,6 @@ public class JSONLiteral extends AbstractLiteral implements Literal {
 
 		JSONContextNode jsonContextNode = (JSONContextNode) this.getContextNode();
 
-		JsonObject jsonObject = jsonContextNode.loadJson();
-
-		jsonObject.add(XDIConstants.XRI_SS_LITERAL.toString(), AbstractLiteral.literalDataToJsonElement(literalData));
-
-		jsonContextNode.saveJson(jsonObject);
+		((JSONGraph) this.getGraph()).jsonSaveToObject(jsonContextNode.id, XDIConstants.XRI_SS_LITERAL.toString(), AbstractLiteral.literalDataToJsonElement(literalData));
 	}
 }
