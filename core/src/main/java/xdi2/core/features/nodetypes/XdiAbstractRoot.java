@@ -235,7 +235,6 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 
 		if (log.isTraceEnabled()) log.trace("isRootArcXri(" + arcXri + ")");
 
-		if (XdiLocalRoot.isLocalRootXri(arcXri)) return true;
 		if (XdiPeerRoot.isPeerRootArcXri(arcXri)) return true;
 		if (XdiInnerRoot.isInnerRootArcXri(arcXri)) return true;
 
