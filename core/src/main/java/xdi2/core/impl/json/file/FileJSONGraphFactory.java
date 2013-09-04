@@ -13,15 +13,9 @@ import xdi2.core.impl.json.JSONStore;
  */
 public class FileJSONGraphFactory extends AbstractJSONGraphFactory implements GraphFactory {
 
-	public static final String DEFAULT_PREFIX = null;
-
-	private String prefix;
-
 	public FileJSONGraphFactory() { 
 
 		super();
-
-		this.prefix = DEFAULT_PREFIX;
 	}
 
 	@Override
@@ -29,12 +23,7 @@ public class FileJSONGraphFactory extends AbstractJSONGraphFactory implements Gr
 
 		// check identifier
 
-		String prefix = this.getPrefix();
-
-		if (prefix == null) {
-
-			prefix = "xdi2-file-json-graph." + identifier;
-		}
+		String prefix = "xdi2-file-json-graph." + identifier;
 
 		// open store
 
@@ -52,15 +41,5 @@ public class FileJSONGraphFactory extends AbstractJSONGraphFactory implements Gr
 		// done
 
 		return jsonStore;
-	}
-
-	public String getPrefix() {
-
-		return this.prefix;
-	}
-
-	public void setPrefix(String prefix) {
-
-		this.prefix = prefix;
 	}
 }

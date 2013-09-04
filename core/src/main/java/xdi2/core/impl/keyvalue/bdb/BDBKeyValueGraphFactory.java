@@ -30,17 +30,14 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 	public static final boolean DEFAULT_SUPPORT_GET_LITERALS = true; 
 
 	public static final String DEFAULT_DATABASE_PATH = "./xdi2-bdb/";
-	public static final String DEFAULT_DATABASE_NAME = null;
 
 	private String databasePath;
-	private String databaseName;
 
 	public BDBKeyValueGraphFactory() { 
 
 		super(DEFAULT_SUPPORT_GET_CONTEXTNODES, DEFAULT_SUPPORT_GET_RELATIONS);
 
 		this.databasePath = DEFAULT_DATABASE_PATH;
-		this.databaseName = DEFAULT_DATABASE_NAME;
 	}
 
 	@Override
@@ -49,12 +46,7 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 		// check identifier
 
 		String databasePath = this.getDatabasePath();
-		String databaseName = this.getDatabaseName();
-
-		if (databaseName == null) {
-
-			databaseName = "xdi2-bdb-keyvalue-graph." + identifier;
-		}
+		String databaseName = "xdi2-bdb-keyvalue-graph." + identifier;
 
 		// open store
 
@@ -88,7 +80,12 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 		return keyValueStore;
 	}
 
-	public void dumpGraph(PrintStream stream) throws IOException {
+	public void dumpGraph(String identifier, PrintStream stream) throws IOException {
+
+		// check identifier
+
+		String databasePath = this.getDatabasePath();
+		String databaseName = "xdi2-bdb-keyvalue-graph." + identifier;
 
 		// we use the current working directory
 
@@ -115,8 +112,8 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 			DatabaseEntry dbKey = new DatabaseEntry();
 			DatabaseEntry dbValue = new DatabaseEntry();
 
-			Environment environment = new Environment(new File(this.getDatabasePath()), environmentConfig);
-			Database database = environment.openDatabase(null, this.getDatabaseName(), databaseConfig);
+			Environment environment = new Environment(new File(databasePath), environmentConfig);
+			Database database = environment.openDatabase(null, databaseName, databaseConfig);
 			Transaction transaction = CurrentTransaction.getInstance(environment).beginTransaction(null);
 			Cursor cursor = database.openCursor(transaction, null);
 
@@ -147,15 +144,5 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 	public void setDatabasePath(String path) {
 
 		this.databasePath = path;
-	}
-
-	public String getDatabaseName() {
-
-		return this.databaseName;
-	}
-
-	public void setDatabaseName(String databaseName) {
-
-		this.databaseName = databaseName;
 	}
 }
