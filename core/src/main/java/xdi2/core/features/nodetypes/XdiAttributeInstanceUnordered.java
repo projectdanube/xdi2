@@ -50,6 +50,15 @@ public final class XdiAttributeInstanceUnordered extends XdiAbstractInstanceUnor
 	}
 
 	/*
+	 * Methods for XRIs
+	 */
+
+	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+
+		return XdiAbstractInstanceUnordered.isValidArcXri(arcXri, true);
+	}
+
+	/*
 	 * Instance methods
 	 */
 

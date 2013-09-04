@@ -5,6 +5,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI unordered entity instance (context function), represented as a context node.
@@ -46,6 +47,15 @@ public final class XdiEntityInstanceUnordered extends XdiAbstractInstanceUnorder
 		if (! isValid(contextNode)) return null;
 
 		return new XdiEntityInstanceUnordered(contextNode);
+	}
+
+	/*
+	 * Methods for XRIs
+	 */
+
+	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+
+		return XdiAbstractInstanceUnordered.isValidArcXri(arcXri, false);
 	}
 
 	/*
