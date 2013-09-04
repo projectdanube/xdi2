@@ -20,6 +20,7 @@ public class FileWrapperGraphFactory extends WrappedGraphFactory implements Grap
 
 	public static final String DEFAULT_MIMETYPE = XDIWriterRegistry.getDefault().getMimeType().toString();
 
+	private String path;
 	private String mimeType;
 
 	public FileWrapperGraphFactory() { 
@@ -34,7 +35,12 @@ public class FileWrapperGraphFactory extends WrappedGraphFactory implements Grap
 
 		// check identifier
 
-		String path = "xdi2-file-wrapper-graph." + identifier + ".xdi";
+		String path = this.getPath();
+
+		if (path == null) {
+
+			path = "xdi2-file-wrapper-graph." + identifier + ".xdi";
+		}
 
 		// initialize graph
 
@@ -42,6 +48,16 @@ public class FileWrapperGraphFactory extends WrappedGraphFactory implements Grap
 		XDIWriter xdiWriter = XDIWriterRegistry.forMimeType(this.mimeType == null ? null : new MimeType(this.mimeType));
 
 		return new FileWrapperStore(path, this.mimeType, xdiReader, xdiWriter);
+	}
+
+	public String getPath() {
+
+		return this.path;
+	}
+
+	public void setPath(String path) {
+
+		this.path = path;
 	}
 
 	public String getMimeType() {
