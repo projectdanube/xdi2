@@ -56,6 +56,20 @@ public abstract class DigestSecretTokenAuthenticator implements SecretTokenAuthe
 		return digestSecretToken.equals(digestSecretToken(secretToken, this.getGlobalSalt(), localSalt));
 	}
 
+	public String getGlobalSalt() {
+
+		return this.globalSalt;
+	}
+
+	public void setGlobalSalt(String globalSalt) {
+
+		this.globalSalt = globalSalt;
+	}
+
+	/*
+	 * Helper methods
+	 */
+	
 	public static String localSaltAndDigestSecretToken(String secretToken, String globalSalt) {
 
 		String localSalt = randomSalt();
@@ -108,7 +122,7 @@ public abstract class DigestSecretTokenAuthenticator implements SecretTokenAuthe
 
 		if (args.length < 2 || args.length > 3) {
 
-			System.out.println("Parameters: secretToken globalSalt [localSalt]");
+			usage();
 			return;
 		}
 
@@ -126,13 +140,8 @@ public abstract class DigestSecretTokenAuthenticator implements SecretTokenAuthe
 		System.out.println(localSaltAndDigestSecretToken);
 	}
 
-	public String getGlobalSalt() {
+	private static void usage() {
 
-		return this.globalSalt;
-	}
-
-	public void setGlobalSalt(String globalSalt) {
-
-		this.globalSalt = globalSalt;
+		System.out.println("Parameters: secretToken globalSalt [localSalt]");
 	}
 }

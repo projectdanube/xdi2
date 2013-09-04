@@ -48,6 +48,6 @@ public class EndpointServerStandalone {
 
 	private static void usage() {
 
-		System.out.println("Usage: java -jar xdi2-server-standalone-XXX.one-jar.jar <path-to-applicationContext.xml> <path-to-jetty-applicationContext.xml>");
+		System.out.println("Usage: java -jar xdi2-server-standalone-XXX.one-jar.jar [path-to-applicationContext.xml] [path-to-jetty-applicationContext.xml]");
 	}
 }
