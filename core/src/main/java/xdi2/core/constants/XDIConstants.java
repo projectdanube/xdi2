@@ -37,7 +37,6 @@ public class XDIConstants {
 	public static final XDI3SubSegment XRI_SS_TRUE = XDI3SubSegment.create("$true");
 	public static final XDI3SubSegment XRI_SS_FALSE = XDI3SubSegment.create("$false");
 
-	public static final XDI3SubSegment XRI_SS_ROOT = XDI3SubSegment.create(XDIConstants.XS_ROOT);
 	public static final XDI3SubSegment XRI_SS_CONTEXT = XDI3SubSegment.create(XDIConstants.XS_ROOT);
 	public static final XDI3SubSegment XRI_SS_LITERAL = XDI3SubSegment.create(XDIConstants.CS_VALUE.toString());
 
