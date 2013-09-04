@@ -148,8 +148,6 @@ public abstract class AbstractContextNode implements ContextNode {
 		return null;
 	}
 
-	//	public ContextNode getContextNode(XDI3SubSegment contextNodeArcXri);
-
 	@Override
 	public ContextNode getDeepContextNode(XDI3Segment contextNodeXri) {
 
