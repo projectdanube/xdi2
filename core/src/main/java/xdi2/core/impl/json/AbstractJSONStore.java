@@ -3,6 +3,7 @@ package xdi2.core.impl.json;
 import java.io.IOException;
 
 import xdi2.core.util.iterators.IteratorContains;
+import xdi2.core.util.iterators.IteratorRemover;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -60,6 +61,22 @@ public abstract class AbstractJSONStore implements JSONStore {
 		if (this.getLogEnabled()) this.logBuffer.append("delete( " + id + " )\n");
 
 		this.deleteInternal(id);
+	}
+
+	@Override
+	public final void deleteFromArray(String id, String key, JsonPrimitive jsonPrimitive) throws IOException {
+
+		if (this.getLogEnabled()) this.logBuffer.append("deleteFromArray( " + id + " , " + key + " , " + jsonPrimitive + " )\n");
+
+		this.deleteFromArrayInternal(id, key, jsonPrimitive);
+	}
+
+	@Override
+	public final void deleteFromObject(String id, String key) throws IOException {
+
+		if (this.getLogEnabled()) this.logBuffer.append("deleteFromObject( " + id + " , " + key + " )\n");
+
+		this.deleteFromObjectInternal(id, key);
 	}
 
 	public StringBuffer getLogBuffer() {
@@ -136,4 +153,27 @@ public abstract class AbstractJSONStore implements JSONStore {
 	}
 
 	protected abstract void deleteInternal(String id) throws IOException;
+
+	protected void deleteFromArrayInternal(String id, String key, JsonPrimitive jsonPrimitive) throws IOException {
+
+		JsonObject jsonObject = this.load(id);
+		if (jsonObject == null) return;
+
+		JsonArray jsonArray = jsonObject.getAsJsonArray(key);
+		if (jsonArray == null) return;
+
+		new IteratorRemover<JsonElement> (jsonArray.iterator(), jsonPrimitive).remove();
+
+		this.save(id, jsonObject);
+	}
+
+	protected void deleteFromObjectInternal(String id, String key) throws IOException {
+
+		JsonObject jsonObject = this.load(id);
+		if (jsonObject == null) return;
+
+		jsonObject.remove(key);
+
+		this.save(id, jsonObject);
+	}
 }

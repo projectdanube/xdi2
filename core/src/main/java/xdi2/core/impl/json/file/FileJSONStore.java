@@ -43,7 +43,7 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 	@Override
 	protected JsonObject loadInternal(String id) throws IOException {
 
-		String filename = filename(this.getPrefix(), id);
+		String filename = filename(this.getPrefix(), id) + ".json";
 
 		File file = new File(filename);
 		if (! file.exists()) return null;
@@ -60,7 +60,7 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 	@Override
 	protected void saveInternal(String id, JsonObject object) throws IOException {
 
-		String filename = filename(this.getPrefix(), id);
+		String filename = filename(this.getPrefix(), id) + ".json";
 
 		FileWriter fileWriter = new FileWriter(new File(filename));
 		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -78,12 +78,14 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 	@Override
 	protected void deleteInternal(final String id) throws IOException {
 
+		final String baseFilename = filename(this.getPrefix(), id);
+
 		File[] files = new File(".").listFiles(new FilenameFilter() {
 
 			@Override
 			public boolean accept(File file, String filename) {
 
-				return filename.startsWith(id);
+				return filename.startsWith(baseFilename) && filename.endsWith(".json");
 			}
 		});
 
@@ -116,8 +118,6 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 
 			throw new Xdi2RuntimeException(ex.getMessage(), ex);
 		}
-
-		buffer.append(".json");
 
 		return buffer.toString();
 	}

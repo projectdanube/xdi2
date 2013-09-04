@@ -2,7 +2,9 @@ package xdi2.core.impl.json;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.GraphFactory;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.AbstractGraph;
 import xdi2.core.util.iterators.IteratorContains;
+import xdi2.core.util.iterators.IteratorRemover;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -36,7 +40,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonStore = jsonStore;
 
-		this.jsonRootContextNode = new JSONContextNode(this, null, "()", null);
+		this.jsonRootContextNode = new JSONContextNode(this, null, null, XDIConstants.XRI_S_ROOT);
 		this.jsonObjects = new HashMap<String, JsonObject> ();
 	}
 
@@ -168,7 +172,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 			this.jsonObjects.put(id, jsonObject);
 		} catch (IOException ex) {
 
-			throw new Xdi2RuntimeException("Cannot save JSON to array at " + id + ": " + ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Cannot save JSON to array " + id + ": " + ex.getMessage(), ex);
 		}
 	}
 
@@ -194,7 +198,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 			this.jsonObjects.put(id, jsonObject);
 		} catch (IOException ex) {
 
-			throw new Xdi2RuntimeException("Cannot save JSON to array at " + id + ": " + ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Cannot save JSON to object " + id + ": " + ex.getMessage(), ex);
 		}
 	}
 
@@ -205,10 +209,57 @@ public class JSONGraph extends AbstractGraph implements Graph {
 		try {
 
 			this.jsonStore.delete(id);
-			this.jsonObjects.remove(id);
+
+			for (Iterator<Entry<String, JsonObject>> iterator = this.jsonObjects.entrySet().iterator(); iterator.hasNext(); ) {
+
+				if (iterator.next().getKey().startsWith(id)) iterator.remove();
+			}
 		} catch (IOException ex) {
 
-			throw new Xdi2RuntimeException("Cannot delete JSON at " + id + ": " + ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Cannot delete JSON " + id + ": " + ex.getMessage(), ex);
+		}
+	}
+
+	void jsonDeleteFromArray(String id, String key, JsonPrimitive jsonPrimitive) {
+
+		if (log.isTraceEnabled()) log.trace("Removing JSON from array " + id + " at " + key);
+
+		try {
+
+			this.jsonStore.deleteFromArray(id, key, jsonPrimitive);
+
+			JsonObject jsonObject = this.jsonObjects.get(id);
+			if (jsonObject == null) return;
+
+			JsonArray jsonArray = jsonObject.getAsJsonArray(key);
+			if (jsonArray == null) return;
+
+			new IteratorRemover<JsonElement> (jsonArray.iterator(), jsonPrimitive).remove();
+
+			this.jsonObjects.put(id, jsonObject);
+		} catch (IOException ex) {
+
+			throw new Xdi2RuntimeException("Cannot remove JSON from array " + id + ": " + ex.getMessage(), ex);
+		}
+	}
+
+	void jsonDeleteFromObject(String id, String key) {
+
+		if (log.isTraceEnabled()) log.trace("Removing JSON from object " + id + " at " + key);
+
+		try {
+
+			this.jsonStore.deleteFromObject(id, key);
+
+			JsonObject jsonObject = this.jsonObjects.get(id);
+			if (jsonObject == null) return;
+
+			jsonObject.remove(key);
+
+			this.jsonObjects.put(id, jsonObject);
+		} catch (IOException ex) {
+
+			throw new Xdi2RuntimeException("Cannot remove JSON from object " + id + ": " + ex.getMessage(), ex);
 		}
 	}
 }

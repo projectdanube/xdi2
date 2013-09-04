@@ -22,4 +22,6 @@ public interface JSONStore {
 	public void saveToArray(String id, String key, JsonPrimitive jsonPrimitive) throws IOException;
 	public void saveToObject(String id, String key, JsonElement jsonElement) throws IOException;
 	public void delete(String id) throws IOException;
+	public void deleteFromArray(String id, String key, JsonPrimitive jsonPrimitive) throws IOException;
+	public void deleteFromObject(String id, String key) throws IOException;
 }
