@@ -13,7 +13,7 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance implements XdiInstanceUnordered {
+public abstract class XdiAbstractInstanceUnordered<C extends XdiClass<C, U, O, I>, U extends XdiInstanceUnordered<C, U, O, I>, O extends XdiInstanceOrdered<C, U, O, I>, I extends XdiInstance<C, U, O, I>> extends XdiAbstractInstance<C, U, O, I> implements XdiInstanceUnordered<C, U, O, I> {
 
 	private static final long serialVersionUID = -8496645644143069191L;
 
@@ -42,9 +42,9 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 	 * @param contextNode The context node that is an XDI unordered instance.
 	 * @return The XDI unordered instance.
 	 */
-	public static XdiInstanceUnordered fromContextNode(ContextNode contextNode) {
+	public static XdiInstanceUnordered<?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
-		XdiInstanceUnordered xdiInstance;
+		XdiInstanceUnordered<?, ?, ?, ?> xdiInstance;
 
 		if ((xdiInstance = XdiEntityInstanceUnordered.fromContextNode(contextNode)) != null) return xdiInstance;
 		if ((xdiInstance = XdiAttributeInstanceUnordered.fromContextNode(contextNode)) != null) return xdiInstance;
@@ -112,14 +112,14 @@ public abstract class XdiAbstractInstanceUnordered extends XdiAbstractInstance i
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiInstanceUnorderedIterator extends NotNullIterator<XdiInstanceUnordered> {
+	public static class MappingContextNodeXdiInstanceUnorderedIterator extends NotNullIterator<XdiInstanceUnordered<?, ?, ?, ?>> {
 
 		public MappingContextNodeXdiInstanceUnorderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiInstanceUnordered> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiInstanceUnordered<?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiInstanceUnordered map(ContextNode contextNode) {
+				public XdiInstanceUnordered<?, ?, ?, ?> map(ContextNode contextNode) {
 
 					return XdiAbstractInstanceUnordered.fromContextNode(contextNode);
 				}

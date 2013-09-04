@@ -12,7 +12,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered implements XdiEntityInstance {
+public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered<XdiEntityClass, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance> implements XdiEntityInstance {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 

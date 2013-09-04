@@ -6,7 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
-public abstract class XdiAbstractInstance extends XdiAbstractSubGraph implements XdiInstance {
+public abstract class XdiAbstractInstance<C extends XdiClass<C, U, O, I>, U extends XdiInstanceUnordered<C, U, O, I>, O extends XdiInstanceOrdered<C, U, O, I>, I extends XdiInstance<C, U, O, I>> extends XdiAbstractSubGraph implements XdiInstance<C, U, O, I> {
 
 	private static final long serialVersionUID = 3673396905245169194L;
 
@@ -35,9 +35,9 @@ public abstract class XdiAbstractInstance extends XdiAbstractSubGraph implements
 	 * @param contextNode The context node that is an XDI instance.
 	 * @return The XDI instance.
 	 */
-	public static XdiInstance fromContextNode(ContextNode contextNode) {
+	public static XdiInstance<?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
-		XdiInstance xdiInstance = null;
+		XdiInstance<?, ?, ?, ?> xdiInstance = null;
 
 		if ((xdiInstance = XdiAbstractInstanceUnordered.fromContextNode(contextNode)) != null) return xdiInstance;
 		if ((xdiInstance = XdiAbstractInstanceOrdered.fromContextNode(contextNode)) != null) return xdiInstance;
@@ -49,14 +49,14 @@ public abstract class XdiAbstractInstance extends XdiAbstractSubGraph implements
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiInstanceIterator extends NotNullIterator<XdiInstance> {
+	public static class MappingContextNodeXdiInstanceIterator extends NotNullIterator<XdiInstance<?, ?, ?, ?>> {
 
 		public MappingContextNodeXdiInstanceIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiInstance> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiInstance<?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiInstance map(ContextNode contextNode) {
+				public XdiInstance<?, ?, ?, ?> map(ContextNode contextNode) {
 
 					return XdiAbstractInstance.fromContextNode(contextNode);
 				}

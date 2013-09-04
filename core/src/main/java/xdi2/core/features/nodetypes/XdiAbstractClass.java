@@ -19,7 +19,7 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends XdiInstanceOrdered, I extends XdiInstance> extends XdiAbstractSubGraph implements XdiClass<U, O, I> {
+public abstract class XdiAbstractClass<C extends XdiClass<C, U, O, I>, U extends XdiInstanceUnordered<C, U, O, I>, O extends XdiInstanceOrdered<C, U, O, I>, I extends XdiInstance<C, U, O, I>> extends XdiAbstractSubGraph implements XdiClass<C, U, O, I> {
 
 	private static final long serialVersionUID = -1976646316893343570L;
 
@@ -58,14 +58,14 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 	 * @param contextNode The context node that is an XDI class.
 	 * @return The XDI class.
 	 */
-	public static XdiAbstractClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance> fromContextNode(ContextNode contextNode) {
+	public static XdiClass<?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
-		XdiAbstractClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance> xdiClass;
+		XdiClass<? extends XdiClass<?, ?, ?, ?>, ? extends XdiInstanceUnordered<?, ?, ?, ?>, ? extends XdiInstanceOrdered<?, ?, ?, ?>, ? extends XdiInstance<?, ?, ?, ?>> xdiClass;
 
 		if ((xdiClass = XdiEntityClass.fromContextNode(contextNode)) != null) return xdiClass;
 		if ((xdiClass = XdiAttributeClass.fromContextNode(contextNode)) != null) return xdiClass;
 
-		return null;
+		return xdiClass;
 	}
 
 	/*
@@ -225,9 +225,9 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 
 		boolean attribute;
 
-		if (this instanceof XdiAttributeClass)
+		if (XdiAttributeClass.class.isAssignableFrom(this.getClass()))
 			attribute = true;
-		else if (this instanceof XdiEntityClass)
+		else if (XdiEntityClass.class.isAssignableFrom(this.getClass()))
 			attribute = false;
 		else
 			throw new IllegalStateException("Invalid XDI class: " + this.getClass().getSimpleName());
@@ -239,14 +239,14 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiClassIterator extends NotNullIterator<XdiClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance>> {
+	public static class MappingContextNodeXdiClassIterator extends NotNullIterator<XdiClass<?, ?, ?, ?>> {
 
 		public MappingContextNodeXdiClassIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance>> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiClass<?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiClass<? extends XdiInstanceUnordered, ? extends XdiInstanceOrdered, ? extends XdiInstance> map(ContextNode contextNode) {
+				public XdiClass<?, ?, ?, ?> map(ContextNode contextNode) {
 
 					return XdiAbstractClass.fromContextNode(contextNode);
 				}
@@ -258,7 +258,7 @@ public abstract class XdiAbstractClass<U extends XdiInstanceUnordered, O extends
 
 		public XdiInstancesUnorderedIterator() {
 
-			super(new CastingIterator<XdiInstanceUnordered, U> (new MappingContextNodeXdiInstanceUnorderedIterator(XdiAbstractClass.this.getContextNode().getContextNodes())));
+			super(new CastingIterator<XdiInstanceUnordered<?, ?, ?, ?>, U> (new MappingContextNodeXdiInstanceUnorderedIterator(XdiAbstractClass.this.getContextNode().getContextNodes())));
 		}
 	}
 

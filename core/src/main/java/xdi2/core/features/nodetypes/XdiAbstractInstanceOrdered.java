@@ -8,7 +8,7 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractInstanceOrdered extends XdiAbstractInstance implements XdiInstanceOrdered {
+public abstract class XdiAbstractInstanceOrdered<C extends XdiClass<C, U, O, I>, U extends XdiInstanceUnordered<C, U, O, I>, O extends XdiInstanceOrdered<C, U, O, I>, I extends XdiInstance<C, U, O, I>> extends XdiAbstractInstance<C, U, O, I> implements XdiInstanceOrdered<C, U, O, I> {
 
 	private static final long serialVersionUID = 8283064321616435273L;
 
@@ -37,9 +37,9 @@ public abstract class XdiAbstractInstanceOrdered extends XdiAbstractInstance imp
 	 * @param contextNode The context node that is an XDI ordered instance.
 	 * @return The XDI ordered instance.
 	 */
-	public static XdiInstanceOrdered fromContextNode(ContextNode contextNode) {
+	public static XdiInstanceOrdered<?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
-		XdiInstanceOrdered xdiElement;
+		XdiInstanceOrdered<?, ?, ?, ?> xdiElement;
 
 		if ((xdiElement = XdiEntityInstanceOrdered.fromContextNode(contextNode)) != null) return xdiElement;
 		if ((xdiElement = XdiAttributeInstanceOrdered.fromContextNode(contextNode)) != null) return xdiElement;
@@ -76,14 +76,14 @@ public abstract class XdiAbstractInstanceOrdered extends XdiAbstractInstance imp
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiInstanceOrderedIterator extends NotNullIterator<XdiInstanceOrdered> {
+	public static class MappingContextNodeXdiInstanceOrderedIterator extends NotNullIterator<XdiInstanceOrdered<?, ?, ?, ?>> {
 
 		public MappingContextNodeXdiInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiInstanceOrdered> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiInstanceOrdered<?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiInstanceOrdered map(ContextNode contextNode) {
+				public XdiInstanceOrdered<?, ?, ?, ?> map(ContextNode contextNode) {
 
 					return XdiAbstractInstanceOrdered.fromContextNode(contextNode);
 				}
