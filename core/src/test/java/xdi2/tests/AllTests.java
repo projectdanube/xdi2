@@ -5,6 +5,7 @@ import junit.framework.TestSuite;
 import xdi2.tests.core.features.datatypes.DataTypesTest;
 import xdi2.tests.core.features.dictionary.DictionaryTest;
 import xdi2.tests.core.features.equivalence.EquivalenceTest;
+import xdi2.tests.core.features.linkcontracts.LinkContractsTest;
 import xdi2.tests.core.features.nodetypes.InnerRootsTest;
 import xdi2.tests.core.features.nodetypes.LocalRootsTest;
 import xdi2.tests.core.features.nodetypes.NodeTypesTest;
@@ -57,6 +58,7 @@ public class AllTests {
 		suite.addTestSuite(DictionaryTest.class);
 		suite.addTestSuite(EquivalenceTest.class);
 		suite.addTestSuite(NodeTypesTest.class);
+		suite.addTestSuite(LinkContractsTest.class);
 		suite.addTestSuite(RootsTest.class);
 		suite.addTestSuite(LocalRootsTest.class);
 		suite.addTestSuite(PeerRootsTest.class);

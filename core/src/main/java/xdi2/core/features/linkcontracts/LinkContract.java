@@ -8,6 +8,7 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityInstance;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -39,7 +40,16 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
-		return xdiEntity.getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_DO);
+		if (xdiEntity instanceof XdiEntitySingleton) {
+
+			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_DO);
+		} else if (xdiEntity instanceof XdiEntityInstance) {
+
+			return ((XdiEntityInstance) xdiEntity).getXdiClass().getBaseArcXri().equals(XDILinkContractConstants.XRI_SS_DO);
+		} else {
+
+			return false;
+		}
 	}
 
 	/**
