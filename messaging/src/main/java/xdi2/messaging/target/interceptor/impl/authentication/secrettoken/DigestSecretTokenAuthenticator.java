@@ -117,31 +117,4 @@ public abstract class DigestSecretTokenAuthenticator implements SecretTokenAuthe
 
 		return true;
 	}
-
-	public static void main(String[] args) {
-
-		if (args.length < 2 || args.length > 3) {
-
-			usage();
-			return;
-		}
-
-		String secretToken = args[0];
-		String globalSalt = args[1];
-		String localSalt = args.length > 2 ? args[2] : null;
-
-		String localSaltAndDigestSecretToken;
-
-		if (localSalt == null)
-			localSaltAndDigestSecretToken = localSaltAndDigestSecretToken(secretToken, globalSalt);
-		else
-			localSaltAndDigestSecretToken = localSaltAndDigestSecretToken(secretToken, globalSalt, localSalt);
-
-		System.out.println(localSaltAndDigestSecretToken);
-	}
-
-	private static void usage() {
-
-		System.out.println("Parameters: secretToken globalSalt [localSalt]");
-	}
 }
