@@ -174,7 +174,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 
 		if (log.isTraceEnabled()) log.trace("setRelativeStatement(" + statementXri + ")");
 
-		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri);
+		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri, true);
 
 		return this.getContextNode().getGraph().setStatement(statementXri);
 	}
@@ -184,7 +184,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 
 		if (log.isTraceEnabled()) log.trace("getRelativeStatement(" + statementXri + ")");
 
-		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri);
+		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri, true);
 
 		return this.getContextNode().getGraph().getStatement(statementXri);
 	}
@@ -194,7 +194,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiR
 
 		if (log.isTraceEnabled()) log.trace("containsRelativeStatement(" + statementXri + ")");
 
-		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri);
+		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri, true);
 
 		return this.getContextNode().getGraph().containsStatement(statementXri);
 	}

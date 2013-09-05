@@ -276,7 +276,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// remember that we completed this target
 
-		if (operation instanceof GetOperation) {
+		/*if (operation instanceof GetOperation) {
 
 			XDI3Segment contextNodeXri;
 			
@@ -295,7 +295,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 				addCompletedAddress(executionContext, contextNodeXri);
 			}
-		}
+		}*/
 
 		// follow any $ref and $rep arcs
 
@@ -549,8 +549,6 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 	}
 
 	private static void addCompletedAddress(ExecutionContext executionContext, XDI3Segment contextNodeXri) {
-
-		if ("{}".equals(contextNodeXri.toString())) throw new Error("BLA");
 		
 		getCompletedAddresses(executionContext).add(contextNodeXri);
 

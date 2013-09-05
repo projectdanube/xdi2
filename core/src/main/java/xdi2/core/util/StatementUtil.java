@@ -22,13 +22,13 @@ public final class StatementUtil {
 	 * Concats an XRI and a statement into a new statement.
 	 * E.g. for *c*d&/&/... and =a*b, this returns =a*b*c*d&/&/...
 	 */
-	public static XDI3Statement concatXriStatement(XDI3Segment xri, XDI3Statement statement) {
+	public static XDI3Statement concatXriStatement(XDI3Segment xri, XDI3Statement statement, boolean concatTargetContextNodeXri) {
 
-		if (log.isTraceEnabled()) log.trace("concatXriStatement(" + xri + "," + statement + ")");
+		if (log.isTraceEnabled()) log.trace("concatXriStatement(" + xri + "," + statement + "," + concatTargetContextNodeXri + ")");
 
 		XDI3Segment subject = XDI3Util.concatXris(xri, statement.getSubject());
 		XDI3Segment predicate = statement.getPredicate();
-		Object object = (statement.isRelationStatement() && ! statement.hasInnerRootStatement()) ? XDI3Util.concatXris(xri, (XDI3Segment) statement.getObject()) : statement.getObject();
+		Object object = (statement.isRelationStatement() && ! statement.hasInnerRootStatement() && concatTargetContextNodeXri) ? XDI3Util.concatXris(xri, (XDI3Segment) statement.getObject()) : statement.getObject();
 
 		return XDI3Statement.fromComponents(subject, predicate, object);
 	}
