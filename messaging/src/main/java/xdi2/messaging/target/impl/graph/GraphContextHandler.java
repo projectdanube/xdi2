@@ -91,6 +91,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	 * Operations on context node statements
 	 */
 
+	@Override
 	public void executeGetOnContextNodeStatement(XDI3Statement contextNodeStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXri();
