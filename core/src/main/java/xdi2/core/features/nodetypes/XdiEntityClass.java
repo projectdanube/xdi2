@@ -33,7 +33,9 @@ public final class XdiEntityClass extends XdiAbstractClass<XdiEntityClass, XdiEn
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return isValidArcXri(contextNode.getArcXri());
+		return 
+				isValidArcXri(contextNode.getArcXri()) &&
+				( ! XdiAttributeClass.isValid(contextNode.getContextNode()) && ! XdiAttributeInstanceUnordered.isValid(contextNode.getContextNode()) && ! XdiAttributeInstanceOrdered.isValid(contextNode.getContextNode()) );
 	}
 
 	/**
@@ -67,10 +69,7 @@ public final class XdiEntityClass extends XdiAbstractClass<XdiEntityClass, XdiEn
 		if (XDIConstants.CS_PLUS.equals(arcXri.getCs()) || XDIConstants.CS_DOLLAR.equals(arcXri.getCs())) {
 
 			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
-		} else if (XDIConstants.CS_EQUALS.equals(arcXri.getCs()) || XDIConstants.CS_AT.equals(arcXri.getCs())) {
-
-			if (arcXri.hasLiteral() || arcXri.hasXRef()) return false;
-		} else if (XDIConstants.CS_STAR.equals(arcXri.getCs()) || XDIConstants.CS_BANG.equals(arcXri.getCs())) {
+		} else if (XDIConstants.CS_EQUALS.equals(arcXri.getCs()) || XDIConstants.CS_AT.equals(arcXri.getCs()) || XDIConstants.CS_STAR.equals(arcXri.getCs()) || XDIConstants.CS_BANG.equals(arcXri.getCs())) {
 
 			if (arcXri.hasLiteral() || arcXri.hasXRef()) return false;
 		} else {

@@ -161,9 +161,12 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 				// execute sub-contributors (address)
 
-				if (contributor.getContributors().executeContributorsAddress(nextContributorChainXris, nextRelativeTargetAddress, operation, operationMessageResult, executionContext)) {
+				if (! contributor.getContributors().isEmpty()) {
 
-					return true;
+					if (contributor.getContributors().executeContributorsAddress(nextContributorChainXris, nextRelativeTargetAddress, operation, operationMessageResult, executionContext)) {
+
+						return true;
+					}
 				}
 
 				// execute contributor (address)
@@ -241,9 +244,12 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 				// execute sub-contributors (statement)
 
-				if (contributor.getContributors().executeContributorsStatement(nextContributorChainXris, nextRelativeTargetStatement, operation, operationMessageResult, executionContext)) {
+				if (! contributor.getContributors().isEmpty()) {
 
-					return true;
+					if (contributor.getContributors().executeContributorsStatement(nextContributorChainXris, nextRelativeTargetStatement, operation, operationMessageResult, executionContext)) {
+
+						return true;
+					}
 				}
 
 				// execute contributor (statement)

@@ -136,7 +136,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		this.executeGetOnAddress(targetAddress, operation, tempMessageResult, executionContext);
 
-		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnContextNodeStatement(targetStatement, operation, tempMessageResult, executionContext);
+		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
 	}
 
 	public void executeSetOnContextNodeStatement(XDI3Statement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -169,7 +169,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		this.executeGetOnAddress(targetAddress, operation, tempMessageResult, executionContext);
 
-		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnRelationStatement(targetStatement, operation, tempMessageResult, executionContext);
+		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnRelationStatement(targetStatement, operation, messageResult, executionContext);
 	}
 
 	public void executeSetOnRelationStatement(XDI3Statement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -196,7 +196,7 @@ public abstract class AbstractContextHandler implements StatementHandler, Addres
 
 		this.executeGetOnAddress(targetAddress, operation, tempMessageResult, executionContext);
 
-		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnLiteralStatement(targetStatement, operation, tempMessageResult, executionContext);
+		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 	}
 
 	public void executeSetOnLiteralStatement(XDI3Statement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
