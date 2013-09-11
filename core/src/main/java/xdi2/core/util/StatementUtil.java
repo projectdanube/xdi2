@@ -3,7 +3,6 @@ package xdi2.core.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -75,16 +74,5 @@ public final class StatementUtil {
 	public static XDI3Statement removeStartXriStatement(XDI3Statement statement, XDI3Segment start, boolean removeFromTargetContextNodeXri) {
 
 		return removeStartXriStatement(statement, start, removeFromTargetContextNodeXri, false, false);
-	}
-
-	public static String statementObjectToStringg(XDI3Statement statement) {
-
-		if (statement.isLiteralStatement()) {
-
-			return AbstractLiteral.literalDataToString(statement.getObject());
-		} else {
-
-			return ((XDI3Segment) statement.getObject()).toString();
-		}
 	}
 }
