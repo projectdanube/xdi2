@@ -11,11 +11,14 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
-import xdi2.core.Statement.ContextNodeStatement;
-import xdi2.core.Statement.LiteralStatement;
-import xdi2.core.Statement.RelationStatement;
+import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.nodetypes.XdiAbstractAttribute;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
+import xdi2.core.features.nodetypes.XdiAbstractRoot;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
@@ -42,9 +45,9 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	public static final String FILE_EXTENSION = "xdi";
 	public static final MimeType MIME_TYPE = new MimeType("text/xdi");
 
-	private static final String HTML_COLOR_CONTEXTNODE = "#000000";
-	private static final String HTML_COLOR_RELATION = "#ff8888";
-	private static final String HTML_COLOR_LITERAL = "#8888ff";
+	private static final String HTML_COLOR_ROOT = "#ff7f7f";
+	private static final String HTML_COLOR_ENTITY = "#7fff7f";
+	private static final String HTML_COLOR_ATTRIBUTE = "#7f7fff";
 
 	private boolean writeImplied;
 	private boolean writeOrdered;
@@ -113,29 +116,15 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
+			this.writeStatement(bufferedWriter, statement);
+
 			// HTML output
 
 			if (this.writeHtml) {
 
-				if (statement instanceof ContextNodeStatement) {
-
-					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_CONTEXTNODE + "\">");
-					this.writeStatement(bufferedWriter, statement);
-					bufferedWriter.write("</span>\n");
-				} else if (statement instanceof RelationStatement) {
-
-					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_RELATION + "\">");
-					this.writeStatement(bufferedWriter, statement);
-					bufferedWriter.write("</span>\n");
-				} else if (statement instanceof LiteralStatement) {
-
-					bufferedWriter.write("<span style=\"color:" + HTML_COLOR_LITERAL + "\">");
-					this.writeStatement(bufferedWriter, statement);
-					bufferedWriter.write("</span>\n");
-				}
+				bufferedWriter.write("<br>\n");
 			} else {
 
-				this.writeStatement(bufferedWriter, statement);
 				bufferedWriter.write("\n");
 			}
 		}
@@ -159,18 +148,107 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		// write the statement
 
-		StringBuilder builder = new StringBuilder();
+		this.writeContextNodeXri(bufferedWriter, statementXri.getSubject());
+		this.writeSeparator(bufferedWriter);
+		this.writePredicateXri(bufferedWriter, statementXri.getPredicate());
+		this.writeSeparator(bufferedWriter);
 
-		builder.append(statementXri.getSubject());
-		builder.append(this.writePretty ? "\t" : "/");
-		builder.append(statementXri.getPredicate());
-		builder.append(this.writePretty ? "\t" : "/");
-		builder.append(statementXri.getObjectAsString());
+		if (statementXri.isContextNodeStatement()) {
 
-		String string = builder.toString();
-		if (this.writePretty && this.writeHtml) string = string.replaceAll("\t", "&#9;");
+			this.writeContextNodeArcXri(bufferedWriter, statementXri.getSubject(), (XDI3SubSegment) statementXri.getObject());
+		} else if (statementXri.isRelationStatement()) {
 
-		bufferedWriter.write(string);
+			this.writeContextNodeXri(bufferedWriter, (XDI3Segment) statementXri.getObject());
+		} else if (statementXri.isLiteralStatement()) {
+
+			this.writeLiteralData(bufferedWriter, statement.getObject());
+		}
+	}
+
+	private void writeSeparator(BufferedWriter bufferedWriter) throws IOException {
+
+		if (this.writePretty && this.writeHtml) {
+
+			bufferedWriter.write("&#9;/&#9;");
+		} else if (this.writePretty) {
+
+			bufferedWriter.write("\t/\t");
+		} else {
+
+			bufferedWriter.write("/");
+		}
+	}
+
+	private void writeContextNodeXri(BufferedWriter bufferedWriter, XDI3Segment contextNodeXri) throws IOException {
+
+		if (this.writeHtml) {
+
+			ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode();
+
+			for (XDI3SubSegment contextNodeArcXri : contextNodeXri.getSubSegments()) {
+
+				this.writeContextNodeArcXri(bufferedWriter, contextNode, contextNodeArcXri);
+
+				if (! XDIConstants.XRI_S_ROOT.equals(contextNodeArcXri)) {
+
+					try {
+
+						contextNode = contextNode.setContextNode(contextNodeArcXri);
+					} catch (Exception ex) {
+
+						contextNode = null;
+					}
+				}
+			}
+		} else {
+
+			bufferedWriter.write(contextNodeXri.toString());
+		}
+	}
+
+	private void writeContextNodeArcXri(BufferedWriter bufferedWriter, XDI3Segment contextNodeXri, XDI3SubSegment contextNodeArcXri) throws IOException {
+
+		ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode();
+
+		if (! XDIConstants.XRI_S_ROOT.equals(contextNodeXri)) {
+
+			contextNode = contextNode.setDeepContextNode(contextNodeXri);
+		}
+
+		this.writeContextNodeArcXri(bufferedWriter, contextNode, contextNodeArcXri);
+	}
+
+	private void writeContextNodeArcXri(BufferedWriter bufferedWriter, ContextNode contextNode, XDI3SubSegment contextNodeArcXri) throws IOException {
+
+		if (! XDIConstants.XRI_S_ROOT.equals(contextNodeArcXri)) {
+
+			try {
+
+				contextNode = contextNode.setContextNode(contextNodeArcXri);
+			} catch (Exception ex) {
+
+				contextNode = null;
+			}
+		}
+
+		String htmlColorString = null;
+		if (contextNode != null && XdiAbstractRoot.isValid(contextNode)) htmlColorString = HTML_COLOR_ROOT;
+		if (contextNode != null && XdiAbstractEntity.isValid(contextNode)) htmlColorString = HTML_COLOR_ENTITY;
+		if (contextNode != null && XdiAbstractAttribute.isValid(contextNode)) htmlColorString = HTML_COLOR_ATTRIBUTE;
+
+		if (htmlColorString != null) bufferedWriter.write("<span style=\"background-color:" + htmlColorString + "\">");
+		bufferedWriter.write(contextNodeArcXri.toString());
+		if (htmlColorString != null) bufferedWriter.write("</span>");
+	}
+
+	private void writePredicateXri(BufferedWriter bufferedWriter, XDI3Segment predicateXri) throws IOException {
+
+		bufferedWriter.write(predicateXri.toString());
+	}
+
+	private void writeLiteralData(BufferedWriter bufferedWriter, Object literalData) throws IOException {
+
+		bufferedWriter.write(AbstractLiteral.literalDataToString(literalData));
 	}
 
 	private static XDI3Statement transformStatementInInnerRoot(XDI3Statement statementXri) {

@@ -25,7 +25,7 @@
 
 	<% } %>
 
-	<form action="XDIConverter" method="post">
+	<form action="XDIConverter" method="post" id="form">
 
 		<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 
@@ -60,7 +60,8 @@
 
 		<input name="writePretty" type="checkbox" <%= writePretty.equals("on") ? "checked" : "" %>>pretty=1
 
-		<input type="submit" value="Go!">
+		<input type="submit" name="submit" value="Go!" onclick="document.getElementById('form').removeAttribute('target')">
+		<input type="submit" name="submit" value="Html!" onclick="document.getElementById('form').setAttribute('target','_blank')">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIConverterHelp.jsp">What can I do here?</a>
 
 	</form>
