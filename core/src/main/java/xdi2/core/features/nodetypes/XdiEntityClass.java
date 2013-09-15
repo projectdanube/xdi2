@@ -13,13 +13,13 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiEntityClass extends XdiAbstractClass<XdiEntityClass, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance> implements XdiClass<XdiEntityClass, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance> {
+public final class XdiEntityClass extends XdiAbstractCollection<XdiEntityClass, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> implements XdiCollection<XdiEntityClass, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> {
 
 	private static final long serialVersionUID = -8518618921427437445L;
 
 	protected XdiEntityClass(ContextNode contextNode) {
 
-		super(contextNode, XdiEntityInstanceUnordered.class, XdiEntityInstanceOrdered.class, XdiEntityInstance.class);
+		super(contextNode, XdiEntityMemberUnordered.class, XdiEntityMemberOrdered.class, XdiEntityMember.class);
 	}
 
 	/*
@@ -35,7 +35,7 @@ public final class XdiEntityClass extends XdiAbstractClass<XdiEntityClass, XdiEn
 
 		return 
 				isValidArcXri(contextNode.getArcXri()) &&
-				( ! XdiAttributeClass.isValid(contextNode.getContextNode()) && ! XdiAttributeInstanceUnordered.isValid(contextNode.getContextNode()) && ! XdiAttributeInstanceOrdered.isValid(contextNode.getContextNode()) );
+				( ! XdiAttributeClass.isValid(contextNode.getContextNode()) && ! XdiAttributeMemberUnordered.isValid(contextNode.getContextNode()) && ! XdiAttributeMemberOrdered.isValid(contextNode.getContextNode()) );
 	}
 
 	/**

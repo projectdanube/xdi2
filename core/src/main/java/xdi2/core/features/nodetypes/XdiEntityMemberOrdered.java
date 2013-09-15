@@ -12,11 +12,11 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered<XdiEntityClass, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance> implements XdiEntityInstance {
+public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEntityClass, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> implements XdiEntityMember {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 
-	protected XdiEntityInstanceOrdered(ContextNode contextNode) {
+	protected XdiEntityMemberOrdered(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -34,7 +34,7 @@ public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered<X
 
 		return
 				isValidArcXri(contextNode.getArcXri()) &&
-				( XdiEntityClass.isValid(contextNode.getContextNode()) || XdiEntityInstanceOrdered.isValid(contextNode.getContextNode()) );
+				( XdiEntityClass.isValid(contextNode.getContextNode()) || XdiEntityMemberOrdered.isValid(contextNode.getContextNode()) );
 	}
 
 	/**
@@ -42,11 +42,11 @@ public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered<X
 	 * @param contextNode The context node that is an XDI ordered entity instance.
 	 * @return The XDI ordered entity instance.
 	 */
-	public static XdiEntityInstanceOrdered fromContextNode(ContextNode contextNode) {
+	public static XdiEntityMemberOrdered fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiEntityInstanceOrdered(contextNode);
+		return new XdiEntityMemberOrdered(contextNode);
 	}
 
 	/*
@@ -55,7 +55,7 @@ public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered<X
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiAbstractInstanceOrdered.isValidArcXri(arcXri, false);
+		return XdiAbstractMemberOrdered.isValidArcXri(arcXri, false);
 	}
 
 	/*
@@ -67,7 +67,7 @@ public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered<X
 	 * @return The parent XDI class.
 	 */
 	@Override
-	public XdiEntityClass getXdiClass() {
+	public XdiEntityClass getXdiCollection() {
 
 		return new XdiEntityClass(this.getContextNode().getContextNode());
 	}
@@ -76,16 +76,16 @@ public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered<X
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntityInstanceOrderedIterator extends NotNullIterator<XdiEntityInstanceOrdered> {
+	public static class MappingContextNodeXdiEntityInstanceOrderedIterator extends NotNullIterator<XdiEntityMemberOrdered> {
 
 		public MappingContextNodeXdiEntityInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiEntityInstanceOrdered> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiEntityMemberOrdered> (contextNodes) {
 
 				@Override
-				public XdiEntityInstanceOrdered map(ContextNode contextNode) {
+				public XdiEntityMemberOrdered map(ContextNode contextNode) {
 
-					return XdiEntityInstanceOrdered.fromContextNode(contextNode);
+					return XdiEntityMemberOrdered.fromContextNode(contextNode);
 				}
 			});
 		}

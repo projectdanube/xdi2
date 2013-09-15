@@ -12,11 +12,11 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiEntityInstanceUnordered extends XdiAbstractInstanceUnordered<XdiEntityClass, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance> implements XdiEntityInstance {
+public final class XdiEntityMemberUnordered extends XdiAbstractMemberUnordered<XdiEntityClass, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> implements XdiEntityMember {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 
-	protected XdiEntityInstanceUnordered(ContextNode contextNode) {
+	protected XdiEntityMemberUnordered(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -34,7 +34,7 @@ public final class XdiEntityInstanceUnordered extends XdiAbstractInstanceUnorder
 
 		return
 				isValidArcXri(contextNode.getArcXri(), false) &&
-				( XdiEntityClass.isValid(contextNode.getContextNode()) || XdiEntityInstanceUnordered.isValid(contextNode.getContextNode()) );
+				( XdiEntityClass.isValid(contextNode.getContextNode()) || XdiEntityMemberUnordered.isValid(contextNode.getContextNode()) );
 	}
 
 	/**
@@ -42,11 +42,11 @@ public final class XdiEntityInstanceUnordered extends XdiAbstractInstanceUnorder
 	 * @param contextNode The context node that is an XDI unordered entity instance.
 	 * @return The XDI unordered entity instance.
 	 */
-	public static XdiEntityInstanceUnordered fromContextNode(ContextNode contextNode) {
+	public static XdiEntityMemberUnordered fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiEntityInstanceUnordered(contextNode);
+		return new XdiEntityMemberUnordered(contextNode);
 	}
 
 	/*
@@ -55,7 +55,7 @@ public final class XdiEntityInstanceUnordered extends XdiAbstractInstanceUnorder
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiAbstractInstanceUnordered.isValidArcXri(arcXri, false);
+		return XdiAbstractMemberUnordered.isValidArcXri(arcXri, false);
 	}
 
 	/*
@@ -67,7 +67,7 @@ public final class XdiEntityInstanceUnordered extends XdiAbstractInstanceUnorder
 	 * @return The parent XDI class.
 	 */
 	@Override
-	public XdiEntityClass getXdiClass() {
+	public XdiEntityClass getXdiCollection() {
 
 		return new XdiEntityClass(this.getContextNode().getContextNode());
 	}
@@ -76,16 +76,16 @@ public final class XdiEntityInstanceUnordered extends XdiAbstractInstanceUnorder
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntityInstanceUnorderedIterator extends NotNullIterator<XdiEntityInstanceUnordered> {
+	public static class MappingContextNodeXdiEntityInstanceUnorderedIterator extends NotNullIterator<XdiEntityMemberUnordered> {
 
 		public MappingContextNodeXdiEntityInstanceUnorderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiEntityInstanceUnordered> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiEntityMemberUnordered> (contextNodes) {
 
 				@Override
-				public XdiEntityInstanceUnordered map(ContextNode contextNode) {
+				public XdiEntityMemberUnordered map(ContextNode contextNode) {
 
-					return XdiEntityInstanceUnordered.fromContextNode(contextNode);
+					return XdiEntityMemberUnordered.fromContextNode(contextNode);
 				}
 			});
 		}

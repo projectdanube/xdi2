@@ -12,11 +12,11 @@ import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
-import xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiAttributeMemberOrdered;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntityClass;
-import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.AbstractLiteral;
@@ -95,19 +95,19 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiEntityClass xdiEntityClass = xdiContext.getXdiEntityClass(arcXri, true);
 
-				XdiEntityInstanceOrdered xdiEntityInstance = xdiEntityClass.setXdiInstanceOrdered(index);
+				XdiEntityMemberOrdered xdiEntityInstance = xdiEntityClass.setXdiMemberOrdered(index);
 				readJsonObject(xdiEntityInstance, (JsonObject) jsonElement);
 			} else if (jsonElement instanceof JsonArray) {
 
 				XdiEntityClass xdiEntityClass = xdiContext.getXdiEntityClass(arcXri, true);
 
-				XdiEntityInstanceOrdered xdiEntityInstance = xdiEntityClass.setXdiInstanceOrdered(index);
+				XdiEntityMemberOrdered xdiEntityInstance = xdiEntityClass.setXdiMemberOrdered(index);
 				readJsonArray(xdiEntityInstance, null, (JsonArray) jsonElement);
 			} else {
 
 				XdiAttributeClass xdiAttributeClass = xdiContext.getXdiAttributeClass(arcXri, true);
 
-				XdiAttributeInstanceOrdered xdiAttributeInstance = xdiAttributeClass.setXdiInstanceOrdered(index);
+				XdiAttributeMemberOrdered xdiAttributeInstance = xdiAttributeClass.setXdiMemberOrdered(index);
 				XdiValue xdiValue = xdiAttributeInstance.getXdiValue(true);
 				xdiValue.getContextNode().setLiteral(AbstractLiteral.jsonElementToLiteralData(jsonElement));
 			}

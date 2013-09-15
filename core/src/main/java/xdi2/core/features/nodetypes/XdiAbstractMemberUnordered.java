@@ -13,11 +13,11 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractInstanceUnordered<C extends XdiClass<C, U, O, I>, U extends XdiInstanceUnordered<C, U, O, I>, O extends XdiInstanceOrdered<C, U, O, I>, I extends XdiInstance<C, U, O, I>> extends XdiAbstractInstance<C, U, O, I> implements XdiInstanceUnordered<C, U, O, I> {
+public abstract class XdiAbstractMemberUnordered<C extends XdiCollection<C, U, O, I>, U extends XdiMemberUnordered<C, U, O, I>, O extends XdiMemberOrdered<C, U, O, I>, I extends XdiMember<C, U, O, I>> extends XdiAbstractMember<C, U, O, I> implements XdiMemberUnordered<C, U, O, I> {
 
 	private static final long serialVersionUID = -8496645644143069191L;
 
-	protected XdiAbstractInstanceUnordered(ContextNode contextNode) {
+	protected XdiAbstractMemberUnordered(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -33,8 +33,8 @@ public abstract class XdiAbstractInstanceUnordered<C extends XdiClass<C, U, O, I
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return XdiEntityInstanceUnordered.isValid(contextNode) || 
-				XdiAttributeInstanceUnordered.isValid(contextNode);
+		return XdiEntityMemberUnordered.isValid(contextNode) || 
+				XdiAttributeMemberUnordered.isValid(contextNode);
 	}
 
 	/**
@@ -42,12 +42,12 @@ public abstract class XdiAbstractInstanceUnordered<C extends XdiClass<C, U, O, I
 	 * @param contextNode The context node that is an XDI unordered instance.
 	 * @return The XDI unordered instance.
 	 */
-	public static XdiInstanceUnordered<?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
+	public static XdiMemberUnordered<?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
-		XdiInstanceUnordered<?, ?, ?, ?> xdiInstance;
+		XdiMemberUnordered<?, ?, ?, ?> xdiMember;
 
-		if ((xdiInstance = XdiEntityInstanceUnordered.fromContextNode(contextNode)) != null) return xdiInstance;
-		if ((xdiInstance = XdiAttributeInstanceUnordered.fromContextNode(contextNode)) != null) return xdiInstance;
+		if ((xdiMember = XdiEntityMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
+		if ((xdiMember = XdiAttributeMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
 
 		return null;
 	}
@@ -112,16 +112,16 @@ public abstract class XdiAbstractInstanceUnordered<C extends XdiClass<C, U, O, I
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiInstanceUnorderedIterator extends NotNullIterator<XdiInstanceUnordered<?, ?, ?, ?>> {
+	public static class MappingContextNodeXdiMemberUnorderedIterator extends NotNullIterator<XdiMemberUnordered<?, ?, ?, ?>> {
 
-		public MappingContextNodeXdiInstanceUnorderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiMemberUnorderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiInstanceUnordered<?, ?, ?, ?>> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiMemberUnordered<?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiInstanceUnordered<?, ?, ?, ?> map(ContextNode contextNode) {
+				public XdiMemberUnordered<?, ?, ?, ?> map(ContextNode contextNode) {
 
-					return XdiAbstractInstanceUnordered.fromContextNode(contextNode);
+					return XdiAbstractMemberUnordered.fromContextNode(contextNode);
 				}
 			});
 		}

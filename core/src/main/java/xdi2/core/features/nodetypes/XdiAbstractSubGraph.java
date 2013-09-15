@@ -32,8 +32,8 @@ public abstract class XdiAbstractSubGraph extends XdiAbstractContext implements 
 		return 
 				XdiMetaClass.isValid(contextNode) ||
 				XdiAbstractSingleton.isValid(contextNode) ||
-				XdiAbstractClass.isValid(contextNode) ||
-				XdiAbstractInstance.isValid(contextNode) ||
+				XdiAbstractCollection.isValid(contextNode) ||
+				XdiAbstractMember.isValid(contextNode) ||
 				XdiValue.isValid(contextNode) ||
 				XdiVariable.isValid(contextNode);
 	}
@@ -51,8 +51,8 @@ public abstract class XdiAbstractSubGraph extends XdiAbstractContext implements 
 
 		if ((xdiSubGraph = XdiMetaClass.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiAbstractSingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiAbstractClass.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiAbstractInstance.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAbstractCollection.fromContextNode(contextNode)) != null) return xdiSubGraph;
+		if ((xdiSubGraph = XdiAbstractMember.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiValue.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiVariable.fromContextNode(contextNode)) != null) return xdiSubGraph;
 

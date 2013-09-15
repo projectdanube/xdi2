@@ -6,7 +6,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityClass;
-import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -115,7 +115,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		if (create) {
 
-			XdiEntityInstanceUnordered xdiEntityInstance = this.xdiEntityClass.setXdiInstanceUnordered(null);
+			XdiEntityMemberUnordered xdiEntityInstance = this.xdiEntityClass.setXdiMemberUnordered(null);
 			xdiEntityInstance.getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true);
 
 			return new Message(this, xdiEntityInstance);
@@ -131,7 +131,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public ReadOnlyIterator<Message> getMessages() {
 
-		return new MappingXdiEntityMessageIterator(this, this.getXdiEntityClass().getXdiInstances(true));
+		return new MappingXdiEntityMessageIterator(this, this.getXdiEntityClass().getXdiMembers(true));
 	}
 
 	/**

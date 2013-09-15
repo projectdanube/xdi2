@@ -16,8 +16,8 @@ import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.linkcontracts.operator.Operator.MappingRelationOperatorIterator;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityClass;
-import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
-import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
+import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
@@ -118,10 +118,10 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		if (this.getXdiEntity() instanceof XdiEntitySingleton)
 			return ((XdiEntitySingleton) this.getXdiEntity()).getBaseArcXri();
-		else if (this.getXdiEntity() instanceof XdiEntityInstanceUnordered)
-			return ((XdiEntityInstanceUnordered) this.getXdiEntity()).getXdiClass().getBaseArcXri();
-		else if (this.getXdiEntity() instanceof XdiEntityInstanceOrdered)
-			return ((XdiEntityInstanceOrdered) this.getXdiEntity()).getXdiClass().getBaseArcXri();
+		else if (this.getXdiEntity() instanceof XdiEntityMemberUnordered)
+			return ((XdiEntityMemberUnordered) this.getXdiEntity()).getXdiCollection().getBaseArcXri();
+		else if (this.getXdiEntity() instanceof XdiEntityMemberOrdered)
+			return ((XdiEntityMemberOrdered) this.getXdiEntity()).getXdiCollection().getBaseArcXri();
 
 		return null;
 	}
@@ -136,7 +136,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (singleton)
 			policyAndXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_AND, true);
 		else
-			policyAndXdiEntity = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_AND, true).setXdiInstanceUnordered(null);
+			policyAndXdiEntity = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_AND, true).setXdiMemberUnordered(null);
 
 		return PolicyAnd.fromXdiEntity(policyAndXdiEntity);
 	}
@@ -151,7 +151,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (singleton)
 			policyOrXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_OR, true);
 		else
-			policyOrXdiEntity = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_OR, true).setXdiInstanceUnordered(null);
+			policyOrXdiEntity = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_OR, true).setXdiMemberUnordered(null);
 
 		return PolicyOr.fromXdiEntity(policyOrXdiEntity);
 	}
@@ -166,7 +166,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (singleton)
 			policyNotXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, true);
 		else
-			policyNotXdiEntity = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_NOT, true).setXdiInstanceUnordered(null);
+			policyNotXdiEntity = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_NOT, true).setXdiMemberUnordered(null);
 
 		return PolicyNot.fromXdiEntity(policyNotXdiEntity);
 	}
@@ -194,9 +194,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		XdiEntityClass policyOrEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_OR, false);
 		XdiEntityClass policyNotEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_NOT, false);
 
-		if (policyAndEntityClass != null) iterators.add(new MappingXdiEntityPolicyAndIterator(policyAndEntityClass.getXdiInstances(true)));
-		if (policyOrEntityClass != null) iterators.add(new MappingXdiEntityPolicyOrIterator(policyOrEntityClass.getXdiInstances(true)));
-		if (policyNotEntityClass != null) iterators.add(new MappingXdiEntityPolicyNotIterator(policyNotEntityClass.getXdiInstances(true)));
+		if (policyAndEntityClass != null) iterators.add(new MappingXdiEntityPolicyAndIterator(policyAndEntityClass.getXdiMembers(true)));
+		if (policyOrEntityClass != null) iterators.add(new MappingXdiEntityPolicyOrIterator(policyOrEntityClass.getXdiMembers(true)));
+		if (policyNotEntityClass != null) iterators.add(new MappingXdiEntityPolicyNotIterator(policyNotEntityClass.getXdiMembers(true)));
 
 		return new CompositeIterator<Policy> (iterators.iterator());
 	}

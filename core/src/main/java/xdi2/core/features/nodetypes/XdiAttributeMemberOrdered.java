@@ -12,11 +12,11 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiAttributeInstanceOrdered extends XdiAbstractInstanceOrdered<XdiAttributeClass, XdiAttributeInstanceUnordered, XdiAttributeInstanceOrdered, XdiAttributeInstance> implements XdiAttributeInstance {
+public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<XdiAttributeClass, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> implements XdiAttributeMember {
 
 	private static final long serialVersionUID = 3562576098019686485L;
 
-	protected XdiAttributeInstanceOrdered(ContextNode contextNode) {
+	protected XdiAttributeMemberOrdered(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -34,7 +34,7 @@ public final class XdiAttributeInstanceOrdered extends XdiAbstractInstanceOrdere
 
 		return
 				isValidArcXri(contextNode.getArcXri()) &&
-				( XdiAttributeClass.isValid(contextNode.getContextNode()) || XdiAttributeInstanceOrdered.isValid(contextNode.getContextNode()) );
+				( XdiAttributeClass.isValid(contextNode.getContextNode()) || XdiAttributeMemberOrdered.isValid(contextNode.getContextNode()) );
 	}
 
 	/**
@@ -42,11 +42,11 @@ public final class XdiAttributeInstanceOrdered extends XdiAbstractInstanceOrdere
 	 * @param contextNode The context node that is an XDI ordered attribute instance.
 	 * @return The XDI ordered attribute instance.
 	 */
-	public static XdiAttributeInstanceOrdered fromContextNode(ContextNode contextNode) {
+	public static XdiAttributeMemberOrdered fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiAttributeInstanceOrdered(contextNode);
+		return new XdiAttributeMemberOrdered(contextNode);
 	}
 
 	/*
@@ -55,7 +55,7 @@ public final class XdiAttributeInstanceOrdered extends XdiAbstractInstanceOrdere
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiAbstractInstanceOrdered.isValidArcXri(arcXri, true);
+		return XdiAbstractMemberOrdered.isValidArcXri(arcXri, true);
 	}
 
 	/*
@@ -67,7 +67,7 @@ public final class XdiAttributeInstanceOrdered extends XdiAbstractInstanceOrdere
 	 * @return The parent XDI class.
 	 */
 	@Override
-	public XdiAttributeClass getXdiClass() {
+	public XdiAttributeClass getXdiCollection() {
 
 		return new XdiAttributeClass(this.getContextNode().getContextNode());
 	}
@@ -92,16 +92,16 @@ public final class XdiAttributeInstanceOrdered extends XdiAbstractInstanceOrdere
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiAttributeInstanceOrderedIterator extends NotNullIterator<XdiAttributeInstanceOrdered> {
+	public static class MappingContextNodeXdiAttributeInstanceOrderedIterator extends NotNullIterator<XdiAttributeMemberOrdered> {
 
 		public MappingContextNodeXdiAttributeInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiAttributeInstanceOrdered> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiAttributeMemberOrdered> (contextNodes) {
 
 				@Override
-				public XdiAttributeInstanceOrdered map(ContextNode contextNode) {
+				public XdiAttributeMemberOrdered map(ContextNode contextNode) {
 
-					return XdiAttributeInstanceOrdered.fromContextNode(contextNode);
+					return XdiAttributeMemberOrdered.fromContextNode(contextNode);
 				}
 			});
 		}

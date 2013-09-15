@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
 import xdi2.core.util.VariableUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -178,7 +178,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		if (newSubSegment == null) {
 
-			newSubSegment = XdiAbstractInstanceUnordered.createArcXriFromRandom(false);
+			newSubSegment = XdiAbstractMemberUnordered.createArcXriFromRandom(false);
 			putVariable(executionContext, subSegment, newSubSegment);
 		}
 

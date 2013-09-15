@@ -1,8 +1,8 @@
 package xdi2.tests.core.features.nodetypes;
 
 import junit.framework.TestCase;
-import xdi2.core.features.nodetypes.XdiAbstractInstanceOrdered;
-import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiAbstractMemberOrdered;
+import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeClass;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
@@ -18,10 +18,10 @@ public class NodeTypesTest extends TestCase {
 		assertEquals(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("<+address>"));
 		assertEquals(XdiEntityClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[+address]"));
 		assertEquals(XdiAttributeClass.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[<+address>]"));
-		assertEquals(XdiAbstractInstanceUnordered.createArcXri("1", true), XDI3SubSegment.create("<!1>"));
-		assertEquals(XdiAbstractInstanceOrdered.createArcXri("1", true), XDI3SubSegment.create("<#1>"));
-		assertEquals(XdiAbstractInstanceUnordered.createArcXri("1", false), XDI3SubSegment.create("!1"));
-		assertEquals(XdiAbstractInstanceOrdered.createArcXri("1", false), XDI3SubSegment.create("#1"));
+		assertEquals(XdiAbstractMemberUnordered.createArcXri("1", true), XDI3SubSegment.create("<!1>"));
+		assertEquals(XdiAbstractMemberOrdered.createArcXri("1", true), XDI3SubSegment.create("<#1>"));
+		assertEquals(XdiAbstractMemberUnordered.createArcXri("1", false), XDI3SubSegment.create("!1"));
+		assertEquals(XdiAbstractMemberOrdered.createArcXri("1", false), XDI3SubSegment.create("#1"));
 
 		assertTrue(XdiEntitySingleton.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))));
 		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))));

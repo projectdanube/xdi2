@@ -27,8 +27,8 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph implements X
 	public static boolean isValid(ContextNode contextNode) {
 
 		return XdiEntitySingleton.isValid(contextNode) || 
-				XdiEntityInstanceUnordered.isValid(contextNode) ||
-				XdiEntityInstanceOrdered.isValid(contextNode);
+				XdiEntityMemberUnordered.isValid(contextNode) ||
+				XdiEntityMemberOrdered.isValid(contextNode);
 	}
 
 	/**
@@ -41,8 +41,8 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph implements X
 		XdiEntity xdiEntity = null;
 
 		if ((xdiEntity = XdiEntitySingleton.fromContextNode(contextNode)) != null) return xdiEntity;
-		if ((xdiEntity = XdiEntityInstanceUnordered.fromContextNode(contextNode)) != null) return xdiEntity;
-		if ((xdiEntity = XdiEntityInstanceOrdered.fromContextNode(contextNode)) != null) return xdiEntity;
+		if ((xdiEntity = XdiEntityMemberUnordered.fromContextNode(contextNode)) != null) return xdiEntity;
+		if ((xdiEntity = XdiEntityMemberOrdered.fromContextNode(contextNode)) != null) return xdiEntity;
 
 		return null;
 	}
