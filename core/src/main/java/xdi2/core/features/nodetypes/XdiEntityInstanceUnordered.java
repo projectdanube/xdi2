@@ -34,7 +34,7 @@ public final class XdiEntityInstanceUnordered extends XdiAbstractInstanceUnorder
 
 		return
 				isValidArcXri(contextNode.getArcXri(), false) &&
-				( XdiEntityClass.isValid(contextNode.getContextNode()) || XdiEntityInstanceUnordered.isValid(contextNode.getContextNode()) );
+				XdiEntityClass.isValid(contextNode.getContextNode());
 	}
 
 	/**

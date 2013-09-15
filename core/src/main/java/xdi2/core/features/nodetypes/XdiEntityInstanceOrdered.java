@@ -34,7 +34,7 @@ public final class XdiEntityInstanceOrdered extends XdiAbstractInstanceOrdered<X
 
 		return
 				isValidArcXri(contextNode.getArcXri()) &&
-				( XdiEntityClass.isValid(contextNode.getContextNode()) || XdiEntityInstanceOrdered.isValid(contextNode.getContextNode()) );
+				XdiEntityClass.isValid(contextNode.getContextNode());
 	}
 
 	/**
