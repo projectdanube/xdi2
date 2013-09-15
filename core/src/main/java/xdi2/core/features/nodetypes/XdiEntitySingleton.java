@@ -35,7 +35,7 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton implements Xd
 
 		return 
 				isValidArcXri(contextNode.getArcXri()) &&
-				( ! XdiAttributeClass.isValid(contextNode.getContextNode()) && ! XdiAttributeMemberUnordered.isValid(contextNode.getContextNode()) && ! XdiAttributeMemberOrdered.isValid(contextNode.getContextNode()) );
+				( ! XdiAttributeClass.isValid(contextNode.getContextNode()) && ! XdiAbstractAttribute.isValid(contextNode.getContextNode()) );
 	}
 
 	/**

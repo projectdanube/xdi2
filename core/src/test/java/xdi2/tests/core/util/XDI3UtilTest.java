@@ -214,8 +214,8 @@ public class XDI3UtilTest extends TestCase {
 		assertFalse(XDI3Util.isCloudNumber(XDI3Segment.create("=markus*web")));
 		assertFalse(XDI3Util.isCloudNumber(XDI3Segment.create("[=]")));
 		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[=]!1111")));
-		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[=]!1111!2222")));
+		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[=]!1111[=]!2222")));
 		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[@]!1111")));
-		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[@]!1111!2222")));
+		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[@]!1111[@]!2222")));
 	}
 }
