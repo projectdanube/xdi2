@@ -35,7 +35,7 @@ public final class XdiEntityClass extends XdiAbstractClass<XdiEntityClass, XdiEn
 
 		return 
 				isValidArcXri(contextNode.getArcXri()) &&
-				( ! XdiAttributeClass.isValid(contextNode.getContextNode()) && ! XdiAttributeInstanceUnordered.isValid(contextNode.getContextNode()) && ! XdiAttributeInstanceOrdered.isValid(contextNode.getContextNode()) );
+				( ! XdiAttributeClass.isValid(contextNode.getContextNode()) && ! XdiAbstractAttribute.isValid(contextNode.getContextNode()) );
 	}
 
 	/**
