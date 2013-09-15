@@ -399,12 +399,12 @@ public final class XDI3Util {
 
 		if (xri.getNumSubSegments() < 2) return false;
 
-		if (! xri.getSubSegment(0).isClassXs()) return false;
-		if (! XDIConstants.CS_EQUALS.equals(xri.getSubSegment(0).getCs()) && ! XDIConstants.CS_AT.equals(xri.getSubSegment(0).getCs())) return false;
+		for (int i=0; i< xri.getNumSubSegments(); i+=2) {
 
-		for (int i=1; i< xri.getNumSubSegments(); i++) {
+			if (! xri.getSubSegment(i).isClassXs()) return false;
+			if (! XDIConstants.CS_EQUALS.equals(xri.getSubSegment(i).getCs()) && ! XDIConstants.CS_AT.equals(xri.getSubSegment(i).getCs())) return false;
 
-			if (! XDIConstants.CS_BANG.equals(xri.getSubSegment(i).getCs())) return false;
+			if (! XDIConstants.CS_BANG.equals(xri.getSubSegment(i + 1).getCs())) return false;
 		}
 
 		return true;
