@@ -11,11 +11,11 @@ import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
-import xdi2.core.features.nodetypes.XdiAttributeClass;
+import xdi2.core.features.nodetypes.XdiAttributeCollection;
 import xdi2.core.features.nodetypes.XdiAttributeMemberOrdered;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiContext;
-import xdi2.core.features.nodetypes.XdiEntityClass;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiValue;
@@ -93,19 +93,19 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (jsonElement instanceof JsonObject) {
 
-				XdiEntityClass xdiEntityClass = xdiContext.getXdiEntityClass(arcXri, true);
+				XdiEntityCollection xdiEntityClass = xdiContext.getXdiEntityClass(arcXri, true);
 
 				XdiEntityMemberOrdered xdiEntityInstance = xdiEntityClass.setXdiMemberOrdered(index);
 				readJsonObject(xdiEntityInstance, (JsonObject) jsonElement);
 			} else if (jsonElement instanceof JsonArray) {
 
-				XdiEntityClass xdiEntityClass = xdiContext.getXdiEntityClass(arcXri, true);
+				XdiEntityCollection xdiEntityClass = xdiContext.getXdiEntityClass(arcXri, true);
 
 				XdiEntityMemberOrdered xdiEntityInstance = xdiEntityClass.setXdiMemberOrdered(index);
 				readJsonArray(xdiEntityInstance, null, (JsonArray) jsonElement);
 			} else {
 
-				XdiAttributeClass xdiAttributeClass = xdiContext.getXdiAttributeClass(arcXri, true);
+				XdiAttributeCollection xdiAttributeClass = xdiContext.getXdiAttributeClass(arcXri, true);
 
 				XdiAttributeMemberOrdered xdiAttributeInstance = xdiAttributeClass.setXdiMemberOrdered(index);
 				XdiValue xdiValue = xdiAttributeInstance.getXdiValue(true);

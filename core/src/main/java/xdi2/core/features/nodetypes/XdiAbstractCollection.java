@@ -49,8 +49,8 @@ public abstract class XdiAbstractCollection<C extends XdiCollection<C, U, O, I>,
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		return XdiEntityClass.isValid(contextNode) || 
-				XdiAttributeClass.isValid(contextNode);
+		return XdiEntityCollection.isValid(contextNode) || 
+				XdiAttributeCollection.isValid(contextNode);
 	}
 
 	/**
@@ -62,8 +62,8 @@ public abstract class XdiAbstractCollection<C extends XdiCollection<C, U, O, I>,
 
 		XdiCollection<? extends XdiCollection<?, ?, ?, ?>, ? extends XdiMemberUnordered<?, ?, ?, ?>, ? extends XdiMemberOrdered<?, ?, ?, ?>, ? extends XdiMember<?, ?, ?, ?>> xdiCollection;
 
-		if ((xdiCollection = XdiEntityClass.fromContextNode(contextNode)) != null) return xdiCollection;
-		if ((xdiCollection = XdiAttributeClass.fromContextNode(contextNode)) != null) return xdiCollection;
+		if ((xdiCollection = XdiEntityCollection.fromContextNode(contextNode)) != null) return xdiCollection;
+		if ((xdiCollection = XdiAttributeCollection.fromContextNode(contextNode)) != null) return xdiCollection;
 
 		return xdiCollection;
 	}
@@ -74,8 +74,8 @@ public abstract class XdiAbstractCollection<C extends XdiCollection<C, U, O, I>,
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiEntityClass.isValidArcXri(arcXri) || 
-				XdiAttributeClass.isValidArcXri(arcXri);
+		return XdiEntityCollection.isValidArcXri(arcXri) || 
+				XdiAttributeCollection.isValidArcXri(arcXri);
 	}
 
 	/*
@@ -225,9 +225,9 @@ public abstract class XdiAbstractCollection<C extends XdiCollection<C, U, O, I>,
 
 		boolean attribute;
 
-		if (XdiAttributeClass.class.isAssignableFrom(this.getClass()))
+		if (XdiAttributeCollection.class.isAssignableFrom(this.getClass()))
 			attribute = true;
-		else if (XdiEntityClass.class.isAssignableFrom(this.getClass()))
+		else if (XdiEntityCollection.class.isAssignableFrom(this.getClass()))
 			attribute = false;
 		else
 			throw new IllegalStateException("Invalid XDI class: " + this.getClass().getSimpleName());

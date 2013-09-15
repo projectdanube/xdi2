@@ -1,7 +1,7 @@
 package xdi2.core.features.nodetypes;
 
-public interface XdiAttributeMember extends XdiAttribute, XdiMember<XdiAttributeClass, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> {
+public interface XdiAttributeMember extends XdiAttribute, XdiMember<XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> {
 
 	@Override
-	public XdiAttributeClass getXdiCollection();
+	public XdiAttributeCollection getXdiCollection();
 }

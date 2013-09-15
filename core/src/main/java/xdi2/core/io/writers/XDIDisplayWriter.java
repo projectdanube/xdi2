@@ -18,8 +18,8 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAbstractRoot;
-import xdi2.core.features.nodetypes.XdiAttributeClass;
-import xdi2.core.features.nodetypes.XdiEntityClass;
+import xdi2.core.features.nodetypes.XdiAttributeCollection;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
@@ -258,8 +258,8 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		if (this.writeHtml) {
 
 			if (XdiAbstractRoot.isValid(contextNode)) htmlColorString = HTML_COLOR_ROOT;
-			if (XdiEntityClass.isValid(contextNode) || XdiAbstractEntity.isValid(contextNode)) htmlColorString = HTML_COLOR_ENTITY;
-			if (XdiAttributeClass.isValid(contextNode) || XdiAbstractAttribute.isValid(contextNode)) htmlColorString = HTML_COLOR_ATTRIBUTE;
+			if (XdiEntityCollection.isValid(contextNode) || XdiAbstractEntity.isValid(contextNode)) htmlColorString = HTML_COLOR_ENTITY;
+			if (XdiAttributeCollection.isValid(contextNode) || XdiAbstractAttribute.isValid(contextNode)) htmlColorString = HTML_COLOR_ATTRIBUTE;
 		}
 
 		if (htmlColorString != null) bufferedWriter.write("<span style=\"background-color:" + htmlColorString + "\">");

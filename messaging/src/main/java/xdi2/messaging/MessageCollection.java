@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntityClass;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -26,14 +26,14 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	private static final long serialVersionUID = -7493408194946194153L;
 
 	private MessageEnvelope messageEnvelope;
-	private XdiEntityClass xdiEntityClass;
+	private XdiEntityCollection xdiEntityCollection;
 
-	protected MessageCollection(MessageEnvelope messageEnvelope, XdiEntityClass xdiEntityClass) {
+	protected MessageCollection(MessageEnvelope messageEnvelope, XdiEntityCollection xdiEntityClass) {
 
 		if (messageEnvelope == null || xdiEntityClass == null) throw new NullPointerException();
 
 		this.messageEnvelope = messageEnvelope;
-		this.xdiEntityClass = xdiEntityClass;
+		this.xdiEntityCollection = xdiEntityClass;
 	}
 
 	/*
@@ -45,9 +45,9 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * @param xdiEntityClass The XDI entity class to check.
 	 * @return True if the XDI entity class is a valid XDI message collection.
 	 */
-	public static boolean isValid(XdiEntityClass xdiEntityClass) {
+	public static boolean isValid(XdiEntityCollection xdiEntityClass) {
 
-		return xdiEntityClass.getContextNode().getArcXri().equals(XdiEntityClass.createArcXri(XDIMessagingConstants.XRI_SS_MSG));
+		return xdiEntityClass.getContextNode().getArcXri().equals(XdiEntityCollection.createArcXri(XDIMessagingConstants.XRI_SS_MSG));
 	}
 
 	/**
@@ -56,7 +56,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * @param xdiEntityClass The XDI entity class that is an XDI message collection.
 	 * @return The XDI message collection.
 	 */
-	public static MessageCollection fromMessageEnvelopeAndXdiEntityClass(MessageEnvelope messageEnvelope, XdiEntityClass xdiEntityClass) {
+	public static MessageCollection fromMessageEnvelopeAndXdiEntityClass(MessageEnvelope messageEnvelope, XdiEntityCollection xdiEntityClass) {
 
 		if (! isValid(xdiEntityClass)) return null;
 
@@ -80,9 +80,9 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Returns the underlying XDI entity class to which this XDI message collection is bound.
 	 * @return An XDI entity class that represents the XDI message collection.
 	 */
-	public XdiEntityClass getXdiEntityClass() {
+	public XdiEntityCollection getXdiEntityClass() {
 
-		return this.xdiEntityClass;
+		return this.xdiEntityCollection;
 	}
 
 	/**
@@ -115,7 +115,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		if (create) {
 
-			XdiEntityMemberUnordered xdiEntityInstance = this.xdiEntityClass.setXdiMemberUnordered(null);
+			XdiEntityMemberUnordered xdiEntityInstance = this.xdiEntityCollection.setXdiMemberUnordered(null);
 			xdiEntityInstance.getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true);
 
 			return new Message(this, xdiEntityInstance);

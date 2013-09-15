@@ -8,11 +8,11 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI ordered entity instance (context function), represented as a context node.
+ * An XDI ordered entity member (context function), represented as a context node.
  * 
  * @author markus
  */
-public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEntityClass, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> implements XdiEntityMember {
+public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEntityCollection, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> implements XdiEntityMember {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 
@@ -34,7 +34,7 @@ public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEn
 
 		return
 				isValidArcXri(contextNode.getArcXri()) &&
-				( XdiEntityClass.isValid(contextNode.getContextNode()) || XdiEntityMemberOrdered.isValid(contextNode.getContextNode()) );
+				( XdiEntityCollection.isValid(contextNode.getContextNode()) || XdiEntityMemberOrdered.isValid(contextNode.getContextNode()) );
 	}
 
 	/**
@@ -67,9 +67,9 @@ public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEn
 	 * @return The parent XDI class.
 	 */
 	@Override
-	public XdiEntityClass getXdiCollection() {
+	public XdiEntityCollection getXdiCollection() {
 
-		return new XdiEntityClass(this.getContextNode().getContextNode());
+		return new XdiEntityCollection(this.getContextNode().getContextNode());
 	}
 
 	/*

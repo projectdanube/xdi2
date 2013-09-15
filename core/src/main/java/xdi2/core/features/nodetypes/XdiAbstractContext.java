@@ -110,14 +110,14 @@ public abstract class XdiAbstractContext implements XdiContext {
 	 * @return The XDI entity class.
 	 */
 	@Override
-	public XdiEntityClass getXdiEntityClass(XDI3SubSegment arcXri, boolean create) {
+	public XdiEntityCollection getXdiEntityClass(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment entityClassArcXri = XdiEntityClass.createArcXri(arcXri);
+		XDI3SubSegment entityCollectionArcXri = XdiEntityCollection.createArcXri(arcXri);
 
-		ContextNode entityClassContextNode = create ? this.getContextNode().setContextNode(entityClassArcXri) : this.getContextNode().getContextNode(entityClassArcXri);
-		if (entityClassContextNode == null) return null;
+		ContextNode entityCollectionContextNode = create ? this.getContextNode().setContextNode(entityCollectionArcXri) : this.getContextNode().getContextNode(entityCollectionArcXri);
+		if (entityCollectionContextNode == null) return null;
 
-		return new XdiEntityClass(entityClassContextNode);
+		return new XdiEntityCollection(entityCollectionContextNode);
 	}
 
 	/**
@@ -127,14 +127,14 @@ public abstract class XdiAbstractContext implements XdiContext {
 	 * @return The XDI attribute class.
 	 */
 	@Override
-	public XdiAttributeClass getXdiAttributeClass(XDI3SubSegment arcXri, boolean create) {
+	public XdiAttributeCollection getXdiAttributeClass(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment attributeClassArcXri = XdiAttributeClass.createArcXri(arcXri);
+		XDI3SubSegment attributeCollectionArcXri = XdiAttributeCollection.createArcXri(arcXri);
 
-		ContextNode attributeClassContextNode = create ? this.getContextNode().setContextNode(attributeClassArcXri) : this.getContextNode().getContextNode(attributeClassArcXri);
-		if (attributeClassContextNode == null) return null;
+		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setContextNode(attributeCollectionArcXri) : this.getContextNode().getContextNode(attributeCollectionArcXri);
+		if (attributeCollectionContextNode == null) return null;
 
-		return new XdiAttributeClass(attributeClassContextNode);
+		return new XdiAttributeCollection(attributeCollectionContextNode);
 	}
 
 	/**

@@ -15,7 +15,7 @@ import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.operator.Operator;
 import xdi2.core.features.linkcontracts.operator.Operator.MappingRelationOperatorIterator;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntityClass;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
 import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
@@ -190,9 +190,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		// add policies that are XDI entity instances and elements
 
-		XdiEntityClass policyAndEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_AND, false);
-		XdiEntityClass policyOrEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_OR, false);
-		XdiEntityClass policyNotEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_NOT, false);
+		XdiEntityCollection policyAndEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_AND, false);
+		XdiEntityCollection policyOrEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_OR, false);
+		XdiEntityCollection policyNotEntityClass = this.getXdiEntity().getXdiEntityClass(XDIPolicyConstants.XRI_SS_NOT, false);
 
 		if (policyAndEntityClass != null) iterators.add(new MappingXdiEntityPolicyAndIterator(policyAndEntityClass.getXdiMembers(true)));
 		if (policyOrEntityClass != null) iterators.add(new MappingXdiEntityPolicyOrIterator(policyOrEntityClass.getXdiMembers(true)));

@@ -13,11 +13,11 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public final class XdiEntityClass extends XdiAbstractCollection<XdiEntityClass, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> implements XdiCollection<XdiEntityClass, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> {
+public final class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollection, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> implements XdiCollection<XdiEntityCollection, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> {
 
 	private static final long serialVersionUID = -8518618921427437445L;
 
-	protected XdiEntityClass(ContextNode contextNode) {
+	protected XdiEntityCollection(ContextNode contextNode) {
 
 		super(contextNode, XdiEntityMemberUnordered.class, XdiEntityMemberOrdered.class, XdiEntityMember.class);
 	}
@@ -35,7 +35,7 @@ public final class XdiEntityClass extends XdiAbstractCollection<XdiEntityClass, 
 
 		return 
 				isValidArcXri(contextNode.getArcXri()) &&
-				( ! XdiAttributeClass.isValid(contextNode.getContextNode()) && ! XdiAbstractAttribute.isValid(contextNode.getContextNode()) );
+				( ! XdiAttributeCollection.isValid(contextNode.getContextNode()) && ! XdiAbstractAttribute.isValid(contextNode.getContextNode()) );
 	}
 
 	/**
@@ -43,11 +43,11 @@ public final class XdiEntityClass extends XdiAbstractCollection<XdiEntityClass, 
 	 * @param contextNode The context node that is an XDI entity class.
 	 * @return The XDI entity class.
 	 */
-	public static XdiEntityClass fromContextNode(ContextNode contextNode) {
+	public static XdiEntityCollection fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiEntityClass(contextNode);
+		return new XdiEntityCollection(contextNode);
 	}
 
 	/*
@@ -84,16 +84,16 @@ public final class XdiEntityClass extends XdiAbstractCollection<XdiEntityClass, 
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntityClassIterator extends NotNullIterator<XdiEntityClass> {
+	public static class MappingContextNodeXdiEntityClassIterator extends NotNullIterator<XdiEntityCollection> {
 
 		public MappingContextNodeXdiEntityClassIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiEntityClass> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiEntityCollection> (contextNodes) {
 
 				@Override
-				public XdiEntityClass map(ContextNode contextNode) {
+				public XdiEntityCollection map(ContextNode contextNode) {
 
-					return XdiEntityClass.fromContextNode(contextNode);
+					return XdiEntityCollection.fromContextNode(contextNode);
 				}
 			});
 		}
