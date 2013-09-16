@@ -1,11 +1,5 @@
 package xdi2.messaging.target.interceptor.impl.encryption;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
-
 import xdi2.core.Literal;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.xri3.XDI3Segment;
@@ -22,15 +16,13 @@ import xdi2.messaging.target.interceptor.ResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
- * This interceptor uses a preconfigured symmetric key to decrypt/encrypt literal data.
+ * This interceptor uses a pre-configured symmetric key to decrypt/encrypt literal data.
  * 
  * @author animesh
  */
 public class LiteralEncryptionInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, TargetInterceptor, ResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
 
-	private String secretKeyString;
-
-	private SecretKey secretKey;
+	private LiteralCryptoService literalCryptoService;
 
 	/*
 	 * Prototype
@@ -45,7 +37,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 
 		// set the link contracts graph
 
-		interceptor.setSecretKeyString(this.getSecretKeyString());
+		interceptor.setLiteralCryptoService(this.getLiteralCryptoService());
 
 		// done
 
@@ -59,17 +51,13 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 	@Override
 	public void init(MessagingTarget messagingTarget) throws Exception {
 
-		if (this.getSecretKeyString() == null) {
-
-			throw new Xdi2MessagingException("No secret key string.", null, null);
-		}
-
-		this.secretKey = new SecretKeySpec(Base64.decodeBase64(this.getSecretKeyString()), "AES");
+		this.getLiteralCryptoService().init();
 	}
 
 	@Override
 	public void shutdown(MessagingTarget messagingTarget) throws Exception {
 
+		this.getLiteralCryptoService().shutdown();
 	}
 
 	/*
@@ -92,10 +80,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 
 			try {
 
-				Cipher cipher = Cipher.getInstance("AES");
-				cipher.init(Cipher.ENCRYPT_MODE, this.secretKey);
-				byte[] encryptedLiteralDataBytes = cipher.doFinal(literalDataString.getBytes("UTF-8"));
-				encryptedLiteralDataString = Base64.encodeBase64String(encryptedLiteralDataBytes);
+				encryptedLiteralDataString = this.getLiteralCryptoService().encryptLiteralDataString(literalDataString);
 			} catch (Exception ex) {
 
 				throw new Xdi2MessagingException("Problem while encrypting literal string: " + ex.getMessage(), ex, executionContext);
@@ -132,11 +117,8 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 			String literalDataString;
 
 			try {
-
-				Cipher cipher = Cipher.getInstance("AES");
-				cipher.init(Cipher.DECRYPT_MODE, this.secretKey);
-				byte[] literalDataBytes = cipher.doFinal(Base64.decodeBase64(encryptedLiteralDataString));
-				literalDataString = new String(literalDataBytes, "UTF-8");
+			
+				literalDataString = this.getLiteralCryptoService().decryptLiteralDataString(encryptedLiteralDataString);
 			} catch (Exception ex) {
 
 				throw new Xdi2MessagingException("Problem while decrypting literal string: " + ex.getMessage(), ex, executionContext);
@@ -152,13 +134,13 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 	 * Getters and setters
 	 */
 
-	public String getSecretKeyString() {
-
-		return this.secretKeyString;
+	public LiteralCryptoService getLiteralCryptoService() {
+	
+		return this.literalCryptoService;
 	}
 
-	public void setSecretKeyString(String secretKeyString) {
-
-		this.secretKeyString = secretKeyString;
+	public void setLiteralCryptoService(LiteralCryptoService literalCryptoService) {
+	
+		this.literalCryptoService = literalCryptoService;
 	}
 }
