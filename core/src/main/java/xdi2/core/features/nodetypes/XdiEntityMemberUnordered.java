@@ -76,9 +76,9 @@ public final class XdiEntityMemberUnordered extends XdiAbstractMemberUnordered<X
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntityInstanceUnorderedIterator extends NotNullIterator<XdiEntityMemberUnordered> {
+	public static class MappingContextNodeXdiEntityMemberUnorderedIterator extends NotNullIterator<XdiEntityMemberUnordered> {
 
-		public MappingContextNodeXdiEntityInstanceUnorderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiEntityMemberUnorderedIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiEntityMemberUnordered> (contextNodes) {
 

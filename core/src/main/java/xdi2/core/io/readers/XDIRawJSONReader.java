@@ -93,22 +93,22 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (jsonElement instanceof JsonObject) {
 
-				XdiEntityCollection xdiEntityClass = xdiContext.getXdiEntityClass(arcXri, true);
+				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(arcXri, true);
 
-				XdiEntityMemberOrdered xdiEntityInstance = xdiEntityClass.setXdiMemberOrdered(index);
-				readJsonObject(xdiEntityInstance, (JsonObject) jsonElement);
+				XdiEntityMemberOrdered xdiEntityMember = xdiEntityCollection.setXdiMemberOrdered(index);
+				readJsonObject(xdiEntityMember, (JsonObject) jsonElement);
 			} else if (jsonElement instanceof JsonArray) {
 
-				XdiEntityCollection xdiEntityClass = xdiContext.getXdiEntityClass(arcXri, true);
+				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(arcXri, true);
 
-				XdiEntityMemberOrdered xdiEntityInstance = xdiEntityClass.setXdiMemberOrdered(index);
-				readJsonArray(xdiEntityInstance, null, (JsonArray) jsonElement);
+				XdiEntityMemberOrdered xdiEntityMember = xdiEntityCollection.setXdiMemberOrdered(index);
+				readJsonArray(xdiEntityMember, null, (JsonArray) jsonElement);
 			} else {
 
-				XdiAttributeCollection xdiAttributeClass = xdiContext.getXdiAttributeClass(arcXri, true);
+				XdiAttributeCollection xdiAttributeCollection = xdiContext.getXdiAttributeCollection(arcXri, true);
 
-				XdiAttributeMemberOrdered xdiAttributeInstance = xdiAttributeClass.setXdiMemberOrdered(index);
-				XdiValue xdiValue = xdiAttributeInstance.getXdiValue(true);
+				XdiAttributeMemberOrdered xdiAttributeMember = xdiAttributeCollection.setXdiMemberOrdered(index);
+				XdiValue xdiValue = xdiAttributeMember.getXdiValue(true);
 				xdiValue.getContextNode().setLiteral(AbstractLiteral.jsonElementToLiteralData(jsonElement));
 			}
 

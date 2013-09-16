@@ -92,9 +92,9 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiAttributeInstanceOrderedIterator extends NotNullIterator<XdiAttributeMemberOrdered> {
+	public static class MappingContextNodeXdiAttributeMemberOrderedIterator extends NotNullIterator<XdiAttributeMemberOrdered> {
 
-		public MappingContextNodeXdiAttributeInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiAttributeMemberOrderedIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiAttributeMemberOrdered> (contextNodes) {
 

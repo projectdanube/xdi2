@@ -76,9 +76,9 @@ public abstract class XdiAbstractMemberOrdered<C extends XdiCollection<C, U, O, 
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiInstanceOrderedIterator extends NotNullIterator<XdiMemberOrdered<?, ?, ?, ?>> {
+	public static class MappingContextNodeXdiMemberOrderedIterator extends NotNullIterator<XdiMemberOrdered<?, ?, ?, ?>> {
 
-		public MappingContextNodeXdiInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiMemberOrderedIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiMemberOrdered<?, ?, ?, ?>> (contextNodes) {
 

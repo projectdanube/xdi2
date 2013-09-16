@@ -10,8 +10,8 @@ public interface XdiContext extends Serializable, Comparable<XdiContext> {
 	public ContextNode getContextNode();
 	public XDI3SubSegment getBaseArcXri();
 
-	public XdiEntityCollection getXdiEntityClass(XDI3SubSegment arcXri, boolean create);
-	public XdiAttributeCollection getXdiAttributeClass(XDI3SubSegment arcXri, boolean create);
+	public XdiEntityCollection getXdiEntityCollection(XDI3SubSegment arcXri, boolean create);
+	public XdiAttributeCollection getXdiAttributeCollection(XDI3SubSegment arcXri, boolean create);
 	public XdiEntitySingleton getXdiEntitySingleton(XDI3SubSegment arcXri, boolean create);
 	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3SubSegment arcXri, boolean create);
 }

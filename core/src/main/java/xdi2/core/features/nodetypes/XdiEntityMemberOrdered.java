@@ -76,9 +76,9 @@ public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEn
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntityInstanceOrderedIterator extends NotNullIterator<XdiEntityMemberOrdered> {
+	public static class MappingContextNodeXdiEntityMemberOrderedIterator extends NotNullIterator<XdiEntityMemberOrdered> {
 
-		public MappingContextNodeXdiEntityInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiEntityMemberOrderedIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiEntityMemberOrdered> (contextNodes) {
 

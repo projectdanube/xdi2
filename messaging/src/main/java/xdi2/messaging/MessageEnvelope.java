@@ -7,7 +7,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
-import xdi2.core.features.nodetypes.XdiEntityCollection.MappingContextNodeXdiEntityClassIterator;
+import xdi2.core.features.nodetypes.XdiEntityCollection.MappingContextNodeXdiEntityCollectionIterator;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
@@ -151,9 +151,9 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		if (contextNode == null) return null;
 
-		XdiEntityCollection xdiEntityClass = XdiEntityCollection.fromContextNode(contextNode);
+		XdiEntityCollection xdiEntityCollection = XdiEntityCollection.fromContextNode(contextNode);
 
-		return new MessageCollection(this, xdiEntityClass);
+		return new MessageCollection(this, xdiEntityCollection);
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode().getAllContextNodes();
 
-		return new MappingXdiEntityClassMessageCollectionIterator(this, new MappingContextNodeXdiEntityClassIterator(contextNodes));
+		return new MappingXdiEntityCollectionMessageCollectionIterator(this, new MappingContextNodeXdiEntityCollectionIterator(contextNodes));
 	}
 
 	/**
@@ -313,16 +313,16 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * Helper classes
 	 */
 
-	public static class MappingXdiEntityClassMessageCollectionIterator extends NotNullIterator<MessageCollection> {
+	public static class MappingXdiEntityCollectionMessageCollectionIterator extends NotNullIterator<MessageCollection> {
 
-		public MappingXdiEntityClassMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<XdiEntityCollection> xdiEntityClasses) {
+		public MappingXdiEntityCollectionMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<XdiEntityCollection> xdiEntityCollections) {
 
-			super(new MappingIterator<XdiEntityCollection, MessageCollection> (xdiEntityClasses) {
+			super(new MappingIterator<XdiEntityCollection, MessageCollection> (xdiEntityCollections) {
 
 				@Override
-				public MessageCollection map(XdiEntityCollection xdiEntityClass) {
+				public MessageCollection map(XdiEntityCollection xdiEntityCollection) {
 
-					return MessageCollection.fromMessageEnvelopeAndXdiEntityClass(messageEnvelope, xdiEntityClass);
+					return MessageCollection.fromMessageEnvelopeAndXdiEntityClass(messageEnvelope, xdiEntityCollection);
 				}
 			});
 		}

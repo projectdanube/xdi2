@@ -93,9 +93,9 @@ public abstract class XdiAbstractCollection<C extends XdiCollection<C, U, O, I>,
 
 		if (arcXri == null) arcXri = XdiAbstractMemberUnordered.createArcXriFromRandom(attribute);
 
-		ContextNode instanceContextNode = this.getContextNode().setContextNode(arcXri);
+		ContextNode memberContextNode = this.getContextNode().setContextNode(arcXri);
 
-		return XdiAbstractContext.fromContextNode(instanceContextNode, this.getU());
+		return XdiAbstractContext.fromContextNode(memberContextNode, this.getU());
 	}
 
 	/**
@@ -105,10 +105,10 @@ public abstract class XdiAbstractCollection<C extends XdiCollection<C, U, O, I>,
 	@Override
 	public U getXdiMemberUnordered(XDI3SubSegment arcXri) {
 
-		ContextNode instanceContextNode = this.getContextNode().getContextNode(arcXri);
-		if (instanceContextNode == null) return null;
+		ContextNode memberContextNode = this.getContextNode().getContextNode(arcXri);
+		if (memberContextNode == null) return null;
 
-		return XdiAbstractContext.fromContextNode(instanceContextNode, this.getU());
+		return XdiAbstractContext.fromContextNode(memberContextNode, this.getU());
 	}
 
 	/**

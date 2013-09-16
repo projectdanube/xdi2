@@ -79,9 +79,9 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiAttributeClassIterator extends NotNullIterator<XdiAttributeCollection> {
+	public static class MappingContextNodeXdiAttributeCollectionIterator extends NotNullIterator<XdiAttributeCollection> {
 
-		public MappingContextNodeXdiAttributeClassIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiAttributeCollectionIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiAttributeCollection> (contextNodes) {
 

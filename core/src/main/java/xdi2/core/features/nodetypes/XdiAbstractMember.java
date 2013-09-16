@@ -49,9 +49,9 @@ public abstract class XdiAbstractMember<C extends XdiCollection<C, U, O, I>, U e
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiInstanceIterator extends NotNullIterator<XdiMember<?, ?, ?, ?>> {
+	public static class MappingContextNodeXdiMemberIterator extends NotNullIterator<XdiMember<?, ?, ?, ?>> {
 
-		public MappingContextNodeXdiInstanceIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiMemberIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiMember<?, ?, ?, ?>> (contextNodes) {
 

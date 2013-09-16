@@ -110,7 +110,7 @@ public abstract class XdiAbstractContext implements XdiContext {
 	 * @return The XDI entity class.
 	 */
 	@Override
-	public XdiEntityCollection getXdiEntityClass(XDI3SubSegment arcXri, boolean create) {
+	public XdiEntityCollection getXdiEntityCollection(XDI3SubSegment arcXri, boolean create) {
 
 		XDI3SubSegment entityCollectionArcXri = XdiEntityCollection.createArcXri(arcXri);
 
@@ -127,7 +127,7 @@ public abstract class XdiAbstractContext implements XdiContext {
 	 * @return The XDI attribute class.
 	 */
 	@Override
-	public XdiAttributeCollection getXdiAttributeClass(XDI3SubSegment arcXri, boolean create) {
+	public XdiAttributeCollection getXdiAttributeCollection(XDI3SubSegment arcXri, boolean create) {
 
 		XDI3SubSegment attributeCollectionArcXri = XdiAttributeCollection.createArcXri(arcXri);
 
