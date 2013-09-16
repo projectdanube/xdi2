@@ -84,7 +84,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 		// look for local salt and digest secret token in the graph
 
 		ContextNode senderAddressContextNode = this.getSecretTokenGraph().getRootContextNode().getContextNode(senderAddress);
-		Literal localSaltAndDigestSecretTokenLiteral = senderAddressContextNode == null ? null : senderAddressContextNode.getDeepLiteral(XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN);
+		Literal localSaltAndDigestSecretTokenLiteral = senderAddressContextNode == null ? null : senderAddressContextNode.getDeepLiteral(XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN_VALUE);
 
 		String localSaltAndDigestSecretToken = localSaltAndDigestSecretTokenLiteral == null ? null : localSaltAndDigestSecretTokenLiteral.getLiteralDataString();
 		if (localSaltAndDigestSecretToken == null) return false;

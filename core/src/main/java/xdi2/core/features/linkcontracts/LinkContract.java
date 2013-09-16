@@ -14,7 +14,7 @@ import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.xri3.XDI3Segment;
 
 /**
- * An XDI link contract, represented as a context node.
+ * An XDI link contract, represented as an XDI entity.
  * 
  * @author markus
  */

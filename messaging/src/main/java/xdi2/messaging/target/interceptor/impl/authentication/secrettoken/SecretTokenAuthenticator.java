@@ -9,5 +9,7 @@ import xdi2.messaging.target.Prototype;
  */
 public interface SecretTokenAuthenticator extends Prototype<SecretTokenAuthenticator> {
 
+	public void init() throws Exception;
+	public void shutdown() throws Exception;
 	public boolean authenticate(Message message, String secretToken);
 }

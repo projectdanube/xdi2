@@ -11,10 +11,12 @@ import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
+import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -237,11 +239,14 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		if (secretToken != null) {
 
-			this.getContextNode().setDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN, secretToken);
+			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN));
+			XdiValue xdiValue = xdiAttribute.getXdiValue(true);
+			xdiValue.getContextNode().setLiteral(secretToken);
 		} else {
 
-			Literal secretTokenLiteral = this.getContextNode().getDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN);
-			if (secretTokenLiteral != null) secretTokenLiteral.delete();
+			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN));
+			XdiValue xdiValue = xdiAttribute == null ? null : xdiAttribute.getXdiValue(false);
+			if (xdiValue != null) xdiValue.getContextNode().delete();
 		}
 	}
 
@@ -251,10 +256,53 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public String getSecretToken() {
 
-		Literal secretTokenLiteral = this.getContextNode().getDeepLiteral(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN);
-		if (secretTokenLiteral == null) return null;
+		XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN));
+		if (xdiAttribute == null) return null;
 
-		return secretTokenLiteral.getLiteralDataString();
+		XdiValue xdiValue = xdiAttribute.getXdiValue(false);
+		if (xdiValue == null) return null;
+
+		Literal literal = xdiValue.getContextNode().getLiteral();
+		if (literal == null) return null;
+
+		return literal.getLiteralDataString();
+	}
+
+	/**
+	 * Set a signature on the message.
+	 * @param signature The signature to set.
+	 */
+	public void setSignature(String signature) {
+
+		if (signature != null) {
+
+			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE));
+			XdiValue xdiValue = xdiAttribute.getXdiValue(true);
+			xdiValue.getContextNode().setLiteral(signature);
+		} else {
+
+			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE));
+			XdiValue xdiValue = xdiAttribute == null ? null : xdiAttribute.getXdiValue(false);
+			if (xdiValue != null) xdiValue.getContextNode().delete();
+		}
+	}
+
+	/**
+	 * Returns the signature from the message.
+	 * @return The signature.
+	 */
+	public String getSignature() {
+
+		XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE));
+		if (xdiAttribute == null) return null;
+
+		XdiValue xdiValue = xdiAttribute.getXdiValue(false);
+		if (xdiValue == null) return null;
+
+		Literal literal = xdiValue.getContextNode().getLiteral();
+		if (literal == null) return null;
+
+		return literal.getLiteralDataString();
 	}
 
 	/**

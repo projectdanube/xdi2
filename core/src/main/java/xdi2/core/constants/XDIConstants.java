@@ -28,6 +28,7 @@ public class XDIConstants {
 
 	public static final XDI3Segment XRI_S_ROOT = XDI3Segment.create(XDIConstants.XS_ROOT);
 	public static final XDI3Segment XRI_S_CONTEXT = XDI3Segment.create(XDIConstants.XS_ROOT);
+	public static final XDI3Segment XRI_S_VALUE = XDI3Segment.create(XDIConstants.CS_VALUE.toString());
 	public static final XDI3Segment XRI_S_LITERAL = XDI3Segment.create(XDIConstants.CS_VALUE.toString());
 	public static final XDI3Segment XRI_S_VARIABLE = XDI3Segment.create(XDIConstants.XS_VARIABLE);
 

@@ -27,6 +27,6 @@ public class LinkContractsTest extends TestCase {
 		assertTrue(new IteratorContains<LinkContract> (LinkContracts.getAllLinkContracts(graph), linkContract1).contains());
 		assertTrue(new IteratorContains<LinkContract> (LinkContracts.getAllLinkContracts(graph), linkContract2).contains());
 
-		assertEquals(linkContract1, LinkContracts.getLinkContract(graph, XDI3Segment.create("$public"), false));
+		assertEquals(linkContract1, LinkContracts.getLinkContract(graph.getDeepContextNode(XDI3Segment.create("$public")), false));
 	}
 }

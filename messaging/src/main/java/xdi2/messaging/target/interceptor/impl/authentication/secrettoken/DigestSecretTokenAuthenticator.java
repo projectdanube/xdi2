@@ -15,7 +15,7 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
  * a stored digested secret token, using both a global salt and local salts
  * for producing the digest.
  */
-public abstract class DigestSecretTokenAuthenticator implements SecretTokenAuthenticator {
+public abstract class DigestSecretTokenAuthenticator extends AbstractSecretTokenAuthenticator implements SecretTokenAuthenticator {
 
 	public static String PREFIX_XDI2_DIGEST = "xdi2-digest";
 

@@ -5,20 +5,15 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Segment;
-
 
 public class LinkContracts {
 
-
-	private LinkContracts() {
-	}
+	private LinkContracts() { }
 
 	/**
 	 * Given a graph, lists all link contracts.
@@ -38,25 +33,15 @@ public class LinkContracts {
 	 * @param create Whether to create an XDI link contract if it does not exist.
 	 * @return The existing or newly created XDI link contract.
 	 */
-	public static LinkContract getLinkContract(ContextNode contextNode, boolean create) {
+	public static LinkContract getLinkContract(ContextNode parentContextNode, boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiEntitySingleton(XDILinkContractConstants.XRI_SS_DO, create);
+		ContextNode contextNode = create ? parentContextNode.setDeepContextNode(XDILinkContractConstants.XRI_S_DO) : parentContextNode.getDeepContextNode(XDILinkContractConstants.XRI_S_DO);
+		if (contextNode == null) return null;
+
+		XdiEntitySingleton xdiEntitySingleton = XdiEntitySingleton.fromContextNode(contextNode);
 		if (xdiEntitySingleton == null) return null;
 
 		return LinkContract.fromXdiEntity(xdiEntitySingleton);
-	}
-
-	/**
-	 * Find an XDI link contract given a graph and the XRI of the XDI link contract
-	 * @param graph The graph of the XDI link contract
-	 * @param contextNodeXri The fully qualified XRI of the XDI link contract
-	 * @return The XDI link contract, or null
-	 */
-	public static LinkContract getLinkContract(Graph graph, XDI3Segment contextNodeXri, boolean create) {
-
-		ContextNode contextNode = create ? graph.setDeepContextNode(contextNodeXri) : graph.getDeepContextNode(contextNodeXri);
-
-		return getLinkContract(contextNode, create);
 	}
 
 	/*

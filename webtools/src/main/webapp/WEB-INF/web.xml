@@ -69,6 +69,17 @@
 
 	<servlet>
 		<description></description>
+		<display-name>XDISigner</display-name>
+		<servlet-name>XDISigner</servlet-name>
+		<servlet-class>xdi2.webtools.signer.XDISigner</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDISigner</servlet-name>
+		<url-pattern>/XDISigner</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
 		<display-name>XDIGrapher</display-name>
 		<servlet-name>XDIGrapher</servlet-name>
 		<servlet-class>xdi2.webtools.grapher.XDIGrapher</servlet-class>
