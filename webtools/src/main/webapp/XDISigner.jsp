@@ -14,7 +14,7 @@
 	<span id="appname">XDI Signer</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDIMessenger?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+		<a href="XDISigner?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
@@ -25,7 +25,7 @@
 
 	<% } %>
 
-	<form action="XDIMessenger" method="post">
+	<form action="XDISigner" method="post">
 
 		<textarea name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 
@@ -34,10 +34,14 @@
 		<% String writeOrdered = (String) request.getAttribute("writeOrdered"); if (writeOrdered == null) writeOrdered = ""; %>
 		<% String writeInner = (String) request.getAttribute("writeInner"); if (writeInner == null) writeInner = ""; %>
 		<% String writePretty = (String) request.getAttribute("writePretty"); if (writePretty == null) writePretty = ""; %>
-		<% String endpoint = (String) request.getAttribute("endpoint"); if (endpoint == null) endpoint = ""; %>
+		<% String key = (String) request.getAttribute("key"); if (key == null) key = ""; %>
+		<% String address = (String) request.getAttribute("address"); if (address == null) address = ""; %>
 
-		Send to endpoint: 
-		<input type="text" name="endpoint" size="80" value="<%= endpoint %>">
+		Key: 
+		<input type="text" name="key" size="80" value="<%= key %>">
+		Address: 
+		<input type="text" name="address" size="10" value="<%= address %>">
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDISignerHelp.jsp">What can I do here?</a><br>
 
 		Result Format:
 		<select name="resultFormat">
@@ -56,8 +60,10 @@
 
 		<input name="writePretty" type="checkbox" <%= writePretty.equals("on") ? "checked" : "" %>>pretty=1
 
-		<input type="submit" value="Go!">
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIMessengerHelp.jsp">What can I do here?</a>
+		<input type="submit" name="submit" value="Create RSA Signature!">
+		<input type="submit" name="submit" value="Validate RSA Signature!">
+		<input type="submit" name="submit" value="Create AES HMAC!">
+		<input type="submit" name="submit" value="Validate AES HMAC!">
 
 	</form>
 
@@ -69,6 +75,10 @@
 			Copy&amp;Paste: <textarea style="width: 100px; height: 1.2em; overflow: hidden"><%= request.getAttribute("output") %></textarea>
 		<% } %>
 		</p>
+	<% } %>
+
+	<% if (request.getAttribute("output2") != null) { %>
+		<div class="result"><pre><%= request.getAttribute("output2") %></pre></div><br>
 	<% } %>
 
 	<% if (request.getAttribute("output") != null) { %>

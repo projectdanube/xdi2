@@ -53,6 +53,8 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
+		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
+
 		ContextNode targetContextNode;
 
 		if (contextNode.isRootContextNode()) {
@@ -315,33 +317,5 @@ public final class CopyUtil {
 	 */
 	public static class AllCopyStrategy extends CopyStrategy {
 
-	}
-
-	public static class SafeGraphCopyStrategy extends CopyStrategy {
-
-		private Graph graph;
-
-		public SafeGraphCopyStrategy(Graph graph) {
-
-			this.graph = graph;
-		}
-
-		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
-
-			return this.graph.getDeepContextNode(contextNode.getXri()) == null ? contextNode : null;
-		}
-
-		@Override
-		public Relation replaceRelation(Relation relation) {
-
-			return this.graph.getDeepRelation(relation.getContextNode().getXri(), relation.getArcXri(), relation.getTargetContextNodeXri()) == null ? relation : null;
-		}
-
-		@Override
-		public Literal replaceLiteral(Literal literal) {
-
-			return this.graph.getDeepLiteral(literal.getContextNode().getXri(), literal.getLiteralData()) == null ? literal : null;
-		}
 	}
 }

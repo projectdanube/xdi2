@@ -5,43 +5,53 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.XDIClient;
-import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.http.XDIHttpClient;
+import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.features.signatures.Signature;
+import xdi2.core.features.signatures.Signatures;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.core.xri3.XDI3Segment;
 
 /**
- * Servlet implementation class for Servlet: XDIMessenger
+ * Servlet implementation class for Servlet: XDISigner
  *
  */
 public class XDISigner extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
 
-	private static final long serialVersionUID = -8317705299355338065L;
+	private static final long serialVersionUID = 572272568648798655L;
 
 	private static Logger log = LoggerFactory.getLogger(XDISigner.class);
 
 	private static MemoryGraphFactory graphFactory;
 	private static List<String> sampleInputs;
-	private static String sampleEndpoint;
+	private static List<String> sampleKeys;
+	private static List<String> sampleAddresses;
 
 	static {
 
@@ -49,17 +59,27 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
 
 		sampleInputs = new ArrayList<String> ();
+		sampleKeys = new ArrayList<String> ();
+		sampleAddresses = new ArrayList<String> ();
 
 		while (true) {
 
-			InputStream inputStream = XDISigner.class.getResourceAsStream("message" + (sampleInputs.size() + 1) + ".xdi");
-			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			InputStream inputStream1 = XDISigner.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
+			InputStream inputStream2 = XDISigner.class.getResourceAsStream("key" + (sampleKeys.size() + 1));
+			InputStream inputStream3 = XDISigner.class.getResourceAsStream("address" + (sampleAddresses.size() + 1));
+			ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
+			ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
+			ByteArrayOutputStream outputStream3 = new ByteArrayOutputStream();
 			int i;
 
 			try {
 
-				while ((i = inputStream.read()) != -1) outputStream.write(i);
-				sampleInputs.add(new String(outputStream.toByteArray()));
+				while ((i = inputStream1.read()) != -1) outputStream1.write(i);
+				while ((i = inputStream2.read()) != -1) outputStream2.write(i);
+				while ((i = inputStream3.read()) != -1) outputStream3.write(i);
+				sampleInputs.add(new String(outputStream1.toByteArray()));
+				sampleKeys.add(new String(outputStream2.toByteArray()));
+				sampleAddresses.add(new String(outputStream3.toByteArray()));
 			} catch (Exception ex) {
 
 				break;
@@ -67,15 +87,17 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 				try {
 
-					inputStream.close();
-					outputStream.close();
+					inputStream1.close();
+					inputStream2.close();
+					inputStream3.close();
+					outputStream1.close();
+					outputStream2.close();
+					outputStream3.close();
 				} catch (Exception ex) {
 
 				}
 			}
 		}
-
-		sampleEndpoint = "/xdi/mem-graph/"; 
 	}
 
 	@Override
@@ -91,9 +113,10 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
-		request.setAttribute("endpoint", request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")) + sampleEndpoint);
+		request.setAttribute("key", sampleKeys.get(Integer.parseInt(sample) - 1));
+		request.setAttribute("address", sampleAddresses.get(Integer.parseInt(sample) - 1));
 
-		request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
+		request.getRequestDispatcher("/XDISigner.jsp").forward(request, response);
 	}
 
 	@Override
@@ -105,8 +128,11 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
 		String input = request.getParameter("input");
-		String endpoint = request.getParameter("endpoint");
+		String key = request.getParameter("key");
+		String address = request.getParameter("address");
+		String submit = request.getParameter("submit");
 		String output = "";
+		String output2 = "";
 		String stats = "-1";
 		String error = null;
 
@@ -120,60 +146,97 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 
-		MessageEnvelope messageEnvelope = null;
-		MessageResult messageResult = null;
+		Graph graph = null;
+		Key k = null;
+		Signature signature = null;
+		Boolean valid = null;
 
 		long start = System.currentTimeMillis();
 
 		try {
 
-			// parse the message envelope
+			// parse the graph
 
-			messageEnvelope = new MessageEnvelope();
+			graph = MemoryGraphFactory.getInstance().openGraph();
 
-			xdiReader.read(messageEnvelope.getGraph(), new StringReader(input));
+			xdiReader.read(graph, new StringReader(input));
 
-			// send the message envelope and read result
+			// find the context node
 
-			XDIClient client = new XDIHttpClient(endpoint);
+			ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create(address));
+			if (contextNode == null) throw new RuntimeException("No context node found at address " + address);
 
-			messageResult = client.send(messageEnvelope, null);
+			// sign or validate
 
-			// output the message result
+			if ("Create RSA Signature!".equals(submit)) {
 
-			StringWriter writer = new StringWriter();
+				signature = Signatures.getSignature(contextNode, true);
 
-			xdiResultWriter.write(messageResult.getGraph(), writer);
+				PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key));
+				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+				k = keyFactory.generatePrivate(keySpec);
 
-			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
-		} catch (Exception ex) {
+				signature.createSignature((PrivateKey) k);
+			} else if ("Validate RSA Signature!".equals(submit)) {
 
-			if (ex instanceof Xdi2ClientException) {
+				signature = Signatures.getSignature(contextNode, false);
+				if (signature == null) throw new RuntimeException("No signature found at address " + address);
 
-				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+				X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key));
+				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+				k = keyFactory.generatePublic(keySpec);
 
-				// output the message result
+				valid = Boolean.valueOf(signature.validateSignature((PublicKey) k));
+			} else if ("Create AES HMAC!".equals(submit)) {
 
-				if (messageResult != null) {
+				signature = Signatures.getSignature(contextNode, true);
 
-					StringWriter writer2 = new StringWriter();
-					xdiResultWriter.write(messageResult.getGraph(), writer2);
-					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
-				}
+				k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+
+				signature.createHMAC((SecretKey) k);
+			} else if ("Validate AES HMAC!".equals(submit)) {
+
+				signature = Signatures.getSignature(contextNode, false);
+				if (signature == null) throw new RuntimeException("No HMAC found at address " + address);
+
+				k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+
+				valid = Boolean.valueOf(signature.validateHMAC((SecretKey) k));
 			}
+
+			// output the graph or result
+
+			if (valid == null) {
+
+				StringWriter writer = new StringWriter();
+
+				xdiResultWriter.write(graph, writer);
+
+				output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
+			} else {
+
+				output = "Valid: " + valid.toString();
+			}
+		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
 		}
 
+		if (signature != null) {
+
+			output2 = signature.getNormalizedSerialization();
+		}
+
 		long stop = System.currentTimeMillis();
 
 		stats = "";
 		stats += Long.toString(stop - start) + " ms time. ";
-		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getMessageCount()) + " message(s). ";
-		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getOperationCount()) + " operation(s). ";
-		if (messageResult != null) stats += Long.toString(messageResult.getGraph().getRootContextNode().getAllStatementCount()) + " result statement(s). ";
+		if (k != null) stats += "Key algorithm: " + k.getAlgorithm() + ". ";
+		if (k != null) stats += "Key format: " + k.getFormat() + ". ";
+		if (k != null) stats += "Key encoded length: " + k.getEncoded().length + ". ";
+		if (graph != null) stats += Long.toString(graph.getRootContextNode().getAllStatementCount()) + " result statement(s). ";
 
 		// display results
 
@@ -184,11 +247,13 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("writeInner", writeInner);
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("input", input);
-		request.setAttribute("endpoint", endpoint);
+		request.setAttribute("key", key);
+		request.setAttribute("address", address);
 		request.setAttribute("output", output);
+		request.setAttribute("output2", output2);
 		request.setAttribute("stats", stats);
 		request.setAttribute("error", error);
 
-		request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
+		request.getRequestDispatcher("/XDISigner.jsp").forward(request, response);
 	}
 }

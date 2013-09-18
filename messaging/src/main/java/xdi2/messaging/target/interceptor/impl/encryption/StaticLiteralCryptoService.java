@@ -8,9 +8,21 @@ import org.apache.commons.codec.binary.Base64;
 
 public class StaticLiteralCryptoService extends AbstractLiteralCryptoService implements LiteralCryptoService {
 
+	public static final String DEFAULT_ALGORITHM = "AES";
+	public static final String DEFAULT_TRANSFORMATION = "AES/CBC/PKCS7Padding";
+
 	private String secretKeyString;
+	private String algorithm;
+	private String transformation;
 
 	private SecretKey secretKey;
+
+	public StaticLiteralCryptoService() {
+
+		this.secretKeyString = null;
+		this.algorithm = DEFAULT_ALGORITHM;
+		this.transformation = DEFAULT_TRANSFORMATION;
+	}
 
 	/*
 	 * Instance methods
@@ -21,7 +33,7 @@ public class StaticLiteralCryptoService extends AbstractLiteralCryptoService imp
 
 		if (this.getSecretKeyString() == null) throw new NullPointerException("No secret key string.");
 
-		this.secretKey = new SecretKeySpec(Base64.decodeBase64(this.getSecretKeyString()), "AES");
+		this.secretKey = new SecretKeySpec(Base64.decodeBase64(this.getSecretKeyString()), this.getAlgorithm());
 	}
 
 	@Override
@@ -35,7 +47,7 @@ public class StaticLiteralCryptoService extends AbstractLiteralCryptoService imp
 
 		String encryptedLiteralDataString;
 
-		Cipher cipher = Cipher.getInstance("AES");
+		Cipher cipher = Cipher.getInstance(this.getTransformation());
 		cipher.init(Cipher.ENCRYPT_MODE, this.secretKey);
 		byte[] encryptedLiteralDataBytes = cipher.doFinal(literalDataString.getBytes("UTF-8"));
 		encryptedLiteralDataString = Base64.encodeBase64String(encryptedLiteralDataBytes);
@@ -48,7 +60,7 @@ public class StaticLiteralCryptoService extends AbstractLiteralCryptoService imp
 
 		String literalDataString;
 
-		Cipher cipher = Cipher.getInstance("AES");
+		Cipher cipher = Cipher.getInstance(this.getTransformation());
 		cipher.init(Cipher.DECRYPT_MODE, this.secretKey);
 		byte[] literalDataBytes = cipher.doFinal(Base64.decodeBase64(encryptedLiteralDataString));
 		literalDataString = new String(literalDataBytes, "UTF-8");
@@ -68,5 +80,25 @@ public class StaticLiteralCryptoService extends AbstractLiteralCryptoService imp
 	public void setSecretKeyString(String secretKeyString) {
 
 		this.secretKeyString = secretKeyString;
+	}
+
+	public String getAlgorithm() {
+
+		return this.algorithm;
+	}
+
+	public void setAlgorithm(String algorithm) {
+
+		this.algorithm = algorithm;
+	}
+
+	public String getTransformation() {
+
+		return this.transformation;
+	}
+
+	public void setTransformation(String transformation) {
+
+		this.transformation = transformation;
 	}
 }

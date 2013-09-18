@@ -102,9 +102,9 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		String writeOrdered = request.getParameter("writeOrdered");
 		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
-		String writeHtml = request.getParameter("submit").equals("Html!") ? "on" : null;
 		String from = request.getParameter("from");
 		String input = request.getParameter("input");
+		String submit = request.getParameter("submit");
 		String rawoutput = "";
 		String output = "";
 		String stats = "-1";
@@ -116,7 +116,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
 		xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 		xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
-		xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_HTML, "on".equals(writeHtml) ? "1" : "0");
+		xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_HTML, "Html!".equals(submit) ? "1" : "0");
 
 		XDIReader xdiReader = XDIReaderRegistry.forFormat(from, null);
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiWriterParameters);
@@ -150,7 +150,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 
 		// display results
 
-		if ("on".equals(writeHtml)) {
+		if ("Html!".equals(submit)) {
 
 			response.setContentType("text/html");
 			response.getWriter().append(rawoutput);

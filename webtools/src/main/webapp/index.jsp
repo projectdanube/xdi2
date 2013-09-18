@@ -34,7 +34,7 @@
 	<a href="XDILocalMessenger">XDI Local Messenger</a>&nbsp;&nbsp;
 	XDI Querier&nbsp;&nbsp;
 	XDI Setter&nbsp;&nbsp;
-	XDI Signer&nbsp;&nbsp;
+	<a href="XDISigner">XDI Signer</a>&nbsp;&nbsp;
 	XDI Addresser&nbsp;&nbsp;
 	<a href="XDIGrapher">XDI Grapher</a>
 	</p>

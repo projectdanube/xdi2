@@ -5,19 +5,30 @@ import java.io.Serializable;
 import java.io.StringWriter;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Arrays;
 import java.util.Properties;
+
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
+
+import org.apache.commons.codec.binary.Base64;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiAbstractAttribute;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeMember;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIJSONWriter;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.CopyUtil.CopyStrategy;
 
 /**
  * An XDI signature, represented as an XDI attribute.
@@ -27,6 +38,9 @@ import xdi2.core.util.CopyUtil;
 public final class Signature implements Serializable, Comparable<Signature> {
 
 	private static final long serialVersionUID = -6984622275903043863L;
+
+	public static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA1withRSA";
+	public static final String DEFAULT_HMAC_ALGORITHM = "HmacSHA1";
 
 	private XdiAttribute xdiAttribute;
 
@@ -48,10 +62,10 @@ public final class Signature implements Serializable, Comparable<Signature> {
 
 		if (xdiAttribute instanceof XdiAttributeSingleton) {
 
-			return ((XdiAttributeSingleton) xdiAttribute).getBaseArcXri().equals(XDIAuthenticationConstants.XRI_S_SIGNATURE);
+			return ((XdiAttributeSingleton) xdiAttribute).getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE));
 		} else if (xdiAttribute instanceof XdiAttributeMember) {
 
-			return ((XdiAttributeMember) xdiAttribute).getXdiCollection().getBaseArcXri().equals(XDIAuthenticationConstants.XRI_S_SIGNATURE);
+			return ((XdiAttributeMember) xdiAttribute).getXdiCollection().getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE));
 		} else {
 
 			return false;
@@ -92,23 +106,112 @@ public final class Signature implements Serializable, Comparable<Signature> {
 		return this.getXdiAttribute().getContextNode();
 	}
 
-	public void generate(PrivateKey privateKey) {
+	public void createSignature(PrivateKey privateKey) throws Exception {
 
-		
+		this.createSignature(privateKey, DEFAULT_SIGNATURE_ALGORITHM);
 	}
 
-	public boolean validate(PublicKey publicKey) {
+	public void createSignature(PrivateKey privateKey, String algorithm) throws Exception {
 
-		return false;
+		String normalizedSerialization = this.getNormalizedSerialization();
+
+		java.security.Signature signature = java.security.Signature.getInstance(algorithm);
+		signature.initSign(privateKey);
+		signature.update(normalizedSerialization.getBytes("UTF-8"));
+
+		byte[] bytes = signature.sign();
+
+		this.getXdiAttribute().getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(bytes));
 	}
 
-	public static String generateNormalizedSerialization(Graph graph) {
+	public boolean validateSignature(PublicKey publicKey) throws Exception {
+
+		return this.validateSignature(publicKey, DEFAULT_SIGNATURE_ALGORITHM);
+	}
+
+	public boolean validateSignature(PublicKey publicKey, String algorithm) throws Exception {
+
+		XdiValue xdiValue = this.getXdiAttribute().getXdiValue(false);
+		if (xdiValue == null) return false;
+
+		Literal literal = xdiValue.getContextNode().getLiteral();
+		if (literal == null) return false;
+
+		String literalString = literal.getLiteralDataString();
+		if (literalString == null) return false;
+
+		byte[] bytes = Base64.decodeBase64(literalString);
+
+		String normalizedSerialization = this.getNormalizedSerialization();
+
+		java.security.Signature signature = java.security.Signature.getInstance(algorithm);
+		signature.initVerify(publicKey);
+		signature.update(normalizedSerialization.getBytes("UTF-8"));
+
+		boolean verify = signature.verify(bytes);
+
+		return verify;
+	}
+
+	public void createHMAC(SecretKey secretKey) throws Exception {
+
+		this.createHMAC(secretKey, DEFAULT_HMAC_ALGORITHM);
+	}
+
+	public void createHMAC(SecretKey secretKey, String algorithm) throws Exception {
+
+		String normalizedSerialization = this.getNormalizedSerialization();
+
+		Mac mac = Mac.getInstance(algorithm);
+		mac.init(secretKey);
+		mac.update(normalizedSerialization.getBytes("UTF-8"));
+
+		byte[] bytes = mac.doFinal();
+
+		this.getXdiAttribute().getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(bytes));
+	}
+
+	public boolean validateHMAC(SecretKey publicKey) throws Exception {
+
+		return this.validateHMAC(publicKey, DEFAULT_HMAC_ALGORITHM);
+	}
+
+	public boolean validateHMAC(SecretKey secretKey, String algorithm) throws Exception {
+
+		XdiValue xdiValue = this.getXdiAttribute().getXdiValue(false);
+		if (xdiValue == null) return false;
+
+		Literal literal = xdiValue.getContextNode().getLiteral();
+		if (literal == null) return false;
+
+		String literalString = literal.getLiteralDataString();
+		if (literalString == null) return false;
+
+		byte[] bytes = Base64.decodeBase64(literalString);
+
+		String normalizedSerialization = this.getNormalizedSerialization();
+
+		Mac mac = Mac.getInstance(algorithm);
+		mac.init(secretKey);
+		mac.update(normalizedSerialization.getBytes("UTF-8"));
+
+		boolean verify = Arrays.equals(bytes, mac.doFinal());
+
+		return verify;
+	}
+
+	public String getNormalizedSerialization() {
+
+		Graph graph;
+
+		graph = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyContextNode(this.getContextNode().getContextNode(), graph, new NoSignaturesCopyStrategy());
 
 		Properties parameters = new Properties();
 		parameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "1");
 		parameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
-		parameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, null);
-		parameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, null);
+		parameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "0");
+		parameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "0");
 
 		XDIJSONWriter writer = new XDIJSONWriter(parameters);
 		StringWriter buffer = new StringWriter();
@@ -122,22 +225,6 @@ public final class Signature implements Serializable, Comparable<Signature> {
 		}
 
 		return buffer.toString();
-	}
-
-	public static String generateNormalizedSerialization(ContextNode contextNode) {
-
-		Graph graph;
-
-		if (contextNode.isRootContextNode()) {
-
-			graph = contextNode.getGraph();
-		} else {
-
-			graph = MemoryGraphFactory.getInstance().openGraph();
-			CopyUtil.copyContextNode(contextNode, graph, null);
-		}
-
-		return generateNormalizedSerialization(graph);
 	}
 
 	/*
@@ -177,5 +264,24 @@ public final class Signature implements Serializable, Comparable<Signature> {
 		if (other == this || other == null) return 0;
 
 		return this.getContextNode().compareTo(other.getContextNode());
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class NoSignaturesCopyStrategy extends CopyStrategy {
+
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
+			if (xdiAttribute == null) return contextNode;
+
+			Signature signature = Signature.fromXdiAttribute(xdiAttribute);
+			if (signature == null) return contextNode;
+
+			return null;
+		}
 	}
 }

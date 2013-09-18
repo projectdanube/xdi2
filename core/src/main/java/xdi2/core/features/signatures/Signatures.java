@@ -33,12 +33,12 @@ public class Signatures {
 	 * @param create Whether to create an XDI signature if it does not exist.
 	 * @return The existing or newly created XDI signature.
 	 */
-	public static Signature getSignature(ContextNode parentContextNode, boolean create) {
+	public static Signature getSignature(ContextNode contextNode, boolean create) {
 
-		ContextNode contextNode = create ? parentContextNode.setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE) : parentContextNode.getDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE);
-		if (contextNode == null) return null;
+		ContextNode signatureContextNode = create ? contextNode.setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE) : contextNode.getDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE);
+		if (signatureContextNode == null) return null;
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAttributeSingleton.fromContextNode(contextNode);
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAttributeSingleton.fromContextNode(signatureContextNode);
 		if (xdiAttributeSingleton == null) return null;
 
 		return Signature.fromXdiAttribute(xdiAttributeSingleton);
