@@ -82,7 +82,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 		request.setAttribute("rules", xdi2.core.xri3.parser.aparse.ParserRules.rules);
 		request.setAttribute("rulename", "xdi-statement");
-		request.setAttribute("parser", "aparse");
+		request.setAttribute("parser", "manual");
 		request.setAttribute("input", sampleInput);
 
 		request.getRequestDispatcher("/XDIParser.jsp").forward(request, response);

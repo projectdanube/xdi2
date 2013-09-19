@@ -39,11 +39,11 @@
 		&nbsp;
 		<input type="text" class="input" name="input" style="width: 500px" value="<%= request.getAttribute("input") != null ? ((String) request.getAttribute("input")).replace("\"", "&quot;") : "" %>">
 		&nbsp;
+		<input type="radio" name="parser" value="manual" <%= "manual".equals(request.getAttribute("parser")) ? "checked" : "" %>>manual (doesn't use ABNF)
+		&nbsp;
 		<input type="radio" name="parser" value="aparse" <%= "aparse".equals(request.getAttribute("parser")) ? "checked" : "" %>>aParse
 		&nbsp;
 		<input type="radio" name="parser" value="apg" <%= "apg".equals(request.getAttribute("parser")) ? "checked" : "" %>>APG
-		&nbsp;
-		<input type="radio" name="parser" value="manual" <%= "manual".equals(request.getAttribute("parser")) ? "checked" : "" %>>manual (doesn't use ABNF)
 		&nbsp;
 		<input type="submit" value="Go!">
 
