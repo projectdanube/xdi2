@@ -34,7 +34,7 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 
 		return
 				isValidArcXri(contextNode.getArcXri(), true) &&
-				( XdiAttributeCollection.isValid(contextNode.getContextNode()) || XdiAttributeMemberUnordered.isValid(contextNode.getContextNode()) );
+				XdiAttributeCollection.isValid(contextNode.getContextNode());
 	}
 
 	/**
