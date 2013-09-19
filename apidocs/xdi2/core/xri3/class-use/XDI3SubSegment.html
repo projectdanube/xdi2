@@ -113,6 +113,10 @@ Packages that use <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.impl.json"><B>xdi2.core.impl.json</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.impl.keyvalue"><B>xdi2.core.impl.keyvalue</B></A></TD>
 <TD>Implementation of the XDI graph model as key/value pairs.&nbsp;</TD>
 </TR>
@@ -189,6 +193,14 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every context node has an associated arc XRI.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B>Statement.ContextNodeStatement.</B><B><A HREF="../../../../xdi2/core/Statement.ContextNodeStatement.html#getObject()">getObject</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -200,23 +212,15 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../xdi2/core/ContextNode.html#containsContextNode(xdi2.core.xri3.XDI3SubSegment)">containsContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../xdi2/core/ContextNode.html#containsContextNode(xdi2.core.xri3.XDI3SubSegment)">containsContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node with a given arc XRI exists in this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../xdi2/core/ContextNode.html#createContextNode(xdi2.core.xri3.XDI3SubSegment)">createContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new context node and adds it to this context node.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../xdi2/core/ContextNode.html#deleteContextNode(xdi2.core.xri3.XDI3SubSegment)">deleteContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../xdi2/core/ContextNode.html#delContextNode(xdi2.core.xri3.XDI3SubSegment)">delContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the context node with a given arc XRI.</TD>
@@ -224,7 +228,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.xri3.XDI3SubSegment)">getContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.xri3.XDI3SubSegment)">getContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the context node with a given arc XRI.</TD>
@@ -232,7 +236,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../xdi2/core/ContextNode.html#setContextNode(xdi2.core.xri3.XDI3SubSegment)">setContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../xdi2/core/ContextNode.html#setContextNode(xdi2.core.xri3.XDI3SubSegment)">setContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new context node and adds it to this context node, or returns an existing context node.</TD>
@@ -369,7 +373,15 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XDIConstants.</B><B><A HREF="../../../../xdi2/core/constants/XDIConstants.html#XRI_SS_ROOT">XRI_SS_ROOT</A></B></CODE>
+<TD><CODE><B>XDILinkContractConstants.</B><B><A HREF="../../../../xdi2/core/constants/XDILinkContractConstants.html#XRI_SS_SET">XRI_SS_SET</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B>XDIAuthenticationConstants.</B><B><A HREF="../../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_SS_SIGNATURE">XRI_SS_SIGNATURE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -516,7 +528,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractInstanceOrdered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html#createArcXri(java.lang.String)">createArcXri</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;identifier)</CODE>
+<TD><CODE><B>XdiAbstractMemberUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#createArcXri(java.lang.String, boolean)">createArcXri</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;identifier,
+             boolean&nbsp;attribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -524,8 +537,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractInstanceUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html#createArcXri(java.lang.String, boolean)">createArcXri</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;identifier,
-             boolean&nbsp;mutable)</CODE>
+<TD><CODE><B>XdiAbstractMemberOrdered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html#createArcXri(java.lang.String, boolean)">createArcXri</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;identifier,
+             boolean&nbsp;attribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -549,7 +562,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiEntityClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityClass.html#createArcXri(xdi2.core.xri3.XDI3SubSegment)">createArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiEntityCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html#createArcXri(xdi2.core.xri3.XDI3SubSegment)">createArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -565,7 +578,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAttributeClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeClass.html#createArcXri(xdi2.core.xri3.XDI3SubSegment)">createArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiAttributeCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html#createArcXri(xdi2.core.xri3.XDI3SubSegment)">createArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -573,8 +586,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractInstanceUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html#createArcXriFromHash(java.lang.String, boolean)">createArcXriFromHash</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string,
-                     boolean&nbsp;mutable)</CODE>
+<TD><CODE><B>XdiAbstractMemberUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#createArcXriFromHash(java.lang.String, boolean)">createArcXriFromHash</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string,
+                     boolean&nbsp;attribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -582,7 +595,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractInstanceUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html#createArcXriFromRandom(boolean)">createArcXriFromRandom</A></B>(boolean&nbsp;mutable)</CODE>
+<TD><CODE><B>XdiAbstractMemberUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#createArcXriFromRandom(boolean)">createArcXriFromRandom</A></B>(boolean&nbsp;attribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -590,8 +603,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractInstanceUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html#createArcXriFromUuid(java.lang.String, boolean)">createArcXriFromUuid</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;uuid,
-                     boolean&nbsp;mutable)</CODE>
+<TD><CODE><B>XdiAbstractMemberUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#createArcXriFromUuid(java.lang.String, boolean)">createArcXriFromUuid</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;uuid,
+                     boolean&nbsp;attribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -604,14 +617,6 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the inner root XRI of a subject XRI and a predicate XRI.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiLocalRoot.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html#createLocalRootXri()">createLocalRootXri</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the local root XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -672,7 +677,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiEntityClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityClass.html#createArcXri(xdi2.core.xri3.XDI3SubSegment)">createArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiEntityCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html#createArcXri(xdi2.core.xri3.XDI3SubSegment)">createArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -688,7 +693,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAttributeClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeClass.html#createArcXri(xdi2.core.xri3.XDI3SubSegment)">createArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiAttributeCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html#createArcXri(xdi2.core.xri3.XDI3SubSegment)">createArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -753,18 +758,18 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeClass.html" title="class in xdi2.core.features.nodetypes">XdiAttributeClass</A></CODE></FONT></TD>
-<TD><CODE><B>XdiContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeClass</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
-                     boolean&nbsp;create)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A></CODE></FONT></TD>
+<TD><CODE><B>XdiContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                          boolean&nbsp;create)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeClass.html" title="class in xdi2.core.features.nodetypes">XdiAttributeClass</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeClass</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
-                     boolean&nbsp;create)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A></CODE></FONT></TD>
+<TD><CODE><B>XdiAbstractContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+                          boolean&nbsp;create)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates or returns an XDI attribute class under this XDI subgraph.</TD>
@@ -772,7 +777,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A></CODE></FONT></TD>
-<TD><CODE><B>XdiContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+<TD><CODE><B>XdiContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                          boolean&nbsp;create)</CODE>
 
 <BR>
@@ -789,18 +794,18 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A></CODE></FONT></TD>
-<TD><CODE><B>XdiContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityClass</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
-                  boolean&nbsp;create)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A></CODE></FONT></TD>
+<TD><CODE><B>XdiContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                       boolean&nbsp;create)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityClass</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
-                  boolean&nbsp;create)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A></CODE></FONT></TD>
+<TD><CODE><B>XdiAbstractContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+                       boolean&nbsp;create)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates or returns an XDI entity class under this XDI subgraph.</TD>
@@ -808,7 +813,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</A></CODE></FONT></TD>
-<TD><CODE><B>XdiContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+<TD><CODE><B>XdiContext.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                       boolean&nbsp;create)</CODE>
 
 <BR>
@@ -825,16 +830,16 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiClass.html" title="type parameter in XdiClass">U</A></CODE></FONT></TD>
-<TD><CODE><B>XdiClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiClass.html#getXdiInstanceUnordered(xdi2.core.xri3.XDI3SubSegment)">getXdiInstanceUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</A></CODE></FONT></TD>
+<TD><CODE><B>XdiCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)">getXdiMemberUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html" title="type parameter in XdiAbstractClass">U</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html#getXdiInstanceUnordered(xdi2.core.xri3.XDI3SubSegment)">getXdiInstanceUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A></CODE></FONT></TD>
+<TD><CODE><B>XdiAbstractCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)">getXdiMemberUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gets an XDI instance under this XDI class.</TD>
@@ -854,14 +859,6 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a given XRI is an inner root XRI.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XdiLocalRoot.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html#isLocalRootXri(xdi2.core.xri3.XDI3SubSegment)">isLocalRootXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a given XRI is a local root XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -906,7 +903,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XdiEntityInstanceOrdered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiEntityMemberUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityMemberUnordered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -914,7 +911,15 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XdiEntityClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityClass.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiEntityMemberOrdered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityMemberOrdered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>XdiEntityCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -930,7 +935,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XdiAttributeInstanceOrdered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiAttributeMemberUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -938,7 +943,15 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XdiAttributeClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeClass.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiAttributeMemberOrdered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>XdiAttributeCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -954,7 +967,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractInstanceUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiAbstractCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -962,7 +975,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractInstanceOrdered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiAbstractMemberUnordered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment, boolean)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+              boolean&nbsp;attribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -970,7 +984,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>XdiAbstractMemberOrdered.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment, boolean)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+              boolean&nbsp;attribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -985,16 +1000,16 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiClass.html" title="type parameter in XdiClass">U</A></CODE></FONT></TD>
-<TD><CODE><B>XdiClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiClass.html#setXdiInstanceUnordered(xdi2.core.xri3.XDI3SubSegment)">setXdiInstanceUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</A></CODE></FONT></TD>
+<TD><CODE><B>XdiCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)">setXdiMemberUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html" title="type parameter in XdiAbstractClass">U</A></CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractClass.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html#setXdiInstanceUnordered(xdi2.core.xri3.XDI3SubSegment)">setXdiInstanceUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A></CODE></FONT></TD>
+<TD><CODE><B>XdiAbstractCollection.</B><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#setXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)">setXdiMemberUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets an XDI instance under this XDI class.</TD>
@@ -1035,8 +1050,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../xdi2/core/impl/AbstractContextNode.html#checkContextNode(xdi2.core.xri3.XDI3SubSegment, boolean)">checkContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
-                 boolean&nbsp;checkExists)</CODE>
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../xdi2/core/impl/AbstractContextNode.html#checkContextNode(xdi2.core.xri3.XDI3SubSegment)">checkContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node can be created.</TD>
@@ -1051,16 +1065,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>BasicContextNode.</B><B><A HREF="../../../../xdi2/core/impl/BasicContextNode.html#createContextNode(xdi2.core.xri3.XDI3SubSegment)">createContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>BasicContextNode.</B><B><A HREF="../../../../xdi2/core/impl/BasicContextNode.html#deleteContextNode(xdi2.core.xri3.XDI3SubSegment)">deleteContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>BasicContextNode.</B><B><A HREF="../../../../xdi2/core/impl/BasicContextNode.html#delContextNode(xdi2.core.xri3.XDI3SubSegment)">delContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1076,7 +1082,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../xdi2/core/impl/AbstractContextNode.html#setContextNode(xdi2.core.xri3.XDI3SubSegment)">setContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
+<TD><CODE><B>BasicContextNode.</B><B><A HREF="../../../../xdi2/core/impl/BasicContextNode.html#setContextNode(xdi2.core.xri3.XDI3SubSegment)">setContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1096,6 +1102,63 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;&nbsp;contextNodes,
                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;&nbsp;relations,
                  <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.impl.json"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> in <A HREF="../../../../xdi2/core/impl/json/package-summary.html">xdi2.core.impl.json</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/core/impl/json/package-summary.html">xdi2.core.impl.json</A> that return <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B>JSONContextNode.</B><B><A HREF="../../../../xdi2/core/impl/json/JSONContextNode.html#getArcXri()">getArcXri</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/core/impl/json/package-summary.html">xdi2.core.impl.json</A> with parameters of type <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>JSONContextNode.</B><B><A HREF="../../../../xdi2/core/impl/json/JSONContextNode.html#delContextNode(xdi2.core.xri3.XDI3SubSegment)">delContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>JSONContextNode.</B><B><A HREF="../../../../xdi2/core/impl/json/JSONContextNode.html#getContextNode(xdi2.core.xri3.XDI3SubSegment)">getContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>JSONContextNode.</B><B><A HREF="../../../../xdi2/core/impl/json/JSONContextNode.html#setContextNode(xdi2.core.xri3.XDI3SubSegment)">setContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1143,16 +1206,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>KeyValueContextNode.</B><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#createContextNode(xdi2.core.xri3.XDI3SubSegment)">createContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>KeyValueContextNode.</B><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#deleteContextNode(xdi2.core.xri3.XDI3SubSegment)">deleteContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>KeyValueContextNode.</B><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#delContextNode(xdi2.core.xri3.XDI3SubSegment)">delContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1161,6 +1216,14 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B>KeyValueContextNode.</B><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#getContextNode(xdi2.core.xri3.XDI3SubSegment)">getContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>KeyValueContextNode.</B><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#setContextNode(xdi2.core.xri3.XDI3SubSegment)">setContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1226,16 +1289,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>MemoryContextNode.</B><B><A HREF="../../../../xdi2/core/impl/memory/MemoryContextNode.html#createContextNode(xdi2.core.xri3.XDI3SubSegment)">createContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>MemoryContextNode.</B><B><A HREF="../../../../xdi2/core/impl/memory/MemoryContextNode.html#deleteContextNode(xdi2.core.xri3.XDI3SubSegment)">deleteContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>MemoryContextNode.</B><B><A HREF="../../../../xdi2/core/impl/memory/MemoryContextNode.html#delContextNode(xdi2.core.xri3.XDI3SubSegment)">delContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1299,16 +1354,8 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B>WrappedContextNode.</B><B><A HREF="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#createContextNode(xdi2.core.xri3.XDI3SubSegment)">createContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>WrappedContextNode.</B><B><A HREF="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#deleteContextNode(xdi2.core.xri3.XDI3SubSegment)">deleteContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B>WrappedContextNode.</B><B><A HREF="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#delContextNode(xdi2.core.xri3.XDI3SubSegment)">delContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1317,6 +1364,14 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B>WrappedContextNode.</B><B><A HREF="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#getContextNode(xdi2.core.xri3.XDI3SubSegment)">getContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B>WrappedContextNode.</B><B><A HREF="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#setContextNode(xdi2.core.xri3.XDI3SubSegment)">setContextNode</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1369,6 +1424,33 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/core/util/package-summary.html">xdi2.core.util</A> with parameters of type <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Util.</B><B><A HREF="../../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)">concatXris</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri1,
+           <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Util.</B><B><A HREF="../../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)">concatXris</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
+           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Util.</B><B><A HREF="../../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3SubSegment)">concatXris</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
+           <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1474,6 +1556,14 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Statement.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Statement.html#getContextNodeArcXri()">getContextNodeArcXri</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
 <TD><CODE><B>XDI3Segment.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Segment.html#getFirstSubSegment()">getFirstSubSegment</A></B>()</CODE>
 
 <BR>
@@ -1543,15 +1633,27 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B>XDI3Segment.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Segment.html#create(xdi2.core.xri3.XDI3SubSegment)">create</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment)</CODE>
+<TD><CODE><B>XDI3Segment.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Segment.html#fromComponent(xdi2.core.xri3.XDI3SubSegment)">fromComponent</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>XDI3Segment.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Segment.html#startsWith(xdi2.core.xri3.XDI3SubSegment[])">startsWith</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>[]&nbsp;subSegments)</CODE>
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Statement.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Statement.html#fromContextNodeComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)">fromContextNodeComponents</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                          <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI statement from a context node XRI and an arc XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Parser.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Parser.html#makeXDI3Statement(java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)">makeXDI3Statement</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string,
+                  <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;subject,
+                  <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;predicate,
+                  <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;object)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1563,6 +1665,14 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="2">Method parameters in <A HREF="../../../../xdi2/core/xri3/package-summary.html">xdi2.core.xri3</A> with type arguments of type <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B>XDI3Segment.</B><B><A HREF="../../../../xdi2/core/xri3/XDI3Segment.html#fromComponents(java.util.List)">fromComponents</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&gt;&nbsp;subSegments)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1707,7 +1817,7 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
 <TD><CODE><B>Operation.</B><B><A HREF="../../../../xdi2/messaging/Operation.html#getParameter(xdi2.core.xri3.XDI3SubSegment)">getParameter</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
 
 <BR>
@@ -1716,10 +1826,26 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A></CODE></FONT></TD>
-<TD><CODE><B>Operation.</B><B><A HREF="../../../../xdi2/messaging/Operation.html#getParameterAsBoolean(xdi2.core.xri3.XDI3SubSegment)">getParameterAsBoolean</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
+<TD><CODE><B>Operation.</B><B><A HREF="../../../../xdi2/messaging/Operation.html#getParameterBoolean(xdi2.core.xri3.XDI3SubSegment)">getParameterBoolean</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value of this operation as a boolean.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value boolean of this operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</A></CODE></FONT></TD>
+<TD><CODE><B>Operation.</B><B><A HREF="../../../../xdi2/messaging/Operation.html#getParameterNumber(xdi2.core.xri3.XDI3SubSegment)">getParameterNumber</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value number of this operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B>Operation.</B><B><A HREF="../../../../xdi2/messaging/Operation.html#getParameterString(xdi2.core.xri3.XDI3SubSegment)">getParameterString</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value string of this operation.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1750,14 +1876,6 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XDIMessagingConstants.</B><B><A HREF="../../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_SS_ADD">XRI_SS_ADD</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
 <TD><CODE><B>XDIMessagingConstants.</B><B><A HREF="../../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_SS_DEL">XRI_SS_DEL</A></B></CODE>
 
 <BR>
@@ -1775,14 +1893,6 @@ Uses of <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
 <TD><CODE><B>XDIMessagingConstants.</B><B><A HREF="../../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_SS_GET">XRI_SS_GET</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B>XDIMessagingConstants.</B><B><A HREF="../../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_SS_MOD">XRI_SS_MOD</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

@@ -23,24 +23,32 @@ ExecutionContext (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="pushMessageEnvelope()">
 <META NAME="keywords" CONTENT="pushMessage()">
 <META NAME="keywords" CONTENT="pushOperation()">
+<META NAME="keywords" CONTENT="pushTargetAddress()">
+<META NAME="keywords" CONTENT="pushTargetStatement()">
 <META NAME="keywords" CONTENT="pushInterceptor()">
 <META NAME="keywords" CONTENT="pushContributor()">
 <META NAME="keywords" CONTENT="popMessagingTarget()">
 <META NAME="keywords" CONTENT="popMessageEnvelope()">
 <META NAME="keywords" CONTENT="popMessage()">
 <META NAME="keywords" CONTENT="popOperation()">
+<META NAME="keywords" CONTENT="popTargetAddress()">
+<META NAME="keywords" CONTENT="popTargetStatement()">
 <META NAME="keywords" CONTENT="popInterceptor()">
 <META NAME="keywords" CONTENT="popContributor()">
 <META NAME="keywords" CONTENT="getCurrentMessagingTarget()">
 <META NAME="keywords" CONTENT="getCurrentMessageEnvelope()">
 <META NAME="keywords" CONTENT="getCurrentMessage()">
 <META NAME="keywords" CONTENT="getCurrentOperation()">
+<META NAME="keywords" CONTENT="getCurrentTargetAddress()">
+<META NAME="keywords" CONTENT="getCurrentTargetStatement()">
 <META NAME="keywords" CONTENT="getCurrentInterceptor()">
 <META NAME="keywords" CONTENT="getCurrentContributor()">
 <META NAME="keywords" CONTENT="getExceptionMessagingTarget()">
 <META NAME="keywords" CONTENT="getExceptionMessageEnvelope()">
 <META NAME="keywords" CONTENT="getExceptionMessage()">
 <META NAME="keywords" CONTENT="getExceptionOperation()">
+<META NAME="keywords" CONTENT="getExceptionTargetAddress()">
+<META NAME="keywords" CONTENT="getExceptionTargetStatement()">
 <META NAME="keywords" CONTENT="getExceptionInterceptor()">
 <META NAME="keywords" CONTENT="getExceptionContributor()">
 <META NAME="keywords" CONTENT="isTopExecutionPosition()">
@@ -147,7 +155,7 @@ Class ExecutionContext</H2>
 <div id="apivizContainer" style="text-align: center;"><img src="ExecutionContext.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
-Messaging tarets as well as contributors and interceptors can use the ExecutionContext
+Messaging targets as well as contributors and interceptors can use the ExecutionContext
  to store and share state. The ExecutionContext is created before a MessageEnvelope is
  executed, and is deleted when execution of the MessageEnvelope is complete. It contains
  the current position in the execution process, and attributes associated with various
@@ -259,6 +267,22 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getCurrentTargetAddress()">getCurrentTargetAddress</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getCurrentTargetStatement()">getCurrentTargetStatement</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getException()">getException</A></B>()</CODE>
 
@@ -309,6 +333,22 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getExceptionOperation()">getExceptionOperation</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getExceptionTargetAddress()">getExceptionTargetAddress</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getExceptionTargetStatement()">getExceptionTargetStatement</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -411,6 +451,22 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#popTargetAddress()">popTargetAddress</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#popTargetStatement()">popTargetStatement</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#processException(java.lang.Exception)">processException</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)</CODE>
 
@@ -467,6 +523,24 @@ Messaging tarets as well as contributors and interceptors can use the ExecutionC
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#pushOperation(xdi2.messaging.Operation, java.lang.String)">pushOperation</A></B>(<A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;comment)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#pushTargetAddress(xdi2.core.xri3.XDI3Segment, java.lang.String)">pushTargetAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;comment)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#pushTargetStatement(xdi2.core.xri3.XDI3Statement, java.lang.String)">pushTargetStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                    <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;comment)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -755,6 +829,36 @@ public void <B>pushOperation</B>(<A HREF="../../../xdi2/messaging/Operation.html
 </DL>
 <HR>
 
+<A NAME="pushTargetAddress(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+pushTargetAddress</H3>
+<PRE>
+public void <B>pushTargetAddress</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+                              <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;comment)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="pushTargetStatement(xdi2.core.xri3.XDI3Statement, java.lang.String)"><!-- --></A><H3>
+pushTargetStatement</H3>
+<PRE>
+public void <B>pushTargetStatement</B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;comment)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="pushInterceptor(xdi2.messaging.target.interceptor.Interceptor, java.lang.String)"><!-- --></A><H3>
 pushInterceptor</H3>
 <PRE>
@@ -831,6 +935,34 @@ public void <B>popMessage</B>()</PRE>
 popOperation</H3>
 <PRE>
 public void <B>popOperation</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="popTargetAddress()"><!-- --></A><H3>
+popTargetAddress</H3>
+<PRE>
+public void <B>popTargetAddress</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="popTargetStatement()"><!-- --></A><H3>
+popTargetStatement</H3>
+<PRE>
+public void <B>popTargetStatement</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -925,6 +1057,34 @@ public <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.mes
 </DL>
 <HR>
 
+<A NAME="getCurrentTargetAddress()"><!-- --></A><H3>
+getCurrentTargetAddress</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getCurrentTargetAddress</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCurrentTargetStatement()"><!-- --></A><H3>
+getCurrentTargetStatement</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>getCurrentTargetStatement</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getCurrentInterceptor()"><!-- --></A><H3>
 getCurrentInterceptor</H3>
 <PRE>
@@ -999,6 +1159,34 @@ public <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messa
 getExceptionOperation</H3>
 <PRE>
 public <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A> <B>getExceptionOperation</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getExceptionTargetAddress()"><!-- --></A><H3>
+getExceptionTargetAddress</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getExceptionTargetAddress</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getExceptionTargetStatement()"><!-- --></A><H3>
+getExceptionTargetStatement</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>getExceptionTargetStatement</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>

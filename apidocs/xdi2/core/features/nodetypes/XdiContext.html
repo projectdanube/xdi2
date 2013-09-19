@@ -10,8 +10,8 @@ XdiContext (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="xdi2.core.features.nodetypes.XdiContext interface">
 <META NAME="keywords" CONTENT="getContextNode()">
 <META NAME="keywords" CONTENT="getBaseArcXri()">
-<META NAME="keywords" CONTENT="getXdiEntityClass()">
-<META NAME="keywords" CONTENT="getXdiAttributeClass()">
+<META NAME="keywords" CONTENT="getXdiEntityCollection()">
+<META NAME="keywords" CONTENT="getXdiAttributeCollection()">
 <META NAME="keywords" CONTENT="getXdiEntitySingleton()">
 <META NAME="keywords" CONTENT="getXdiAttributeSingleton()">
 
@@ -61,7 +61,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiClass.html" title="interface in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/features/nodetypes/XdiContext.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -101,10 +101,10 @@ Interface XdiContext</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeInstance.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeInstance</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiClass.html" title="interface in xdi2.core.features.nodetypes">XdiClass</A>&lt;U,O,I&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityInstance.html" title="interface in xdi2.core.features.nodetypes">XdiEntityInstance</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiInstance.html" title="interface in xdi2.core.features.nodetypes">XdiInstance</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiInstanceOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiInstanceOrdered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiInstanceUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiInstanceUnordered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="interface in xdi2.core.features.nodetypes">XdiRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSingleton.html" title="interface in xdi2.core.features.nodetypes">XdiSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A></DD>
+<DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeMember.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeMember</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;C,U,O,I&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityMember.html" title="interface in xdi2.core.features.nodetypes">XdiEntityMember</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;C,U,O,I&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;C,U,O,I&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;C,U,O,I&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="interface in xdi2.core.features.nodetypes">XdiRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSingleton.html" title="interface in xdi2.core.features.nodetypes">XdiSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.html" title="class in xdi2.core.features.nodetypes">XdiAbstractAttribute</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html" title="class in xdi2.core.features.nodetypes">XdiAbstractClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractEntity.html" title="class in xdi2.core.features.nodetypes">XdiAbstractEntity</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstance.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstance</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstanceOrdered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstanceUnordered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" title="class in xdi2.core.features.nodetypes">XdiAbstractRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeClass.html" title="class in xdi2.core.features.nodetypes">XdiAttributeClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html" title="class in xdi2.core.features.nodetypes">XdiLocalRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiMetaClass.html" title="class in xdi2.core.features.nodetypes">XdiMetaClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html" title="class in xdi2.core.features.nodetypes">XdiValue</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiVariable.html" title="class in xdi2.core.features.nodetypes">XdiVariable</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.html" title="class in xdi2.core.features.nodetypes">XdiAbstractAttribute</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractEntity.html" title="class in xdi2.core.features.nodetypes">XdiAbstractEntity</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMember.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMember</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberOrdered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberUnordered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" title="class in xdi2.core.features.nodetypes">XdiAbstractRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberOrdered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberUnordered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberOrdered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberUnordered</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html" title="class in xdi2.core.features.nodetypes">XdiLocalRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiMetaClass.html" title="class in xdi2.core.features.nodetypes">XdiMetaClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html" title="class in xdi2.core.features.nodetypes">XdiValue</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiVariable.html" title="class in xdi2.core.features.nodetypes">XdiVariable</A></DD>
 </DL>
 <HR>
 <DL>
@@ -151,9 +151,9 @@ Interface XdiContext</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeClass.html" title="class in xdi2.core.features.nodetypes">XdiAttributeClass</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeClass</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
-                     boolean&nbsp;create)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                          boolean&nbsp;create)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -161,7 +161,7 @@ Interface XdiContext</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                          boolean&nbsp;create)</CODE>
 
 <BR>
@@ -169,9 +169,9 @@ Interface XdiContext</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityClass</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
-                  boolean&nbsp;create)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                       boolean&nbsp;create)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -179,7 +179,7 @@ Interface XdiContext</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                       boolean&nbsp;create)</CODE>
 
 <BR>
@@ -236,11 +236,11 @@ getBaseArcXri</H3>
 </DL>
 <HR>
 
-<A NAME="getXdiEntityClass(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
-getXdiEntityClass</H3>
+<A NAME="getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
+getXdiEntityCollection</H3>
 <PRE>
-<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityClass.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass</A> <B>getXdiEntityClass</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
-                                 boolean&nbsp;create)</PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A> <B>getXdiEntityCollection</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                                           boolean&nbsp;create)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -251,11 +251,11 @@ getXdiEntityClass</H3>
 </DL>
 <HR>
 
-<A NAME="getXdiAttributeClass(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
-getXdiAttributeClass</H3>
+<A NAME="getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
+getXdiAttributeCollection</H3>
 <PRE>
-<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeClass.html" title="class in xdi2.core.features.nodetypes">XdiAttributeClass</A> <B>getXdiAttributeClass</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
-                                       boolean&nbsp;create)</PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A> <B>getXdiAttributeCollection</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                                                 boolean&nbsp;create)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -269,7 +269,7 @@ getXdiAttributeClass</H3>
 <A NAME="getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
 getXdiEntitySingleton</H3>
 <PRE>
-<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</A> <B>getXdiEntitySingleton</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</A> <B>getXdiEntitySingleton</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                                          boolean&nbsp;create)</PRE>
 <DL>
 <DD><DL>
@@ -284,7 +284,7 @@ getXdiEntitySingleton</H3>
 <A NAME="getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
 getXdiAttributeSingleton</H3>
 <PRE>
-<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A> <B>getXdiAttributeSingleton</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A> <B>getXdiAttributeSingleton</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                                                boolean&nbsp;create)</PRE>
 <DL>
 <DD><DL>
@@ -325,7 +325,7 @@ getXdiAttributeSingleton</H3>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiClass.html" title="interface in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/features/nodetypes/XdiContext.html" target="_top"><B>FRAMES</B></A>  &nbsp;

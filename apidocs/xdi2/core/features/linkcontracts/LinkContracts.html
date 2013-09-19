@@ -147,21 +147,11 @@ Class LinkContracts</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContracts.html#getLinkContract(xdi2.core.ContextNode, boolean)">getLinkContract</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContracts.html#getLinkContract(xdi2.core.ContextNode, boolean)">getLinkContract</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;parentContextNode,
                 boolean&nbsp;create)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI link contract under a context node, or creates a new one.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContracts.html#getLinkContract(xdi2.core.Graph, xdi2.core.xri3.XDI3Segment, boolean)">getLinkContract</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-                boolean&nbsp;create)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Find an XDI link contract given a graph and the XRI of the XDI link contract</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -203,7 +193,7 @@ public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/It
 <A NAME="getLinkContract(xdi2.core.ContextNode, boolean)"><!-- --></A><H3>
 getLinkContract</H3>
 <PRE>
-public static <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A> <B>getLinkContract</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+public static <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A> <B>getLinkContract</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;parentContextNode,
                                            boolean&nbsp;create)</PRE>
 <DL>
 <DD>Returns an existing XDI link contract under a context node, or creates a new one.
@@ -211,22 +201,6 @@ public static <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>create</CODE> - Whether to create an XDI link contract if it does not exist.
 <DT><B>Returns:</B><DD>The existing or newly created XDI link contract.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getLinkContract(xdi2.core.Graph, xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
-getLinkContract</H3>
-<PRE>
-public static <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A> <B>getLinkContract</B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-                                           boolean&nbsp;create)</PRE>
-<DL>
-<DD>Find an XDI link contract given a graph and the XRI of the XDI link contract
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>graph</CODE> - The graph of the XDI link contract<DD><CODE>contextNodeXri</CODE> - The fully qualified XRI of the XDI link contract
-<DT><B>Returns:</B><DD>The XDI link contract, or null</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

@@ -98,17 +98,18 @@ Interface MessageEnvelopeInterceptor</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractMessageEnvelopeInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractMessageEnvelopeInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractMessageEnvelopeInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractMessageEnvelopeInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public interface <B>MessageEnvelopeInterceptor</B><DT>extends <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></DL>
 </PRE>
 <map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="MessageEnvelopeInterceptor.html" title="&#171;interface&#187; MessageEnvelopeInterceptor" alt="" coords="167,84,355,124"/>
-<area shape="rect" id="node2" href="Interceptor.html" title="&#171;interface&#187; Interceptor" alt="" coords="219,5,304,45"/>
+<area shape="rect" id="node1" href="MessageEnvelopeInterceptor.html" title="&#171;interface&#187; MessageEnvelopeInterceptor" alt="" coords="305,84,492,124"/>
+<area shape="rect" id="node2" href="Interceptor.html" title="&#171;interface&#187; Interceptor" alt="" coords="356,5,441,45"/>
 <area shape="rect" id="node3" href="AbstractMessageEnvelopeInterceptor.html" title="AbstractMessageEnvelopeInterceptor" alt="" coords="5,170,243,195"/>
-<area shape="rect" id="node4" href="impl/VariablesInterceptor.html" title="VariablesInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="273,163,524,203"/>
+<area shape="rect" id="node4" href="impl/VariablesInterceptor.html" title="VariablesInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="553,163,804,203"/>
+<area shape="rect" id="node5" href="impl/RefInterceptor.html" title="RefInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="273,163,524,203"/>
 </map>
 <div id="apivizContainer" style="text-align: center;"><img src="MessageEnvelopeInterceptor.png" usemap="#APIVIZ" border="0"></div>
 
@@ -164,6 +165,15 @@ Interceptor that is executed before and after a message envelope is executed,
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run if an exception occurs while a message envelope is executed.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.interceptor.Interceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.interceptor.<A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#setEnabled(boolean)">setEnabled</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;

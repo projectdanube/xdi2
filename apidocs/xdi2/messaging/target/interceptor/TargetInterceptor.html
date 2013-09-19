@@ -97,20 +97,21 @@ Interface TargetInterceptor</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractTargetInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractTargetInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ReadOnlyInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractTargetInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractTargetInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/encryption/LiteralEncryptionInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.encryption">LiteralEncryptionInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ReadOnlyInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public interface <B>TargetInterceptor</B><DT>extends <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></DL>
 </PRE>
 <map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="TargetInterceptor.html" title="&#171;interface&#187; TargetInterceptor" alt="" coords="551,84,669,124"/>
-<area shape="rect" id="node2" href="Interceptor.html" title="&#171;interface&#187; Interceptor" alt="" coords="568,5,653,45"/>
-<area shape="rect" id="node3" href="AbstractTargetInterceptor.html" title="AbstractTargetInterceptor" alt="" coords="5,170,176,195"/>
-<area shape="rect" id="node4" href="impl/VariablesInterceptor.html" title="VariablesInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="765,163,1016,203"/>
-<area shape="rect" id="node5" href="impl/RefInterceptor.html" title="RefInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="485,163,736,203"/>
-<area shape="rect" id="node6" href="impl/ReadOnlyInterceptor.html" title="ReadOnlyInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="205,163,456,203"/>
-<area shape="rect" id="node7" href="impl/linkcontract/LinkContractInterceptor.html" title="LinkContractInterceptor (xdi2.messaging.target.interceptor.impl.linkcontract)" alt="" coords="1045,163,1368,203"/>
+<area shape="rect" id="node1" href="impl/linkcontract/LinkContractInterceptor.html" title="LinkContractInterceptor (xdi2.messaging.target.interceptor.impl.linkcontract)" alt="" coords="403,284,725,324"/>
+<area shape="rect" id="node2" href="impl/encryption/LiteralEncryptionInterceptor.html" title="LiteralEncryptionInterceptor (xdi2.messaging.target.interceptor.impl.encryption)" alt="" coords="407,225,721,265"/>
+<area shape="rect" id="node3" href="impl/ReadOnlyInterceptor.html" title="ReadOnlyInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="439,49,689,89"/>
+<area shape="rect" id="node4" href="impl/RefInterceptor.html" title="RefInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="439,108,689,148"/>
+<area shape="rect" id="node5" href="impl/VariablesInterceptor.html" title="VariablesInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="439,167,689,207"/>
+<area shape="rect" id="node6" href="AbstractTargetInterceptor.html" title="AbstractTargetInterceptor" alt="" coords="479,5,649,30"/>
+<area shape="rect" id="node7" href="Interceptor.html" title="&#171;interface&#187; Interceptor" alt="" coords="5,137,91,177"/>
+<area shape="rect" id="node8" href="TargetInterceptor.html" title="&#171;interface&#187; TargetInterceptor" alt="" coords="187,137,306,177"/>
 </map>
 <div id="apivizContainer" style="text-align: center;"><img src="TargetInterceptor.png" usemap="#APIVIZ" border="0"></div>
 
@@ -156,6 +157,15 @@ Interceptor that is executed when an operation is executed on an XDI statement o
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Replaces or skips the target statement before it is executed.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.interceptor.Interceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.interceptor.<A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#setEnabled(boolean)">setEnabled</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;

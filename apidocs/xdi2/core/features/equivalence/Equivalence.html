@@ -10,7 +10,7 @@ Equivalence (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="xdi2.core.features.equivalence.Equivalence class">
 <META NAME="keywords" CONTENT="getIdentityRelations()">
 <META NAME="keywords" CONTENT="getIdentityContextNodes()">
-<META NAME="keywords" CONTENT="addIdentityContextNode()">
+<META NAME="keywords" CONTENT="setIdentityContextNode()">
 <META NAME="keywords" CONTENT="getIncomingIdentityRelations()">
 <META NAME="keywords" CONTENT="getIncomingIdentityContextNodes()">
 <META NAME="keywords" CONTENT="getReferenceRelation()">
@@ -135,15 +135,6 @@ Class Equivalence</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/equivalence/Equivalence.html#addIdentityContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">addIdentityContextNode</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                       <A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;identityContextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/equivalence/Equivalence.html#getAllReferenceAndReplacementRelations(xdi2.core.ContextNode)">getAllReferenceAndReplacementRelations</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
@@ -249,6 +240,15 @@ Class Equivalence</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/equivalence/Equivalence.html#setIdentityContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">setIdentityContextNode</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                       <A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;identityContextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/equivalence/Equivalence.html#setReferenceContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">setReferenceContextNode</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                         <A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;referenceContextNode)</CODE>
 
@@ -309,10 +309,10 @@ public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/It
 </DL>
 <HR>
 
-<A NAME="addIdentityContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)"><!-- --></A><H3>
-addIdentityContextNode</H3>
+<A NAME="setIdentityContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)"><!-- --></A><H3>
+setIdentityContextNode</H3>
 <PRE>
-public static void <B>addIdentityContextNode</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+public static void <B>setIdentityContextNode</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                                           <A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;identityContextNode)</PRE>
 <DL>
 <DD><DL>

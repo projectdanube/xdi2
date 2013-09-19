@@ -25,19 +25,19 @@ Message (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getLinkContractXri()">
 <META NAME="keywords" CONTENT="setLinkContractXri()">
 <META NAME="keywords" CONTENT="getPolicyRoot()">
+<META NAME="keywords" CONTENT="setSecretToken()">
+<META NAME="keywords" CONTENT="getSecretToken()">
+<META NAME="keywords" CONTENT="setSignature()">
+<META NAME="keywords" CONTENT="getSignature()">
 <META NAME="keywords" CONTENT="getOperationsXdiEntity()">
 <META NAME="keywords" CONTENT="getOperationsContextNode()">
 <META NAME="keywords" CONTENT="createOperation()">
 <META NAME="keywords" CONTENT="createGetOperation()">
-<META NAME="keywords" CONTENT="createAddOperation()">
-<META NAME="keywords" CONTENT="createModOperation()">
 <META NAME="keywords" CONTENT="createSetOperation()">
 <META NAME="keywords" CONTENT="createDelOperation()">
 <META NAME="keywords" CONTENT="createDoOperation()">
 <META NAME="keywords" CONTENT="getOperations()">
 <META NAME="keywords" CONTENT="getGetOperations()">
-<META NAME="keywords" CONTENT="getAddOperations()">
-<META NAME="keywords" CONTENT="getModOperations()">
 <META NAME="keywords" CONTENT="getSetOperations()">
 <META NAME="keywords" CONTENT="getDelOperations()">
 <META NAME="keywords" CONTENT="getDoOperations()">
@@ -95,7 +95,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationAddOperationIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationDelOperationIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/Message.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Message.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -171,14 +171,6 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationAddOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationAddOperationIterator</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;class</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationDelOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationDelOperationIterator</A></B></CODE>
 
 <BR>
@@ -196,14 +188,6 @@ An XDI message, represented as a context node.
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationGetOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationGetOperationIterator</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.MappingRelationModOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationModOperationIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -260,30 +244,6 @@ An XDI message, represented as a context node.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createAddOperation(java.util.Iterator)">createAddOperation</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $add operation and adds it to this XDI message.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createAddOperation(xdi2.core.xri3.XDI3Segment)">createAddOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $add operation and adds it to this XDI message.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createAddOperation(xdi2.core.xri3.XDI3Statement)">createAddOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $add operation and adds it to this XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -356,30 +316,6 @@ An XDI message, represented as a context node.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $get operation and adds it to this XDI message.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createModOperation(java.util.Iterator)">createModOperation</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $mod operation and adds it to this XDI message.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createModOperation(xdi2.core.xri3.XDI3Segment)">createModOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $mod operation and adds it to this XDI message.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createModOperation(xdi2.core.xri3.XDI3Statement)">createModOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new $mod operation and adds it to this XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -459,14 +395,6 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getAddOperations()">getAddOperations</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI $add operations in this XDI message.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getContextNode()">getContextNode</A></B>()</CODE>
 
@@ -539,15 +467,7 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getModOperations()">getModOperations</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI $mod operations in this XDI message.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
+<CODE>&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getOperationCount()">getOperationCount</A></B>()</CODE>
 
 <BR>
@@ -595,6 +515,14 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getSecretToken()">getSecretToken</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the secret token from the message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getSender()">getSender</A></B>()</CODE>
 
@@ -608,6 +536,14 @@ An XDI message, represented as a context node.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI $set operations in this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getSignature()">getSignature</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the signature from the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -664,6 +600,22 @@ An XDI message, represented as a context node.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the link contract XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setSecretToken(java.lang.String)">setSecretToken</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;secretToken)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set a secret token on the message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setSignature(java.lang.String)">setSignature</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;signature)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set a signature on the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1014,6 +966,72 @@ public <A HREF="../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" t
 </DL>
 <HR>
 
+<A NAME="setSecretToken(java.lang.String)"><!-- --></A><H3>
+setSecretToken</H3>
+<PRE>
+public void <B>setSecretToken</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;secretToken)</PRE>
+<DL>
+<DD>Set a secret token on the message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>secretToken</CODE> - The secret token to set.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getSecretToken()"><!-- --></A><H3>
+getSecretToken</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getSecretToken</B>()</PRE>
+<DL>
+<DD>Returns the secret token from the message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The secret token.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setSignature(java.lang.String)"><!-- --></A><H3>
+setSignature</H3>
+<PRE>
+public void <B>setSignature</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;signature)</PRE>
+<DL>
+<DD>Set a signature on the message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>signature</CODE> - The signature to set.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getSignature()"><!-- --></A><H3>
+getSignature</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getSignature</B>()</PRE>
+<DL>
+<DD>Returns the signature from the message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The signature.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getOperationsXdiEntity()"><!-- --></A><H3>
 getOperationsXdiEntity</H3>
 <PRE>
@@ -1149,108 +1167,6 @@ public <A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.mes
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
 <DT><B>Returns:</B><DD>The newly created $get operation.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createAddOperation(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-createAddOperation</H3>
-<PRE>
-public <A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A> <B>createAddOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</PRE>
-<DL>
-<DD>Creates a new $add operation and adds it to this XDI message.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>targetAddress</CODE> - The target address to which the operation applies.
-<DT><B>Returns:</B><DD>The newly created $add operation.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createAddOperation(java.util.Iterator)"><!-- --></A><H3>
-createAddOperation</H3>
-<PRE>
-public <A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A> <B>createAddOperation</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</PRE>
-<DL>
-<DD>Creates a new $add operation and adds it to this XDI message.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>targetStatements</CODE> - The target statements to which the operation applies.
-<DT><B>Returns:</B><DD>The newly created $add operation.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createAddOperation(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
-createAddOperation</H3>
-<PRE>
-public <A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A> <B>createAddOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
-<DL>
-<DD>Creates a new $add operation and adds it to this XDI message.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
-<DT><B>Returns:</B><DD>The newly created $add operation.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createModOperation(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-createModOperation</H3>
-<PRE>
-public <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A> <B>createModOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</PRE>
-<DL>
-<DD>Creates a new $mod operation and adds it to this XDI message.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>targetAddress</CODE> - The target address to which the operation applies.
-<DT><B>Returns:</B><DD>The newly created $mod operation.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createModOperation(java.util.Iterator)"><!-- --></A><H3>
-createModOperation</H3>
-<PRE>
-public <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A> <B>createModOperation</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;&nbsp;targetStatements)</PRE>
-<DL>
-<DD>Creates a new $mod operation and adds it to this XDI message.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>targetStatements</CODE> - The target statements to which the operation applies.
-<DT><B>Returns:</B><DD>The newly created $mod operation.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createModOperation(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
-createModOperation</H3>
-<PRE>
-public <A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A> <B>createModOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
-<DL>
-<DD>Creates a new $mod operation and adds it to this XDI message.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
-<DT><B>Returns:</B><DD>The newly created $mod operation.</DL>
 </DD>
 </DL>
 <HR>
@@ -1459,40 +1375,6 @@ public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="cla
 </DL>
 <HR>
 
-<A NAME="getAddOperations()"><!-- --></A><H3>
-getAddOperations</H3>
-<PRE>
-public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>&gt; <B>getAddOperations</B>()</PRE>
-<DL>
-<DD>Returns all XDI $add operations in this XDI message.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>An iterator over all XDI $add operations.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModOperations()"><!-- --></A><H3>
-getModOperations</H3>
-<PRE>
-public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&gt; <B>getModOperations</B>()</PRE>
-<DL>
-<DD>Returns all XDI $mod operations in this XDI message.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>An iterator over all XDI $mod operations.</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getSetOperations()"><!-- --></A><H3>
 getSetOperations</H3>
 <PRE>
@@ -1563,7 +1445,7 @@ public void <B>deleteOperations</B>()</PRE>
 <A NAME="getOperationCount()"><!-- --></A><H3>
 getOperationCount</H3>
 <PRE>
-public int <B>getOperationCount</B>()</PRE>
+public long <B>getOperationCount</B>()</PRE>
 <DL>
 <DD>Returns the number of XDI operations in this XDI message.
 <P>
@@ -1662,7 +1544,7 @@ public int <B>compareTo</B>(<A HREF="../../xdi2/messaging/Message.html" title="c
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationAddOperationIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../xdi2/messaging/Message.MappingRelationDelOperationIterator.html" title="class in xdi2.messaging"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html?xdi2/messaging/Message.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Message.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

@@ -108,7 +108,7 @@ Class WrappedGraphFactory</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../xdi2/core/GraphFactory.html" title="interface in xdi2.core">GraphFactory</A></DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/impl/wrapped/classpath/ClasspathGraphFactory.html" title="class in xdi2.core.impl.wrapped.classpath">ClasspathGraphFactory</A>, <A HREF="../../../../xdi2/core/impl/wrapped/file/FileGraphFactory.html" title="class in xdi2.core.impl.wrapped.file">FileGraphFactory</A>, <A HREF="../../../../xdi2/core/impl/wrapped/url/URLGraphFactory.html" title="class in xdi2.core.impl.wrapped.url">URLGraphFactory</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/impl/wrapped/classpath/ClasspathWrapperGraphFactory.html" title="class in xdi2.core.impl.wrapped.classpath">ClasspathWrapperGraphFactory</A>, <A HREF="../../../../xdi2/core/impl/wrapped/file/FileWrapperGraphFactory.html" title="class in xdi2.core.impl.wrapped.file">FileWrapperGraphFactory</A>, <A HREF="../../../../xdi2/core/impl/wrapped/url/URLWrapperGraphFactory.html" title="class in xdi2.core.impl.wrapped.url">URLWrapperGraphFactory</A></DD>
 </DL>
 <HR>
 <DL>
@@ -118,9 +118,9 @@ Class WrappedGraphFactory</H2>
 <area shape="rect" id="node1" href="../../GraphFactory.html" title="&#171;interface&#187; GraphFactory (xdi2.core)" alt="" coords="220,6,321,61"/>
 <area shape="rect" id="node2" href="WrappedGraphFactory.html" title="WrappedGraphFactory" alt="" coords="272,101,424,126"/>
 <area shape="rect" id="node3" href="../AbstractGraphFactory.html" title="AbstractGraphFactory (xdi2.core.impl)" alt="" coords="351,13,501,53"/>
-<area shape="rect" id="node4" href="url/URLGraphFactory.html" title="URLGraphFactory (xdi2.core.impl.wrapped.url)" alt="" coords="469,165,651,205"/>
-<area shape="rect" id="node5" href="file/FileGraphFactory.html" title="FileGraphFactory (xdi2.core.impl.wrapped.file)" alt="" coords="257,165,439,205"/>
-<area shape="rect" id="node6" href="classpath/ClasspathGraphFactory.html" title="ClasspathGraphFactory (xdi2.core.impl.wrapped.classpath)" alt="" coords="5,165,227,205"/>
+<area shape="rect" id="node4" href="url/URLWrapperGraphFactory.html" title="URLWrapperGraphFactory (xdi2.core.impl.wrapped.url)" alt="" coords="469,165,651,205"/>
+<area shape="rect" id="node5" href="file/FileWrapperGraphFactory.html" title="FileWrapperGraphFactory (xdi2.core.impl.wrapped.file)" alt="" coords="257,165,439,205"/>
+<area shape="rect" id="node6" href="classpath/ClasspathWrapperGraphFactory.html" title="ClasspathWrapperGraphFactory (xdi2.core.impl.wrapped.classpath)" alt="" coords="5,165,227,205"/>
 </map>
 <div id="apivizContainer" style="text-align: center;"><img src="WrappedGraphFactory.png" usemap="#APIVIZ" border="0"></div>
 
@@ -196,7 +196,7 @@ GraphFactory that creates wrapped memory graphs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/impl/wrapped/GraphWrapper.html" title="interface in xdi2.core.impl.wrapped">GraphWrapper</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/impl/wrapped/WrapperStore.html" title="interface in xdi2.core.impl.wrapped">WrapperStore</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/impl/wrapped/WrappedGraphFactory.html#getWrapper()">getWrapper</A></B>()</CODE>
 
 <BR>
@@ -212,7 +212,7 @@ GraphFactory that creates wrapped memory graphs.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>abstract &nbsp;<A HREF="../../../../xdi2/core/impl/wrapped/GraphWrapper.html" title="interface in xdi2.core.impl.wrapped">GraphWrapper</A></CODE></FONT></TD>
+<CODE>abstract &nbsp;<A HREF="../../../../xdi2/core/impl/wrapped/WrapperStore.html" title="interface in xdi2.core.impl.wrapped">WrapperStore</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/impl/wrapped/WrappedGraphFactory.html#openWrapper(java.lang.String)">openWrapper</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;identifier)</CODE>
 
 <BR>
@@ -229,7 +229,7 @@ GraphFactory that creates wrapped memory graphs.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/impl/wrapped/WrappedGraphFactory.html#setWrapper(xdi2.core.impl.wrapped.GraphWrapper)">setWrapper</A></B>(<A HREF="../../../../xdi2/core/impl/wrapped/GraphWrapper.html" title="interface in xdi2.core.impl.wrapped">GraphWrapper</A>&nbsp;wrapper)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/impl/wrapped/WrappedGraphFactory.html#setWrapper(xdi2.core.impl.wrapped.WrapperStore)">setWrapper</A></B>(<A HREF="../../../../xdi2/core/impl/wrapped/WrapperStore.html" title="interface in xdi2.core.impl.wrapped">WrapperStore</A>&nbsp;wrapper)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -345,7 +345,7 @@ public <A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core"
 <A NAME="openWrapper(java.lang.String)"><!-- --></A><H3>
 openWrapper</H3>
 <PRE>
-public abstract <A HREF="../../../../xdi2/core/impl/wrapped/GraphWrapper.html" title="interface in xdi2.core.impl.wrapped">GraphWrapper</A> <B>openWrapper</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;identifier)
+public abstract <A HREF="../../../../xdi2/core/impl/wrapped/WrapperStore.html" title="interface in xdi2.core.impl.wrapped">WrapperStore</A> <B>openWrapper</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;identifier)
                                   throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
 <DL>
 <DD>This must be overridden by subclasses to instantiate the wrapper
@@ -364,7 +364,7 @@ public abstract <A HREF="../../../../xdi2/core/impl/wrapped/GraphWrapper.html" t
 <A NAME="getWrapper()"><!-- --></A><H3>
 getWrapper</H3>
 <PRE>
-public <A HREF="../../../../xdi2/core/impl/wrapped/GraphWrapper.html" title="interface in xdi2.core.impl.wrapped">GraphWrapper</A> <B>getWrapper</B>()</PRE>
+public <A HREF="../../../../xdi2/core/impl/wrapped/WrapperStore.html" title="interface in xdi2.core.impl.wrapped">WrapperStore</A> <B>getWrapper</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -375,10 +375,10 @@ public <A HREF="../../../../xdi2/core/impl/wrapped/GraphWrapper.html" title="int
 </DL>
 <HR>
 
-<A NAME="setWrapper(xdi2.core.impl.wrapped.GraphWrapper)"><!-- --></A><H3>
+<A NAME="setWrapper(xdi2.core.impl.wrapped.WrapperStore)"><!-- --></A><H3>
 setWrapper</H3>
 <PRE>
-public void <B>setWrapper</B>(<A HREF="../../../../xdi2/core/impl/wrapped/GraphWrapper.html" title="interface in xdi2.core.impl.wrapped">GraphWrapper</A>&nbsp;wrapper)</PRE>
+public void <B>setWrapper</B>(<A HREF="../../../../xdi2/core/impl/wrapped/WrapperStore.html" title="interface in xdi2.core.impl.wrapped">WrapperStore</A>&nbsp;wrapper)</PRE>
 <DL>
 <DD><DL>
 </DL>

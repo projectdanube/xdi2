@@ -1,0 +1,695 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+XdiAbstractCollection (xdi2 0.1-SNAPSHOT API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="xdi2.core.features.nodetypes.XdiAbstractCollection class">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromContextNode()">
+<META NAME="keywords" CONTENT="isValidArcXri()">
+<META NAME="keywords" CONTENT="setXdiMemberUnordered()">
+<META NAME="keywords" CONTENT="getXdiMemberUnordered()">
+<META NAME="keywords" CONTENT="getXdiMembersUnordered()">
+<META NAME="keywords" CONTENT="getXdiMembersUnorderedCount()">
+<META NAME="keywords" CONTENT="setXdiMemberOrdered()">
+<META NAME="keywords" CONTENT="getXdiMemberOrdered()">
+<META NAME="keywords" CONTENT="getXdiMembersOrdered()">
+<META NAME="keywords" CONTENT="getXdiMembersOrderedCount()">
+<META NAME="keywords" CONTENT="getXdiMembers()">
+<META NAME="keywords" CONTENT="getU()">
+<META NAME="keywords" CONTENT="getO()">
+<META NAME="keywords" CONTENT="getI()">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="XdiAbstractCollection (xdi2 0.1-SNAPSHOT API)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XdiAbstractCollection.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.MappingContextNodeXdiAttributeIterator.html" title="class in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.MappingContextNodeXdiCollectionIterator.html" title="class in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?xdi2/core/features/nodetypes/XdiAbstractCollection.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XdiAbstractCollection.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+xdi2.core.features.nodetypes</FONT>
+<BR>
+Class XdiAbstractCollection&lt;C extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;C,U,O,I&gt;,U extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;C,U,O,I&gt;,O extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;C,U,O,I&gt;,I extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;C,U,O,I&gt;&gt;</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractContext</A>
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractSubGraph</A>
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.features.nodetypes.XdiAbstractCollection&lt;C,U,O,I&gt;</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;C,U,O,I&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A></DD>
+</DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public abstract class <B>XdiAbstractCollection&lt;C extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;C,U,O,I&gt;,U extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;C,U,O,I&gt;,O extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;C,U,O,I&gt;,I extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;C,U,O,I&gt;&gt;</B><DT>extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</A><DT>implements <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;C,U,O,I&gt;</DL>
+</PRE>
+<map id="APIVIZ" name="APIVIZ">
+<area shape="rect" id="node1" href="XdiEntityCollection.html" title="&#171;static&#187; XdiEntityCollection" alt="" coords="180,149,311,189"/>
+<area shape="rect" id="node2" href="XdiAttributeCollection.html" title="&#171;static&#187; XdiAttributeCollection" alt="" coords="5,149,149,189"/>
+<area shape="rect" id="node3" href="XdiAbstractSubGraph.html" title="&#171;static&#187; XdiAbstractSubGraph" alt="" coords="10,5,160,45"/>
+<area shape="rect" id="node4" href="XdiCollection.html" title="&#171;interface&#187; XdiCollection" alt="" coords="191,5,287,45"/>
+<area shape="rect" id="node5" href="XdiAbstractCollection.html" title="XdiAbstractCollection" alt="" coords="87,85,235,110"/>
+</map>
+<div id="apivizContainer" style="text-align: center;"><img src="XdiAbstractCollection.png" usemap="#APIVIZ" border="0"></div>
+
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../serialized-form.html#xdi2.core.features.nodetypes.XdiAbstractCollection">Serialized Form</A></DL>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.MappingContextNodeXdiCollectionIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection.MappingContextNodeXdiCollectionIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.XdiMembersOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection.XdiMembersOrderedIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.XdiMembersUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection.XdiMembersUnorderedIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#XdiAbstractCollection(xdi2.core.ContextNode, java.lang.Class, java.lang.Class, java.lang.Class)">XdiAbstractCollection</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>&gt;&nbsp;u,
+                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>&gt;&nbsp;o,
+                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;?,?,?,?&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI class bound to a given context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getI()">getI</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getO()">getO</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getU()">getU</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMemberOrdered(long)">getXdiMemberOrdered</A></B>(long&nbsp;index)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets an XDI element under this XDI class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMembers(boolean)">getXdiMembers</A></B>(boolean&nbsp;deref)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI instances and elements in this XDI class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMembersOrdered()">getXdiMembersOrdered</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI elements in this XDI class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;long</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMembersOrderedCount()">getXdiMembersOrderedCount</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the number of XDI elements in this XDI class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMembersUnordered()">getXdiMembersUnordered</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI instances in this XDI class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;long</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMembersUnorderedCount()">getXdiMembersUnorderedCount</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the number of XDI instances in this XDI class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)">getXdiMemberUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gets an XDI instance under this XDI class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node is a valid XDI class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#isValidArcXri(xdi2.core.xri3.XDI3SubSegment)">isValidArcXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#setXdiMemberOrdered(long)">setXdiMemberOrdered</A></B>(long&nbsp;index)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets an XDI element under this XDI class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#setXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)">setXdiMemberUnordered</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets an XDI instance under this XDI class.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.nodetypes.XdiAbstractContext"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#compareTo(xdi2.core.features.nodetypes.XdiContext)">compareTo</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromContextNode(xdi2.core.ContextNode, java.lang.Class)">fromContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri(xdi2.core.xri3.XDI3SubSegment)">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#hashCode()">hashCode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#toString()">toString</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.nodetypes.XdiContext"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true#compareTo(T)" title="class or interface in java.lang">compareTo</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="XdiAbstractCollection(xdi2.core.ContextNode, java.lang.Class, java.lang.Class, java.lang.Class)"><!-- --></A><H3>
+XdiAbstractCollection</H3>
+<PRE>
+protected <B>XdiAbstractCollection</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>&gt;&nbsp;u,
+                                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>&gt;&nbsp;o,
+                                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&nbsp;i)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="isValid(xdi2.core.ContextNode)"><!-- --></A><H3>
+isValid</H3>
+<PRE>
+public static boolean <B>isValid</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+<DD>Checks if a context node is a valid XDI class.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - The context node to check.
+<DT><B>Returns:</B><DD>True if the context node is a valid XDI class.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fromContextNode(xdi2.core.ContextNode)"><!-- --></A><H3>
+fromContextNode</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;?,?,?,?&gt; <B>fromContextNode</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+<DD>Factory method that creates an XDI class bound to a given context node.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - The context node that is an XDI class.
+<DT><B>Returns:</B><DD>The XDI class.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isValidArcXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+isValidArcXri</H3>
+<PRE>
+public static boolean <B>isValidArcXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+setXdiMemberUnordered</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> <B>setXdiMemberUnordered</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD>Sets an XDI instance under this XDI class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)">setXdiMemberUnordered</A></CODE> in interface <CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The XDI instance.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+getXdiMemberUnordered</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> <B>getXdiMemberUnordered</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD>gets an XDI instance under this XDI class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMemberUnordered(xdi2.core.xri3.XDI3SubSegment)">getXdiMemberUnordered</A></CODE> in interface <CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The XDI instance.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiMembersUnordered()"><!-- --></A><H3>
+getXdiMembersUnordered</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>&gt; <B>getXdiMembersUnordered</B>()</PRE>
+<DL>
+<DD>Returns all XDI instances in this XDI class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMembersUnordered()">getXdiMembersUnordered</A></CODE> in interface <CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>An iterator over all XDI instances.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiMembersUnorderedCount()"><!-- --></A><H3>
+getXdiMembersUnorderedCount</H3>
+<PRE>
+public long <B>getXdiMembersUnorderedCount</B>()</PRE>
+<DL>
+<DD>Returns the number of XDI instances in this XDI class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMembersUnorderedCount()">getXdiMembersUnorderedCount</A></CODE> in interface <CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setXdiMemberOrdered(long)"><!-- --></A><H3>
+setXdiMemberOrdered</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> <B>setXdiMemberOrdered</B>(long&nbsp;index)</PRE>
+<DL>
+<DD>Sets an XDI element under this XDI class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberOrdered(long)">setXdiMemberOrdered</A></CODE> in interface <CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The XDI element.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiMemberOrdered(long)"><!-- --></A><H3>
+getXdiMemberOrdered</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> <B>getXdiMemberOrdered</B>(long&nbsp;index)</PRE>
+<DL>
+<DD>Gets an XDI element under this XDI class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMemberOrdered(long)">getXdiMemberOrdered</A></CODE> in interface <CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The XDI element.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiMembersOrdered()"><!-- --></A><H3>
+getXdiMembersOrdered</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>&gt; <B>getXdiMembersOrdered</B>()</PRE>
+<DL>
+<DD>Returns all XDI elements in this XDI class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMembersOrdered()">getXdiMembersOrdered</A></CODE> in interface <CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>An iterator over all XDI elements.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiMembersOrderedCount()"><!-- --></A><H3>
+getXdiMembersOrderedCount</H3>
+<PRE>
+public long <B>getXdiMembersOrderedCount</B>()</PRE>
+<DL>
+<DD>Returns the number of XDI elements in this XDI class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMembersOrderedCount()">getXdiMembersOrderedCount</A></CODE> in interface <CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiMembers(boolean)"><!-- --></A><H3>
+getXdiMembers</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt; <B>getXdiMembers</B>(boolean&nbsp;deref)</PRE>
+<DL>
+<DD>Returns all XDI instances and elements in this XDI class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMembers(boolean)">getXdiMembers</A></CODE> in interface <CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A> extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">C</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>,<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>An iterator over all XDI instances and elements.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getU()"><!-- --></A><H3>
+getU</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>&gt; <B>getU</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getO()"><!-- --></A><H3>
+getO</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>&gt; <B>getO</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getI()"><!-- --></A><H3>
+getI</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt; <B>getI</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XdiAbstractCollection.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.MappingContextNodeXdiAttributeIterator.html" title="class in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.MappingContextNodeXdiCollectionIterator.html" title="class in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?xdi2/core/features/nodetypes/XdiAbstractCollection.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XdiAbstractCollection.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Copyright &#169; 2013. All Rights Reserved.
+</BODY>
+</HTML>

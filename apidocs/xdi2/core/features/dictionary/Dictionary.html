@@ -15,10 +15,10 @@ Dictionary (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getContextNodeTypes()">
 <META NAME="keywords" CONTENT="getContextNodeType()">
 <META NAME="keywords" CONTENT="isContextNodeType()">
-<META NAME="keywords" CONTENT="addContextNodeType()">
-<META NAME="keywords" CONTENT="removeContextNodeType()">
-<META NAME="keywords" CONTENT="removeContextNodeTypes()">
 <META NAME="keywords" CONTENT="setContextNodeType()">
+<META NAME="keywords" CONTENT="delContextNodeType()">
+<META NAME="keywords" CONTENT="delContextNodeTypes()">
+<META NAME="keywords" CONTENT="replaceContextNodeType()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -131,8 +131,16 @@ Class Dictionary</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/dictionary/Dictionary.html#addContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)">addContextNodeType</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/dictionary/Dictionary.html#delContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)">delContextNodeType</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                    <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/dictionary/Dictionary.html#delContextNodeTypes(xdi2.core.ContextNode)">delContextNodeTypes</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -197,16 +205,8 @@ Class Dictionary</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/dictionary/Dictionary.html#removeContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)">removeContextNodeType</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                      <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;type)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/dictionary/Dictionary.html#removeContextNodeTypes(xdi2.core.ContextNode)">removeContextNodeTypes</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/dictionary/Dictionary.html#replaceContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)">replaceContextNodeType</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                       <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;type)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -321,46 +321,46 @@ public static boolean <B>isContextNodeType</B>(<A HREF="../../../../xdi2/core/Co
 </DL>
 <HR>
 
-<A NAME="addContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-addContextNodeType</H3>
-<PRE>
-public static void <B>addContextNodeType</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                                      <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;type)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="removeContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-removeContextNodeType</H3>
-<PRE>
-public static void <B>removeContextNodeType</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                                         <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;type)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="removeContextNodeTypes(xdi2.core.ContextNode)"><!-- --></A><H3>
-removeContextNodeTypes</H3>
-<PRE>
-public static void <B>removeContextNodeTypes</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="setContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 setContextNodeType</H3>
 <PRE>
 public static void <B>setContextNodeType</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
                                       <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="delContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+delContextNodeType</H3>
+<PRE>
+public static void <B>delContextNodeType</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                                      <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="delContextNodeTypes(xdi2.core.ContextNode)"><!-- --></A><H3>
+delContextNodeTypes</H3>
+<PRE>
+public static void <B>delContextNodeTypes</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="replaceContextNodeType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+replaceContextNodeType</H3>
+<PRE>
+public static void <B>replaceContextNodeType</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                                          <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;type)</PRE>
 <DL>
 <DD><DL>
 </DL>

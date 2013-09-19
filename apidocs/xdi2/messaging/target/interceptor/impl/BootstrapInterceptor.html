@@ -15,10 +15,12 @@ BootstrapInterceptor (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="setBootstrapOwner()">
 <META NAME="keywords" CONTENT="getBootstrapOwnerSynonyms()">
 <META NAME="keywords" CONTENT="setBootstrapOwnerSynonyms()">
-<META NAME="keywords" CONTENT="getBootstrapLinkContract()">
-<META NAME="keywords" CONTENT="setBootstrapLinkContract()">
+<META NAME="keywords" CONTENT="getBootstrapRootLinkContract()">
+<META NAME="keywords" CONTENT="setBootstrapRootLinkContract()">
 <META NAME="keywords" CONTENT="getBootstrapPublicLinkContract()">
 <META NAME="keywords" CONTENT="setBootstrapPublicLinkContract()">
+<META NAME="keywords" CONTENT="getBootstrapStatements()">
+<META NAME="keywords" CONTENT="setBootstrapStatements()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
 
@@ -104,19 +106,21 @@ xdi2.messaging.target.interceptor.impl</FONT>
 Class BootstrapInterceptor</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.messaging.target.interceptor.impl.BootstrapInterceptor</B>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor">xdi2.messaging.target.interceptor.AbstractInterceptor</A>
+      <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.messaging.target.interceptor.impl.BootstrapInterceptor</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang">Cloneable</A>, <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>, <A HREF="../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessagingTargetInterceptor</A>, <A HREF="../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">BootstrapInterceptor</A>&gt;</DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>BootstrapInterceptor</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessagingTargetInterceptor</A>, <A HREF="../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">BootstrapInterceptor</A>&gt;</DL>
+<DT><PRE>public class <B>BootstrapInterceptor</B><DT>extends <A HREF="../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractInterceptor</A><DT>implements <A HREF="../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessagingTargetInterceptor</A>, <A HREF="../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">BootstrapInterceptor</A>&gt;</DL>
 </PRE>
 <map id="APIVIZ" name="APIVIZ">
 <area shape="rect" id="node1" href="../../Prototype.html" title="&#171;interface&#187; Prototype (xdi2.messaging.target)" alt="" coords="5,6,163,61"/>
 <area shape="rect" id="node2" href="../MessagingTargetInterceptor.html" title="&#171;interface&#187; MessagingTargetInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="193,6,415,61"/>
-<area shape="rect" id="node3" href="BootstrapInterceptor.html" title="BootstrapInterceptor" alt="" coords="124,101,263,126"/>
+<area shape="rect" id="node3" href="../AbstractInterceptor.html" title="AbstractInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="445,13,667,53"/>
+<area shape="rect" id="node4" href="BootstrapInterceptor.html" title="BootstrapInterceptor" alt="" coords="235,101,373,126"/>
 </map>
 <div id="apivizContainer" style="text-align: center;"><img src="BootstrapInterceptor.png" usemap="#APIVIZ" border="0"></div>
 
@@ -179,14 +183,6 @@ This interceptor can initialize an empty XDI graph with basic bootstrapping data
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#getBootstrapLinkContract()">getBootstrapLinkContract</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#getBootstrapOwner()">getBootstrapOwner</A></B>()</CODE>
 
@@ -211,6 +207,22 @@ This interceptor can initialize an empty XDI graph with basic bootstrapping data
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#getBootstrapRootLinkContract()">getBootstrapRootLinkContract</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#getBootstrapStatements()">getBootstrapStatements</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#init(xdi2.messaging.target.MessagingTarget)">init</A></B>(<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
@@ -221,14 +233,6 @@ This interceptor can initialize an empty XDI graph with basic bootstrapping data
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">BootstrapInterceptor</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></B>(<A HREF="../../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#setBootstrapLinkContract(boolean)">setBootstrapLinkContract</A></B>(boolean&nbsp;bootstrapLinkContract)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -268,10 +272,35 @@ This interceptor can initialize an empty XDI graph with basic bootstrapping data
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#setBootstrapRootLinkContract(boolean)">setBootstrapRootLinkContract</A></B>(boolean&nbsp;bootstrapLinkContract)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#setBootstrapStatements(xdi2.core.xri3.XDI3Statement[])">setBootstrapStatements</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>[]&nbsp;bootstrapStatements)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#shutdown(xdi2.messaging.target.MessagingTarget)">shutdown</A></B>(<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method gets called when the messaging target is shut down.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.interceptor.AbstractInterceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.interceptor.<A HREF="../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractInterceptor</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html#setEnabled(boolean)">setEnabled</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -281,6 +310,15 @@ This interceptor can initialize an empty XDI graph with basic bootstrapping data
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.interceptor.Interceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.interceptor.<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html#setEnabled(boolean)">setEnabled</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -437,10 +475,10 @@ public void <B>setBootstrapOwnerSynonyms</B>(<A HREF="http://download.oracle.com
 </DL>
 <HR>
 
-<A NAME="getBootstrapLinkContract()"><!-- --></A><H3>
-getBootstrapLinkContract</H3>
+<A NAME="getBootstrapRootLinkContract()"><!-- --></A><H3>
+getBootstrapRootLinkContract</H3>
 <PRE>
-public boolean <B>getBootstrapLinkContract</B>()</PRE>
+public boolean <B>getBootstrapRootLinkContract</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -451,10 +489,10 @@ public boolean <B>getBootstrapLinkContract</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="setBootstrapLinkContract(boolean)"><!-- --></A><H3>
-setBootstrapLinkContract</H3>
+<A NAME="setBootstrapRootLinkContract(boolean)"><!-- --></A><H3>
+setBootstrapRootLinkContract</H3>
 <PRE>
-public void <B>setBootstrapLinkContract</B>(boolean&nbsp;bootstrapLinkContract)</PRE>
+public void <B>setBootstrapRootLinkContract</B>(boolean&nbsp;bootstrapLinkContract)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -483,6 +521,34 @@ public boolean <B>getBootstrapPublicLinkContract</B>()</PRE>
 setBootstrapPublicLinkContract</H3>
 <PRE>
 public void <B>setBootstrapPublicLinkContract</B>(boolean&nbsp;bootstrapPublicLinkContract)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getBootstrapStatements()"><!-- --></A><H3>
+getBootstrapStatements</H3>
+<PRE>
+public <A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>[] <B>getBootstrapStatements</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setBootstrapStatements(xdi2.core.xri3.XDI3Statement[])"><!-- --></A><H3>
+setBootstrapStatements</H3>
+<PRE>
+public void <B>setBootstrapStatements</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>[]&nbsp;bootstrapStatements)</PRE>
 <DL>
 <DD><DL>
 </DL>

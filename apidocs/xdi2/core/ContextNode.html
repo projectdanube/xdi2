@@ -13,13 +13,10 @@ ContextNode (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="isRootContextNode()">
 <META NAME="keywords" CONTENT="isLeafContextNode()">
 <META NAME="keywords" CONTENT="delete()">
-<META NAME="keywords" CONTENT="deleteWhileEmpty()">
 <META NAME="keywords" CONTENT="clear()">
 <META NAME="keywords" CONTENT="isEmpty()">
 <META NAME="keywords" CONTENT="getArcXri()">
 <META NAME="keywords" CONTENT="getXri()">
-<META NAME="keywords" CONTENT="createContextNode()">
-<META NAME="keywords" CONTENT="createDeepContextNode()">
 <META NAME="keywords" CONTENT="setContextNode()">
 <META NAME="keywords" CONTENT="setDeepContextNode()">
 <META NAME="keywords" CONTENT="getDeepContextNode()">
@@ -29,12 +26,10 @@ ContextNode (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getAllLeafContextNodes()">
 <META NAME="keywords" CONTENT="containsContextNode()">
 <META NAME="keywords" CONTENT="containsContextNodes()">
-<META NAME="keywords" CONTENT="deleteContextNode()">
-<META NAME="keywords" CONTENT="deleteContextNodes()">
+<META NAME="keywords" CONTENT="delContextNode()">
+<META NAME="keywords" CONTENT="delContextNodes()">
 <META NAME="keywords" CONTENT="getContextNodeCount()">
 <META NAME="keywords" CONTENT="getAllContextNodeCount()">
-<META NAME="keywords" CONTENT="createRelation()">
-<META NAME="keywords" CONTENT="createDeepRelation()">
 <META NAME="keywords" CONTENT="setRelation()">
 <META NAME="keywords" CONTENT="setDeepRelation()">
 <META NAME="keywords" CONTENT="getRelation()">
@@ -43,22 +38,37 @@ ContextNode (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getDeepRelations()">
 <META NAME="keywords" CONTENT="getIncomingRelations()">
 <META NAME="keywords" CONTENT="getAllRelations()">
+<META NAME="keywords" CONTENT="getAllIncomingRelations()">
 <META NAME="keywords" CONTENT="containsRelation()">
 <META NAME="keywords" CONTENT="containsRelations()">
-<META NAME="keywords" CONTENT="deleteRelation()">
-<META NAME="keywords" CONTENT="deleteRelations()">
-<META NAME="keywords" CONTENT="deleteIncomingRelations()">
+<META NAME="keywords" CONTENT="containsIncomingRelations()">
+<META NAME="keywords" CONTENT="delRelation()">
+<META NAME="keywords" CONTENT="delRelations()">
+<META NAME="keywords" CONTENT="delIncomingRelations()">
 <META NAME="keywords" CONTENT="getRelationCount()">
 <META NAME="keywords" CONTENT="getAllRelationCount()">
-<META NAME="keywords" CONTENT="createLiteral()">
-<META NAME="keywords" CONTENT="createDeepLiteral()">
 <META NAME="keywords" CONTENT="setLiteral()">
+<META NAME="keywords" CONTENT="setLiteralString()">
+<META NAME="keywords" CONTENT="setLiteralNumber()">
+<META NAME="keywords" CONTENT="setLiteralBoolean()">
 <META NAME="keywords" CONTENT="setDeepLiteral()">
+<META NAME="keywords" CONTENT="setDeepLiteralString()">
+<META NAME="keywords" CONTENT="setDeepLiteralNumber()">
+<META NAME="keywords" CONTENT="setDeepLiteralBoolean()">
 <META NAME="keywords" CONTENT="getLiteral()">
+<META NAME="keywords" CONTENT="getLiteralString()">
+<META NAME="keywords" CONTENT="getLiteralNumber()">
+<META NAME="keywords" CONTENT="getLiteralBoolean()">
 <META NAME="keywords" CONTENT="getDeepLiteral()">
+<META NAME="keywords" CONTENT="getDeepLiteralString()">
+<META NAME="keywords" CONTENT="getDeepLiteralNumber()">
+<META NAME="keywords" CONTENT="getDeepLiteralBoolean()">
 <META NAME="keywords" CONTENT="getAllLiterals()">
 <META NAME="keywords" CONTENT="containsLiteral()">
-<META NAME="keywords" CONTENT="deleteLiteral()">
+<META NAME="keywords" CONTENT="containsLiteralString()">
+<META NAME="keywords" CONTENT="containsLiteralNumber()">
+<META NAME="keywords" CONTENT="containsLiteralBoolean()">
+<META NAME="keywords" CONTENT="delLiteral()">
 <META NAME="keywords" CONTENT="getAllLiteralCount()">
 <META NAME="keywords" CONTENT="getStatement()">
 <META NAME="keywords" CONTENT="getAllStatements()">
@@ -150,21 +160,22 @@ Interface ContextNode</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</A>, <A HREF="../../xdi2/core/impl/BasicContextNode.html" title="class in xdi2.core.impl">BasicContextNode</A>, <A HREF="../../xdi2/core/impl/keyvalue/KeyValueContextNode.html" title="class in xdi2.core.impl.keyvalue">KeyValueContextNode</A>, <A HREF="../../xdi2/core/impl/memory/MemoryContextNode.html" title="class in xdi2.core.impl.memory">MemoryContextNode</A>, <A HREF="../../xdi2/core/impl/wrapped/WrappedContextNode.html" title="class in xdi2.core.impl.wrapped">WrappedContextNode</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</A>, <A HREF="../../xdi2/core/impl/BasicContextNode.html" title="class in xdi2.core.impl">BasicContextNode</A>, <A HREF="../../xdi2/core/impl/json/JSONContextNode.html" title="class in xdi2.core.impl.json">JSONContextNode</A>, <A HREF="../../xdi2/core/impl/keyvalue/KeyValueContextNode.html" title="class in xdi2.core.impl.keyvalue">KeyValueContextNode</A>, <A HREF="../../xdi2/core/impl/memory/MemoryContextNode.html" title="class in xdi2.core.impl.memory">MemoryContextNode</A>, <A HREF="../../xdi2/core/impl/wrapped/WrappedContextNode.html" title="class in xdi2.core.impl.wrapped">WrappedContextNode</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public interface <B>ContextNode</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</DL>
 </PRE>
 <map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="319,6,408,61"/>
-<area shape="rect" id="node2" href="ContextNode.html" title="&#171;interface&#187; ContextNode" alt="" coords="375,100,472,140"/>
-<area shape="rect" id="node3" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="439,6,529,61"/>
-<area shape="rect" id="node4" href="impl/AbstractContextNode.html" title="AbstractContextNode (xdi2.core.impl)" alt="" coords="5,179,152,219"/>
-<area shape="rect" id="node5" href="impl/wrapped/WrappedContextNode.html" title="WrappedContextNode (xdi2.core.impl.wrapped)" alt="" coords="728,179,891,219"/>
-<area shape="rect" id="node6" href="impl/memory/MemoryContextNode.html" title="MemoryContextNode (xdi2.core.impl.memory)" alt="" coords="536,179,699,219"/>
-<area shape="rect" id="node7" href="impl/keyvalue/KeyValueContextNode.html" title="KeyValueContextNode (xdi2.core.impl.keyvalue)" alt="" coords="341,179,507,219"/>
-<area shape="rect" id="node8" href="impl/BasicContextNode.html" title="BasicContextNode (xdi2.core.impl)" alt="" coords="181,179,312,219"/>
+<area shape="rect" id="node1" href="impl/BasicContextNode.html" title="BasicContextNode (xdi2.core.impl)" alt="" coords="404,64,535,104"/>
+<area shape="rect" id="node2" href="impl/json/JSONContextNode.html" title="JSONContextNode (xdi2.core.impl.json)" alt="" coords="400,123,539,163"/>
+<area shape="rect" id="node3" href="impl/keyvalue/KeyValueContextNode.html" title="KeyValueContextNode (xdi2.core.impl.keyvalue)" alt="" coords="387,181,552,221"/>
+<area shape="rect" id="node4" href="impl/memory/MemoryContextNode.html" title="MemoryContextNode (xdi2.core.impl.memory)" alt="" coords="388,240,551,280"/>
+<area shape="rect" id="node5" href="impl/wrapped/WrappedContextNode.html" title="WrappedContextNode (xdi2.core.impl.wrapped)" alt="" coords="388,299,551,339"/>
+<area shape="rect" id="node6" href="impl/AbstractContextNode.html" title="AbstractContextNode (xdi2.core.impl)" alt="" coords="396,5,543,45"/>
+<area shape="rect" id="node7" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="5,107,96,162"/>
+<area shape="rect" id="node8" href="ContextNode.html" title="&#171;interface&#187; ContextNode" alt="" coords="193,152,290,192"/>
+<area shape="rect" id="node9" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="6,181,95,235"/>
 </map>
 <div id="apivizContainer" style="text-align: center;"><img src="ContextNode.png" usemap="#APIVIZ" border="0"></div>
 
@@ -200,7 +211,7 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsContextNode(xdi2.core.xri3.XDI3SubSegment)">containsContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsContextNode(xdi2.core.xri3.XDI3SubSegment)">containsContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node with a given arc XRI exists in this context node.</TD>
@@ -216,6 +227,22 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsIncomingRelations()">containsIncomingRelations</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if this context node has one or more incoming relations.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsIncomingRelations(xdi2.core.xri3.XDI3Segment)">containsIncomingRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if incoming relations with a given arc XRI exist in this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsLiteral()">containsLiteral</A></B>()</CODE>
 
 <BR>
@@ -224,7 +251,31 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsLiteral(java.lang.String)">containsLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsLiteral(java.lang.Object)">containsLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if this context node has a literal with the given data.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsLiteralBoolean(java.lang.Boolean)">containsLiteralBoolean</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if this context node has a literal with the given data.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsLiteralNumber(java.lang.Double)">containsLiteralNumber</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if this context node has a literal with the given data.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsLiteralString(java.lang.String)">containsLiteralString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if this context node has a literal with the given data.</TD>
@@ -236,7 +287,7 @@ This interface represents a context node in an XDI graph.
                  <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a relation with a given arc XRI exists in this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a relation with a given arc XRI and target context node XRI exists in this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -252,78 +303,23 @@ This interface represents a context node in an XDI graph.
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#containsRelations(xdi2.core.xri3.XDI3Segment)">containsRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if relations with a given arc XRI exists in this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if relations with a given arc XRI exist in this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#createContextNode(xdi2.core.xri3.XDI3SubSegment)">createContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#delContextNode(xdi2.core.xri3.XDI3SubSegment)">delContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new context node and adds it to this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the context node with a given arc XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#createDeepContextNode(xdi2.core.xri3.XDI3Segment)">createDeepContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#delContextNodes()">delContextNodes</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.createContextNode(XDI3SubSegment), operates at a context node further down in the graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#createDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">createDeepLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.createLiteral(String), operates at a context node further down in the graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#createDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.ContextNode)">createDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                   <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                   <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#createDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">createDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                   <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                   <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#createLiteral(java.lang.String)">createLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new literal and adds it to this context node.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#createRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.ContextNode)">createRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-               <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new relation and adds it to this context node.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#createRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">createRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-               <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new relation and adds it to this context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes all context nodes from this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -336,23 +332,7 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#deleteContextNode(xdi2.core.xri3.XDI3SubSegment)">deleteContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the context node with a given arc XRI.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#deleteContextNodes()">deleteContextNodes</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes all context nodes from this context node.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#deleteIncomingRelations()">deleteIncomingRelations</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#delIncomingRelations()">delIncomingRelations</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the incoming relations of this context node.</TD>
@@ -360,7 +340,7 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#deleteLiteral()">deleteLiteral</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#delLiteral()">delLiteral</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the literal from this context node.</TD>
@@ -368,8 +348,8 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#deleteRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">deleteRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-               <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#delRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">delRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+            <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the relation with a given arc XRI from this context node.</TD>
@@ -377,7 +357,7 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#deleteRelations()">deleteRelations</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#delRelations()">delRelations</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes all relations from this context node.</TD>
@@ -385,22 +365,14 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#deleteRelations(xdi2.core.xri3.XDI3Segment)">deleteRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#delRelations(xdi2.core.xri3.XDI3Segment)">delRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the relation with a given arc XRI from this context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#deleteWhileEmpty()">deleteWhileEmpty</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes this context node and its parent context nodes until reaching a non-empty one or the root.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
+<CODE>&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getAllContextNodeCount()">getAllContextNodeCount</A></B>()</CODE>
 
 <BR>
@@ -416,6 +388,14 @@ This interface represents a context node in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getAllIncomingRelations()">getAllIncomingRelations</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all incoming relations of this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</A></B>()</CODE>
 
@@ -424,7 +404,7 @@ This interface represents a context node in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
+<CODE>&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getAllLiteralCount()">getAllLiteralCount</A></B>()</CODE>
 
 <BR>
@@ -440,7 +420,7 @@ This interface represents a context node in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
+<CODE>&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getAllRelationCount()">getAllRelationCount</A></B>()</CODE>
 
 <BR>
@@ -456,7 +436,7 @@ This interface represents a context node in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
+<CODE>&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getAllStatementCount()">getAllStatementCount</A></B>()</CODE>
 
 <BR>
@@ -489,14 +469,14 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.xri3.XDI3SubSegment)">getContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.xri3.XDI3SubSegment)">getContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the context node with a given arc XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
+<CODE>&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getContextNodeCount()">getContextNodeCount</A></B>()</CODE>
 
 <BR>
@@ -513,7 +493,7 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepContextNode(xdi2.core.xri3.XDI3Segment)">getDeepContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepContextNode(xdi2.core.xri3.XDI3Segment)">getDeepContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getContextNode(XDI3SubSegment), operates at a context node further down in the graph.</TD>
@@ -521,7 +501,7 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getContextNodes(), operates at a context node further down in the graph.</TD>
@@ -529,55 +509,82 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment)">getDeepLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment)">getDeepLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getLiteral(), operates at a context node further down in the graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">getDeepLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.Object)">getDeepLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getLiteral(String), operates at a context node further down in the graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getLiteral(Object), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepLiteralBoolean(xdi2.core.xri3.XDI3Segment, java.lang.Boolean)">getDeepLiteralBoolean</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepLiteralNumber(xdi2.core.xri3.XDI3Segment, java.lang.Double)">getDeepLiteralNumber</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getLiteraNumber(Double), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepLiteralString(xdi2.core.xri3.XDI3Segment, java.lang.String)">getDeepLiteralString</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getLiteralString(String), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                 <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                 <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
                 <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getRelations(), operates at a context node further down in the graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                  <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -614,7 +621,31 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getLiteral(java.lang.String)">getLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getLiteral(java.lang.Object)">getLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the literal of this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getLiteralBoolean(java.lang.Boolean)">getLiteralBoolean</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the literal of this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getLiteralNumber(java.lang.Double)">getLiteralNumber</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the literal of this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getLiteralString(java.lang.String)">getLiteralString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the literal of this context node.</TD>
@@ -638,7 +669,7 @@ This interface represents a context node in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
+<CODE>&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getRelationCount()">getRelationCount</A></B>()</CODE>
 
 <BR>
@@ -646,7 +677,7 @@ This interface represents a context node in an XDI graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
+<CODE>&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getRelationCount(xdi2.core.xri3.XDI3Segment)">getRelationCount</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
@@ -711,7 +742,7 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setContextNode(xdi2.core.xri3.XDI3SubSegment)">setContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setContextNode(xdi2.core.xri3.XDI3SubSegment)">setContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new context node and adds it to this context node, or returns an existing context node.</TD>
@@ -719,7 +750,7 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepContextNode(xdi2.core.xri3.XDI3Segment)">setDeepContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepContextNode(xdi2.core.xri3.XDI3Segment)">setDeepContextNode</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.setContextNode(XDI3SubSegment), operates at a context node further down in the graph.</TD>
@@ -727,36 +758,87 @@ This interface represents a context node in an XDI graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)">setDeepLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.Object)">setDeepLiteral</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.setLiteral(String), operates at a context node further down in the graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.ContextNode)">setDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">setDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.setLiteral(Object), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setLiteral(java.lang.String)">setLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepLiteralBoolean(xdi2.core.xri3.XDI3Segment, java.lang.Boolean)">setDeepLiteralBoolean</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepLiteralNumber(xdi2.core.xri3.XDI3Segment, java.lang.Double)">setDeepLiteralNumber</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.setLiteralNumber(Double), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepLiteralString(xdi2.core.xri3.XDI3Segment, java.lang.String)">setDeepLiteralString</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.setLiteralString(String), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.ContextNode)">setDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">setDeepRelation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setLiteral(java.lang.Object)">setLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new literal and adds it to this context node, or returns an existing literal.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setLiteralBoolean(java.lang.Boolean)">setLiteralBoolean</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new literal and adds it to this context node, or returns an existing literal.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setLiteralNumber(java.lang.Double)">setLiteralNumber</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new literal and adds it to this context node, or returns an existing literal.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#setLiteralString(java.lang.String)">setLiteralString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new literal and adds it to this context node, or returns an existing literal.</TD>
@@ -886,28 +968,12 @@ void <B>delete</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="deleteWhileEmpty()"><!-- --></A><H3>
-deleteWhileEmpty</H3>
-<PRE>
-void <B>deleteWhileEmpty</B>()</PRE>
-<DL>
-<DD>Deletes this context node and its parent context nodes until reaching a non-empty one or the root.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="clear()"><!-- --></A><H3>
 clear</H3>
 <PRE>
 void <B>clear</B>()</PRE>
 <DL>
-<DD>Clears the context node. This is equivalent to calling deleteContextNodes(), deleteRelations() and deleteLiterals().
+<DD>Clears the context node. This is equivalent to calling delContextNodes(), delRelations() and delLiterals().
 <P>
 <DD><DL>
 </DL>
@@ -971,43 +1037,10 @@ getXri</H3>
 </DL>
 <HR>
 
-<A NAME="createContextNode(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
-createContextNode</H3>
-<PRE>
-<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>createContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</PRE>
-<DL>
-<DD>Creates a new context node and adds it to this context node.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNodeArcXri</CODE> - The arc XRI of the new context node.
-<DT><B>Returns:</B><DD>The newly created context node.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createDeepContextNode(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-createDeepContextNode</H3>
-<PRE>
-<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>createDeepContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</PRE>
-<DL>
-<DD>Deep version of ContextNode.createContextNode(XDI3SubSegment), operates at a context node further down in the graph.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="setContextNode(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
 setContextNode</H3>
 <PRE>
-<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>setContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</PRE>
+<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>setContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Creates a new context node and adds it to this context node, or returns an existing context node.
 <P>
@@ -1015,7 +1048,7 @@ setContextNode</H3>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNodeArcXri</CODE> - The arc XRI of the new or existing context node.
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the new or existing context node.
 <DT><B>Returns:</B><DD>The newly created or existing context node.</DL>
 </DD>
 </DL>
@@ -1024,7 +1057,7 @@ setContextNode</H3>
 <A NAME="setDeepContextNode(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 setDeepContextNode</H3>
 <PRE>
-<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>setDeepContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</PRE>
+<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>setDeepContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
 <DD>Deep version of ContextNode.setContextNode(XDI3SubSegment), operates at a context node further down in the graph.
 <P>
@@ -1040,7 +1073,7 @@ setDeepContextNode</H3>
 <A NAME="getContextNode(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
 getContextNode</H3>
 <PRE>
-<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</PRE>
+<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Returns the context node with a given arc XRI.
 <P>
@@ -1048,7 +1081,7 @@ getContextNode</H3>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNodeArcXri</CODE> - The arc XRI of the context node.
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the context node.
 <DT><B>Returns:</B><DD>The context node with the given arc XRI, or null.</DL>
 </DD>
 </DL>
@@ -1057,7 +1090,7 @@ getContextNode</H3>
 <A NAME="getDeepContextNode(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getDeepContextNode</H3>
 <PRE>
-<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getDeepContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</PRE>
+<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getDeepContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
 <DD>Deep version of ContextNode.getContextNode(XDI3SubSegment), operates at a context node further down in the graph.
 <P>
@@ -1090,7 +1123,7 @@ getContextNodes</H3>
 <A NAME="getDeepContextNodes(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getDeepContextNodes</H3>
 <PRE>
-<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt; <B>getDeepContextNodes</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</PRE>
+<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt; <B>getDeepContextNodes</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
 <DD>Deep version of ContextNode.getContextNodes(), operates at a context node further down in the graph.
 <P>
@@ -1140,7 +1173,7 @@ getAllLeafContextNodes</H3>
 <A NAME="containsContextNode(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
 containsContextNode</H3>
 <PRE>
-boolean <B>containsContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</PRE>
+boolean <B>containsContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Checks if a context node with a given arc XRI exists in this context node.
 <P>
@@ -1148,7 +1181,7 @@ boolean <B>containsContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNodeArcXri</CODE> - The arc XRI to look for.
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI to look for.
 <DT><B>Returns:</B><DD>True if this context node has a context node with the given arc XRI.</DL>
 </DD>
 </DL>
@@ -1171,10 +1204,10 @@ boolean <B>containsContextNodes</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="deleteContextNode(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
-deleteContextNode</H3>
+<A NAME="delContextNode(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+delContextNode</H3>
 <PRE>
-void <B>deleteContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</PRE>
+void <B>delContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Deletes the context node with a given arc XRI.
 <P>
@@ -1182,15 +1215,15 @@ void <B>deleteContextNode</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html"
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNodeArcXri</CODE> - The arc XRI of this context arc.</DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of this context arc.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="deleteContextNodes()"><!-- --></A><H3>
-deleteContextNodes</H3>
+<A NAME="delContextNodes()"><!-- --></A><H3>
+delContextNodes</H3>
 <PRE>
-void <B>deleteContextNodes</B>()</PRE>
+void <B>delContextNodes</B>()</PRE>
 <DL>
 <DD>Deletes all context nodes from this context node.
 <P>
@@ -1206,7 +1239,7 @@ void <B>deleteContextNodes</B>()</PRE>
 <A NAME="getContextNodeCount()"><!-- --></A><H3>
 getContextNodeCount</H3>
 <PRE>
-int <B>getContextNodeCount</B>()</PRE>
+long <B>getContextNodeCount</B>()</PRE>
 <DL>
 <DD>Returns the number of context nodes of this context node.
 <P>
@@ -1223,7 +1256,7 @@ int <B>getContextNodeCount</B>()</PRE>
 <A NAME="getAllContextNodeCount()"><!-- --></A><H3>
 getAllContextNodeCount</H3>
 <PRE>
-int <B>getAllContextNodeCount</B>()</PRE>
+long <B>getAllContextNodeCount</B>()</PRE>
 <DL>
 <DD>Returns the number of all context nodes of this context node.
 <P>
@@ -1233,78 +1266,6 @@ int <B>getAllContextNodeCount</B>()</PRE>
 <DD><DL>
 
 <DT><B>Returns:</B><DD>The number of context nodes.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-createRelation</H3>
-<PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>createRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                        <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
-<DL>
-<DD>Creates a new relation and adds it to this context node.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the relation.<DD><CODE>targetContextNodeXri</CODE> - The target context node XRI of the relation.
-<DT><B>Returns:</B><DD>The newly created relation.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-createDeepRelation</H3>
-<PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>createDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                            <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                            <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
-<DL>
-<DD>Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.ContextNode)"><!-- --></A><H3>
-createRelation</H3>
-<PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>createRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                        <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</PRE>
-<DL>
-<DD>Creates a new relation and adds it to this context node.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the relation.<DD><CODE>targetContextNode</CODE> - The target context node of the relation.
-<DT><B>Returns:</B><DD>The newly created relation.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.ContextNode)"><!-- --></A><H3>
-createDeepRelation</H3>
-<PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>createDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                            <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                            <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</PRE>
-<DL>
-<DD>Deep version of ContextNode.ContextNode.createRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
 </DD>
 </DL>
 <HR>
@@ -1330,11 +1291,11 @@ setRelation</H3>
 <A NAME="setDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 setDeepRelation</H3>
 <PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>setDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>setDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                          <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
                          <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
-<DD>Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+<DD>Deep version of ContextNode.setRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 <P>
 <DD><DL>
 </DL>
@@ -1366,11 +1327,11 @@ setRelation</H3>
 <A NAME="setDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.ContextNode)"><!-- --></A><H3>
 setDeepRelation</H3>
 <PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>setDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>setDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                          <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
                          <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</PRE>
 <DL>
-<DD>Deep version of ContextNode.ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
+<DD>Deep version of ContextNode.setRelation(XDI3Segment, ContextNode), operates at a context node further down in the graph.
 <P>
 <DD><DL>
 </DL>
@@ -1402,11 +1363,11 @@ getRelation</H3>
 <A NAME="getDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getDeepRelation</H3>
 <PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>getDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>getDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                          <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
                          <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
-<DD>Deep version of ContextNode.ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
+<DD>Deep version of ContextNode.getRelation(XDI3Segment, XDI3Segment), operates at a context node further down in the graph.
 <P>
 <DD><DL>
 </DL>
@@ -1437,10 +1398,10 @@ getRelation</H3>
 <A NAME="getDeepRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getDeepRelation</H3>
 <PRE>
-<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>getDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> <B>getDeepRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                          <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
-<DD>Deep version of ContextNode.ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.
+<DD>Deep version of ContextNode.getRelation(XDI3Segment), operates at a context node further down in the graph.
 <P>
 <DD><DL>
 </DL>
@@ -1471,10 +1432,10 @@ getRelations</H3>
 <A NAME="getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getDeepRelations</H3>
 <PRE>
-<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>getDeepRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>getDeepRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                                             <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
-<DD>Deep version of ContextNode.ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.
+<DD>Deep version of ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.
 <P>
 <DD><DL>
 </DL>
@@ -1505,9 +1466,9 @@ getRelations</H3>
 <A NAME="getDeepRelations(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getDeepRelations</H3>
 <PRE>
-<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>getDeepRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</PRE>
+<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>getDeepRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
-<DD>Deep version of ContextNode.ContextNode.getRelations(), operates at a context node further down in the graph.
+<DD>Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.
 <P>
 <DD><DL>
 </DL>
@@ -1569,20 +1530,37 @@ getAllRelations</H3>
 </DL>
 <HR>
 
+<A NAME="getAllIncomingRelations()"><!-- --></A><H3>
+getAllIncomingRelations</H3>
+<PRE>
+<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>getAllIncomingRelations</B>()</PRE>
+<DL>
+<DD>Returns all incoming relations of this context node.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>An iterator over relations.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="containsRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 containsRelation</H3>
 <PRE>
 boolean <B>containsRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
                          <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
-<DD>Checks if a relation with a given arc XRI exists in this context node.
+<DD>Checks if a relation with a given arc XRI and target context node XRI exists in this context node.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the relation.<DD><CODE>targetContextNodeXri</CODE> - The target context node XRI of the relation.
-<DT><B>Returns:</B><DD>True if this context nod has a relation with the given arc XRI.</DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the relations.<DD><CODE>targetContextNodeXri</CODE> - The target context node XRI of the relation.
+<DT><B>Returns:</B><DD>True if this context node has a relation with the given arc XRI and target context node XRI.</DL>
 </DD>
 </DL>
 <HR>
@@ -1592,14 +1570,14 @@ containsRelations</H3>
 <PRE>
 boolean <B>containsRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
-<DD>Checks if relations with a given arc XRI exists in this context node.
+<DD>Checks if relations with a given arc XRI exist in this context node.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the relation.
-<DT><B>Returns:</B><DD>True if this context nod has a relation with the given arc XRI.</DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the relations.
+<DT><B>Returns:</B><DD>True if this context node has relations with the given arc XRI.</DL>
 </DD>
 </DL>
 <HR>
@@ -1621,11 +1599,45 @@ boolean <B>containsRelations</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="deleteRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-deleteRelation</H3>
+<A NAME="containsIncomingRelations(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+containsIncomingRelations</H3>
 <PRE>
-void <B>deleteRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                    <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
+boolean <B>containsIncomingRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
+<DL>
+<DD>Checks if incoming relations with a given arc XRI exist in this context node.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>arcXri</CODE> - The arc XRI of the incoming relations.
+<DT><B>Returns:</B><DD>True if this context node has incoming relations with the given arc XRI.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="containsIncomingRelations()"><!-- --></A><H3>
+containsIncomingRelations</H3>
+<PRE>
+boolean <B>containsIncomingRelations</B>()</PRE>
+<DL>
+<DD>Checks if this context node has one or more incoming relations.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>True if this context node has incoming relations.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="delRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+delRelation</H3>
+<PRE>
+void <B>delRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                 <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
 <DD>Deletes the relation with a given arc XRI from this context node.
 <P>
@@ -1638,10 +1650,10 @@ void <B>deleteRelation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title
 </DL>
 <HR>
 
-<A NAME="deleteRelations(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-deleteRelations</H3>
+<A NAME="delRelations(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+delRelations</H3>
 <PRE>
-void <B>deleteRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
+void <B>delRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Deletes the relation with a given arc XRI from this context node.
 <P>
@@ -1654,10 +1666,10 @@ void <B>deleteRelations</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" titl
 </DL>
 <HR>
 
-<A NAME="deleteRelations()"><!-- --></A><H3>
-deleteRelations</H3>
+<A NAME="delRelations()"><!-- --></A><H3>
+delRelations</H3>
 <PRE>
-void <B>deleteRelations</B>()</PRE>
+void <B>delRelations</B>()</PRE>
 <DL>
 <DD>Deletes all relations from this context node.
 <P>
@@ -1670,10 +1682,10 @@ void <B>deleteRelations</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="deleteIncomingRelations()"><!-- --></A><H3>
-deleteIncomingRelations</H3>
+<A NAME="delIncomingRelations()"><!-- --></A><H3>
+delIncomingRelations</H3>
 <PRE>
-void <B>deleteIncomingRelations</B>()</PRE>
+void <B>delIncomingRelations</B>()</PRE>
 <DL>
 <DD>Deletes the incoming relations of this context node.
 <P>
@@ -1689,7 +1701,7 @@ void <B>deleteIncomingRelations</B>()</PRE>
 <A NAME="getRelationCount(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getRelationCount</H3>
 <PRE>
-int <B>getRelationCount</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
+long <B>getRelationCount</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
 <DL>
 <DD>Returns the number of relations of this context node.
 <P>
@@ -1706,7 +1718,7 @@ int <B>getRelationCount</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" titl
 <A NAME="getRelationCount()"><!-- --></A><H3>
 getRelationCount</H3>
 <PRE>
-int <B>getRelationCount</B>()</PRE>
+long <B>getRelationCount</B>()</PRE>
 <DL>
 <DD>Returns the number of relations of this context node.
 <P>
@@ -1723,7 +1735,7 @@ int <B>getRelationCount</B>()</PRE>
 <A NAME="getAllRelationCount()"><!-- --></A><H3>
 getAllRelationCount</H3>
 <PRE>
-int <B>getAllRelationCount</B>()</PRE>
+long <B>getAllRelationCount</B>()</PRE>
 <DL>
 <DD>Returns the number of all relations of this context node.
 <P>
@@ -1737,44 +1749,10 @@ int <B>getAllRelationCount</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="createLiteral(java.lang.String)"><!-- --></A><H3>
-createLiteral</H3>
-<PRE>
-<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>createLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
-<DL>
-<DD>Creates a new literal and adds it to this context node.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The data of the literal.
-<DT><B>Returns:</B><DD>The newly created literal.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
-createDeepLiteral</H3>
-<PRE>
-<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>createDeepLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                          <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
-<DL>
-<DD>Deep version of ContextNode.ContextNode.createLiteral(String), operates at a context node further down in the graph.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLiteral(java.lang.String)"><!-- --></A><H3>
+<A NAME="setLiteral(java.lang.Object)"><!-- --></A><H3>
 setLiteral</H3>
 <PRE>
-<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
 <DL>
 <DD>Creates a new literal and adds it to this context node, or returns an existing literal.
 <P>
@@ -1782,19 +1760,70 @@ setLiteral</H3>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The data of the literal.
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data associated with the literal.
 <DT><B>Returns:</B><DD>The newly created or existing literal.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="setDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+<A NAME="setLiteralString(java.lang.String)"><!-- --></A><H3>
+setLiteralString</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setLiteralString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Creates a new literal and adds it to this context node, or returns an existing literal.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data string associated with the literal.
+<DT><B>Returns:</B><DD>The newly created or existing literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteralNumber(java.lang.Double)"><!-- --></A><H3>
+setLiteralNumber</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setLiteralNumber</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Creates a new literal and adds it to this context node, or returns an existing literal.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data number associated with the literal.
+<DT><B>Returns:</B><DD>The newly created or existing literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteralBoolean(java.lang.Boolean)"><!-- --></A><H3>
+setLiteralBoolean</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setLiteralBoolean</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Creates a new literal and adds it to this context node, or returns an existing literal.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data boolean associated with the literal.
+<DT><B>Returns:</B><DD>The newly created or existing literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.Object)"><!-- --></A><H3>
 setDeepLiteral</H3>
 <PRE>
-<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setDeepLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setDeepLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
 <DL>
-<DD>Deep version of ContextNode.ContextNode.setLiteral(String), operates at a context node further down in the graph.
+<DD>Deep version of ContextNode.setLiteral(Object), operates at a context node further down in the graph.
 <P>
 <DD><DL>
 </DL>
@@ -1805,10 +1834,61 @@ setDeepLiteral</H3>
 </DL>
 <HR>
 
-<A NAME="getLiteral(java.lang.String)"><!-- --></A><H3>
+<A NAME="setDeepLiteralString(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+setDeepLiteralString</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setDeepLiteralString</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Deep version of ContextNode.setLiteralString(String), operates at a context node further down in the graph.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setDeepLiteralNumber(xdi2.core.xri3.XDI3Segment, java.lang.Double)"><!-- --></A><H3>
+setDeepLiteralNumber</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setDeepLiteralNumber</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Deep version of ContextNode.setLiteralNumber(Double), operates at a context node further down in the graph.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setDeepLiteralBoolean(xdi2.core.xri3.XDI3Segment, java.lang.Boolean)"><!-- --></A><H3>
+setDeepLiteralBoolean</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setDeepLiteralBoolean</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                              <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteral(java.lang.Object)"><!-- --></A><H3>
 getLiteral</H3>
 <PRE>
-<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
 <DL>
 <DD>Returns the literal of this context node.
 <P>
@@ -1816,19 +1896,121 @@ getLiteral</H3>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The data of the literal.
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data associated with the literal.
 <DT><B>Returns:</B><DD>The literal.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="getDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+<A NAME="getLiteralString(java.lang.String)"><!-- --></A><H3>
+getLiteralString</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteralString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Returns the literal of this context node.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data string associated with the literal.
+<DT><B>Returns:</B><DD>The literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteralNumber(java.lang.Double)"><!-- --></A><H3>
+getLiteralNumber</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteralNumber</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Returns the literal of this context node.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data number associated with the literal.
+<DT><B>Returns:</B><DD>The literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteralBoolean(java.lang.Boolean)"><!-- --></A><H3>
+getLiteralBoolean</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteralBoolean</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Returns the literal of this context node.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data boolean associated with the literal.
+<DT><B>Returns:</B><DD>The literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDeepLiteral(xdi2.core.xri3.XDI3Segment, java.lang.Object)"><!-- --></A><H3>
 getDeepLiteral</H3>
 <PRE>
-<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getDeepLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
-                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getDeepLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
 <DL>
-<DD>Deep version of ContextNode.ContextNode.getLiteral(String), operates at a context node further down in the graph.
+<DD>Deep version of ContextNode.getLiteral(Object), operates at a context node further down in the graph.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDeepLiteralString(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+getDeepLiteralString</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getDeepLiteralString</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Deep version of ContextNode.getLiteralString(String), operates at a context node further down in the graph.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDeepLiteralNumber(xdi2.core.xri3.XDI3Segment, java.lang.Double)"><!-- --></A><H3>
+getDeepLiteralNumber</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getDeepLiteralNumber</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Deep version of ContextNode.getLiteraNumber(Double), operates at a context node further down in the graph.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDeepLiteralBoolean(xdi2.core.xri3.XDI3Segment, java.lang.Boolean)"><!-- --></A><H3>
+getDeepLiteralBoolean</H3>
+<PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getDeepLiteralBoolean</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                              <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.
 <P>
 <DD><DL>
 </DL>
@@ -1859,9 +2041,9 @@ getLiteral</H3>
 <A NAME="getDeepLiteral(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getDeepLiteral</H3>
 <PRE>
-<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getDeepLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</PRE>
+<A HREF="../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getDeepLiteral</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
-<DD>Deep version of ContextNode.ContextNode.getLiteral(), operates at a context node further down in the graph.
+<DD>Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.
 <P>
 <DD><DL>
 </DL>
@@ -1889,10 +2071,10 @@ getAllLiterals</H3>
 </DL>
 <HR>
 
-<A NAME="containsLiteral(java.lang.String)"><!-- --></A><H3>
+<A NAME="containsLiteral(java.lang.Object)"><!-- --></A><H3>
 containsLiteral</H3>
 <PRE>
-boolean <B>containsLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+boolean <B>containsLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
 <DL>
 <DD>Checks if this context node has a literal with the given data.
 <P>
@@ -1900,7 +2082,58 @@ boolean <B>containsLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The data of the literal.
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data associated with the literal.
+<DT><B>Returns:</B><DD>True if this context node has a literal with the given data.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="containsLiteralString(java.lang.String)"><!-- --></A><H3>
+containsLiteralString</H3>
+<PRE>
+boolean <B>containsLiteralString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Checks if this context node has a literal with the given data.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data string associated with the literal.
+<DT><B>Returns:</B><DD>True if this context node has a literal with the given data.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="containsLiteralNumber(java.lang.Double)"><!-- --></A><H3>
+containsLiteralNumber</H3>
+<PRE>
+boolean <B>containsLiteralNumber</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Checks if this context node has a literal with the given data.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data number associated with the literal.
+<DT><B>Returns:</B><DD>True if this context node has a literal with the given data.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="containsLiteralBoolean(java.lang.Boolean)"><!-- --></A><H3>
+containsLiteralBoolean</H3>
+<PRE>
+boolean <B>containsLiteralBoolean</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</PRE>
+<DL>
+<DD>Checks if this context node has a literal with the given data.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data boolean associated with the literal.
 <DT><B>Returns:</B><DD>True if this context node has a literal with the given data.</DL>
 </DD>
 </DL>
@@ -1923,10 +2156,10 @@ boolean <B>containsLiteral</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="deleteLiteral()"><!-- --></A><H3>
-deleteLiteral</H3>
+<A NAME="delLiteral()"><!-- --></A><H3>
+delLiteral</H3>
 <PRE>
-void <B>deleteLiteral</B>()</PRE>
+void <B>delLiteral</B>()</PRE>
 <DL>
 <DD>Deletes the literal from this context node.
 <P>
@@ -1942,7 +2175,7 @@ void <B>deleteLiteral</B>()</PRE>
 <A NAME="getAllLiteralCount()"><!-- --></A><H3>
 getAllLiteralCount</H3>
 <PRE>
-int <B>getAllLiteralCount</B>()</PRE>
+long <B>getAllLiteralCount</B>()</PRE>
 <DL>
 <DD>Returns the number of all literals of this context node.
 <P>
@@ -1993,7 +2226,7 @@ getAllStatements</H3>
 <A NAME="getAllStatementCount()"><!-- --></A><H3>
 getAllStatementCount</H3>
 <PRE>
-int <B>getAllStatementCount</B>()</PRE>
+long <B>getAllStatementCount</B>()</PRE>
 <DL>
 <DD>Returns the number of all statements rooted in this context node.
 <P>

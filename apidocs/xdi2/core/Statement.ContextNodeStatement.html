@@ -8,6 +8,9 @@ Statement.ContextNodeStatement (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.Statement.ContextNodeStatement interface">
+<META NAME="keywords" CONTENT="getSubject()">
+<META NAME="keywords" CONTENT="getPredicate()">
+<META NAME="keywords" CONTENT="getObject()">
 <META NAME="keywords" CONTENT="getContextNode()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
@@ -152,6 +155,30 @@ Interface Statement.ContextNodeStatement</H2>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/Statement.ContextNodeStatement.html#getObject()">getObject</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the object of this statement.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/Statement.ContextNodeStatement.html#getPredicate()">getPredicate</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the predicate of this statement.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/Statement.ContextNodeStatement.html#getSubject()">getSubject</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the subject of this statement.</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_xdi2.core.Statement"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -159,7 +186,7 @@ Interface Statement.ContextNodeStatement</H2>
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.core.<A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../xdi2/core/Statement.html#delete()">delete</A>, <A HREF="../../xdi2/core/Statement.html#getContextNodeXri()">getContextNodeXri</A>, <A HREF="../../xdi2/core/Statement.html#getGraph()">getGraph</A>, <A HREF="../../xdi2/core/Statement.html#getObject()">getObject</A>, <A HREF="../../xdi2/core/Statement.html#getPredicate()">getPredicate</A>, <A HREF="../../xdi2/core/Statement.html#getSubject()">getSubject</A>, <A HREF="../../xdi2/core/Statement.html#getXri()">getXri</A>, <A HREF="../../xdi2/core/Statement.html#isImplied()">isImplied</A></CODE></TD>
+<TD><CODE><A HREF="../../xdi2/core/Statement.html#delete()">delete</A>, <A HREF="../../xdi2/core/Statement.html#getGraph()">getGraph</A>, <A HREF="../../xdi2/core/Statement.html#getXri()">getXri</A>, <A HREF="../../xdi2/core/Statement.html#isImplied()">isImplied</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>
@@ -183,6 +210,60 @@ Interface Statement.ContextNodeStatement</H2>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="getSubject()"><!-- --></A><H3>
+getSubject</H3>
+<PRE>
+<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getSubject</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../xdi2/core/Statement.html#getSubject()">Statement</A></CODE></B></DD>
+<DD>Gets the subject of this statement.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../xdi2/core/Statement.html#getSubject()">getSubject</A></CODE> in interface <CODE><A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>A subject.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPredicate()"><!-- --></A><H3>
+getPredicate</H3>
+<PRE>
+<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getPredicate</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../xdi2/core/Statement.html#getPredicate()">Statement</A></CODE></B></DD>
+<DD>Gets the predicate of this statement.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../xdi2/core/Statement.html#getPredicate()">getPredicate</A></CODE> in interface <CODE><A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>A predicate.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getObject()"><!-- --></A><H3>
+getObject</H3>
+<PRE>
+<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getObject</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../xdi2/core/Statement.html#getObject()">Statement</A></CODE></B></DD>
+<DD>Gets the object of this statement.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../xdi2/core/Statement.html#getObject()">getObject</A></CODE> in interface <CODE><A HREF="../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>An object.</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="getContextNode()"><!-- --></A><H3>
 getContextNode</H3>

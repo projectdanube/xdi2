@@ -97,7 +97,7 @@ Interface MessageInterceptor</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractMessageInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractMessageInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">AuthenticationSecretTokenInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractMessageInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractMessageInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">AuthenticationSecretTokenInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AuthenticationSignatureInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">AuthenticationSignatureInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></DD>
 </DL>
 <HR>
 <DL>
@@ -105,13 +105,14 @@ Interface MessageInterceptor</H2>
 </PRE>
 <map id="APIVIZ" name="APIVIZ">
 <area shape="rect" id="node1" href="impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html" title="AuthenticationSecretTokenInterceptor (xdi2.messaging.target.interceptor.impl.authentication.secrettoken)" alt="" coords="419,225,827,265"/>
-<area shape="rect" id="node2" href="impl/FromInterceptor.html" title="FromInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="497,49,748,89"/>
-<area shape="rect" id="node3" href="impl/linkcontract/LinkContractInterceptor.html" title="LinkContractInterceptor (xdi2.messaging.target.interceptor.impl.linkcontract)" alt="" coords="461,284,784,324"/>
-<area shape="rect" id="node4" href="impl/MessagePolicyInterceptor.html" title="MessagePolicyInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="497,108,748,148"/>
-<area shape="rect" id="node5" href="impl/ToInterceptor.html" title="ToInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="497,167,748,207"/>
-<area shape="rect" id="node6" href="AbstractMessageInterceptor.html" title="AbstractMessageInterceptor" alt="" coords="529,5,716,30"/>
-<area shape="rect" id="node7" href="Interceptor.html" title="&#171;interface&#187; Interceptor" alt="" coords="5,137,91,177"/>
-<area shape="rect" id="node8" href="MessageInterceptor.html" title="&#171;interface&#187; MessageInterceptor" alt="" coords="187,137,323,177"/>
+<area shape="rect" id="node2" href="impl/authentication/signature/AuthenticationSignatureInterceptor.html" title="AuthenticationSignatureInterceptor (xdi2.messaging.target.interceptor.impl.authentication.signature)" alt="" coords="426,284,819,324"/>
+<area shape="rect" id="node3" href="impl/FromInterceptor.html" title="FromInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="497,49,748,89"/>
+<area shape="rect" id="node4" href="impl/linkcontract/LinkContractInterceptor.html" title="LinkContractInterceptor (xdi2.messaging.target.interceptor.impl.linkcontract)" alt="" coords="461,343,784,383"/>
+<area shape="rect" id="node5" href="impl/MessagePolicyInterceptor.html" title="MessagePolicyInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="497,108,748,148"/>
+<area shape="rect" id="node6" href="impl/ToInterceptor.html" title="ToInterceptor (xdi2.messaging.target.interceptor.impl)" alt="" coords="497,167,748,207"/>
+<area shape="rect" id="node7" href="AbstractMessageInterceptor.html" title="AbstractMessageInterceptor" alt="" coords="529,5,716,30"/>
+<area shape="rect" id="node8" href="Interceptor.html" title="&#171;interface&#187; Interceptor" alt="" coords="5,167,91,207"/>
+<area shape="rect" id="node9" href="MessageInterceptor.html" title="&#171;interface&#187; MessageInterceptor" alt="" coords="187,167,323,207"/>
 </map>
 <div id="apivizContainer" style="text-align: center;"><img src="MessageInterceptor.png" usemap="#APIVIZ" border="0"></div>
 
@@ -155,6 +156,15 @@ Interceptor that is executed before and after a message is executed.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run before a message is executed.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.interceptor.Interceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.interceptor.<A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#setEnabled(boolean)">setEnabled</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;

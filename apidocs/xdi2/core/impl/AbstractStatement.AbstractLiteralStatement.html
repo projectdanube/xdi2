@@ -8,7 +8,6 @@ AbstractStatement.AbstractLiteralStatement (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.impl.AbstractStatement.AbstractLiteralStatement class">
-<META NAME="keywords" CONTENT="getContextNodeXri()">
 <META NAME="keywords" CONTENT="getPredicate()">
 <META NAME="keywords" CONTENT="getLiteral()">
 
@@ -178,14 +177,6 @@ Class AbstractStatement.AbstractLiteralStatement</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractStatement.AbstractLiteralStatement.html#getContextNodeXri()">getContextNodeXri</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the context node XRI of this statement.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractStatement.AbstractLiteralStatement.html#getLiteral()">getLiteral</A></B>()</CODE>
 
@@ -219,13 +210,22 @@ Class AbstractStatement.AbstractLiteralStatement</H2>
 <TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
 </TR>
 </TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.Statement.LiteralStatement"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface xdi2.core.<A HREF="../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../xdi2/core/Statement.LiteralStatement.html#getObject()">getObject</A>, <A HREF="../../../xdi2/core/Statement.LiteralStatement.html#getSubject()">getSubject</A></CODE></TD>
+</TR>
+</TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_xdi2.core.Statement"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.core.<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../xdi2/core/Statement.html#delete()">delete</A>, <A HREF="../../../xdi2/core/Statement.html#getGraph()">getGraph</A>, <A HREF="../../../xdi2/core/Statement.html#getObject()">getObject</A>, <A HREF="../../../xdi2/core/Statement.html#getSubject()">getSubject</A>, <A HREF="../../../xdi2/core/Statement.html#getXri()">getXri</A>, <A HREF="../../../xdi2/core/Statement.html#isImplied()">isImplied</A></CODE></TD>
+<TD><CODE><A HREF="../../../xdi2/core/Statement.html#delete()">delete</A>, <A HREF="../../../xdi2/core/Statement.html#getGraph()">getGraph</A>, <A HREF="../../../xdi2/core/Statement.html#getXri()">getXri</A>, <A HREF="../../../xdi2/core/Statement.html#isImplied()">isImplied</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>
@@ -267,23 +267,6 @@ public <B>AbstractStatement.AbstractLiteralStatement</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="getContextNodeXri()"><!-- --></A><H3>
-getContextNodeXri</H3>
-<PRE>
-public <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getContextNodeXri</B>()</PRE>
-<DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Statement.html#getContextNodeXri()">Statement</A></CODE></B></DD>
-<DD>Returns the context node XRI of this statement.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Statement.html#getContextNodeXri()">getContextNodeXri</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getPredicate()"><!-- --></A><H3>
 getPredicate</H3>
 <PRE>
@@ -293,7 +276,7 @@ public final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in 
 <DD>Gets the predicate of this statement.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Statement.html#getPredicate()">getPredicate</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Statement.html#getPredicate()">getPredicate</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE><DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Statement.LiteralStatement.html#getPredicate()">getPredicate</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A></CODE></DL>
 </DD>
 <DD><DL>
 

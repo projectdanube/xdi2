@@ -14,9 +14,11 @@ XDI3Util (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="endsWith()">
 <META NAME="keywords" CONTENT="parentXri()">
 <META NAME="keywords" CONTENT="localXri()">
-<META NAME="keywords" CONTENT="expandXri()">
-<META NAME="keywords" CONTENT="reduceXri()">
+<META NAME="keywords" CONTENT="removeStartXri()">
+<META NAME="keywords" CONTENT="removeEndXri()">
 <META NAME="keywords" CONTENT="replaceXri()">
+<META NAME="keywords" CONTENT="concatXris()">
+<META NAME="keywords" CONTENT="isCloudNumber()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -161,20 +163,53 @@ Various utility methods for working with XRI 3.0 syntax.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#endsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">endsWith</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-         <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3Segment[])">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;xris)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI ends with a certain other XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats all XRIs into a new XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#endsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)">endsWith</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-         <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
-         boolean&nbsp;variablesInXri,
-         boolean&nbsp;variablesInBase)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri1,
+           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri1,
+           <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
+           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3SubSegment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
+           <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#endsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">endsWith</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+         <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;endXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI ends with a certain other XRI.</TD>
@@ -182,11 +217,21 @@ Various utility methods for working with XRI 3.0 syntax.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#expandXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">expandXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-          <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#endsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)">endsWith</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+         <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;endXri,
+         boolean&nbsp;variablesInXri,
+         boolean&nbsp;variablesInEnd)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an expanded XRI from a base XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI ends with a certain other XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#isCloudNumber(xdi2.core.xri3.XDI3Segment)">isCloudNumber</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI is a valid Cloud Number.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -209,22 +254,42 @@ Various utility methods for working with XRI 3.0 syntax.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#reduceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">reduceXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-          <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#removeEndXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">removeEndXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+             <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;end)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a reduced XRI from a base XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes an end XRI from an XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#reduceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)">reduceXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-          <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
-          boolean&nbsp;variablesInXri,
-          boolean&nbsp;variablesInBase)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#removeEndXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)">removeEndXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+             <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;end,
+             boolean&nbsp;variablesInXri,
+             boolean&nbsp;variablesInEnd)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a reduced XRI from a base XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes an end XRI from an XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#removeStartXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">removeStartXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+               <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;start)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes a start XRI from an XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#removeStartXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)">removeStartXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+               <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;start,
+               boolean&nbsp;variablesInXri,
+               boolean&nbsp;variablesInStart)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes a start XRI from an XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -238,20 +303,20 @@ Various utility methods for working with XRI 3.0 syntax.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#startsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">startsWith</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</CODE>
+           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;startXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI starts with a certain other XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#startsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)">startsWith</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
+           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;startXri,
            boolean&nbsp;variablesInXri,
-           boolean&nbsp;variablesInBase)</CODE>
+           boolean&nbsp;variablesInStart)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI starts with a certain other XRI.</TD>
@@ -311,10 +376,10 @@ public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/u
 <A NAME="startsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
 startsWith</H3>
 <PRE>
-public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                                 <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
-                                 boolean&nbsp;variablesInXri,
-                                 boolean&nbsp;variablesInBase)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;startXri,
+                                     boolean&nbsp;variablesInXri,
+                                     boolean&nbsp;variablesInStart)</PRE>
 <DL>
 <DD>Checks if an XRI starts with a certain other XRI.
 <P>
@@ -327,8 +392,8 @@ public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Seg
 <A NAME="startsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 startsWith</H3>
 <PRE>
-public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                                 <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;startXri)</PRE>
 <DL>
 <DD>Checks if an XRI starts with a certain other XRI.
 <P>
@@ -341,10 +406,10 @@ public static boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Seg
 <A NAME="endsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
 endsWith</H3>
 <PRE>
-public static boolean <B>endsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                               <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
-                               boolean&nbsp;variablesInXri,
-                               boolean&nbsp;variablesInBase)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>endsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                   <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;endXri,
+                                   boolean&nbsp;variablesInXri,
+                                   boolean&nbsp;variablesInEnd)</PRE>
 <DL>
 <DD>Checks if an XRI ends with a certain other XRI.
 <P>
@@ -357,8 +422,8 @@ public static boolean <B>endsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segme
 <A NAME="endsWith(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 endsWith</H3>
 <PRE>
-public static boolean <B>endsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                               <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>endsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                   <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;endXri)</PRE>
 <DL>
 <DD>Checks if an XRI ends with a certain other XRI.
 <P>
@@ -400,14 +465,19 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 </DL>
 <HR>
 
-<A NAME="expandXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-expandXri</H3>
+<A NAME="removeStartXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
+removeStartXri</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>expandXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>removeStartXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                         <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;start,
+                                         boolean&nbsp;variablesInXri,
+                                         boolean&nbsp;variablesInStart)</PRE>
 <DL>
-<DD>Creates an expanded XRI from a base XRI.
- E.g. for *c*d and =a*b, this returns =a*b*c*d
+<DD>Removes a start XRI from an XRI.
+ E.g. for =a*b*c*d and =a*b, this returns *c*d
+ E.g. for =a*b*c*d and (), this returns =a*b*c*d
+ E.g. for =a*b*c*d and =a*b*c*d, this returns ()
+ E.g. for =a*b*c*d and =x, this returns null
 <P>
 <DD><DL>
 </DL>
@@ -415,16 +485,17 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 </DL>
 <HR>
 
-<A NAME="reduceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
-reduceXri</H3>
+<A NAME="removeStartXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+removeStartXri</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>reduceXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base,
-                                    boolean&nbsp;variablesInXri,
-                                    boolean&nbsp;variablesInBase)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>removeStartXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                         <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;start)</PRE>
 <DL>
-<DD>Creates a reduced XRI from a base XRI.
+<DD>Removes a start XRI from an XRI.
  E.g. for =a*b*c*d and =a*b, this returns *c*d
+ E.g. for =a*b*c*d and (), this returns =a*b*c*d
+ E.g. for =a*b*c*d and =a*b*c*d, this returns ()
+ E.g. for =a*b*c*d and =x, this returns null
 <P>
 <DD><DL>
 </DL>
@@ -432,14 +503,37 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 </DL>
 <HR>
 
-<A NAME="reduceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-reduceXri</H3>
+<A NAME="removeEndXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
+removeEndXri</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>reduceXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;base)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>removeEndXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                       <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;end,
+                                       boolean&nbsp;variablesInXri,
+                                       boolean&nbsp;variablesInEnd)</PRE>
 <DL>
-<DD>Creates a reduced XRI from a base XRI.
- E.g. for =a*b*c*d and =a*b, this returns *c*d
+<DD>Removes an end XRI from an XRI.
+ E.g. for =a*b*c*d and *c*d, this returns =a*b
+ E.g. for =a*b*c*d and (), this returns =a*b*c*d
+ E.g. for =a*b*c*d and =a*b*c*d, this returns ()
+ E.g. for =a*b*c*d and *y, this returns null
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeEndXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+removeEndXri</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>removeEndXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                       <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;end)</PRE>
+<DL>
+<DD>Removes an end XRI from an XRI.
+ E.g. for =a*b*c*d and *c*d, this returns =a*b
+ E.g. for =a*b*c*d and (), this returns =a*b*c*d
+ E.g. for =a*b*c*d and =a*b*c*d, this returns ()
+ E.g. for =a*b*c*d and *y, this returns null
 <P>
 <DD><DL>
 </DL>
@@ -455,6 +549,88 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
                                      <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;newXri)</PRE>
 <DL>
 <DD>Replaces all occurences of a subsegment with a segment.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="concatXris(xdi2.core.xri3.XDI3Segment[])"><!-- --></A><H3>
+concatXris</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;xris)</PRE>
+<DL>
+<DD>Concats all XRIs into a new XRI.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+concatXris</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri1,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri2)</PRE>
+<DL>
+<DD>Concats two XRIs into a new XRI.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+concatXris</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri1,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</PRE>
+<DL>
+<DD>Concats two XRIs into a new XRI.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+concatXris</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri2)</PRE>
+<DL>
+<DD>Concats two XRIs into a new XRI.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+concatXris</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</PRE>
+<DL>
+<DD>Concats two XRIs into a new XRI.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isCloudNumber(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+isCloudNumber</H3>
+<PRE>
+public static boolean <B>isCloudNumber</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</PRE>
+<DL>
+<DD>Checks if an XRI is a valid Cloud Number.
 <P>
 <DD><DL>
 </DL>

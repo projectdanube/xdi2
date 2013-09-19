@@ -9,12 +9,13 @@ XDI3Segment (xdi2 0.1-SNAPSHOT API)
 
 <META NAME="keywords" CONTENT="xdi2.core.xri3.XDI3Segment class">
 <META NAME="keywords" CONTENT="create()">
+<META NAME="keywords" CONTENT="fromComponent()">
+<META NAME="keywords" CONTENT="fromComponents()">
 <META NAME="keywords" CONTENT="getSubSegments()">
 <META NAME="keywords" CONTENT="getNumSubSegments()">
 <META NAME="keywords" CONTENT="getSubSegment()">
 <META NAME="keywords" CONTENT="getFirstSubSegment()">
 <META NAME="keywords" CONTENT="getLastSubSegment()">
-<META NAME="keywords" CONTENT="startsWith()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -160,7 +161,15 @@ Class XDI3Segment</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Segment.html#create(xdi2.core.xri3.XDI3SubSegment)">create</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Segment.html#fromComponent(xdi2.core.xri3.XDI3SubSegment)">fromComponent</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Segment.html#fromComponents(java.util.List)">fromComponents</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&gt;&nbsp;subSegments)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -201,14 +210,6 @@ Class XDI3Segment</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Segment.html#getSubSegments()">getSubSegments</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Segment.html#startsWith(xdi2.core.xri3.XDI3SubSegment[])">startsWith</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>[]&nbsp;subSegments)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -256,10 +257,21 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 </DL>
 <HR>
 
-<A NAME="create(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
-create</H3>
+<A NAME="fromComponent(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+fromComponent</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>create</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>fromComponent</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fromComponents(java.util.List)"><!-- --></A><H3>
+fromComponents</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>fromComponents</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&gt;&nbsp;subSegments)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -315,17 +327,6 @@ public <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi
 getLastSubSegment</H3>
 <PRE>
 public <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getLastSubSegment</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="startsWith(xdi2.core.xri3.XDI3SubSegment[])"><!-- --></A><H3>
-startsWith</H3>
-<PRE>
-public boolean <B>startsWith</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>[]&nbsp;subSegments)</PRE>
 <DL>
 <DD><DL>
 </DL>

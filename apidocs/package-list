@@ -15,8 +15,12 @@ xdi2.core.features.linkcontracts.evaluation
 xdi2.core.features.linkcontracts.operator
 xdi2.core.features.linkcontracts.policy
 xdi2.core.features.nodetypes
+xdi2.core.features.signatures
 xdi2.core.features.timestamps
 xdi2.core.impl
+xdi2.core.impl.json
+xdi2.core.impl.json.file
+xdi2.core.impl.json.memory
 xdi2.core.impl.keyvalue
 xdi2.core.impl.keyvalue.bdb
 xdi2.core.impl.keyvalue.map
@@ -51,14 +55,12 @@ xdi2.messaging.target.impl.n
 xdi2.messaging.target.interceptor
 xdi2.messaging.target.interceptor.impl
 xdi2.messaging.target.interceptor.impl.authentication.secrettoken
+xdi2.messaging.target.interceptor.impl.authentication.signature
+xdi2.messaging.target.interceptor.impl.encryption
 xdi2.messaging.target.interceptor.impl.linkcontract
 xdi2.messaging.target.interceptor.impl.util
 xdi2.messaging.util
 xdi2.p2p
-xdi2.samples.client
-xdi2.samples.core
-xdi2.samples.messaging
-xdi2.samples.server
 xdi2.server.embedded
 xdi2.server.exceptions
 xdi2.server.factory
@@ -75,5 +77,6 @@ xdi2.webtools.grapher
 xdi2.webtools.localmessenger
 xdi2.webtools.messenger
 xdi2.webtools.parser
+xdi2.webtools.signer
 xdi2.webtools.util
 xdi2.webtools.validator

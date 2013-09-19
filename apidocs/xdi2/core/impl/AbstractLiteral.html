@@ -8,14 +8,27 @@ AbstractLiteral (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.impl.AbstractLiteral class">
+<META NAME="keywords" CONTENT="LITERALDATACOMPARATOR">
 <META NAME="keywords" CONTENT="getGraph()">
 <META NAME="keywords" CONTENT="getContextNode()">
 <META NAME="keywords" CONTENT="delete()">
+<META NAME="keywords" CONTENT="getLiteralDataString()">
+<META NAME="keywords" CONTENT="getLiteralDataNumber()">
+<META NAME="keywords" CONTENT="getLiteralDataBoolean()">
+<META NAME="keywords" CONTENT="setLiteralDataString()">
+<META NAME="keywords" CONTENT="setLiteralDataNumber()">
+<META NAME="keywords" CONTENT="setLiteralDataBoolean()">
 <META NAME="keywords" CONTENT="getStatement()">
 <META NAME="keywords" CONTENT="toString()">
 <META NAME="keywords" CONTENT="equals()">
 <META NAME="keywords" CONTENT="hashCode()">
 <META NAME="keywords" CONTENT="compareTo()">
+<META NAME="keywords" CONTENT="isValidLiteralData()">
+<META NAME="keywords" CONTENT="isLiteralDataEqual()">
+<META NAME="keywords" CONTENT="literalDataToString()">
+<META NAME="keywords" CONTENT="stringToLiteralData()">
+<META NAME="keywords" CONTENT="literalDataToJsonElement()">
+<META NAME="keywords" CONTENT="jsonElementToLiteralData()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -84,9 +97,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -107,19 +120,20 @@ Class AbstractLiteral</H2>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&gt;, <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/impl/BasicLiteral.html" title="class in xdi2.core.impl">BasicLiteral</A>, <A HREF="../../../xdi2/core/impl/keyvalue/KeyValueLiteral.html" title="class in xdi2.core.impl.keyvalue">KeyValueLiteral</A>, <A HREF="../../../xdi2/core/impl/memory/MemoryLiteral.html" title="class in xdi2.core.impl.memory">MemoryLiteral</A>, <A HREF="../../../xdi2/core/impl/wrapped/WrappedLiteral.html" title="class in xdi2.core.impl.wrapped">WrappedLiteral</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../xdi2/core/impl/BasicLiteral.html" title="class in xdi2.core.impl">BasicLiteral</A>, <A HREF="../../../xdi2/core/impl/json/JSONLiteral.html" title="class in xdi2.core.impl.json">JSONLiteral</A>, <A HREF="../../../xdi2/core/impl/keyvalue/KeyValueLiteral.html" title="class in xdi2.core.impl.keyvalue">KeyValueLiteral</A>, <A HREF="../../../xdi2/core/impl/memory/MemoryLiteral.html" title="class in xdi2.core.impl.memory">MemoryLiteral</A>, <A HREF="../../../xdi2/core/impl/wrapped/WrappedLiteral.html" title="class in xdi2.core.impl.wrapped">WrappedLiteral</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public abstract class <B>AbstractLiteral</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></DL>
 </PRE>
 <map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="../Literal.html" title="&#171;interface&#187; Literal (xdi2.core)" alt="" coords="261,6,347,61"/>
-<area shape="rect" id="node2" href="AbstractLiteral.html" title="AbstractLiteral" alt="" coords="251,101,357,126"/>
-<area shape="rect" id="node3" href="wrapped/WrappedLiteral.html" title="WrappedLiteral (xdi2.core.impl.wrapped)" alt="" coords="512,165,675,205"/>
-<area shape="rect" id="node4" href="memory/MemoryLiteral.html" title="MemoryLiteral (xdi2.core.impl.memory)" alt="" coords="320,165,483,205"/>
-<area shape="rect" id="node5" href="keyvalue/KeyValueLiteral.html" title="KeyValueLiteral (xdi2.core.impl.keyvalue)" alt="" coords="125,165,291,205"/>
-<area shape="rect" id="node6" href="BasicLiteral.html" title="BasicLiteral" alt="" coords="5,173,96,198"/>
+<area shape="rect" id="node1" href="../Literal.html" title="&#171;interface&#187; Literal (xdi2.core)" alt="" coords="333,6,419,61"/>
+<area shape="rect" id="node2" href="AbstractLiteral.html" title="AbstractLiteral" alt="" coords="323,101,429,126"/>
+<area shape="rect" id="node3" href="wrapped/WrappedLiteral.html" title="WrappedLiteral (xdi2.core.impl.wrapped)" alt="" coords="680,165,843,205"/>
+<area shape="rect" id="node4" href="memory/MemoryLiteral.html" title="MemoryLiteral (xdi2.core.impl.memory)" alt="" coords="488,165,651,205"/>
+<area shape="rect" id="node5" href="keyvalue/KeyValueLiteral.html" title="KeyValueLiteral (xdi2.core.impl.keyvalue)" alt="" coords="293,165,459,205"/>
+<area shape="rect" id="node6" href="json/JSONLiteral.html" title="JSONLiteral (xdi2.core.impl.json)" alt="" coords="125,165,264,205"/>
+<area shape="rect" id="node7" href="BasicLiteral.html" title="BasicLiteral" alt="" coords="5,173,96,198"/>
 </map>
 <div id="apivizContainer" style="text-align: center;"><img src="AbstractLiteral.png" usemap="#APIVIZ" border="0"></div>
 
@@ -129,7 +143,24 @@ Class AbstractLiteral</H2>
 <HR>
 
 <P>
+<!-- =========== FIELD SUMMARY =========== -->
 
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#LITERALDATACOMPARATOR">LITERALDATACOMPARATOR</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 
 <A NAME="constructor_summary"><!-- --></A>
@@ -196,6 +227,30 @@ Class AbstractLiteral</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#getLiteralDataBoolean()">getLiteralDataBoolean</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the literal data boolean.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#getLiteralDataNumber()">getLiteralDataNumber</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the literal data number.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#getLiteralDataString()">getLiteralDataString</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the literal data string.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#getStatement()">getStatement</A></B>()</CODE>
 
@@ -206,6 +261,79 @@ Class AbstractLiteral</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#hashCode()">hashCode</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#isLiteralDataEqual(java.lang.Object, java.lang.Object)">isLiteralDataEqual</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData1,
+                   <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData2)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#isValidLiteralData(java.lang.Object)">isValidLiteralData</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#jsonElementToLiteralData(com.google.gson.JsonElement)">jsonElementToLiteralData</A></B>(com.google.gson.JsonElement&nbsp;jsonElement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;com.google.gson.JsonElement</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#literalDataToJsonElement(java.lang.Object)">literalDataToJsonElement</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#literalDataToString(java.lang.Object)">literalDataToString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#setLiteralDataBoolean(java.lang.Boolean)">setLiteralDataBoolean</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the literal data boolean.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#setLiteralDataNumber(java.lang.Double)">setLiteralDataNumber</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the literal data number.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#setLiteralDataString(java.lang.String)">setLiteralDataString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the literal data string.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractLiteral.html#stringToLiteralData(java.lang.String)">stringToLiteralData</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -234,11 +362,30 @@ Class AbstractLiteral</H2>
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.core.<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../xdi2/core/Literal.html#getLiteralData()">getLiteralData</A>, <A HREF="../../../xdi2/core/Literal.html#setLiteralData(java.lang.String)">setLiteralData</A></CODE></TD>
+<TD><CODE><A HREF="../../../xdi2/core/Literal.html#getLiteralData()">getLiteralData</A>, <A HREF="../../../xdi2/core/Literal.html#setLiteralData(java.lang.Object)">setLiteralData</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
 <P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="LITERALDATACOMPARATOR"><!-- --></A><H3>
+LITERALDATACOMPARATOR</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt; <B>LITERALDATACOMPARATOR</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -320,6 +467,111 @@ public void <B>delete</B>()</PRE>
 </DL>
 <HR>
 
+<A NAME="getLiteralDataString()"><!-- --></A><H3>
+getLiteralDataString</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getLiteralDataString</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Literal.html#getLiteralDataString()">Literal</A></CODE></B></DD>
+<DD>Get the literal data string.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Literal.html#getLiteralDataString()">getLiteralDataString</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The literal data string associated with the literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteralDataNumber()"><!-- --></A><H3>
+getLiteralDataNumber</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A> <B>getLiteralDataNumber</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Literal.html#getLiteralDataNumber()">Literal</A></CODE></B></DD>
+<DD>Get the literal data number.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Literal.html#getLiteralDataNumber()">getLiteralDataNumber</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The literal data number associated with the literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteralDataBoolean()"><!-- --></A><H3>
+getLiteralDataBoolean</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A> <B>getLiteralDataBoolean</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Literal.html#getLiteralDataBoolean()">Literal</A></CODE></B></DD>
+<DD>Get the literal data boolean.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Literal.html#getLiteralDataBoolean()">getLiteralDataBoolean</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The literal data boolean associated with the literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteralDataString(java.lang.String)"><!-- --></A><H3>
+setLiteralDataString</H3>
+<PRE>
+public void <B>setLiteralDataString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Literal.html#setLiteralDataString(java.lang.String)">Literal</A></CODE></B></DD>
+<DD>Set the literal data string.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Literal.html#setLiteralDataString(java.lang.String)">setLiteralDataString</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data string associated with the literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteralDataNumber(java.lang.Double)"><!-- --></A><H3>
+setLiteralDataNumber</H3>
+<PRE>
+public void <B>setLiteralDataNumber</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Literal.html#setLiteralDataNumber(java.lang.Double)">Literal</A></CODE></B></DD>
+<DD>Set the literal data number.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Literal.html#setLiteralDataNumber(java.lang.Double)">setLiteralDataNumber</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data number associated with the literal.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteralDataBoolean(java.lang.Boolean)"><!-- --></A><H3>
+setLiteralDataBoolean</H3>
+<PRE>
+public void <B>setLiteralDataBoolean</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/Literal.html#setLiteralDataBoolean(java.lang.Boolean)">Literal</A></CODE></B></DD>
+<DD>Set the literal data boolean.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/Literal.html#setLiteralDataBoolean(java.lang.Boolean)">setLiteralDataBoolean</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>literalData</CODE> - The literal data boolean associated with the literal.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getStatement()"><!-- --></A><H3>
 getStatement</H3>
 <PRE>
@@ -392,6 +644,91 @@ public int <B>compareTo</B>(<A HREF="../../../xdi2/core/Literal.html" title="int
 </DL>
 </DD>
 </DL>
+<HR>
+
+<A NAME="isValidLiteralData(java.lang.Object)"><!-- --></A><H3>
+isValidLiteralData</H3>
+<PRE>
+public static boolean <B>isValidLiteralData</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isLiteralDataEqual(java.lang.Object, java.lang.Object)"><!-- --></A><H3>
+isLiteralDataEqual</H3>
+<PRE>
+public static boolean <B>isLiteralDataEqual</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData1,
+                                         <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData2)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="literalDataToString(java.lang.Object)"><!-- --></A><H3>
+literalDataToString</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>literalDataToString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="stringToLiteralData(java.lang.String)"><!-- --></A><H3>
+stringToLiteralData</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>stringToLiteralData</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="literalDataToJsonElement(java.lang.Object)"><!-- --></A><H3>
+literalDataToJsonElement</H3>
+<PRE>
+public static com.google.gson.JsonElement <B>literalDataToJsonElement</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="jsonElementToLiteralData(com.google.gson.JsonElement)"><!-- --></A><H3>
+jsonElementToLiteralData</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>jsonElementToLiteralData</B>(com.google.gson.JsonElement&nbsp;jsonElement)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
 
@@ -444,9 +781,9 @@ public int <B>compareTo</B>(<A HREF="../../../xdi2/core/Literal.html" title="int
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

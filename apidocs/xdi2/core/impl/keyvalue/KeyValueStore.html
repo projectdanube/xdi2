@@ -10,7 +10,7 @@ KeyValueStore (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="xdi2.core.impl.keyvalue.KeyValueStore interface">
 <META NAME="keywords" CONTENT="init()">
 <META NAME="keywords" CONTENT="close()">
-<META NAME="keywords" CONTENT="put()">
+<META NAME="keywords" CONTENT="set()">
 <META NAME="keywords" CONTENT="getOne()">
 <META NAME="keywords" CONTENT="getAll()">
 <META NAME="keywords" CONTENT="contains()">
@@ -122,8 +122,8 @@ Interface KeyValueStore</H2>
 <div id="apivizContainer" style="text-align: center;"><img src="KeyValueStore.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
-The key/value based graph implementation needs a KeyValueStore in order
- to work. This defines basic operations on a key/value pair based datastore.
+The key/value based graph storage implementations needs a KeyValueStore to function.
+ This defines basic operations on a key/value pair based datastore.
 <P>
 
 <P>
@@ -194,7 +194,7 @@ The key/value based graph implementation needs a KeyValueStore in order
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
+<CODE>&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueStore.html#count(java.lang.String)">count</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</CODE>
 
 <BR>
@@ -244,15 +244,6 @@ The key/value based graph implementation needs a KeyValueStore in order
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueStore.html#put(java.lang.String, java.lang.String)">put</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
-    <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;value)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueStore.html#replace(java.lang.String, java.lang.String)">replace</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
         <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;value)</CODE>
 
@@ -263,6 +254,15 @@ The key/value based graph implementation needs a KeyValueStore in order
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueStore.html#rollbackTransaction()">rollbackTransaction</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/impl/keyvalue/KeyValueStore.html#set(java.lang.String, java.lang.String)">set</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
+    <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;value)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -314,10 +314,10 @@ void <B>close</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="put(java.lang.String, java.lang.String)"><!-- --></A><H3>
-put</H3>
+<A NAME="set(java.lang.String, java.lang.String)"><!-- --></A><H3>
+set</H3>
 <PRE>
-void <B>put</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
+void <B>set</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key,
          <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;value)</PRE>
 <DL>
 <DD><DL>
@@ -409,7 +409,7 @@ void <B>replace</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/l
 <A NAME="count(java.lang.String)"><!-- --></A><H3>
 count</H3>
 <PRE>
-int <B>count</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</PRE>
+long <B>count</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</PRE>
 <DL>
 <DD><DL>
 </DL>

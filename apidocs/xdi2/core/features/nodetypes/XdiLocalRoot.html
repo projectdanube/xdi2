@@ -13,8 +13,7 @@ XdiLocalRoot (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="fromContextNode()">
 <META NAME="keywords" CONTENT="setSelfPeerRoot()">
 <META NAME="keywords" CONTENT="getSelfPeerRoot()">
-<META NAME="keywords" CONTENT="createLocalRootXri()">
-<META NAME="keywords" CONTENT="isLocalRootXri()">
+<META NAME="keywords" CONTENT="getPeerRoots()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -62,8 +61,8 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiInstanceUnordered.html" title="interface in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiMetaClass.html" title="class in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.MappingContextNodeInnerRootIterator.html" title="class in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/features/nodetypes/XdiLocalRoot.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="XdiLocalRoot.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -158,14 +157,6 @@ An XDI local root, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html#createLocalRootXri()">createLocalRootXri</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the local root XRI.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html" title="class in xdi2.core.features.nodetypes">XdiLocalRoot</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html#findLocalRoot(xdi2.core.Graph)">findLocalRoot</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
 
@@ -182,19 +173,19 @@ An XDI local root, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html#getSelfPeerRoot()">getSelfPeerRoot</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html#getPeerRoots()">getPeerRoots</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html#isLocalRootXri(xdi2.core.xri3.XDI3SubSegment)">isLocalRootXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri)</CODE>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html#getSelfPeerRoot()">getSelfPeerRoot</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a given XRI is a local root XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -219,7 +210,7 @@ An XDI local root, represented as a context node.
 <TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" title="class in xdi2.core.features.nodetypes">XdiAbstractRoot</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#containsRelativeStatement(xdi2.core.xri3.XDI3Statement)">containsRelativeStatement</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#createRelativeStatement(xdi2.core.xri3.XDI3Statement)">createRelativeStatement</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findInnerRoot(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean)">findInnerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findLocalRoot()">findLocalRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findPeerRoot(xdi2.core.xri3.XDI3Segment, boolean)">findPeerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findRoot(xdi2.core.xri3.XDI3Segment, boolean)">findRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findRoot(xdi2.core.xri3.XDI3SubSegment, boolean)">findRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getRelativePart(xdi2.core.xri3.XDI3Segment)">getRelativePart</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getRelativeStatement(xdi2.core.xri3.XDI3Statement)">getRelativeStatement</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getRelativeStatements(boolean)">getRelativeStatements</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#isRootArcXri(xdi2.core.xri3.XDI3SubSegment)">isRootArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#setRelativeStatement(xdi2.core.xri3.XDI3Statement)">setRelativeStatement</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#containsRelativeStatement(xdi2.core.xri3.XDI3Statement)">containsRelativeStatement</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findInnerRoot(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean)">findInnerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findLocalRoot()">findLocalRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findPeerRoot(xdi2.core.xri3.XDI3Segment, boolean)">findPeerRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findRoot(xdi2.core.xri3.XDI3Segment, boolean)">findRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#findRoot(xdi2.core.xri3.XDI3SubSegment, boolean)">findRoot</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getRelativePart(xdi2.core.xri3.XDI3Segment)">getRelativePart</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getRelativeStatement(xdi2.core.xri3.XDI3Statement)">getRelativeStatement</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getRelativeStatements(boolean)">getRelativeStatements</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#isRootArcXri(xdi2.core.xri3.XDI3SubSegment)">isRootArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#setRelativeStatement(xdi2.core.xri3.XDI3Statement)">setRelativeStatement</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.nodetypes.XdiAbstractContext"><!-- --></A>
@@ -228,7 +219,7 @@ An XDI local root, represented as a context node.
 <TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#compareTo(xdi2.core.features.nodetypes.XdiContext)">compareTo</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromContextNode(xdi2.core.ContextNode, java.lang.Class)">fromContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri(xdi2.core.xri3.XDI3SubSegment)">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#hashCode()">hashCode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#toString()">toString</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#compareTo(xdi2.core.features.nodetypes.XdiContext)">compareTo</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromContextNode(xdi2.core.ContextNode, java.lang.Class)">fromContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri(xdi2.core.xri3.XDI3SubSegment)">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#hashCode()">hashCode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#toString()">toString</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -246,7 +237,7 @@ An XDI local root, represented as a context node.
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityClass(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityClass</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>
@@ -352,30 +343,13 @@ public <A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title
 </DL>
 <HR>
 
-<A NAME="createLocalRootXri()"><!-- --></A><H3>
-createLocalRootXri</H3>
+<A NAME="getPeerRoots()"><!-- --></A><H3>
+getPeerRoots</H3>
 <PRE>
-public static <A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>createLocalRootXri</B>()</PRE>
+public <A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A>&gt; <B>getPeerRoots</B>()</PRE>
 <DL>
-<DD>Returns the local root XRI.
-<P>
 <DD><DL>
-
-<DT><B>Returns:</B><DD>The local root XRI.</DL>
-</DD>
 </DL>
-<HR>
-
-<A NAME="isLocalRootXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
-isLocalRootXri</H3>
-<PRE>
-public static boolean <B>isLocalRootXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri)</PRE>
-<DL>
-<DD>Checks if a given XRI is a local root XRI.
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>xri</CODE> - A local root XRI.
-<DT><B>Returns:</B><DD>True, if the XRI is a local root XRI.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -409,8 +383,8 @@ public static boolean <B>isLocalRootXri</B>(<A HREF="../../../../xdi2/core/xri3/
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiInstanceUnordered.html" title="interface in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiMetaClass.html" title="class in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.MappingContextNodeInnerRootIterator.html" title="class in xdi2.core.features.nodetypes"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/features/nodetypes/XdiLocalRoot.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="XdiLocalRoot.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

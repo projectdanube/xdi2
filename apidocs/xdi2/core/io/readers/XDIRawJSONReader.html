@@ -11,10 +11,6 @@ XDIRawJSONReader (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="FORMAT_NAME">
 <META NAME="keywords" CONTENT="FILE_EXTENSION">
 <META NAME="keywords" CONTENT="MIME_TYPE">
-<META NAME="keywords" CONTENT="XRI_DATATYPE_JSON_NUMBER">
-<META NAME="keywords" CONTENT="XRI_DATATYPE_JSON_TRUE">
-<META NAME="keywords" CONTENT="XRI_DATATYPE_JSON_FALSE">
-<META NAME="keywords" CONTENT="XRI_DATATYPE_JSON_NULL">
 <META NAME="keywords" CONTENT="init()">
 <META NAME="keywords" CONTENT="read()">
 
@@ -156,38 +152,6 @@ Class XDIRawJSONReader</H2>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIRawJSONReader.html#XRI_DATATYPE_JSON_FALSE">XRI_DATATYPE_JSON_FALSE</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIRawJSONReader.html#XRI_DATATYPE_JSON_NULL">XRI_DATATYPE_JSON_NULL</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIRawJSONReader.html#XRI_DATATYPE_JSON_NUMBER">XRI_DATATYPE_JSON_NUMBER</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIRawJSONReader.html#XRI_DATATYPE_JSON_TRUE">XRI_DATATYPE_JSON_TRUE</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_xdi2.core.io.AbstractXDIReader"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -234,8 +198,17 @@ Class XDIRawJSONReader</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIRawJSONReader.html#read(xdi2.core.Graph, com.google.gson.JsonArray)">read</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+     com.google.gson.JsonArray&nbsp;jsonArray)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/io/readers/XDIRawJSONReader.html#read(xdi2.core.Graph, com.google.gson.JsonObject)">read</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-     com.google.gson.JsonObject&nbsp;graphObject)</CODE>
+     com.google.gson.JsonObject&nbsp;jsonObject)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -309,46 +282,6 @@ public static final <A HREF="../../../../xdi2/core/io/MimeType.html" title="clas
 <DL>
 </DL>
 </DL>
-<HR>
-
-<A NAME="XRI_DATATYPE_JSON_NUMBER"><!-- --></A><H3>
-XRI_DATATYPE_JSON_NUMBER</H3>
-<PRE>
-public static final <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_DATATYPE_JSON_NUMBER</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="XRI_DATATYPE_JSON_TRUE"><!-- --></A><H3>
-XRI_DATATYPE_JSON_TRUE</H3>
-<PRE>
-public static final <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_DATATYPE_JSON_TRUE</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="XRI_DATATYPE_JSON_FALSE"><!-- --></A><H3>
-XRI_DATATYPE_JSON_FALSE</H3>
-<PRE>
-public static final <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_DATATYPE_JSON_FALSE</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="XRI_DATATYPE_JSON_NULL"><!-- --></A><H3>
-XRI_DATATYPE_JSON_NULL</H3>
-<PRE>
-public static final <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_DATATYPE_JSON_NULL</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -395,7 +328,24 @@ protected void <B>init</B>()</PRE>
 read</H3>
 <PRE>
 public void <B>read</B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                 com.google.gson.JsonObject&nbsp;graphObject)
+                 com.google.gson.JsonObject&nbsp;jsonObject)
+          throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A>,
+                 <A HREF="../../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE>
+<DD><CODE><A HREF="../../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="read(xdi2.core.Graph, com.google.gson.JsonArray)"><!-- --></A><H3>
+read</H3>
+<PRE>
+public void <B>read</B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+                 com.google.gson.JsonArray&nbsp;jsonArray)
           throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A>,
                  <A HREF="../../../../xdi2/core/exceptions/Xdi2ParseException.html" title="class in xdi2.core.exceptions">Xdi2ParseException</A></PRE>
 <DL>

@@ -109,7 +109,15 @@ Packages that use <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyItera
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.features.signatures"><B>xdi2.core.features.signatures</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.impl"><B>xdi2.core.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.core.impl.json"><B>xdi2.core.impl.json</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -159,6 +167,14 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../../xdi2/core/ContextNode.html#getAllIncomingRelations()">getAllIncomingRelations</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all incoming relations of this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>ContextNode.</B><B><A HREF="../../../../../xdi2/core/ContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</A></B>()</CODE>
 
@@ -200,7 +216,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>Graph.</B><B><A HREF="../../../../../xdi2/core/Graph.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B>Graph.</B><B><A HREF="../../../../../xdi2/core/Graph.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getContextNodes(), operates at a context node further down in the graph.</TD>
@@ -208,7 +224,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../../xdi2/core/ContextNode.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../../xdi2/core/ContextNode.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getContextNodes(), operates at a context node further down in the graph.</TD>
@@ -216,7 +232,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>Graph.</B><B><A HREF="../../../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B>Graph.</B><B><A HREF="../../../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.</TD>
@@ -224,15 +240,15 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getRelations(), operates at a context node further down in the graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>Graph.</B><B><A HREF="../../../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<TD><CODE><B>Graph.</B><B><A HREF="../../../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                  <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
@@ -241,11 +257,11 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<TD><CODE><B>ContextNode.</B><B><A HREF="../../../../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                  <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep version of ContextNode.getRelations(XDI3Segment), operates at a context node further down in the graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -414,7 +430,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractClass.MappingContextNodeXdiClassIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractClass.MappingContextNodeXdiClassIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.MappingContextNodeXdiCollectionIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection.MappingContextNodeXdiCollectionIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -422,7 +438,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractClass.XdiInstancesOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractClass.XdiInstancesOrderedIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.XdiMembersOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection.XdiMembersOrderedIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -430,7 +446,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractClass.XdiInstancesUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractClass.XdiInstancesUnorderedIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.XdiMembersUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection.XdiMembersUnorderedIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -446,7 +462,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractInstance.MappingContextNodeXdiInstanceIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstance.MappingContextNodeXdiInstanceIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractMember.MappingContextNodeXdiMemberIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMember.MappingContextNodeXdiMemberIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -454,7 +470,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.MappingContextNodeXdiInstanceOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstanceOrdered.MappingContextNodeXdiInstanceOrderedIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.MappingContextNodeXdiMemberOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberOrdered.MappingContextNodeXdiMemberOrderedIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -462,7 +478,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.MappingContextNodeXdiInstanceUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstanceUnordered.MappingContextNodeXdiInstanceUnorderedIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.MappingContextNodeXdiMemberUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberUnordered.MappingContextNodeXdiMemberUnorderedIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -470,7 +486,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttributeClass.MappingContextNodeXdiAttributeClassIterator.html" title="class in xdi2.core.features.nodetypes">XdiAttributeClass.MappingContextNodeXdiAttributeClassIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.MappingContextNodeXdiAttributeCollectionIterator.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection.MappingContextNodeXdiAttributeCollectionIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -478,7 +494,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.MappingContextNodeXdiAttributeInstanceOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered.MappingContextNodeXdiAttributeInstanceOrderedIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.MappingContextNodeXdiAttributeMemberOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberOrdered.MappingContextNodeXdiAttributeMemberOrderedIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -486,7 +502,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.MappingContextNodeXdiAttributeInstanceUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered.MappingContextNodeXdiAttributeInstanceUnorderedIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.MappingContextNodeXdiAttributeMemberUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberUnordered.MappingContextNodeXdiAttributeMemberUnorderedIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -502,7 +518,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntityClass.MappingContextNodeXdiEntityClassIterator.html" title="class in xdi2.core.features.nodetypes">XdiEntityClass.MappingContextNodeXdiEntityClassIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntityCollection.MappingContextNodeXdiEntityCollectionIterator.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection.MappingContextNodeXdiEntityCollectionIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -510,7 +526,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.MappingContextNodeXdiEntityInstanceOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered.MappingContextNodeXdiEntityInstanceOrderedIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntityMemberOrdered.MappingContextNodeXdiEntityMemberOrderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberOrdered.MappingContextNodeXdiEntityMemberOrderedIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -518,7 +534,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.MappingContextNodeXdiEntityInstanceUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered.MappingContextNodeXdiEntityInstanceUnorderedIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiEntityMemberUnordered.MappingContextNodeXdiEntityMemberUnorderedIterator.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberUnordered.MappingContextNodeXdiEntityMemberUnorderedIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -581,51 +597,84 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiClass.html" title="type parameter in XdiClass">I</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>XdiClass.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiClass.html#getXdiInstances(boolean)">getXdiInstances</A></B>(boolean&nbsp;deref)</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>XdiLocalRoot.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiLocalRoot.html#getPeerRoots()">getPeerRoots</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html" title="type parameter in XdiAbstractClass">I</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractClass.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html#getXdiInstances(boolean)">getXdiInstances</A></B>(boolean&nbsp;deref)</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">I</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>XdiCollection.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMembers(boolean)">getXdiMembers</A></B>(boolean&nbsp;deref)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">I</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>XdiAbstractCollection.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMembers(boolean)">getXdiMembers</A></B>(boolean&nbsp;deref)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI instances and elements in this XDI class.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiClass.html" title="type parameter in XdiClass">O</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>XdiClass.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiClass.html#getXdiInstancesOrdered()">getXdiInstancesOrdered</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">O</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>XdiCollection.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMembersOrdered()">getXdiMembersOrdered</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html" title="type parameter in XdiAbstractClass">O</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractClass.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html#getXdiInstancesOrdered()">getXdiInstancesOrdered</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">O</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>XdiAbstractCollection.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMembersOrdered()">getXdiMembersOrdered</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI elements in this XDI class.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiClass.html" title="type parameter in XdiClass">U</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>XdiClass.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiClass.html#getXdiInstancesUnordered()">getXdiInstancesUnordered</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>XdiCollection.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMembersUnordered()">getXdiMembersUnordered</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html" title="type parameter in XdiAbstractClass">U</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>XdiAbstractClass.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractClass.html#getXdiInstancesUnordered()">getXdiInstancesUnordered</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>XdiAbstractCollection.</B><B><A HREF="../../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMembersUnordered()">getXdiMembersUnordered</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI instances in this XDI class.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.features.signatures"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A> in <A HREF="../../../../../xdi2/core/features/signatures/package-summary.html">xdi2.core.features.signatures</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Subclasses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A> in <A HREF="../../../../../xdi2/core/features/signatures/package-summary.html">xdi2.core.features.signatures</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/signatures/Signatures.MappingContextNodeSignatureIterator.html" title="class in xdi2.core.features.signatures">Signatures.MappingContextNodeSignatureIterator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -648,6 +697,14 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractContextNode.html#getAllContextNodes()">getAllContextNodes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractContextNode.html#getAllIncomingRelations()">getAllIncomingRelations</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -695,7 +752,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractGraph.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractGraph.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -703,7 +760,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractContextNode.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractContextNode.html#getDeepContextNodes(xdi2.core.xri3.XDI3Segment)">getDeepContextNodes</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -711,7 +768,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractGraph.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractGraph.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -719,7 +776,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris)</CODE>
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -727,7 +784,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractGraph.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<TD><CODE><B>AbstractGraph.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractGraph.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                  <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
@@ -736,7 +793,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeArcXris,
+<TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelations(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">getDeepRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                  <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
@@ -770,6 +827,47 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>AbstractContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/AbstractContextNode.html#getRelations(xdi2.core.xri3.XDI3Segment)">getRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.core.impl.json"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A> in <A HREF="../../../../../xdi2/core/impl/json/package-summary.html">xdi2.core.impl.json</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/core/impl/json/package-summary.html">xdi2.core.impl.json</A> that return <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>JSONContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/json/JSONContextNode.html#getContextNodes()">getContextNodes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>JSONContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/json/JSONContextNode.html#getIncomingRelations()">getIncomingRelations</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>JSONContextNode.</B><B><A HREF="../../../../../xdi2/core/impl/json/JSONContextNode.html#getRelations()">getRelations</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1039,14 +1137,6 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/Message.MappingRelationAddOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationAddOperationIterator</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;class</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/Message.MappingRelationDelOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationDelOperationIterator</A></B></CODE>
 
 <BR>
@@ -1064,14 +1154,6 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../xdi2/messaging/Message.MappingRelationGetOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationGetOperationIterator</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/Message.MappingRelationModOperationIterator.html" title="class in xdi2.messaging">Message.MappingRelationModOperationIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1103,7 +1185,7 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/MessageEnvelope.MappingXdiEntityClassMessageCollectionIterator.html" title="class in xdi2.messaging">MessageEnvelope.MappingXdiEntityClassMessageCollectionIterator</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/MessageEnvelope.MappingXdiEntityCollectionMessageCollectionIterator.html" title="class in xdi2.messaging">MessageEnvelope.MappingXdiEntityCollectionMessageCollectionIterator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1115,14 +1197,6 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/package-summary.html">xdi2.messaging</A> that return <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/messaging/AddOperation.html" title="class in xdi2.messaging">AddOperation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>Message.</B><B><A HREF="../../../../../xdi2/messaging/Message.html#getAddOperations()">getAddOperations</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI $add operations in this XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1179,14 +1253,6 @@ Uses of <A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" 
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finds messages with a given sender in this message envelope.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../../xdi2/messaging/ModOperation.html" title="class in xdi2.messaging">ModOperation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>Message.</B><B><A HREF="../../../../../xdi2/messaging/Message.html#getModOperations()">getModOperations</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all XDI $mod operations in this XDI message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
