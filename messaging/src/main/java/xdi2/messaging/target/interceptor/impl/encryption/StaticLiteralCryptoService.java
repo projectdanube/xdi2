@@ -6,6 +6,10 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+/**
+ * A LiteralCryptoService that performs encryption and decryption using a statically
+ * configured AES secret key.
+ */
 public class StaticLiteralCryptoService extends AbstractLiteralCryptoService implements LiteralCryptoService {
 
 	public static final String DEFAULT_ALGORITHM = "AES";

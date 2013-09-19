@@ -16,9 +16,9 @@ import xdi2.messaging.target.interceptor.ResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
- * This interceptor uses a pre-configured symmetric key to decrypt/encrypt literal data.
- * 
- * @author animesh
+ * This interceptor encrypts literals in an incoming XDI message, and decrypts literals
+ * in the XDI message result. It invokes an instance of LiteralCryptoService to
+ * perform encryption and decryption. 
  */
 public class LiteralEncryptionInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, TargetInterceptor, ResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
 

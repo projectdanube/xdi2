@@ -11,5 +11,9 @@ public interface SecretTokenAuthenticator extends Prototype<SecretTokenAuthentic
 
 	public void init() throws Exception;
 	public void shutdown() throws Exception;
+
+	/**
+	 * Authenticates an XDI message given a secret token.
+	 */
 	public boolean authenticate(Message message, String secretToken);
 }

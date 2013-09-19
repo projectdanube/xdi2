@@ -11,5 +11,9 @@ public interface SignatureAuthenticator extends Prototype<SignatureAuthenticator
 
 	public void init() throws Exception;
 	public void shutdown() throws Exception;
+
+	/**
+	 * Authenticates an XDI message given a signature.
+	 */
 	public boolean authenticate(Message message, String signature);
 }
