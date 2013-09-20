@@ -232,7 +232,7 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
-					<property name="bootstrapOwner" value="[=]!91F2.8153.F600.AE24" />
+					<property name="bootstrapOwner" value="[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24" />
 					<property name="bootstrapOwnerSynonyms">
 						<util:list>
 							<value>=markus</value>

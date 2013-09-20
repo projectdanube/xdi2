@@ -1,4 +1,4 @@
-[=]!91F2.8153.F600.AE24[$msg]!1/$is()/([=]!91F2.8153.F600.AE24)
-[=]!91F2.8153.F600.AE24[$msg]!1/$do/$do
-[=]!91F2.8153.F600.AE24[$msg]!1$secret<$token>&/&/"s3cr3t"
-[=]!91F2.8153.F600.AE24[$msg]!1$do/$del/(=markus[<+email>])
+[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24[$msg]!1/$is()/([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)
+[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24[$msg]!1/$do/$do
+[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24[$msg]!1$secret<$token>&/&/"s3cr3t"
+[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24[$msg]!1$do/$del/(=markus[<+email>])
