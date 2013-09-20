@@ -1,6 +1,7 @@
 package xdi2.messaging.target.interceptor;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
@@ -29,9 +30,30 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 		super();
 	}
 
+	public InterceptorList(Collection<? extends Interceptor> c) {
+
+		super(c);
+	}
+
+	public InterceptorList(int initialCapacity) {
+
+		super(initialCapacity);
+	}
+
 	public void addInterceptor(Interceptor interceptor) {
 
 		this.add(interceptor);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends Interceptor> T getInterceptor(Class<T> clazz) {
+
+		for (Interceptor interceptor : this) {
+
+			if (clazz.isAssignableFrom(interceptor.getClass())) return (T) interceptor;
+		}
+
+		return null;
 	}
 
 	public void removeInterceptor(Interceptor interceptor) {

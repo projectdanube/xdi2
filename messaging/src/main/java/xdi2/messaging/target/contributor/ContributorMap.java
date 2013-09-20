@@ -34,6 +34,26 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 		super();
 	}
 
+	public ContributorMap(int initialCapacity, float loadFactor, boolean accessOrder) {
+
+		super(initialCapacity, loadFactor, accessOrder);
+	}
+
+	public ContributorMap(int initialCapacity, float loadFactor) {
+
+		super(initialCapacity, loadFactor);
+	}
+
+	public ContributorMap(int initialCapacity) {
+
+		super(initialCapacity);
+	}
+
+	public ContributorMap(Map<? extends XDI3Segment, ? extends List<Contributor>> m) {
+
+		super(m);
+	}
+
 	public void addContributor(XDI3Segment contributorXri, Contributor contributor) {
 
 		if (log.isDebugEnabled()) log.debug("Adding contributor " + contributor.getClass().getSimpleName() + " under " + contributorXri);
@@ -57,6 +77,17 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 			this.addContributor(XDI3Segment.create(address), contributor);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends Contributor> T getContributor(Class<T> clazz) {
+
+		for (Contributor contributor : this) {
+
+			if (clazz.isAssignableFrom(contributor.getClass())) return (T) contributor;
+		}
+
+		return null;
 	}
 
 	public void removeContributor(XDI3Segment contributorXri, Contributor contributor) {
