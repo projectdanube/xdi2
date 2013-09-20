@@ -134,8 +134,6 @@ public final class ExecutionContext implements Serializable {
 
 	public Xdi2MessagingException processException(Exception ex) {
 
-		if (this.ex != null) return this.ex;
-
 		if (! (ex instanceof Xdi2MessagingException)) {
 
 			ex = new Xdi2MessagingException(ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage(), ex, this);
