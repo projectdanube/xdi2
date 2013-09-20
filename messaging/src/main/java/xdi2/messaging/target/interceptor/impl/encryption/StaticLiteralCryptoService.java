@@ -13,7 +13,7 @@ import org.apache.commons.codec.binary.Base64;
 public class StaticLiteralCryptoService extends AbstractLiteralCryptoService implements LiteralCryptoService {
 
 	public static final String DEFAULT_ALGORITHM = "AES";
-	public static final String DEFAULT_TRANSFORMATION = "AES/CBC/PKCS7Padding";
+	public static final String DEFAULT_TRANSFORMATION = "AES/ECB/PKCS5Padding";
 
 	private String secretKeyString;
 	private String algorithm;
