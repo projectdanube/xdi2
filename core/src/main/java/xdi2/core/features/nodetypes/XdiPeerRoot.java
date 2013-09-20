@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -63,8 +64,17 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	public boolean isSelfPeerRoot() {
 
 		XdiPeerRoot selfPeerRoot = this.findLocalRoot().getSelfPeerRoot();
+		if (this.equals(selfPeerRoot)) return true;
 
-		return this.equals(selfPeerRoot);
+		ContextNode refContextNode = Equivalence.getReferenceContextNode(this.getContextNode());
+		XdiPeerRoot refPeerRoot = refContextNode == null ? null : XdiPeerRoot.fromContextNode(refContextNode);
+		if (refPeerRoot != null && refPeerRoot.equals(selfPeerRoot)) return true;
+
+		ContextNode repContextNode = Equivalence.getReplacementContextNode(this.getContextNode());
+		XdiPeerRoot repPeerRoot = repContextNode == null ? null : XdiPeerRoot.fromContextNode(repContextNode);
+		if (repPeerRoot != null && repPeerRoot.equals(selfPeerRoot)) return true;
+
+		return false;
 	}
 
 	public XDI3Segment getXriOfPeerRoot() {
