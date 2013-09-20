@@ -35,10 +35,12 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
+import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
@@ -153,11 +155,11 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 				if (skip) continue;
 
-				// delete the $rep relation
+				// delete the $ref/$rep relation
 
 				ContextNode refRepContextNode = refRepRelation.getContextNode();
 
-				if (XDIDictionaryConstants.XRI_S_REP.equals(refRepRelation.getArcXri())) { 
+				if (XDIDictionaryConstants.XRI_S_REF.equals(refRepRelation.getArcXri()) || XDIDictionaryConstants.XRI_S_REP.equals(refRepRelation.getArcXri())) { 
 
 					ContextNode refRepTargetContextNode = refRepRelation.follow();
 					refRepRelation.delete();
@@ -431,6 +433,14 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		Deque<Relation> tempRefRepRelations = getRefRepRelations(executionContext);
 		resetRefRepRelations(executionContext);
 
+		// TODO: we temporarily disable the link contract interceptor for $ref/$rep processing 
+		
+		InterceptorList backupInterceptorList = messagingTarget.getInterceptors();
+		InterceptorList tempInterceptorList = new InterceptorList(backupInterceptorList);
+		LinkContractInterceptor linkContractInterceptor = backupInterceptorList.getInterceptor(LinkContractInterceptor.class);
+		if (linkContractInterceptor != null) tempInterceptorList.removeInterceptor(linkContractInterceptor);
+		messagingTarget.setInterceptors(tempInterceptorList);
+
 		try {
 
 			messagingTarget.execute(feedbackMessage, feedbackMessageResult, executionContext);
@@ -439,6 +449,8 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 			if (log.isDebugEnabled()) log.debug("Not authorized to get source of $ref/$rep relation: " + refRepContextNode);
 		}
 
+		messagingTarget.setInterceptors(backupInterceptorList);
+		
 		putRefRepRelations(executionContext, tempRefRepRelations);
 
 		// done
