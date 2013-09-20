@@ -1,4 +1,4 @@
-[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958!1111[$msg]!1/$is()/([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958!1111)
-[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958!1111[$msg]!1/$do/$do
-[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958!1111[$msg]!1$secret<$token>&/&/"s3cr3t"
-[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958!1111[$msg]!1$do/$get/()
+[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958[=]!1111[$msg]!1/$is()/([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958[=]!1111)
+[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958[=]!1111[$msg]!1/$do/$do
+[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958[=]!1111[$msg]!1$secret<$token>&/&/"s3cr3t"
+[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958[=]!1111[$msg]!1$do/$get/()

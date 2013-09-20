@@ -2,10 +2,10 @@
 $do/$all/()
 $do$if$and/$true/({$from}/$is/[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958)
 (=danube)/$ref/([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958)
-(=danube=animesh)/$ref/([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958!2222)
-(=danube=markus)/$ref/([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958!1111)
+(=danube=animesh)/$ref/([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958[=]!2222)
+(=danube=markus)/$ref/([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958[=]!1111)
 ([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958)/$is/()
 =danube/$ref/[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958
 $do$if$and/$true/({$msg}$secret<$token><$valid>&/&/true)
-([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958!1111)$digest$secret<$token>&/&/"xdi2-digest:00000000-0000-0000-0000-000000000000:5d5f2cb0e49676fffc02c74e0006eee9f0f2cdecf328456dcaa8e4e3fb5de54fd825bab811dc53c69a2e5bffac0fae0837eb5bd3ac4f165b534a26630fa1cb5f"
-([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958!2222)$digest$secret<$token>&/&/"xdi2-digest:00000000-0000-0000-0000-000000000000:08bde25cc3e4e77baa80ef4c2e16db1be63005f468baadeb4524ebef5c106d557f2f9c1cb978ff6b4395e7aa3d8faed88ca22881b283256aca3666d9886892c8"
+([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958[=]!1111)$digest$secret<$token>&/&/"xdi2-digest:00000000-0000-0000-0000-000000000000:5d5f2cb0e49676fffc02c74e0006eee9f0f2cdecf328456dcaa8e4e3fb5de54fd825bab811dc53c69a2e5bffac0fae0837eb5bd3ac4f165b534a26630fa1cb5f"
+([=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958[=]!2222)$digest$secret<$token>&/&/"xdi2-digest:00000000-0000-0000-0000-000000000000:08bde25cc3e4e77baa80ef4c2e16db1be63005f468baadeb4524ebef5c106d557f2f9c1cb978ff6b4395e7aa3d8faed88ca22881b283256aca3666d9886892c8"
