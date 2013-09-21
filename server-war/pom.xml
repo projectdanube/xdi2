@@ -17,10 +17,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<attachClasses>true</attachClasses>
-				</configuration>
+				<version>2.4</version>
 			</plugin>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
