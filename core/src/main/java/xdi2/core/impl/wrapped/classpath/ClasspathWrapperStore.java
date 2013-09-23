@@ -37,17 +37,20 @@ public class ClasspathWrapperStore implements WrapperStore {
 
 		memoryGraph.clear();
 
+		String classpath = this.getClasspath();
+		if (classpath.startsWith("/")) classpath = classpath.substring(1);
+
 		try {
 
-			if (log.isDebugEnabled()) log.debug("Loading classpath " + this.classpath);
+			if (log.isDebugEnabled()) log.debug("Loading classpath " + classpath);
 
-			InputStream stream = this.getClassLoader().getResourceAsStream(this.classpath);
+			InputStream stream = this.getClassLoader().getResourceAsStream(classpath);
 
 			this.xdiReader.read(memoryGraph, stream);
 			stream.close();
 		} catch (Exception ex) {
 
-			throw new Xdi2RuntimeException("Cannot load classpath at " + this.classpath + " with classloader " + this.getClassLoader().getClass().getCanonicalName(), ex);
+			throw new Xdi2RuntimeException("Cannot load classpath at " + classpath + " with classloader " + this.getClassLoader().getClass().getCanonicalName(), ex);
 		}
 	}
 
