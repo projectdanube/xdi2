@@ -20,12 +20,16 @@ public class ClasspathWrapperStore implements WrapperStore {
 	private XDIReader xdiReader;
 	private XDIWriter xdiWriter;
 
+	private ClassLoader classLoader;
+
 	public ClasspathWrapperStore(String classpath, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter) {
 
 		this.classpath = classpath;
 		this.mimeType = mimeType;
 		this.xdiReader = xdiReader;
 		this.xdiWriter = xdiWriter;
+
+		this.classLoader = Thread.currentThread().getContextClassLoader();
 	}
 
 	@Override
@@ -37,7 +41,7 @@ public class ClasspathWrapperStore implements WrapperStore {
 
 			if (log.isDebugEnabled()) log.debug("Loading classpath " + this.classpath);
 
-			InputStream stream = this.getClass().getClassLoader().getResourceAsStream(this.classpath);
+			InputStream stream = this.getClassLoader().getResourceAsStream(this.classpath);
 
 			this.xdiReader.read(memoryGraph, stream);
 			stream.close();
@@ -90,5 +94,15 @@ public class ClasspathWrapperStore implements WrapperStore {
 	public void setXdiWriter(XDIWriter xdiWriter) {
 
 		this.xdiWriter = xdiWriter;
+	}
+
+	public ClassLoader getClassLoader() {
+
+		return this.classLoader;
+	}
+
+	public void setClassLoader(ClassLoader classLoader) {
+
+		this.classLoader = classLoader;
 	}
 }
