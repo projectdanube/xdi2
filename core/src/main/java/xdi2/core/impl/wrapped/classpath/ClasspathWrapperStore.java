@@ -47,7 +47,7 @@ public class ClasspathWrapperStore implements WrapperStore {
 			stream.close();
 		} catch (Exception ex) {
 
-			throw new Xdi2RuntimeException("Cannot load classpath at " + this.classpath, ex);
+			throw new Xdi2RuntimeException("Cannot load classpath at " + this.classpath + " with classloader " + this.getClassLoader().getClass().getCanonicalName(), ex);
 		}
 	}
 
