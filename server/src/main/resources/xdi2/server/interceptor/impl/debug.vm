@@ -103,6 +103,12 @@ h1 { font-size: 1.5em; }
 		    		<br>[databaseName] <span style="color:gray">$messagingtargetbypath.value.graph.keyValueStore.databaseName</span>
 		    	#end
 	    	#end
+	    	#if($messagingtargetbypath.value.graph.class.canonicalName=="xdi2.core.impl.json.JSONGraph")
+	    		<br><span style="color:gray">$messagingtargetbypath.value.graph.jsonStore.class.canonicalName</span>
+		    	#if($messagingtargetbypath.value.graph.jsonStore.class.canonicalName=="xdi2.core.impl.json.file.FileJSONStore")
+		    		<br>[prefix] <span style="color:gray">$messagingtargetbypath.value.graph.jsonStore.prefix</span>
+		    	#end
+	    	#end
 	    	#if($messagingtargetbypath.value.graph.class.canonicalName=="xdi2.core.impl.wrapped.WrappedGraph")
 	    		<br><span style="color:gray">$messagingtargetbypath.value.graph.wrapperStore.class.canonicalName</span>
 		    	#if($messagingtargetbypath.value.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.file.FileWrapperStore")
