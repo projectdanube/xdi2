@@ -38,7 +38,7 @@ public class PluginsLoader {
 
 		for (File file : files) {
 
-			if (log.isDebugEnabled()) log.debug("Loading XDI2 plugin: " + file.getAbsolutePath());
+			if (log.isInfoEnabled()) log.info("Loading XDI2 plugin: " + file.getAbsolutePath());
 		}
 
 		ClassLoader classLoader = new JarClassLoader(files, Thread.currentThread().getContextClassLoader());
