@@ -1,14 +1,11 @@
 package xdi2.server.embedded;
 
-import java.io.IOException;
-
 import org.eclipse.jetty.server.Server;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
-import xdi2.core.plugins.PluginsLoader;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.servlet.EndpointServlet;
 
@@ -49,14 +46,6 @@ public class EndpointServerEmbedded extends Server {
 	}
 
 	public static EndpointServerEmbedded newServer(Resource... resources) throws Xdi2ServerException {
-
-		try {
-
-			PluginsLoader.loadPlugins();
-		} catch (IOException ex) {
-
-			throw new Xdi2ServerException("Cannot load plugins: " + ex.getMessage(), ex);
-		}
 
 		return newServer(makeApplicationContext(resources));
 	}
