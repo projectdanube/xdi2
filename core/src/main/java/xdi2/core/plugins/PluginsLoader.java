@@ -41,9 +41,12 @@ public class PluginsLoader {
 			if (log.isInfoEnabled()) log.info("Loading XDI2 plugin: " + file.getAbsolutePath());
 		}
 
-		ClassLoader classLoader = new JarClassLoader(files, Thread.currentThread().getContextClassLoader());
+		Thread currentThread = Thread.currentThread();
 
-		Thread.currentThread().setContextClassLoader(classLoader);
+		ClassLoader classLoader = new Xdi2PluginJarClassLoader(files, currentThread.getContextClassLoader());
+		currentThread.setContextClassLoader(classLoader);
+
+		if (log.isInfoEnabled()) log.info("Set classloader for thread " + currentThread.getName() + ": " + classLoader.getClass().getCanonicalName());
 	}
 
 	public static void loadPlugins() throws IOException {
@@ -54,5 +57,13 @@ public class PluginsLoader {
 	public static File[] getFiles() {
 
 		return files;
+	}
+
+	private static class Xdi2PluginJarClassLoader extends JarClassLoader {
+
+		public Xdi2PluginJarClassLoader(File[] files, ClassLoader parent) throws IOException {
+
+			super(files, parent);
+		}
 	}
 }
