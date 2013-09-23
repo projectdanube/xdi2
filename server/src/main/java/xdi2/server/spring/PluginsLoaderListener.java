@@ -12,6 +12,8 @@ public class PluginsLoaderListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 
+		// load plugins
+
 		try {
 
 			PluginsLoader.loadPlugins();
