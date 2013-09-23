@@ -43,7 +43,7 @@ public class PluginsLoader {
 
 		Thread currentThread = Thread.currentThread();
 
-		ClassLoader classLoader = new Xdi2PluginJarClassLoader(files, currentThread.getContextClassLoader());
+		ClassLoader classLoader = new PluginClassLoader(files, currentThread.getContextClassLoader());
 		currentThread.setContextClassLoader(classLoader);
 
 		if (log.isInfoEnabled()) log.info("Set classloader for thread " + currentThread.getName() + ": " + classLoader.getClass().getCanonicalName());
@@ -57,13 +57,5 @@ public class PluginsLoader {
 	public static File[] getFiles() {
 
 		return files;
-	}
-
-	private static class Xdi2PluginJarClassLoader extends JarClassLoader {
-
-		public Xdi2PluginJarClassLoader(File[] files, ClassLoader parent) throws IOException {
-
-			super(files, parent);
-		}
 	}
 }

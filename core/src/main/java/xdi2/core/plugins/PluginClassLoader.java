@@ -15,11 +15,11 @@ import java.util.jar.JarFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JarClassLoader extends URLClassLoader {
+public class PluginClassLoader extends URLClassLoader {
 
-	private static final Logger log = LoggerFactory.getLogger(JarClassLoader.class);
+	private static final Logger log = LoggerFactory.getLogger(PluginClassLoader.class);
 
-	public JarClassLoader(File[] files, ClassLoader parent) throws IOException {
+	public PluginClassLoader(File[] files, ClassLoader parent) throws IOException {
 
 		super(new URL[0], parent);
 
