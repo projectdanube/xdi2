@@ -11,6 +11,7 @@ import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.util.iterators.SelectingIterator;
+import xdi2.core.xri3.XDI3Segment;
 
 public class Equivalence {
 
@@ -33,6 +34,11 @@ public class Equivalence {
 	public static void setIdentityContextNode(ContextNode contextNode, ContextNode identityContextNode) {
 
 		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS, identityContextNode);
+	}
+
+	public static void setIdentityContextNode(ContextNode contextNode, XDI3Segment identityContextNodeXri) {
+
+		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS, identityContextNodeXri);
 	}
 
 	public static Iterator<Relation> getIncomingIdentityRelations(ContextNode contextNode) {
@@ -80,6 +86,17 @@ public class Equivalence {
 		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, referenceContextNode);
 	}
 
+	public static void setReferenceContextNode(ContextNode contextNode, XDI3Segment referenceContextNodeXri) {
+
+		Relation referenceRelation = getReferenceRelation(contextNode);
+		if (referenceRelation != null) referenceRelation.delete();
+
+		Relation replacementRelation = getReplacementRelation(contextNode);
+		if (replacementRelation != null) replacementRelation.delete();
+
+		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, referenceContextNodeXri);
+	}
+
 	public static Iterator<Relation> getIncomingReferenceRelations(ContextNode contextNode) {
 
 		Iterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REF);
@@ -123,6 +140,17 @@ public class Equivalence {
 		if (replacementRelation != null) replacementRelation.delete();
 
 		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REP, replacementContextNode);
+	}
+
+	public static void setReplacementContextNode(ContextNode contextNode, XDI3Segment replacementContextNodeXri) {
+
+		Relation referenceRelation = getReferenceRelation(contextNode);
+		if (referenceRelation != null) referenceRelation.delete();
+
+		Relation replacementRelation = getReplacementRelation(contextNode);
+		if (replacementRelation != null) replacementRelation.delete();
+
+		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REP, replacementContextNodeXri);
 	}
 
 	public static Iterator<Relation> getIncomingReplacementRelations(ContextNode contextNode) {
