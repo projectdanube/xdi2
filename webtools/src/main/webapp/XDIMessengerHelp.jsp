@@ -12,7 +12,7 @@
 
 	<div class="header">
 	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Messenger</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDILocalMessenger">Back...</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIMessenger">Back...</a>
 	</div>
 
 	<div class="tabber">
