@@ -129,9 +129,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns the sender of the message's message collection.
 	 * @return The sender of the message's message collection.
 	 */
-	public XDI3Segment getSender() {
+	public ContextNode getSender() {
 
 		return this.getMessageCollection().getSender();
+	}
+
+	/**
+	 * Returns the sender XRI of the message's message collection.
+	 * @return The sender XRI of the message's message collection.
+	 */
+	public XDI3Segment getSenderXri() {
+
+		return this.getMessageCollection().getSenderXri();
 	}
 
 	/**

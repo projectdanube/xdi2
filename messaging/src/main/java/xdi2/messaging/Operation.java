@@ -3,6 +3,7 @@ package xdi2.messaging;
 import java.io.Serializable;
 import java.util.Iterator;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
@@ -247,12 +248,21 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the sender of the message's message collection.
-	 * @return The sender of the message's message collection.
+	 * Returns the sender of the operation's message collection.
+	 * @return The sender of the operation's message collection.
 	 */
-	public XDI3Segment getSender() {
+	public ContextNode getSender() {
 
 		return this.getMessage().getMessageCollection().getSender();
+	}
+
+	/**
+	 * Returns the sender XRI of the operation's message collection.
+	 * @return The sender XRI of the operation's message collection.
+	 */
+	public XDI3Segment getSenderXri() {
+
+		return this.getMessage().getMessageCollection().getSenderXri();
 	}
 
 	/**
