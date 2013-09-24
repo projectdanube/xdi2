@@ -1,13 +1,7 @@
 package xdi2.core.features.linkcontracts.condition;
 
-import java.util.Iterator;
-
-import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
-import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.util.iterators.EmptyIterator;
-import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -16,7 +10,7 @@ import xdi2.core.xri3.XDI3Statement;
  * 
  * @author markus
  */
-public class IsCondition extends Condition {
+public class IsCondition extends GenericCondition {
 
 	private static final long serialVersionUID = 7506322819724395818L;
 
@@ -74,16 +68,8 @@ public class IsCondition extends Condition {
 
 		if (subject != null && subject.equals(object)) return Boolean.TRUE;
 
-		// check if the statement exists
-
-		ContextNode subjectContextNode = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
-		ContextNode objectContextNode = policyEvaluationContext.getContextNode((XDI3Segment) this.getStatement().getObject());
-
-		Iterator<ContextNode> equivalenceContextNodes = subjectContextNode == null ? new EmptyIterator<ContextNode> () : Equivalence.getIdentityContextNodes(subjectContextNode);
-		if (new IteratorContains<ContextNode> (equivalenceContextNodes, objectContextNode).contains()) return Boolean.TRUE;
-
 		// done
 
-		return Boolean.FALSE;
+		return super.evaluateInternal(policyEvaluationContext);
 	}
 }
