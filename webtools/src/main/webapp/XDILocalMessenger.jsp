@@ -55,9 +55,23 @@ function updateSamples() {
 		<% String writeOrdered = (String) request.getAttribute("writeOrdered"); if (writeOrdered == null) writeOrdered = ""; %>
 		<% String writeInner = (String) request.getAttribute("writeInner"); if (writeInner == null) writeInner = ""; %>
 		<% String writePretty = (String) request.getAttribute("writePretty"); if (writePretty == null) writePretty = ""; %>
-		<% String variablesSupport = (String) request.getAttribute("variablesSupport"); if (variablesSupport == null) variablesSupport = ""; %>
-		<% String dollarRefSupport = (String) request.getAttribute("dollarRefSupport"); if (dollarRefSupport == null) dollarRefSupport = ""; %>
-		<% String linkContractsSupport = (String) request.getAttribute("linkContractsSupport"); if (linkContractsSupport == null) linkContractsSupport = ""; %>
+		<% String useFromInterceptor = (String) request.getAttribute("useFromInterceptor"); if (useFromInterceptor == null) useFromInterceptor = ""; %>
+		<% String useToInterceptor = (String) request.getAttribute("useToInterceptor"); if (useToInterceptor == null) useToInterceptor = ""; %>
+		<% String useVariablesInterceptor = (String) request.getAttribute("useVariablesInterceptor"); if (useVariablesInterceptor == null) useVariablesInterceptor = ""; %>
+		<% String useRefInterceptor = (String) request.getAttribute("useRefInterceptor"); if (useRefInterceptor == null) useRefInterceptor = ""; %>
+		<% String useReadOnlyInterceptor = (String) request.getAttribute("useReadOnlyInterceptor"); if (useReadOnlyInterceptor == null) useReadOnlyInterceptor = ""; %>
+		<% String useMessagePolicyInterceptor = (String) request.getAttribute("useMessagePolicyInterceptor"); if (useMessagePolicyInterceptor == null) useMessagePolicyInterceptor = ""; %>
+		<% String useLinkContractInterceptor = (String) request.getAttribute("useLinkContractInterceptor"); if (useLinkContractInterceptor == null) useLinkContractInterceptor = ""; %>
+
+		<p>
+		<input name="useFromInterceptor" type="checkbox" <%= useFromInterceptor.equals("on") ? "checked" : "" %>>FromInterceptor&nbsp;
+		<input name="useToInterceptor" type="checkbox" <%= useToInterceptor.equals("on") ? "checked" : "" %>>ToInterceptor&nbsp;
+		<input name="useVariablesInterceptor" type="checkbox" <%= useVariablesInterceptor.equals("on") ? "checked" : "" %>>VariablesInterceptor&nbsp;
+		<input name="useRefInterceptor" type="checkbox" <%= useRefInterceptor.equals("on") ? "checked" : "" %>>RefInterceptor&nbsp;
+		<input name="useReadOnlyInterceptor" type="checkbox" <%= useReadOnlyInterceptor.equals("on") ? "checked" : "" %>>ReadOnlyInterceptor&nbsp;
+		<input name="useMessagePolicyInterceptor" type="checkbox" <%= useMessagePolicyInterceptor.equals("on") ? "checked" : "" %>>MessagePolicyInterceptor&nbsp;
+		<input name="useLinkContractInterceptor" type="checkbox" <%= useLinkContractInterceptor.equals("on") ? "checked" : "" %>>LinkContractInterceptor
+		</p>
 
 		Result Format:
 		<select name="resultFormat">
@@ -75,12 +89,6 @@ function updateSamples() {
 		<input name="writeInner" type="checkbox" <%= writeInner.equals("on") ? "checked" : "" %>>inner=1
 
 		<input name="writePretty" type="checkbox" <%= writePretty.equals("on") ? "checked" : "" %>>pretty=1
-
-		<input name="variablesSupport" type="checkbox" <%= variablesSupport.equals("on") ? "checked" : "" %>>Variables Support
-
-		<input name="dollarRefSupport" type="checkbox" <%= dollarRefSupport.equals("on") ? "checked" : "" %>>Equivalence Support
-
-		<input name="linkContractsSupport" type="checkbox" <%= linkContractsSupport.equals("on") ? "checked" : "" %>>Link Contract Support&nbsp;
 
 		<input type="hidden" name="category" value="<%= (String) request.getAttribute("category") %>">
 		<input type="hidden" name="sample" value="<%= (String) request.getAttribute("sample") %>">

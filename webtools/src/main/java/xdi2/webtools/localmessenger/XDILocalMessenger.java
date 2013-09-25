@@ -27,10 +27,13 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
 import xdi2.core.io.writers.XDIDisplayWriter;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.impl.FromInterceptor;
 import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
+import xdi2.messaging.target.interceptor.impl.ReadOnlyInterceptor;
 import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 import xdi2.messaging.target.interceptor.impl.ToInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
@@ -157,9 +160,13 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
-		request.setAttribute("variablesSupport", "on");
-		request.setAttribute("dollarRefSupport", "on");
-		request.setAttribute("linkContractsSupport", null);
+		request.setAttribute("useFromInterceptor", null);
+		request.setAttribute("useToInterceptor", "on");
+		request.setAttribute("useVariablesInterceptor", null);
+		request.setAttribute("useRefInterceptor", "on");
+		request.setAttribute("useReadOnlyInterceptor", null);
+		request.setAttribute("useMessagePolicyInterceptor", null);
+		request.setAttribute("useLinkContractInterceptor", null);
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(category) - 1).get(Integer.parseInt(sample) - 1));
 		request.setAttribute("message", sampleMessages.get(Integer.parseInt(category) - 1).get(Integer.parseInt(sample) - 1));
 
@@ -176,9 +183,13 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String writeOrdered = request.getParameter("writeOrdered");
 		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
-		String variablesSupport = request.getParameter("variablesSupport");
-		String dollarRefSupport = request.getParameter("dollarRefSupport");
-		String linkContractsSupport = request.getParameter("linkContractsSupport");
+		String useFromInterceptor = request.getParameter("useFromInterceptor");
+		String useToInterceptor = request.getParameter("useToInterceptor");
+		String useVariablesInterceptor = request.getParameter("useVariablesInterceptor");
+		String useRefInterceptor = request.getParameter("useRefInterceptor");
+		String useReadOnlyInterceptor = request.getParameter("useReadOnlyInterceptor");
+		String useMessagePolicyInterceptor = request.getParameter("useMessagePolicyInterceptor");
+		String useLinkContractInterceptor = request.getParameter("useLinkContractInterceptor");
 		String input = request.getParameter("input");
 		String message = request.getParameter("message");
 		String output = "";
@@ -219,26 +230,45 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
 			messagingTarget.setGraph(graphInput);
 
-			ToInterceptor toInterceptor = new ToInterceptor();
-			messagingTarget.getInterceptors().add(toInterceptor);
+			if ("on".equals(useFromInterceptor)) {
 
-			MessagePolicyInterceptor messagePolicyInterceptor = new MessagePolicyInterceptor();
-			messagePolicyInterceptor.setMessagePolicyGraph(graphInput);
-			messagingTarget.getInterceptors().add(messagePolicyInterceptor);
+				FromInterceptor fromInterceptor = new FromInterceptor();
+				messagingTarget.getInterceptors().add(fromInterceptor);
+			}
 
-			if ("on".equals(variablesSupport)) {
+			if ("on".equals(useToInterceptor)) {
+
+				ToInterceptor toInterceptor = new ToInterceptor();
+				messagingTarget.getInterceptors().add(toInterceptor);
+			}
+
+			if ("on".equals(useVariablesInterceptor)) {
 
 				VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
 				messagingTarget.getInterceptors().add(variablesInterceptor);
 			}
 
-			if ("on".equals(dollarRefSupport)) {
+			if ("on".equals(useRefInterceptor)) {
 
 				RefInterceptor refInterceptor = new RefInterceptor();
 				messagingTarget.getInterceptors().add(refInterceptor);
 			}
 
-			if ("on".equals(linkContractsSupport)) {
+			if ("on".equals(useReadOnlyInterceptor)) {
+
+				ReadOnlyInterceptor readOnlyInterceptor = new ReadOnlyInterceptor();
+				readOnlyInterceptor.setReadOnlyAddresses(new XDI3Segment[] { XDI3Segment.create("()") });
+				messagingTarget.getInterceptors().add(readOnlyInterceptor);
+			}
+
+			if ("on".equals(useMessagePolicyInterceptor)) {
+
+				MessagePolicyInterceptor messagePolicyInterceptor = new MessagePolicyInterceptor();
+				messagePolicyInterceptor.setMessagePolicyGraph(graphInput);
+				messagingTarget.getInterceptors().add(messagePolicyInterceptor);
+			}
+
+			if ("on".equals(useLinkContractInterceptor)) {
 
 				LinkContractInterceptor linkContractInterceptor = new LinkContractInterceptor();
 				linkContractInterceptor.setLinkContractsGraph(graphInput);
@@ -308,9 +338,13 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("writeOrdered", writeOrdered);
 		request.setAttribute("writeInner", writeInner);
 		request.setAttribute("writePretty", writePretty);
-		request.setAttribute("variablesSupport", variablesSupport);
-		request.setAttribute("dollarRefSupport", dollarRefSupport);
-		request.setAttribute("linkContractsSupport", linkContractsSupport);
+		request.setAttribute("useFromInterceptor", useFromInterceptor);
+		request.setAttribute("useToInterceptor", useToInterceptor);
+		request.setAttribute("useVariablesInterceptor", useVariablesInterceptor);
+		request.setAttribute("useRefInterceptor", useRefInterceptor);
+		request.setAttribute("useReadOnlyInterceptor", useReadOnlyInterceptor);
+		request.setAttribute("useMessagePolicyInterceptor", useMessagePolicyInterceptor);
+		request.setAttribute("useLinkContractInterceptor", useLinkContractInterceptor);
 		request.setAttribute("input", input);
 		request.setAttribute("message", message);
 		request.setAttribute("output", output);

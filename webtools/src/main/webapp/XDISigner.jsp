@@ -37,11 +37,13 @@
 		<% String key = (String) request.getAttribute("key"); if (key == null) key = ""; %>
 		<% String address = (String) request.getAttribute("address"); if (address == null) address = ""; %>
 
+		<p>
 		Key: 
 		<input type="text" name="key" size="80" value="<%= key %>">
 		Address: 
 		<input type="text" name="address" size="10" value="<%= address %>">
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDISignerHelp.jsp">What can I do here?</a><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDISignerHelp.jsp">What can I do here?</a>
+		</p>
 
 		Result Format:
 		<select name="resultFormat">
