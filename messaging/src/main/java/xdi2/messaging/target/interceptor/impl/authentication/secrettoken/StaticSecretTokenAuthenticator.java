@@ -37,7 +37,7 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 	@Override
 	public boolean authenticate(Message message, String secretToken) {
 
-		XDI3Segment sender = message.getSender();
+		XDI3Segment sender = message.getSenderXri();
 		if (sender == null) return false;
 
 		// look for static local salt and digest secret token

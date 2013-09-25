@@ -72,7 +72,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	@Override
 	public boolean authenticate(Message message, String secretToken) {
 
-		XDI3Segment sender = message.getSender();
+		XDI3Segment sender = message.getSenderXri();
 		if (sender == null) return false;
 
 		// sender address
