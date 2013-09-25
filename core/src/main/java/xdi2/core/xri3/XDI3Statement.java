@@ -136,22 +136,6 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		return this.object;
 	}
 
-	public String getObjectAsString() {
-
-		if (this.isContextNodeStatement()) {
-
-			return ((XDI3SubSegment) this.getObject()).toString();
-		} else if (this.isRelationStatement()) {
-
-			return ((XDI3Segment) this.getObject()).toString();
-		} else if (this.isLiteralStatement()) {
-
-			return AbstractLiteral.literalDataToString(this.getObject());
-		}
-
-		throw new IllegalStateException("Invalid statement: " + this.toString());
-	}
-
 	public boolean isContextNodeStatement() {
 
 		return XDIConstants.XRI_S_CONTEXT.equals(this.getPredicate()) && (this.getObject() instanceof XDI3SubSegment);
