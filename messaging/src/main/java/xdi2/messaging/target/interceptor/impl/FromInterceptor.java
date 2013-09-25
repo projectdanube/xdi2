@@ -1,17 +1,10 @@
 package xdi2.messaging.target.interceptor.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import xdi2.core.Graph;
-import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.util.CopyUtil;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
@@ -22,8 +15,6 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
  * @author markus
  */
 public class FromInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<FromInterceptor> {
-
-	private static Logger log = LoggerFactory.getLogger(FromInterceptor.class.getName());
 
 	/*
 	 * Prototype
@@ -44,20 +35,7 @@ public class FromInterceptor extends AbstractInterceptor implements MessageInter
 	@Override
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3Segment ownerAddress = messagingTarget.getOwnerAddress();
-		XDI3Segment toAddress = message.getToAddress();
-
-		Graph g = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyContextNode(message.getContextNode(), g, null);
-
-		if (log.isDebugEnabled()) log.debug("ownerAddress=" + ownerAddress + ", recipientAddress=" + toAddress);
-
-		if (toAddress == null) throw new Xdi2MessagingException("No TO address found in message.", null, null);
-
-		if (! toAddress.equals(ownerAddress)) throw new Xdi2MessagingException("Invalid TO address: " + toAddress, null, null);
-
-		return false;
+		throw new Xdi2RuntimeException("FromInterceptor not implemented yet.");
 	}
 
 	@Override
