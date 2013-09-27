@@ -76,7 +76,6 @@ public final class StatementUtil {
 	 */
 	public static XDI3Statement concatXriStatement(final XDI3Segment xri, final XDI3Statement statementXri, final boolean concatTargetContextNodeXri) {
 
-		if (xri == null) throw new NullPointerException();
 		if (statementXri == null) throw new NullPointerException();
 
 		XDI3Statement result = null;

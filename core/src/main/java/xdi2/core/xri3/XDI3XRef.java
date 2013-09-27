@@ -1,5 +1,6 @@
 package xdi2.core.xri3;
 
+
 public class XDI3XRef extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = 4875921569202236777L;
@@ -28,6 +29,23 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 	public static XDI3XRef create(String string) {
 
 		return XDI3ParserRegistry.getInstance().getParser().parseXDI3XRef(string);
+	}
+
+	public static XDI3XRef fromComponents(String xs, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
+
+		if (xs == null) throw new IllegalArgumentException();
+		if (segment == null && statement == null && partialSubject == null && partialPredicate == null && iri == null && literal == null) throw new IllegalArgumentException();
+
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(xs.charAt(0));
+		if (segment != null) buffer.append(segment.toString());
+		if (statement != null) buffer.append(statement.toString());
+		if (partialSubject != null && partialPredicate != null) buffer.append(partialSubject.toString() + "/" + partialPredicate.toString());
+		if (iri != null) buffer.append(iri);
+		if (literal != null) buffer.append(literal);
+		buffer.append(xs.charAt(1));
+
+		return new XDI3XRef(buffer.toString(), xs, segment, statement, partialSubject, partialPredicate, iri, literal);
 	}
 
 	public boolean isEmpty() {

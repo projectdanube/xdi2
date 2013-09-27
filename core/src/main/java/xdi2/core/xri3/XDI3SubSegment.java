@@ -1,5 +1,7 @@
 package xdi2.core.xri3;
 
+import xdi2.core.constants.XDIConstants;
+
 public class XDI3SubSegment extends XDI3SyntaxComponent {
 
 	private static final long serialVersionUID = -645927779266394209L;
@@ -24,6 +26,22 @@ public class XDI3SubSegment extends XDI3SyntaxComponent {
 	public static XDI3SubSegment create(String string) {
 
 		return XDI3ParserRegistry.getInstance().getParser().parseXDI3SubSegment(string);
+	}
+
+	public static XDI3SubSegment fromComponents(Character cs, boolean classXs, boolean attributeXs, String literal, XDI3XRef xref) {
+
+		if (literal == null && xref == null) throw new IllegalArgumentException();
+
+		StringBuffer buffer = new StringBuffer();
+		if (cs != null) buffer.append(cs);
+		if (classXs) buffer.append(XDIConstants.XS_CLASS.charAt(0));
+		if (attributeXs) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(0));
+		if (literal != null) buffer.append(literal);
+		if (xref != null) buffer.append(xref.toString());
+		if (attributeXs) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(1));
+		if (classXs) buffer.append(XDIConstants.XS_CLASS.charAt(1));
+
+		return new XDI3SubSegment(buffer.toString(), cs, classXs, attributeXs, literal, xref);
 	}
 
 	public boolean hasCs() {

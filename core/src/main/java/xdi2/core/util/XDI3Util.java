@@ -9,9 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.xri3.XDI3XRef;
 
 /**
  * Various utility methods for working with XRI 3.0 syntax.
@@ -357,7 +358,7 @@ public final class XDI3Util {
 	/**
 	 * Replaces all occurences of a subsegment with a segment.
 	 */
-	public static XDI3Segment replaceXri(final XDI3Segment xri, final XDI3SubSegment oldXri, final XDI3Segment newXri, final boolean replaceInPartialSubjectAndPredicate) {
+	public static XDI3Segment replaceXri(final XDI3Segment xri, final XDI3SubSegment oldXri, final XDI3Segment newXri, final boolean replaceInXRefSegment, final boolean replaceInXRefStatement, final boolean replaceInXRefPartialSubjectAndPredicate) {
 
 		if (xri == null) throw new NullPointerException();
 		if (oldXri == null) throw new NullPointerException();
@@ -371,30 +372,55 @@ public final class XDI3Util {
 
 			for (XDI3SubSegment subSegment : xri.getSubSegments()) {
 
-				if (XdiInnerRoot.isInnerRootArcXri(subSegment)) {
+				if (subSegment.equals(oldXri)) {
 
-					XDI3Segment subject = XdiInnerRoot.getSubjectOfInnerRootXri(subSegment);
-					XDI3Segment predicate = XdiInnerRoot.getPredicateOfInnerRootXri(subSegment);
+					subSegments.addAll(newXri.getSubSegments());
 
-					subject = replaceXri(subject, oldXri, newXri, replaceInPartialSubjectAndPredicate);
-
-					subSegments.add(XdiInnerRoot.createInnerRootArcXri(subject, predicate));
-				} else {
-
-					if (subSegment.equals(oldXri)) {
-
-						subSegments.addAll(newXri.getSubSegments());
-					} else {
-
-						subSegments.add(subSegment);
-					}
+					continue;
 				}
+
+				if (replaceInXRefSegment && subSegment.hasXRef() && subSegment.getXRef().hasSegment()) {
+
+					XDI3Segment xRefSegment = subSegment.getXRef().getSegment();
+
+					xRefSegment = replaceXri(xRefSegment, oldXri, newXri, replaceInXRefSegment, replaceInXRefStatement, replaceInXRefPartialSubjectAndPredicate);
+
+					subSegments.add(XDI3SubSegment.fromComponents(subSegment.getCs(), subSegment.isClassXs(), subSegment.isAttributeXs(), null, XDI3XRef.fromComponents(subSegment.getXRef().getXs(), xRefSegment, null, null, null, null, null)));
+
+					continue;
+				}
+
+				if (replaceInXRefStatement && subSegment.hasXRef() && subSegment.getXRef().hasStatement()) {
+
+					XDI3Statement xRefStatement = subSegment.getXRef().getStatement();
+
+					//			TODO		xRefSegment = replaceXri(xRefSegment, oldXri, newXri, replaceInXRefSegment, replaceInXRefStatement, replaceInXRefPartialSubjectAndPredicate);
+
+					subSegments.add(XDI3SubSegment.fromComponents(subSegment.getCs(), subSegment.isClassXs(), subSegment.isAttributeXs(), null, XDI3XRef.fromComponents(subSegment.getXRef().getXs(), null, xRefStatement, null, null, null, null)));
+
+					continue;
+				}
+
+				if (replaceInXRefPartialSubjectAndPredicate && subSegment.hasXRef() && subSegment.getXRef().hasPartialSubjectAndPredicate()) {
+
+					XDI3Segment xRefPartialSubject = subSegment.getXRef().getPartialSubject();
+					XDI3Segment xRefPartialPredicate = subSegment.getXRef().getPartialPredicate();
+
+					xRefPartialSubject = replaceXri(xRefPartialSubject, oldXri, newXri, replaceInXRefSegment, replaceInXRefStatement, replaceInXRefPartialSubjectAndPredicate);
+					xRefPartialPredicate = replaceXri(xRefPartialPredicate, oldXri, newXri, replaceInXRefSegment, replaceInXRefStatement, replaceInXRefPartialSubjectAndPredicate);
+
+					subSegments.add(XDI3SubSegment.fromComponents(subSegment.getCs(), subSegment.isClassXs(), subSegment.isAttributeXs(), null, XDI3XRef.fromComponents(subSegment.getXRef().getXs(), null, null, xRefPartialSubject, xRefPartialPredicate, null, null)));
+
+					continue;
+				}
+
+				subSegments.add(subSegment);
 			}
 
 			{ result = XDI3Segment.fromComponents(subSegments); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("replaceXri(" + xri + "," + oldXri + "," + newXri + "," + replaceInPartialSubjectAndPredicate + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("replaceXri(" + xri + "," + oldXri + "," + newXri + "," + replaceInXRefPartialSubjectAndPredicate + ") --> " + result);
 		}
 	}
 
@@ -403,17 +429,18 @@ public final class XDI3Util {
 	 */
 	public static XDI3Segment concatXris(final XDI3Segment[] xris) {
 
-		if (xris == null) throw new NullPointerException();
-
 		XDI3Segment result = null;
 
 		try {
 
 			StringBuffer buffer = new StringBuffer();
 
-			for (XDI3Segment xri : xris) {
+			if (xris != null) {
 
-				if (xri != null && ! XDIConstants.XRI_S_ROOT.equals(xri)) buffer.append(xri.toString());
+				for (XDI3Segment xri : xris) {
+
+					if (xri != null && ! XDIConstants.XRI_S_ROOT.equals(xri)) buffer.append(xri.toString());
+				}
 			}
 
 			if (buffer.length() == 0) buffer.append("()");
@@ -429,9 +456,6 @@ public final class XDI3Util {
 	 * Concats two XRIs into a new XRI.
 	 */
 	public static XDI3Segment concatXris(XDI3Segment xri1, XDI3Segment xri2) {
-
-		if (xri1 == null) throw new NullPointerException();
-		if (xri2 == null) throw new NullPointerException();
 
 		XDI3Segment result = null;
 
