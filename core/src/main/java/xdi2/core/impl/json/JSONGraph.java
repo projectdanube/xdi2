@@ -93,7 +93,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	 * WARNING: Do not alter the contents of the store using this method, or your XDI graph may get corrupted.
 	 * @return The JSON store backing this graph.
 	 */
-	public JSONStore getJSONStore() {
+	public JSONStore getJsonStore() {
 
 		return this.jsonStore;
 	}
