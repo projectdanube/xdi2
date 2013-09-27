@@ -41,7 +41,7 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 	}
 
 	public HttpServletRequest getHttpServletRequest() {
-	
+
 		return this.httpServletRequest;
 	}
 
@@ -85,5 +85,11 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 	public InputStream getBodyInputStream() throws IOException {
 
 		return this.httpServletRequest.getInputStream();
+	}
+
+	@Override
+	public String getRemoteAddr() {
+
+		return this.httpServletRequest.getRemoteAddr();
 	}
 }

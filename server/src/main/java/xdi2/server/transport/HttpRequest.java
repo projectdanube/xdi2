@@ -28,4 +28,6 @@ public interface HttpRequest {
 	public MessagingTarget getMessagingTarget();
 
 	public InputStream getBodyInputStream() throws IOException;
+
+	public String getRemoteAddr();
 }
