@@ -1,7 +1,7 @@
-([=]!1111)/$ref/()
-$do/$do$signal/[=]!1111[+channel]!23[+event]
-$do$if$and$or/$true/({$msg}$do/$do$signal/([=]!1111[+channel]!23[+event]!44/+type/+notification))
-$do$if$and$or/$true/({$msg}$do/$do$signal/([=]!1111[+channel]!23[+event]!44/+type/+subscription))
-$do$if$and$or/$true/({$msg}$do/$do$signal/([=]!1111[+channel]!23[+event]!44/+type/+deletion))
-$do$if$and/$true/({$msg}$do/$do$signal/([=]!1111[+channel]!23[+event]!44/+domain/+cloudos))
-()/$is$ref/([=]!1111)
+([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)/$ref/()
+()/$is$ref/([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)
+$do/$all/()
+$do$if$or/$true/({$msg}<$ip>&/&/"127.0.0.1")
+$do$if$or/$true/({$msg}<$sig><$valid>&/&/true)
+[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24<+email>&/&/"markus.sabadello@gmail.com"
+$secret<$token>&/&/"s3cr3t"
