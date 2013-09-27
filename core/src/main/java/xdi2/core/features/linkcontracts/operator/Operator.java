@@ -45,8 +45,7 @@ public abstract class Operator implements Serializable, Comparable<Operator> {
 
 		return
 				TrueOperator.isValid(relation) ||
-				FalseOperator.isValid(relation) ||
-				GenericOperator.isValid(relation);
+				FalseOperator.isValid(relation);
 	}
 
 	/**
@@ -58,7 +57,6 @@ public abstract class Operator implements Serializable, Comparable<Operator> {
 
 		if (TrueOperator.isValid(relation)) return TrueOperator.fromRelation(relation);
 		if (FalseOperator.isValid(relation)) return FalseOperator.fromRelation(relation);
-		if (GenericOperator.isValid(relation)) return GenericOperator.fromRelation(relation);
 
 		return null;
 	}

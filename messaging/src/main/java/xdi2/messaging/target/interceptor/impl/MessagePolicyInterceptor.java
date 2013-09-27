@@ -88,7 +88,7 @@ public class MessagePolicyInterceptor extends AbstractInterceptor implements Mes
 		PolicyRoot policyRoot = message.getPolicyRoot(false);
 		if (policyRoot == null) return false;
 
-		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(this.getMessagePolicyGraph(), message);
+		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getMessagePolicyGraph());
 
 		if (! Boolean.TRUE.equals(policyRoot.evaluate(policyEvaluationContext))) {
 

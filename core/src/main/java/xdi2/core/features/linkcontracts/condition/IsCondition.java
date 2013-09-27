@@ -10,7 +10,7 @@ import xdi2.core.xri3.XDI3Statement;
  * 
  * @author markus
  */
-public class IsCondition extends GenericCondition {
+public class IsCondition extends Condition {
 
 	private static final long serialVersionUID = 7506322819724395818L;
 
@@ -63,13 +63,15 @@ public class IsCondition extends GenericCondition {
 
 		// check if subject XRI and object XRI are the same
 
-		XDI3Segment subject = policyEvaluationContext.getContextNodeXri(this.getStatement().getSubject());
-		XDI3Segment object = policyEvaluationContext.getContextNodeXri((XDI3Segment) this.getStatement().getObject());
+		XDI3Segment subject = policyEvaluationContext.getContextNodeXri(this.getStatementXri().getSubject());
+		XDI3Segment object = policyEvaluationContext.getContextNodeXri((XDI3Segment) this.getStatementXri().getObject());
 
-		if (subject != null && subject.equals(object)) return Boolean.TRUE;
+		if (subject == null || object == null) return Boolean.FALSE;
+		
+		if (subject.equals(object)) return Boolean.TRUE;
 
 		// done
 
-		return super.evaluateInternal(policyEvaluationContext);
+		return Boolean.FALSE;
 	}
 }

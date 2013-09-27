@@ -19,13 +19,13 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 	private static final Logger log = LoggerFactory.getLogger(Condition.class);
 
-	private XDI3Statement statement;
+	private XDI3Statement statementXri;
 
-	protected Condition(XDI3Statement statement) {
+	protected Condition(XDI3Statement statementXri) {
 
-		if (statement == null) throw new NullPointerException();
+		if (statementXri == null) throw new NullPointerException();
 
-		this.statement = statement;
+		this.statementXri = statementXri;
 	}
 
 	/*
@@ -74,7 +74,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		if (condition == null) return null;
 
-		return fromStatement(condition.getStatement());
+		return fromStatement(condition.getStatementXri());
 	}
 
 	/*
@@ -85,9 +85,9 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * Returns the underlying statement to which this XDI condition is bound.
 	 * @return A statement that represents the XDI condition.
 	 */
-	public XDI3Statement getStatement() {
+	public XDI3Statement getStatementXri() {
 
-		return this.statement;
+		return this.statementXri;
 	}
 
 	/**
@@ -97,9 +97,9 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 */
 	public final Boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
-		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getStatement());
+		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getStatementXri());
 		Boolean result = this.evaluateInternal(policyEvaluationContext);
-		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getStatement() + ": " + result);
+		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getStatementXri() + ": " + result);
 
 		return result;
 	}
@@ -113,7 +113,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	@Override
 	public String toString() {
 
-		return this.getStatement().toString();
+		return this.getStatementXri().toString();
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		Condition other = (Condition) object;
 
-		return this.getStatement().equals(other.getStatement());
+		return this.getStatementXri().equals(other.getStatementXri());
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		int hashCode = 1;
 
-		hashCode = (hashCode * 31) + this.getStatement().hashCode();
+		hashCode = (hashCode * 31) + this.getStatementXri().hashCode();
 
 		return hashCode;
 	}
@@ -142,6 +142,6 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		if (other == this || other == null) return(0);
 
-		return this.getStatement().compareTo(other.getStatement());
+		return this.getStatementXri().compareTo(other.getStatementXri());
 	}
 }

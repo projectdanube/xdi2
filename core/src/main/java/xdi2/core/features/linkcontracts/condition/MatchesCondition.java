@@ -64,8 +64,8 @@ public class MatchesCondition extends Condition {
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatement().getSubject());
-		ContextNode object = policyEvaluationContext.getContextNode((XDI3Segment) this.getStatement().getObject());
+		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatementXri().getSubject());
+		ContextNode object = policyEvaluationContext.getContextNode((XDI3Segment) this.getStatementXri().getObject());
 
 		if (subject == null || object == null) return Boolean.FALSE;
 

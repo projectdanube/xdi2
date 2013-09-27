@@ -1,10 +1,9 @@
 package xdi2.core.features.linkcontracts.evaluation;
 
-import java.util.Iterator;
-
 import xdi2.core.ContextNode;
-import xdi2.core.Relation;
+import xdi2.core.Statement;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 /**
  * This interface provides a context for evaluating an XDI policy.
@@ -15,5 +14,5 @@ public interface PolicyEvaluationContext {
 
 	public XDI3Segment getContextNodeXri(XDI3Segment xri);
 	public ContextNode getContextNode(XDI3Segment xri);
-	public Iterator<Relation> getRelations(XDI3Segment arcXri);
+	public Statement getStatement(XDI3Statement statementXri);
 }

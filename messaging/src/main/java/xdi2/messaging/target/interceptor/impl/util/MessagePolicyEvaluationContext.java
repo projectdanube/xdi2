@@ -1,83 +1,144 @@
 package xdi2.messaging.target.interceptor.impl.util;
 
-import java.util.Iterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Relation;
-import xdi2.core.features.linkcontracts.evaluation.GraphPolicyEvaluationContext;
+import xdi2.core.Statement;
+import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 
-public class MessagePolicyEvaluationContext extends GraphPolicyEvaluationContext {
+public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
-	public static final XDI3Segment XRI_FROM = XDI3Segment.create("{$from}");
-	public static final XDI3Segment XRI_MSG = XDI3Segment.create("{$msg}");
+	private static final Logger log = LoggerFactory.getLogger(MessagePolicyEvaluationContext.class);
+
+	public static final XDI3SubSegment XRI_SS_FROM = XDI3SubSegment.create("{$from}");
+	public static final XDI3SubSegment XRI_SS_MSG = XDI3SubSegment.create("{$msg}");
 
 	private Message message;
+	private Graph targetGraph;
 
-	public MessagePolicyEvaluationContext(Graph graph, Message message) {
-
-		super(graph);
+	public MessagePolicyEvaluationContext(Message message, Graph targetGraph) {
 
 		this.message = message;
+		this.targetGraph = targetGraph;
 	}
 
 	@Override
-	public XDI3Segment getContextNodeXri(XDI3Segment xri) {
+	public XDI3Segment getContextNodeXri(XDI3Segment contextNodeXri) {
 
-		if (XDI3Util.startsWith(xri, XRI_MSG) != null) {
+		XDI3Segment resolvedContextNodeXri = contextNodeXri;
 
-			XDI3Segment endXri = XDI3Util.removeStartXri(xri, XRI_MSG);
+		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_MSG, this.getMessage().getContextNode().getXri(), true, true, true);
+		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_FROM, this.getMessage().getSenderXri(), true, true, true);
 
-			return XDI3Util.concatXris(this.getMessage().getContextNode().getXri(), endXri);
-		}
+		if (log.isTraceEnabled()) log.trace("getContextNodeXri(" + contextNodeXri + ") --> " + resolvedContextNodeXri);
 
-		if (XDI3Util.startsWith(xri, XRI_FROM) != null) {
-
-			XDI3Segment endXri = XDI3Util.removeStartXri(xri, XRI_FROM);
-
-			return XDI3Util.concatXris(this.getMessage().getSender(), endXri);
-		}
-
-		return super.getContextNodeXri(xri);
+		return resolvedContextNodeXri;
 	}
 
 	@Override
-	public ContextNode getContextNode(XDI3Segment xri) {
+	public ContextNode getContextNode(XDI3Segment resolvedContextNodeXri) {
 
-		if (XDI3Util.startsWith(xri, XRI_MSG) != null) {
+		Graph resolvedGraph = this.getGraph(resolvedContextNodeXri);
 
-			XDI3Segment endXri = XDI3Util.removeStartXri(xri, XRI_MSG);
+		resolvedContextNodeXri = this.getContextNodeXri(resolvedContextNodeXri);
 
-			ContextNode contextNode = this.getMessage().getContextNode();
-			if (contextNode != null && endXri != null) contextNode = contextNode.getDeepContextNode(endXri);
+		ContextNode resolvedContextNode = resolvedGraph.getDeepContextNode(resolvedContextNodeXri);
 
-			return contextNode;
-		}
+		if (log.isTraceEnabled()) log.trace("getContextNode(" + resolvedContextNodeXri + ") --> " + resolvedContextNode);
 
-		if (XDI3Util.startsWith(xri, XRI_FROM) != null) {
-
-			XDI3Segment endXri = XDI3Util.removeStartXri(xri, XRI_FROM);
-
-			ContextNode contextNode = this.getGraph().getDeepContextNode(this.getMessage().getSender());
-			if (contextNode != null && endXri != null) contextNode = contextNode.getDeepContextNode(endXri);
-
-			return contextNode;
-		}
-
-		return super.getContextNode(xri);
+		return resolvedContextNode;
 	}
 
 	@Override
-	public Iterator<Relation> getRelations(XDI3Segment arcXri) {
+	public Statement getStatement(XDI3Statement statementXri) {
 
-		return this.getMessage().getOperationsContextNode().getRelations(arcXri);
+		XDI3Segment evaluatedContextNodeXri = statementXri.getContextNodeXri();
+
+		Graph resolvedGraph = this.getGraph(evaluatedContextNodeXri);
+
+		evaluatedContextNodeXri = this.getContextNodeXri(evaluatedContextNodeXri);
+
+		if (statementXri.isContextNodeStatement()) {
+
+			XDI3SubSegment contextNodeArcXri = statementXri.getContextNodeArcXri();
+
+			statementXri = XDI3Statement.fromContextNodeComponents(evaluatedContextNodeXri, contextNodeArcXri);
+		} else if (statementXri.isRelationStatement()) {
+
+			XDI3Segment relationArcXri = statementXri.getRelationArcXri();
+			XDI3Segment targetContextNodeXri = statementXri.getTargetContextNodeXri();
+
+			targetContextNodeXri = this.getContextNodeXri(targetContextNodeXri);
+
+			statementXri = XDI3Statement.fromRelationComponents(evaluatedContextNodeXri, relationArcXri, targetContextNodeXri);
+		} else if (statementXri.isLiteralStatement()) {
+
+			Object literalData = statementXri.getLiteralData();
+
+			statementXri = XDI3Statement.fromLiteralComponents(evaluatedContextNodeXri, literalData);
+		}
+
+		Statement evaluatedStatement = resolvedGraph.getStatement(statementXri);
+
+		if (log.isTraceEnabled()) log.trace("getStatement(" + statementXri + ") --> " + evaluatedStatement);
+
+		return evaluatedStatement;
 	}
+
+	/*
+	 * Helper methods
+	 */
+
+	private Graph getGraph(XDI3Segment contextNodeXri) {
+
+		XDI3SubSegment firstSubSegment = contextNodeXri.getFirstSubSegment();
+
+		if (XdiPeerRoot.isPeerRootArcXri(firstSubSegment)) {
+
+			firstSubSegment = XdiPeerRoot.getXriOfPeerRootArcXri(firstSubSegment).getFirstSubSegment();
+		} else if (XdiInnerRoot.isInnerRootArcXri(firstSubSegment)) {
+
+			firstSubSegment = XdiInnerRoot.getSubjectOfInnerRootXri(firstSubSegment).getFirstSubSegment();
+		}
+
+		Graph resolvedGraph = null;
+		
+		if (XRI_SS_MSG.equals(firstSubSegment)) {
+
+			resolvedGraph = this.getMessage().getContextNode().getGraph();
+		} else if (XRI_SS_FROM.equals(firstSubSegment)) {
+
+			resolvedGraph = this.getTargetGraph();
+		} else {
+
+			resolvedGraph = this.getTargetGraph();
+		}
+
+		if (log.isTraceEnabled()) log.trace("getGraph(" + contextNodeXri + ") --> " + resolvedGraph);
+
+		return resolvedGraph;
+	}
+
+	/*
+	 * Getters and setters
+	 */
 
 	public Message getMessage() {
 
 		return this.message;
+	}
+
+	public Graph getTargetGraph() {
+
+		return this.targetGraph;
 	}
 }

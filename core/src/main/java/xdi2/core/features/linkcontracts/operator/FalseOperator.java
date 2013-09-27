@@ -65,7 +65,7 @@ public class FalseOperator extends ConditionOperator {
 
 		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(policy.getContextNode().getGraph()).findInnerRoot(policy.getContextNode().getXri(), XDIConstants.XRI_S_FALSE, true);
 
-		xdiInnerRoot.setRelativeStatement(condition.getStatement());
+		xdiInnerRoot.setRelativeStatement(condition.getStatementXri());
 
 		return fromRelation(xdiInnerRoot.getPredicateRelation());
 	}
