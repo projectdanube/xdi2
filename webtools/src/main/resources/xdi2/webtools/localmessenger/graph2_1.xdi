@@ -1,7 +1,11 @@
-=abc/$ref/[=]!1111
-[=]!1111<+age>&/&/"33"
-[=]!1111<+tel>&/&/"+1-206-555-1212"
-[=]!1111$do/$get/[=]!1111<+age>
-[=]!1111$do$if/$true/({$from}/$is/[@]!4444)
-([=]!1111)/$ref/()
-()/$is$ref/([=]!1111)
+(=markus)/$ref/()
+()/$is$ref/(=markus)
+=markus$do$if/$true/({$from}/$is/=drummond)
+=markus$do$if/$true/({$from}/$is/=markus)
+=markus$do/$get/=markus<+age>
+=markus$do/$set/=markus
+=markus<+age>&/&/"33"
+=markus<+name>&/&/"Markus Sabadello"
+=markus[<+email>]<!1>&/&/"markus.sabadello@gmail.com"
+=markus[<+email>]<!2>&/&/"markus.sabadello@hotmail.com"
+=markus/+friend/=drummond

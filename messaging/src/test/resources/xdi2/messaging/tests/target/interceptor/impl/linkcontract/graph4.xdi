@@ -1,13 +1,7 @@
-{
-"([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)/$is" : [ "()" ],
-"$do$if$and/$true" : [ {
-  "{$msg}$secret<$token>&/$equals": [ "$secret<$token>&" ], 
-  "{$from}/$is": [ "[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24" ]
-} ],
-"$do/$set" : [ "=markus" ],
-"$do/$get" : [ "=markus" ],
-"$do/$set" : [ "=markus" ],
-"$secret<$token>&/&" : "s3cr3t",
-"=markus/$is" : [ "[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24" ],
-"()/$is" : [ "([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)" ]
-}
+([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)/$ref/()
+()/$is$ref/([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)
+$do/$all/()
+$do$if$or/$true/({$msg}<$ip>&/&/"127.0.0.1")
+$do$if$or/$true/({$msg}<$sig><$valid>&/&/true)
+[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24<+email>&/&/"markus.sabadello@gmail.com"
+$secret<$token>&/&/"s3cr3t"
