@@ -61,37 +61,37 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 	@Override
 	public Statement getStatement(XDI3Statement statementXri) {
 
-		XDI3Segment evaluatedContextNodeXri = statementXri.getContextNodeXri();
+		XDI3Segment resolvedContextNodeXri = statementXri.getContextNodeXri();
 
-		Graph resolvedGraph = this.getGraph(evaluatedContextNodeXri);
+		Graph resolvedGraph = this.getGraph(resolvedContextNodeXri);
 
-		evaluatedContextNodeXri = this.getContextNodeXri(evaluatedContextNodeXri);
+		resolvedContextNodeXri = this.getContextNodeXri(resolvedContextNodeXri);
 
 		if (statementXri.isContextNodeStatement()) {
 
 			XDI3SubSegment contextNodeArcXri = statementXri.getContextNodeArcXri();
 
-			statementXri = XDI3Statement.fromContextNodeComponents(evaluatedContextNodeXri, contextNodeArcXri);
+			statementXri = XDI3Statement.fromContextNodeComponents(resolvedContextNodeXri, contextNodeArcXri);
 		} else if (statementXri.isRelationStatement()) {
 
 			XDI3Segment relationArcXri = statementXri.getRelationArcXri();
 			XDI3Segment targetContextNodeXri = statementXri.getTargetContextNodeXri();
 
-			targetContextNodeXri = this.getContextNodeXri(targetContextNodeXri);
+			XDI3Segment resolvedTargetContextNodeXri = this.getContextNodeXri(targetContextNodeXri);
 
-			statementXri = XDI3Statement.fromRelationComponents(evaluatedContextNodeXri, relationArcXri, targetContextNodeXri);
+			statementXri = XDI3Statement.fromRelationComponents(resolvedContextNodeXri, relationArcXri, resolvedTargetContextNodeXri);
 		} else if (statementXri.isLiteralStatement()) {
 
 			Object literalData = statementXri.getLiteralData();
 
-			statementXri = XDI3Statement.fromLiteralComponents(evaluatedContextNodeXri, literalData);
+			statementXri = XDI3Statement.fromLiteralComponents(resolvedContextNodeXri, literalData);
 		}
 
-		Statement evaluatedStatement = resolvedGraph.getStatement(statementXri);
+		Statement resolvedEvaluatedStatement = resolvedGraph.getStatement(statementXri);
 
-		if (log.isTraceEnabled()) log.trace("getStatement(" + statementXri + ") --> " + evaluatedStatement);
+		if (log.isTraceEnabled()) log.trace("getStatement(" + statementXri + ") --> " + resolvedEvaluatedStatement);
 
-		return evaluatedStatement;
+		return resolvedEvaluatedStatement;
 	}
 
 	/*
