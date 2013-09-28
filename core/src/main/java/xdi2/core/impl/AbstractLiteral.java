@@ -201,32 +201,12 @@ public abstract class AbstractLiteral implements Literal {
 	public static String literalDataToString(Object literalData) {
 
 		return gson.toJson(literalDataToJsonElement(literalData));
-
-		/*		if (literalData instanceof String) {
-
-			return "\"" + ((String) literalData).replace("\"", "\\\"");
-		} else if (literalData instanceof Double) {
-
-			return ((Double) literalData).toString();
-		} else if (literalData instanceof Boolean) {
-
-			return ((Boolean) literalData).toString();
-		} else if (literalData instanceof List<?>) {
-
-			return gson.toJson(literalData);
-		} else if (literalData instanceof Map<?, ?>) {
-
-			return gson.toJson(literalData);
-		} else {
-
-			throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
-		}*/
 	}
 
 	public static Object stringToLiteralData(String string) {
 
 		if (string == null) throw new NullPointerException();
-		if (string.isEmpty()) throw new IllegalArgumentException("Invalid empty string.");
+		if (string.isEmpty()) throw new IllegalArgumentException("Invalid empty literal string.");
 
 		try {
 
@@ -235,34 +215,8 @@ public abstract class AbstractLiteral implements Literal {
 			return jsonElementToLiteralData(jsonArray.get(0));
 		} catch (IOException ex) {
 
-			throw new Xdi2RuntimeException(ex.getMessage(), ex);
+			throw new Xdi2RuntimeException("Invalid literal string \"" + string + "\": " + ex.getMessage(), ex);
 		}
-
-		/*		if (string.startsWith("\"") && string.endsWith("\"")) {
-
-			return string.substring(1, string.length() - 1).replace("\\\"", "\"");
-		} else if (string.startsWith("[") && string.endsWith("]")) {
-
-			return gson.fromJson(string.substring(1, string.length() - 1), List.class);
-		} else if (string.startsWith("{") && string.endsWith("}")) {
-
-			return gson.fromJson(string.substring(1, string.length() - 1), Map.class);
-		} else if ("true".equals(string)) {
-
-			return Boolean.TRUE;
-		} else if ("false".equals(string)) {
-
-			return Boolean.FALSE;
-		} else {
-
-			try {
-
-				return Double.valueOf(string);
-			} catch (Exception ex) {
-
-				throw new IllegalArgumentException("Invalid string: " + string);
-			}
-		}*/
 	}
 
 	public static JsonElement literalDataToJsonElement(Object literalData) {
