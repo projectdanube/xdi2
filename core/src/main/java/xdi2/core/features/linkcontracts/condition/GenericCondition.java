@@ -54,32 +54,5 @@ public class GenericCondition extends Condition {
 		Statement statement = policyEvaluationContext.getStatement(this.getStatementXri());
 
 		return Boolean.valueOf(statement != null);
-
-		/*		if (this.getStatement().isContextNodeStatement()) {
-
-			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
-			XDI3SubSegment contextNodeArcXri = this.getStatement().getContextNodeArcXri();
-
-			return Boolean.valueOf(contextNode != null && contextNode.containsContextNode(contextNodeArcXri));
-		}
-
-		if (this.getStatement().isRelationStatement()) {
-
-			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
-			XDI3Segment arcXri = this.getStatement().getRelationArcXri();
-			XDI3Segment targetContextNodeXri = policyEvaluationContext.getContextNode(this.getStatement().getTargetContextNodeXri()).getXri();
-
-			return Boolean.valueOf(contextNode != null && contextNode.containsRelation(arcXri, targetContextNodeXri));
-		}
-
-		if (this.getStatement().isLiteralStatement()) {
-
-			ContextNode contextNode = policyEvaluationContext.getContextNode(this.getStatement().getContextNodeXri());
-			Object literalData = this.getStatement().getLiteralData();
-
-			return Boolean.valueOf(contextNode != null && contextNode.containsLiteral(literalData));
-		}*/
-
-//		return Boolean.FALSE;
 	}
 }
