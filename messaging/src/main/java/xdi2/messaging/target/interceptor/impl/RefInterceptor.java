@@ -35,7 +35,6 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
-import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
@@ -428,18 +427,16 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		Operation feedbackOperation = feedbackMessage.createOperation(XDIMessagingConstants.XRI_S_GET, refRepContextNode.getXri());
 		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XRI_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XRI_PARAMETER_DEREF, Boolean.TRUE);
 
-		// execute message
+		// before feedback: tweak the execution context and messaging target
 
-		Deque<Relation> tempRefRepRelations = getRefRepRelations(executionContext);
+		Deque<Relation> refRepRelations = getRefRepRelations(executionContext);
 		resetRefRepRelations(executionContext);
 
-		// TODO: we temporarily disable the link contract interceptor for $ref/$rep processing 
-		
-		InterceptorList backupInterceptorList = messagingTarget.getInterceptors();
-		InterceptorList tempInterceptorList = new InterceptorList(backupInterceptorList);
-		LinkContractInterceptor linkContractInterceptor = backupInterceptorList.getInterceptor(LinkContractInterceptor.class);
-		if (linkContractInterceptor != null) tempInterceptorList.removeInterceptor(linkContractInterceptor);
-		messagingTarget.setInterceptors(tempInterceptorList);
+		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
+		boolean linkContractInterceptorEnabled = linkContractInterceptor.isEnabled();
+		linkContractInterceptor.setEnabled(false);
+
+		// execute the message
 
 		try {
 
@@ -449,9 +446,11 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 			if (log.isDebugEnabled()) log.debug("Not authorized to get source of $ref/$rep relation: " + refRepContextNode);
 		}
 
-		messagingTarget.setInterceptors(backupInterceptorList);
-		
-		putRefRepRelations(executionContext, tempRefRepRelations);
+		// after feedback: restore the execution context and messaging target
+
+		putRefRepRelations(executionContext, refRepRelations);
+
+		linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
 
 		// done
 
@@ -480,10 +479,16 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		feedbackMessageRef.createOperation(XDIMessagingConstants.XRI_S_GET, XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDIConstants.XRI_S_VARIABLE));
 		feedbackMessageRep.createOperation(XDIMessagingConstants.XRI_S_GET, XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDIConstants.XRI_S_VARIABLE));
 
-		// execute messages
+		// before feedback: tweak the execution context and messaging target
 
-		Deque<Relation> tempRefRepRelations = getRefRepRelations(executionContext);
+		Deque<Relation> refRepRelations = getRefRepRelations(executionContext);
 		resetRefRepRelations(executionContext);
+
+		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
+		boolean linkContractInterceptorEnabled = linkContractInterceptor.isEnabled();
+		linkContractInterceptor.setEnabled(false);
+
+		// execute messages
 
 		try {
 
@@ -501,7 +506,11 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 			if (log.isDebugEnabled()) log.debug("Not authorized to find $rep relation in context: " + contextNodeXri);
 		}
 
-		putRefRepRelations(executionContext, tempRefRepRelations);
+		// after feedback: restore the execution context and messaging target
+
+		putRefRepRelations(executionContext, refRepRelations);
+
+		linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
 
 		// done
 

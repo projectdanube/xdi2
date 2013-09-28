@@ -1,5 +1,8 @@
 package xdi2.messaging.target.interceptor.impl.encryption;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Literal;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.xri3.XDI3Segment;
@@ -21,6 +24,8 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * perform encryption and decryption. 
  */
 public class LiteralEncryptionInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, TargetInterceptor, ResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
+
+	private static final Logger log = LoggerFactory.getLogger(LiteralEncryptionInterceptor.class);
 
 	private LiteralCryptoService literalCryptoService;
 
@@ -117,11 +122,13 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 			String literalDataString;
 
 			try {
-			
+
 				literalDataString = this.getLiteralCryptoService().decryptLiteralDataString(encryptedLiteralDataString);
 			} catch (Exception ex) {
 
-				throw new Xdi2MessagingException("Problem while decrypting literal string: " + ex.getMessage(), ex, executionContext);
+				if (log.isDebugEnabled()) log.debug("Problem while decrypting literal string: " + ex.getMessage(), ex);
+
+				continue;
 			}
 
 			Object literalData = AbstractLiteral.stringToLiteralData(literalDataString);
@@ -135,12 +142,12 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 	 */
 
 	public LiteralCryptoService getLiteralCryptoService() {
-	
+
 		return this.literalCryptoService;
 	}
 
 	public void setLiteralCryptoService(LiteralCryptoService literalCryptoService) {
-	
+
 		this.literalCryptoService = literalCryptoService;
 	}
 }
