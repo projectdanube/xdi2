@@ -32,10 +32,8 @@
 	<a href="XDIConverter">XDI Converter</a>&nbsp;&nbsp;
 	<a href="XDIMessenger">XDI Messenger</a>&nbsp;&nbsp;
 	<a href="XDILocalMessenger">XDI Local Messenger</a>&nbsp;&nbsp;
-	XDI Querier&nbsp;&nbsp;
-	XDI Setter&nbsp;&nbsp;
 	<a href="XDISigner">XDI Signer</a>&nbsp;&nbsp;
-	XDI Addresser&nbsp;&nbsp;
+	<a href="XDIDiscoverer">XDI Discoverer</a>&nbsp;&nbsp;
 	<a href="XDIGrapher">XDI Grapher</a>
 	</p>
 
