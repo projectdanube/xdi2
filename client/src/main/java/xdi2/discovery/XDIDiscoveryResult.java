@@ -33,8 +33,7 @@ public class XDIDiscoveryResult implements Serializable {
 	private PublicKey publicKey;
 	private Map<String, String> services;
 
-	private MessageResult registryMessageResult;
-	private MessageResult authorityMessageResult;
+	private MessageResult messageResult;
 
 	public XDIDiscoveryResult() {
 
@@ -43,8 +42,7 @@ public class XDIDiscoveryResult implements Serializable {
 		this.publicKey = null;
 		this.services = null;
 
-		this.registryMessageResult = null;
-		this.authorityMessageResult = null;
+		this.messageResult = null;
 	}
 
 	public void initFromRegistryMessageResult(MessageResult registryMessageResult, XDI3Segment query) throws Xdi2ClientException {
@@ -86,7 +84,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// done
 
-		this.registryMessageResult = registryMessageResult;
+		this.messageResult = registryMessageResult;
 	}
 
 	public void initFromAuthorityMessageResult(MessageResult authorityMessageResult) throws Xdi2ClientException {
@@ -128,14 +126,14 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// done
 
-		this.authorityMessageResult = authorityMessageResult;
+		this.messageResult = authorityMessageResult;
 	}
 
 	/*
 	 * Helper methods
 	 */
 
-	public static PublicKey publicKeyFromPublicKeyString(String publicKeyString) throws Xdi2ClientException {
+	private static PublicKey publicKeyFromPublicKeyString(String publicKeyString) throws Xdi2ClientException {
 
 		if (publicKeyString == null) return null;
 
@@ -147,7 +145,7 @@ public class XDIDiscoveryResult implements Serializable {
 			return keyFactory.generatePublic(keySpec);
 		} catch (GeneralSecurityException ex) {
 
-			throw new Xdi2ClientException("Cannot parse public key: " + ex.getMessage(), ex, null);
+			throw new Xdi2ClientException("Invalid RSA public key " + publicKeyString + ": " + ex.getMessage(), ex, null);
 		}
 	}
 
@@ -175,14 +173,9 @@ public class XDIDiscoveryResult implements Serializable {
 		return this.services;
 	}
 
-	public MessageResult getRegistryMessageResult() {
+	public MessageResult getMessageResult() {
 
-		return this.registryMessageResult;
-	}
-
-	public MessageResult getAuthorityMessageResult() {
-
-		return this.authorityMessageResult;
+		return this.messageResult;
 	}
 
 	/*
