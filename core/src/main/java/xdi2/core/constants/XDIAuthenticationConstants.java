@@ -15,12 +15,14 @@ public final class XDIAuthenticationConstants {
 	public static final XDI3Segment XRI_S_SIGNATURE = XDI3Segment.create("<$sig>");
 
 	public static final XDI3SubSegment XRI_SS_SIGNATURE = XDI3SubSegment.create("<$sig>");
-	
-	public static final XDI3Segment XRI_S_SECRET_TOKEN_VALID_VALUE = XDI3Segment.create("$secret<$token><$valid>&");
-	public static final XDI3Segment XRI_S_OAUTH_TOKEN_VALID_VALUE = XDI3Segment.create("$oauth<$token><$valid>&");
-	public static final XDI3Segment XRI_S_SIGNATURE_VALID_VALUE = XDI3Segment.create("<$sig><$valid>&");
 
-	public static final XDI3Segment XRI_S_DIGEST_SECRET_TOKEN_VALUE = XDI3Segment.create("$digest$secret<$token>&");
+	public static final XDI3Segment XRI_S_SECRET_TOKEN_VALID = XDI3Segment.create("$secret<$token><$valid>");
+	public static final XDI3Segment XRI_S_OAUTH_TOKEN_VALID = XDI3Segment.create("$oauth<$token><$valid>");
+	public static final XDI3Segment XRI_S_SIGNATURE_VALID = XDI3Segment.create("<$sig><$valid>");
+
+	public static final XDI3Segment XRI_S_DIGEST_SECRET_TOKEN = XDI3Segment.create("$digest$secret<$token>");
+
+	public static final XDI3Segment XRI_S_PUBLIC_KEY = XDI3Segment.create("$public<$key>");
 
 	private XDIAuthenticationConstants() { }
 }

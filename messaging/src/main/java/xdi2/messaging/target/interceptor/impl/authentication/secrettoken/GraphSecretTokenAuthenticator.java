@@ -38,7 +38,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	}
 
 	@Override
-	public SecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public GraphSecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// create new secret token authenticator
 
@@ -70,14 +70,14 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	}
 
 	@Override
-	public boolean authenticate(Message message, String secretToken) {
+	public String getLocalSaltAndDigestSecretToken(Message message) {
 
-		XDI3Segment sender = message.getSenderXri();
-		if (sender == null) return false;
+		XDI3Segment senderXri = message.getSenderXri();
+		if (senderXri == null) return null;
 
 		// sender address
 
-		XDI3SubSegment senderAddress = XdiPeerRoot.createPeerRootArcXri(sender);
+		XDI3SubSegment senderAddress = XdiPeerRoot.createPeerRootArcXri(senderXri);
 
 		if (log.isDebugEnabled()) log.debug("Sender address: " + senderAddress);
 
@@ -87,11 +87,11 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 		Literal localSaltAndDigestSecretTokenLiteral = senderAddressContextNode == null ? null : senderAddressContextNode.getDeepLiteral(XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN_VALUE);
 
 		String localSaltAndDigestSecretToken = localSaltAndDigestSecretTokenLiteral == null ? null : localSaltAndDigestSecretTokenLiteral.getLiteralDataString();
-		if (localSaltAndDigestSecretToken == null) return false;
+		if (localSaltAndDigestSecretToken == null) return null;
 
-		// authenticate
+		// done
 
-		return super.authenticate(localSaltAndDigestSecretToken, secretToken);
+		return localSaltAndDigestSecretToken;
 	}
 
 	public Graph getSecretTokenGraph() {

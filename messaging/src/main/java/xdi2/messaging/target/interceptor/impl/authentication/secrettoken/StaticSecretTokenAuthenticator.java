@@ -27,7 +27,7 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 	}
 
 	@Override
-	public SecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public StaticSecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// done
 
@@ -35,19 +35,19 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 	}
 
 	@Override
-	public boolean authenticate(Message message, String secretToken) {
+	public String getLocalSaltAndDigestSecretToken(Message message) {
 
-		XDI3Segment sender = message.getSenderXri();
-		if (sender == null) return false;
+		XDI3Segment senderXri = message.getSenderXri();
+		if (senderXri == null) return null;
 
 		// look for static local salt and digest secret token
 
-		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretTokens().get(sender);
-		if (localSaltAndDigestSecretToken == null) return false;
+		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretTokens().get(senderXri);
+		if (localSaltAndDigestSecretToken == null) return null;
 
-		// authenticate
+		// done
 
-		return super.authenticate(localSaltAndDigestSecretToken, secretToken);
+		return localSaltAndDigestSecretToken;
 	}
 
 	public Map<XDI3Segment, String> getLocalSaltAndDigestSecretTokens() {
