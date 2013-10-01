@@ -31,6 +31,12 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-client</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>3.0.0.RELEASE</version>
