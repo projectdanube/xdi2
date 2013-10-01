@@ -1,6 +1,6 @@
 package xdi2.client.events;
 
-import xdi2.discovery.XDIDiscovery;
+import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.MessageEnvelope;
 
@@ -20,9 +20,9 @@ public abstract class XDIDiscoverEvent extends XDIEvent {
 	}
 
 	@Override
-	public XDIDiscovery getSource() {
+	public XDIDiscoveryClient getSource() {
 
-		return (XDIDiscovery) super.getSource();
+		return (XDIDiscoveryClient) super.getSource();
 	}
 
 	public MessageEnvelope getMessageEnvelope() {
