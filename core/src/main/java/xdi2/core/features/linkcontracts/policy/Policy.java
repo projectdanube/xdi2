@@ -224,8 +224,6 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		Boolean result = this.evaluateInternal(policyEvaluationContext);
 		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getContextNode() + ": " + result);
 
-		if (this instanceof PolicyRoot) new Exception().printStackTrace();
-
 		return result;
 	}
 
