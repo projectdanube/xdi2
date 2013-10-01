@@ -1,5 +1,6 @@
 package xdi2.messaging.target.interceptor.impl.authentication.signature;
 
+import xdi2.core.features.signatures.Signature;
 import xdi2.messaging.Message;
 import xdi2.messaging.target.Prototype;
 
@@ -15,5 +16,5 @@ public interface SignatureAuthenticator extends Prototype<SignatureAuthenticator
 	/**
 	 * Authenticates an XDI message given a signature.
 	 */
-	public boolean authenticate(Message message, String signature);
+	public boolean authenticate(Message message, Signature signature);
 }

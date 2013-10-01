@@ -5,6 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiValue;
+import xdi2.core.features.signatures.Signature;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2AuthenticationException;
@@ -71,7 +75,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		// look for signature on the message
 
-		String signature = message.getSignature();
+		Signature signature = message.getSignature(false);
 		if (signature == null) return false;
 
 		// authenticate
@@ -81,7 +85,9 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 		boolean authenticated = this.getSignatureAuthenticator().authenticate(message, signature);
 		if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
 
-		Literal signatureValidLiteral = message.getContextNode().setDeepLiteralBoolean(XDIAuthenticationConstants.XRI_S_SIGNATURE_VALID_VALUE, Boolean.valueOf(authenticated));
+		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE_VALID));
+		XdiValue signatureValidXdiValue = signatureValidXdiAttribute.getXdiValue(true);
+		Literal signatureValidLiteral = signatureValidXdiValue.getContextNode().setLiteralBoolean(Boolean.valueOf(authenticated));
 
 		if (log.isDebugEnabled()) log.debug(signatureValidLiteral.getStatement().toString());
 

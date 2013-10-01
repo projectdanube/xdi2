@@ -3,14 +3,16 @@ package xdi2.messaging.target.interceptor.impl.authentication.secrettoken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -75,16 +77,17 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 		XDI3Segment senderXri = message.getSenderXri();
 		if (senderXri == null) return null;
 
-		// sender address
+		// sender peer root
 
-		XDI3SubSegment senderAddress = XdiPeerRoot.createPeerRootArcXri(senderXri);
+		XdiPeerRoot senderPeerRoot = XdiLocalRoot.findLocalRoot(this.getSecretTokenGraph()).findPeerRoot(senderXri, false);
 
-		if (log.isDebugEnabled()) log.debug("Sender address: " + senderAddress);
+		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderPeerRoot);
 
 		// look for local salt and digest secret token in the graph
 
-		ContextNode senderAddressContextNode = this.getSecretTokenGraph().getRootContextNode().getContextNode(senderAddress);
-		Literal localSaltAndDigestSecretTokenLiteral = senderAddressContextNode == null ? null : senderAddressContextNode.getDeepLiteral(XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN_VALUE);
+		XdiAttribute localSaltAndDigestSecretTokenXdiAttribute = senderPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_PUBLIC_KEY));
+		XdiValue localSaltAndDigestSecretTokenXdiValue = localSaltAndDigestSecretTokenXdiAttribute == null ? null : localSaltAndDigestSecretTokenXdiAttribute.getXdiValue(false);
+		Literal localSaltAndDigestSecretTokenLiteral = localSaltAndDigestSecretTokenXdiValue == null ? null : localSaltAndDigestSecretTokenXdiValue.getContextNode().getLiteral();
 
 		String localSaltAndDigestSecretToken = localSaltAndDigestSecretTokenLiteral == null ? null : localSaltAndDigestSecretTokenLiteral.getLiteralDataString();
 		if (localSaltAndDigestSecretToken == null) return null;
