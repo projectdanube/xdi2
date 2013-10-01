@@ -192,7 +192,7 @@ public class DataTypes {
 			while (relations.hasNext()) {
 
 				Relation relation = relations.next();
-				dataTypes.add((XDI3Segment) relation.getStatement().getObject());
+				dataTypes.add(relation.getStatement().getObject());
 			}
 		} catch (Exception ex) {
 
