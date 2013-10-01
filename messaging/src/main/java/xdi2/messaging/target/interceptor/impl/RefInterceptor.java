@@ -433,8 +433,8 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		resetRefRepRelations(executionContext);
 
 		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-		boolean linkContractInterceptorEnabled = linkContractInterceptor.isEnabled();
-		linkContractInterceptor.setEnabled(false);
+		boolean linkContractInterceptorEnabled = linkContractInterceptor != null && linkContractInterceptor.isEnabled();
+		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
 
 		// execute the message
 
@@ -450,7 +450,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		putRefRepRelations(executionContext, refRepRelations);
 
-		linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
+		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
 
 		// done
 
@@ -485,8 +485,8 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 		resetRefRepRelations(executionContext);
 
 		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-		boolean linkContractInterceptorEnabled = linkContractInterceptor.isEnabled();
-		linkContractInterceptor.setEnabled(false);
+		boolean linkContractInterceptorEnabled = linkContractInterceptor != null && linkContractInterceptor.isEnabled();
+		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
 
 		// execute messages
 
@@ -510,7 +510,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		putRefRepRelations(executionContext, refRepRelations);
 
-		linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
+		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
 
 		// done
 
