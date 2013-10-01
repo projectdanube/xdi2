@@ -15,13 +15,13 @@ public class StringPublicKeyConverter implements Converter<String, PublicKey> {
 	@Override
 	public PublicKey convert(String string) {
 
-		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(string));
-		KeyFactory keyFactory;
 		PublicKey publicKey;
 
 		try {
 
-			keyFactory = KeyFactory.getInstance("RSA");
+			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(string));
+			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+
 			publicKey = keyFactory.generatePublic(keySpec);
 		} catch (GeneralSecurityException ex) {
 
