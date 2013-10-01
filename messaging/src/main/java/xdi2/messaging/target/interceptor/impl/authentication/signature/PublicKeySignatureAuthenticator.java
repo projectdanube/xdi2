@@ -2,6 +2,7 @@ package xdi2.messaging.target.interceptor.impl.authentication.signature;
 
 import java.security.PublicKey;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,9 +28,12 @@ public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureA
 
 		if (publicKey == null) {
 			
-			if (log.isDebugEnabled()) log.debug("No public key found for sender: " + message.getSenderXri());
+			if (log.isDebugEnabled()) log.debug("No public key found for sender " + message.getSenderXri());
+
 			return false;
 		}
+
+		if (log.isDebugEnabled()) log.debug("Public key found for sender " + message.getSenderXri() + ": " + Base64.encodeBase64String(publicKey.getEncoded()));
 
 		// authenticate
 		

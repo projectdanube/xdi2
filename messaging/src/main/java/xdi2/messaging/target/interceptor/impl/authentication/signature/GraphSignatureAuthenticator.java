@@ -104,9 +104,11 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 			publicKey = keyFactory.generatePublic(keySpec);
 		} catch (GeneralSecurityException ex) {
 
-			throw new Xdi2RuntimeException("Invalid RSA public key " + publicKeyString + ": " + ex.getMessage(), ex);
+			if (log.isWarnEnabled()) log.warn("Invalid RSA public key " + publicKeyString + ": " + ex.getMessage(), ex);
+
+			return null;
 		}
-		
+
 		// done
 
 		return publicKey;

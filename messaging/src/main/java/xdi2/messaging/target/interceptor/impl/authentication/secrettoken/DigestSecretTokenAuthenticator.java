@@ -45,6 +45,8 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 			return false;
 		}
 
+		if (log.isDebugEnabled()) log.debug("Local salt and digest secret token found for sender " + message.getSenderXri() + ": " + localSaltAndDigestSecretToken);
+
 		// prepare authentication
 
 		String[] parts = localSaltAndDigestSecretToken.split(":");
