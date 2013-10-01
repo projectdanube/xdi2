@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.messaging.Message;
 
 /**
  * A SecretTokenAuthenticator that can authenticate a secret token against
@@ -32,7 +33,19 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 
 	}
 
-	public boolean authenticate(String localSaltAndDigestSecretToken, String secretToken) {
+	@Override
+	public final boolean authenticate(Message message, String secretToken) {
+
+		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretToken(message);
+
+		if (localSaltAndDigestSecretToken == null) {
+
+			if (log.isDebugEnabled()) log.debug("No local salt and digest secret token found for sender: " + message.getSenderXri());
+
+			return false;
+		}
+
+		// prepare authentication
 
 		String[] parts = localSaltAndDigestSecretToken.split(":");
 
@@ -53,8 +66,18 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 		String localSalt = parts[1];
 		String digestSecretToken = parts[2];
 
-		return digestSecretToken.equals(digestSecretToken(secretToken, this.getGlobalSalt(), localSalt));
+		// authenticate
+
+		boolean authenticated = digestSecretToken.equals(digestSecretToken(secretToken, this.getGlobalSalt(), localSalt));
+
+		return authenticated;
 	}
+
+	protected abstract String getLocalSaltAndDigestSecretToken(Message message);
+
+	/*
+	 * Getters and setters
+	 */
 
 	public String getGlobalSalt() {
 
@@ -69,7 +92,7 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 	/*
 	 * Helper methods
 	 */
-	
+
 	public static String localSaltAndDigestSecretToken(String secretToken, String globalSalt) {
 
 		String localSalt = randomSalt();
