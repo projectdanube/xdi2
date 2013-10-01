@@ -68,7 +68,7 @@ public class ReadOnlyInterceptor extends AbstractInterceptor implements TargetIn
 
 	private void checkReadOnly(Operation operation, XDI3Segment contextNodeXri, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (operation.isReadOperation()) return;
+		if (operation.isReadOnlyOperation()) return;
 
 		for (XDI3Segment readOnlyAddress : this.readOnlyAddresses) {
 

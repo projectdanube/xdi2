@@ -266,22 +266,11 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Is this a read operation?
+	 * Is this a read-only operation?
 	 */
-	public boolean isReadOperation() {
+	public boolean isReadOnlyOperation() {
 
 		if (this instanceof GetOperation) return true;
-
-		return false;
-	}
-
-	/**
-	 * Is this a write operation?
-	 */
-	public boolean isWriteOperation() {
-
-		if (this instanceof SetOperation) return true;
-		if (this instanceof DelOperation) return true;
 
 		return false;
 	}
