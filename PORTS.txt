@@ -6,7 +6,7 @@ Known default HTTP ports of various XDI2 projects.
 12220: xdi2-xrinet
 12230: xdi2-crsnet
 13330: xdi2-cds
-14440: danube-clouds
+14440: neustar-clouds
 9090: xdi2-connector-template
 9091: xdi2-connector-facebook
 9092: xdi2-connector-personal
@@ -17,3 +17,8 @@ Known default HTTP ports of various XDI2 projects.
 9992: xdi2-mongodb
 9110: xdi2-pixel
 9120: xdi2-oauth2
+7071: rn-member-graph-service
+7072: rn-discovery-service
+7073: rn-registration-service
+7074: rn-respect-connect-service
+7075: rn-reputation-service
