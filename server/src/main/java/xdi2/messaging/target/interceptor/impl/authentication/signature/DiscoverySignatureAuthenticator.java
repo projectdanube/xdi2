@@ -64,9 +64,9 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 
 				if (log.isDebugEnabled()) log.debug("Discovery result from registry: " + xdiDiscoveryResultRegistry);
 
-				if (xdiDiscoveryResultRegistry.getXdiEndpointUri() != null) {
+				if (xdiDiscoveryResultRegistry.getXdiEndpointUri() != null && xdiDiscoveryResultRegistry.getCloudNumber() != null) {
 
-					XDIDiscoveryResult xdiDiscoveryResultAuthority = this.getXdiDiscoveryClient().discoverFromAuthority(xdiDiscoveryResultRegistry.getXdiEndpointUri());
+					XDIDiscoveryResult xdiDiscoveryResultAuthority = this.getXdiDiscoveryClient().discoverFromAuthority(xdiDiscoveryResultRegistry.getXdiEndpointUri(), xdiDiscoveryResultRegistry.getCloudNumber());
 
 					if (xdiDiscoveryResultAuthority == null) {
 
