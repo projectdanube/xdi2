@@ -27,7 +27,7 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 	}
 
 	@Override
-	public SecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public StaticSecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// done
 

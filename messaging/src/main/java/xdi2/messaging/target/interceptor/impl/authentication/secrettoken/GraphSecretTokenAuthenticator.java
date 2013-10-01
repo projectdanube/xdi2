@@ -38,7 +38,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	}
 
 	@Override
-	public SecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public GraphSecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// create new secret token authenticator
 
