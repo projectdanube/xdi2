@@ -133,17 +133,15 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 			
 			XDIDiscovery discovery = new XDIDiscovery(new XDIHttpClient(endpoint));
 
-			XDIDiscoveryResult discoveryResult = discovery.discoverFromXri(XDI3Segment.create(input));
+//			XDIDiscoveryResult discoveryResult = discovery.discoverFromXri(XDI3Segment.create(input), true, null);
 
-			discoveryResult.
-			
 			// output result
 
-			StringBuilde rbuffer = new StringBuilder();
+	//		StringBuilder buffer = new StringBuilder();
 
-			xdiResultWriter.write(messageResult.getGraph(), writer);
+		//	xdiResultWriter.write(messageResult.getGraph(), writer);
 
-			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
+			//	output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {

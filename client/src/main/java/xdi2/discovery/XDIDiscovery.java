@@ -1,6 +1,5 @@
 package xdi2.discovery;
 
-import xdi2.client.XDIClient;
 import xdi2.client.events.XDIDiscoverFromEndpointUriEvent;
 import xdi2.client.events.XDIDiscoverFromXriEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
@@ -10,7 +9,6 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -32,78 +30,105 @@ public class XDIDiscovery {
 		this(DEFAULT_REGISTRY_XDI_CLIENT);
 	}
 
-	public XDIDiscoveryResult discoverFromXri(XDI3Segment xri) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromRegistry(XDI3Segment query, boolean discoverPublicKey, String[] discoverServices) throws Xdi2ClientException {
 
-		XDI3SubSegment peerRootArcXri = XdiPeerRoot.createPeerRootArcXri(xri);
+		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult(query);
 
-		// prepare message envelope
+		// discover from registry
+		
+		this.discoverFromRegistry(discoveryResult, query);
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createGetOperation(XDI3Segment.fromComponent(peerRootArcXri));
+		// optionally discover from authority
+		
+		if (discoverPublicKey || discoverServices != null) {
 
-		// send the message
-
-		MessageResult messageResult;
-		XDIDiscoveryResult discoveryResult;
-
-		try {
-
-			messageResult = this.getRegistryXdiClient().send(messageEnvelope, null);
-
-			discoveryResult = XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
-		} catch (Xdi2ClientException ex) {
-
-			throw ex;
-		} catch (Exception ex) {
-
-			throw new Xdi2ClientException("Cannot send XDI message: " + ex.getMessage(), ex, null);
+			if (discoveryResult.getXdiEndpointUri() == null) {
+				
+				throw new Xdi2ClientException("Could not discover XDI endpoint URI from " + query, null, null);
+			}
+			
+			this.discoverFromAuthority(discoveryResult, discoveryResult.getXdiEndpointUri(), discoverPublicKey, discoverServices);
 		}
 
 		// done
-
-		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromXriEvent(this, messageEnvelope, discoveryResult, xri));
-
+		
 		return discoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromEndpointUri(String endpointUri) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, boolean discoverPublicKey, String discoverServices[]) throws Xdi2ClientException {
 
-		// prepare XDI client
+		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult(null);
 
-		XDIClient xdiClient = new XDIHttpClient(endpointUri);
+		// discover from authority
+		
+		this.discoverFromAuthority(discoveryResult, xdiEndpointUri, discoverPublicKey, discoverServices);
 
-		// prepare message envelope
+		// done
+		
+		return discoveryResult;
+	}
+	
+	private void discoverFromRegistry(XDIDiscoveryResult discoveryResult, XDI3Segment query) throws Xdi2ClientException {
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		message.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
+		// send the registry message
 
-		// send the message
+		MessageEnvelope registryMessageEnvelope = new MessageEnvelope();
+		Message registryMessage = registryMessageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
+		registryMessage.createGetOperation(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(query)));
 
-		MessageResult messageResult;
-		XDIDiscoveryResult discoveryResult;
+		MessageResult registryMessageResult;
 
 		try {
 
-			messageResult = xdiClient.send(messageEnvelope, null);
-
-			XDI3Segment xri = messageResult.getGraph().getDeepRelation(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF).getTargetContextNodeXri();
-
-			discoveryResult = XDIDiscoveryResult.fromXriAndMessageResult(xri, messageResult);
+			registryMessageResult = this.getRegistryXdiClient().send(registryMessageEnvelope, null);
 		} catch (Xdi2ClientException ex) {
 
 			throw ex;
 		} catch (Exception ex) {
 
-			throw new Xdi2ClientException("Cannot send XDI message: " + ex.getMessage(), ex, null);
+			throw new Xdi2ClientException("Cannot send XDI message to XDI registry: " + ex.getMessage(), ex, null);
 		}
+
+		// parse the registry message result
+
+		discoveryResult.initFromRegistryMessageResult(registryMessageResult);
+		
+		// done
+
+		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromXriEvent(this, registryMessageEnvelope, discoveryResult, query));
+	}
+
+	private void discoverFromAuthority(XDIDiscoveryResult discoveryResult, String xdiEndpointUri, boolean discoverPublicKey, String discoverServices[]) throws Xdi2ClientException {
+
+		// send the authority message
+
+		MessageEnvelope authorityMessageEnvelope = new MessageEnvelope();
+		Message authorityMessage = authorityMessageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
+		authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
+		authorityMessage.createGetOperation(XDI3Segment.create("$public<$key>"));
+
+		MessageResult authorityMessageResult;
+
+		try {
+
+			XDIHttpClient authorityXdiHttpClient = new XDIHttpClient();
+
+			authorityMessageResult = authorityXdiHttpClient.send(authorityMessageEnvelope, null);
+		} catch (Xdi2ClientException ex) {
+
+			throw ex;
+		} catch (Exception ex) {
+
+			throw new Xdi2ClientException("Cannot send XDI message to XDI authority: " + ex.getMessage(), ex, null);
+		}
+
+		// parse the authority message result
+
+		discoveryResult.initFromAuthorityMessageResult(authorityMessageResult);
 
 		// done
 
-		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromEndpointUriEvent(this, messageEnvelope, discoveryResult, endpointUri));
-
-		return discoveryResult;
+		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromEndpointUriEvent(this, authorityMessageEnvelope, discoveryResult, xdiEndpointUri));
 	}
 
 	public XDIHttpClient getRegistryXdiClient() {
@@ -111,8 +136,8 @@ public class XDIDiscovery {
 		return this.registryXdiClient;
 	}
 
-	public void setRegistryXdiClient(XDIHttpClient xdiClient) {
+	public void setRegistryXdiClient(XDIHttpClient registryXdiClient) {
 
-		this.registryXdiClient = xdiClient;
+		this.registryXdiClient = registryXdiClient;
 	}
 }
