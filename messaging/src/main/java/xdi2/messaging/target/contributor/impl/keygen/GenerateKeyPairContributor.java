@@ -10,17 +10,19 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.messaging.GetOperation;
+import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorXri;
 
-@ContributorXri(addresses={"{{}}{$}{$}<$key>"})
-public class KeyGenContributor extends AbstractContributor {
+@ContributorXri(addresses={"{{=@+*!}}{$}{$}<$key>"})
+public class GenerateKeyPairContributor extends AbstractContributor {
 
-	private static final Logger log = LoggerFactory.getLogger(KeyGenContributor.class);
+	private static final Logger log = LoggerFactory.getLogger(GenerateKeyPairContributor.class);
+
+	public static final XDI3Segment XRI_S_DO_KEY = XDI3Segment.create("$do<$token>");
 
 	public static final String ALGORITHM_RSA = "RSA";
 	public static final String ALGORITHM_AES = "AES";
@@ -30,13 +32,17 @@ public class KeyGenContributor extends AbstractContributor {
 	public static final Integer LENGTH_2048 = Integer.valueOf(2048);
 
 	@Override
-	public boolean executeGetOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeDoOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment keyXri = contributorXris[contributorXris.length - 1];
 
 		log.debug("keyXri: " + keyXri);
 
-		if (keyXri.equals("{}{$}{$}<$key>")) return false;
+		if (keyXri.equals("{{}}{$}{$}<$key>")) return false;
+
+		// check operation
+		
+		if (! XRI_S_DO_KEY.equals(operation.getOperationXri())) return false;
 
 		// check parameters
 
