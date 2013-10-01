@@ -45,88 +45,85 @@ public class XDIDiscoveryResult implements Serializable {
 		this.messageResult = null;
 	}
 
-	public void initFromRegistryMessageResult(MessageResult registryMessageResult, XDI3Segment query) throws Xdi2ClientException {
+	void initFromRegistryMessageResult(MessageResult registryMessageResult, XDI3Segment query) throws Xdi2ClientException {
 
-		Graph registryMessageResultGraph = registryMessageResult.getGraph();
+		this.messageResult = registryMessageResult;
 
 		// look into registry message result
 
-		if (registryMessageResult != null) {
+		Graph registryMessageResultGraph = registryMessageResult.getGraph();
 
-			// find cloud number
+		// find cloud number
 
-			XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(registryMessageResultGraph).findPeerRoot(query, false);
-			if (xdiRoot == null) return;
+		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(registryMessageResultGraph).findPeerRoot(query, false);
+		if (xdiRoot == null) return;
 
-			if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+		if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-				this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
-			}
-
-			xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
-
-			if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
-
-				this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
-			}
-
-			// find XDI endpoint uri
-
-			XdiAttribute xdiEndpointUriXdiAttribute = XdiAttributeSingleton.fromContextNode(xdiRoot.getContextNode().getDeepContextNode(XDIConstants.XRI_S_XDI_URI));
-			xdiEndpointUriXdiAttribute = xdiEndpointUriXdiAttribute == null ? null : xdiEndpointUriXdiAttribute.dereference();
-
-			XdiValue xdiEndpointUriXdiValue = xdiEndpointUriXdiAttribute == null ? null : xdiEndpointUriXdiAttribute.getXdiValue(false);
-			xdiEndpointUriXdiValue = xdiEndpointUriXdiValue == null ? null : xdiEndpointUriXdiValue.dereference();
-
-			Literal xdiEndpointUriLiteral = xdiEndpointUriXdiValue == null ? null : xdiEndpointUriXdiValue.getContextNode().getLiteral();
-			this.xdiEndpointUri = xdiEndpointUriLiteral == null ? null : xdiEndpointUriLiteral.getLiteralDataString();
+			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
 		}
 
-		// done
+		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
 
-		this.messageResult = registryMessageResult;
+		if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+
+			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+		}
+
+		// find XDI endpoint uri
+
+		XdiAttribute xdiEndpointUriXdiAttribute = XdiAttributeSingleton.fromContextNode(xdiRoot.getContextNode().getDeepContextNode(XDIConstants.XRI_S_XDI_URI));
+		xdiEndpointUriXdiAttribute = xdiEndpointUriXdiAttribute == null ? null : xdiEndpointUriXdiAttribute.dereference();
+
+		XdiValue xdiEndpointUriXdiValue = xdiEndpointUriXdiAttribute == null ? null : xdiEndpointUriXdiAttribute.getXdiValue(false);
+		xdiEndpointUriXdiValue = xdiEndpointUriXdiValue == null ? null : xdiEndpointUriXdiValue.dereference();
+
+		Literal xdiEndpointUriLiteral = xdiEndpointUriXdiValue == null ? null : xdiEndpointUriXdiValue.getContextNode().getLiteral();
+		this.xdiEndpointUri = xdiEndpointUriLiteral == null ? null : xdiEndpointUriLiteral.getLiteralDataString();
 	}
 
-	public void initFromAuthorityMessageResult(MessageResult authorityMessageResult) throws Xdi2ClientException {
+	void initFromAuthorityMessageResult(MessageResult authorityMessageResult) throws Xdi2ClientException {
 
-		Graph authorityMessageResultGraph = authorityMessageResult.getGraph();
+		this.messageResult = authorityMessageResult;
 
 		// look into authority message result
 
-		if (authorityMessageResult != null) {
+		Graph authorityMessageResultGraph = authorityMessageResult.getGraph();
 
-			// find cloud number
+		// find cloud number
 
-			XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getSelfPeerRoot();
-			if (xdiRoot == null) return;
+		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getSelfPeerRoot();
+		if (xdiRoot == null) return;
 
-			if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+		if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-				this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
-			}
-
-			xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
-
-			if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
-
-				this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
-			}
-
-			// find public key
-
-			XdiAttribute publicKeyXdiAttribute = XdiAttributeSingleton.fromContextNode(xdiRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_PUBLIC_KEY));
-			publicKeyXdiAttribute = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.dereference();
-
-			XdiValue publicKeyXdiValue = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.getXdiValue(false);
-			publicKeyXdiValue = publicKeyXdiValue == null ? null : publicKeyXdiValue.dereference();
-
-			Literal publicKeyLiteral = publicKeyXdiValue == null ? null : publicKeyXdiValue.getContextNode().getLiteral();
-			this.publicKey = publicKeyLiteral == null ? null : publicKeyFromPublicKeyString(publicKeyLiteral.getLiteralDataString());
+			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
 		}
+
+		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
+
+		if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+
+			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+		}
+
+		// find public key
+
+		XdiAttribute publicKeyXdiAttribute = XdiAttributeSingleton.fromContextNode(xdiRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_PUBLIC_KEY));
+		publicKeyXdiAttribute = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.dereference();
+
+		XdiValue publicKeyXdiValue = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.getXdiValue(false);
+		publicKeyXdiValue = publicKeyXdiValue == null ? null : publicKeyXdiValue.dereference();
+
+		Literal publicKeyLiteral = publicKeyXdiValue == null ? null : publicKeyXdiValue.getContextNode().getLiteral();
+		this.publicKey = publicKeyLiteral == null ? null : publicKeyFromPublicKeyString(publicKeyLiteral.getLiteralDataString());
+	}
+
+	void initFromException(Xdi2ClientException ex) {
 
 		// done
 
-		this.messageResult = authorityMessageResult;
+		this.messageResult = ex.getErrorMessageResult();
 	}
 
 	/*

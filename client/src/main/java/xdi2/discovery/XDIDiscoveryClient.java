@@ -4,11 +4,9 @@ import xdi2.client.events.XDIDiscoverFromEndpointUriEvent;
 import xdi2.client.events.XDIDiscoverFromXriEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
-import xdi2.core.constants.XDIConstants;
-import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -38,6 +36,7 @@ public class XDIDiscoveryClient {
 
 		MessageEnvelope registryMessageEnvelope = new MessageEnvelope();
 		Message registryMessage = registryMessageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
+		registryMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC);
 		registryMessage.createGetOperation(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(query)));
 
 		MessageResult registryMessageResult;
@@ -48,6 +47,8 @@ public class XDIDiscoveryClient {
 
 			registryMessageResult = registryXdiHttpClient.send(registryMessageEnvelope, null);
 		} catch (Xdi2ClientException ex) {
+
+			discoveryResult.initFromException(ex);
 
 			throw ex;
 		} catch (Exception ex) {
@@ -66,7 +67,7 @@ public class XDIDiscoveryClient {
 		return discoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, XDI3Segment cloudNumber) throws Xdi2ClientException {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
@@ -74,17 +75,21 @@ public class XDIDiscoveryClient {
 
 		MessageEnvelope authorityMessageEnvelope = new MessageEnvelope();
 		Message authorityMessage = authorityMessageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
+		authorityMessage.setToAddress(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(cloudNumber)));
+		authorityMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC_DO);
+		//authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
 		authorityMessage.createGetOperation(XDI3Segment.create("$public<$key>"));
 
 		MessageResult authorityMessageResult;
 
 		try {
 
-			XDIHttpClient authorityXdiHttpClient = new XDIHttpClient();
+			XDIHttpClient authorityXdiHttpClient = new XDIHttpClient(xdiEndpointUri);
 
 			authorityMessageResult = authorityXdiHttpClient.send(authorityMessageEnvelope, null);
 		} catch (Xdi2ClientException ex) {
+
+			discoveryResult.initFromException(ex);
 
 			throw ex;
 		} catch (Exception ex) {
