@@ -15,7 +15,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractRoot extends XdiAbstractContext implements XdiRoot {
+public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implements XdiRoot {
 
 	private static final long serialVersionUID = 8157589883719452790L;
 

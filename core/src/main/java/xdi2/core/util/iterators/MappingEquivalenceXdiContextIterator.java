@@ -2,9 +2,6 @@ package xdi2.core.util.iterators;
 
 import java.util.Iterator;
 
-import xdi2.core.ContextNode;
-import xdi2.core.features.equivalence.Equivalence;
-import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiContext;
 
 /**
@@ -12,22 +9,16 @@ import xdi2.core.features.nodetypes.XdiContext;
  * 
  * @author markus
  */
-public class MappingEquivalenceXdiContextIterator extends MappingIterator<XdiContext, XdiContext> {
+public class MappingEquivalenceXdiContextIterator<EQ extends XdiContext<EQ>> extends MappingIterator<EQ, EQ> {
 
-	public MappingEquivalenceXdiContextIterator(Iterator<? extends XdiContext> xdiContexts) {
+	public MappingEquivalenceXdiContextIterator(Iterator<EQ> xdiContexts) {
 
 		super(xdiContexts);
 	}
 
 	@Override
-	public XdiContext map(XdiContext xdiContext) {
+	public EQ map(EQ xdiContext) {
 
-		ContextNode referenceContextNode = Equivalence.getReferenceContextNode(xdiContext.getContextNode());
-		if (referenceContextNode != null) return XdiAbstractContext.fromContextNode(referenceContextNode);
-
-		ContextNode replacementContextNode = Equivalence.getReplacementContextNode(xdiContext.getContextNode());
-		if (replacementContextNode != null) return XdiAbstractContext.fromContextNode(replacementContextNode);
-
-		return xdiContext;
+		return xdiContext.dereference();
 	}
 }

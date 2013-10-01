@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 
-public abstract class XdiAbstractSubGraph extends XdiAbstractContext implements XdiSubGraph {
+public abstract class XdiAbstractSubGraph<EQ extends XdiContext<EQ>> extends XdiAbstractContext<EQ> implements XdiSubGraph<EQ> {
 
 	private static final long serialVersionUID = -6983495055390279007L;
 
@@ -43,11 +43,11 @@ public abstract class XdiAbstractSubGraph extends XdiAbstractContext implements 
 	 * @param contextNode The context node that is an XDI subgraph.
 	 * @return The XDI subgraph.
 	 */
-	public static XdiSubGraph fromContextNode(ContextNode contextNode) {
+	public static XdiSubGraph<?> fromContextNode(ContextNode contextNode) {
 
 		if (log.isTraceEnabled()) log.trace("fromContextNode(" + contextNode + ")");
 
-		XdiSubGraph xdiSubGraph;
+		XdiSubGraph<?> xdiSubGraph;
 
 		if ((xdiSubGraph = XdiMetaClass.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiAbstractSingleton.fromContextNode(contextNode)) != null) return xdiSubGraph;

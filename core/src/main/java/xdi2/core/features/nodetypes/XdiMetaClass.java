@@ -13,7 +13,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public class XdiMetaClass extends XdiAbstractSubGraph {
+public class XdiMetaClass extends XdiAbstractSubGraph<XdiMetaClass> {
 
 	private static final long serialVersionUID = -96625188324691432L;
 

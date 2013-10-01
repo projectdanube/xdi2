@@ -7,7 +7,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public interface XdiRoot extends XdiContext {
+public interface XdiRoot extends XdiContext<XdiRoot> {
 
 	/*
 	 * Finding roots related to this root

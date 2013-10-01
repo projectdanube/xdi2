@@ -6,7 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
-public abstract class XdiAbstractEntity extends XdiAbstractSubGraph implements XdiEntity {
+public abstract class XdiAbstractEntity extends XdiAbstractSubGraph<XdiEntity> implements XdiEntity {
 
 	private static final long serialVersionUID = 7648046902369626744L;
 

@@ -51,7 +51,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 	}
 
-	private static void readJsonObject(XdiContext xdiContext, JsonObject jsonObject) {
+	private static void readJsonObject(XdiContext<?> xdiContext, JsonObject jsonObject) {
 
 		for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
 
@@ -80,7 +80,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 		}
 	}
 
-	private static void readJsonArray(XdiContext xdiContext, XDI3SubSegment arcXri, JsonArray jsonArray) {
+	private static void readJsonArray(XdiContext<?> xdiContext, XDI3SubSegment arcXri, JsonArray jsonArray) {
 
 		if (arcXri == null) {
 

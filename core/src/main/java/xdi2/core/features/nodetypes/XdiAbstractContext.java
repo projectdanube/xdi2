@@ -1,8 +1,11 @@
 package xdi2.core.features.nodetypes;
 
 import java.lang.reflect.Method;
+import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -10,7 +13,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public abstract class XdiAbstractContext implements XdiContext {
+public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements XdiContext<EQ> {
 
 	private static final long serialVersionUID = -8756059289169602694L;
 
@@ -27,6 +30,52 @@ public abstract class XdiAbstractContext implements XdiContext {
 	public ContextNode getContextNode() {
 
 		return this.contextNode;
+	}
+
+	@Override
+	public EQ dereference() {
+
+		EQ xdiContext;
+
+		if ((xdiContext = this.getReferenceXdiContext()) != null) return xdiContext;
+		if ((xdiContext = this.getReplacementXdiContext()) != null) return xdiContext;
+
+		return (EQ) this;
+	}
+
+	@Override
+	public EQ getReferenceXdiContext() {
+
+		ContextNode referenceContextNode = Equivalence.getReferenceContextNode(this.getContextNode());
+		XdiContext<?> xdiContext = referenceContextNode == null ? null : XdiAbstractContext.fromContextNode(referenceContextNode);
+
+		return (EQ) xdiContext;
+	}
+
+	@Override
+	public EQ getReplacementXdiContext() {
+
+		ContextNode replacementContextNode = Equivalence.getReplacementContextNode(this.getContextNode());
+		XdiContext<?> xdiContext = replacementContextNode == null ? null : XdiAbstractContext.fromContextNode(replacementContextNode);
+
+		return (EQ) xdiContext;
+	}
+
+	@Override
+	public Iterator<EQ> getIdentityXdiContexts() {
+
+		Iterator<ContextNode> identityContextNodes = Equivalence.getIdentityContextNodes(this.getContextNode());
+
+		return new MappingIterator<ContextNode, EQ> (identityContextNodes) {
+
+			@Override
+			public EQ map(ContextNode identityContextNode) {
+
+				XdiContext<?> xdiContext = identityContextNode == null ? null : XdiAbstractContext.fromContextNode(identityContextNode);
+
+				return (EQ) xdiContext;
+			}
+		};
 	}
 
 	/*
@@ -49,9 +98,9 @@ public abstract class XdiAbstractContext implements XdiContext {
 	 * @param contextNode The context node that is an XDI context.
 	 * @return The XDI context.
 	 */
-	public static XdiContext fromContextNode(ContextNode contextNode) {
+	public static XdiContext<?> fromContextNode(ContextNode contextNode) {
 
-		XdiContext xdiContext = null;
+		XdiContext<?> xdiContext = null;
 
 		if ((xdiContext = XdiAbstractRoot.fromContextNode(contextNode)) != null) return xdiContext;
 		if ((xdiContext = XdiAbstractSubGraph.fromContextNode(contextNode)) != null) return xdiContext;
@@ -60,13 +109,13 @@ public abstract class XdiAbstractContext implements XdiContext {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <S extends XdiContext> S fromContextNode(ContextNode contextNode, Class<S> s) {
+	public static <T extends XdiContext<?>> T fromContextNode(ContextNode contextNode, Class<T> t) {
 
 		try {
 
-			Method fromContextNode = s.getMethod("fromContextNode", ContextNode.class);
+			Method fromContextNode = t.getMethod("fromContextNode", ContextNode.class);
 
-			return (S) fromContextNode.invoke(null, contextNode);
+			return (T) fromContextNode.invoke(null, contextNode);
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -187,7 +236,7 @@ public abstract class XdiAbstractContext implements XdiContext {
 		if (object == null || ! (object instanceof XdiContext)) return false;
 		if (object == this) return true;
 
-		XdiContext other = (XdiContext) object;
+		XdiContext<?> other = (XdiContext<?>) object;
 
 		// two subgraphs are equal if their context nodes are equal
 
@@ -205,7 +254,7 @@ public abstract class XdiAbstractContext implements XdiContext {
 	}
 
 	@Override
-	public int compareTo(XdiContext other) {
+	public int compareTo(XdiContext<?> other) {
 
 		if (other == null || other == this) return 0;
 

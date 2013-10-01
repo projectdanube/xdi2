@@ -3,7 +3,7 @@ package xdi2.core.features.nodetypes;
 import xdi2.core.ContextNode;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractSingleton extends XdiAbstractSubGraph implements XdiSingleton {
+public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends XdiAbstractSubGraph<EQ> implements XdiSingleton<EQ> {
 
 	private static final long serialVersionUID = -1976646316893343570L;
 
@@ -32,9 +32,9 @@ public abstract class XdiAbstractSingleton extends XdiAbstractSubGraph implement
 	 * @param contextNode The context node that is an XDI singleton.
 	 * @return The XDI singleton.
 	 */
-	public static XdiSingleton fromContextNode(ContextNode contextNode) {
+	public static XdiSingleton<?> fromContextNode(ContextNode contextNode) {
 
-		XdiSingleton xdiSingleton;
+		XdiSingleton<?> xdiSingleton;
 
 		if ((xdiSingleton = XdiEntitySingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 		if ((xdiSingleton = XdiAttributeSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
