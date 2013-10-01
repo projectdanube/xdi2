@@ -10,25 +10,24 @@ import java.util.Map;
 import org.apache.commons.codec.binary.Base64;
 
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
+import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.equivalence.Equivalence;
-import xdi2.core.features.nodetypes.XdiAbstractAttribute;
+import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageResult;
 
 public class XDIDiscoveryResult implements Serializable {
 
 	private static final long serialVersionUID = -1141807747864855392L;
 
-	private XDI3Segment query;
 	private XDI3Segment cloudNumber;
 	private String xdiEndpointUri;
 	private PublicKey publicKey;
@@ -37,9 +36,8 @@ public class XDIDiscoveryResult implements Serializable {
 	private MessageResult registryMessageResult;
 	private MessageResult authorityMessageResult;
 
-	public XDIDiscoveryResult(XDI3Segment query) {
+	public XDIDiscoveryResult() {
 
-		this.query = query;
 		this.cloudNumber = null;
 		this.xdiEndpointUri = null;
 		this.publicKey = null;
@@ -49,7 +47,7 @@ public class XDIDiscoveryResult implements Serializable {
 		this.authorityMessageResult = null;
 	}
 
-	public void initFromRegistryMessageResult(MessageResult registryMessageResult) throws Xdi2ClientException {
+	public void initFromRegistryMessageResult(MessageResult registryMessageResult, XDI3Segment query) throws Xdi2ClientException {
 
 		Graph registryMessageResultGraph = registryMessageResult.getGraph();
 
@@ -59,32 +57,28 @@ public class XDIDiscoveryResult implements Serializable {
 
 			// find cloud number
 
-			XDI3SubSegment peerRootArcXri = XdiPeerRoot.createPeerRootArcXri(this.query);
+			XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(registryMessageResultGraph).findPeerRoot(query, false);
+			if (xdiRoot == null) return;
 
-			ContextNode peerRootContextNode = registryMessageResultGraph.getDeepContextNode(XDI3Segment.fromComponent(peerRootArcXri));
-			ContextNode peerRootReferenceContextNode = peerRootContextNode == null ? null : Equivalence.getReferenceContextNode(peerRootContextNode);
+			if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-			XDI3SubSegment cloudNumberPeerRootArcXri = peerRootReferenceContextNode == null ? null : peerRootReferenceContextNode.getXri().getFirstSubSegment();
+				this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+			}
 
-			this.cloudNumber = cloudNumberPeerRootArcXri == null ? null : XdiPeerRoot.getXriOfPeerRootArcXri(cloudNumberPeerRootArcXri);
-			if (this.cloudNumber == null && XDI3Util.isCloudNumber(this.query)) cloudNumber = this.query;
+			xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
+
+			if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+
+				this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+			}
 
 			// find XDI endpoint uri
 
-			ContextNode xdiEndpointUriContextNode;
+			XdiAttribute xdiEndpointUriXdiAttribute = XdiAttributeSingleton.fromContextNode(xdiRoot.getContextNode().getDeepContextNode(XDIConstants.XRI_S_XDI_URI));
+			xdiEndpointUriXdiAttribute = xdiEndpointUriXdiAttribute == null ? null : xdiEndpointUriXdiAttribute.dereference();
 
-			if (cloudNumberPeerRootArcXri != null)
-				xdiEndpointUriContextNode = registryMessageResultGraph.getDeepContextNode(XDI3Segment.create(cloudNumberPeerRootArcXri + "$xdi<$uri>"));
-			else
-				xdiEndpointUriContextNode = registryMessageResultGraph.getDeepContextNode(XDI3Segment.create(peerRootArcXri + "$xdi<$uri>"));
-
-			ContextNode xdiEndpointUriReferenceContextNode = xdiEndpointUriContextNode == null ? null : Equivalence.getReferenceContextNode(xdiEndpointUriContextNode);
-			XdiValue xdiEndpointUriXdiValue = null;
-
-			if (xdiEndpointUriReferenceContextNode != null) 
-				xdiEndpointUriXdiValue = XdiAbstractAttribute.fromContextNode(xdiEndpointUriReferenceContextNode).getXdiValue(false);
-			else if (xdiEndpointUriContextNode != null) 
-				xdiEndpointUriXdiValue = XdiAbstractAttribute.fromContextNode(xdiEndpointUriContextNode).getXdiValue(false);
+			XdiValue xdiEndpointUriXdiValue = xdiEndpointUriXdiAttribute == null ? null : xdiEndpointUriXdiAttribute.getXdiValue(false);
+			xdiEndpointUriXdiValue = xdiEndpointUriXdiValue == null ? null : xdiEndpointUriXdiValue.dereference();
 
 			Literal xdiEndpointUriLiteral = xdiEndpointUriXdiValue == null ? null : xdiEndpointUriXdiValue.getContextNode().getLiteral();
 			this.xdiEndpointUri = xdiEndpointUriLiteral == null ? null : xdiEndpointUriLiteral.getLiteralDataString();
@@ -105,23 +99,31 @@ public class XDIDiscoveryResult implements Serializable {
 
 			// find cloud number
 
-			XDI3Segment xri = authorityMessageResult.getGraph().getDeepRelation(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF).getTargetContextNodeXri();
+			XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getSelfPeerRoot();
+			if (xdiRoot == null) return;
+
+			if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+
+				this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+			}
+
+			xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
+
+			if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+
+				this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+			}
 
 			// find public key
 
-			ContextNode publicKeyContextNode = authorityMessageResultGraph.getDeepContextNode(XDI3Segment.create("$public<$key>"));
+			XdiAttribute publicKeyXdiAttribute = XdiAttributeSingleton.fromContextNode(xdiRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_PUBLIC_KEY));
+			publicKeyXdiAttribute = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.dereference();
 
-			ContextNode publicKeyReferenceContextNode = publicKeyContextNode == null ? null : Equivalence.getReferenceContextNode(publicKeyContextNode);
-			XdiValue publicKeyXdiValue = null;
-
-			if (publicKeyReferenceContextNode != null) 
-				publicKeyXdiValue = XdiAbstractAttribute.fromContextNode(publicKeyReferenceContextNode).getXdiValue(false);
-			else if (publicKeyContextNode != null) 
-				publicKeyXdiValue = XdiAbstractAttribute.fromContextNode(publicKeyContextNode).getXdiValue(false);
+			XdiValue publicKeyXdiValue = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.getXdiValue(false);
+			publicKeyXdiValue = publicKeyXdiValue == null ? null : publicKeyXdiValue.dereference();
 
 			Literal publicKeyLiteral = publicKeyXdiValue == null ? null : publicKeyXdiValue.getContextNode().getLiteral();
-			String publicKeyString = publicKeyLiteral == null ? null : publicKeyLiteral.getLiteralDataString();
-			this.publicKey = publicKeyFromPublicKeyString(publicKeyString);
+			this.publicKey = publicKeyLiteral == null ? null : publicKeyFromPublicKeyString(publicKeyLiteral.getLiteralDataString());
 		}
 
 		// done
@@ -135,12 +137,14 @@ public class XDIDiscoveryResult implements Serializable {
 
 	public static PublicKey publicKeyFromPublicKeyString(String publicKeyString) throws Xdi2ClientException {
 
+		if (publicKeyString == null) return null;
+
 		try {
 
 			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKeyString));
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
-			return (PublicKey) keyFactory.generatePublic(keySpec);
+			return keyFactory.generatePublic(keySpec);
 		} catch (GeneralSecurityException ex) {
 
 			throw new Xdi2ClientException("Cannot parse public key: " + ex.getMessage(), ex, null);
@@ -150,11 +154,6 @@ public class XDIDiscoveryResult implements Serializable {
 	/*
 	 * Getters
 	 */
-
-	public XDI3Segment getQuery() {
-
-		return this.query;
-	}
 
 	public XDI3Segment getCloudNumber() {
 

@@ -30,45 +30,9 @@ public class XDIDiscovery {
 		this(DEFAULT_REGISTRY_XDI_CLIENT);
 	}
 
-	public XDIDiscoveryResult discoverFromRegistry(XDI3Segment query, boolean discoverPublicKey, String[] discoverServices) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromRegistry(XDI3Segment query) throws Xdi2ClientException {
 
-		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult(query);
-
-		// discover from registry
-		
-		this.discoverFromRegistry(discoveryResult, query);
-
-		// optionally discover from authority
-		
-		if (discoverPublicKey || discoverServices != null) {
-
-			if (discoveryResult.getXdiEndpointUri() == null) {
-				
-				throw new Xdi2ClientException("Could not discover XDI endpoint URI from " + query, null, null);
-			}
-			
-			this.discoverFromAuthority(discoveryResult, discoveryResult.getXdiEndpointUri(), discoverPublicKey, discoverServices);
-		}
-
-		// done
-		
-		return discoveryResult;
-	}
-
-	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, boolean discoverPublicKey, String discoverServices[]) throws Xdi2ClientException {
-
-		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult(null);
-
-		// discover from authority
-		
-		this.discoverFromAuthority(discoveryResult, xdiEndpointUri, discoverPublicKey, discoverServices);
-
-		// done
-		
-		return discoveryResult;
-	}
-	
-	private void discoverFromRegistry(XDIDiscoveryResult discoveryResult, XDI3Segment query) throws Xdi2ClientException {
+		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
 		// send the registry message
 
@@ -80,7 +44,9 @@ public class XDIDiscovery {
 
 		try {
 
-			registryMessageResult = this.getRegistryXdiClient().send(registryMessageEnvelope, null);
+			XDIHttpClient registryXdiHttpClient = this.getRegistryXdiClient();
+
+			registryMessageResult = registryXdiHttpClient.send(registryMessageEnvelope, null);
 		} catch (Xdi2ClientException ex) {
 
 			throw ex;
@@ -91,14 +57,18 @@ public class XDIDiscovery {
 
 		// parse the registry message result
 
-		discoveryResult.initFromRegistryMessageResult(registryMessageResult);
-		
+		discoveryResult.initFromRegistryMessageResult(registryMessageResult, query);
+
 		// done
 
 		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromXriEvent(this, registryMessageEnvelope, discoveryResult, query));
+
+		return discoveryResult;
 	}
 
-	private void discoverFromAuthority(XDIDiscoveryResult discoveryResult, String xdiEndpointUri, boolean discoverPublicKey, String discoverServices[]) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri) throws Xdi2ClientException {
+
+		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
 		// send the authority message
 
@@ -129,6 +99,8 @@ public class XDIDiscovery {
 		// done
 
 		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromEndpointUriEvent(this, authorityMessageEnvelope, discoveryResult, xdiEndpointUri));
+
+		return discoveryResult;
 	}
 
 	public XDIHttpClient getRegistryXdiClient() {
