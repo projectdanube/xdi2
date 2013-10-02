@@ -33,6 +33,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public EQ dereference() {
 
 		EQ xdiContext;
@@ -44,6 +45,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public EQ getReferenceXdiContext() {
 
 		ContextNode referenceContextNode = Equivalence.getReferenceContextNode(this.getContextNode());
@@ -53,6 +55,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public EQ getReplacementXdiContext() {
 
 		ContextNode replacementContextNode = Equivalence.getReplacementContextNode(this.getContextNode());
@@ -62,6 +65,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Iterator<EQ> getIdentityXdiContexts() {
 
 		Iterator<ContextNode> identityContextNodes = Equivalence.getIdentityContextNodes(this.getContextNode());
@@ -109,7 +113,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 
 		return null;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public static <T extends XdiContext<?>> T fromContextNode(ContextNode contextNode, Class<T> t) {
 
