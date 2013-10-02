@@ -20,7 +20,10 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorXri;
 
-@ContributorXri(addresses={"{{=@+*!}}{$}{$}<$key>"})
+/**
+ * This contributor can generate secret tokens in digest form in a target graph.
+ */
+@ContributorXri(addresses={"{{=@+*!}}{$}{$}<$key>", "{{(=@+*!)}}{$}{$}<$key>", "{$}{$}<$key>"})
 public class GenerateKeyContributor extends AbstractContributor {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateKeyContributor.class);
@@ -28,20 +31,19 @@ public class GenerateKeyContributor extends AbstractContributor {
 	public static final XDI3Segment XRI_S_DO_KEY = XDI3Segment.create("$do<$key>");
 
 	public static final String ALGORITHM_RSA = "RSA";
+	public static final String ALGORITHM_DSA = "DSA";
 	public static final String ALGORITHM_AES = "AES";
 
-	public static final Integer LENGTH_256 = Integer.valueOf(256);
-	public static final Integer LENGTH_512 = Integer.valueOf(512);
-	public static final Integer LENGTH_1024 = Integer.valueOf(1024);
-	public static final Integer LENGTH_2048 = Integer.valueOf(2048);
-	public static final Integer LENGTH_4096 = Integer.valueOf(4096);
+	public GenerateKeyContributor() {
+
+	}
 
 	@Override
 	public boolean executeDoOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment keyXri = contributorXris[contributorXris.length - 1];
 
-		log.debug("keyXri: " + keyXri);
+		if (log.isDebugEnabled()) log.debug("keyXri: " + keyXri);
 
 		if (keyXri.equals("{{}}{$}{$}<$key>")) return false;
 
@@ -62,9 +64,11 @@ public class GenerateKeyContributor extends AbstractContributor {
 		length = lengthFromLengthXri(lengthXri);
 		if (length == null) throw new Xdi2MessagingException("Invalid key length: " + lengthXri, null, executionContext);
 
+		if (log.isDebugEnabled()) log.debug("algorithm: " + algorithm + ", length: " + length);
+
 		// key pair or symmetric key?
 
-		if (ALGORITHM_RSA.equals(algorithmXri)) {
+		if (ALGORITHM_RSA.equalsIgnoreCase(algorithm) || ALGORITHM_DSA.equalsIgnoreCase(algorithm)) {
 
 			// generate key pair
 
@@ -87,7 +91,7 @@ public class GenerateKeyContributor extends AbstractContributor {
 			XdiAttributeSingleton privateKeyXdiAttribute = keyXdiAttribute.getXdiAttributeSingleton(XDI3SubSegment.create("$private"), true);
 			publicKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(keyPair.getPublic().getEncoded()));
 			privateKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(keyPair.getPrivate().getEncoded()));
-		} else if (ALGORITHM_AES.equals(algorithmXri)) {
+		} else if (ALGORITHM_AES.equalsIgnoreCase(algorithm)) {
 
 			// generate symmetric key
 
@@ -116,26 +120,11 @@ public class GenerateKeyContributor extends AbstractContributor {
 
 	private static String algorithmFromAlgorithmXri(XDI3SubSegment algorithmXri) {
 
-		if (ALGORITHM_RSA.equalsIgnoreCase(algorithmXri.getLiteral())) return ALGORITHM_RSA;
-		if (ALGORITHM_AES.equalsIgnoreCase(algorithmXri.getLiteral())) return ALGORITHM_AES;
-
-		return null;
+		return algorithmXri == null ? null : algorithmXri.getLiteral();
 	}
 
 	private static Integer lengthFromLengthXri(XDI3SubSegment lengthXri) {
 
-		try {
-
-			if (LENGTH_256.equals(Integer.valueOf(lengthXri.getLiteral()))) return LENGTH_256;
-			if (LENGTH_512.equals(Integer.valueOf(lengthXri.getLiteral()))) return LENGTH_512;
-			if (LENGTH_1024.equals(Integer.valueOf(lengthXri.getLiteral()))) return LENGTH_1024;
-			if (LENGTH_2048.equals(Integer.valueOf(lengthXri.getLiteral()))) return LENGTH_2048;
-			if (LENGTH_4096.equals(Integer.valueOf(lengthXri.getLiteral()))) return LENGTH_4096;
-		} catch (Exception ex) {
-
-			return null;
-		}
-
-		return null;
+		return lengthXri == null ? null : Integer.valueOf(lengthXri.getLiteral());
 	}
 }

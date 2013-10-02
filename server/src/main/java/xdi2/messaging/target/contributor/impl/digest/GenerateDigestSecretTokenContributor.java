@@ -14,7 +14,7 @@ import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorXri;
 import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.DigestSecretTokenAuthenticator;
 
-@ContributorXri(addresses={"{{=@+*!}}$digest$secret<$token>"})
+@ContributorXri(addresses={"{{=@+*!}}$digest$secret<$token>", "{{(=@+*!)}}$digest$secret<$token>", "$digest$secret<$token>"})
 public class GenerateDigestSecretTokenContributor extends AbstractContributor {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateDigestSecretTokenContributor.class);
