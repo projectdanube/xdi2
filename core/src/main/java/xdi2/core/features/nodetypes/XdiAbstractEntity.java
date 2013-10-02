@@ -26,6 +26,8 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph<XdiEntity> i
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return XdiEntitySingleton.isValid(contextNode) || 
 				XdiEntityMemberUnordered.isValid(contextNode) ||
 				XdiEntityMemberOrdered.isValid(contextNode);

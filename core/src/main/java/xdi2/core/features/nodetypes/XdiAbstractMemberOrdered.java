@@ -28,6 +28,8 @@ public abstract class XdiAbstractMemberOrdered<EQ extends XdiSubGraph<EQ>, C ext
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return XdiEntityMemberOrdered.isValid(contextNode) || 
 				XdiAttributeMemberOrdered.isValid(contextNode);
 	}

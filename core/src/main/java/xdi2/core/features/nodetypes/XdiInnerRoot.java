@@ -36,6 +36,8 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return
 				isInnerRootArcXri(contextNode.getArcXri()) &&
 				XdiAbstractRoot.isValid(contextNode.getContextNode());

@@ -36,6 +36,8 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return 
 				isPeerRootArcXri(contextNode.getArcXri()) &&
 				XdiAbstractRoot.isValid(contextNode.getContextNode());

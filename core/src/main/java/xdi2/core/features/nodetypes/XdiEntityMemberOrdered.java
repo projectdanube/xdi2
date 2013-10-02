@@ -32,6 +32,8 @@ public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEn
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return
 				isValidArcXri(contextNode.getArcXri()) &&
 				XdiEntityCollection.isValid(contextNode.getContextNode());

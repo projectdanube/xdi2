@@ -45,6 +45,8 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return contextNode.isRootContextNode();
 	}
 

@@ -89,6 +89,8 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return XdiAbstractRoot.isValid(contextNode) || 
 				XdiAbstractSubGraph.isValid(contextNode);
 	}

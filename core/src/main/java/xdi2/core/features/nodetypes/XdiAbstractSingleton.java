@@ -23,6 +23,8 @@ public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends X
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return XdiEntitySingleton.isValid(contextNode) || 
 				XdiAttributeSingleton.isValid(contextNode);
 	}

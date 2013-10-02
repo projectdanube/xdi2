@@ -49,6 +49,8 @@ public abstract class XdiAbstractCollection<EQ extends XdiSubGraph<EQ>, C extend
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return XdiEntityCollection.isValid(contextNode) || 
 				XdiAttributeCollection.isValid(contextNode);
 	}

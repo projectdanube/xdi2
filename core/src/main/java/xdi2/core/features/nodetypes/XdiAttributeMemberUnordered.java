@@ -32,6 +32,8 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return
 				isValidArcXri(contextNode.getArcXri(), true) &&
 				XdiAttributeCollection.isValid(contextNode.getContextNode());

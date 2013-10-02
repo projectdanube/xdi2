@@ -33,6 +33,8 @@ public abstract class XdiAbstractMemberUnordered<EQ extends XdiSubGraph<EQ>, C e
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return XdiEntityMemberUnordered.isValid(contextNode) || 
 				XdiAttributeMemberUnordered.isValid(contextNode);
 	}

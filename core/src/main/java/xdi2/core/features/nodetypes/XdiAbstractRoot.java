@@ -37,7 +37,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (log.isTraceEnabled()) log.trace("isValid(" + contextNode + ")");
+		if (contextNode == null) return false;
 
 		return
 				XdiLocalRoot.isValid(contextNode) ||
@@ -51,8 +51,6 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 * @return The XDI root.
 	 */
 	public static XdiRoot fromContextNode(ContextNode contextNode) {
-
-		if (log.isTraceEnabled()) log.trace("fromContextNode(" + contextNode + ")");
 
 		XdiRoot xdiRoot;
 

@@ -1,15 +1,10 @@
 package xdi2.core.features.nodetypes;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import xdi2.core.ContextNode;
 
 public abstract class XdiAbstractSubGraph<EQ extends XdiContext<EQ>> extends XdiAbstractContext<EQ> implements XdiSubGraph<EQ> {
 
 	private static final long serialVersionUID = -6983495055390279007L;
-
-	private static final Logger log = LoggerFactory.getLogger(XdiAbstractSubGraph.class);
 
 	public XdiAbstractSubGraph(ContextNode contextNode) {
 
@@ -27,7 +22,7 @@ public abstract class XdiAbstractSubGraph<EQ extends XdiContext<EQ>> extends Xdi
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (log.isTraceEnabled()) log.trace("isValid(" + contextNode + ")");
+		if (contextNode == null) return false;
 
 		return 
 				XdiMetaClass.isValid(contextNode) ||
@@ -44,8 +39,6 @@ public abstract class XdiAbstractSubGraph<EQ extends XdiContext<EQ>> extends Xdi
 	 * @return The XDI subgraph.
 	 */
 	public static XdiSubGraph<?> fromContextNode(ContextNode contextNode) {
-
-		if (log.isTraceEnabled()) log.trace("fromContextNode(" + contextNode + ")");
 
 		XdiSubGraph<?> xdiSubGraph;
 

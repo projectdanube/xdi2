@@ -33,6 +33,8 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
+		if (contextNode == null) return false;
+
 		return isValidArcXri(contextNode.getArcXri()) &&
 				XdiAbstractAttribute.isValid(contextNode.getContextNode());
 	}
