@@ -227,7 +227,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 				for (ContextNode contextNode : contextNodes) {
 
-					XdiContext xdiContext = XdiAbstractContext.fromContextNode(contextNode);
+					XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(contextNode);
 					Class<?> clazz = xdiContext.getClass();
 
 					stream8.print("<b>" + contextNode.getArcXri() + "</b>" + ": ");
