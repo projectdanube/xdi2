@@ -87,7 +87,7 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 		// look for public key in the graph
 
-		XdiAttribute publicKeyXdiAttribute = senderPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN));
+		XdiAttribute publicKeyXdiAttribute = senderPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_PUBLIC_KEY));
 		XdiValue publicKeyXdiValue = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.getXdiValue(false);
 		Literal publicKeyLiteral = publicKeyXdiValue == null ? null : publicKeyXdiValue.getContextNode().getLiteral();
 
