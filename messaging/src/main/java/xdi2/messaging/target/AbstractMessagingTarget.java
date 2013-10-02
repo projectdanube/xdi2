@@ -93,9 +93,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			executionContext.pushMessageEnvelope(messageEnvelope, null);
 
-			// clear execution context
+			// reset execution context
 
-			executionContext.clearMessageEnvelopeAttributes();
+			executionContext.resetMessageEnvelopeAttributes();
 
 			// before message envelope
 
@@ -191,9 +191,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			executionContext.pushMessage(message, null);
 
-			// clear execution context
+			// reset execution context
 
-			executionContext.clearMessageAttributes();
+			executionContext.resetMessageAttributes();
 
 			// before message
 
@@ -262,9 +262,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			executionContext.pushOperation(operation, null);
 
-			// clear execution context
+			// reset execution context
 
-			executionContext.clearOperationAttributes();
+			executionContext.resetOperationAttributes();
 
 			// before operation
 

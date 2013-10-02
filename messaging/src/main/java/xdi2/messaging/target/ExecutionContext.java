@@ -82,9 +82,19 @@ public final class ExecutionContext implements Serializable {
 			this.messageEnvelopeAttributes.put(key, value);
 	}
 
-	public void clearMessageEnvelopeAttributes() {
+	public Map<String, Object> getMessageEnvelopeAttributes() {
 
-		this.messageEnvelopeAttributes.clear();
+		return this.messageEnvelopeAttributes;
+	}
+
+	public void setMessageEnvelopeAttributes(Map<String, Object> messageEnvelopeAttributes) {
+
+		this.messageEnvelopeAttributes = messageEnvelopeAttributes;
+	}
+
+	public void resetMessageEnvelopeAttributes() {
+
+		this.messageEnvelopeAttributes = new HashMap<String, Object> ();
 	}
 
 	public Object getMessageAttribute(String key) {
@@ -100,9 +110,19 @@ public final class ExecutionContext implements Serializable {
 			this.messageAttributes.put(key, value);
 	}
 
-	public void clearMessageAttributes() {
+	public Map<String, Object> getMessageAttributes() {
 
-		this.messageAttributes.clear();
+		return this.messageAttributes;
+	}
+
+	public void setMessageAttributes(Map<String, Object> messageAttributes) {
+
+		this.messageAttributes = messageAttributes;
+	}
+
+	public void resetMessageAttributes() {
+
+		this.messageAttributes = new HashMap<String, Object> ();
 	}
 
 	public Object getOperationAttribute(String key) {
@@ -118,9 +138,19 @@ public final class ExecutionContext implements Serializable {
 			this.operationAttributes.put(key, value);
 	}
 
-	public void clearOperationAttributes() {
+	public Map<String, Object> getOperationAttributes() {
 
-		this.operationAttributes.clear();
+		return this.operationAttributes;
+	}
+
+	public void setOperationAttributes(Map<String, Object> operationAttributes) {
+
+		this.operationAttributes = operationAttributes;
+	}
+
+	public void resetOperationAttributes() {
+
+		this.operationAttributes = new HashMap<String, Object> ();
 	}
 
 	/*
