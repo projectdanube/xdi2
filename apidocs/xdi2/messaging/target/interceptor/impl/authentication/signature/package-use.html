@@ -102,6 +102,12 @@ Packages that use <A HREF="../../../../../../../xdi2/messaging/target/intercepto
 Classes in <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.signature</A> used by <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.signature</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/class-use/AbstractSignatureAuthenticator.html#xdi2.messaging.target.interceptor.impl.authentication.signature"><B>AbstractSignatureAuthenticator</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/class-use/AuthenticationSignatureInterceptor.html#xdi2.messaging.target.interceptor.impl.authentication.signature"><B>AuthenticationSignatureInterceptor</B></A></B>
 
 <BR>
@@ -109,11 +115,39 @@ Classes in <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/
  and invokes an instance of SignatureAuthenticator to authenticate the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/class-use/DiscoverySignatureAuthenticator.html#xdi2.messaging.target.interceptor.impl.authentication.signature"><B>DiscoverySignatureAuthenticator</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A SignatureAuthenticator that can authenticate an XDI message by obtaining
+ public keys using XDI discovery.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/class-use/GraphSignatureAuthenticator.html#xdi2.messaging.target.interceptor.impl.authentication.signature"><B>GraphSignatureAuthenticator</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A SignatureAuthenticator that can authenticate an XDI message using a "public key graph",
+ which contains sender addresses and public keys.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/class-use/PublicKeySignatureAuthenticator.html#xdi2.messaging.target.interceptor.impl.authentication.signature"><B>PublicKeySignatureAuthenticator</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A SignatureAuthenticator that can authenticate a signature against
+ a public key.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/class-use/SignatureAuthenticator.html#xdi2.messaging.target.interceptor.impl.authentication.signature"><B>SignatureAuthenticator</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The purpose of this interface is to authenticate an incoming XDI message
  using a signature.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/class-use/StaticSignatureAuthenticator.html#xdi2.messaging.target.interceptor.impl.authentication.signature"><B>StaticSignatureAuthenticator</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A SignatureAuthenticator that can authenticate an XDI message using a
+ statically configured list of sender addresses and public keys.</TD>
 </TR>
 </TABLE>
 &nbsp;

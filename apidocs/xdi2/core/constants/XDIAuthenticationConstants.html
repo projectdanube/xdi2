@@ -12,10 +12,11 @@ XDIAuthenticationConstants (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="XRI_S_OAUTH_TOKEN">
 <META NAME="keywords" CONTENT="XRI_S_SIGNATURE">
 <META NAME="keywords" CONTENT="XRI_SS_SIGNATURE">
-<META NAME="keywords" CONTENT="XRI_S_SECRET_TOKEN_VALID_VALUE">
-<META NAME="keywords" CONTENT="XRI_S_OAUTH_TOKEN_VALID_VALUE">
-<META NAME="keywords" CONTENT="XRI_S_SIGNATURE_VALID_VALUE">
-<META NAME="keywords" CONTENT="XRI_S_DIGEST_SECRET_TOKEN_VALUE">
+<META NAME="keywords" CONTENT="XRI_S_SECRET_TOKEN_VALID">
+<META NAME="keywords" CONTENT="XRI_S_OAUTH_TOKEN_VALID">
+<META NAME="keywords" CONTENT="XRI_S_SIGNATURE_VALID">
+<META NAME="keywords" CONTENT="XRI_S_DIGEST_SECRET_TOKEN">
+<META NAME="keywords" CONTENT="XRI_S_PUBLIC_KEY">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -107,10 +108,6 @@ Class XDIAuthenticationConstants</H2>
 <DL>
 <DT><PRE>public final class <B>XDIAuthenticationConstants</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="XDIAuthenticationConstants.html" title="XDIAuthenticationConstants" alt="" coords="5,6,187,31"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="XDIAuthenticationConstants.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 Constants for XDI authentication.
@@ -135,7 +132,7 @@ Constants for XDI authentication.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_S_DIGEST_SECRET_TOKEN_VALUE">XRI_S_DIGEST_SECRET_TOKEN_VALUE</A></B></CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_S_DIGEST_SECRET_TOKEN">XRI_S_DIGEST_SECRET_TOKEN</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -151,7 +148,15 @@ Constants for XDI authentication.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_S_OAUTH_TOKEN_VALID_VALUE">XRI_S_OAUTH_TOKEN_VALID_VALUE</A></B></CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_S_OAUTH_TOKEN_VALID">XRI_S_OAUTH_TOKEN_VALID</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_S_PUBLIC_KEY">XRI_S_PUBLIC_KEY</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -167,7 +172,7 @@ Constants for XDI authentication.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_S_SECRET_TOKEN_VALID_VALUE">XRI_S_SECRET_TOKEN_VALID_VALUE</A></B></CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_S_SECRET_TOKEN_VALID">XRI_S_SECRET_TOKEN_VALID</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -183,7 +188,7 @@ Constants for XDI authentication.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_S_SIGNATURE_VALID_VALUE">XRI_S_SIGNATURE_VALID_VALUE</A></B></CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIAuthenticationConstants.html#XRI_S_SIGNATURE_VALID">XRI_S_SIGNATURE_VALID</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -269,40 +274,50 @@ public static final <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title=
 </DL>
 <HR>
 
-<A NAME="XRI_S_SECRET_TOKEN_VALID_VALUE"><!-- --></A><H3>
-XRI_S_SECRET_TOKEN_VALID_VALUE</H3>
+<A NAME="XRI_S_SECRET_TOKEN_VALID"><!-- --></A><H3>
+XRI_S_SECRET_TOKEN_VALID</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_SECRET_TOKEN_VALID_VALUE</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_SECRET_TOKEN_VALID</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="XRI_S_OAUTH_TOKEN_VALID_VALUE"><!-- --></A><H3>
-XRI_S_OAUTH_TOKEN_VALID_VALUE</H3>
+<A NAME="XRI_S_OAUTH_TOKEN_VALID"><!-- --></A><H3>
+XRI_S_OAUTH_TOKEN_VALID</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_OAUTH_TOKEN_VALID_VALUE</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_OAUTH_TOKEN_VALID</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="XRI_S_SIGNATURE_VALID_VALUE"><!-- --></A><H3>
-XRI_S_SIGNATURE_VALID_VALUE</H3>
+<A NAME="XRI_S_SIGNATURE_VALID"><!-- --></A><H3>
+XRI_S_SIGNATURE_VALID</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_SIGNATURE_VALID_VALUE</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_SIGNATURE_VALID</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="XRI_S_DIGEST_SECRET_TOKEN_VALUE"><!-- --></A><H3>
-XRI_S_DIGEST_SECRET_TOKEN_VALUE</H3>
+<A NAME="XRI_S_DIGEST_SECRET_TOKEN"><!-- --></A><H3>
+XRI_S_DIGEST_SECRET_TOKEN</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_DIGEST_SECRET_TOKEN_VALUE</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_DIGEST_SECRET_TOKEN</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="XRI_S_PUBLIC_KEY"><!-- --></A><H3>
+XRI_S_PUBLIC_KEY</H3>
+<PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_PUBLIC_KEY</B></PRE>
 <DL>
 <DL>
 </DL>

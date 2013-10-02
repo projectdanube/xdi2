@@ -626,15 +626,6 @@ Uses of <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.mess
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>StaticSecretTokenAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/StaticSecretTokenAuthenticator.html#authenticate(xdi2.messaging.Message, java.lang.String)">authenticate</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;secretToken)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B>SecretTokenAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/SecretTokenAuthenticator.html#authenticate(xdi2.messaging.Message, java.lang.String)">authenticate</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
              <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;secretToken)</CODE>
 
@@ -644,7 +635,7 @@ Uses of <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.mess
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>GraphSecretTokenAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/GraphSecretTokenAuthenticator.html#authenticate(xdi2.messaging.Message, java.lang.String)">authenticate</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+<TD><CODE><B>DigestSecretTokenAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/DigestSecretTokenAuthenticator.html#authenticate(xdi2.messaging.Message, java.lang.String)">authenticate</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
              <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;secretToken)</CODE>
 
 <BR>
@@ -656,6 +647,30 @@ Uses of <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.mess
 <TD><CODE><B>AuthenticationSecretTokenInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
        <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
        <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B>StaticSecretTokenAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/StaticSecretTokenAuthenticator.html#getLocalSaltAndDigestSecretToken(xdi2.messaging.Message)">getLocalSaltAndDigestSecretToken</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B>GraphSecretTokenAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/GraphSecretTokenAuthenticator.html#getLocalSaltAndDigestSecretToken(xdi2.messaging.Message)">getLocalSaltAndDigestSecretToken</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected abstract &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B>DigestSecretTokenAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/DigestSecretTokenAuthenticator.html#getLocalSaltAndDigestSecretToken(xdi2.messaging.Message)">getLocalSaltAndDigestSecretToken</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -690,8 +705,8 @@ Uses of <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.mess
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>SignatureAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#authenticate(xdi2.messaging.Message, java.lang.String)">authenticate</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;signature)</CODE>
+<TD><CODE><B>SignatureAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)">authenticate</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+             <A HREF="../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authenticates an XDI message given a signature.</TD>
@@ -699,9 +714,50 @@ Uses of <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.mess
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>PublicKeySignatureAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html#authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)">authenticate</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+             <A HREF="../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B>AuthenticationSignatureInterceptor.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AuthenticationSignatureInterceptor.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">before</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
        <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
        <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A></CODE></FONT></TD>
+<TD><CODE><B>StaticSignatureAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/signature/StaticSignatureAuthenticator.html#getPublicKey(xdi2.messaging.Message)">getPublicKey</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected abstract &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A></CODE></FONT></TD>
+<TD><CODE><B>PublicKeySignatureAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html#getPublicKey(xdi2.messaging.Message)">getPublicKey</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A></CODE></FONT></TD>
+<TD><CODE><B>GraphSignatureAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/signature/GraphSignatureAuthenticator.html#getPublicKey(xdi2.messaging.Message)">getPublicKey</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A></CODE></FONT></TD>
+<TD><CODE><B>DiscoverySignatureAuthenticator.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html#getPublicKey(xdi2.messaging.Message)">getPublicKey</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -777,8 +833,8 @@ Uses of <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.mess
 <TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../xdi2/messaging/target/interceptor/impl/util/package-summary.html">xdi2.messaging.target.interceptor.impl.util</A> with parameters of type <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#MessagePolicyEvaluationContext(xdi2.core.Graph, xdi2.messaging.Message)">MessagePolicyEvaluationContext</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
-                               <A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#MessagePolicyEvaluationContext(xdi2.messaging.Message, xdi2.core.Graph)">MessagePolicyEvaluationContext</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+                               <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

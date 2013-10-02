@@ -8,11 +8,12 @@ XDIDiscoveryResult (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.discovery.XDIDiscoveryResult class">
-<META NAME="keywords" CONTENT="fromXriAndMessageResult()">
-<META NAME="keywords" CONTENT="getXri()">
-<META NAME="keywords" CONTENT="getMessageResult()">
 <META NAME="keywords" CONTENT="getCloudNumber()">
-<META NAME="keywords" CONTENT="getEndpointUri()">
+<META NAME="keywords" CONTENT="getXdiEndpointUri()">
+<META NAME="keywords" CONTENT="getPublicKey()">
+<META NAME="keywords" CONTENT="getServices()">
+<META NAME="keywords" CONTENT="getMessageEnvelope()">
+<META NAME="keywords" CONTENT="getMessageResult()">
 <META NAME="keywords" CONTENT="toString()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
@@ -82,9 +83,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -108,11 +109,6 @@ Class XDIDiscoveryResult</H2>
 <DL>
 <DT><PRE>public class <B>XDIDiscoveryResult</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A></DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="27,6,116,61"/>
-<area shape="rect" id="node2" href="XDIDiscoveryResult.html" title="XDIDiscoveryResult" alt="" coords="5,101,139,126"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="XDIDiscoveryResult.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -121,6 +117,22 @@ Class XDIDiscoveryResult</H2>
 
 <P>
 
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#XDIDiscoveryResult()">XDIDiscoveryResult</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
 <!-- ========== METHOD SUMMARY =========== -->
 
 <A NAME="method_summary"><!-- --></A>
@@ -128,15 +140,6 @@ Class XDIDiscoveryResult</H2>
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Method Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#fromXriAndMessageResult(xdi2.core.xri3.XDI3Segment, xdi2.messaging.MessageResult)">fromXriAndMessageResult</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                        <A HREF="../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parses a XDIDiscoveryResult from an XDI2 message result.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -148,8 +151,8 @@ Class XDIDiscoveryResult</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getEndpointUri()">getEndpointUri</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getMessageEnvelope()">getMessageEnvelope</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -164,8 +167,24 @@ Class XDIDiscoveryResult</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getXri()">getXri</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getPublicKey()">getPublicKey</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getServices()">getServices</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getXdiEndpointUri()">getXdiEndpointUri</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -191,6 +210,23 @@ Class XDIDiscoveryResult</H2>
 &nbsp;
 <P>
 
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="XDIDiscoveryResult()"><!-- --></A><H3>
+XDIDiscoveryResult</H3>
+<PRE>
+public <B>XDIDiscoveryResult</B>()</PRE>
+<DL>
+</DL>
+
 <!-- ============ METHOD DETAIL ========== -->
 
 <A NAME="method_detail"><!-- --></A>
@@ -200,52 +236,6 @@ Class XDIDiscoveryResult</H2>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
-
-<A NAME="fromXriAndMessageResult(xdi2.core.xri3.XDI3Segment, xdi2.messaging.MessageResult)"><!-- --></A><H3>
-fromXriAndMessageResult</H3>
-<PRE>
-public static <A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A> <B>fromXriAndMessageResult</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                                                         <A HREF="../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult)</PRE>
-<DL>
-<DD>Parses a XDIDiscoveryResult from an XDI2 message result.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>The XDIDiscoveryResult.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getXri()"><!-- --></A><H3>
-getXri</H3>
-<PRE>
-public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getXri</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getMessageResult()"><!-- --></A><H3>
-getMessageResult</H3>
-<PRE>
-public <A HREF="../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A> <B>getMessageResult</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
 
 <A NAME="getCloudNumber()"><!-- --></A><H3>
 getCloudNumber</H3>
@@ -261,10 +251,66 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
-<A NAME="getEndpointUri()"><!-- --></A><H3>
-getEndpointUri</H3>
+<A NAME="getXdiEndpointUri()"><!-- --></A><H3>
+getXdiEndpointUri</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getEndpointUri</B>()</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getXdiEndpointUri</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPublicKey()"><!-- --></A><H3>
+getPublicKey</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A> <B>getPublicKey</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getServices()"><!-- --></A><H3>
+getServices</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt; <B>getServices</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMessageEnvelope()"><!-- --></A><H3>
+getMessageEnvelope</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A> <B>getMessageEnvelope</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMessageResult()"><!-- --></A><H3>
+getMessageResult</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A> <B>getMessageResult</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -339,9 +385,9 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.ht
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

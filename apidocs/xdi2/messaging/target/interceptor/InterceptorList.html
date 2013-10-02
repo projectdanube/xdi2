@@ -9,6 +9,7 @@ InterceptorList (xdi2 0.1-SNAPSHOT API)
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.interceptor.InterceptorList class">
 <META NAME="keywords" CONTENT="addInterceptor()">
+<META NAME="keywords" CONTENT="getInterceptor()">
 <META NAME="keywords" CONTENT="removeInterceptor()">
 <META NAME="keywords" CONTENT="stringList()">
 <META NAME="keywords" CONTENT="executeMessagingTargetInterceptorsInit()">
@@ -127,12 +128,6 @@ Class InterceptorList</H2>
 <DL>
 <DT><PRE>public class <B>InterceptorList</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</A>&lt;<A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;<DT>implements <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&gt;</DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="../Prototype.html" title="&#171;interface&#187; Prototype (xdi2.messaging.target)" alt="" coords="5,6,163,61"/>
-<area shape="rect" id="node2" href="InterceptorList.html" title="InterceptorList" alt="" coords="105,101,209,126"/>
-<area shape="rect" id="node3" title="ArrayList (java.util)" alt="" coords="193,13,268,53"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="InterceptorList.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -188,6 +183,18 @@ Class InterceptorList</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#InterceptorList()">InterceptorList</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#InterceptorList(java.util.Collection)">InterceptorList</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</A>&lt;? extends <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;&nbsp;c)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#InterceptorList(int)">InterceptorList</A></B>(int&nbsp;initialCapacity)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -378,6 +385,23 @@ Class InterceptorList</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
+<TR ALIGN="right" VALIGN="">
+<TD NOWRAP><FONT SIZE="-1">
+<CODE>&lt;T extends <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt; 
+<BR>
+T</CODE></FONT></TD>
+</TR>
+</TABLE>
+</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#getInterceptor(java.lang.Class)">getInterceptor</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;clazz)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></B>(<A HREF="../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)</CODE>
 
@@ -465,6 +489,22 @@ InterceptorList</H3>
 public <B>InterceptorList</B>()</PRE>
 <DL>
 </DL>
+<HR>
+
+<A NAME="InterceptorList(java.util.Collection)"><!-- --></A><H3>
+InterceptorList</H3>
+<PRE>
+public <B>InterceptorList</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</A>&lt;? extends <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;&nbsp;c)</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="InterceptorList(int)"><!-- --></A><H3>
+InterceptorList</H3>
+<PRE>
+public <B>InterceptorList</B>(int&nbsp;initialCapacity)</PRE>
+<DL>
+</DL>
 
 <!-- ============ METHOD DETAIL ========== -->
 
@@ -480,6 +520,20 @@ public <B>InterceptorList</B>()</PRE>
 addInterceptor</H3>
 <PRE>
 public void <B>addInterceptor</B>(<A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&nbsp;interceptor)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getInterceptor(java.lang.Class)"><!-- --></A><H3>
+getInterceptor</H3>
+<PRE>
+public &lt;T extends <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt; T <B>getInterceptor</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;clazz)</PRE>
 <DL>
 <DD><DL>
 </DL>

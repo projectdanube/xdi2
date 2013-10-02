@@ -9,6 +9,7 @@ ContributorMap (xdi2 0.1-SNAPSHOT API)
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.contributor.ContributorMap class">
 <META NAME="keywords" CONTENT="addContributor()">
+<META NAME="keywords" CONTENT="getContributor()">
 <META NAME="keywords" CONTENT="removeContributor()">
 <META NAME="keywords" CONTENT="iterator()">
 <META NAME="keywords" CONTENT="stringList()">
@@ -114,13 +115,6 @@ Class ContributorMap</H2>
 <DL>
 <DT><PRE>public class <B>ContributorMap</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/LinkedHashMap.html?is-external=true" title="class or interface in java.util">LinkedHashMap</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;<DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</A>&lt;<A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;, <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A>&gt;</DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="../Prototype.html" title="&#171;interface&#187; Prototype (xdi2.messaging.target)" alt="" coords="5,6,163,61"/>
-<area shape="rect" id="node2" title="&#171;interface&#187; Iterable (java.lang)" alt="" coords="193,6,279,61"/>
-<area shape="rect" id="node3" title="LinkedHashMap (java.util)" alt="" coords="308,13,423,53"/>
-<area shape="rect" id="node4" href="ContributorMap.html" title="ContributorMap" alt="" coords="181,101,291,126"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="ContributorMap.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -168,6 +162,33 @@ Class ContributorMap</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html#ContributorMap()">ContributorMap</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html#ContributorMap(int)">ContributorMap</A></B>(int&nbsp;initialCapacity)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html#ContributorMap(int, float)">ContributorMap</A></B>(int&nbsp;initialCapacity,
+               float&nbsp;loadFactor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html#ContributorMap(int, float, boolean)">ContributorMap</A></B>(int&nbsp;initialCapacity,
+               float&nbsp;loadFactor,
+               boolean&nbsp;accessOrder)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html#ContributorMap(java.util.Map)">ContributorMap</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;? extends <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;m)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -235,6 +256,23 @@ Class ContributorMap</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;xdi2.messaging.target.contributor.ContributorMap.ContributorFound&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html#findLowerContributors(xdi2.core.xri3.XDI3Segment)">findLowerContributors</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
+<TR ALIGN="right" VALIGN="">
+<TD NOWRAP><FONT SIZE="-1">
+<CODE>&lt;T extends <A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt; 
+<BR>
+T</CODE></FONT></TD>
+</TR>
+</TABLE>
+</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/ContributorMap.html#getContributor(java.lang.Class)">getContributor</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;clazz)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -345,6 +383,41 @@ ContributorMap</H3>
 public <B>ContributorMap</B>()</PRE>
 <DL>
 </DL>
+<HR>
+
+<A NAME="ContributorMap(int, float, boolean)"><!-- --></A><H3>
+ContributorMap</H3>
+<PRE>
+public <B>ContributorMap</B>(int&nbsp;initialCapacity,
+                      float&nbsp;loadFactor,
+                      boolean&nbsp;accessOrder)</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="ContributorMap(int, float)"><!-- --></A><H3>
+ContributorMap</H3>
+<PRE>
+public <B>ContributorMap</B>(int&nbsp;initialCapacity,
+                      float&nbsp;loadFactor)</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="ContributorMap(int)"><!-- --></A><H3>
+ContributorMap</H3>
+<PRE>
+public <B>ContributorMap</B>(int&nbsp;initialCapacity)</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="ContributorMap(java.util.Map)"><!-- --></A><H3>
+ContributorMap</H3>
+<PRE>
+public <B>ContributorMap</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;? extends <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;m)</PRE>
+<DL>
+</DL>
 
 <!-- ============ METHOD DETAIL ========== -->
 
@@ -375,6 +448,20 @@ public void <B>addContributor</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segmen
 addContributor</H3>
 <PRE>
 public void <B>addContributor</B>(<A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&nbsp;contributor)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getContributor(java.lang.Class)"><!-- --></A><H3>
+getContributor</H3>
+<PRE>
+public &lt;T extends <A HREF="../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt; T <B>getContributor</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;clazz)</PRE>
 <DL>
 <DD><DL>
 </DL>

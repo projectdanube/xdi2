@@ -10,7 +10,7 @@ GraphPolicyEvaluationContext (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="xdi2.core.features.linkcontracts.evaluation.GraphPolicyEvaluationContext class">
 <META NAME="keywords" CONTENT="getContextNodeXri()">
 <META NAME="keywords" CONTENT="getContextNode()">
-<META NAME="keywords" CONTENT="getRelations()">
+<META NAME="keywords" CONTENT="getStatement()">
 <META NAME="keywords" CONTENT="getGraph()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
@@ -102,19 +102,10 @@ Class GraphPolicyEvaluationContext</H2>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A></DD>
 </DL>
-<DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html" title="class in xdi2.messaging.target.interceptor.impl.util">MessagePolicyEvaluationContext</A></DD>
-</DL>
 <HR>
 <DL>
 <DT><PRE>public class <B>GraphPolicyEvaluationContext</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A></DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="PolicyEvaluationContext.html" title="&#171;interface&#187; PolicyEvaluationContext" alt="" coords="60,5,223,45"/>
-<area shape="rect" id="node2" href="../../../../messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html" title="MessagePolicyEvaluationContext (xdi2.messaging.target.interceptor.impl.util)" alt="" coords="5,149,277,189"/>
-<area shape="rect" id="node3" href="GraphPolicyEvaluationContext.html" title="GraphPolicyEvaluationContext" alt="" coords="43,85,240,110"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="GraphPolicyEvaluationContext.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <HR>
@@ -171,8 +162,8 @@ Class GraphPolicyEvaluationContext</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/GraphPolicyEvaluationContext.html#getRelations(xdi2.core.xri3.XDI3Segment)">getRelations</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/GraphPolicyEvaluationContext.html#getStatement(xdi2.core.xri3.XDI3Statement)">getStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -245,13 +236,13 @@ public <A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in x
 </DL>
 <HR>
 
-<A NAME="getRelations(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-getRelations</H3>
+<A NAME="getStatement(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
+getStatement</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>getRelations</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</PRE>
+public <A HREF="../../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>getStatement</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html#getRelations(xdi2.core.xri3.XDI3Segment)">getRelations</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html#getStatement(xdi2.core.xri3.XDI3Statement)">getStatement</A></CODE> in interface <CODE><A HREF="../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A></CODE></DL>
 </DD>
 <DD><DL>
 </DL>

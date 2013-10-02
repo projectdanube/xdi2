@@ -17,6 +17,7 @@ ServletHttpRequest (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getContentType()">
 <META NAME="keywords" CONTENT="getContentLength()">
 <META NAME="keywords" CONTENT="getBodyInputStream()">
+<META NAME="keywords" CONTENT="getRemoteAddr()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -112,12 +113,6 @@ Class ServletHttpRequest</H2>
 <DL>
 <DT><PRE>public final class <B>ServletHttpRequest</B><DT>extends <A HREF="../../../xdi2/server/transport/AbstractHttpRequest.html" title="class in xdi2.server.transport">AbstractHttpRequest</A><DT>implements <A HREF="../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A></DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="../transport/HttpRequest.html" title="&#171;interface&#187; HttpRequest (xdi2.server.transport)" alt="" coords="5,6,152,61"/>
-<area shape="rect" id="node2" href="../transport/AbstractHttpRequest.html" title="AbstractHttpRequest (xdi2.server.transport)" alt="" coords="181,13,328,53"/>
-<area shape="rect" id="node3" href="ServletHttpRequest.html" title="ServletHttpRequest" alt="" coords="100,101,233,126"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="ServletHttpRequest.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <HR>
@@ -192,6 +187,14 @@ Class ServletHttpRequest</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/server/servlet/ServletHttpRequest.html#getParameter(java.lang.String)">getParameter</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/server/servlet/ServletHttpRequest.html#getRemoteAddr()">getRemoteAddr</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -370,6 +373,20 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/InputStream
 
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRemoteAddr()"><!-- --></A><H3>
+getRemoteAddr</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getRemoteAddr</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/server/transport/HttpRequest.html#getRemoteAddr()">getRemoteAddr</A></CODE> in interface <CODE><A HREF="../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

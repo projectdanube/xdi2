@@ -92,6 +92,14 @@ Packages that use <A HREF="../../../../../xdi2/core/features/signatures/Signatur
 <TD><A HREF="#xdi2.core.features.signatures"><B>xdi2.core.features.signatures</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging"><B>xdi2.messaging</B></A></TD>
+<TD>Support for XDI messaging documents and transport protocols.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.interceptor.impl.authentication.signature"><B>xdi2.messaging.target.interceptor.impl.authentication.signature</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;
 <P>
@@ -154,6 +162,66 @@ Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" ti
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
 <TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#compareTo(xdi2.core.features.signatures.Signature)">compareTo</A></B>(<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;other)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A> in <A HREF="../../../../../xdi2/messaging/package-summary.html">xdi2.messaging</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/package-summary.html">xdi2.messaging</A> that return <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></CODE></FONT></TD>
+<TD><CODE><B>Message.</B><B><A HREF="../../../../../xdi2/messaging/Message.html#getSignature(boolean)">getSignature</A></B>(boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the signature from the message.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.interceptor.impl.authentication.signature"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A> in <A HREF="../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.signature</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/package-summary.html">xdi2.messaging.target.interceptor.impl.authentication.signature</A> with parameters of type <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>SignatureAuthenticator.</B><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)">authenticate</A></B>(<A HREF="../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+             <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authenticates an XDI message given a signature.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>PublicKeySignatureAuthenticator.</B><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html#authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)">authenticate</A></B>(<A HREF="../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+             <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

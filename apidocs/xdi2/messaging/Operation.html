@@ -26,8 +26,8 @@ Operation (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getParameterNumber()">
 <META NAME="keywords" CONTENT="getParameterBoolean()">
 <META NAME="keywords" CONTENT="getSender()">
-<META NAME="keywords" CONTENT="isReadOperation()">
-<META NAME="keywords" CONTENT="isWriteOperation()">
+<META NAME="keywords" CONTENT="getSenderXri()">
+<META NAME="keywords" CONTENT="isReadOnlyOperation()">
 <META NAME="keywords" CONTENT="toString()">
 <META NAME="keywords" CONTENT="equals()">
 <META NAME="keywords" CONTENT="hashCode()">
@@ -129,16 +129,6 @@ Class Operation</H2>
 <DL>
 <DT><PRE>public abstract class <B>Operation</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&gt;</DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="SetOperation.html" title="&#171;static&#187; SetOperation" alt="" coords="384,165,483,205"/>
-<area shape="rect" id="node2" href="GetOperation.html" title="&#171;static&#187; GetOperation" alt="" coords="256,165,355,205"/>
-<area shape="rect" id="node3" href="DoOperation.html" title="&#171;static&#187; DoOperation" alt="" coords="131,165,225,205"/>
-<area shape="rect" id="node4" href="DelOperation.html" title="&#171;static&#187; DelOperation" alt="" coords="5,165,101,205"/>
-<area shape="rect" id="node5" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="137,6,225,61"/>
-<area shape="rect" id="node6" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="256,6,347,61"/>
-<area shape="rect" id="node7" href="Operation.html" title="Operation" alt="" coords="202,101,280,126"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="Operation.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI messaging operation, represented as a relation.
@@ -312,11 +302,19 @@ An XDI messaging operation, represented as a relation.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getSender()">getSender</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the sender of the message's message collection.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the sender of the operation's message collection.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getSenderXri()">getSenderXri</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the sender XRI of the operation's message collection.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -345,10 +343,10 @@ An XDI messaging operation, represented as a relation.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#isReadOperation()">isReadOperation</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#isReadOnlyOperation()">isReadOnlyOperation</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Is this a read operation?</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Is this a read-only operation?</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -357,14 +355,6 @@ An XDI messaging operation, represented as a relation.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an relation is a valid XDI operation.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#isWriteOperation()">isWriteOperation</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Is this a write operation?</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -712,42 +702,43 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.h
 <A NAME="getSender()"><!-- --></A><H3>
 getSender</H3>
 <PRE>
-public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getSender</B>()</PRE>
+public <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getSender</B>()</PRE>
 <DL>
-<DD>Returns the sender of the message's message collection.
+<DD>Returns the sender of the operation's message collection.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>The sender of the message's message collection.</DL>
+<DT><B>Returns:</B><DD>The sender of the operation's message collection.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="isReadOperation()"><!-- --></A><H3>
-isReadOperation</H3>
+<A NAME="getSenderXri()"><!-- --></A><H3>
+getSenderXri</H3>
 <PRE>
-public boolean <B>isReadOperation</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getSenderXri</B>()</PRE>
 <DL>
-<DD>Is this a read operation?
+<DD>Returns the sender XRI of the operation's message collection.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>The sender XRI of the operation's message collection.</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="isWriteOperation()"><!-- --></A><H3>
-isWriteOperation</H3>
+<A NAME="isReadOnlyOperation()"><!-- --></A><H3>
+isReadOnlyOperation</H3>
 <PRE>
-public boolean <B>isWriteOperation</B>()</PRE>
+public boolean <B>isReadOnlyOperation</B>()</PRE>
 <DL>
-<DD>Is this a write operation?
+<DD>Is this a read-only operation?
 <P>
 <DD><DL>
 </DL>

@@ -48,6 +48,8 @@ xdi2.messaging.exceptions
 xdi2.messaging.http
 xdi2.messaging.target
 xdi2.messaging.target.contributor
+xdi2.messaging.target.contributor.impl.digest
+xdi2.messaging.target.contributor.impl.keygen
 xdi2.messaging.target.impl.echo
 xdi2.messaging.target.impl.file
 xdi2.messaging.target.impl.graph
@@ -73,6 +75,7 @@ xdi2.server.spring
 xdi2.server.standalone
 xdi2.server.transport
 xdi2.webtools.converter
+xdi2.webtools.discoverer
 xdi2.webtools.grapher
 xdi2.webtools.localmessenger
 xdi2.webtools.messenger

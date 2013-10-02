@@ -10,13 +10,19 @@ ExecutionContext (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="xdi2.messaging.target.ExecutionContext class">
 <META NAME="keywords" CONTENT="getMessageEnvelopeAttribute()">
 <META NAME="keywords" CONTENT="putMessageEnvelopeAttribute()">
-<META NAME="keywords" CONTENT="clearMessageEnvelopeAttributes()">
+<META NAME="keywords" CONTENT="getMessageEnvelopeAttributes()">
+<META NAME="keywords" CONTENT="setMessageEnvelopeAttributes()">
+<META NAME="keywords" CONTENT="resetMessageEnvelopeAttributes()">
 <META NAME="keywords" CONTENT="getMessageAttribute()">
 <META NAME="keywords" CONTENT="putMessageAttribute()">
-<META NAME="keywords" CONTENT="clearMessageAttributes()">
+<META NAME="keywords" CONTENT="getMessageAttributes()">
+<META NAME="keywords" CONTENT="setMessageAttributes()">
+<META NAME="keywords" CONTENT="resetMessageAttributes()">
 <META NAME="keywords" CONTENT="getOperationAttribute()">
 <META NAME="keywords" CONTENT="putOperationAttribute()">
-<META NAME="keywords" CONTENT="clearOperationAttributes()">
+<META NAME="keywords" CONTENT="getOperationAttributes()">
+<META NAME="keywords" CONTENT="setOperationAttributes()">
+<META NAME="keywords" CONTENT="resetOperationAttributes()">
 <META NAME="keywords" CONTENT="getException()">
 <META NAME="keywords" CONTENT="processException()">
 <META NAME="keywords" CONTENT="pushMessagingTarget()">
@@ -148,11 +154,6 @@ Class ExecutionContext</H2>
 <DL>
 <DT><PRE>public final class <B>ExecutionContext</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A></DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="23,6,112,61"/>
-<area shape="rect" id="node2" href="ExecutionContext.html" title="ExecutionContext" alt="" coords="5,101,131,126"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="ExecutionContext.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 Messaging targets as well as contributors and interceptors can use the ExecutionContext
@@ -192,30 +193,6 @@ Messaging targets as well as contributors and interceptors can use the Execution
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Method Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#clearMessageAttributes()">clearMessageAttributes</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#clearMessageEnvelopeAttributes()">clearMessageEnvelopeAttributes</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#clearOperationAttributes()">clearOperationAttributes</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -363,6 +340,14 @@ Messaging targets as well as contributors and interceptors can use the Execution
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getMessageAttributes()">getMessageAttributes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getMessageEnvelopeAttribute(java.lang.String)">getMessageEnvelopeAttribute</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</CODE>
 
@@ -371,8 +356,24 @@ Messaging targets as well as contributors and interceptors can use the Execution
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getMessageEnvelopeAttributes()">getMessageEnvelopeAttributes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getOperationAttribute(java.lang.String)">getOperationAttribute</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#getOperationAttributes()">getOperationAttributes</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -572,6 +573,54 @@ Messaging targets as well as contributors and interceptors can use the Execution
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#resetMessageAttributes()">resetMessageAttributes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#resetMessageEnvelopeAttributes()">resetMessageEnvelopeAttributes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#resetOperationAttributes()">resetOperationAttributes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#setMessageAttributes(java.util.Map)">setMessageAttributes</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;messageAttributes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#setMessageEnvelopeAttributes(java.util.Map)">setMessageEnvelopeAttributes</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;messageEnvelopeAttributes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html#setOperationAttributes(java.util.Map)">setOperationAttributes</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;operationAttributes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -641,10 +690,38 @@ public void <B>putMessageEnvelopeAttribute</B>(<A HREF="http://download.oracle.c
 </DL>
 <HR>
 
-<A NAME="clearMessageEnvelopeAttributes()"><!-- --></A><H3>
-clearMessageEnvelopeAttributes</H3>
+<A NAME="getMessageEnvelopeAttributes()"><!-- --></A><H3>
+getMessageEnvelopeAttributes</H3>
 <PRE>
-public void <B>clearMessageEnvelopeAttributes</B>()</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt; <B>getMessageEnvelopeAttributes</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMessageEnvelopeAttributes(java.util.Map)"><!-- --></A><H3>
+setMessageEnvelopeAttributes</H3>
+<PRE>
+public void <B>setMessageEnvelopeAttributes</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;messageEnvelopeAttributes)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="resetMessageEnvelopeAttributes()"><!-- --></A><H3>
+resetMessageEnvelopeAttributes</H3>
+<PRE>
+public void <B>resetMessageEnvelopeAttributes</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -684,10 +761,38 @@ public void <B>putMessageAttribute</B>(<A HREF="http://download.oracle.com/javas
 </DL>
 <HR>
 
-<A NAME="clearMessageAttributes()"><!-- --></A><H3>
-clearMessageAttributes</H3>
+<A NAME="getMessageAttributes()"><!-- --></A><H3>
+getMessageAttributes</H3>
 <PRE>
-public void <B>clearMessageAttributes</B>()</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt; <B>getMessageAttributes</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMessageAttributes(java.util.Map)"><!-- --></A><H3>
+setMessageAttributes</H3>
+<PRE>
+public void <B>setMessageAttributes</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;messageAttributes)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="resetMessageAttributes()"><!-- --></A><H3>
+resetMessageAttributes</H3>
+<PRE>
+public void <B>resetMessageAttributes</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -727,10 +832,38 @@ public void <B>putOperationAttribute</B>(<A HREF="http://download.oracle.com/jav
 </DL>
 <HR>
 
-<A NAME="clearOperationAttributes()"><!-- --></A><H3>
-clearOperationAttributes</H3>
+<A NAME="getOperationAttributes()"><!-- --></A><H3>
+getOperationAttributes</H3>
 <PRE>
-public void <B>clearOperationAttributes</B>()</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt; <B>getOperationAttributes</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOperationAttributes(java.util.Map)"><!-- --></A><H3>
+setOperationAttributes</H3>
+<PRE>
+public void <B>setOperationAttributes</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;operationAttributes)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="resetOperationAttributes()"><!-- --></A><H3>
+resetOperationAttributes</H3>
+<PRE>
+public void <B>resetOperationAttributes</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>

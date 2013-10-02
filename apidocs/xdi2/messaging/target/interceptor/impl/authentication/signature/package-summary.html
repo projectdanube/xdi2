@@ -83,17 +83,7 @@ function windowTitle()
 Package xdi2.messaging.target.interceptor.impl.authentication.signature
 </H2>
 
-
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="AuthenticationSignatureInterceptor.html" title="AuthenticationSignatureInterceptor" alt="" coords="259,125,480,150"/>
-<area shape="rect" id="node2" href="../../../AbstractInterceptor.html" title="AbstractInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="6,5,229,45"/>
-<area shape="rect" id="node3" href="AbstractSignatureAuthenticator.html" title="AbstractSignatureAuthenticator" alt="" coords="510,242,714,267"/>
-<area shape="rect" id="node4" href="../../../MessageInterceptor.html" title="&#171;interface&#187; MessageInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="6,70,229,125"/>
-<area shape="rect" id="node5" href="../../../MessagingTargetInterceptor.html" title="&#171;interface&#187; MessagingTargetInterceptor (xdi2.messaging.target.interceptor)" alt="" coords="6,149,229,203"/>
-<area shape="rect" id="node6" href="../../../../Prototype.html" title="&#171;interface&#187; Prototype (xdi2.messaging.target)" alt="" coords="38,227,197,282"/>
-<area shape="rect" id="node7" href="SignatureAuthenticator.html" title="&#171;interface&#187; SignatureAuthenticator" alt="" coords="292,235,447,275"/>
-</map>
-<div id="apivizContainer" style="text-align: center;margin-bottom: 1em;"><img src="package-summary.png" usemap="#APIVIZ" border="0"></div><TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Interface Summary</B></FONT></TH>
@@ -121,6 +111,26 @@ Package xdi2.messaging.target.interceptor.impl.authentication.signature
 <TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AuthenticationSignatureInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">AuthenticationSignatureInterceptor</A></B></TD>
 <TD>This interceptor looks for a signature on an incoming XDI message,
  and invokes an instance of SignatureAuthenticator to authenticate the message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">DiscoverySignatureAuthenticator</A></B></TD>
+<TD>A SignatureAuthenticator that can authenticate an XDI message by obtaining
+ public keys using XDI discovery.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/GraphSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">GraphSignatureAuthenticator</A></B></TD>
+<TD>A SignatureAuthenticator that can authenticate an XDI message using a "public key graph",
+ which contains sender addresses and public keys.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">PublicKeySignatureAuthenticator</A></B></TD>
+<TD>A SignatureAuthenticator that can authenticate a signature against
+ a public key.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/StaticSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">StaticSignatureAuthenticator</A></B></TD>
+<TD>A SignatureAuthenticator that can authenticate an XDI message using a
+ statically configured list of sender addresses and public keys.</TD>
 </TR>
 </TABLE>
 &nbsp;

@@ -99,25 +99,17 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <FONT SIZE="-1">
 xdi2.core.features.nodetypes</FONT>
 <BR>
-Interface XdiCollection&lt;C extends XdiCollection&lt;C,U,O,I&gt;,U extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;C,U,O,I&gt;,O extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;C,U,O,I&gt;,I extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;C,U,O,I&gt;&gt;</H2>
+Interface XdiCollection&lt;EQ extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&lt;EQ&gt;,C extends XdiCollection&lt;EQ,C,U,O,I&gt;,U extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;EQ,C,U,O,I&gt;,O extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;EQ,C,U,O,I&gt;,I extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;EQ,C,U,O,I&gt;&gt;</H2>
 <DL>
-<DT><B>All Superinterfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A></DD>
+<DT><B>All Superinterfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&lt;?&gt;&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&lt;C&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&lt;C&gt;</DD>
 </DL>
 <DL>
 <DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public interface <B>XdiCollection&lt;C extends XdiCollection&lt;C,U,O,I&gt;,U extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;C,U,O,I&gt;,O extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;C,U,O,I&gt;,I extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;C,U,O,I&gt;&gt;</B><DT>extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A></DL>
+<DT><PRE>public interface <B>XdiCollection&lt;EQ extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&lt;EQ&gt;,C extends XdiCollection&lt;EQ,C,U,O,I&gt;,U extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</A>&lt;EQ,C,U,O,I&gt;,O extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</A>&lt;EQ,C,U,O,I&gt;,I extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</A>&lt;EQ,C,U,O,I&gt;&gt;</B><DT>extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&lt;C&gt;</DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="XdiEntityCollection.html" title="&#171;static&#187; XdiEntityCollection" alt="" coords="357,163,488,203"/>
-<area shape="rect" id="node2" href="XdiAttributeCollection.html" title="&#171;static&#187; XdiAttributeCollection" alt="" coords="182,163,327,203"/>
-<area shape="rect" id="node3" href="XdiSubGraph.html" title="&#171;interface&#187; XdiSubGraph" alt="" coords="206,5,303,45"/>
-<area shape="rect" id="node4" href="XdiCollection.html" title="&#171;interface&#187; XdiCollection" alt="" coords="207,84,303,124"/>
-<area shape="rect" id="node5" href="XdiAbstractCollection.html" title="XdiAbstractCollection" alt="" coords="5,170,152,195"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="XdiCollection.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <HR>
@@ -142,7 +134,7 @@ Interface XdiCollection&lt;C extends XdiCollection&lt;C,U,O,I&gt;,U extends <A H
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">I</A>&gt;</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">EQ</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMembers(boolean)">getXdiMembers</A></B>(boolean&nbsp;deref)</CODE>
 
 <BR>
@@ -211,7 +203,7 @@ Interface XdiCollection&lt;C extends XdiCollection&lt;C,U,O,I&gt;,U extends <A H
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>
@@ -351,7 +343,7 @@ long <B>getXdiMembersOrderedCount</B>()</PRE>
 <A NAME="getXdiMembers(boolean)"><!-- --></A><H3>
 getXdiMembers</H3>
 <PRE>
-<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">I</A>&gt; <B>getXdiMembers</B>(boolean&nbsp;deref)</PRE>
+<A HREF="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">EQ</A>&gt; <B>getXdiMembers</B>(boolean&nbsp;deref)</PRE>
 <DL>
 <DD><DL>
 </DL>

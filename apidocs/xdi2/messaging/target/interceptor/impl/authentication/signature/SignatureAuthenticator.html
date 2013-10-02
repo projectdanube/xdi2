@@ -58,8 +58,8 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AuthenticationSignatureInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/StaticSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="SignatureAuthenticator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -98,18 +98,12 @@ Interface SignatureAuthenticator</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang">Cloneable</A>, <A HREF="../../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A>&gt;</DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">AbstractSignatureAuthenticator</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">AbstractSignatureAuthenticator</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">DiscoverySignatureAuthenticator</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/GraphSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">GraphSignatureAuthenticator</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">PublicKeySignatureAuthenticator</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/StaticSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">StaticSignatureAuthenticator</A></DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public interface <B>SignatureAuthenticator</B><DT>extends <A HREF="../../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A>&gt;</DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="SignatureAuthenticator.html" title="&#171;interface&#187; SignatureAuthenticator" alt="" coords="29,100,184,140"/>
-<area shape="rect" id="node2" href="../../../../Prototype.html" title="&#171;interface&#187; Prototype (xdi2.messaging.target)" alt="" coords="27,6,185,61"/>
-<area shape="rect" id="node3" href="AbstractSignatureAuthenticator.html" title="AbstractSignatureAuthenticator" alt="" coords="5,179,208,205"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="SignatureAuthenticator.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 The purpose of this interface is to authenticate an incoming XDI message
@@ -151,8 +145,8 @@ The purpose of this interface is to authenticate an incoming XDI message
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#authenticate(xdi2.messaging.Message, java.lang.String)">authenticate</A></B>(<A HREF="../../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;signature)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)">authenticate</A></B>(<A HREF="../../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+             <A HREF="../../../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authenticates an XDI message given a signature.</TD>
@@ -230,11 +224,11 @@ void <B>shutdown</B>()
 </DL>
 <HR>
 
-<A NAME="authenticate(xdi2.messaging.Message, java.lang.String)"><!-- --></A><H3>
+<A NAME="authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)"><!-- --></A><H3>
 authenticate</H3>
 <PRE>
 boolean <B>authenticate</B>(<A HREF="../../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;signature)</PRE>
+                     <A HREF="../../../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</PRE>
 <DL>
 <DD>Authenticates an XDI message given a signature.
 <P>
@@ -276,8 +270,8 @@ boolean <B>authenticate</B>(<A HREF="../../../../../../../xdi2/messaging/Message
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AuthenticationSignatureInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/StaticSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="SignatureAuthenticator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

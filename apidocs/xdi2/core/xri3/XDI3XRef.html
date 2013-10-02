@@ -9,6 +9,7 @@ XDI3XRef (xdi2 0.1-SNAPSHOT API)
 
 <META NAME="keywords" CONTENT="xdi2.core.xri3.XDI3XRef class">
 <META NAME="keywords" CONTENT="create()">
+<META NAME="keywords" CONTENT="fromComponents()">
 <META NAME="keywords" CONTENT="isEmpty()">
 <META NAME="keywords" CONTENT="hasSegment()">
 <META NAME="keywords" CONTENT="hasStatement()">
@@ -118,11 +119,6 @@ Class XDI3XRef</H2>
 <DL>
 <DT><PRE>public class <B>XDI3XRef</B><DT>extends <A HREF="../../../xdi2/core/xri3/XDI3SyntaxComponent.html" title="class in xdi2.core.xri3">XDI3SyntaxComponent</A></DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="XDI3SyntaxComponent.html" title="XDI3SyntaxComponent" alt="" coords="5,6,160,31"/>
-<area shape="rect" id="node2" href="XDI3XRef.html" title="XDI3XRef" alt="" coords="45,71,120,97"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="XDI3XRef.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <DL>
@@ -161,6 +157,20 @@ Class XDI3XRef</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3XRef.html#create(java.lang.String)">create</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3XRef.html#fromComponents(java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.lang.String, java.lang.String)">fromComponents</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;xs,
+               <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;segment,
+               <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement,
+               <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;partialSubject,
+               <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;partialPredicate,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;iri,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literal)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -313,6 +323,23 @@ Class XDI3XRef</H2>
 create</H3>
 <PRE>
 public static <A HREF="../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A> <B>create</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;string)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fromComponents(java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, java.lang.String, java.lang.String)"><!-- --></A><H3>
+fromComponents</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3XRef.html" title="class in xdi2.core.xri3">XDI3XRef</A> <B>fromComponents</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;xs,
+                                      <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;segment,
+                                      <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement,
+                                      <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;partialSubject,
+                                      <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;partialPredicate,
+                                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;iri,
+                                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literal)</PRE>
 <DL>
 <DD><DL>
 </DL>

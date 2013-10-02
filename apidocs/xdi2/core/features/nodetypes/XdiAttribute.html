@@ -93,7 +93,7 @@ xdi2.core.features.nodetypes</FONT>
 <BR>
 Interface XdiAttribute</H2>
 <DL>
-<DT><B>All Superinterfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A></DD>
+<DT><B>All Superinterfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&lt;?&gt;&gt;, <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&gt;, <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&gt;</DD>
 </DL>
 <DL>
 <DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeMember.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeMember</A></DD>
@@ -103,16 +103,8 @@ Interface XdiAttribute</H2>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public interface <B>XdiAttribute</B><DT>extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A></DL>
+<DT><PRE>public interface <B>XdiAttribute</B><DT>extends <A HREF="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</A>&lt;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&gt;</DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="XdiAbstractAttribute.html" title="&#171;static&#187; XdiAbstractAttribute" alt="" coords="5,163,147,203"/>
-<area shape="rect" id="node2" href="XdiSubGraph.html" title="&#171;interface&#187; XdiSubGraph" alt="" coords="195,5,292,45"/>
-<area shape="rect" id="node3" href="XdiAttributeMember.html" title="&#171;interface&#187; XdiAttributeMember" alt="" coords="177,163,311,203"/>
-<area shape="rect" id="node4" href="XdiAttribute.html" title="&#171;interface&#187; XdiAttribute" alt="" coords="200,84,288,124"/>
-<area shape="rect" id="node5" href="XdiAttributeSingleton.html" title="XdiAttributeSingleton" alt="" coords="341,170,483,195"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="XdiAttribute.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 <HR>
@@ -142,7 +134,7 @@ Interface XdiAttribute</H2>
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>

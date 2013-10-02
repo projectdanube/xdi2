@@ -110,10 +110,6 @@ Class XDI3Util</H2>
 <DL>
 <DT><PRE>public final class <B>XDI3Util</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="XDI3Util.html" title="&#171;static&#187; XDI3Util" alt="" coords="5,5,72,45"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="XDI3Util.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 Various utility methods for working with XRI 3.0 syntax.
@@ -294,9 +290,12 @@ Various utility methods for working with XRI 3.0 syntax.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#replaceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)">replaceXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#replaceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment, boolean, boolean, boolean)">replaceXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
            <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;oldXri,
-           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;newXri)</CODE>
+           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;newXri,
+           boolean&nbsp;replaceInXRefSegment,
+           boolean&nbsp;replaceInXRefStatement,
+           boolean&nbsp;replaceInXRefPartialSubjectAndPredicate)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Replaces all occurences of a subsegment with a segment.</TD>
@@ -541,12 +540,15 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 </DL>
 <HR>
 
-<A NAME="replaceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+<A NAME="replaceXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment, boolean, boolean, boolean)"><!-- --></A><H3>
 replaceXri</H3>
 <PRE>
 public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>replaceXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
                                      <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;oldXri,
-                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;newXri)</PRE>
+                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;newXri,
+                                     boolean&nbsp;replaceInXRefSegment,
+                                     boolean&nbsp;replaceInXRefStatement,
+                                     boolean&nbsp;replaceInXRefPartialSubjectAndPredicate)</PRE>
 <DL>
 <DD>Replaces all occurences of a subsegment with a segment.
 <P>

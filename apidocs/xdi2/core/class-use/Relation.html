@@ -97,10 +97,6 @@ Packages that use <A HREF="../../../xdi2/core/Relation.html" title="interface in
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.core.features.linkcontracts.evaluation"><B>xdi2.core.features.linkcontracts.evaluation</B></A></TD>
-<TD>&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.core.features.linkcontracts.operator"><B>xdi2.core.features.linkcontracts.operator</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -139,10 +135,6 @@ Packages that use <A HREF="../../../xdi2/core/Relation.html" title="interface in
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging"><B>xdi2.messaging</B></A></TD>
 <TD>Support for XDI messaging documents and transport protocols.&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.messaging.target.interceptor.impl.util"><B>xdi2.messaging.target.interceptor.impl.util</B></A></TD>
-<TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -456,39 +448,6 @@ Uses of <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.core.features.linkcontracts.evaluation"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> in <A HREF="../../../xdi2/core/features/linkcontracts/evaluation/package-summary.html">xdi2.core.features.linkcontracts.evaluation</A></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/core/features/linkcontracts/evaluation/package-summary.html">xdi2.core.features.linkcontracts.evaluation</A> that return types with arguments of type <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>PolicyEvaluationContext.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html#getRelations(xdi2.core.xri3.XDI3Segment)">getRelations</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>GraphPolicyEvaluationContext.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/evaluation/GraphPolicyEvaluationContext.html#getRelations(xdi2.core.xri3.XDI3Segment)">getRelations</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
 <A NAME="xdi2.core.features.linkcontracts.operator"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -553,14 +512,6 @@ Uses of <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/features/linkcontracts/operator/GenericOperator.html" title="class in xdi2.core.features.linkcontracts.operator">GenericOperator</A></CODE></FONT></TD>
-<TD><CODE><B>GenericOperator.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/operator/GenericOperator.html#fromRelation(xdi2.core.Relation)">fromRelation</A></B>(<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&nbsp;relation)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI generic policy statement bound to a given relation.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/features/linkcontracts/operator/FalseOperator.html" title="class in xdi2.core.features.linkcontracts.operator">FalseOperator</A></CODE></FONT></TD>
 <TD><CODE><B>FalseOperator.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/operator/FalseOperator.html#fromRelation(xdi2.core.Relation)">fromRelation</A></B>(<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&nbsp;relation)</CODE>
 
@@ -586,14 +537,6 @@ Uses of <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>GenericOperator.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/operator/GenericOperator.html#isValid(xdi2.core.Relation)">isValid</A></B>(<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&nbsp;relation)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a relation is a valid XDI generic operator.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B>FalseOperator.</B><B><A HREF="../../../xdi2/core/features/linkcontracts/operator/FalseOperator.html#isValid(xdi2.core.Relation)">isValid</A></B>(<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&nbsp;relation)</CODE>
 
 <BR>
@@ -615,12 +558,6 @@ Uses of <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/operator/FalseOperator.html#FalseOperator(xdi2.core.Relation)">FalseOperator</A></B>(<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&nbsp;relation)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/core/features/linkcontracts/operator/GenericOperator.html#GenericOperator(xdi2.core.Relation)">GenericOperator</A></B>(<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&nbsp;relation)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1682,31 +1619,6 @@ Uses of <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../xdi2/messaging/Message.MappingRelationSetOperationIterator.html#Message.MappingRelationSetOperationIterator(xdi2.messaging.Message, java.util.Iterator)">Message.MappingRelationSetOperationIterator</A></B>(<A HREF="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
                                             <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;&nbsp;relations)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-<A NAME="xdi2.messaging.target.interceptor.impl.util"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A> in <A HREF="../../../xdi2/messaging/target/interceptor/impl/util/package-summary.html">xdi2.messaging.target.interceptor.impl.util</A></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/messaging/target/interceptor/impl/util/package-summary.html">xdi2.messaging.target.interceptor.impl.util</A> that return types with arguments of type <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B>MessagePolicyEvaluationContext.</B><B><A HREF="../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#getRelations(xdi2.core.xri3.XDI3Segment)">getRelations</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

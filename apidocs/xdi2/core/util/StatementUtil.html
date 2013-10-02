@@ -8,8 +8,8 @@ StatementUtil (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.util.StatementUtil class">
-<META NAME="keywords" CONTENT="concatXriStatement()">
 <META NAME="keywords" CONTENT="removeStartXriStatement()">
+<META NAME="keywords" CONTENT="concatXriStatement()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -101,10 +101,6 @@ Class StatementUtil</H2>
 <DL>
 <DT><PRE>public final class <B>StatementUtil</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="StatementUtil.html" title="&#171;static&#187; StatementUtil" alt="" coords="5,5,107,45"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="StatementUtil.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 Various utility methods for working with statements.
@@ -131,7 +127,7 @@ Various utility methods for working with statements.
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#concatXriStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, boolean)">concatXriStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                   <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement,
+                   <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri,
                    boolean&nbsp;concatTargetContextNodeXri)</CODE>
 
 <BR>
@@ -140,7 +136,7 @@ Various utility methods for working with statements.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#removeStartXriStatement(xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, boolean)">removeStartXriStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement,
+<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#removeStartXriStatement(xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, boolean)">removeStartXriStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri,
                         <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;start,
                         boolean&nbsp;removeFromTargetContextNodeXri)</CODE>
 
@@ -150,7 +146,7 @@ Various utility methods for working with statements.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#removeStartXriStatement(xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, boolean, boolean, boolean)">removeStartXriStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement,
+<TD><CODE><B><A HREF="../../../xdi2/core/util/StatementUtil.html#removeStartXriStatement(xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, boolean, boolean, boolean)">removeStartXriStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri,
                         <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;start,
                         boolean&nbsp;removeFromTargetContextNodeXri,
                         boolean&nbsp;variablesInXri,
@@ -182,26 +178,10 @@ Various utility methods for working with statements.
 </TR>
 </TABLE>
 
-<A NAME="concatXriStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, boolean)"><!-- --></A><H3>
-concatXriStatement</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>concatXriStatement</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
-                                               <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement,
-                                               boolean&nbsp;concatTargetContextNodeXri)</PRE>
-<DL>
-<DD>Concats an XRI and a statement into a new statement.
- E.g. for *c*d&/&/... and =a*b, this returns =a*b*c*d&/&/...
-<P>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="removeStartXriStatement(xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, boolean, boolean, boolean)"><!-- --></A><H3>
 removeStartXriStatement</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>removeStartXriStatement</B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement,
+public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>removeStartXriStatement</B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri,
                                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;start,
                                                     boolean&nbsp;removeFromTargetContextNodeXri,
                                                     boolean&nbsp;variablesInXri,
@@ -219,12 +199,28 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class 
 <A NAME="removeStartXriStatement(xdi2.core.xri3.XDI3Statement, xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
 removeStartXriStatement</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>removeStartXriStatement</B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement,
+public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>removeStartXriStatement</B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri,
                                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;start,
                                                     boolean&nbsp;removeFromTargetContextNodeXri)</PRE>
 <DL>
 <DD>Removes a start XRI from a statement.
  E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="concatXriStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, boolean)"><!-- --></A><H3>
+concatXriStatement</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>concatXriStatement</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                               <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri,
+                                               boolean&nbsp;concatTargetContextNodeXri)</PRE>
+<DL>
+<DD>Concats an XRI and a statement into a new statement.
+ E.g. for *c*d&/&/... and =a*b, this returns =a*b*c*d&/&/...
 <P>
 <DD><DL>
 </DL>

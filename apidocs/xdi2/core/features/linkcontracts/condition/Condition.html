@@ -11,7 +11,7 @@ Condition (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="isValid()">
 <META NAME="keywords" CONTENT="fromStatement()">
 <META NAME="keywords" CONTENT="castCondition()">
-<META NAME="keywords" CONTENT="getStatement()">
+<META NAME="keywords" CONTENT="getStatementXri()">
 <META NAME="keywords" CONTENT="evaluate()">
 <META NAME="keywords" CONTENT="evaluateInternal()">
 <META NAME="keywords" CONTENT="toString()">
@@ -115,18 +115,6 @@ Class Condition</H2>
 <DL>
 <DT><PRE>public abstract class <B>Condition</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../../xdi2/core/features/linkcontracts/condition/Condition.html" title="class in xdi2.core.features.linkcontracts.condition">Condition</A>&gt;</DL>
 </PRE>
-<map id="APIVIZ" name="APIVIZ">
-<area shape="rect" id="node1" href="EqualsCondition.html" title="EqualsCondition" alt="" coords="371,5,487,30"/>
-<area shape="rect" id="node2" href="GenericCondition.html" title="GenericCondition" alt="" coords="369,49,490,74"/>
-<area shape="rect" id="node3" href="GreaterCondition.html" title="GreaterCondition" alt="" coords="370,93,489,118"/>
-<area shape="rect" id="node4" href="IsCondition.html" title="IsCondition" alt="" coords="386,137,473,162"/>
-<area shape="rect" id="node5" href="LesserCondition.html" title="LesserCondition" alt="" coords="372,181,487,206"/>
-<area shape="rect" id="node6" href="MatchesCondition.html" title="MatchesCondition" alt="" coords="366,225,493,250"/>
-<area shape="rect" id="node7" href="Condition.html" title="Condition" alt="" coords="193,115,269,141"/>
-<area shape="rect" id="node8" title="&#171;interface&#187; Comparable (java.lang)" alt="" coords="5,63,96,118"/>
-<area shape="rect" id="node9" title="&#171;interface&#187; Serializable (java.io)" alt="" coords="6,137,95,191"/>
-</map>
-<div id="apivizContainer" style="text-align: center;"><img src="Condition.png" usemap="#APIVIZ" border="0"></div>
 
 <P>
 An XDI condition, represented as a statement.
@@ -152,7 +140,7 @@ An XDI condition, represented as a statement.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/condition/Condition.html#Condition(xdi2.core.xri3.XDI3Statement)">Condition</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement)</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/condition/Condition.html#Condition(xdi2.core.xri3.XDI3Statement)">Condition</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -218,7 +206,7 @@ An XDI condition, represented as a statement.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/condition/Condition.html#getStatement()">getStatement</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/linkcontracts/condition/Condition.html#getStatementXri()">getStatementXri</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying statement to which this XDI condition is bound.</TD>
@@ -273,7 +261,7 @@ An XDI condition, represented as a statement.
 <A NAME="Condition(xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
 Condition</H3>
 <PRE>
-protected <B>Condition</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statement)</PRE>
+protected <B>Condition</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;statementXri)</PRE>
 <DL>
 </DL>
 
@@ -338,10 +326,10 @@ public static <A HREF="../../../../../xdi2/core/features/linkcontracts/condition
 </DL>
 <HR>
 
-<A NAME="getStatement()"><!-- --></A><H3>
-getStatement</H3>
+<A NAME="getStatementXri()"><!-- --></A><H3>
+getStatementXri</H3>
 <PRE>
-public <A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>getStatement</B>()</PRE>
+public <A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>getStatementXri</B>()</PRE>
 <DL>
 <DD>Returns the underlying statement to which this XDI condition is bound.
 <P>
