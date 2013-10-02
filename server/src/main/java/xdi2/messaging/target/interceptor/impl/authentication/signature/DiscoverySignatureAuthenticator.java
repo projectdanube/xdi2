@@ -11,7 +11,6 @@ import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.interceptor.impl.authentication.signature.PublicKeySignatureAuthenticator;
 
 /**
  * A SignatureAuthenticator that can authenticate an XDI message by obtaining
@@ -20,6 +19,8 @@ import xdi2.messaging.target.interceptor.impl.authentication.signature.PublicKey
 public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthenticator {
 
 	private static Logger log = LoggerFactory.getLogger(DiscoverySignatureAuthenticator.class.getName());
+
+	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = new XDIDiscoveryClient();
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
@@ -32,7 +33,7 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 
 	public DiscoverySignatureAuthenticator() {
 
-		super();
+		this(DEFAULT_DISCOVERY_CLIENT);
 	}
 
 	@Override

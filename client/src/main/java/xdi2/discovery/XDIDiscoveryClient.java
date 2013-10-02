@@ -14,7 +14,7 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 
 public class XDIDiscoveryClient {
 
-	public static final XDIHttpClient DEFAULT_REGISTRY_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
+	public static final XDIHttpClient DEFAULT_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
 
 	private XDIHttpClient registryXdiClient;
 
@@ -25,7 +25,7 @@ public class XDIDiscoveryClient {
 
 	public XDIDiscoveryClient() {
 
-		this(DEFAULT_REGISTRY_XDI_CLIENT);
+		this(DEFAULT_XDI_CLIENT);
 	}
 
 	public XDIDiscoveryResult discoverFromRegistry(XDI3Segment query) throws Xdi2ClientException {
