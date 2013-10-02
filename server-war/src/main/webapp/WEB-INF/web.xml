@@ -22,7 +22,7 @@
 	<!-- LISTENERS -->
 
 	<listener>
-		<listener-class>xdi2.server.spring.PluginsLoaderListener</listener-class>
+		<listener-class>xdi2.server.servlet.PluginsLoaderListener</listener-class>
 	</listener>
 
 	<listener>
