@@ -12,6 +12,12 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
+/**
+ * Given an identifier such as a Cloud Name, or discovery key, useful information such a Cloud Number, 
+ * a public key, or additional services, can be discovered.
+ * 
+ * @author markus
+ */
 public class XDIDiscoveryClient {
 
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
