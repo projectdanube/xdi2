@@ -22,6 +22,7 @@ import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 
 public class XDIDiscoveryResult implements Serializable {
@@ -33,6 +34,7 @@ public class XDIDiscoveryResult implements Serializable {
 	private PublicKey publicKey;
 	private Map<String, String> services;
 
+	private MessageEnvelope messageEnvelope;
 	private MessageResult messageResult;
 
 	public XDIDiscoveryResult() {
@@ -42,11 +44,13 @@ public class XDIDiscoveryResult implements Serializable {
 		this.publicKey = null;
 		this.services = null;
 
+		this.messageEnvelope = null;
 		this.messageResult = null;
 	}
 
-	void initFromRegistryMessageResult(MessageResult registryMessageResult, XDI3Segment query) throws Xdi2ClientException {
+	void initFromRegistryMessageResult(MessageEnvelope registryMessageEnvelope, MessageResult registryMessageResult, XDI3Segment query) throws Xdi2ClientException {
 
+		this.messageEnvelope = registryMessageEnvelope;
 		this.messageResult = registryMessageResult;
 
 		// look into registry message result
@@ -82,8 +86,9 @@ public class XDIDiscoveryResult implements Serializable {
 		this.xdiEndpointUri = xdiEndpointUriLiteral == null ? null : xdiEndpointUriLiteral.getLiteralDataString();
 	}
 
-	void initFromAuthorityMessageResult(MessageResult authorityMessageResult) throws Xdi2ClientException {
+	void initFromAuthorityMessageResult(MessageEnvelope authorityMessageEnvelope, MessageResult authorityMessageResult) throws Xdi2ClientException {
 
+		this.messageEnvelope = authorityMessageEnvelope;
 		this.messageResult = authorityMessageResult;
 
 		// look into authority message result
@@ -168,6 +173,11 @@ public class XDIDiscoveryResult implements Serializable {
 	public Map<String, String> getServices() {
 
 		return this.services;
+	}
+
+	public MessageEnvelope getMessageEnvelope() {
+
+		return this.messageEnvelope;
 	}
 
 	public MessageResult getMessageResult() {

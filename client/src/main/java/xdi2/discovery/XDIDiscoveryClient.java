@@ -58,7 +58,7 @@ public class XDIDiscoveryClient {
 
 		// parse the registry message result
 
-		discoveryResult.initFromRegistryMessageResult(registryMessageResult, query);
+		discoveryResult.initFromRegistryMessageResult(registryMessageEnvelope, registryMessageResult, query);
 
 		// done
 
@@ -99,7 +99,7 @@ public class XDIDiscoveryClient {
 
 		// parse the authority message result
 
-		discoveryResult.initFromAuthorityMessageResult(authorityMessageResult);
+		discoveryResult.initFromAuthorityMessageResult(authorityMessageEnvelope, authorityMessageResult);
 
 		// done
 
