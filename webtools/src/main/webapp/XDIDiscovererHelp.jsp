@@ -19,43 +19,28 @@
 
     <div class="tabbertab">
 
-	<h2>Information</h2>
+	<h2>Overview</h2>
 
-	Here you can send XDI messages to XDI endpoints and view results.
-
-	<ul>
-	<li>Messages can be entered in any format.</li>
-	<li>Messages are sent to the endpoint in JSON format by default.</li>
-	<li>Message results are requested from the endpoint in JSON format.</li>
-	<li>Only $get operations will result in a direct response.</li>
-	<li>If you get the error "Unknown serialization format", use the XDI Validator to debug your message.</li>
-	</ul>
-
-	Graphs can also be accessed with HTTP GET requests containing an XDI address. If you enter the
-	endpoint URI in your browser, you will get the whole graph. If you enter a subject XRI after the
-	endpoint URI, you will get only the statements rooted in that subject, etc.
+	<p>This tool allows you to perform XDI discovery on identifiers such as Cloud Names, Cloud Numbers, and discovery keys.</p>
+	
+	<p>The first (required) step is send an XDI discovery request to a registry service.</p>
+	
+	<p>The second (optional) step is to send an XDI discovery request to the XDI authority associated with the identifier.</p> 
 
 	</div>
 
     <div class="tabbertab">
 
-	<h2>Example XDI endpoints</h2>
+	<h2>Discoverable information</h2>
 
-	<p>The following XDI endpoints are deployed together with the XDI Messenger for testing purposes:</p>
+	<p>The following information can be discovered from either the registry service or the XDI authority:</p>
 
-	<%	String base = request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")); %>
-	
-	<p style="font-weight: bold"><a target="_blank" href="<%= base %>/xdi/mem-graph/"><%= base %>/xdi/mem-graph/</a></p>
-	<p>This is an XDI endpoint backed by an in-memory store.</p/
-	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
-	
-	<p style="font-weight: bold"><a target="_blank" href="<%= base %>/xdi/bdb-graph/"><%= base %>/xdi/bdb-graph/</a></p>
-	<p>This is an XDI endpoint backed by a Berkely DB store.</p/
-	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
-	
-	<p style="font-weight: bold"><a target="_blank" href="<%= base %>/xdi/file-graph/"><%= base %>/xdi/file-graph/</a></p>
-	<p>This is an XDI endpoint backed by an XDI/JSON text file.</p/
-	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
+	<ul>
+	<li>The Cloud Number.</li>
+	<li>The endpoint URI of the XDI authority.</li>
+	<li>A default public key associated with the XDI authority.</li>
+	<li>A list of additional services associated with the XDI authority.</li>
+	</ul>
 
 	</div>
 

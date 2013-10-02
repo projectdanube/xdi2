@@ -63,6 +63,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		request.setAttribute("writePretty", null);
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("endpoint", sampleEndpoint);
+		request.setAttribute("authority", "on");
 
 		request.getRequestDispatcher("/XDIDiscoverer.jsp").forward(request, response);
 	}
@@ -77,6 +78,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		String writePretty = request.getParameter("writePretty");
 		String input = request.getParameter("input");
 		String endpoint = request.getParameter("endpoint");
+		String authority = request.getParameter("authority");
 		String output = "";
 		String output2 = "";
 		String stats = "-1";
@@ -99,62 +101,83 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		try {
 
 			// start discovery
-			
+
 			XDIDiscoveryClient discoveryClient = new XDIDiscoveryClient(new XDIHttpClient(endpoint));
 
 			// from registry
-			
-			discoveryResult1 = discoveryClient.discoverFromRegistry(XDI3Segment.create(input));
-			
-			// from authority
-			
-			if (discoveryResult1 != null && discoveryResult1.getXdiEndpointUri() != null) {
 
-				discoveryResult2 = discoveryClient.discoverFromAuthority(discoveryResult1.getXdiEndpointUri(), discoveryResult1.getCloudNumber());
+			discoveryResult1 = discoveryClient.discoverFromRegistry(XDI3Segment.create(input));
+
+			// from authority
+
+			if ("on".equals(authority)) {
+
+				if (discoveryResult1 != null && discoveryResult1.getXdiEndpointUri() != null) {
+
+					discoveryResult2 = discoveryClient.discoverFromAuthority(discoveryResult1.getXdiEndpointUri(), discoveryResult1.getCloudNumber());
+				}
 			}
-			
+
 			// output result
 
 			StringWriter writer = new StringWriter();
 			StringWriter writer2 = new StringWriter();
 
 			if (discoveryResult1 != null) {
-				
-				writer.write("Information from registry:\n\n");
-			
+
+				writer.write("Discovery result from registry:\n\n");
+
 				writer.write("Cloud Number: " + discoveryResult1.getCloudNumber() + "\n");
 				writer.write("XDI Endpoint URI: " + discoveryResult1.getXdiEndpointUri() + "\n");
 				writer.write("Public Key: " + discoveryResult1.getPublicKey() + "\n");
 				writer.write("Services: " + discoveryResult1.getServices() + "\n\n");
+
+				writer.write("Message envelope to registry:\n\n");
+
+				if (discoveryResult1.getMessageEnvelope() != null) 
+					xdiResultWriter.write(discoveryResult1.getMessageEnvelope().getGraph(), writer);
+				else
+					writer.write("(null)");
 				
+				writer.write("\n");
+
 				writer.write("Message result from registry:\n\n");
-				
+
 				if (discoveryResult1.getMessageResult() != null) 
 					xdiResultWriter.write(discoveryResult1.getMessageResult().getGraph(), writer);
 				else
 					writer.write("(null)");
 			} else {
-				
+
 				writer.write("No discovery result from registry.\n");
 			}
 
 			if (discoveryResult2 != null) {
-				
-				writer2.write("Information from authority:\n\n");
-			
+
+				writer2.write("Discovery result from authority:\n\n");
+
 				writer2.write("Cloud Number: " + discoveryResult2.getCloudNumber() + "\n");
 				writer2.write("XDI Endpoint URI: " + discoveryResult2.getXdiEndpointUri() + "\n");
 				writer2.write("Public Key: " + discoveryResult2.getPublicKey() + "\n");
 				writer2.write("Services: " + discoveryResult2.getServices() + "\n\n");
-				
+
+				writer2.write("Message envelope to authority:\n\n");
+
+				if (discoveryResult2.getMessageEnvelope() != null) 
+					xdiResultWriter.write(discoveryResult2.getMessageEnvelope().getGraph(), writer2);
+				else
+					writer2.write("(null)");
+
+				writer2.write("\n");
+
 				writer2.write("Message result from authority:\n\n");
-				
+
 				if (discoveryResult2.getMessageResult() != null)
 					xdiResultWriter.write(discoveryResult2.getMessageResult().getGraph(), writer2);
 				else
 					writer2.write("(null)");
 			} else {
-				
+
 				writer2.write("No discovery result from authority.\n");
 			}
 
@@ -198,6 +221,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("input", input);
 		request.setAttribute("endpoint", endpoint);
+		request.setAttribute("authority", authority);
 		request.setAttribute("output", output);
 		request.setAttribute("output2", output2);
 		request.setAttribute("stats", stats);

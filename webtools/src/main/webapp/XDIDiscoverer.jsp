@@ -36,9 +36,13 @@
 		<% String writeInner = (String) request.getAttribute("writeInner"); if (writeInner == null) writeInner = ""; %>
 		<% String writePretty = (String) request.getAttribute("writePretty"); if (writePretty == null) writePretty = ""; %>
 		<% String endpoint = (String) request.getAttribute("endpoint"); if (endpoint == null) endpoint = ""; %>
+		<% String authority = (String) request.getAttribute("authority"); if (authority == null) authority = ""; %>
 
-		Send to endpoint: 
-		<input type="text" name="endpoint" size="80" value="<%= endpoint %>"><br>
+		Discover from registry service: 
+		<input type="text" name="endpoint" size="80" value="<%= endpoint %>">
+		
+		<input name="authority" type="checkbox" <%= authority.equals("on") ? "checked" : "" %>>
+		Discover from XDI authority<br>
 
 		Result Format:
 		<select name="resultFormat">

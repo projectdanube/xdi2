@@ -37,7 +37,7 @@
 		<% String endpoint = (String) request.getAttribute("endpoint"); if (endpoint == null) endpoint = ""; %>
 
 		Send to endpoint: 
-		<input type="text" name="endpoint" size="80" value="<%= endpoint %>">
+		<input type="text" name="endpoint" size="80" value="<%= endpoint %>"><br>
 
 		Result Format:
 		<select name="resultFormat">
