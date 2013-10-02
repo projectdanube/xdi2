@@ -134,7 +134,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 				for (XDI3Segment completedAddress : getCompletedAddresses(executionContext)) {
 
-					if (XDI3Util.startsWith(targetContextNodeXri, completedAddress) != null) {
+					if (targetContextNodeXri.equals(completedAddress)) {
 
 						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation to " + targetContextNodeXri + " because of already completed address (" + completedAddress + "): " + refRepRelation);
 
