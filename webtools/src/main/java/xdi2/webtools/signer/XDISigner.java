@@ -115,6 +115,8 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("key", sampleKeys.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("address", sampleAddresses.get(Integer.parseInt(sample) - 1));
+		request.setAttribute("signatureAlgorithm", Signature.DEFAULT_SIGNATURE_ALGORITHM);
+		request.setAttribute("hmacAlgorithm", Signature.DEFAULT_HMAC_ALGORITHM);
 
 		request.getRequestDispatcher("/XDISigner.jsp").forward(request, response);
 	}
@@ -130,6 +132,8 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		String input = request.getParameter("input");
 		String key = request.getParameter("key");
 		String address = request.getParameter("address");
+		String signatureAlgorithm = request.getParameter("signatureAlgorithm");
+		String hmacAlgorithm = request.getParameter("hmacAlgorithm");
 		String submit = request.getParameter("submit");
 		String output = "";
 		String output2 = "";
@@ -176,7 +180,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 				k = keyFactory.generatePrivate(keySpec);
 
-				signature.createSignature((PrivateKey) k);
+				signature.createSignature((PrivateKey) k, signatureAlgorithm);
 			} else if ("Validate RSA Signature!".equals(submit)) {
 
 				signature = Signatures.getSignature(contextNode, false);
@@ -186,14 +190,14 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 				k = keyFactory.generatePublic(keySpec);
 
-				valid = Boolean.valueOf(signature.validateSignature((PublicKey) k));
+				valid = Boolean.valueOf(signature.validateSignature((PublicKey) k, signatureAlgorithm));
 			} else if ("Create AES HMAC!".equals(submit)) {
 
 				signature = Signatures.getSignature(contextNode, true);
 
 				k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
 
-				signature.createHMAC((SecretKey) k);
+				signature.createHMAC((SecretKey) k, hmacAlgorithm);
 			} else if ("Validate AES HMAC!".equals(submit)) {
 
 				signature = Signatures.getSignature(contextNode, false);
@@ -201,7 +205,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 				k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
 
-				valid = Boolean.valueOf(signature.validateHMAC((SecretKey) k));
+				valid = Boolean.valueOf(signature.validateHMAC((SecretKey) k, hmacAlgorithm));
 			}
 
 			// output the graph or result
@@ -249,6 +253,8 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("input", input);
 		request.setAttribute("key", key);
 		request.setAttribute("address", address);
+		request.setAttribute("signatureAlgorithm", signatureAlgorithm);
+		request.setAttribute("hmacAlgorithm", hmacAlgorithm);
 		request.setAttribute("output", output);
 		request.setAttribute("output2", output2);
 		request.setAttribute("stats", stats);
