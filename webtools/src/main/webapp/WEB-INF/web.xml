@@ -80,6 +80,17 @@
 
 	<servlet>
 		<description></description>
+		<display-name>XDIDiscoverer</display-name>
+		<servlet-name>XDIDiscoverer</servlet-name>
+		<servlet-class>xdi2.webtools.discoverer.XDIDiscoverer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDIDiscoverer</servlet-name>
+		<url-pattern>/XDIDiscoverer</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
 		<display-name>XDIGrapher</display-name>
 		<servlet-name>XDIGrapher</servlet-name>
 		<servlet-class>xdi2.webtools.grapher.XDIGrapher</servlet-class>

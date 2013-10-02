@@ -14,7 +14,7 @@
 	<span id="appname">XDI Discoverer</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDISigner?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+		<a href="XDIDiscoverer?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
@@ -27,7 +27,8 @@
 
 	<form action="XDIDiscoverer" method="post">
 
-		<textarea name="input" style="width: 100%" rows="2"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
+		Cloud Name / Cloud Number: 
+		<input type="text" name="input" size="80" value="<%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %>"><br>
 
 		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
 		<% String writeImplied = (String) request.getAttribute("writeImplied"); if (writeImplied == null) writeImplied = ""; %>
@@ -37,7 +38,7 @@
 		<% String endpoint = (String) request.getAttribute("endpoint"); if (endpoint == null) endpoint = ""; %>
 
 		Send to endpoint: 
-		<input type="text" name="endpoint" size="80" value="<%= endpoint %>">
+		<input type="text" name="endpoint" size="80" value="<%= endpoint %>"><br>
 
 		Result Format:
 		<select name="resultFormat">
@@ -57,6 +58,7 @@
 		<input name="writePretty" type="checkbox" <%= writePretty.equals("on") ? "checked" : "" %>>pretty=1
 
 		<input type="submit" value="Go!">
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIDiscovererHelp.jsp">What can I do here?</a>
 
 	</form>
 
@@ -70,12 +72,12 @@
 		</p>
 	<% } %>
 
-	<% if (request.getAttribute("output2") != null) { %>
-		<div class="result"><pre><%= request.getAttribute("output2") %></pre></div><br>
-	<% } %>
-
 	<% if (request.getAttribute("output") != null) { %>
 		<div class="result"><pre><%= request.getAttribute("output") %></pre></div><br>
+	<% } %>
+
+	<% if (request.getAttribute("output2") != null) { %>
+		<div class="result"><pre><%= request.getAttribute("output2") %></pre></div><br>
 	<% } %>
 
 	</div>

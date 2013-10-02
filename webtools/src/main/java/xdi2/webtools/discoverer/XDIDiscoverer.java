@@ -1,10 +1,8 @@
 package xdi2.webtools.discoverer;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -16,19 +14,15 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.io.XDIReader;
-import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.discovery.XDIDiscovery;
+import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 
 /**
@@ -50,32 +44,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		graphFactory = MemoryGraphFactory.getInstance();
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
 
-		sampleInputs = new ArrayList<String> ();
-
-		while (true) {
-
-			InputStream inputStream = XDIDiscoverer.class.getResourceAsStream("input" + (sampleInputs.size() + 1));
-			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			int i;
-
-			try {
-
-				while ((i = inputStream.read()) != -1) outputStream.write(i);
-				sampleInputs.add(new String(outputStream.toByteArray()));
-			} catch (Exception ex) {
-
-				break;
-			} finally {
-
-				try {
-
-					inputStream.close();
-					outputStream.close();
-				} catch (Exception ex) {
-
-				}
-			}
-		}
+		sampleInputs = Collections.singletonList("=markus");
 
 		sampleEndpoint = "http://mycloud.neustar.biz:12220/"; 
 	}
@@ -93,7 +62,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
-		request.setAttribute("endpoint", request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")) + sampleEndpoint);
+		request.setAttribute("endpoint", sampleEndpoint);
 
 		request.getRequestDispatcher("/XDIDiscoverer.jsp").forward(request, response);
 	}
@@ -109,6 +78,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		String input = request.getParameter("input");
 		String endpoint = request.getParameter("endpoint");
 		String output = "";
+		String output2 = "";
 		String stats = "-1";
 		String error = null;
 
@@ -119,11 +89,10 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
-		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 
-		MessageEnvelope messageEnvelope = null;
-		MessageResult messageResult = null;
+		XDIDiscoveryResult discoveryResult1 = null;
+		XDIDiscoveryResult discoveryResult2 = null;
 
 		long start = System.currentTimeMillis();
 
@@ -131,22 +100,71 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			// start discovery
 			
-			XDIDiscovery discovery = new XDIDiscovery(new XDIHttpClient(endpoint));
+			XDIDiscoveryClient discoveryClient = new XDIDiscoveryClient(new XDIHttpClient(endpoint));
 
-//			XDIDiscoveryResult discoveryResult = discovery.discoverFromXri(XDI3Segment.create(input), true, null);
+			// from registry
+			
+			discoveryResult1 = discoveryClient.discoverFromRegistry(XDI3Segment.create(input));
+			
+			// from authority
+			
+			if (discoveryResult1 != null && discoveryResult1.getXdiEndpointUri() != null) {
 
+				discoveryResult2 = discoveryClient.discoverFromAuthority(discoveryResult1.getXdiEndpointUri(), discoveryResult1.getCloudNumber());
+			}
+			
 			// output result
 
-	//		StringBuilder buffer = new StringBuilder();
+			StringWriter writer = new StringWriter();
+			StringWriter writer2 = new StringWriter();
 
-		//	xdiResultWriter.write(messageResult.getGraph(), writer);
+			if (discoveryResult1 != null) {
+				
+				writer.write("Information from registry:\n\n");
+			
+				writer.write("Cloud Number: " + discoveryResult1.getCloudNumber() + "\n");
+				writer.write("XDI Endpoint URI: " + discoveryResult1.getXdiEndpointUri() + "\n");
+				writer.write("Public Key: " + discoveryResult1.getPublicKey() + "\n");
+				writer.write("Services: " + discoveryResult1.getServices() + "\n\n");
+				
+				writer.write("Message result from registry:\n\n");
+				
+				if (discoveryResult1.getMessageResult() != null) 
+					xdiResultWriter.write(discoveryResult1.getMessageResult().getGraph(), writer);
+				else
+					writer.write("(null)");
+			} else {
+				
+				writer.write("No discovery result from registry.\n");
+			}
 
-			//	output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
+			if (discoveryResult2 != null) {
+				
+				writer2.write("Information from authority:\n\n");
+			
+				writer2.write("Cloud Number: " + discoveryResult2.getCloudNumber() + "\n");
+				writer2.write("XDI Endpoint URI: " + discoveryResult2.getXdiEndpointUri() + "\n");
+				writer2.write("Public Key: " + discoveryResult2.getPublicKey() + "\n");
+				writer2.write("Services: " + discoveryResult2.getServices() + "\n\n");
+				
+				writer2.write("Message result from authority:\n\n");
+				
+				if (discoveryResult2.getMessageResult() != null)
+					xdiResultWriter.write(discoveryResult2.getMessageResult().getGraph(), writer2);
+				else
+					writer2.write("(null)");
+			} else {
+				
+				writer2.write("No discovery result from authority.\n");
+			}
+
+			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
+			output2 = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
 
-				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+				MessageResult messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
 
 				// output the message result
 
@@ -167,9 +185,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		stats = "";
 		stats += Long.toString(stop - start) + " ms time. ";
-		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getMessageCount()) + " message(s). ";
-		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getOperationCount()) + " operation(s). ";
-		if (messageResult != null) stats += Long.toString(messageResult.getGraph().getRootContextNode().getAllStatementCount()) + " result statement(s). ";
+		if (discoveryResult1 != null && discoveryResult1.getMessageResult() != null) stats += Long.toString(discoveryResult1.getMessageResult().getGraph().getRootContextNode().getAllStatementCount()) + " result statement(s) from registry. ";
+		if (discoveryResult2 != null && discoveryResult2.getMessageResult() != null) stats += Long.toString(discoveryResult2.getMessageResult().getGraph().getRootContextNode().getAllStatementCount()) + " result statement(s) from authority. ";
 
 		// display results
 
@@ -182,6 +199,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		request.setAttribute("input", input);
 		request.setAttribute("endpoint", endpoint);
 		request.setAttribute("output", output);
+		request.setAttribute("output2", output2);
 		request.setAttribute("stats", stats);
 		request.setAttribute("error", error);
 
