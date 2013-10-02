@@ -39,8 +39,8 @@ public final class Signature implements Serializable, Comparable<Signature> {
 
 	private static final long serialVersionUID = -6984622275903043863L;
 
-	public static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA1withRSA";
-	public static final String DEFAULT_HMAC_ALGORITHM = "HmacSHA1";
+	public static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA256withRSA";
+	public static final String DEFAULT_HMAC_ALGORITHM = "HmacSHA256";
 
 	private XdiAttribute xdiAttribute;
 
