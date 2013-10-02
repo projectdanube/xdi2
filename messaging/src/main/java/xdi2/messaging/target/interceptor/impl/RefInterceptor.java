@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -126,17 +127,15 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 				if (log.isDebugEnabled()) log.debug("In message result: Found $ref/$rep relation: " + refRepRelation);
 
-				XDI3Segment targetContextNodeXri = refRepRelation.getTargetContextNodeXri();
-
 				// don't follow $ref/$rep relations to target we covered already
 
 				boolean skip = false;
 
 				for (XDI3Segment completedAddress : getCompletedAddresses(executionContext)) {
 
-					if (targetContextNodeXri.equals(completedAddress)) {
+					if (refRepRelation.getContextNode().getXri().equals(completedAddress)) {
 
-						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation to " + targetContextNodeXri + " because of already completed address (" + completedAddress + "): " + refRepRelation);
+						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation " + refRepRelation + " because of already completed address " + completedAddress);
 
 						// delete the $rep relation
 
@@ -276,17 +275,20 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 	@Override
 	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// are we operating on a $ref or $rep arc?
+		// $get on a $ref or $rep arc?
 
-		/*		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri()) ||
-				XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) {
+		if (operation instanceof GetOperation) {
 
-			// don't do anything special
+			if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri()) ||
+					XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) {
 
-			if (log.isDebugEnabled()) log.debug("Not operating on $ref/$rep target statement: " + targetStatement);
+				// don't do anything special
 
-			return targetStatement;
-		}*/
+				if (log.isDebugEnabled()) log.debug("Not operating on $get on $ref/$rep target statement: " + targetStatement);
+
+				return targetStatement;
+			}
+		}
 
 		// remember that we completed this target
 
@@ -429,12 +431,12 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// before feedback: tweak the execution context and messaging target
 
-		Deque<Relation> refRepRelations = getRefRepRelations(executionContext);
-		resetRefRepRelations(executionContext);
-
 		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
 		boolean linkContractInterceptorEnabled = linkContractInterceptor != null && linkContractInterceptor.isEnabled();
 		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
+
+		Map<String, Object> messageAttributes = executionContext.getMessageAttributes();
+		Map<String, Object> operationAttributes = executionContext.getOperationAttributes();
 
 		// execute the message
 
@@ -448,9 +450,10 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// after feedback: restore the execution context and messaging target
 
-		putRefRepRelations(executionContext, refRepRelations);
-
 		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
+
+		executionContext.setMessageAttributes(messageAttributes);
+		executionContext.setOperationAttributes(operationAttributes);
 
 		// done
 
@@ -481,12 +484,16 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// before feedback: tweak the execution context and messaging target
 
-		Deque<Relation> refRepRelations = getRefRepRelations(executionContext);
-		resetRefRepRelations(executionContext);
+		RefInterceptor refInterceptor = messagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
+		boolean refInterceptorEnabled = refInterceptor != null && refInterceptor.isEnabled();
+		if (refInterceptor != null) refInterceptor.setEnabled(false);
 
 		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
 		boolean linkContractInterceptorEnabled = linkContractInterceptor != null && linkContractInterceptor.isEnabled();
 		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
+
+		Map<String, Object> messageAttributes = executionContext.getMessageAttributes();
+		Map<String, Object> operationAttributes = executionContext.getOperationAttributes();
 
 		// execute messages
 
@@ -508,9 +515,12 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 
 		// after feedback: restore the execution context and messaging target
 
-		putRefRepRelations(executionContext, refRepRelations);
+		if (refInterceptor != null) refInterceptor.setEnabled(refInterceptorEnabled);
 
 		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
+
+		executionContext.setMessageAttributes(messageAttributes);
+		executionContext.setOperationAttributes(operationAttributes);
 
 		// done
 
@@ -547,11 +557,6 @@ public class RefInterceptor extends AbstractInterceptor implements MessagingTarg
 	private static Deque<Relation> getRefRepRelations(ExecutionContext executionContext) {
 
 		return (Deque<Relation>) executionContext.getOperationAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION);
-	}
-
-	private static void putRefRepRelations(ExecutionContext executionContext, Deque<Relation> referenceRelations) {
-
-		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION, referenceRelations);
 	}
 
 	private static Relation popRefRepRelation(ExecutionContext executionContext) {
