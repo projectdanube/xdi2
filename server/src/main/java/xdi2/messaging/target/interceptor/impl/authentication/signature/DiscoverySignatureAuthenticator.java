@@ -23,11 +23,11 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
-	public DiscoverySignatureAuthenticator(XDIDiscoveryClient xdiDiscovery) {
+	public DiscoverySignatureAuthenticator(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		super();
 
-		this.xdiDiscoveryClient = xdiDiscovery;
+		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
 	public DiscoverySignatureAuthenticator() {
