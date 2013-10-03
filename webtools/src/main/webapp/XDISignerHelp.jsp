@@ -45,10 +45,10 @@
 	<p>All signing and validating operations require cryptographic keys:</p>
 	
 	<ul>
-	<li>For RSA Sign: An RSA private key</li>
-	<li>For RSA Validate: An RSA public key</li>
-	<li>For AES HMAC: An AES symmetric key</li>
-	<li>For AES HMAC: An AES symmetric key</li>
+    <li>Create RSA Signature: An RSA private key</li>
+    <li>Validate RSA Signature: An RSA public key</li>
+    <li>Create AES HMAC: An AES symmetric key</li>
+    <li>Validate AES HMAC: An AES symmetric key</li>
 	</ul>
 	
 	</div>
