@@ -231,7 +231,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	@Override
 	public void delete(String key, String value) {
 
-		log.info("delete(" + key + "," + value + ")");
+		if (log.isTraceEnabled()) log.trace("delete(" + key + "," + value + ")");
 
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry(value.getBytes());
