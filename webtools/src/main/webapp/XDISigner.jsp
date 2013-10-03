@@ -61,9 +61,11 @@
 
 		<input name="writePretty" type="checkbox" <%= writePretty.equals("on") ? "checked" : "" %>>pretty=1<br>
 
+		RSA:&nbsp;
 		<input type="text" name="signatureAlgorithm" size="20" value="<%= signatureAlgorithm %>">
 		<input type="submit" name="submit" value="Create RSA Signature!">
 		<input type="submit" name="submit" value="Validate RSA Signature!">
+		&nbsp;AES:&nbsp;
 		<input type="text" name="hmacAlgorithm" size="20" value="<%= hmacAlgorithm %>">
 		<input type="submit" name="submit" value="Create AES HMAC!">
 		<input type="submit" name="submit" value="Validate AES HMAC!">
