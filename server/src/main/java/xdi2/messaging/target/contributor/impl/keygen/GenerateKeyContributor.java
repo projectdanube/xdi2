@@ -21,7 +21,7 @@ import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorXri;
 
 /**
- * This contributor can generate secret tokens in digest form in a target graph.
+ * This contributor can generate key pairs and symmetric keys in a target graph.
  */
 @ContributorXri(addresses={"{{=@+*!}}{$}{$}<$key>", "{{(=@+*!)}}{$}{$}<$key>", "{$}{$}<$key>"})
 public class GenerateKeyContributor extends AbstractContributor {
