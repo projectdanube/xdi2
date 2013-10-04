@@ -54,6 +54,20 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	public ContextNode getContextNode(int arcs) {
+
+		ContextNode contextNode = this;
+
+		for (int i=0; i<arcs; i++) {
+
+			contextNode = contextNode.getContextNode();
+			if (contextNode == null) break;
+		}
+
+		return contextNode;
+	}
+
+	@Override
 	public boolean isRootContextNode() {
 
 		return this.getContextNode() == null;

@@ -25,10 +25,17 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public Graph getGraph();
 
 	/**
-	 * Every context node has a context node from which it originates.
-	 * @return The context node of this context node.
+	 * Every context node has a parent context node, except the root context node.
+	 * @return The parent context node of this context node, or null.
 	 */
 	public ContextNode getContextNode();
+
+	/**
+	 * Every context node has ancestor context nodes, except the root context node.
+	 * @param arcs The number of arcs to follow up the graph.
+	 * @return The ancestor context node of this context node, or null.
+	 */
+	public ContextNode getContextNode(int arcs);
 
 	/**
 	 * Checks if this context node is the root context node.
