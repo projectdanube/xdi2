@@ -28,8 +28,10 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.Signatures;
+import xdi2.core.features.signatures.SymmetricKeySignature;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -47,6 +49,9 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 	private static final long serialVersionUID = 572272568648798655L;
 
 	private static Logger log = LoggerFactory.getLogger(XDISigner.class);
+
+	public static String DEFAULT_SIGNATURE_ALGORITHM = "SHA256withRSA";
+	public static String DEFAULT_HMAC_ALGORITHM = "HmacSHA256";
 
 	private static MemoryGraphFactory graphFactory;
 	private static List<String> sampleInputs;
@@ -115,8 +120,8 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("key", sampleKeys.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("address", sampleAddresses.get(Integer.parseInt(sample) - 1));
-		request.setAttribute("signatureAlgorithm", Signature.DEFAULT_SIGNATURE_ALGORITHM);
-		request.setAttribute("hmacAlgorithm", Signature.DEFAULT_HMAC_ALGORITHM);
+		request.setAttribute("signatureAlgorithm", DEFAULT_SIGNATURE_ALGORITHM);
+		request.setAttribute("hmacAlgorithm", DEFAULT_HMAC_ALGORITHM);
 
 		request.getRequestDispatcher("/XDISigner.jsp").forward(request, response);
 	}
@@ -152,7 +157,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 		Graph graph = null;
 		Key k = null;
-		Signature signature = null;
+		Signature<?, ?> signature = null;
 		Boolean valid = null;
 
 		long start = System.currentTimeMillis();
@@ -174,38 +179,38 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 			if ("Create RSA Signature!".equals(submit)) {
 
-				signature = Signatures.getSignature(contextNode, true);
+				signature = (KeyPairSignature) Signatures.getSignature(contextNode, true);
 
 				PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key));
 				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 				k = keyFactory.generatePrivate(keySpec);
 
-				signature.createSignature((PrivateKey) k, signatureAlgorithm);
+				((KeyPairSignature) signature).sign((PrivateKey) k);
 			} else if ("Validate RSA Signature!".equals(submit)) {
 
-				signature = Signatures.getSignature(contextNode, false);
+				signature = (KeyPairSignature) Signatures.getSignature(contextNode, false);
 				if (signature == null) throw new RuntimeException("No signature found at address " + address);
 
 				X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key));
 				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 				k = keyFactory.generatePublic(keySpec);
 
-				valid = Boolean.valueOf(signature.validateSignature((PublicKey) k, signatureAlgorithm));
+				valid = Boolean.valueOf(((KeyPairSignature) signature).validate((PublicKey) k));
 			} else if ("Create AES HMAC!".equals(submit)) {
 
-				signature = Signatures.getSignature(contextNode, true);
+				signature = (SymmetricKeySignature) Signatures.getSignature(contextNode, true);
 
 				k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
 
-				signature.createHMAC((SecretKey) k, hmacAlgorithm);
+				((SymmetricKeySignature) signature).sign((SecretKey) k);
 			} else if ("Validate AES HMAC!".equals(submit)) {
 
-				signature = Signatures.getSignature(contextNode, false);
+				signature = (SymmetricKeySignature) Signatures.getSignature(contextNode, false);
 				if (signature == null) throw new RuntimeException("No HMAC found at address " + address);
 
 				k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
 
-				valid = Boolean.valueOf(signature.validateHMAC((SecretKey) k, hmacAlgorithm));
+				valid = Boolean.valueOf(((SymmetricKeySignature) signature).validate((SecretKey) k));
 			}
 
 			// output the graph or result
@@ -230,7 +235,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 		if (signature != null) {
 
-			output2 = signature.getNormalizedSerialization();
+			output2 = Signature.getNormalizedSerialization(signature.getBaseContextNode());
 		}
 
 		long stop = System.currentTimeMillis();

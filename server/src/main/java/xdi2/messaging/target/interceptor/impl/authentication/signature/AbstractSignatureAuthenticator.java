@@ -1,6 +1,8 @@
 package xdi2.messaging.target.interceptor.impl.authentication.signature;
 
-public abstract class AbstractSignatureAuthenticator implements SignatureAuthenticator {
+import xdi2.core.features.signatures.Signature;
+
+public abstract class AbstractSignatureAuthenticator <SIG extends Signature<?, ?>> implements SignatureAuthenticator<SIG> {
 
 	@Override
 	public void init() throws Exception {

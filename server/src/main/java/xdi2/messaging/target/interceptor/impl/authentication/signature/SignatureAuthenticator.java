@@ -8,7 +8,7 @@ import xdi2.messaging.target.Prototype;
  * The purpose of this interface is to authenticate an incoming XDI message
  * using a signature. This is used by the AuthenticationSignatureInterceptor.
  */
-public interface SignatureAuthenticator extends Prototype<SignatureAuthenticator> {
+public interface SignatureAuthenticator <SIG extends Signature<?, ?>> extends Prototype<SignatureAuthenticator<SIG>> {
 
 	public void init() throws Exception;
 	public void shutdown() throws Exception;
@@ -16,5 +16,5 @@ public interface SignatureAuthenticator extends Prototype<SignatureAuthenticator
 	/**
 	 * Authenticates an XDI message given a signature.
 	 */
-	public boolean authenticate(Message message, Signature signature);
+	public boolean authenticate(Message message, SIG signature);
 }

@@ -6,14 +6,14 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.features.signatures.Signature;
+import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.messaging.Message;
 
 /**
  * A SignatureAuthenticator that can authenticate a signature against
  * a public key.
  */
-public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureAuthenticator implements SignatureAuthenticator {
+public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureAuthenticator<KeyPairSignature> implements SignatureAuthenticator<KeyPairSignature> {
 
 	private static Logger log = LoggerFactory.getLogger(PublicKeySignatureAuthenticator.class.getName());
 
@@ -22,7 +22,7 @@ public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureA
 	}
 
 	@Override
-	public boolean authenticate(Message message, Signature signature) {
+	public boolean authenticate(Message message, KeyPairSignature signature) {
 
 		PublicKey publicKey = this.getPublicKey(message);
 
@@ -41,7 +41,7 @@ public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureA
 		
 		try {
 
-			authenticated = signature.validateSignature(publicKey);
+			authenticated = signature.validate(publicKey);
 		} catch (Exception ex) {
 
 			if (log.isWarnEnabled()) log.warn("Cannot validate signature: " + ex.getMessage(), ex);

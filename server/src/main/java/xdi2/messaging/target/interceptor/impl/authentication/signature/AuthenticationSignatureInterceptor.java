@@ -8,6 +8,7 @@ import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
+import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signature;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
@@ -28,7 +29,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 	private static Logger log = LoggerFactory.getLogger(AuthenticationSignatureInterceptor.class.getName());
 
-	private SignatureAuthenticator signatureAuthenticator;
+	private SignatureAuthenticator<? extends Signature<?, ?>> signatureAuthenticator;
 
 	/*
 	 * Prototype
@@ -75,14 +76,20 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		// look for signature on the message
 
-		Signature signature = message.getSignature(false);
+		KeyPairSignature signature = (KeyPairSignature) message.getSignature(false);
 		if (signature == null) return false;
 
 		// authenticate
 
 		if (log.isDebugEnabled()) log.debug("Authenticating via " + this.getSignatureAuthenticator().getClass().getSimpleName());
 
-		boolean authenticated = this.getSignatureAuthenticator().authenticate(message, signature);
+		
+		SignatureAuthenticator<KeyPairSignature> s = (SignatureAuthenticator<KeyPairSignature>) this.getSignatureAuthenticator();
+
+		// TODO!!!!
+		
+		
+		boolean authenticated = s.authenticate(message, signature);
 		if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
 
 		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE_VALID));
@@ -106,12 +113,12 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 	 * Getters and setters
 	 */
 
-	public SignatureAuthenticator getSignatureAuthenticator() {
+	public SignatureAuthenticator<? extends Signature<?, ?>> getSignatureAuthenticator() {
 
 		return this.signatureAuthenticator;
 	}
 
-	public void setSignatureAuthenticator(SignatureAuthenticator signatureAuthenticator) {
+	public void setSignatureAuthenticator(SignatureAuthenticator<? extends Signature<?, ?>> signatureAuthenticator) {
 
 		this.signatureAuthenticator = signatureAuthenticator;
 	}
