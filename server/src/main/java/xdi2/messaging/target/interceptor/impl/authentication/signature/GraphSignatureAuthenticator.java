@@ -48,7 +48,7 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 	@Override
 	public GraphSignatureAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
-		// create new public key authenticator
+		// create new signature authenticator
 
 		GraphSignatureAuthenticator authenticator = new GraphSignatureAuthenticator();
 
