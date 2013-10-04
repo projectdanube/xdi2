@@ -1,5 +1,6 @@
 package xdi2.core.features.signatures;
 
+import java.security.Key;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
@@ -20,7 +21,7 @@ public class Signatures {
 	 * @param graph The graph.
 	 * @return An iterator over signatures.
 	 */
-	public static Iterator<Signature> getAllSignatures(Graph graph) {
+	public static Iterator<Signature<? extends Key, ? extends Key>> getAllSignatures(Graph graph) {
 
 		ContextNode root = graph.getRootContextNode();
 		Iterator<ContextNode> allContextNodes = root.getAllContextNodes();
@@ -33,7 +34,7 @@ public class Signatures {
 	 * @param create Whether to create an XDI signature if it does not exist.
 	 * @return The existing or newly created XDI signature.
 	 */
-	public static Signature getSignature(ContextNode contextNode, boolean create) {
+	public static Signature<? extends Key, ? extends Key> getSignature(ContextNode contextNode, boolean create) {
 
 		ContextNode signatureContextNode = create ? contextNode.setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE) : contextNode.getDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE);
 		if (signatureContextNode == null) return null;
@@ -48,14 +49,14 @@ public class Signatures {
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeSignatureIterator extends NotNullIterator<Signature> {
+	public static class MappingContextNodeSignatureIterator extends NotNullIterator<Signature<? extends Key, ? extends Key>> {
 
 		public MappingContextNodeSignatureIterator(Iterator<ContextNode> iterator) {
 
-			super(new MappingIterator<ContextNode, Signature> (iterator) {
+			super(new MappingIterator<ContextNode, Signature<? extends Key, ? extends Key>> (iterator) {
 
 				@Override
-				public Signature map(ContextNode contextNode) {
+				public Signature<? extends Key, ? extends Key> map(ContextNode contextNode) {
 
 					XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
 					if (xdiAttribute == null) return null;
