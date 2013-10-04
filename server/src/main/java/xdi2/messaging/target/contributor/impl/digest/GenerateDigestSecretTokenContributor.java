@@ -23,7 +23,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor {
 	private static final Logger log = LoggerFactory.getLogger(GenerateDigestSecretTokenContributor.class);
 
 	public static final XDI3Segment XRI_S_DO_DIGEST_SECRET_TOKEN = XDI3Segment.create("$do$digest$secret<$token>");
-	
+
 	private String globalSalt;
 
 	public GenerateDigestSecretTokenContributor(String globalSalt) {
@@ -45,16 +45,16 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor {
 		if (digestSecretTokenXri.equals("{{}}$digest$secret<$token>")) return false;
 
 		// check operation
-		
+
 		if (! XRI_S_DO_DIGEST_SECRET_TOKEN.equals(operation.getOperationXri())) return false;
-		
+
 		// check parameters
-		
+
 		Object literalData = relativeTargetStatement.getLiteralData();
 		if (! (literalData instanceof String)) return false;
-		
+
 		String secretToken = (String) literalData;
-		
+
 		// generate digest
 
 		String localSaltAndDigestSecretToken;
