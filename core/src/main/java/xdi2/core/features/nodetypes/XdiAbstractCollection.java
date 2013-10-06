@@ -19,7 +19,7 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractCollection<EQ extends XdiSubGraph<EQ>, C extends XdiCollection<EQ, C, U, O, I>, U extends XdiMemberUnordered<EQ, C, U, O, I>, O extends XdiMemberOrdered<EQ, C, U, O, I>, I extends XdiMember<EQ, C, U, O, I>> extends XdiAbstractSubGraph<C> implements XdiCollection<EQ, C, U, O, I> {
+public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractSubGraph<EQC> implements XdiCollection<EQC, EQI, C, U, O, I> {
 
 	private static final long serialVersionUID = -1976646316893343570L;
 
@@ -60,9 +60,9 @@ public abstract class XdiAbstractCollection<EQ extends XdiSubGraph<EQ>, C extend
 	 * @param contextNode The context node that is an XDI class.
 	 * @return The XDI class.
 	 */
-	public static XdiCollection<?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
+	public static XdiCollection<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
-		XdiCollection<? extends XdiSubGraph<?>, ? extends XdiCollection<?, ?, ?, ?, ?>, ? extends XdiMemberUnordered<?, ?, ?, ?, ?>, ? extends XdiMemberOrdered<?, ?, ?, ?, ?>, ? extends XdiMember<?, ?, ?, ?, ?>> xdiCollection;
+		XdiCollection<?, ?, ?, ?, ?, ?> xdiCollection;
 
 		if ((xdiCollection = XdiEntityCollection.fromContextNode(contextNode)) != null) return xdiCollection;
 		if ((xdiCollection = XdiAttributeCollection.fromContextNode(contextNode)) != null) return xdiCollection;
@@ -106,7 +106,7 @@ public abstract class XdiAbstractCollection<EQ extends XdiSubGraph<EQ>, C extend
 	 */
 	@Override
 	public U getXdiMemberUnordered(XDI3SubSegment arcXri) {
-
+		
 		ContextNode memberContextNode = this.getContextNode().getContextNode(arcXri);
 		if (memberContextNode == null) return null;
 
@@ -191,21 +191,30 @@ public abstract class XdiAbstractCollection<EQ extends XdiSubGraph<EQ>, C extend
 	 * @return An iterator over all XDI instances and elements.
 	 */
 	@Override
-	public ReadOnlyIterator<EQ> getXdiMembers(boolean deref) {
+	public ReadOnlyIterator<I> getXdiMembers() {
 
-		List<Iterator<? extends EQ>> list = new ArrayList<Iterator<? extends EQ>> ();
-		list.add(new CastingIterator<O, EQ> (this.getXdiMembersOrdered()));
-		list.add(new CastingIterator<U, EQ> (this.getXdiMembersUnordered()));
+		List<Iterator<? extends I>> list = new ArrayList<Iterator<? extends I>> ();
+		list.add(new CastingIterator<O, I> (this.getXdiMembersOrdered()));
+		list.add(new CastingIterator<U, I> (this.getXdiMembersUnordered()));
 
-		Iterator<EQ> iterator = new CompositeIterator<EQ> (list.iterator());
+		Iterator<I> iterator = new CompositeIterator<I> (list.iterator());
 
-		if (deref) {
+		return (ReadOnlyIterator<I>) iterator;
+	}
 
-			iterator = new MappingEquivalenceXdiContextIterator<EQ> (iterator);
-			iterator = new NoDuplicatesIterator<EQ> (iterator);
-		}
+	/**
+	 * Returns all XDI instances and elements in this XDI class.
+	 * @return An iterator over all XDI instances and elements.
+	 */
+	@Override
+	public ReadOnlyIterator<EQI> getXdiMembersDeref() {
 
-		return (ReadOnlyIterator<EQ>) iterator;
+		Iterator<EQI> iterator = new CastingIterator<I, EQI> (this.getXdiMembers());
+
+		iterator = new MappingEquivalenceXdiContextIterator<EQI> (iterator);
+		iterator = new NoDuplicatesIterator<EQI> (iterator);
+
+		return (ReadOnlyIterator<EQI>) iterator;
 	}
 
 	public Class<U> getU() {
@@ -241,14 +250,14 @@ public abstract class XdiAbstractCollection<EQ extends XdiSubGraph<EQ>, C extend
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiCollectionIterator extends NotNullIterator<XdiCollection<?, ?, ?, ?, ?>> {
+	public static class MappingContextNodeXdiCollectionIterator extends NotNullIterator<XdiCollection<?, ?, ?, ?, ?, ?>> {
 
 		public MappingContextNodeXdiCollectionIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiCollection<?, ?, ?, ?, ?>> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiCollection<?, ?, ?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiCollection<?, ?, ?, ?, ?> map(ContextNode contextNode) {
+				public XdiCollection<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
 
 					return XdiAbstractCollection.fromContextNode(contextNode);
 				}
@@ -260,7 +269,7 @@ public abstract class XdiAbstractCollection<EQ extends XdiSubGraph<EQ>, C extend
 
 		public XdiMembersUnorderedIterator() {
 
-			super(new CastingIterator<XdiMemberUnordered<?, ?, ?, ?, ?>, U> (new MappingContextNodeXdiMemberUnorderedIterator(XdiAbstractCollection.this.getContextNode().getContextNodes())));
+			super(new CastingIterator<XdiMemberUnordered<?, ?, ?, ?, ?, ?>, U> (new MappingContextNodeXdiMemberUnorderedIterator(XdiAbstractCollection.this.getContextNode().getContextNodes())));
 		}
 	}
 

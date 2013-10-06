@@ -3,7 +3,7 @@ package xdi2.core.features.nodetypes;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public interface XdiCollection<EQ extends XdiSubGraph<EQ>, C extends XdiCollection<EQ, C, U, O, I>, U extends XdiMemberUnordered<EQ, C, U, O, I>, O extends XdiMemberOrdered<EQ, C, U, O, I>, I extends XdiMember<EQ, C, U, O, I>> extends XdiSubGraph<C> {
+public interface XdiCollection<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiSubGraph<EQC> {
 
 	public U setXdiMemberUnordered(XDI3SubSegment arcXri);
 	public U getXdiMemberUnordered(XDI3SubSegment arcXri);
@@ -15,5 +15,6 @@ public interface XdiCollection<EQ extends XdiSubGraph<EQ>, C extends XdiCollecti
 	public ReadOnlyIterator<O> getXdiMembersOrdered();
 	public long getXdiMembersOrderedCount();
 
-	public ReadOnlyIterator<EQ> getXdiMembers(boolean deref);
+	public ReadOnlyIterator<I> getXdiMembers();
+	public ReadOnlyIterator<EQI> getXdiMembersDeref();
 }

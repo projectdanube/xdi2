@@ -2,7 +2,7 @@ package xdi2.core.features.nodetypes;
 
 import xdi2.core.ContextNode;
 
-public abstract class XdiAbstractSubGraph<EQ extends XdiContext<EQ>> extends XdiAbstractContext<EQ> implements XdiSubGraph<EQ> {
+public abstract class XdiAbstractSubGraph<EQ extends XdiSubGraph<EQ>> extends XdiAbstractContext<EQ> implements XdiSubGraph<EQ> {
 
 	private static final long serialVersionUID = -6983495055390279007L;
 

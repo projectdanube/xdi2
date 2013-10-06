@@ -140,7 +140,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public ReadOnlyIterator<Message> getMessages() {
 
-		return new MappingXdiEntityMessageIterator(this, this.getXdiEntityClass().getXdiMembers(true));
+		return new MappingXdiEntityMessageIterator(this, this.getXdiEntityClass().getXdiMembersDeref());
 	}
 
 	/**

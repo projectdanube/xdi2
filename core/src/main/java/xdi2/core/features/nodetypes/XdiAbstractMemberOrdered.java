@@ -8,7 +8,7 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractMemberOrdered<EQ extends XdiSubGraph<EQ>, C extends XdiCollection<EQ, C, U, O, I>, U extends XdiMemberUnordered<EQ, C, U, O, I>, O extends XdiMemberOrdered<EQ, C, U, O, I>, I extends XdiMember<EQ, C, U, O, I>> extends XdiAbstractMember<EQ, C, U, O, I> implements XdiMemberOrdered<EQ, C, U, O, I> {
+public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractMember<EQC, EQI, C, U, O, I> implements XdiMemberOrdered<EQC, EQI, C, U, O, I> {
 
 	private static final long serialVersionUID = 8283064321616435273L;
 
@@ -39,9 +39,9 @@ public abstract class XdiAbstractMemberOrdered<EQ extends XdiSubGraph<EQ>, C ext
 	 * @param contextNode The context node that is an XDI ordered instance.
 	 * @return The XDI ordered instance.
 	 */
-	public static XdiMemberOrdered<?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
+	public static XdiMemberOrdered<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
-		XdiMemberOrdered<?, ?, ?, ?, ?> xdiElement;
+		XdiMemberOrdered<?, ?, ?, ?, ?, ?> xdiElement;
 
 		if ((xdiElement = XdiEntityMemberOrdered.fromContextNode(contextNode)) != null) return xdiElement;
 		if ((xdiElement = XdiAttributeMemberOrdered.fromContextNode(contextNode)) != null) return xdiElement;
@@ -78,14 +78,14 @@ public abstract class XdiAbstractMemberOrdered<EQ extends XdiSubGraph<EQ>, C ext
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiMemberOrderedIterator extends NotNullIterator<XdiMemberOrdered<?, ?, ?, ?, ?>> {
+	public static class MappingContextNodeXdiMemberOrderedIterator extends NotNullIterator<XdiMemberOrdered<?, ?, ?, ?, ?, ?>> {
 
 		public MappingContextNodeXdiMemberOrderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiMemberOrdered<?, ?, ?, ?, ?>> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiMemberOrdered<?, ?, ?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiMemberOrdered<?, ?, ?, ?, ?> map(ContextNode contextNode) {
+				public XdiMemberOrdered<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
 
 					return XdiAbstractMemberOrdered.fromContextNode(contextNode);
 				}

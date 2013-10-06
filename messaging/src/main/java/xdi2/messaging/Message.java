@@ -1,6 +1,7 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
+import java.security.Key;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -286,7 +287,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns the signature from the message.
 	 * @return The signature.
 	 */
-	public Signature getSignature(boolean create) {
+	public Signature<? extends Key, ? extends Key> getSignature(boolean create) {
 
 		return Signatures.getSignature(this.getContextNode(), false);
 	}

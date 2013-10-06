@@ -13,7 +13,7 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
-public abstract class XdiAbstractMemberUnordered<EQ extends XdiSubGraph<EQ>, C extends XdiCollection<EQ, C, U, O, I>, U extends XdiMemberUnordered<EQ, C, U, O, I>, O extends XdiMemberOrdered<EQ, C, U, O, I>, I extends XdiMember<EQ, C, U, O, I>> extends XdiAbstractMember<EQ, C, U, O, I> implements XdiMemberUnordered<EQ, C, U, O, I> {
+public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractMember<EQC, EQI, C, U, O, I> implements XdiMemberUnordered<EQC, EQI, C, U, O, I> {
 
 	private static final long serialVersionUID = -8496645644143069191L;
 
@@ -44,9 +44,9 @@ public abstract class XdiAbstractMemberUnordered<EQ extends XdiSubGraph<EQ>, C e
 	 * @param contextNode The context node that is an XDI unordered instance.
 	 * @return The XDI unordered instance.
 	 */
-	public static XdiMemberUnordered<?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
+	public static XdiMemberUnordered<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
-		XdiMemberUnordered<?, ?, ?, ?, ?> xdiMember;
+		XdiMemberUnordered<?, ?, ?, ?, ?, ?> xdiMember;
 
 		if ((xdiMember = XdiEntityMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
 		if ((xdiMember = XdiAttributeMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
@@ -114,14 +114,14 @@ public abstract class XdiAbstractMemberUnordered<EQ extends XdiSubGraph<EQ>, C e
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiMemberUnorderedIterator extends NotNullIterator<XdiMemberUnordered<?, ?, ?, ?, ?>> {
+	public static class MappingContextNodeXdiMemberUnorderedIterator extends NotNullIterator<XdiMemberUnordered<?, ?, ?, ?, ?, ?>> {
 
 		public MappingContextNodeXdiMemberUnorderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiMemberUnordered<?, ?, ?, ?, ?>> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiMemberUnordered<?, ?, ?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiMemberUnordered<?, ?, ?, ?, ?> map(ContextNode contextNode) {
+				public XdiMemberUnordered<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
 
 					return XdiAbstractMemberUnordered.fromContextNode(contextNode);
 				}

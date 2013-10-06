@@ -49,9 +49,9 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	public EQ getReferenceXdiContext() {
 
 		ContextNode referenceContextNode = Equivalence.getReferenceContextNode(this.getContextNode());
-		XdiContext<?> xdiContext = referenceContextNode == null ? null : XdiAbstractContext.fromContextNode(referenceContextNode);
+		EQ xdiContext = referenceContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(referenceContextNode);
 
-		return (EQ) xdiContext;
+		return xdiContext;
 	}
 
 	@Override
@@ -59,13 +59,12 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	public EQ getReplacementXdiContext() {
 
 		ContextNode replacementContextNode = Equivalence.getReplacementContextNode(this.getContextNode());
-		XdiContext<?> xdiContext = replacementContextNode == null ? null : XdiAbstractContext.fromContextNode(replacementContextNode);
+		EQ xdiContext = replacementContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(replacementContextNode);
 
-		return (EQ) xdiContext;
+		return xdiContext;
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public Iterator<EQ> getIdentityXdiContexts() {
 
 		Iterator<ContextNode> identityContextNodes = Equivalence.getIdentityContextNodes(this.getContextNode());
@@ -73,11 +72,12 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		return new MappingIterator<ContextNode, EQ> (identityContextNodes) {
 
 			@Override
+			@SuppressWarnings("unchecked")
 			public EQ map(ContextNode identityContextNode) {
 
-				XdiContext<?> xdiContext = identityContextNode == null ? null : XdiAbstractContext.fromContextNode(identityContextNode);
+				EQ xdiContext = identityContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(identityContextNode);
 
-				return (EQ) xdiContext;
+				return xdiContext;
 			}
 		};
 	}

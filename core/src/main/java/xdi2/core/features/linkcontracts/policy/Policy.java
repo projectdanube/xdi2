@@ -194,9 +194,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		XdiEntityCollection policyOrEntityCollection = this.getXdiEntity().getXdiEntityCollection(XDIPolicyConstants.XRI_SS_OR, false);
 		XdiEntityCollection policyNotEntityCollection = this.getXdiEntity().getXdiEntityCollection(XDIPolicyConstants.XRI_SS_NOT, false);
 
-		if (policyAndEntityCollection != null) iterators.add(new MappingXdiEntityPolicyAndIterator(policyAndEntityCollection.getXdiMembers(true)));
-		if (policyOrEntityCollection != null) iterators.add(new MappingXdiEntityPolicyOrIterator(policyOrEntityCollection.getXdiMembers(true)));
-		if (policyNotEntityCollection != null) iterators.add(new MappingXdiEntityPolicyNotIterator(policyNotEntityCollection.getXdiMembers(true)));
+		if (policyAndEntityCollection != null) iterators.add(new MappingXdiEntityPolicyAndIterator(policyAndEntityCollection.getXdiMembersDeref()));
+		if (policyOrEntityCollection != null) iterators.add(new MappingXdiEntityPolicyOrIterator(policyOrEntityCollection.getXdiMembersDeref()));
+		if (policyNotEntityCollection != null) iterators.add(new MappingXdiEntityPolicyNotIterator(policyNotEntityCollection.getXdiMembersDeref()));
 
 		return new CompositeIterator<Policy> (iterators.iterator());
 	}
