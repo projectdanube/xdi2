@@ -26,15 +26,15 @@ public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureA
 	public boolean authenticate(Message message, Signature<?, ?> signature) {
 
 		// check signature type
-		
+
 		if (! (signature instanceof KeyPairSignature)) return false;
-		
+
 		// obtain public key
-		
+
 		PublicKey publicKey = this.getPublicKey(message);
 
 		if (publicKey == null) {
-			
+
 			if (log.isDebugEnabled()) log.debug("No public key found for sender " + message.getSenderXri());
 
 			return false;
@@ -43,9 +43,9 @@ public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureA
 		if (log.isDebugEnabled()) log.debug("Public key found for sender " + message.getSenderXri() + ": " + Base64.encodeBase64String(publicKey.getEncoded()));
 
 		// authenticate
-		
+
 		boolean authenticated;
-		
+
 		try {
 
 			authenticated = ((KeyPairSignature) signature).validate(publicKey);

@@ -75,20 +75,14 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		// look for signature on the message
 
-		Signature<?, ?> signature = message.getSignature(false);
+		Signature<?, ?> signature = message.getSignature();
 		if (signature == null) return false;
 
 		// authenticate
 
 		if (log.isDebugEnabled()) log.debug("Authenticating via " + this.getSignatureAuthenticator().getClass().getSimpleName());
 
-		
-		SignatureAuthenticator s =  this.getSignatureAuthenticator();
-
-		// TODO!!!!
-		
-		
-		boolean authenticated = s.authenticate(message, signature);
+		boolean authenticated = this.getSignatureAuthenticator().authenticate(message, signature);
 		if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
 
 		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE_VALID));
