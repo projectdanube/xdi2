@@ -114,6 +114,10 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 		return publicKey;
 	}
 
+	/*
+	 * Getters and setters
+	 */
+	
 	public Graph getPublicKeyGraph() {
 
 		return this.publicKeyGraph;

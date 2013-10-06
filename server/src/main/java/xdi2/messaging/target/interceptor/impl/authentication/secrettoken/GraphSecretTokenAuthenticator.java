@@ -97,6 +97,10 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 		return localSaltAndDigestSecretToken;
 	}
 
+	/*
+	 * Getters and setters
+	 */
+	
 	public Graph getSecretTokenGraph() {
 
 		return this.secretTokenGraph;
