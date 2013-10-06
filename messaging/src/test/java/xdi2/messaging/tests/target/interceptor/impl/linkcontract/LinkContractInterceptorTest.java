@@ -54,7 +54,7 @@ public class LinkContractInterceptorTest extends TestCase {
 				autoReader.read(authorized, this.getClass().getResourceAsStream("authorized" + i + "." + ii + ".xdi")).close();
 
 				LinkContractInterceptor linkContractsInterceptor = new LinkContractInterceptor();
-				linkContractsInterceptor.setLinkContractsGraph(graph);
+				linkContractsInterceptor.setGraph(graph);
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 				graphMessagingTarget.setGraph(graph);
@@ -89,7 +89,7 @@ public class LinkContractInterceptorTest extends TestCase {
 				autoReader.read(notauthorized, this.getClass().getResourceAsStream("notauthorized" + i + "." + ii + ".xdi")).close();
 
 				LinkContractInterceptor linkContractsInterceptor = new LinkContractInterceptor();
-				linkContractsInterceptor.setLinkContractsGraph(graph);
+				linkContractsInterceptor.setGraph(graph);
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 				graphMessagingTarget.setGraph(graph);

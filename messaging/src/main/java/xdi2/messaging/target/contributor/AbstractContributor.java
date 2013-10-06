@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import xdi2.core.Graph;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
@@ -17,17 +18,39 @@ import xdi2.messaging.Operation;
 import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphContextHandler;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 public abstract class AbstractContributor implements Contributor {
 
+	private Graph graph;
 	private boolean enabled;
 	private ContributorMap contributors;
 
 	public AbstractContributor() {
 
+		this.graph = null;
 		this.enabled = true;
 		this.contributors = new ContributorMap();
+	}
+
+	/*
+	 * Init and shutdown
+	 */
+
+	@Override
+	public void init(MessagingTarget messagingTarget) throws Exception {
+
+		if (this.getGraph() == null && messagingTarget instanceof GraphMessagingTarget) {
+
+			this.setGraph(((GraphMessagingTarget) messagingTarget).getGraph());
+		}
+	}
+
+	@Override
+	public void shutdown(MessagingTarget messagingTarget) throws Exception {
+
 	}
 
 	/*
@@ -306,5 +329,19 @@ public abstract class AbstractContributor implements Contributor {
 
 		this.contributors.clear();
 		for (Contributor contributor : contributors) this.contributors.addContributor(contributor);
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public Graph getGraph() {
+
+		return this.graph;
+	}
+
+	public void setGraph(Graph graph) {
+
+		this.graph = graph;
 	}
 }
