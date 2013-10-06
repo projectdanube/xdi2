@@ -175,14 +175,14 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 
 	public static String getDigestAlgorithm(XdiAttribute xdiAttribute) {
 
-		XDI3Segment dataType = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDI3Segment dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataType == null ? null : getDigestAlgorithm(dataType);
+		return dataTypeXri == null ? null : getDigestAlgorithm(dataTypeXri);
 	}
 
-	public static String getDigestAlgorithm(XDI3Segment dataType) {
+	public static String getDigestAlgorithm(XDI3Segment dataTypeXri) {
 
-		XDI3SubSegment digestAlgorithmXri = dataType.getNumSubSegments() > 0 ? dataType.getSubSegment(0) : null;
+		XDI3SubSegment digestAlgorithmXri = dataTypeXri.getNumSubSegments() > 0 ? dataTypeXri.getSubSegment(0) : null;
 		if (digestAlgorithmXri == null) return null;
 
 		if (! XDIConstants.CS_DOLLAR.equals(digestAlgorithmXri.getCs())) return null;
@@ -194,14 +194,14 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 
 	public static Integer getDigestLength(XdiAttribute xdiAttribute) {
 
-		XDI3Segment dataType = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDI3Segment dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataType == null ? null : getDigestLength(dataType);
+		return dataTypeXri == null ? null : getDigestLength(dataTypeXri);
 	}
 
-	public static Integer getDigestLength(XDI3Segment dataType) {
+	public static Integer getDigestLength(XDI3Segment dataTypeXri) {
 
-		XDI3SubSegment digestLengthXri = dataType.getNumSubSegments() > 1 ? dataType.getSubSegment(1) : null;
+		XDI3SubSegment digestLengthXri = dataTypeXri.getNumSubSegments() > 1 ? dataTypeXri.getSubSegment(1) : null;
 		if (digestLengthXri == null) return null;
 
 		if (! XDIConstants.CS_DOLLAR.equals(digestLengthXri.getCs())) return null;
@@ -213,14 +213,14 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 
 	public static String getKeyAlgorithm(XdiAttribute xdiAttribute) {
 
-		XDI3Segment dataType = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDI3Segment dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataType == null ? null : getKeyAlgorithm(dataType);
+		return dataTypeXri == null ? null : getKeyAlgorithm(dataTypeXri);
 	}
 
-	public static String getKeyAlgorithm(XDI3Segment dataType) {
+	public static String getKeyAlgorithm(XDI3Segment dataTypeXri) {
 
-		XDI3SubSegment keyAlgorithmXri = dataType.getNumSubSegments() > 2 ? dataType.getSubSegment(2) : null;
+		XDI3SubSegment keyAlgorithmXri = dataTypeXri.getNumSubSegments() > 2 ? dataTypeXri.getSubSegment(2) : null;
 		if (keyAlgorithmXri == null) return null;
 
 		if (! XDIConstants.CS_DOLLAR.equals(keyAlgorithmXri.getCs())) return null;
@@ -232,14 +232,14 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 
 	public static Integer getKeyLength(XdiAttribute xdiAttribute) {
 
-		XDI3Segment dataType = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDI3Segment dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataType == null ? null : getKeyLength(dataType);
+		return dataTypeXri == null ? null : getKeyLength(dataTypeXri);
 	}
 
-	public static Integer getKeyLength(XDI3Segment dataType) {
+	public static Integer getKeyLength(XDI3Segment dataTypeXri) {
 
-		XDI3SubSegment keyLengthXri = dataType.getNumSubSegments() > 3 ? dataType.getSubSegment(3) : null;
+		XDI3SubSegment keyLengthXri = dataTypeXri.getNumSubSegments() > 3 ? dataTypeXri.getSubSegment(3) : null;
 		if (keyLengthXri == null) return null;
 
 		if (! XDIConstants.CS_DOLLAR.equals(keyLengthXri.getCs())) return null;
@@ -247,6 +247,18 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 		if (! keyLengthXri.hasLiteral()) return null;
 
 		return Integer.valueOf(keyLengthXri.getLiteral());
+	}
+
+	public static XDI3Segment getDataTypeXri(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(XDIConstants.CS_DOLLAR + digestAlgorithm.toLowerCase());
+		builder.append(XDIConstants.CS_DOLLAR + Integer.toString(digestLength));
+		builder.append(XDIConstants.CS_DOLLAR + keyAlgorithm.toLowerCase());
+		builder.append(XDIConstants.CS_DOLLAR + Integer.toString(keyLength));
+
+		return XDI3Segment.create(builder.toString());
 	}
 
 	/*
