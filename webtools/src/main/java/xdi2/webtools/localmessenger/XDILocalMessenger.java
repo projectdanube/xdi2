@@ -264,14 +264,14 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			if ("on".equals(useMessagePolicyInterceptor)) {
 
 				MessagePolicyInterceptor messagePolicyInterceptor = new MessagePolicyInterceptor();
-				messagePolicyInterceptor.setGraph(graphInput);
+				messagePolicyInterceptor.setMessagePolicyGraph(graphInput);
 				messagingTarget.getInterceptors().add(messagePolicyInterceptor);
 			}
 
 			if ("on".equals(useLinkContractInterceptor)) {
 
 				LinkContractInterceptor linkContractInterceptor = new LinkContractInterceptor();
-				linkContractInterceptor.setGraph(graphInput);
+				linkContractInterceptor.setLinkContractsGraph(graphInput);
 				messagingTarget.getInterceptors().add(linkContractInterceptor);
 			}
 

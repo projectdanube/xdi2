@@ -24,6 +24,7 @@ import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 
 /**
@@ -62,10 +63,6 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		BootstrapInterceptor interceptor = new BootstrapInterceptor();
 
-		// don't set a graph
-
-		interceptor.setGraph(null);
-
 		// set the owner, root link contract, and public link contract
 
 		interceptor.setBootstrapOwner(prototypingContext.getOwner());
@@ -101,9 +98,9 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		super.init(messagingTarget);
 
-		Graph graph = this.getGraph();
+		if (! (messagingTarget instanceof GraphMessagingTarget)) return;
 
-		if (graph == null) return;
+		Graph graph = ((GraphMessagingTarget) messagingTarget).getGraph();
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 

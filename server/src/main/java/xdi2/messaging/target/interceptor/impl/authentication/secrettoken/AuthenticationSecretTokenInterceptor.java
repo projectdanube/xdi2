@@ -41,7 +41,7 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor im
 
 		// set the authenticator
 
-		interceptor.setSecretTokenAuthenticator(this.getSecretTokenAuthenticator().instanceFor(prototypingContext));
+		interceptor.setSecretTokenAuthenticator(this.getSecretTokenAuthenticator());
 
 		// done
 
@@ -57,7 +57,7 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor im
 
 		super.init(messagingTarget);
 
-		this.getSecretTokenAuthenticator().init();
+		this.getSecretTokenAuthenticator().init(messagingTarget, this);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor im
 
 		super.shutdown(messagingTarget);
 
-		this.getSecretTokenAuthenticator().shutdown();
+		this.getSecretTokenAuthenticator().shutdown(messagingTarget, this);
 	}
 
 	/*

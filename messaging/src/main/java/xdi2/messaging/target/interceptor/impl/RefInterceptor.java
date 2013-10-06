@@ -71,7 +71,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 	public void init(MessagingTarget messagingTarget) throws Exception {
 
 		super.init(messagingTarget);
-		
+
 		if (! (messagingTarget instanceof AbstractMessagingTarget)) throw new Xdi2MessagingException("Can only add this interceptor to an AbstractMessagingTarget", null, null);
 	}
 

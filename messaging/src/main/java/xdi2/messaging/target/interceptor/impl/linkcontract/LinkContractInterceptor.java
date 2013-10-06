@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
@@ -23,6 +24,7 @@ import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
@@ -37,6 +39,18 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 
+	private Graph linkContractsGraph;
+
+	public LinkContractInterceptor(Graph linkContractsGraph) {
+
+		this.linkContractsGraph = linkContractsGraph;
+	}
+
+	public LinkContractInterceptor() {
+
+		this.linkContractsGraph = null;
+	}
+
 	/*
 	 * Prototype
 	 */
@@ -50,7 +64,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		// set the graph
 
-		interceptor.setGraph(this.getGraph());
+		interceptor.setLinkContractsGraph(this.getLinkContractsGraph());
 
 		// done
 
@@ -66,10 +80,8 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		super.init(messagingTarget);
 
-		if (this.getGraph() == null) {
-
-			throw new Xdi2MessagingException("No graph.", null, null);
-		}
+		if (this.getLinkContractsGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setLinkContractsGraph(((GraphMessagingTarget) messagingTarget).getGraph()); 
+		if (this.getLinkContractsGraph() == null) throw new Xdi2MessagingException("No link contracts graph.", null, null);
 	}
 
 	/*
@@ -84,7 +96,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		XDI3Segment linkContractXri = message.getLinkContractXri();
 		if (linkContractXri == null) return false;
 
-		ContextNode linkContractContextNode = this.getGraph().getDeepContextNode(linkContractXri);
+		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXri);
 		if (linkContractContextNode == null) return false;
 
 		XdiEntity xdiEntity = XdiAbstractEntity.fromContextNode(linkContractContextNode);
@@ -102,7 +114,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		PolicyRoot policyRoot = linkContract.getPolicyRoot(false);
 		if (policyRoot == null) return false;
 
-		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getGraph());
+		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getLinkContractsGraph());
 
 		if (! Boolean.TRUE.equals(policyRoot.evaluate(policyEvaluationContext))) {
 
@@ -203,6 +215,20 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		// done
 
 		return targetAddress;
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public Graph getLinkContractsGraph() {
+
+		return this.linkContractsGraph;
+	}
+
+	public void setLinkContractsGraph(Graph linkContractsGraph) {
+
+		this.linkContractsGraph = linkContractsGraph;
 	}
 
 	/*

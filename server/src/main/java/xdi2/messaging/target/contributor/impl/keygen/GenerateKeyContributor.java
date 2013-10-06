@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.datatypes.DataTypes;
@@ -30,6 +31,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorXri;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
  * This contributor can generate key pairs and symmetric keys in a target graph.
@@ -42,14 +44,22 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 	public static final XDI3Segment XRI_S_DO_KEYPAIR = XDI3Segment.create("$do$keypair");
 	public static final XDI3Segment XRI_S_DO_KEY = XDI3Segment.create("$do<$key>");
 
+	private Graph targetGraph;
+
+	public GenerateKeyContributor(Graph targetGraph) {
+
+		this.targetGraph = targetGraph;
+	}
+
 	public GenerateKeyContributor() {
 
+		this.targetGraph = null;
 	}
 
 	/*
 	 * Prototype
 	 */
-	
+
 	@Override
 	public GenerateKeyContributor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
@@ -59,7 +69,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 		// set the graph
 
-		contributor.setGraph(this.getGraph());
+		contributor.setTargetGraph(this.getTargetGraph());
 
 		// done
 
@@ -74,17 +84,15 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 	public void init(MessagingTarget messagingTarget) throws Exception {
 
 		super.init(messagingTarget);
-		
-		if (this.getGraph() == null) {
 
-			throw new Xdi2MessagingException("No graph.", null, null);
-		}
+		if (this.getTargetGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setTargetGraph(((GraphMessagingTarget) messagingTarget).getGraph()); 
+		if (this.getTargetGraph() == null) throw new Xdi2MessagingException("No target graph.", null, null);
 	}
 
 	/*
 	 * Contributor methods
 	 */
-	
+
 	@Override
 	public boolean executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
@@ -136,7 +144,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 			// add it to the graph
 
-			ContextNode contextNode = this.getGraph().setDeepContextNode(contributorsXri);
+			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);
 			if (! XdiAbstractEntity.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a key pair on an entity.", null, executionContext);
 			XdiEntity keyPairXdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
 			XdiAttributeSingleton publicKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDI3SubSegment.create("$public"), true);
@@ -162,7 +170,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 			// add it to the graph
 
-			ContextNode contextNode = this.getGraph().setDeepContextNode(contributorsXri);
+			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);
 			if (! XdiAbstractAttribute.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a symmetric key on an attribute.", null, executionContext);
 			XdiAttribute symmetricKeyXdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
 			symmetricKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(secretKey.getEncoded()));
@@ -173,6 +181,24 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 		return false;
 	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public Graph getTargetGraph() {
+
+		return this.targetGraph;
+	}
+
+	public void setTargetGraph(Graph targetGraph) {
+
+		this.targetGraph = targetGraph;
+	}
+
+	/*
+	 * Helper methods
+	 */
 
 	public static String getKeyAlgorithm(XDI3Segment dataType) {
 

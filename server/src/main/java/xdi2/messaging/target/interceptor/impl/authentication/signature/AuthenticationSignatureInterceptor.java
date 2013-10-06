@@ -42,7 +42,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		// set the authenticator
 
-		interceptor.setSignatureAuthenticator(this.getSignatureAuthenticator().instanceFor(prototypingContext));
+		interceptor.setSignatureAuthenticator(this.getSignatureAuthenticator());
 
 		// done
 
@@ -58,7 +58,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		super.init(messagingTarget);
 
-		this.getSignatureAuthenticator().init();
+		this.getSignatureAuthenticator().init(messagingTarget, this);
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		super.shutdown(messagingTarget);
 
-		this.getSignatureAuthenticator().shutdown();
+		this.getSignatureAuthenticator().shutdown(messagingTarget, this);
 	}
 
 	/*
