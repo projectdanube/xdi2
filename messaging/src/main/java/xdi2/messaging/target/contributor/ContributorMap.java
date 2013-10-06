@@ -71,9 +71,9 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 	public void addContributor(Contributor contributor) {
 
-		ContributorXri contributorCall = contributor.getClass().getAnnotation(ContributorXri.class);
+		String[] addresses = contributor.getAddresses();
 
-		for (String address : contributorCall.addresses()) {
+		for (String address : addresses) {
 
 			this.addContributor(XDI3Segment.create(address), contributor);
 		}

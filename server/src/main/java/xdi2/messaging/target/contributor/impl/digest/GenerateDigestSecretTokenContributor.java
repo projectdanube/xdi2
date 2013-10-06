@@ -22,7 +22,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateDigestSecretTokenContributor.class);
 
-	public static final XDI3Segment XRI_S_DO_DIGEST_SECRET_TOKEN = XDI3Segment.create("$do$digest$secret<$token>");
+	public static final XDI3Segment XRI_S_DO_GENERATE = XDI3Segment.create("$do$digest$secret<$token>");
 
 	private String globalSalt;
 
@@ -38,15 +38,15 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor {
 	@Override
 	public boolean executeDoOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment digestSecretTokenXri = contributorXris[contributorXris.length - 1];
+		XDI3Segment contributorXri = contributorXris[contributorXris.length - 1];
 
-		log.debug("digestSecretTokenXri: " + digestSecretTokenXri);
+		log.debug("contributorXri: " + contributorXri);
 
-		if (digestSecretTokenXri.equals("{{}}$digest$secret<$token>")) return false;
+		if (this.containsAddress(contributorXri.toString())) return false;
 
 		// check operation
 
-		if (! XRI_S_DO_DIGEST_SECRET_TOKEN.equals(operation.getOperationXri())) return false;
+		if (! XRI_S_DO_GENERATE.equals(operation.getOperationXri())) return false;
 
 		// check parameters
 

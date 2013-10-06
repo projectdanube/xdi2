@@ -11,6 +11,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeMember;
@@ -19,6 +20,7 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIJSONWriter;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.CopyUtil.CopyStrategy;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -95,7 +97,7 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 	public ContextNode getBaseContextNode() {
 
 		ContextNode contextNode = (this.getXdiAttribute() instanceof XdiAttributeMember) ? this.getXdiAttribute().getContextNode().getContextNode() : this.getXdiAttribute().getContextNode();
-		contextNode = contextNode.getContextNode(5);
+		contextNode = contextNode.getContextNode();
 
 		return contextNode;
 	}
@@ -173,58 +175,78 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 
 	public static String getDigestAlgorithm(XdiAttribute xdiAttribute) {
 
-		ContextNode contextNode = (xdiAttribute instanceof XdiAttributeMember) ? xdiAttribute.getContextNode().getContextNode() : xdiAttribute.getContextNode();
-		contextNode = contextNode.getContextNode(4);
-		if (contextNode == null) return null;
+		XDI3Segment dataType = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		XDI3SubSegment xri = contextNode.getArcXri();
-		if (! XDIConstants.CS_DOLLAR.equals(xri.getCs())) return null;
-		if (xri.hasXRef()) return null;
-		if (! xri.hasLiteral()) return null;
+		return dataType == null ? null : getDigestAlgorithm(dataType);
+	}
 
-		return xri.getLiteral();
+	public static String getDigestAlgorithm(XDI3Segment dataType) {
+
+		XDI3SubSegment digestAlgorithmXri = dataType.getNumSubSegments() > 0 ? dataType.getSubSegment(0) : null;
+		if (digestAlgorithmXri == null) return null;
+
+		if (! XDIConstants.CS_DOLLAR.equals(digestAlgorithmXri.getCs())) return null;
+		if (digestAlgorithmXri.hasXRef()) return null;
+		if (! digestAlgorithmXri.hasLiteral()) return null;
+
+		return digestAlgorithmXri.getLiteral();
 	}
 
 	public static Integer getDigestLength(XdiAttribute xdiAttribute) {
 
-		ContextNode contextNode = (xdiAttribute instanceof XdiAttributeMember) ? xdiAttribute.getContextNode().getContextNode() : xdiAttribute.getContextNode();
-		contextNode = contextNode.getContextNode(3);
-		if (contextNode == null) return null;
+		XDI3Segment dataType = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		XDI3SubSegment xri = contextNode.getArcXri();
-		if (! XDIConstants.CS_DOLLAR.equals(xri.getCs())) return null;
-		if (xri.hasXRef()) return null;
-		if (! xri.hasLiteral()) return null;
+		return dataType == null ? null : getDigestLength(dataType);
+	}
 
-		return Integer.valueOf(xri.getLiteral());
+	public static Integer getDigestLength(XDI3Segment dataType) {
+
+		XDI3SubSegment digestLengthXri = dataType.getNumSubSegments() > 1 ? dataType.getSubSegment(1) : null;
+		if (digestLengthXri == null) return null;
+
+		if (! XDIConstants.CS_DOLLAR.equals(digestLengthXri.getCs())) return null;
+		if (digestLengthXri.hasXRef()) return null;
+		if (! digestLengthXri.hasLiteral()) return null;
+
+		return Integer.valueOf(digestLengthXri.getLiteral());
 	}
 
 	public static String getKeyAlgorithm(XdiAttribute xdiAttribute) {
 
-		ContextNode contextNode = (xdiAttribute instanceof XdiAttributeMember) ? xdiAttribute.getContextNode().getContextNode() : xdiAttribute.getContextNode();
-		contextNode = contextNode.getContextNode(2);
-		if (contextNode == null) return null;
+		XDI3Segment dataType = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		XDI3SubSegment xri = contextNode.getArcXri();
-		if (! XDIConstants.CS_DOLLAR.equals(xri.getCs())) return null;
-		if (xri.hasXRef()) return null;
-		if (! xri.hasLiteral()) return null;
+		return dataType == null ? null : getKeyAlgorithm(dataType);
+	}
 
-		return xri.getLiteral();
+	public static String getKeyAlgorithm(XDI3Segment dataType) {
+
+		XDI3SubSegment keyAlgorithmXri = dataType.getNumSubSegments() > 2 ? dataType.getSubSegment(2) : null;
+		if (keyAlgorithmXri == null) return null;
+
+		if (! XDIConstants.CS_DOLLAR.equals(keyAlgorithmXri.getCs())) return null;
+		if (keyAlgorithmXri.hasXRef()) return null;
+		if (! keyAlgorithmXri.hasLiteral()) return null;
+
+		return keyAlgorithmXri.getLiteral();
 	}
 
 	public static Integer getKeyLength(XdiAttribute xdiAttribute) {
 
-		ContextNode contextNode = (xdiAttribute instanceof XdiAttributeMember) ? xdiAttribute.getContextNode().getContextNode() : xdiAttribute.getContextNode();
-		contextNode = contextNode.getContextNode(1);
-		if (contextNode == null) return null;
+		XDI3Segment dataType = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		XDI3SubSegment xri = contextNode.getArcXri();
-		if (! XDIConstants.CS_DOLLAR.equals(xri.getCs())) return null;
-		if (xri.hasXRef()) return null;
-		if (! xri.hasLiteral()) return null;
+		return dataType == null ? null : getKeyLength(dataType);
+	}
 
-		return Integer.valueOf(xri.getLiteral());
+	public static Integer getKeyLength(XDI3Segment dataType) {
+
+		XDI3SubSegment keyLengthXri = dataType.getNumSubSegments() > 3 ? dataType.getSubSegment(3) : null;
+		if (keyLengthXri == null) return null;
+
+		if (! XDIConstants.CS_DOLLAR.equals(keyLengthXri.getCs())) return null;
+		if (keyLengthXri.hasXRef()) return null;
+		if (! keyLengthXri.hasLiteral()) return null;
+
+		return Integer.valueOf(keyLengthXri.getLiteral());
 	}
 
 	/*

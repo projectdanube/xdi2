@@ -1,6 +1,7 @@
 package xdi2.messaging.target.contributor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -242,6 +243,25 @@ public abstract class AbstractContributor implements Contributor {
 		return false;
 	}
 
+	/*
+	 * Contributor addresses
+	 */
+
+	@Override
+	public String[] getAddresses() {
+
+		ContributorXri contributorXri = this.getClass().getAnnotation(ContributorXri.class);
+		if (contributorXri == null) throw new NullPointerException("No ContributorXri annotation on contributor " + this.getClass().getSimpleName());
+
+		return contributorXri.addresses();
+	}
+
+	@Override
+	public boolean containsAddress(String address) {
+
+		return Arrays.asList(this.getAddresses()).contains(address);
+	}
+	
 	/*
 	 * Enabled?
 	 */

@@ -38,12 +38,19 @@ public interface Contributor {
 	public boolean executeOnStatement(XDI3Segment[] contributorChainXris, XDI3Segment contributorChainXri, XDI3Statement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/*
+	 * Contributor addresses
+	 */
+
+	public String[] getAddresses();
+	public boolean containsAddress(String address);
+
+	/*
 	 * Enabled?
 	 */
-	
+
 	public boolean isEnabled();
 	public void setEnabled(boolean enabled);
-	
+
 	/*
 	 * Sub-contributors
 	 */

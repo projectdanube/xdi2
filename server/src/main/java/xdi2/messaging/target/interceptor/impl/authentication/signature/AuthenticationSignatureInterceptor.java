@@ -8,7 +8,6 @@ import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signature;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
@@ -29,7 +28,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 	private static Logger log = LoggerFactory.getLogger(AuthenticationSignatureInterceptor.class.getName());
 
-	private SignatureAuthenticator<? extends Signature<?, ?>> signatureAuthenticator;
+	private SignatureAuthenticator signatureAuthenticator;
 
 	/*
 	 * Prototype
@@ -76,7 +75,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		// look for signature on the message
 
-		KeyPairSignature signature = (KeyPairSignature) message.getSignature(false);
+		Signature<?, ?> signature = message.getSignature(false);
 		if (signature == null) return false;
 
 		// authenticate
@@ -84,7 +83,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 		if (log.isDebugEnabled()) log.debug("Authenticating via " + this.getSignatureAuthenticator().getClass().getSimpleName());
 
 		
-		SignatureAuthenticator<KeyPairSignature> s = (SignatureAuthenticator<KeyPairSignature>) this.getSignatureAuthenticator();
+		SignatureAuthenticator s =  this.getSignatureAuthenticator();
 
 		// TODO!!!!
 		
@@ -113,12 +112,12 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 	 * Getters and setters
 	 */
 
-	public SignatureAuthenticator<? extends Signature<?, ?>> getSignatureAuthenticator() {
+	public SignatureAuthenticator getSignatureAuthenticator() {
 
 		return this.signatureAuthenticator;
 	}
 
-	public void setSignatureAuthenticator(SignatureAuthenticator<? extends Signature<?, ?>> signatureAuthenticator) {
+	public void setSignatureAuthenticator(SignatureAuthenticator signatureAuthenticator) {
 
 		this.signatureAuthenticator = signatureAuthenticator;
 	}

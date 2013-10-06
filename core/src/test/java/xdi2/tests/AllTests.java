@@ -11,6 +11,7 @@ import xdi2.tests.core.features.nodetypes.LocalRootsTest;
 import xdi2.tests.core.features.nodetypes.NodeTypesTest;
 import xdi2.tests.core.features.nodetypes.PeerRootsTest;
 import xdi2.tests.core.features.nodetypes.RootsTest;
+import xdi2.tests.core.features.signatures.SignaturesTest;
 import xdi2.tests.core.features.timestamps.TimestampsTest;
 import xdi2.tests.core.features.variables.VariablesTest;
 import xdi2.tests.core.impl.AbstractLiteralTest;
@@ -59,6 +60,7 @@ public class AllTests {
 		suite.addTestSuite(EquivalenceTest.class);
 		suite.addTestSuite(NodeTypesTest.class);
 		suite.addTestSuite(LinkContractsTest.class);
+		suite.addTestSuite(SignaturesTest.class);
 		suite.addTestSuite(RootsTest.class);
 		suite.addTestSuite(LocalRootsTest.class);
 		suite.addTestSuite(PeerRootsTest.class);
