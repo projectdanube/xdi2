@@ -46,7 +46,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 
 		GraphSecretTokenAuthenticator authenticator = new GraphSecretTokenAuthenticator();
 
-		// set the global hash
+		// set the global salt
 
 		authenticator.setGlobalSalt(this.getGlobalSalt());
 
