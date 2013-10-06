@@ -1,14 +1,14 @@
 package xdi2.core.features.datatypes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.util.iterators.IteratorListMaker;
+import xdi2.core.util.iterators.MappingRelationTargetContextNodeXriIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 
@@ -27,6 +27,47 @@ public class DataTypes {
 	public static final XDI3Segment XRI_DATATYPE_MIME = XDI3Segment.create("" + XDIConstants.CS_PLUS + XDIConstants.CS_DOLLAR + "mime");
 
 	/*
+	 * Methods for data types of context nodes
+	 */
+
+	/**
+	 * Set a $is+ datatype associated with a context node
+	 * 
+	 * @param contextNode
+	 * @param dataTypeXri
+	 */
+	public static void setDataType(ContextNode contextNode, XDI3Segment dataTypeXri) {
+
+		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, dataTypeXri);
+	}
+
+	/**
+	 * Get all $is+ datatypes associated with a context node
+	 * 
+	 * @param contextNode
+	 * @return list of datatypes
+	 */
+	public static List<XDI3Segment> getDataTypes(ContextNode contextNode) {
+
+		ReadOnlyIterator<Relation> relations = contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
+
+		return new IteratorListMaker<XDI3Segment> (new MappingRelationTargetContextNodeXriIterator(relations)).list();
+	}
+
+	/**
+	 * Get a $is+ datatype associated with a context node
+	 * 
+	 * @param contextNode
+	 * @return datatype
+	 */
+	public static XDI3Segment getDataType(ContextNode contextNode) {
+
+		Relation relation = contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_TYPE);
+
+		return relation == null ? null : relation.getTargetContextNodeXri();
+	}
+
+	/*
 	 * Methods for data type XRIs
 	 */
 
@@ -42,7 +83,7 @@ public class DataTypes {
 	}
 
 	/**
-	 * Returns datatype of literal in xsd format for a given XRI segment.
+	 * Returns datatype in xsd format for a given XRI segment.
 	 * 
 	 * @param dataTypeXri
 	 * @return a string of xsd datatype
@@ -66,7 +107,7 @@ public class DataTypes {
 	}
 
 	/**
-	 * Returns datatype of literal in json format for a given XRI segment.
+	 * Returns datatype in json format for a given XRI segment.
 	 * 
 	 * @param dataTypeXri
 	 * @return a string of json datatype
@@ -102,7 +143,7 @@ public class DataTypes {
 	}
 
 	/**
-	 * Returns datatype of literal in mime format for a given XRI segment.
+	 * Returns datatype in mime format for a given XRI segment.
 	 * 
 	 * @param dataTypeXri
 	 * @return a string of mime datatype
@@ -115,32 +156,8 @@ public class DataTypes {
 	}
 
 	/*
-	 * Methods for data types of literals
+	 * Helper methods
 	 */
-
-	/**
-	 * Create a "$is" relation for a literal and datatype XRI segment
-	 * 
-	 * @param literal
-	 * @param dataTypeXri
-	 */
-	public static void setLiteralDataType(Literal literal, XDI3Segment dataTypeXri) {
-
-		ContextNode contextNode = literal.getContextNode().getContextNode();
-
-		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, dataTypeXri);
-	}
-
-	/**
-	 * Get all datatypes associated with a literal
-	 * 
-	 * @param literal
-	 * @return list of datatypes as XDI3Segment
-	 */
-	public static List<XDI3Segment> getLiteralDataType(Literal literal) {
-
-		return getLiteralDatatypes(literal);
-	}
 
 	/**
 	 * Generic method to get datatype from a string of xri segment.
@@ -177,28 +194,5 @@ public class DataTypes {
 		}
 
 		return buffer.toString();
-	}
-
-	private static List<XDI3Segment> getLiteralDatatypes(Literal literal) {
-
-		List<XDI3Segment> dataTypes;
-
-		try {
-
-			ReadOnlyIterator<Relation> relations = literal.getContextNode().getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
-
-			dataTypes = new ArrayList<XDI3Segment>();
-
-			while (relations.hasNext()) {
-
-				Relation relation = relations.next();
-				dataTypes.add(relation.getStatement().getObject());
-			}
-		} catch (Exception ex) {
-
-			throw new Xdi2RuntimeException("Invalid XDI3Segment ", ex);
-		}
-
-		return dataTypes;
 	}
 }

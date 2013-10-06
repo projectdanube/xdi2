@@ -24,9 +24,9 @@ public class DataTypesTest extends TestCase {
 
 		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString, "XDI DISPLAY", null);
 
-		DataTypes.setLiteralDataType(graph.getDeepLiteral(XDI3Segment.create("=markus<+age>&")), XDI3Segment.create("$mime$image$png"));
+		DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<+age>&")), XDI3Segment.create("$mime$image$png"));
 
-		List<XDI3Segment> dataTypes = DataTypes.getLiteralDataType(graph.getDeepLiteral(XDI3Segment.create("=markus<+age>&")));
+		List<XDI3Segment> dataTypes = DataTypes.getDataTypes(graph.getDeepContextNode(XDI3Segment.create("=markus<+age>&")));
 
 		assertNotNull(dataTypes);
 
@@ -58,7 +58,7 @@ public class DataTypesTest extends TestCase {
 		try {
 
 			Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
-			DataTypes.setLiteralDataType(graph.getDeepLiteral(XDI3Segment.create("=markus<+age>")), XDI3Segment.create("+$json$number"));
+			DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<+age>")), XDI3Segment.create("+$json$number"));
 
 			fail();
 		} catch (Exception ex) { }
