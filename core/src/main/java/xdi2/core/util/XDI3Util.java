@@ -57,8 +57,14 @@ public final class XDI3Util {
 
 						if (VariableUtil.isMultiple(xri.getSubSegment(xriIndex))) {
 
-							while (startIndex < startXri.getNumSubSegments() && 
-									VariableUtil.matches(xri.getSubSegment(xriIndex), startXri.getSubSegment(startIndex))) startIndex++;
+							while (true) {
+
+								if (startIndex == startXri.getNumSubSegments()) break;
+								if (! VariableUtil.matches(xri.getSubSegment(xriIndex), startXri.getSubSegment(startIndex))) break;
+								if (xriIndex + 1 < xri.getNumSubSegments() && xri.getSubSegment(xriIndex + 1).equals(startXri.getSubSegment(startIndex))) break;
+
+								startIndex++;
+							}
 						}
 
 						xriIndex++;
@@ -78,8 +84,14 @@ public final class XDI3Util {
 
 						if (VariableUtil.isMultiple(startXri.getSubSegment(startIndex))) {
 
-							while (xriIndex < xri.getNumSubSegments() && 
-									VariableUtil.matches(startXri.getSubSegment(startIndex), xri.getSubSegment(xriIndex))) xriIndex++;
+							while (true) {
+
+								if (xriIndex == xri.getNumSubSegments()) break;
+								if (! VariableUtil.matches(startXri.getSubSegment(startIndex), xri.getSubSegment(xriIndex))) break;
+								if (startIndex + 1 < startXri.getNumSubSegments() && xri.getSubSegment(xriIndex).equals(startXri.getSubSegment(startIndex + 1))) break;
+
+								xriIndex++;
+							}
 						}
 
 						startIndex++;
@@ -144,8 +156,14 @@ public final class XDI3Util {
 
 						if (VariableUtil.isMultiple(xri.getSubSegment(xriIndex))) {
 
-							while (endIndex > -1 && 
-									VariableUtil.matches(xri.getSubSegment(xriIndex), endXri.getSubSegment(endIndex))) endIndex--;
+							while (true) {
+
+								if (endIndex == -1) break;
+								if (! VariableUtil.matches(xri.getSubSegment(xriIndex), endXri.getSubSegment(endIndex))) break;
+								if (xriIndex - 1 > -1 && xri.getSubSegment(xriIndex - 1).equals(endXri.getSubSegment(endIndex))) break;
+
+								endIndex--;
+							}
 						}
 
 						xriIndex--;
@@ -165,8 +183,14 @@ public final class XDI3Util {
 
 						if (VariableUtil.isMultiple(endXri.getSubSegment(endIndex))) {
 
-							while (xriIndex > -1 && 
-									VariableUtil.matches(endXri.getSubSegment(endIndex), xri.getSubSegment(xriIndex))) xriIndex--;
+							while (true) {
+
+								if (xriIndex == -1) break;
+								if (! VariableUtil.matches(endXri.getSubSegment(endIndex), xri.getSubSegment(xriIndex))) break;
+								if (endIndex - 1 > -1 && xri.getSubSegment(xriIndex).equals(endXri.getSubSegment(endIndex - 1))) break;
+
+								xriIndex--;
+							}
 						}
 
 						endIndex--;
@@ -319,7 +343,7 @@ public final class XDI3Util {
 	 * E.g. for =a*b*c*d and =a*b*c*d, this returns ()
 	 * E.g. for =a*b*c*d and *y, this returns null
 	 */
-	public static XDI3Segment removeEndXri(XDI3Segment xri, XDI3Segment end, boolean variablesInXri, boolean variablesInEnd) {
+	public static XDI3Segment removeEndXri(final XDI3Segment xri, final XDI3Segment end, final boolean variablesInXri, final boolean variablesInEnd) {
 
 		if (xri == null) throw new NullPointerException();
 		if (end == null) throw new NullPointerException();
