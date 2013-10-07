@@ -40,7 +40,7 @@
 						</systemProperty>
 						<systemProperty>
 							<name>log4j.configuration</name>
-							<value>file:${basedir}/src/main/resources/log4j.properties</value>
+							<value>file:${basedir}/src/test/resources/log4j.properties</value>
 						</systemProperty>
 					</systemProperties>
 				</configuration>
