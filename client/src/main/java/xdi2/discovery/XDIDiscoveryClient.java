@@ -1,9 +1,13 @@
 package xdi2.discovery;
 
-import xdi2.client.events.XDIDiscoverFromEndpointUriEvent;
-import xdi2.client.events.XDIDiscoverFromXriEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import xdi2.client.events.XDIDiscoverFromAuthorityEvent;
+import xdi2.client.events.XDIDiscoverFromRegistryEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
+import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
@@ -13,12 +17,14 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
- * Given an identifier such as a Cloud Name, or discovery key, useful information such a Cloud Number, 
- * a public key, or additional services, can be discovered.
+ * Given a Cloud Name or discovery key, useful information such a Cloud Number, 
+ * public keys, or additional services, can be discovered.
  * 
  * @author markus
  */
 public class XDIDiscoveryClient {
+
+	private static Logger log = LoggerFactory.getLogger(XDIDiscoveryClient.class.getName());
 
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
 
@@ -32,6 +38,43 @@ public class XDIDiscoveryClient {
 	public XDIDiscoveryClient() {
 
 		this(DEFAULT_XDI_CLIENT);
+	}
+
+	public XDIDiscoveryResult discover(XDI3Segment query) throws Xdi2ClientException {
+
+		XDIDiscoveryResult xdiDiscoveryResultRegistry = this.discoverFromRegistry(query);
+
+		if (xdiDiscoveryResultRegistry == null) {
+
+			if (log.isDebugEnabled()) log.debug("No discovery result from registry for " + query);
+
+			return null;
+		}
+
+		if (log.isDebugEnabled()) log.debug("Discovery result from registry: " + xdiDiscoveryResultRegistry);
+
+		if (xdiDiscoveryResultRegistry.getXdiEndpointUri() == null && xdiDiscoveryResultRegistry.getCloudNumber() == null) {
+
+			if (log.isDebugEnabled()) log.debug("No XDI endpoint URI or cloud number from registry for " + query);
+
+			return xdiDiscoveryResultRegistry;
+		}
+
+		XDIDiscoveryResult xdiDiscoveryResultAuthority = this.discoverFromAuthority(xdiDiscoveryResultRegistry.getXdiEndpointUri(), xdiDiscoveryResultRegistry.getCloudNumber());
+
+		if (xdiDiscoveryResultAuthority == null) {
+
+			if (log.isDebugEnabled()) log.debug("No discovery result from authority for " + query);
+
+			return xdiDiscoveryResultRegistry;
+		}
+
+		if (log.isDebugEnabled()) log.debug("Discovery result from authority: " + xdiDiscoveryResultAuthority);
+
+		XDIDiscoveryResult xdiDiscoveryResult = new XDIDiscoveryResult();
+		xdiDiscoveryResult.initFromRegistryAndAuthorityDiscoveryResult(xdiDiscoveryResultRegistry, xdiDiscoveryResultAuthority, query);
+
+		return xdiDiscoveryResult;
 	}
 
 	public XDIDiscoveryResult discoverFromRegistry(XDI3Segment query) throws Xdi2ClientException {
@@ -68,7 +111,7 @@ public class XDIDiscoveryClient {
 
 		// done
 
-		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromXriEvent(this, registryMessageEnvelope, discoveryResult, query));
+		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromRegistryEvent(this, registryMessageEnvelope, discoveryResult, query));
 
 		return discoveryResult;
 	}
@@ -84,8 +127,8 @@ public class XDIDiscoveryClient {
 		authorityMessage.setToAddress(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(cloudNumber)));
 		authorityMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC_DO);
 		//authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
-		authorityMessage.createGetOperation(XDI3Segment.create("$public$msg$sig$keypair$public"));
-		authorityMessage.createGetOperation(XDI3Segment.create("$public$msg$encrypt$keypair$public"));
+		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_PUBLIC_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_PUBLIC_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 
 		MessageResult authorityMessageResult;
 
@@ -110,7 +153,7 @@ public class XDIDiscoveryClient {
 
 		// done
 
-		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromEndpointUriEvent(this, authorityMessageEnvelope, discoveryResult, xdiEndpointUri));
+		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, discoveryResult, xdiEndpointUri));
 
 		return discoveryResult;
 	}

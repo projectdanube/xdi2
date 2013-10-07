@@ -56,32 +56,9 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 
 		try {
 
-			XDIDiscoveryResult xdiDiscoveryResultRegistry = this.getXdiDiscoveryClient().discoverFromRegistry(senderXri);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(senderXri);
 
-			if (xdiDiscoveryResultRegistry == null) {
-
-				if (log.isDebugEnabled()) log.debug("No discovery result from registry for " + senderXri);
-			} else {
-
-				if (log.isDebugEnabled()) log.debug("Discovery result from registry: " + xdiDiscoveryResultRegistry);
-
-				if (xdiDiscoveryResultRegistry.getXdiEndpointUri() != null && xdiDiscoveryResultRegistry.getCloudNumber() != null) {
-
-					XDIDiscoveryResult xdiDiscoveryResultAuthority = this.getXdiDiscoveryClient().discoverFromAuthority(xdiDiscoveryResultRegistry.getXdiEndpointUri(), xdiDiscoveryResultRegistry.getCloudNumber());
-
-					if (xdiDiscoveryResultAuthority == null) {
-
-						if (log.isDebugEnabled()) log.debug("No discovery result from authority for " + senderXri);
-					} else {
-
-						if (log.isDebugEnabled()) log.debug("Discovery result from authority: " + xdiDiscoveryResultAuthority);
-
-						publicKey = xdiDiscoveryResultAuthority.getSignaturePublicKey();
-					}
-				}
-
-				if (publicKey == null) publicKey = xdiDiscoveryResultRegistry.getSignaturePublicKey();
-			}
+			if (xdiDiscoveryResult != null) publicKey = xdiDiscoveryResult.getSignaturePublicKey();
 		} catch (Xdi2ClientException ex) {
 
 			if (log.isWarnEnabled()) log.warn("Cannot discover public key for " + senderXri + ": " + ex.getMessage(), ex);
