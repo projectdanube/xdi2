@@ -17,6 +17,7 @@ import xdi2.messaging.Operation;
 import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphContextHandler;
 
 public abstract class AbstractContributor implements Contributor {
@@ -28,6 +29,20 @@ public abstract class AbstractContributor implements Contributor {
 
 		this.enabled = true;
 		this.contributors = new ContributorMap();
+	}
+
+	/*
+	 * Init and shutdown
+	 */
+
+	@Override
+	public void init(MessagingTarget messagingTarget) throws Exception {
+
+	}
+
+	@Override
+	public void shutdown(MessagingTarget messagingTarget) throws Exception {
+
 	}
 
 	/*
@@ -261,7 +276,7 @@ public abstract class AbstractContributor implements Contributor {
 
 		return Arrays.asList(this.getAddresses()).contains(address);
 	}
-	
+
 	/*
 	 * Enabled?
 	 */

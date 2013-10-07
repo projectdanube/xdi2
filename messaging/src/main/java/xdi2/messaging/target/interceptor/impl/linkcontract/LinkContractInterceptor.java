@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
@@ -28,7 +27,6 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
-import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContext;
 
@@ -37,11 +35,21 @@ import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContex
  * 
  * @author animesh
  */
-public class LinkContractInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, MessageInterceptor, TargetInterceptor, Prototype<LinkContractInterceptor> {
+public class LinkContractInterceptor extends AbstractInterceptor implements MessageInterceptor, TargetInterceptor, Prototype<LinkContractInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 
 	private Graph linkContractsGraph;
+
+	public LinkContractInterceptor(Graph linkContractsGraph) {
+
+		this.linkContractsGraph = linkContractsGraph;
+	}
+
+	public LinkContractInterceptor() {
+
+		this.linkContractsGraph = null;
+	}
 
 	/*
 	 * Prototype
@@ -54,21 +62,9 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		LinkContractInterceptor interceptor = new LinkContractInterceptor();
 
-		// set the link contracts graph
+		// set the graph
 
-		if (this.getLinkContractsGraph() == null) {
-
-			if (prototypingContext.getMessagingTarget() instanceof GraphMessagingTarget) {
-
-				interceptor.setLinkContractsGraph(((GraphMessagingTarget) prototypingContext.getMessagingTarget()).getGraph());
-			} else {
-
-				throw new Xdi2RuntimeException("No link contracts graph.");
-			}
-		} else {
-
-			interceptor.setLinkContractsGraph(this.getLinkContractsGraph());
-		}
+		interceptor.setLinkContractsGraph(this.getLinkContractsGraph());
 
 		// done
 
@@ -76,26 +72,16 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 	}
 
 	/*
-	 * MessagingTargetInterceptor
+	 * Init and shutdown
 	 */
 
 	@Override
 	public void init(MessagingTarget messagingTarget) throws Exception {
 
-		if (this.getLinkContractsGraph() == null && messagingTarget instanceof GraphMessagingTarget) {
+		super.init(messagingTarget);
 
-			this.setLinkContractsGraph(((GraphMessagingTarget) messagingTarget).getGraph());
-		}
-
-		if (this.getLinkContractsGraph() == null) {
-
-			throw new Xdi2MessagingException("No link contracts graph.", null, null);
-		}
-	}
-
-	@Override
-	public void shutdown(MessagingTarget messagingTarget) throws Exception {
-
+		if (this.getLinkContractsGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setLinkContractsGraph(((GraphMessagingTarget) messagingTarget).getGraph()); 
+		if (this.getLinkContractsGraph() == null) throw new Xdi2MessagingException("No link contracts graph.", null, null);
 	}
 
 	/*

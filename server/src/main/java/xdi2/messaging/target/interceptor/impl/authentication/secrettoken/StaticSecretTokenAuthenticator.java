@@ -4,7 +4,6 @@ import java.util.Map;
 
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
-import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 /**
  * A SecretTokenAuthenticator that can authenticate an XDI message using a
@@ -24,14 +23,6 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 	public StaticSecretTokenAuthenticator() {
 
 		super();
-	}
-
-	@Override
-	public StaticSecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
-
-		// done
-
-		return this;
 	}
 
 	@Override

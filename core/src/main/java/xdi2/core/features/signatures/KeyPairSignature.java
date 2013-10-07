@@ -24,10 +24,10 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 	private static final long serialVersionUID = 5144184647292934979L;
 
-	public static final String KEY_ALGORITHM_RSA = "RSA";
-	public static final String KEY_ALGORITHM_DSA = "DSA";
+	public static final String KEY_ALGORITHM_RSA = "rsa";
+	public static final String KEY_ALGORITHM_DSA = "dsa";
 
-	public static final String DIGEST_ALGORITHM_SHA = "SHA";
+	public static final String DIGEST_ALGORITHM_SHA = "sha";
 
 	protected KeyPairSignature(XdiAttribute xdiAttribute) {
 
@@ -44,7 +44,7 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 	 * @return True if the XDI attribute is a valid XDI signature.
 	 */
 	public static boolean isValid(XdiAttribute xdiAttribute) {
-		
+
 		if (xdiAttribute instanceof XdiAttributeSingleton) {
 
 			if (! ((XdiAttributeSingleton) xdiAttribute).getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE))) return false;
@@ -81,27 +81,27 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 	@Override
 	public String getAlgorithm() {
-		
+
 		StringBuilder builder = new StringBuilder();
-		
-		builder.append(this.getDigestAlgorithm());
+
+		builder.append(this.getDigestAlgorithm().toUpperCase());
 		builder.append(this.getDigestLength());
 		builder.append("with");
-		builder.append(this.getKeyAlgorithm());
+		builder.append(this.getKeyAlgorithm().toUpperCase());
 
 		return builder.toString();
 	}
 
 	@Override
 	public void sign(PrivateKey privateKey) throws GeneralSecurityException {
-		
+
 		byte[] normalizedSerialization;
 
 		try {
-		
+
 			normalizedSerialization = getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
 		} catch (UnsupportedEncodingException ex) {
-			
+
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
 
@@ -129,14 +129,14 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 		if (literalString == null) return false;
 
 		byte[] bytes = Base64.decodeBase64(literalString);
-		
+
 		byte[] normalizedSerialization;
 
 		try {
-		
+
 			normalizedSerialization = getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
 		} catch (UnsupportedEncodingException ex) {
-			
+
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
 

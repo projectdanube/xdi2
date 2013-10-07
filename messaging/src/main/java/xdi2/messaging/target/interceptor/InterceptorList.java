@@ -78,39 +78,39 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 	 * Methods for executing interceptors
 	 */
 
-	public void executeMessagingTargetInterceptorsInit(MessagingTarget messagingTarget) throws Exception {
+	public void initInterceptors(MessagingTarget messagingTarget) throws Exception {
 
-		for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = this.findMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
+		for (Iterator<Interceptor> interceptors = this.iterator(); interceptors.hasNext(); ) {
 
-			MessagingTargetInterceptor messagingTargetInterceptor = messagingTargetInterceptors.next();
+			Interceptor interceptor = interceptors.next();
 
-			if (! messagingTargetInterceptor.isEnabled()) {
+			if (! interceptor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled messaging target interceptor: "+ messagingTargetInterceptor.getClass().getSimpleName() + " (init).");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled interceptor:" + interceptor.getClass().getSimpleName() + " (init).");
 				continue;
 			}
 
-			if (log.isDebugEnabled()) log.debug("Executing messaging target interceptor " + messagingTargetInterceptor.getClass().getSimpleName() + " (init).");
+			if (log.isDebugEnabled()) log.debug("Executing interceptor " + interceptor.getClass().getSimpleName() + " (init).");
 
-			messagingTargetInterceptor.init(messagingTarget);
+			interceptor.init(messagingTarget);
 		}
 	}
 
-	public void executeMessagingTargetInterceptorsShutdown(MessagingTarget messagingTarget) throws Exception {
+	public void shutdownInterceptors(MessagingTarget messagingTarget) throws Exception {
 
-		for (Iterator<MessagingTargetInterceptor> messagingTargetInterceptors = this.findMessagingTargetInterceptors(); messagingTargetInterceptors.hasNext(); ) {
+		for (Iterator<Interceptor> interceptors = this.iterator(); interceptors.hasNext(); ) {
 
-			MessagingTargetInterceptor messagingTargetInterceptor = messagingTargetInterceptors.next();
+			Interceptor interceptor = interceptors.next();
 
-			if (! messagingTargetInterceptor.isEnabled()) {
+			if (! interceptor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled messaging target interceptor: "+ messagingTargetInterceptor.getClass().getSimpleName() + " (shutdown).");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled interceptor: " + interceptor.getClass().getSimpleName() + " (shutdown).");
 				continue;
 			}
 
-			if (log.isDebugEnabled()) log.debug("Executing messaging target interceptor " + messagingTargetInterceptor.getClass().getSimpleName() + " (shutdown).");
+			if (log.isDebugEnabled()) log.debug("Executing interceptor " + interceptor.getClass().getSimpleName() + " (shutdown).");
 
-			messagingTargetInterceptor.shutdown(messagingTarget);
+			interceptor.shutdown(messagingTarget);
 		}
 	}
 
@@ -122,7 +122,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 			if (! messageEnvelopeInterceptor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled message envelope interceptor: "+ messageEnvelopeInterceptor.getClass().getSimpleName() + " (before).");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled message envelope interceptor:" + messageEnvelopeInterceptor.getClass().getSimpleName() + " (before).");
 				continue;
 			}
 
@@ -157,7 +157,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 			if (! messageEnvelopeInterceptor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled message envelope interceptor: "+ messageEnvelopeInterceptor.getClass().getSimpleName() + " (after).");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled message envelope interceptor:" + messageEnvelopeInterceptor.getClass().getSimpleName() + " (after).");
 				continue;
 			}
 
@@ -192,7 +192,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 			if (! messageEnvelopeInterceptor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled message envelope interceptor: "+ messageEnvelopeInterceptor.getClass().getSimpleName() + " (exception).");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled message envelope interceptor:" + messageEnvelopeInterceptor.getClass().getSimpleName() + " (exception).");
 				continue;
 			}
 
@@ -221,7 +221,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 			if (! messageInterceptor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled message interceptor: "+ messageInterceptor.getClass().getSimpleName() + " (before).");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled message interceptor:" + messageInterceptor.getClass().getSimpleName() + " (before).");
 				continue;
 			}
 
@@ -256,7 +256,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 			if (! messageInterceptor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled message interceptor: "+ messageInterceptor.getClass().getSimpleName() + " (after).");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled message interceptor:" + messageInterceptor.getClass().getSimpleName() + " (after).");
 				continue;
 			}
 
@@ -291,7 +291,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 			if (! operationInterceptor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled operation interceptor: "+ operationInterceptor.getClass().getSimpleName() + " (before).");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled operation interceptor:" + operationInterceptor.getClass().getSimpleName() + " (before).");
 				continue;
 			}
 
@@ -326,7 +326,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 			if (! operationInterceptor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled operation interceptor: "+ operationInterceptor.getClass().getSimpleName() + " (after).");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled operation interceptor:" + operationInterceptor.getClass().getSimpleName() + " (after).");
 				continue;
 			}
 
@@ -463,11 +463,6 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 	/*
 	 * Methods for finding interceptors
 	 */
-
-	public Iterator<MessagingTargetInterceptor> findMessagingTargetInterceptors() {
-
-		return new SelectingClassIterator<Interceptor, MessagingTargetInterceptor> (this.iterator(), MessagingTargetInterceptor.class);
-	}
 
 	public Iterator<MessageEnvelopeInterceptor> findMessageEnvelopeInterceptors() {
 

@@ -26,7 +26,6 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
-import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 
 /**
  * This interceptor can initialize an empty XDI graph with basic bootstrapping data,
@@ -34,7 +33,7 @@ import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
  * 
  * @author markus
  */
-public class BootstrapInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, Prototype<BootstrapInterceptor> {
+public class BootstrapInterceptor extends AbstractInterceptor implements Prototype<BootstrapInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 
@@ -63,11 +62,14 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 		// create new interceptor
 
 		BootstrapInterceptor interceptor = new BootstrapInterceptor();
+
+		// set the owner, root link contract, and public link contract
+
 		interceptor.setBootstrapOwner(prototypingContext.getOwner());
 		interceptor.setBootstrapRootLinkContract(this.getBootstrapRootLinkContract());
 		interceptor.setBootstrapPublicLinkContract(this.getBootstrapPublicLinkContract());
 
-		// read the owner synonyms
+		// set the owner synonyms
 
 		XDI3Segment[] ownerSynonyms = null;
 
@@ -88,16 +90,18 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 	}
 
 	/*
-	 * MessagingTargetInterceptor
+	 * Init and shutdown
 	 */
 
 	@Override
 	public void init(MessagingTarget messagingTarget) throws Exception {
 
+		super.init(messagingTarget);
+
 		if (! (messagingTarget instanceof GraphMessagingTarget)) return;
 
-		GraphMessagingTarget graphMessagingTarget = (GraphMessagingTarget) messagingTarget;
-		Graph graph = graphMessagingTarget.getGraph();
+		Graph graph = ((GraphMessagingTarget) messagingTarget).getGraph();
+
 		ContextNode rootContextNode = graph.getRootContextNode();
 
 		if (log.isDebugEnabled()) log.debug("bootstrapOwner=" + this.getBootstrapOwner() + ", bootstrapOwnerSynonyms=" + this.getBootstrapOwnerSynonyms() + ", bootstrapLinkContract=" + this.getBootstrapRootLinkContract() + ", bootstrapPublicLinkContract=" + this.getBootstrapPublicLinkContract());
@@ -184,6 +188,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Messagi
 	@Override
 	public void shutdown(MessagingTarget messagingTarget) throws Exception {
 
+		super.shutdown(messagingTarget);
 	}
 
 	/*

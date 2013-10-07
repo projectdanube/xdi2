@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
@@ -21,6 +20,7 @@ import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
@@ -31,46 +31,29 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 	private static Logger log = LoggerFactory.getLogger(GraphSignatureAuthenticator.class.getName());
 
-	private Graph publicKeyGraph;
+	private Graph signatureGraph;
 
-	public GraphSignatureAuthenticator(Graph secretTokenGraph) {
+	public GraphSignatureAuthenticator(Graph signatureGraph) {
 
 		super();
 
-		this.publicKeyGraph = secretTokenGraph;
+		this.signatureGraph = signatureGraph;
 	}
 
 	public GraphSignatureAuthenticator() {
 
 		super();
+
+		this.signatureGraph = null;
 	}
 
 	@Override
-	public GraphSignatureAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public void init(MessagingTarget messagingTarget, AuthenticationSignatureInterceptor authenticationSignatureInterceptor) throws Exception {
 
-		// create new signature authenticator
+		super.init(messagingTarget, authenticationSignatureInterceptor);
 
-		GraphSignatureAuthenticator authenticator = new GraphSignatureAuthenticator();
-
-		// set the public key graph
-
-		if (this.getPublicKeyGraph() == null) {
-
-			if (prototypingContext.getMessagingTarget() instanceof GraphMessagingTarget) {
-
-				authenticator.setPublicKeyGraph(((GraphMessagingTarget) prototypingContext.getMessagingTarget()).getGraph());
-			} else {
-
-				throw new Xdi2RuntimeException("No public key graph.");
-			}
-		} else {
-
-			authenticator.setPublicKeyGraph(this.getPublicKeyGraph());
-		}
-
-		// done
-
-		return authenticator;
+		if (this.getSignatureGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setSignatureGraph(((GraphMessagingTarget) messagingTarget).getGraph());
+		if (this.getSignatureGraph() == null) throw new Xdi2MessagingException("No secret token graph.", null, null);
 	}
 
 	@Override
@@ -81,7 +64,7 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 		// sender peer root
 
-		XdiPeerRoot senderPeerRoot = XdiLocalRoot.findLocalRoot(this.getPublicKeyGraph()).findPeerRoot(senderXri, false);
+		XdiPeerRoot senderPeerRoot = XdiLocalRoot.findLocalRoot(this.getSignatureGraph()).findPeerRoot(senderXri, false);
 
 		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderPeerRoot);
 
@@ -114,13 +97,17 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 		return publicKey;
 	}
 
-	public Graph getPublicKeyGraph() {
+	/*
+	 * Getters and setters
+	 */
 
-		return this.publicKeyGraph;
+	public Graph getSignatureGraph() {
+	
+		return this.signatureGraph;
 	}
 
-	public void setPublicKeyGraph(Graph secretTokenGraph) {
-
-		this.publicKeyGraph = secretTokenGraph;
+	public void setSignatureGraph(Graph signatureGraph) {
+	
+		this.signatureGraph = signatureGraph;
 	}
 }

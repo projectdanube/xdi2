@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
@@ -15,6 +14,7 @@ import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
@@ -26,10 +26,10 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	private static Logger log = LoggerFactory.getLogger(GraphSecretTokenAuthenticator.class.getName());
 
 	private Graph secretTokenGraph;
+	
+	public GraphSecretTokenAuthenticator(String globalSalt, Graph secretTokenGraph) {
 
-	public GraphSecretTokenAuthenticator(String globalHash, Graph secretTokenGraph) {
-
-		super(globalHash);
+		super(globalSalt);
 
 		this.secretTokenGraph = secretTokenGraph;
 	}
@@ -37,38 +37,17 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	public GraphSecretTokenAuthenticator() {
 
 		super();
+		
+		this.secretTokenGraph = null;
 	}
 
 	@Override
-	public GraphSecretTokenAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public void init(MessagingTarget messagingTarget, AuthenticationSecretTokenInterceptor authenticationSecretTokenInterceptor) throws Exception {
 
-		// create new secret token authenticator
+		super.init(messagingTarget, authenticationSecretTokenInterceptor);
 
-		GraphSecretTokenAuthenticator authenticator = new GraphSecretTokenAuthenticator();
-
-		// set the global hash
-
-		authenticator.setGlobalSalt(this.getGlobalSalt());
-
-		// set the secret token graph
-
-		if (this.getSecretTokenGraph() == null) {
-
-			if (prototypingContext.getMessagingTarget() instanceof GraphMessagingTarget) {
-
-				authenticator.setSecretTokenGraph(((GraphMessagingTarget) prototypingContext.getMessagingTarget()).getGraph());
-			} else {
-
-				throw new Xdi2RuntimeException("No secret token graph.");
-			}
-		} else {
-
-			authenticator.setSecretTokenGraph(this.getSecretTokenGraph());
-		}
-
-		// done
-
-		return authenticator;
+		if (this.getSecretTokenGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setSecretTokenGraph(((GraphMessagingTarget) messagingTarget).getGraph());
+		if (this.getSecretTokenGraph() == null) throw new Xdi2MessagingException("No secret token graph.", null, null);
 	}
 
 	@Override
@@ -96,14 +75,18 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 
 		return localSaltAndDigestSecretToken;
 	}
+	
+	/*
+	 * Getters and setters
+	 */
 
 	public Graph getSecretTokenGraph() {
-
+	
 		return this.secretTokenGraph;
 	}
 
 	public void setSecretTokenGraph(Graph secretTokenGraph) {
-
+	
 		this.secretTokenGraph = secretTokenGraph;
 	}
 }

@@ -18,13 +18,12 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
-import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 
 /**
  * This interceptor looks for a signature on an incoming XDI message,
  * and invokes an instance of SignatureAuthenticator to authenticate the message.
  */
-public class AuthenticationSignatureInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, MessageInterceptor, Prototype<AuthenticationSignatureInterceptor> {
+public class AuthenticationSignatureInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<AuthenticationSignatureInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(AuthenticationSignatureInterceptor.class.getName());
 
@@ -43,7 +42,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		// set the authenticator
 
-		interceptor.setSignatureAuthenticator(this.getSignatureAuthenticator().instanceFor(prototypingContext));
+		interceptor.setSignatureAuthenticator(this.getSignatureAuthenticator());
 
 		// done
 
@@ -51,19 +50,23 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 	}
 
 	/*
-	 * MessagingTargetInterceptor
+	 * Init and shutdown
 	 */
 
 	@Override
 	public void init(MessagingTarget messagingTarget) throws Exception {
 
-		this.getSignatureAuthenticator().init();
+		super.init(messagingTarget);
+
+		this.getSignatureAuthenticator().init(messagingTarget, this);
 	}
 
 	@Override
 	public void shutdown(MessagingTarget messagingTarget) throws Exception {
 
-		this.getSignatureAuthenticator().shutdown();
+		super.shutdown(messagingTarget);
+
+		this.getSignatureAuthenticator().shutdown(messagingTarget, this);
 	}
 
 	/*
@@ -75,20 +78,14 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		// look for signature on the message
 
-		Signature<?, ?> signature = message.getSignature(false);
+		Signature<?, ?> signature = message.getSignature();
 		if (signature == null) return false;
 
 		// authenticate
 
 		if (log.isDebugEnabled()) log.debug("Authenticating via " + this.getSignatureAuthenticator().getClass().getSimpleName());
 
-		
-		SignatureAuthenticator s =  this.getSignatureAuthenticator();
-
-		// TODO!!!!
-		
-		
-		boolean authenticated = s.authenticate(message, signature);
+		boolean authenticated = this.getSignatureAuthenticator().authenticate(message, signature);
 		if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
 
 		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE_VALID));

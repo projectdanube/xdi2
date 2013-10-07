@@ -17,13 +17,12 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
-import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 
 /**
  * This interceptor looks for a secret token on an incoming XDI message,
  * and invokes an instance of SecretTokenAuthenticator to authenticate the message.
  */
-public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, MessageInterceptor, Prototype<AuthenticationSecretTokenInterceptor> {
+public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<AuthenticationSecretTokenInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(AuthenticationSecretTokenInterceptor.class.getName());
 
@@ -42,7 +41,7 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor im
 
 		// set the authenticator
 
-		interceptor.setSecretTokenAuthenticator(this.getSecretTokenAuthenticator().instanceFor(prototypingContext));
+		interceptor.setSecretTokenAuthenticator(this.getSecretTokenAuthenticator());
 
 		// done
 
@@ -50,19 +49,23 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor im
 	}
 
 	/*
-	 * MessagingTargetInterceptor
+	 * Init and shutdown
 	 */
 
 	@Override
 	public void init(MessagingTarget messagingTarget) throws Exception {
 
-		this.getSecretTokenAuthenticator().init();
+		super.init(messagingTarget);
+
+		this.getSecretTokenAuthenticator().init(messagingTarget, this);
 	}
 
 	@Override
 	public void shutdown(MessagingTarget messagingTarget) throws Exception {
 
-		this.getSecretTokenAuthenticator().shutdown();
+		super.shutdown(messagingTarget);
+
+		this.getSecretTokenAuthenticator().shutdown(messagingTarget, this);
 	}
 
 	/*

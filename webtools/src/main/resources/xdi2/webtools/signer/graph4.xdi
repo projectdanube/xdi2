@@ -1,6 +1,7 @@
 ()/$is$ref/([=]!1111)
 ([=]!1111)/$ref/()
 =markus/+friend/=drummond
-=markus<$sig>&/&/"EBA4WCXFGqqggF6p4QJbG43DH/l5HtB15V61soVaUZQ="
+=markus<$sig>/$is+/$sha$384$aes$256
+=markus<$sig>&/&/"BgjwHh56huI4q6QAqIs9KlLKRXZhPcfOxMg7QkEzRDTnqYPQ3b41vEQ2AxJxg1i5"
 =markus<+email>&/&/"markus.sabadello@gmail.com"
 =markus<+name>&/&/"Markus Sabadello"

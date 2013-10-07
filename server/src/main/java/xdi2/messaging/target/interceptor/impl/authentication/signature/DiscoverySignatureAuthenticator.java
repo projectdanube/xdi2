@@ -10,7 +10,6 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
-import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 /**
  * A SignatureAuthenticator that can authenticate an XDI message by obtaining
@@ -34,14 +33,6 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 	public DiscoverySignatureAuthenticator() {
 
 		this(DEFAULT_DISCOVERY_CLIENT);
-	}
-
-	@Override
-	public DiscoverySignatureAuthenticator instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
-
-		// done
-
-		return this;
 	}
 
 	@Override

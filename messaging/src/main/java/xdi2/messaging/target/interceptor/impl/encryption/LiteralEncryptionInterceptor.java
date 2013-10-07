@@ -14,7 +14,6 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
-import xdi2.messaging.target.interceptor.MessagingTargetInterceptor;
 import xdi2.messaging.target.interceptor.ResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
@@ -23,7 +22,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * in the XDI message result. It invokes an instance of LiteralCryptoService to
  * perform encryption and decryption. 
  */
-public class LiteralEncryptionInterceptor extends AbstractInterceptor implements MessagingTargetInterceptor, TargetInterceptor, ResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
+public class LiteralEncryptionInterceptor extends AbstractInterceptor implements TargetInterceptor, ResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(LiteralEncryptionInterceptor.class);
 
@@ -40,7 +39,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 
 		LiteralEncryptionInterceptor interceptor = new LiteralEncryptionInterceptor();
 
-		// set the link contracts graph
+		// set the crypto service
 
 		interceptor.setLiteralCryptoService(this.getLiteralCryptoService());
 
@@ -50,17 +49,21 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 	}
 
 	/*
-	 * MessagingTargetInterceptor
+	 * Init and shutdown
 	 */
 
 	@Override
 	public void init(MessagingTarget messagingTarget) throws Exception {
+
+		super.init(messagingTarget);
 
 		this.getLiteralCryptoService().init();
 	}
 
 	@Override
 	public void shutdown(MessagingTarget messagingTarget) throws Exception {
+
+		super.shutdown(messagingTarget);
 
 		this.getLiteralCryptoService().shutdown();
 	}
