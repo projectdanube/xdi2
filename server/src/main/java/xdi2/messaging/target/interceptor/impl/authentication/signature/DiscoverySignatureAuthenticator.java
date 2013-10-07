@@ -47,7 +47,7 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 
 		try {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(senderXri);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(senderXri, null);
 
 			if (xdiDiscoveryResult != null) publicKey = xdiDiscoveryResult.getSignaturePublicKey();
 		} catch (Xdi2ClientException ex) {

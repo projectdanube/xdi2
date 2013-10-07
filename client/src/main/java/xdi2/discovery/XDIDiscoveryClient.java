@@ -40,9 +40,9 @@ public class XDIDiscoveryClient {
 		this(DEFAULT_XDI_CLIENT);
 	}
 
-	public XDIDiscoveryResult discover(XDI3Segment query) throws Xdi2ClientException {
+	public XDIDiscoveryResult discover(XDI3Segment query, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
 
-		XDIDiscoveryResult xdiDiscoveryResultRegistry = this.discoverFromRegistry(query);
+		XDIDiscoveryResult xdiDiscoveryResultRegistry = this.discoverFromRegistry(query, endpointUriTypes);
 
 		if (xdiDiscoveryResultRegistry == null) {
 
@@ -60,7 +60,7 @@ public class XDIDiscoveryClient {
 			return xdiDiscoveryResultRegistry;
 		}
 
-		XDIDiscoveryResult xdiDiscoveryResultAuthority = this.discoverFromAuthority(xdiDiscoveryResultRegistry.getXdiEndpointUri(), xdiDiscoveryResultRegistry.getCloudNumber());
+		XDIDiscoveryResult xdiDiscoveryResultAuthority = this.discoverFromAuthority(xdiDiscoveryResultRegistry.getXdiEndpointUri(), xdiDiscoveryResultRegistry.getCloudNumber(), endpointUriTypes);
 
 		if (xdiDiscoveryResultAuthority == null) {
 
@@ -72,12 +72,12 @@ public class XDIDiscoveryClient {
 		if (log.isDebugEnabled()) log.debug("Discovery result from authority: " + xdiDiscoveryResultAuthority);
 
 		XDIDiscoveryResult xdiDiscoveryResult = new XDIDiscoveryResult();
-		xdiDiscoveryResult.initFromRegistryAndAuthorityDiscoveryResult(xdiDiscoveryResultRegistry, xdiDiscoveryResultAuthority, query);
+		xdiDiscoveryResult.initFromRegistryAndAuthorityDiscoveryResult(xdiDiscoveryResultRegistry, xdiDiscoveryResultAuthority, query, endpointUriTypes);
 
 		return xdiDiscoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromRegistry(XDI3Segment query) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromRegistry(XDI3Segment query, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
@@ -107,7 +107,7 @@ public class XDIDiscoveryClient {
 
 		// parse the registry message result
 
-		discoveryResult.initFromRegistryMessageResult(registryMessageEnvelope, registryMessageResult, query);
+		discoveryResult.initFromRegistryMessageResult(registryMessageEnvelope, registryMessageResult, query, endpointUriTypes);
 
 		// done
 
@@ -116,7 +116,7 @@ public class XDIDiscoveryClient {
 		return discoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, XDI3Segment cloudNumber) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, XDI3Segment cloudNumber, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
@@ -149,7 +149,7 @@ public class XDIDiscoveryClient {
 
 		// parse the authority message result
 
-		discoveryResult.initFromAuthorityMessageResult(authorityMessageEnvelope, authorityMessageResult);
+		discoveryResult.initFromAuthorityMessageResult(authorityMessageEnvelope, authorityMessageResult, endpointUriTypes);
 
 		// done
 

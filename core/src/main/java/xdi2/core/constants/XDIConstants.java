@@ -41,7 +41,7 @@ public class XDIConstants {
 	public static final XDI3SubSegment XRI_SS_CONTEXT = XDI3SubSegment.create(XDIConstants.XS_ROOT);
 	public static final XDI3SubSegment XRI_SS_LITERAL = XDI3SubSegment.create(XDIConstants.CS_VALUE.toString());
 
-	public static final XDI3Segment XRI_S_XDI_URI = XDI3Segment.create("$xdi<$uri>");
+	public static final XDI3Segment XRI_S_XDI = XDI3Segment.create("$xdi");
 
 	private XDIConstants() { }
 }

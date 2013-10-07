@@ -106,7 +106,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			// from registry
 
-			discoveryResultRegistry = discoveryClient.discoverFromRegistry(XDI3Segment.create(input));
+			discoveryResultRegistry = discoveryClient.discoverFromRegistry(XDI3Segment.create(input), null);
 
 			// from authority
 
@@ -114,7 +114,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				if (discoveryResultRegistry != null && discoveryResultRegistry.getXdiEndpointUri() != null) {
 
-					discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber());
+					discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), null);
 				}
 			}
 
@@ -131,7 +131,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				writer.write("XDI Endpoint URI: " + discoveryResultRegistry.getXdiEndpointUri() + "\n");
 				writer.write("Signature Public Key: " + discoveryResultRegistry.getSignaturePublicKey() + "\n");
 				writer.write("Encryption Public Key: " + discoveryResultRegistry.getEncryptionPublicKey() + "\n");
-				writer.write("Services: " + discoveryResultRegistry.getServices() + "\n\n");
+				writer.write("Services: " + discoveryResultRegistry.getEndpointUris() + "\n\n");
 
 				writer.write("Message envelope to registry:\n\n");
 
@@ -161,7 +161,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				writer2.write("XDI Endpoint URI: " + discoveryResultAuthority.getXdiEndpointUri() + "\n");
 				writer2.write("Signature Public Key: " + discoveryResultAuthority.getSignaturePublicKey() + "\n");
 				writer2.write("Encryption Public Key: " + discoveryResultAuthority.getEncryptionPublicKey() + "\n");
-				writer2.write("Services: " + discoveryResultAuthority.getServices() + "\n\n");
+				writer2.write("Services: " + discoveryResultAuthority.getEndpointUris() + "\n\n");
 
 				writer2.write("Message envelope to authority:\n\n");
 
