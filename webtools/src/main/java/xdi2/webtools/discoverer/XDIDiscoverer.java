@@ -159,8 +159,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				writer2.write("Cloud Number: " + discoveryResultAuthority.getCloudNumber() + "\n");
 				writer2.write("XDI Endpoint URI: " + discoveryResultAuthority.getXdiEndpointUri() + "\n");
-				writer.write("Signature Public Key: " + discoveryResultAuthority.getSignaturePublicKey() + "\n");
-				writer.write("Encryption Public Key: " + discoveryResultAuthority.getEncryptionPublicKey() + "\n");
+				writer2.write("Signature Public Key: " + discoveryResultAuthority.getSignaturePublicKey() + "\n");
+				writer2.write("Encryption Public Key: " + discoveryResultAuthority.getEncryptionPublicKey() + "\n");
 				writer2.write("Services: " + discoveryResultAuthority.getServices() + "\n\n");
 
 				writer2.write("Message envelope to authority:\n\n");
