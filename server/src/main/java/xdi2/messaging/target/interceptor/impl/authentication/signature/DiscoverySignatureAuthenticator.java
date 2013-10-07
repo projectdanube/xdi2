@@ -76,11 +76,11 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 
 						if (log.isDebugEnabled()) log.debug("Discovery result from authority: " + xdiDiscoveryResultAuthority);
 
-						publicKey = xdiDiscoveryResultAuthority.getPublicKey();
+						publicKey = xdiDiscoveryResultAuthority.getSignaturePublicKey();
 					}
 				}
 
-				if (publicKey == null) publicKey = xdiDiscoveryResultRegistry.getPublicKey();
+				if (publicKey == null) publicKey = xdiDiscoveryResultRegistry.getSignaturePublicKey();
 			}
 		} catch (Xdi2ClientException ex) {
 

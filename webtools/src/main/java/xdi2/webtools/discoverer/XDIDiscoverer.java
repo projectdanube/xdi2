@@ -129,7 +129,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				writer.write("Cloud Number: " + discoveryResult1.getCloudNumber() + "\n");
 				writer.write("XDI Endpoint URI: " + discoveryResult1.getXdiEndpointUri() + "\n");
-				writer.write("Public Key: " + discoveryResult1.getPublicKey() + "\n");
+				writer.write("Signature Public Key: " + discoveryResult1.getSignaturePublicKey() + "\n");
+				writer.write("Encryption Public Key: " + discoveryResult1.getEncryptionPublicKey() + "\n");
 				writer.write("Services: " + discoveryResult1.getServices() + "\n\n");
 
 				writer.write("Message envelope to registry:\n\n");
@@ -138,7 +139,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 					xdiResultWriter.write(discoveryResult1.getMessageEnvelope().getGraph(), writer);
 				else
 					writer.write("(null)");
-				
+
 				writer.write("\n");
 
 				writer.write("Message result from registry:\n\n");
@@ -158,7 +159,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				writer2.write("Cloud Number: " + discoveryResult2.getCloudNumber() + "\n");
 				writer2.write("XDI Endpoint URI: " + discoveryResult2.getXdiEndpointUri() + "\n");
-				writer2.write("Public Key: " + discoveryResult2.getPublicKey() + "\n");
+				writer.write("Signature Public Key: " + discoveryResult2.getSignaturePublicKey() + "\n");
+				writer.write("Encryption Public Key: " + discoveryResult2.getEncryptionPublicKey() + "\n");
 				writer2.write("Services: " + discoveryResult2.getServices() + "\n\n");
 
 				writer2.write("Message envelope to authority:\n\n");
