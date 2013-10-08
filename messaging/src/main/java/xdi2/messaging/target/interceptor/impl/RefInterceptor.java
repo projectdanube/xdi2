@@ -425,31 +425,42 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 		Operation feedbackOperation = feedbackMessage.createOperation(XDIMessagingConstants.XRI_S_GET, refRepContextNode.getXri());
 		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XRI_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XRI_PARAMETER_DEREF, Boolean.TRUE);
 
-		// before feedback: tweak the execution context and messaging target
+		// feedback
 
-		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-		boolean linkContractInterceptorEnabled = linkContractInterceptor != null && linkContractInterceptor.isEnabled();
-		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
-
-		Map<String, Object> messageAttributes = executionContext.getMessageAttributes();
-		Map<String, Object> operationAttributes = executionContext.getOperationAttributes();
-
-		// execute the message
+		LinkContractInterceptor linkContractInterceptor = null;
+		Boolean linkContractInterceptorEnabled = null;
+		Map<String, Object> messageAttributes = null;
+		Map<String, Object> operationAttributes = null;
 
 		try {
 
-			messagingTarget.execute(feedbackMessage, feedbackMessageResult, executionContext);
-		} catch (Xdi2NotAuthorizedException ex) {
+			// before feedback: tweak the execution context and messaging target
 
-			if (log.isDebugEnabled()) log.debug("Not authorized to get source of $ref/$rep relation: " + refRepContextNode);
+			linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
+			linkContractInterceptorEnabled = Boolean.valueOf(linkContractInterceptor != null && linkContractInterceptor.isEnabled());
+			if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
+
+			messageAttributes = executionContext.getMessageAttributes();
+			operationAttributes = executionContext.getOperationAttributes();
+
+			// execute the message
+
+			try {
+
+				messagingTarget.execute(feedbackMessage, feedbackMessageResult, executionContext);
+			} catch (Xdi2NotAuthorizedException ex) {
+
+				if (log.isDebugEnabled()) log.debug("Not authorized to get source of $ref/$rep relation: " + refRepContextNode);
+			}
+		} finally {
+
+			// after feedback: restore the execution context and messaging target
+
+			if (linkContractInterceptor != null && linkContractInterceptorEnabled != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled.booleanValue());
+
+			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
+			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
-
-		// after feedback: restore the execution context and messaging target
-
-		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
-
-		executionContext.setMessageAttributes(messageAttributes);
-		executionContext.setOperationAttributes(operationAttributes);
 
 		// done
 
@@ -478,45 +489,58 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 		feedbackMessageRef.createOperation(XDIMessagingConstants.XRI_S_GET, XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDIConstants.XRI_S_VARIABLE));
 		feedbackMessageRep.createOperation(XDIMessagingConstants.XRI_S_GET, XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDIConstants.XRI_S_VARIABLE));
 
-		// before feedback: tweak the execution context and messaging target
+		// feedback
 
-		RefInterceptor refInterceptor = messagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
-		boolean refInterceptorEnabled = refInterceptor != null && refInterceptor.isEnabled();
-		if (refInterceptor != null) refInterceptor.setEnabled(false);
-
-		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-		boolean linkContractInterceptorEnabled = linkContractInterceptor != null && linkContractInterceptor.isEnabled();
-		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
-
-		Map<String, Object> messageAttributes = executionContext.getMessageAttributes();
-		Map<String, Object> operationAttributes = executionContext.getOperationAttributes();
-
-		// execute messages
+		RefInterceptor refInterceptor = null;
+		Boolean refInterceptorEnabled = null;
+		LinkContractInterceptor linkContractInterceptor = null; 
+		Boolean linkContractInterceptorEnabled = null;
+		Map<String, Object> messageAttributes = null;
+		Map<String, Object> operationAttributes = null;
 
 		try {
 
-			messagingTarget.execute(feedbackMessageRef, feedbackMessageResult, executionContext);
-		} catch (Xdi2NotAuthorizedException ex) {
+			// before feedback: tweak the execution context and messaging target
 
-			if (log.isDebugEnabled()) log.debug("Not authorized to find $ref relation in context: " + contextNodeXri);
+			refInterceptor = messagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
+			refInterceptorEnabled = Boolean.valueOf(refInterceptor != null && refInterceptor.isEnabled());
+			if (refInterceptor != null) refInterceptor.setEnabled(false);
+
+			linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
+			linkContractInterceptorEnabled = Boolean.valueOf(linkContractInterceptor != null && linkContractInterceptor.isEnabled());
+			if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
+
+			messageAttributes = executionContext.getMessageAttributes();
+			operationAttributes = executionContext.getOperationAttributes();
+
+			// execute messages
+
+			try {
+
+				messagingTarget.execute(feedbackMessageRef, feedbackMessageResult, executionContext);
+			} catch (Xdi2NotAuthorizedException ex) {
+
+				if (log.isDebugEnabled()) log.debug("Not authorized to find $ref relation in context: " + contextNodeXri);
+			}
+
+			try {
+
+				messagingTarget.execute(feedbackMessageRep, feedbackMessageResult, executionContext);
+			} catch (Xdi2NotAuthorizedException ex) {
+
+				if (log.isDebugEnabled()) log.debug("Not authorized to find $rep relation in context: " + contextNodeXri);
+			}
+		} finally {
+
+			// after feedback: restore the execution context and messaging target
+
+			if (refInterceptor != null && refInterceptorEnabled != null) refInterceptor.setEnabled(refInterceptorEnabled.booleanValue());
+
+			if (linkContractInterceptor != null && linkContractInterceptorEnabled != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled.booleanValue());
+
+			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
+			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
-
-		try {
-
-			messagingTarget.execute(feedbackMessageRep, feedbackMessageResult, executionContext);
-		} catch (Xdi2NotAuthorizedException ex) {
-
-			if (log.isDebugEnabled()) log.debug("Not authorized to find $rep relation in context: " + contextNodeXri);
-		}
-
-		// after feedback: restore the execution context and messaging target
-
-		if (refInterceptor != null) refInterceptor.setEnabled(refInterceptorEnabled);
-
-		if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled);
-
-		executionContext.setMessageAttributes(messageAttributes);
-		executionContext.setOperationAttributes(operationAttributes);
 
 		// done
 
