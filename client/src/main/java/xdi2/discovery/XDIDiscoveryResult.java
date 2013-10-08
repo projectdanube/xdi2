@@ -89,7 +89,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find endpoint uris
 
-		ReadOnlyIterator<XdiAttribute> endpointUriXdiAttributes = new SelectingMappingIterator<ContextNode, XdiAttribute> (xdiRoot.getContextNode().getAllContextNodes()) {
+		ReadOnlyIterator<XdiAttributeSingleton> endpointUriXdiAttributes = new SelectingMappingIterator<ContextNode, XdiAttributeSingleton> (xdiRoot.getContextNode().getAllContextNodes()) {
 
 			@Override
 			public boolean select(ContextNode contextNode) {
@@ -98,12 +98,9 @@ public class XDIDiscoveryResult implements Serializable {
 			}
 
 			@Override
-			public XdiAttribute map(ContextNode contextNode) {
+			public XdiAttributeSingleton map(ContextNode contextNode) {
 
-				XdiAttribute xdiAttribute = XdiAttributeSingleton.fromContextNode(contextNode);
-				xdiAttribute = xdiAttribute == null ? null : xdiAttribute.dereference();
-
-				return xdiAttribute;
+				return XdiAttributeSingleton.fromContextNode(contextNode);
 			}
 		};
 
@@ -111,6 +108,8 @@ public class XDIDiscoveryResult implements Serializable {
 
 			XDI3Segment endpointUriType = endpointUriXdiAttribute.getContextNode().getContextNode().getXri();
 			endpointUriType = XDI3Util.localXri(endpointUriType, - xdiRoot.getContextNode().getXri().getNumSubSegments());
+
+			endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
 
 			XdiValue endpointUriXdiValue = endpointUriXdiAttribute == null ? null : endpointUriXdiAttribute.getXdiValue(false);
 			endpointUriXdiValue = endpointUriXdiValue == null ? null : endpointUriXdiValue.dereference();

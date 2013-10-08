@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -131,7 +132,14 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				writer.write("XDI Endpoint URI: " + discoveryResultRegistry.getXdiEndpointUri() + "\n");
 				writer.write("Signature Public Key: " + discoveryResultRegistry.getSignaturePublicKey() + "\n");
 				writer.write("Encryption Public Key: " + discoveryResultRegistry.getEncryptionPublicKey() + "\n");
-				writer.write("Services: " + discoveryResultRegistry.getEndpointUris() + "\n\n");
+				writer.write("Services: " + "\n");
+
+				for (Map.Entry<XDI3Segment, String> endpointUri : discoveryResultAuthority.getEndpointUris().entrySet()) {
+
+					writer.write(endpointUri.getKey() + " --> " + endpointUri.getValue() + "\n");
+				}
+
+				writer.write("\n");
 
 				writer.write("Message envelope to registry:\n\n");
 
@@ -155,13 +163,21 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			if (discoveryResultAuthority != null) {
 
+				
 				writer2.write("Discovery result from authority:\n\n");
 
 				writer2.write("Cloud Number: " + discoveryResultAuthority.getCloudNumber() + "\n");
 				writer2.write("XDI Endpoint URI: " + discoveryResultAuthority.getXdiEndpointUri() + "\n");
 				writer2.write("Signature Public Key: " + discoveryResultAuthority.getSignaturePublicKey() + "\n");
 				writer2.write("Encryption Public Key: " + discoveryResultAuthority.getEncryptionPublicKey() + "\n");
-				writer2.write("Services: " + discoveryResultAuthority.getEndpointUris() + "\n\n");
+				writer2.write("Services: " + "\n");
+
+				for (Map.Entry<XDI3Segment, String> endpointUri : discoveryResultAuthority.getEndpointUris().entrySet()) {
+
+					writer2.write(endpointUri.getKey() + " --> " + endpointUri.getValue() + "\n");
+				}
+
+				writer2.write("\n");
 
 				writer2.write("Message envelope to authority:\n\n");
 
