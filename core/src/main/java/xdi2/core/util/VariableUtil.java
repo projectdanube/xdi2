@@ -103,7 +103,7 @@ public final class VariableUtil {
 		List<XDI3SubSegment> variableSubSegments = getSubSegments(variable);
 		String variableXs = getXs(variable);
 
-		if (log.isDebugEnabled()) log.debug("Matching variable " + variable + " against subsegment " + subSegment + " (variableSubSegments=" + variableSubSegments + ", variableXs=" + variableXs + ")");
+		if (log.isTraceEnabled()) log.trace("Matching variable " + variable + " against subsegment " + subSegment + " (variableSubSegments=" + variableSubSegments + ", variableXs=" + variableXs + ")");
 
 		if (variableXs != null) {
 

@@ -89,12 +89,6 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 	@Override
 	public boolean executeDoOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contributorXri = contributorXris[contributorXris.length - 1];
-
-		log.debug("contributorXri: " + contributorXri);
-
-		if (this.containsAddress(contributorXri.toString())) return false;
-
 		// check operation
 
 		if (! XRI_S_DO_GENERATE.equals(operation.getOperationXri())) return false;
@@ -118,6 +112,8 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 			throw new Xdi2MessagingException("Problem while creating digest secret token: " + ex.getMessage(), ex, executionContext);
 		}
 
+		if (log.isDebugEnabled()) log.debug("Created digest secret token: " + localSaltAndDigestSecretToken);
+		
 		// add it to the graph
 
 		ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);

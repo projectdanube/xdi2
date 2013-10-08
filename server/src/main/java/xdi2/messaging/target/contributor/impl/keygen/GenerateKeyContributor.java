@@ -96,12 +96,6 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 	@Override
 	public boolean executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contributorXri = contributorXris[contributorXris.length - 1];
-
-		if (log.isDebugEnabled()) log.debug("contributorXri: " + contributorXri);
-
-		if (this.containsAddress(contributorXri.toString())) return false;
-
 		// check operation
 
 		if (! XRI_S_DO_KEYPAIR.equals(operation.getOperationXri()) && ! XRI_S_DO_KEY.equals(operation.getOperationXri())) return false;
@@ -142,6 +136,8 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 				throw new Xdi2MessagingException("Problem while creating key pair: " + ex.getMessage(), ex, executionContext);
 			}
 
+			if (log.isDebugEnabled()) log.debug("Created key pair: " + keyPair.getClass().getSimpleName());
+
 			// add it to the graph
 
 			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);
@@ -167,6 +163,8 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 				throw new Xdi2MessagingException("Problem while creating symmetric key: " + ex.getMessage(), ex, executionContext);
 			}
+
+			if (log.isDebugEnabled()) log.debug("Created symmetric key: " + secretKey.getClass().getSimpleName());
 
 			// add it to the graph
 
