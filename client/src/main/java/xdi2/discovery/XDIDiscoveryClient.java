@@ -53,7 +53,7 @@ public class XDIDiscoveryClient {
 
 		if (log.isDebugEnabled()) log.debug("Discovery result from registry: " + xdiDiscoveryResultRegistry);
 
-		if (xdiDiscoveryResultRegistry.getXdiEndpointUri() == null && xdiDiscoveryResultRegistry.getCloudNumber() == null) {
+		if (xdiDiscoveryResultRegistry.getXdiEndpointUri() == null || xdiDiscoveryResultRegistry.getCloudNumber() == null) {
 
 			if (log.isDebugEnabled()) log.debug("No XDI endpoint URI or cloud number from registry for " + query);
 

@@ -132,11 +132,16 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				writer.write("XDI Endpoint URI: " + discoveryResultRegistry.getXdiEndpointUri() + "\n");
 				writer.write("Signature Public Key: " + discoveryResultRegistry.getSignaturePublicKey() + "\n");
 				writer.write("Encryption Public Key: " + discoveryResultRegistry.getEncryptionPublicKey() + "\n");
-				writer.write("Services: " + "\n");
 
-				for (Map.Entry<XDI3Segment, String> endpointUri : discoveryResultAuthority.getEndpointUris().entrySet()) {
+				if (discoveryResultRegistry.getEndpointUris().isEmpty()) {
 
-					writer.write(endpointUri.getKey() + " --> " + endpointUri.getValue() + "\n");
+					writer.write("Services: (none)\n");
+				} else {
+
+					for (Map.Entry<XDI3Segment, String> endpointUri : discoveryResultRegistry.getEndpointUris().entrySet()) {
+
+						writer.write("Service " + endpointUri.getKey() + ": " + endpointUri.getValue() + "\n");
+					}
 				}
 
 				writer.write("\n");
@@ -163,18 +168,23 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			if (discoveryResultAuthority != null) {
 
-				
+
 				writer2.write("Discovery result from authority:\n\n");
 
 				writer2.write("Cloud Number: " + discoveryResultAuthority.getCloudNumber() + "\n");
 				writer2.write("XDI Endpoint URI: " + discoveryResultAuthority.getXdiEndpointUri() + "\n");
 				writer2.write("Signature Public Key: " + discoveryResultAuthority.getSignaturePublicKey() + "\n");
 				writer2.write("Encryption Public Key: " + discoveryResultAuthority.getEncryptionPublicKey() + "\n");
-				writer2.write("Services: " + "\n");
 
-				for (Map.Entry<XDI3Segment, String> endpointUri : discoveryResultAuthority.getEndpointUris().entrySet()) {
+				if (discoveryResultAuthority.getEndpointUris().isEmpty()) {
 
-					writer2.write(endpointUri.getKey() + " --> " + endpointUri.getValue() + "\n");
+					writer2.write("Services: (none)\n");
+				} else {
+
+					for (Map.Entry<XDI3Segment, String> endpointUri : discoveryResultAuthority.getEndpointUris().entrySet()) {
+
+						writer2.write("Service " + endpointUri.getKey() + ": " + endpointUri.getValue() + "\n");
+					}
 				}
 
 				writer2.write("\n");
