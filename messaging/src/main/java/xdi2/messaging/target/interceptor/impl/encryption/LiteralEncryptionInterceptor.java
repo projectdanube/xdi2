@@ -7,6 +7,7 @@ import xdi2.core.Literal;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -75,6 +76,8 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 	@Override
 	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		if (operation instanceof DoOperation) return targetStatement;
+
 		// encrypt literals
 
 		if (targetStatement.isLiteralStatement()) {
@@ -104,6 +107,8 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 
 	@Override
 	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (operation instanceof DoOperation) return targetAddress;
 
 		// done
 
