@@ -15,7 +15,7 @@ import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
-import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
@@ -64,15 +64,20 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 		// sender peer root
 
-		XdiPeerRoot senderPeerRoot = XdiLocalRoot.findLocalRoot(this.getSignatureGraph()).findPeerRoot(senderXri, false);
+		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getSignatureGraph()).findPeerRoot(senderXri, false);
+		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
 
-		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderPeerRoot);
+		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);
 
 		// look for public key in the graph
 
-		XdiAttribute publicKeyXdiAttribute = senderPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_PUBLIC_MSG_SIG_KEYPAIR_PUBLIC_KEY));
-		XdiValue publicKeyXdiValue = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.getXdiValue(false);
-		Literal publicKeyLiteral = publicKeyXdiValue == null ? null : publicKeyXdiValue.getContextNode().getLiteral();
+		XdiAttribute signaturePublicKeyXdiAttribute = senderXdiPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY));
+		signaturePublicKeyXdiAttribute = signaturePublicKeyXdiAttribute == null ? null : signaturePublicKeyXdiAttribute.dereference();
+
+		XdiValue signaturePublicKeyXdiValue = signaturePublicKeyXdiAttribute == null ? null : signaturePublicKeyXdiAttribute.getXdiValue(false);
+		signaturePublicKeyXdiValue = signaturePublicKeyXdiValue == null ? null : signaturePublicKeyXdiValue.dereference();
+		
+		Literal publicKeyLiteral = signaturePublicKeyXdiValue == null ? null : signaturePublicKeyXdiValue.getContextNode().getLiteral();
 
 		String publicKeyString = publicKeyLiteral == null ? null : publicKeyLiteral.getLiteralDataString();
 		if (publicKeyString == null) return null;

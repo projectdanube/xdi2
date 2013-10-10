@@ -22,8 +22,8 @@ public final class XDIAuthenticationConstants {
 
 	public static final XDI3Segment XRI_S_DIGEST_SECRET_TOKEN = XDI3Segment.create("$digest$secret<$token>");
 
-	public static final XDI3Segment XRI_S_PUBLIC_MSG_SIG_KEYPAIR_PUBLIC_KEY = XDI3Segment.create("$public$msg$sig$keypair$public<$key>");
-	public static final XDI3Segment XRI_S_PUBLIC_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY = XDI3Segment.create("$public$msg$encrypt$keypair$public<$key>");
+	public static final XDI3Segment XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY = XDI3Segment.create("$msg$sig$keypair$public<$key>");
+	public static final XDI3Segment XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY = XDI3Segment.create("$msg$encrypt$keypair$public<$key>");
 
 	private XDIAuthenticationConstants() { }
 }
