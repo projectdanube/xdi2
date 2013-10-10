@@ -1,4 +1,4 @@
-package xdi2.messaging.target.interceptor.impl.authentication.transport;
+package xdi2.messaging.target.interceptor.impl.transport;
 
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;

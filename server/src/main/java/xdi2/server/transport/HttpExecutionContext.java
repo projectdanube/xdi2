@@ -15,31 +15,31 @@ public class HttpExecutionContext {
 
 	public static HttpTransport getHttpTransport(ExecutionContext executionContext) {
 
-		return (HttpTransport) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPTRANSPORT);
+		return (HttpTransport) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPTRANSPORT);
 	}
 
 	public static void putHttpTransport(ExecutionContext executionContext, HttpTransport httpTransport) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPTRANSPORT, httpTransport);
+		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPTRANSPORT, httpTransport);
 	}	
 
 	public static HttpRequest getHttpRequest(ExecutionContext executionContext) {
 
-		return (HttpRequest) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPREQUEST);
+		return (HttpRequest) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPREQUEST);
 	}
 
 	public static void putHttpRequest(ExecutionContext executionContext, HttpRequest request) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPREQUEST, request);
+		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPREQUEST, request);
 	}	
 
 	public static HttpResponse getHttpResponse(ExecutionContext executionContext) {
 
-		return (HttpResponse) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPRESPONSE);
+		return (HttpResponse) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPRESPONSE);
 	}
 
 	public static void putHttpResponse(ExecutionContext executionContext, HttpResponse response) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_HTTPRESPONSE, response);
+		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPRESPONSE, response);
 	}	
 }

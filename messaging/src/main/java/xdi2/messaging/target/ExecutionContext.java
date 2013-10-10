@@ -27,17 +27,22 @@ public final class ExecutionContext implements Serializable {
 	private static final long serialVersionUID = 3238581605986543950L;
 
 	/**
-	 * This map is preserved during the entire execution of a MessageEnvelope.
+	 * This map is never reset.
+	 */
+	private Map<String, Object> executionContextAttributes;
+	
+	/**
+	 * This map is reset before executing a MessageEnvelope.
 	 */
 	private Map<String, Object> messageEnvelopeAttributes;
 
 	/**
-	 * This map is emptied before a Message in a MessageEnvelope is executed.
+	 * This map is reset before executing a Message in a MessageEnvelope is executed.
 	 */
 	private Map<String, Object> messageAttributes;
 
 	/**
-	 * This map is emptied before an Operation in a Message is executed.
+	 * This map is reset before executing an Operation in a Message is executed.
 	 */
 	private Map<String, Object> operationAttributes;
 
@@ -55,6 +60,7 @@ public final class ExecutionContext implements Serializable {
 
 	public ExecutionContext() { 
 
+		this.executionContextAttributes = new HashMap<String, Object> ();
 		this.messageEnvelopeAttributes = new HashMap<String, Object> ();
 		this.messageAttributes = new HashMap<String, Object> ();
 		this.operationAttributes = new HashMap<String, Object> ();
@@ -68,6 +74,34 @@ public final class ExecutionContext implements Serializable {
 	/*
 	 * Attributes
 	 */
+
+	public Object getExecutionContextAttribute(String key) {
+
+		return this.executionContextAttributes.get(key);
+	}
+
+	public void putExecutionContextAttribute(String key, Object value) {
+
+		if (value == null) 
+			this.executionContextAttributes.remove(key);
+		else
+			this.executionContextAttributes.put(key, value);
+	}
+
+	public Map<String, Object> getExecutionContextAttributes() {
+
+		return this.executionContextAttributes;
+	}
+
+	public void setExecutionContextAttributes(Map<String, Object> executionContextAttributes) {
+
+		this.executionContextAttributes = executionContextAttributes;
+	}
+
+	public void resetExecutionContextAttributes() {
+
+		this.executionContextAttributes = new HashMap<String, Object> ();
+	}
 
 	public Object getMessageEnvelopeAttribute(String key) {
 
