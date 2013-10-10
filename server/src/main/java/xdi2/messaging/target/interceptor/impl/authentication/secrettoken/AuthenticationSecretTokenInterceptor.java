@@ -3,6 +3,7 @@ package xdi2.messaging.target.interceptor.impl.authentication.secrettoken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
@@ -86,11 +87,11 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor im
 		boolean authenticated = this.getSecretTokenAuthenticator().authenticate(message, secretToken);
 		if (! authenticated) throw new Xdi2AuthenticationException("Invalid secret token.", null, executionContext);
 
-		if (log.isDebugEnabled()) log.debug("Authenticated: " + authenticated);
-
 		XdiAttribute secretTokenValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN_VALID));
 		XdiValue secretTokenValidXdiValue = secretTokenValidXdiAttribute.getXdiValue(true);
-		secretTokenValidXdiValue.getContextNode().setLiteralBoolean(Boolean.valueOf(authenticated));
+		Literal secretTokenValidLiteral = secretTokenValidXdiValue.getContextNode().setLiteralBoolean(Boolean.valueOf(authenticated));
+
+		if (log.isDebugEnabled()) log.debug("Valid: " + secretTokenValidLiteral.getStatement());
 
 		// done
 

@@ -1,5 +1,9 @@
 package xdi2.messaging.target.interceptor.impl.transport;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import xdi2.core.Literal;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
@@ -19,6 +23,8 @@ import xdi2.server.transport.HttpRequest;
  * e.g. IP address.
  */
 public class HttpTransportInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<HttpTransportInterceptor> {
+
+	private static Logger log = LoggerFactory.getLogger(HttpTransportInterceptor.class.getName());
 
 	public static final XDI3Segment XRI_S_IP = XDI3Segment.create("<$ip>");
 	
@@ -48,10 +54,12 @@ public class HttpTransportInterceptor extends AbstractInterceptor implements Mes
 		// add <$ip>
 
 		String ip = httpRequest.getRemoteAddr();
-
+		
 		XdiAttribute ipXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XRI_S_IP));
 		XdiValue ipXdiValue = ipXdiAttribute.getXdiValue(true);
-		ipXdiValue.getContextNode().setLiteralString(ip);
+		Literal ipLiteral = ipXdiValue.getContextNode().setLiteralString(ip);
+
+		if (log.isDebugEnabled()) log.debug("IP: " + ipLiteral.getStatement());
 
 		// done
 

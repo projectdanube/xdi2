@@ -3,6 +3,7 @@ package xdi2.messaging.target.interceptor.impl.authentication.signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
@@ -87,11 +88,11 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 		boolean authenticated = this.getSignatureAuthenticator().authenticate(message, signature);
 		if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
 
-		if (log.isDebugEnabled()) log.debug("Authenticated: " + authenticated);
-
 		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE_VALID));
 		XdiValue signatureValidXdiValue = signatureValidXdiAttribute.getXdiValue(true);
-		signatureValidXdiValue.getContextNode().setLiteralBoolean(Boolean.valueOf(authenticated));
+		Literal signatureValidLiteral = signatureValidXdiValue.getContextNode().setLiteralBoolean(Boolean.valueOf(authenticated));
+
+		if (log.isDebugEnabled()) log.debug("Valid: " + signatureValidLiteral.getStatement());
 
 		// done
 
