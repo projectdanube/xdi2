@@ -127,8 +127,8 @@ public class XDIDiscoveryClient {
 		authorityMessage.setToAddress(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(cloudNumber)));
 		authorityMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC_DO);
 		//authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
-		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_PUBLIC_MSG_SIG_KEYPAIR_PUBLIC_KEY);
-		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_PUBLIC_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 
 		MessageResult authorityMessageResult;
 
