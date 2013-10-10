@@ -143,8 +143,8 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);
 			if (! XdiAbstractEntity.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a key pair on an entity.", null, executionContext);
 			XdiEntity keyPairXdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
-			XdiAttributeSingleton publicKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDI3SubSegment.create("$public"), true);
-			XdiAttributeSingleton privateKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDI3SubSegment.create("$private"), true);
+			XdiAttributeSingleton publicKeyXdiAttribute = keyPairXdiEntity.getXdiEntitySingleton(XDI3SubSegment.create("$public"), true).getXdiAttributeSingleton(XDI3SubSegment.create("$key"), true);
+			XdiAttributeSingleton privateKeyXdiAttribute = keyPairXdiEntity.getXdiEntitySingleton(XDI3SubSegment.create("$private"), true).getXdiAttributeSingleton(XDI3SubSegment.create("$key"), true);
 			publicKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(keyPair.getPublic().getEncoded()));
 			privateKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(keyPair.getPrivate().getEncoded()));
 			DataTypes.setDataType(contextNode, dataTypeXri);
