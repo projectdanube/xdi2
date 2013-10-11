@@ -17,11 +17,6 @@ public class RootsTest extends TestCase {
 		XdiLocalRoot localRoot = XdiLocalRoot.findLocalRoot(graph);
 		XdiPeerRoot peerRoot = localRoot.findPeerRoot(XDI3Segment.create("[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24"), true);
 		XdiInnerRoot innerRoot = peerRoot.findInnerRoot(XDI3Segment.create("[=]!1111"), XDI3Segment.create("$add"), true);
-
-/*		XdiContext<?> x = XdiAbstractContext.fromContextNode(localRoot.getContextNode());
-		Object o =x ;
-		XdiContext<XdiRoot> c = ((XdiContext<XdiRoot>) o);
-		XdiRoot r = (XdiRoot) c;*/
 		
 		assertTrue(XdiAbstractContext.fromContextNode(localRoot.getContextNode()) instanceof XdiLocalRoot);
 		assertTrue(XdiAbstractContext.fromContextNode(peerRoot.getContextNode()) instanceof XdiPeerRoot);
