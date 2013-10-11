@@ -10,7 +10,9 @@ import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -27,6 +29,8 @@ public class XDIDiscoveryClient {
 	private static Logger log = LoggerFactory.getLogger(XDIDiscoveryClient.class.getName());
 
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
+
+	public static final XDI3SubSegment XRI_SS_URI = XDI3SubSegment.create("<$uri>");
 
 	private XDIHttpClient registryXdiClient;
 
@@ -130,6 +134,11 @@ public class XDIDiscoveryClient {
 		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY);
 		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 
+		for (XDI3Segment endpointUriType : endpointUriTypes) {
+			
+			authorityMessage.createGetOperation(XDI3Util.concatXris(endpointUriType, XRI_SS_URI));
+		}
+		
 		MessageResult authorityMessageResult;
 
 		try {
