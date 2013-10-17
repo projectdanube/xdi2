@@ -29,6 +29,8 @@ public abstract class AbstractLiteral implements Literal {
 
 	public AbstractLiteral(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+
 		this.contextNode = contextNode;
 	}
 

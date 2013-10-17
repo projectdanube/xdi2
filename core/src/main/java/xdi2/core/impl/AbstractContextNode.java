@@ -38,6 +38,8 @@ public abstract class AbstractContextNode implements ContextNode {
 
 	public AbstractContextNode(Graph graph, ContextNode contextNode) {
 
+		if (graph == null) throw new NullPointerException();
+
 		this.graph = graph;
 		this.contextNode = contextNode;
 	}

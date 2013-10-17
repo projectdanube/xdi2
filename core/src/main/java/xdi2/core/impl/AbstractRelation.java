@@ -15,6 +15,8 @@ public abstract class AbstractRelation implements Relation {
 
 	public AbstractRelation(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+		
 		this.contextNode = contextNode;
 	}
 
