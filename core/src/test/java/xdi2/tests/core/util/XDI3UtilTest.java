@@ -2,6 +2,7 @@ package xdi2.tests.core.util;
 
 import junit.framework.TestCase;
 import xdi2.core.util.XDI3Util;
+import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
 
 public class XDI3UtilTest extends TestCase {
@@ -223,12 +224,12 @@ public class XDI3UtilTest extends TestCase {
 
 	public void testIsCloudNumber() throws Exception {
 
-		assertFalse(XDI3Util.isCloudNumber(XDI3Segment.create("=markus")));
-		assertFalse(XDI3Util.isCloudNumber(XDI3Segment.create("=markus*web")));
-		assertFalse(XDI3Util.isCloudNumber(XDI3Segment.create("[=]")));
-		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[=]!1111")));
-		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[=]!1111[=]!2222")));
-		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[@]!1111")));
-		assertTrue(XDI3Util.isCloudNumber(XDI3Segment.create("[@]!1111[@]!2222")));
+		assertFalse(CloudNumber.isValid(XDI3Segment.create("=markus")));
+		assertFalse(CloudNumber.isValid(XDI3Segment.create("=markus*web")));
+		assertFalse(CloudNumber.isValid(XDI3Segment.create("[=]")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[=]!1111")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[=]!1111[=]!2222")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[@]!1111")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[@]!1111[@]!2222")));
 	}
 }

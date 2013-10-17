@@ -25,6 +25,7 @@ import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
+import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -72,14 +73,14 @@ public class XDIDiscoveryResult implements Serializable {
 		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(registryMessageResultGraph).findPeerRoot(query, false);
 		if (xdiRoot == null) return;
 
-		if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
 			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
 		}
 
 		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
 
-		if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
 			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
 		}
@@ -133,14 +134,14 @@ public class XDIDiscoveryResult implements Serializable {
 		if (xdiRoot == null) xdiRoot = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph);
 		if (xdiRoot == null) return;
 
-		if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
 			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
 		}
 
 		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
 
-		if (xdiRoot instanceof XdiPeerRoot && XDI3Util.isCloudNumber(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
+		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
 			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
 		}

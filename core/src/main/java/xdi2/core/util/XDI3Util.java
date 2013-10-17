@@ -522,34 +522,6 @@ public final class XDI3Util {
 		return concatXris(xri1 == null ? null : XDI3Segment.fromComponent(xri1), xri2 == null ? null : XDI3Segment.fromComponent(xri2));
 	}
 
-	/**
-	 * Checks if an XRI is a valid Cloud Number.
-	 */
-	public static boolean isCloudNumber(final XDI3Segment xri) {
-
-		if (xri == null) throw new NullPointerException();
-
-		Boolean result = null;
-
-		try {
-
-			if (xri.getNumSubSegments() < 2) { result = Boolean.FALSE; return result.booleanValue(); }
-
-			for (int i=0; i< xri.getNumSubSegments(); i+=2) {
-
-				if (! xri.getSubSegment(i).isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_EQUALS.equals(xri.getSubSegment(i).getCs()) && ! XDIConstants.CS_AT.equals(xri.getSubSegment(i).getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
-
-				if (! XDIConstants.CS_BANG.equals(xri.getSubSegment(i + 1).getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
-			}
-
-			{ result = Boolean.TRUE; return result.booleanValue(); }
-		} finally {
-
-			if (log.isTraceEnabled()) log.trace("isCloudNumber(" + xri + ") --> " + result);
-		}
-	}
-
 	/*
 	 * Helper classes
 	 */
