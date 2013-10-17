@@ -28,6 +28,8 @@ import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
@@ -485,7 +487,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new IteratorCounter(inumber.getIncomingRelations()).count(), 0);
 
 		ContextNode neustar = les.getContextNode();
-		neustar.delContextNodes();
+		neustar.delete();
 
 		assertEquals(graph16.getRootContextNode().getAllRelationCount(), 1);
 		assertEquals(new IteratorCounter(markus.getRelations()).count(), 0);
@@ -500,10 +502,10 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new IteratorCounter(inumber.getRelations()).count(), 0);
 		assertEquals(new IteratorCounter(inumber.getIncomingRelations()).count(), 0);
 
-		assertEquals(graph16.getRootContextNode().getAllContextNodeCount(), 5);
+		assertEquals(graph16.getRootContextNode().getAllContextNodeCount(), 4);
 		assertEquals(graph16.getRootContextNode().getAllRelationCount(), 0);
 		assertEquals(graph16.getRootContextNode().getAllLiteralCount(), 0);
-		assertEquals(graph16.getRootContextNode().getAllStatementCount(), 5);
+		assertEquals(graph16.getRootContextNode().getAllStatementCount(), 4);
 
 		graph16.close();
 	}
@@ -965,6 +967,103 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		graph29.close();
 	}
+
+	public void testInnerRoots() throws Exception {
+
+		Graph graph30 = this.openNewGraph(this.getClass().getName() + "-graph-30");
+
+		ContextNode innerRootContextNode = graph30.getRootContextNode().setContextNode(XDI3SubSegment.create("(=a=b=c/+d)"));
+
+		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("(=a=b=c/+d)")));
+		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")));
+		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")).getRelation(XDI3Segment.create("+d")));
+		assertEquals(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")).getRelation(XDI3Segment.create("+d")).follow(), innerRootContextNode);
+		assertEquals(graph30.getRootContextNode().getAllContextNodeCount(), 4);
+		assertEquals(graph30.getRootContextNode().getAllRelationCount(), 1);
+		assertEquals(graph30.getRootContextNode().getAllStatementCount(), 5);
+
+		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(innerRootContextNode);
+
+		assertEquals(innerRoot.getSubjectOfInnerRoot(), XDI3Segment.create("=a=b=c"));
+		assertEquals(innerRoot.getPredicateOfInnerRoot(), XDI3Segment.create("+d"));
+
+		graph30.getRootContextNode().getContextNode(XDI3SubSegment.create("=a")).delContextNode(XDI3SubSegment.create("=b"));
+
+		assertNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("(=a=b=c/+d)")));
+		assertNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")));
+		assertEquals(graph30.getRootContextNode().getAllContextNodeCount(), 1);
+		assertEquals(graph30.getRootContextNode().getAllRelationCount(), 0);
+		assertEquals(graph30.getRootContextNode().getAllStatementCount(), 1);
+
+		graph30.getRootContextNode().setContextNode(XDI3SubSegment.create("(=a=b=c/+d)"));
+
+		graph30.clear();
+
+		assertNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("(=a=b=c/+d)")));
+		assertNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")));
+		assertEquals(graph30.getRootContextNode().getAllContextNodeCount(), 0);
+		assertEquals(graph30.getRootContextNode().getAllRelationCount(), 0);
+		assertEquals(graph30.getRootContextNode().getAllStatementCount(), 0);
+
+		XdiLocalRoot.findLocalRoot(graph30).findInnerRoot(XDI3Segment.create("=a=b=c"), XDI3Segment.create("+d"), true);
+
+		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("(=a=b=c/+d)")));
+		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")));
+		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")).getRelation(XDI3Segment.create("+d")));
+		assertEquals(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")).getRelation(XDI3Segment.create("+d")).follow(), innerRootContextNode);
+		assertEquals(graph30.getRootContextNode().getAllContextNodeCount(), 4);
+		assertEquals(graph30.getRootContextNode().getAllRelationCount(), 1);
+		assertEquals(graph30.getRootContextNode().getAllStatementCount(), 5);
+
+		graph30.clear();
+
+		graph30.setDeepRelation(XDI3Segment.create("=a=b=c"), XDI3Segment.create("+d"), XDI3Segment.create("(=a=b=c/+d)"));
+
+		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("(=a=b=c/+d)")));
+		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")));
+		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")).getRelation(XDI3Segment.create("+d")));
+		assertEquals(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")).getRelation(XDI3Segment.create("+d")).follow(), innerRootContextNode);
+		assertEquals(graph30.getRootContextNode().getAllContextNodeCount(), 4);
+		assertEquals(graph30.getRootContextNode().getAllRelationCount(), 1);
+		assertEquals(graph30.getRootContextNode().getAllStatementCount(), 5);
+
+		graph30.clear();
+
+		graph30.setStatement(XDI3Statement.create("=a/+b/(=x/+y/(=mm/+nn/(=oo/+pp/=qq)))"));
+
+		graph30.clear();
+
+		graph30.setDeepRelation(XDI3Segment.create("=a=b=x"), XDI3Segment.create("+d"), XDI3Segment.create("(=a=b=c/+d)"));
+		graph30.setDeepRelation(XDI3Segment.create("=a=b=c"), XDI3Segment.create("+x"), XDI3Segment.create("(=a=b=c/+d)"));
+
+		assertEquals(graph30.getRootContextNode().getAllStatementCount(), 8);
+		
+		graph30.clear();
+
+		assertTrue(graph30.isEmpty());
+		
+		graph30.close();
+	}
+
+	public void testDeleteCyclicRelation() throws Exception {
+
+		Graph graph31 = this.openNewGraph(this.getClass().getName() + "-graph-31");
+
+		graph31.setStatement(XDI3Statement.create("=a=b=c=d=e/+x/=a=b=c"));
+		graph31.setStatement(XDI3Statement.create("=m=n=o/+y/=a=b=c=d"));
+
+		graph31.getDeepContextNode(XDI3Segment.create("=a=b")).delete();
+
+		assertEquals(graph31.getRootContextNode().getAllContextNodeCount(), 4);
+		assertEquals(graph31.getRootContextNode().getAllRelationCount(), 0);
+		assertEquals(graph31.getRootContextNode().getAllStatementCount(), 4);
+
+		graph31.close();
+	}
+
+	/*
+	 * Helper methods
+	 */
 
 	@SuppressWarnings("unused")
 	private static void makeGraph(Graph graph) throws Exception {

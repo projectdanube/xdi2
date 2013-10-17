@@ -1,4 +1,4 @@
-package xdi2.tests.core.impl.wrapper;
+package xdi2.tests.core.impl.wrapped;
 
 import java.io.IOException;
 

@@ -96,12 +96,6 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 		ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(innerRootArcXri) : this.getContextNode().getContextNode(innerRootArcXri);
 		if (innerRootContextNode == null) return null;
 
-		ContextNode subjectContextNode = create ? this.getContextNode().setDeepContextNode(subject) : this.getContextNode().getDeepContextNode(subject);
-		if (subjectContextNode == null) return null;
-
-		Relation predicateRelation = create ? subjectContextNode.setRelation(predicate, innerRootContextNode.getXri()) : subjectContextNode.getRelation(predicate, innerRootContextNode.getXri());
-		if (predicateRelation == null) return null;
-
 		return new XdiInnerRoot(innerRootContextNode);
 	}
 

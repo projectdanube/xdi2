@@ -26,7 +26,6 @@ import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
@@ -144,7 +143,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		// inner root short notation?
 
-		if (this.writeInner) statementXri = transformStatementInInnerRoot(statementXri);
+		if (this.writeInner) statementXri = statementXri.toInnerRootNotation(true);
 
 		// write the statement
 
@@ -158,9 +157,9 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			this.writeContextNodeArcXri(bufferedWriter, statementXri.getSubject(), (XDI3SubSegment) statementXri.getObject());
 		} else if (statementXri.isRelationStatement()) {
 
-			if (statementXri.hasInnerRootStatement()) {
+			if (statementXri.isInnerRootNotation()) {
 
-				this.writeInnerRootStatement(bufferedWriter, statementXri.getInnerRootStatement());
+				this.writeInnerRootStatement(bufferedWriter, statementXri.getInnerRootNotationStatement());
 			} else {
 
 				this.writeContextNodeXri(bufferedWriter, (XDI3Segment) statementXri.getObject());
@@ -292,21 +291,6 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	private void writeLiteralData(BufferedWriter bufferedWriter, Object literalData) throws IOException {
 
 		bufferedWriter.write(AbstractLiteral.literalDataToString(literalData));
-	}
-
-	private static XDI3Statement transformStatementInInnerRoot(XDI3Statement statementXri) {
-
-		XDI3SubSegment subjectFirstSubSegment = statementXri.getSubject().getFirstSubSegment();
-
-		if ((! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return statementXri;
-
-		XDI3Segment innerRootSubject = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
-		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
-
-		XDI3Statement reducedStatementXri = StatementUtil.removeStartXriStatement(statementXri, XDI3Segment.fromComponent(subjectFirstSubSegment), true);
-		if (reducedStatementXri == null) return statementXri;
-
-		return XDI3Statement.create("" + innerRootSubject + "/" + innerRootPredicate + "/(" + transformStatementInInnerRoot(reducedStatementXri) + ")");
 	}
 
 	@Override

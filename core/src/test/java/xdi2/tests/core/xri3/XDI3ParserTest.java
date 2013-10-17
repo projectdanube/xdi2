@@ -26,7 +26,6 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertNull(statement.getContextNodeArcXri());
 		assertNull(statement.getTargetContextNodeXri());
 		assertEquals(statement.getLiteralData(), "xxx");
-		assertNull(statement.getInnerRootStatement());
 
 		assertEquals(statement.getSubject().getNumSubSegments(), 4);
 		assertEquals(statement.getSubject().getSubSegment(0), statement.getSubject().getFirstSubSegment());
@@ -233,5 +232,107 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(literalStatement, literalStatement3);
 	}
 
+	public void testInnerRootNotation() throws Exception {
+
+		XDI3Statement statement1 = XDI3Statement.create("=a/+b/(=x/+y/=z)");
+		XDI3Statement statement2 = XDI3Statement.create("(=a/+b)=x/+y/(=a/+b)=z");
+
+		assertTrue(statement1.isInnerRootNotation());
+		assertEquals(statement1.getInnerRootNotationStatement(), XDI3Statement.create("=x/+y/=z"));
+
+		assertFalse(statement2.isInnerRootNotation());
+		assertNull(statement2.getInnerRootNotationStatement());
+
+		assertEquals(statement1.fromInnerRootNotation(false), statement2);
+		assertEquals(statement1.fromInnerRootNotation(true), statement2);
+		assertEquals(statement2.toInnerRootNotation(false), statement1);
+		assertEquals(statement2.toInnerRootNotation(true), statement1);
+
+		assertEquals(statement1.toInnerRootNotation(false), statement1);
+		assertEquals(statement1.toInnerRootNotation(true), statement1);
+		assertEquals(statement2.fromInnerRootNotation(false), statement2);
+		assertEquals(statement2.fromInnerRootNotation(true), statement2);
+
+		assertEquals(statement1.fromInnerRootNotation(false).toInnerRootNotation(false), statement1);
+		assertEquals(statement1.fromInnerRootNotation(true).toInnerRootNotation(true), statement1);
+		assertEquals(statement2.toInnerRootNotation(false).fromInnerRootNotation(false), statement2);
+		assertEquals(statement2.toInnerRootNotation(true).fromInnerRootNotation(true), statement2);
+
+		XDI3Statement statement3 = XDI3Statement.create("=a/+b/(=x/+y/(=mm/+nn/=oo))");
+		XDI3Statement statement4 = XDI3Statement.create("(=a/+b)(=x/+y)=mm/+nn/(=a/+b)(=x/+y)=oo");
+
+		assertTrue(statement3.isInnerRootNotation());
+		assertTrue(statement3.getInnerRootNotationStatement().isInnerRootNotation());
+		assertEquals(statement3.getInnerRootNotationStatement(), XDI3Statement.create("=x/+y/(=mm/+nn/=oo)"));
+		assertEquals(statement3.getInnerRootNotationStatement().getInnerRootNotationStatement(), XDI3Statement.create("=mm/+nn/=oo"));
+
+		assertFalse(statement4.isInnerRootNotation());
+		assertNull(statement4.getInnerRootNotationStatement());
+
+		assertNotEquals(statement3.fromInnerRootNotation(false), statement4);
+		assertEquals(statement3.fromInnerRootNotation(false).fromInnerRootNotation(false), statement4);
+		assertEquals(statement3.fromInnerRootNotation(true), statement4);
+		assertNotEquals(statement4.toInnerRootNotation(false), statement3);
+		assertEquals(statement4.toInnerRootNotation(false).toInnerRootNotation(false), statement3);
+		assertEquals(statement4.toInnerRootNotation(true), statement3);
+
+		assertEquals(statement3.toInnerRootNotation(false), statement3);
+		assertEquals(statement3.toInnerRootNotation(true), statement3);
+		assertEquals(statement4.fromInnerRootNotation(false), statement4);
+		assertEquals(statement4.fromInnerRootNotation(true), statement4);
+
+		assertEquals(statement3.fromInnerRootNotation(false).toInnerRootNotation(false), statement3);
+		assertEquals(statement3.fromInnerRootNotation(false).fromInnerRootNotation(false).toInnerRootNotation(false).toInnerRootNotation(false), statement3);
+		assertEquals(statement3.fromInnerRootNotation(true).toInnerRootNotation(true), statement3);
+		assertEquals(statement4.toInnerRootNotation(false).fromInnerRootNotation(false), statement4);
+		assertEquals(statement4.toInnerRootNotation(false).toInnerRootNotation(false).fromInnerRootNotation(false).fromInnerRootNotation(false), statement4);
+		assertEquals(statement4.toInnerRootNotation(true).fromInnerRootNotation(true), statement4);
+
+		assertEquals(statement3.fromInnerRootNotation(false), statement4.toInnerRootNotation(false));
+
+		XDI3Statement statement5 = XDI3Statement.create("=a/+b/(=x/+y/(=mm/+nn/(=oo/+pp/=qq)))");
+		XDI3Statement statement6 = XDI3Statement.create("(=a/+b)(=x/+y)(=mm/+nn)=oo/+pp/(=a/+b)(=x/+y)(=mm/+nn)=qq");
+
+		assertTrue(statement5.isInnerRootNotation());
+		assertTrue(statement5.getInnerRootNotationStatement().isInnerRootNotation());
+		assertEquals(statement5.getInnerRootNotationStatement(), XDI3Statement.create("=x/+y/(=mm/+nn/(=oo/+pp/=qq))"));
+		assertEquals(statement5.getInnerRootNotationStatement().getInnerRootNotationStatement(), XDI3Statement.create("=mm/+nn/(=oo/+pp/=qq)"));
+		assertEquals(statement5.getInnerRootNotationStatement().getInnerRootNotationStatement().getInnerRootNotationStatement(), XDI3Statement.create("=oo/+pp/=qq"));
+
+		assertFalse(statement6.isInnerRootNotation());
+		assertNull(statement6.getInnerRootNotationStatement());
+
+		assertNotEquals(statement5.fromInnerRootNotation(false), statement6);
+		assertNotEquals(statement5.fromInnerRootNotation(false).fromInnerRootNotation(false), statement6);
+		assertEquals(statement5.fromInnerRootNotation(false).fromInnerRootNotation(false).fromInnerRootNotation(false), statement6);
+		assertEquals(statement5.fromInnerRootNotation(true), statement6);
+		assertNotEquals(statement6.toInnerRootNotation(false), statement5);
+		assertNotEquals(statement6.toInnerRootNotation(false).toInnerRootNotation(false), statement5);
+		assertEquals(statement6.toInnerRootNotation(false).toInnerRootNotation(false).toInnerRootNotation(false), statement5);
+		assertEquals(statement6.toInnerRootNotation(true), statement5);
+
+		assertEquals(statement5.toInnerRootNotation(false), statement5);
+		assertEquals(statement5.toInnerRootNotation(true), statement5);
+		assertEquals(statement6.fromInnerRootNotation(false), statement6);
+		assertEquals(statement6.fromInnerRootNotation(true), statement6);
+
+		assertEquals(statement5.fromInnerRootNotation(false).toInnerRootNotation(false), statement5);
+		assertEquals(statement5.fromInnerRootNotation(false).fromInnerRootNotation(false).toInnerRootNotation(false).toInnerRootNotation(false), statement5);
+		assertEquals(statement5.fromInnerRootNotation(false).fromInnerRootNotation(false).fromInnerRootNotation(false).toInnerRootNotation(false).toInnerRootNotation(false).toInnerRootNotation(false), statement5);
+		assertEquals(statement5.fromInnerRootNotation(true).toInnerRootNotation(true), statement5);
+		assertEquals(statement6.toInnerRootNotation(false).fromInnerRootNotation(false), statement6);
+		assertEquals(statement6.toInnerRootNotation(false).toInnerRootNotation(false).fromInnerRootNotation(false).fromInnerRootNotation(false), statement6);
+		assertEquals(statement6.toInnerRootNotation(false).toInnerRootNotation(false).toInnerRootNotation(false).fromInnerRootNotation(false).fromInnerRootNotation(false).fromInnerRootNotation(false), statement6);
+		assertEquals(statement6.toInnerRootNotation(true).fromInnerRootNotation(true), statement6);
+
+		assertEquals(statement5.fromInnerRootNotation(false).fromInnerRootNotation(false), statement6.toInnerRootNotation(false));
+		assertEquals(statement5.fromInnerRootNotation(false), statement6.toInnerRootNotation(false).toInnerRootNotation(false));
+	}
+
 	public abstract XDI3Parser getParser();
+
+	private static void assertNotEquals(Object o1, Object o2) throws Exception {
+
+		assertFalse(o1.equals(o2));
+	}
 }

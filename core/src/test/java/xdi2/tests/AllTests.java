@@ -24,7 +24,7 @@ import xdi2.tests.core.impl.keyvalue.MapKeyValueTest;
 import xdi2.tests.core.impl.keyvalue.PropertiesKeyValueGraphTest;
 import xdi2.tests.core.impl.keyvalue.PropertiesKeyValueTest;
 import xdi2.tests.core.impl.memory.MemoryGraphTest;
-import xdi2.tests.core.impl.wrapper.FileWrapperGraphTest;
+import xdi2.tests.core.impl.wrapped.FileWrapperGraphTest;
 import xdi2.tests.core.io.ReaderWriterRegistryTest;
 import xdi2.tests.core.io.ReaderWriterTest;
 import xdi2.tests.core.util.CopyUtilTest;

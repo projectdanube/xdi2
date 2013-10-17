@@ -14,6 +14,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
 import xdi2.core.util.iterators.CompositeIterator;
@@ -258,9 +259,17 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public Relation setRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		ContextNode targetContextNode = this.getGraph().setDeepContextNode(targetContextNodeXri);
+		// set the target context node
 
-		return this.setRelation(arcXri, targetContextNode);
+		ContextNode targetContextNode = this.setRelationSetTargetContextNode(targetContextNodeXri);
+
+		// set the relation
+
+		Relation relation = this.setRelation(arcXri, targetContextNode);
+
+		// done
+
+		return relation;
 	}
 
 	@Override
@@ -272,7 +281,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		return contextNode.setRelation(arcXri, targetContextNodeXri);
 	}
 
-	// public Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode);
+	//	public Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
 	@Override
 	public Relation setDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, ContextNode targetContextNode) {
@@ -734,14 +743,14 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	/*
-	 * Methods related to checking graph validity
+	 * Helper methods for subclasses
 	 */
 
 	/**
 	 * Checks if a context node can be created.
 	 * Throws an exception, if the context node cannot be created.
 	 */
-	protected void checkContextNode(XDI3SubSegment arcXri) throws Xdi2GraphException {
+	protected void setContextNodeCheckValid(XDI3SubSegment arcXri) throws Xdi2GraphException {
 
 		if (arcXri == null) throw new NullPointerException();
 
@@ -758,21 +767,22 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Checks if a relation can be created.
 	 * Throws an exception, if the relation cannot be created.
 	 */
-	protected void checkRelation(XDI3Segment arcXri, ContextNode targetContextNode) throws Xdi2GraphException {
+	protected void setRelationCheckValid(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) throws Xdi2GraphException {
 
 		if (arcXri == null) throw new NullPointerException();
-		if (targetContextNode == null) throw new NullPointerException();
+		if (targetContextNodeXri == null) throw new NullPointerException();
 
 		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
 		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
 
-		if (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! this.isEmpty() && ! this.containsRelation(arcXri, targetContextNode.getXri())) {
+		if (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! this.isEmpty() && ! this.containsRelation(arcXri, targetContextNodeXri)) {
 
-			throw new Xdi2GraphException("Cannot add " + XDIDictionaryConstants.XRI_S_REF + "/" + targetContextNode.getXri() + " relation to non-empty context node " + this.getXri() + ".");
+			throw new Xdi2GraphException("Cannot add " + XDIDictionaryConstants.XRI_S_REF + "/" + targetContextNodeXri + " relation to non-empty context node " + this.getXri() + ".");
 		}
-		if (XDIDictionaryConstants.XRI_S_REP.equals(arcXri) && ! this.isEmpty() && ! this.containsRelation(arcXri, targetContextNode.getXri())) {
 
-			throw new Xdi2GraphException("Cannot add " + XDIDictionaryConstants.XRI_S_REP + "/" + targetContextNode.getXri() + " relation to non-empty context node " + this.getXri() + ".");
+		if (XDIDictionaryConstants.XRI_S_REP.equals(arcXri) && ! this.isEmpty() && ! this.containsRelation(arcXri, targetContextNodeXri)) {
+
+			throw new Xdi2GraphException("Cannot add " + XDIDictionaryConstants.XRI_S_REP + "/" + targetContextNodeXri + " relation to non-empty context node " + this.getXri() + ".");
 		}
 	}
 
@@ -780,11 +790,70 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Checks if a literal can be created.
 	 * Throws an exception, if the literal cannot be created.
 	 */
-	protected void checkLiteral(Object literalData) throws Xdi2GraphException {
+	protected void setLiteralCheckValid(Object literalData) throws Xdi2GraphException {
 
 		if (! XdiValue.isValid(this)) throw new Xdi2GraphException("Can only create a literal in a value context.");
 
 		if (! AbstractLiteral.isValidLiteralData(literalData)) throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
+	}
+
+	/**
+	 * When a context node is created, check if the inner root subject and predicate have to be created too.
+	 */
+	protected void setContextNodeSetInnerRoot(XDI3SubSegment arcXri, ContextNode contextNode) {
+
+		if (XdiInnerRoot.isInnerRootArcXri(arcXri)) {
+
+			this.setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(arcXri)).setRelation(XdiInnerRoot.getPredicateOfInnerRootXri(arcXri), contextNode);
+		}
+	}
+
+	/**
+	 * When a relation is created, check if the target context node has to be created too.
+	 */
+	protected ContextNode setRelationSetTargetContextNode(XDI3Segment targetContextNodeXri) {
+
+		return this.getGraph().setDeepContextNode(targetContextNodeXri);
+	}
+
+	/**
+	 * When a context node is deleted, all inner roots have to be deleted too.
+	 */
+	protected void delContextNodeDelAllInnerRoots() {
+
+		for (Relation relation : this.getAllRelations()) {
+
+			AbstractContextNode contextNode = ((AbstractContextNode) relation.getContextNode());
+
+			contextNode.delRelationDelInnerRoot(relation.getArcXri(), relation.getTargetContextNodeXri());
+		}
+	}
+
+	/**
+	 * When a context node is deleted, all relations have to be deleted too.
+	 */
+	protected void delContextNodeDelAllRelations() {
+
+		for (Relation relation : this.getAllRelations()) relation.delete();
+	}
+
+	/**
+	 * When a context node is deleted, all incoming relations have to be deleted too.
+	 */
+	protected void delContextNodeDelAllIncomingRelations() {
+
+		for (Relation relation : this.getAllIncomingRelations()) relation.delete();
+	}
+
+	/**
+	 * When a relation is deleted, its inner root has to be deleted too.
+	 */
+	protected void delRelationDelInnerRoot(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+
+		if (XdiInnerRoot.createInnerRootArcXri(this.getXri(), arcXri).equals(targetContextNodeXri)) {
+
+			this.getGraph().getDeepContextNode(targetContextNodeXri).delete();
+		}
 	}
 
 	/*

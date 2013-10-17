@@ -3,6 +3,7 @@ package xdi2.core.xri3;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
 
 public class XDI3Statement extends XDI3SyntaxComponent {
@@ -66,27 +67,27 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 	/**
 	 * Creates an XDI statement from a context node XRI and an arc XRI.
 	 * @param contextNodeXri The context node XRI
-	 * @param arcXri The arc XRI
+	 * @param contextNodeArcXri The arc XRI
 	 * @return An XDI statement
 	 */
-	public static XDI3Statement fromContextNodeComponents(final XDI3Segment contextNodeXri, final XDI3SubSegment arcXri) {
+	public static XDI3Statement fromContextNodeComponents(final XDI3Segment contextNodeXri, final XDI3SubSegment contextNodeArcXri) {
 
-		String string = contextNodeXri.toString() + "/" + XDIConstants.XRI_S_CONTEXT.toString() + "/" + arcXri.toString();
+		String string = contextNodeXri.toString() + "/" + XDIConstants.XRI_S_CONTEXT.toString() + "/" + contextNodeArcXri.toString();
 
-		return new XDI3Statement(string, contextNodeXri, XDIConstants.XRI_S_CONTEXT, arcXri);
+		return new XDI3Statement(string, contextNodeXri, XDIConstants.XRI_S_CONTEXT, contextNodeArcXri);
 	}
 
 	/**
 	 * Creates an XDI statement from a context node XRI, arc XRI, and target context node XRI.
 	 * @param contextNodeXri The context node XRI
-	 * @param arcXri The arc XRI
+	 * @param relationArcXri The arc XRI
 	 * @return An XDI statement
 	 */
-	public static XDI3Statement fromRelationComponents(final XDI3Segment contextNodeXri, final XDI3Segment arcXri, final XDI3Segment targetContextNodeXri) {
+	public static XDI3Statement fromRelationComponents(final XDI3Segment contextNodeXri, final XDI3Segment relationArcXri, final XDI3Segment targetContextNodeXri) {
 
-		String string = contextNodeXri.toString() + "/" + arcXri.toString() + "/" + targetContextNodeXri.toString();
+		String string = contextNodeXri.toString() + "/" + relationArcXri.toString() + "/" + targetContextNodeXri.toString();
 
-		return new XDI3Statement(string, contextNodeXri, arcXri, targetContextNodeXri);
+		return new XDI3Statement(string, contextNodeXri, relationArcXri, targetContextNodeXri);
 	}
 
 	/**
@@ -151,14 +152,6 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		return XDIConstants.XRI_S_LITERAL.equals(this.getPredicate()) && AbstractLiteral.isValidLiteralData(this.getObject());
 	}
 
-	public boolean hasInnerRootStatement() {
-
-		return isRelationStatement() && 
-				this.getTargetContextNodeXri().getNumSubSegments() == 1 &&
-				this.getTargetContextNodeXri().getFirstSubSegment().hasXRef() &&
-				this.getTargetContextNodeXri().getFirstSubSegment().getXRef().hasStatement();
-	}
-
 	public XDI3Segment getContextNodeXri() {
 
 		return this.getSubject();
@@ -197,25 +190,6 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		return null;
 	}
 
-	public XDI3Statement getInnerRootStatement() {
-
-		if (this.isRelationStatement()) {
-
-			XDI3Segment targetContextNodeXri = this.getTargetContextNodeXri();
-			if (targetContextNodeXri == null) return null;
-
-			XDI3XRef xref = targetContextNodeXri.getFirstSubSegment().getXRef();
-			if (xref == null) return null;
-
-			XDI3Statement statement = xref.getStatement();
-			if (statement == null) return null;
-
-			return statement;
-		}
-
-		return null;
-	}
-
 	public Object getLiteralData() {
 
 		if (this.isLiteralStatement()) {
@@ -224,5 +198,84 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		}
 
 		return null;
+	}
+
+	/*
+	 * Methods related to inner root notation
+	 */
+
+	public boolean isInnerRootNotation() {
+
+		return isRelationStatement() && 
+				this.getTargetContextNodeXri().getNumSubSegments() == 1 &&
+				this.getTargetContextNodeXri().getFirstSubSegment().hasXRef() &&
+				this.getTargetContextNodeXri().getFirstSubSegment().getXRef().hasStatement();
+	}
+
+	public XDI3Statement getInnerRootNotationStatement() {
+
+		if (! this.isRelationStatement()) return null;
+
+		XDI3Segment innerRootNotationTargetContextNodeXri = this.getTargetContextNodeXri();
+		if (innerRootNotationTargetContextNodeXri == null) return null;
+
+		XDI3XRef innerRootNotationXref = innerRootNotationTargetContextNodeXri.getFirstSubSegment().getXRef();
+		if (innerRootNotationXref == null) return null;
+
+		XDI3Statement innerRootNotationStatement = innerRootNotationXref.getStatement();
+		if (innerRootNotationStatement == null) return null;
+
+		return innerRootNotationStatement;
+	}
+
+	public XDI3Statement fromInnerRootNotation(boolean recursive) {
+
+		XDI3Statement innerRootStatement = this.getInnerRootNotationStatement();
+		if (innerRootStatement == null) return this;
+
+		if (innerRootStatement.isInnerRootNotation()) {
+
+			XDI3Statement statement = XDI3Statement.fromRelationComponents(this.getContextNodeXri(), this.getRelationArcXri(), XDI3Segment.fromComponent(XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, innerRootStatement.fromInnerRootNotation(recursive), null, null, null, null))));
+
+			if (recursive) statement = statement.fromInnerRootNotation(recursive);
+
+			return statement;
+		} else {
+
+			XDI3SubSegment innerRootSubSegment = XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, null, this.getSubject(), this.getPredicate(), null, null));
+
+			XDI3Statement statement = StatementUtil.concatXriStatement(XDI3Segment.fromComponent(innerRootSubSegment), innerRootStatement, true);
+
+			return statement;
+		}
+	}
+
+	public XDI3Statement toInnerRootNotation(boolean recursive) {
+
+		if (this.isInnerRootNotation()) {
+
+			XDI3Statement innerRootStatement = this.getInnerRootNotationStatement();
+
+			XDI3Statement statement = XDI3Statement.fromRelationComponents(this.getContextNodeXri(), this.getRelationArcXri(), XDI3Segment.fromComponent(XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, innerRootStatement.toInnerRootNotation(recursive), null, null, null, null))));
+
+			return statement;
+		} else {
+
+			XDI3SubSegment subjectFirstSubSegment = this.getSubject().getFirstSubSegment();
+
+			if ((! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return this;
+
+			XDI3Segment innerRootSubject = this.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
+			XDI3Segment innerRootPredicate = this.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
+
+			XDI3Statement innerRootStatement = StatementUtil.removeStartXriStatement(this, XDI3Segment.fromComponent(subjectFirstSubSegment), true);
+			if (innerRootStatement == null) return this;
+
+			if (recursive) innerRootStatement = innerRootStatement.toInnerRootNotation(recursive);
+
+			XDI3Statement statement = XDI3Statement.fromRelationComponents(innerRootSubject, innerRootPredicate, XDI3Segment.fromComponent(XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, innerRootStatement, null, null, null, null))));
+
+			return statement;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package xdi2.core.impl.keyvalue;
 
 import java.util.Iterator;
+import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
@@ -9,6 +10,7 @@ import xdi2.core.impl.AbstractContextNode;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -58,20 +60,33 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized ContextNode setContextNode(XDI3SubSegment arcXri) {
 
-		this.checkContextNode(arcXri);
+		// check validity
+
+		this.setContextNodeCheckValid(arcXri);
+
+		// set the context node
 
 		String contextNodesKey = this.getContextNodesKey();
 		String contextNodeKey = this.getContextNodeKey(arcXri);
 
-		if (! this.keyValueStore.contains(contextNodesKey, arcXri.toString())) {
+		if (this.keyValueStore.contains(contextNodesKey, arcXri.toString())) {
 
-			this.keyValueStore.set(contextNodesKey, arcXri.toString());
-			this.keyValueStore.delete(contextNodeKey + "/--C");
-			this.keyValueStore.delete(contextNodeKey + "/--R");
-			this.keyValueStore.delete(contextNodeKey + "/--L");
+			KeyValueContextNode contextNode = new KeyValueContextNode((KeyValueGraph) this.getGraph(), this, this.keyValueStore, contextNodeKey, arcXri);
+			return contextNode;
 		}
 
+		this.keyValueStore.set(contextNodesKey, arcXri.toString());
+		this.keyValueStore.delete(contextNodeKey + "/--C");
+		this.keyValueStore.delete(contextNodeKey + "/--R");
+		this.keyValueStore.delete(contextNodeKey + "/--L");
+
 		KeyValueContextNode contextNode = new KeyValueContextNode((KeyValueGraph) this.getGraph(), this, this.keyValueStore, contextNodeKey, arcXri);
+
+		// set inner root
+
+		this.setContextNodeSetInnerRoot(arcXri, contextNode);
+
+		// done
 
 		return contextNode;
 	}
@@ -81,7 +96,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		String contextNodesKey = this.getContextNodesKey();
 
-		return new ReadOnlyIterator<ContextNode> (new MappingIterator<String, ContextNode> (this.keyValueStore.getAll(contextNodesKey)) {
+		List<ContextNode> list = new IteratorListMaker<ContextNode> (new MappingIterator<String, ContextNode> (this.keyValueStore.getAll(contextNodesKey)) {
 
 			@Override
 			public ContextNode map(String item) {
@@ -91,15 +106,18 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 				return new KeyValueContextNode((KeyValueGraph) KeyValueContextNode.this.getGraph(), KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, contextNodeKey, arcXri);
 			}
-		});
+		}).list();
+
+		return new ReadOnlyIterator<ContextNode> (list.iterator());
 	}
 
 	@Override
 	public ContextNode getContextNode(XDI3SubSegment arcXri) {
 
-		if (! this.containsContextNode(arcXri)) return null;
-
+		String contextNodesKey = this.getContextNodesKey();
 		String contextNodeKey = this.getContextNodeKey(arcXri);
+
+		if (! this.keyValueStore.contains(contextNodesKey, arcXri.toString())) return null;
 
 		return new KeyValueContextNode((KeyValueGraph) this.getGraph(), this, this.keyValueStore, contextNodeKey, arcXri);
 	}
@@ -123,12 +141,13 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized void delContextNode(XDI3SubSegment arcXri) {
 
-		// delete incoming relations
-
 		ContextNode contextNode = this.getContextNode(arcXri);
 		if (contextNode == null) return;
 
-		for (Iterator<Relation> relations = contextNode.getIncomingRelations(); relations.hasNext(); ) relations.next().delete();
+		// delete all relations and incoming relations
+
+		((KeyValueContextNode) contextNode).delContextNodeDelAllInnerRoots();
+		((KeyValueContextNode) contextNode).delContextNodeDelAllIncomingRelations();
 
 		// delete this context node
 
@@ -140,11 +159,13 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized void delContextNodes() {
 
-		// delete incoming relations
+		// delete all relations and incoming relations
 
-		for (Iterator<ContextNode> contextNodes = this.getContextNodes(); contextNodes.hasNext(); )
-			for (Iterator<Relation> relations = contextNodes.next().getIncomingRelations(); relations.hasNext(); ) 
-				relations.next().delete();
+		for (ContextNode contextNode : this.getContextNodes()) {
+
+			for (Relation relation : contextNode.getAllRelations()) relation.delete();
+			for (Relation relation : contextNode.getAllIncomingRelations()) relation.delete();
+		}
 
 		// delete context nodes
 
@@ -168,9 +189,13 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
-		this.checkRelation(arcXri, targetContextNode);
-
 		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
+
+		// check validity
+
+		this.setRelationCheckValid(arcXri, targetContextNodeXri);
+
+		// set the relation
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
@@ -180,12 +205,14 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		KeyValueRelation relation = new KeyValueRelation(this, this.keyValueStore, relationKey, arcXri, targetContextNodeXri);
 
+		// done
+
 		return relation;
 	}
 
 	@Override
 	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
-		
+
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
 
@@ -218,7 +245,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		if (! this.keyValueStore.contains(relationsKey, arcXri.toString())) return new EmptyIterator<Relation> ();
 		if (! this.keyValueStore.contains(relationKey)) return new EmptyIterator<Relation> ();
 
-		return new ReadOnlyIterator<Relation> (new MappingIterator<String, Relation> (this.keyValueStore.getAll(relationKey)) {
+		List<Relation> list = new IteratorListMaker<Relation> (new MappingIterator<String, Relation> (this.keyValueStore.getAll(relationKey)) {
 
 			@Override
 			public Relation map(String relationXriString) {
@@ -227,7 +254,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 				return new KeyValueRelation(KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arcXri, relationXri);
 			}
-		});
+		}).list();
+
+		return new ReadOnlyIterator<Relation> (list.iterator());
 	}
 
 	@Override
@@ -235,7 +264,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		String relationsKey = this.getRelationsKey();
 
-		return new DescendingIterator<String, Relation> (this.keyValueStore.getAll(relationsKey)) {
+		List<Relation> list = new IteratorListMaker<Relation> (new DescendingIterator<String, Relation> (this.keyValueStore.getAll(relationsKey)) {
 
 			@Override
 			public Iterator<Relation> descend(String item) {
@@ -252,7 +281,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 					}
 				};
 			}
-		};
+		}).list();
+
+		return new ReadOnlyIterator<Relation> (list.iterator());
 	}
 
 	@Override
@@ -284,6 +315,8 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized void delRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
+		// delete the relation
+
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(arcXri);
 
@@ -293,22 +326,48 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 			this.keyValueStore.delete(relationsKey, arcXri.toString());
 		}
+
+		// delete inner root
+
+		this.delRelationDelInnerRoot(arcXri, targetContextNodeXri);
 	}
 
 	@Override
 	public synchronized void delRelations(XDI3Segment arcXri) {
 
+		ReadOnlyIterator<Relation> relations = this.getRelations(arcXri);
+
+		// delete relations
+
 		String relationsKey = this.getRelationsKey();
 
 		this.keyValueStore.delete(relationsKey, arcXri.toString());
+
+		// delete inner roots
+
+		for (Relation relation : relations) {
+
+			this.delRelationDelInnerRoot(relation.getArcXri(), relation.getTargetContextNodeXri());
+		}
 	}
 
 	@Override
 	public synchronized void delRelations() {
 
+		ReadOnlyIterator<Relation> relations = this.getRelations();
+
+		// delete relations
+
 		String relationsKey = this.getRelationsKey();
 
 		this.keyValueStore.delete(relationsKey);
+
+		// delete inner roots
+
+		for (Relation relation : relations) {
+
+			this.delRelationDelInnerRoot(relation.getArcXri(), relation.getTargetContextNodeXri());
+		}
 	}
 
 	@Override
@@ -352,13 +411,19 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized Literal setLiteral(Object literalData) {
 
-		this.checkLiteral(literalData);
+		// check validity
+
+		this.setLiteralCheckValid(literalData);
+
+		// set the literal
 
 		String literalKey = this.getLiteralKey();
 
 		this.keyValueStore.replace(literalKey, AbstractLiteral.literalDataToString(literalData));
 
 		KeyValueLiteral literal = new KeyValueLiteral(this, this.keyValueStore, literalKey, literalData);
+
+		// done
 
 		return literal;
 	}

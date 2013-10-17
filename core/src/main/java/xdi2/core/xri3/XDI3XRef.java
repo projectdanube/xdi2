@@ -35,6 +35,12 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 
 		if (xs == null) throw new IllegalArgumentException();
 		if (segment == null && statement == null && partialSubject == null && partialPredicate == null && iri == null && literal == null) throw new IllegalArgumentException();
+		if (segment != null && (statement != null || partialSubject != null || partialPredicate != null || iri != null || literal != null)) throw new IllegalArgumentException();
+		if (statement != null && (segment != null || partialSubject != null || partialPredicate != null || iri != null || literal != null)) throw new IllegalArgumentException();
+		if (partialSubject != null && (segment != null || statement != null || partialPredicate == null || iri != null || literal != null)) throw new IllegalArgumentException();
+		if (partialPredicate != null && (segment != null || statement != null || partialSubject == null || iri != null || literal != null)) throw new IllegalArgumentException();
+		if (iri != null && (segment != null || statement != null || partialSubject != null || partialPredicate != null || literal != null)) throw new IllegalArgumentException();
+		if (literal != null && (segment != null || statement != null || partialSubject != null || partialPredicate != null || iri != null)) throw new IllegalArgumentException();
 
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(xs.charAt(0));

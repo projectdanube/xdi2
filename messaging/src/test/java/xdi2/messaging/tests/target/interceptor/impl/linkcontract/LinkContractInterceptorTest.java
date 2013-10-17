@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
-import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.io.readers.XDIDisplayReader;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
@@ -19,7 +19,7 @@ public class LinkContractInterceptorTest extends TestCase {
 
 	private static final Logger log = LoggerFactory.getLogger(LinkContractInterceptorTest.class);
 
-	private static final XDIReader autoReader = XDIReaderRegistry.getAuto();
+	private static final XDIReader autoReader = new XDIDisplayReader(null);
 
 	private static MemoryGraphFactory graphFactory = new MemoryGraphFactory();
 

@@ -10,7 +10,11 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * Various utility methods for copying statements between graphs.
@@ -26,7 +30,7 @@ public final class CopyUtil {
 	private CopyUtil() { }
 
 	/**
-	 * Copies a whole graph into another graph.
+	 * Copies a whole graph into a target graph.
 	 * @param graph A graph.
 	 * @param targetGraph The target graph.
 	 * @param copyStrategy The strategy to determine what to copy.
@@ -40,8 +44,12 @@ public final class CopyUtil {
 		copyContextNodeContents(graph.getRootContextNode(), targetGraph.getRootContextNode(), copyStrategy);
 	}
 
+	/*
+	 * Methods for copying context nodes
+	 */
+
 	/**
-	 * Copies a context node into another graph.
+	 * Copies a context node into a target graph.
 	 * @param contextNode A context node from any graph.
 	 * @param targetGraph The target graph.
 	 * @param copyStrategy The strategy to determine what to copy.
@@ -55,6 +63,8 @@ public final class CopyUtil {
 
 		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
 
+		XDI3Segment contextNodeXri = contextNode.getXri();
+
 		ContextNode targetContextNode;
 
 		if (contextNode.isRootContextNode()) {
@@ -62,7 +72,7 @@ public final class CopyUtil {
 			targetContextNode = targetGraph.getRootContextNode();
 		} else {
 
-			targetContextNode = targetGraph.setDeepContextNode(contextNode.getXri());
+			targetContextNode = targetGraph.setDeepContextNode(contextNodeXri);
 		}
 
 		copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
@@ -71,7 +81,7 @@ public final class CopyUtil {
 	}
 
 	/**
-	 * Copies a context node into another context node.
+	 * Copies a context node into a target context node.
 	 * @param contextNode A context node from any context node.
 	 * @param targetContextNode The target context node.
 	 * @param copyStrategy The strategy to determine what to copy.
@@ -85,12 +95,41 @@ public final class CopyUtil {
 
 		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
 
-		ContextNode targetInnerContextNode = targetContextNode.setContextNode(contextNode.getArcXri());
+		XDI3SubSegment arcXri = contextNode.getArcXri();
+
+		ContextNode targetInnerContextNode = targetContextNode.setContextNode(arcXri);
 
 		copyContextNodeContents(contextNode, targetInnerContextNode, copyStrategy);
 
 		return targetContextNode;
 	}
+
+	/**
+	 * Copies all context nodes of a context node into a target context node.
+	 * @param contextNode A context node from any graph.
+	 * @param targetContextNode The target context node.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied context nodes in the target graph.
+	 */
+	public static Iterator<ContextNode> copyContextNodes(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
+
+		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
+		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
+
+			ContextNode innerContextNode = innerContextNodes.next();
+
+			copyContextNode(innerContextNode, targetContextNode, copyStrategy);
+		}
+
+		return targetContextNode.getContextNodes();
+	}
+
+	/*
+	 * Methods for copying relations
+	 */
 
 	/**
 	 * Copies a relation into another graph.
@@ -126,10 +165,63 @@ public final class CopyUtil {
 
 		if ((relation = copyStrategy.replaceRelation(relation)) == null) return null;
 
-		Relation targetRelation = targetContextNode.setRelation(relation.getArcXri(), relation.getTargetContextNodeXri());
+		XDI3Segment contextNodeXri = relation.getContextNode().getXri();
+		XDI3Segment arcXri = relation.getArcXri();
+		XDI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
+
+		XDI3SubSegment targetContextNodeXriLastSubSegment = targetContextNodeXri.getLastSubSegment();
+		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(relation.getGraph()).findRoot(relation.getContextNode().getXri(), false);
+		
+		Relation targetRelation;
+		
+		if (XdiInnerRoot.isInnerRootArcXri(targetContextNodeXriLastSubSegment) &&
+				xdiRoot.getRelativePart(contextNodeXri).equals(XdiInnerRoot.getSubjectOfInnerRootXri(targetContextNodeXriLastSubSegment)) &&
+				arcXri.equals(XdiInnerRoot.getPredicateOfInnerRootXri(targetContextNodeXriLastSubSegment))) {
+				
+/*			if (! targetContextNode.equals(relation.getContextNode())) {
+				
+				throw new Xdi2GraphException("Copying inner root to different context node is not supported.");
+			}*/
+
+			new Exception("Also need to copy inner root " + relation.follow()).printStackTrace(System.out);
+			
+			targetRelation = targetContextNode.setRelation(arcXri, targetContextNodeXri);
+
+//			copyContextNodeContents(relation.follow(), targetRelation.follow(), copyStrategy);
+		} else {
+		
+			targetRelation = targetContextNode.setRelation(arcXri, targetContextNodeXri);
+		}
 
 		return targetRelation;
 	}
+
+	/**
+	 * Copies all relations of a context node into a target context node.
+	 * @param contextNode A context node from any graph.
+	 * @param targetContextNode The target context node.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied relations in the target graph.
+	 */
+	public static Iterator<Relation> copyRelations(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
+
+		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
+		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
+
+			Relation relation = relations.next();
+
+			copyRelation(relation, targetContextNode, copyStrategy);
+		}
+
+		return targetContextNode.getRelations();
+	}
+
+	/*
+	 * Methods for copying literals
+	 */
 
 	/**
 	 * Copies a literal into another graph.
@@ -165,90 +257,11 @@ public final class CopyUtil {
 
 		if ((literal = copyStrategy.replaceLiteral(literal)) == null) return null;
 
-		Literal targetLiteral = targetContextNode.setLiteral(literal.getLiteralData());
+		Object literalData = literal.getLiteralData();
+
+		Literal targetLiteral = targetContextNode.setLiteral(literalData);
 
 		return targetLiteral;
-	}
-
-	/**
-	 * Copies a statement into another graph.
-	 * @param statement A statement from any graph.
-	 * @param targetGraph The target graph.
-	 * @param copyStrategy The strategy to determine what to copy.
-	 * @return The copied statement in the target graph.
-	 */
-	public static Statement copyStatement(Statement statement, Graph targetGraph, CopyStrategy copyStrategy) {
-
-		if (statement == null) throw new NullPointerException();
-		if (targetGraph == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
-
-		targetGraph.setStatement(statement.getXri());
-
-		return null;
-	}
-
-	/**
-	 * Copies the contents of a context node (context nodes, relations, and the literal) into a target context node.
-	 * @param contextNode A context node from any graph.
-	 * @param targetContextNode The target context node.
-	 * @param copyStrategy The strategy to determine what to copy.
-	 */
-	public static void copyContextNodeContents(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
-
-		if (contextNode == null) throw new NullPointerException();
-		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
-
-		copyContextNodes(contextNode, targetContextNode, copyStrategy);
-		copyRelations(contextNode, targetContextNode, copyStrategy);
-		copyLiteral(contextNode, targetContextNode, copyStrategy);
-	}
-
-	/**
-	 * Copies all context nodes of a context node into a target context node.
-	 * @param contextNode A context node from any graph.
-	 * @param targetContextNode The target context node.
-	 * @param copyStrategy The strategy to determine what to copy.
-	 * @return The copied context nodes in the target graph.
-	 */
-	public static Iterator<ContextNode> copyContextNodes(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
-
-		if (contextNode == null) throw new NullPointerException();
-		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
-
-		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
-
-			ContextNode innerContextNode = innerContextNodes.next();
-
-			copyContextNode(innerContextNode, targetContextNode, copyStrategy);
-		}
-
-		return targetContextNode.getContextNodes();
-	}
-
-	/**
-	 * Copies all relations of a context node into a target context node.
-	 * @param contextNode A context node from any graph.
-	 * @param targetContextNode The target context node.
-	 * @param copyStrategy The strategy to determine what to copy.
-	 * @return The copied relations in the target graph.
-	 */
-	public static Iterator<Relation> copyRelations(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
-
-		if (contextNode == null) throw new NullPointerException();
-		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
-
-		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
-
-			Relation relation = relations.next();
-
-			copyRelation(relation, targetContextNode, copyStrategy);
-		}
-
-		return targetContextNode.getRelations();
 	}
 
 	/**
@@ -269,6 +282,49 @@ public final class CopyUtil {
 
 		return copyLiteral(literal, targetContextNode, copyStrategy);
 	}
+
+	/*
+	 * Other copy methods
+	 */
+
+	/**
+	 * Copies the contents of a context node (context nodes, relations, and the literal) into a target context node.
+	 * @param contextNode A context node from any graph.
+	 * @param targetContextNode The target context node.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 */
+	public static void copyContextNodeContents(ContextNode contextNode, ContextNode targetContextNode, CopyStrategy copyStrategy) {
+
+		if (contextNode == null) throw new NullPointerException();
+		if (targetContextNode == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
+		copyContextNodes(contextNode, targetContextNode, copyStrategy);
+		copyRelations(contextNode, targetContextNode, copyStrategy);
+		copyLiteral(contextNode, targetContextNode, copyStrategy);
+	}
+
+	/**
+	 * Copies a statement into another graph.
+	 * @param statement A statement from any graph.
+	 * @param targetGraph The target graph.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 * @return The copied statement in the target graph.
+	 */
+	public static Statement copyStatement(Statement statement, Graph targetGraph, CopyStrategy copyStrategy) {
+
+		if (statement == null) throw new NullPointerException();
+		if (targetGraph == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
+		targetGraph.setStatement(statement.getXri());
+
+		return null;
+	}
+
+	/*
+	 * Helper classes
+	 */
 
 	/**
 	 * An interface that can determine what to copy and what not.

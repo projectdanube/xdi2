@@ -15,13 +15,9 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
-import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -230,38 +226,25 @@ public abstract class AbstractGraph implements Graph {
 
 		if (log.isTraceEnabled()) log.trace("setStatement(" + statementXri + ")");
 
-		// find the root and the base context node of this statement
-
-		XdiRoot root = XdiLocalRoot.findLocalRoot(this).findRoot(statementXri.getContextNodeXri(), true);
-		XDI3Segment relativePart = root.getRelativePart(statementXri.getContextNodeXri());
-
 		// inner root short notation?
 
-		if (statementXri.hasInnerRootStatement()) {
-
-			XDI3Segment subject = relativePart;
-			XDI3Segment predicate = statementXri.getPredicate();
-
-			XdiInnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
-
-			return innerRoot.setRelativeStatement(statementXri.getInnerRootStatement());
-		}
+		statementXri = statementXri.fromInnerRootNotation(true);
 
 		// set the statement
 
 		if (statementXri.isContextNodeStatement()) {
 
-			ContextNode contextNode = root.getContextNode().setDeepContextNode(XDI3Util.concatXris(relativePart, statementXri.getContextNodeArcXri()));
+			ContextNode contextNode = this.setDeepContextNode(statementXri.getTargetContextNodeXri());
 
 			return contextNode.getStatement();
 		} else if (statementXri.isRelationStatement()) {
 
-			Relation relation = root.getContextNode().setDeepRelation(relativePart, statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
+			Relation relation = this.setDeepRelation(statementXri.getContextNodeXri(), statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
 
 			return relation.getStatement();
 		} else if (statementXri.isLiteralStatement()) {
 
-			Literal literal = root.getContextNode().setDeepLiteral(relativePart, statementXri.getLiteralData());
+			Literal literal = this.setDeepLiteral(statementXri.getContextNodeXri(), statementXri.getLiteralData());
 
 			return literal.getStatement();
 		} else {

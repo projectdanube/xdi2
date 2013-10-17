@@ -26,6 +26,8 @@ public final class StatementUtil {
 		if (statementXri == null) throw new NullPointerException();
 		if (start == null) throw new NullPointerException();
 
+		if (statementXri.isInnerRootNotation()) throw new IllegalArgumentException();
+
 		XDI3Statement result = null;
 
 		try {
@@ -78,13 +80,24 @@ public final class StatementUtil {
 
 		if (statementXri == null) throw new NullPointerException();
 
+		if (statementXri.isInnerRootNotation()) throw new IllegalArgumentException();
+
 		XDI3Statement result = null;
 
 		try {
 
 			XDI3Segment subject = XDI3Util.concatXris(xri, statementXri.getSubject());
 			XDI3Segment predicate = statementXri.getPredicate();
-			Object object = (statementXri.isRelationStatement() && ! statementXri.hasInnerRootStatement() && concatTargetContextNodeXri) ? XDI3Util.concatXris(xri, (XDI3Segment) statementXri.getObject()) : statementXri.getObject();
+
+			Object object;
+
+			if (statementXri.isRelationStatement() && concatTargetContextNodeXri) {
+
+				object = XDI3Util.concatXris(xri, (XDI3Segment) statementXri.getObject());
+			} else {
+
+				object = statementXri.getObject();
+			}
 
 			{ result = XDI3Statement.fromComponents(subject, predicate, object); return result; }
 		} finally {

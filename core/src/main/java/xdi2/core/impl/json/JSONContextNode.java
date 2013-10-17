@@ -61,15 +61,25 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	@Override
 	public ContextNode setContextNode(XDI3SubSegment arcXri) {
 
-		this.checkContextNode(arcXri);
+		// check validity
+
+		this.setContextNodeCheckValid(arcXri);
+
+		// set the context node
 
 		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXri().toString(), XDIConstants.XRI_SS_CONTEXT.toString(), new JsonPrimitive(arcXri.toString()));
 
 		XDI3Segment xri = XDI3Util.concatXris(this.getXri(), arcXri);
 
-		JSONContextNode jsonContextNode = new JSONContextNode((JSONGraph) this.getGraph(), this, arcXri, xri);
+		JSONContextNode contextNode = new JSONContextNode((JSONGraph) this.getGraph(), this, arcXri, xri);
 
-		return jsonContextNode;
+		// set inner root
+
+		this.setContextNodeSetInnerRoot(arcXri, contextNode);
+
+		// done
+
+		return contextNode;
 	}
 
 	@Override
@@ -104,16 +114,16 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		if (! new IteratorContains<JsonElement> (jsonArrayContexts.iterator(), new JsonPrimitive(arcXri.toString())).contains()) return null;
 
-		JSONContextNode jsonContextNode = this;
+		JSONContextNode contextNode = this;
 
 		for (XDI3SubSegment tempArcXri : contextNodeXri.getSubSegments()) {
 
-			XDI3Segment tempXri = XDI3Util.concatXris(jsonContextNode.getXri(), tempArcXri);
+			XDI3Segment tempXri = XDI3Util.concatXris(contextNode.getXri(), tempArcXri);
 
-			jsonContextNode = new JSONContextNode((JSONGraph) this.getGraph(), jsonContextNode, tempArcXri, tempXri);
+			contextNode = new JSONContextNode((JSONGraph) this.getGraph(), contextNode, tempArcXri, tempXri);
 		}
 
-		return jsonContextNode;
+		return contextNode;
 	}
 
 	@Override
@@ -146,25 +156,36 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		ContextNode contextNode = this.getContextNode(arcXri);
 		if (contextNode == null) return;
 
-		List<Relation> relations = new IteratorListMaker<Relation> (contextNode.getAllRelations()).list();
-		for (Relation relation : relations) relation.delete();
+		// delete all relations and incoming relations
 
-		List<Relation> incomingRelations = new IteratorListMaker<Relation> (contextNode.getAllIncomingRelations()).list();
-		for (Relation incomingRelation : incomingRelations) incomingRelation.delete();
+		((JSONContextNode) contextNode).delContextNodeDelAllRelations();
+		((JSONContextNode) contextNode).delContextNodeDelAllIncomingRelations();
+
+		// delete this context node
 
 		((JSONGraph) this.getGraph()).jsonDelete(contextNode.getXri().toString());
 		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXri().toString(), XDIConstants.XRI_SS_CONTEXT.toString(), new JsonPrimitive(arcXri.toString()));
 	}
 
 	@Override
-	public Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
+	public synchronized Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
-		this.checkRelation(arcXri, targetContextNode);
+		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
 
-		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXri().toString(), arcXri.toString(), new JsonPrimitive(targetContextNode.getXri().toString()));
-		((JSONGraph) this.getGraph()).jsonSaveToArray(targetContextNode.getXri().toString(), "/" + arcXri.toString(), new JsonPrimitive(this.getXri().toString()));
+		// check validity
 
-		return new JSONRelation(this, arcXri, targetContextNode.getXri());
+		this.setRelationCheckValid(arcXri, targetContextNodeXri);
+
+		// set the relation
+
+		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXri().toString(), arcXri.toString(), new JsonPrimitive(targetContextNodeXri.toString()));
+		((JSONGraph) this.getGraph()).jsonSaveToArray(targetContextNodeXri.toString(), "/" + arcXri.toString(), new JsonPrimitive(this.getXri().toString()));
+		
+		JSONRelation relation = new JSONRelation(this, arcXri, targetContextNodeXri);
+
+		// done
+
+		return relation;
 	}
 
 	@Override
@@ -242,18 +263,32 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	@Override
 	public void delRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
+		// delete the relation
+
 		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXri().toString(), arcXri.toString(), new JsonPrimitive(targetContextNodeXri.toString()));
 		((JSONGraph) this.getGraph()).jsonDeleteFromArray(targetContextNodeXri.toString(), "/" + arcXri.toString(), new JsonPrimitive(this.getXri().toString()));
+
+		// delete inner root
+
+		this.delRelationDelInnerRoot(arcXri, targetContextNodeXri);
 	}
 
 	@Override
 	public Literal setLiteral(Object literalData) {
 
-		this.checkLiteral(literalData);
+		// check validity
+
+		this.setLiteralCheckValid(literalData);
+
+		// set the literal
 
 		((JSONGraph) this.getGraph()).jsonSaveToObject(this.getXri().toString(), XDIConstants.XRI_SS_LITERAL.toString(), AbstractLiteral.literalDataToJsonElement(literalData));
+		
+		JSONLiteral literal = new JSONLiteral(this);
 
-		return new JSONLiteral(this);
+		// done
+
+		return literal;
 	}
 
 	@Override
