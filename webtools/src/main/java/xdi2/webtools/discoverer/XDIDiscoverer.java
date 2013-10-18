@@ -39,15 +39,18 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 	private static MemoryGraphFactory graphFactory;
 	private static List<String> sampleInputs;
 	private static String sampleEndpoint;
+	private static String sampleServices;
 
 	static {
 
 		graphFactory = MemoryGraphFactory.getInstance();
 		graphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ORDER);
 
-		sampleInputs = Collections.singletonList("=markus");
+		sampleInputs = Collections.singletonList("=alice");
 
 		sampleEndpoint = "http://mycloud.neustar.biz:12220/"; 
+
+		sampleServices = "$https$connect$xdi"; 
 	}
 
 	@Override
@@ -65,6 +68,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("endpoint", sampleEndpoint);
 		request.setAttribute("authority", "on");
+		request.setAttribute("services", sampleServices);
 
 		request.getRequestDispatcher("/XDIDiscoverer.jsp").forward(request, response);
 	}
@@ -80,6 +84,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		String input = request.getParameter("input");
 		String endpoint = request.getParameter("endpoint");
 		String authority = request.getParameter("authority");
+		String services = request.getParameter("services");
 		String output = "";
 		String output2 = "";
 		String stats = "-1";
@@ -115,7 +120,13 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				if (discoveryResultRegistry != null && discoveryResultRegistry.getXdiEndpointUri() != null) {
 
-					discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), null);
+					XDI3Segment[] endpointUriTypes;
+
+					String[] endpointUriTypesString = services.trim().isEmpty() ? new String[0] : services.trim().split("[, ]");
+					endpointUriTypes = new XDI3Segment[endpointUriTypesString.length];
+					for (int i=0; i<endpointUriTypesString.length; i++) endpointUriTypes[i] = XDI3Segment.create(endpointUriTypesString[i].trim());
+
+					discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), endpointUriTypes);
 				}
 			}
 
@@ -250,6 +261,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		request.setAttribute("input", input);
 		request.setAttribute("endpoint", endpoint);
 		request.setAttribute("authority", authority);
+		request.setAttribute("services", services);
 		request.setAttribute("output", output);
 		request.setAttribute("output2", output2);
 		request.setAttribute("stats", stats);
