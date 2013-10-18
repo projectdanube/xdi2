@@ -93,6 +93,8 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 			return null;
 		}
 
+		ownerPeerRoot = (XdiPeerRoot) ownerPeerRoot.dereference();
+
 		if (ownerPeerRoot.isSelfPeerRoot()) {
 
 			log.warn("Peer root for " + owner + " is the owner of the registry graph. Ignoring.");
