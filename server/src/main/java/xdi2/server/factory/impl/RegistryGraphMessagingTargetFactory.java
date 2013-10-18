@@ -101,6 +101,10 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 			return null;
 		}
 
+		// adjust the owner
+
+		owner = ownerPeerRoot.getXriOfPeerRoot();
+
 		// find the owner's context node
 
 		ContextNode ownerContextNode = this.getRegistryGraph().getDeepContextNode(owner);
