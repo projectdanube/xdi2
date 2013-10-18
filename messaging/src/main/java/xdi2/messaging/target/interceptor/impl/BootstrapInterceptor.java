@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
@@ -171,8 +170,6 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
 			bootstrapPublicLinkContract.setPermission(XDILinkContractConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_PUBLIC);
-			bootstrapPublicLinkContract.setPermission(XDILinkContractConstants.XRI_S_GET, XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
-			bootstrapPublicLinkContract.setPermission(XDILinkContractConstants.XRI_S_GET, XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY);
 		}
 
 		// create bootstrap statements
