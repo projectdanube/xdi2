@@ -38,13 +38,6 @@
 		<developerConnection>scm:git:git@github.com:projectdanube/xdi2.git</developerConnection>
 	</scm>
 
-	<repositories>
-		<repository>
-			<id>external</id>
-			<url>file://${project.basedir}/../external</url>
-		</repository>
-	</repositories>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
