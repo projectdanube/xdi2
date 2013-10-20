@@ -63,7 +63,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 
 		for (XdiInnerRoot xdiInnerRoot : XdiLocalRoot.findLocalRoot(messageResult.getGraph()).getInnerRoots()) {
 
-			CopyUtil.copyContextNode(xdiInnerRoot.getContextNode(), messageResult.getGraph(), null);
+			CopyUtil.copyContextNode(this.getGraph().getDeepContextNode(xdiInnerRoot.getContextNode().getXri()), messageResult.getGraph(), null);
 		}
 	}
 
