@@ -28,6 +28,7 @@ import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
+import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.io.XDIReader;
@@ -219,8 +220,8 @@ public abstract class AbstractGraphTest extends TestCase {
 	public void testDeleteDeep() throws Exception {
 
 		Graph graph12 = this.openNewGraph(this.getClass().getName() + "-graph-12");
-		assertEquals(graph12.getRootContextNode(), graph12.getDeepContextNode(XDIConstants.XRI_S_CONTEXT));
-		assertEquals(graph12.getRootContextNode().getXri(), XDIConstants.XRI_S_CONTEXT);
+		assertEquals(graph12.getRootContextNode(), graph12.getDeepContextNode(XDIConstants.XRI_S_ROOT));
+		assertEquals(graph12.getRootContextNode().getXri(), XDIConstants.XRI_S_ROOT);
 
 		graph12.setDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=someone"));
 		graph12.getDeepContextNode(XDI3Segment.create("=markus")).delete();
@@ -622,29 +623,20 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		ContextNode markus = graph20.setDeepContextNode(XDI3Segment.create("=markus"));
 
-		try {
+		try { markus.setContextNode(XDI3SubSegment.create("()")); fail(); } catch (Xdi2GraphException ex) { }
+		try { markus.setRelation(XDI3Segment.create("()"), XDI3Segment.create("=animesh")); fail(); } catch (Xdi2GraphException ex) { }
+		try { markus.setRelation(XDI3Segment.create("&"), XDI3Segment.create("=animesh")); fail(); } catch (Xdi2GraphException ex) { }
 
-			markus.setContextNode(XDI3SubSegment.create("()"));
-			fail();
-		} catch (Xdi2GraphException ex){
+		Equivalence.setReferenceContextNode(markus, XDI3Segment.create("[=]!:uuid:1234"));
 
-		}
+		try { markus.setContextNode(XDI3SubSegment.create("<+email>")); fail(); } catch (Xdi2GraphException ex) { }
+		try { markus.setRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=animesh")); fail(); } catch (Xdi2GraphException ex) { }
+		try { markus.setLiteral("hello"); fail(); } catch (Xdi2GraphException ex) { }
 
-		try {
+		Equivalence.getReferenceContextNode(markus).delete();
+		markus.setRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
 
-			markus.setRelation(XDI3Segment.create("()"), XDI3Segment.create("=animesh"));
-			fail();
-		} catch (Xdi2GraphException ex){
-
-		}
-
-		try {
-
-			markus.setRelation(XDI3Segment.create("&"), XDI3Segment.create("=animesh"));
-			fail();
-		} catch (Xdi2GraphException ex){
-
-		}
+		try { Equivalence.setReferenceContextNode(markus, XDI3Segment.create("[=]!:uuid:1234")); fail(); } catch (Xdi2GraphException ex) { }
 
 		graph20.close();
 	}
@@ -1037,11 +1029,11 @@ public abstract class AbstractGraphTest extends TestCase {
 		graph30.setDeepRelation(XDI3Segment.create("=a=b=c"), XDI3Segment.create("+x"), XDI3Segment.create("(=a=b=c/+d)"));
 
 		assertEquals(graph30.getRootContextNode().getAllStatementCount(), 8);
-		
+
 		graph30.clear();
 
 		assertTrue(graph30.isEmpty());
-		
+
 		graph30.close();
 	}
 
@@ -1288,7 +1280,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		}
 
 		assertNull(rootContextNode.getArcXri());
-		assertEquals(XDIConstants.XRI_S_CONTEXT, rootContextNode.getXri());
+		assertEquals(XDIConstants.XRI_S_ROOT, rootContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("=abc"), abcContextNode.getArcXri());
 		assertEquals(XDI3Segment.create("=abc"), abcContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("[+passport]"), abcPassportContextNode.getArcXri());
@@ -1563,7 +1555,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		}
 
 		assertNull(rootContextNode.getArcXri());
-		assertEquals(XDIConstants.XRI_S_CONTEXT, rootContextNode.getXri());
+		assertEquals(XDIConstants.XRI_S_ROOT, rootContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("=abc"), abcContextNode.getArcXri());
 		assertEquals(XDI3Segment.create("=abc"), abcContextNode.getXri());
 		assertEquals(XDI3SubSegment.create("[+passport]"), abcPassportContextNode.getArcXri());

@@ -142,9 +142,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 	 * TargetInterceptor
 	 */
 
-	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Segment contextNodeXri, ExecutionContext executionContext) {
-
-		LinkContract linkContract = getLinkContract(executionContext);
+	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Segment contextNodeXri, LinkContract linkContract) {
 
 		// check positive permissions for the target address
 
@@ -153,14 +151,14 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		positiveterators.add(linkContract.getPermissionTargetAddresses(XDILinkContractConstants.XRI_S_ALL));
 		CompositeIterator<XDI3Segment> positiveIterator = new CompositeIterator<XDI3Segment> (positiveterators.iterator());
 
-		int longestPositiveMatch = -1;
+		int longestPositivePermission = -1;
 
 		for (XDI3Segment targetAddress : positiveIterator) {
 
 			if (XDI3Util.startsWith(contextNodeXri, targetAddress) != null) {
 
 				int positiveMatch = targetAddress.equals(XDIConstants.XRI_S_ROOT) ? 0 : targetAddress.getNumSubSegments();
-				if (positiveMatch > longestPositiveMatch) longestPositiveMatch = positiveMatch;
+				if (positiveMatch > longestPositivePermission) longestPositivePermission = positiveMatch;
 
 				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
 			}
@@ -173,14 +171,14 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		negativeIterators.add(linkContract.getNegativePermissionTargetAddresses(XDILinkContractConstants.XRI_S_ALL));
 		CompositeIterator<XDI3Segment> negativeIterator = new CompositeIterator<XDI3Segment> (negativeIterators.iterator());
 
-		int longestNegativeMatch = -1;
+		int longestNegativePermission = -1;
 
 		for (XDI3Segment targetAddress : negativeIterator) {
 
 			if (XDI3Util.startsWith(contextNodeXri, targetAddress) != null) {
 
 				int negativeMatch = targetAddress.equals(XDIConstants.XRI_S_ROOT) ? 0 : targetAddress.getNumSubSegments();
-				if (negativeMatch > longestNegativeMatch) longestNegativeMatch = negativeMatch;
+				if (negativeMatch > longestNegativePermission) longestNegativePermission = negativeMatch;
 
 				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + operation.getOperationXri() + " on " + contextNodeXri);
 			}
@@ -188,7 +186,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		// decide
 
-		boolean decision = longestPositiveMatch > longestNegativeMatch;
+		boolean decision = longestPositivePermission > longestNegativePermission;
 
 		// done
 
@@ -197,29 +195,25 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		return decision;
 	}
 
-	@Override
-	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Statement statementXri, LinkContract linkContract) {
 
-		// read the referenced link contract from the execution context
+		// check positive permissions for the target statement
 
-		LinkContract linkContract = getLinkContract(executionContext);
-		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
+		boolean positivePermission = linkContract.hasPermissionTargetStatement(operation.getOperationXri(), statementXri);
 
-		XDI3Segment contextNodeXri;
+		// check negative permissions for the target statement
 
-		if (targetStatement.isContextNodeStatement()) 
-			contextNodeXri = targetStatement.getTargetContextNodeXri();
-		else
-			contextNodeXri = targetStatement.getContextNodeXri();
+		boolean negativePermission = linkContract.hasNegativePermissionTargetStatement(operation.getOperationXri(), statementXri);
+		
+		// decide
 
-		if (! checkLinkContractAuthorization(operation, contextNodeXri, executionContext)) {
-
-			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target statement: " + targetStatement, null, executionContext);
-		}
+		boolean decision = positivePermission && negativePermission;
 
 		// done
 
-		return targetStatement;
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + operation.getOperationXri() + " on " + statementXri + ": " + decision);
+
+		return decision;
 	}
 
 	@Override
@@ -230,9 +224,11 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
-		XDI3Segment contextNodeXri = targetAddress;
-
-		if (! checkLinkContractAuthorization(operation, contextNodeXri, executionContext)) {
+		// check permission on target address
+		
+		boolean authorized = checkLinkContractAuthorization(operation, targetAddress, linkContract);
+		
+		if (! authorized) {
 
 			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target address: " + targetAddress, null, executionContext);
 		}
@@ -240,6 +236,36 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		// done
 
 		return targetAddress;
+	}
+
+	@Override
+	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		// read the referenced link contract from the execution context
+
+		LinkContract linkContract = getLinkContract(executionContext);
+		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
+
+		// check permission on target address and target statement
+
+		XDI3Segment targetAddress;
+
+		if (targetStatement.isContextNodeStatement()) 
+			targetAddress = targetStatement.getTargetContextNodeXri();
+		else
+			targetAddress = targetStatement.getContextNodeXri();
+
+		boolean authorized = checkLinkContractAuthorization(operation, targetAddress, linkContract);
+		authorized = authorized || checkLinkContractAuthorization(operation, targetStatement, linkContract);
+		
+		if (! authorized) {
+
+			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target statement: " + targetStatement, null, executionContext);
+		}
+
+		// done
+
+		return targetStatement;
 	}
 
 	/*

@@ -777,14 +777,23 @@ public abstract class AbstractContextNode implements ContextNode {
 		if (XDIConstants.XRI_SS_CONTEXT.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
 		if (XDIConstants.XRI_SS_LITERAL.equals(arcXri)) throw new Xdi2GraphException("Invalid relation arc XRI: " + arcXri);
 
-		if (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! this.isEmpty() && ! this.containsRelation(arcXri, targetContextNodeXri)) {
+		if (! this.isEmpty()) {
 
-			throw new Xdi2GraphException("Cannot add " + XDIDictionaryConstants.XRI_S_REF + "/" + targetContextNodeXri + " relation to non-empty context node " + this.getXri() + ".");
-		}
+			if (XDIDictionaryConstants.XRI_S_REF.equals(arcXri)) {
 
-		if (XDIDictionaryConstants.XRI_S_REP.equals(arcXri) && ! this.isEmpty() && ! this.containsRelation(arcXri, targetContextNodeXri)) {
+				if (! this.containsRelation(XDIDictionaryConstants.XRI_S_REF, targetContextNodeXri)) throw new Xdi2GraphException("Cannot add " + arcXri + "/" + targetContextNodeXri + " relation to non-empty context node " + this.getXri() + ".");
+			} else {
 
-			throw new Xdi2GraphException("Cannot add " + XDIDictionaryConstants.XRI_S_REP + "/" + targetContextNodeXri + " relation to non-empty context node " + this.getXri() + ".");
+				if (this.containsRelations(XDIDictionaryConstants.XRI_S_REF)) throw new Xdi2GraphException("Cannot add " + arcXri + "/" + targetContextNodeXri + " relation to context node " + this.getXri() + ", which already contains a $ref.");
+			}
+
+			if (XDIDictionaryConstants.XRI_S_REP.equals(arcXri)) {
+
+				if (! this.containsRelation(XDIDictionaryConstants.XRI_S_REP, targetContextNodeXri)) throw new Xdi2GraphException("Cannot add " + arcXri + "/" + targetContextNodeXri + " relation to non-empty context node " + this.getXri() + ".");
+			} else {
+
+				if (this.containsRelations(XDIDictionaryConstants.XRI_S_REP)) throw new Xdi2GraphException("Cannot add " + arcXri + "/" + targetContextNodeXri + " relation to context node " + this.getXri() + ", which already contains a $rep.");
+			}
 		}
 	}
 
@@ -797,6 +806,9 @@ public abstract class AbstractContextNode implements ContextNode {
 		if (! XdiValue.isValid(this)) throw new Xdi2GraphException("Can only create a literal in a value context.");
 
 		if (! AbstractLiteral.isValidLiteralData(literalData)) throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
+
+		if (this.containsRelations(XDIDictionaryConstants.XRI_S_REF)) throw new Xdi2GraphException("Cannot add literal to context node " + this.getXri() + " containing a " + XDIDictionaryConstants.XRI_S_REF + " relation.");
+		if (this.containsRelations(XDIDictionaryConstants.XRI_S_REP)) throw new Xdi2GraphException("Cannot add literal to context node " + this.getXri() + " containing a " + XDIDictionaryConstants.XRI_S_REP + " relation.");
 	}
 
 	/**

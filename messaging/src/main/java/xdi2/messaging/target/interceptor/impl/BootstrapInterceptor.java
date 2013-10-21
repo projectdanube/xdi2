@@ -140,8 +140,6 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 				ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).findPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
 				bootstrapOwnerSynonymPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 				bootstrapOwnerSynonymPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfPeerRootContextNode);
-				bootstrapOwnerSelfPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
-				bootstrapOwnerSelfPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonymPeerRootContextNode);
 			}
 		}
 
