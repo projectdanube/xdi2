@@ -204,10 +204,10 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		// check negative permissions for the target statement
 
 		boolean negativePermission = linkContract.hasNegativePermissionTargetStatement(operation.getOperationXri(), statementXri);
-		
+
 		// decide
 
-		boolean decision = positivePermission && negativePermission;
+		boolean decision = positivePermission && ! negativePermission;
 
 		// done
 
@@ -225,9 +225,9 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
 		// check permission on target address
-		
+
 		boolean authorized = checkLinkContractAuthorization(operation, targetAddress, linkContract);
-		
+
 		if (! authorized) {
 
 			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target address: " + targetAddress, null, executionContext);
@@ -257,7 +257,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		boolean authorized = checkLinkContractAuthorization(operation, targetAddress, linkContract);
 		authorized = authorized || checkLinkContractAuthorization(operation, targetStatement, linkContract);
-		
+
 		if (! authorized) {
 
 			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target statement: " + targetStatement, null, executionContext);
