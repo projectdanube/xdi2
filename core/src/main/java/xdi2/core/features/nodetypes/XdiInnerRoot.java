@@ -65,16 +65,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public ContextNode getSubjectContextNode() {
 
-		XDI3Segment subject = XdiInnerRoot.getSubjectOfInnerRootXri(this.getContextNode().getArcXri());
-		if (subject == null) return null;
-
-		ContextNode parentContextNode = this.getContextNode().getContextNode();
-		if (parentContextNode == null) return null;
-
-		ContextNode subjectContextNode = parentContextNode.getDeepContextNode(subject);
-		if (subjectContextNode == null) return null;
-
-		return subjectContextNode;
+		return getSubjectContextNode(this.getContextNode());
 	}
 
 	/**
@@ -83,16 +74,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public Relation getPredicateRelation() {
 
-		XDI3Segment predicate = XdiInnerRoot.getPredicateOfInnerRootXri(this.getContextNode().getArcXri());
-		if (predicate == null) return null;
-
-		ContextNode subjectContextNode = this.getSubjectContextNode();
-		if (subjectContextNode == null) return null;
-
-		Relation predicateRelation = subjectContextNode.getRelation(predicate, this.getContextNode().getXri());
-		if (predicateRelation == null) return null;
-
-		return predicateRelation;
+		return getPredicateRelation(this.getContextNode());
 	}
 
 	/**
@@ -126,6 +108,44 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	public static XDI3SubSegment createInnerRootArcXri(XDI3Segment subject, XDI3Segment predicate) {
 
 		return XDI3SubSegment.create("" + XDIConstants.XS_ROOT.charAt(0) + subject.toString() + "/" + predicate.toString() + XDIConstants.XS_ROOT.charAt(1));
+	}
+
+	/**
+	 * Returns the subject context node of the XDI inner root context node.
+	 * @param contextNode An XDI inner root context node.
+	 * @return The subject context node of the inner root context node.
+	 */
+	public static ContextNode getSubjectContextNode(ContextNode contextNode) {
+
+		XDI3Segment subject = XdiInnerRoot.getSubjectOfInnerRootXri(contextNode.getArcXri());
+		if (subject == null) return null;
+
+		ContextNode parentContextNode = contextNode.getContextNode();
+		if (parentContextNode == null) return null;
+
+		ContextNode subjectContextNode = parentContextNode.getDeepContextNode(subject);
+		if (subjectContextNode == null) return null;
+
+		return subjectContextNode;
+	}
+
+	/**
+	 * Returns the predicate relation of the XDI inner root context node.
+	 * @param contextNode An XDI inner root context node.
+	 * @return The predicate relation of the inner root context node.
+	 */
+	public static Relation getPredicateRelation(ContextNode contextNode) {
+
+		XDI3Segment predicate = XdiInnerRoot.getPredicateOfInnerRootXri(contextNode.getArcXri());
+		if (predicate == null) return null;
+
+		ContextNode subjectContextNode = getSubjectContextNode(contextNode);
+		if (subjectContextNode == null) return null;
+
+		Relation predicateRelation = subjectContextNode.getRelation(predicate, contextNode.getXri());
+		if (predicateRelation == null) return null;
+
+		return predicateRelation;
 	}
 
 	/**

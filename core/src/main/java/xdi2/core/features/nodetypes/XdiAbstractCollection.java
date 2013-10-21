@@ -43,9 +43,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI class.
+	 * Checks if a context node is a valid XDI collection.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI class.
+	 * @return True if the context node is a valid XDI collection.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -56,9 +56,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Factory method that creates an XDI class bound to a given context node.
-	 * @param contextNode The context node that is an XDI class.
-	 * @return The XDI class.
+	 * Factory method that creates an XDI collection bound to a given context node.
+	 * @param contextNode The context node that is an XDI collection.
+	 * @return The XDI collection.
 	 */
 	public static XdiCollection<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
@@ -85,7 +85,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 */
 
 	/**
-	 * Sets an XDI instance under this XDI class.
+	 * Sets an XDI instance under this XDI collection.
 	 * @return The XDI instance.
 	 */
 	@Override
@@ -101,7 +101,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * gets an XDI instance under this XDI class.
+	 * gets an XDI instance under this XDI collection.
 	 * @return The XDI instance.
 	 */
 	@Override
@@ -114,7 +114,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns all XDI instances in this XDI class.
+	 * Returns all XDI instances in this XDI collection.
 	 * @return An iterator over all XDI instances.
 	 */
 	@Override
@@ -124,7 +124,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns the number of XDI instances in this XDI class.
+	 * Returns the number of XDI instances in this XDI collection.
 	 */
 	@Override
 	public long getXdiMembersUnorderedCount() {
@@ -133,7 +133,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Sets an XDI element under this XDI class.
+	 * Sets an XDI element under this XDI collection.
 	 * @return The XDI element.
 	 */
 	@Override
@@ -151,7 +151,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Gets an XDI element under this XDI class.
+	 * Gets an XDI element under this XDI collection.
 	 * @return The XDI element.
 	 */
 	@Override
@@ -168,7 +168,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns all XDI elements in this XDI class.
+	 * Returns all XDI elements in this XDI collection.
 	 * @return An iterator over all XDI elements.
 	 */
 	@Override
@@ -178,7 +178,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns the number of XDI elements in this XDI class.
+	 * Returns the number of XDI elements in this XDI collection.
 	 */
 	@Override
 	public long getXdiMembersOrderedCount() {
@@ -187,7 +187,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns all XDI instances and elements in this XDI class.
+	 * Returns all XDI instances and elements in this XDI collection.
 	 * @return An iterator over all XDI instances and elements.
 	 */
 	@Override
@@ -203,7 +203,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns all XDI instances and elements in this XDI class.
+	 * Returns all XDI instances and elements in this XDI collection.
 	 * @return An iterator over all XDI instances and elements.
 	 */
 	@Override
@@ -241,7 +241,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 		else if (XdiEntityCollection.class.isAssignableFrom(this.getClass()))
 			attribute = false;
 		else
-			throw new IllegalStateException("Invalid XDI class: " + this.getClass().getSimpleName());
+			throw new IllegalStateException("Invalid XDI collection: " + this.getClass().getSimpleName());
 
 		return attribute;
 	}

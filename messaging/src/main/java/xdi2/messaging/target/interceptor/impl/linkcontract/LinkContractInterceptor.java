@@ -1,12 +1,15 @@
 package xdi2.messaging.target.interceptor.impl.linkcontract;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
@@ -14,6 +17,7 @@ import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.util.XDI3Util;
+import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
@@ -142,34 +146,55 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		LinkContract linkContract = getLinkContract(executionContext);
 
-		// check if the link contract covers the context node XRI
+		// check positive permissions for the target address
 
-		for (Iterator<ContextNode> contextNodes = linkContract.getNodesWithPermission(operation.getOperationXri()); contextNodes.hasNext(); ) {
+		List<Iterator<? extends XDI3Segment>> positiveterators = new ArrayList<Iterator<? extends XDI3Segment>> ();
+		positiveterators.add(linkContract.getPermissionTargetAddresses(operation.getOperationXri()));
+		positiveterators.add(linkContract.getPermissionTargetAddresses(XDILinkContractConstants.XRI_S_ALL));
+		CompositeIterator<XDI3Segment> positiveIterator = new CompositeIterator<XDI3Segment> (positiveterators.iterator());
 
-			ContextNode contextNode = contextNodes.next();
+		int longestPositiveMatch = -1;
 
-			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri()) != null) {
+		for (XDI3Segment targetAddress : positiveIterator) {
+
+			if (XDI3Util.startsWith(contextNodeXri, targetAddress) != null) {
+
+				int positiveMatch = targetAddress.equals(XDIConstants.XRI_S_ROOT) ? 0 : targetAddress.getNumSubSegments();
+				if (positiveMatch > longestPositiveMatch) longestPositiveMatch = positiveMatch;
 
 				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
-				return true;
 			}
 		}
 
-		for (Iterator<ContextNode> contextNodes = linkContract.getNodesWithPermission(XDILinkContractConstants.XRI_S_ALL); contextNodes.hasNext(); ) {
+		// check negative permissions for the target address
 
-			ContextNode contextNode = contextNodes.next();
+		List<Iterator<? extends XDI3Segment>> negativeIterators = new ArrayList<Iterator<? extends XDI3Segment>> ();
+		negativeIterators.add(linkContract.getNegativePermissionTargetAddresses(operation.getOperationXri()));
+		negativeIterators.add(linkContract.getNegativePermissionTargetAddresses(XDILinkContractConstants.XRI_S_ALL));
+		CompositeIterator<XDI3Segment> negativeIterator = new CompositeIterator<XDI3Segment> (negativeIterators.iterator());
 
-			if (contextNode.isRootContextNode() || XDI3Util.startsWith(contextNodeXri, contextNode.getXri()) != null) {
+		int longestNegativeMatch = -1;
 
-				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
-				return true;
+		for (XDI3Segment targetAddress : negativeIterator) {
+
+			if (XDI3Util.startsWith(contextNodeXri, targetAddress) != null) {
+
+				int negativeMatch = targetAddress.equals(XDIConstants.XRI_S_ROOT) ? 0 : targetAddress.getNumSubSegments();
+				if (negativeMatch > longestNegativeMatch) longestNegativeMatch = negativeMatch;
+
+				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + operation.getOperationXri() + " on " + contextNodeXri);
 			}
 		}
+
+		// decide
+
+		boolean decision = longestPositiveMatch > longestNegativeMatch;
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + operation.getOperationXri() + " on " + contextNodeXri);
-		return false;
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + operation.getOperationXri() + " on " + contextNodeXri + ": " + decision);
+
+		return decision;
 	}
 
 	@Override

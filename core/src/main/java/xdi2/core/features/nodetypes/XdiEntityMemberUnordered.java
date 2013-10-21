@@ -5,6 +5,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -65,13 +66,22 @@ public final class XdiEntityMemberUnordered extends XdiAbstractMemberUnordered<X
 	 */
 
 	/**
-	 * Gets or returns the parent XDI class of this XDI unordered entity instance.
-	 * @return The parent XDI class.
+	 * Returns the parent XDI collection of this XDI unordered entity instance.
+	 * @return The parent XDI collection.
 	 */
 	@Override
 	public XdiEntityCollection getXdiCollection() {
 
 		return new XdiEntityCollection(this.getContextNode().getContextNode());
+	}
+
+	/**
+	 * Returns an XDI inner root based on this XDI entity.
+	 * @return The XDI inner root.
+	 */
+	public XdiInnerRoot getXdiInnerRoot(XDI3Segment innerRootPredicateXri, boolean create) {
+
+		return XdiAbstractEntity.getXdiInnerRoot(this, innerRootPredicateXri, create);
 	}
 
 	/*

@@ -65,8 +65,8 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 	 */
 
 	/**
-	 * Gets or returns the parent XDI class of this XDI ordered attribute instance.
-	 * @return The parent XDI class.
+	 * Returns the parent XDI collection of this XDI ordered attribute instance.
+	 * @return The parent XDI collection.
 	 */
 	@Override
 	public XdiAttributeCollection getXdiCollection() {

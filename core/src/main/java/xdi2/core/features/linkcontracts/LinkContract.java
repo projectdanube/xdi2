@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Statement;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
@@ -11,8 +12,11 @@ import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityMember;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.util.XDI3Util;
+import xdi2.core.util.iterators.MappingRelationTargetContextNodeXriIterator;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 
 /**
  * An XDI link contract, represented as an XDI entity.
@@ -103,47 +107,117 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	/**
 	 * Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract to a target context node XRI.
 	 * @param permissionXri The permission XRI.
-	 * @param targetContextNodeXri The target context node XRI of the permission.
+	 * @param targetAddress The target context node XRI of the permission.
 	 */
-	public void setPermission(XDI3Segment permissionXri, XDI3Segment targetContextNodeXri) {
+	public void setPermissionTargetAddress(XDI3Segment permissionXri, XDI3Segment targetAddress) {
 
-		if (permissionXri == null || targetContextNodeXri == null) throw new NullPointerException();
-
-		// if the same permission arc exists for the same target context node, then a new arc should not be added
-
-		if (this.getContextNode().containsRelation(permissionXri, targetContextNodeXri)) return;
+		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
 
 		// if an arc to the given target context node exists with $all, then no other permission arc should be created
 
-		if (this.getContextNode().containsRelation(XDILinkContractConstants.XRI_S_ALL, targetContextNodeXri)) return;
+		if (this.getContextNode().containsRelation(XDILinkContractConstants.XRI_S_ALL, targetAddress)) return;
 
 		// if a $all permission is added to the target node then all other permission arcs should be deleted
 
 		if (permissionXri.equals(XDILinkContractConstants.XRI_S_ALL)) {
 
-			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_GET, targetContextNodeXri);
-			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_ADD, targetContextNodeXri);
-			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_MOD, targetContextNodeXri);
-			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_DEL, targetContextNodeXri);
+			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_GET, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_SET, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_DEL, targetAddress);
 		}
 
 		// set the permission arc
 
-		this.getContextNode().setRelation(permissionXri, targetContextNodeXri);
+		this.getContextNode().setRelation(permissionXri, targetAddress);
 	}
 
-	public void delPermission(XDI3Segment permissionXri, XDI3Segment targetContextNodeXri) {
+	public void setNegativePermissionTargetAddress(XDI3Segment permissionXri, XDI3Segment targetAddress) {
 
-		if (permissionXri == null || targetContextNodeXri == null) throw new NullPointerException();
+		this.setPermissionTargetAddress(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetAddress);
+	}
+
+	public void setPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+
+		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
+
+		// find the inner root
+
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
+		if (xdiInnerRoot == null) return;
+
+		// set the permission statement
+
+		xdiInnerRoot.setRelativeStatement(targetStatement);
+	}
+
+	public void setNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+
+		this.setPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatement);
+	}
+
+	public void delPermissionTargetAddress(XDI3Segment permissionXri, XDI3Segment targetAddress) {
+
+		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
 
 		// delete the permission arc
 
-		this.getContextNode().delRelation(permissionXri, targetContextNodeXri);
+		this.getContextNode().delRelation(permissionXri, targetAddress);
 	}
 
-	public Iterator<ContextNode> getNodesWithPermission(XDI3Segment permissionXri) {
+	public void delNegativePermissionTargetAddress(XDI3Segment permissionXri, XDI3Segment targetAddress) {
 
-		return new MappingRelationTargetContextNodeIterator(this.getContextNode().getRelations(permissionXri));
+		this.delPermissionTargetAddress(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetAddress);
+	}
+
+	public void delPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+
+		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
+
+		// find the inner root
+
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
+		if (xdiInnerRoot == null) return;
+
+		// delete the permission statement
+
+		Statement statement = xdiInnerRoot.getRelativeStatement(targetStatement);
+		if (statement == null) return;
+
+		statement.delete();
+	}
+
+	public void delNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+
+		this.delPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatement);
+	}
+
+	public Iterator<XDI3Segment> getPermissionTargetAddresses(XDI3Segment permissionXri) {
+
+		if (permissionXri == null) throw new NullPointerException();
+
+		return new MappingRelationTargetContextNodeXriIterator(this.getContextNode().getRelations(permissionXri));
+	}
+
+	public Iterator<XDI3Segment> getNegativePermissionTargetAddresses(XDI3Segment permissionXri) {
+
+		return this.getPermissionTargetAddresses(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri));
+	}
+
+	public boolean hasPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+
+		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
+
+		// find the inner root
+
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
+		if (xdiInnerRoot == null) return false;
+
+		return xdiInnerRoot.containsRelativeStatement(targetStatement);
+	}
+
+	public boolean hasNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+
+		return this.hasPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatement);
 	}
 
 	/*

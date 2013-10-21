@@ -65,8 +65,8 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 	 */
 
 	/**
-	 * Gets or returns the parent XDI class of this XDI unordered attribute instance.
-	 * @return The parent XDI class.
+	 * Returns the parent XDI collection of this XDI unordered attribute instance.
+	 * @return The parent XDI collection.
 	 */
 	@Override
 	public XdiAttributeCollection getXdiCollection() {

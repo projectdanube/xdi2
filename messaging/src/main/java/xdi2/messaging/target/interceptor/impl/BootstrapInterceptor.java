@@ -131,11 +131,17 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 			for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 
-				graph.setDeepRelation(bootstrapOwnerSynonym, XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerContextNode);
+				ContextNode bootstrapOwnerSynonymContextNode = graph.setDeepContextNode(bootstrapOwnerSynonym);
+				bootstrapOwnerSynonymContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
+				bootstrapOwnerSynonymContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerContextNode);
+				bootstrapOwnerContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
+				bootstrapOwnerContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonymContextNode);
 
 				ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).findPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
 				bootstrapOwnerSynonymPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 				bootstrapOwnerSynonymPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfPeerRootContextNode);
+				bootstrapOwnerSelfPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
+				bootstrapOwnerSelfPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonymPeerRootContextNode);
 			}
 		}
 
@@ -153,7 +159,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 			bootstrapOwnerContextNode = graph.setDeepContextNode(this.getBootstrapOwner());
 
 			LinkContract bootstrapLinkContract = LinkContracts.getLinkContract(rootContextNode, true);
-			bootstrapLinkContract.setPermission(XDILinkContractConstants.XRI_S_ALL, XDIConstants.XRI_S_ROOT);
+			bootstrapLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_ALL, XDIConstants.XRI_S_ROOT);
 
 			PolicyAnd policyAnd = bootstrapLinkContract.getPolicyRoot(true).createAndPolicy(true);
 			PolicyUtil.createSenderIsOperator(policyAnd, this.getBootstrapOwner());
@@ -169,7 +175,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 			ContextNode publicContextNode = graph.setDeepContextNode(XDILinkContractConstants.XRI_S_PUBLIC);
 
 			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
-			bootstrapPublicLinkContract.setPermission(XDILinkContractConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_PUBLIC);
+			bootstrapPublicLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_PUBLIC);
 		}
 
 		// create bootstrap statements
