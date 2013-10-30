@@ -28,7 +28,6 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
-import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.AbstractMessagingTarget;
@@ -422,7 +421,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 		Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 		feedbackMessage.deleteOperations();
 
-		Operation feedbackOperation = feedbackMessage.createOperation(XDIMessagingConstants.XRI_S_GET, refRepContextNode.getXri());
+		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getXri());
 		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XRI_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XRI_PARAMETER_DEREF, Boolean.TRUE);
 
 		// feedback
@@ -486,8 +485,8 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 		feedbackMessageRef.deleteOperations();
 		feedbackMessageRep.deleteOperations();
 
-		feedbackMessageRef.createOperation(XDIMessagingConstants.XRI_S_GET, XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDIConstants.XRI_S_VARIABLE));
-		feedbackMessageRep.createOperation(XDIMessagingConstants.XRI_S_GET, XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDIConstants.XRI_S_VARIABLE));
+		feedbackMessageRef.createGetOperation(XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDIConstants.XRI_S_VARIABLE));
+		feedbackMessageRep.createGetOperation(XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDIConstants.XRI_S_VARIABLE));
 
 		// feedback
 
