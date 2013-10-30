@@ -22,3 +22,4 @@ Known default HTTP ports of various XDI2 projects.
 7073: rn-registration-service
 7074: rn-respect-connect-service
 7075: rn-reputation-service
+7101: rn-respect-connect-builder
