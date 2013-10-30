@@ -31,20 +31,20 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 	private static Logger log = LoggerFactory.getLogger(GraphSignatureAuthenticator.class.getName());
 
-	private Graph signatureGraph;
+	private Graph publicKeyGraph;
 
-	public GraphSignatureAuthenticator(Graph signatureGraph) {
+	public GraphSignatureAuthenticator(Graph publicKeyGraph) {
 
 		super();
 
-		this.signatureGraph = signatureGraph;
+		this.publicKeyGraph = publicKeyGraph;
 	}
 
 	public GraphSignatureAuthenticator() {
 
 		super();
 
-		this.signatureGraph = null;
+		this.publicKeyGraph = null;
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 		super.init(messagingTarget, authenticationSignatureInterceptor);
 
-		if (this.getSignatureGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setSignatureGraph(((GraphMessagingTarget) messagingTarget).getGraph());
-		if (this.getSignatureGraph() == null) throw new Xdi2MessagingException("No secret token graph.", null, null);
+		if (this.getPublicKeyGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setPublicKeyGraph(((GraphMessagingTarget) messagingTarget).getGraph());
+		if (this.getPublicKeyGraph() == null) throw new Xdi2MessagingException("No secret token graph.", null, null);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 		// sender peer root
 
-		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getSignatureGraph()).findPeerRoot(senderXri, false);
+		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getPublicKeyGraph()).findPeerRoot(senderXri, false);
 		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);
@@ -106,13 +106,13 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 	 * Getters and setters
 	 */
 
-	public Graph getSignatureGraph() {
+	public Graph getPublicKeyGraph() {
 	
-		return this.signatureGraph;
+		return this.publicKeyGraph;
 	}
 
-	public void setSignatureGraph(Graph signatureGraph) {
+	public void setPublicKeyGraph(Graph publicKeyGraph) {
 	
-		this.signatureGraph = signatureGraph;
+		this.publicKeyGraph = publicKeyGraph;
 	}
 }
