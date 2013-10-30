@@ -11,6 +11,7 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntity;
@@ -243,6 +244,10 @@ public final class Message implements Serializable, Comparable<Message> {
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
 	}
 
+	/*
+	 * Methods releated to message authentication
+	 */
+
 	/**
 	 * Set a secret token on the message.
 	 * @param secretToken The secret token to set.
@@ -300,6 +305,49 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		return Signatures.setSignature(this.getContextNode(), digestAlgorithm, digestLength, keyAlgorithm, keyLength);
 	}
+
+	/*
+	 * Methods related to message types
+	 */
+
+	public Iterator<XDI3Segment> getMessageTypes() {
+
+		return Dictionary.getContextNodeTypes(this.getContextNode());
+	}
+
+	public XDI3Segment getMessageType() {
+
+		return Dictionary.getContextNodeType(this.getContextNode());
+	}
+
+	public boolean isMessageType(XDI3Segment type) {
+
+		return Dictionary.isContextNodeType(this.getContextNode(), type);
+	}
+
+	public void setMessageType(XDI3Segment type) {
+
+		Dictionary.setContextNodeType(this.getContextNode(), type);
+	}
+
+	public void delMessageType(XDI3Segment type) {
+
+		Dictionary.delContextNodeType(this.getContextNode(), type);
+	}
+
+	public void delMessageTypes() {
+
+		Dictionary.delContextNodeTypes(this.getContextNode());
+	}
+
+	public void replaceMessageType(XDI3Segment type) {
+
+		Dictionary.replaceContextNodeType(this.getContextNode(), type);
+	}
+
+	/*
+	 * Methods related to operations
+	 */
 
 	/**
 	 * Returns the XDI entity with XDI operations.

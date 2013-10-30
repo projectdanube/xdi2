@@ -39,4 +39,13 @@ public final class PolicyUtil {
 
 		return TrueOperator.createTrueOperator(policy, condition);
 	}
+
+	public static Operator createSignatureValidOperator(Policy policy) {
+
+		Condition condition = GenericCondition.fromStatement(XDI3Statement.fromLiteralComponents(
+				XDI3Segment.create("{$msg}" + XDIAuthenticationConstants.XRI_S_SIGNATURE_VALID + "&"), 
+				Boolean.TRUE));
+
+		return TrueOperator.createTrueOperator(policy, condition);
+	}
 }
