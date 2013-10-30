@@ -451,7 +451,7 @@ public final class XDI3Util {
 	/**
 	 * Concats all XRIs into a new XRI.
 	 */
-	public static XDI3Segment concatXris(final XDI3Segment[] xris) {
+	public static XDI3Segment concatXris(final XDI3Segment... segments) {
 
 		XDI3Segment result = null;
 
@@ -459,11 +459,11 @@ public final class XDI3Util {
 
 			StringBuffer buffer = new StringBuffer();
 
-			if (xris != null) {
+			if (segments != null) {
 
-				for (XDI3Segment xri : xris) {
+				for (XDI3Segment segment : segments) {
 
-					if (xri != null && ! XDIConstants.XRI_S_ROOT.equals(xri)) buffer.append(xri.toString());
+					if (segment != null && ! XDIConstants.XRI_S_ROOT.equals(segment)) buffer.append(segment.toString());
 				}
 			}
 
@@ -472,54 +472,35 @@ public final class XDI3Util {
 			{ result = XDI3Segment.create(buffer.toString()); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("concatXris(" + Arrays.asList(xris) + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("concatXris(" + Arrays.asList(segments) + ") --> " + result);
 		}
 	}
 
 	/**
 	 * Concats two XRIs into a new XRI.
 	 */
-	public static XDI3Segment concatXris(XDI3Segment xri1, XDI3Segment xri2) {
+	public static XDI3Segment concatXris(final XDI3SubSegment... subSegments) {
 
-		XDI3Segment result = null;
-
-		try {
-
-			StringBuffer buffer = new StringBuffer();
-			if (xri1 != null && ! XDIConstants.XRI_S_ROOT.equals(xri1)) buffer.append(xri1.toString()); 
-			if (xri2 != null && ! XDIConstants.XRI_S_ROOT.equals(xri2)) buffer.append(xri2.toString()); 
-
-			if (buffer.length() == 0) buffer.append("()");
-
-			{ result = XDI3Segment.create(buffer.toString()); return result; }
-		} finally {
-
-			if (log.isTraceEnabled()) log.trace("concatXris(" + xri1 + "," + xri2 + ") --> " + result);
-		}
+		XDI3Segment[] segments = new XDI3Segment[subSegments.length];
+		for (int i=0; i<subSegments.length; i++) segments[i] = XDI3Segment.fromComponent(subSegments[i]);
+		
+		return concatXris(segments);
 	}
 
 	/**
 	 * Concats two XRIs into a new XRI.
 	 */
-	public static XDI3Segment concatXris(final XDI3Segment xri1, final XDI3SubSegment xri2) {
+	public static XDI3Segment concatXris(final XDI3Segment segment, final XDI3SubSegment subSegment) {
 
-		return concatXris(xri1, xri2 == null ? null : XDI3Segment.fromComponent(xri2));
+		return concatXris(segment, subSegment == null ? null : XDI3Segment.fromComponent(subSegment));
 	}
 
 	/**
 	 * Concats two XRIs into a new XRI.
 	 */
-	public static XDI3Segment concatXris(final XDI3SubSegment xri1, final XDI3Segment xri2) {
+	public static XDI3Segment concatXris(final XDI3SubSegment subSegment, final XDI3Segment segment) {
 
-		return concatXris(xri1 == null ? null : XDI3Segment.fromComponent(xri1), xri2);
-	}
-
-	/**
-	 * Concats two XRIs into a new XRI.
-	 */
-	public static XDI3Segment concatXris(final XDI3SubSegment xri1, final XDI3SubSegment xri2) {
-
-		return concatXris(xri1 == null ? null : XDI3Segment.fromComponent(xri1), xri2 == null ? null : XDI3Segment.fromComponent(xri2));
+		return concatXris(subSegment == null ? null : XDI3Segment.fromComponent(subSegment), segment);
 	}
 
 	/*
