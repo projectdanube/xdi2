@@ -35,7 +35,10 @@ public class HttpTransport {
 
 	private static final Logger log = LoggerFactory.getLogger(HttpTransport.class);
 
+	private static final String HEADER_ALLOW = "Allow:";
+	private static final String HEADER_ALLOW_VALUE = "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS";
 	private static final String HEADER_CORS = "Access-Control-Allow-Origin:";
+	private static final String HEADER_CORS_VALUE = "*";
 
 	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
@@ -176,8 +179,28 @@ public class HttpTransport {
 		if (log.isDebugEnabled()) log.debug("Successfully processed DELETE request.");
 	}
 
+	public void doOptions(HttpRequest request, HttpResponse response) throws IOException {
+
+		if (log.isDebugEnabled()) log.debug("Incoming OPTIONS request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType() + ", Content-Length: " + request.getContentLength());
+
+		try {
+
+			response.setStatus(HttpResponse.SC_OK);
+			response.setContentLength(0);
+			response.setHeader(HEADER_ALLOW, HEADER_ALLOW_VALUE);
+			response.setHeader(HEADER_CORS, HEADER_CORS_VALUE);
+		} catch (Exception ex) {
+
+			log.error("Unexpected exception: " + ex.getMessage(), ex);
+			handleInternalException(request, response, ex);
+			return;
+		}
+
+		if (log.isDebugEnabled()) log.debug("Successfully processed OPTIONS request.");
+	}
+
 	protected void processGetRequest(HttpRequest request, HttpResponse response) throws Xdi2ServerException, IOException {
-		
+
 		MessagingTarget messagingTarget = request.getMessagingTarget();
 
 		// execute interceptors
@@ -245,7 +268,7 @@ public class HttpTransport {
 	protected void processPutRequest(HttpRequest request, HttpResponse response) throws Xdi2ServerException, IOException {
 
 		MessagingTarget messagingTarget = request.getMessagingTarget();
-	
+
 		// execute interceptors
 
 		if (this.getInterceptors().executeHttpTransportInterceptorsPut(this, request, response, messagingTarget)) return;
@@ -432,7 +455,7 @@ public class HttpTransport {
 
 		return executionContext;
 	}
-	
+
 	private static void sendResult(MessageResult messageResult, HttpRequest request, HttpResponse response) throws IOException {
 
 		// find a suitable writer based on accept headers
@@ -458,7 +481,7 @@ public class HttpTransport {
 		response.setStatus(HttpResponse.SC_OK);
 		response.setContentType(writer.getMimeType().toString());
 		response.setContentLength(buffer.size());
-		response.setHeader(HEADER_CORS, "*");
+		response.setHeader(HEADER_CORS, HEADER_CORS_VALUE);
 
 		if (buffer.size() > 0) {
 

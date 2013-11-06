@@ -103,6 +103,15 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 		this.httpTransport.doDelete(request, response);
 	}
 
+	@Override
+	protected void doOptions(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+
+		HttpRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
+		HttpResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
+
+		this.httpTransport.doOptions(request, response);
+	}
+	
 	/*
 	 * Getters and setters
 	 */
