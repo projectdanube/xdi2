@@ -35,10 +35,12 @@ public class HttpTransport {
 
 	private static final Logger log = LoggerFactory.getLogger(HttpTransport.class);
 
-	private static final String HEADER_ALLOW = "Allow:";
-	private static final String HEADER_ALLOW_VALUE = "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS";
-	private static final String HEADER_CORS = "Access-Control-Allow-Origin:";
-	private static final String HEADER_CORS_VALUE = "*";
+	private static final String[] HEADER_ALLOW = new String[] { "Allow", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS" };
+	private static final String[][] HEADERS_CORS = new String[][] {
+		new String[] { "Access-Control-Allow-Origin", "*" },
+		new String[] { "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept" },
+		new String[] { "Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS" }
+	};
 
 	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
@@ -187,8 +189,8 @@ public class HttpTransport {
 
 			response.setStatus(HttpResponse.SC_OK);
 			response.setContentLength(0);
-			response.setHeader(HEADER_ALLOW, HEADER_ALLOW_VALUE);
-			response.setHeader(HEADER_CORS, HEADER_CORS_VALUE);
+			response.setHeader(HEADER_ALLOW[0], HEADER_ALLOW[1]);
+			for (String[] HEADER_CORS : HEADERS_CORS) response.setHeader(HEADER_CORS[0], HEADER_CORS[1]);
 		} catch (Exception ex) {
 
 			log.error("Unexpected exception: " + ex.getMessage(), ex);
@@ -481,7 +483,7 @@ public class HttpTransport {
 		response.setStatus(HttpResponse.SC_OK);
 		response.setContentType(writer.getMimeType().toString());
 		response.setContentLength(buffer.size());
-		response.setHeader(HEADER_CORS, HEADER_CORS_VALUE);
+		for (String[] HEADER_CORS : HEADERS_CORS) response.setHeader(HEADER_CORS[0], HEADER_CORS[1]);
 
 		if (buffer.size() > 0) {
 
