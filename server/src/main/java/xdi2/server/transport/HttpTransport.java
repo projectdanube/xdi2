@@ -485,11 +485,8 @@ public class HttpTransport {
 		response.setContentLength(buffer.size());
 		for (String[] HEADER_CORS : HEADERS_CORS) response.setHeader(HEADER_CORS[0], HEADER_CORS[1]);
 
-		if (buffer.size() > 0) {
-
-			outputStream.write(buffer.toByteArray());
-			outputStream.flush();
-		}
+		outputStream.write(buffer.toByteArray());
+		outputStream.flush();
 
 		outputStream.close();
 
