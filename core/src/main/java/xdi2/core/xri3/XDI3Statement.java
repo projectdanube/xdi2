@@ -204,14 +204,6 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 	 * Methods related to inner root notation
 	 */
 
-	public boolean isInnerRootNotation() {
-
-		return isRelationStatement() && 
-				this.getTargetContextNodeXri().getNumSubSegments() == 1 &&
-				this.getTargetContextNodeXri().getFirstSubSegment().hasXRef() &&
-				this.getTargetContextNodeXri().getFirstSubSegment().getXRef().hasStatement();
-	}
-
 	public XDI3Statement getInnerRootNotationStatement() {
 
 		if (! this.isRelationStatement()) return null;
@@ -226,6 +218,11 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		if (innerRootNotationStatement == null) return null;
 
 		return innerRootNotationStatement;
+	}
+
+	public boolean isInnerRootNotation() {
+
+		return this.getInnerRootNotationStatement() != null;
 	}
 
 	public XDI3Statement fromInnerRootNotation(boolean recursive) {
@@ -243,8 +240,9 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		} else {
 
 			XDI3SubSegment innerRootSubSegment = XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, null, this.getSubject(), this.getPredicate(), null, null));
+			XDI3Segment innerRootSegment = XDI3Segment.fromComponent(innerRootSubSegment);
 
-			XDI3Statement statement = StatementUtil.concatXriStatement(XDI3Segment.fromComponent(innerRootSubSegment), innerRootStatement, true);
+			XDI3Statement statement = StatementUtil.concatXriStatement(innerRootSegment, innerRootStatement, true);
 
 			return statement;
 		}

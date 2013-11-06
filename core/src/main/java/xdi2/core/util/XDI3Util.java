@@ -467,7 +467,7 @@ public final class XDI3Util {
 				}
 			}
 
-			if (buffer.length() == 0) buffer.append("()");
+			if (buffer.length() == 0) buffer.append(XDIConstants.XRI_S_ROOT.toString());
 
 			{ result = XDI3Segment.create(buffer.toString()); return result; }
 		} finally {

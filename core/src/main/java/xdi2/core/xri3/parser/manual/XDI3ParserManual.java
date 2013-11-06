@@ -246,6 +246,8 @@ public class XDI3ParserManual extends XDI3Parser {
 			}
 		}
 
+		// done
+		
 		return this.makeXDI3XRef(string, xs, segment, statement, partialSubject, partialPredicate, iri, literal);
 	}
 
