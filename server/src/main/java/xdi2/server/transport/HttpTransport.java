@@ -188,9 +188,9 @@ public class HttpTransport {
 		try {
 
 			response.setStatus(HttpResponse.SC_OK);
-			response.setContentLength(0);
 			response.setHeader(HEADER_ALLOW[0], HEADER_ALLOW[1]);
 			for (String[] HEADER_CORS : HEADERS_CORS) response.setHeader(HEADER_CORS[0], HEADER_CORS[1]);
+			response.setContentLength(0);
 		} catch (Exception ex) {
 
 			log.error("Unexpected exception: " + ex.getMessage(), ex);
@@ -476,19 +476,23 @@ public class HttpTransport {
 
 		if (log.isDebugEnabled()) log.debug("Sending result in " + sendMimeType + " with writer " + writer.getClass().getSimpleName() + ".");
 
-		OutputStream outputStream = response.getBodyOutputStream();
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-
 		writer.write(messageResult.getGraph(), buffer);
+
 		response.setStatus(HttpResponse.SC_OK);
+		for (String[] HEADER_CORS : HEADERS_CORS) response.setHeader(HEADER_CORS[0], HEADER_CORS[1]);
 		response.setContentType(writer.getMimeType().toString());
 		response.setContentLength(buffer.size());
-		for (String[] HEADER_CORS : HEADERS_CORS) response.setHeader(HEADER_CORS[0], HEADER_CORS[1]);
 
-		outputStream.write(buffer.toByteArray());
-		outputStream.flush();
+		if (buffer.size() > 0) {
 
-		outputStream.close();
+			OutputStream outputStream = response.getBodyOutputStream();
+
+			outputStream.write(buffer.toByteArray());
+			outputStream.flush();
+
+			outputStream.close();
+		}
 
 		if (log.isDebugEnabled()) log.debug("Output complete.");
 	}
