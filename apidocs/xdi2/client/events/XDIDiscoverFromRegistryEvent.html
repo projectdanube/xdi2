@@ -4,11 +4,11 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-XDIDiscoverFromEndpointUriEvent (xdi2 0.1-SNAPSHOT API)
+XDIDiscoverFromRegistryEvent (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
-<META NAME="keywords" CONTENT="xdi2.client.events.XDIDiscoverFromEndpointUriEvent class">
-<META NAME="keywords" CONTENT="getEndpointUri()">
+<META NAME="keywords" CONTENT="xdi2.client.events.XDIDiscoverFromRegistryEvent class">
+<META NAME="keywords" CONTENT="getXri()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -16,7 +16,7 @@ XDIDiscoverFromEndpointUriEvent (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="XDIDiscoverFromEndpointUriEvent (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="XDIDiscoverFromRegistryEvent (xdi2 0.1-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -41,7 +41,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XDIDiscoverFromEndpointUriEvent.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XDIDiscoverFromRegistryEvent.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -56,11 +56,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../xdi2/client/events/XDIDiscoverEvent.html" title="class in xdi2.client.events"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../xdi2/client/events/XDIDiscoverFromXriEvent.html" title="class in xdi2.client.events"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/client/events/XDIDiscoverFromAuthorityEvent.html" title="class in xdi2.client.events"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../xdi2/client/events/XDIEvent.html" title="class in xdi2.client.events"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?xdi2/client/events/XDIDiscoverFromEndpointUriEvent.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="XDIDiscoverFromEndpointUriEvent.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?xdi2/client/events/XDIDiscoverFromRegistryEvent.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XDIDiscoverFromRegistryEvent.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -91,25 +91,25 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <FONT SIZE="-1">
 xdi2.client.events</FONT>
 <BR>
-Class XDIDiscoverFromEndpointUriEvent</H2>
+Class XDIDiscoverFromRegistryEvent</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
   <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><A HREF="http://download.oracle.com/javase/6/docs/api/java/util/EventObject.html?is-external=true" title="class or interface in java.util">java.util.EventObject</A>
       <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../xdi2/client/events/XDIEvent.html" title="class in xdi2.client.events">xdi2.client.events.XDIEvent</A>
           <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../xdi2/client/events/XDIDiscoverEvent.html" title="class in xdi2.client.events">xdi2.client.events.XDIDiscoverEvent</A>
-              <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>xdi2.client.events.XDIDiscoverFromEndpointUriEvent</B>
+              <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>xdi2.client.events.XDIDiscoverFromRegistryEvent</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>XDIDiscoverFromEndpointUriEvent</B><DT>extends <A HREF="../../../xdi2/client/events/XDIDiscoverEvent.html" title="class in xdi2.client.events">XDIDiscoverEvent</A></DL>
+<DT><PRE>public class <B>XDIDiscoverFromRegistryEvent</B><DT>extends <A HREF="../../../xdi2/client/events/XDIDiscoverEvent.html" title="class in xdi2.client.events">XDIDiscoverEvent</A></DL>
 </PRE>
 
 <P>
 <DL>
-<DT><B>See Also:</B><DD><A HREF="../../../serialized-form.html#xdi2.client.events.XDIDiscoverFromEndpointUriEvent">Serialized Form</A></DL>
+<DT><B>See Also:</B><DD><A HREF="../../../serialized-form.html#xdi2.client.events.XDIDiscoverFromRegistryEvent">Serialized Form</A></DL>
 <HR>
 
 <P>
@@ -141,10 +141,10 @@ Class XDIDiscoverFromEndpointUriEvent</H2>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/client/events/XDIDiscoverFromEndpointUriEvent.html#XDIDiscoverFromEndpointUriEvent(java.lang.Object, xdi2.messaging.MessageEnvelope, xdi2.discovery.XDIDiscoveryResult, java.lang.String)">XDIDiscoverFromEndpointUriEvent</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;source,
-                                <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-                                <A HREF="../../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A>&nbsp;discoveryResult,
-                                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;endpointUri)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/client/events/XDIDiscoverFromRegistryEvent.html#XDIDiscoverFromRegistryEvent(java.lang.Object, xdi2.messaging.MessageEnvelope, xdi2.discovery.XDIDiscoveryResult, xdi2.core.xri3.XDI3Segment)">XDIDiscoverFromRegistryEvent</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;source,
+                             <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                             <A HREF="../../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A>&nbsp;discoveryResult,
+                             <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -161,8 +161,8 @@ Class XDIDiscoverFromEndpointUriEvent</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/events/XDIDiscoverFromEndpointUriEvent.html#getEndpointUri()">getEndpointUri</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/client/events/XDIDiscoverFromRegistryEvent.html#getXri()">getXri</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -208,13 +208,13 @@ Class XDIDiscoverFromEndpointUriEvent</H2>
 </TR>
 </TABLE>
 
-<A NAME="XDIDiscoverFromEndpointUriEvent(java.lang.Object, xdi2.messaging.MessageEnvelope, xdi2.discovery.XDIDiscoveryResult, java.lang.String)"><!-- --></A><H3>
-XDIDiscoverFromEndpointUriEvent</H3>
+<A NAME="XDIDiscoverFromRegistryEvent(java.lang.Object, xdi2.messaging.MessageEnvelope, xdi2.discovery.XDIDiscoveryResult, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+XDIDiscoverFromRegistryEvent</H3>
 <PRE>
-public <B>XDIDiscoverFromEndpointUriEvent</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;source,
-                                       <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-                                       <A HREF="../../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A>&nbsp;discoveryResult,
-                                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;endpointUri)</PRE>
+public <B>XDIDiscoverFromRegistryEvent</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;source,
+                                    <A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                    <A HREF="../../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A>&nbsp;discoveryResult,
+                                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</PRE>
 <DL>
 </DL>
 
@@ -228,10 +228,10 @@ public <B>XDIDiscoverFromEndpointUriEvent</B>(<A HREF="http://download.oracle.co
 </TR>
 </TABLE>
 
-<A NAME="getEndpointUri()"><!-- --></A><H3>
-getEndpointUri</H3>
+<A NAME="getXri()"><!-- --></A><H3>
+getXri</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getEndpointUri</B>()</PRE>
+public <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getXri</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -253,7 +253,7 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.ht
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XDIDiscoverFromEndpointUriEvent.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XDIDiscoverFromRegistryEvent.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -268,11 +268,11 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.ht
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../xdi2/client/events/XDIDiscoverEvent.html" title="class in xdi2.client.events"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../xdi2/client/events/XDIDiscoverFromXriEvent.html" title="class in xdi2.client.events"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/client/events/XDIDiscoverFromAuthorityEvent.html" title="class in xdi2.client.events"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../xdi2/client/events/XDIEvent.html" title="class in xdi2.client.events"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?xdi2/client/events/XDIDiscoverFromEndpointUriEvent.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="XDIDiscoverFromEndpointUriEvent.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?xdi2/client/events/XDIDiscoverFromRegistryEvent.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XDIDiscoverFromRegistryEvent.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {

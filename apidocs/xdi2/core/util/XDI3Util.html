@@ -18,7 +18,6 @@ XDI3Util (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="removeEndXri()">
 <META NAME="keywords" CONTENT="replaceXri()">
 <META NAME="keywords" CONTENT="concatXris()">
-<META NAME="keywords" CONTENT="isCloudNumber()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -160,7 +159,7 @@ Various utility methods for working with XRI 3.0 syntax.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3Segment[])">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;xris)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3Segment...)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>...&nbsp;segments)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats all XRIs into a new XRI.</TD>
@@ -168,8 +167,8 @@ Various utility methods for working with XRI 3.0 syntax.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri1,
-           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri2)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;segment,
+           <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
@@ -177,8 +176,7 @@ Various utility methods for working with XRI 3.0 syntax.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri1,
-           <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3SubSegment...)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>...&nbsp;subSegments)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
@@ -186,17 +184,8 @@ Various utility methods for working with XRI 3.0 syntax.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
-           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri2)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3SubSegment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
-           <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)">concatXris</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment,
+           <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;segment)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concats two XRIs into a new XRI.</TD>
@@ -220,14 +209,6 @@ Various utility methods for working with XRI 3.0 syntax.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI ends with a certain other XRI.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#isCloudNumber(xdi2.core.xri3.XDI3Segment)">isCloudNumber</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI is a valid Cloud Number.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -558,10 +539,10 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 </DL>
 <HR>
 
-<A NAME="concatXris(xdi2.core.xri3.XDI3Segment[])"><!-- --></A><H3>
+<A NAME="concatXris(xdi2.core.xri3.XDI3Segment...)"><!-- --></A><H3>
 concatXris</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;xris)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>...&nbsp;segments)</PRE>
 <DL>
 <DD>Concats all XRIs into a new XRI.
 <P>
@@ -571,11 +552,10 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 </DL>
 <HR>
 
-<A NAME="concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+<A NAME="concatXris(xdi2.core.xri3.XDI3SubSegment...)"><!-- --></A><H3>
 concatXris</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri1,
-                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri2)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>...&nbsp;subSegments)</PRE>
 <DL>
 <DD>Concats two XRIs into a new XRI.
 <P>
@@ -588,8 +568,8 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 <A NAME="concatXris(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
 concatXris</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri1,
-                                     <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;segment,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment)</PRE>
 <DL>
 <DD>Concats two XRIs into a new XRI.
 <P>
@@ -602,37 +582,10 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 <A NAME="concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 concatXris</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
-                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri2)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;subSegment,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;segment)</PRE>
 <DL>
 <DD>Concats two XRIs into a new XRI.
-<P>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="concatXris(xdi2.core.xri3.XDI3SubSegment, xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
-concatXris</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>concatXris</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri1,
-                                     <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;xri2)</PRE>
-<DL>
-<DD>Concats two XRIs into a new XRI.
-<P>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isCloudNumber(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-isCloudNumber</H3>
-<PRE>
-public static boolean <B>isCloudNumber</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri)</PRE>
-<DL>
-<DD>Checks if an XRI is a valid Cloud Number.
 <P>
 <DD><DL>
 </DL>

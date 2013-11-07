@@ -8,17 +8,20 @@ Signature (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.features.signatures.Signature class">
-<META NAME="keywords" CONTENT="DEFAULT_SIGNATURE_ALGORITHM">
-<META NAME="keywords" CONTENT="DEFAULT_HMAC_ALGORITHM">
 <META NAME="keywords" CONTENT="isValid()">
 <META NAME="keywords" CONTENT="fromXdiAttribute()">
 <META NAME="keywords" CONTENT="getXdiAttribute()">
 <META NAME="keywords" CONTENT="getContextNode()">
-<META NAME="keywords" CONTENT="createSignature()">
-<META NAME="keywords" CONTENT="validateSignature()">
-<META NAME="keywords" CONTENT="createHMAC()">
-<META NAME="keywords" CONTENT="validateHMAC()">
+<META NAME="keywords" CONTENT="getBaseContextNode()">
+<META NAME="keywords" CONTENT="getDigestAlgorithm()">
+<META NAME="keywords" CONTENT="getDigestLength()">
+<META NAME="keywords" CONTENT="getKeyAlgorithm()">
+<META NAME="keywords" CONTENT="getKeyLength()">
+<META NAME="keywords" CONTENT="getAlgorithm()">
+<META NAME="keywords" CONTENT="sign()">
+<META NAME="keywords" CONTENT="validate()">
 <META NAME="keywords" CONTENT="getNormalizedSerialization()">
+<META NAME="keywords" CONTENT="getDataTypeXri()">
 <META NAME="keywords" CONTENT="toString()">
 <META NAME="keywords" CONTENT="equals()">
 <META NAME="keywords" CONTENT="hashCode()">
@@ -70,7 +73,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/signatures/KeyPairSignature.html" title="class in xdi2.core.features.signatures"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../xdi2/core/features/signatures/Signature.NoSignaturesCopyStrategy.html" title="class in xdi2.core.features.signatures"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/features/signatures/Signature.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -91,9 +94,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -105,17 +108,20 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 xdi2.core.features.signatures</FONT>
 <BR>
-Class Signature</H2>
+Class Signature&lt;SKEY extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,VKEY extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.features.signatures.Signature</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.features.signatures.Signature&lt;SKEY,VKEY&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;SKEY,VKEY&gt;&gt;</DD>
+</DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/features/signatures/KeyPairSignature.html" title="class in xdi2.core.features.signatures">KeyPairSignature</A>, <A HREF="../../../../xdi2/core/features/signatures/SymmetricKeySignature.html" title="class in xdi2.core.features.signatures">SymmetricKeySignature</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public final class <B>Signature</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&gt;</DL>
+<DT><PRE>public abstract class <B>Signature&lt;SKEY extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,VKEY extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;SKEY,VKEY&gt;&gt;</DL>
 </PRE>
 
 <P>
@@ -142,31 +148,6 @@ An XDI signature, represented as an XDI attribute.
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;class</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.NoSignaturesCopyStrategy.html" title="class in xdi2.core.features.signatures">Signature.NoSignaturesCopyStrategy</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;<!-- =========== FIELD SUMMARY =========== -->
-
-<A NAME="field_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#DEFAULT_HMAC_ALGORITHM">DEFAULT_HMAC_ALGORITHM</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#DEFAULT_SIGNATURE_ALGORITHM">DEFAULT_SIGNATURE_ALGORITHM</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -202,41 +183,7 @@ An XDI signature, represented as an XDI attribute.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#compareTo(xdi2.core.features.signatures.Signature)">compareTo</A></B>(<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;other)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#createHMAC(javax.crypto.SecretKey)">createHMAC</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</A>&nbsp;secretKey)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#createHMAC(javax.crypto.SecretKey, java.lang.String)">createHMAC</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</A>&nbsp;secretKey,
-           <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;algorithm)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#createSignature(java.security.PrivateKey)">createSignature</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A>&nbsp;privateKey)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#createSignature(java.security.PrivateKey, java.lang.String)">createSignature</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A>&nbsp;privateKey,
-                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;algorithm)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#compareTo(xdi2.core.features.signatures.Signature)">compareTo</A></B>(<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">SKEY</A>,<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">VKEY</A>&gt;&nbsp;other)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -251,11 +198,27 @@ An XDI signature, represented as an XDI attribute.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#fromXdiAttribute(xdi2.core.features.nodetypes.XdiAttribute)">fromXdiAttribute</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI signature bound to a given XDI attribute.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>abstract &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getAlgorithm()">getAlgorithm</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getBaseContextNode()">getBaseContextNode</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -267,11 +230,119 @@ An XDI signature, represented as an XDI attribute.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getNormalizedSerialization()">getNormalizedSerialization</A></B>()</CODE>
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getDataTypeXri(java.lang.String, int, java.lang.String, int)">getDataTypeXri</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;digestAlgorithm,
+               int&nbsp;digestLength,
+               <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;keyAlgorithm,
+               int&nbsp;keyLength)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getDigestAlgorithm()">getDigestAlgorithm</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getDigestAlgorithm(xdi2.core.xri3.XDI3Segment)">getDigestAlgorithm</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getDigestAlgorithm(xdi2.core.features.nodetypes.XdiAttribute)">getDigestAlgorithm</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getDigestLength()">getDigestLength</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getDigestLength(xdi2.core.xri3.XDI3Segment)">getDigestLength</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getDigestLength(xdi2.core.features.nodetypes.XdiAttribute)">getDigestLength</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getKeyAlgorithm()">getKeyAlgorithm</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getKeyAlgorithm(xdi2.core.xri3.XDI3Segment)">getKeyAlgorithm</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getKeyAlgorithm(xdi2.core.features.nodetypes.XdiAttribute)">getKeyAlgorithm</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getKeyLength()">getKeyLength</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getKeyLength(xdi2.core.xri3.XDI3Segment)">getKeyLength</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getKeyLength(xdi2.core.features.nodetypes.XdiAttribute)">getKeyLength</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getNormalizedSerialization(xdi2.core.ContextNode)">getNormalizedSerialization</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the normalized serialization string of a context node, to be used
+ for creating and validating signatures.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -299,6 +370,14 @@ An XDI signature, represented as an XDI attribute.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>abstract &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#sign(SKEY)">sign</A></B>(<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">SKEY</A>&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create the signature value.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#toString()">toString</A></B>()</CODE>
 
@@ -307,37 +386,11 @@ An XDI signature, represented as an XDI attribute.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#validateHMAC(javax.crypto.SecretKey)">validateHMAC</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</A>&nbsp;publicKey)</CODE>
+<CODE>abstract &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#validate(VKEY)">validate</A></B>(<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">VKEY</A>&nbsp;key)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#validateHMAC(javax.crypto.SecretKey, java.lang.String)">validateHMAC</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</A>&nbsp;secretKey,
-             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;algorithm)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#validateSignature(java.security.PublicKey)">validateSignature</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A>&nbsp;publicKey)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#validateSignature(java.security.PublicKey, java.lang.String)">validateSignature</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A>&nbsp;publicKey,
-                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;algorithm)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Validate the signature value.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -351,35 +404,6 @@ An XDI signature, represented as an XDI attribute.
 </TABLE>
 &nbsp;
 <P>
-
-<!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="DEFAULT_SIGNATURE_ALGORITHM"><!-- --></A><H3>
-DEFAULT_SIGNATURE_ALGORITHM</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_SIGNATURE_ALGORITHM</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../constant-values.html#xdi2.core.features.signatures.Signature.DEFAULT_SIGNATURE_ALGORITHM">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="DEFAULT_HMAC_ALGORITHM"><!-- --></A><H3>
-DEFAULT_HMAC_ALGORITHM</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_HMAC_ALGORITHM</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../constant-values.html#xdi2.core.features.signatures.Signature.DEFAULT_HMAC_ALGORITHM">Constant Field Values</A></DL>
-</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -428,7 +452,7 @@ public static boolean <B>isValid</B>(<A HREF="../../../../xdi2/core/features/nod
 <A NAME="fromXdiAttribute(xdi2.core.features.nodetypes.XdiAttribute)"><!-- --></A><H3>
 fromXdiAttribute</H3>
 <PRE>
-public static <A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A> <B>fromXdiAttribute</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</PRE>
+public static <A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt; <B>fromXdiAttribute</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</PRE>
 <DL>
 <DD>Factory method that creates an XDI signature bound to a given XDI attribute.
 <P>
@@ -476,150 +500,264 @@ public <A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2
 </DL>
 <HR>
 
-<A NAME="createSignature(java.security.PrivateKey)"><!-- --></A><H3>
-createSignature</H3>
+<A NAME="getBaseContextNode()"><!-- --></A><H3>
+getBaseContextNode</H3>
 <PRE>
-public void <B>createSignature</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A>&nbsp;privateKey)
-                     throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
+public <A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getBaseContextNode</B>()</PRE>
 <DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDigestAlgorithm()"><!-- --></A><H3>
+getDigestAlgorithm</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getDigestAlgorithm</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDigestLength()"><!-- --></A><H3>
+getDigestLength</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A> <B>getDigestLength</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getKeyAlgorithm()"><!-- --></A><H3>
+getKeyAlgorithm</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getKeyAlgorithm</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getKeyLength()"><!-- --></A><H3>
+getKeyLength</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A> <B>getKeyLength</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAlgorithm()"><!-- --></A><H3>
+getAlgorithm</H3>
+<PRE>
+public abstract <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getAlgorithm</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="sign(java.security.Key)"><!-- --></A><A NAME="sign(SKEY)"><!-- --></A><H3>
+sign</H3>
+<PRE>
+public abstract void <B>sign</B>(<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">SKEY</A>&nbsp;key)
+                   throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/GeneralSecurityException.html?is-external=true" title="class or interface in java.security">GeneralSecurityException</A></PRE>
+<DL>
+<DD>Create the signature value.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/security/GeneralSecurityException.html?is-external=true" title="class or interface in java.security">GeneralSecurityException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="createSignature(java.security.PrivateKey, java.lang.String)"><!-- --></A><H3>
-createSignature</H3>
+<A NAME="validate(java.security.Key)"><!-- --></A><A NAME="validate(VKEY)"><!-- --></A><H3>
+validate</H3>
 <PRE>
-public void <B>createSignature</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A>&nbsp;privateKey,
-                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;algorithm)
-                     throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
+public abstract boolean <B>validate</B>(<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">VKEY</A>&nbsp;key)
+                          throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/GeneralSecurityException.html?is-external=true" title="class or interface in java.security">GeneralSecurityException</A></PRE>
 <DL>
+<DD>Validate the signature value.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/security/GeneralSecurityException.html?is-external=true" title="class or interface in java.security">GeneralSecurityException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="validateSignature(java.security.PublicKey)"><!-- --></A><H3>
-validateSignature</H3>
-<PRE>
-public boolean <B>validateSignature</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A>&nbsp;publicKey)
-                          throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="validateSignature(java.security.PublicKey, java.lang.String)"><!-- --></A><H3>
-validateSignature</H3>
-<PRE>
-public boolean <B>validateSignature</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A>&nbsp;publicKey,
-                                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;algorithm)
-                          throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createHMAC(javax.crypto.SecretKey)"><!-- --></A><H3>
-createHMAC</H3>
-<PRE>
-public void <B>createHMAC</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</A>&nbsp;secretKey)
-                throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createHMAC(javax.crypto.SecretKey, java.lang.String)"><!-- --></A><H3>
-createHMAC</H3>
-<PRE>
-public void <B>createHMAC</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</A>&nbsp;secretKey,
-                       <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;algorithm)
-                throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="validateHMAC(javax.crypto.SecretKey)"><!-- --></A><H3>
-validateHMAC</H3>
-<PRE>
-public boolean <B>validateHMAC</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</A>&nbsp;publicKey)
-                     throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="validateHMAC(javax.crypto.SecretKey, java.lang.String)"><!-- --></A><H3>
-validateHMAC</H3>
-<PRE>
-public boolean <B>validateHMAC</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</A>&nbsp;secretKey,
-                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;algorithm)
-                     throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getNormalizedSerialization()"><!-- --></A><H3>
+<A NAME="getNormalizedSerialization(xdi2.core.ContextNode)"><!-- --></A><H3>
 getNormalizedSerialization</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getNormalizedSerialization</B>()</PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getNormalizedSerialization</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+<DD>Returns the normalized serialization string of a context node, to be used
+ for creating and validating signatures.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDigestAlgorithm(xdi2.core.features.nodetypes.XdiAttribute)"><!-- --></A><H3>
+getDigestAlgorithm</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getDigestAlgorithm</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDigestAlgorithm(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+getDigestAlgorithm</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getDigestAlgorithm</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDigestLength(xdi2.core.features.nodetypes.XdiAttribute)"><!-- --></A><H3>
+getDigestLength</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A> <B>getDigestLength</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDigestLength(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+getDigestLength</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A> <B>getDigestLength</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getKeyAlgorithm(xdi2.core.features.nodetypes.XdiAttribute)"><!-- --></A><H3>
+getKeyAlgorithm</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getKeyAlgorithm</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getKeyAlgorithm(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+getKeyAlgorithm</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getKeyAlgorithm</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getKeyLength(xdi2.core.features.nodetypes.XdiAttribute)"><!-- --></A><H3>
+getKeyLength</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A> <B>getKeyLength</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getKeyLength(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+getKeyLength</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A> <B>getKeyLength</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDataTypeXri(java.lang.String, int, java.lang.String, int)"><!-- --></A><H3>
+getDataTypeXri</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getDataTypeXri</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;digestAlgorithm,
+                                         int&nbsp;digestLength,
+                                         <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;keyAlgorithm,
+                                         int&nbsp;keyLength)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -675,10 +813,10 @@ public int <B>hashCode</B>()</PRE>
 <A NAME="compareTo(xdi2.core.features.signatures.Signature)"><!-- --></A><H3>
 compareTo</H3>
 <PRE>
-public int <B>compareTo</B>(<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;other)</PRE>
+public int <B>compareTo</B>(<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">SKEY</A>,<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">VKEY</A>&gt;&nbsp;other)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true#compareTo(T)" title="class or interface in java.lang">compareTo</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true#compareTo(T)" title="class or interface in java.lang">compareTo</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">SKEY</A> extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">VKEY</A> extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;&gt;</CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -715,7 +853,7 @@ public int <B>compareTo</B>(<A HREF="../../../../xdi2/core/features/signatures/S
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/signatures/KeyPairSignature.html" title="class in xdi2.core.features.signatures"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../xdi2/core/features/signatures/Signature.NoSignaturesCopyStrategy.html" title="class in xdi2.core.features.signatures"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/features/signatures/Signature.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -736,9 +874,9 @@ public int <B>compareTo</B>(<A HREF="../../../../xdi2/core/features/signatures/S
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

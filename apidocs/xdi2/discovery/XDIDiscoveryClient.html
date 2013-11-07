@@ -8,7 +8,9 @@ XDIDiscoveryClient (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.discovery.XDIDiscoveryClient class">
-<META NAME="keywords" CONTENT="DEFAULT_REGISTRY_XDI_CLIENT">
+<META NAME="keywords" CONTENT="DEFAULT_XDI_CLIENT">
+<META NAME="keywords" CONTENT="XRI_SS_URI">
+<META NAME="keywords" CONTENT="discover()">
 <META NAME="keywords" CONTENT="discoverFromRegistry()">
 <META NAME="keywords" CONTENT="discoverFromAuthority()">
 <META NAME="keywords" CONTENT="getRegistryXdiClient()">
@@ -106,6 +108,15 @@ Class XDIDiscoveryClient</H2>
 </PRE>
 
 <P>
+Given a Cloud Name or discovery key, useful information such a Cloud Number, 
+ public keys, or additional services, can be discovered.
+<P>
+
+<P>
+<DL>
+<DT><B>Author:</B></DT>
+  <DD>markus</DD>
+</DL>
 <HR>
 
 <P>
@@ -120,7 +131,15 @@ Class XDIDiscoveryClient</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#DEFAULT_REGISTRY_XDI_CLIENT">DEFAULT_REGISTRY_XDI_CLIENT</A></B></CODE>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#DEFAULT_XDI_CLIENT">DEFAULT_XDI_CLIENT</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#XRI_SS_URI">XRI_SS_URI</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -160,8 +179,8 @@ Class XDIDiscoveryClient</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#discoverFromAuthority(java.lang.String, xdi2.core.xri3.XDI3Segment)">discoverFromAuthority</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;xdiEndpointUri,
-                      <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;cloudNumber)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#discover(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment[])">discover</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;query,
+         <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;endpointUriTypes)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -169,7 +188,18 @@ Class XDIDiscoveryClient</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#discoverFromRegistry(xdi2.core.xri3.XDI3Segment)">discoverFromRegistry</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;query)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#discoverFromAuthority(java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment[])">discoverFromAuthority</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;xdiEndpointUri,
+                      <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;cloudNumber,
+                      <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;endpointUriTypes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#discoverFromRegistry(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment[])">discoverFromRegistry</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;query,
+                     <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;endpointUriTypes)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -213,10 +243,20 @@ Class XDIDiscoveryClient</H2>
 </TR>
 </TABLE>
 
-<A NAME="DEFAULT_REGISTRY_XDI_CLIENT"><!-- --></A><H3>
-DEFAULT_REGISTRY_XDI_CLIENT</H3>
+<A NAME="DEFAULT_XDI_CLIENT"><!-- --></A><H3>
+DEFAULT_XDI_CLIENT</H3>
 <PRE>
-public static final <A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A> <B>DEFAULT_REGISTRY_XDI_CLIENT</B></PRE>
+public static final <A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A> <B>DEFAULT_XDI_CLIENT</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="XRI_SS_URI"><!-- --></A><H3>
+XRI_SS_URI</H3>
+<PRE>
+public static final <A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_URI</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -257,10 +297,26 @@ public <B>XDIDiscoveryClient</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="discoverFromRegistry(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+<A NAME="discover(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment[])"><!-- --></A><H3>
+discover</H3>
+<PRE>
+public <A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A> <B>discover</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;query,
+                                   <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;endpointUriTypes)
+                            throws <A HREF="../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="discoverFromRegistry(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment[])"><!-- --></A><H3>
 discoverFromRegistry</H3>
 <PRE>
-public <A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A> <B>discoverFromRegistry</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;query)
+public <A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A> <B>discoverFromRegistry</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;query,
+                                               <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;endpointUriTypes)
                                         throws <A HREF="../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</A></PRE>
 <DL>
 <DD><DL>
@@ -271,11 +327,12 @@ public <A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xd
 </DL>
 <HR>
 
-<A NAME="discoverFromAuthority(java.lang.String, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+<A NAME="discoverFromAuthority(java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment[])"><!-- --></A><H3>
 discoverFromAuthority</H3>
 <PRE>
 public <A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A> <B>discoverFromAuthority</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;xdiEndpointUri,
-                                                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;cloudNumber)
+                                                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;cloudNumber,
+                                                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;endpointUriTypes)
                                          throws <A HREF="../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</A></PRE>
 <DL>
 <DD><DL>

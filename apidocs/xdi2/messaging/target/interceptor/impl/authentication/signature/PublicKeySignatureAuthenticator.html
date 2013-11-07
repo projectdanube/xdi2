@@ -99,7 +99,7 @@ Class PublicKeySignatureAuthenticator</H2>
       <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.messaging.target.interceptor.impl.authentication.signature.PublicKeySignatureAuthenticator</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang">Cloneable</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A>, <A HREF="../../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A>&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A></DD>
 </DL>
 <DL>
 <DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">DiscoverySignatureAuthenticator</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/GraphSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">GraphSignatureAuthenticator</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/StaticSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">StaticSignatureAuthenticator</A></DD>
@@ -118,25 +118,6 @@ A SignatureAuthenticator that can authenticate a signature against
 <HR>
 
 <P>
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-
-<A NAME="nested_class_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Nested Class Summary</B></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;<A NAME="nested_classes_inherited_from_class_xdi2.messaging.target.Prototype"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface xdi2.messaging.target.<A HREF="../../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
 
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 
@@ -166,7 +147,7 @@ A SignatureAuthenticator that can authenticate a signature against
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html#authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)">authenticate</A></B>(<A HREF="../../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-             <A HREF="../../../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</CODE>
+             <A HREF="../../../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;?,?&gt;&nbsp;signature)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authenticates an XDI message given a signature.</TD>
@@ -186,7 +167,7 @@ A SignatureAuthenticator that can authenticate a signature against
 <TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.interceptor.impl.authentication.signature.<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">AbstractSignatureAuthenticator</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html#init()">init</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html#shutdown()">shutdown</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html#init(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor)">init</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html#shutdown(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor)">shutdown</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -204,16 +185,7 @@ A SignatureAuthenticator that can authenticate a signature against
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.interceptor.impl.authentication.signature.<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#init()">init</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#shutdown()">shutdown</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.Prototype"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.<A HREF="../../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/Prototype.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#init(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor)">init</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#shutdown(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor)">shutdown</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -250,7 +222,7 @@ public <B>PublicKeySignatureAuthenticator</B>()</PRE>
 authenticate</H3>
 <PRE>
 public boolean <B>authenticate</B>(<A HREF="../../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-                            <A HREF="../../../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</PRE>
+                            <A HREF="../../../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;?,?&gt;&nbsp;signature)</PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)">SignatureAuthenticator</A></CODE></B></DD>
 <DD>Authenticates an XDI message given a signature.

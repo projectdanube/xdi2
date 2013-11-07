@@ -201,19 +201,49 @@ xdi2.core.*</FONT></TH>
 
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="3">xdi2.core.features.signatures.<A HREF="xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></TH>
+<TH ALIGN="left" COLSPAN="3">xdi2.core.features.signatures.<A HREF="xdi2/core/features/signatures/KeyPairSignature.html" title="class in xdi2.core.features.signatures">KeyPairSignature</A></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="xdi2.core.features.signatures.Signature.DEFAULT_HMAC_ALGORITHM"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<A NAME="xdi2.core.features.signatures.KeyPairSignature.DIGEST_ALGORITHM_SHA"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="xdi2/core/features/signatures/Signature.html#DEFAULT_HMAC_ALGORITHM">DEFAULT_HMAC_ALGORITHM</A></CODE></TD>
-<TD ALIGN="right"><CODE>"HmacSHA1"</CODE></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/core/features/signatures/KeyPairSignature.html#DIGEST_ALGORITHM_SHA">DIGEST_ALGORITHM_SHA</A></CODE></TD>
+<TD ALIGN="right"><CODE>"sha"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="xdi2.core.features.signatures.Signature.DEFAULT_SIGNATURE_ALGORITHM"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<A NAME="xdi2.core.features.signatures.KeyPairSignature.KEY_ALGORITHM_DSA"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="xdi2/core/features/signatures/Signature.html#DEFAULT_SIGNATURE_ALGORITHM">DEFAULT_SIGNATURE_ALGORITHM</A></CODE></TD>
-<TD ALIGN="right"><CODE>"SHA1withRSA"</CODE></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/core/features/signatures/KeyPairSignature.html#KEY_ALGORITHM_DSA">KEY_ALGORITHM_DSA</A></CODE></TD>
+<TD ALIGN="right"><CODE>"dsa"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.core.features.signatures.KeyPairSignature.KEY_ALGORITHM_RSA"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/core/features/signatures/KeyPairSignature.html#KEY_ALGORITHM_RSA">KEY_ALGORITHM_RSA</A></CODE></TD>
+<TD ALIGN="right"><CODE>"rsa"</CODE></TD>
+</TR>
+</FONT></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="3">xdi2.core.features.signatures.<A HREF="xdi2/core/features/signatures/SymmetricKeySignature.html" title="class in xdi2.core.features.signatures">SymmetricKeySignature</A></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.core.features.signatures.SymmetricKeySignature.DIGEST_ALGORITHM_SHA"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/core/features/signatures/SymmetricKeySignature.html#DIGEST_ALGORITHM_SHA">DIGEST_ALGORITHM_SHA</A></CODE></TD>
+<TD ALIGN="right"><CODE>"sha"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.core.features.signatures.SymmetricKeySignature.KEY_ALGORITHM_AES"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/core/features/signatures/SymmetricKeySignature.html#KEY_ALGORITHM_AES">KEY_ALGORITHM_AES</A></CODE></TD>
+<TD ALIGN="right"><CODE>"aes"</CODE></TD>
 </TR>
 </FONT></TD>
 </TR>
@@ -673,30 +703,6 @@ xdi2.messaging.*</FONT></TH>
 <CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="xdi2/messaging/error/ErrorMessageResult.html#DEFAULT_ERRORSTRING">DEFAULT_ERRORSTRING</A></CODE></TD>
 <TD ALIGN="right"><CODE>"XDI error."</CODE></TD>
-</TR>
-</FONT></TD>
-</TR>
-</TABLE>
-
-<P>
-
-<P>
-
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="3">xdi2.messaging.target.contributor.impl.keygen.<A HREF="xdi2/messaging/target/contributor/impl/keygen/GenerateKeyContributor.html" title="class in xdi2.messaging.target.contributor.impl.keygen">GenerateKeyContributor</A></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor.ALGORITHM_AES"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
-<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="xdi2/messaging/target/contributor/impl/keygen/GenerateKeyContributor.html#ALGORITHM_AES">ALGORITHM_AES</A></CODE></TD>
-<TD ALIGN="right"><CODE>"AES"</CODE></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor.ALGORITHM_RSA"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
-<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="xdi2/messaging/target/contributor/impl/keygen/GenerateKeyContributor.html#ALGORITHM_RSA">ALGORITHM_RSA</A></CODE></TD>
-<TD ALIGN="right"><CODE>"RSA"</CODE></TD>
 </TR>
 </FONT></TD>
 </TR>

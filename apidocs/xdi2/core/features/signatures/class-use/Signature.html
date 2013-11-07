@@ -115,11 +115,35 @@ Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" ti
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Subclasses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A> in <A HREF="../../../../../xdi2/core/features/signatures/package-summary.html">xdi2.core.features.signatures</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/signatures/KeyPairSignature.html" title="class in xdi2.core.features.signatures">KeyPairSignature</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI signature, represented as an XDI attribute.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/signatures/SymmetricKeySignature.html" title="class in xdi2.core.features.signatures">SymmetricKeySignature</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI signature, represented as an XDI attribute.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/core/features/signatures/package-summary.html">xdi2.core.features.signatures</A> that return <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#fromXdiAttribute(xdi2.core.features.nodetypes.XdiAttribute)">fromXdiAttribute</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
 
 <BR>
@@ -127,12 +151,23 @@ Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" ti
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></CODE></FONT></TD>
-<TD><CODE><B>Signatures.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signatures.html#getSignature(xdi2.core.ContextNode, boolean)">getSignature</A></B>(<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-             boolean&nbsp;create)</CODE>
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Signatures.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signatures.html#getSignature(xdi2.core.ContextNode)">getSignature</A></B>(<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI signature under a context node, or creates a new one.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI signature under a context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Signatures.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signatures.html#setSignature(xdi2.core.ContextNode, java.lang.String, int, java.lang.String, int)">setSignature</A></B>(<A HREF="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;digestAlgorithm,
+             int&nbsp;digestLength,
+             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;keyAlgorithm,
+             int&nbsp;keyLength)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI signature under a context node.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -144,7 +179,7 @@ Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" ti
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&gt;</CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;&gt;</CODE></FONT></TD>
 <TD><CODE><B>Signatures.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signatures.html#getAllSignatures(xdi2.core.Graph)">getAllSignatures</A></B>(<A HREF="../../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
 
 <BR>
@@ -161,7 +196,7 @@ Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" ti
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#compareTo(xdi2.core.features.signatures.Signature)">compareTo</A></B>(<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;other)</CODE>
+<TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#compareTo(xdi2.core.features.signatures.Signature)">compareTo</A></B>(<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">SKEY</A>,<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="type parameter in Signature">VKEY</A>&gt;&nbsp;other)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -185,11 +220,22 @@ Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" ti
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></CODE></FONT></TD>
-<TD><CODE><B>Message.</B><B><A HREF="../../../../../xdi2/messaging/Message.html#getSignature(boolean)">getSignature</A></B>(boolean&nbsp;create)</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Message.</B><B><A HREF="../../../../../xdi2/messaging/Message.html#getSignature()">getSignature</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the signature from the message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>Message.</B><B><A HREF="../../../../../xdi2/messaging/Message.html#setSignature(java.lang.String, int, java.lang.String, int)">setSignature</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;digestAlgorithm,
+             int&nbsp;digestLength,
+             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;keyAlgorithm,
+             int&nbsp;keyLength)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets a signature on the message.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -212,7 +258,7 @@ Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" ti
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B>SignatureAuthenticator.</B><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)">authenticate</A></B>(<A HREF="../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-             <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</CODE>
+             <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;?,?&gt;&nbsp;signature)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authenticates an XDI message given a signature.</TD>
@@ -221,7 +267,7 @@ Uses of <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" ti
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B>PublicKeySignatureAuthenticator.</B><B><A HREF="../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html#authenticate(xdi2.messaging.Message, xdi2.core.features.signatures.Signature)">authenticate</A></B>(<A HREF="../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
-             <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&nbsp;signature)</CODE>
+             <A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;?,?&gt;&nbsp;signature)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

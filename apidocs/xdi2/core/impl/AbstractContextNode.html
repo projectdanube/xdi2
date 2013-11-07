@@ -66,9 +66,15 @@ AbstractContextNode (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getStatement()">
 <META NAME="keywords" CONTENT="getAllStatements()">
 <META NAME="keywords" CONTENT="getAllStatementCount()">
-<META NAME="keywords" CONTENT="checkContextNode()">
-<META NAME="keywords" CONTENT="checkRelation()">
-<META NAME="keywords" CONTENT="checkLiteral()">
+<META NAME="keywords" CONTENT="setContextNodeCheckValid()">
+<META NAME="keywords" CONTENT="setRelationCheckValid()">
+<META NAME="keywords" CONTENT="setLiteralCheckValid()">
+<META NAME="keywords" CONTENT="setContextNodeSetInnerRoot()">
+<META NAME="keywords" CONTENT="setRelationSetTargetContextNode()">
+<META NAME="keywords" CONTENT="delContextNodeDelAllInnerRoots()">
+<META NAME="keywords" CONTENT="delContextNodeDelAllRelations()">
+<META NAME="keywords" CONTENT="delContextNodeDelAllIncomingRelations()">
+<META NAME="keywords" CONTENT="delRelationDelInnerRoot()">
 <META NAME="keywords" CONTENT="toString()">
 <META NAME="keywords" CONTENT="equals()">
 <META NAME="keywords" CONTENT="hashCode()">
@@ -205,31 +211,6 @@ Class AbstractContextNode</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#checkContextNode(xdi2.core.xri3.XDI3SubSegment)">checkContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node can be created.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#checkLiteral(java.lang.Object)">checkLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a literal can be created.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#checkRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.ContextNode)">checkRelation</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-              <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a relation can be created.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#clear()">clear</A></B>()</CODE>
 
@@ -343,6 +324,30 @@ Class AbstractContextNode</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#delContextNodeDelAllIncomingRelations()">delContextNodeDelAllIncomingRelations</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When a context node is deleted, all incoming relations have to be deleted too.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#delContextNodeDelAllInnerRoots()">delContextNodeDelAllInnerRoots</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When a context node is deleted, all inner roots have to be deleted too.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#delContextNodeDelAllRelations()">delContextNodeDelAllRelations</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When a context node is deleted, all relations have to be deleted too.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#delContextNodes()">delContextNodes</A></B>()</CODE>
 
@@ -364,6 +369,15 @@ Class AbstractContextNode</H2>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes the incoming relations of this context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#delRelationDelInnerRoot(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">delRelationDelInnerRoot</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                        <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When a relation is deleted, its inner root has to be deleted too.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -475,7 +489,15 @@ Class AbstractContextNode</H2>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getContextNode()">getContextNode</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every context node has a context node from which it originates.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every context node has a parent context node, except the root context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#getContextNode(int)">getContextNode</A></B>(int&nbsp;arcs)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every context node has ancestor context nodes, except the root context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -736,6 +758,23 @@ Class AbstractContextNode</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#setContextNodeCheckValid(xdi2.core.xri3.XDI3SubSegment)">setContextNodeCheckValid</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a context node can be created.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#setContextNodeSetInnerRoot(xdi2.core.xri3.XDI3SubSegment, xdi2.core.ContextNode)">setContextNodeSetInnerRoot</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+                           <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When a context node is created, check if the inner root subject and predicate have to be created too.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#setDeepContextNode(xdi2.core.xri3.XDI3Segment)">setDeepContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
@@ -808,6 +847,14 @@ Class AbstractContextNode</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#setLiteralCheckValid(java.lang.Object)">setLiteralCheckValid</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a literal can be created.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#setLiteralNumber(java.lang.Double)">setLiteralNumber</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</CODE>
 
@@ -830,6 +877,23 @@ Class AbstractContextNode</H2>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new relation and adds it to this context node, or returns an existing relation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#setRelationCheckValid(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">setRelationCheckValid</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                      <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if a relation can be created.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/impl/AbstractContextNode.html#setRelationSetTargetContextNode(xdi2.core.xri3.XDI3Segment)">setRelationSetTargetContextNode</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When a relation is created, check if the target context node has to be created too.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -913,14 +977,32 @@ getContextNode</H3>
 public <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>()</PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getContextNode()">ContextNode</A></CODE></B></DD>
-<DD>Every context node has a context node from which it originates.
+<DD>Every context node has a parent context node, except the root context node.
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/ContextNode.html#getContextNode()">getContextNode</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>The context node of this context node.</DL>
+<DT><B>Returns:</B><DD>The parent context node of this context node, or null.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getContextNode(int)"><!-- --></A><H3>
+getContextNode</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>(int&nbsp;arcs)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/core/ContextNode.html#getContextNode(int)">ContextNode</A></CODE></B></DD>
+<DD>Every context node has ancestor context nodes, except the root context node.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/core/ContextNode.html#getContextNode(int)">getContextNode</A></CODE> in interface <CODE><A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>arcs</CODE> - The number of arcs to follow up the graph.
+<DT><B>Returns:</B><DD>The ancestor context node of this context node, or null.</DL>
 </DD>
 </DL>
 <HR>
@@ -2145,11 +2227,11 @@ public long <B>getAllStatementCount</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="checkContextNode(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
-checkContextNode</H3>
+<A NAME="setContextNodeCheckValid(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+setContextNodeCheckValid</H3>
 <PRE>
-protected void <B>checkContextNode</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)
-                         throws <A HREF="../../../xdi2/core/exceptions/Xdi2GraphException.html" title="class in xdi2.core.exceptions">Xdi2GraphException</A></PRE>
+protected void <B>setContextNodeCheckValid</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)
+                                 throws <A HREF="../../../xdi2/core/exceptions/Xdi2GraphException.html" title="class in xdi2.core.exceptions">Xdi2GraphException</A></PRE>
 <DL>
 <DD>Checks if a context node can be created.
  Throws an exception, if the context node cannot be created.
@@ -2165,12 +2247,12 @@ protected void <B>checkContextNode</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubS
 </DL>
 <HR>
 
-<A NAME="checkRelation(xdi2.core.xri3.XDI3Segment, xdi2.core.ContextNode)"><!-- --></A><H3>
-checkRelation</H3>
+<A NAME="setRelationCheckValid(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+setRelationCheckValid</H3>
 <PRE>
-protected void <B>checkRelation</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
-                             <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode)
-                      throws <A HREF="../../../xdi2/core/exceptions/Xdi2GraphException.html" title="class in xdi2.core.exceptions">Xdi2GraphException</A></PRE>
+protected void <B>setRelationCheckValid</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                                     <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)
+                              throws <A HREF="../../../xdi2/core/exceptions/Xdi2GraphException.html" title="class in xdi2.core.exceptions">Xdi2GraphException</A></PRE>
 <DL>
 <DD>Checks if a relation can be created.
  Throws an exception, if the relation cannot be created.
@@ -2186,11 +2268,11 @@ protected void <B>checkRelation</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment
 </DL>
 <HR>
 
-<A NAME="checkLiteral(java.lang.Object)"><!-- --></A><H3>
-checkLiteral</H3>
+<A NAME="setLiteralCheckValid(java.lang.Object)"><!-- --></A><H3>
+setLiteralCheckValid</H3>
 <PRE>
-protected void <B>checkLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)
-                     throws <A HREF="../../../xdi2/core/exceptions/Xdi2GraphException.html" title="class in xdi2.core.exceptions">Xdi2GraphException</A></PRE>
+protected void <B>setLiteralCheckValid</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)
+                             throws <A HREF="../../../xdi2/core/exceptions/Xdi2GraphException.html" title="class in xdi2.core.exceptions">Xdi2GraphException</A></PRE>
 <DL>
 <DD>Checks if a literal can be created.
  Throws an exception, if the literal cannot be created.
@@ -2202,6 +2284,104 @@ protected void <B>checkLiteral</B>(<A HREF="http://download.oracle.com/javase/6/
 
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../xdi2/core/exceptions/Xdi2GraphException.html" title="class in xdi2.core.exceptions">Xdi2GraphException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setContextNodeSetInnerRoot(xdi2.core.xri3.XDI3SubSegment, xdi2.core.ContextNode)"><!-- --></A><H3>
+setContextNodeSetInnerRoot</H3>
+<PRE>
+protected void <B>setContextNodeSetInnerRoot</B>(<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri,
+                                          <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+<DD>When a context node is created, check if the inner root subject and predicate have to be created too.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setRelationSetTargetContextNode(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+setRelationSetTargetContextNode</H3>
+<PRE>
+protected <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>setRelationSetTargetContextNode</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
+<DL>
+<DD>When a relation is created, check if the target context node has to be created too.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="delContextNodeDelAllInnerRoots()"><!-- --></A><H3>
+delContextNodeDelAllInnerRoots</H3>
+<PRE>
+protected void <B>delContextNodeDelAllInnerRoots</B>()</PRE>
+<DL>
+<DD>When a context node is deleted, all inner roots have to be deleted too.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="delContextNodeDelAllRelations()"><!-- --></A><H3>
+delContextNodeDelAllRelations</H3>
+<PRE>
+protected void <B>delContextNodeDelAllRelations</B>()</PRE>
+<DL>
+<DD>When a context node is deleted, all relations have to be deleted too.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="delContextNodeDelAllIncomingRelations()"><!-- --></A><H3>
+delContextNodeDelAllIncomingRelations</H3>
+<PRE>
+protected void <B>delContextNodeDelAllIncomingRelations</B>()</PRE>
+<DL>
+<DD>When a context node is deleted, all incoming relations have to be deleted too.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="delRelationDelInnerRoot(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+delRelationDelInnerRoot</H3>
+<PRE>
+protected void <B>delRelationDelInnerRoot</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                                       <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
+<DL>
+<DD>When a relation is deleted, its inner root has to be deleted too.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>

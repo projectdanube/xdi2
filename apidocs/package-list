@@ -60,6 +60,7 @@ xdi2.messaging.target.interceptor.impl.authentication.secrettoken
 xdi2.messaging.target.interceptor.impl.authentication.signature
 xdi2.messaging.target.interceptor.impl.encryption
 xdi2.messaging.target.interceptor.impl.linkcontract
+xdi2.messaging.target.interceptor.impl.transport
 xdi2.messaging.target.interceptor.impl.util
 xdi2.messaging.util
 xdi2.p2p

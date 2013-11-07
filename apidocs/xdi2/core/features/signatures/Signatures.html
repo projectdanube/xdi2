@@ -10,6 +10,7 @@ Signatures (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="xdi2.core.features.signatures.Signatures class">
 <META NAME="keywords" CONTENT="getAllSignatures()">
 <META NAME="keywords" CONTENT="getSignature()">
+<META NAME="keywords" CONTENT="setSignature()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -134,7 +135,7 @@ Class Signatures</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&gt;</CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signatures.html#getAllSignatures(xdi2.core.Graph)">getAllSignatures</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
 
 <BR>
@@ -142,12 +143,23 @@ Class Signatures</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signatures.html#getSignature(xdi2.core.ContextNode, boolean)">getSignature</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-             boolean&nbsp;create)</CODE>
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signatures.html#getSignature(xdi2.core.ContextNode)">getSignature</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI signature under a context node, or creates a new one.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI signature under a context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signatures.html#setSignature(xdi2.core.ContextNode, java.lang.String, int, java.lang.String, int)">setSignature</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;digestAlgorithm,
+             int&nbsp;digestLength,
+             <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;keyAlgorithm,
+             int&nbsp;keyLength)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI signature under a context node.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -175,7 +187,7 @@ Class Signatures</H2>
 <A NAME="getAllSignatures(xdi2.core.Graph)"><!-- --></A><H3>
 getAllSignatures</H3>
 <PRE>
-public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&gt; <B>getAllSignatures</B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;&gt; <B>getAllSignatures</B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</PRE>
 <DL>
 <DD>Given a graph, lists all signatures.
 <P>
@@ -186,17 +198,34 @@ public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/It
 </DL>
 <HR>
 
-<A NAME="getSignature(xdi2.core.ContextNode, boolean)"><!-- --></A><H3>
+<A NAME="getSignature(xdi2.core.ContextNode)"><!-- --></A><H3>
 getSignature</H3>
 <PRE>
-public static <A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A> <B>getSignature</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                                     boolean&nbsp;create)</PRE>
+public static <A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt; <B>getSignature</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
 <DL>
-<DD>Returns an existing XDI signature under a context node, or creates a new one.
+<DD>Returns an existing XDI signature under a context node.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>create</CODE> - Whether to create an XDI signature if it does not exist.
-<DT><B>Returns:</B><DD>The existing or newly created XDI signature.</DL>
+
+<DT><B>Returns:</B><DD>The existing XDI signature.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setSignature(xdi2.core.ContextNode, java.lang.String, int, java.lang.String, int)"><!-- --></A><H3>
+setSignature</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt; <B>setSignature</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                                                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;digestAlgorithm,
+                                                                  int&nbsp;digestLength,
+                                                                  <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;keyAlgorithm,
+                                                                  int&nbsp;keyLength)</PRE>
+<DL>
+<DD>Returns an existing XDI signature under a context node.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The existing XDI signature.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

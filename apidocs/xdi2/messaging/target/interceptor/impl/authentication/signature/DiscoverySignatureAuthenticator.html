@@ -8,7 +8,7 @@ DiscoverySignatureAuthenticator (xdi2 0.1-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.interceptor.impl.authentication.signature.DiscoverySignatureAuthenticator class">
-<META NAME="keywords" CONTENT="instanceFor()">
+<META NAME="keywords" CONTENT="DEFAULT_DISCOVERY_CLIENT">
 <META NAME="keywords" CONTENT="getPublicKey()">
 <META NAME="keywords" CONTENT="getXdiDiscoveryClient()">
 <META NAME="keywords" CONTENT="setXdiDiscoveryClient()">
@@ -80,9 +80,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -102,7 +102,7 @@ Class DiscoverySignatureAuthenticator</H2>
           <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.messaging.target.interceptor.impl.authentication.signature.DiscoverySignatureAuthenticator</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang">Cloneable</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A>, <A HREF="../../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A>&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A></DD>
 </DL>
 <HR>
 <DL>
@@ -118,26 +118,24 @@ A SignatureAuthenticator that can authenticate an XDI message by obtaining
 <HR>
 
 <P>
-<!-- ======== NESTED CLASS SUMMARY ======== -->
+<!-- =========== FIELD SUMMARY =========== -->
 
-<A NAME="nested_class_summary"><!-- --></A>
+<A NAME="field_summary"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Nested Class Summary</B></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;<A NAME="nested_classes_inherited_from_class_xdi2.messaging.target.Prototype"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface xdi2.messaging.target.<A HREF="../../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A></B></TH>
+<B>Field Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A></CODE></TD>
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html#DEFAULT_DISCOVERY_CLIENT">DEFAULT_DISCOVERY_CLIENT</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
-
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 
 <A NAME="constructor_summary"><!-- --></A>
@@ -153,7 +151,7 @@ A SignatureAuthenticator that can authenticate an XDI message by obtaining
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html#DiscoverySignatureAuthenticator(xdi2.discovery.XDIDiscoveryClient)">DiscoverySignatureAuthenticator</A></B>(<A HREF="../../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A>&nbsp;xdiDiscovery)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html#DiscoverySignatureAuthenticator(xdi2.discovery.XDIDiscoveryClient)">DiscoverySignatureAuthenticator</A></B>(<A HREF="../../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A>&nbsp;xdiDiscoveryClient)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -186,14 +184,6 @@ A SignatureAuthenticator that can authenticate an XDI message by obtaining
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">DiscoverySignatureAuthenticator</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></B>(<A HREF="../../../../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html#setXdiDiscoveryClient(xdi2.discovery.XDIDiscoveryClient)">setXdiDiscoveryClient</A></B>(<A HREF="../../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A>&nbsp;xdiDiscoveryClient)</CODE>
 
@@ -216,7 +206,7 @@ A SignatureAuthenticator that can authenticate an XDI message by obtaining
 <TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.interceptor.impl.authentication.signature.<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">AbstractSignatureAuthenticator</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html#init()">init</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html#shutdown()">shutdown</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html#init(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor)">init</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AbstractSignatureAuthenticator.html#shutdown(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor)">shutdown</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -234,11 +224,30 @@ A SignatureAuthenticator that can authenticate an XDI message by obtaining
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.interceptor.impl.authentication.signature.<A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html" title="interface in xdi2.messaging.target.interceptor.impl.authentication.signature">SignatureAuthenticator</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#init()">init</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#shutdown()">shutdown</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#init(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor)">init</A>, <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/SignatureAuthenticator.html#shutdown(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor)">shutdown</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
 <P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="DEFAULT_DISCOVERY_CLIENT"><!-- --></A><H3>
+DEFAULT_DISCOVERY_CLIENT</H3>
+<PRE>
+public static final <A HREF="../../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A> <B>DEFAULT_DISCOVERY_CLIENT</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -253,7 +262,7 @@ A SignatureAuthenticator that can authenticate an XDI message by obtaining
 <A NAME="DiscoverySignatureAuthenticator(xdi2.discovery.XDIDiscoveryClient)"><!-- --></A><H3>
 DiscoverySignatureAuthenticator</H3>
 <PRE>
-public <B>DiscoverySignatureAuthenticator</B>(<A HREF="../../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A>&nbsp;xdiDiscovery)</PRE>
+public <B>DiscoverySignatureAuthenticator</B>(<A HREF="../../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A>&nbsp;xdiDiscoveryClient)</PRE>
 <DL>
 </DL>
 <HR>
@@ -274,20 +283,6 @@ public <B>DiscoverySignatureAuthenticator</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
-
-<A NAME="instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)"><!-- --></A><H3>
-instanceFor</H3>
-<PRE>
-public <A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">DiscoverySignatureAuthenticator</A> <B>instanceFor</B>(<A HREF="../../../../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)
-                                            throws <A HREF="../../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
-<DL>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
 
 <A NAME="getPublicKey(xdi2.messaging.Message)"><!-- --></A><H3>
 getPublicKey</H3>
@@ -375,9 +370,9 @@ public void <B>setXdiDiscoveryClient</B>(<A HREF="../../../../../../../xdi2/disc
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

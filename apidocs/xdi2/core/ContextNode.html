@@ -452,7 +452,15 @@ This interface represents a context node in an XDI graph.
 <TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getContextNode()">getContextNode</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every context node has a context node from which it originates.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every context node has a parent context node, except the root context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/core/ContextNode.html#getContextNode(int)">getContextNode</A></B>(int&nbsp;arcs)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every context node has ancestor context nodes, except the root context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -894,14 +902,31 @@ getContextNode</H3>
 <PRE>
 <A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>()</PRE>
 <DL>
-<DD>Every context node has a context node from which it originates.
+<DD>Every context node has a parent context node, except the root context node.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>The context node of this context node.</DL>
+<DT><B>Returns:</B><DD>The parent context node of this context node, or null.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getContextNode(int)"><!-- --></A><H3>
+getContextNode</H3>
+<PRE>
+<A HREF="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>(int&nbsp;arcs)</PRE>
+<DL>
+<DD>Every context node has ancestor context nodes, except the root context node.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>arcs</CODE> - The number of arcs to follow up the graph.
+<DT><B>Returns:</B><DD>The ancestor context node of this context node, or null.</DL>
 </DD>
 </DL>
 <HR>

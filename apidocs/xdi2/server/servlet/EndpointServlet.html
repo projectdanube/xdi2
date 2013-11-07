@@ -14,6 +14,7 @@ EndpointServlet (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="doPost()">
 <META NAME="keywords" CONTENT="doPut()">
 <META NAME="keywords" CONTENT="doDelete()">
+<META NAME="keywords" CONTENT="doOptions()">
 <META NAME="keywords" CONTENT="getHttpEndpointRegistry()">
 <META NAME="keywords" CONTENT="setHttpEndpointRegistry()">
 <META NAME="keywords" CONTENT="getHttpTransport()">
@@ -66,7 +67,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../xdi2/server/servlet/ServletHttpRequest.html" title="class in xdi2.server.servlet"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/server/servlet/PluginsLoaderListener.html" title="class in xdi2.server.servlet"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/server/servlet/EndpointServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="EndpointServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -175,6 +176,15 @@ The XDI endpoint servlet.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/server/servlet/EndpointServlet.html#doOptions(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doOptions</A></B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+          javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/server/servlet/EndpointServlet.html#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doPost</A></B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
        javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</CODE>
 
@@ -245,7 +255,7 @@ The XDI endpoint servlet.
 <TH ALIGN="left"><B>Methods inherited from class javax.servlet.http.HttpServlet</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>doHead, doOptions, doTrace, getLastModified, service, service</CODE></TD>
+<TD><CODE>doHead, doTrace, getLastModified, service, service</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_javax.servlet.GenericServlet"><!-- --></A>
@@ -410,6 +420,26 @@ protected void <B>doDelete</B>(javax.servlet.http.HttpServletRequest&nbsp;httpSe
 </DL>
 <HR>
 
+<A NAME="doOptions(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+doOptions</H3>
+<PRE>
+protected void <B>doOptions</B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+                         javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
+                  throws javax.servlet.ServletException,
+                         <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>doOptions</CODE> in class <CODE>javax.servlet.http.HttpServlet</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>javax.servlet.ServletException</CODE>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getHttpEndpointRegistry()"><!-- --></A><H3>
 getHttpEndpointRegistry</H3>
 <PRE>
@@ -496,7 +526,7 @@ public void <B>setHttpTransport</B>(<A HREF="../../../xdi2/server/transport/Http
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../xdi2/server/servlet/ServletHttpRequest.html" title="class in xdi2.server.servlet"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../xdi2/server/servlet/PluginsLoaderListener.html" title="class in xdi2.server.servlet"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/server/servlet/EndpointServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="EndpointServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

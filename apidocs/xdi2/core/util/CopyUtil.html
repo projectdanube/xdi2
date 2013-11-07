@@ -10,12 +10,12 @@ CopyUtil (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="xdi2.core.util.CopyUtil class">
 <META NAME="keywords" CONTENT="copyGraph()">
 <META NAME="keywords" CONTENT="copyContextNode()">
-<META NAME="keywords" CONTENT="copyRelation()">
-<META NAME="keywords" CONTENT="copyLiteral()">
-<META NAME="keywords" CONTENT="copyStatement()">
-<META NAME="keywords" CONTENT="copyContextNodeContents()">
 <META NAME="keywords" CONTENT="copyContextNodes()">
+<META NAME="keywords" CONTENT="copyRelation()">
 <META NAME="keywords" CONTENT="copyRelations()">
+<META NAME="keywords" CONTENT="copyLiteral()">
+<META NAME="keywords" CONTENT="copyContextNodeContents()">
+<META NAME="keywords" CONTENT="copyStatement()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -162,7 +162,7 @@ Various utility methods for copying statements between graphs.
                 <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a context node into another context node.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a context node into a target context node.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -172,7 +172,7 @@ Various utility methods for copying statements between graphs.
                 <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a context node into another graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a context node into a target graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -202,7 +202,7 @@ Various utility methods for copying statements between graphs.
           <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a whole graph into another graph.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copies a whole graph into a target graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -304,7 +304,7 @@ public static void <B>copyGraph</B>(<A HREF="../../../xdi2/core/Graph.html" titl
                              <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
                              <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
 <DL>
-<DD>Copies a whole graph into another graph.
+<DD>Copies a whole graph into a target graph.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>graph</CODE> - A graph.<DD><CODE>targetGraph</CODE> - The target graph.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.</DL>
@@ -319,7 +319,7 @@ public static <A HREF="../../../xdi2/core/ContextNode.html" title="interface in 
                                           <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
                                           <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
 <DL>
-<DD>Copies a context node into another graph.
+<DD>Copies a context node into a target graph.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - A context node from any graph.<DD><CODE>targetGraph</CODE> - The target graph.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
@@ -335,11 +335,27 @@ public static <A HREF="../../../xdi2/core/ContextNode.html" title="interface in 
                                           <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
                                           <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
 <DL>
-<DD>Copies a context node into another context node.
+<DD>Copies a context node into a target context node.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - A context node from any context node.<DD><CODE>targetContextNode</CODE> - The target context node.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
 <DT><B>Returns:</B><DD>The copied context node in the target context node.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="copyContextNodes(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)"><!-- --></A><H3>
+copyContextNodes</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt; <B>copyContextNodes</B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                                                     <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
+                                                     <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
+<DL>
+<DD>Copies all context nodes of a context node into a target context node.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - A context node from any graph.<DD><CODE>targetContextNode</CODE> - The target context node.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
+<DT><B>Returns:</B><DD>The copied context nodes in the target graph.</DL>
 </DD>
 </DL>
 <HR>
@@ -376,6 +392,22 @@ public static <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi
 </DL>
 <HR>
 
+<A NAME="copyRelations(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)"><!-- --></A><H3>
+copyRelations</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>copyRelations</B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                                               <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
+                                               <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
+<DL>
+<DD>Copies all relations of a context node into a target context node.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - A context node from any graph.<DD><CODE>targetContextNode</CODE> - The target context node.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
+<DT><B>Returns:</B><DD>The copied relations in the target graph.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="copyLiteral(xdi2.core.Literal, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)"><!-- --></A><H3>
 copyLiteral</H3>
 <PRE>
@@ -408,18 +440,18 @@ public static <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2
 </DL>
 <HR>
 
-<A NAME="copyStatement(xdi2.core.Statement, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)"><!-- --></A><H3>
-copyStatement</H3>
+<A NAME="copyLiteral(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)"><!-- --></A><H3>
+copyLiteral</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>copyStatement</B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;statement,
-                                      <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
-                                      <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
+public static <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>copyLiteral</B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                                  <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
+                                  <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
 <DL>
-<DD>Copies a statement into another graph.
+<DD>Copies a literal of a context node into a target context node.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>statement</CODE> - A statement from any graph.<DD><CODE>targetGraph</CODE> - The target graph.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
-<DT><B>Returns:</B><DD>The copied statement in the target graph.</DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - A context node from any graph.<DD><CODE>targetContextNode</CODE> - The target context node.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
+<DT><B>Returns:</B><DD>The copied literal in the target graph.</DL>
 </DD>
 </DL>
 <HR>
@@ -439,50 +471,18 @@ public static void <B>copyContextNodeContents</B>(<A HREF="../../../xdi2/core/Co
 </DL>
 <HR>
 
-<A NAME="copyContextNodes(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)"><!-- --></A><H3>
-copyContextNodes</H3>
+<A NAME="copyStatement(xdi2.core.Statement, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)"><!-- --></A><H3>
+copyStatement</H3>
 <PRE>
-public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&gt; <B>copyContextNodes</B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                                                     <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
-                                                     <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
+public static <A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A> <B>copyStatement</B>(<A HREF="../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</A>&nbsp;statement,
+                                      <A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;targetGraph,
+                                      <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
 <DL>
-<DD>Copies all context nodes of a context node into a target context node.
+<DD>Copies a statement into another graph.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - A context node from any graph.<DD><CODE>targetContextNode</CODE> - The target context node.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
-<DT><B>Returns:</B><DD>The copied context nodes in the target graph.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="copyRelations(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)"><!-- --></A><H3>
-copyRelations</H3>
-<PRE>
-public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</A>&gt; <B>copyRelations</B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                                               <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
-                                               <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
-<DL>
-<DD>Copies all relations of a context node into a target context node.
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - A context node from any graph.<DD><CODE>targetContextNode</CODE> - The target context node.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
-<DT><B>Returns:</B><DD>The copied relations in the target graph.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="copyLiteral(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)"><!-- --></A><H3>
-copyLiteral</H3>
-<PRE>
-public static <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>copyLiteral</B>(<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
-                                  <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;targetContextNode,
-                                  <A HREF="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</A>&nbsp;copyStrategy)</PRE>
-<DL>
-<DD>Copies a literal of a context node into a target context node.
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - A context node from any graph.<DD><CODE>targetContextNode</CODE> - The target context node.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
-<DT><B>Returns:</B><DD>The copied literal in the target graph.</DL>
+<DT><B>Parameters:</B><DD><CODE>statement</CODE> - A statement from any graph.<DD><CODE>targetGraph</CODE> - The target graph.<DD><CODE>copyStrategy</CODE> - The strategy to determine what to copy.
+<DT><B>Returns:</B><DD>The copied statement in the target graph.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

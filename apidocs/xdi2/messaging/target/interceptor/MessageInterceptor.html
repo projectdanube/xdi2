@@ -58,7 +58,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/MessageEnvelopeInterceptor.html" title="interface in xdi2.messaging.target.interceptor"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/OperationInterceptor.html" title="interface in xdi2.messaging.target.interceptor"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/messaging/target/interceptor/MessageInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MessageInterceptor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -97,7 +97,7 @@ Interface MessageInterceptor</H2>
 <DT><B>All Superinterfaces:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractMessageInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractMessageInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">AuthenticationSecretTokenInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AuthenticationSignatureInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">AuthenticationSignatureInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractMessageInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractMessageInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/secrettoken/AuthenticationSecretTokenInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.secrettoken">AuthenticationSecretTokenInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AuthenticationSignatureInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">AuthenticationSignatureInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/transport/HttpTransportInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.transport">HttpTransportInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></DD>
 </DL>
 <HR>
 <DL>
@@ -152,7 +152,7 @@ Interceptor that is executed before and after a message is executed.
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.interceptor.<A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#setEnabled(boolean)">setEnabled</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#init(xdi2.messaging.target.MessagingTarget)">init</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#setEnabled(boolean)">setEnabled</A>, <A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html#shutdown(xdi2.messaging.target.MessagingTarget)">shutdown</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -242,7 +242,7 @@ boolean <B>after</B>(<A HREF="../../../../xdi2/messaging/Message.html" title="cl
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/MessageEnvelopeInterceptor.html" title="interface in xdi2.messaging.target.interceptor"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/messaging/target/interceptor/OperationInterceptor.html" title="interface in xdi2.messaging.target.interceptor"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/messaging/target/interceptor/MessageInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MessageInterceptor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

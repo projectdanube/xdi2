@@ -20,13 +20,15 @@ XDI3Statement (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="isContextNodeStatement()">
 <META NAME="keywords" CONTENT="isRelationStatement()">
 <META NAME="keywords" CONTENT="isLiteralStatement()">
-<META NAME="keywords" CONTENT="hasInnerRootStatement()">
 <META NAME="keywords" CONTENT="getContextNodeXri()">
 <META NAME="keywords" CONTENT="getContextNodeArcXri()">
 <META NAME="keywords" CONTENT="getRelationArcXri()">
 <META NAME="keywords" CONTENT="getTargetContextNodeXri()">
-<META NAME="keywords" CONTENT="getInnerRootStatement()">
 <META NAME="keywords" CONTENT="getLiteralData()">
+<META NAME="keywords" CONTENT="getInnerRootNotationStatement()">
+<META NAME="keywords" CONTENT="isInnerRootNotation()">
+<META NAME="keywords" CONTENT="fromInnerRootNotation()">
+<META NAME="keywords" CONTENT="toInnerRootNotation()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -178,10 +180,18 @@ Class XDI3Statement</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#fromContextNodeComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)">fromContextNodeComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-                          <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</CODE>
+                          <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an XDI statement from a context node XRI and an arc XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#fromInnerRootNotation(boolean)">fromInnerRootNotation</A></B>(boolean&nbsp;recursive)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -196,7 +206,7 @@ Class XDI3Statement</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#fromRelationComponents(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">fromRelationComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-                       <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                       <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relationArcXri,
                        <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</CODE>
 
 <BR>
@@ -229,7 +239,7 @@ Class XDI3Statement</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#getInnerRootStatement()">getInnerRootStatement</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#getInnerRootNotationStatement()">getInnerRootNotationStatement</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -285,7 +295,7 @@ Class XDI3Statement</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#hasInnerRootStatement()">hasInnerRootStatement</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#isContextNodeStatement()">isContextNodeStatement</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -293,7 +303,7 @@ Class XDI3Statement</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#isContextNodeStatement()">isContextNodeStatement</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#isInnerRootNotation()">isInnerRootNotation</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -310,6 +320,14 @@ Class XDI3Statement</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#isRelationStatement()">isRelationStatement</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/xri3/XDI3Statement.html#toInnerRootNotation(boolean)">toInnerRootNotation</A></B>(boolean&nbsp;recursive)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -380,12 +398,12 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class 
 fromContextNodeComponents</H3>
 <PRE>
 public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>fromContextNodeComponents</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-                                                      <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;arcXri)</PRE>
+                                                      <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri)</PRE>
 <DL>
 <DD>Creates an XDI statement from a context node XRI and an arc XRI.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNodeXri</CODE> - The context node XRI<DD><CODE>arcXri</CODE> - The arc XRI
+<DT><B>Parameters:</B><DD><CODE>contextNodeXri</CODE> - The context node XRI<DD><CODE>contextNodeArcXri</CODE> - The arc XRI
 <DT><B>Returns:</B><DD>An XDI statement</DL>
 </DD>
 </DL>
@@ -395,13 +413,13 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class 
 fromRelationComponents</H3>
 <PRE>
 public static <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>fromRelationComponents</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-                                                   <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;arcXri,
+                                                   <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relationArcXri,
                                                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetContextNodeXri)</PRE>
 <DL>
 <DD>Creates an XDI statement from a context node XRI, arc XRI, and target context node XRI.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>contextNodeXri</CODE> - The context node XRI<DD><CODE>arcXri</CODE> - The arc XRI
+<DT><B>Parameters:</B><DD><CODE>contextNodeXri</CODE> - The context node XRI<DD><CODE>relationArcXri</CODE> - The arc XRI
 <DT><B>Returns:</B><DD>An XDI statement</DL>
 </DD>
 </DL>
@@ -505,17 +523,6 @@ public boolean <B>isLiteralStatement</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="hasInnerRootStatement()"><!-- --></A><H3>
-hasInnerRootStatement</H3>
-<PRE>
-public boolean <B>hasInnerRootStatement</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getContextNodeXri()"><!-- --></A><H3>
 getContextNodeXri</H3>
 <PRE>
@@ -560,10 +567,10 @@ public <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.c
 </DL>
 <HR>
 
-<A NAME="getInnerRootStatement()"><!-- --></A><H3>
-getInnerRootStatement</H3>
+<A NAME="getLiteralData()"><!-- --></A><H3>
+getLiteralData</H3>
 <PRE>
-public <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>getInnerRootStatement</B>()</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getLiteralData</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -571,10 +578,43 @@ public <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2
 </DL>
 <HR>
 
-<A NAME="getLiteralData()"><!-- --></A><H3>
-getLiteralData</H3>
+<A NAME="getInnerRootNotationStatement()"><!-- --></A><H3>
+getInnerRootNotationStatement</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getLiteralData</B>()</PRE>
+public <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>getInnerRootNotationStatement</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isInnerRootNotation()"><!-- --></A><H3>
+isInnerRootNotation</H3>
+<PRE>
+public boolean <B>isInnerRootNotation</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fromInnerRootNotation(boolean)"><!-- --></A><H3>
+fromInnerRootNotation</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>fromInnerRootNotation</B>(boolean&nbsp;recursive)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="toInnerRootNotation(boolean)"><!-- --></A><H3>
+toInnerRootNotation</H3>
+<PRE>
+public <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>toInnerRootNotation</B>(boolean&nbsp;recursive)</PRE>
 <DL>
 <DD><DL>
 </DL>

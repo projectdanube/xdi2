@@ -9,9 +9,10 @@ XDIDiscoveryResult (xdi2 0.1-SNAPSHOT API)
 
 <META NAME="keywords" CONTENT="xdi2.discovery.XDIDiscoveryResult class">
 <META NAME="keywords" CONTENT="getCloudNumber()">
+<META NAME="keywords" CONTENT="getSignaturePublicKey()">
+<META NAME="keywords" CONTENT="getEncryptionPublicKey()">
+<META NAME="keywords" CONTENT="getEndpointUris()">
 <META NAME="keywords" CONTENT="getXdiEndpointUri()">
-<META NAME="keywords" CONTENT="getPublicKey()">
-<META NAME="keywords" CONTENT="getServices()">
 <META NAME="keywords" CONTENT="getMessageEnvelope()">
 <META NAME="keywords" CONTENT="getMessageResult()">
 <META NAME="keywords" CONTENT="toString()">
@@ -151,6 +152,22 @@ Class XDIDiscoveryResult</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getEncryptionPublicKey()">getEncryptionPublicKey</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getEndpointUris()">getEndpointUris</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getMessageEnvelope()">getMessageEnvelope</A></B>()</CODE>
 
@@ -168,15 +185,7 @@ Class XDIDiscoveryResult</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getPublicKey()">getPublicKey</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getServices()">getServices</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryResult.html#getSignaturePublicKey()">getSignaturePublicKey</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -251,38 +260,52 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
+<A NAME="getSignaturePublicKey()"><!-- --></A><H3>
+getSignaturePublicKey</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A> <B>getSignaturePublicKey</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getEncryptionPublicKey()"><!-- --></A><H3>
+getEncryptionPublicKey</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A> <B>getEncryptionPublicKey</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getEndpointUris()"><!-- --></A><H3>
+getEndpointUris</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt; <B>getEndpointUris</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getXdiEndpointUri()"><!-- --></A><H3>
 getXdiEndpointUri</H3>
 <PRE>
 public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getXdiEndpointUri</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getPublicKey()"><!-- --></A><H3>
-getPublicKey</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</A> <B>getPublicKey</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getServices()"><!-- --></A><H3>
-getServices</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt; <B>getServices</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>

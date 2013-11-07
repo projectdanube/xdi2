@@ -11,14 +11,15 @@ DataTypes (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="XRI_DATATYPE_XSD">
 <META NAME="keywords" CONTENT="XRI_DATATYPE_JSON">
 <META NAME="keywords" CONTENT="XRI_DATATYPE_MIME">
+<META NAME="keywords" CONTENT="setDataType()">
+<META NAME="keywords" CONTENT="getDataTypes()">
+<META NAME="keywords" CONTENT="getDataType()">
 <META NAME="keywords" CONTENT="dataTypeXriFromXsdType()">
 <META NAME="keywords" CONTENT="xsdTypeFromDataTypeXri()">
 <META NAME="keywords" CONTENT="dataTypeXriFromJsonType()">
 <META NAME="keywords" CONTENT="jsonTypeFromDataTypeXri()">
 <META NAME="keywords" CONTENT="dataTypeXriFromMimeType()">
 <META NAME="keywords" CONTENT="mimeTypeFromDataTypeXri()">
-<META NAME="keywords" CONTENT="setLiteralDataType()">
-<META NAME="keywords" CONTENT="getLiteralDataType()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -192,11 +193,19 @@ A helper class to work with data types, i.e. get or set them. Supported data
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#getLiteralDataType(xdi2.core.Literal)">getLiteralDataType</A></B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</CODE>
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#getDataType(xdi2.core.ContextNode)">getDataType</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get all datatypes associated with a literal</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get a $is+ datatype associated with a context node</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#getDataTypes(xdi2.core.ContextNode)">getDataTypes</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get all $is+ datatypes associated with a context node</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -204,7 +213,7 @@ A helper class to work with data types, i.e. get or set them. Supported data
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#jsonTypeFromDataTypeXri(xdi2.core.xri3.XDI3Segment)">jsonTypeFromDataTypeXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns datatype of literal in json format for a given XRI segment.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns datatype in json format for a given XRI segment.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -212,16 +221,16 @@ A helper class to work with data types, i.e. get or set them. Supported data
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#mimeTypeFromDataTypeXri(xdi2.core.xri3.XDI3Segment)">mimeTypeFromDataTypeXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns datatype of literal in mime format for a given XRI segment.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns datatype in mime format for a given XRI segment.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#setLiteralDataType(xdi2.core.Literal, xdi2.core.xri3.XDI3Segment)">setLiteralDataType</A></B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
-                   <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#setDataType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)">setDataType</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+            <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a "$is" relation for a literal and datatype XRI segment</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set a $is+ datatype associated with a context node</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -229,7 +238,7 @@ A helper class to work with data types, i.e. get or set them. Supported data
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/datatypes/DataTypes.html#xsdTypeFromDataTypeXri(xdi2.core.xri3.XDI3Segment)">xsdTypeFromDataTypeXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns datatype of literal in xsd format for a given XRI segment.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns datatype in xsd format for a given XRI segment.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -293,6 +302,48 @@ public static final <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title=
 </TR>
 </TABLE>
 
+<A NAME="setDataType(xdi2.core.ContextNode, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+setDataType</H3>
+<PRE>
+public static void <B>setDataType</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode,
+                               <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</PRE>
+<DL>
+<DD>Set a $is+ datatype associated with a context node
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - <DD><CODE>dataTypeXri</CODE> - </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDataTypes(xdi2.core.ContextNode)"><!-- --></A><H3>
+getDataTypes</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt; <B>getDataTypes</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+<DD>Get all $is+ datatypes associated with a context node
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - 
+<DT><B>Returns:</B><DD>list of datatypes</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDataType(xdi2.core.ContextNode)"><!-- --></A><H3>
+getDataType</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getDataType</B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</PRE>
+<DL>
+<DD>Get a $is+ datatype associated with a context node
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - 
+<DT><B>Returns:</B><DD>datatype</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="dataTypeXriFromXsdType(java.lang.String)"><!-- --></A><H3>
 dataTypeXriFromXsdType</H3>
 <PRE>
@@ -312,7 +363,7 @@ xsdTypeFromDataTypeXri</H3>
 <PRE>
 public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>xsdTypeFromDataTypeXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</PRE>
 <DL>
-<DD>Returns datatype of literal in xsd format for a given XRI segment.
+<DD>Returns datatype in xsd format for a given XRI segment.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>dataTypeXri</CODE> - 
@@ -340,7 +391,7 @@ jsonTypeFromDataTypeXri</H3>
 <PRE>
 public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>jsonTypeFromDataTypeXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</PRE>
 <DL>
-<DD>Returns datatype of literal in json format for a given XRI segment.
+<DD>Returns datatype in json format for a given XRI segment.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>dataTypeXri</CODE> - 
@@ -368,39 +419,11 @@ mimeTypeFromDataTypeXri</H3>
 <PRE>
 public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>mimeTypeFromDataTypeXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</PRE>
 <DL>
-<DD>Returns datatype of literal in mime format for a given XRI segment.
+<DD>Returns datatype in mime format for a given XRI segment.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>dataTypeXri</CODE> - 
 <DT><B>Returns:</B><DD>a string of mime datatype</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setLiteralDataType(xdi2.core.Literal, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setLiteralDataType</H3>
-<PRE>
-public static void <B>setLiteralDataType</B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal,
-                                      <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;dataTypeXri)</PRE>
-<DL>
-<DD>Create a "$is" relation for a literal and datatype XRI segment
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>literal</CODE> - <DD><CODE>dataTypeXri</CODE> - </DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getLiteralDataType(xdi2.core.Literal)"><!-- --></A><H3>
-getLiteralDataType</H3>
-<PRE>
-public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt; <B>getLiteralDataType</B>(<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A>&nbsp;literal)</PRE>
-<DL>
-<DD>Get all datatypes associated with a literal
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>literal</CODE> - 
-<DT><B>Returns:</B><DD>list of datatypes as XDI3Segment</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

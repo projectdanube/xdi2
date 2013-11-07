@@ -14,6 +14,7 @@ HttpTransport (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="doPost()">
 <META NAME="keywords" CONTENT="doPut()">
 <META NAME="keywords" CONTENT="doDelete()">
+<META NAME="keywords" CONTENT="doOptions()">
 <META NAME="keywords" CONTENT="processGetRequest()">
 <META NAME="keywords" CONTENT="processPostRequest()">
 <META NAME="keywords" CONTENT="processPutRequest()">
@@ -177,6 +178,15 @@ Class HttpTransport</H2>
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/server/transport/HttpTransport.html#doGet(xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse)">doGet</A></B>(<A HREF="../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
       <A HREF="../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/server/transport/HttpTransport.html#doOptions(xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse)">doOptions</A></B>(<A HREF="../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+          <A HREF="../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -450,6 +460,21 @@ doDelete</H3>
 public void <B>doDelete</B>(<A HREF="../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
                      <A HREF="../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response)
               throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="doOptions(xdi2.server.transport.HttpRequest, xdi2.server.transport.HttpResponse)"><!-- --></A><H3>
+doOptions</H3>
+<PRE>
+public void <B>doOptions</B>(<A HREF="../../../xdi2/server/transport/HttpRequest.html" title="interface in xdi2.server.transport">HttpRequest</A>&nbsp;request,
+                      <A HREF="../../../xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A>&nbsp;response)
+               throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
 <DL>
 <DD><DL>
 

@@ -212,7 +212,15 @@ Uses of <A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" 
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A></CODE></FONT></TD>
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/SymmetricKeySignature.html" title="class in xdi2.core.features.signatures">SymmetricKeySignature</A></CODE></FONT></TD>
+<TD><CODE><B>SymmetricKeySignature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/SymmetricKeySignature.html#fromXdiAttribute(xdi2.core.features.nodetypes.XdiAttribute)">fromXdiAttribute</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI signature bound to a given XDI attribute.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/Key.html?is-external=true" title="class or interface in java.security">Key</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#fromXdiAttribute(xdi2.core.features.nodetypes.XdiAttribute)">fromXdiAttribute</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
 
 <BR>
@@ -220,8 +228,64 @@ Uses of <A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" 
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/features/signatures/KeyPairSignature.html" title="class in xdi2.core.features.signatures">KeyPairSignature</A></CODE></FONT></TD>
+<TD><CODE><B>KeyPairSignature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/KeyPairSignature.html#fromXdiAttribute(xdi2.core.features.nodetypes.XdiAttribute)">fromXdiAttribute</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI signature bound to a given XDI attribute.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#getDigestAlgorithm(xdi2.core.features.nodetypes.XdiAttribute)">getDigestAlgorithm</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A></CODE></FONT></TD>
+<TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#getDigestLength(xdi2.core.features.nodetypes.XdiAttribute)">getDigestLength</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#getKeyAlgorithm(xdi2.core.features.nodetypes.XdiAttribute)">getKeyAlgorithm</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</A></CODE></FONT></TD>
+<TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#getKeyLength(xdi2.core.features.nodetypes.XdiAttribute)">getKeyLength</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>SymmetricKeySignature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/SymmetricKeySignature.html#isValid(xdi2.core.features.nodetypes.XdiAttribute)">isValid</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI attribute is a valid XDI signature.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B>Signature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#isValid(xdi2.core.features.nodetypes.XdiAttribute)">isValid</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI attribute is a valid XDI signature.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>KeyPairSignature.</B><B><A HREF="../../../../../xdi2/core/features/signatures/KeyPairSignature.html#isValid(xdi2.core.features.nodetypes.XdiAttribute)">isValid</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI attribute is a valid XDI signature.</TD>
@@ -235,7 +299,19 @@ Uses of <A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" 
 <TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../../../xdi2/core/features/signatures/package-summary.html">xdi2.core.features.signatures</A> with parameters of type <A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/signatures/KeyPairSignature.html#KeyPairSignature(xdi2.core.features.nodetypes.XdiAttribute)">KeyPairSignature</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../../../xdi2/core/features/signatures/Signature.html#Signature(xdi2.core.features.nodetypes.XdiAttribute)">Signature</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../xdi2/core/features/signatures/SymmetricKeySignature.html#SymmetricKeySignature(xdi2.core.features.nodetypes.XdiAttribute)">SymmetricKeySignature</A></B>(<A HREF="../../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A>&nbsp;xdiAttribute)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>

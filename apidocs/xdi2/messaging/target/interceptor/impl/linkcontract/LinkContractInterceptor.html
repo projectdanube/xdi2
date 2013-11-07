@@ -10,11 +10,10 @@ LinkContractInterceptor (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor class">
 <META NAME="keywords" CONTENT="instanceFor()">
 <META NAME="keywords" CONTENT="init()">
-<META NAME="keywords" CONTENT="shutdown()">
 <META NAME="keywords" CONTENT="before()">
 <META NAME="keywords" CONTENT="after()">
-<META NAME="keywords" CONTENT="targetStatement()">
 <META NAME="keywords" CONTENT="targetAddress()">
+<META NAME="keywords" CONTENT="targetStatement()">
 <META NAME="keywords" CONTENT="getLinkContractsGraph()">
 <META NAME="keywords" CONTENT="setLinkContractsGraph()">
 <META NAME="keywords" CONTENT="getLinkContract()">
@@ -108,11 +107,11 @@ Class LinkContractInterceptor</H2>
       <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang">Cloneable</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessagingTargetInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang">Cloneable</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>&gt;</DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>LinkContractInterceptor</B><DT>extends <A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractInterceptor</A><DT>implements <A HREF="../../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessagingTargetInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>&gt;</DL>
+<DT><PRE>public class <B>LinkContractInterceptor</B><DT>extends <A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractInterceptor</A><DT>implements <A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.linkcontract">LinkContractInterceptor</A>&gt;</DL>
 </PRE>
 
 <P>
@@ -157,6 +156,12 @@ This interceptor enforces link contracts while a message is executed.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#LinkContractInterceptor()">LinkContractInterceptor</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#LinkContractInterceptor(xdi2.core.Graph)">LinkContractInterceptor</A></B>(<A HREF="../../../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;linkContractsGraph)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -213,7 +218,7 @@ This interceptor enforces link contracts while a message is executed.
 <TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#init(xdi2.messaging.target.MessagingTarget)">init</A></B>(<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method gets called when the messaging target is initialized.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -239,14 +244,6 @@ This interceptor enforces link contracts while a message is executed.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/linkcontract/LinkContractInterceptor.html#shutdown(xdi2.messaging.target.MessagingTarget)">shutdown</A></B>(<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This method gets called when the messaging target is shut down.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -277,7 +274,7 @@ This interceptor enforces link contracts while a message is executed.
 <TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.interceptor.<A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractInterceptor</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html#setEnabled(boolean)">setEnabled</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html#setEnabled(boolean)">setEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html#shutdown(xdi2.messaging.target.MessagingTarget)">shutdown</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -295,7 +292,7 @@ This interceptor enforces link contracts while a message is executed.
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.interceptor.<A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html#setEnabled(boolean)">setEnabled</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html#isEnabled()">isEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html#setEnabled(boolean)">setEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html#shutdown(xdi2.messaging.target.MessagingTarget)">shutdown</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -310,6 +307,14 @@ This interceptor enforces link contracts while a message is executed.
 <B>Constructor Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="LinkContractInterceptor(xdi2.core.Graph)"><!-- --></A><H3>
+LinkContractInterceptor</H3>
+<PRE>
+public <B>LinkContractInterceptor</B>(<A HREF="../../../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;linkContractsGraph)</PRE>
+<DL>
+</DL>
+<HR>
 
 <A NAME="LinkContractInterceptor()"><!-- --></A><H3>
 LinkContractInterceptor</H3>
@@ -348,31 +353,8 @@ init</H3>
 public void <B>init</B>(<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)
           throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html#init(xdi2.messaging.target.MessagingTarget)">MessagingTargetInterceptor</A></CODE></B></DD>
-<DD>This method gets called when the messaging target is initialized.
-<P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html#init(xdi2.messaging.target.MessagingTarget)">init</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessagingTargetInterceptor</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="shutdown(xdi2.messaging.target.MessagingTarget)"><!-- --></A><H3>
-shutdown</H3>
-<PRE>
-public void <B>shutdown</B>(<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)
-              throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
-<DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html#shutdown(xdi2.messaging.target.MessagingTarget)">MessagingTargetInterceptor</A></CODE></B></DD>
-<DD>This method gets called when the messaging target is shut down.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html#shutdown(xdi2.messaging.target.MessagingTarget)">shutdown</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessagingTargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessagingTargetInterceptor</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html#init(xdi2.messaging.target.MessagingTarget)">init</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html#init(xdi2.messaging.target.MessagingTarget)">init</A></CODE> in class <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractInterceptor</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -428,30 +410,6 @@ public boolean <B>after</B>(<A HREF="../../../../../../xdi2/messaging/Message.ht
 </DL>
 <HR>
 
-<A NAME="targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
-targetStatement</H3>
-<PRE>
-public <A HREF="../../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>targetStatement</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
-                                     <A HREF="../../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
-                                     <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                     <A HREF="../../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
-                              throws <A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
-<DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">TargetInterceptor</A></CODE></B></DD>
-<DD>Replaces or skips the target statement before it is executed.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement.<DD><CODE>operation</CODE> - The operation to process.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
-<DT><B>Returns:</B><DD>The new target statement, or the original target statement, or null to skip.
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="targetAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
 targetAddress</H3>
 <PRE>
@@ -470,6 +428,30 @@ public <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class 
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>targetAddress</CODE> - The target address.<DD><CODE>operation</CODE> - The operation to process.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
 <DT><B>Returns:</B><DD>The new target address, or the original target address, or null to skip.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+targetStatement</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A> <B>targetStatement</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                                     <A HREF="../../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                                     <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                     <A HREF="../../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                              throws <A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">TargetInterceptor</A></CODE></B></DD>
+<DD>Replaces or skips the target statement before it is executed.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html#targetStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">targetStatement</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>targetStatement</CODE> - The target statement.<DD><CODE>operation</CODE> - The operation to process.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
+<DT><B>Returns:</B><DD>The new target statement, or the original target statement, or null to skip.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
 </DD>
