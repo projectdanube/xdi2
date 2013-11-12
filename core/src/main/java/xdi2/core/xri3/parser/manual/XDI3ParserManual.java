@@ -130,7 +130,7 @@ public class XDI3ParserManual extends XDI3Parser {
 				pos++;
 			}
 
-			if (! pairs.isEmpty()) throw new ParserException("Missing closing character '" + pairs.peek().charAt(1) + "'.");
+			if (! pairs.isEmpty()) throw new ParserException("Missing closing character '" + pairs.peek().charAt(1) + "' at position " + pos + ".");
 
 			subSegments.add(this.parseXDI3SubSegment(string.substring(start, pos)));
 
@@ -159,7 +159,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		if (pos < len && (cla = cla(string.charAt(pos))) != null) {
 
-			if (string.charAt(len - 1) != cla.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + cla.charAt(1) + "' character for class)");
+			if (string.charAt(len - 1) != cla.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + cla.charAt(1) + "' character for class at position " + pos + ")");
 
 			pos++; len--;
 		}
@@ -168,7 +168,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		if (pos < len && (att = att(string.charAt(pos))) != null) {
 
-			if (string.charAt(len - 1) != att.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + att.charAt(1) + "' character for attribute)");
+			if (string.charAt(len - 1) != att.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + att.charAt(1) + "' character for attribute at position " + pos + ")");
 
 			pos++; len--;
 		}
@@ -189,7 +189,7 @@ public class XDI3ParserManual extends XDI3Parser {
 				xref = this.parseXDI3XRef(string.substring(pos, len));
 			} else {
 
-				if (pos == 0) throw new ParserException("Invalid subsegment: " + string + " (no cs, xref)");
+				if (pos == 0) throw new ParserException("Invalid subsegment: " + string + " (no context symbol or cross reference)");
 				literal = parseLiteral(string.substring(pos, len));
 			}
 		}
@@ -205,8 +205,8 @@ public class XDI3ParserManual extends XDI3Parser {
 		if (log.isTraceEnabled()) log.trace("Parsing xref: " + string);
 
 		String xs = xs(string.charAt(0));
-		if (xs == null) throw new ParserException("Invalid xref: " + string + " (no opening delimiter)");
-		if (string.charAt(string.length() - 1) != xs.charAt(1)) throw new ParserException("Invalid xref: " + string + " (invalid closing '" + xs.charAt(1) + "' character)");
+		if (xs == null) throw new ParserException("Invalid cross reference: " + string + " (no opening delimiter)");
+		if (string.charAt(string.length() - 1) != xs.charAt(1)) throw new ParserException("Invalid cross reference: " + string + " (invalid closing '" + xs.charAt(1) + "' delimiter)");
 		if (string.length() == 2) return this.makeXDI3XRef(string, xs, null, null, null, null, null, null);
 
 		String value = string.substring(1, string.length() - 1);
@@ -344,6 +344,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		if (XDIConstants.XS_ROOT.charAt(0) == c) return XDIConstants.XS_ROOT;
 		if (XDIConstants.XS_VARIABLE.charAt(0) == c) return XDIConstants.XS_VARIABLE;
+		if (XDIConstants.XS_DEFINITION.charAt(0) == c) return XDIConstants.XS_DEFINITION;
 
 		return null;
 	}
