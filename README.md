@@ -42,8 +42,6 @@ Google Group: http://groups.google.com/group/xdi2
 
 Javadoc: http://projectdanube.github.com/xdi2/apidocs
 
-Changelog: https://github.com/projectdanube/xdi2/blob/master/CHANGELOG
-
 ### Virtual machine and screencasts
 
 To give you a quick start into XDI2, you may download a VirtualBox image with all the components, or watch a screencast.
