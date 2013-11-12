@@ -114,7 +114,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		try {
 
-			if (targetAddressOrTargetStatement == null) targetAddressOrTargetStatement = "()";
+			if (targetAddressOrTargetStatement == null) targetAddressOrTargetStatement = "";
 
 			XDI3Segment targetAddress = XDI3Segment.create(targetAddressOrTargetStatement);
 			return MessageEnvelope.fromOperationXriAndTargetAddress(operationXri, targetAddress);

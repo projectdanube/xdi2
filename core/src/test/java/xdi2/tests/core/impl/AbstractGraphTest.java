@@ -16,9 +16,6 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
@@ -47,8 +44,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 public abstract class AbstractGraphTest extends TestCase {
-
-	private static final Logger log = LoggerFactory.getLogger(AbstractGraphTest.class);
 
 	protected abstract Graph openNewGraph(String id) throws IOException;
 	protected abstract Graph reopenGraph(Graph graph, String id) throws IOException;
@@ -126,8 +121,6 @@ public abstract class AbstractGraphTest extends TestCase {
 		String[] formats = new String[] { "XDI/JSON", "XDI DISPLAY" };
 
 		for (int i=0; i<formats.length; i++) {
-
-			log.info("#" + i + " Format: " + formats[i]);
 
 			File file = new File("xdi.out");
 
@@ -623,8 +616,8 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		ContextNode markus = graph20.setDeepContextNode(XDI3Segment.create("=markus"));
 
-		try { markus.setContextNode(XDI3SubSegment.create("()")); fail(); } catch (Xdi2GraphException ex) { }
-		try { markus.setRelation(XDI3Segment.create("()"), XDI3Segment.create("=animesh")); fail(); } catch (Xdi2GraphException ex) { }
+		try { markus.setContextNode(XDI3SubSegment.create("")); fail(); } catch (Xdi2GraphException ex) { }
+		try { markus.setRelation(XDI3Segment.create(""), XDI3Segment.create("=animesh")); fail(); } catch (Xdi2GraphException ex) { }
 		try { markus.setRelation(XDI3Segment.create("&"), XDI3Segment.create("=animesh")); fail(); } catch (Xdi2GraphException ex) { }
 
 		Equivalence.setReferenceContextNode(markus, XDI3Segment.create("[=]!:uuid:1234"));
@@ -667,7 +660,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		Graph graph22 = this.openNewGraph(this.getClass().getName() + "-graph-22");
 		Graph graph23 = this.openNewGraph(this.getClass().getName() + "-graph-23");
 
-		ContextNodeStatement statement22_1 = (ContextNodeStatement) graph22.setStatement(XDI3Statement.create("=neustar/()/=les"));
+		ContextNodeStatement statement22_1 = (ContextNodeStatement) graph22.setStatement(XDI3Statement.create("=neustar//=les"));
 		RelationStatement statement22_2 = (RelationStatement) graph22.setStatement(XDI3Statement.create("=markus/+friend/=neustar=les"));
 		LiteralStatement statement22_3 = (LiteralStatement) graph22.setStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\""));
 
@@ -679,17 +672,17 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNotNull(graph22.getDeepLiteral(XDI3Segment.create("=markus<+email>&")));
 		assertNotNull(graph22.getDeepLiteral(XDI3Segment.create("=markus<+email>&"), "markus.sabadello@gmail.com"));
 
-		assertTrue(graph22.containsStatement(XDI3Statement.create("=neustar/()/=les")));
+		assertTrue(graph22.containsStatement(XDI3Statement.create("=neustar//=les")));
 		assertTrue(graph22.containsStatement(XDI3Statement.create("=markus/+friend/=neustar=les")));
 		assertTrue(graph22.containsStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")));
-		assertEquals(graph22.getStatement(XDI3Statement.create("=neustar/()/=les")).getXri(), XDI3Statement.create("=neustar/()/=les"));
+		assertEquals(graph22.getStatement(XDI3Statement.create("=neustar//=les")).getXri(), XDI3Statement.create("=neustar//=les"));
 		assertEquals(graph22.getStatement(XDI3Statement.create("=markus/+friend/=neustar=les")).getXri(), "=markus/+friend/=neustar=les");
 		assertEquals(graph22.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")).getXri(), "=markus<+email>&/&/\"markus.sabadello@gmail.com\"");
 
-		assertTrue(graph22.getStatement(XDI3Statement.create("=neustar/()/=les")) instanceof ContextNodeStatement);
+		assertTrue(graph22.getStatement(XDI3Statement.create("=neustar//=les")) instanceof ContextNodeStatement);
 		assertTrue(graph22.getStatement(XDI3Statement.create("=markus/+friend/=neustar=les")) instanceof RelationStatement);
 		assertTrue(graph22.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
-		assertTrue(graph22.getStatement(XDI3Statement.create("=neustar/()/=les")).getXri().isContextNodeStatement());
+		assertTrue(graph22.getStatement(XDI3Statement.create("=neustar//=les")).getXri().isContextNodeStatement());
 		assertTrue(graph22.getStatement(XDI3Statement.create("=markus/+friend/=neustar=les")).getXri().isRelationStatement());
 		assertTrue(graph22.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")).getXri().isLiteralStatement());
 
@@ -705,17 +698,17 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertNotNull(graph23.getDeepLiteral(XDI3Segment.create("=markus<+email>&")));
 		assertNotNull(graph23.getDeepLiteral(XDI3Segment.create("=markus<+email>&"), "markus.sabadello@gmail.com"));
 
-		assertTrue(graph23.containsStatement(XDI3Statement.create("=neustar/()/=les")));
+		assertTrue(graph23.containsStatement(XDI3Statement.create("=neustar//=les")));
 		assertTrue(graph23.containsStatement(XDI3Statement.create("=markus/+friend/=neustar=les")));
 		assertTrue(graph23.containsStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")));
-		assertEquals(graph23.getStatement(XDI3Statement.create("=neustar/()/=les")).getXri(), XDI3Statement.create("=neustar/()/=les"));
+		assertEquals(graph23.getStatement(XDI3Statement.create("=neustar//=les")).getXri(), XDI3Statement.create("=neustar//=les"));
 		assertEquals(graph23.getStatement(XDI3Statement.create("=markus/+friend/=neustar=les")).getXri(), "=markus/+friend/=neustar=les");
 		assertEquals(graph23.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")).getXri(), "=markus<+email>&/&/\"markus.sabadello@gmail.com\"");
 
-		assertTrue(graph23.getStatement(XDI3Statement.create("=neustar/()/=les")) instanceof ContextNodeStatement);
+		assertTrue(graph23.getStatement(XDI3Statement.create("=neustar//=les")) instanceof ContextNodeStatement);
 		assertTrue(graph23.getStatement(XDI3Statement.create("=markus/+friend/=neustar=les")) instanceof RelationStatement);
 		assertTrue(graph23.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
-		assertTrue(graph23.getStatement(XDI3Statement.create("=neustar/()/=les")).getXri().isContextNodeStatement());
+		assertTrue(graph23.getStatement(XDI3Statement.create("=neustar//=les")).getXri().isContextNodeStatement());
 		assertTrue(graph23.getStatement(XDI3Statement.create("=markus/+friend/=neustar=les")).getXri().isRelationStatement());
 		assertTrue(graph23.getStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\"")).getXri().isLiteralStatement());
 
@@ -1154,7 +1147,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!2")));
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
-				graph.getDeepContextNode(XDI3Segment.create("()")),
+				graph.getDeepContextNode(XDI3Segment.create("")),
 				graph.getDeepContextNode(XDI3Segment.create("=abc")),
 				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]")),
 				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1")),
@@ -1431,7 +1424,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertFalse(abcContextNode.containsRelation(XDI3Segment.create("+rel"), XDI3Segment.create("=abc[+passport]!2")));		// MANIPULATED
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
-				graph.getDeepContextNode(XDI3Segment.create("()")),
+				graph.getDeepContextNode(XDI3Segment.create("")),
 				graph.getDeepContextNode(XDI3Segment.create("=abc")),
 				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]")),
 				graph.getDeepContextNode(XDI3Segment.create("=abc[+passport]!1")),

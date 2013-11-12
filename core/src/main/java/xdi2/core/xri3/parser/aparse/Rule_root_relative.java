@@ -61,7 +61,7 @@ final public class Rule_root_relative extends Rule
           int c1 = 0;
           for (int i1 = 0; i1 < 1 && f1; i1++)
           {
-            rule = Terminal_StringValue.parse(context, "/()/");
+            rule = Terminal_StringValue.parse(context, "//");
             if ((f1 = rule != null))
             {
               e1.add(rule);

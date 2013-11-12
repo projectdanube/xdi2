@@ -34,7 +34,7 @@ public class ContributorTest extends TestCase {
 		"(+con)=d",
 		"(+con)<+email>",
 		"(+con)<+email>&",
-		"()",
+		"",
 		"(+con)",
 		"(+test)"
 	};

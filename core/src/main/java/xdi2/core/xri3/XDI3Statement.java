@@ -208,10 +208,13 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 		if (! this.isRelationStatement()) return null;
 
-		XDI3Segment innerRootNotationTargetContextNodeXri = this.getTargetContextNodeXri();
-		if (innerRootNotationTargetContextNodeXri == null) return null;
+		XDI3Segment innerRootNotationTargetContextNodeSegment = this.getTargetContextNodeXri();
+		if (innerRootNotationTargetContextNodeSegment == null) return null;
 
-		XDI3XRef innerRootNotationXref = innerRootNotationTargetContextNodeXri.getFirstSubSegment().getXRef();
+		XDI3SubSegment innerRootNotationTargetContextNodeSubSegment = innerRootNotationTargetContextNodeSegment.getFirstSubSegment();
+		if (innerRootNotationTargetContextNodeSubSegment == null) return null;
+
+		XDI3XRef innerRootNotationXref = innerRootNotationTargetContextNodeSubSegment.getXRef();
 		if (innerRootNotationXref == null) return null;
 
 		XDI3Statement innerRootNotationStatement = innerRootNotationXref.getStatement();
@@ -261,7 +264,7 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 
 			XDI3SubSegment subjectFirstSubSegment = this.getSubject().getFirstSubSegment();
 
-			if ((! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return this;
+			if (subjectFirstSubSegment == null || (! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return this;
 
 			XDI3Segment innerRootSubject = this.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
 			XDI3Segment innerRootPredicate = this.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();

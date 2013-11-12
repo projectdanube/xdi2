@@ -24,7 +24,7 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 		this.supportGetContextNodes = supportGetContextNodes;
 		this.supportGetRelations = supportGetRelations;
 
-		this.rootContextNode = new KeyValueContextNode(this, null, keyValueStore, "()", null);
+		this.rootContextNode = new KeyValueContextNode(this, null, keyValueStore, "", null);
 	}
 
 	@Override

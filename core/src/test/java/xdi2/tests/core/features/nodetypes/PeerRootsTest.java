@@ -12,7 +12,7 @@ public class PeerRootsTest extends TestCase {
 
 	public void testPeerRootXris() throws Exception {
 		
-		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("()")));
+		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("")));
 		assertTrue(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("([=]!1111!23)")));
 		assertFalse(XdiPeerRoot.isPeerRootArcXri(XDI3SubSegment.create("(=a*b/+c*d)")));
 

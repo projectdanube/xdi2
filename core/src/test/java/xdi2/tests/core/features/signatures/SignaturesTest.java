@@ -120,7 +120,7 @@ public class SignaturesTest extends TestCase {
 
 		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create("=markus"));
 
-		String normalizedSerialization = "{\"()/()\":[\"=animesh\",\"=markus\"],\"=markus/()\":[\"<+email>\"],\"=markus<+email>/()\":[\"&\"],\"=markus/+friend\":[\"=animesh\"],\"=markus<+email>&/&\":\"markus.sabadello@gmail.com\"}";
+		String normalizedSerialization = "{\"/\":[\"=animesh\",\"=markus\"],\"=markus/\":[\"<+email>\"],\"=markus<+email>/\":[\"&\"],\"=markus/+friend\":[\"=animesh\"],\"=markus<+email>&/&\":\"markus.sabadello@gmail.com\"}";
 
 		assertEquals(Signature.getNormalizedSerialization(contextNode), normalizedSerialization);
 	}

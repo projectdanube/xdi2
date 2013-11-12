@@ -115,7 +115,7 @@ public class VariablesTest extends TestCase {
 		assertEquals(variables.length, variablesMatchesFalse.length);
 
 		for (int i=0; i<variables.length; i++) {
-
+System.out.println(i);
 			assertTrue(Arrays.deepEquals(variablesSubSegments[i], VariableUtil.getSubSegments(variables[i]).toArray()));
 			assertEquals(variablesXs[i], VariableUtil.getXs(variables[i]));
 			assertEquals(variablesMultiple[i], VariableUtil.isMultiple(variables[i]));

@@ -163,7 +163,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		buffer.append("{\n");
 		buffer.append("type: \"context\",\n");
 		buffer.append("name: \"" + contextNode.getXri() + "\",\n");
-		buffer.append("arc: \"" + (contextNode.isRootContextNode() ? "()" : contextNode.getArcXri()) + "\",\n");
+		buffer.append("arc: \"" + (contextNode.isRootContextNode() ? "" : contextNode.getArcXri()) + "\",\n");
 		buffer.append("root: " + XdiAbstractRoot.isValid(contextNode) + ",\n");
 		buffer.append("contents: [\n");
 

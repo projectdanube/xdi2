@@ -35,7 +35,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 		String temp = stripXs(string);
 
-		String[] parts = temp.split("/");
+		String[] parts = temp.split("/", -1);
 		if (parts.length != 3) throw new ParserException("Invalid statement: " + string + " (wrong number of segments: " + parts.length + ")");
 		int split0 = parts[0].length();
 		int split1 = parts[1].length();

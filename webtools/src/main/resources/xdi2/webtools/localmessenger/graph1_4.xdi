@@ -4,6 +4,6 @@
 [=]!1111[+passport]!2<+country>&/&/"New Zealand"
 [=]!1111[+passport]!2<+num>&/&/"123456789"
 [=]!1111[+passport]!2<+expires>&/&/"2010J10J01T00:00:00Z"
-([=]!1111)/$ref/()
+([=]!1111)/$ref/
 =abc/$ref/[=]!1111
-()/$is$ref/([=]!1111)
+/$is$ref/([=]!1111)

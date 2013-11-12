@@ -66,7 +66,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 			if (key.endsWith("/" + XDIConstants.XRI_S_CONTEXT.toString())) {
 
-				XDI3Statement statementXri = makeStatement(key + "/()", state);
+				XDI3Statement statementXri = makeStatement(key + "/", state);
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
@@ -109,7 +109,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 				if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Set literal --> " + literal.getLiteralData());
 			} else {
 
-				XDI3Statement statementXri = makeStatement(key + "/()", state);
+				XDI3Statement statementXri = makeStatement(key + "/", state);
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 

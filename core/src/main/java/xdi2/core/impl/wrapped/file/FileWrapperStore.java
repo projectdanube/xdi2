@@ -134,7 +134,7 @@ public class FileWrapperStore implements WrapperStore {
 			@Override
 			public boolean accept(File dir, String name) {
 
-				return name.startsWith("xdi2-graph.") && name.endsWith(".xdi");
+				return name.startsWith(FileWrapperGraphFactory.FILE_PREFIX) && name.endsWith(FileWrapperGraphFactory.FILE_SUFFIX);
 			}
 		});
 

@@ -198,7 +198,7 @@ public abstract class XDI3ParserTest extends TestCase {
 
 	public void testComponents() throws Exception {
 
-		XDI3Statement contextNodeStatement = XDI3Statement.create("=markus/()/[<+email>]");
+		XDI3Statement contextNodeStatement = XDI3Statement.create("=markus//[<+email>]");
 		XDI3Statement contextNodeStatement2 = XDI3Statement.fromComponents(XDI3Segment.create("=markus"), XDIConstants.XRI_S_CONTEXT, XDI3SubSegment.create("[<+email>]"));
 		XDI3Statement contextNodeStatement3 = XDI3Statement.fromContextNodeComponents(XDI3Segment.create("=markus"), XDI3SubSegment.create("[<+email>]"));
 

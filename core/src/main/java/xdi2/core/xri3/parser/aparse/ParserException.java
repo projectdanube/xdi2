@@ -21,7 +21,11 @@ import java.util.Stack;
 
 public class ParserException extends RuntimeException
 {
-  private String reason;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4646702623986333153L;
+private String reason;
   private String text60;
   private int index60;
   private Stack<String> ruleStack;

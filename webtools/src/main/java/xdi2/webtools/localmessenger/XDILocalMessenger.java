@@ -257,7 +257,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			if ("on".equals(useReadOnlyInterceptor)) {
 
 				ReadOnlyInterceptor readOnlyInterceptor = new ReadOnlyInterceptor();
-				readOnlyInterceptor.setReadOnlyAddresses(new XDI3Segment[] { XDI3Segment.create("()") });
+				readOnlyInterceptor.setReadOnlyAddresses(new XDI3Segment[] { XDI3Segment.create("") });
 				messagingTarget.getInterceptors().add(readOnlyInterceptor);
 			}
 

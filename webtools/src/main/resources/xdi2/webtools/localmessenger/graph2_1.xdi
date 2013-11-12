@@ -1,5 +1,5 @@
-(=markus)/$ref/()
-()/$is$ref/(=markus)
+(=markus)/$ref/
+/$is$ref/(=markus)
 =markus$do$if/$true/({$from}/$is/=drummond)
 =markus$do$if/$true/({$from}/$is/=markus)
 =markus$do/$get/=markus<+age>

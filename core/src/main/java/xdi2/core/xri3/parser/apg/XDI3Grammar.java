@@ -563,10 +563,10 @@ public class XDI3Grammar extends Grammar{
         out.println("direct-contextual       = absolute / root-relative / context-relative / class-relative");
         out.println("inverse-contextual      = absolute-inverse / root-inverse  / context-inverse / class-inverse");
         out.println("");
-        out.println("absolute                =          outer-root \"/()/\" context");
-        out.println("root-relative           =       relative-root \"/()/\" context");
-        out.println("context-relative        =             context \"/()/\" relative-context");
-        out.println("class-relative          =       class-context \"/()/\" instance-context");
+        out.println("absolute                =          outer-root \"//\" context");
+        out.println("root-relative           =       relative-root \"//\" context");
+        out.println("context-relative        =             context \"//\" relative-context");
+        out.println("class-relative          =       class-context \"//\" instance-context");
         out.println("absolute-inverse        =          context \"/$is()/\" outer-root");
         out.println("root-inverse            =          context \"/$is()/\" relative-root");
         out.println("context-inverse         = relative-context \"/$is()/\" context");
