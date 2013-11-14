@@ -762,7 +762,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		if (this.containsRelations(XDIDictionaryConstants.XRI_S_REP)) throw new Xdi2GraphException("Cannot add " + arcXri + " context node to context node " + this.getXri() + " containing a " + XDIDictionaryConstants.XRI_S_REP + " relation.");
 
 		ContextNode tempContextNode = new BasicContextNode(this.getGraph(), this, arcXri, null, null, null);
-		if (! XdiAbstractContext.isValid(tempContextNode)) throw new Xdi2GraphException("Invalid subgraph: " + arcXri);
+		if (! XdiAbstractContext.isValid(tempContextNode)) throw new Xdi2GraphException("Invalid subgraph: " + arcXri + " under subgraph " + this.getXri());
 	}
 
 	/**
