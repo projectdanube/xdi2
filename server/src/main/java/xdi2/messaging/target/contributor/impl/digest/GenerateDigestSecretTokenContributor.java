@@ -23,12 +23,12 @@ import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.DigestS
 /**
  * This contributor can generate secret tokens in digest form in a target graph.
  */
-@ContributorXri(addresses={"{{=@+*!}}$digest$secret<$token>", "{{(=@+*!)}}$digest$secret<$token>", "$digest$secret<$token>"})
+@ContributorXri(addresses={"{{=@+*!}}<$digest><$secret><$token>", "{{(=@+*!)}}<$digest><$secret><$token>", "<$digest><$secret><$token>"})
 public class GenerateDigestSecretTokenContributor extends AbstractContributor implements Prototype<GenerateDigestSecretTokenContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateDigestSecretTokenContributor.class);
 
-	public static final XDI3Segment XRI_S_DO_GENERATE = XDI3Segment.create("$do$digest$secret<$token>");
+	public static final XDI3Segment XRI_S_DO_GENERATE = XDI3Segment.create("$do<$digest><$secret><$token>");
 
 	private String globalSalt;
 	private Graph targetGraph;
