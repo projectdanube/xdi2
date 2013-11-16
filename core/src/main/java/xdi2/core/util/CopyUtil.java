@@ -183,7 +183,7 @@ public final class CopyUtil {
 				throw new Xdi2GraphException("Copying inner root to different context node is not supported.");
 			}*/
 
-	//		new Exception("Also need to copy inner root " + relation.follow()).printStackTrace(System.out);
+	//		new Exception("Also need to copy inner root " + relation.follow()).printStackTrace();
 			
 			targetRelation = targetContextNode.setRelation(arcXri, targetContextNodeXri);
 
