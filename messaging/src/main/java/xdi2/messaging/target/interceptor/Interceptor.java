@@ -1,20 +1,7 @@
 package xdi2.messaging.target.interceptor;
 
-import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.Decorator;
 
-public interface Interceptor {
+public interface Interceptor extends Decorator {
 
-	/*
-	 * Init and shutdown
-	 */
-
-	public void init(MessagingTarget messagingTarget) throws Exception;
-	public void shutdown(MessagingTarget messagingTarget) throws Exception;
-
-	/*
-	 * Enabled?
-	 */
-
-	public boolean isEnabled();
-	public void setEnabled(boolean enabled);
 }

@@ -1,11 +1,15 @@
 package xdi2.messaging.target;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
@@ -13,7 +17,9 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.contributor.ContributorMap;
+import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.messaging.target.interceptor.InterceptorList;
 
 /**
@@ -53,8 +59,18 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// init interceptors and contributors
 
-		this.getInterceptors().initInterceptors(this);
-		this.getContributors().initContributors(this);
+		List<Decorator> decorators = new ArrayList<Decorator> ();
+		decorators.addAll(new IteratorListMaker<Interceptor> (this.getInterceptors().iterator()).list());
+		decorators.addAll(new IteratorListMaker<Contributor> (this.getContributors().iterator()).list());
+
+		Collections.sort(decorators, new Decorator.InitPriorityComparator());
+
+		for (Decorator decorator : decorators) {
+
+			if (log.isDebugEnabled()) log.debug("Initializing interceptor/contributor " + decorator.getClass().getSimpleName() + ".");
+
+			decorator.init(this);
+		}
 	}
 
 	@Override
@@ -62,10 +78,20 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		if (log.isDebugEnabled()) log.debug("Shutting down " + this.getClass().getSimpleName() + ".");
 
-		// shutdown interceptors and contributors
+		// shutdon interceptors and contributors
 
-		this.getInterceptors().shutdownInterceptors(this);
-		this.getContributors().shutdownContributors(this);
+		List<Decorator> decorators = new ArrayList<Decorator> ();
+		decorators.addAll(new IteratorListMaker<Interceptor> (this.getInterceptors().iterator()).list());
+		decorators.addAll(new IteratorListMaker<Contributor> (this.getContributors().iterator()).list());
+
+		Collections.sort(decorators, new Decorator.ShutdownPriorityComparator());
+
+		for (Decorator decorator : decorators) {
+
+			if (log.isDebugEnabled()) log.debug("Shutting down interceptor/contributor " + decorator.getClass().getSimpleName() + ".");
+
+			decorator.shutdown(this);
+		}
 	}
 
 	/**

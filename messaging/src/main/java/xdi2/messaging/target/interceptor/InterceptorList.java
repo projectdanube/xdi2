@@ -17,7 +17,6 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 
 public class InterceptorList implements Iterable<Interceptor>, Prototype<InterceptorList>, Serializable {
@@ -88,42 +87,6 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 	/*
 	 * Methods for executing interceptors
 	 */
-
-	public void initInterceptors(MessagingTarget messagingTarget) throws Exception {
-
-		for (Iterator<Interceptor> interceptors = this.iterator(); interceptors.hasNext(); ) {
-
-			Interceptor interceptor = interceptors.next();
-
-			if (! interceptor.isEnabled()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping disabled interceptor " + interceptor.getClass().getSimpleName() + " (init).");
-				continue;
-			}
-
-			if (log.isDebugEnabled()) log.debug("Executing interceptor " + interceptor.getClass().getSimpleName() + " (init).");
-
-			interceptor.init(messagingTarget);
-		}
-	}
-
-	public void shutdownInterceptors(MessagingTarget messagingTarget) throws Exception {
-
-		for (Iterator<Interceptor> interceptors = this.iterator(); interceptors.hasNext(); ) {
-
-			Interceptor interceptor = interceptors.next();
-
-			if (! interceptor.isEnabled()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping disabled interceptor " + interceptor.getClass().getSimpleName() + " (shutdown).");
-				continue;
-			}
-
-			if (log.isDebugEnabled()) log.debug("Executing interceptor " + interceptor.getClass().getSimpleName() + " (shutdown).");
-
-			interceptor.shutdown(messagingTarget);
-		}
-	}
 
 	public boolean executeMessageEnvelopeInterceptorsBefore(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 

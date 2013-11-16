@@ -13,33 +13,26 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.SetOperation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.AbstractDecorator;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphContextHandler;
 
-public abstract class AbstractContributor implements Contributor {
+public abstract class AbstractContributor extends AbstractDecorator implements Contributor {
 
-	private boolean enabled;
 	private ContributorMap contributors;
 
-	public AbstractContributor() {
+	public AbstractContributor(int initPriority, int shutdownPriority) {
 
-		this.enabled = true;
+		super(initPriority, shutdownPriority);
+
 		this.contributors = new ContributorMap();
 	}
 
-	/*
-	 * Init and shutdown
-	 */
+	public AbstractContributor() {
 
-	@Override
-	public void init(MessagingTarget messagingTarget) throws Exception {
+		super();
 
-	}
-
-	@Override
-	public void shutdown(MessagingTarget messagingTarget) throws Exception {
-
+		this.contributors = new ContributorMap();
 	}
 
 	/*
@@ -272,22 +265,6 @@ public abstract class AbstractContributor implements Contributor {
 	public boolean containsAddress(String address) {
 
 		return Arrays.asList(this.getAddresses()).contains(address);
-	}
-
-	/*
-	 * Enabled?
-	 */
-
-	@Override
-	public boolean isEnabled() {
-
-		return this.enabled;
-	}
-
-	@Override
-	public void setEnabled(boolean enabled) {
-
-		this.enabled = enabled;
 	}
 
 	/*

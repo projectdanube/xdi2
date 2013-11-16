@@ -1,43 +1,16 @@
 package xdi2.messaging.target.interceptor;
 
-import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.AbstractDecorator;
 
-public abstract class AbstractInterceptor implements Interceptor {
+public abstract class AbstractInterceptor extends AbstractDecorator implements Interceptor {
 
-	private boolean enabled;
+	public AbstractInterceptor(int initPriority, int shutdownPriority) {
+
+		super(initPriority, shutdownPriority);
+	}
 
 	public AbstractInterceptor() {
 
-		this.enabled = true;
-	}
-
-	/*
-	 * Init and shutdown
-	 */
-
-	@Override
-	public void init(MessagingTarget messagingTarget) throws Exception {
-
-	}
-
-	@Override
-	public void shutdown(MessagingTarget messagingTarget) throws Exception {
-
-	}
-	
-	/*
-	 * Enabled?
-	 */
-
-	@Override
-	public boolean isEnabled() {
-
-		return this.enabled;
-	}
-
-	@Override
-	public void setEnabled(boolean enabled) {
-
-		this.enabled = enabled;
+		super();
 	}
 }

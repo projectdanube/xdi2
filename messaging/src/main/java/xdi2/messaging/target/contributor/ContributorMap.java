@@ -23,7 +23,6 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 
 public class ContributorMap implements Iterable<Contributor>, Prototype<ContributorMap>, Serializable {
@@ -142,42 +141,6 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 	/*
 	 * Methods for executing contributors
 	 */
-
-	public void initContributors(MessagingTarget messagingTarget) throws Exception {
-
-		for (Iterator<Contributor> contributors = this.iterator(); contributors.hasNext(); ) {
-
-			Contributor contributor = contributors.next();
-
-			if (! contributor.isEnabled()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping disabled contributor:" + contributor.getClass().getSimpleName() + " (init).");
-				continue;
-			}
-
-			if (log.isDebugEnabled()) log.debug("Executing contributor " + contributor.getClass().getSimpleName() + " (init).");
-
-			contributor.init(messagingTarget);
-		}
-	}
-
-	public void shutdownContributors(MessagingTarget messagingTarget) throws Exception {
-
-		for (Iterator<Contributor> contributors = this.iterator(); contributors.hasNext(); ) {
-
-			Contributor contributor = contributors.next();
-
-			if (! contributor.isEnabled()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping disabled contributor: " + contributor.getClass().getSimpleName() + " (shutdown).");
-				continue;
-			}
-
-			if (log.isDebugEnabled()) log.debug("Executing contributor " + contributor.getClass().getSimpleName() + " (shutdown).");
-
-			contributor.shutdown(messagingTarget);
-		}
-	}
 
 	public boolean executeContributorsAddress(XDI3Segment[] contributorChainXris, XDI3Segment relativeTargetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
