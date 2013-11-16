@@ -38,7 +38,8 @@ public class XDIDisplayReader extends AbstractXDIReader {
 
 			lineNr++;
 
-			if (line.trim().isEmpty()) continue;
+			line = line.trim();
+			if (line.isEmpty()) continue;
 
 			XDI3Statement statementXri;
 
