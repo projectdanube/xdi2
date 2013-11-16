@@ -25,6 +25,10 @@ public class XDI2SpringConverter implements GenericConverter {
 			new StringXDI3StatementConverter(),
 			new StringXDI3XRefConverter(),
 			new StringPublicKeyConverter(),
+			new StringGraphConverter(),
+			new StringMessageEnvelopeConverter(),
+			new ListInterceptorListConverter(),
+			new MapContributorMapConverter(),
 			new ListContributorMapConverter()
 	});
 
