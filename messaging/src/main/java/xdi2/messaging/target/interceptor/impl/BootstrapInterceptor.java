@@ -192,13 +192,16 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
 			bootstrapPublicLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_PUBLIC);
 
-			XDI3Statement selfPeerRootStatement = XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(this.getBootstrapOwner())));
-			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, selfPeerRootStatement);
+			XDI3Statement selfPeerRootRefStatement = XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(this.getBootstrapOwner())));
+			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, selfPeerRootRefStatement);
 
 			for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 
-				XDI3Statement bootstrapOwnerSynonymStatement = XDI3Statement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonym);
-				bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymStatement);
+				XDI3Statement bootstrapOwnerSynonymRefStatement = XDI3Statement.fromRelationComponents(bootstrapOwnerSynonym, XDIDictionaryConstants.XRI_S_REF, this.getBootstrapOwner());
+				bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymRefStatement);
+
+				XDI3Statement bootstrapOwnerSynonymIsRefStatement = XDI3Statement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonym);
+				bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymIsRefStatement);
 			}
 		}
 
