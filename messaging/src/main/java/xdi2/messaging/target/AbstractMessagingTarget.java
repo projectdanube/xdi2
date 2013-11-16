@@ -79,7 +79,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (messageEnvelope == null) throw new NullPointerException();
-		if (messageResult == null) throw new NullPointerException();
+		if (messageResult == null) messageResult = new MessageResult();
 		if (executionContext == null) executionContext = new ExecutionContext();
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message envelope (" + messageEnvelope.getMessageCount() + " messages).");
