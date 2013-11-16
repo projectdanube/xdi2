@@ -58,7 +58,7 @@ public class LinkContractInterceptorTest extends TestCase {
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 				graphMessagingTarget.setGraph(graph);
-				graphMessagingTarget.getInterceptors().add(linkContractsInterceptor);
+				graphMessagingTarget.getInterceptors().addInterceptor(linkContractsInterceptor);
 
 				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(authorized);
 				MessageResult messageResult = new MessageResult();
@@ -93,7 +93,7 @@ public class LinkContractInterceptorTest extends TestCase {
 
 				GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
 				graphMessagingTarget.setGraph(graph);
-				graphMessagingTarget.getInterceptors().add(linkContractsInterceptor);
+				graphMessagingTarget.getInterceptors().addInterceptor(linkContractsInterceptor);
 
 				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(notauthorized);
 				MessageResult messageResult = new MessageResult();

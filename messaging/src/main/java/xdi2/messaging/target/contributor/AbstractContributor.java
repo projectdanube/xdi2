@@ -1,9 +1,6 @@
 package xdi2.messaging.target.contributor;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
@@ -307,19 +304,5 @@ public abstract class AbstractContributor implements Contributor {
 	public void setContributors(ContributorMap contributors) {
 
 		this.contributors = contributors;
-	}
-
-	@Override
-	public void setContributors(Map<XDI3Segment, List<Contributor>> contributors) {
-
-		this.contributors.clear();
-		this.contributors.putAll(contributors);
-	}
-
-	@Override
-	public void setContributorsList(ArrayList<Contributor> contributors) {
-
-		this.contributors.clear();
-		for (Contributor contributor : contributors) this.contributors.addContributor(contributor);
 	}
 }

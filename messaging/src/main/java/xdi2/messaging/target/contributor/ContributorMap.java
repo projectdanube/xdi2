@@ -1,5 +1,6 @@
 package xdi2.messaging.target.contributor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.DescendingIterator;
+import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageResult;
@@ -24,47 +26,31 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 
-public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>> implements Iterable<Contributor>, Prototype<ContributorMap> {
+public class ContributorMap implements Iterable<Contributor>, Prototype<ContributorMap>, Serializable {
 
 	private static final long serialVersionUID = 1645889897751813459L;
 
 	private static final Logger log = LoggerFactory.getLogger(ContributorMap.class);
 
+	private LinkedHashMap<XDI3Segment, List<Contributor>> contributors;
+
 	public ContributorMap() {
 
 		super();
-	}
 
-	public ContributorMap(int initialCapacity, float loadFactor, boolean accessOrder) {
-
-		super(initialCapacity, loadFactor, accessOrder);
-	}
-
-	public ContributorMap(int initialCapacity, float loadFactor) {
-
-		super(initialCapacity, loadFactor);
-	}
-
-	public ContributorMap(int initialCapacity) {
-
-		super(initialCapacity);
-	}
-
-	public ContributorMap(Map<? extends XDI3Segment, ? extends List<Contributor>> m) {
-
-		super(m);
+		this.contributors = new LinkedHashMap<XDI3Segment, List<Contributor>> ();
 	}
 
 	public void addContributor(XDI3Segment contributorXri, Contributor contributor) {
 
 		if (log.isDebugEnabled()) log.debug("Adding contributor " + contributor.getClass().getSimpleName() + " under " + contributorXri);
 
-		List<Contributor> contributors = this.get(contributorXri);
+		List<Contributor> contributors = this.contributors.get(contributorXri);
 
 		if (contributors == null) {
 
 			contributors = new ArrayList<Contributor> ();
-			this.put(contributorXri, contributors);
+			this.contributors.put(contributorXri, contributors);
 		}
 
 		contributors.add(contributor);
@@ -95,20 +81,20 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		if (log.isDebugEnabled()) log.debug("Removing contributor " + contributor.getClass().getSimpleName() + " from " + contributorXri);
 
-		List<Contributor> contributors = this.get(contributorXri);
+		List<Contributor> contributors = this.contributors.get(contributorXri);
 		if (contributors == null) return;
 
 		contributors.remove(contributor);
 
 		if (contributors.isEmpty()) {
 
-			this.remove(contributorXri);
+			this.contributors.remove(contributorXri);
 		}
 	}
 
 	public void removeContributor(Contributor contributor) {
 
-		for (Iterator<Map.Entry<XDI3Segment, List<Contributor>>> entries = this.entrySet().iterator(); entries.hasNext(); ) {
+		for (Iterator<Map.Entry<XDI3Segment, List<Contributor>>> entries = this.contributors.entrySet().iterator(); entries.hasNext(); ) {
 
 			Map.Entry<XDI3Segment, List<Contributor>> entry = entries.next();
 
@@ -117,10 +103,20 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 		}
 	}
 
+	public boolean isEmpty() {
+
+		return this.contributors.isEmpty();
+	}
+
+	public int size() {
+
+		return (int) new IteratorCounter(this.iterator()).count();
+	}
+
 	@Override
 	public Iterator<Contributor> iterator() {
 
-		return new DescendingIterator<List<Contributor>, Contributor> (this.values().iterator()) {
+		return new DescendingIterator<List<Contributor>, Contributor> (this.contributors.values().iterator()) {
 
 			@Override
 			public Iterator<Contributor> descend(List<Contributor> item) {
@@ -352,7 +348,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 	public List<ContributorFound> findHigherContributors(XDI3Segment contextNodeXri) {
 
-		if (this.isEmpty()) return new ArrayList<ContributorFound> ();
+		if (this.contributors.isEmpty()) return new ArrayList<ContributorFound> ();
 
 		List<ContributorFound> higherContributors = new ArrayList<ContributorFound> ();
 
@@ -360,7 +356,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		} else {
 
-			for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.entrySet()) {
+			for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.contributors.entrySet()) {
 
 				XDI3Segment contributorXri = contributorEntry.getKey();
 				XDI3Segment startXri = XDI3Util.startsWith(contextNodeXri, contributorXri, false, true);
@@ -386,13 +382,13 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 	public List<ContributorFound> findLowerContributors(XDI3Segment contextNodeXri) {
 
-		if (this.isEmpty()) return new ArrayList<ContributorFound> ();
+		if (this.contributors.isEmpty()) return new ArrayList<ContributorFound> ();
 
 		List<ContributorFound> lowerContributors = new ArrayList<ContributorFound> ();
 
 		if (contextNodeXri == null) {
 
-			for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.entrySet()) {
+			for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.contributors.entrySet()) {
 
 				XDI3Segment contributorXri = contributorEntry.getKey();
 
@@ -401,7 +397,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 			}
 		} else {
 
-			for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.entrySet()) {
+			for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.contributors.entrySet()) {
 
 				XDI3Segment contributorXri = contributorEntry.getKey();
 				XDI3Segment startXri = XDI3Util.startsWith(contributorXri, contextNodeXri, false, true);
@@ -439,7 +435,7 @@ public class ContributorMap extends LinkedHashMap<XDI3Segment, List<Contributor>
 
 		// add contributors
 
-		for (Map.Entry<XDI3Segment, List<Contributor>> entry : this.entrySet()) {
+		for (Map.Entry<XDI3Segment, List<Contributor>> entry : this.contributors.entrySet()) {
 
 			XDI3Segment contributorXri = entry.getKey();
 			List<Contributor> contributors = entry.getValue();

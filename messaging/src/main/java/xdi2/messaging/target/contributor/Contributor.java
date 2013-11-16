@@ -1,9 +1,5 @@
 package xdi2.messaging.target.contributor;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageResult;
@@ -41,8 +37,6 @@ public interface Contributor {
 
 	public ContributorMap getContributors();
 	public void setContributors(ContributorMap contributors);
-	public void setContributors(Map<XDI3Segment, List<Contributor>> contributors);
-	public void setContributorsList(ArrayList<Contributor> contributors);
 
 	/*
 	 * Contributor methods
