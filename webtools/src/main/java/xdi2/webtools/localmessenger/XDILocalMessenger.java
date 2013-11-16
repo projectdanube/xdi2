@@ -233,46 +233,46 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			if ("on".equals(useFromInterceptor)) {
 
 				FromInterceptor fromInterceptor = new FromInterceptor();
-				messagingTarget.getInterceptors().add(fromInterceptor);
+				messagingTarget.getInterceptors().addInterceptor(fromInterceptor);
 			}
 
 			if ("on".equals(useToInterceptor)) {
 
 				ToInterceptor toInterceptor = new ToInterceptor();
-				messagingTarget.getInterceptors().add(toInterceptor);
+				messagingTarget.getInterceptors().addInterceptor(toInterceptor);
 			}
 
 			if ("on".equals(useVariablesInterceptor)) {
 
 				VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
-				messagingTarget.getInterceptors().add(variablesInterceptor);
+				messagingTarget.getInterceptors().addInterceptor(variablesInterceptor);
 			}
 
 			if ("on".equals(useRefInterceptor)) {
 
 				RefInterceptor refInterceptor = new RefInterceptor();
-				messagingTarget.getInterceptors().add(refInterceptor);
+				messagingTarget.getInterceptors().addInterceptor(refInterceptor);
 			}
 
 			if ("on".equals(useReadOnlyInterceptor)) {
 
 				ReadOnlyInterceptor readOnlyInterceptor = new ReadOnlyInterceptor();
 				readOnlyInterceptor.setReadOnlyAddresses(new XDI3Segment[] { XDI3Segment.create("") });
-				messagingTarget.getInterceptors().add(readOnlyInterceptor);
+				messagingTarget.getInterceptors().addInterceptor(readOnlyInterceptor);
 			}
 
 			if ("on".equals(useMessagePolicyInterceptor)) {
 
 				MessagePolicyInterceptor messagePolicyInterceptor = new MessagePolicyInterceptor();
 				messagePolicyInterceptor.setMessagePolicyGraph(graphInput);
-				messagingTarget.getInterceptors().add(messagePolicyInterceptor);
+				messagingTarget.getInterceptors().addInterceptor(messagePolicyInterceptor);
 			}
 
 			if ("on".equals(useLinkContractInterceptor)) {
 
 				LinkContractInterceptor linkContractInterceptor = new LinkContractInterceptor();
 				linkContractInterceptor.setLinkContractsGraph(graphInput);
-				messagingTarget.getInterceptors().add(linkContractInterceptor);
+				messagingTarget.getInterceptors().addInterceptor(linkContractInterceptor);
 			}
 
 			messagingTarget.init();
