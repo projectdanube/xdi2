@@ -22,6 +22,7 @@ import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterat
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -190,6 +191,15 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
 			bootstrapPublicLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_PUBLIC);
+
+			XDI3Statement selfPeerRootStatement = XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(this.getBootstrapOwner())));
+			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, selfPeerRootStatement);
+
+			for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
+
+				XDI3Statement bootstrapOwnerSynonymStatement = XDI3Statement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonym);
+				bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymStatement);
+			}
 		}
 
 		// create bootstrap graph
