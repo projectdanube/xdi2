@@ -13,7 +13,7 @@ import xdi2.messaging.Message;
 
 /**
  * A SecretTokenAuthenticator that can authenticate a secret token against
- * a stored digested secret token, using both a global salt and local salts
+ * a stored digest secret token, using both a global salt and local salts
  * for producing the digest.
  */
 public abstract class DigestSecretTokenAuthenticator extends AbstractSecretTokenAuthenticator implements SecretTokenAuthenticator {
