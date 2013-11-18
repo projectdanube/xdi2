@@ -50,7 +50,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		sampleEndpoint = "http://mycloud.neustar.biz:12220/"; 
 
-		sampleServices = "$https$connect$xdi"; 
+		sampleServices = "<$https><$connect><$xdi>";
 	}
 
 	@Override

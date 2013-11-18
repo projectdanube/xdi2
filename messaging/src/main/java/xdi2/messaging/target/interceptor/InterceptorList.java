@@ -1,8 +1,9 @@
 package xdi2.messaging.target.interceptor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,39 +17,32 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
-import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 
-public class InterceptorList extends ArrayList<Interceptor> implements Prototype<InterceptorList> {
+public class InterceptorList implements Iterable<Interceptor>, Prototype<InterceptorList>, Serializable {
 
 	private static final long serialVersionUID = -2532712738486475044L;
 
 	private static final Logger log = LoggerFactory.getLogger(InterceptorList.class);
 
+	private List<Interceptor> interceptors;
+
 	public InterceptorList() {
 
 		super();
-	}
 
-	public InterceptorList(Collection<? extends Interceptor> c) {
-
-		super(c);
-	}
-
-	public InterceptorList(int initialCapacity) {
-
-		super(initialCapacity);
+		this.interceptors = new ArrayList<Interceptor> ();
 	}
 
 	public void addInterceptor(Interceptor interceptor) {
 
-		this.add(interceptor);
+		this.interceptors.add(interceptor);
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T extends Interceptor> T getInterceptor(Class<T> clazz) {
 
-		for (Interceptor interceptor : this) {
+		for (Interceptor interceptor : this.interceptors) {
 
 			if (clazz.isAssignableFrom(interceptor.getClass())) return (T) interceptor;
 		}
@@ -58,14 +52,30 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 	public void removeInterceptor(Interceptor interceptor) {
 
-		this.remove(interceptor);
+		this.interceptors.remove(interceptor);
+	}
+
+	public boolean isEmpty() {
+
+		return this.interceptors.isEmpty();
+	}
+
+	public int size() {
+
+		return this.interceptors.size();
+	}
+
+	@Override
+	public Iterator<Interceptor> iterator() {
+
+		return this.interceptors.iterator();
 	}
 
 	public String stringList() {
 
 		StringBuffer buffer = new StringBuffer();
 
-		for (Interceptor interceptor : this) {
+		for (Interceptor interceptor : this.interceptors) {
 
 			if (buffer.length() > 0) buffer.append(",");
 			buffer.append(interceptor.getClass().getSimpleName());
@@ -77,42 +87,6 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 	/*
 	 * Methods for executing interceptors
 	 */
-
-	public void initInterceptors(MessagingTarget messagingTarget) throws Exception {
-
-		for (Iterator<Interceptor> interceptors = this.iterator(); interceptors.hasNext(); ) {
-
-			Interceptor interceptor = interceptors.next();
-
-			if (! interceptor.isEnabled()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping disabled interceptor " + interceptor.getClass().getSimpleName() + " (init).");
-				continue;
-			}
-
-			if (log.isDebugEnabled()) log.debug("Executing interceptor " + interceptor.getClass().getSimpleName() + " (init).");
-
-			interceptor.init(messagingTarget);
-		}
-	}
-
-	public void shutdownInterceptors(MessagingTarget messagingTarget) throws Exception {
-
-		for (Iterator<Interceptor> interceptors = this.iterator(); interceptors.hasNext(); ) {
-
-			Interceptor interceptor = interceptors.next();
-
-			if (! interceptor.isEnabled()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping disabled interceptor " + interceptor.getClass().getSimpleName() + " (shutdown).");
-				continue;
-			}
-
-			if (log.isDebugEnabled()) log.debug("Executing interceptor " + interceptor.getClass().getSimpleName() + " (shutdown).");
-
-			interceptor.shutdown(messagingTarget);
-		}
-	}
 
 	public boolean executeMessageEnvelopeInterceptorsBefore(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
@@ -503,7 +477,7 @@ public class InterceptorList extends ArrayList<Interceptor> implements Prototype
 
 		// add interceptors
 
-		for (Interceptor interceptor : this) {
+		for (Interceptor interceptor : this.interceptors) {
 
 			if (! (interceptor instanceof Prototype<?>)) {
 

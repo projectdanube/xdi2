@@ -135,10 +135,10 @@ public class XDIDiscoveryClient {
 		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 
 		for (XDI3Segment endpointUriType : endpointUriTypes) {
-			
+
 			authorityMessage.createGetOperation(XDI3Util.concatXris(endpointUriType, XRI_SS_URI));
 		}
-		
+
 		MessageResult authorityMessageResult;
 
 		try {

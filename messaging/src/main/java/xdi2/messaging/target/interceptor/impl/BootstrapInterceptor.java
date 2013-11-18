@@ -1,5 +1,6 @@
 package xdi2.messaging.target.interceptor.impl;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
@@ -18,14 +19,17 @@ import xdi2.core.features.linkcontracts.policy.PolicyUtil;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 
 /**
  * This interceptor can initialize an empty XDI graph with basic bootstrapping data,
@@ -37,19 +41,26 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 
+	public final static int INIT_PRIORITY = 20;
+	public final static int SHUTDOWN_PRIORITY = 10;
+
 	private XDI3Segment bootstrapOwner;
 	private XDI3Segment[] bootstrapOwnerSynonyms;
 	private boolean bootstrapRootLinkContract;
 	private boolean bootstrapPublicLinkContract;
-	private XDI3Statement[] bootstrapStatements;
+	private Graph bootstrapGraph;
+	private MessageEnvelope bootstrapMessageEnvelope;
 
 	public BootstrapInterceptor() {
+
+		super(INIT_PRIORITY, SHUTDOWN_PRIORITY);
 
 		this.bootstrapOwner = null;
 		this.bootstrapOwnerSynonyms = null;
 		this.bootstrapRootLinkContract = false;
 		this.bootstrapPublicLinkContract = false;
-		this.bootstrapStatements = null;
+		this.bootstrapGraph = null;
+		this.bootstrapMessageEnvelope = null;
 	}
 
 	/*
@@ -84,6 +95,11 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		interceptor.setBootstrapOwnerSynonyms(ownerSynonyms);
 
+		// set boostrap statements and operations
+
+		interceptor.setBootstrapGraph(this.getBootstrapGraph());
+		interceptor.setBootstrapMessageEnvelope(this.getBootstrapMessageEnvelope());
+
 		// done
 
 		return interceptor;
@@ -100,7 +116,8 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		if (! (messagingTarget instanceof GraphMessagingTarget)) return;
 
-		Graph graph = ((GraphMessagingTarget) messagingTarget).getGraph();
+		GraphMessagingTarget graphMessagingTarget = (GraphMessagingTarget) messagingTarget;
+		Graph graph = graphMessagingTarget.getGraph();
 
 		ContextNode rootContextNode = graph.getRootContextNode();
 
@@ -126,7 +143,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 			if (this.getBootstrapOwnerSynonyms() != null) {
 
-				if (log.isDebugEnabled()) log.debug("Creating bootstrap owner synonyms: " + this.getBootstrapOwnerSynonyms());
+				if (log.isDebugEnabled()) log.debug("Creating bootstrap owner synonyms: " + Arrays.asList(this.getBootstrapOwnerSynonyms()));
 
 				for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 
@@ -174,17 +191,62 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
 			bootstrapPublicLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_PUBLIC);
+
+			XDI3Statement selfPeerRootRefStatement = XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(this.getBootstrapOwner())));
+			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, selfPeerRootRefStatement);
+
+			for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
+
+				XDI3Statement bootstrapOwnerSynonymRefStatement = XDI3Statement.fromRelationComponents(bootstrapOwnerSynonym, XDIDictionaryConstants.XRI_S_REF, this.getBootstrapOwner());
+				bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymRefStatement);
+
+				XDI3Statement bootstrapOwnerSynonymIsRefStatement = XDI3Statement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonym);
+				bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymIsRefStatement);
+			}
 		}
 
-		// create bootstrap statements
+		// create bootstrap graph
 
-		if (this.getBootstrapStatements() != null) {
+		if (this.getBootstrapGraph() != null) {
 
-			if (log.isDebugEnabled()) log.debug("Creating bootstrap statements.");
+			if (log.isDebugEnabled()) log.debug("Creating bootstrap graph.");
 
-			for (XDI3Statement bootstrapStatement : this.getBootstrapStatements()) {
+			CopyUtil.copyGraph(this.getBootstrapGraph(), graph, null);
+		}
 
-				graph.setStatement(bootstrapStatement);
+		// execute bootstrap message envelope
+
+		if (this.getBootstrapMessageEnvelope() != null) {
+
+			if (log.isDebugEnabled()) log.debug("Executing bootstrap message envelope.");
+
+			ToInterceptor toInterceptor = null;
+			Boolean toInterceptorEnabled = null;
+			RefInterceptor refInterceptor = null;
+			Boolean refInterceptorEnabled = null;
+			LinkContractInterceptor linkContractInterceptor = null;
+			Boolean linkContractInterceptorEnabled = null;
+
+			try {
+
+				toInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(ToInterceptor.class);
+				toInterceptorEnabled = Boolean.valueOf(toInterceptor != null && toInterceptor.isEnabled());
+				if (toInterceptor != null) toInterceptor.setEnabled(false);
+
+				refInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
+				refInterceptorEnabled = Boolean.valueOf(refInterceptor != null && refInterceptor.isEnabled());
+				if (refInterceptor != null) refInterceptor.setEnabled(false);
+
+				linkContractInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
+				linkContractInterceptorEnabled = Boolean.valueOf(linkContractInterceptor != null && linkContractInterceptor.isEnabled());
+				if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
+
+				graphMessagingTarget.execute(this.getBootstrapMessageEnvelope(), null, null);
+			} finally {
+
+				if (toInterceptor != null && toInterceptorEnabled != null) toInterceptor.setEnabled(toInterceptorEnabled.booleanValue());
+				if (refInterceptor != null && refInterceptorEnabled != null) refInterceptor.setEnabled(refInterceptorEnabled.booleanValue());
+				if (linkContractInterceptor != null && linkContractInterceptorEnabled != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled.booleanValue());
 			}
 		}
 	}
@@ -245,13 +307,23 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 		this.bootstrapPublicLinkContract = bootstrapPublicLinkContract;
 	}
 
-	public XDI3Statement[] getBootstrapStatements() {
+	public Graph getBootstrapGraph() {
 
-		return this.bootstrapStatements;
+		return this.bootstrapGraph;
 	}
 
-	public void setBootstrapStatements(XDI3Statement[] bootstrapStatements) {
+	public void setBootstrapGraph(Graph bootstrapGraph) {
 
-		this.bootstrapStatements = bootstrapStatements;
+		this.bootstrapGraph = bootstrapGraph;
+	}
+
+	public MessageEnvelope getBootstrapMessageEnvelope() {
+
+		return this.bootstrapMessageEnvelope;
+	}
+
+	public void setBootstrapMessageEnvelope(MessageEnvelope bootstrapMessageEnvelope) {
+
+		this.bootstrapMessageEnvelope = bootstrapMessageEnvelope;
 	}
 }

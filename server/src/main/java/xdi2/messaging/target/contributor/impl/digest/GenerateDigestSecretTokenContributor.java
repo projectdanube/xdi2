@@ -113,7 +113,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 		}
 
 		if (log.isDebugEnabled()) log.debug("Created digest secret token: " + localSaltAndDigestSecretToken);
-		
+
 		// add it to the graph
 
 		ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);

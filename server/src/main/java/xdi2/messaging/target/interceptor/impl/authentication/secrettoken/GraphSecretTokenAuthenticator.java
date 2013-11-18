@@ -26,7 +26,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	private static Logger log = LoggerFactory.getLogger(GraphSecretTokenAuthenticator.class.getName());
 
 	private Graph secretTokenGraph;
-	
+
 	public GraphSecretTokenAuthenticator(String globalSalt, Graph secretTokenGraph) {
 
 		super(globalSalt);
@@ -37,7 +37,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	public GraphSecretTokenAuthenticator() {
 
 		super();
-		
+
 		this.secretTokenGraph = null;
 	}
 
@@ -75,18 +75,18 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 
 		return localSaltAndDigestSecretToken;
 	}
-	
+
 	/*
 	 * Getters and setters
 	 */
 
 	public Graph getSecretTokenGraph() {
-	
+
 		return this.secretTokenGraph;
 	}
 
 	public void setSecretTokenGraph(Graph secretTokenGraph) {
-	
+
 		this.secretTokenGraph = secretTokenGraph;
 	}
 }

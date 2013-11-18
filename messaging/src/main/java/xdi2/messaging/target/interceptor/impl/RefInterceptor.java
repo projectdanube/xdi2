@@ -534,7 +534,6 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 			// after feedback: restore the execution context and messaging target
 
 			if (refInterceptor != null && refInterceptorEnabled != null) refInterceptor.setEnabled(refInterceptorEnabled.booleanValue());
-
 			if (linkContractInterceptor != null && linkContractInterceptorEnabled != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled.booleanValue());
 
 			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
