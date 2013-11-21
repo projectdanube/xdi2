@@ -1,37 +1,29 @@
 package xdi2.messaging.target.contributor.impl.proxy;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
+import java.util.List;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
-import xdi2.core.Graph;
-import xdi2.core.constants.XDIConstants;
-import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.datatypes.DataTypes;
-import xdi2.core.features.nodetypes.XdiAbstractAttribute;
-import xdi2.core.features.nodetypes.XdiAbstractEntity;
-import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.client.XDIClient;
+import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.http.XDIHttpClient;
+import xdi2.core.util.CopyUtil;
+import xdi2.core.util.StatementUtil;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.messaging.DoOperation;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorXri;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
  * This contributor can answer request by forwarding them to another XDI endpoint.
@@ -41,8 +33,10 @@ public class ProxyContributor extends AbstractContributor implements Prototype<P
 
 	private static final Logger log = LoggerFactory.getLogger(ProxyContributor.class);
 
-	private String toAddress;
-	
+	private XDIClient xdiClient;
+	private List<MessageEnvelopeManipulator> messageEnvelopeManipulators;
+	private List<MessageResultManipulator> messageResultManipulators;
+
 	public ProxyContributor() {
 
 	}
@@ -74,89 +68,122 @@ public class ProxyContributor extends AbstractContributor implements Prototype<P
 	 */
 
 	@Override
-	public boolean executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean executeOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// check operation
+		// prepare the proxy message envelope
 
-		if (! XRI_S_DO_KEYPAIR.equals(operation.getOperationXri()) && ! XRI_S_DO_KEY.equals(operation.getOperationXri())) return false;
+		XDI3Segment targetAddress = XDI3Util.concatXris(contributorsXri, relativeTargetAddress);
 
-		// check parameters
+		Message proxyMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 
-		XDI3Segment arcXri = relativeTargetStatement.getRelationArcXri();
-		if (! XDIDictionaryConstants.XRI_S_IS_TYPE.equals(arcXri)) return false;
+		proxyMessage.deleteOperations();
+		proxyMessage.createOperation(operation.getOperationXri(), targetAddress);
 
-		XDI3Segment dataTypeXri = relativeTargetStatement.getTargetContextNodeXri();
+		MessageEnvelope proxyMessageEnvelope = proxyMessage.getMessageEnvelope();
 
-		String keyAlgorithm;
-		Integer keyLength;
+		// manipulate the proxy message envelope
 
-		keyAlgorithm = getKeyAlgorithm(dataTypeXri);
-		if (keyAlgorithm == null) throw new Xdi2MessagingException("Invalid key algorithm: " + dataTypeXri, null, executionContext);
+		for (MessageEnvelopeManipulator messageEnvelopeManipulator : this.messageEnvelopeManipulators) {
 
-		keyLength = getKeyLength(dataTypeXri);
-		if (keyLength == null) throw new Xdi2MessagingException("Invalid key length: " + dataTypeXri, null, executionContext);
+			messageEnvelopeManipulator.manipulate(proxyMessageEnvelope, executionContext);
+		}
 
-		if (log.isDebugEnabled()) log.debug("keyAlgorithm: " + keyAlgorithm + ", keyLength: " + keyLength);
+		// prepare the proxy message result
 
-		// key pair or symmetric key?
+		MessageResult proxyMessageResult = new MessageResult();
 
-		if (XRI_S_DO_KEYPAIR.equals(operation.getOperationXri())) {
+		// send the proxy message envelope
 
-			// generate key pair
+		try {
 
-			KeyPair keyPair;
+			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXri() + " on target address " + targetAddress + " to " + ((XDIHttpClient) this.getXdiClient()).getEndpointUri() + ".");
 
-			try {
+			this.getXdiClient().send(proxyMessageEnvelope, proxyMessageResult);
+		} catch (Xdi2ClientException ex) {
 
-				KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(keyAlgorithm);
-				keyPairGen.initialize(keyLength.intValue());
-				keyPair = keyPairGen.generateKeyPair();
-			} catch (Exception ex) {
+			throw new Xdi2MessagingException("Problem while forwarding XDI request: " + ex.getMessage(), ex, executionContext);
+		}
 
-				throw new Xdi2MessagingException("Problem while creating key pair: " + ex.getMessage(), ex, executionContext);
-			}
+		// manipulate the proxy message result
 
-			if (log.isDebugEnabled()) log.debug("Created key pair: " + keyPair.getClass().getSimpleName());
+		for (MessageResultManipulator messageResultManipulator : this.messageResultManipulators) {
 
-			// add it to the graph
+			if (log.isDebugEnabled()) log.debug("Executing message result manipulator " + messageResultManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on address " + targetAddress + ".");
 
-			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);
-			if (! XdiAbstractEntity.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a key pair on an entity.", null, executionContext);
-			XdiEntity keyPairXdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
-			XdiAttributeSingleton publicKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDI3SubSegment.create("$public"), true).getXdiAttributeSingleton(XDI3SubSegment.create("$key"), true);
-			XdiAttributeSingleton privateKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDI3SubSegment.create("$private"), true).getXdiAttributeSingleton(XDI3SubSegment.create("$key"), true);
-			publicKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(keyPair.getPublic().getEncoded()));
-			privateKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(keyPair.getPrivate().getEncoded()));
-			DataTypes.setDataType(contextNode, dataTypeXri);
-		} else if (XRI_S_DO_KEY.equals(operation.getOperationXri())) {
-
-			// generate symmetric key
-
-			SecretKey secretKey;
-
-			try {
-
-				KeyGenerator keyGen = KeyGenerator.getInstance(keyAlgorithm);
-				keyGen.init(keyLength.intValue());
-				secretKey = keyGen.generateKey(); 
-			} catch (Exception ex) {
-
-				throw new Xdi2MessagingException("Problem while creating symmetric key: " + ex.getMessage(), ex, executionContext);
-			}
-
-			if (log.isDebugEnabled()) log.debug("Created symmetric key: " + secretKey.getClass().getSimpleName());
-
-			// add it to the graph
-
-			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);
-			if (! XdiAbstractAttribute.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a symmetric key on an attribute.", null, executionContext);
-			XdiAttribute symmetricKeyXdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-			symmetricKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(secretKey.getEncoded()));
-			DataTypes.setDataType(contextNode, dataTypeXri);
+			messageResultManipulator.manipulate(proxyMessageResult, executionContext);
 		}
 
 		// done
 
-		return false;
+		CopyUtil.copyGraph(proxyMessageResult.getGraph(), messageResult.getGraph(), null);
+
+		return true;
+	}
+
+	@Override
+	public boolean executeOnStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		// prepare the proxy message envelope
+
+		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement, true);
+
+		Message proxyMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
+
+		proxyMessage.deleteOperations();
+		proxyMessage.createOperation(operation.getOperationXri(), targetStatement);
+
+		MessageEnvelope proxyMessageEnvelope = proxyMessage.getMessageEnvelope();
+
+		// manipulate the proxy message envelope
+
+		for (MessageEnvelopeManipulator messageEnvelopeManipulator : this.messageEnvelopeManipulators) {
+
+			messageEnvelopeManipulator.manipulate(proxyMessageEnvelope, executionContext);
+		}
+
+		// prepare the proxy message result
+
+		MessageResult proxyMessageResult = new MessageResult();
+
+		// send the proxy message envelope
+
+		try {
+
+			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXri() + " on target statement " + targetStatement + " to " + ((XDIHttpClient) this.getXdiClient()).getEndpointUri() + ".");
+
+			this.getXdiClient().send(proxyMessageEnvelope, proxyMessageResult);
+		} catch (Xdi2ClientException ex) {
+
+			throw new Xdi2MessagingException("Problem while forwarding XDI request: " + ex.getMessage(), ex, executionContext);
+		}
+
+		// manipulate the proxy message result
+
+		for (MessageResultManipulator messageResultManipulator : this.messageResultManipulators) {
+
+			if (log.isDebugEnabled()) log.debug("Executing message result manipulator " + messageResultManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + ".");
+
+			messageResultManipulator.manipulate(proxyMessageResult, executionContext);
+		}
+
+		// done
+
+		CopyUtil.copyGraph(proxyMessageResult.getGraph(), messageResult.getGraph(), null);
+
+		return true;
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public XDIClient getXdiClient() {
+
+		return this.xdiClient;
+	}
+
+	public void setXdiClient(XDIClient xdiClient) {
+
+		this.xdiClient = xdiClient;
 	}
 }
