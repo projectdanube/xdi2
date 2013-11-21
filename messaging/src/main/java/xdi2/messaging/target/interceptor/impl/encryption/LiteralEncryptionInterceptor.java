@@ -15,7 +15,7 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
-import xdi2.messaging.target.interceptor.ResultInterceptor;
+import xdi2.messaging.target.interceptor.MessageResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
@@ -23,7 +23,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * in the XDI message result. It invokes an instance of LiteralCryptoService to
  * perform encryption and decryption. 
  */
-public class LiteralEncryptionInterceptor extends AbstractInterceptor implements TargetInterceptor, ResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
+public class LiteralEncryptionInterceptor extends AbstractInterceptor implements TargetInterceptor, MessageResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(LiteralEncryptionInterceptor.class);
 
@@ -116,7 +116,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor implements
 	}
 
 	/*
-	 * ResultInterceptor
+	 * MessageResultInterceptor
 	 */
 
 	@Override

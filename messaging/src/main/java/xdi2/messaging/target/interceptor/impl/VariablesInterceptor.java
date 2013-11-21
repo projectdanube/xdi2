@@ -24,7 +24,7 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
-import xdi2.messaging.target.interceptor.ResultInterceptor;
+import xdi2.messaging.target.interceptor.MessageResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
@@ -32,7 +32,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * 
  * @author markus
  */
-public class VariablesInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, TargetInterceptor, ResultInterceptor, Prototype<VariablesInterceptor> {
+public class VariablesInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor, TargetInterceptor, MessageResultInterceptor, Prototype<VariablesInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(VariablesInterceptor.class);
 
@@ -98,7 +98,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 	}
 
 	/*
-	 * ResultInterceptor
+	 * MessageResultInterceptor
 	 */
 
 	@Override

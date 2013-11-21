@@ -9,7 +9,7 @@ import xdi2.messaging.target.ExecutionContext;
  * 
  * @author markus
  */
-public interface ResultInterceptor extends Interceptor {
+public interface MessageResultInterceptor extends Interceptor {
 
 	/**
 	 * Run on the message result after it is complete for final adjustments.

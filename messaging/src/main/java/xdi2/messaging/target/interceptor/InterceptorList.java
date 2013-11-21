@@ -407,9 +407,9 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 
 	public void executeResultInterceptorsFinish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		for (Iterator<ResultInterceptor> resultInterceptors = this.findResultInterceptors(); resultInterceptors.hasNext(); ) {
+		for (Iterator<MessageResultInterceptor> resultInterceptors = this.findResultInterceptors(); resultInterceptors.hasNext(); ) {
 
-			ResultInterceptor resultInterceptor = resultInterceptors.next();
+			MessageResultInterceptor resultInterceptor = resultInterceptors.next();
 
 			if (! resultInterceptor.isEnabled()) {
 
@@ -421,7 +421,7 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 
 			try {
 
-				executionContext.pushInterceptor(resultInterceptor, "ResultInterceptor: finish");
+				executionContext.pushInterceptor(resultInterceptor, "MessageResultInterceptor: finish");
 
 				resultInterceptor.finish(messageResult, executionContext);
 			} catch (Exception ex) {
@@ -458,9 +458,9 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 		return new SelectingClassIterator<Interceptor, TargetInterceptor> (this.iterator(), TargetInterceptor.class);
 	}
 
-	public Iterator<ResultInterceptor> findResultInterceptors() {
+	public Iterator<MessageResultInterceptor> findResultInterceptors() {
 
-		return new SelectingClassIterator<Interceptor, ResultInterceptor> (this.iterator(), ResultInterceptor.class);
+		return new SelectingClassIterator<Interceptor, MessageResultInterceptor> (this.iterator(), MessageResultInterceptor.class);
 	}
 
 	/*
