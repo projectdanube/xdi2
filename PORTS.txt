@@ -3,8 +3,7 @@ Known default HTTP ports of various XDI2 projects.
 8080: xdi2-server-embedded / xdi2-server-standalone / xdi2-server-war / xdi2-webtools
 11110: danube-desktop (DEPRECATED)
 11120: danube-clouds-desktop
-12220: xdi2-xrinet
-12230: xdi2-crsnet
+12220: neustar-discovery-service
 13330: xdi2-cds
 14440: neustar-clouds
 9090: xdi2-connector-template
