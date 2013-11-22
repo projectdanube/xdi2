@@ -54,7 +54,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public XDI3Segment getOwnerAddress() {
+	public XDI3Segment getOwnerAuthority() {
 
 		XdiPeerRoot selfPeerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).getSelfPeerRoot();
 		if (selfPeerRoot == null) return null;

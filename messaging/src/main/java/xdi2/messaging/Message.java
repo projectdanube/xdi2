@@ -148,15 +148,15 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Return the FROM address.
+	 * Return the FROM authority.
 	 */
-	public XDI3Segment getFromAddress() {
+	public XDI3Segment getFromAuthority() {
 
 		for (Iterator<Relation> incomingRelations = this.getContextNode().getIncomingRelations(); incomingRelations.hasNext(); ) {
 
 			Relation incomingRelation = incomingRelations.next();
 
-			if (incomingRelation.getArcXri().equals(XDIMessagingConstants.XRI_S_FROM_ADDRESS)) {
+			if (incomingRelation.getArcXri().equals(XDIMessagingConstants.XRI_S_FROM_AUTHORITY)) {
 
 				return incomingRelation.getContextNode().getXri();
 			}
@@ -166,31 +166,31 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Set the FROM address.
+	 * Set the FROM authority.
 	 */
-	public void setFromAddress(XDI3Segment fromAddress) {
+	public void setFromAuthority(XDI3Segment fromAuthority) {
 
-		this.getMessageEnvelope().getGraph().setDeepRelation(fromAddress, XDIMessagingConstants.XRI_S_FROM_ADDRESS, this.getContextNode());
+		this.getMessageEnvelope().getGraph().setDeepRelation(fromAuthority, XDIMessagingConstants.XRI_S_FROM_AUTHORITY, this.getContextNode());
 	}
 
 	/**
-	 * Return the TO address of the message.
+	 * Return the TO authority of the message.
 	 */
-	public XDI3Segment getToAddress() {
+	public XDI3Segment getToAuthority() {
 
-		Relation toAddressRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_ADDRESS);
-		if (toAddressRelation == null) return null;
+		Relation toAuthorityRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_AUTHORITY);
+		if (toAuthorityRelation == null) return null;
 
-		return toAddressRelation.getTargetContextNodeXri();
+		return toAuthorityRelation.getTargetContextNodeXri();
 	}
 
 	/**
-	 * Set the TO address of the message.
+	 * Set the TO authority of the message.
 	 */
-	public void setToAddress(XDI3Segment toAddress) {
+	public void setToAuthority(XDI3Segment toAuthority) {
 
-		this.getContextNode().delRelations(XDIMessagingConstants.XRI_S_TO_ADDRESS);
-		this.getContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_ADDRESS, toAddress);
+		this.getContextNode().delRelations(XDIMessagingConstants.XRI_S_TO_AUTHORITY);
+		this.getContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_AUTHORITY, toAuthority);
 	}
 
 	/**

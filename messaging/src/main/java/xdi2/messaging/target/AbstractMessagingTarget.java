@@ -41,13 +41,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
-	private XDI3Segment ownerAddress;
+	private XDI3Segment ownerAuthority;
 	private InterceptorList interceptors;
 	private ContributorMap contributors;
 
 	public AbstractMessagingTarget() {
 
-		this.ownerAddress = null;
+		this.ownerAuthority = null;
 		this.interceptors = new InterceptorList();
 		this.contributors = new ContributorMap();
 	}
@@ -490,14 +490,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 */
 
 	@Override
-	public XDI3Segment getOwnerAddress() {
+	public XDI3Segment getOwnerAuthority() {
 
-		return this.ownerAddress;
+		return this.ownerAuthority;
 	}
 
-	public void setOwnerAddress(XDI3Segment ownerAddress) {
+	public void setOwnerAuthority(XDI3Segment ownerAuthority) {
 
-		this.ownerAddress = ownerAddress;
+		this.ownerAuthority = ownerAuthority;
 	}
 
 	public InterceptorList getInterceptors() {

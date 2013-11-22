@@ -14,7 +14,7 @@ import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
- * This interceptor checks if the target peer root address of a message matches the owner of the messaging target.
+ * This interceptor checks if the target authority of a message matches the owner authority of the messaging target.
  * 
  * @author markus
  */
@@ -42,14 +42,14 @@ public class ToInterceptor extends AbstractInterceptor implements MessageInterce
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3Segment ownerAddress = messagingTarget.getOwnerAddress();
-		XDI3Segment toAddress = message.getToAddress();
+		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
+		XDI3Segment toAuthority = message.getToAuthority();
 
-		if (log.isDebugEnabled()) log.debug("ownerAddress=" + ownerAddress + ", toAddress=" + toAddress);
+		if (log.isDebugEnabled()) log.debug("ownerAuthority=" + ownerAuthority + ", toAuthority=" + toAuthority);
 
-		if (toAddress == null) throw new Xdi2MessagingException("No TO address found in message.", null, null);
+		if (toAuthority == null) throw new Xdi2MessagingException("No TO authority found in message.", null, null);
 
-		if (! toAddress.equals(ownerAddress)) throw new Xdi2MessagingException("Invalid TO address: " + toAddress, null, null);
+		if (! toAuthority.equals(ownerAuthority)) throw new Xdi2MessagingException("Invalid TO authority: " + toAuthority, null, null);
 
 		return false;
 	}
