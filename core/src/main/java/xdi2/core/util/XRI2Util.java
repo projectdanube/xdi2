@@ -28,6 +28,8 @@ public final class XRI2Util {
 
 		if (log.isTraceEnabled()) log.trace("canonicalIdToCloudNumber(" + canonicalId + ")");
 
+		if (canonicalId.startsWith("xri://")) canonicalId = canonicalId.substring("xri://".length());
+
 		char cs = canonicalId.charAt(0);
 
 		canonicalId = canonicalId.substring(2).toLowerCase();
