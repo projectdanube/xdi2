@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,6 +112,11 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 	public int size() {
 
 		return (int) new IteratorCounter(this.iterator()).count();
+	}
+
+	public Set<Entry<XDI3Segment, List<Contributor>>> entrySet() {
+
+		return this.contributors.entrySet();
 	}
 
 	@Override

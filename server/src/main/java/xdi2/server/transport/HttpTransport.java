@@ -366,14 +366,14 @@ public class HttpTransport {
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetAddress(XDIMessagingConstants.XRI_S_GET, targetAddress);
 
-		// set the TO address to the owner address of the messaging target
+		// set the TO authority to the owner authority of the messaging target
 
-		XDI3Segment ownerAddress = messagingTarget.getOwnerAddress();
+		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 
-		if (ownerAddress != null) {
+		if (ownerAuthority != null) {
 
 			Message message = messageEnvelope.getMessages().next();
-			message.setToAddress(ownerAddress);
+			message.setToAuthority(ownerAuthority);
 		}
 
 		// done

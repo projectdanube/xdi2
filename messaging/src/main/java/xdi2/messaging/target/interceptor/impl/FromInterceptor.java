@@ -10,7 +10,7 @@ import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
- * This interceptor checks if the source peer root address of a message matches the sender of the message.
+ * This interceptor checks if the source authority of a message matches the sender of the message.
  * 
  * @author markus
  */
@@ -35,7 +35,7 @@ public class FromInterceptor extends AbstractInterceptor implements MessageInter
 	@Override
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		throw new Xdi2RuntimeException("FromInterceptor not implemented yet.");
+		throw new Xdi2RuntimeException("Not implemented.");
 	}
 
 	@Override
