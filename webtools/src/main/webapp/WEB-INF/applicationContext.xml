@@ -202,6 +202,15 @@
 					</property>
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
+					<property name="bootstrapGraph">
+						<value>
+							$public$do/$get/$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
+							$public$do/$get/($msg$encrypt$keypair/$is+/{})
+							$public$do/$get/$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
+							$public$do/$get/($msg$sig$keypair/$is+/{})
+							$public$do/$get/&lt;$https&gt;&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;
+						</value>
+					</property>
 					<property name="bootstrapMessageEnvelope">
 						<value>
 							$anon[$msg]!1$do/$do$keypair/($msg$encrypt$keypair/$is+/$rsa$2048)
