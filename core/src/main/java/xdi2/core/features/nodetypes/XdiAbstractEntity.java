@@ -58,7 +58,7 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph<XdiEntity> i
 
 		XDI3Segment innerRootSubjectXri = xdiRoot.getRelativePart(contextNodeXri);
 
-		return xdiRoot.findInnerRoot(innerRootSubjectXri, innerRootPredicateXri, true);
+		return xdiRoot.findInnerRoot(innerRootSubjectXri, innerRootPredicateXri, create);
 	}
 
 	/*
