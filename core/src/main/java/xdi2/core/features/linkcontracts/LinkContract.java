@@ -142,7 +142,7 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 
 		// find the inner root
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
 		if (xdiInnerRoot == null) return;
 
 		// set the permission statement
