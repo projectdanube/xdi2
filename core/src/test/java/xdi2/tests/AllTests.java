@@ -32,6 +32,8 @@ import xdi2.tests.core.util.StatementUtilTest;
 import xdi2.tests.core.util.XDI3UtilTest;
 import xdi2.tests.core.util.XRI2UtilTest;
 import xdi2.tests.core.util.iterators.IteratorTest;
+import xdi2.tests.core.xri3.CloudNameTest;
+import xdi2.tests.core.xri3.CloudNumberTest;
 import xdi2.tests.core.xri3.XDI3ParserAPGTest;
 import xdi2.tests.core.xri3.XDI3ParserAParseTest;
 import xdi2.tests.core.xri3.XDI3ParserManualTest;
@@ -71,6 +73,8 @@ public class AllTests {
 		suite.addTestSuite(ReaderWriterTest.class);
 		suite.addTestSuite(XRI2UtilTest.class);
 		suite.addTestSuite(XDI3UtilTest.class);
+		suite.addTestSuite(CloudNameTest.class);
+		suite.addTestSuite(CloudNumberTest.class);
 		suite.addTestSuite(CopyUtilTest.class);
 		suite.addTestSuite(StatementUtilTest.class);
 		suite.addTestSuite(IteratorTest.class);

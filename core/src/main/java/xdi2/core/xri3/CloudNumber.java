@@ -4,13 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
 
 public class CloudNumber {
 
 	private static final Logger log = LoggerFactory.getLogger(CloudNumber.class);
 
 	private XDI3Segment xri;
-	
+
 	private CloudNumber(XDI3Segment xri) {
 
 		this.xri = xri;
@@ -30,7 +31,7 @@ public class CloudNumber {
 
 				XDI3SubSegment subSegment0 = xri.getSubSegment(i);
 				XDI3SubSegment subSegment1 = xri.getSubSegment(i + 1);
-				
+
 				if (subSegment0.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (! subSegment0.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment0.hasXRef() || subSegment0.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
@@ -55,9 +56,34 @@ public class CloudNumber {
 
 		return new CloudNumber(xri);
 	}
-	
+
+	public static CloudNumber fromRandom() {
+
+		XDI3Segment xri = XDI3Segment.create("[=]" + XdiAbstractMemberUnordered.createArcXriFromRandom(false));
+
+		return new CloudNumber(xri);
+	}
+
 	public XDI3Segment getXri() {
 
 		return this.xri;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+
+		return this.getXri().equals(object);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return this.getXri().hashCode();
+	}
+
+	@Override
+	public String toString() {
+
+		return this.getXri().toString();
 	}
 }

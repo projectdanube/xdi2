@@ -33,7 +33,7 @@ public class CloudName {
 				if (subSegment.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment.hasXRef() || ! subSegment.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_EQUALS.equals(subSegment.getCs()) && ! XDIConstants.CS_AT.equals(subSegment.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_EQUALS.equals(subSegment.getCs()) && ! XDIConstants.CS_AT.equals(subSegment.getCs()) && ! XDIConstants.CS_STAR.equals(subSegment.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 
 			{ result = Boolean.TRUE; return result.booleanValue(); }
@@ -53,5 +53,23 @@ public class CloudName {
 	public XDI3Segment getXri() {
 
 		return this.xri;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+
+		return this.getXri().equals(object);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return this.getXri().hashCode();
+	}
+
+	@Override
+	public String toString() {
+
+		return this.getXri().toString();
 	}
 }
