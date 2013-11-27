@@ -76,6 +76,13 @@
 		<% if (request.getAttribute("output") != null) { %>
 			Copy&amp;Paste: <textarea style="width: 100px; height: 1.2em; overflow: hidden"><%= request.getAttribute("output") %></textarea>
 		<% } %>
+
+		<% if (request.getAttribute("discoveryResultRegistry") != null) { %>
+			<form action="XDIMessenger">
+				<input type="hidden" name="endpoint" value="bla">
+				<input type="submit" value="Send XDI Message">
+			</form>
+		<% } %>
 		</p>
 	<% } %>
 

@@ -264,6 +264,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		request.setAttribute("services", services);
 		request.setAttribute("output", output);
 		request.setAttribute("output2", output2);
+		request.setAttribute("discoveryResultRegistry", discoveryResultRegistry);
+		request.setAttribute("discoveryResultAuthority", discoveryResultAuthority);
 		request.setAttribute("stats", stats);
 		request.setAttribute("error", error);
 
