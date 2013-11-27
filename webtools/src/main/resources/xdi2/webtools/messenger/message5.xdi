@@ -1,2 +1,4 @@
-=markus[$msg]!1$do/$set/(@kynetx[<$uri>]<!1>&/&/"http://xdi.kobj.net")
-=markus[$msg]!1$do/$set/(@kynetx[<$uri>]<!2>&/&/"https://xdi.kobj.net")
+[=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14[$msg]!1/$is()/([=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14)
+[=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14[$msg]!1/$do/$do
+[=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14[$msg]!1<$secret><$token>&/&/"alice"
+[=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14[$msg]!1$do/$get/
