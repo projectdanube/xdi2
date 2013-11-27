@@ -63,19 +63,19 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_BANG + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
 	}
 
-	public static XDI3SubSegment createArcXriFromUuid(String uuid, boolean attribute) {
+	public static XDI3SubSegment createUuidArcXri(String uuid, boolean attribute) {
 
 		return createArcXri(":uuid:" + uuid, attribute);
 	}
 
-	public static XDI3SubSegment createArcXriFromRandom(boolean attribute) {
+	public static XDI3SubSegment createRandomArcXri(boolean attribute) {
 
 		String uuid = UUID.randomUUID().toString();
 
-		return createArcXriFromUuid(uuid, attribute);
+		return createUuidArcXri(uuid, attribute);
 	}
 
-	public static XDI3SubSegment createArcXriFromHash(String string, boolean attribute) {
+	public static XDI3SubSegment createHashArcXri(String string, boolean attribute) {
 
 		byte[] output;
 

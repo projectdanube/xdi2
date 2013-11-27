@@ -93,7 +93,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		boolean attribute = this.attribute();
 
-		if (arcXri == null) arcXri = XdiAbstractMemberUnordered.createArcXriFromRandom(attribute);
+		if (arcXri == null) arcXri = XdiAbstractMemberUnordered.createRandomArcXri(attribute);
 
 		ContextNode memberContextNode = this.getContextNode().setContextNode(arcXri);
 

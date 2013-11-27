@@ -178,7 +178,7 @@ public class VariablesInterceptor extends AbstractInterceptor implements Message
 
 		if (newSubSegment == null) {
 
-			newSubSegment = XdiAbstractMemberUnordered.createArcXriFromRandom(false);
+			newSubSegment = XdiAbstractMemberUnordered.createRandomArcXri(false);
 			putVariable(executionContext, subSegment, newSubSegment);
 		}
 

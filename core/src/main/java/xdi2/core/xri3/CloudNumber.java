@@ -60,9 +60,9 @@ public class CloudNumber {
 		return fromXri(XDI3Segment.create(string));
 	}
 
-	public static CloudNumber createRandom(char cs) {
+	public static CloudNumber createRandom(Character cs) {
 
-		XDI3SubSegment subSegment1 = XdiEntityCollection.createArcXri(XDI3SubSegment.fromComponents(Character.valueOf(cs), false, false, null, null));
+		XDI3SubSegment subSegment1 = XdiEntityCollection.createArcXri(XDI3SubSegment.fromComponents(cs, false, false, null, null));
 		XDI3SubSegment subSegment2 = XdiAbstractMemberUnordered.createRandomArcXri(false);
 
 		XDI3Segment xri = XDI3Util.concatXris(subSegment1, subSegment2);
