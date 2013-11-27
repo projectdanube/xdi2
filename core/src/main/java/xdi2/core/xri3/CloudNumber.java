@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.util.XDI3Util;
 
 public class CloudNumber {
 
@@ -58,18 +60,21 @@ public class CloudNumber {
 		return fromXri(XDI3Segment.create(string));
 	}
 
-	public static CloudNumber fromXri(XDI3Segment xri) {
+	public static CloudNumber createRandom(char cs) {
 
-		if (! isValid(xri)) return null;
+		XDI3SubSegment subSegment1 = XdiEntityCollection.createArcXri(XDI3SubSegment.fromComponents(Character.valueOf(cs), false, false, null, null));
+		XDI3SubSegment subSegment2 = XdiAbstractMemberUnordered.createRandomArcXri(false);
+
+		XDI3Segment xri = XDI3Util.concatXris(subSegment1, subSegment2);
 
 		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
 
 		return new CloudNumber(xri, peerRootXri);
 	}
 
-	public static CloudNumber fromRandom() {
+	public static CloudNumber fromXri(XDI3Segment xri) {
 
-		XDI3Segment xri = XDI3Segment.create("[=]" + XdiAbstractMemberUnordered.createArcXriFromRandom(false));
+		if (! isValid(xri)) return null;
 
 		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
 
