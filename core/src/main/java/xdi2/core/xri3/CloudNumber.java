@@ -5,16 +5,19 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 
 public class CloudNumber {
 
 	private static final Logger log = LoggerFactory.getLogger(CloudNumber.class);
 
 	private XDI3Segment xri;
+	private XDI3Segment peerRootXri;
 
-	private CloudNumber(XDI3Segment xri) {
+	private CloudNumber(XDI3Segment xri, XDI3Segment peerRootXri) {
 
 		this.xri = xri;
+		this.peerRootXri = peerRootXri;
 	}
 
 	public static boolean isValid(final XDI3Segment xri) {
@@ -54,19 +57,28 @@ public class CloudNumber {
 
 		if (! isValid(xri)) return null;
 
-		return new CloudNumber(xri);
+		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
+
+		return new CloudNumber(xri, peerRootXri);
 	}
 
 	public static CloudNumber fromRandom() {
 
 		XDI3Segment xri = XDI3Segment.create("[=]" + XdiAbstractMemberUnordered.createArcXriFromRandom(false));
 
-		return new CloudNumber(xri);
+		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
+
+		return new CloudNumber(xri, peerRootXri);
 	}
 
 	public XDI3Segment getXri() {
 
 		return this.xri;
+	}
+
+	public XDI3Segment getPeerRootXri() {
+
+		return this.peerRootXri;
 	}
 
 	@Override
