@@ -53,6 +53,11 @@ public class CloudNumber {
 		}
 	}
 
+	public static CloudNumber create(String string) {
+
+		return fromXri(XDI3Segment.create(string));
+	}
+
 	public static CloudNumber fromXri(XDI3Segment xri) {
 
 		if (! isValid(xri)) return null;

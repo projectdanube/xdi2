@@ -46,6 +46,11 @@ public class CloudName {
 		}
 	}
 
+	public static CloudName create(String string) {
+
+		return fromXri(XDI3Segment.create(string));
+	}
+
 	public static CloudName fromXri(XDI3Segment xri) {
 
 		if (! isValid(xri)) return null;
