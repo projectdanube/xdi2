@@ -30,7 +30,8 @@ public final class XRI2Util {
 
 		if (iNumber.startsWith("xri://")) iNumber = iNumber.substring("xri://".length());
 
-		char cs = iNumber.charAt(0);
+		Character cs = Character.valueOf(iNumber.charAt(0));
+		if ((! XDIConstants.CS_EQUALS.equals(cs)) && (! XDIConstants.CS_AT.equals(cs))) return null;
 
 		iNumber = iNumber.substring(2).toLowerCase();
 
