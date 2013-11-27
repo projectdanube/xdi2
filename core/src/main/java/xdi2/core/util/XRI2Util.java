@@ -22,19 +22,19 @@ public final class XRI2Util {
 	private XRI2Util() { }
 
 	/**
-	 * Maps an XRI 2.0 Canonical ID to a Cloud Number.
+	 * Maps an XRI 2.0 I-Number to a Cloud Number.
 	 */
-	public static XDI3Segment canonicalIdToCloudNumber(String canonicalId) {
+	public static XDI3Segment iNumberToCloudNumber(String iNumber) {
 
-		if (log.isTraceEnabled()) log.trace("canonicalIdToCloudNumber(" + canonicalId + ")");
+		if (log.isTraceEnabled()) log.trace("iNumberToCloudNumber(" + iNumber + ")");
 
-		if (canonicalId.startsWith("xri://")) canonicalId = canonicalId.substring("xri://".length());
+		if (iNumber.startsWith("xri://")) iNumber = iNumber.substring("xri://".length());
 
-		char cs = canonicalId.charAt(0);
+		char cs = iNumber.charAt(0);
 
-		canonicalId = canonicalId.substring(2).toLowerCase();
+		iNumber = iNumber.substring(2).toLowerCase();
 
-		String[] parts = canonicalId.split("\\.");
+		String[] parts = iNumber.split("\\.");
 		if (parts.length != 4) return null;
 
 		for (int i=0; i<parts.length; i++) {
@@ -63,11 +63,11 @@ public final class XRI2Util {
 	}
 
 	/**
-	 * Maps a Cloud Number to an XRI 2.0 Canonical ID.
+	 * Maps a Cloud Number to an XRI 2.0 I-Number.
 	 */
-	public static String cloudNumberToCanonicalId(XDI3Segment cloudNumber) {
+	public static String cloudNumberToINumber(XDI3Segment cloudNumber) {
 
-		if (log.isTraceEnabled()) log.trace("cloudNumberToCanonicalId(" + cloudNumber + ")");
+		if (log.isTraceEnabled()) log.trace("cloudNumberToINumber(" + cloudNumber + ")");
 
 		if (cloudNumber.getNumSubSegments() != 2) return null;
 
