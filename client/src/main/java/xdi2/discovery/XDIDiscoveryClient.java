@@ -89,7 +89,7 @@ public class XDIDiscoveryClient {
 		// send the registry message
 
 		MessageEnvelope registryMessageEnvelope = new MessageEnvelope();
-		Message registryMessage = registryMessageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
+		Message registryMessage = registryMessageEnvelope.createMessage(XDIMessagingConstants.XRI_S_ANONYMOUS);
 		registryMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC);
 		registryMessage.createGetOperation(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(query)));
 
@@ -128,7 +128,7 @@ public class XDIDiscoveryClient {
 		// send the authority message
 
 		MessageEnvelope authorityMessageEnvelope = new MessageEnvelope();
-		Message authorityMessage = authorityMessageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
+		Message authorityMessage = authorityMessageEnvelope.createMessage(XDIMessagingConstants.XRI_S_ANONYMOUS);
 		authorityMessage.setToAuthority(cloudNumber.getPeerRootXri());
 		authorityMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC_DO);
 		//authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));

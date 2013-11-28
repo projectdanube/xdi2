@@ -81,7 +81,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (targetAddress == null) targetAddress = XDIConstants.XRI_S_CONTEXT;
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
+		Message message = messageEnvelope.createMessage(XDIMessagingConstants.XRI_S_ANONYMOUS);
 		message.createOperation(operationXri, targetAddress);
 
 		return messageEnvelope;
@@ -98,7 +98,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (targetStatements == null) throw new NullPointerException();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
+		Message message = messageEnvelope.createMessage(XDIMessagingConstants.XRI_S_ANONYMOUS);
 		message.createOperation(operationXri, targetStatements);
 
 		return messageEnvelope;
@@ -262,14 +262,24 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 
 	/**
-	 * Returns or creates a new XDI message in this XDI message envelope for a given sender.
+	 * Creates a new XDI message in this XDI message envelope for a given sender.
 	 * @param senderXri The sender.
-	 * @param create Whether to create a message collection if it does not exist.
-	 * @return The newly created XDI message collection.
+	 * @return The newly created XDI message.
 	 */
-	public Message getMessage(XDI3Segment senderXri, boolean create) {
+	public Message createMessage(XDI3Segment senderXri) {
 
-		return this.getMessageCollection(senderXri, true).getMessage(create);
+		return this.getMessageCollection(senderXri, true).createMessage();
+	}
+
+	/**
+	 * Creates a new XDI message in this XDI message envelope for a given sender.
+	 * @param senderXri The sender.
+	 * @param index Index in an ordered collection.
+	 * @return The newly created XDI message.
+	 */
+	public Message createMessage(XDI3Segment senderXri, long index) {
+
+		return this.getMessageCollection(senderXri, true).createMessage(index);
 	}
 
 	/*

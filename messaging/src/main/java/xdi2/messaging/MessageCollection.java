@@ -6,6 +6,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
+import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
 import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -113,25 +114,28 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	}
 
 	/**
-	 * Returns an existing XDI message in this XDI message collection, or creates a new one.
-	 * @param create Whether to create an XDI message if it does not exist.
-	 * @return The existing or newly created XDI message.
+	 * Creates a new XDI message in this XDI message collection.
+	 * @return The newly created XDI message.
 	 */
-	public Message getMessage(boolean create) {
+	public Message createMessage() {
 
-		Iterator<Message> messages = this.getMessages();
-		if (messages.hasNext()) return messages.next();
+		XdiEntityMemberUnordered xdiEntityMember = this.xdiEntityCollection.setXdiMemberUnordered(null);
+		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true);
 
-		if (create) {
+		return new Message(this, xdiEntityMember);
+	}
 
-			XdiEntityMemberUnordered xdiEntityMember = this.xdiEntityCollection.setXdiMemberUnordered(null);
-			xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true);
+	/**
+	 * Creates a new XDI message in this XDI message collection.
+	 * @param index Index in an ordered collection.
+	 * @return The newly created XDI message.
+	 */
+	public Message createMessage(long index) {
 
-			return new Message(this, xdiEntityMember);
-		} else {
+		XdiEntityMemberOrdered xdiEntityMember = this.xdiEntityCollection.setXdiMemberOrdered(index);
+		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true);
 
-			return null;
-		}
+		return new Message(this, xdiEntityMember);
 	}
 
 	/**

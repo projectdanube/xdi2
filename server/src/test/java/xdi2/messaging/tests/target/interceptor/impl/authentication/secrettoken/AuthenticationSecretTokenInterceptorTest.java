@@ -65,7 +65,7 @@ public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 		staticSecretTokenAuthenticator.setGlobalSalt(GLOBAL_SALT);
 		staticSecretTokenAuthenticator.setLocalSaltAndDigestSecretTokens(Collections.singletonMap(SENDER_XRI, LOCAL_SALT_AND_DIGEST_SECRET_TOKEN));
 
-		Message message = new MessageEnvelope().getMessage(SENDER_XRI, true);
+		Message message = new MessageEnvelope().createMessage(SENDER_XRI);
 
 		assertTrue(staticSecretTokenAuthenticator.authenticate(message, SECRET_TOKEN));
 	}

@@ -41,7 +41,6 @@ public class BasicTest extends TestCase {
 		assertEquals(messageEnvelope.getMessageCollectionCount(), 0);
 		assertFalse(messageEnvelope.getMessages().hasNext());
 		assertFalse(messageEnvelope.getMessages(SENDER).hasNext());
-		assertNull(messageEnvelope.getMessage(SENDER, false));
 		assertEquals(messageEnvelope.getMessageCount(), 0);
 
 		// create a message collection
@@ -55,16 +54,14 @@ public class BasicTest extends TestCase {
 		assertEquals(messageEnvelope.getMessageCollectionCount(), 1);
 		assertFalse(messageEnvelope.getMessages().hasNext());
 		assertFalse(messageEnvelope.getMessages(SENDER).hasNext());
-		assertNull(messageEnvelope.getMessage(SENDER, false));
 		assertEquals(messageEnvelope.getMessageCount(), 0);
 
 		assertFalse(messageCollection.getMessages().hasNext());
-		assertNull(messageCollection.getMessage(false));
 		assertEquals(messageCollection.getMessageCount(), 0);
 
 		// create a message
 
-		Message message = messageCollection.getMessage(true);
+		Message message = messageCollection.createMessage();
 
 		assertTrue(Message.isValid(message.getXdiEntity()));
 
@@ -73,11 +70,9 @@ public class BasicTest extends TestCase {
 		assertEquals(messageEnvelope.getMessageCollectionCount(), 1);
 		assertTrue(messageEnvelope.getMessages().hasNext());
 		assertTrue(messageEnvelope.getMessages(SENDER).hasNext());
-		assertNotNull(messageEnvelope.getMessage(SENDER, false));
 		assertEquals(messageEnvelope.getMessageCount(), 1);
 
 		assertTrue(messageCollection.getMessages().hasNext());
-		assertNotNull(messageCollection.getMessage(false));
 		assertEquals(messageCollection.getMessageCount(), 1);
 
 		assertFalse(message.getOperations().hasNext());
@@ -156,7 +151,7 @@ public class BasicTest extends TestCase {
 	public void testSenderAndRecipientAddress() throws Exception {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.getMessage(XDI3Segment.create("=sender"), true);
+		Message message = messageEnvelope.createMessage(XDI3Segment.create("=sender"));
 		message.setFromAuthority(XDI3Segment.create("([=]!1111)"));
 		message.setToAuthority(XDI3Segment.create("([=]!2222)"));
 		assertEquals(message.getFromAuthority(), XDI3Segment.create("([=]!1111)"));
