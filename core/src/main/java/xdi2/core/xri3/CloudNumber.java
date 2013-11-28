@@ -81,6 +81,13 @@ public class CloudNumber {
 		return new CloudNumber(xri, peerRootXri);
 	}
 
+	public static CloudNumber fromPeerRootXri(XDI3Segment peerRootXri) {
+
+		XDI3Segment xri = XdiPeerRoot.getXriOfPeerRootArcXri(peerRootXri.getFirstSubSegment());
+
+		return fromXri(xri);
+	}
+
 	public XDI3Segment getXri() {
 
 		return this.xri;
@@ -91,10 +98,18 @@ public class CloudNumber {
 		return this.peerRootXri;
 	}
 
+	public Character getCs() {
+
+		return this.getXri().getFirstSubSegment().getCs();
+	}
+
 	@Override
 	public boolean equals(Object object) {
 
-		return this.getXri().equals(object);
+		if (! (object instanceof CloudNumber)) return false;
+		if (object == this) return true;
+
+		return this.getXri().equals(((CloudNumber) object).getXri());
 	}
 
 	@Override

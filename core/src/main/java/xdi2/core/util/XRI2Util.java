@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
@@ -24,7 +25,7 @@ public final class XRI2Util {
 	/**
 	 * Maps an XRI 2.0 I-Number to a Cloud Number.
 	 */
-	public static XDI3Segment iNumberToCloudNumber(String iNumber) {
+	public static CloudNumber iNumberToCloudNumber(String iNumber) {
 
 		if (log.isTraceEnabled()) log.trace("iNumberToCloudNumber(" + iNumber + ")");
 
@@ -60,40 +61,42 @@ public final class XRI2Util {
 		builder.append(parts[2]);
 		builder.append(parts[3]);
 
-		return XDI3Segment.create(builder.toString());
+		return CloudNumber.create(builder.toString());
 	}
 
 	/**
 	 * Maps a Cloud Number to an XRI 2.0 I-Number.
 	 */
-	public static String cloudNumberToINumber(XDI3Segment cloudNumber) {
+	public static String cloudNumberToINumber(CloudNumber cloudNumber) {
 
 		if (log.isTraceEnabled()) log.trace("cloudNumberToINumber(" + cloudNumber + ")");
 
-		if (cloudNumber.getNumSubSegments() != 2) return null;
+		XDI3Segment xri = cloudNumber.getXri();
 
-		if (! cloudNumber.getFirstSubSegment().isClassXs()) return null;
-		if (cloudNumber.getFirstSubSegment().hasLiteral()) return null;
-		if (cloudNumber.getFirstSubSegment().hasXRef()) return null;
+		if (xri.getNumSubSegments() != 2) return null;
 
-		char cs = cloudNumber.getFirstSubSegment().getCs().charValue();
+		if (! xri.getFirstSubSegment().isClassXs()) return null;
+		if (xri.getFirstSubSegment().hasLiteral()) return null;
+		if (xri.getFirstSubSegment().hasXRef()) return null;
 
-		if (! XDIConstants.CS_BANG.equals(cloudNumber.getLastSubSegment().getCs())) return null;
-		if (! cloudNumber.getLastSubSegment().hasLiteral()) return null;
-		if (cloudNumber.getLastSubSegment().hasXRef()) return null;
-		if (! cloudNumber.getLastSubSegment().getLiteral().startsWith(":uuid")) return null;
-		if (cloudNumber.getLastSubSegment().getLiteral().length() != 42) return null;
+		char cs = xri.getFirstSubSegment().getCs().charValue();
+
+		if (! XDIConstants.CS_BANG.equals(xri.getLastSubSegment().getCs())) return null;
+		if (! xri.getLastSubSegment().hasLiteral()) return null;
+		if (xri.getLastSubSegment().hasXRef()) return null;
+		if (! xri.getLastSubSegment().getLiteral().startsWith(":uuid")) return null;
+		if (xri.getLastSubSegment().getLiteral().length() != 42) return null;
 
 		String[] parts = new String[4];
-		parts[0] = cloudNumber.getLastSubSegment().getLiteral().substring(6, 10);
-		parts[1] = cloudNumber.getLastSubSegment().getLiteral().substring(10, 14);
-		parts[2] = cloudNumber.getLastSubSegment().getLiteral().substring(15, 19);
-		parts[3] = cloudNumber.getLastSubSegment().getLiteral().substring(20, 24);
+		parts[0] = xri.getLastSubSegment().getLiteral().substring(6, 10);
+		parts[1] = xri.getLastSubSegment().getLiteral().substring(10, 14);
+		parts[2] = xri.getLastSubSegment().getLiteral().substring(15, 19);
+		parts[3] = xri.getLastSubSegment().getLiteral().substring(20, 24);
 
-		if (! parts[0].equals(cloudNumber.getLastSubSegment().getLiteral().substring(25, 29))) return null;
-		if (! parts[1].equals(cloudNumber.getLastSubSegment().getLiteral().substring(30, 34))) return null;
-		if (! parts[2].equals(cloudNumber.getLastSubSegment().getLiteral().substring(34, 38))) return null;
-		if (! parts[3].equals(cloudNumber.getLastSubSegment().getLiteral().substring(38, 42))) return null;
+		if (! parts[0].equals(xri.getLastSubSegment().getLiteral().substring(25, 29))) return null;
+		if (! parts[1].equals(xri.getLastSubSegment().getLiteral().substring(30, 34))) return null;
+		if (! parts[2].equals(xri.getLastSubSegment().getLiteral().substring(34, 38))) return null;
+		if (! parts[3].equals(xri.getLastSubSegment().getLiteral().substring(38, 42))) return null;
 
 		for (int i=0; i<parts.length; i++) {
 

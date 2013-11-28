@@ -60,6 +60,13 @@ public class CloudName {
 		return new CloudName(xri, peerRootXri);
 	}
 
+	public static CloudName fromPeerRootXri(XDI3Segment peerRootXri) {
+
+		XDI3Segment xri = XdiPeerRoot.getXriOfPeerRootArcXri(peerRootXri.getFirstSubSegment());
+
+		return fromXri(xri);
+	}
+
 	public XDI3Segment getXri() {
 
 		return this.xri;
@@ -70,10 +77,18 @@ public class CloudName {
 		return this.peerRootXri;
 	}
 
+	public Character getCs() {
+
+		return this.getXri().getFirstSubSegment().getCs();
+	}
+
 	@Override
 	public boolean equals(Object object) {
 
-		return this.getXri().equals(object);
+		if (! (object instanceof CloudName)) return false;
+		if (object == this) return true;
+
+		return this.getXri().equals(((CloudName) object).getXri());
 	}
 
 	@Override
