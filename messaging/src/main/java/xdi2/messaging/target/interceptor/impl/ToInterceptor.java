@@ -41,6 +41,8 @@ public class ToInterceptor extends AbstractInterceptor implements MessageInterce
 	@Override
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		// check if the owner authority matches the TO authority
+
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 		XDI3Segment toAuthority = message.getToAuthority();
@@ -50,6 +52,8 @@ public class ToInterceptor extends AbstractInterceptor implements MessageInterce
 		if (toAuthority == null) throw new Xdi2MessagingException("No TO authority found in message.", null, null);
 
 		if (! toAuthority.equals(ownerAuthority)) throw new Xdi2MessagingException("Invalid TO authority: " + toAuthority, null, null);
+
+		// done
 
 		return false;
 	}
