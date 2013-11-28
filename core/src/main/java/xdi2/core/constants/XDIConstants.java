@@ -43,7 +43,5 @@ public class XDIConstants {
 
 	public static final XDI3Segment XRI_S_VARIABLE = XDI3Segment.create(XDIConstants.XS_VARIABLE);
 
-	public static final XDI3Segment XRI_S_XDI = XDI3Segment.create("$xdi");
-
 	private XDIConstants() { }
 }

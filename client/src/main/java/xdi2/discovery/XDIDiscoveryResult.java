@@ -15,7 +15,6 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
@@ -33,6 +32,8 @@ import xdi2.messaging.MessageResult;
 public class XDIDiscoveryResult implements Serializable {
 
 	private static final long serialVersionUID = -1141807747864855392L;
+
+	public static final XDI3Segment XRI_S_XDI = XDI3Segment.create("<$xdi>");
 
 	private CloudNumber cloudNumber;
 	private PublicKey signaturePublicKey;
@@ -255,7 +256,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 	public String getXdiEndpointUri() {
 
-		return this.getEndpointUris().get(XDIConstants.XRI_S_XDI);
+		return this.getEndpointUris().get(XRI_S_XDI);
 	}
 
 	public MessageEnvelope getMessageEnvelope() {
