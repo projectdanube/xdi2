@@ -259,6 +259,11 @@ public class XDIDiscoveryResult implements Serializable {
 		return this.getEndpointUris().get(XRI_S_XDI);
 	}
 
+	public String getDefaultEndpointUri() {
+
+		return this.getEndpointUris().get(null);
+	}
+
 	public MessageEnvelope getMessageEnvelope() {
 
 		return this.messageEnvelope;

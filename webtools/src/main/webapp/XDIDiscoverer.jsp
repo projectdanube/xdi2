@@ -39,13 +39,14 @@
 		<% String authority = (String) request.getAttribute("authority"); if (authority == null) authority = ""; %>
 		<% String services = (String) request.getAttribute("services"); if (services == null) services = ""; %>
 
-		Discover from registry service: 
-		<input type="text" name="endpoint" size="80" value="<%= endpoint %>">
-		<input name="authority" type="checkbox" <%= authority.equals("on") ? "checked" : "" %>>
-		Discover from XDI authority<br>
+		<p>Discover from registry service: 
+		<input type="text" name="endpoint" size="80" value="<%= endpoint %>"></p>
 
-		Discover additional services:
-		<input type="text" name="services" size="80" value="<%= services %>"><br>
+		<p>Discover from XDI authority:
+		<input name="authority" type="checkbox" <%= authority.equals("on") ? "checked" : "" %>></p>
+
+		<p>Discover additional services:
+		<input type="text" name="services" size="80" value="<%= services %>"></p>
 
 		Result Format:
 		<select name="resultFormat">
