@@ -25,8 +25,6 @@ import xdi2.messaging.target.StatementHandler;
 public class GraphMessagingTarget extends AbstractMessagingTarget implements Prototype<GraphMessagingTarget> {
 
 	private Graph graph;
-	//	private GraphAddressHandler graphAddressHandler;
-	//	private GraphStatementHandler graphStatementHandler;
 	private GraphContextHandler graphContextHandler;
 
 	public GraphMessagingTarget() {
@@ -34,8 +32,6 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 		super();
 
 		this.graph = null;
-		//		this.graphAddressHandler = null;
-		//		this.graphStatementHandler = null;
 		this.graphContextHandler = null;
 	}
 
