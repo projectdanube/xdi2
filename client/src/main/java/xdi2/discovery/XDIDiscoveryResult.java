@@ -34,7 +34,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 	private static final long serialVersionUID = -1141807747864855392L;
 
-	private XDI3Segment cloudNumber;
+	private CloudNumber cloudNumber;
 	private PublicKey signaturePublicKey;
 	private PublicKey encryptionPublicKey;
 	private Map<XDI3Segment, String> endpointUris;
@@ -75,14 +75,14 @@ public class XDIDiscoveryResult implements Serializable {
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getContextNode().getXri());
 		}
 
 		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getContextNode().getXri());
 		}
 
 		// find endpoint uris
@@ -136,14 +136,14 @@ public class XDIDiscoveryResult implements Serializable {
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getContextNode().getXri());
 		}
 
 		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-			this.cloudNumber = ((XdiPeerRoot) xdiRoot).getXriOfPeerRoot();
+			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getContextNode().getXri());
 		}
 
 		// find signature public key
@@ -233,7 +233,7 @@ public class XDIDiscoveryResult implements Serializable {
 	 * Getters
 	 */
 
-	public XDI3Segment getCloudNumber() {
+	public CloudNumber getCloudNumber() {
 
 		return this.cloudNumber;
 	}

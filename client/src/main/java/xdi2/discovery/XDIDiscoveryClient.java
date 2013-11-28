@@ -11,6 +11,7 @@ import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.XDI3Util;
+import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
@@ -120,7 +121,7 @@ public class XDIDiscoveryClient {
 		return discoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, XDI3Segment cloudNumber, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, CloudNumber cloudNumber, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
@@ -128,7 +129,7 @@ public class XDIDiscoveryClient {
 
 		MessageEnvelope authorityMessageEnvelope = new MessageEnvelope();
 		Message authorityMessage = authorityMessageEnvelope.getMessage(XDIMessagingConstants.XRI_S_ANONYMOUS, true);
-		authorityMessage.setToAuthority(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(cloudNumber)));
+		authorityMessage.setToAuthority(cloudNumber.getPeerRootXri());
 		authorityMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC_DO);
 		//authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
 		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY);
