@@ -32,7 +32,7 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
- * This contributor can answer request by forwarding them to another XDI endpoint.
+ * This contributor can answer requests by forwarding them to another XDI endpoint.
  */
 @ContributorXri(addresses={"{{=@+*!$}}$keypair", "{{(=@+*!$)}}$keypair", "$keypair", "{{=@+*!$}}<$key>", "{{(=@+*!$)}}<$key>", "<$key>"})
 public class XdiContributor extends AbstractContributor implements MessageInterceptor, Prototype<XdiContributor> {
@@ -49,7 +49,6 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 
 	public XdiContributor() {
 
-		this.xdiDiscoveryClient = new XDIDiscoveryClient();
 	}
 
 	/*
@@ -72,6 +71,24 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 	public void init(MessagingTarget messagingTarget) throws Exception {
 
 		super.init(messagingTarget);
+
+		// if we don't have an XDI discovery client, use the default one
+
+		if (this.xdiDiscoveryClient == null) {
+
+			this.xdiDiscoveryClient = new XDIDiscoveryClient();
+		}
+
+		// if we have a forwarding target, but no XDI client, use XDI discovery to create one
+
+		if (this.toAuthority != null && this.xdiClient == null) {
+
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(this.toAuthority.getFirstSubSegment()), null);
+
+			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toAuthority);
+
+			this.xdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
+		}
 	}
 
 	/*
@@ -93,6 +110,8 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 		XDI3Segment targetAddress = XDI3Util.concatXris(contributorsXri, relativeTargetAddress);
 
 		Message forwardingMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
+
+		forwardingMessage.setToAuthority(toAuthority);
 
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXri(), targetAddress);
@@ -116,7 +135,7 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 
 			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXri() + " on target address " + targetAddress + " to " + ((XDIHttpClient) this.getXdiClient()).getEndpointUri() + ".");
 
-			this.getXdiClient().send(forwardingMessageEnvelope, forwardingMessageResult);
+			xdiClient.send(forwardingMessageEnvelope, forwardingMessageResult);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while forwarding XDI request: " + ex.getMessage(), ex, executionContext);
@@ -141,11 +160,20 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 	@Override
 	public boolean executeOnStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		// check forwarding target
+
+		XDI3Segment toAuthority = getToAuthority(executionContext);
+		XDIClient xdiClient = getXdiClient(executionContext);
+
+		if (toAuthority == null || xdiClient == null) return false;
+
 		// prepare the forwarding message envelope
 
 		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement, true);
 
 		Message forwardingMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
+
+		forwardingMessage.setToAuthority(toAuthority);
 
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXri(), targetStatement);
@@ -169,7 +197,7 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 
 			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXri() + " on target statement " + targetStatement + " to " + ((XDIHttpClient) this.getXdiClient()).getEndpointUri() + ".");
 
-			this.getXdiClient().send(forwardingMessageEnvelope, forwardingMessageResult);
+			xdiClient.send(forwardingMessageEnvelope, forwardingMessageResult);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while forwarding XDI request: " + ex.getMessage(), ex, executionContext);
@@ -189,40 +217,6 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 		CopyUtil.copyGraph(forwardingMessageResult.getGraph(), messageResult.getGraph(), null);
 
 		return true;
-	}
-
-	/*
-	 * Getters and setters
-	 */
-
-	public XDIClient getXdiClient() {
-
-		return this.xdiClient;
-	}
-
-	public void setXdiClient(XDIClient xdiClient) {
-
-		this.xdiClient = xdiClient;
-	}
-
-	public XDI3Segment getToAuthority() {
-
-		return this.toAuthority;
-	}
-
-	public void setToAuthority(XDI3Segment toAuthority) {
-
-		this.toAuthority = toAuthority;
-	}
-
-	public XDIDiscoveryClient getXdiDiscoveryClient() {
-
-		return this.xdiDiscoveryClient;
-	}
-
-	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
-
-		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
 	/*
@@ -282,6 +276,40 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 	public boolean after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return false;
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public XDIClient getXdiClient() {
+
+		return this.xdiClient;
+	}
+
+	public void setXdiClient(XDIClient xdiClient) {
+
+		this.xdiClient = xdiClient;
+	}
+
+	public XDI3Segment getToAuthority() {
+
+		return this.toAuthority;
+	}
+
+	public void setToAuthority(XDI3Segment toAuthority) {
+
+		this.toAuthority = toAuthority;
+	}
+
+	public XDIDiscoveryClient getXdiDiscoveryClient() {
+
+		return this.xdiDiscoveryClient;
+	}
+
+	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
+
+		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
 	/*
