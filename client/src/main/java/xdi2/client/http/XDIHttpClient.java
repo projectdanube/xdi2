@@ -290,6 +290,10 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 	}
 
+	/*
+	 * Getters and setters
+	 */
+
 	public URL getEndpointUri() {
 
 		return this.endpointUri;
