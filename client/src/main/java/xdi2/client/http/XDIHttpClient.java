@@ -333,4 +333,14 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		this.userAgent = userAgent;
 	}
+
+	/*
+	 * Object methods
+	 */
+
+	@Override
+	public String toString() {
+
+		return this.getEndpointUri().toString();
+	}
 }
