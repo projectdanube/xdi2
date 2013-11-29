@@ -11,7 +11,7 @@ import xdi2.core.features.signatures.Signature;
 import xdi2.messaging.Message;
 
 /**
- * A SignatureCreator that can authenticate a signature against
+ * A Signer that can authenticate a signature against
  * a public key.
  */
 public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureAuthenticator implements SignatureAuthenticator {

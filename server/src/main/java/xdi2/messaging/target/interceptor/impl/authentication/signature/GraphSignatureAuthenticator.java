@@ -24,7 +24,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
- * A SignatureCreator that can authenticate an XDI message using a "public key graph",
+ * A Signer that can authenticate an XDI message using a "public key graph",
  * which contains sender addresses and public keys.
  */
 public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator {
@@ -53,7 +53,7 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 		super.init(messagingTarget, authenticationSignatureInterceptor);
 
 		if (this.getPublicKeyGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setPublicKeyGraph(((GraphMessagingTarget) messagingTarget).getGraph());
-		if (this.getPublicKeyGraph() == null) throw new Xdi2MessagingException("No secret token graph.", null, null);
+		if (this.getPublicKeyGraph() == null) throw new Xdi2MessagingException("No public key graph.", null, null);
 	}
 
 	@Override

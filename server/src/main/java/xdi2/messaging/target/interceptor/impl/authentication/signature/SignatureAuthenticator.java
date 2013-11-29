@@ -10,6 +10,10 @@ import xdi2.messaging.target.MessagingTarget;
  */
 public interface SignatureAuthenticator {
 
+	/*
+	 * Init and shutdown
+	 */
+
 	public void init(MessagingTarget messagingTarget, AuthenticationSignatureInterceptor authenticationSignatureInterceptor) throws Exception;
 	public void shutdown(MessagingTarget messagingTarget, AuthenticationSignatureInterceptor authenticationSignatureInterceptor) throws Exception;
 

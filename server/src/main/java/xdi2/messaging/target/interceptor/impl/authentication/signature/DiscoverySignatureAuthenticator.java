@@ -12,7 +12,7 @@ import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 
 /**
- * A SignatureCreator that can authenticate an XDI message by obtaining
+ * A Signer that can authenticate an XDI message by obtaining
  * public keys using XDI discovery.
  */
 public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthenticator {

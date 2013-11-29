@@ -9,6 +9,10 @@ import xdi2.messaging.target.MessagingTarget;
  */
 public interface SecretTokenAuthenticator {
 
+	/*
+	 * Init and shutdown
+	 */
+
 	public void init(MessagingTarget messagingTarget, AuthenticationSecretTokenInterceptor authenticationSecretTokenInterceptor) throws Exception;
 	public void shutdown(MessagingTarget messagingTarget, AuthenticationSecretTokenInterceptor authenticationSecretTokenInterceptor) throws Exception;
 

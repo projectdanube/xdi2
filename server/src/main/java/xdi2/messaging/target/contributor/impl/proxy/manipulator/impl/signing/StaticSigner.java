@@ -1,4 +1,4 @@
-package xdi2.messaging.target.contributor.impl.xdi.manipulator.impl.signature;
+package xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing;
 
 import java.security.PrivateKey;
 import java.util.Map;
@@ -7,21 +7,21 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 
 /**
- * A SignatureCreator that can create signatures on an XDI message using a
+ * A Signer that can create signatures on an XDI message using a
  * statically configured list of sender addresses and private keys.
  */
-public class StaticSignatureCreator extends PrivateKeySignatureCreator {
+public class StaticSigner extends PrivateKeySigner {
 
 	private Map<XDI3Segment, PrivateKey> privateKeys;
 
-	public StaticSignatureCreator(Map<XDI3Segment, PrivateKey> privateKeys) {
+	public StaticSigner(Map<XDI3Segment, PrivateKey> privateKeys) {
 
 		super();
 
 		this.privateKeys = privateKeys;
 	}
 
-	public StaticSignatureCreator() {
+	public StaticSigner() {
 
 		super();
 	}
@@ -42,6 +42,10 @@ public class StaticSignatureCreator extends PrivateKeySignatureCreator {
 		return privateKey;
 	}
 
+	/*
+	 * Getters and setters
+	 */
+	
 	public Map<XDI3Segment, PrivateKey> getPrivateKeys() {
 
 		return this.privateKeys;

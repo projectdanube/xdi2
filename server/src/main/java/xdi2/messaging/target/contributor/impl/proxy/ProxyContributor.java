@@ -1,4 +1,4 @@
-package xdi2.messaging.target.contributor.impl.xdi;
+package xdi2.messaging.target.contributor.impl.proxy;
 
 import java.util.List;
 
@@ -26,8 +26,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorXri;
-import xdi2.messaging.target.contributor.impl.xdi.manipulator.MessageEnvelopeManipulator;
-import xdi2.messaging.target.contributor.impl.xdi.manipulator.MessageResultManipulator;
+import xdi2.messaging.target.contributor.impl.proxy.manipulator.ProxyManipulator;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
@@ -35,19 +34,18 @@ import xdi2.messaging.util.MessagingCloneUtil;
  * This contributor can answer requests by forwarding them to another XDI endpoint.
  */
 @ContributorXri(addresses={"{{=@+*!$}}$keypair", "{{(=@+*!$)}}$keypair", "$keypair", "{{=@+*!$}}<$key>", "{{(=@+*!$)}}<$key>", "<$key>"})
-public class XdiContributor extends AbstractContributor implements MessageInterceptor, Prototype<XdiContributor> {
+public class ProxyContributor extends AbstractContributor implements MessageInterceptor, Prototype<ProxyContributor> {
 
-	private static final Logger log = LoggerFactory.getLogger(XdiContributor.class);
+	private static final Logger log = LoggerFactory.getLogger(ProxyContributor.class);
 
 	private XDI3Segment toAuthority;
 	private XDIClient xdiClient;
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
-	private List<MessageEnvelopeManipulator> messageEnvelopeManipulators;
-	private List<MessageResultManipulator> messageResultManipulators;
+	private List<ProxyManipulator> proxyManipulators;
 
-	public XdiContributor() {
+	public ProxyContributor() {
 
 	}
 
@@ -56,7 +54,7 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 	 */
 
 	@Override
-	public XdiContributor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public ProxyContributor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// done
 
@@ -79,7 +77,7 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 			this.xdiDiscoveryClient = new XDIDiscoveryClient();
 		}
 
-		// if we have a forwarding target, but no XDI client, use XDI discovery to create one
+		// if we have a static forwarding target, but no XDI client, use XDI discovery to create one
 
 		if (this.toAuthority != null && this.xdiClient == null) {
 
@@ -120,9 +118,11 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 
 		// manipulate the forwarding message envelope
 
-		for (MessageEnvelopeManipulator messageEnvelopeManipulator : this.messageEnvelopeManipulators) {
+		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
 
-			messageEnvelopeManipulator.manipulate(forwardingMessageEnvelope, executionContext);
+			if (log.isDebugEnabled()) log.debug("Executing proxy manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on address " + targetAddress + " (message envelope).");
+
+			proxyManipulator.manipulate(forwardingMessageEnvelope, executionContext);
 		}
 
 		// prepare the forwarding message result
@@ -143,11 +143,11 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 
 		// manipulate the forwarding message result
 
-		for (MessageResultManipulator messageResultManipulator : this.messageResultManipulators) {
+		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
 
-			if (log.isDebugEnabled()) log.debug("Executing message result manipulator " + messageResultManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on address " + targetAddress + ".");
+			if (log.isDebugEnabled()) log.debug("Executing proxy manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on address " + targetAddress + " (message result).");
 
-			messageResultManipulator.manipulate(forwardingMessageResult, executionContext);
+			proxyManipulator.manipulate(forwardingMessageResult, executionContext);
 		}
 
 		// done
@@ -182,9 +182,11 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 
 		// manipulate the forwarding message envelope
 
-		for (MessageEnvelopeManipulator messageEnvelopeManipulator : this.messageEnvelopeManipulators) {
+		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
 
-			messageEnvelopeManipulator.manipulate(forwardingMessageEnvelope, executionContext);
+			if (log.isDebugEnabled()) log.debug("Executing message result manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + " (message envelope).");
+
+			proxyManipulator.manipulate(forwardingMessageEnvelope, executionContext);
 		}
 
 		// prepare the forwarding message result
@@ -205,11 +207,11 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 
 		// manipulate the forwarding message result
 
-		for (MessageResultManipulator messageResultManipulator : this.messageResultManipulators) {
+		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
 
-			if (log.isDebugEnabled()) log.debug("Executing message result manipulator " + messageResultManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + ".");
+			if (log.isDebugEnabled()) log.debug("Executing message result manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + " (message result).");
 
-			messageResultManipulator.manipulate(forwardingMessageResult, executionContext);
+			proxyManipulator.manipulate(forwardingMessageResult, executionContext);
 		}
 
 		// done
@@ -230,9 +232,10 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 
 		if (this.getToAuthority() != null && this.getXdiClient() != null) {
 
-			// just use the configured forwarding target
+			XDI3Segment staticForwardingTargetToAuthority = this.getToAuthority();
+			XDIClient staticForwardingTargetXdiClient = this.getXdiClient();
 
-			if (log.isDebugEnabled()) log.debug("Static forwarding target: " + this.getToAuthority() + " (" + this.getXdiClient() + ")");
+			if (log.isDebugEnabled()) log.debug("Setting static forwarding target: " + staticForwardingTargetToAuthority + " (" + staticForwardingTargetXdiClient + ")");
 
 			putToAuthority(executionContext, this.getToAuthority());
 			putXdiClient(executionContext, this.getXdiClient());
@@ -246,10 +249,14 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 		XDI3Segment toAuthority = message.getToAuthority();
 
-		if (log.isDebugEnabled()) log.debug("ownerAuthority=" + ownerAuthority + ", toAuthority=" + toAuthority);
+		boolean local = toAuthority == null || toAuthority.equals(ownerAuthority);
 
-		if (toAuthority == null) return false;
-		if (toAuthority.equals(ownerAuthority)) return false;
+		if (local) {
+
+			if (log.isDebugEnabled()) log.debug("Not setting any forwarding target for local request to " + ownerAuthority);
+
+			return false;
+		}
 
 		// no static forwarding target, and target is not local, so we discover the forwarding target
 
@@ -263,11 +270,16 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 			throw new Xdi2MessagingException("XDI Discovery failed on " + toAuthority + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for " + toAuthority, null, executionContext);
-		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for " + toAuthority, null, executionContext);
+		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for forwarding target at " + toAuthority, null, executionContext);
+		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for forwarding target at " + toAuthority, null, executionContext);
 
-		putToAuthority(executionContext, xdiDiscoveryResult.getCloudNumber().getPeerRootXri());
-		putXdiClient(executionContext, new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri()));
+		XDI3Segment dynamicForwardingTargetToAuthority = xdiDiscoveryResult.getCloudNumber().getPeerRootXri();
+		XDIClient dynamicForwardingTargetXdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
+
+		if (log.isDebugEnabled()) log.debug("Setting dynamic forwarding target: " + dynamicForwardingTargetToAuthority + " (" + dynamicForwardingTargetXdiClient + ")");
+
+		putToAuthority(executionContext, dynamicForwardingTargetToAuthority);
+		putXdiClient(executionContext, dynamicForwardingTargetXdiClient);
 
 		return false;
 	}
@@ -282,16 +294,6 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 	 * Getters and setters
 	 */
 
-	public XDIClient getXdiClient() {
-
-		return this.xdiClient;
-	}
-
-	public void setXdiClient(XDIClient xdiClient) {
-
-		this.xdiClient = xdiClient;
-	}
-
 	public XDI3Segment getToAuthority() {
 
 		return this.toAuthority;
@@ -300,6 +302,16 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 	public void setToAuthority(XDI3Segment toAuthority) {
 
 		this.toAuthority = toAuthority;
+	}
+
+	public XDIClient getXdiClient() {
+
+		return this.xdiClient;
+	}
+
+	public void setXdiClient(XDIClient xdiClient) {
+
+		this.xdiClient = xdiClient;
 	}
 
 	public XDIDiscoveryClient getXdiDiscoveryClient() {
@@ -316,8 +328,8 @@ public class XdiContributor extends AbstractContributor implements MessageInterc
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_TO_AUTHORITY_PER_MESSAGE = XdiContributor.class.getCanonicalName() + "#toauthoritypermessage";
-	private static final String EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE = XdiContributor.class.getCanonicalName() + "#xdiclientpermessage";
+	private static final String EXECUTIONCONTEXT_KEY_TO_AUTHORITY_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#toauthoritypermessage";
+	private static final String EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#xdiclientpermessage";
 
 	public static XDI3Segment getToAuthority(ExecutionContext executionContext) {
 
