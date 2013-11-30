@@ -33,7 +33,7 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 	private static final Logger log = LoggerFactory.getLogger(ContributorMap.class);
 
-	private LinkedHashMap<XDI3Segment, List<Contributor>> contributors;
+	private Map<XDI3Segment, List<Contributor>> contributors;
 
 	public ContributorMap() {
 
