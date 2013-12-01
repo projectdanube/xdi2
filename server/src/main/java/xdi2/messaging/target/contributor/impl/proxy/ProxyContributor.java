@@ -90,6 +90,75 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	}
 
 	/*
+	 * MessageInterceptor
+	 */
+
+	@Override
+	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		// if there is a static forwarding target, we use it
+
+		if (this.getToAuthority() != null && this.getXdiClient() != null) {
+
+			XDI3Segment staticForwardingTargetToAuthority = this.getToAuthority();
+			XDIClient staticForwardingTargetXdiClient = this.getXdiClient();
+
+			if (log.isDebugEnabled()) log.debug("Setting static forwarding target: " + staticForwardingTargetToAuthority + " (" + staticForwardingTargetXdiClient + ")");
+
+			putToAuthority(executionContext, this.getToAuthority());
+			putXdiClient(executionContext, this.getXdiClient());
+
+			return false;
+		}
+
+		// if the target is local, then there is no forwarding target
+
+		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
+		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
+		XDI3Segment toAuthority = message.getToAuthority();
+
+		boolean local = toAuthority == null || toAuthority.equals(ownerAuthority);
+
+		if (local) {
+
+			if (log.isDebugEnabled()) log.debug("Not setting any forwarding target for local request to " + ownerAuthority);
+
+			return false;
+		}
+
+		// no static forwarding target, and target is not local, so we discover the forwarding target
+
+		XDIDiscoveryResult xdiDiscoveryResult;
+
+		try {
+
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(toAuthority.getFirstSubSegment()), null);
+		} catch (Xdi2ClientException ex) {
+
+			throw new Xdi2MessagingException("XDI Discovery failed on " + toAuthority + ": " + ex.getMessage(), ex, executionContext);
+		}
+
+		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for forwarding target at " + toAuthority, null, executionContext);
+		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for forwarding target at " + toAuthority, null, executionContext);
+
+		XDI3Segment dynamicForwardingTargetToAuthority = xdiDiscoveryResult.getCloudNumber().getPeerRootXri();
+		XDIClient dynamicForwardingTargetXdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
+
+		if (log.isDebugEnabled()) log.debug("Setting dynamic forwarding target: " + dynamicForwardingTargetToAuthority + " (" + dynamicForwardingTargetXdiClient + ")");
+
+		putToAuthority(executionContext, dynamicForwardingTargetToAuthority);
+		putXdiClient(executionContext, dynamicForwardingTargetXdiClient);
+
+		return false;
+	}
+
+	@Override
+	public boolean after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		return false;
+	}
+
+	/*
 	 * Contributor methods
 	 */
 
@@ -219,75 +288,6 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		CopyUtil.copyGraph(forwardingMessageResult.getGraph(), messageResult.getGraph(), null);
 
 		return true;
-	}
-
-	/*
-	 * MessageInterceptor
-	 */
-
-	@Override
-	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		// if there is a static forwarding target, we use it
-
-		if (this.getToAuthority() != null && this.getXdiClient() != null) {
-
-			XDI3Segment staticForwardingTargetToAuthority = this.getToAuthority();
-			XDIClient staticForwardingTargetXdiClient = this.getXdiClient();
-
-			if (log.isDebugEnabled()) log.debug("Setting static forwarding target: " + staticForwardingTargetToAuthority + " (" + staticForwardingTargetXdiClient + ")");
-
-			putToAuthority(executionContext, this.getToAuthority());
-			putXdiClient(executionContext, this.getXdiClient());
-
-			return false;
-		}
-
-		// if the target is local, then there is no forwarding target
-
-		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
-		XDI3Segment toAuthority = message.getToAuthority();
-
-		boolean local = toAuthority == null || toAuthority.equals(ownerAuthority);
-
-		if (local) {
-
-			if (log.isDebugEnabled()) log.debug("Not setting any forwarding target for local request to " + ownerAuthority);
-
-			return false;
-		}
-
-		// no static forwarding target, and target is not local, so we discover the forwarding target
-
-		XDIDiscoveryResult xdiDiscoveryResult;
-
-		try {
-
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(toAuthority.getFirstSubSegment()), null);
-		} catch (Xdi2ClientException ex) {
-
-			throw new Xdi2MessagingException("XDI Discovery failed on " + toAuthority + ": " + ex.getMessage(), ex, executionContext);
-		}
-
-		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for forwarding target at " + toAuthority, null, executionContext);
-		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for forwarding target at " + toAuthority, null, executionContext);
-
-		XDI3Segment dynamicForwardingTargetToAuthority = xdiDiscoveryResult.getCloudNumber().getPeerRootXri();
-		XDIClient dynamicForwardingTargetXdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
-
-		if (log.isDebugEnabled()) log.debug("Setting dynamic forwarding target: " + dynamicForwardingTargetToAuthority + " (" + dynamicForwardingTargetXdiClient + ")");
-
-		putToAuthority(executionContext, dynamicForwardingTargetToAuthority);
-		putXdiClient(executionContext, dynamicForwardingTargetXdiClient);
-
-		return false;
-	}
-
-	@Override
-	public boolean after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		return false;
 	}
 
 	/*

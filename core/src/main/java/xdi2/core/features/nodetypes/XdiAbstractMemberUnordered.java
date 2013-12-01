@@ -68,14 +68,14 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 		return createArcXri(":uuid:" + uuid, attribute);
 	}
 
-	public static XDI3SubSegment createRandomArcXri(boolean attribute) {
+	public static XDI3SubSegment createRandomUuidArcXri(boolean attribute) {
 
 		String uuid = UUID.randomUUID().toString();
 
 		return createUuidArcXri(uuid, attribute);
 	}
 
-	public static XDI3SubSegment createHashArcXri(String string, boolean attribute) {
+	public static XDI3SubSegment createDigestHashArcXri(String string, boolean attribute) {
 
 		byte[] output;
 
