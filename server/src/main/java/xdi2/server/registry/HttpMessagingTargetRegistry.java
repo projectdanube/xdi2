@@ -22,9 +22,9 @@ import xdi2.server.factory.MessagingTargetFactory;
  * 
  * @author markus
  */
-public class HttpEndpointRegistry implements ApplicationContextAware {
+public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, ApplicationContextAware {
 
-	private static final Logger log = LoggerFactory.getLogger(HttpEndpointRegistry.class);
+	private static final Logger log = LoggerFactory.getLogger(HttpMessagingTargetRegistry.class);
 
 	private List<MessagingTarget> messagingTargets;
 	private Map<String, MessagingTarget> messagingTargetsByPath;
@@ -33,7 +33,7 @@ public class HttpEndpointRegistry implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
 
-	public HttpEndpointRegistry() {
+	public HttpMessagingTargetRegistry() {
 
 		this.messagingTargets = new ArrayList<MessagingTarget> ();
 		this.messagingTargetsByPath = new HashMap<String, MessagingTarget> ();
@@ -276,6 +276,7 @@ public class HttpEndpointRegistry implements ApplicationContextAware {
 	 * MessagingTargets
 	 */
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public synchronized List<MessagingTarget> getMessagingTargets() {
 
@@ -288,6 +289,7 @@ public class HttpEndpointRegistry implements ApplicationContextAware {
 		return (Map<String, MessagingTarget>) ((HashMap<String, MessagingTarget>) this.messagingTargetsByPath).clone();
 	}
 
+	@Override
 	public synchronized int getNumMessagingTargets() {
 
 		return this.messagingTargets.size();
@@ -330,6 +332,7 @@ public class HttpEndpointRegistry implements ApplicationContextAware {
 	 * MessagingTargetFactorys
 	 */
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public synchronized List<MessagingTargetFactory> getMessagingTargetFactorys() {
 
@@ -342,6 +345,7 @@ public class HttpEndpointRegistry implements ApplicationContextAware {
 		return (Map<String, MessagingTargetFactory>) ((HashMap<String, MessagingTargetFactory>) this.messagingTargetFactorysByPath).clone();
 	}
 
+	@Override
 	public synchronized int getNumMessagingTargetFactorys() {
 
 		return this.messagingTargetFactorys.size();

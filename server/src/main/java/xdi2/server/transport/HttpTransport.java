@@ -29,7 +29,7 @@ import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.server.exceptions.Xdi2ServerException;
-import xdi2.server.registry.HttpEndpointRegistry;
+import xdi2.server.registry.HttpMessagingTargetRegistry;
 
 public class HttpTransport {
 
@@ -42,17 +42,15 @@ public class HttpTransport {
 		new String[] { "Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS" }
 	};
 
-	private static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
-
-	private HttpEndpointRegistry httpEndpointRegistry;
+	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
 	private InterceptorList interceptors;
 
 	private boolean initialized;
 	private Date startup;
 
-	public HttpTransport(HttpEndpointRegistry httpEndpointRegistry) {
+	public HttpTransport(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
 
-		this.httpEndpointRegistry = httpEndpointRegistry;
+		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
 		this.interceptors = new InterceptorList();
 		this.initialized = false;
 		this.startup = null;
@@ -115,7 +113,7 @@ public class HttpTransport {
 
 		try {
 
-			request.lookup(this.getHttpEndpointRegistry());
+			request.lookup(this.getHttpMessagingTargetRegistry());
 			this.processGetRequest(request, response);
 		} catch (Exception ex) {
 
@@ -133,7 +131,7 @@ public class HttpTransport {
 
 		try {
 
-			request.lookup(this.getHttpEndpointRegistry());
+			request.lookup(this.getHttpMessagingTargetRegistry());
 			this.processPostRequest(request, response);
 		} catch (Exception ex) {
 
@@ -151,7 +149,7 @@ public class HttpTransport {
 
 		try {
 
-			request.lookup(this.getHttpEndpointRegistry());
+			request.lookup(this.getHttpMessagingTargetRegistry());
 			this.processPutRequest(request, response);
 		} catch (Exception ex) {
 
@@ -169,7 +167,7 @@ public class HttpTransport {
 
 		try {
 
-			request.lookup(this.getHttpEndpointRegistry());
+			request.lookup(this.getHttpMessagingTargetRegistry());
 			this.processDeleteRequest(request, response);
 		} catch (Exception ex) {
 
@@ -397,7 +395,7 @@ public class HttpTransport {
 
 		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + reader.getClass().getSimpleName() + ".");
 
-		Graph graph = graphFactory.openGraph();
+		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		MessageEnvelope messageEnvelope;
 		long messageCount;
 
@@ -517,14 +515,14 @@ public class HttpTransport {
 	 * Getters and setters
 	 */
 
-	public HttpEndpointRegistry getHttpEndpointRegistry() {
+	public HttpMessagingTargetRegistry getHttpMessagingTargetRegistry() {
 
-		return this.httpEndpointRegistry;
+		return this.httpMessagingTargetRegistry;
 	}
 
-	public void setHttpEndpointRegistry(HttpEndpointRegistry httpEndpointRegistry) {
+	public void setHttpMessagingTargetRegistry(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
 
-		this.httpEndpointRegistry = httpEndpointRegistry;
+		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
 	}
 
 	public InterceptorList getInterceptors() {

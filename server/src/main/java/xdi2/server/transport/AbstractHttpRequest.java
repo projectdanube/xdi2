@@ -7,7 +7,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.factory.MessagingTargetFactory;
-import xdi2.server.registry.HttpEndpointRegistry;
+import xdi2.server.registry.HttpMessagingTargetRegistry;
 
 /**
  * This class encapsulates path information about a request to the server.
@@ -28,21 +28,21 @@ public abstract class AbstractHttpRequest implements HttpRequest {
 	}
 
 	@Override
-	public void lookup(HttpEndpointRegistry httpEndpointRegistry) throws Xdi2ServerException, Xdi2MessagingException {
+	public void lookup(HttpMessagingTargetRegistry httpMessagingTargetRegistry) throws Xdi2ServerException, Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Looking up messaging target for request path " + this.getRequestPath());
 
 		// check which messaging target this request applies to
 
-		String messagingTargetPath = httpEndpointRegistry.findMessagingTargetPath(this.getRequestPath());
-		MessagingTarget messagingTarget = messagingTargetPath == null ? null : httpEndpointRegistry.getMessagingTarget(messagingTargetPath);
+		String messagingTargetPath = httpMessagingTargetRegistry.findMessagingTargetPath(this.getRequestPath());
+		MessagingTarget messagingTarget = messagingTargetPath == null ? null : httpMessagingTargetRegistry.getMessagingTarget(messagingTargetPath);
 
 		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
 
 		// check which messaging target factory this request applies to
 
-		String messagingTargetFactoryPath = httpEndpointRegistry.findMessagingTargetFactoryPath(this.getRequestPath());
-		MessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : httpEndpointRegistry.getMessagingTargetFactory(messagingTargetFactoryPath);
+		String messagingTargetFactoryPath = httpMessagingTargetRegistry.findMessagingTargetFactoryPath(this.getRequestPath());
+		MessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : httpMessagingTargetRegistry.getMessagingTargetFactory(messagingTargetFactoryPath);
 
 		if (log.isDebugEnabled()) log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? null : messagingTargetFactory.getClass().getSimpleName()));
 
@@ -52,18 +52,18 @@ public abstract class AbstractHttpRequest implements HttpRequest {
 
 				// if we don't have a messaging target, see if the messaging target factory can create one
 
-				messagingTargetFactory.mountMessagingTarget(httpEndpointRegistry, messagingTargetFactoryPath, this.getRequestPath());
+				messagingTargetFactory.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetFactoryPath, this.getRequestPath());
 			} else {
 
 				// if we do have a messaging target, see if the messaging target factory wants to modify or remove it
 
-				messagingTargetFactory.updateMessagingTarget(httpEndpointRegistry, messagingTargetFactoryPath, this.getRequestPath(), messagingTarget);
+				messagingTargetFactory.updateMessagingTarget(httpMessagingTargetRegistry, messagingTargetFactoryPath, this.getRequestPath(), messagingTarget);
 			}
 
 			// after the messaging target factory did its work, look for the messaging target again
 
-			messagingTargetPath = httpEndpointRegistry.findMessagingTargetPath(this.getRequestPath());
-			messagingTarget = messagingTargetPath == null ? null : httpEndpointRegistry.getMessagingTarget(messagingTargetPath);
+			messagingTargetPath = httpMessagingTargetRegistry.findMessagingTargetPath(this.getRequestPath());
+			messagingTarget = messagingTargetPath == null ? null : httpMessagingTargetRegistry.getMessagingTarget(messagingTargetPath);
 
 			if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", messagingTarget=" + (messagingTarget == null ? null : messagingTarget.getClass().getSimpleName()));
 		}

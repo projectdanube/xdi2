@@ -15,7 +15,7 @@ import xdi2.messaging.target.contributor.ContributorMap;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.factory.AbstractMessagingTargetFactory;
-import xdi2.server.registry.HttpEndpointRegistry;
+import xdi2.server.registry.HttpMessagingTargetRegistry;
 
 public abstract class PrototypingMessagingTargetFactory extends AbstractMessagingTargetFactory {
 
@@ -24,7 +24,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public MessagingTarget mountMessagingTarget(HttpEndpointRegistry httpEndpointRegistry, String messagingTargetPath, XDI3Segment owner, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
+	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDI3Segment owner, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2ServerException {
 
 		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", owner=" + owner + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
 
@@ -71,7 +71,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 
 		// mount the new messaging target
 
-		httpEndpointRegistry.mountMessagingTarget(messagingTargetPath, prototypedMessagingTarget);
+		httpMessagingTargetRegistry.mountMessagingTarget(messagingTargetPath, prototypedMessagingTarget);
 
 		// done
 

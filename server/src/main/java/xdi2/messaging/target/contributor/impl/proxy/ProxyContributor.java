@@ -111,22 +111,24 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 			return false;
 		}
 
-		// if the target is local, then there is no forwarding target
-
+		// no static forwarding target, so we check if the target is self
+		
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
 		XDI3Segment toAuthority = message.getToAuthority();
 
-		boolean local = toAuthority == null || toAuthority.equals(ownerAuthority);
+		if (toAuthority == null || toAuthority.equals(ownerAuthority)) {
 
-		if (local) {
-
-			if (log.isDebugEnabled()) log.debug("Not setting any forwarding target for local request to " + ownerAuthority);
+			if (log.isDebugEnabled()) log.debug("Not setting any forwarding target for self request to " + ownerAuthority);
 
 			return false;
 		}
 
-		// no static forwarding target, and target is not local, so we discover the forwarding target
+		// no static forwarding target, and target is not self, so we check if the target is local
+
+		XDIClient c;
+		
+		// no static forwarding target, and target is not self, and target is not local, so we discover the forwarding target dynamically
 
 		XDIDiscoveryResult xdiDiscoveryResult;
 

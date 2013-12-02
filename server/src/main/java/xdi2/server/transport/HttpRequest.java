@@ -6,7 +6,7 @@ import java.io.InputStream;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
-import xdi2.server.registry.HttpEndpointRegistry;
+import xdi2.server.registry.HttpMessagingTargetRegistry;
 
 /**
  * This interface abstracts path information about a request to the server.
@@ -23,7 +23,7 @@ public interface HttpRequest {
 	public String getContentType();
 	public int getContentLength();
 
-	public void lookup(HttpEndpointRegistry httpEndpointRegistry) throws Xdi2ServerException, Xdi2MessagingException;
+	public void lookup(HttpMessagingTargetRegistry httpMessagingTargetRegistry) throws Xdi2ServerException, Xdi2MessagingException;
 	public String getMessagingTargetPath();
 	public MessagingTarget getMessagingTarget();
 
