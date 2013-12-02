@@ -422,7 +422,11 @@ public class HttpTransport {
 
 		// create an execution context
 
-		ExecutionContext executionContext = this.createExecutionContext(request, response);
+		ExecutionContext executionContext = new ExecutionContext();
+
+		putHttpTransport(executionContext, this);
+		putHttpRequest(executionContext, request);
+		putHttpResponse(executionContext, response);
 
 		// execute the messages and operations against our message target, save result
 
@@ -443,17 +447,6 @@ public class HttpTransport {
 		if (log.isDebugEnabled()) log.debug("Message(s) successfully executed (" + messageResult.getGraph().getRootContextNode().getAllStatementCount() + " results).");
 
 		return messageResult;
-	}
-
-	protected ExecutionContext createExecutionContext(HttpRequest request, HttpResponse response) {
-
-		ExecutionContext executionContext = new ExecutionContext();
-
-		HttpExecutionContext.putHttpTransport(executionContext, this);
-		HttpExecutionContext.putHttpRequest(executionContext, request);
-		HttpExecutionContext.putHttpResponse(executionContext, response);
-
-		return executionContext;
 	}
 
 	private static void sendResult(MessageResult messageResult, HttpRequest request, HttpResponse response) throws IOException {
@@ -510,6 +503,44 @@ public class HttpTransport {
 
 		sendResult(errorMessageResult, request, response);
 	}
+
+	/*
+	 * ExecutionContext helper methods
+	 */
+
+	private static final String EXECUTIONCONTEXT_KEY_HTTPTRANSPORT = HttpTransport.class.getCanonicalName() + "#httptransport";
+	private static final String EXECUTIONCONTEXT_KEY_HTTPREQUEST = HttpTransport.class.getCanonicalName() + "#httprequest";
+	private static final String EXECUTIONCONTEXT_KEY_HTTPRESPONSE = HttpTransport.class.getCanonicalName() + "#httpresponse";
+
+	public static HttpTransport getHttpTransport(ExecutionContext executionContext) {
+
+		return (HttpTransport) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPTRANSPORT);
+	}
+
+	public static void putHttpTransport(ExecutionContext executionContext, HttpTransport httpTransport) {
+
+		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPTRANSPORT, httpTransport);
+	}	
+
+	public static HttpRequest getHttpRequest(ExecutionContext executionContext) {
+
+		return (HttpRequest) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPREQUEST);
+	}
+
+	public static void putHttpRequest(ExecutionContext executionContext, HttpRequest request) {
+
+		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPREQUEST, request);
+	}	
+
+	public static HttpResponse getHttpResponse(ExecutionContext executionContext) {
+
+		return (HttpResponse) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPRESPONSE);
+	}
+
+	public static void putHttpResponse(ExecutionContext executionContext, HttpResponse response) {
+
+		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_HTTPRESPONSE, response);
+	}	
 
 	/*
 	 * Getters and setters
