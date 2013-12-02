@@ -1,5 +1,7 @@
 package xdi2.core.xri3;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +51,20 @@ public class CloudName {
 	public static CloudName create(String string) {
 
 		return fromXri(XDI3Segment.create(string));
+	}
+
+	public static CloudName createRandom(Character cs, String prefix) {
+
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(cs);
+		if (prefix != null) buffer.append(prefix);
+		buffer.append(UUID.randomUUID().toString().replace('-', '.'));
+
+		XDI3Segment xri = XDI3Segment.create(buffer.toString());
+
+		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
+
+		return new CloudName(xri, peerRootXri);
 	}
 
 	public static CloudName fromXri(XDI3Segment xri) {
