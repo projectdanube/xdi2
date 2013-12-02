@@ -69,6 +69,7 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph<XdiEntity> i
 	 * Returns an XDI inner root based on this XDI entity.
 	 * @return The XDI inner root.
 	 */
+	@Override
 	public XdiInnerRoot getXdiInnerRoot(XDI3Segment innerRootPredicateXri, boolean create) {
 
 		return getXdiInnerRoot(this, innerRootPredicateXri, create);

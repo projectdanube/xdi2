@@ -87,6 +87,7 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 	 * Returns an XDI inner root based on this XDI entity.
 	 * @return The XDI inner root.
 	 */
+	@Override
 	public XdiInnerRoot getXdiInnerRoot(XDI3Segment innerRootPredicateXri, boolean create) {
 
 		return XdiAbstractEntity.getXdiInnerRoot(this, innerRootPredicateXri, create);
