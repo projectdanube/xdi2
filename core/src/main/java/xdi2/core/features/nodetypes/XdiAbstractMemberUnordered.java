@@ -75,7 +75,7 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 		return createUuidArcXri(uuid, attribute);
 	}
 
-	public static XDI3SubSegment createDigestHashArcXri(String string, boolean attribute) {
+	public static XDI3SubSegment createDigestArcXri(String string, boolean attribute) {
 
 		byte[] output;
 
