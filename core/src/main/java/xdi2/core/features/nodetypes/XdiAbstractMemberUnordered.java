@@ -70,7 +70,7 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 	public static XDI3SubSegment createRandomUuidArcXri(boolean attribute) {
 
-		String uuid = UUID.randomUUID().toString();
+		String uuid = UUID.randomUUID().toString().toLowerCase();
 
 		return createUuidArcXri(uuid, attribute);
 	}

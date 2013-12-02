@@ -58,7 +58,7 @@ public class CloudName {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(cs);
 		if (prefix != null) buffer.append(prefix);
-		buffer.append(UUID.randomUUID().toString().replace('-', '.'));
+		buffer.append(UUID.randomUUID().toString().toLowerCase().replace('-', '.'));
 
 		XDI3Segment xri = XDI3Segment.create(buffer.toString());
 
@@ -68,6 +68,8 @@ public class CloudName {
 	}
 
 	public static CloudName fromXri(XDI3Segment xri) {
+
+		xri = XDI3Segment.create(xri.toString().toLowerCase());
 
 		if (! isValid(xri)) return null;
 

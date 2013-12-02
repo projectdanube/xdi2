@@ -74,6 +74,8 @@ public class CloudNumber {
 
 	public static CloudNumber fromXri(XDI3Segment xri) {
 
+		xri = XDI3Segment.create(xri.toString().toLowerCase());
+
 		if (! isValid(xri)) return null;
 
 		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
