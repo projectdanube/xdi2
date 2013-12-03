@@ -33,7 +33,7 @@ import xdi2.messaging.util.MessagingCloneUtil;
 /**
  * This contributor can answer requests by forwarding them to another XDI endpoint.
  */
-@ContributorXri(addresses={"{{=@+*!$}}$keypair", "{{(=@+*!$)}}$keypair", "$keypair", "{{=@+*!$}}<$key>", "{{(=@+*!$)}}<$key>", "<$key>"})
+@ContributorXri(addresses={""})
 public class ProxyContributor extends AbstractContributor implements MessageInterceptor, Prototype<ProxyContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(ProxyContributor.class);

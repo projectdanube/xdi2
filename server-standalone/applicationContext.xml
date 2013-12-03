@@ -208,7 +208,6 @@
 							$public$do/$get/($msg$encrypt$keypair/$is+/{})
 							$public$do/$get/$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
 							$public$do/$get/($msg$sig$keypair/$is+/{})
-							$public$do/$get/&lt;$https&gt;&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">
