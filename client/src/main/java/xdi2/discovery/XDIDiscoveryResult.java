@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
 
+import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
@@ -93,7 +94,7 @@ public class XDIDiscoveryResult implements Serializable {
 			@Override
 			public boolean select(ContextNode contextNode) {
 
-				return XDIDiscoveryClient.XRI_SS_URI.equals(contextNode.getArcXri());
+				return XDIClientConstants.XRI_SS_URI.equals(contextNode.getArcXri());
 			}
 
 			@Override
@@ -176,7 +177,7 @@ public class XDIDiscoveryResult implements Serializable {
 			@Override
 			public boolean select(ContextNode contextNode) {
 
-				return XDIDiscoveryClient.XRI_SS_URI.equals(contextNode.getArcXri());
+				return XDIClientConstants.XRI_SS_URI.equals(contextNode.getArcXri());
 			}
 
 			@Override

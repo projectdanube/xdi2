@@ -3,6 +3,7 @@ package xdi2.discovery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.events.XDIDiscoverFromAuthorityEvent;
 import xdi2.client.events.XDIDiscoverFromRegistryEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
@@ -13,7 +14,6 @@ import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -30,8 +30,6 @@ public class XDIDiscoveryClient {
 	private static Logger log = LoggerFactory.getLogger(XDIDiscoveryClient.class.getName());
 
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
-
-	public static final XDI3SubSegment XRI_SS_URI = XDI3SubSegment.create("<$uri>");
 
 	private XDIHttpClient registryXdiClient;
 
@@ -137,7 +135,7 @@ public class XDIDiscoveryClient {
 
 		for (XDI3Segment endpointUriType : endpointUriTypes) {
 
-			authorityMessage.createGetOperation(XDI3Util.concatXris(endpointUriType, XRI_SS_URI));
+			authorityMessage.createGetOperation(XDI3Util.concatXris(endpointUriType, XDIClientConstants.XRI_SS_URI));
 		}
 
 		MessageResult authorityMessageResult;
