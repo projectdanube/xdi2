@@ -24,6 +24,8 @@ public class XDI2SpringConverter implements GenericConverter {
 			new StringXDI3SegmentConverter(),
 			new StringXDI3StatementConverter(),
 			new StringXDI3XRefConverter(),
+			new StringCloudNameConverter(),
+			new StringCloudNumberConverter(),
 			new StringPublicKeyConverter(),
 			new StringGraphConverter(),
 			new StringMessageEnvelopeConverter(),
