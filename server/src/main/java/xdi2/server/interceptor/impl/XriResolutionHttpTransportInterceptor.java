@@ -23,9 +23,9 @@ import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.interceptor.AbstractHttpTransportInterceptor;
+import xdi2.server.registry.MessagingTargetMount;
 import xdi2.server.transport.HttpRequest;
 import xdi2.server.transport.HttpResponse;
 import xdi2.server.transport.HttpTransport;
@@ -54,7 +54,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 	}
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTarget messagingTarget) throws Xdi2ServerException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2ServerException, IOException {
 
 		if (! request.getRequestPath().startsWith(this.getResolvePath())) return false;
 

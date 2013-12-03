@@ -3,10 +3,7 @@ package xdi2.server.transport;
 import java.io.IOException;
 import java.io.InputStream;
 
-import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.MessagingTarget;
-import xdi2.server.exceptions.Xdi2ServerException;
-import xdi2.server.registry.HttpMessagingTargetRegistry;
+import xdi2.messaging.transport.Request;
 
 /**
  * This interface abstracts path information about a request to the server.
@@ -14,7 +11,7 @@ import xdi2.server.registry.HttpMessagingTargetRegistry;
  * 
  * @author markus
  */
-public interface HttpRequest {
+public interface HttpRequest extends Request {
 
 	public String getBaseUri();
 	public String getRequestPath();
@@ -22,10 +19,6 @@ public interface HttpRequest {
 	public String getHeader(String name);
 	public String getContentType();
 	public int getContentLength();
-
-	public void lookup(HttpMessagingTargetRegistry httpMessagingTargetRegistry) throws Xdi2ServerException, Xdi2MessagingException;
-	public String getMessagingTargetPath();
-	public MessagingTarget getMessagingTarget();
 
 	public InputStream getBodyInputStream() throws IOException;
 

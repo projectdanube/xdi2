@@ -1,6 +1,6 @@
 package xdi2.messaging.exceptions;
 
-import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.context.ExecutionContext;
 
 /**
  * An exception that is thrown when an operation is not authorized.

@@ -8,7 +8,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +30,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.factory.MessagingTargetFactory;
 import xdi2.server.interceptor.AbstractHttpTransportInterceptor;
+import xdi2.server.registry.MessagingTargetFactoryMount;
+import xdi2.server.registry.MessagingTargetMount;
 import xdi2.server.transport.HttpRequest;
 import xdi2.server.transport.HttpResponse;
 import xdi2.server.transport.HttpTransport;
@@ -54,7 +55,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 	}
 
 	@Override
-	public boolean processPostRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTarget messagingTarget) throws Xdi2ServerException, IOException {
+	public boolean processPostRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2ServerException, IOException {
 
 		if (! request.getRequestPath().equals("/")) return false;
 
@@ -72,7 +73,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 
 			httpTransport.getHttpMessagingTargetRegistry().reload();
 
-			return this.processGetRequest(httpTransport, request, response, messagingTarget);
+			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
 		if ("unmount_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
@@ -80,7 +81,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 			MessagingTarget cmdMessagingTarget = httpTransport.getHttpMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 			if (cmdMessagingTarget != null) httpTransport.getHttpMessagingTargetRegistry().unmountMessagingTarget(cmdMessagingTarget);
 
-			return this.processGetRequest(httpTransport, request, response, messagingTarget);
+			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
 		if ("unmount_messaging_target_factory".equals(cmd) && cmdMessagingTargetFactoryPath != null) {
@@ -88,7 +89,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 			MessagingTargetFactory cmdMessagingTargetFactory = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactory(cmdMessagingTargetFactoryPath);
 			if (cmdMessagingTargetFactory != null) httpTransport.getHttpMessagingTargetRegistry().unmountMessagingTargetFactory(cmdMessagingTargetFactory);
 
-			return this.processGetRequest(httpTransport, request, response, messagingTarget);
+			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
 		if ("edit_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
@@ -148,7 +149,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 
 			// done
 
-			return this.processGetRequest(httpTransport, request, response, messagingTarget);
+			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
 		if ("save_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
@@ -200,7 +201,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 
 			// done
 
-			return this.processGetRequest(httpTransport, request, response, messagingTarget);
+			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
 		// done
@@ -209,27 +210,23 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 	}
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTarget messagingTarget) throws Xdi2ServerException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2ServerException, IOException {
 
 		if (! request.getRequestPath().equals("/")) return false;
 
 		// prepare velocity
 
 		File[] pluginFiles = PluginsLoader.getFiles();
-		List<MessagingTarget> messagingTargets = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargets();
-		Map<String, MessagingTarget> messagingTargetsByPath = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetsByPath();
-		List<MessagingTargetFactory> messagingTargetFactorys = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactorys();
-		Map<String, MessagingTargetFactory> messagingTargetFactorysByPath = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactorysByPath();
+		List<MessagingTargetMount> messagingTargetMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetMounts();
+		List<MessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts();
 
 		VelocityContext context = new VelocityContext();
 		context.put("parser", XDI3ParserRegistry.getInstance().getParser());
 		context.put("httptransport", httpTransport);
 		context.put("request", request);
 		context.put("pluginfiles", pluginFiles);
-		context.put("messagingtargets", messagingTargets);
-		context.put("messagingtargetsbypath", messagingTargetsByPath);
-		context.put("messagingtargetfactorys", messagingTargetFactorys);
-		context.put("messagingtargetfactorysbypath", messagingTargetFactorysByPath);
+		context.put("messagingtargetmounts", messagingTargetMounts);
+		context.put("messagingtargetfactorymounts", messagingTargetFactoryMounts);
 
 		// send response
 

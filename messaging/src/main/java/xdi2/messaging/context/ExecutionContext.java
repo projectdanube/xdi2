@@ -1,4 +1,4 @@
-package xdi2.messaging.target;
+package xdi2.messaging.context;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,8 +12,12 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.interceptor.Interceptor;
+import xdi2.messaging.transport.Request;
+import xdi2.messaging.transport.Response;
+import xdi2.messaging.transport.Transport;
 
 /**
  * Messaging targets as well as contributors and interceptors can use the ExecutionContext
@@ -27,10 +31,18 @@ public final class ExecutionContext implements Serializable {
 	private static final long serialVersionUID = 3238581605986543950L;
 
 	/**
+	 * The transport, transport request, and transport response, if any,
+	 * through which the message envelope is executed.
+	 */
+	private Transport<?, ?> transport;
+	private Request request;
+	private Response response;
+
+	/**
 	 * This map is never reset.
 	 */
 	private Map<String, Object> executionContextAttributes;
-	
+
 	/**
 	 * This map is reset before executing a MessageEnvelope.
 	 */
@@ -60,6 +72,10 @@ public final class ExecutionContext implements Serializable {
 
 	public ExecutionContext() { 
 
+		this.transport = null;
+		this.request = null;
+		this.response = null;
+		
 		this.executionContextAttributes = new HashMap<String, Object> ();
 		this.messageEnvelopeAttributes = new HashMap<String, Object> ();
 		this.messageAttributes = new HashMap<String, Object> ();
@@ -71,6 +87,41 @@ public final class ExecutionContext implements Serializable {
 		this.topExecutionPosition = this.currentExecutionPosition;
 	}
 
+	/*
+	 * Transport
+	 */
+
+	public Transport<?, ?> getTransport() {
+
+		return this.transport;
+	}
+
+	public void setTransport(Transport<?, ?> transport) {
+		
+		this.transport = transport;
+	}
+
+	public Request getRequest() {
+		
+		return this.request;
+	}
+
+	public void setRequest(Request request) {
+		
+		this.request = request;
+	}
+
+	public Response getResponse() {
+		
+		return this.response;
+	}
+
+	public void setResponse(Response response) {
+
+		this.response = response;
+	}
+	
+	
 	/*
 	 * Attributes
 	 */
@@ -438,6 +489,10 @@ public final class ExecutionContext implements Serializable {
 		return null;
 	}
 
+	/*
+	 * Tracing
+	 */
+	
 	public String getTraceLine() {
 
 		StringBuffer buffer = new StringBuffer();

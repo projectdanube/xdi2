@@ -8,10 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.util.iterators.SelectingClassIterator;
-import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.interceptor.HttpTransportInterceptor;
+import xdi2.server.registry.MessagingTargetMount;
 
 public class InterceptorList extends ArrayList<Interceptor> {
 
@@ -62,7 +62,7 @@ public class InterceptorList extends ArrayList<Interceptor> {
 		}
 	}
 
-	public boolean executeHttpTransportInterceptorsGet(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTarget messagingTarget) throws Xdi2ServerException, IOException {
+	public boolean executeHttpTransportInterceptorsGet(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2ServerException, IOException {
 
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = this.findHttpTransportInterceptors(); httpTransportInterceptors.hasNext(); ) {
 
@@ -70,7 +70,7 @@ public class InterceptorList extends ArrayList<Interceptor> {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (GET).");
 
-			if (httpTransportInterceptor.processGetRequest(httpTransport, request, response, messagingTarget)) {
+			if (httpTransportInterceptor.processGetRequest(httpTransport, request, response, messagingTargetMount)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": GET request has been fully handled by interceptor " + httpTransportInterceptor.getClass().getSimpleName() + ".");
 				return true;
@@ -80,7 +80,7 @@ public class InterceptorList extends ArrayList<Interceptor> {
 		return false;
 	}
 
-	public boolean executeHttpTransportInterceptorsPut(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTarget messagingTarget) throws Xdi2ServerException, IOException {
+	public boolean executeHttpTransportInterceptorsPut(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2ServerException, IOException {
 
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = this.findHttpTransportInterceptors(); httpTransportInterceptors.hasNext(); ) {
 
@@ -88,7 +88,7 @@ public class InterceptorList extends ArrayList<Interceptor> {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (PUT).");
 
-			if (httpTransportInterceptor.processPutRequest(httpTransport, request, response, messagingTarget)) {
+			if (httpTransportInterceptor.processPutRequest(httpTransport, request, response, messagingTargetMount)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": PUT request has been fully handled by interceptor " + httpTransportInterceptor.getClass().getSimpleName() + ".");
 				return true;
@@ -98,7 +98,7 @@ public class InterceptorList extends ArrayList<Interceptor> {
 		return false;
 	}
 
-	public boolean executeHttpTransportInterceptorsPost(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTarget messagingTarget) throws Xdi2ServerException, IOException {
+	public boolean executeHttpTransportInterceptorsPost(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2ServerException, IOException {
 
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = this.findHttpTransportInterceptors(); httpTransportInterceptors.hasNext(); ) {
 
@@ -106,7 +106,7 @@ public class InterceptorList extends ArrayList<Interceptor> {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (POST).");
 
-			if (httpTransportInterceptor.processPostRequest(httpTransport, request, response, messagingTarget)) {
+			if (httpTransportInterceptor.processPostRequest(httpTransport, request, response, messagingTargetMount)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": POST request has been fully handled by interceptor " + httpTransportInterceptor.getClass().getSimpleName() + ".");
 				return true;
@@ -116,7 +116,7 @@ public class InterceptorList extends ArrayList<Interceptor> {
 		return false;
 	}
 
-	public boolean executeHttpTransportInterceptorsDelete(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTarget messagingTarget) throws Xdi2ServerException, IOException {
+	public boolean executeHttpTransportInterceptorsDelete(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2ServerException, IOException {
 
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = this.findHttpTransportInterceptors(); httpTransportInterceptors.hasNext(); ) {
 
@@ -124,7 +124,7 @@ public class InterceptorList extends ArrayList<Interceptor> {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing endpoint servlet interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (DELETE).");
 
-			if (httpTransportInterceptor.processDeleteRequest(httpTransport, request, response, messagingTarget)) {
+			if (httpTransportInterceptor.processDeleteRequest(httpTransport, request, response, messagingTargetMount)) {
 
 				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": DELETE request has been fully handled by interceptor " + httpTransportInterceptor.getClass().getSimpleName() + ".");
 				return true;

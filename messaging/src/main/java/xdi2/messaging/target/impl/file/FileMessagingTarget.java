@@ -14,8 +14,8 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**

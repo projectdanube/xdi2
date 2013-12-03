@@ -16,6 +16,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.contributor.ContributorMap;
@@ -41,13 +42,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
-	private XDI3Segment ownerAuthority;
+	private XDI3Segment ownerPeerRootXri;
 	private InterceptorList interceptors;
 	private ContributorMap contributors;
 
 	public AbstractMessagingTarget() {
 
-		this.ownerAuthority = null;
+		this.ownerPeerRootXri = null;
 		this.interceptors = new InterceptorList();
 		this.contributors = new ContributorMap();
 	}
@@ -490,14 +491,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 */
 
 	@Override
-	public XDI3Segment getOwnerAuthority() {
+	public XDI3Segment getOwnerPeerRootXri() {
 
-		return this.ownerAuthority;
+		return this.ownerPeerRootXri;
 	}
 
-	public void setOwnerAuthority(XDI3Segment ownerAuthority) {
+	public void setOwnerPeerRootXri(XDI3Segment ownerPeerRootXri) {
 
-		this.ownerAuthority = ownerAuthority;
+		this.ownerPeerRootXri = ownerPeerRootXri;
 	}
 
 	public InterceptorList getInterceptors() {

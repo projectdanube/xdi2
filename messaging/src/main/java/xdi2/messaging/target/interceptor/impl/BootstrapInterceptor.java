@@ -77,7 +77,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		// set the owner, root link contract, and public link contract
 
-		interceptor.setBootstrapOwner(prototypingContext.getOwner());
+		interceptor.setBootstrapOwner(prototypingContext.getOwnerXri());
 		interceptor.setBootstrapRootLinkContract(this.getBootstrapRootLinkContract());
 		interceptor.setBootstrapPublicLinkContract(this.getBootstrapPublicLinkContract());
 

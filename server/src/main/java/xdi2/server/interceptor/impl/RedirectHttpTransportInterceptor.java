@@ -2,9 +2,9 @@ package xdi2.server.interceptor.impl;
 
 import java.io.IOException;
 
-import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.interceptor.AbstractHttpTransportInterceptor;
+import xdi2.server.registry.MessagingTargetMount;
 import xdi2.server.transport.HttpRequest;
 import xdi2.server.transport.HttpResponse;
 import xdi2.server.transport.HttpTransport;
@@ -19,7 +19,7 @@ public class RedirectHttpTransportInterceptor extends AbstractHttpTransportInter
 	private String location;
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTarget messagingTarget) throws Xdi2ServerException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2ServerException, IOException {
 
 		if (! request.getRequestPath().equals("/")) return false;
 

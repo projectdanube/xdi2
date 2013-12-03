@@ -148,15 +148,15 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Return the FROM authority.
+	 * Return the FROM peer root XRI.
 	 */
-	public XDI3Segment getFromAuthority() {
+	public XDI3Segment getFromPeerRootXri() {
 
 		for (Iterator<Relation> incomingRelations = this.getContextNode().getIncomingRelations(); incomingRelations.hasNext(); ) {
 
 			Relation incomingRelation = incomingRelations.next();
 
-			if (incomingRelation.getArcXri().equals(XDIMessagingConstants.XRI_S_FROM_AUTHORITY)) {
+			if (incomingRelation.getArcXri().equals(XDIMessagingConstants.XRI_S_FROM_PEER_ROOT_XRI)) {
 
 				return incomingRelation.getContextNode().getXri();
 			}
@@ -166,31 +166,31 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Set the FROM authority.
+	 * Set the FROM peer root XRI.
 	 */
-	public void setFromAuthority(XDI3Segment fromAuthority) {
+	public void setFromPeerRootXri(XDI3Segment fromPeerRootXri) {
 
-		this.getMessageEnvelope().getGraph().setDeepRelation(fromAuthority, XDIMessagingConstants.XRI_S_FROM_AUTHORITY, this.getContextNode());
+		this.getMessageEnvelope().getGraph().setDeepRelation(fromPeerRootXri, XDIMessagingConstants.XRI_S_FROM_PEER_ROOT_XRI, this.getContextNode());
 	}
 
 	/**
-	 * Return the TO authority of the message.
+	 * Return the TO peer root XRI of the message.
 	 */
-	public XDI3Segment getToAuthority() {
+	public XDI3Segment getToPeerRootXri() {
 
-		Relation toAuthorityRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_AUTHORITY);
-		if (toAuthorityRelation == null) return null;
+		Relation toPeerRootXriRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI);
+		if (toPeerRootXriRelation == null) return null;
 
-		return toAuthorityRelation.getTargetContextNodeXri();
+		return toPeerRootXriRelation.getTargetContextNodeXri();
 	}
 
 	/**
-	 * Set the TO authority of the message.
+	 * Set the TO peer root XRI of the message.
 	 */
-	public void setToAuthority(XDI3Segment toAuthority) {
+	public void setToPeerRootXri(XDI3Segment toPeerRootXri) {
 
-		this.getContextNode().delRelations(XDIMessagingConstants.XRI_S_TO_AUTHORITY);
-		this.getContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_AUTHORITY, toAuthority);
+		this.getContextNode().delRelations(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI);
+		this.getContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI, toPeerRootXri);
 	}
 
 	/**

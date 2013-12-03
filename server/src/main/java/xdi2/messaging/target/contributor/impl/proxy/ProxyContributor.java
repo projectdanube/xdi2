@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
+import xdi2.client.local.XDILocalClient;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
@@ -20,15 +21,19 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorXri;
 import xdi2.messaging.target.contributor.impl.proxy.manipulator.ProxyManipulator;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
+import xdi2.messaging.transport.Transport;
 import xdi2.messaging.util.MessagingCloneUtil;
+import xdi2.server.exceptions.Xdi2ServerException;
+import xdi2.server.registry.MessagingTargetMount;
+import xdi2.server.transport.HttpTransport;
 
 /**
  * This contributor can answer requests by forwarding them to another XDI endpoint.
@@ -38,7 +43,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 	private static final Logger log = LoggerFactory.getLogger(ProxyContributor.class);
 
-	private XDI3Segment toAuthority;
+	private XDI3Segment toPeerRootXri;
 	private XDIClient xdiClient;
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
@@ -79,11 +84,11 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// if we have a static forwarding target, but no XDI client, use XDI discovery to create one
 
-		if (this.toAuthority != null && this.xdiClient == null) {
+		if (this.toPeerRootXri != null && this.xdiClient == null) {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(this.toAuthority.getFirstSubSegment()), null);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(this.toPeerRootXri.getFirstSubSegment()), null);
 
-			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toAuthority);
+			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXri);
 
 			this.xdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
 		}
@@ -98,57 +103,85 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// if there is a static forwarding target, we use it
 
-		if (this.getToAuthority() != null && this.getXdiClient() != null) {
+		if (this.getToPeerRootXri() != null && this.getXdiClient() != null) {
 
-			XDI3Segment staticForwardingTargetToAuthority = this.getToAuthority();
+			XDI3Segment staticForwardingTargetToPeerRootXri = this.getToPeerRootXri();
 			XDIClient staticForwardingTargetXdiClient = this.getXdiClient();
 
-			if (log.isDebugEnabled()) log.debug("Setting static forwarding target: " + staticForwardingTargetToAuthority + " (" + staticForwardingTargetXdiClient + ")");
+			if (log.isDebugEnabled()) log.debug("Setting static forwarding target: " + staticForwardingTargetToPeerRootXri + " (" + staticForwardingTargetXdiClient + ")");
 
-			putToAuthority(executionContext, this.getToAuthority());
+			putToPeerRootXri(executionContext, this.getToPeerRootXri());
 			putXdiClient(executionContext, this.getXdiClient());
 
 			return false;
 		}
 
 		// no static forwarding target, so we check if the target is self
-		
+
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
-		XDI3Segment toAuthority = message.getToAuthority();
+		XDI3Segment ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
+		XDI3Segment toPeerRootXri = message.getToPeerRootXri();
 
-		if (toAuthority == null || toAuthority.equals(ownerAuthority)) {
+		if (toPeerRootXri == null || toPeerRootXri.equals(ownerPeerRootXri)) {
 
-			if (log.isDebugEnabled()) log.debug("Not setting any forwarding target for self request to " + ownerAuthority);
+			if (log.isDebugEnabled()) log.debug("Not setting any forwarding target for self request to " + ownerPeerRootXri);
 
 			return false;
 		}
 
 		// no static forwarding target, and target is not self, so we check if the target is local
 
-		XDIClient c;
-		
-		// no static forwarding target, and target is not self, and target is not local, so we discover the forwarding target dynamically
+		Transport<?, ?> transport = executionContext.getTransport();
+
+		if (transport instanceof HttpTransport) {
+
+			HttpTransport httpTransport = (HttpTransport) transport;
+
+			MessagingTargetMount messagingTargetMount;
+
+			try {
+
+				messagingTargetMount = httpTransport.getHttpMessagingTargetRegistry().lookup(toPeerRootXri);
+			} catch (Xdi2ServerException ex) {
+
+				throw new Xdi2MessagingException("Unable to locally look up messaging target for peer root XRI " + toPeerRootXri, ex, executionContext);
+			}
+
+			if (messagingTargetMount != null) {
+
+				XDI3Segment dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
+				XDIClient dynamicForwardingTargetXdiClient = new XDILocalClient(messagingTargetMount.getMessagingTarget());
+
+				if (log.isDebugEnabled()) log.debug("Setting dynamic local forwarding target: " + dynamicForwardingTargetToPeerRootXri + " (" + dynamicForwardingTargetXdiClient + ")");
+
+				putToPeerRootXri(executionContext, dynamicForwardingTargetToPeerRootXri);
+				putXdiClient(executionContext, dynamicForwardingTargetXdiClient);
+
+				return false;
+			}
+		}
+
+		// no static forwarding target, and target is not self, and target is not local, so we discover the remote forwarding target dynamically
 
 		XDIDiscoveryResult xdiDiscoveryResult;
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(toAuthority.getFirstSubSegment()), null);
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(toPeerRootXri.getFirstSubSegment()), null);
 		} catch (Xdi2ClientException ex) {
 
-			throw new Xdi2MessagingException("XDI Discovery failed on " + toAuthority + ": " + ex.getMessage(), ex, executionContext);
+			throw new Xdi2MessagingException("XDI Discovery failed on " + toPeerRootXri + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for forwarding target at " + toAuthority, null, executionContext);
-		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for forwarding target at " + toAuthority, null, executionContext);
+		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for forwarding target at " + toPeerRootXri, null, executionContext);
+		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for forwarding target at " + toPeerRootXri, null, executionContext);
 
-		XDI3Segment dynamicForwardingTargetToAuthority = xdiDiscoveryResult.getCloudNumber().getPeerRootXri();
+		XDI3Segment dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
 		XDIClient dynamicForwardingTargetXdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
 
-		if (log.isDebugEnabled()) log.debug("Setting dynamic forwarding target: " + dynamicForwardingTargetToAuthority + " (" + dynamicForwardingTargetXdiClient + ")");
+		if (log.isDebugEnabled()) log.debug("Setting dynamic remote forwarding target: " + dynamicForwardingTargetToPeerRootXri + " (" + dynamicForwardingTargetXdiClient + ")");
 
-		putToAuthority(executionContext, dynamicForwardingTargetToAuthority);
+		putToPeerRootXri(executionContext, dynamicForwardingTargetToPeerRootXri);
 		putXdiClient(executionContext, dynamicForwardingTargetXdiClient);
 
 		return false;
@@ -169,10 +202,10 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// check forwarding target
 
-		XDI3Segment toAuthority = getToAuthority(executionContext);
+		XDI3Segment toPeerRootXri = getToPeerRootXri(executionContext);
 		XDIClient xdiClient = getXdiClient(executionContext);
 
-		if (toAuthority == null || xdiClient == null) return false;
+		if (toPeerRootXri == null || xdiClient == null) return false;
 
 		// prepare the forwarding message envelope
 
@@ -180,7 +213,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		Message forwardingMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 
-		forwardingMessage.setToAuthority(toAuthority);
+		forwardingMessage.setToPeerRootXri(toPeerRootXri);
 
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXri(), targetAddress);
@@ -233,10 +266,10 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// check forwarding target
 
-		XDI3Segment toAuthority = getToAuthority(executionContext);
+		XDI3Segment toPeerRootXri = getToPeerRootXri(executionContext);
 		XDIClient xdiClient = getXdiClient(executionContext);
 
-		if (toAuthority == null || xdiClient == null) return false;
+		if (toPeerRootXri == null || xdiClient == null) return false;
 
 		// prepare the forwarding message envelope
 
@@ -244,7 +277,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		Message forwardingMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 
-		forwardingMessage.setToAuthority(toAuthority);
+		forwardingMessage.setToPeerRootXri(toPeerRootXri);
 
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXri(), targetStatement);
@@ -296,14 +329,14 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 * Getters and setters
 	 */
 
-	public XDI3Segment getToAuthority() {
+	public XDI3Segment getToPeerRootXri() {
 
-		return this.toAuthority;
+		return this.toPeerRootXri;
 	}
 
-	public void setToAuthority(XDI3Segment toAuthority) {
+	public void setToPeerRootXri(XDI3Segment toPeerRootXri) {
 
-		this.toAuthority = toAuthority;
+		this.toPeerRootXri = toPeerRootXri;
 	}
 
 	public XDIClient getXdiClient() {
@@ -330,17 +363,17 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_TO_AUTHORITY_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#toauthoritypermessage";
+	private static final String EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#topeerrootxripermessage";
 	private static final String EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#xdiclientpermessage";
 
-	public static XDI3Segment getToAuthority(ExecutionContext executionContext) {
+	public static XDI3Segment getToPeerRootXri(ExecutionContext executionContext) {
 
-		return (XDI3Segment) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_TO_AUTHORITY_PER_MESSAGE);
+		return (XDI3Segment) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE);
 	}
 
-	public static void putToAuthority(ExecutionContext executionContext, XDI3Segment toAuthority) {
+	public static void putToPeerRootXri(ExecutionContext executionContext, XDI3Segment toPeerRootXri) {
 
-		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_TO_AUTHORITY_PER_MESSAGE, toAuthority);
+		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE, toPeerRootXri);
 	}
 
 	public static XDIClient getXdiClient(ExecutionContext executionContext) {

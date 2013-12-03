@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
+import xdi2.messaging.transport.Response;
+
 /**
  * This interface abstracts path information about a response from the server.
  * This is used by the HttpTransport.
  * 
  * @author markus
  */
-public interface HttpResponse {
+public interface HttpResponse extends Response {
 
 	public static final int SC_OK = 200;
 	public static final int SC_NOT_FOUND = 404;

@@ -3,6 +3,7 @@ package xdi2.messaging.target;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 /**
@@ -23,12 +24,6 @@ public interface MessagingTarget {
 	public void shutdown() throws Exception;
 
 	/**
-	 * Returns the owner authority of the messaging target.
-	 * This may be null.
-	 */
-	public XDI3Segment getOwnerAuthority();
-
-	/**
 	 * Executes all messages in an XDI messaging envelope against this messaging target.
 	 * @param messageEnvelope The XDI message envelope containing XDI messages to be executed.
 	 * @param messageResult The result produced by executing the message envelope.
@@ -36,4 +31,10 @@ public interface MessagingTarget {
 	 * messaging targets, interceptors and contributors.
 	 */
 	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+
+	/**
+	 * Returns the owner peer root XRI of the messaging target.
+	 * This may be null.
+	 */
+	public XDI3Segment getOwnerPeerRootXri();
 }

@@ -73,79 +73,79 @@ h1 { font-size: 1.5em; }
 	<th>Contributors</th>
 	<th>Interceptors</th>
 	</tr>
-#foreach($messagingtargetbypath in $messagingtargetsbypath.entrySet())
+#foreach($messagingtargetmount in $messagingtargetmounts)
 	<tr>
     <td valign="top">
-    	<a href="$request.baseUri$messagingtargetbypath.key">
-    		$request.baseUri$messagingtargetbypath.key
+    	<a href="$request.baseUri$messagingtargetmount.messagingTargetPath">
+    		$messagingtargetmount.messagingTargetPath
     	</a>
 		<p><form action="" method="post">
 			<input type="hidden" name="cmd" value="unmount_messaging_target">
-			<input type="hidden" name="messagingtargetpath" value="$messagingtargetbypath.key">
+			<input type="hidden" name="messagingtargetpath" value="$messagingtargetmount.messagingTargetPath">
 			<input type="submit" value="unmount">
 		</form></p>
     </td>
     <td valign="top">
-    	$messagingtargetbypath.value.class.canonicalName
-    	#if($messagingtargetbypath.value.class.canonicalName=="xdi2.messaging.target.impl.graph.GraphMessagingTarget")
-    		<br><span style="color:gray">$messagingtargetbypath.value.graph.class.canonicalName</span>
-	    	#if($messagingtargetbypath.value.graph.class.canonicalName=="xdi2.core.impl.file.FileGraph")
-	    		<br>[path] <span style="color:gray">$messagingtargetbypath.value.graph.path</span>
-	    		<br>[mimeType] <span style="color:gray">$messagingtargetbypath.value.graph.mimeType</span>
+    	$messagingtargetmount.messagingTarget.class.canonicalName
+    	#if($messagingtargetmount.messagingTarget.class.canonicalName=="xdi2.messaging.target.impl.graph.GraphMessagingTarget")
+    		<br><span style="color:gray">$messagingtargetmount.messagingTarget.graph.class.canonicalName</span>
+	    	#if($messagingtargetmount.messagingTarget.graph.class.canonicalName=="xdi2.core.impl.file.FileGraph")
+	    		<br>[path] <span style="color:gray">$messagingtargetmount.messagingTarget.graph.path</span>
+	    		<br>[mimeType] <span style="color:gray">$messagingtargetmount.messagingTarget.graph.mimeType</span>
 	    	#end
-	    	#if($messagingtargetbypath.value.graph.class.canonicalName=="xdi2.core.impl.keyvalue.KeyValueGraph")
-	    		<br><span style="color:gray">$messagingtargetbypath.value.graph.keyValueStore.class.canonicalName</span>
-		    	#if($messagingtargetbypath.value.graph.keyValueStore.class.canonicalName=="xdi2.core.impl.keyvalue.properties.PropertiesKeyValueStore")
-		    		<br>[path] <span style="color:gray">$messagingtargetbypath.value.graph.keyValueStore.path</span>
+	    	#if($messagingtargetmount.messagingTarget.graph.class.canonicalName=="xdi2.core.impl.keyvalue.KeyValueGraph")
+	    		<br><span style="color:gray">$messagingtargetmount.messagingTarget.graph.keyValueStore.class.canonicalName</span>
+		    	#if($messagingtargetmount.messagingTarget.graph.keyValueStore.class.canonicalName=="xdi2.core.impl.keyvalue.properties.PropertiesKeyValueStore")
+		    		<br>[path] <span style="color:gray">$messagingtargetmount.messagingTarget.graph.keyValueStore.path</span>
 		    	#end
-		    	#if($messagingtargetbypath.value.graph.keyValueStore.class.canonicalName=="xdi2.core.impl.keyvalue.bdb.BDBKeyValueStore")
-		    		<br>[databasePath] <span style="color:gray">$messagingtargetbypath.value.graph.keyValueStore.databasePath</span>
-		    		<br>[databaseName] <span style="color:gray">$messagingtargetbypath.value.graph.keyValueStore.databaseName</span>
-		    	#end
-	    	#end
-	    	#if($messagingtargetbypath.value.graph.class.canonicalName=="xdi2.core.impl.json.JSONGraph")
-	    		<br><span style="color:gray">$messagingtargetbypath.value.graph.jsonStore.class.canonicalName</span>
-		    	#if($messagingtargetbypath.value.graph.jsonStore.class.canonicalName=="xdi2.core.impl.json.file.FileJSONStore")
-		    		<br>[prefix] <span style="color:gray">$messagingtargetbypath.value.graph.jsonStore.prefix</span>
+		    	#if($messagingtargetmount.messagingTarget.graph.keyValueStore.class.canonicalName=="xdi2.core.impl.keyvalue.bdb.BDBKeyValueStore")
+		    		<br>[databasePath] <span style="color:gray">$messagingtargetmount.messagingTarget.graph.keyValueStore.databasePath</span>
+		    		<br>[databaseName] <span style="color:gray">$messagingtargetmount.messagingTarget.graph.keyValueStore.databaseName</span>
 		    	#end
 	    	#end
-	    	#if($messagingtargetbypath.value.graph.class.canonicalName=="xdi2.core.impl.wrapped.WrappedGraph")
-	    		<br><span style="color:gray">$messagingtargetbypath.value.graph.wrapperStore.class.canonicalName</span>
-		    	#if($messagingtargetbypath.value.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.file.FileWrapperStore")
-		    		<br>[path] <span style="color:gray">$messagingtargetbypath.value.graph.wrapperStore.path</span>
+	    	#if($messagingtargetmount.messagingTarget.graph.class.canonicalName=="xdi2.core.impl.json.JSONGraph")
+	    		<br><span style="color:gray">$messagingtargetmount.messagingTarget.graph.jsonStore.class.canonicalName</span>
+		    	#if($messagingtargetmount.messagingTarget.graph.jsonStore.class.canonicalName=="xdi2.core.impl.json.file.FileJSONStore")
+		    		<br>[prefix] <span style="color:gray">$messagingtargetmount.messagingTarget.graph.jsonStore.prefix</span>
 		    	#end
-		    	#if($messagingtargetbypath.value.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.url.URLWrapperStore")
-		    		<br>[url] <span style="color:gray">$messagingtargetbypath.value.graph.wrapperStore.url</span>
+	    	#end
+	    	#if($messagingtargetmount.messagingTarget.graph.class.canonicalName=="xdi2.core.impl.wrapped.WrappedGraph")
+	    		<br><span style="color:gray">$messagingtargetmount.messagingTarget.graph.wrapperStore.class.canonicalName</span>
+		    	#if($messagingtargetmount.messagingTarget.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.file.FileWrapperStore")
+		    		<br>[path] <span style="color:gray">$messagingtargetmount.messagingTarget.graph.wrapperStore.path</span>
 		    	#end
-		    	#if($messagingtargetbypath.value.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.classpath.ClasspathWrapperStore")
-		    		<br>[classpath] <span style="color:gray">$messagingtargetbypath.value.graph.wrapperStore.classpath</span>
+		    	#if($messagingtargetmount.messagingTarget.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.url.URLWrapperStore")
+		    		<br>[url] <span style="color:gray">$messagingtargetmount.messagingTarget.graph.wrapperStore.url</span>
+		    	#end
+		    	#if($messagingtargetmount.messagingTarget.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.classpath.ClasspathWrapperStore")
+		    		<br>[classpath] <span style="color:gray">$messagingtargetmount.messagingTarget.graph.wrapperStore.classpath</span>
 		    	#end
 	    	#end
 			<p><form action="" method="post">
 				<input type="hidden" name="cmd" value="edit_messaging_target">
-				<input type="hidden" name="messagingtargetpath" value="$messagingtargetbypath.key">
+				<input type="hidden" name="messagingtargetpath" value="$messagingtargetmount.messagingTargetPath">
 				<input type="submit" value="edit">
 			</form></p>
     	#end
-    	#if($messagingtargetbypath.value.class.canonicalName=="xdi2.messaging.target.impl.file.FileMessagingTarget")
-    		<br>[path] <span style="color:gray">$messagingtargetbypath.value.path</span>
-    		<br>[mimeType] <span style="color:gray">$messagingtargetbypath.value.mimeType</span>
+    	#if($messagingtargetmount.messagingTarget.class.canonicalName=="xdi2.messaging.target.impl.file.FileMessagingTarget")
+    		<br>[path] <span style="color:gray">$messagingtargetmount.messagingTarget.path</span>
+    		<br>[mimeType] <span style="color:gray">$messagingtargetmount.messagingTarget.mimeType</span>
     	#end
     </td>
     <td valign="top">
-    	#if($messagingtargetbypath.value.ownerAuthority)
-    		$messagingtargetbypath.value.ownerAuthority
+    	#if($messagingtargetmount.messagingTarget.ownerAuthority)
+    		$messagingtargetmount.messagingTarget.ownerAuthority
     	#end
     </td>
 	<td valign="top">
-	#foreach($contributorlist in $messagingtargetbypath.value.contributors.entrySet())
+	#foreach($contributorlist in $messagingtargetmount.messagingTarget.contributors.entrySet())
 		#foreach($contributor in $contributorlist.value)
 			$contributorlist.key<br>$contributor.class.canonicalName<br><hr>
 		#end
 	#end
 	</td>
 	<td valign="top">
-	#foreach($interceptor in $messagingtargetbypath.value.interceptors) 
+	#foreach($interceptor in $messagingtargetmount.messagingTarget.interceptors) 
 		$interceptor.class.canonicalName<br>
 	#end
 	</td>
@@ -159,20 +159,20 @@ h1 { font-size: 1.5em; }
 	<th>Path</th>
 	<th>MessagingTargetFactory</th>
 	</tr>
-#foreach($messagingtargetfactorybypath in $messagingtargetfactorysbypath.entrySet())
+#foreach($messagingtargetfactorymounts in $messagingtargetfactorymounts)
 	<tr>
     <td valign="top">
-    	<a href="$request.baseUri$messagingtargetfactorybypath.key">
-    		$request.baseUri$messagingtargetfactorybypath.key
+    	<a href="$request.baseUri$messagingtargetfactorymount.messagingTargetFactoryPath">
+    		$request.baseUri$messagingtargetfactorymount.messagingTargetFactoryPath
     	</a>
 		<p><form action="" method="post">
 			<input type="hidden" name="cmd" value="unmount_messaging_target_factory">
-			<input type="hidden" name="messagingtargetfactorypath" value="$messagingtargetfactorybypath.key">
+			<input type="hidden" name="messagingtargetfactorypath" value="$messagingtargetfactorymount.messagingTargetFactoryPath">
 			<input type="submit" value="unmount">
 		</form></p>
     </td>
     <td valign="top">
-    	$messagingtargetfactorybypath.value.class.canonicalName
+    	$messagingtargetfactorymount.messagingTargetFactory.class.canonicalName
     </td>
     </tr>
 #end

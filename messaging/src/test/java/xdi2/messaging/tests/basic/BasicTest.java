@@ -152,9 +152,9 @@ public class BasicTest extends TestCase {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(XDI3Segment.create("=sender"));
-		message.setFromAuthority(XDI3Segment.create("([=]!1111)"));
-		message.setToAuthority(XDI3Segment.create("([=]!2222)"));
-		assertEquals(message.getFromAuthority(), XDI3Segment.create("([=]!1111)"));
-		assertEquals(message.getToAuthority(), XDI3Segment.create("([=]!2222)"));
+		message.setFromPeerRootXri(XDI3Segment.create("([=]!1111)"));
+		message.setToPeerRootXri(XDI3Segment.create("([=]!2222)"));
+		assertEquals(message.getFromPeerRootXri(), XDI3Segment.create("([=]!1111)"));
+		assertEquals(message.getToPeerRootXri(), XDI3Segment.create("([=]!2222)"));
 	}
 }

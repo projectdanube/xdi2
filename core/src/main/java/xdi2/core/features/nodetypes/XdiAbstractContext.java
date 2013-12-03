@@ -6,6 +6,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -30,6 +31,12 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	public ContextNode getContextNode() {
 
 		return this.contextNode;
+	}
+
+	@Override
+	public XDI3Segment getXri() {
+
+		return this.getContextNode().getXri();
 	}
 
 	@Override
@@ -113,7 +120,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 
 		return null;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static <T extends XdiContext<?>> T fromContextNode(ContextNode contextNode, Class<T> t) {
 

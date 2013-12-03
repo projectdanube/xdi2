@@ -15,8 +15,8 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.Prototype;
 
 public class InterceptorList implements Iterable<Interceptor>, Prototype<InterceptorList>, Serializable {

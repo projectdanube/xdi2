@@ -10,13 +10,13 @@ import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
+import xdi2.messaging.transport.Request;
 import xdi2.server.transport.HttpRequest;
-import xdi2.server.transport.HttpTransport;
 
 /**
  * This interceptor looks for certain features associated with the HTTP transport,
@@ -27,7 +27,7 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor implements
 	private static Logger log = LoggerFactory.getLogger(HttpTransportDataInterceptor.class.getName());
 
 	public static final XDI3Segment XRI_S_IP = XDI3Segment.create("<$ip>");
-	
+
 	/*
 	 * Prototype
 	 */
@@ -49,12 +49,15 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor implements
 
 		// look for HttpTransport, HttpRequest, HttpResponse
 
-		HttpRequest httpRequest = HttpTransport.getHttpRequest(executionContext);
+		Request request = executionContext.getRequest();
+		if (! (request instanceof HttpRequest)) return false;
+
+		HttpRequest httpRequest = (HttpRequest) request;
 
 		// add <$ip>
 
 		String ip = httpRequest.getRemoteAddr();
-		
+
 		XdiAttribute ipXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XRI_S_IP));
 		XdiValue ipXdiValue = ipXdiAttribute.getXdiValue(true);
 		Literal ipLiteral = ipXdiValue.getContextNode().setLiteralString(ip);

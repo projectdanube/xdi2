@@ -6,15 +6,15 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
- * This interceptor checks if the target authority of a message matches the owner authority of the messaging target.
+ * This interceptor checks if the target peer root XRI of a message matches the owner peer root XRI of the messaging target.
  * 
  * @author markus
  */
@@ -41,17 +41,17 @@ public class ToInterceptor extends AbstractInterceptor implements MessageInterce
 	@Override
 	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// check if the owner authority matches the TO authority
+		// check if the owner peer root XRI matches the TO peer root XRI
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3Segment ownerAuthority = messagingTarget.getOwnerAuthority();
-		XDI3Segment toAuthority = message.getToAuthority();
+		XDI3Segment ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
+		XDI3Segment toPeerRootXri = message.getToPeerRootXri();
 
-		if (log.isDebugEnabled()) log.debug("ownerAuthority=" + ownerAuthority + ", toAuthority=" + toAuthority);
+		if (log.isDebugEnabled()) log.debug("ownerPeerRootXri=" + ownerPeerRootXri + ", toPeerRootXri=" + toPeerRootXri);
 
-		if (toAuthority == null) throw new Xdi2MessagingException("No TO authority found in message.", null, null);
+		if (toPeerRootXri == null) throw new Xdi2MessagingException("No TO peer root XRI found in message.", null, null);
 
-		if (! toAuthority.equals(ownerAuthority)) throw new Xdi2MessagingException("Invalid TO authority: " + toAuthority, null, null);
+		if (! toPeerRootXri.equals(ownerPeerRootXri)) throw new Xdi2MessagingException("Invalid TO peer root XRI: " + toPeerRootXri, null, null);
 
 		// done
 

@@ -1,7 +1,7 @@
 package xdi2.messaging.exceptions;
 
 import xdi2.core.exceptions.Xdi2Exception;
-import xdi2.messaging.target.ExecutionContext;
+import xdi2.messaging.context.ExecutionContext;
 
 /**
  * An exception that is thrown when messages are processed.

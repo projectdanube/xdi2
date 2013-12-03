@@ -5,10 +5,10 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.AddressHandler;
-import xdi2.messaging.target.ExecutionContext;
 import xdi2.messaging.target.StatementHandler;
 
 public class EchoMessagingTarget extends AbstractMessagingTarget {

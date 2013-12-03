@@ -2,10 +2,13 @@ package xdi2.server.factory.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -26,16 +29,15 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 
 		// parse owner
 
-		String ownerString = requestPath.substring(messagingTargetFactoryPath.length() + 1);
+		String ownerString = requestPath.substring(messagingTargetFactoryPath.length());
+		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerString;
-
-		XDI3Segment owner;
+		XDI3Segment ownerXri;
 
 		try {
 
-			owner = XDI3Segment.create(URLDecoder.decode(ownerString, "UTF-8"));
+			ownerXri = XDI3Segment.create(URLDecoder.decode(ownerString, "UTF-8"));
 		} catch (UnsupportedEncodingException ex) { 
 
 			throw new Xdi2ServerException(ex.getMessage(), ex);
@@ -43,14 +45,34 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 
 		// create and mount the new messaging target
 
-		log.info("Will create messaging target for " + owner);
+		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerXri.toString();
 
-		return super.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetPath, owner, null, null);
+		log.info("Will create messaging target for " + ownerXri + " at " + messagingTargetPath);
+
+		return super.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetPath, ownerXri, null, null);
 	}
 
 	@Override
 	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2ServerException {
 
 		return messagingTarget;
+	}
+
+	@Override
+	public String getRequestPath(String messagingTargetFactoryPath, XDI3Segment ownerPeerRootXri) {
+
+		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootXri.getFirstSubSegment());
+
+		String ownerString;
+
+		try {
+
+			ownerString = URLEncoder.encode(ownerXri.toString(), "UTF-8");
+		} catch (UnsupportedEncodingException ex) { 
+
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
+		}
+
+		return messagingTargetFactoryPath + "/" + ownerString;
 	}
 }

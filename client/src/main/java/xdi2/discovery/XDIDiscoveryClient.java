@@ -127,7 +127,7 @@ public class XDIDiscoveryClient {
 
 		MessageEnvelope authorityMessageEnvelope = new MessageEnvelope();
 		Message authorityMessage = authorityMessageEnvelope.createMessage(XDIMessagingConstants.XRI_S_ANONYMOUS);
-		authorityMessage.setToAuthority(cloudNumber.getPeerRootXri());
+		authorityMessage.setToPeerRootXri(cloudNumber.getPeerRootXri());
 		authorityMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC_DO);
 		//authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
 		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY);
