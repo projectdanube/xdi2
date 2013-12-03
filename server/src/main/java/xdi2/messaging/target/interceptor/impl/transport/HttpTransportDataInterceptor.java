@@ -22,9 +22,9 @@ import xdi2.server.transport.HttpTransport;
  * This interceptor looks for certain features associated with the HTTP transport,
  * e.g. IP address.
  */
-public class HttpTransportInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<HttpTransportInterceptor> {
+public class HttpTransportDataInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<HttpTransportDataInterceptor> {
 
-	private static Logger log = LoggerFactory.getLogger(HttpTransportInterceptor.class.getName());
+	private static Logger log = LoggerFactory.getLogger(HttpTransportDataInterceptor.class.getName());
 
 	public static final XDI3Segment XRI_S_IP = XDI3Segment.create("<$ip>");
 	
@@ -33,7 +33,7 @@ public class HttpTransportInterceptor extends AbstractInterceptor implements Mes
 	 */
 
 	@Override
-	public HttpTransportInterceptor instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public HttpTransportDataInterceptor instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// done
 
