@@ -159,7 +159,7 @@ h1 { font-size: 1.5em; }
 	<th>Path</th>
 	<th>MessagingTargetFactory</th>
 	</tr>
-#foreach($messagingtargetfactorymounts in $messagingtargetfactorymounts)
+#foreach($messagingtargetfactorymount in $messagingtargetfactorymounts)
 	<tr>
     <td valign="top">
     	<a href="$request.baseUri$messagingtargetfactorymount.messagingTargetFactoryPath">
