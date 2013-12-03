@@ -15,6 +15,7 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.policy.PolicyAnd;
+import xdi2.core.features.linkcontracts.policy.PolicyOr;
 import xdi2.core.features.linkcontracts.policy.PolicyUtil;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -178,7 +179,10 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 			PolicyAnd policyAnd = bootstrapLinkContract.getPolicyRoot(true).createAndPolicy(true);
 			PolicyUtil.createSenderIsOperator(policyAnd, this.getBootstrapOwner());
-			PolicyUtil.createSecretTokenValidOperator(policyAnd);
+
+			PolicyOr policyOr = policyAnd.createOrPolicy(true);
+			PolicyUtil.createSecretTokenValidOperator(policyOr);
+			PolicyUtil.createSignatureValidOperator(policyOr);
 		}
 
 		// create bootstrap public link contract
