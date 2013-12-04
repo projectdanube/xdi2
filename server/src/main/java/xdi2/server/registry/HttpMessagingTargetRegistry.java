@@ -139,11 +139,13 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		if (messagingTargetPath == null) throw new NullPointerException("Cannot mount a messaging target without path.");
 
+		if (log.isDebugEnabled()) log.debug("Mounting messaging target " + messagingTarget.getClass().getSimpleName() + " at path " + messagingTargetPath);
+
 		// already mounted?
 
 		if (this.messagingTargetMounts.containsKey(messagingTargetPath)) {
 
-			throw new Xdi2ServerException("Messaging target " + this.messagingTargetMounts.get(messagingTargetPath).getClass().getCanonicalName() + " already mounted at path " + messagingTargetPath + ".");
+			throw new Xdi2ServerException("Messaging target " + this.messagingTargetMounts.get(messagingTargetPath).getMessagingTarget().getClass().getCanonicalName() + " already mounted at path " + messagingTargetPath + ".");
 		}
 
 		// init messaging target
@@ -163,13 +165,13 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		messagingTargetPath = "/" + messagingTargetPath;
 
 		MessagingTargetMount messagingTargetMount = new MessagingTargetMount(messagingTargetPath, messagingTarget);
-		
+
 		this.messagingTargetMounts.put(messagingTargetPath, messagingTargetMount);
 
 		// done
 
 		log.info("Messaging target " + messagingTarget.getClass().getCanonicalName() + " mounted at path " + messagingTargetPath + ".");
-		
+
 		return messagingTargetMount;
 	}
 
@@ -180,6 +182,8 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	public synchronized MessagingTargetFactoryMount mountMessagingTargetFactory(String messagingTargetFactoryPath, MessagingTargetFactory messagingTargetFactory) throws Xdi2ServerException {
 
 		if (messagingTargetFactoryPath == null) throw new NullPointerException("Cannot mount a messaging target factory without path.");
+
+		if (log.isDebugEnabled()) log.debug("Mounting messaging target factory " + messagingTargetFactory.getClass().getSimpleName() + " at path " + messagingTargetFactoryPath);
 
 		// already mounted?
 
@@ -195,7 +199,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		messagingTargetFactoryPath = "/" + messagingTargetFactoryPath;
 
 		MessagingTargetFactoryMount messagingTargetFactoryMount = new MessagingTargetFactoryMount(messagingTargetFactoryPath, messagingTargetFactory);
-		
+
 		this.messagingTargetFactoryMounts.put(messagingTargetFactoryPath, messagingTargetFactoryMount);
 
 		// init messaging target factory
@@ -212,7 +216,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		// done
 
 		log.info("Messaging target factory " + messagingTargetFactory.getClass().getCanonicalName() + " mounted at path " + messagingTargetFactoryPath + ".");
-		
+
 		return messagingTargetFactoryMount;
 	}
 
@@ -221,6 +225,8 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	 * @param messagingTarget The messaging target to unmount.
 	 */
 	public synchronized void unmountMessagingTarget(MessagingTarget messagingTarget) {
+
+		if (log.isDebugEnabled()) log.debug("Unmounting messaging target " + messagingTarget.getClass().getSimpleName());
 
 		// shutdown messaging target
 
@@ -251,6 +257,8 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	 * @param messagingTargetFactory The messaging target factory to unmount.
 	 */
 	public synchronized void unmountMessagingTargetFactory(MessagingTargetFactory messagingTargetFactory) {
+
+		if (log.isDebugEnabled()) log.debug("Unmounting messaging target factory " + messagingTargetFactory.getClass().getSimpleName());
 
 		// shutdown messaging target factory
 
@@ -347,7 +355,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 			String requestPath = messagingTargetFactoryMount.getMessagingTargetFactory().getRequestPath(messagingTargetFactoryMount.getMessagingTargetFactoryPath(), ownerPeerRootXri);
 			if (requestPath == null) continue;
-			
+
 			return this.lookup(requestPath);
 		}
 

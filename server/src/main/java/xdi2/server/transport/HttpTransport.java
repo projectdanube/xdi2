@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -114,7 +115,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		try {
 
-			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
+			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(URLDecoder.decode(request.getRequestPath(), "UTF-8"));
 
 			this.processGetRequest(request, response, messagingTargetMount);
 		} catch (Exception ex) {
@@ -133,7 +134,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		try {
 
-			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
+			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(URLDecoder.decode(request.getRequestPath(), "UTF-8"));
 
 			this.processPostRequest(request, response, messagingTargetMount);
 		} catch (Exception ex) {
@@ -152,7 +153,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		try {
 
-			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
+			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(URLDecoder.decode(request.getRequestPath(), "UTF-8"));
 
 			this.processPutRequest(request, response, messagingTargetMount);
 		} catch (Exception ex) {
@@ -171,7 +172,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		try {
 
-			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
+			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(URLDecoder.decode(request.getRequestPath(), "UTF-8"));
 
 			this.processDeleteRequest(request, response, messagingTargetMount);
 		} catch (Exception ex) {
