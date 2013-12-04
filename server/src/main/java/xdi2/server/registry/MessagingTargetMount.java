@@ -40,6 +40,6 @@ public class MessagingTargetMount {
 	@Override
 	public String toString() {
 
-		return this.messagingTargetPath + " --> " + messagingTarget.getClass().getSimpleName();
+		return this.messagingTargetPath + " --> " + this.messagingTarget.getClass().getSimpleName();
 	}
 }
