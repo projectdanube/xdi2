@@ -2,6 +2,8 @@ package xdi2.server.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,6 +35,14 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 
 		String requestPath = requestUri.substring(contextPath.length() + servletPath.length());
 		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
+
+		try {
+
+			requestPath = URLDecoder.decode(requestPath, "UTF-8");
+		} catch (UnsupportedEncodingException ex) {
+
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 
 		String baseUri = httpServletRequest.getRequestURL().toString().substring(0, httpServletRequest.getRequestURL().length() - requestPath.length() + 1);
 		if (baseUri.endsWith("/")) baseUri = baseUri.substring(0, baseUri.length() - 1);
