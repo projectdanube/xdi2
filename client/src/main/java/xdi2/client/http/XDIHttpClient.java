@@ -271,8 +271,6 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 			ErrorMessageResult errorMessageResult = ErrorMessageResult.fromGraph(messageResult.getGraph());
 
-			log.warn("Error message result: " + errorMessageResult.getErrorString());
-
 			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, errorMessageResult, beginTimestamp, endTimestamp));
 
 			throw new Xdi2ClientException("Error message result: " + errorMessageResult.getErrorString(), null, errorMessageResult);
