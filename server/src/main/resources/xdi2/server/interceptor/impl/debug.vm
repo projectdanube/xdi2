@@ -69,7 +69,7 @@ h1 { font-size: 1.5em; }
 	<tr>
 	<th>Path</th>
 	<th>MessagingTarget</th>
-	<th>Owner Authority</th>
+	<th>Owner Peer Root</th>
 	<th>Contributors</th>
 	<th>Interceptors</th>
 	</tr>
@@ -133,8 +133,8 @@ h1 { font-size: 1.5em; }
     	#end
     </td>
     <td valign="top">
-    	#if($messagingtargetmount.messagingTarget.ownerAuthority)
-    		$messagingtargetmount.messagingTarget.ownerAuthority
+    	#if($messagingtargetmount.messagingTarget.ownerPeerRootXri)
+    		$messagingtargetmount.messagingTarget.ownerPeerRootXri
     	#end
     </td>
 	<td valign="top">
