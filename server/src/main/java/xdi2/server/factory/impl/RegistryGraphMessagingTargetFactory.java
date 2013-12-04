@@ -1,7 +1,6 @@
 package xdi2.server.factory.impl;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Iterator;
 
@@ -41,15 +40,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDI3Segment ownerXri;
-
-		try {
-
-			ownerXri = XDI3Segment.create(URLDecoder.decode(ownerString, "UTF-8"));
-		} catch (UnsupportedEncodingException ex) { 
-
-			throw new Xdi2RuntimeException(ex.getMessage(), ex);
-		}
+		XDI3Segment ownerXri = XDI3Segment.create(ownerString);
 
 		// find the owner's XDI peer root
 
@@ -95,23 +86,15 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDI3Segment owner;
+		XDI3Segment ownerXri = XDI3Segment.create(ownerString);
 
-		try {
+		// find the owner's XDI peer root
 
-			owner = XDI3Segment.create(URLDecoder.decode(ownerString, "UTF-8"));
-		} catch (UnsupportedEncodingException ex) { 
-
-			throw new Xdi2ServerException(ex.getMessage(), ex);
-		}
-
-		// find the owner's peer root context node
-
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(owner, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(ownerXri, false);
 
 		if (ownerPeerRoot == null) {
 
-			log.warn("Peer root for " + owner + " no longer found in the registry graph. Removing messaging target.");
+			log.warn("Peer root for " + ownerXri + " no longer found in the registry graph. Removing messaging target.");
 
 			try {
 
