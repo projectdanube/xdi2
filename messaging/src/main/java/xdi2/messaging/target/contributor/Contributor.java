@@ -6,9 +6,9 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.Decorator;
+import xdi2.messaging.target.Extension;
 
-public interface Contributor extends Decorator {
+public interface Contributor extends Extension {
 
 	/*
 	 * Contributor addresses

@@ -60,13 +60,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// init interceptors and contributors
 
-		List<Decorator> decorators = new ArrayList<Decorator> ();
+		List<Extension> decorators = new ArrayList<Extension> ();
 		decorators.addAll(new IteratorListMaker<Interceptor> (this.getInterceptors().iterator()).list());
 		decorators.addAll(new IteratorListMaker<Contributor> (this.getContributors().iterator()).list());
 
-		Collections.sort(decorators, new Decorator.InitPriorityComparator());
+		Collections.sort(decorators, new Extension.InitPriorityComparator());
 
-		for (Decorator decorator : decorators) {
+		for (Extension decorator : decorators) {
 
 			if (log.isDebugEnabled()) log.debug("Initializing interceptor/contributor " + decorator.getClass().getSimpleName() + ".");
 
@@ -81,13 +81,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// shutdon interceptors and contributors
 
-		List<Decorator> decorators = new ArrayList<Decorator> ();
+		List<Extension> decorators = new ArrayList<Extension> ();
 		decorators.addAll(new IteratorListMaker<Interceptor> (this.getInterceptors().iterator()).list());
 		decorators.addAll(new IteratorListMaker<Contributor> (this.getContributors().iterator()).list());
 
-		Collections.sort(decorators, new Decorator.ShutdownPriorityComparator());
+		Collections.sort(decorators, new Extension.ShutdownPriorityComparator());
 
-		for (Decorator decorator : decorators) {
+		for (Extension decorator : decorators) {
 
 			if (log.isDebugEnabled()) log.debug("Shutting down interceptor/contributor " + decorator.getClass().getSimpleName() + ".");
 

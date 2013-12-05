@@ -14,10 +14,10 @@ import xdi2.messaging.Operation;
 import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.AbstractDecorator;
+import xdi2.messaging.target.AbstractExtension;
 import xdi2.messaging.target.impl.graph.GraphContextHandler;
 
-public abstract class AbstractContributor extends AbstractDecorator implements Contributor {
+public abstract class AbstractContributor extends AbstractExtension implements Contributor {
 
 	private ContributorMap contributors;
 

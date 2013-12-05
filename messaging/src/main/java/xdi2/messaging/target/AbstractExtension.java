@@ -1,6 +1,6 @@
 package xdi2.messaging.target;
 
-public class AbstractDecorator implements Decorator {
+public class AbstractExtension implements Extension {
 
 	public final static int DEFAULT_INIT_PRIORITY = 10;
 	public final static int DEFAULT_SHUTDOWN_PRIORITY = 10;
@@ -9,14 +9,14 @@ public class AbstractDecorator implements Decorator {
 	private int shutdownPriority;
 	private boolean enabled;
 
-	public AbstractDecorator(int initPriority, int shutdownPriority) {
+	public AbstractExtension(int initPriority, int shutdownPriority) {
 
 		this.initPriority = initPriority;
 		this.shutdownPriority = shutdownPriority;
 		this.enabled = true;
 	}
 
-	public AbstractDecorator() {
+	public AbstractExtension() {
 
 		this(DEFAULT_INIT_PRIORITY, DEFAULT_SHUTDOWN_PRIORITY);
 	}

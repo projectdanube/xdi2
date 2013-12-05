@@ -2,7 +2,7 @@ package xdi2.messaging.target;
 
 import java.util.Comparator;
 
-public interface Decorator {
+public interface Extension {
 
 	/*
 	 * Init and shutdown
@@ -25,19 +25,19 @@ public interface Decorator {
 	 * Class for sorting by init or shutdown priority
 	 */
 
-	public static class InitPriorityComparator implements Comparator<Decorator> {
+	public static class InitPriorityComparator implements Comparator<Extension> {
 
 		@Override
-		public int compare(Decorator decorator1, Decorator decorator2) {
+		public int compare(Extension decorator1, Extension decorator2) {
 
 			return Integer.valueOf(decorator1.getInitPriority()).compareTo(Integer.valueOf(decorator2.getInitPriority()));
 		}
 	}
 
-	public static class ShutdownPriorityComparator implements Comparator<Decorator> {
+	public static class ShutdownPriorityComparator implements Comparator<Extension> {
 
 		@Override
-		public int compare(Decorator decorator1, Decorator decorator2) {
+		public int compare(Extension decorator1, Extension decorator2) {
 
 			return Integer.valueOf(decorator1.getShutdownPriority()).compareTo(Integer.valueOf(decorator2.getShutdownPriority()));
 		}
