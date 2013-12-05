@@ -56,6 +56,12 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		if (request.getParameter("input") != null && request.getParameter("endpoint") != null) {
+
+			this.doPost(request, response);
+			return;
+		}
+
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
