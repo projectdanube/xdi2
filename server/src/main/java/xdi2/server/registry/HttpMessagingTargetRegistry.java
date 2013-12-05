@@ -368,6 +368,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	 * MessagingTargets
 	 */
 
+	@Override
 	public synchronized List<MessagingTargetMount> getMessagingTargetMounts() {
 
 		return new ArrayList<MessagingTargetMount> (this.messagingTargetMounts.values());
@@ -418,6 +419,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	 * MessagingTargetFactorys
 	 */
 
+	@Override
 	public synchronized List<MessagingTargetFactoryMount> getMessagingTargetFactoryMounts() {
 
 		return new ArrayList<MessagingTargetFactoryMount> (this.messagingTargetFactoryMounts.values());

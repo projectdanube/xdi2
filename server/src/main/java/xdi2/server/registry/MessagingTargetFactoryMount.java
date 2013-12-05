@@ -40,6 +40,6 @@ public class MessagingTargetFactoryMount {
 	@Override
 	public String toString() {
 
-		return this.messagingTargetFactoryPath + " --> " + messagingTargetFactory.getClass().getSimpleName();
+		return this.messagingTargetFactoryPath + " --> " + this.messagingTargetFactory.getClass().getSimpleName();
 	}
 }
