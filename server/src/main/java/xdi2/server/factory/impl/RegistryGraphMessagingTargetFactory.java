@@ -12,6 +12,7 @@ import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -52,7 +53,8 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 			return null;
 		}
 
-		ownerPeerRoot = (XdiPeerRoot) ownerPeerRoot.dereference();
+		XdiRoot dereferencedOwnerPeerRoot = ownerPeerRoot.dereference();
+		if (dereferencedOwnerPeerRoot instanceof XdiPeerRoot) ownerPeerRoot = (XdiPeerRoot) dereferencedOwnerPeerRoot;
 
 		if (ownerPeerRoot.isSelfPeerRoot()) {
 
