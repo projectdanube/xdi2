@@ -60,17 +60,17 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// init interceptors and contributors
 
-		List<Extension> decorators = new ArrayList<Extension> ();
-		decorators.addAll(new IteratorListMaker<Interceptor> (this.getInterceptors().iterator()).list());
-		decorators.addAll(new IteratorListMaker<Contributor> (this.getContributors().iterator()).list());
+		List<Extension> extensions = new ArrayList<Extension> ();
+		extensions.addAll(new IteratorListMaker<Interceptor> (this.getInterceptors().iterator()).list());
+		extensions.addAll(new IteratorListMaker<Contributor> (this.getContributors().iterator()).list());
 
-		Collections.sort(decorators, new Extension.InitPriorityComparator());
+		Collections.sort(extensions, new Extension.InitPriorityComparator());
 
-		for (Extension decorator : decorators) {
+		for (Extension extension : extensions) {
 
-			if (log.isDebugEnabled()) log.debug("Initializing interceptor/contributor " + decorator.getClass().getSimpleName() + ".");
+			if (log.isDebugEnabled()) log.debug("Initializing interceptor/contributor " + extension.getClass().getSimpleName() + ".");
 
-			decorator.init(this);
+			extension.init(this);
 		}
 	}
 
@@ -81,17 +81,17 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		// shutdon interceptors and contributors
 
-		List<Extension> decorators = new ArrayList<Extension> ();
-		decorators.addAll(new IteratorListMaker<Interceptor> (this.getInterceptors().iterator()).list());
-		decorators.addAll(new IteratorListMaker<Contributor> (this.getContributors().iterator()).list());
+		List<Extension> extensions = new ArrayList<Extension> ();
+		extensions.addAll(new IteratorListMaker<Interceptor> (this.getInterceptors().iterator()).list());
+		extensions.addAll(new IteratorListMaker<Contributor> (this.getContributors().iterator()).list());
 
-		Collections.sort(decorators, new Extension.ShutdownPriorityComparator());
+		Collections.sort(extensions, new Extension.ShutdownPriorityComparator());
 
-		for (Extension decorator : decorators) {
+		for (Extension extension : extensions) {
 
-			if (log.isDebugEnabled()) log.debug("Shutting down interceptor/contributor " + decorator.getClass().getSimpleName() + ".");
+			if (log.isDebugEnabled()) log.debug("Shutting down interceptor/contributor " + extension.getClass().getSimpleName() + ".");
 
-			decorator.shutdown(this);
+			extension.shutdown(this);
 		}
 	}
 

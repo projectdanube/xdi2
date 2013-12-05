@@ -28,18 +28,18 @@ public interface Extension {
 	public static class InitPriorityComparator implements Comparator<Extension> {
 
 		@Override
-		public int compare(Extension decorator1, Extension decorator2) {
+		public int compare(Extension extension1, Extension extension2) {
 
-			return Integer.valueOf(decorator1.getInitPriority()).compareTo(Integer.valueOf(decorator2.getInitPriority()));
+			return Integer.valueOf(extension1.getInitPriority()).compareTo(Integer.valueOf(extension2.getInitPriority()));
 		}
 	}
 
 	public static class ShutdownPriorityComparator implements Comparator<Extension> {
 
 		@Override
-		public int compare(Extension decorator1, Extension decorator2) {
+		public int compare(Extension extension1, Extension extension2) {
 
-			return Integer.valueOf(decorator1.getShutdownPriority()).compareTo(Integer.valueOf(decorator2.getShutdownPriority()));
+			return Integer.valueOf(extension1.getShutdownPriority()).compareTo(Integer.valueOf(extension2.getShutdownPriority()));
 		}
 	}
 }
