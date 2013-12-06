@@ -29,7 +29,9 @@ public class XDIDiscoveryClient {
 
 	private static Logger log = LoggerFactory.getLogger(XDIDiscoveryClient.class.getName());
 
-	public static final XDIHttpClient DEFAULT_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
+	public static final XDIHttpClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
+	public static final XDIHttpClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://mycloud-ote.neustar.biz:12220/");
+	public static final XDIHttpClient DEFAULT_XDI_CLIENT = NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
 
 	private XDIHttpClient registryXdiClient;
 
@@ -40,7 +42,7 @@ public class XDIDiscoveryClient {
 
 	public XDIDiscoveryClient() {
 
-		this(DEFAULT_XDI_CLIENT);
+		this(NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
 	}
 
 	public XDIDiscoveryResult discover(XDI3Segment query, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
