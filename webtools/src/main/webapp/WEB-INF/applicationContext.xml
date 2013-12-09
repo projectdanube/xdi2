@@ -28,18 +28,6 @@
 
 	<!-- MESSAGING TARGET TO BE USED AS A PROTOTYPE FOR MESSAGING TARGET FACTORIES -->
 
-	<bean id="facebookContributor" class="xdi2.connector.facebook.contributor.FacebookContributor">
-		<property name="facebookApi">
-			<bean class="xdi2.connector.facebook.api.FacebookApi" init-method="init" destroy-method="destroy">
-				<property name="appId" value="420250631345354" />
-				<property name="appSecret" value="c2feeda99926ab3c6096beaa8e6eca73" />
-			</bean>
-		</property>
-		<property name="facebookMapping">
-			<bean class="xdi2.connector.facebook.mapping.FacebookMapping" />
-		</property>
-	</bean>
-
 	<bean id="prototypeGraphFactory" class="xdi2.core.impl.memory.MemoryGraphFactory">
 	</bean>
 
@@ -65,12 +53,6 @@
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
-				<ref bean="facebookContributor" />
-			</util:list>
-		</property>
-		<property name="contributors">
-			<util:list>
-				<ref bean="facebookContributor" />
 			</util:list>
 		</property>
 	</bean>
