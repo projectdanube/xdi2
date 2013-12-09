@@ -139,18 +139,18 @@ public class XDI3UtilTest extends TestCase {
 
 		XDI3Segment xri = XDI3Segment.create("=a*b*c*d");
 
-		assertEquals(XDI3Util.startXri(xri, XDI3SubSegment.create("*b")), XDI3Segment.create("=a*b"));
-		assertEquals(XDI3Util.startXri(xri, XDI3SubSegment.create("*c")), XDI3Segment.create("=a*b*c"));
-		assertNull(XDI3Util.startXri(xri, XDI3SubSegment.create("*x")));
+		assertEquals(XDI3Util.indexOfXri(xri, XDI3SubSegment.create("*b")), 1);
+		assertEquals(XDI3Util.indexOfXri(xri, XDI3SubSegment.create("*c")), 2);
+		assertEquals(XDI3Util.indexOfXri(xri, XDI3SubSegment.create("*x")), -1);
 	}
 
 	public void testEndXri() throws Exception {
 
 		XDI3Segment xri = XDI3Segment.create("=a*b*c*d");
 
-		assertEquals(XDI3Util.endXri(xri, XDI3SubSegment.create("*b")), XDI3Segment.create("*b*c*d"));
-		assertEquals(XDI3Util.endXri(xri, XDI3SubSegment.create("*c")), XDI3Segment.create("*c*d"));
-		assertNull(XDI3Util.endXri(xri, XDI3SubSegment.create("*x")));
+		assertEquals(XDI3Util.lastIndexOfXri(xri, XDI3SubSegment.create("*b")), 1);
+		assertEquals(XDI3Util.lastIndexOfXri(xri, XDI3SubSegment.create("*c")), 2);
+		assertEquals(XDI3Util.lastIndexOfXri(xri, XDI3SubSegment.create("*x")), -1);
 	}
 
 	public void testRemoveStartXri() throws Exception {

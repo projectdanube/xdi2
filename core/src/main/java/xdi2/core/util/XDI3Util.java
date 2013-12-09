@@ -294,53 +294,45 @@ public final class XDI3Util {
 	}
 
 	/**
-	 * Get a start XRI from an XRI.
+	 * Get the index of an XRI inside an XRI.
 	 * For =a*b*c*d and *b, this returns =a*b
 	 * For =a*b*c*d and *c, this returns =a*b*c
 	 * For =a*b*c*d and *x, this returns null
 	 */
-	public static XDI3Segment startXri(final XDI3Segment xri, final XDI3SubSegment stop) {
+	public static int indexOfXri(final XDI3Segment xri, final XDI3SubSegment search) {
 
 		if (xri == null) throw new NullPointerException();
-		if (stop == null) throw new NullPointerException();
-
-		List<XDI3SubSegment> result = new ArrayList<XDI3SubSegment> ();
+		if (search == null) throw new NullPointerException();
 
 		for (int i=0; i<xri.getNumSubSegments(); i++) {
 
 			XDI3SubSegment subSegment = xri.getSubSegment(i);
 
-			result.add(subSegment);
-
-			if (subSegment.equals(stop)) return XDI3Segment.fromComponents(result);
+			if (subSegment.equals(search)) return i;
 		}
 
-		return null;
+		return -1;
 	}
 
 	/**
-	 * Get an end XRI from an XRI.
+	 * Get the last index of an XRI inside an XRI.
 	 * For =a*b*c*d and *b, this returns *b*c*d
 	 * For =a*b*c*d and *c, this returns *c*d
 	 * For =a*b*c*d and *x, this returns null
 	 */
-	public static XDI3Segment endXri(final XDI3Segment xri, final XDI3SubSegment stop) {
+	public static int lastIndexOfXri(final XDI3Segment xri, final XDI3SubSegment search) {
 
 		if (xri == null) throw new NullPointerException();
-		if (stop == null) throw new NullPointerException();
-
-		List<XDI3SubSegment> result = new ArrayList<XDI3SubSegment> ();
+		if (search == null) throw new NullPointerException();
 
 		for (int i=xri.getNumSubSegments()-1; i>=0; i--) {
 
 			XDI3SubSegment subSegment = xri.getSubSegment(i);
 
-			result.add(0, subSegment);
-
-			if (subSegment.equals(stop)) return XDI3Segment.fromComponents(result);
+			if (subSegment.equals(search)) return i;
 		}
 
-		return null;
+		return -1;
 	}
 
 	/**
