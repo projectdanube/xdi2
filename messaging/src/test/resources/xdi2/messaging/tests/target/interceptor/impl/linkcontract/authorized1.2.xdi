@@ -1,3 +1,3 @@
 =drummond[$msg]!1/$is()/(=markus)
-=drummond[$msg]!1/$do/=markus$do
+=drummond[$msg]!1/$do/$do
 =drummond[$msg]!1$do/$set/(=markus[<+email>]<!1>&/&/"markus@test.com")

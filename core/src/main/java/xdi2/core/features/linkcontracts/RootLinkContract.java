@@ -35,7 +35,7 @@ public class RootLinkContract extends LinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (! XDILinkContractConstants.XRI_S_DO.equals(xdiEntity.getContextNode().getXri())) return false;
+			if (! XDILinkContractConstants.XRI_S_DO.equals(xdiEntity.getXri())) return false;
 
 			return true;
 		} else {

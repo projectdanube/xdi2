@@ -65,6 +65,8 @@ public abstract class LinkContract implements Serializable, Comparable<LinkContr
 		if ((linkContract = RootLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
+		if ((linkContract = LinkContractTemplate.fromXdiEntity(xdiEntity)) != null) return linkContract;
+		if ((linkContract = MetaLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 
 		return null;
 	}

@@ -47,7 +47,6 @@ public class GenericLinkContract extends LinkContract {
 
 			if (getAuthorizingParty(xdiEntity.getXri()) == null) return false;
 			if (getRequestingParty(xdiEntity.getXri()) == null) return false;
-			if (getTemplateId(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
@@ -56,7 +55,6 @@ public class GenericLinkContract extends LinkContract {
 
 			if (getAuthorizingParty(xdiEntity.getXri()) == null) return false;
 			if (getRequestingParty(xdiEntity.getXri()) == null) return false;
-			if (getTemplateId(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else {
@@ -88,7 +86,7 @@ public class GenericLinkContract extends LinkContract {
 		genericLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_TO);
 		genericLinkContractArcXris.addAll(requestingParty.getSubSegments());
 		genericLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_FROM);
-		genericLinkContractArcXris.addAll(templateId.getSubSegments());
+		if (templateId != null) genericLinkContractArcXris.addAll(templateId.getSubSegments());
 		genericLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_DO);
 
 		XDI3Segment genericLinkContractXri = XDI3Segment.fromComponents(genericLinkContractArcXris);
