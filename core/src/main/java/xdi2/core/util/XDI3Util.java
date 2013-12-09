@@ -294,6 +294,18 @@ public final class XDI3Util {
 	}
 
 	/**
+	 * Extracts a sub-XRI from an XRI
+	 * For =a*b*c*d and 1, this returns *d
+	 * For =a*b*c*d and -1, this returns *b*c*d
+	 */
+	public static XDI3Segment subXri(final XDI3Segment xri, final int startIndex, final int endIndex) {
+
+		if (xri == null) throw new NullPointerException();
+
+		return XDI3Util.localXri(XDI3Util.parentXri(xri, endIndex), - startIndex);
+	}
+
+	/**
 	 * Get the index of an XRI inside an XRI.
 	 * For =a*b*c*d and *b, this returns =a*b
 	 * For =a*b*c*d and *c, this returns =a*b*c

@@ -1,6 +1,7 @@
 package xdi2.tests.core.util;
 
 import junit.framework.TestCase;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
@@ -151,6 +152,27 @@ public class XDI3UtilTest extends TestCase {
 		assertEquals(XDI3Util.lastIndexOfXri(xri, XDI3SubSegment.create("*b")), 1);
 		assertEquals(XDI3Util.lastIndexOfXri(xri, XDI3SubSegment.create("*c")), 2);
 		assertEquals(XDI3Util.lastIndexOfXri(xri, XDI3SubSegment.create("*x")), -1);
+	}
+
+	public void testSubXri() throws Exception {
+
+		XDI3Segment xri1 = XDI3Segment.create("=bob$to=alice$from+registration$do");
+		int index1_1 = XDI3Util.indexOfXri(xri1, XDILinkContractConstants.XRI_SS_TO);
+		int index1_2 = XDI3Util.indexOfXri(xri1, XDILinkContractConstants.XRI_SS_FROM);
+
+		assertEquals(index1_1, 1);
+		assertEquals(index1_2, 3);
+		assertEquals(XDI3Util.subXri(xri1, 0, index1_1), XDI3Segment.create("=bob"));
+		assertEquals(XDI3Util.subXri(xri1, index1_1 + 1, index1_2), XDI3Segment.create("=alice"));
+
+		XDI3Segment xri2 = XDI3Segment.create("[=]!1111$to[=]!2222$from+registration$do");
+		int index2_1 = XDI3Util.indexOfXri(xri2, XDILinkContractConstants.XRI_SS_TO);
+		int index2_2 = XDI3Util.indexOfXri(xri2, XDILinkContractConstants.XRI_SS_FROM);
+
+		assertEquals(index2_1, 2);
+		assertEquals(index2_2, 5);
+		assertEquals(XDI3Util.subXri(xri2, 0, index2_1), XDI3Segment.create("[=]!1111"));
+		assertEquals(XDI3Util.subXri(xri2, index2_1 + 1, index2_2), XDI3Segment.create("[=]!2222"));
 	}
 
 	public void testRemoveStartXri() throws Exception {
