@@ -8,9 +8,7 @@ import xdi2.core.Statement;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
-import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntityMember;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.util.XDI3Util;
@@ -23,7 +21,7 @@ import xdi2.core.xri3.XDI3Statement;
  * 
  * @author markus
  */
-public final class LinkContract implements Serializable, Comparable<LinkContract> {
+public abstract class LinkContract implements Serializable, Comparable<LinkContract> {
 
 	private static final long serialVersionUID = 1604380462449272148L;
 
@@ -45,16 +43,14 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
-		if (xdiEntity instanceof XdiEntitySingleton) {
+		if (xdiEntity == null) return false;
 
-			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO));
-		} else if (xdiEntity instanceof XdiEntityMember) {
-
-			return ((XdiEntityMember) xdiEntity).getXdiCollection().getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO));
-		} else {
-
-			return false;
-		}
+		return
+				RootLinkContract.isValid(xdiEntity) ||
+				PublicLinkContract.isValid(xdiEntity) ||
+				GenericLinkContract.isValid(xdiEntity) ||
+				LinkContractTemplate.isValid(xdiEntity) ||
+				MetaLinkContract.isValid(xdiEntity);
 	}
 
 	/**
@@ -64,9 +60,13 @@ public final class LinkContract implements Serializable, Comparable<LinkContract
 	 */
 	public static LinkContract fromXdiEntity(XdiEntity xdiEntity) {
 
-		if (! isValid(xdiEntity)) return null;
+		LinkContract linkContract = null;
 
-		return new LinkContract(xdiEntity);
+		if ((linkContract = RootLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
+		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
+		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
+
+		return null;
 	}
 
 	/*

@@ -12,8 +12,8 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.equivalence.Equivalence;
-import xdi2.core.features.linkcontracts.LinkContract;
-import xdi2.core.features.linkcontracts.LinkContracts;
+import xdi2.core.features.linkcontracts.PublicLinkContract;
+import xdi2.core.features.linkcontracts.RootLinkContract;
 import xdi2.core.features.linkcontracts.policy.PolicyAnd;
 import xdi2.core.features.linkcontracts.policy.PolicyOr;
 import xdi2.core.features.linkcontracts.policy.PolicyUtil;
@@ -120,8 +120,6 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 		GraphMessagingTarget graphMessagingTarget = (GraphMessagingTarget) messagingTarget;
 		Graph graph = graphMessagingTarget.getGraph();
 
-		ContextNode rootContextNode = graph.getRootContextNode();
-
 		if (log.isDebugEnabled()) log.debug("bootstrapOwner=" + this.getBootstrapOwner() + ", bootstrapOwnerSynonyms=" + Arrays.asList(this.getBootstrapOwnerSynonyms()) + ", bootstrapLinkContract=" + this.getBootstrapRootLinkContract() + ", bootstrapPublicLinkContract=" + this.getBootstrapPublicLinkContract() + ", bootstrapGraph=" + (this.getBootstrapGraph() != null) + ", bootstrapMessageEnvelope=" + (this.getBootstrapMessageEnvelope() != null));
 
 		// check if the owner statement exists
@@ -174,10 +172,10 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 			bootstrapOwnerContextNode = graph.setDeepContextNode(this.getBootstrapOwner());
 
-			LinkContract bootstrapLinkContract = LinkContracts.getLinkContract(rootContextNode, true);
-			bootstrapLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_ALL, XDIConstants.XRI_S_ROOT);
+			RootLinkContract bootstrapRootLinkContract = RootLinkContract.findRootLinkContract(graph, true);
+			bootstrapRootLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_ALL, XDIConstants.XRI_S_ROOT);
 
-			PolicyAnd policyAnd = bootstrapLinkContract.getPolicyRoot(true).createAndPolicy(true);
+			PolicyAnd policyAnd = bootstrapRootLinkContract.getPolicyRoot(true).createAndPolicy(true);
 			PolicyUtil.createSenderIsOperator(policyAnd, this.getBootstrapOwner());
 
 			PolicyOr policyOr = policyAnd.createOrPolicy(true);
@@ -191,9 +189,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 			if (log.isDebugEnabled()) log.debug("Creating bootstrap public link contract.");
 
-			ContextNode publicContextNode = graph.setDeepContextNode(XDILinkContractConstants.XRI_S_PUBLIC);
-
-			LinkContract bootstrapPublicLinkContract = LinkContracts.getLinkContract(publicContextNode, true);
+			PublicLinkContract bootstrapPublicLinkContract = PublicLinkContract.findPublicLinkContract(graph, true);
 			bootstrapPublicLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_GET, XDILinkContractConstants.XRI_S_PUBLIC);
 
 			XDI3Statement selfPeerRootRefStatement = XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE);
