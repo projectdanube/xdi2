@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public class XDI3UtilTest extends TestCase {
 
@@ -134,28 +135,46 @@ public class XDI3UtilTest extends TestCase {
 		assertNull(XDI3Util.endsWith(XDI3Segment.create(""), XDI3Segment.create("=xxx")));
 	}
 
+	public void testStartXri() throws Exception {
+
+		XDI3Segment xri = XDI3Segment.create("=a*b*c*d");
+
+		assertEquals(XDI3Util.startXri(xri, XDI3SubSegment.create("*b")), XDI3Segment.create("=a*b"));
+		assertEquals(XDI3Util.startXri(xri, XDI3SubSegment.create("*c")), XDI3Segment.create("=a*b*c"));
+		assertNull(XDI3Util.startXri(xri, XDI3SubSegment.create("*x")));
+	}
+
+	public void testEndXri() throws Exception {
+
+		XDI3Segment xri = XDI3Segment.create("=a*b*c*d");
+
+		assertEquals(XDI3Util.endXri(xri, XDI3SubSegment.create("*b")), XDI3Segment.create("*b*c*d"));
+		assertEquals(XDI3Util.endXri(xri, XDI3SubSegment.create("*c")), XDI3Segment.create("*c*d"));
+		assertNull(XDI3Util.endXri(xri, XDI3SubSegment.create("*x")));
+	}
+
 	public void testRemoveStartXri() throws Exception {
 
-		XDI3Segment xri1 = XDI3Segment.create("=a*b*c*d");
+		XDI3Segment xri = XDI3Segment.create("=a*b*c*d");
 
-		assertEquals(XDI3Util.removeStartXri(xri1, XDI3Segment.create("")), XDI3Segment.create("=a*b*c*d"));
-		assertEquals(XDI3Util.removeStartXri(xri1, XDI3Segment.create("=a")), XDI3Segment.create("*b*c*d"));
-		assertEquals(XDI3Util.removeStartXri(xri1, XDI3Segment.create("=a*b")), XDI3Segment.create("*c*d"));
-		assertEquals(XDI3Util.removeStartXri(xri1, XDI3Segment.create("=a*b*c")), XDI3Segment.create("*d"));
-		assertEquals(XDI3Util.removeStartXri(xri1, XDI3Segment.create("=a*b*c*d")), XDI3Segment.create(""));
-		assertNull(XDI3Util.removeStartXri(xri1, XDI3Segment.create("=x")));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("")), XDI3Segment.create("=a*b*c*d"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("=a")), XDI3Segment.create("*b*c*d"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("=a*b")), XDI3Segment.create("*c*d"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("=a*b*c")), XDI3Segment.create("*d"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("=a*b*c*d")), XDI3Segment.create(""));
+		assertNull(XDI3Util.removeStartXri(xri, XDI3Segment.create("=x")));
 	}
 
 	public void testRemoveEndXri() throws Exception {
 
-		XDI3Segment xri1 = XDI3Segment.create("=a*b*c*d");
+		XDI3Segment xri = XDI3Segment.create("=a*b*c*d");
 
-		assertEquals(XDI3Util.removeEndXri(xri1, XDI3Segment.create("")), XDI3Segment.create("=a*b*c*d"));
-		assertEquals(XDI3Util.removeEndXri(xri1, XDI3Segment.create("*d")), XDI3Segment.create("=a*b*c"));
-		assertEquals(XDI3Util.removeEndXri(xri1, XDI3Segment.create("*c*d")), XDI3Segment.create("=a*b"));
-		assertEquals(XDI3Util.removeEndXri(xri1, XDI3Segment.create("*b*c*d")), XDI3Segment.create("=a"));
-		assertEquals(XDI3Util.removeEndXri(xri1, XDI3Segment.create("=a*b*c*d")), XDI3Segment.create(""));
-		assertNull(XDI3Util.removeEndXri(xri1, XDI3Segment.create("*y")));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("")), XDI3Segment.create("=a*b*c*d"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("*d")), XDI3Segment.create("=a*b*c"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("*c*d")), XDI3Segment.create("=a*b"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("*b*c*d")), XDI3Segment.create("=a"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("=a*b*c*d")), XDI3Segment.create(""));
+		assertNull(XDI3Util.removeEndXri(xri, XDI3Segment.create("*y")));
 	}
 
 	public void testConcatXris() throws Exception {
