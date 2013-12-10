@@ -185,7 +185,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (toPeerRootXriRelation == null) return null;
 
 		XDI3Segment toPeerRootXri = toPeerRootXriRelation.getTargetContextNodeXri();
-		if (toPeerRootXri.getNumSubSegments() > 1 || ! XdiPeerRoot.isRootArcXri(toPeerRootXri.getFirstSubSegment())) return null;
+		if (toPeerRootXri.getNumSubSegments() > 1 || ! XdiPeerRoot.isPeerRootArcXri(toPeerRootXri.getFirstSubSegment())) return null;
 
 		return toPeerRootXri.getFirstSubSegment();
 	}
