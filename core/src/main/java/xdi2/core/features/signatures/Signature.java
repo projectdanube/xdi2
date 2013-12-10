@@ -9,12 +9,14 @@ import java.util.Properties;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Literal;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeMember;
+import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIJSONWriter;
@@ -127,6 +129,28 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 	/*
 	 * Signing and validating
 	 */
+
+	/**
+	 * Get the value
+	 */
+	public String getValue() {
+
+		XdiValue xdiValue = this.getXdiAttribute().getXdiValue(false);
+		Literal literal = xdiValue == null ? null : xdiValue.getContextNode().getLiteral();
+		String value = literal == null ? null : literal.getLiteralDataString();
+
+		return value;
+	}
+
+	/**
+	 * Set the value
+	 */
+	public void setValue(String value) {
+
+		XdiValue xdiValue = this.getXdiAttribute().getXdiValue(true);
+
+		xdiValue.getContextNode().setLiteralString(value);
+	}
 
 	/**
 	 * Create the signature value.
