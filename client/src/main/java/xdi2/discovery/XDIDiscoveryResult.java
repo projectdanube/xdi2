@@ -77,14 +77,14 @@ public class XDIDiscoveryResult implements Serializable {
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getContextNode().getXri());
+			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getArcXri());
 		}
 
 		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getContextNode().getXri());
+			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getArcXri());
 		}
 
 		// find endpoint uris
@@ -138,14 +138,14 @@ public class XDIDiscoveryResult implements Serializable {
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getContextNode().getXri());
+			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getArcXri());
 		}
 
 		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
 
-			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getContextNode().getXri());
+			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getArcXri());
 		}
 
 		// find signature public key

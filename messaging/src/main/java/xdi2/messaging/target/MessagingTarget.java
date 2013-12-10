@@ -1,6 +1,6 @@
 package xdi2.messaging.target;
 
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -36,5 +36,5 @@ public interface MessagingTarget {
 	 * Returns the owner peer root XRI of the messaging target.
 	 * This may be null.
 	 */
-	public XDI3Segment getOwnerPeerRootXri();
+	public XDI3SubSegment getOwnerPeerRootXri();
 }

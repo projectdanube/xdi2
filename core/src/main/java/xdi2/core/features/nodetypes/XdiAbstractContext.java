@@ -27,68 +27,6 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		this.contextNode = contextNode;
 	}
 
-	@Override
-	public ContextNode getContextNode() {
-
-		return this.contextNode;
-	}
-
-	@Override
-	public XDI3Segment getXri() {
-
-		return this.getContextNode().getXri();
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public EQ dereference() {
-
-		EQ xdiContext;
-
-		if ((xdiContext = this.getReferenceXdiContext()) != null) return xdiContext;
-		if ((xdiContext = this.getReplacementXdiContext()) != null) return xdiContext;
-
-		return (EQ) this;
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public EQ getReferenceXdiContext() {
-
-		ContextNode referenceContextNode = Equivalence.getReferenceContextNode(this.getContextNode());
-		EQ xdiContext = referenceContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(referenceContextNode);
-
-		return xdiContext;
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public EQ getReplacementXdiContext() {
-
-		ContextNode replacementContextNode = Equivalence.getReplacementContextNode(this.getContextNode());
-		EQ xdiContext = replacementContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(replacementContextNode);
-
-		return xdiContext;
-	}
-
-	@Override
-	public Iterator<EQ> getIdentityXdiContexts() {
-
-		Iterator<ContextNode> identityContextNodes = Equivalence.getIdentityContextNodes(this.getContextNode());
-
-		return new MappingIterator<ContextNode, EQ> (identityContextNodes) {
-
-			@Override
-			@SuppressWarnings("unchecked")
-			public EQ map(ContextNode identityContextNode) {
-
-				EQ xdiContext = identityContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(identityContextNode);
-
-				return xdiContext;
-			}
-		};
-	}
-
 	/*
 	 * Static methods
 	 */
@@ -155,6 +93,24 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	 * Instance methods
 	 */
 
+	@Override
+	public ContextNode getContextNode() {
+
+		return this.contextNode;
+	}
+
+	@Override
+	public XDI3Segment getXri() {
+
+		return this.getContextNode().getXri();
+	}
+
+	@Override
+	public XDI3SubSegment getArcXri() {
+
+		return this.getContextNode().getArcXri();
+	}
+
 	/**
 	 * Returns the "base" arc XRI, without context node type syntax.
 	 * @return The "base" arc XRI.
@@ -162,7 +118,57 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XDI3SubSegment getBaseArcXri() {
 
-		return getBaseArcXri(this.getContextNode().getArcXri());
+		return getBaseArcXri(this.getArcXri());
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public EQ dereference() {
+
+		EQ xdiContext;
+
+		if ((xdiContext = this.getReferenceXdiContext()) != null) return xdiContext;
+		if ((xdiContext = this.getReplacementXdiContext()) != null) return xdiContext;
+
+		return (EQ) this;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public EQ getReferenceXdiContext() {
+
+		ContextNode referenceContextNode = Equivalence.getReferenceContextNode(this.getContextNode());
+		EQ xdiContext = referenceContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(referenceContextNode);
+
+		return xdiContext;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public EQ getReplacementXdiContext() {
+
+		ContextNode replacementContextNode = Equivalence.getReplacementContextNode(this.getContextNode());
+		EQ xdiContext = replacementContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(replacementContextNode);
+
+		return xdiContext;
+	}
+
+	@Override
+	public Iterator<EQ> getIdentityXdiContexts() {
+
+		Iterator<ContextNode> identityContextNodes = Equivalence.getIdentityContextNodes(this.getContextNode());
+
+		return new MappingIterator<ContextNode, EQ> (identityContextNodes) {
+
+			@Override
+			@SuppressWarnings("unchecked")
+			public EQ map(ContextNode identityContextNode) {
+
+				EQ xdiContext = identityContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(identityContextNode);
+
+				return xdiContext;
+			}
+		};
 	}
 
 	/**

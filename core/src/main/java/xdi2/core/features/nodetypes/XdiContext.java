@@ -10,6 +10,7 @@ import xdi2.core.xri3.XDI3SubSegment;
 public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Comparable<XdiContext<?>> {
 
 	public ContextNode getContextNode();
+	public XDI3SubSegment getArcXri();
 	public XDI3Segment getXri();
 	public XDI3SubSegment getBaseArcXri();
 

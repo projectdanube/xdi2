@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
@@ -50,9 +51,9 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 	}
 
 	@Override
-	public String getRequestPath(String messagingTargetFactoryPath, XDI3Segment ownerPeerRootXri) {
+	public String getRequestPath(String messagingTargetFactoryPath, XDI3SubSegment ownerPeerRootXri) {
 
-		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootXri.getFirstSubSegment());
+		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootXri);
 
 		String ownerString;
 

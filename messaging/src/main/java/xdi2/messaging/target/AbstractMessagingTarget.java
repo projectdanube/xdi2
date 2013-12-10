@@ -12,6 +12,7 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -42,7 +43,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
-	private XDI3Segment ownerPeerRootXri;
+	private XDI3SubSegment ownerPeerRootXri;
 	private InterceptorList interceptors;
 	private ContributorMap contributors;
 
@@ -491,12 +492,12 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 */
 
 	@Override
-	public XDI3Segment getOwnerPeerRootXri() {
+	public XDI3SubSegment getOwnerPeerRootXri() {
 
 		return this.ownerPeerRootXri;
 	}
 
-	public void setOwnerPeerRootXri(XDI3Segment ownerPeerRootXri) {
+	public void setOwnerPeerRootXri(XDI3SubSegment ownerPeerRootXri) {
 
 		this.ownerPeerRootXri = ownerPeerRootXri;
 	}

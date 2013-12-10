@@ -3,7 +3,7 @@ package xdi2.messaging.target.interceptor.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -44,8 +44,8 @@ public class ToInterceptor extends AbstractInterceptor implements MessageInterce
 		// check if the owner peer root XRI matches the TO peer root XRI
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3Segment ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
-		XDI3Segment toPeerRootXri = message.getToPeerRootXri();
+		XDI3SubSegment ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
+		XDI3SubSegment toPeerRootXri = message.getToPeerRootXri();
 
 		if (log.isDebugEnabled()) log.debug("ownerPeerRootXri=" + ownerPeerRootXri + ", toPeerRootXri=" + toPeerRootXri);
 

@@ -18,6 +18,7 @@ import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.Signatures;
@@ -150,7 +151,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Return the FROM peer root XRI.
 	 */
-	public XDI3Segment getFromPeerRootXri() {
+	public XDI3SubSegment getFromPeerRootXri() {
 
 		for (Iterator<Relation> incomingRelations = this.getContextNode().getIncomingRelations(); incomingRelations.hasNext(); ) {
 
@@ -158,7 +159,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 			if (incomingRelation.getArcXri().equals(XDIMessagingConstants.XRI_S_FROM_PEER_ROOT_XRI)) {
 
-				return incomingRelation.getContextNode().getXri();
+				XDI3SubSegment arcXri = incomingRelation.getContextNode().getArcXri();
+
+				if (XdiPeerRoot.isPeerRootArcXri(arcXri)) return arcXri;
 			}
 		}
 
@@ -168,29 +171,32 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Set the FROM peer root XRI.
 	 */
-	public void setFromPeerRootXri(XDI3Segment fromPeerRootXri) {
+	public void setFromPeerRootXri(XDI3SubSegment fromPeerRootXri) {
 
-		this.getMessageEnvelope().getGraph().setDeepRelation(fromPeerRootXri, XDIMessagingConstants.XRI_S_FROM_PEER_ROOT_XRI, this.getContextNode());
+		this.getMessageEnvelope().getGraph().setDeepRelation(XDI3Segment.fromComponent(fromPeerRootXri), XDIMessagingConstants.XRI_S_FROM_PEER_ROOT_XRI, this.getContextNode());
 	}
 
 	/**
 	 * Return the TO peer root XRI of the message.
 	 */
-	public XDI3Segment getToPeerRootXri() {
+	public XDI3SubSegment getToPeerRootXri() {
 
 		Relation toPeerRootXriRelation = this.getContextNode().getRelation(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI);
 		if (toPeerRootXriRelation == null) return null;
 
-		return toPeerRootXriRelation.getTargetContextNodeXri();
+		XDI3Segment toPeerRootXri = toPeerRootXriRelation.getTargetContextNodeXri();
+		if (toPeerRootXri.getNumSubSegments() > 1 || ! XdiPeerRoot.isRootArcXri(toPeerRootXri.getFirstSubSegment())) return null;
+
+		return toPeerRootXri.getFirstSubSegment();
 	}
 
 	/**
 	 * Set the TO peer root XRI of the message.
 	 */
-	public void setToPeerRootXri(XDI3Segment toPeerRootXri) {
+	public void setToPeerRootXri(XDI3SubSegment toPeerRootXri) {
 
 		this.getContextNode().delRelations(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI);
-		this.getContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI, toPeerRootXri);
+		this.getContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI, XDI3Segment.fromComponent(toPeerRootXri));
 	}
 
 	/**

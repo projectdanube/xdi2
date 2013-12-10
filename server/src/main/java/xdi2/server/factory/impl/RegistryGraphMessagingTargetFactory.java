@@ -15,6 +15,7 @@ import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.server.exceptions.Xdi2ServerException;
@@ -118,11 +119,11 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	}
 
 	@Override
-	public Iterator<XDI3Segment> getOwnerPeerRootXris() {
+	public Iterator<XDI3SubSegment> getOwnerPeerRootXris() {
 
 		Iterator<XdiPeerRoot> ownerPeerRoots = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoots();
 
-		return new SelectingMappingIterator<XdiPeerRoot, XDI3Segment> (ownerPeerRoots) {
+		return new SelectingMappingIterator<XdiPeerRoot, XDI3SubSegment> (ownerPeerRoots) {
 
 			@Override
 			public boolean select(XdiPeerRoot ownerPeerRoot) {
@@ -131,17 +132,17 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 			}
 
 			@Override
-			public XDI3Segment map(XdiPeerRoot ownerPeerRoot) {
+			public XDI3SubSegment map(XdiPeerRoot ownerPeerRoot) {
 
-				return ownerPeerRoot.getXri();
+				return ownerPeerRoot.getArcXri();
 			}
 		};
 	}
 
 	@Override
-	public String getRequestPath(String messagingTargetFactoryPath, XDI3Segment ownerPeerRootXri) {
+	public String getRequestPath(String messagingTargetFactoryPath, XDI3SubSegment ownerPeerRootXri) {
 
-		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootXri.getFirstSubSegment());
+		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootXri);
 
 		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(ownerXri, false);
 		if (ownerPeerRoot == null) return null;

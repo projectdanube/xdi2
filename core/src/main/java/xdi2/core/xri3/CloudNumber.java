@@ -14,9 +14,9 @@ public class CloudNumber {
 	private static final Logger log = LoggerFactory.getLogger(CloudNumber.class);
 
 	private XDI3Segment xri;
-	private XDI3Segment peerRootXri;
+	private XDI3SubSegment peerRootXri;
 
-	private CloudNumber(XDI3Segment xri, XDI3Segment peerRootXri) {
+	private CloudNumber(XDI3Segment xri, XDI3SubSegment peerRootXri) {
 
 		this.xri = xri;
 		this.peerRootXri = peerRootXri;
@@ -67,7 +67,7 @@ public class CloudNumber {
 
 		XDI3Segment xri = XDI3Util.concatXris(subSegment1, subSegment2);
 
-		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
+		XDI3SubSegment peerRootXri = XdiPeerRoot.createPeerRootArcXri(xri);
 
 		return new CloudNumber(xri, peerRootXri);
 	}
@@ -78,14 +78,14 @@ public class CloudNumber {
 
 		if (! isValid(xri)) return null;
 
-		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
+		XDI3SubSegment peerRootXri = XdiPeerRoot.createPeerRootArcXri(xri);
 
 		return new CloudNumber(xri, peerRootXri);
 	}
 
-	public static CloudNumber fromPeerRootXri(XDI3Segment peerRootXri) {
+	public static CloudNumber fromPeerRootXri(XDI3SubSegment peerRootXri) {
 
-		XDI3Segment xri = XdiPeerRoot.getXriOfPeerRootArcXri(peerRootXri.getFirstSubSegment());
+		XDI3Segment xri = XdiPeerRoot.getXriOfPeerRootArcXri(peerRootXri);
 
 		return fromXri(xri);
 	}
@@ -95,7 +95,7 @@ public class CloudNumber {
 		return this.xri;
 	}
 
-	public XDI3Segment getPeerRootXri() {
+	public XDI3SubSegment getPeerRootXri() {
 
 		return this.peerRootXri;
 	}

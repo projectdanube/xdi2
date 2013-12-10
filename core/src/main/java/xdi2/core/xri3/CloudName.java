@@ -13,9 +13,9 @@ public class CloudName {
 	private static final Logger log = LoggerFactory.getLogger(CloudName.class);
 
 	private XDI3Segment xri;
-	private XDI3Segment peerRootXri;
+	private XDI3SubSegment peerRootXri;
 
-	private CloudName(XDI3Segment xri, XDI3Segment peerRootXri) {
+	private CloudName(XDI3Segment xri, XDI3SubSegment peerRootXri) {
 
 		this.xri = xri;
 		this.peerRootXri = peerRootXri;
@@ -62,7 +62,7 @@ public class CloudName {
 
 		XDI3Segment xri = XDI3Segment.create(buffer.toString());
 
-		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
+		XDI3SubSegment peerRootXri = XdiPeerRoot.createPeerRootArcXri(xri);
 
 		return new CloudName(xri, peerRootXri);
 	}
@@ -73,7 +73,7 @@ public class CloudName {
 
 		if (! isValid(xri)) return null;
 
-		XDI3Segment peerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(xri));
+		XDI3SubSegment peerRootXri = XdiPeerRoot.createPeerRootArcXri(xri);
 
 		return new CloudName(xri, peerRootXri);
 	}
@@ -90,7 +90,7 @@ public class CloudName {
 		return this.xri;
 	}
 
-	public XDI3Segment getPeerRootXri() {
+	public XDI3SubSegment getPeerRootXri() {
 
 		return this.peerRootXri;
 	}

@@ -3,7 +3,7 @@ package xdi2.server.factory;
 import java.util.Iterator;
 
 import xdi2.core.util.iterators.EmptyIterator;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 public abstract class AbstractMessagingTargetFactory implements MessagingTargetFactory {
 
@@ -22,13 +22,13 @@ public abstract class AbstractMessagingTargetFactory implements MessagingTargetF
 	}
 
 	@Override
-	public Iterator<XDI3Segment> getOwnerPeerRootXris() {
+	public Iterator<XDI3SubSegment> getOwnerPeerRootXris() {
 
-		return new EmptyIterator<XDI3Segment> ();
+		return new EmptyIterator<XDI3SubSegment> ();
 	}
 
 	@Override
-	public String getRequestPath(String messagingTargetFactoryPath, XDI3Segment ownerPeerRootXri) {
+	public String getRequestPath(String messagingTargetFactoryPath, XDI3SubSegment ownerPeerRootXri) {
 
 		return null;
 	}

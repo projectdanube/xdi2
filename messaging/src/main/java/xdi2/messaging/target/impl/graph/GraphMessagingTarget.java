@@ -7,6 +7,7 @@ import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -50,12 +51,12 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public XDI3Segment getOwnerPeerRootXri() {
+	public XDI3SubSegment getOwnerPeerRootXri() {
 
 		XdiPeerRoot selfPeerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).getSelfPeerRoot();
 		if (selfPeerRoot == null) return null;
 
-		return selfPeerRoot.getContextNode().getXri();
+		return selfPeerRoot.getContextNode().getArcXri();
 	}
 
 	@Override

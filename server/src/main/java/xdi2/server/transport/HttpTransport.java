@@ -19,6 +19,7 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -373,7 +374,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// set the TO peer root XRI to the owner peer root XRI of the messaging target
 
-		XDI3Segment ownerPeerRootXri = messagingTargetMount.getMessagingTarget().getOwnerPeerRootXri();
+		XDI3SubSegment ownerPeerRootXri = messagingTargetMount.getMessagingTarget().getOwnerPeerRootXri();
 
 		if (ownerPeerRootXri != null) {
 

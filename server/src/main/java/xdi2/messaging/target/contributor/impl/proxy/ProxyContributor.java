@@ -15,6 +15,7 @@ import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
@@ -43,7 +44,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 	private static final Logger log = LoggerFactory.getLogger(ProxyContributor.class);
 
-	private XDI3Segment toPeerRootXri;
+	private XDI3SubSegment toPeerRootXri;
 	private XDIClient xdiClient;
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
@@ -86,7 +87,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (this.toPeerRootXri != null && this.xdiClient == null) {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(this.toPeerRootXri.getFirstSubSegment()), null);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(this.toPeerRootXri), null);
 
 			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXri);
 
@@ -105,13 +106,13 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (this.getToPeerRootXri() != null && this.getXdiClient() != null) {
 
-			XDI3Segment staticForwardingTargetToPeerRootXri = this.getToPeerRootXri();
+			XDI3SubSegment staticForwardingTargetToPeerRootXri = this.getToPeerRootXri();
 			XDIClient staticForwardingTargetXdiClient = this.getXdiClient();
 
 			if (log.isDebugEnabled()) log.debug("Setting static forwarding target: " + staticForwardingTargetToPeerRootXri + " (" + staticForwardingTargetXdiClient + ")");
 
-			putToPeerRootXri(executionContext, this.getToPeerRootXri());
-			putXdiClient(executionContext, this.getXdiClient());
+			putToPeerRootXri(executionContext, staticForwardingTargetToPeerRootXri);
+			putXdiClient(executionContext, staticForwardingTargetXdiClient);
 
 			return false;
 		}
@@ -119,8 +120,8 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		// no static forwarding target, so we check if the target is self
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3Segment ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
-		XDI3Segment toPeerRootXri = message.getToPeerRootXri();
+		XDI3SubSegment ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
+		XDI3SubSegment toPeerRootXri = message.getToPeerRootXri();
 
 		if (toPeerRootXri == null || toPeerRootXri.equals(ownerPeerRootXri)) {
 
@@ -149,7 +150,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 			if (messagingTargetMount != null) {
 
-				XDI3Segment dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
+				XDI3SubSegment dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
 				XDIClient dynamicForwardingTargetXdiClient = new XDILocalClient(messagingTargetMount.getMessagingTarget());
 
 				if (log.isDebugEnabled()) log.debug("Setting dynamic local forwarding target: " + dynamicForwardingTargetToPeerRootXri + " (" + dynamicForwardingTargetXdiClient + ")");
@@ -167,7 +168,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(toPeerRootXri.getFirstSubSegment()), null);
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(toPeerRootXri), null);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("XDI Discovery failed on " + toPeerRootXri + ": " + ex.getMessage(), ex, executionContext);
@@ -176,7 +177,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for forwarding target at " + toPeerRootXri, null, executionContext);
 		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for forwarding target at " + toPeerRootXri, null, executionContext);
 
-		XDI3Segment dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
+		XDI3SubSegment dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
 		XDIClient dynamicForwardingTargetXdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
 
 		if (log.isDebugEnabled()) log.debug("Setting dynamic remote forwarding target: " + dynamicForwardingTargetToPeerRootXri + " (" + dynamicForwardingTargetXdiClient + ")");
@@ -202,7 +203,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// check forwarding target
 
-		XDI3Segment toPeerRootXri = getToPeerRootXri(executionContext);
+		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext);
 		XDIClient xdiClient = getXdiClient(executionContext);
 
 		if (toPeerRootXri == null || xdiClient == null) return false;
@@ -266,7 +267,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// check forwarding target
 
-		XDI3Segment toPeerRootXri = getToPeerRootXri(executionContext);
+		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext);
 		XDIClient xdiClient = getXdiClient(executionContext);
 
 		if (toPeerRootXri == null || xdiClient == null) return false;
@@ -329,12 +330,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 * Getters and setters
 	 */
 
-	public XDI3Segment getToPeerRootXri() {
+	public XDI3SubSegment getToPeerRootXri() {
 
 		return this.toPeerRootXri;
 	}
 
-	public void setToPeerRootXri(XDI3Segment toPeerRootXri) {
+	public void setToPeerRootXri(XDI3SubSegment toPeerRootXri) {
 
 		this.toPeerRootXri = toPeerRootXri;
 	}
@@ -366,12 +367,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	private static final String EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#topeerrootxripermessage";
 	private static final String EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#xdiclientpermessage";
 
-	public static XDI3Segment getToPeerRootXri(ExecutionContext executionContext) {
+	public static XDI3SubSegment getToPeerRootXri(ExecutionContext executionContext) {
 
-		return (XDI3Segment) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE);
+		return (XDI3SubSegment) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE);
 	}
 
-	public static void putToPeerRootXri(ExecutionContext executionContext, XDI3Segment toPeerRootXri) {
+	public static void putToPeerRootXri(ExecutionContext executionContext, XDI3SubSegment toPeerRootXri) {
 
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE, toPeerRootXri);
 	}
