@@ -3,6 +3,7 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Literal;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
@@ -49,6 +50,54 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 		if (! isValid(contextNode)) return null;
 
 		return new XdiValue(contextNode);
+	}
+
+	/*
+	 * Instance methods
+	 */
+
+	public Literal setLiteral(Object literalData) {
+
+		return this.getContextNode().setLiteral(literalData);
+	}
+
+	public Literal setLiteralString(String literalData) {
+
+		return this.getContextNode().setLiteralString(literalData);
+	}
+
+	public Literal setLiteralNumber(Double literalData) {
+
+		return this.getContextNode().setLiteralNumber(literalData);
+	}
+
+	public Literal setLiteralBoolean(Boolean literalData) {
+
+		return this.getContextNode().setLiteralBoolean(literalData);
+	}	
+	public Literal getLiteral() {
+
+		return this.getContextNode().getLiteral();
+	}
+
+	public Literal getLiteral(Object literalData) {
+
+		return this.getContextNode().getLiteral(literalData);
+	}
+
+	public Literal getLiteralString(String literalData) {
+
+		return this.getContextNode().getLiteralString(literalData);
+	}
+
+	public Literal getLiteralNumber(Double literalData) {
+
+		return this.getContextNode().getLiteralNumber(literalData);
+	}
+
+	public Literal getLiteralBoolean(Boolean literalData) {
+
+		return this.getContextNode().getLiteralBoolean(literalData);
 	}
 
 	/*
