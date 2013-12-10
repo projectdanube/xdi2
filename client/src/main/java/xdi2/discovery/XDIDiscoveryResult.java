@@ -282,6 +282,6 @@ public class XDIDiscoveryResult implements Serializable {
 	@Override
 	public String toString() {
 
-		return this.cloudNumber + " (" + this.getXdiEndpointUri() + ")";
+		return this.getCloudNumber() + " (" + this.getXdiEndpointUri() + ")";
 	}
 }
