@@ -412,6 +412,23 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new operation and adds it to this XDI message.
+	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param target The target address or target statement to which the operation applies.
+	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 */
+	public Operation createOperation(XDI3Segment operationXri, String target) {
+
+		try {
+
+			return this.createOperation(operationXri, XDI3Segment.create(target));
+		} catch (Exception ex) {
+
+			return this.createOperation(operationXri, XDI3Statement.create(target));
+		}
+	}
+
+	/**
 	 * Creates a new $get operation and adds it to this XDI message.
 	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $get operation.
