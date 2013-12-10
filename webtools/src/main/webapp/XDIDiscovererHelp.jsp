@@ -23,7 +23,7 @@
 
 	<p>This tool allows you to perform XDI discovery on identifiers such as Cloud Names, Cloud Numbers, and discovery keys.</p>
 	
-	<p>The first (required) step is send an XDI discovery request to a registry service.</p>
+	<p>The first (required) step is to send an XDI discovery request to a registry service.</p>
 	
 	<p>The second (optional) step is to send an XDI discovery request to the XDI authority associated with the identifier.</p> 
 
