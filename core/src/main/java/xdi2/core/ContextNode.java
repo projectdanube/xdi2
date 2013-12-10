@@ -399,6 +399,12 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 
 	/**
 	 * Returns the literal of this context node.
+	 * @return The literal.
+	 */
+	public Literal getLiteral();
+
+	/**
+	 * Returns the literal of this context node.
 	 * @param literalData The literal data associated with the literal.
 	 * @return The literal.
 	 */
@@ -444,12 +450,6 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.
 	 */
 	public Literal getDeepLiteralBoolean(XDI3Segment contextNodeXri, Boolean literalData);
-
-	/**
-	 * Returns the literal of this context node.
-	 * @return The literal.
-	 */
-	public Literal getLiteral();
 
 	/**
 	 * Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.
