@@ -26,6 +26,9 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
+import xdi2.core.xri3.XDI3Segment;
+import xdi2.discovery.XDIDiscoveryClient;
+import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 
@@ -129,6 +132,20 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		long start = System.currentTimeMillis();
 
 		try {
+
+			// discovery for the endpoint requested?
+
+			if (endpoint.toLowerCase().startsWith("ote:")) {
+
+				XDIDiscoveryClient xdiDiscoveryClient = new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
+				XDIDiscoveryResult xdiDiscoveryResult = xdiDiscoveryClient.discover(XDI3Segment.create(endpoint.substring("ote:".length())), null);
+				endpoint = xdiDiscoveryResult.getXdiEndpointUri();
+			} else if (endpoint.toLowerCase().startsWith("prod:")) {
+
+				XDIDiscoveryClient xdiDiscoveryClient = new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
+				XDIDiscoveryResult xdiDiscoveryResult = xdiDiscoveryClient.discover(XDI3Segment.create(endpoint.substring("prod:".length())), null);
+				endpoint = xdiDiscoveryResult.getXdiEndpointUri();
+			}
 
 			// parse the message envelope
 

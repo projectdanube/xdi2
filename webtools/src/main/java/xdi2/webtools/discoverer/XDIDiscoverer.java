@@ -58,9 +58,22 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		if (request.getParameter("input") != null && request.getParameter("endpoint") != null) {
 
-			this.doPost(request, response);
+			this.externalGetCall(request, response);
+			return;
+		} else {
+			
+			this.defaultGetCall(request, response);
 			return;
 		}
+	}
+
+	private void externalGetCall(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		this.doPost(request, response);
+	}
+
+	@SuppressWarnings("static-method")
+	private void defaultGetCall(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
@@ -78,7 +91,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		request.getRequestDispatcher("/XDIDiscoverer.jsp").forward(request, response);
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
