@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -29,6 +30,7 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 
@@ -39,6 +41,11 @@ import xdi2.messaging.MessageResult;
 public class XDIMessenger extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
 
 	private static final long serialVersionUID = -8317705299355338065L;
+
+	public static final String DEFAULT_SENDER_STRING = "$anon";
+	public static final String DEFAULT_LINKCONTRACT_STRING = "$do";
+	public static final String DEFAULT_OPERATION_STRING = "$get";
+	public static final String DEFAULT_TARGET_STRING = "";
 
 	private static Logger log = LoggerFactory.getLogger(XDIMessenger.class);
 
@@ -84,20 +91,116 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String sample = request.getParameter("sample");
-		if (sample == null) sample = "1";
-
-		String endpoint = request.getParameter("endpoint");
-		if (endpoint == null) endpoint = request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")) + sampleEndpoint;
-
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
-		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
-		request.setAttribute("endpoint", endpoint);
+		request.setAttribute("input", sampleInputs.get(0));
+		request.setAttribute("endpoint", request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")) + sampleEndpoint);
+
+		if (request.getParameter("sample") != null) {
+
+			request.setAttribute("input", sampleInputs.get(Integer.parseInt(request.getParameter("sample")) - 1));
+		}
+
+		if (request.getParameter("recipient") != null) {
+
+			String senderString = request.getParameter("sender");
+			String recipientString = request.getParameter("recipient");
+			String linkContractString = request.getParameter("linkContract");
+			String operationString = request.getParameter("operation");
+			String targetString = request.getParameter("target");
+			String messageTypeString = request.getParameter("messageType");
+			String secretTokenString = request.getParameter("secretToken");
+			String signatureString = request.getParameter("signature");
+			String signatureDigestAlgorithmString = request.getParameter("signatureDigestAlgorithm");
+			String signatureDigestLengthString = request.getParameter("signatureDigestLength");
+			String signatureKeyAlgorithmString = request.getParameter("signatureKeyAlgorithm");
+			String signatureKeyLengthString = request.getParameter("signatureKeyLength");
+			String endpointString;
+
+			if (senderString == null || senderString.trim().isEmpty()) senderString = DEFAULT_SENDER_STRING;
+			if (recipientString == null || recipientString.trim().isEmpty()) throw new ServletException("No recipient.");
+			if (linkContractString == null || linkContractString.trim().isEmpty()) linkContractString = DEFAULT_LINKCONTRACT_STRING;
+			if (operationString == null || operationString.trim().isEmpty()) operationString = DEFAULT_OPERATION_STRING;
+			if (targetString == null || linkContractString.trim().isEmpty()) targetString = DEFAULT_TARGET_STRING;
+
+			if (senderString.toLowerCase().startsWith("ote:")) {
+
+				XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(senderString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
+				senderString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
+			} else if (senderString.toLowerCase().startsWith("prod:")) {
+
+				XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(senderString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
+				senderString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
+			}
+
+			if (recipientString.toLowerCase().startsWith("ote:")) {
+
+				XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(recipientString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
+				recipientString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
+				endpointString = xdiDiscoveryResult.getXdiEndpointUri();
+
+				request.setAttribute("endpoint", endpointString);
+			} else if (senderString.toLowerCase().startsWith("prod:")) {
+
+				XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(recipientString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
+				recipientString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
+				endpointString = xdiDiscoveryResult.getXdiEndpointUri();
+
+				request.setAttribute("endpoint", endpointString);
+			}
+
+			XDI3Segment sender = XDI3Segment.create(senderString);
+			XDI3Segment recipient = XDI3Segment.create(recipientString);
+			XDI3Segment linkContract = XDI3Segment.create(linkContractString);
+			XDI3Segment operation = XDI3Segment.create(operationString);
+			String target = targetString;
+			XDI3Segment messageType = messageTypeString == null ? null : XDI3Segment.create(messageTypeString);
+			String secretToken = secretTokenString;
+			String signature = signatureString;
+			String signatureDigestAlgorithm = signatureDigestAlgorithmString;
+			int signatureDigestLength = signatureDigestLengthString == null ? -1 : Integer.parseInt(signatureDigestLengthString);
+			String signatureKeyAlgorithm = signatureKeyAlgorithmString;
+			int signatureKeyLength = signatureKeyLengthString == null ? -1 :Integer.parseInt(signatureKeyLengthString);
+
+			Message message = new MessageEnvelope().createMessage(sender);
+
+			message.setFromPeerRootXri(XdiPeerRoot.createPeerRootArcXri(sender));
+			message.setToPeerRootXri(XdiPeerRoot.createPeerRootArcXri(recipient));
+			message.setLinkContractXri(linkContract);
+			if (messageType != null) message.setMessageType(messageType);
+			if (secretToken != null) message.setSecretToken(secretToken);
+			if (signature != null && signatureDigestAlgorithm != null && signatureDigestLength > 0 && signatureKeyAlgorithm != null && signatureKeyLength > 0) message.setSignature(signatureDigestAlgorithm, signatureDigestLength, signatureKeyAlgorithm, signatureKeyLength).setValue(signature);
+			message.createOperation(operation, target);
+
+			Properties parameters = new Properties();
+			parameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "1");
+			XDIWriter xdiWriter = XDIWriterRegistry.forFormat("XDI DISPLAY", parameters);
+			StringWriter buffer = new StringWriter();
+			xdiWriter.write(message.getMessageEnvelope().getGraph(), buffer);
+
+			request.setAttribute("input", buffer.getBuffer().toString());
+		}
+
+		if (request.getParameter("endpoint") != null) {
+
+			String endpointString = request.getParameter("endpoint");
+
+			if (endpointString.toLowerCase().startsWith("ote:")) {
+
+				XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(endpointString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
+				endpointString = xdiDiscoveryResult.getXdiEndpointUri();
+			} else if (endpointString.toLowerCase().startsWith("prod:")) {
+
+				XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(endpointString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
+				endpointString = xdiDiscoveryResult.getXdiEndpointUri();
+			}
+
+			request.setAttribute("endpoint", endpointString);
+		}
 
 		request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
 	}
@@ -132,20 +235,6 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		long start = System.currentTimeMillis();
 
 		try {
-
-			// discovery for the endpoint requested?
-
-			if (endpoint.toLowerCase().startsWith("ote:")) {
-
-				XDIDiscoveryClient xdiDiscoveryClient = new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
-				XDIDiscoveryResult xdiDiscoveryResult = xdiDiscoveryClient.discover(XDI3Segment.create(endpoint.substring("ote:".length())), null);
-				endpoint = xdiDiscoveryResult.getXdiEndpointUri();
-			} else if (endpoint.toLowerCase().startsWith("prod:")) {
-
-				XDIDiscoveryClient xdiDiscoveryClient = new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
-				XDIDiscoveryResult xdiDiscoveryResult = xdiDiscoveryClient.discover(XDI3Segment.create(endpoint.substring("prod:".length())), null);
-				endpoint = xdiDiscoveryResult.getXdiEndpointUri();
-			}
 
 			// parse the message envelope
 
@@ -210,5 +299,22 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		request.setAttribute("error", error);
 
 		request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
+	}
+
+	private static XDIDiscoveryResult discover(XDI3Segment xri, XDIDiscoveryClient xdiDiscoveryClient) throws IOException {
+
+		XDIDiscoveryResult xdiDiscoveryResult;
+
+		try {
+
+			xdiDiscoveryResult = xdiDiscoveryClient.discover(xri, null);
+			if (xdiDiscoveryResult.getCloudNumber() == null) throw new RuntimeException("No Cloud Number for " + xri);
+			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("No XDI endpoint URI for " + xri);
+		} catch (Xdi2ClientException ex) {
+
+			throw new IOException("Cannot discover Cloud Number and/or XDI endpoint URI for " + xri + ": " + ex.getMessage(), ex);
+		}
+
+		return xdiDiscoveryResult;
 	}
 }

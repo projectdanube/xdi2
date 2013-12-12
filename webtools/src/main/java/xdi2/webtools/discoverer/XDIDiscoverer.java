@@ -56,42 +56,35 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		if (request.getParameter("input") != null && request.getParameter("endpoint") != null) {
-
-			this.externalGetCall(request, response);
-			return;
-		} else {
-			
-			this.defaultGetCall(request, response);
-			return;
-		}
-	}
-
-	private void externalGetCall(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		this.doPost(request, response);
-	}
-
-	@SuppressWarnings("static-method")
-	private void defaultGetCall(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String sample = request.getParameter("sample");
-		if (sample == null) sample = "1";
-
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
-		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
+		request.setAttribute("input", sampleInputs.get(0));
 		request.setAttribute("endpoint", sampleEndpoint);
 		request.setAttribute("authority", "on");
 		request.setAttribute("services", sampleServices);
 
+		if (request.getParameter("sample") != null) {
+
+			request.setAttribute("input", sampleInputs.get(Integer.parseInt(request.getParameter("sample")) - 1));
+		}
+
+		if (request.getParameter("input") != null) {
+
+			request.setAttribute("input", request.getParameter("input"));
+		}
+
+		if (request.getParameter("endpoint") != null) {
+
+			request.setAttribute("endpoint", request.getParameter("endpoint"));
+		}
+
 		request.getRequestDispatcher("/XDIDiscoverer.jsp").forward(request, response);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
