@@ -143,6 +143,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 				request.setAttribute("error", "Problem with discovery on " + senderString);
 
 				request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
+				return;
 			}
 
 			try {
@@ -167,6 +168,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 				request.setAttribute("error", "Problem with discovery on " + recipientString);
 
 				request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
+				return;
 			}
 
 			XDI3Segment sender = XDI3Segment.create(senderString);
@@ -221,6 +223,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 				request.setAttribute("error", "Problem with discovery on " + endpointString);
 
 				request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
+				return;
 			}
 
 			request.setAttribute("endpoint", endpointString);
