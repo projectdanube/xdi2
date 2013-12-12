@@ -138,7 +138,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 					XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(senderString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
 					senderString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
 				}
-			} catch (Xdi2ClientException ex) {
+			} catch (Exception ex) {
 
 				request.setAttribute("error", "Problem with discovery on " + senderString + ": " + ex.getMessage());
 
@@ -163,7 +163,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 					request.setAttribute("endpoint", endpointString);
 				}
-			} catch (Xdi2ClientException ex) {
+			} catch (Exception ex) {
 
 				request.setAttribute("error", "Problem with discovery on " + recipientString + ": " + ex.getMessage());
 
@@ -218,7 +218,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 					XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(endpointString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
 					endpointString = xdiDiscoveryResult.getXdiEndpointUri();
 				}
-			} catch (Xdi2ClientException ex) {
+			} catch (Exception ex) {
 
 				request.setAttribute("error", "Problem with discovery on " + endpointString + ": " + ex.getMessage());
 
