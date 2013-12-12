@@ -155,7 +155,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 					endpointString = xdiDiscoveryResult.getXdiEndpointUri();
 
 					request.setAttribute("endpoint", endpointString);
-				} else if (senderString.toLowerCase().startsWith("prod:")) {
+				} else if (recipientString.toLowerCase().startsWith("prod:")) {
 
 					XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(recipientString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
 					recipientString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
