@@ -140,7 +140,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 				}
 			} catch (Xdi2ClientException ex) {
 
-				request.setAttribute("error", "Problem with discovery on " + senderString);
+				request.setAttribute("error", "Problem with discovery on " + senderString + ": " + ex.getMessage());
 
 				request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
 				return;
@@ -165,7 +165,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 				}
 			} catch (Xdi2ClientException ex) {
 
-				request.setAttribute("error", "Problem with discovery on " + recipientString);
+				request.setAttribute("error", "Problem with discovery on " + recipientString + ": " + ex.getMessage());
 
 				request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
 				return;
@@ -220,7 +220,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 				}
 			} catch (Xdi2ClientException ex) {
 
-				request.setAttribute("error", "Problem with discovery on " + endpointString);
+				request.setAttribute("error", "Problem with discovery on " + endpointString + ": " + ex.getMessage());
 
 				request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
 				return;
