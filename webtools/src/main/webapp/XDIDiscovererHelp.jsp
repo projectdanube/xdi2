@@ -37,9 +37,22 @@
 
 	<ul>
 	<li>The Cloud Number.</li>
-	<li>The endpoint URI of the XDI authority.</li>
-	<li>A default public key associated with the XDI authority.</li>
+	<li>The XDI endpoint URI of the XDI authority.</li>
+	<li>One or more public keys associated with the XDI authority.</li>
 	<li>A list of additional services associated with the XDI authority.</li>
+	</ul>
+
+	</div>
+
+    <div class="tabbertab">
+
+	<h2>External Call</h2>
+
+	<p>The fields of the XDI Discoverer tool can be "pre-filled" by passing them as URI parameters as follows:</p>
+
+	<ul>
+		<li>"input": The XDI address on which to perform discovery.</li>
+		<li>"endpoint": The XDI endpoint URI of registry.</li>
 	</ul>
 
 	</div>
