@@ -66,9 +66,9 @@
 	<p>The fields of the XDI Messenger tool can be "pre-filled" by passing them as URI parameters as follows:</p>
 
 	<ul>
-		<li>"recipient": The XDI address that is the recipient of the message. If this is a string that starts with "ote:" or "prod:", then the XDI address will be discovered from a suitable XDI discovery service.</li>
-		<li>"sender": The XDI address that is the sender of the message. If this is a string that starts with "ote:" or "prod:", then the XDI address will be discovered from a suitable XDI discovery service. Default: "$anon".</li>
-		<li>"linkContract": The XDI address of a link contract in the target graph. Default: "$do".</li>
+		<li>"recipient": The XDI identifier that is the recipient of the message. If this is a string that starts with "ote:" or "prod:", then the XDI identifier will be discovered from a suitable XDI discovery service.</li>
+		<li>"sender": The XDI identifier that is the sender of the message. If this is a string that starts with "ote:" or "prod:", then the XDI identifier will be discovered from a suitable XDI discovery service. Default: "$anon".</li>
+		<li>"linkContract": The address of the link contract in the target graph. Default: "$do".</li>
 		<li>"operation": The operation in the message. Default: "$get".</li>
 		<li>"target": The target of the operation. Default: "".</li>
 		<li>"secretToken": An optional secret token for the message.</li>

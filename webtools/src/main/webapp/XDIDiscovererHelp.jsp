@@ -51,8 +51,8 @@
 	<p>The fields of the XDI Discoverer tool can be "pre-filled" by passing them as URI parameters as follows:</p>
 
 	<ul>
-		<li>"input": The XDI address on which to perform discovery.</li>
-		<li>"endpoint": The XDI endpoint URI of registry.</li>
+		<li>"input": The XDI identifier on which to perform discovery.</li>
+		<li>"endpoint": The XDI endpoint URI of registry service.</li>
 	</ul>
 
 	</div>
