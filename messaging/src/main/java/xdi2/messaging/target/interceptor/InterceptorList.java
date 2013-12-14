@@ -109,7 +109,7 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 				executionContext.pushInterceptor(messageEnvelopeInterceptor, "MessageEnvelopeInterceptor: before");
 
 				InterceptorResult interceptorResult = messageEnvelopeInterceptor.before(messageEnvelope, messageResult, executionContext);
-				interceptorResultBefore.or(interceptorResult);
+				interceptorResultBefore = interceptorResultBefore.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
 
@@ -149,7 +149,7 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 				executionContext.pushInterceptor(messageEnvelopeInterceptor, "MessageEnvelopeInterceptor: after");
 
 				InterceptorResult interceptorResult = messageEnvelopeInterceptor.after(messageEnvelope, messageResult, executionContext);
-				interceptorResultAfter.or(interceptorResult);
+				interceptorResultAfter = interceptorResultAfter.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
 
@@ -218,7 +218,7 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 				executionContext.pushInterceptor(messageInterceptor, "MessageInterceptor: before");
 
 				InterceptorResult interceptorResult = messageInterceptor.before(message, messageResult, executionContext);
-				interceptorResultBefore.or(interceptorResult);
+				interceptorResultBefore = interceptorResultBefore.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
 
@@ -258,7 +258,7 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 				executionContext.pushInterceptor(messageInterceptor, "MessageInterceptor: after");
 
 				InterceptorResult interceptorResult = messageInterceptor.after(message, messageResult, executionContext);
-				interceptorResultAfter.or(interceptorResult);
+				interceptorResultAfter = interceptorResultAfter.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
 
@@ -298,7 +298,7 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 				executionContext.pushInterceptor(operationInterceptor, "OperationInterceptor: before");
 
 				InterceptorResult interceptorResult = operationInterceptor.before(operation, operationMessageResult, executionContext);
-				interceptorResultBefore.or(interceptorResult);
+				interceptorResultBefore = interceptorResultBefore.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
 
@@ -338,7 +338,7 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 				executionContext.pushInterceptor(operationInterceptor, "OperationInterceptor: after");
 
 				InterceptorResult interceptorResult = operationInterceptor.after(operation, operationMessageResult, executionContext);
-				interceptorResultAfter.or(interceptorResult);
+				interceptorResultAfter = interceptorResultAfter.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
 

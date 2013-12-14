@@ -22,30 +22,22 @@ public class InterceptorResult implements Serializable {
 		return this.skipSiblingInterceptors;
 	}
 
-	public void setSkipSiblingInterceptors(boolean skipSiblingInterceptors) {
-
-		this.skipSiblingInterceptors = skipSiblingInterceptors;
-	}
-
 	public boolean isSkipMessagingTarget() {
 
 		return this.skipMessagingTarget;
 	}
 
-	public void setSkipMessagingTarget(boolean skipMessagingTarget) {
+	public InterceptorResult or(InterceptorResult interceptorResult) {
 
-		this.skipMessagingTarget = skipMessagingTarget;
-	}
+		boolean skipSiblingInterceptors = this.skipSiblingInterceptors || interceptorResult.skipSiblingInterceptors;
+		boolean skipMessagingTarget = this.skipMessagingTarget || interceptorResult.skipMessagingTarget;
 
-	public void or(InterceptorResult interceptorResult) {
-
-		this.skipSiblingInterceptors = this.skipSiblingInterceptors || interceptorResult.skipSiblingInterceptors;
-		this.skipMessagingTarget = this.skipMessagingTarget || interceptorResult.skipMessagingTarget;
+		return new InterceptorResult(skipSiblingInterceptors, skipMessagingTarget);
 	}
 
 	@Override
 	public String toString() {
 
-		return "[skipSiblingInterceptors:" + this.isSkipSiblingInterceptors() + ",skipMessagingTarget:" + this.isSkipMessagingTarget() + "]";
+		return "[skipSiblingInterceptors:" + this.skipSiblingInterceptors + ",skipMessagingTarget:" + this.skipMessagingTarget + "]";
 	}
 }

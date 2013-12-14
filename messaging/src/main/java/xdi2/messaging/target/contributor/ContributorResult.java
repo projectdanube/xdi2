@@ -24,19 +24,9 @@ public class ContributorResult implements Serializable {
 		return this.skipParentContributors;
 	}
 
-	public void setSkipParentContributors(boolean skipParentContributors) {
-
-		this.skipParentContributors = skipParentContributors;
-	}
-
 	public boolean isSkipSiblingContributors() {
 
 		return this.skipSiblingContributors;
-	}
-
-	public void setSkipSiblingContributors(boolean skipSiblingContributors) {
-
-		this.skipSiblingContributors = skipSiblingContributors;
 	}
 
 	public boolean isSkipMessagingTarget() {
@@ -44,21 +34,18 @@ public class ContributorResult implements Serializable {
 		return this.skipMessagingTarget;
 	}
 
-	public void setSkipMessagingTarget(boolean skipMessagingTarget) {
+	public ContributorResult or(ContributorResult contributorResult) {
 
-		this.skipMessagingTarget = skipMessagingTarget;
-	}
+		boolean skipParentContributors = this.skipParentContributors || contributorResult.skipParentContributors;
+		boolean skipSiblingContributors = this.skipSiblingContributors || contributorResult.skipSiblingContributors;
+		boolean skipMessagingTarget = this.skipMessagingTarget || contributorResult.skipMessagingTarget;
 
-	public void or(ContributorResult contributorResult) {
-
-		this.skipParentContributors = this.skipParentContributors || contributorResult.skipParentContributors;
-		this.skipSiblingContributors = this.skipSiblingContributors || contributorResult.skipSiblingContributors;
-		this.skipMessagingTarget = this.skipMessagingTarget || contributorResult.skipMessagingTarget;
+		return new ContributorResult(skipParentContributors, skipSiblingContributors, skipMessagingTarget);
 	}
 
 	@Override
 	public String toString() {
 
-		return "[skipParentContributors:" + this.isSkipParentContributors() + ",skipSiblingContributors:" + this.isSkipSiblingContributors() + ",skipMessagingTarget:" + this.isSkipMessagingTarget() + "]";
+		return "[skipParentContributors:" + this.skipParentContributors + ",skipSiblingContributors:" + this.skipSiblingContributors + ",skipMessagingTarget:" + this.skipMessagingTarget + "]";
 	}
 }

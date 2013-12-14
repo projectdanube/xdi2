@@ -112,10 +112,6 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		tempList.clear();
 
-		// forget application context
-
-		this.applicationContext = null;
-
 		// done
 
 		log.info(size + " messaging targets were shut down.");

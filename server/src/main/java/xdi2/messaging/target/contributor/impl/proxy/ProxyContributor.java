@@ -1,5 +1,6 @@
 package xdi2.messaging.target.contributor.impl.proxy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -51,10 +52,17 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
+	private boolean skipParentContributors;
+	private boolean skipSiblingContributors;
+	private boolean skipMessagingTarget;
 	private List<ProxyManipulator> proxyManipulators;
 
 	public ProxyContributor() {
 
+		this.skipParentContributors = false;
+		this.skipSiblingContributors = false;
+		this.skipMessagingTarget = true;
+		this.proxyManipulators = new ArrayList<ProxyManipulator> ();
 	}
 
 	/*
@@ -113,8 +121,8 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 			if (log.isDebugEnabled()) log.debug("Setting static forwarding target: " + staticForwardingTargetToPeerRootXri + " (" + staticForwardingTargetXdiClient + ")");
 
-			putToPeerRootXri(executionContext, staticForwardingTargetToPeerRootXri);
-			putXdiClient(executionContext, staticForwardingTargetXdiClient);
+			putToPeerRootXri(executionContext, staticForwardingTargetToPeerRootXri, this);
+			putXdiClient(executionContext, staticForwardingTargetXdiClient, this);
 
 			return InterceptorResult.DEFAULT;
 		}
@@ -157,8 +165,8 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 				if (log.isDebugEnabled()) log.debug("Setting dynamic local forwarding target: " + dynamicForwardingTargetToPeerRootXri + " (" + dynamicForwardingTargetXdiClient + ")");
 
-				putToPeerRootXri(executionContext, dynamicForwardingTargetToPeerRootXri);
-				putXdiClient(executionContext, dynamicForwardingTargetXdiClient);
+				putToPeerRootXri(executionContext, dynamicForwardingTargetToPeerRootXri, this);
+				putXdiClient(executionContext, dynamicForwardingTargetXdiClient, this);
 
 				return InterceptorResult.DEFAULT;
 			}
@@ -184,8 +192,8 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (log.isDebugEnabled()) log.debug("Setting dynamic remote forwarding target: " + dynamicForwardingTargetToPeerRootXri + " (" + dynamicForwardingTargetXdiClient + ")");
 
-		putToPeerRootXri(executionContext, dynamicForwardingTargetToPeerRootXri);
-		putXdiClient(executionContext, dynamicForwardingTargetXdiClient);
+		putToPeerRootXri(executionContext, dynamicForwardingTargetToPeerRootXri, this);
+		putXdiClient(executionContext, dynamicForwardingTargetXdiClient, this);
 
 		return InterceptorResult.DEFAULT;
 	}
@@ -205,8 +213,8 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// check forwarding target
 
-		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext);
-		XDIClient xdiClient = getXdiClient(executionContext);
+		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext, this);
+		XDIClient xdiClient = getXdiClient(executionContext, this);
 
 		if (toPeerRootXri == null || xdiClient == null) return ContributorResult.DEFAULT;
 
@@ -261,7 +269,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		CopyUtil.copyGraph(forwardingMessageResult.getGraph(), messageResult.getGraph(), null);
 
-		return new ContributorResult(false, false, true);
+		return new ContributorResult(this.isSkipParentContributors(), this.isSkipSiblingContributors(), this.isSkipMessagingTarget());
 	}
 
 	@Override
@@ -269,8 +277,8 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// check forwarding target
 
-		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext);
-		XDIClient xdiClient = getXdiClient(executionContext);
+		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext, this);
+		XDIClient xdiClient = getXdiClient(executionContext, this);
 
 		if (toPeerRootXri == null || xdiClient == null) return ContributorResult.DEFAULT;
 
@@ -325,7 +333,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		CopyUtil.copyGraph(forwardingMessageResult.getGraph(), messageResult.getGraph(), null);
 
-		return new ContributorResult(false, false, true);
+		return new ContributorResult(this.isSkipParentContributors(), this.isSkipSiblingContributors(), this.isSkipMessagingTarget());
 	}
 
 	/*
@@ -362,6 +370,46 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
+	public boolean isSkipParentContributors() {
+
+		return this.skipParentContributors;
+	}
+
+	public void setSkipParentContributors(boolean skipParentContributors) {
+
+		this.skipParentContributors = skipParentContributors;
+	}
+
+	public boolean isSkipSiblingContributors() {
+
+		return this.skipSiblingContributors;
+	}
+
+	public void setSkipSiblingContributors(boolean skipSiblingContributors) {
+
+		this.skipSiblingContributors = skipSiblingContributors;
+	}
+
+	public boolean isSkipMessagingTarget() {
+
+		return this.skipMessagingTarget;
+	}
+
+	public void setSkipMessagingTarget(boolean skipMessagingTarget) {
+
+		this.skipMessagingTarget = skipMessagingTarget;
+	}
+
+	public List<ProxyManipulator> getProxyManipulators() {
+
+		return this.proxyManipulators;
+	}
+
+	public void setProxyManipulators(List<ProxyManipulator> proxyManipulators) {
+
+		this.proxyManipulators = proxyManipulators;
+	}
+
 	/*
 	 * ExecutionContext helper methods
 	 */
@@ -369,23 +417,23 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	private static final String EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#topeerrootxripermessage";
 	private static final String EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#xdiclientpermessage";
 
-	public static XDI3SubSegment getToPeerRootXri(ExecutionContext executionContext) {
+	public static XDI3SubSegment getToPeerRootXri(ExecutionContext executionContext, ProxyContributor proxyContributor) {
 
-		return (XDI3SubSegment) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE);
+		return (XDI3SubSegment) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)));
 	}
 
-	public static void putToPeerRootXri(ExecutionContext executionContext, XDI3SubSegment toPeerRootXri) {
+	public static void putToPeerRootXri(ExecutionContext executionContext, XDI3SubSegment toPeerRootXri, ProxyContributor proxyContributor) {
 
-		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE, toPeerRootXri);
+		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)), toPeerRootXri);
 	}
 
-	public static XDIClient getXdiClient(ExecutionContext executionContext) {
+	public static XDIClient getXdiClient(ExecutionContext executionContext, ProxyContributor proxyContributor) {
 
-		return (XDIClient) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE);
+		return (XDIClient) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)));
 	}
 
-	public static void putXdiClient(ExecutionContext executionContext, XDIClient xdiClient) {
+	public static void putXdiClient(ExecutionContext executionContext, XDIClient xdiClient, ProxyContributor proxyContributor) {
 
-		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE, xdiClient);
+		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)), xdiClient);
 	}
 }

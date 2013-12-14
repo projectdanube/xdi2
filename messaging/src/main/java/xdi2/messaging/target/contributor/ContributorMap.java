@@ -196,7 +196,7 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 				if (! contributor.getContributors().isEmpty()) {
 
 					ContributorResult contributorResult = contributor.getContributors().executeContributorsAddress(nextContributorChainXris, nextRelativeTargetAddress, operation, operationMessageResult, executionContext);
-					contributorResultAddress.or(contributorResult);
+					contributorResultAddress = contributorResultAddress.or(contributorResult);
 
 					if (contributorResult.isSkipParentContributors()) {
 
@@ -210,7 +210,7 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 				MessageResult tempMessageResult = new MessageResult();
 
 				ContributorResult contributorResult = contributor.executeOnAddress(nextContributorChainXris, nextContributorChainXri, nextRelativeTargetAddress, operation, tempMessageResult, executionContext);
-				contributorResultAddress.or(contributorResult);
+				contributorResultAddress = contributorResultAddress.or(contributorResult);
 
 				XDI3Segment tempContextNodeXri = XDI3Util.concatXris(nextContributorChainXri, nextRelativeContextNodeXri);
 				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri);
@@ -282,7 +282,7 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 				if (! contributor.getContributors().isEmpty()) {
 
 					ContributorResult contributorResult = contributor.getContributors().executeContributorsStatement(nextContributorChainXris, nextRelativeTargetStatement, operation, operationMessageResult, executionContext);
-					contributorResultStatement.or(contributorResult);
+					contributorResultStatement = contributorResultStatement.or(contributorResult);
 
 					if (contributorResult.isSkipParentContributors()) {
 
@@ -296,7 +296,7 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 				MessageResult tempMessageResult = new MessageResult();
 
 				ContributorResult contributorResult = contributor.executeOnStatement(nextContributorChainXris, nextContributorChainXri, nextRelativeTargetStatement, operation, operationMessageResult, executionContext);
-				contributorResultStatement.or(contributorResult);
+				contributorResultStatement = contributorResultStatement.or(contributorResult);
 
 				XDI3Segment tempContextNodeXri = XDI3Util.concatXris(nextContributorChainXri, nextRelativeContextNodeXri);
 				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri);
