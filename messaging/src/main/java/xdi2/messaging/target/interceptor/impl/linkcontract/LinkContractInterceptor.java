@@ -99,16 +99,32 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		// find the XDI link contract referenced by the message
 
 		XDI3Segment linkContractXri = message.getLinkContractXri();
-		if (linkContractXri == null) return InterceptorResult.DEFAULT;
+		if (linkContractXri == null) {
+
+			if (log.isDebugEnabled()) log.debug("No link contract specified by message.");
+			return InterceptorResult.DEFAULT;
+		}
 
 		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXri);
-		if (linkContractContextNode == null) return InterceptorResult.DEFAULT;
+		if (linkContractContextNode == null) {
+
+			if (log.isDebugEnabled()) log.debug("No link contract context node found in graph.");
+			return InterceptorResult.DEFAULT;
+		}
 
 		XdiEntity xdiEntity = XdiAbstractEntity.fromContextNode(linkContractContextNode);
-		if (xdiEntity == null) return InterceptorResult.DEFAULT;
+		if (xdiEntity == null) {
+
+			if (log.isDebugEnabled()) log.debug("No link contract entity found in graph.");
+			return InterceptorResult.DEFAULT;
+		}
 
 		LinkContract linkContract = LinkContract.fromXdiEntity(xdiEntity);
-		if (linkContract == null) return InterceptorResult.DEFAULT;
+		if (linkContract == null) {
+
+			if (log.isDebugEnabled()) log.debug("No link contract found in graph.");
+			return InterceptorResult.DEFAULT;
+		}
 
 		if (log.isDebugEnabled()) log.debug("Found link contract " + linkContract);
 
