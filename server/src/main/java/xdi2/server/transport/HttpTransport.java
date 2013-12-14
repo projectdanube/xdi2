@@ -564,6 +564,11 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		return new SimpleDateFormat().format(this.getStartup());
 	}
 
+	public long getStartupAsSeconds() {
+
+		return (new Date().getTime() - this.getStartup().getTime()) / 1000;
+	}
+
 	public boolean isInitialized() {
 
 		return this.initialized;
