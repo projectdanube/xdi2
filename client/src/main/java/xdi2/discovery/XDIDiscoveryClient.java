@@ -40,6 +40,11 @@ public class XDIDiscoveryClient {
 		this.registryXdiClient = registryXdiClient;
 	}
 
+	public XDIDiscoveryClient(String registryEndpointUri) {
+
+		this.registryXdiClient = new XDIHttpClient(registryEndpointUri);
+	}
+
 	public XDIDiscoveryClient() {
 
 		this(NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
