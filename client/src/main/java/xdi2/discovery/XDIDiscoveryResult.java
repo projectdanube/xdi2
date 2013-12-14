@@ -34,8 +34,6 @@ public class XDIDiscoveryResult implements Serializable {
 
 	private static final long serialVersionUID = -1141807747864855392L;
 
-	public static final XDI3Segment XRI_S_XDI = XDI3Segment.create("<$xdi>");
-
 	private CloudNumber cloudNumber;
 	private PublicKey signaturePublicKey;
 	private PublicKey encryptionPublicKey;
@@ -257,7 +255,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 	public String getXdiEndpointUri() {
 
-		return this.getEndpointUris().get(XRI_S_XDI);
+		return this.getEndpointUris().get(XDIClientConstants.XRI_S_XDI);
 	}
 
 	public String getDefaultEndpointUri() {
