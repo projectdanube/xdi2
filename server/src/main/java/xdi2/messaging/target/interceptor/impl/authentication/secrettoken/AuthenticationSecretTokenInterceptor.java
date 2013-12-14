@@ -16,6 +16,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
@@ -73,12 +74,12 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor im
 	 */
 
 	@Override
-	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look for secret token on the message
 
 		String secretToken = message.getSecretToken();
-		if (secretToken == null) return false;
+		if (secretToken == null) return InterceptorResult.DEFAULT;
 
 		// authenticate
 
@@ -95,13 +96,13 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor im
 
 		// done
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public boolean after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	/*

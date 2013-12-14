@@ -16,6 +16,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
+import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.contributor.ContributorXri;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.DigestSecretTokenAuthenticator;
@@ -87,16 +88,16 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 	 */
 
 	@Override
-	public boolean executeDoOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// check operation
 
-		if (! XRI_S_DO_GENERATE.equals(operation.getOperationXri())) return false;
+		if (! XRI_S_DO_GENERATE.equals(operation.getOperationXri())) return ContributorResult.DEFAULT;
 
 		// check parameters
 
 		Object literalData = relativeTargetStatement.getLiteralData();
-		if (! (literalData instanceof String)) return false;
+		if (! (literalData instanceof String)) return new ContributorResult(false, false, true);
 
 		String secretToken = (String) literalData;
 
@@ -123,7 +124,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 		// done
 
-		return false;
+		return new ContributorResult(false, false, true);
 	}
 
 	/*

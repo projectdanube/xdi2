@@ -27,8 +27,10 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
+import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.contributor.ContributorXri;
 import xdi2.messaging.target.contributor.impl.proxy.manipulator.ProxyManipulator;
+import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.transport.Transport;
 import xdi2.messaging.util.MessagingCloneUtil;
@@ -100,7 +102,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 */
 
 	@Override
-	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// if there is a static forwarding target, we use it
 
@@ -114,7 +116,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 			putToPeerRootXri(executionContext, staticForwardingTargetToPeerRootXri);
 			putXdiClient(executionContext, staticForwardingTargetXdiClient);
 
-			return false;
+			return InterceptorResult.DEFAULT;
 		}
 
 		// no static forwarding target, so we check if the target is self
@@ -127,7 +129,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 			if (log.isDebugEnabled()) log.debug("Not setting any forwarding target for self request to " + ownerPeerRootXri);
 
-			return false;
+			return InterceptorResult.DEFAULT;
 		}
 
 		// no static forwarding target, and target is not self, so we check if the target is local
@@ -158,7 +160,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 				putToPeerRootXri(executionContext, dynamicForwardingTargetToPeerRootXri);
 				putXdiClient(executionContext, dynamicForwardingTargetXdiClient);
 
-				return false;
+				return InterceptorResult.DEFAULT;
 			}
 		}
 
@@ -185,13 +187,13 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		putToPeerRootXri(executionContext, dynamicForwardingTargetToPeerRootXri);
 		putXdiClient(executionContext, dynamicForwardingTargetXdiClient);
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public boolean after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	/*
@@ -199,14 +201,14 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 */
 
 	@Override
-	public boolean executeOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// check forwarding target
 
 		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext);
 		XDIClient xdiClient = getXdiClient(executionContext);
 
-		if (toPeerRootXri == null || xdiClient == null) return false;
+		if (toPeerRootXri == null || xdiClient == null) return ContributorResult.DEFAULT;
 
 		// prepare the forwarding message envelope
 
@@ -259,18 +261,18 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		CopyUtil.copyGraph(forwardingMessageResult.getGraph(), messageResult.getGraph(), null);
 
-		return true;
+		return new ContributorResult(false, false, true);
 	}
 
 	@Override
-	public boolean executeOnStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeOnStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// check forwarding target
 
 		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext);
 		XDIClient xdiClient = getXdiClient(executionContext);
 
-		if (toPeerRootXri == null || xdiClient == null) return false;
+		if (toPeerRootXri == null || xdiClient == null) return ContributorResult.DEFAULT;
 
 		// prepare the forwarding message envelope
 
@@ -323,7 +325,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		CopyUtil.copyGraph(forwardingMessageResult.getGraph(), messageResult.getGraph(), null);
 
-		return true;
+		return new ContributorResult(false, false, true);
 	}
 
 	/*

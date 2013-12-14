@@ -38,7 +38,7 @@ public interface Contributor extends Extension {
 	 * @param executionContext An "execution context" object for the entire XDI message envelope.
 	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
-	public boolean executeOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public ContributorResult executeOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
 	 * Executes an XDI operation on a statement.
@@ -50,5 +50,5 @@ public interface Contributor extends Extension {
 	 * @param executionContext An "execution context" object for the entire XDI message envelope.
 	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
-	public boolean executeOnStatement(XDI3Segment[] contributorChainXris, XDI3Segment contributorChainXri, XDI3Statement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public ContributorResult executeOnStatement(XDI3Segment[] contributorChainXris, XDI3Segment contributorChainXri, XDI3Statement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

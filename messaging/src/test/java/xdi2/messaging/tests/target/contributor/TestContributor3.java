@@ -7,13 +7,14 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.contributor.AbstractContributor;
+import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.contributor.ContributorXri;
 
 @ContributorXri(addresses={"(+test)"})
 public class TestContributor3 extends AbstractContributor {
 
 	@Override
-	public boolean executeGetOnAddress(
+	public ContributorResult executeGetOnAddress(
 			XDI3Segment[] contributorXris,
 			XDI3Segment contributorsXri,
 			XDI3Segment relativeTargetAddress,
@@ -26,6 +27,6 @@ public class TestContributor3 extends AbstractContributor {
 				XDI3Segment.create("" + "+friend"),
 				XDI3Segment.create("" + contributorsXri + "=animesh")));
 
-		return false;
+		return ContributorResult.DEFAULT;
 	}
 }

@@ -12,6 +12,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContext;
 
@@ -72,12 +73,12 @@ public class MessagePolicyInterceptor extends AbstractInterceptor implements Mes
 	 */
 
 	@Override
-	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// evaluate the XDI policy of this message
 
 		PolicyRoot policyRoot = message.getPolicyRoot(false);
-		if (policyRoot == null) return false;
+		if (policyRoot == null) return InterceptorResult.DEFAULT;
 
 		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getMessagePolicyGraph());
 
@@ -88,15 +89,15 @@ public class MessagePolicyInterceptor extends AbstractInterceptor implements Mes
 
 		// done
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public boolean after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// done
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	/*

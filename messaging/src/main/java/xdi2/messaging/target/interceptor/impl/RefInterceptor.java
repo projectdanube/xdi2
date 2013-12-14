@@ -35,6 +35,7 @@ import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
@@ -79,17 +80,17 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 	 */
 
 	@Override
-	public boolean before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		resetCompletedAddresses(executionContext);
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public boolean after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
@@ -102,15 +103,15 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 	 */
 
 	@Override
-	public boolean before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		resetRefRepRelations(executionContext);
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public boolean after(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look through the message result to process result $ref/$rep relations
 
@@ -234,7 +235,7 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 
 		// done
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	/*

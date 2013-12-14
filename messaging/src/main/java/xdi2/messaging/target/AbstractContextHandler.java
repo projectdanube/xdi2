@@ -13,7 +13,7 @@ import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.graph.GraphContextHandler;
 
-public abstract class AbstractContextHandler implements StatementHandler, AddressHandler {
+public abstract class AbstractContextHandler implements ContextHandler {
 
 	public AbstractContextHandler() {
 

@@ -19,7 +19,7 @@ public interface MessageInterceptor extends Interceptor {
 	 * @param executionContext The current execution context.
 	 * @return True, if the message has been fully handled and the server should stop processing it.
 	 */
-	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public InterceptorResult before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
 	 * Run after a message is executed.
@@ -28,5 +28,5 @@ public interface MessageInterceptor extends Interceptor {
 	 * @param executionContext The current execution context.
 	 * @return True, if the message has been fully handled and the server should stop processing it.
 	 */
-	public boolean after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

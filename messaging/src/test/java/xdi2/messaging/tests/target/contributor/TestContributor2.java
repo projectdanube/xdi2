@@ -7,6 +7,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.contributor.AbstractContributor;
+import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.contributor.ContributorXri;
 
 @ContributorXri(addresses={"<+email>"})
@@ -15,7 +16,7 @@ public class TestContributor2 extends AbstractContributor {
 	private String value = "val";
 
 	@Override
-	public boolean executeGetOnAddress(
+	public ContributorResult executeGetOnAddress(
 			XDI3Segment[] contributorXris,
 			XDI3Segment contributorsXri,
 			XDI3Segment relativeTargetAddress,
@@ -27,6 +28,6 @@ public class TestContributor2 extends AbstractContributor {
 				XDI3Segment.create("" + contributorsXri + "&"),
 				this.value));
 
-		return false;
+		return ContributorResult.DEFAULT;
 	}
 }

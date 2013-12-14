@@ -149,7 +149,9 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 	 * Methods for executing contributors
 	 */
 
-	public boolean executeContributorsAddress(XDI3Segment[] contributorChainXris, XDI3Segment relativeTargetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeContributorsAddress(XDI3Segment[] contributorChainXris, XDI3Segment relativeTargetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContributorResult contributorResultAddress = ContributorResult.DEFAULT;
 
 		// find an address with contributors
 
@@ -158,11 +160,9 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
 		contributorFounds.addAll(this.findHigherContributors(relativeContextNodeXri));
 		contributorFounds.addAll(this.findLowerContributors(relativeContextNodeXri));
-		if (contributorFounds.size() == 0) return false;
+		if (contributorFounds.size() == 0) return ContributorResult.DEFAULT;
 
 		if (log.isDebugEnabled()) log.debug("For relative target address: " + relativeTargetAddress + " found contributors: " + contributorFounds);
-
-		boolean result = false;
 
 		for (ContributorFound contributorFound : contributorFounds) {
 
@@ -195,9 +195,13 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 				if (! contributor.getContributors().isEmpty()) {
 
-					if (contributor.getContributors().executeContributorsAddress(nextContributorChainXris, nextRelativeTargetAddress, operation, operationMessageResult, executionContext)) {
+					ContributorResult contributorResult = contributor.getContributors().executeContributorsAddress(nextContributorChainXris, nextRelativeTargetAddress, operation, operationMessageResult, executionContext);
+					contributorResultAddress.or(contributorResult);
 
-						return true;
+					if (contributorResult.isSkipParentContributors()) {
+
+						if (log.isDebugEnabled()) log.debug("Skipping parent contributors according to sub-contributors (address).");
+						return contributorResultAddress;
 					}
 				}
 
@@ -205,17 +209,18 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 				MessageResult tempMessageResult = new MessageResult();
 
-				boolean handled = contributor.executeOnAddress(nextContributorChainXris, nextContributorChainXri, nextRelativeTargetAddress, operation, tempMessageResult, executionContext);
+				ContributorResult contributorResult = contributor.executeOnAddress(nextContributorChainXris, nextContributorChainXri, nextRelativeTargetAddress, operation, tempMessageResult, executionContext);
+				contributorResultAddress.or(contributorResult);
 
 				XDI3Segment tempContextNodeXri = XDI3Util.concatXris(nextContributorChainXri, nextRelativeContextNodeXri);
 				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri);
 
 				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
 
-				if (handled) {
+				if (contributorResult.isSkipSiblingContributors()) {
 
-					if (log.isDebugEnabled()) log.debug("Address has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
-					result = true;
+					if (log.isDebugEnabled()) log.debug("Skipping sibling contributors (address) according to " + contributor.getClass().getSimpleName() + ".");
+					return contributorResultAddress;
 				}
 			} catch (Exception ex) {
 
@@ -228,10 +233,12 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 		// done
 
-		return result;
+		return contributorResultAddress;
 	}
 
-	public boolean executeContributorsStatement(XDI3Segment contributorChainXris[], XDI3Statement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeContributorsStatement(XDI3Segment contributorChainXris[], XDI3Statement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		ContributorResult contributorResultStatement = ContributorResult.DEFAULT;
 
 		// find an address with contributors
 
@@ -239,11 +246,9 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
 		contributorFounds.addAll(this.findHigherContributors(relativeContextNodeXri));
-		if (contributorFounds.size() == 0) return false;
+		if (contributorFounds.size() == 0) return ContributorResult.DEFAULT;
 
 		if (log.isDebugEnabled()) log.debug("For relative target statement: " + relativeTargetStatement + " found contributors: " + contributorFounds);
-
-		boolean result = false;
 
 		for (ContributorFound contributorFound : contributorFounds) {
 
@@ -276,9 +281,13 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 				if (! contributor.getContributors().isEmpty()) {
 
-					if (contributor.getContributors().executeContributorsStatement(nextContributorChainXris, nextRelativeTargetStatement, operation, operationMessageResult, executionContext)) {
+					ContributorResult contributorResult = contributor.getContributors().executeContributorsStatement(nextContributorChainXris, nextRelativeTargetStatement, operation, operationMessageResult, executionContext);
+					contributorResultStatement.or(contributorResult);
 
-						return true;
+					if (contributorResult.isSkipParentContributors()) {
+
+						if (log.isDebugEnabled()) log.debug("Skipping parent contributors according to sub-contributors (statement).");
+						return contributorResultStatement;
 					}
 				}
 
@@ -286,17 +295,18 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 				MessageResult tempMessageResult = new MessageResult();
 
-				boolean handled = contributor.executeOnStatement(nextContributorChainXris, nextContributorChainXri, nextRelativeTargetStatement, operation, operationMessageResult, executionContext);
+				ContributorResult contributorResult = contributor.executeOnStatement(nextContributorChainXris, nextContributorChainXri, nextRelativeTargetStatement, operation, operationMessageResult, executionContext);
+				contributorResultStatement.or(contributorResult);
 
 				XDI3Segment tempContextNodeXri = XDI3Util.concatXris(nextContributorChainXri, nextRelativeContextNodeXri);
 				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri);
 
 				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
 
-				if (handled) {
+				if (contributorResult.isSkipSiblingContributors()) {
 
-					if (log.isDebugEnabled()) log.debug("Statement has been fully handled by contributor " + contributor.getClass().getSimpleName() + ".");
-					result = true;
+					if (log.isDebugEnabled()) log.debug("Skipping sibling contributors (statement) according to " + contributor.getClass().getSimpleName() + ".");
+					return contributorResultStatement;
 				}
 			} catch (Exception ex) {
 
@@ -309,7 +319,7 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 		// done
 
-		return result;
+		return contributorResultStatement;
 	}
 
 	/*

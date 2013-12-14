@@ -30,6 +30,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
+import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.contributor.ContributorXri;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
@@ -94,16 +95,16 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 	 */
 
 	@Override
-	public boolean executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// check operation
 
-		if (! XRI_S_DO_KEYPAIR.equals(operation.getOperationXri()) && ! XRI_S_DO_KEY.equals(operation.getOperationXri())) return false;
+		if (! XRI_S_DO_KEYPAIR.equals(operation.getOperationXri()) && ! XRI_S_DO_KEY.equals(operation.getOperationXri())) return ContributorResult.DEFAULT;
 
 		// check parameters
 
 		XDI3Segment arcXri = relativeTargetStatement.getRelationArcXri();
-		if (! XDIDictionaryConstants.XRI_S_IS_TYPE.equals(arcXri)) return false;
+		if (! XDIDictionaryConstants.XRI_S_IS_TYPE.equals(arcXri)) return ContributorResult.DEFAULT;
 
 		XDI3Segment dataTypeXri = relativeTargetStatement.getTargetContextNodeXri();
 
@@ -177,7 +178,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 		// done
 
-		return false;
+		return ContributorResult.DEFAULT;
 	}
 
 	/*

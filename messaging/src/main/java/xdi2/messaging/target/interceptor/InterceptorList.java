@@ -88,7 +88,9 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 	 * Methods for executing interceptors
 	 */
 
-	public boolean executeMessageEnvelopeInterceptorsBefore(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult executeMessageEnvelopeInterceptorsBefore(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		InterceptorResult interceptorResultBefore = InterceptorResult.DEFAULT;
 
 		for (Iterator<MessageEnvelopeInterceptor> messageEnvelopeInterceptors = this.findMessageEnvelopeInterceptors(); messageEnvelopeInterceptors.hasNext(); ) {
 
@@ -106,10 +108,13 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 
 				executionContext.pushInterceptor(messageEnvelopeInterceptor, "MessageEnvelopeInterceptor: before");
 
-				if (messageEnvelopeInterceptor.before(messageEnvelope, messageResult, executionContext)) {
+				InterceptorResult interceptorResult = messageEnvelopeInterceptor.before(messageEnvelope, messageResult, executionContext);
+				interceptorResultBefore.or(interceptorResult);
 
-					if (log.isDebugEnabled()) log.debug("Message envelope has been fully handled by interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + ".");
-					return true;
+				if (interceptorResult.isSkipSiblingInterceptors()) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping sibling message envelope interceptors (before) according to " + messageEnvelopeInterceptor.getClass().getSimpleName() + ".");
+					return interceptorResultBefore;
 				}
 			} catch (Exception ex) {
 
@@ -120,10 +125,12 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 			}
 		}
 
-		return false;
+		return interceptorResultBefore;
 	}
 
-	public boolean executeMessageEnvelopeInterceptorsAfter(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult executeMessageEnvelopeInterceptorsAfter(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		InterceptorResult interceptorResultAfter = InterceptorResult.DEFAULT;
 
 		for (Iterator<MessageEnvelopeInterceptor> messageEnvelopeInterceptors = this.findMessageEnvelopeInterceptors(); messageEnvelopeInterceptors.hasNext(); ) {
 
@@ -141,10 +148,13 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 
 				executionContext.pushInterceptor(messageEnvelopeInterceptor, "MessageEnvelopeInterceptor: after");
 
-				if (messageEnvelopeInterceptor.after(messageEnvelope, messageResult, executionContext)) {
+				InterceptorResult interceptorResult = messageEnvelopeInterceptor.after(messageEnvelope, messageResult, executionContext);
+				interceptorResultAfter.or(interceptorResult);
 
-					if (log.isDebugEnabled()) log.debug("Message envelope has been fully handled by interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + ".");
-					return true;
+				if (interceptorResult.isSkipSiblingInterceptors()) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping sibling message envelope interceptors (after) according to " + messageEnvelopeInterceptor.getClass().getSimpleName() + ".");
+					return interceptorResultAfter;
 				}
 			} catch (Exception ex) {
 
@@ -155,7 +165,7 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 			}
 		}
 
-		return false;
+		return interceptorResultAfter;
 	}
 
 	public void executeMessageEnvelopeInterceptorsException(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
@@ -187,7 +197,9 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 		}
 	}
 
-	public boolean executeMessageInterceptorsBefore(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult executeMessageInterceptorsBefore(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		InterceptorResult interceptorResultBefore = InterceptorResult.DEFAULT;
 
 		for (Iterator<MessageInterceptor> messageInterceptors = this.findMessageInterceptors(); messageInterceptors.hasNext(); ) {
 
@@ -205,10 +217,13 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 
 				executionContext.pushInterceptor(messageInterceptor, "MessageInterceptor: before");
 
-				if (messageInterceptor.before(message, messageResult, executionContext)) {
+				InterceptorResult interceptorResult = messageInterceptor.before(message, messageResult, executionContext);
+				interceptorResultBefore.or(interceptorResult);
 
-					if (log.isDebugEnabled()) log.debug("Message has been fully handled by interceptor " + messageInterceptor.getClass().getSimpleName() + ".");
-					return true;
+				if (interceptorResult.isSkipSiblingInterceptors()) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping sibling message interceptors (before) according to " + messageInterceptor.getClass().getSimpleName() + ".");
+					return interceptorResultBefore;
 				}
 			} catch (Exception ex) {
 
@@ -219,10 +234,12 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 			}
 		}
 
-		return false;
+		return interceptorResultBefore;
 	}
 
-	public boolean executeMessageInterceptorsAfter(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult executeMessageInterceptorsAfter(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		InterceptorResult interceptorResultAfter = InterceptorResult.DEFAULT;
 
 		for (Iterator<MessageInterceptor> messageInterceptors = this.findMessageInterceptors(); messageInterceptors.hasNext(); ) {
 
@@ -240,10 +257,13 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 
 				executionContext.pushInterceptor(messageInterceptor, "MessageInterceptor: after");
 
-				if (messageInterceptor.after(message, messageResult, executionContext)) {
+				InterceptorResult interceptorResult = messageInterceptor.after(message, messageResult, executionContext);
+				interceptorResultAfter.or(interceptorResult);
 
-					if (log.isDebugEnabled()) log.debug("Message has been fully handled by interceptor " + messageInterceptor.getClass().getSimpleName() + ".");
-					return true;
+				if (interceptorResult.isSkipSiblingInterceptors()) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping sibling message interceptors (after) according to " + messageInterceptor.getClass().getSimpleName() + ".");
+					return interceptorResultAfter;
 				}
 			} catch (Exception ex) {
 
@@ -254,10 +274,12 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 			}
 		}
 
-		return false;
+		return interceptorResultAfter;
 	}
 
-	public boolean executeOperationInterceptorsBefore(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult executeOperationInterceptorsBefore(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		InterceptorResult interceptorResultBefore = InterceptorResult.DEFAULT;
 
 		for (Iterator<OperationInterceptor> operationInterceptors = this.findOperationInterceptors(); operationInterceptors.hasNext(); ) {
 
@@ -275,10 +297,13 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 
 				executionContext.pushInterceptor(operationInterceptor, "OperationInterceptor: before");
 
-				if (operationInterceptor.before(operation, operationMessageResult, executionContext)) {
+				InterceptorResult interceptorResult = operationInterceptor.before(operation, operationMessageResult, executionContext);
+				interceptorResultBefore.or(interceptorResult);
 
-					if (log.isDebugEnabled()) log.debug("Operation has been fully handled by interceptor " + operationInterceptor.getClass().getSimpleName() + ".");
-					return true;
+				if (interceptorResult.isSkipSiblingInterceptors()) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping sibling operation interceptors (before) according to " + operationInterceptor.getClass().getSimpleName() + ".");
+					return interceptorResultBefore;
 				}
 			} catch (Exception ex) {
 
@@ -289,10 +314,12 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 			}
 		}
 
-		return false;
+		return interceptorResultBefore;
 	}
 
-	public boolean executeOperationInterceptorsAfter(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult executeOperationInterceptorsAfter(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		InterceptorResult interceptorResultAfter = InterceptorResult.DEFAULT;
 
 		for (Iterator<OperationInterceptor> operationInterceptors = this.findOperationInterceptors(); operationInterceptors.hasNext(); ) {
 
@@ -310,10 +337,13 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 
 				executionContext.pushInterceptor(operationInterceptor, "OperationInterceptor: after");
 
-				if (operationInterceptor.after(operation, operationMessageResult, executionContext)) {
+				InterceptorResult interceptorResult = operationInterceptor.after(operation, operationMessageResult, executionContext);
+				interceptorResultAfter.or(interceptorResult);
 
-					if (log.isDebugEnabled()) log.debug("Operation has been fully handled by interceptor " + operationInterceptor.getClass().getSimpleName() + ".");
-					return true;
+				if (interceptorResult.isSkipSiblingInterceptors()) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping sibling operation interceptors (after) according to " + operationInterceptor.getClass().getSimpleName() + ".");
+					return interceptorResultAfter;
 				}
 			} catch (Exception ex) {
 
@@ -324,7 +354,7 @@ public class InterceptorList implements Iterable<Interceptor>, Prototype<Interce
 			}
 		}
 
-		return false;
+		return interceptorResultAfter;
 	}
 
 	public XDI3Segment executeTargetInterceptorsAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {

@@ -17,6 +17,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
@@ -74,12 +75,12 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 	 */
 
 	@Override
-	public boolean before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look for signature on the message
 
 		Signature<?, ?> signature = message.getSignature();
-		if (signature == null) return false;
+		if (signature == null) return InterceptorResult.DEFAULT;
 
 		// authenticate
 
@@ -96,13 +97,13 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor impl
 
 		// done
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public boolean after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return false;
+		return InterceptorResult.DEFAULT;
 	}
 
 	/*
