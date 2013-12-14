@@ -3,12 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
-body { font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt; padding: 20px; }
+body { font-family: "Arial", "Helvetica", sans-serif; padding: 20px; }
+* { font-size: 12pt; }
 a { text-decoration: none; color: #540dd8; border-bottom: 3px solid #540dd8; }
-th { font-weight: bold; }
-td { margin: 5px; padding: 5px; border: 2px solid black; }
-hr { color: black; background-color: black; height: 3px; }
-h1 { font-size: 1.5em; }
+hr { color: black; background-color: black; height: 1px; }
+h1 { font-size: 1.4em; }
+table.pretty { margin: 10px; width: 480px; text-align: left; border-collapse: collapse; border: 2px solid black; }
+table.pretty th { padding: 12px 17px 12px 17px; font-weight: normal; color: #039; border-bottom: 2px solid black; }
+table.pretty td { padding: 7px 17px 7px 17px; color: #669; border-bottom: 2px solid black; }
+table.pretty tbody tr:hover td { color: #339; background: #c0b4d8; }
+input { border: 2px solid black; background: white; padding: 5px; }
 </style>
 <title>XDI2 Server Status</title>
 </head>
@@ -29,33 +33,24 @@ h1 { font-size: 1.5em; }
 </th>
 </tr>
 </table>
-<hr style="clear: both" noshade>
 <h1>General Information:</h1>
-<table>
-	<tr><th>Request Class:</th><td>$request.class.canonicalName</td>
-		<td rowspan="4" valign="top">
-			<table>
-				<tr>
-				<th>Interceptors</th>
-				</tr>
-				<tr>
-				<td valign="top">
-				#foreach($interceptor in $httptransport.interceptors) 
-					$interceptor.class.canonicalName<br>
-				#end
-				</td>
-			    </tr>
-			</table>
-		</td>
-	</tr>
+<table class="pretty">
+	<tr><th>Request Class:</th><td>$request.class.canonicalName</td></tr>
 	<tr><th>Startup Time:</th><td>$httptransport.getStartupAsString()</td></tr>
 	<tr><th>Base URI:</th><td>$request.baseUri</td></tr>
 	<tr><th>Request Path:</th><td>$request.requestPath</td></tr>
 	<tr><th>Parser:</th><td>$parser.class.canonicalName</td></tr>
+	<tr><th>Interceptors:</th><td>
+		#foreach($interceptor in $httptransport.interceptors) 
+			$interceptor.class.canonicalName<br>
+		#end
+	</td></tr>
 </table>
-<hr style="clear: both" noshade>
 <h1>Active Plugins:</h1>
-<table>
+#if(! $pluginfiles)
+	(none)
+#else
+<table class="pretty">
 #foreach($pluginfile in $pluginfiles)
 	<tr>
 	<th>Plugin:</th>
@@ -63,13 +58,16 @@ h1 { font-size: 1.5em; }
     </tr>
 #end
 </table>
-<hr style="clear: both" noshade>
+#end
 <h1>Mounted MessagingTargets:</h1>
-<table>
+#if($messagingtargetmounts.size()==0)
+	(none)
+#else
+<table class="pretty">
 	<tr>
 	<th>Path</th>
 	<th>MessagingTarget</th>
-	<th>Owner Peer Root</th>
+	<th>Owner</th>
 	<th>Contributors</th>
 	<th>Interceptors</th>
 	</tr>
@@ -140,21 +138,25 @@ h1 { font-size: 1.5em; }
 	<td valign="top">
 	#foreach($contributorlist in $messagingtargetmount.messagingTarget.contributors.entrySet())
 		#foreach($contributor in $contributorlist.value)
-			$contributorlist.key<br>$contributor.class.canonicalName<br><hr>
+			$contributorlist.key (ENABLED $contributor.enabled)<br>
+			$contributor.class.canonicalName<br><hr>
 		#end
 	#end
 	</td>
 	<td valign="top">
 	#foreach($interceptor in $messagingtargetmount.messagingTarget.interceptors) 
-		$interceptor.class.canonicalName<br>
+		$interceptor.class.canonicalName (ENABLED $interceptor.enabled)<br>
 	#end
 	</td>
     </tr>
 #end
 </table>
-<hr noshade>
+#end
 <h1>Mounted MessagingTargetFactorys:</h1>
-<table>
+#if($messagingtargetfactorymounts.size()==0)
+	(none)
+#else
+<table class="pretty">
 	<tr>
 	<th>Path</th>
 	<th>MessagingTargetFactory</th>
@@ -177,6 +179,7 @@ h1 { font-size: 1.5em; }
     </tr>
 #end
 </table>
+#end
 <hr noshade>
 See <a href="http://xdi2.projectdanube.org/">http://xdi2.projectdanube.org/</a> for more information.
 </body>
