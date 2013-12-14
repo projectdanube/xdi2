@@ -284,7 +284,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// prepare the forwarding message envelope
 
-		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement, true);
+		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement, false);
 
 		Message forwardingMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
 
