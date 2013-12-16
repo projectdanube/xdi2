@@ -1,8 +1,7 @@
 package xdi2.core.features.nodetypes;
 
-import java.util.Iterator;
-
 import xdi2.core.Statement;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -84,5 +83,5 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	 * @param ignoreImplied Whether to ignore implied statements.
 	 * @return The relative statements.
 	 */
-	public Iterator<XDI3Statement> getRelativeStatements(final boolean ignoreImplied);
+	public ReadOnlyIterator<XDI3Statement> getRelativeStatements(final boolean ignoreImplied);
 }

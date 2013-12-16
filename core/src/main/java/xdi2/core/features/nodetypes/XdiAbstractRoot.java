@@ -1,7 +1,5 @@
 package xdi2.core.features.nodetypes;
 
-import java.util.Iterator;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +8,7 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -192,7 +191,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	@Override
-	public Iterator<XDI3Statement> getRelativeStatements(final boolean ignoreImplied) {
+	public ReadOnlyIterator<XDI3Statement> getRelativeStatements(final boolean ignoreImplied) {
 
 		if (log.isTraceEnabled()) log.trace("getRelativeStatements(" + ignoreImplied + ")");
 

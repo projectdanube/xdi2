@@ -1,7 +1,6 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
@@ -11,6 +10,7 @@ import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -151,7 +151,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the target statements of the operation.
 	 * @return The target statements of the operation.
 	 */
-	public Iterator<XDI3Statement> getTargetStatements() {
+	public ReadOnlyIterator<XDI3Statement> getTargetStatements() {
 
 		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
 
