@@ -299,7 +299,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		// prepare the forwarding message envelope
 
 		Message message = operation.getMessage();
-		if (log.isDebugEnabled()) log.debug("Preparing message for forwarding: " + message);
+		if (log.isDebugEnabled()) log.debug("Message as a basis for forwarding: " + message);
 
 		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement, false);
 
@@ -310,18 +310,20 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXri(), targetStatement);
 
-		if (log.isDebugEnabled()) log.debug("Prepared message for forwarding: " + forwardingMessage);
-
 		MessageEnvelope forwardingMessageEnvelope = forwardingMessage.getMessageEnvelope();
+
+		if (log.isDebugEnabled()) log.debug("Message envelope for forwarding: " + forwardingMessageEnvelope);
 
 		// manipulate the forwarding message envelope
 
 		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
 
-			if (log.isDebugEnabled()) log.debug("Executing message result manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + " (message envelope).");
+			if (log.isDebugEnabled()) log.debug("Executing manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + " (message envelope).");
 
 			proxyManipulator.manipulate(forwardingMessageEnvelope, executionContext);
 		}
+
+		if (log.isDebugEnabled()) log.debug("Manipulated message envelope for forwarding: " + forwardingMessageEnvelope);
 
 		// prepare the forwarding message result
 
@@ -343,10 +345,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
 
-			if (log.isDebugEnabled()) log.debug("Executing message result manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + " (message result).");
+			if (log.isDebugEnabled()) log.debug("Executing manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + " (message result).");
 
 			proxyManipulator.manipulate(forwardingMessageResult, executionContext);
 		}
+
+		if (log.isDebugEnabled()) log.debug("Manipulated message result from forwarding: " + forwardingMessageResult);
 
 		// done
 
