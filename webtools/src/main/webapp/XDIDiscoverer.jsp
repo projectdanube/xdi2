@@ -79,10 +79,10 @@
 		<% } %>
 
 		<% if (request.getAttribute("discoveryResultRegistry") != null) { %>
-			<form action="XDIMessenger">
+<!--			<form action="XDIMessenger">
 				<input type="hidden" name="endpoint" value="bla">
 				<input type="submit" value="Send XDI Message">
-			</form>
+			</form> -->
 		<% } %>
 		</p>
 	<% } %>
