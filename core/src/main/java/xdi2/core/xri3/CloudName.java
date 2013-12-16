@@ -78,9 +78,9 @@ public class CloudName {
 		return new CloudName(xri, peerRootXri);
 	}
 
-	public static CloudName fromPeerRootXri(XDI3Segment peerRootXri) {
+	public static CloudName fromPeerRootXri(XDI3SubSegment peerRootXri) {
 
-		XDI3Segment xri = XdiPeerRoot.getXriOfPeerRootArcXri(peerRootXri.getFirstSubSegment());
+		XDI3Segment xri = XdiPeerRoot.getXriOfPeerRootArcXri(peerRootXri);
 
 		return fromXri(xri);
 	}
