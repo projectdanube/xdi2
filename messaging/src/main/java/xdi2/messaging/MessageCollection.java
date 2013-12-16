@@ -81,7 +81,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Returns the underlying XDI entity class to which this XDI message collection is bound.
 	 * @return An XDI entity class that represents the XDI message collection.
 	 */
-	public XdiEntityCollection getXdiEntityClass() {
+	public XdiEntityCollection getXdiEntityCollection() {
 
 		return this.xdiEntityCollection;
 	}
@@ -92,7 +92,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public ContextNode getContextNode() {
 
-		return this.getXdiEntityClass().getContextNode();
+		return this.getXdiEntityCollection().getContextNode();
 	}
 
 	/**
@@ -144,7 +144,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public ReadOnlyIterator<Message> getMessages() {
 
-		return new MappingXdiEntityMessageIterator(this, this.getXdiEntityClass().getXdiMembersDeref());
+		return new MappingXdiEntityMessageIterator(this, this.getXdiEntityCollection().getXdiMembersDeref());
 	}
 
 	/**

@@ -1,6 +1,10 @@
 package xdi2.messaging.util;
 
 import xdi2.core.Graph;
+import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
+import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
 import xdi2.core.util.CloneUtil;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.Message;
@@ -52,7 +56,20 @@ public final class MessagingCloneUtil {
 		MessageCollection clonedMessageCollection = cloneMessageCollection(message.getMessageCollection());
 		clonedMessageCollection.deleteMessages();
 
-		CopyUtil.copyContextNode(message.getContextNode(), clonedMessageCollection.getMessageEnvelope().getGraph(), null);
+		XdiEntity xdiEntity = message.getXdiEntity();
+
+		if (xdiEntity instanceof XdiEntityMemberUnordered) {
+
+			XdiEntityMemberUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberUnordered(((XdiEntityMemberUnordered) xdiEntity).getArcXri());
+			CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberUnordered.getContextNode(), null);
+		} else if (xdiEntity instanceof XdiEntityMemberOrdered) {
+
+			XdiEntityMemberOrdered xdiEntityMemberOrdered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberOrdered(-1);
+			CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberOrdered.getContextNode(), null);
+		} else {
+
+			throw new Xdi2RuntimeException("Unexpected message entity: " + xdiEntity + " (" + xdiEntity.getClass().getSimpleName() + ")");
+		}
 
 		return clonedMessageCollection.getMessages().next();
 	}
