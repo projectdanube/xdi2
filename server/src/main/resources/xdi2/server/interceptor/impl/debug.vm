@@ -15,6 +15,11 @@ table.pretty tbody tr:hover td { background: #d6c9f1; }
 span.light { color: #777; }
 input { border: 2px solid black; background: white; padding: 5px; }
 </style>
+<script type="text/javascript">
+<!--
+function toggle_visibility(id) { var e = document.getElementById(id); if(e.style.display == 'block') e.style.display = 'none'; else e.style.display = 'block'; }
+//-->
+</script>
 <title>XDI2 Server Status</title>
 </head>
 <body>
@@ -75,8 +80,8 @@ input { border: 2px solid black; background: white; padding: 5px; }
 	<th>Path</th>
 	<th>MessagingTarget</th>
 	<th>Owner</th>
-	<th>Contributors</th>
 	<th>Interceptors</th>
+	<th>Contributors</th>
 	</tr>
 #foreach($messagingtargetmount in $messagingtargetmounts)
 	<tr>
@@ -143,6 +148,26 @@ input { border: 2px solid black; background: white; padding: 5px; }
     	#end
     </td>
 	<td valign="top">
+	<p><a href="javascript:void(0)" onclick="toggle_visibility('interceptors$velocityCount')">SHOW</a></p>
+	<div id="interceptors$velocityCount" style="display:none">
+	#if($messagingtargetmount.messagingTarget.interceptors.size()==0)
+		(none)
+	#else
+	#foreach($interceptor in $messagingtargetmount.messagingTarget.interceptors) 
+		$interceptor.class.simpleName<br>
+			<span class="light">
+			#if($interceptor.enabled) ENABLED #else DISABLED #end
+			</span><br><hr>
+	#end
+	#end
+	</div>
+	</td>
+	<td valign="top">
+	<p><a href="javascript:void(0)" onclick="toggle_visibility('contributors$velocityCount')">SHOW</a></p>
+	<div id="contributors$velocityCount" style="display:none">
+	#if($messagingtargetmount.messagingTarget.contributors.size()==0)
+		(none)
+	#else
 	#foreach($contributorlist in $messagingtargetmount.messagingTarget.contributors.entrySet())
 		#foreach($contributor in $contributorlist.value)
 			$contributor.class.simpleName<br>
@@ -152,14 +177,8 @@ input { border: 2px solid black; background: white; padding: 5px; }
 			</span><br><hr>
 		#end
 	#end
-	</td>
-	<td valign="top">
-	#foreach($interceptor in $messagingtargetmount.messagingTarget.interceptors) 
-		$interceptor.class.simpleName<br>
-			<span class="light">
-			#if($interceptor.enabled) ENABLED #else DISABLED #end
-			</span><br><hr>
 	#end
+	</div>
 	</td>
     </tr>
 #end
