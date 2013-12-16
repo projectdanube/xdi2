@@ -113,6 +113,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		XDIDiscoveryResult discoveryResultRegistry = null;
 		XDIDiscoveryResult discoveryResultAuthority = null;
+		Exception exceptionAuthority = null;
 
 		long start = System.currentTimeMillis();
 
@@ -138,7 +139,14 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 					endpointUriTypes = new XDI3Segment[endpointUriTypesString.length];
 					for (int i=0; i<endpointUriTypesString.length; i++) endpointUriTypes[i] = XDI3Segment.create(endpointUriTypesString[i].trim());
 
-					discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), endpointUriTypes);
+					try {
+
+						discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), endpointUriTypes);
+					} catch (Exception ex) {
+						
+						exceptionAuthority = ex;
+						discoveryResultAuthority = null;
+					}
 				}
 			}
 
@@ -192,7 +200,6 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			if (discoveryResultAuthority != null) {
 
-
 				writer2.write("Discovery result from authority:\n\n");
 
 				writer2.write("Cloud Number: " + discoveryResultAuthority.getCloudNumber() + "\n");
@@ -229,6 +236,9 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 					xdiResultWriter.write(discoveryResultAuthority.getMessageResult().getGraph(), writer2);
 				else
 					writer2.write("(null)");
+			} else if (exceptionAuthority != null) {
+
+				writer2.write("Exception from authority: " + exceptionAuthority.getMessage() + "\n");
 			} else {
 
 				writer2.write("No discovery result from authority.\n");
@@ -246,9 +256,9 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				if (messageResult != null) {
 
-					StringWriter writer2 = new StringWriter();
-					xdiResultWriter.write(messageResult.getGraph(), writer2);
-					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+					StringWriter writer = new StringWriter();
+					xdiResultWriter.write(messageResult.getGraph(), writer);
+					output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 				}
 			}
 
