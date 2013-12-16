@@ -85,6 +85,13 @@ public class CloudName {
 		return fromXri(xri);
 	}
 
+	public static CloudName fromPeerRootXri(XDI3Segment peerRootXri) {
+
+		if (peerRootXri.getNumSubSegments() > 1) return null;
+		
+		return fromPeerRootXri(peerRootXri.getFirstSubSegment());
+	}
+
 	public XDI3Segment getXri() {
 
 		return this.xri;
