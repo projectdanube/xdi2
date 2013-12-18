@@ -2,6 +2,7 @@ package xdi2.messaging.tests.basic;
 
 import junit.framework.TestCase;
 import xdi2.core.ContextNode;
+import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -112,7 +113,7 @@ public class BasicTest extends TestCase {
 	public void testMessagingFromOperationXriAndTargetAddress() throws Exception {
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetAddress(XDIMessagingConstants.XRI_S_SET, TARGET_ADDRESS);
-		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIAuthenticationConstants.XRI_S_ANONYMOUS, false);
 		Message message = messageCollection.getMessages().next();
 		Operation operation = message.getSetOperations().next();
 
@@ -121,9 +122,9 @@ public class BasicTest extends TestCase {
 		assertEquals(messageCollection.getMessageCount(), 1);
 		assertEquals(messageCollection.getOperationCount(), 1);
 		assertEquals(message.getOperationCount(), 1);
-		assertEquals(messageCollection.getSenderXri(), XDIMessagingConstants.XRI_S_ANONYMOUS);
-		assertEquals(message.getSenderXri(), XDIMessagingConstants.XRI_S_ANONYMOUS);
-		assertEquals(operation.getSenderXri(), XDIMessagingConstants.XRI_S_ANONYMOUS);
+		assertEquals(messageCollection.getSenderXri(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
+		assertEquals(message.getSenderXri(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
+		assertEquals(operation.getSenderXri(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
 		assertEquals(operation.getOperationXri(), XDIMessagingConstants.XRI_S_SET);
 		assertEquals(operation.getTargetAddress(), TARGET_ADDRESS);
 		assertTrue(operation instanceof SetOperation);
@@ -132,7 +133,7 @@ public class BasicTest extends TestCase {
 	public void testMessagingFromOperationXriAndTargetStatement() throws Exception {
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetStatements(XDIMessagingConstants.XRI_S_SET, new SingleItemIterator<XDI3Statement> (TARGET_STATEMENT));
-		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIMessagingConstants.XRI_S_ANONYMOUS, false);
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIAuthenticationConstants.XRI_S_ANONYMOUS, false);
 		Message message = messageCollection.getMessages().next();
 		Operation operation = message.getSetOperations().next();
 
@@ -141,9 +142,9 @@ public class BasicTest extends TestCase {
 		assertEquals(messageCollection.getMessageCount(), 1);
 		assertEquals(messageCollection.getOperationCount(), 1);
 		assertEquals(message.getOperationCount(), 1);
-		assertEquals(messageCollection.getSenderXri(), XDIMessagingConstants.XRI_S_ANONYMOUS);
-		assertEquals(message.getSenderXri(), XDIMessagingConstants.XRI_S_ANONYMOUS);
-		assertEquals(operation.getSenderXri(), XDIMessagingConstants.XRI_S_ANONYMOUS);
+		assertEquals(messageCollection.getSenderXri(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
+		assertEquals(message.getSenderXri(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
+		assertEquals(operation.getSenderXri(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
 		assertEquals(operation.getOperationXri(), XDIMessagingConstants.XRI_S_SET);
 		assertEquals(operation.getTargetStatements().next(), TARGET_STATEMENT);
 		assertTrue(operation instanceof SetOperation);
