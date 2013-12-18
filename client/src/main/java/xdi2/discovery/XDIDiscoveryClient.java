@@ -17,7 +17,6 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
  * Given a Cloud Name or discovery key, useful information such a Cloud Number, 
@@ -94,7 +93,7 @@ public class XDIDiscoveryClient {
 		// send the registry message
 
 		MessageEnvelope registryMessageEnvelope = new MessageEnvelope();
-		Message registryMessage = registryMessageEnvelope.createMessage(XDIMessagingConstants.XRI_S_ANONYMOUS);
+		Message registryMessage = registryMessageEnvelope.createMessage(null);
 		registryMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC);
 		registryMessage.createGetOperation(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(query)));
 
@@ -133,7 +132,7 @@ public class XDIDiscoveryClient {
 		// send the authority message
 
 		MessageEnvelope authorityMessageEnvelope = new MessageEnvelope();
-		Message authorityMessage = authorityMessageEnvelope.createMessage(XDIMessagingConstants.XRI_S_ANONYMOUS);
+		Message authorityMessage = authorityMessageEnvelope.createMessage(null);
 		authorityMessage.setToPeerRootXri(cloudNumber.getPeerRootXri());
 		authorityMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC_DO);
 		//authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
