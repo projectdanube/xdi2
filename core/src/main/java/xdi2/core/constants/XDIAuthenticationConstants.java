@@ -10,6 +10,8 @@ import xdi2.core.xri3.XDI3SubSegment;
  */
 public final class XDIAuthenticationConstants {
 
+	public static final XDI3Segment XRI_S_ANONYMOUS = XDI3Segment.create("$anon");
+
 	public static final XDI3Segment XRI_S_SECRET_TOKEN = XDI3Segment.create("<$secret><$token>");
 	public static final XDI3Segment XRI_S_OAUTH_TOKEN = XDI3Segment.create("<$oauth><$token>");
 	public static final XDI3Segment XRI_S_SIGNATURE = XDI3Segment.create("<$sig>");

@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityCollection.MappingContextNodeXdiEntityCollectionIterator;
@@ -81,7 +82,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (targetAddress == null) targetAddress = XDIConstants.XRI_S_CONTEXT;
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(XDIMessagingConstants.XRI_S_ANONYMOUS);
+		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XRI_S_ANONYMOUS);
 		message.createOperation(operationXri, targetAddress);
 
 		return messageEnvelope;
@@ -98,7 +99,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (targetStatements == null) throw new NullPointerException();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(XDIMessagingConstants.XRI_S_ANONYMOUS);
+		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XRI_S_ANONYMOUS);
 		message.createOperation(operationXri, targetStatements);
 
 		return messageEnvelope;
@@ -146,7 +147,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public MessageCollection getMessageCollection(XDI3Segment senderXri, boolean create) {
 
-		if (senderXri == null) senderXri = XDIMessagingConstants.XRI_S_ANONYMOUS;
+		if (senderXri == null) senderXri = XDIAuthenticationConstants.XRI_S_ANONYMOUS;
 
 		XDI3Segment messageCollectionXri = XDI3Segment.create(senderXri.toString() + XdiEntityCollection.createArcXri(XDIMessagingConstants.XRI_SS_MSG));
 		ContextNode contextNode = create ? this.getGraph().setDeepContextNode(messageCollectionXri) : this.getGraph().getDeepContextNode(messageCollectionXri);

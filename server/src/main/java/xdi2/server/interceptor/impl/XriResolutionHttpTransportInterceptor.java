@@ -19,6 +19,7 @@ import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXriIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -149,10 +150,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 	private static XDI3Segment getProviderId(Graph graph) {
 
-		XdiPeerRoot selfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
-		if (selfPeerRoot == null) return null;
-
-		return selfPeerRoot.getXriOfPeerRoot();
+		return GraphUtil.getOwnerXri(graph);
 	}
 
 	private static XDI3Segment[] getProviderIdSynonyms(Graph graph, XDI3Segment providerid) {

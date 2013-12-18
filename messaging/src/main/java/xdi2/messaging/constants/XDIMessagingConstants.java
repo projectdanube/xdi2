@@ -10,8 +10,6 @@ import xdi2.core.xri3.XDI3SubSegment;
  */
 public final class XDIMessagingConstants {
 
-	public static final XDI3Segment XRI_S_ANONYMOUS = XDI3Segment.create("$anon");
-
 	public static final XDI3Segment XRI_S_MSG = XDI3Segment.create("$msg");
 	public static final XDI3Segment XRI_S_GET = XDI3Segment.create("$get");
 	public static final XDI3Segment XRI_S_SET = XDI3Segment.create("$set");
