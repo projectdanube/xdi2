@@ -29,10 +29,22 @@ public final class GraphUtil {
 
 	public static XDI3Segment getOwnerXri(Graph graph) {
 
-		XdiPeerRoot xdiSelfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
-		if (xdiSelfPeerRoot == null) return null;
+		XDI3SubSegment ownerPeerRootxri = getOwnerPeerRootXri(graph);
+		if (ownerPeerRootxri == null) return null;
 
-		return xdiSelfPeerRoot.getXriOfPeerRoot();
+		return XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootxri);
+	}
+
+	public static void setOwnerPeerRootXri(Graph graph, XDI3SubSegment ownerPeerRootXri) {
+
+		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootXri);
+
+		setOwnerXri(graph, ownerXri);
+	}
+
+	public static void setOwnerXri(Graph graph, XDI3Segment ownerXri) {
+
+		XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(ownerXri);
 	}
 
 	/**
