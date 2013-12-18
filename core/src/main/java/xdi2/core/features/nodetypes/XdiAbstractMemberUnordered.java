@@ -75,13 +75,13 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 		return createUuidArcXri(uuid, attribute);
 	}
 
-	public static XDI3SubSegment createDigestArcXri(String string, boolean attribute) {
+	public static XDI3SubSegment createDigestArcXri(String string, boolean attribute, String algorithm) {
 
 		byte[] output;
 
 		try {
 
-			MessageDigest digest = MessageDigest.getInstance("SHA-512");
+			MessageDigest digest = MessageDigest.getInstance(algorithm);
 			digest.update(string.getBytes("UTF-8"));
 			output = digest.digest();
 		} catch (Exception ex) {
@@ -91,7 +91,12 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 		String hex = new String(Hex.encodeHex(output));
 
-		return createArcXri(":sha512:" + hex, attribute);
+		return createArcXri(":" + algorithm.toLowerCase().replace("-", "") + ":" + hex, attribute);
+	}
+
+	public static XDI3SubSegment createDigestArcXri(String string, boolean attribute) {
+
+		return createDigestArcXri(string, attribute, "SHA-512");
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri, boolean attribute) {
