@@ -1,11 +1,11 @@
 package xdi2.core.features.linkcontracts;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.xri3.XDI3Segment;
 
 /**
@@ -13,7 +13,7 @@ import xdi2.core.xri3.XDI3Segment;
  * 
  * @author markus
  */
-public class PublicLinkContract extends LinkContract {
+public class PublicLinkContract extends GenericLinkContract {
 
 	private static final long serialVersionUID = -5384390106585674311L;
 
@@ -35,7 +35,7 @@ public class PublicLinkContract extends LinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (! XDILinkContractConstants.XRI_S_PUBLIC_DO.equals(xdiEntity.getXri())) return false;
+			if (! XDILinkContractConstants.XRI_S_PUBLIC.equals(GenericLinkContract.getTemplateId(xdiEntity.getXri()))) return false;
 
 			return true;
 		} else {
@@ -62,11 +62,12 @@ public class PublicLinkContract extends LinkContract {
 	 */
 	public static PublicLinkContract findPublicLinkContract(Graph graph, boolean create) {
 
-		XDI3Segment publicLinkContractXri = XDILinkContractConstants.XRI_S_PUBLIC_DO;
+		XDI3Segment ownerXri = GraphUtil.getOwnerXri(graph);
+		if (ownerXri == null) return null;
 
-		ContextNode publicLinkContractContextNode = create ? graph.setDeepContextNode(publicLinkContractXri) : graph.getDeepContextNode(publicLinkContractXri);
-		if (publicLinkContractContextNode == null) return null;
+		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXri, XDIAuthenticationConstants.XRI_S_ANONYMOUS, XDILinkContractConstants.XRI_S_PUBLIC, true);
+		if (genericLinkContract == null) return null;
 
-		return new PublicLinkContract(XdiAbstractEntity.fromContextNode(publicLinkContractContextNode));
+		return fromXdiEntity(genericLinkContract.getXdiEntity());
 	}
 }

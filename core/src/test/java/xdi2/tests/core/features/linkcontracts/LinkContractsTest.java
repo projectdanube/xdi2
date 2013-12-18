@@ -3,6 +3,8 @@ package xdi2.tests.core.features.linkcontracts;
 import junit.framework.TestCase;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.GenericLinkContract;
 import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.LinkContracts;
@@ -10,6 +12,7 @@ import xdi2.core.features.linkcontracts.PublicLinkContract;
 import xdi2.core.features.linkcontracts.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.xri3.XDI3Segment;
 
@@ -76,15 +79,41 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l5.getAuthorizingParty(), XDI3Segment.create("+friend"));
 		assertEquals(l5.getRequestingParty(), XDI3Segment.create("$anon"));
 		assertNull(l5.getTemplateId());
+	}
 
-		ContextNode c6 = graph.setDeepContextNode(XDI3Segment.create("$do"));
-		RootLinkContract l6 = (RootLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c6));
+	public void testRootLinkContract() throws Exception {
 
-		assertNotNull(l6);
+		Graph graph = MemoryGraphFactory.getInstance().openGraph();
+		GraphUtil.setOwnerXri(graph, XDI3Segment.create("=markus"));
+		assertEquals(GraphUtil.getOwnerXri(graph), XDI3Segment.create("=markus"));
 
-		ContextNode c7 = graph.setDeepContextNode(XDI3Segment.create("$public$do"));
-		PublicLinkContract l7 = (PublicLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c7));
+		RootLinkContract l = RootLinkContract.findRootLinkContract(graph, true);
+		assertNotNull(l);
+		assertEquals(l.getXdiEntity().getXri(), XDI3Segment.create("=markus$to=markus$from$do"));
 
-		assertNotNull(l7);
+		assertNotNull(RootLinkContract.findRootLinkContract(graph, false));
+		assertTrue(LinkContract.fromXdiEntity(l.getXdiEntity()) instanceof RootLinkContract);
+
+		assertEquals(l.getRequestingParty(), XDI3Segment.create("=markus"));
+		assertEquals(l.getAuthorizingParty(), XDI3Segment.create("=markus"));
+		assertNull(l.getTemplateId());
+	}
+
+	public void testPublicLinkContract() throws Exception {
+
+		Graph graph = MemoryGraphFactory.getInstance().openGraph();
+		GraphUtil.setOwnerXri(graph, XDI3Segment.create("=markus"));
+		assertEquals(GraphUtil.getOwnerXri(graph), XDI3Segment.create("=markus"));
+
+		PublicLinkContract l = PublicLinkContract.findPublicLinkContract(graph, true);
+		assertNotNull(l);
+		assertEquals(l.getXdiEntity().getXri(), XDI3Segment.create("=markus$to$anon$from$public$do"));
+
+		assertNotNull(PublicLinkContract.findPublicLinkContract(graph, false));
+		assertTrue(LinkContract.fromXdiEntity(l.getXdiEntity()) instanceof PublicLinkContract);
+
+		assertEquals(l.getRequestingParty(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
+		assertEquals(l.getAuthorizingParty(), XDI3Segment.create("=markus"));
+		assertEquals(l.getTemplateId(), XDILinkContractConstants.XRI_S_PUBLIC);
 	}
 }

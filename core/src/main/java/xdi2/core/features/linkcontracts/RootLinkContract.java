@@ -1,11 +1,9 @@
 package xdi2.core.features.linkcontracts;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.xri3.XDI3Segment;
 
 /**
@@ -13,7 +11,7 @@ import xdi2.core.xri3.XDI3Segment;
  * 
  * @author markus
  */
-public class RootLinkContract extends LinkContract {
+public class RootLinkContract extends GenericLinkContract {
 
 	private static final long serialVersionUID = 2104767228107704809L;
 
@@ -35,7 +33,7 @@ public class RootLinkContract extends LinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (! XDILinkContractConstants.XRI_S_DO.equals(xdiEntity.getXri())) return false;
+			if (GenericLinkContract.getTemplateId(xdiEntity.getXri()) != null) return false;
 
 			return true;
 		} else {
@@ -62,11 +60,12 @@ public class RootLinkContract extends LinkContract {
 	 */
 	public static RootLinkContract findRootLinkContract(Graph graph, boolean create) {
 
-		XDI3Segment rootLinkContractXri = XDILinkContractConstants.XRI_S_DO;
+		XDI3Segment ownerXri = GraphUtil.getOwnerXri(graph);
+		if (ownerXri == null) return null;
 
-		ContextNode rootLinkContractContextNode = create ? graph.setDeepContextNode(rootLinkContractXri) : graph.getDeepContextNode(rootLinkContractXri);
-		if (rootLinkContractContextNode == null) return null;
+		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXri, ownerXri, null, create);
+		if (genericLinkContract == null) return null;
 
-		return new RootLinkContract(XdiAbstractEntity.fromContextNode(rootLinkContractContextNode));
+		return fromXdiEntity(genericLinkContract.getXdiEntity());
 	}
 }
