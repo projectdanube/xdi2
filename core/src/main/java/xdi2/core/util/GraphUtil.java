@@ -4,8 +4,11 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * Various utility methods for working with context nodes, relations and literals.
@@ -15,6 +18,22 @@ import xdi2.core.xri3.XDI3Segment;
 public final class GraphUtil {
 
 	private GraphUtil() { }
+
+	public static XDI3SubSegment getOwnerPeerRootXri(Graph graph) {
+
+		XdiPeerRoot xdiSelfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
+		if (xdiSelfPeerRoot == null) return null;
+
+		return xdiSelfPeerRoot.getArcXri();
+	}
+
+	public static XDI3Segment getOwnerXri(Graph graph) {
+
+		XdiPeerRoot xdiSelfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
+		if (xdiSelfPeerRoot == null) return null;
+
+		return xdiSelfPeerRoot.getXriOfPeerRoot();
+	}
 
 	/**
 	 * Creates a context node from its components.
@@ -48,7 +67,7 @@ public final class GraphUtil {
 	 * @param literalData The literal data of the literal.
 	 * @return A literal.
 	 */
-	public static Literal literalFromComponents(XDI3Segment contextNodeXri, String literalData) {
+	public static Literal literalFromComponents(XDI3Segment contextNodeXri, Object literalData) {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 

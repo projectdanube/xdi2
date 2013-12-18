@@ -5,6 +5,7 @@ import java.io.IOException;
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -53,10 +54,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	@Override
 	public XDI3SubSegment getOwnerPeerRootXri() {
 
-		XdiPeerRoot xdiSelfPeerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).getSelfPeerRoot();
-		if (xdiSelfPeerRoot == null) return null;
-
-		return xdiSelfPeerRoot.getContextNode().getArcXri();
+		return GraphUtil.getOwnerPeerRootXri(this.getGraph());
 	}
 
 	@Override
