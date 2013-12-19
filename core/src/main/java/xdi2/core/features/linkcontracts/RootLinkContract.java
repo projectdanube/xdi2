@@ -54,6 +54,11 @@ public class RootLinkContract extends GenericLinkContract {
 		return new RootLinkContract(xdiEntity);
 	}
 
+	public static XDI3Segment createLinkContractXri(XDI3Segment ownerXri) {
+
+		return GenericLinkContract.createLinkContractXri(ownerXri, ownerXri, null);
+	}
+
 	/**
 	 * Factory method that finds or creates an XDI root link contract for a graph.
 	 * @return The XDI root link contract.

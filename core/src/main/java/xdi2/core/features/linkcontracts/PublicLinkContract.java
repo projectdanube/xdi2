@@ -56,6 +56,11 @@ public class PublicLinkContract extends GenericLinkContract {
 		return new PublicLinkContract(xdiEntity);
 	}
 
+	public static XDI3Segment createLinkContractXri(XDI3Segment ownerXri) {
+
+		return GenericLinkContract.createLinkContractXri(ownerXri, XDIAuthenticationConstants.XRI_S_ANONYMOUS, XDILinkContractConstants.XRI_S_PUBLIC);
+	}
+
 	/**
 	 * Factory method that finds or creates an XDI public link contract for a graph.
 	 * @return The XDI public link contract.

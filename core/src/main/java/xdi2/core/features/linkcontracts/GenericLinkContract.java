@@ -75,11 +75,7 @@ public class GenericLinkContract extends LinkContract {
 		return new GenericLinkContract(xdiEntity);
 	}
 
-	/**
-	 * Factory method that finds or creates an XDI generic link contract for a graph.
-	 * @return The XDI generic link contract.
-	 */
-	public static GenericLinkContract findGenericLinkContract(Graph graph, XDI3Segment authorizingParty, XDI3Segment requestingParty, XDI3Segment templateId, boolean create) {
+	public static XDI3Segment createLinkContractXri(XDI3Segment authorizingParty, XDI3Segment requestingParty, XDI3Segment templateId) {
 
 		List<XDI3SubSegment> genericLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
 		genericLinkContractArcXris.addAll(authorizingParty.getSubSegments());
@@ -89,7 +85,16 @@ public class GenericLinkContract extends LinkContract {
 		if (templateId != null) genericLinkContractArcXris.addAll(templateId.getSubSegments());
 		genericLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_DO);
 
-		XDI3Segment genericLinkContractXri = XDI3Segment.fromComponents(genericLinkContractArcXris);
+		return XDI3Segment.fromComponents(genericLinkContractArcXris);
+	}
+	
+	/**
+	 * Factory method that finds or creates an XDI generic link contract for a graph.
+	 * @return The XDI generic link contract.
+	 */
+	public static GenericLinkContract findGenericLinkContract(Graph graph, XDI3Segment authorizingParty, XDI3Segment requestingParty, XDI3Segment templateId, boolean create) {
+
+		XDI3Segment genericLinkContractXri = createLinkContractXri(authorizingParty, requestingParty, templateId);
 
 		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXri) : graph.getDeepContextNode(genericLinkContractXri);
 		if (genericLinkContractContextNode == null) return null;
