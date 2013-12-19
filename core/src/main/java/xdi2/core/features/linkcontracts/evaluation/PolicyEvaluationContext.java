@@ -12,7 +12,7 @@ import xdi2.core.xri3.XDI3Statement;
  */
 public interface PolicyEvaluationContext {
 
-	public XDI3Segment getContextNodeXri(XDI3Segment xri);
-	public ContextNode getContextNode(XDI3Segment xri);
+	public XDI3Segment resolveXri(XDI3Segment contextNodeXri);
+	public ContextNode getContextNode(XDI3Segment contextNodeXri);
 	public Statement getStatement(XDI3Statement statementXri);
 }

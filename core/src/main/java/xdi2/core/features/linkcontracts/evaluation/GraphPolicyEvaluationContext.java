@@ -16,15 +16,15 @@ public class GraphPolicyEvaluationContext implements PolicyEvaluationContext {
 	}
 
 	@Override
-	public XDI3Segment getContextNodeXri(XDI3Segment xri) {
+	public XDI3Segment resolveXri(XDI3Segment contextNodeXri) {
 
-		return xri;
+		return contextNodeXri;
 	}
 
 	@Override
-	public ContextNode getContextNode(XDI3Segment xri) {
+	public ContextNode getContextNode(XDI3Segment contextNodeXri) {
 
-		return this.getGraph().getDeepContextNode(xri);
+		return this.getGraph().getDeepContextNode(contextNodeXri);
 	}
 
 	@Override
@@ -36,5 +36,10 @@ public class GraphPolicyEvaluationContext implements PolicyEvaluationContext {
 	public Graph getGraph() {
 
 		return this.graph;
+	}
+
+	public void setGraph(Graph graph) {
+
+		this.graph = graph;
 	}
 }

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -32,28 +33,26 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 	}
 
 	@Override
-	public XDI3Segment getContextNodeXri(XDI3Segment contextNodeXri) {
+	public XDI3Segment resolveXri(XDI3Segment contextNodeXri) {
 
 		XDI3Segment resolvedContextNodeXri = contextNodeXri;
 
 		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_MSG, this.getMessage().getContextNode().getXri(), true, true, true);
 		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_FROM, this.getMessage().getSenderXri(), true, true, true);
 
-		if (log.isTraceEnabled()) log.trace("getContextNodeXri(" + contextNodeXri + ") --> " + resolvedContextNodeXri);
+		if (log.isTraceEnabled()) log.trace("resolveXri(" + contextNodeXri + ") --> " + resolvedContextNodeXri);
 
 		return resolvedContextNodeXri;
 	}
 
 	@Override
-	public ContextNode getContextNode(XDI3Segment resolvedContextNodeXri) {
+	public ContextNode getContextNode(XDI3Segment contextNodeXri) {
 
-		Graph resolvedGraph = this.getGraph(resolvedContextNodeXri);
-
-		resolvedContextNodeXri = this.getContextNodeXri(resolvedContextNodeXri);
-
+		Graph resolvedGraph = this.resolveGraph(contextNodeXri);
+		XDI3Segment resolvedContextNodeXri = this.resolveXri(contextNodeXri);
 		ContextNode resolvedContextNode = resolvedGraph.getDeepContextNode(resolvedContextNodeXri);
 
-		if (log.isTraceEnabled()) log.trace("getContextNode(" + resolvedContextNodeXri + ") --> " + resolvedContextNode);
+		if (log.isTraceEnabled()) log.trace("getContextNode(" + contextNodeXri + ") --> " + resolvedContextNodeXri + " --> " + resolvedContextNode);
 
 		return resolvedContextNode;
 	}
@@ -61,44 +60,54 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 	@Override
 	public Statement getStatement(XDI3Statement statementXri) {
 
-		XDI3Segment resolvedContextNodeXri = statementXri.getContextNodeXri();
+		XDI3Segment contextNodeXri = statementXri.getContextNodeXri();
+		Graph resolvedGraph = this.resolveGraph(contextNodeXri);
+		XDI3Segment resolvedContextNodeXri = this.resolveXri(contextNodeXri);
 
-		Graph resolvedGraph = this.getGraph(resolvedContextNodeXri);
-
-		resolvedContextNodeXri = this.getContextNodeXri(resolvedContextNodeXri);
+		XDI3Statement resolvedStatementXri;
 
 		if (statementXri.isContextNodeStatement()) {
 
 			XDI3SubSegment contextNodeArcXri = statementXri.getContextNodeArcXri();
 
-			statementXri = XDI3Statement.fromContextNodeComponents(resolvedContextNodeXri, contextNodeArcXri);
+			resolvedStatementXri = XDI3Statement.fromContextNodeComponents(
+					resolvedContextNodeXri, 
+					contextNodeArcXri);
 		} else if (statementXri.isRelationStatement()) {
 
 			XDI3Segment relationArcXri = statementXri.getRelationArcXri();
 			XDI3Segment targetContextNodeXri = statementXri.getTargetContextNodeXri();
 
-			XDI3Segment resolvedTargetContextNodeXri = this.getContextNodeXri(targetContextNodeXri);
+			XDI3Segment resolvedTargetContextNodeXri = this.resolveXri(targetContextNodeXri);
 
-			statementXri = XDI3Statement.fromRelationComponents(resolvedContextNodeXri, relationArcXri, resolvedTargetContextNodeXri);
+			resolvedStatementXri = XDI3Statement.fromRelationComponents(
+					resolvedContextNodeXri, 
+					relationArcXri, 
+					resolvedTargetContextNodeXri);
 		} else if (statementXri.isLiteralStatement()) {
 
 			Object literalData = statementXri.getLiteralData();
 
-			statementXri = XDI3Statement.fromLiteralComponents(resolvedContextNodeXri, literalData);
+			resolvedStatementXri = XDI3Statement.fromLiteralComponents(
+					resolvedContextNodeXri, 
+					literalData);
+		} else {
+
+			throw new Xdi2RuntimeException("Unexpected statement: " + statementXri);
 		}
 
-		Statement resolvedEvaluatedStatement = resolvedGraph.getStatement(statementXri);
+		Statement resolvedStatement = resolvedGraph.getStatement(resolvedStatementXri);
 
-		if (log.isTraceEnabled()) log.trace("getStatement(" + statementXri + ") --> " + resolvedEvaluatedStatement);
+		if (log.isTraceEnabled()) log.trace("getStatement(" + statementXri + ") --> " + resolvedStatementXri + " --> " + resolvedStatement);
 
-		return resolvedEvaluatedStatement;
+		return resolvedStatement;
 	}
 
 	/*
 	 * Helper methods
 	 */
 
-	private Graph getGraph(XDI3Segment contextNodeXri) {
+	private Graph resolveGraph(XDI3Segment contextNodeXri) {
 
 		XDI3SubSegment firstSubSegment = contextNodeXri.getFirstSubSegment();
 
@@ -111,7 +120,7 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 		}
 
 		Graph resolvedGraph = null;
-		
+
 		if (XRI_SS_MSG.equals(firstSubSegment)) {
 
 			resolvedGraph = this.getMessage().getContextNode().getGraph();
