@@ -20,11 +20,15 @@ import xdi2.core.features.linkcontracts.policy.PolicyUtil;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.CopyUtil.CopyStrategy;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -45,6 +49,8 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 	public final static int INIT_PRIORITY = 20;
 	public final static int SHUTDOWN_PRIORITY = 10;
+
+	public final static XDI3SubSegment XRI_SS_SELF = XDI3SubSegment.create("$self");
 
 	private XDI3Segment bootstrapOwner;
 	private XDI3Segment[] bootstrapOwnerSynonyms;
@@ -97,7 +103,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		interceptor.setBootstrapOwnerSynonyms(ownerSynonyms);
 
-		// set boostrap statements and operations
+		// set bootstrap statements and operations
 
 		interceptor.setBootstrapGraph(this.getBootstrapGraph());
 		interceptor.setBootstrapMessageEnvelope(this.getBootstrapMessageEnvelope());
@@ -213,7 +219,10 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 			if (log.isDebugEnabled()) log.debug("Creating bootstrap graph.");
 
-			CopyUtil.copyGraph(this.getBootstrapGraph(), graph, null);
+			Graph bootstrapGraph = MemoryGraphFactory.getInstance().openGraph();
+			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapGraph, this.replaceSelfVariableCopyStrategy);
+
+			CopyUtil.copyGraph(bootstrapGraph, graph, null);
 		}
 
 		// execute bootstrap message envelope
@@ -221,6 +230,9 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 		if (this.getBootstrapMessageEnvelope() != null) {
 
 			if (log.isDebugEnabled()) log.debug("Executing bootstrap message envelope.");
+
+			MessageEnvelope bootstrapMessageEnvelope = new MessageEnvelope();
+			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapMessageEnvelope.getGraph(), this.replaceSelfVariableCopyStrategy);
 
 			ToInterceptor toInterceptor = null;
 			Boolean toInterceptorEnabled = null;
@@ -243,7 +255,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 				linkContractInterceptorEnabled = Boolean.valueOf(linkContractInterceptor != null && linkContractInterceptor.isEnabled());
 				if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
 
-				graphMessagingTarget.execute(this.getBootstrapMessageEnvelope(), null, null);
+				graphMessagingTarget.execute(bootstrapMessageEnvelope, null, null);
 			} finally {
 
 				if (toInterceptor != null && toInterceptorEnabled != null) toInterceptor.setEnabled(toInterceptorEnabled.booleanValue());
@@ -258,6 +270,28 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		super.shutdown(messagingTarget);
 	}
+
+	/*
+	 * Helper classes
+	 */
+
+	private final CopyStrategy replaceSelfVariableCopyStrategy = new CopyStrategy() {
+
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			if (XRI_SS_SELF.equals(contextNode.getArcXri())) {
+
+				ContextNode replaceContextNode = GraphUtil.contextNodeFromComponents(contextNode.getContextNode().getXri());
+				replaceContextNode = replaceContextNode.setDeepContextNode(BootstrapInterceptor.this.getBootstrapOwner());
+				CopyUtil.copyContextNodeContents(contextNode, replaceContextNode, null);
+
+				return replaceContextNode;
+			}
+
+			return super.replaceContextNode(contextNode);
+		}
+	};
 
 	/*
 	 * Getters and setters
