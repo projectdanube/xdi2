@@ -202,7 +202,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 		<p><form action="" method="post">
 			<input type="hidden" name="cmd" value="unmount_messaging_target_factory">
 			<input type="hidden" name="messagingtargetfactorypath" value="$messagingtargetfactorymount.messagingTargetFactoryPath">
-			<input type="submit" value="unmount">
+			<input type="submit" value="Unmount">
 		</form></p>
     </td>
     <td valign="top">
