@@ -16,7 +16,6 @@
 		<module>server-embedded</module>
 		<module>server-standalone</module>
 		<module>server-war</module>
-		<module>p2p</module>
 		<module>webtools</module>
 	</modules>
 
