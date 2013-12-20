@@ -114,7 +114,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		// done
 
-		log.info(size + " messaging targets were shut down.");
+		log.info("Done. " + size + " messaging targets were shut down.");
 	}
 
 	public synchronized void reload() throws Xdi2ServerException {
