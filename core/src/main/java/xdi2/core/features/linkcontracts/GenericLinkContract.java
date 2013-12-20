@@ -75,7 +75,7 @@ public class GenericLinkContract extends LinkContractBase {
 		return new GenericLinkContract(xdiEntity);
 	}
 
-	public static XDI3Segment createLinkContractXri(XDI3Segment authorizingParty, XDI3Segment requestingParty, XDI3Segment templateId) {
+	public static XDI3Segment createGenericLinkContractXri(XDI3Segment authorizingParty, XDI3Segment requestingParty, XDI3Segment templateId) {
 
 		List<XDI3SubSegment> genericLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
 		genericLinkContractArcXris.addAll(authorizingParty.getSubSegments());
@@ -94,7 +94,7 @@ public class GenericLinkContract extends LinkContractBase {
 	 */
 	public static GenericLinkContract findGenericLinkContract(Graph graph, XDI3Segment authorizingParty, XDI3Segment requestingParty, XDI3Segment templateId, boolean create) {
 
-		XDI3Segment genericLinkContractXri = createLinkContractXri(authorizingParty, requestingParty, templateId);
+		XDI3Segment genericLinkContractXri = createGenericLinkContractXri(authorizingParty, requestingParty, templateId);
 
 		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXri) : graph.getDeepContextNode(genericLinkContractXri);
 		if (genericLinkContractContextNode == null) return null;

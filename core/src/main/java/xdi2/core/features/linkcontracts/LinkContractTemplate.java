@@ -75,19 +75,24 @@ public class LinkContractTemplate extends LinkContractBase {
 		return new LinkContractTemplate(xdiEntity);
 	}
 
+	public static XDI3Segment createLinkContractTemplateXri(XDI3Segment templateParty, XDI3Segment templateId) {
+
+		List<XDI3SubSegment> linkContractTemplateArcXris = new ArrayList<XDI3SubSegment> ();
+		linkContractTemplateArcXris.addAll(templateParty.getSubSegments());
+		linkContractTemplateArcXris.add(XDILinkContractConstants.XRI_SS_FROM_VARIABLE);
+		linkContractTemplateArcXris.addAll(templateId.getSubSegments());
+		linkContractTemplateArcXris.add(XDILinkContractConstants.XRI_SS_DO);
+
+		return XDI3Segment.fromComponents(linkContractTemplateArcXris);
+	}
+
 	/**
 	 * Factory method that finds or creates an XDI link contract template for a graph.
 	 * @return The XDI link contract template.
 	 */
 	public static LinkContractTemplate findLinkContractTemplate(Graph graph, XDI3Segment templateParty, XDI3Segment templateId, boolean create) {
 
-		List<XDI3SubSegment> metaLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
-		metaLinkContractArcXris.addAll(templateParty.getSubSegments());
-		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_FROM_VARIABLE);
-		metaLinkContractArcXris.addAll(templateId.getSubSegments());
-		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_DO);
-
-		XDI3Segment metaLinkContractXri = XDI3Segment.fromComponents(metaLinkContractArcXris);
+		XDI3Segment metaLinkContractXri = createLinkContractTemplateXri(templateParty, templateId);
 
 		ContextNode metaLinkContractContextNode = create ? graph.setDeepContextNode(metaLinkContractXri) : graph.getDeepContextNode(metaLinkContractXri);
 		if (metaLinkContractContextNode == null) return null;

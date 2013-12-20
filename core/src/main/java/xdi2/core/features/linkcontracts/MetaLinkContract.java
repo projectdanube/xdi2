@@ -75,11 +75,7 @@ public class MetaLinkContract extends LinkContractBase {
 		return new MetaLinkContract(xdiEntity);
 	}
 
-	/**
-	 * Factory method that finds or creates an XDI meta link contract for a graph.
-	 * @return The XDI meta link contract.
-	 */
-	public static MetaLinkContract findMetaLinkContract(Graph graph, XDI3Segment requestingParty, XDI3Segment templateId, boolean create) {
+	public static XDI3Segment createLinkContractXri(XDI3Segment requestingParty, XDI3Segment templateId) {
 
 		List<XDI3SubSegment> metaLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
 		metaLinkContractArcXris.addAll(requestingParty.getSubSegments());
@@ -87,7 +83,16 @@ public class MetaLinkContract extends LinkContractBase {
 		metaLinkContractArcXris.addAll(templateId.getSubSegments());
 		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_DO);
 
-		XDI3Segment metaLinkContractXri = XDI3Segment.fromComponents(metaLinkContractArcXris);
+		return XDI3Segment.fromComponents(metaLinkContractArcXris);
+	}
+
+	/**
+	 * Factory method that finds or creates an XDI meta link contract for a graph.
+	 * @return The XDI meta link contract.
+	 */
+	public static MetaLinkContract findMetaLinkContract(Graph graph, XDI3Segment requestingParty, XDI3Segment templateId, boolean create) {
+
+		XDI3Segment metaLinkContractXri = createLinkContractXri(requestingParty, templateId);
 
 		ContextNode metaLinkContractContextNode = create ? graph.setDeepContextNode(metaLinkContractXri) : graph.getDeepContextNode(metaLinkContractXri);
 		if (metaLinkContractContextNode == null) return null;

@@ -54,9 +54,9 @@ public class RootLinkContract extends GenericLinkContract {
 		return new RootLinkContract(xdiEntity);
 	}
 
-	public static XDI3Segment createLinkContractXri(XDI3Segment ownerXri) {
+	public static XDI3Segment createRootLinkContractXri(XDI3Segment ownerXri) {
 
-		return GenericLinkContract.createLinkContractXri(ownerXri, ownerXri, null);
+		return GenericLinkContract.createGenericLinkContractXri(ownerXri, ownerXri, null);
 	}
 
 	/**
