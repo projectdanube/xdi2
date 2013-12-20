@@ -231,7 +231,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 		if (this.getBootstrapMessageEnvelope() != null) {
 
 			MessageEnvelope bootstrapMessageEnvelope = new MessageEnvelope();
-			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapMessageEnvelope.getGraph(), this.replaceSelfVariableCopyStrategy);
+			CopyUtil.copyGraph(this.getBootstrapMessageEnvelope().getGraph(), bootstrapMessageEnvelope.getGraph(), this.replaceSelfVariableCopyStrategy);
 
 			if (log.isDebugEnabled()) log.debug("Executing bootstrap message envelope: " + bootstrapMessageEnvelope.getGraph().toString());
 
