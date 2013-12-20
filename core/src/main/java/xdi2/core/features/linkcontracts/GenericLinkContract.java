@@ -21,7 +21,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public class GenericLinkContract extends LinkContract {
+public class GenericLinkContract extends LinkContractBase {
 
 	private static final long serialVersionUID = 6840561339666839961L;
 

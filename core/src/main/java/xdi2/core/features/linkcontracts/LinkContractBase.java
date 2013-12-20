@@ -17,17 +17,17 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
 /**
- * An XDI link contract, represented as an XDI entity.
+ * The base class for XDI link contracts and XDI link contract templates, represented as an XDI entity.
  * 
  * @author markus
  */
-public abstract class LinkContract implements Serializable, Comparable<LinkContract> {
+public abstract class LinkContractBase implements Serializable, Comparable<LinkContractBase> {
 
 	private static final long serialVersionUID = 1604380462449272148L;
 
 	private XdiEntity xdiEntity;
 
-	protected LinkContract(XdiEntity xdiEntity) {
+	protected LinkContractBase(XdiEntity xdiEntity) {
 
 		this.xdiEntity = xdiEntity;
 	}
@@ -58,9 +58,9 @@ public abstract class LinkContract implements Serializable, Comparable<LinkContr
 	 * @param xdiEntity The XDI entity that is an XDI link contract.
 	 * @return The XDI link contract.
 	 */
-	public static LinkContract fromXdiEntity(XdiEntity xdiEntity) {
+	public static LinkContractBase fromXdiEntity(XdiEntity xdiEntity) {
 
-		LinkContract linkContract = null;
+		LinkContractBase linkContract = null;
 
 		if ((linkContract = RootLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
@@ -235,10 +235,10 @@ public abstract class LinkContract implements Serializable, Comparable<LinkContr
 	@Override
 	public boolean equals(Object object) {
 
-		if (object == null || !(object instanceof LinkContract)) return false;
+		if (object == null || !(object instanceof LinkContractBase)) return false;
 		if (object == this) return true;
 
-		LinkContract other = (LinkContract) object;
+		LinkContractBase other = (LinkContractBase) object;
 
 		return this.getContextNode().equals(other.getContextNode());
 	}
@@ -254,7 +254,7 @@ public abstract class LinkContract implements Serializable, Comparable<LinkContr
 	}
 
 	@Override
-	public int compareTo(LinkContract other) {
+	public int compareTo(LinkContractBase other) {
 
 		if (other == this || other == null) return 0;
 

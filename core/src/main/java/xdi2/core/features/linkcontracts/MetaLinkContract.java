@@ -21,7 +21,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public class MetaLinkContract extends LinkContract {
+public class MetaLinkContract extends LinkContractBase {
 
 	private static final long serialVersionUID = 1373222090414868359L;
 
@@ -82,9 +82,8 @@ public class MetaLinkContract extends LinkContract {
 	public static MetaLinkContract findMetaLinkContract(Graph graph, XDI3Segment requestingParty, XDI3Segment templateId, boolean create) {
 
 		List<XDI3SubSegment> metaLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
-		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_TO_VARIABLE);
 		metaLinkContractArcXris.addAll(requestingParty.getSubSegments());
-		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_FROM);
+		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_TO_VARIABLE);
 		metaLinkContractArcXris.addAll(templateId.getSubSegments());
 		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_DO);
 
@@ -102,16 +101,15 @@ public class MetaLinkContract extends LinkContract {
 
 	public static XDI3Segment getRequestingParty(XDI3Segment xri) {
 
-		int index1 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_TO_VARIABLE);
-		int index2 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM);
-		if (index1 < 0 || index2 < 0 || index1 >= index2) return null;
+		int index = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_TO_VARIABLE);
+		if (index < 0) return null;
 
-		return XDI3Util.subXri(xri, index1 + 1, index2);
+		return XDI3Util.subXri(xri, 0, index);
 	}
 
 	public static XDI3Segment getTemplateId(XDI3Segment xri) {
 
-		int index1 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM);
+		int index1 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_TO_VARIABLE);
 		int index2 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_DO);
 		if (index2 < 0) index2 = XDI3Util.indexOfXri(xri, XdiEntityCollection.createArcXri(XDILinkContractConstants.XRI_SS_DO));
 		if (index1 < 0 || index2 < 0 || index1 >= index2) return null;

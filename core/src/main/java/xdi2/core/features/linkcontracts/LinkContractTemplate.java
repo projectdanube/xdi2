@@ -21,7 +21,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public class LinkContractTemplate extends LinkContract {
+public class LinkContractTemplate extends LinkContractBase {
 
 	private static final long serialVersionUID = 1373222090414868359L;
 
@@ -45,6 +45,7 @@ public class LinkContractTemplate extends LinkContract {
 
 			if (! ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO))) return false;
 
+			if (getTemplateParty(xdiEntity.getXri()) == null) return false;
 			if (getTemplateId(xdiEntity.getXri()) == null) return false;
 
 			return true;
@@ -52,6 +53,7 @@ public class LinkContractTemplate extends LinkContract {
 
 			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO))) return false;
 
+			if (getTemplateParty(xdiEntity.getXri()) == null) return false;
 			if (getTemplateId(xdiEntity.getXri()) == null) return false;
 
 			return true;
@@ -77,9 +79,10 @@ public class LinkContractTemplate extends LinkContract {
 	 * Factory method that finds or creates an XDI link contract template for a graph.
 	 * @return The XDI link contract template.
 	 */
-	public static LinkContractTemplate findLinkContractTemplate(Graph graph, XDI3Segment templateId, boolean create) {
+	public static LinkContractTemplate findLinkContractTemplate(Graph graph, XDI3Segment templateParty, XDI3Segment templateId, boolean create) {
 
 		List<XDI3SubSegment> metaLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
+		metaLinkContractArcXris.addAll(templateParty.getSubSegments());
 		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_FROM_VARIABLE);
 		metaLinkContractArcXris.addAll(templateId.getSubSegments());
 		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_DO);
@@ -95,6 +98,14 @@ public class LinkContractTemplate extends LinkContract {
 	/*
 	 * Static methods
 	 */
+
+	public static XDI3Segment getTemplateParty(XDI3Segment xri) {
+
+		int index = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM_VARIABLE);
+		if (index < 0) return null;
+
+		return XDI3Util.subXri(xri, 0, index);
+	}
 
 	public static XDI3Segment getTemplateId(XDI3Segment xri) {
 
@@ -113,6 +124,11 @@ public class LinkContractTemplate extends LinkContract {
 	public GenericLinkContract instantiate() {
 
 		throw new RuntimeException("Not implemented.");
+	}
+
+	public XDI3Segment getTemplateParty() {
+
+		return getTemplateParty(this.getContextNode().getXri());
 	}
 
 	public XDI3Segment getTemplateId() {

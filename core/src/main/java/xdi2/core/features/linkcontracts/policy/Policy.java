@@ -134,9 +134,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		XdiEntity policyAndXdiEntity; 
 		
 		if (singleton)
-			policyAndXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_AND, true);
+			policyAndXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createArcXri(XDIPolicyConstants.XRI_SS_AND), true);
 		else
-			policyAndXdiEntity = this.getXdiEntity().getXdiEntityCollection(XDIPolicyConstants.XRI_SS_AND, true).setXdiMemberUnordered(null);
+			policyAndXdiEntity = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createArcXri(XDIPolicyConstants.XRI_SS_AND), true).setXdiMemberUnordered(null);
 
 		return PolicyAnd.fromXdiEntity(policyAndXdiEntity);
 	}
@@ -149,9 +149,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		XdiEntity policyOrXdiEntity; 
 		
 		if (singleton)
-			policyOrXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_OR, true);
+			policyOrXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createArcXri(XDIPolicyConstants.XRI_SS_OR), true);
 		else
-			policyOrXdiEntity = this.getXdiEntity().getXdiEntityCollection(XDIPolicyConstants.XRI_SS_OR, true).setXdiMemberUnordered(null);
+			policyOrXdiEntity = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createArcXri(XDIPolicyConstants.XRI_SS_OR), true).setXdiMemberUnordered(null);
 
 		return PolicyOr.fromXdiEntity(policyOrXdiEntity);
 	}
@@ -164,9 +164,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		XdiEntity policyNotXdiEntity; 
 		
 		if (singleton)
-			policyNotXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, true);
+			policyNotXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createArcXri(XDIPolicyConstants.XRI_SS_NOT), true);
 		else
-			policyNotXdiEntity = this.getXdiEntity().getXdiEntityCollection(XDIPolicyConstants.XRI_SS_NOT, true).setXdiMemberUnordered(null);
+			policyNotXdiEntity = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createArcXri(XDIPolicyConstants.XRI_SS_NOT), true).setXdiMemberUnordered(null);
 
 		return PolicyNot.fromXdiEntity(policyNotXdiEntity);
 	}
@@ -180,9 +180,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		// add policies that are XDI entity singletons
 
-		XdiEntitySingleton policyAndEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_AND, false);
-		XdiEntitySingleton policyOrEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_OR, false);
-		XdiEntitySingleton policyNotEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XRI_SS_NOT, false);
+		XdiEntitySingleton policyAndEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createArcXri(XDIPolicyConstants.XRI_SS_AND), false);
+		XdiEntitySingleton policyOrEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createArcXri(XDIPolicyConstants.XRI_SS_OR), false);
+		XdiEntitySingleton policyNotEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createArcXri(XDIPolicyConstants.XRI_SS_NOT), false);
 
 		if (policyAndEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyAnd.fromXdiEntity(policyAndEntitySingleton)));
 		if (policyOrEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyOr.fromXdiEntity(policyOrEntitySingleton)));
@@ -190,9 +190,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 
 		// add policies that are XDI entity instances and elements
 
-		XdiEntityCollection policyAndEntityCollection = this.getXdiEntity().getXdiEntityCollection(XDIPolicyConstants.XRI_SS_AND, false);
-		XdiEntityCollection policyOrEntityCollection = this.getXdiEntity().getXdiEntityCollection(XDIPolicyConstants.XRI_SS_OR, false);
-		XdiEntityCollection policyNotEntityCollection = this.getXdiEntity().getXdiEntityCollection(XDIPolicyConstants.XRI_SS_NOT, false);
+		XdiEntityCollection policyAndEntityCollection = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createArcXri(XDIPolicyConstants.XRI_SS_AND), false);
+		XdiEntityCollection policyOrEntityCollection = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createArcXri(XDIPolicyConstants.XRI_SS_OR), false);
+		XdiEntityCollection policyNotEntityCollection = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createArcXri(XDIPolicyConstants.XRI_SS_NOT), false);
 
 		if (policyAndEntityCollection != null) iterators.add(new MappingXdiEntityPolicyAndIterator(policyAndEntityCollection.getXdiMembersDeref()));
 		if (policyOrEntityCollection != null) iterators.add(new MappingXdiEntityPolicyOrIterator(policyOrEntityCollection.getXdiMembersDeref()));

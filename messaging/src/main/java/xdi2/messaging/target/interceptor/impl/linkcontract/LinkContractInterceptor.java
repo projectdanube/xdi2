@@ -11,7 +11,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.LinkContract;
+import xdi2.core.features.linkcontracts.LinkContractBase;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
@@ -119,7 +119,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 			return InterceptorResult.DEFAULT;
 		}
 
-		LinkContract linkContract = LinkContract.fromXdiEntity(xdiEntity);
+		LinkContractBase linkContract = LinkContractBase.fromXdiEntity(xdiEntity);
 		if (linkContract == null) {
 
 			if (log.isDebugEnabled()) log.debug("No link contract found in graph.");
@@ -159,7 +159,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 	 * TargetInterceptor
 	 */
 
-	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Segment contextNodeXri, LinkContract linkContract) {
+	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Segment contextNodeXri, LinkContractBase linkContract) {
 
 		// check positive permissions for the target address
 
@@ -212,7 +212,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 		return decision;
 	}
 
-	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Statement statementXri, LinkContract linkContract) {
+	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Statement statementXri, LinkContractBase linkContract) {
 
 		// check positive permissions for the target statement
 
@@ -238,7 +238,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		// read the referenced link contract from the execution context
 
-		LinkContract linkContract = getLinkContract(executionContext);
+		LinkContractBase linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
 		// check permission on target address
@@ -260,7 +260,7 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 		// read the referenced link contract from the execution context
 
-		LinkContract linkContract = getLinkContract(executionContext);
+		LinkContractBase linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
 		// check permission on target address and target statement
@@ -305,12 +305,12 @@ public class LinkContractInterceptor extends AbstractInterceptor implements Mess
 
 	private static final String EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE = LinkContractInterceptor.class.getCanonicalName() + "#linkcontractpermessage";
 
-	public static LinkContract getLinkContract(ExecutionContext executionContext) {
+	public static LinkContractBase getLinkContract(ExecutionContext executionContext) {
 
-		return (LinkContract) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE);
+		return (LinkContractBase) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE);
 	}
 
-	public static void putLinkContract(ExecutionContext executionContext, LinkContract linkContract) {
+	public static void putLinkContract(ExecutionContext executionContext, LinkContractBase linkContract) {
 
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE, linkContract);
 	}
