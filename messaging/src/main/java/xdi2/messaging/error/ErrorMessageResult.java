@@ -53,7 +53,7 @@ public class ErrorMessageResult extends MessageResult {
 
 		if (! MessageResult.isValid(graph)) return false;
 
-		if (XdiAbstractContext.fromContextNode(graph.getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, false) == null) return false;
+		if (XdiAbstractContext.fromContextNode(graph.getRootContextNode()).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XRI_SS_FALSE), false) == null) return false;
 
 		return true;
 	}
@@ -123,7 +123,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public String getErrorString() {
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, false);
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XRI_SS_FALSE), false);
 		if (xdiAttributeSingleton == null) return null;
 
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(false);
@@ -137,7 +137,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorString(String errorString) {
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XRI_SS_FALSE, true);
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode()).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XRI_SS_FALSE), true);
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 
 		xdiValue.getContextNode().setLiteralString(errorString);

@@ -62,7 +62,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
-				XdiEntitySingleton xdiEntitySingleton = xdiContext.getXdiEntitySingleton(arcXri, true);
+				XdiEntitySingleton xdiEntitySingleton = xdiContext.getXdiEntitySingleton(XdiEntitySingleton.createArcXri(arcXri), true);
 				readJsonObject(xdiEntitySingleton, (JsonObject) jsonElement);
 			} else if (jsonElement instanceof JsonArray) {
 
@@ -73,7 +73,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XDI3SubSegment arcXri = Dictionary.nativeIdentifierToInstanceXri(key);
 
-				XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(arcXri, true);
+				XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(arcXri), true);
 				XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 				xdiValue.getContextNode().setLiteral(AbstractLiteral.jsonElementToLiteralData(jsonElement));
 			}
@@ -93,19 +93,19 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (jsonElement instanceof JsonObject) {
 
-				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(arcXri, true);
+				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(XdiEntityCollection.createArcXri(arcXri), true);
 
 				XdiEntityMemberOrdered xdiEntityMember = xdiEntityCollection.setXdiMemberOrdered(index);
 				readJsonObject(xdiEntityMember, (JsonObject) jsonElement);
 			} else if (jsonElement instanceof JsonArray) {
 
-				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(arcXri, true);
+				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(XdiEntityCollection.createArcXri(arcXri), true);
 
 				XdiEntityMemberOrdered xdiEntityMember = xdiEntityCollection.setXdiMemberOrdered(index);
 				readJsonArray(xdiEntityMember, null, (JsonArray) jsonElement);
 			} else {
 
-				XdiAttributeCollection xdiAttributeCollection = xdiContext.getXdiAttributeCollection(arcXri, true);
+				XdiAttributeCollection xdiAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createArcXri(arcXri), true);
 
 				XdiAttributeMemberOrdered xdiAttributeMember = xdiAttributeCollection.setXdiMemberOrdered(index);
 				XdiValue xdiValue = xdiAttributeMember.getXdiValue(true);

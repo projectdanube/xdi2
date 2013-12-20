@@ -172,71 +172,99 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	/**
-	 * Creates or returns an XDI entity class under this XDI subgraph.
-	 * @param arcXri The "base" arc XRI of the XDI entity class, without context function syntax.
+	 * Creates or returns an XDI entity collection under this XDI subgraph.
+	 * @param arcXri The arc XRI of the XDI entity collection.
 	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI entity class.
+	 * @return The XDI entity collection.
 	 */
 	@Override
 	public XdiEntityCollection getXdiEntityCollection(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment entityCollectionArcXri = XdiEntityCollection.createArcXri(arcXri);
-
-		ContextNode entityCollectionContextNode = create ? this.getContextNode().setContextNode(entityCollectionArcXri) : this.getContextNode().getContextNode(entityCollectionArcXri);
+		ContextNode entityCollectionContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
 		if (entityCollectionContextNode == null) return null;
 
-		return new XdiEntityCollection(entityCollectionContextNode);
+		return XdiEntityCollection.fromContextNode(entityCollectionContextNode);
+	}
+
+	@Override
+	public XdiEntityCollection getXdiEntityCollection(XDI3Segment xri, boolean create) {
+
+		ContextNode entityCollectionContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		if (entityCollectionContextNode == null) return null;
+
+		return XdiEntityCollection.fromContextNode(entityCollectionContextNode);
 	}
 
 	/**
-	 * Creates or returns an XDI attribute class under this XDI subgraph.
-	 * @param arcXri The "base" arc XRI of the XDI attribute class, without context function syntax.
+	 * Creates or returns an XDI attribute collection under this XDI subgraph.
+	 * @param arcXri The arc XRI of the XDI attribute collection.
 	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI attribute class.
+	 * @return The XDI attribute collection.
 	 */
 	@Override
 	public XdiAttributeCollection getXdiAttributeCollection(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment attributeCollectionArcXri = XdiAttributeCollection.createArcXri(arcXri);
-
-		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setContextNode(attributeCollectionArcXri) : this.getContextNode().getContextNode(attributeCollectionArcXri);
+		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
 		if (attributeCollectionContextNode == null) return null;
 
-		return new XdiAttributeCollection(attributeCollectionContextNode);
+		return XdiAttributeCollection.fromContextNode(attributeCollectionContextNode);
 	}
 
-	/**
-	 * Creates or returns an XDI attribute singleton under this XDI subgraph.
-	 * @param arcXri The "base" arc XRI of the XDI attribute singleton, without multiplicity syntax.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI attribute singleton.
-	 */
 	@Override
-	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
+	public XdiAttributeCollection getXdiAttributeCollection(XDI3Segment xri, boolean create) {
 
-		XDI3SubSegment attributeSingletonArcXri = XdiAttributeSingleton.createArcXri(arcXri);
+		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		if (attributeCollectionContextNode == null) return null;
 
-		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setContextNode(attributeSingletonArcXri) : this.getContextNode().getContextNode(attributeSingletonArcXri);
-		if (attributeSingletonContextNode == null) return null;
-
-		return new XdiAttributeSingleton(attributeSingletonContextNode);
+		return XdiAttributeCollection.fromContextNode(attributeCollectionContextNode);
 	}
 
 	/**
 	 * Creates or returns an XDI entity singleton under this XDI subgraph.
-	 * @param arcXri The "base" arc XRI of the XDI entity singleton, without multiplicity syntax.
+	 * @param arcXri The arc XRI of the XDI entity singleton.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI entity singleton.
 	 */
 	@Override
 	public XdiEntitySingleton getXdiEntitySingleton(XDI3SubSegment arcXri, boolean create) {
 
-		XDI3SubSegment entitySingletonArcXri = XdiEntitySingleton.createArcXri(arcXri);
-
-		ContextNode entitySingletonContextNode = create ? this.getContextNode().setContextNode(entitySingletonArcXri) : this.getContextNode().getContextNode(entitySingletonArcXri);
+		ContextNode entitySingletonContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
 		if (entitySingletonContextNode == null) return null;
 
-		return new XdiEntitySingleton(entitySingletonContextNode);
+		return XdiEntitySingleton.fromContextNode(entitySingletonContextNode);
+	}
+
+	@Override
+	public XdiEntitySingleton getXdiEntitySingleton(XDI3Segment xri, boolean create) {
+
+		ContextNode entitySingletonContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		if (entitySingletonContextNode == null) return null;
+
+		return XdiEntitySingleton.fromContextNode(entitySingletonContextNode);
+	}
+
+	/**
+	 * Creates or returns an XDI attribute singleton under this XDI subgraph.
+	 * @param arcXri The arc XRI of the XDI attribute singleton.
+	 * @param create Whether or not to create the context node if it doesn't exist.
+	 * @return The XDI attribute singleton.
+	 */
+	@Override
+	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
+
+		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+		if (attributeSingletonContextNode == null) return null;
+
+		return XdiAttributeSingleton.fromContextNode(attributeSingletonContextNode);
+	}
+
+	@Override
+	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3Segment xri, boolean create) {
+
+		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		if (attributeSingletonContextNode == null) return null;
+
+		return XdiAttributeSingleton.fromContextNode(attributeSingletonContextNode);
 	}
 
 	/*
