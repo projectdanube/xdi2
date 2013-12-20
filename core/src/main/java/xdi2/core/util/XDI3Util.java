@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
 
@@ -470,13 +470,7 @@ public final class XDI3Util {
 
 				if (replaceInXRefStatement && subSegment.hasXRef() && subSegment.getXRef().hasStatement()) {
 
-					XDI3Statement xRefStatement = subSegment.getXRef().getStatement();
-
-					//			TODO		xRefSegment = replaceXri(xRefSegment, oldXri, newXri, replaceInXRefSegment, replaceInXRefStatement, replaceInXRefPartialSubjectAndPredicate);
-
-					subSegments.add(XDI3SubSegment.fromComponents(subSegment.getCs(), subSegment.isClassXs(), subSegment.isAttributeXs(), null, XDI3XRef.fromComponents(subSegment.getXRef().getXs(), null, xRefStatement, null, null, null, null)));
-
-					continue;
+					throw new Xdi2RuntimeException("Replacing subsegment " + subSegment.toString() + " not supported. Try not using inner root short notation.");
 				}
 
 				if (replaceInXRefPartialSubjectAndPredicate && subSegment.hasXRef() && subSegment.getXRef().hasPartialSubjectAndPredicate()) {

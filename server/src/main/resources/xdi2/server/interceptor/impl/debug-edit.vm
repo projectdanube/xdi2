@@ -44,6 +44,8 @@ select { background-color: white; border: 2px solid black; padding: 5px; }
 	<select name="format">
 	<option value="XDI/JSON" #if($format == "XDI/JSON")selected#end>XDI/JSON</option>
 	<option value="XDI DISPLAY" #if($format == "XDI DISPLAY")selected#end>XDI DISPLAY</option>
+	<option value="XDI/JSON/TREE" #if($format == "XDI/JSON/TREE")selected#end>XDI/JSON/TREE</option>
+	<option value="XDI/JSON/PARSE" #if($format == "XDI/JSON/PARSE")selected#end>XDI/JSON/PARSE</option>
 	</select>
 	<input name="writeImplied" type="checkbox" #if($writeImplied == "on")checked#end>implied=1
 	<input name="writeOrdered" type="checkbox" #if($writeOrdered == "on")checked#end>ordered=1

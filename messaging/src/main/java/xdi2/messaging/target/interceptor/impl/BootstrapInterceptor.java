@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
@@ -50,7 +51,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 	public final static int INIT_PRIORITY = 20;
 	public final static int SHUTDOWN_PRIORITY = 10;
 
-	public final static XDI3SubSegment XRI_SS_SELF = XDI3SubSegment.create("$self");
+	public final static XDI3SubSegment XRI_SS_SELF = XDI3SubSegment.create("{$self}");
 
 	private XDI3Segment bootstrapOwner;
 	private XDI3Segment[] bootstrapOwnerSynonyms;
@@ -217,10 +218,10 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		if (this.getBootstrapGraph() != null) {
 
-			if (log.isDebugEnabled()) log.debug("Creating bootstrap graph.");
-
 			Graph bootstrapGraph = MemoryGraphFactory.getInstance().openGraph();
 			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapGraph, this.replaceSelfVariableCopyStrategy);
+
+			if (log.isDebugEnabled()) log.debug("Creating bootstrap graph: " + bootstrapGraph.toString());
 
 			CopyUtil.copyGraph(bootstrapGraph, graph, null);
 		}
@@ -229,10 +230,10 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		if (this.getBootstrapMessageEnvelope() != null) {
 
-			if (log.isDebugEnabled()) log.debug("Executing bootstrap message envelope.");
-
 			MessageEnvelope bootstrapMessageEnvelope = new MessageEnvelope();
 			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapMessageEnvelope.getGraph(), this.replaceSelfVariableCopyStrategy);
+
+			if (log.isDebugEnabled()) log.debug("Executing bootstrap message envelope: " + bootstrapMessageEnvelope.getGraph().toString());
 
 			ToInterceptor toInterceptor = null;
 			Boolean toInterceptorEnabled = null;
@@ -280,16 +281,55 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {
 
-			if (XRI_SS_SELF.equals(contextNode.getArcXri())) {
+			XDI3Segment contextNodeXri = contextNode.getXri();
+			XDI3SubSegment contextNodeArcXri = contextNode.getArcXri();
 
-				ContextNode replaceContextNode = GraphUtil.contextNodeFromComponents(contextNode.getContextNode().getXri());
-				replaceContextNode = replaceContextNode.setDeepContextNode(BootstrapInterceptor.this.getBootstrapOwner());
-				CopyUtil.copyContextNodeContents(contextNode, replaceContextNode, null);
+			XDI3Segment replacedContextNodeXri = XDI3Util.concatXris(
+					XDI3Util.parentXri(contextNodeXri, -1),
+					XDI3Util.replaceXri(
+							XDI3Segment.fromComponent(contextNodeArcXri), 
+							XRI_SS_SELF, 
+							BootstrapInterceptor.this.getBootstrapOwner(), 
+							true, 
+							true, 
+							true));
 
-				return replaceContextNode;
-			}
+			if (log.isDebugEnabled()) log.debug("Replaced " + contextNodeXri + " with " + replacedContextNodeXri);
 
-			return super.replaceContextNode(contextNode);
+			if (contextNodeXri.equals(replacedContextNodeXri)) return super.replaceContextNode(contextNode);
+
+			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXri);
+			CopyUtil.copyContextNodeContents(contextNode, replacedContextNode, null);
+
+			int additionalArcs = replacedContextNodeXri.getNumSubSegments() - contextNodeXri.getNumSubSegments();
+
+			replacedContextNode = replacedContextNode.getContextNode(additionalArcs);
+
+			return replacedContextNode;
+		}
+
+		@Override
+		public Relation replaceRelation(Relation relation) {
+
+			XDI3Segment contextNodeXri = relation.getContextNode().getXri();
+			XDI3Segment arcXri = relation.getArcXri();
+			XDI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
+
+			XDI3Segment replacedTargetContextNodeXri = XDI3Util.replaceXri(
+					targetContextNodeXri, 
+					XRI_SS_SELF, 
+					BootstrapInterceptor.this.getBootstrapOwner(), 
+					true, 
+					true, 
+					true);
+
+			if (log.isDebugEnabled()) log.debug("Replaced " + targetContextNodeXri + " with " + replacedTargetContextNodeXri);
+
+			if (targetContextNodeXri.equals(replacedTargetContextNodeXri)) return super.replaceRelation(relation);
+
+			Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXri, arcXri, replacedTargetContextNodeXri);
+
+			return replacedRelation;
 		}
 	};
 
@@ -361,5 +401,19 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 	public void setBootstrapMessageEnvelope(MessageEnvelope bootstrapMessageEnvelope) {
 
 		this.bootstrapMessageEnvelope = bootstrapMessageEnvelope;
+	}
+
+	public static void main(String[] args) {
+
+		Graph g = MemoryGraphFactory.getInstance().openGraph();
+		g.setStatement(XDI3Statement.create("{$self}$to$anon$from$public$do/$get/({$self}$msg$encrypt$keypair/$is+/{})"));
+		Graph g2 = MemoryGraphFactory.getInstance().openGraph();
+
+		BootstrapInterceptor b = new BootstrapInterceptor();
+		b.setBootstrapOwner(XDI3Segment.create("[=]!1111"));
+
+		CopyUtil.copyGraph(g, g2, b.replaceSelfVariableCopyStrategy);
+
+		System.out.println(g2.toString("XDI DISPLAY", null));
 	}
 }

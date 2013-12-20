@@ -65,7 +65,7 @@ public class EqualsCondition extends Condition {
 
 		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatementXri().getSubject());
 		ContextNode object = policyEvaluationContext.getContextNode((XDI3Segment) this.getStatementXri().getObject());
-		
+
 		if (subject == null || object == null) return Boolean.FALSE;
 
 		if (subject.containsLiteral()) {

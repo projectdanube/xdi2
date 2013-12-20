@@ -63,8 +63,8 @@ public class IsCondition extends Condition {
 
 		// check if subject XRI and object XRI are the same
 
-		XDI3Segment subject = policyEvaluationContext.getContextNodeXri(this.getStatementXri().getSubject());
-		XDI3Segment object = policyEvaluationContext.getContextNodeXri((XDI3Segment) this.getStatementXri().getObject());
+		XDI3Segment subject = policyEvaluationContext.resolveXri(this.getStatementXri().getSubject());
+		XDI3Segment object = policyEvaluationContext.resolveXri((XDI3Segment) this.getStatementXri().getObject());
 
 		if (subject == null || object == null) return Boolean.FALSE;
 		
