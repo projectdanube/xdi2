@@ -15,7 +15,6 @@ public final class XDILinkContractConstants {
 	public static final XDI3SubSegment XRI_SS_DO = XDI3SubSegment.create("$do");
 
 	public static final XDI3Segment XRI_S_PUBLIC = XDI3Segment.create("$public");
-	public static final XDI3Segment XRI_S_PUBLIC_DO = XDI3Segment.create("$public$do");
 
 	public static final XDI3Segment XRI_S_TO = XDI3Segment.create("$to");
 	public static final XDI3Segment XRI_S_TO_VARIABLE = XDI3Segment.create("{$to}");

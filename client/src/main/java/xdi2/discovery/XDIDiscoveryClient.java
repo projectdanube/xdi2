@@ -9,7 +9,7 @@ import xdi2.client.events.XDIDiscoverFromRegistryEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.CloudNumber;
@@ -94,7 +94,6 @@ public class XDIDiscoveryClient {
 
 		MessageEnvelope registryMessageEnvelope = new MessageEnvelope();
 		Message registryMessage = registryMessageEnvelope.createMessage(null);
-		registryMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC);
 		registryMessage.createGetOperation(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(query)));
 
 		MessageResult registryMessageResult;
@@ -134,10 +133,10 @@ public class XDIDiscoveryClient {
 		MessageEnvelope authorityMessageEnvelope = new MessageEnvelope();
 		Message authorityMessage = authorityMessageEnvelope.createMessage(null);
 		authorityMessage.setToPeerRootXri(cloudNumber.getPeerRootXri());
-		authorityMessage.setLinkContractXri(XDILinkContractConstants.XRI_S_PUBLIC_DO);
+		authorityMessage.setLinkContractXri(PublicLinkContract.createPublicLinkContractXri(cloudNumber.getXri()));
 		//authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
-		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY);
-		authorityMessage.createGetOperation(XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+		authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY));
+		authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
 
 		if (endpointUriTypes != null) {
 
