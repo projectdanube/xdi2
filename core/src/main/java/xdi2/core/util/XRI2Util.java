@@ -121,11 +121,11 @@ public final class XRI2Util {
 	}
 
 	/**
-	 * Maps an XRI 2.0 service type to an XDI entity singleton arc XRI.
+	 * Maps an XRI 2.0 service type to an XDI arc XRI.
 	 */
-	public static XDI3SubSegment typeToXdiEntitySingletonArcXri(String type) {
+	public static XDI3SubSegment typeToXdiArcXri(String type) {
 
-		if (log.isTraceEnabled()) log.trace("typeToXdiEntitySingletonArcXri(" + type + ")");
+		if (log.isTraceEnabled()) log.trace("typeToXdiAttributeSingletonArcXri(" + type + ")");
 
 		if (type.startsWith("xri://")) type = type.substring(6);
 
