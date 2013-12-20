@@ -5,15 +5,13 @@ import java.io.Serializable;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.nodetypes.XdiAbstractContext;
-import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI messaging operation, represented as a relation.
@@ -169,10 +167,10 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * @param parameterXri The parameter XRI.
 	 * @param parameterValue The parameter value.
 	 */
-	public void setParameter(XDI3SubSegment parameterXri, Object parameterValue) {
+	public void setParameter(XDI3Segment parameterXri, Object parameterValue) {
 
-		XdiEntity parametersXdiEntity = XdiAbstractContext.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), true);
-		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, true);
+		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXri(), true);
+		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXri, true);
 		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(true);
 
 		xdiValue.getContextNode().setLiteral(parameterValue);
@@ -183,7 +181,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * @param parameterXri The parameter XRI.
 	 * @return The parameter value.
 	 */
-	public Object getParameter(XDI3SubSegment parameterXri) {
+	public Object getParameter(XDI3Segment parameterXri) {
 
 		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
 		if (parameterLiteral == null) return null;
@@ -196,7 +194,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * @param parameterXri The parameter XRI.
 	 * @return The parameter value string.
 	 */
-	public String getParameterString(XDI3SubSegment parameterXri) {
+	public String getParameterString(XDI3Segment parameterXri) {
 
 		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
 		if (parameterLiteral == null) return null;
@@ -209,7 +207,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * @param parameterXri The parameter XRI.
 	 * @return The parameter value number.
 	 */
-	public Number getParameterNumber(XDI3SubSegment parameterXri) {
+	public Number getParameterNumber(XDI3Segment parameterXri) {
 
 		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
 		if (parameterLiteral == null) return null;
@@ -222,7 +220,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * @param parameterXri The parameter XRI.
 	 * @return The parameter value boolean.
 	 */
-	public Boolean getParameterBoolean(XDI3SubSegment parameterXri) {
+	public Boolean getParameterBoolean(XDI3Segment parameterXri) {
 
 		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
 		if (parameterLiteral == null) return null;
@@ -230,12 +228,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		return parameterLiteral.getLiteralDataBoolean();
 	}
 
-	private Literal getParameterLiteral(XDI3SubSegment parameterXri) {
+	private Literal getParameterLiteral(XDI3Segment parameterXri) {
 
-		XdiEntity parametersXdiEntity = XdiAbstractContext.fromContextNode(this.getMessage().getContextNode()).getXdiEntitySingleton(this.getOperationXri().getFirstSubSegment(), false);
-		if (parametersXdiEntity == null) return null;
+		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXri(), false);
+		if (parameterXdiEntity == null) return null;
 
-		XdiAttribute parameterXdiAttribute = parametersXdiEntity.getXdiAttributeSingleton(parameterXri, false);
+		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXri, false);
 		if (parameterXdiAttribute == null) return null;
 
 		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(false);
