@@ -5,6 +5,7 @@ import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,19 +13,16 @@ import org.apache.commons.codec.binary.Base64;
 
 import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.util.XDI3Util;
-import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.MessageEnvelope;
@@ -85,35 +83,31 @@ public class XDIDiscoveryResult implements Serializable {
 			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getArcXri());
 		}
 
+		// add <$xdi> endpoint uri
+
+		if (endpointUriTypes == null) endpointUriTypes = new XDI3Segment[0];
+
+		endpointUriTypes = Arrays.copyOf(endpointUriTypes, endpointUriTypes.length + 1);
+		endpointUriTypes[endpointUriTypes.length - 1] = XDIClientConstants.XRI_S_AS_XDI;
+
 		// find endpoint uris
 
-		ReadOnlyIterator<XdiAttributeSingleton> endpointUriXdiAttributes = new SelectingMappingIterator<ContextNode, XdiAttributeSingleton> (xdiRoot.getContextNode().getAllContextNodes()) {
+		for (XDI3Segment endpointUriType : endpointUriTypes) {
 
-			@Override
-			public boolean select(ContextNode contextNode) {
-
-				return XDIClientConstants.XRI_SS_URI.equals(contextNode.getArcXri());
-			}
-
-			@Override
-			public XdiAttributeSingleton map(ContextNode contextNode) {
-
-				return XdiAttributeSingleton.fromContextNode(contextNode);
-			}
-		};
-
-		for (XdiAttribute endpointUriXdiAttribute : endpointUriXdiAttributes) {
-
-			XDI3Segment endpointUriType = endpointUriXdiAttribute.getContextNode().getContextNode().getXri();
-			endpointUriType = XDI3Util.localXri(endpointUriType, - xdiRoot.getContextNode().getXri().getNumSubSegments());
+			XDI3Segment endpointUriXdiAttributeAddress = XDI3Util.concatXris(endpointUriType, XDIClientConstants.XRI_SS_AS_URI);
+			XdiAttribute endpointUriXdiAttribute = xdiRoot.getXdiAttributeSingleton(endpointUriXdiAttributeAddress, false);
+			if (endpointUriXdiAttribute == null) continue;
 
 			endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
 
-			XdiValue endpointUriXdiValue = endpointUriXdiAttribute == null ? null : endpointUriXdiAttribute.getXdiValue(false);
-			endpointUriXdiValue = endpointUriXdiValue == null ? null : endpointUriXdiValue.dereference();
+			XdiValue endpointUriXdiValue = endpointUriXdiAttribute.getXdiValue(false);
+			if (endpointUriXdiValue == null) continue;
 
-			Literal endpointUriLiteral = endpointUriXdiValue == null ? null : endpointUriXdiValue.getContextNode().getLiteral();
-			String endpointUri = endpointUriLiteral == null ? null : endpointUriLiteral.getLiteralDataString();
+			Literal endpointUriLiteral = endpointUriXdiValue.getLiteral();
+			if (endpointUriLiteral == null) continue;
+
+			String endpointUri = endpointUriLiteral.getLiteralDataString();
+			if (endpointUri == null) continue;
 
 			this.endpointUris.put(endpointUriType, endpointUri);
 		}
@@ -146,9 +140,18 @@ public class XDIDiscoveryResult implements Serializable {
 			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getArcXri());
 		}
 
+		// find cloud names
+
+
+
+		// find authority
+
+		XdiEntity authorityXdiEntity = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getXdiEntity(this.cloudNumber.getXri(), false);
+		if (authorityXdiEntity == null) return;
+
 		// find signature public key
 
-		XdiAttribute signaturePublicKeyXdiAttribute = XdiAttributeSingleton.fromContextNode(xdiRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY));
+		XdiAttribute signaturePublicKeyXdiAttribute = authorityXdiEntity.getXdiAttribute(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY, false);
 		signaturePublicKeyXdiAttribute = signaturePublicKeyXdiAttribute == null ? null : signaturePublicKeyXdiAttribute.dereference();
 
 		XdiValue signaturePublicKeyXdiValue = signaturePublicKeyXdiAttribute == null ? null : signaturePublicKeyXdiAttribute.getXdiValue(false);
@@ -159,7 +162,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find encryption public key
 
-		XdiAttribute encryptionPublicKeyXdiAttribute = XdiAttributeSingleton.fromContextNode(xdiRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
+		XdiAttribute encryptionPublicKeyXdiAttribute = authorityXdiEntity.getXdiAttribute(XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY, false);
 		encryptionPublicKeyXdiAttribute = encryptionPublicKeyXdiAttribute == null ? null : encryptionPublicKeyXdiAttribute.dereference();
 
 		XdiValue encryptionPublicKeyXdiValue = encryptionPublicKeyXdiAttribute == null ? null : encryptionPublicKeyXdiAttribute.getXdiValue(false);
@@ -170,33 +173,22 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find endpoint uris
 
-		ReadOnlyIterator<XdiAttributeSingleton> endpointUriXdiAttributes = new SelectingMappingIterator<ContextNode, XdiAttributeSingleton> (xdiRoot.getContextNode().getAllContextNodes()) {
+		for (XDI3Segment endpointUriType : endpointUriTypes) {
 
-			@Override
-			public boolean select(ContextNode contextNode) {
-
-				return XDIClientConstants.XRI_SS_URI.equals(contextNode.getArcXri());
-			}
-
-			@Override
-			public XdiAttributeSingleton map(ContextNode contextNode) {
-
-				return XdiAttributeSingleton.fromContextNode(contextNode);
-			}
-		};
-
-		for (XdiAttribute endpointUriXdiAttribute : endpointUriXdiAttributes) {
-
-			XDI3Segment endpointUriType = endpointUriXdiAttribute.getContextNode().getContextNode().getXri();
-			endpointUriType = xdiRoot instanceof XdiLocalRoot ? endpointUriType : XDI3Util.localXri(endpointUriType, - xdiRoot.getContextNode().getXri().getNumSubSegments());
+			XDI3Segment endpointUriXdiAttributeAddress = XDI3Util.concatXris(endpointUriType, XDIClientConstants.XRI_SS_AS_URI);
+			XdiAttribute endpointUriXdiAttribute = authorityXdiEntity.getXdiAttributeSingleton(endpointUriXdiAttributeAddress, false);
+			if (endpointUriXdiAttribute == null) continue;
 
 			endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
 
-			XdiValue endpointUriXdiValue = endpointUriXdiAttribute == null ? null : endpointUriXdiAttribute.getXdiValue(false);
-			endpointUriXdiValue = endpointUriXdiValue == null ? null : endpointUriXdiValue.dereference();
+			XdiValue endpointUriXdiValue = endpointUriXdiAttribute.getXdiValue(false);
+			if (endpointUriXdiValue == null) continue;
 
-			Literal endpointUriLiteral = endpointUriXdiValue == null ? null : endpointUriXdiValue.getContextNode().getLiteral();
-			String endpointUri = endpointUriLiteral == null ? null : endpointUriLiteral.getLiteralDataString();
+			Literal endpointUriLiteral = endpointUriXdiValue.getLiteral();
+			if (endpointUriLiteral == null) continue;
+
+			String endpointUri = endpointUriLiteral.getLiteralDataString();
+			if (endpointUri == null) continue;
 
 			this.endpointUris.put(endpointUriType, endpointUri);
 		}
@@ -255,7 +247,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 	public String getXdiEndpointUri() {
 
-		return this.getEndpointUris().get(XDIClientConstants.XRI_S_XDI);
+		return this.getEndpointUris().get(XDIClientConstants.XRI_S_AS_XDI);
 	}
 
 	public String getDefaultEndpointUri() {

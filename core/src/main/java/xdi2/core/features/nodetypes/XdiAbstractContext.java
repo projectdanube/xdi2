@@ -171,12 +171,6 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		};
 	}
 
-	/**
-	 * Creates or returns an XDI entity collection under this XDI subgraph.
-	 * @param arcXri The arc XRI of the XDI entity collection.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI entity collection.
-	 */
 	@Override
 	public XdiEntityCollection getXdiEntityCollection(XDI3SubSegment arcXri, boolean create) {
 
@@ -195,12 +189,6 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		return XdiEntityCollection.fromContextNode(entityCollectionContextNode);
 	}
 
-	/**
-	 * Creates or returns an XDI attribute collection under this XDI subgraph.
-	 * @param arcXri The arc XRI of the XDI attribute collection.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI attribute collection.
-	 */
 	@Override
 	public XdiAttributeCollection getXdiAttributeCollection(XDI3SubSegment arcXri, boolean create) {
 
@@ -219,12 +207,6 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		return XdiAttributeCollection.fromContextNode(attributeCollectionContextNode);
 	}
 
-	/**
-	 * Creates or returns an XDI entity singleton under this XDI subgraph.
-	 * @param arcXri The arc XRI of the XDI entity singleton.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI entity singleton.
-	 */
 	@Override
 	public XdiEntitySingleton getXdiEntitySingleton(XDI3SubSegment arcXri, boolean create) {
 
@@ -243,12 +225,6 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		return XdiEntitySingleton.fromContextNode(entitySingletonContextNode);
 	}
 
-	/**
-	 * Creates or returns an XDI attribute singleton under this XDI subgraph.
-	 * @param arcXri The arc XRI of the XDI attribute singleton.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI attribute singleton.
-	 */
 	@Override
 	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
 
@@ -265,6 +241,42 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		if (attributeSingletonContextNode == null) return null;
 
 		return XdiAttributeSingleton.fromContextNode(attributeSingletonContextNode);
+	}
+
+	@Override
+	public XdiEntity getXdiEntity(XDI3SubSegment arcXri, boolean create) {
+
+		ContextNode entityContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+		if (entityContextNode == null) return null;
+
+		return XdiAbstractEntity.fromContextNode(entityContextNode);
+	}
+
+	@Override
+	public XdiEntity getXdiEntity(XDI3Segment xri, boolean create) {
+
+		ContextNode entityContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		if (entityContextNode == null) return null;
+
+		return XdiAbstractEntity.fromContextNode(entityContextNode);
+	}
+
+	@Override
+	public XdiAttribute getXdiAttribute(XDI3SubSegment arcXri, boolean create) {
+
+		ContextNode attributeContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+		if (attributeContextNode == null) return null;
+
+		return XdiAbstractAttribute.fromContextNode(attributeContextNode);
+	}
+
+	@Override
+	public XdiAttribute getXdiAttribute(XDI3Segment xri, boolean create) {
+
+		ContextNode attributeContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		if (attributeContextNode == null) return null;
+
+		return XdiAbstractAttribute.fromContextNode(attributeContextNode);
 	}
 
 	/*

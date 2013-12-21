@@ -9,11 +9,14 @@ import xdi2.client.events.XDIDiscoverFromRegistryEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDIConstants;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.linkcontracts.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -134,7 +137,8 @@ public class XDIDiscoveryClient {
 		Message authorityMessage = authorityMessageEnvelope.createMessage(null);
 		authorityMessage.setToPeerRootXri(cloudNumber.getPeerRootXri());
 		authorityMessage.setLinkContractXri(PublicLinkContract.createPublicLinkContractXri(cloudNumber.getXri()));
-		//authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
+		authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
+		authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(cloudNumber.getXri(), XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
 		authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY));
 		authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
 
@@ -142,7 +146,7 @@ public class XDIDiscoveryClient {
 
 			for (XDI3Segment endpointUriType : endpointUriTypes) {
 
-				authorityMessage.createGetOperation(XDI3Util.concatXris(endpointUriType, XDIClientConstants.XRI_SS_URI));
+				authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), endpointUriType, XDIClientConstants.XRI_S_AS_URI));
 			}
 		}
 

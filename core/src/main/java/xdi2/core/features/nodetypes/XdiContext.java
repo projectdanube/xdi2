@@ -27,4 +27,8 @@ public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Com
 	public XdiEntitySingleton getXdiEntitySingleton(XDI3Segment contextNodeXri, boolean create);
 	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3SubSegment contextNodeArcXri, boolean create);
 	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3Segment contextNodeXri, boolean create);
+	public XdiEntity getXdiEntity(XDI3SubSegment contextNodeArcXri, boolean create);
+	public XdiEntity getXdiEntity(XDI3Segment contextNodeXri, boolean create);
+	public XdiAttribute getXdiAttribute(XDI3SubSegment contextNodeArcXri, boolean create);
+	public XdiAttribute getXdiAttribute(XDI3Segment contextNodeXri, boolean create);
 }
