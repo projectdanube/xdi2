@@ -46,40 +46,40 @@ public class LinkContractsTest extends TestCase {
 		GenericLinkContract l1 = (GenericLinkContract) LinkContractBase.fromXdiEntity(XdiAbstractEntity.fromContextNode(c1));
 
 		assertNotNull(l1);
-		assertEquals(l1.getAuthorizingParty(), XDI3Segment.create("=bob"));
-		assertEquals(l1.getRequestingParty(), XDI3Segment.create("=alice"));
+		assertEquals(l1.getAuthorizingAuthority(), XDI3Segment.create("=bob"));
+		assertEquals(l1.getRequestingAuthority(), XDI3Segment.create("=alice"));
 		assertEquals(l1.getTemplateId(), XDI3Segment.create("+registration"));
 
 		ContextNode c2 = graph.setDeepContextNode(XDI3Segment.create("=bob$to=alice$from+registration[$do]!:uuid:0e43479d-834e-085f-3e8a-faa060afe9cf"));
 		GenericLinkContract l2 = (GenericLinkContract) LinkContractBase.fromXdiEntity(XdiAbstractEntity.fromContextNode(c2));
 
 		assertNotNull(l2);
-		assertEquals(l2.getAuthorizingParty(), XDI3Segment.create("=bob"));
-		assertEquals(l2.getRequestingParty(), XDI3Segment.create("=alice"));
+		assertEquals(l2.getAuthorizingAuthority(), XDI3Segment.create("=bob"));
+		assertEquals(l2.getRequestingAuthority(), XDI3Segment.create("=alice"));
 		assertEquals(l2.getTemplateId(), XDI3Segment.create("+registration"));
 
 		ContextNode c3 = graph.setDeepContextNode(XDI3Segment.create("[=]!1111$to[=]!2222$from+registration$do"));
 		GenericLinkContract l3 = (GenericLinkContract) LinkContractBase.fromXdiEntity(XdiAbstractEntity.fromContextNode(c3));
 
 		assertNotNull(l3);
-		assertEquals(l3.getAuthorizingParty(), XDI3Segment.create("[=]!1111"));
-		assertEquals(l3.getRequestingParty(), XDI3Segment.create("[=]!2222"));
+		assertEquals(l3.getAuthorizingAuthority(), XDI3Segment.create("[=]!1111"));
+		assertEquals(l3.getRequestingAuthority(), XDI3Segment.create("[=]!2222"));
 		assertEquals(l3.getTemplateId(), XDI3Segment.create("+registration"));
 
 		ContextNode c4 = graph.setDeepContextNode(XDI3Segment.create("[=]!1111$to[=]!2222$from+registration[$do]!:uuid:272406ef-1e57-1325-fdba-700e16ac1132"));
 		GenericLinkContract l4 = (GenericLinkContract) LinkContractBase.fromXdiEntity(XdiAbstractEntity.fromContextNode(c4));
 
 		assertNotNull(l4);
-		assertEquals(l4.getAuthorizingParty(), XDI3Segment.create("[=]!1111"));
-		assertEquals(l4.getRequestingParty(), XDI3Segment.create("[=]!2222"));
+		assertEquals(l4.getAuthorizingAuthority(), XDI3Segment.create("[=]!1111"));
+		assertEquals(l4.getRequestingAuthority(), XDI3Segment.create("[=]!2222"));
 		assertEquals(l4.getTemplateId(), XDI3Segment.create("+registration"));
 
 		ContextNode c5 = graph.setDeepContextNode(XDI3Segment.create("+friend$to$anon$from$do"));
 		GenericLinkContract l5 = (GenericLinkContract) LinkContractBase.fromXdiEntity(XdiAbstractEntity.fromContextNode(c5));
 
 		assertNotNull(l5);
-		assertEquals(l5.getAuthorizingParty(), XDI3Segment.create("+friend"));
-		assertEquals(l5.getRequestingParty(), XDI3Segment.create("$anon"));
+		assertEquals(l5.getAuthorizingAuthority(), XDI3Segment.create("+friend"));
+		assertEquals(l5.getRequestingAuthority(), XDI3Segment.create("$anon"));
 		assertNull(l5.getTemplateId());
 	}
 
@@ -96,8 +96,8 @@ public class LinkContractsTest extends TestCase {
 		assertNotNull(RootLinkContract.findRootLinkContract(graph, false));
 		assertTrue(LinkContractBase.fromXdiEntity(l.getXdiEntity()) instanceof RootLinkContract);
 
-		assertEquals(l.getRequestingParty(), XDI3Segment.create("=markus"));
-		assertEquals(l.getAuthorizingParty(), XDI3Segment.create("=markus"));
+		assertEquals(l.getRequestingAuthority(), XDI3Segment.create("=markus"));
+		assertEquals(l.getAuthorizingAuthority(), XDI3Segment.create("=markus"));
 		assertNull(l.getTemplateId());
 	}
 
@@ -114,8 +114,8 @@ public class LinkContractsTest extends TestCase {
 		assertNotNull(PublicLinkContract.findPublicLinkContract(graph, false));
 		assertTrue(LinkContractBase.fromXdiEntity(l.getXdiEntity()) instanceof PublicLinkContract);
 
-		assertEquals(l.getRequestingParty(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
-		assertEquals(l.getAuthorizingParty(), XDI3Segment.create("=markus"));
+		assertEquals(l.getRequestingAuthority(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
+		assertEquals(l.getAuthorizingAuthority(), XDI3Segment.create("=markus"));
 		assertEquals(l.getTemplateId(), XDILinkContractConstants.XRI_S_PUBLIC);
 	}
 
@@ -128,12 +128,12 @@ public class LinkContractsTest extends TestCase {
 
 		LinkContractTemplate l1 = LinkContractTemplate.findLinkContractTemplate(graph, XDI3Segment.create("=markus"), XDI3Segment.create("+registration"), false);
 		assertNotNull(l1);
-		assertEquals(l1.getTemplateParty(), XDI3Segment.create("=markus"));
+		assertEquals(l1.getTemplateAuthority(), XDI3Segment.create("=markus"));
 		assertEquals(l1.getTemplateId(), XDI3Segment.create("+registration"));
 
 		LinkContractTemplate l2 = LinkContractTemplate.fromXdiEntity(XdiAbstractEntity.fromContextNode(contextNode));
 		assertNotNull(l2);
-		assertEquals(l2.getTemplateParty(), XDI3Segment.create("=markus"));
+		assertEquals(l2.getTemplateAuthority(), XDI3Segment.create("=markus"));
 		assertEquals(l2.getTemplateId(), XDI3Segment.create("+registration"));
 
 		assertEquals(l1, l2);
@@ -148,12 +148,12 @@ public class LinkContractsTest extends TestCase {
 
 		MetaLinkContract l1 = MetaLinkContract.findMetaLinkContract(graph, XDI3Segment.create("=markus"), XDI3Segment.create("+registration"), false);
 		assertNotNull(l1);
-		assertEquals(l1.getRequestingParty(), XDI3Segment.create("=markus"));
+		assertEquals(l1.getRequestingAuthority(), XDI3Segment.create("=markus"));
 		assertEquals(l1.getTemplateId(), XDI3Segment.create("+registration"));
 
 		MetaLinkContract l2 = MetaLinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(contextNode));
 		assertNotNull(l2);
-		assertEquals(l2.getRequestingParty(), XDI3Segment.create("=markus"));
+		assertEquals(l2.getRequestingAuthority(), XDI3Segment.create("=markus"));
 		assertEquals(l2.getTemplateId(), XDI3Segment.create("+registration"));
 
 		assertEquals(l1, l2);

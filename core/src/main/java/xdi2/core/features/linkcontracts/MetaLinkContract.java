@@ -45,7 +45,7 @@ public class MetaLinkContract extends LinkContractBase {
 
 			if (! ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO))) return false;
 
-			if (getRequestingParty(xdiEntity.getXri()) == null) return false;
+			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 			if (getTemplateId(xdiEntity.getXri()) == null) return false;
 
 			return true;
@@ -53,7 +53,7 @@ public class MetaLinkContract extends LinkContractBase {
 
 			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO))) return false;
 
-			if (getRequestingParty(xdiEntity.getXri()) == null) return false;
+			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 			if (getTemplateId(xdiEntity.getXri()) == null) return false;
 
 			return true;
@@ -75,10 +75,10 @@ public class MetaLinkContract extends LinkContractBase {
 		return new MetaLinkContract(xdiEntity);
 	}
 
-	public static XDI3Segment createLinkContractXri(XDI3Segment requestingParty, XDI3Segment templateId) {
+	public static XDI3Segment createLinkContractXri(XDI3Segment requestingAuthority, XDI3Segment templateId) {
 
 		List<XDI3SubSegment> metaLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
-		metaLinkContractArcXris.addAll(requestingParty.getSubSegments());
+		metaLinkContractArcXris.addAll(requestingAuthority.getSubSegments());
 		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_TO_VARIABLE);
 		metaLinkContractArcXris.addAll(templateId.getSubSegments());
 		metaLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_DO);
@@ -90,9 +90,9 @@ public class MetaLinkContract extends LinkContractBase {
 	 * Factory method that finds or creates an XDI meta link contract for a graph.
 	 * @return The XDI meta link contract.
 	 */
-	public static MetaLinkContract findMetaLinkContract(Graph graph, XDI3Segment requestingParty, XDI3Segment templateId, boolean create) {
+	public static MetaLinkContract findMetaLinkContract(Graph graph, XDI3Segment requestingAuthority, XDI3Segment templateId, boolean create) {
 
-		XDI3Segment metaLinkContractXri = createLinkContractXri(requestingParty, templateId);
+		XDI3Segment metaLinkContractXri = createLinkContractXri(requestingAuthority, templateId);
 
 		ContextNode metaLinkContractContextNode = create ? graph.setDeepContextNode(metaLinkContractXri) : graph.getDeepContextNode(metaLinkContractXri);
 		if (metaLinkContractContextNode == null) return null;
@@ -104,7 +104,7 @@ public class MetaLinkContract extends LinkContractBase {
 	 * Static methods
 	 */
 
-	public static XDI3Segment getRequestingParty(XDI3Segment xri) {
+	public static XDI3Segment getRequestingAuthority(XDI3Segment xri) {
 
 		int index = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_TO_VARIABLE);
 		if (index < 0) return null;
@@ -131,9 +131,9 @@ public class MetaLinkContract extends LinkContractBase {
 		this.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_SET, linkContractTemplate.getXdiEntity().getXri());
 	}
 
-	public XDI3Segment getRequestingParty() {
+	public XDI3Segment getRequestingAuthority() {
 
-		return getRequestingParty(this.getContextNode().getXri());
+		return getRequestingAuthority(this.getContextNode().getXri());
 	}
 
 	public XDI3Segment getTemplateId() {
