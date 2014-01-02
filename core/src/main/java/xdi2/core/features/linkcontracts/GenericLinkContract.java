@@ -123,7 +123,7 @@ public class GenericLinkContract extends LinkContractBase {
 		return XDI3Util.subXri(xri, index1 + 1, index2);
 	}
 
-	public static XDI3Segment getTemplateId(XDI3Segment xri) {
+	public static XDI3Segment getTemplateAuthorityAndId(XDI3Segment xri) {
 
 		int index1 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM);
 		int index2 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_DO);
@@ -147,8 +147,8 @@ public class GenericLinkContract extends LinkContractBase {
 		return getRequestingAuthority(this.getContextNode().getXri());
 	}
 
-	public XDI3Segment getTemplateId() {
+	public XDI3Segment getTemplateAuthorityAndId() {
 
-		return getTemplateId(this.getContextNode().getXri());
+		return getTemplateAuthorityAndId(this.getContextNode().getXri());
 	}
 }

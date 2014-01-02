@@ -33,7 +33,7 @@ public class RootLinkContract extends GenericLinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (GenericLinkContract.getTemplateId(xdiEntity.getXri()) != null) return false;
+			if (GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXri()) != null) return false;
 
 			return true;
 		} else {
