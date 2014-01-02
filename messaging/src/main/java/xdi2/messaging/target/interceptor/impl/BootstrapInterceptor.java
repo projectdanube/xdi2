@@ -181,7 +181,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 			bootstrapOwnerContextNode = graph.setDeepContextNode(this.getBootstrapOwner());
 
 			RootLinkContract bootstrapRootLinkContract = RootLinkContract.findRootLinkContract(graph, true);
-			bootstrapRootLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_ALL, this.getBootstrapOwner());
+			bootstrapRootLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_ALL, XDIConstants.XRI_S_ROOT);
 
 			PolicyAnd policyAnd = bootstrapRootLinkContract.getPolicyRoot(true).createAndPolicy(true);
 			PolicyUtil.createSenderIsOperator(policyAnd, this.getBootstrapOwner());
