@@ -20,6 +20,9 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 	private static final Logger log = LoggerFactory.getLogger(MessagePolicyEvaluationContext.class);
 
+	public static final XDI3Segment XRI_S_FROM_VARIABLE = XDI3Segment.create("{$from}");
+	public static final XDI3Segment XRI_S_MSG_VARIABLE = XDI3Segment.create("{$msg}");
+
 	public static final XDI3SubSegment XRI_SS_FROM_VARIABLE = XDI3SubSegment.create("{$from}");
 	public static final XDI3SubSegment XRI_SS_MSG_VARIABLE = XDI3SubSegment.create("{$msg}");
 
