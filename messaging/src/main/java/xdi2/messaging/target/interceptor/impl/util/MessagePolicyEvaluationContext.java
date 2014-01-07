@@ -20,8 +20,8 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 	private static final Logger log = LoggerFactory.getLogger(MessagePolicyEvaluationContext.class);
 
-	public static final XDI3SubSegment XRI_SS_FROM = XDI3SubSegment.create("{$from}");
-	public static final XDI3SubSegment XRI_SS_MSG = XDI3SubSegment.create("{$msg}");
+	public static final XDI3SubSegment XRI_SS_FROM_VARIABLE = XDI3SubSegment.create("{$from}");
+	public static final XDI3SubSegment XRI_SS_MSG_VARIABLE = XDI3SubSegment.create("{$msg}");
 
 	private Message message;
 	private Graph targetGraph;
@@ -37,8 +37,8 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 		XDI3Segment resolvedContextNodeXri = contextNodeXri;
 
-		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_MSG, this.getMessage().getContextNode().getXri(), true, true, true);
-		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_FROM, this.getMessage().getSenderXri(), true, true, true);
+		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_MSG_VARIABLE, this.getMessage().getContextNode().getXri(), true, true, true);
+		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_FROM_VARIABLE, this.getMessage().getSenderXri(), true, true, true);
 
 		if (log.isTraceEnabled()) log.trace("resolveXri(" + contextNodeXri + ") --> " + resolvedContextNodeXri);
 
@@ -121,10 +121,10 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 		Graph resolvedGraph = null;
 
-		if (XRI_SS_MSG.equals(firstSubSegment)) {
+		if (XRI_SS_MSG_VARIABLE.equals(firstSubSegment)) {
 
 			resolvedGraph = this.getMessage().getContextNode().getGraph();
-		} else if (XRI_SS_FROM.equals(firstSubSegment)) {
+		} else if (XRI_SS_FROM_VARIABLE.equals(firstSubSegment)) {
 
 			resolvedGraph = this.getTargetGraph();
 		} else {
