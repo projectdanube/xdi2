@@ -1,7 +1,5 @@
 package xdi2.messaging.target.contributor;
 
-import java.util.Arrays;
-
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
@@ -249,22 +247,16 @@ public abstract class AbstractContributor extends AbstractExtension implements C
 	}
 
 	/*
-	 * Contributor addresses
+	 * Contributor mount
 	 */
 
 	@Override
-	public String[] getAddresses() {
+	public ContributorMount getContributorMount() {
 
-		ContributorXri contributorXri = this.getClass().getAnnotation(ContributorXri.class);
-		if (contributorXri == null) throw new NullPointerException("No ContributorXri annotation on contributor " + this.getClass().getSimpleName());
+		ContributorMount contributorMount = this.getClass().getAnnotation(ContributorMount.class);
+		if (contributorMount == null) throw new NullPointerException("No ContributorMount annotation on contributor " + this.getClass().getSimpleName());
 
-		return contributorXri.addresses();
-	}
-
-	@Override
-	public boolean containsAddress(String address) {
-
-		return Arrays.asList(this.getAddresses()).contains(address);
+		return contributorMount;
 	}
 
 	/*

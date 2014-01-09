@@ -30,14 +30,14 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
+import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
-import xdi2.messaging.target.contributor.ContributorXri;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
  * This contributor can generate key pairs and symmetric keys in a target graph.
  */
-@ContributorXri(addresses={"{{}}$keypair", "$keypair", "{{}}<$key>", "<$key>"})
+@ContributorMount(contributorXris={"{{}}$keypair", "$keypair", "{{}}<$key>", "<$key>"})
 public class GenerateKeyContributor extends AbstractContributor implements Prototype<GenerateKeyContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateKeyContributor.class);
@@ -97,14 +97,12 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 	@Override
 	public ContributorResult executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// check operation
+		// check if applicable
 
-		if (! XRI_S_DO_KEYPAIR.equals(operation.getOperationXri()) && ! XRI_S_DO_KEY.equals(operation.getOperationXri())) return ContributorResult.DEFAULT;
+		if (! operation.getOperationXri().equals(XRI_S_DO_KEYPAIR) && ! operation.getOperationXri().equals(XRI_S_DO_KEY)) return ContributorResult.DEFAULT;
+		if (! relativeTargetStatement.getRelationArcXri().equals(XDIDictionaryConstants.XRI_S_IS_TYPE)) return ContributorResult.DEFAULT;
 
 		// check parameters
-
-		XDI3Segment arcXri = relativeTargetStatement.getRelationArcXri();
-		if (! XDIDictionaryConstants.XRI_S_IS_TYPE.equals(arcXri)) return ContributorResult.DEFAULT;
 
 		XDI3Segment dataTypeXri = relativeTargetStatement.getTargetContextNodeXri();
 

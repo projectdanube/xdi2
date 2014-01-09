@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface ContributorXri {
+public @interface ContributorMount {
 
-	String[] addresses() default { };
+	String[] contributorXris() default { };
 }

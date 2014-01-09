@@ -11,11 +11,10 @@ import xdi2.messaging.target.Extension;
 public interface Contributor extends Extension {
 
 	/*
-	 * Contributor addresses
+	 * Contributor mount
 	 */
 
-	public String[] getAddresses();
-	public boolean containsAddress(String address);
+	public ContributorMount getContributorMount();
 
 	/*
 	 * Sub-contributors

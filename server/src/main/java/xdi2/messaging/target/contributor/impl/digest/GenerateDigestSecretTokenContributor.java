@@ -16,20 +16,20 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
+import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
-import xdi2.messaging.target.contributor.ContributorXri;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.DigestSecretTokenAuthenticator;
 
 /**
  * This contributor can generate secret tokens in digest form in a target graph.
  */
-@ContributorXri(addresses={"{{=@+*!}}<$digest><$secret><$token>", "{{(=@+*!)}}<$digest><$secret><$token>", "<$digest><$secret><$token>"})
+@ContributorMount(contributorXris={"{{=@+*!}}<$digest><$secret><$token>", "{{(=@+*!)}}<$digest><$secret><$token>", "<$digest><$secret><$token>"})
 public class GenerateDigestSecretTokenContributor extends AbstractContributor implements Prototype<GenerateDigestSecretTokenContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateDigestSecretTokenContributor.class);
 
-	public static final XDI3Segment XRI_S_DO_GENERATE = XDI3Segment.create("$do<$digest><$secret><$token>");
+	public static final XDI3Segment XRI_S_DIGEST_SECRET_TOKEN = XDI3Segment.create("$do<$digest><$secret><$token>");
 
 	private String globalSalt;
 	private Graph targetGraph;
@@ -90,9 +90,9 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 	@Override
 	public ContributorResult executeDoOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// check operation
+		// check if applicable
 
-		if (! XRI_S_DO_GENERATE.equals(operation.getOperationXri())) return ContributorResult.DEFAULT;
+		if (! operation.getOperationXri().equals(XRI_S_DIGEST_SECRET_TOKEN)) return ContributorResult.DEFAULT;
 
 		// check parameters
 
