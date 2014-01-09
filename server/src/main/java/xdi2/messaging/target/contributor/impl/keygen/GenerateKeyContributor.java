@@ -97,14 +97,17 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 	@Override
 	public ContributorResult executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		XDI3Segment arcXri = relativeTargetStatement.getRelationArcXri();
+		XDI3Segment targetContextNodeXri = relativeTargetStatement.getTargetContextNodeXri();
+
 		// check if applicable
 
 		if (! operation.getOperationXri().equals(XRI_S_DO_KEYPAIR) && ! operation.getOperationXri().equals(XRI_S_DO_KEY)) return ContributorResult.DEFAULT;
-		if (! relativeTargetStatement.getRelationArcXri().equals(XDIDictionaryConstants.XRI_S_IS_TYPE)) return ContributorResult.DEFAULT;
+		if (! arcXri.equals(XDIDictionaryConstants.XRI_S_IS_TYPE)) return ContributorResult.DEFAULT;
 
 		// check parameters
 
-		XDI3Segment dataTypeXri = relativeTargetStatement.getTargetContextNodeXri();
+		XDI3Segment dataTypeXri = targetContextNodeXri;
 
 		String keyAlgorithm;
 		Integer keyLength;

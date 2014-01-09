@@ -90,13 +90,14 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 	@Override
 	public ContributorResult executeDoOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		Object literalData = relativeTargetStatement.getLiteralData();
+
 		// check if applicable
 
 		if (! operation.getOperationXri().equals(XRI_S_DIGEST_SECRET_TOKEN)) return ContributorResult.DEFAULT;
 
 		// check parameters
 
-		Object literalData = relativeTargetStatement.getLiteralData();
 		if (! (literalData instanceof String)) return new ContributorResult(false, false, true);
 
 		String secretToken = (String) literalData;
