@@ -1,6 +1,5 @@
 package xdi2.core.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import org.slf4j.Logger;
@@ -130,34 +129,16 @@ public final class XRI2Util {
 
 		if (type.startsWith("xri://")) type = type.substring(6);
 
-		XDI3SubSegment xdiArcXri;
+		XDI3SubSegment xdiArcXri = null;
 
-		try {
+		try { xdiArcXri = XDI3SubSegment.create(type); } catch (Exception ex) { xdiArcXri = null; }
+		if (xdiArcXri == null) try { xdiArcXri = XDI3SubSegment.create("+(" + type + ")"); } catch (Exception ex) { xdiArcXri = null; }
+		if (xdiArcXri == null) try { xdiArcXri = XDI3SubSegment.create("+(" + URLEncoder.encode(type, "UTF-8") + ")"); } catch (Exception ex) { xdiArcXri = null; }
 
-			xdiArcXri = XDI3SubSegment.create(type);
-		} catch (Exception ex) {
+		if (xdiArcXri == null) return null;
 
-			try {
+		if (! XdiAttributeSingleton.isValidArcXri(xdiArcXri)) xdiArcXri = XdiAttributeSingleton.createArcXri(xdiArcXri);
 
-				xdiArcXri = XDI3SubSegment.create("(" + type + ")");
-			} catch (Exception ex2) {
-
-				try {
-
-					xdiArcXri = XDI3SubSegment.create("(" + URLEncoder.encode(type, "UTF-8") + ")");
-				} catch (UnsupportedEncodingException ex3) {
-
-					return null;
-				}
-			}
-		}
-
-		if (XdiAttributeSingleton.isValidArcXri(xdiArcXri)) {
-
-			return xdiArcXri;
-		} else {
-
-			return XdiAttributeSingleton.createArcXri(xdiArcXri);
-		}
+		return xdiArcXri;
 	}
 }
