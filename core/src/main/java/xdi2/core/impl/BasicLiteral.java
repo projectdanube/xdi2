@@ -9,14 +9,14 @@ public class BasicLiteral extends AbstractLiteral implements Literal {
 
 	private Object literalData;
 
-	public BasicLiteral(ContextNode contextNode, String literalData) {
+	public BasicLiteral(ContextNode contextNode, Object literalData) {
 
 		super(contextNode);
 
 		this.literalData = literalData;
 	}
 
-	public BasicLiteral(String literalData) {
+	public BasicLiteral(Object literalData) {
 
 		this(null, literalData);
 	}
