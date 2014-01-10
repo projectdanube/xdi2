@@ -131,7 +131,7 @@ public final class XRI2Util {
 		if (type.startsWith("xri://")) type = type.substring(6);
 
 		XDI3SubSegment xdiArcXri;
-		
+
 		try {
 
 			xdiArcXri = XDI3SubSegment.create(type);
@@ -152,6 +152,12 @@ public final class XRI2Util {
 			}
 		}
 
-		return XdiAttributeSingleton.createArcXri(xdiArcXri);
+		if (XdiAttributeSingleton.isValidArcXri(xdiArcXri)) {
+
+			return xdiArcXri;
+		} else {
+
+			return XdiAttributeSingleton.createArcXri(xdiArcXri);
+		}
 	}
 }

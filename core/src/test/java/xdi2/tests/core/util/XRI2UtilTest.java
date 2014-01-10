@@ -24,7 +24,8 @@ public class XRI2UtilTest extends TestCase {
 
 		assertEquals(XRI2Util.typeToXdiArcXri("xri://+i-service*(+contact)*($v*1.0)"), "<(+i-service*(+contact)*($v*1.0))>");
 		assertEquals(XRI2Util.typeToXdiArcXri("http://openid.net/signon/1.0"), "<(http://openid.net/signon/1.0)>");
-		assertEquals(XRI2Util.typeToXdiArcXri("xri://$xdi"), "<$xdi>");
 		assertEquals(XRI2Util.typeToXdiArcXri("describedby"), "<(describedby)>");
+		assertEquals(XRI2Util.typeToXdiArcXri("xri://$xdi"), "<$xdi>");
+		assertEquals(XRI2Util.typeToXdiArcXri("<$xdi>"), "<$xdi>");
 	}
 }
