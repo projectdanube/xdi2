@@ -91,18 +91,18 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		// set the owner synonyms
 
-		XDI3Segment[] ownerSynonyms = null;
+		XDI3Segment[] bootstrapOwnerSynonyms = null;
 
 		if (prototypingContext.getOwnerPeerRoot() != null) {
 
 			Iterator<ContextNode> ownerSynonymPeerRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerPeerRoot().getContextNode());
 			XdiPeerRoot[] ownerSynonymPeerRoots = (new IteratorArrayMaker<XdiPeerRoot> (new MappingContextNodePeerRootIterator(ownerSynonymPeerRootContextNodes))).array(XdiPeerRoot.class);
 
-			ownerSynonyms = new XDI3Segment[ownerSynonymPeerRoots.length];
-			for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = ownerSynonymPeerRoots[i].getXriOfPeerRoot();
+			bootstrapOwnerSynonyms = new XDI3Segment[ownerSynonymPeerRoots.length];
+			for (int i=0; i<bootstrapOwnerSynonyms.length; i++) bootstrapOwnerSynonyms[i] = ownerSynonymPeerRoots[i].getXriOfPeerRoot();
 		}
 
-		interceptor.setBootstrapOwnerSynonyms(ownerSynonyms);
+		interceptor.setBootstrapOwnerSynonyms(bootstrapOwnerSynonyms);
 
 		// set bootstrap statements and operations
 
@@ -155,12 +155,15 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 				for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 
 					ContextNode bootstrapOwnerSynonymContextNode = graph.setDeepContextNode(bootstrapOwnerSynonym);
+
 					bootstrapOwnerSynonymContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 					bootstrapOwnerSynonymContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerContextNode);
+					
 					bootstrapOwnerContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
 					bootstrapOwnerContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonymContextNode);
 
 					ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).findPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
+					
 					bootstrapOwnerSynonymPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 					bootstrapOwnerSynonymPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfPeerRootContextNode);
 				}
