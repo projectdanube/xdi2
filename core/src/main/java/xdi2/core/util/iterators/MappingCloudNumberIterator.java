@@ -20,6 +20,10 @@ public class MappingCloudNumberIterator extends MappingIterator<XDI3Segment, Clo
 	@Override
 	public CloudNumber map(XDI3Segment xri) {
 
-		return CloudNumber.fromXri(xri);
+		CloudNumber cloudNumber = CloudNumber.fromXri(xri);
+		if (cloudNumber == null) cloudNumber = CloudNumber.fromPeerRootXri(xri);
+		if (cloudNumber == null) return null;
+
+		return cloudNumber;
 	}
 }

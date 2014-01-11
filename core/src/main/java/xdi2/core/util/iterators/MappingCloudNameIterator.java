@@ -20,6 +20,10 @@ public class MappingCloudNameIterator extends MappingIterator<XDI3Segment, Cloud
 	@Override
 	public CloudName map(XDI3Segment xri) {
 
-		return CloudName.fromXri(xri);
+		CloudName cloudName = CloudName.fromXri(xri);
+		if (cloudName == null) cloudName = CloudName.fromPeerRootXri(xri);
+		if (cloudName == null) return null;
+		
+		return cloudName;
 	}
 }
