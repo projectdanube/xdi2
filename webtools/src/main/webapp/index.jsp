@@ -24,17 +24,22 @@
 	
 	<p>It is designed to be a general-purpose, lightweight and modular implementation of XDI specifications, in order to support a wide range of use cases.</p>
 
-	<p class="subheader">XDI Applications</p>
-	
-	<p>
-	<a href="XDIParser">XDI Parser</a>&nbsp;&nbsp;
-	<a href="XDIValidator">XDI Validator</a>&nbsp;&nbsp;
-	<a href="XDIConverter">XDI Converter</a>&nbsp;&nbsp;
-	<a href="XDIMessenger">XDI Messenger</a>&nbsp;&nbsp;
-	<a href="XDILocalMessenger">XDI Local Messenger</a>&nbsp;&nbsp;
-	<a href="XDISigner">XDI Signer</a>&nbsp;&nbsp;
-	<a href="XDIDiscoverer">XDI Discoverer</a>&nbsp;&nbsp;
-	<a href="XDIGrapher">XDI Grapher</a>
+	<p class="subheader">XDI Apps</p>
+
+	<table cellpadding="5">
+	<tr>
+	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDIParser">XDI Parser</a></td>
+	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDIValidator">XDI Validator</a></td>
+	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDIConverter">XDI Converter</a></td>
+	</tr><tr>
+	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDIMessenger">XDI Messenger</a></td>
+	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDILocalMessenger">XDI Local Messenger</a></td>
+	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDISigner">XDI Signer</a></td>
+	</tr><tr>
+	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDIDiscoverer">XDI Discoverer</a></td>
+	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDIGrapher">XDI Grapher</a></td>
+	</tr>
+	</table>
 	</p>
 
 	<p class="subheader">Google Group</p>

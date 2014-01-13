@@ -49,11 +49,11 @@ public class XDI2SpringConverter implements GenericConverter {
 	@SuppressWarnings("unchecked")
 	public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
 
-		if (log.isDebugEnabled()) log.debug("Trying to convert from " + sourceType.getType().getSimpleName() + " to " + targetType.getType().getSimpleName());
+		if (log.isTraceEnabled()) log.trace("Trying to convert from " + sourceType.getType().getSimpleName() + " to " + targetType.getType().getSimpleName());
 
 		for (Map.Entry<ConvertiblePair, Converter<?, ?>> convertibleType : convertibleTypes.entrySet()) {
 
-			if (log.isDebugEnabled()) log.debug("Considering converter from " + convertibleType.getKey().getSourceType().getSimpleName() + " to " + convertibleType.getKey().getTargetType().getSimpleName());
+			if (log.isTraceEnabled()) log.trace("Considering converter from " + convertibleType.getKey().getSourceType().getSimpleName() + " to " + convertibleType.getKey().getTargetType().getSimpleName());
 
 			if (convertibleType.getKey().getSourceType().isAssignableFrom(sourceType.getType()) && convertibleType.getKey().getTargetType().isAssignableFrom(targetType.getType())) {
 
