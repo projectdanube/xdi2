@@ -43,9 +43,10 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 <h1>General Information:</h1>
 <table class="pretty">
 	<tr><th style="width: 200px">Request Class:</th><td>$request.class.canonicalName</td></tr>
+	<tr><th style="width: 200px">Parser Class:</th><td>$parser.class.canonicalName</td></tr>
+	<tr><th style="width: 200px">OS and Java:</th><td>$systemproperties["os.name"] $systemproperties["os.arch"] $systemproperties["os.version"] / $systemproperties["java.vendor"] $systemproperties["java.version"]</td></tr>
 	<tr><th style="width: 200px">Startup Time:</th><td>$httptransport.getStartupAsString() ($httptransport.getStartupAsSeconds() seconds)</td></tr>
 	<tr><th style="width: 200px">Request Path:</th><td>$request.requestPath</td></tr>
-	<tr><th style="width: 200px">Parser:</th><td>$parser.class.canonicalName</td></tr>
 	<tr><th style="width: 200px">Interceptors:</th><td>
 		#if($httptransport.interceptors.size()==0)
 			(none)

@@ -217,6 +217,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 		// prepare velocity
 
 		File[] pluginFiles = PluginsLoader.getFiles();
+		Properties systemProperties = System.getProperties();
 		List<MessagingTargetMount> messagingTargetMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetMounts();
 		List<MessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts();
 
@@ -225,6 +226,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 		context.put("httptransport", httpTransport);
 		context.put("request", request);
 		context.put("pluginfiles", pluginFiles);
+		context.put("systemproperties", systemProperties);
 		context.put("messagingtargetmounts", messagingTargetMounts);
 		context.put("messagingtargetfactorymounts", messagingTargetFactoryMounts);
 
