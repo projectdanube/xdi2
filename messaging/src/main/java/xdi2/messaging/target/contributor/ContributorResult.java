@@ -7,6 +7,9 @@ public class ContributorResult implements Serializable {
 	private static final long serialVersionUID = -4112352311435192349L;
 
 	public static final ContributorResult DEFAULT = new ContributorResult(false, false, false);
+	public static final ContributorResult SKIP_PARENT_CONTRIBUTORS = new ContributorResult(true, false, false);
+	public static final ContributorResult SKIP_SIBLING_CONTRIBUTORS = new ContributorResult(false, true, false);
+	public static final ContributorResult SKIP_MESSAGING_TARGET = new ContributorResult(false, false, true);
 
 	private boolean skipParentContributors;
 	private boolean skipSiblingContributors;

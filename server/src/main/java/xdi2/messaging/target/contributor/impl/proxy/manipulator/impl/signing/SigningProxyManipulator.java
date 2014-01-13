@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.signatures.Signature;
 import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -44,34 +43,31 @@ public class SigningProxyManipulator extends AbstractProxyManipulator implements
 	 */
 
 	@Override
-	public void manipulate(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void manipulate(Message message, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		for (Message message : messageEnvelope.getMessages()) {
+		// check if the message already has a signature
 
-			// check is the message already has a signature
+		Signature<?, ?> signature = message.getSignature();
 
-			Signature<?, ?> signature = message.getSignature();
+		if (signature != null) {
 
-			if (signature != null) {
+			if (log.isWarnEnabled()) log.warn("Message " + message + " already has signature " + signature);
 
-				if (log.isWarnEnabled()) log.warn("Message " + message + " already has signature " + signature);
-
-				continue;
-			}
-
-			// sign the message
-
-			signature = this.getSigner().sign(message);
-
-			if (signature == null) {
-
-				if (log.isWarnEnabled()) log.warn("Could not create signature for message " + message + " via " + this.getSigner().getClass().getSimpleName());
-
-				continue;
-			}
-
-			if (log.isDebugEnabled()) log.debug("Created signature " + signature + " for message " + message + " via " + this.getSigner().getClass().getSimpleName());
+			return;
 		}
+
+		// sign the message
+
+		signature = this.getSigner().sign(message);
+
+		if (signature == null) {
+
+			if (log.isWarnEnabled()) log.warn("Could not create signature for message " + message + " via " + this.getSigner().getClass().getSimpleName());
+
+			return;
+		}
+
+		if (log.isDebugEnabled()) log.debug("Created signature " + signature + " for message " + message + " via " + this.getSigner().getClass().getSimpleName());
 	}
 
 	@Override

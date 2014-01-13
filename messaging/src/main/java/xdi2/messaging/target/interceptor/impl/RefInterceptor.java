@@ -271,21 +271,6 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 	@Override
 	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// $get on a $ref or $rep arc?
-
-		if (operation instanceof GetOperation) {
-
-			if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri()) ||
-					XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) {
-
-				// don't do anything special
-
-				if (log.isDebugEnabled()) log.debug("Not operating on $get on $ref/$rep target statement: " + targetStatement);
-
-				return targetStatement;
-			}
-		}
-
 		// remember that we completed this target
 
 		/*if (operation instanceof GetOperation) {
@@ -314,8 +299,14 @@ public class RefInterceptor extends AbstractInterceptor implements MessageEnvelo
 		boolean doFollowTargetSubject = true;
 		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
 		if (XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
+		if (XDIDictionaryConstants.XRI_S_IS_REF.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
+		if (XDIDictionaryConstants.XRI_S_IS_REP.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
 
 		boolean doFollowTargetObject = true;
+		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri())) doFollowTargetObject = false;
+		if (XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) doFollowTargetObject = false;
+		if (XDIDictionaryConstants.XRI_S_IS_REF.equals(targetStatement.getRelationArcXri())) doFollowTargetObject = false;
+		if (XDIDictionaryConstants.XRI_S_IS_REP.equals(targetStatement.getRelationArcXri())) doFollowTargetObject = false;
 		if (! targetStatement.isRelationStatement()) doFollowTargetObject = false;
 		if (targetStatement.isRelationStatement() && VariableUtil.isVariable(targetStatement.getTargetContextNodeXri())) doFollowTargetObject = false;
 

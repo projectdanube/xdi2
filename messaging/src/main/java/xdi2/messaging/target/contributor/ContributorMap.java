@@ -42,16 +42,16 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 		this.contributors = new LinkedHashMap<XDI3Segment, List<Contributor>> ();
 	}
 
-	public void addContributor(XDI3Segment contributorXri, Contributor contributor) {
+	public void addContributor(XDI3Segment contextNodeXri, Contributor contributor) {
 
-		if (log.isDebugEnabled()) log.debug("Adding contributor " + contributor.getClass().getSimpleName() + " under " + contributorXri);
+		if (log.isDebugEnabled()) log.debug("Adding contributor " + contributor.getClass().getSimpleName() + " under " + contextNodeXri);
 
-		List<Contributor> contributors = this.contributors.get(contributorXri);
+		List<Contributor> contributors = this.contributors.get(contextNodeXri);
 
 		if (contributors == null) {
 
 			contributors = new ArrayList<Contributor> ();
-			this.contributors.put(contributorXri, contributors);
+			this.contributors.put(contextNodeXri, contributors);
 		}
 
 		contributors.add(contributor);
@@ -59,11 +59,11 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 	public void addContributor(Contributor contributor) {
 
-		String[] addresses = contributor.getAddresses();
+		String[] contributorXris = contributor.getContributorMount().contributorXris();
 
-		for (String address : addresses) {
+		for (String contributorXri : contributorXris) {
 
-			this.addContributor(XDI3Segment.create(address), contributor);
+			this.addContributor(XDI3Segment.create(contributorXri), contributor);
 		}
 	}
 
@@ -169,11 +169,15 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 			XDI3Segment contributorXri = contributorFound.getContributorXri();
 			Contributor contributor = contributorFound.getContributor();
 
+			// skip the contributor?
+
 			if (! contributor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled contributor " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target address " + relativeTargetAddress + ".");
+				if (log.isDebugEnabled()) log.debug("Skipping contributor (disabled) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target address " + relativeTargetAddress + ".");
 				continue;
 			}
+
+			// calculate next addresses
 
 			XDI3Segment nextRelativeTargetAddress = relativeTargetAddress == null ? null : XDI3Util.removeStartXri(relativeTargetAddress, contributorXri);
 			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetAddress;
@@ -255,11 +259,15 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 			XDI3Segment contributorXri = contributorFound.getContributorXri();
 			Contributor contributor = contributorFound.getContributor();
 
+			// skip contributor?
+
 			if (! contributor.isEnabled()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled contributor " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
+				if (log.isDebugEnabled()) log.debug("Skipping contributor (disabled) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
 				continue;
 			}
+
+			// calculate next addresses
 
 			XDI3Statement nextRelativeTargetStatement = relativeTargetStatement == null ? null : StatementUtil.removeStartXriStatement(relativeTargetStatement, contributorXri, false, false, true);
 			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement == null ? null : nextRelativeTargetStatement.getContextNodeXri();
@@ -269,7 +277,7 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 
 			XDI3Segment nextContributorChainXri = XDI3Util.concatXris(nextContributorChainXris);
 
-			// execute the contributors
+			// execute the contributor
 
 			if (log.isDebugEnabled()) log.debug("Executing contributor " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributor XRI " + contributorXri + " and relative target statement " + relativeTargetStatement + "." + " Next contributor chain XRI is " + nextContributorChainXri + ", and next relative target statement is " + nextRelativeTargetStatement + ".");
 

@@ -91,18 +91,18 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 		// set the owner synonyms
 
-		XDI3Segment[] ownerSynonyms = null;
+		XDI3Segment[] bootstrapOwnerSynonyms = null;
 
 		if (prototypingContext.getOwnerPeerRoot() != null) {
 
 			Iterator<ContextNode> ownerSynonymPeerRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerPeerRoot().getContextNode());
 			XdiPeerRoot[] ownerSynonymPeerRoots = (new IteratorArrayMaker<XdiPeerRoot> (new MappingContextNodePeerRootIterator(ownerSynonymPeerRootContextNodes))).array(XdiPeerRoot.class);
 
-			ownerSynonyms = new XDI3Segment[ownerSynonymPeerRoots.length];
-			for (int i=0; i<ownerSynonyms.length; i++) ownerSynonyms[i] = ownerSynonymPeerRoots[i].getXriOfPeerRoot();
+			bootstrapOwnerSynonyms = new XDI3Segment[ownerSynonymPeerRoots.length];
+			for (int i=0; i<bootstrapOwnerSynonyms.length; i++) bootstrapOwnerSynonyms[i] = ownerSynonymPeerRoots[i].getXriOfPeerRoot();
 		}
 
-		interceptor.setBootstrapOwnerSynonyms(ownerSynonyms);
+		interceptor.setBootstrapOwnerSynonyms(bootstrapOwnerSynonyms);
 
 		// set bootstrap statements and operations
 
@@ -155,12 +155,15 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 				for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 
 					ContextNode bootstrapOwnerSynonymContextNode = graph.setDeepContextNode(bootstrapOwnerSynonym);
+
 					bootstrapOwnerSynonymContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 					bootstrapOwnerSynonymContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerContextNode);
+					
 					bootstrapOwnerContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
 					bootstrapOwnerContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonymContextNode);
 
 					ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).findPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
+					
 					bootstrapOwnerSynonymPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 					bootstrapOwnerSynonymPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfPeerRootContextNode);
 				}
@@ -181,7 +184,7 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 			bootstrapOwnerContextNode = graph.setDeepContextNode(this.getBootstrapOwner());
 
 			RootLinkContract bootstrapRootLinkContract = RootLinkContract.findRootLinkContract(graph, true);
-			bootstrapRootLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_ALL, this.getBootstrapOwner());
+			bootstrapRootLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_ALL, XDIConstants.XRI_S_ROOT);
 
 			PolicyAnd policyAnd = bootstrapRootLinkContract.getPolicyRoot(true).createAndPolicy(true);
 			PolicyUtil.createSenderIsOperator(policyAnd, this.getBootstrapOwner());
@@ -204,8 +207,8 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 			XDI3Statement selfPeerRootRefStatement = XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE);
 			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, selfPeerRootRefStatement);
 
-			XDI3Statement bootstrapOwnerSynonymIsRefStatement = XDI3Statement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE);
-			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymIsRefStatement);
+			XDI3Statement bootstrapOwnerSynonymsIsRefStatement = XDI3Statement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE);
+			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymsIsRefStatement);
 
 			for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 

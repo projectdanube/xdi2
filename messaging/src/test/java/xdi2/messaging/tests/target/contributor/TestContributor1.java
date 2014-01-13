@@ -7,10 +7,10 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.contributor.AbstractContributor;
+import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
-import xdi2.messaging.target.contributor.ContributorXri;
 
-@ContributorXri(addresses={"(+con)"})
+@ContributorMount(contributorXris={"(+con)"})
 public class TestContributor1 extends AbstractContributor {
 
 	private String value = "val";

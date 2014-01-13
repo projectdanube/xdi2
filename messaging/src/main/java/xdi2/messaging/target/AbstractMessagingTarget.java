@@ -82,7 +82,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		if (log.isDebugEnabled()) log.debug("Shutting down " + this.getClass().getSimpleName() + ".");
 
-		// shutdon interceptors and contributors
+		// shutdown interceptors and contributors
 
 		List<Extension> extensions = new ArrayList<Extension> ();
 		extensions.addAll(new IteratorListMaker<Interceptor> (this.getInterceptors().iterator()).list());

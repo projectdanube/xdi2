@@ -28,8 +28,8 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
+import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
-import xdi2.messaging.target.contributor.ContributorXri;
 import xdi2.messaging.target.contributor.impl.proxy.manipulator.ProxyManipulator;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
@@ -42,7 +42,9 @@ import xdi2.server.transport.HttpTransport;
 /**
  * This contributor can answer requests by forwarding them to another XDI endpoint.
  */
-@ContributorXri(addresses={""})
+@ContributorMount(
+		contributorXris={""}
+		)
 public class ProxyContributor extends AbstractContributor implements MessageInterceptor, Prototype<ProxyContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(ProxyContributor.class);
