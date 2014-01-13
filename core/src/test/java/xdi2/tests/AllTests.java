@@ -34,7 +34,6 @@ import xdi2.tests.core.util.XRI2UtilTest;
 import xdi2.tests.core.util.iterators.IteratorTest;
 import xdi2.tests.core.xri3.CloudNameTest;
 import xdi2.tests.core.xri3.CloudNumberTest;
-import xdi2.tests.core.xri3.XDI3ParserAPGTest;
 import xdi2.tests.core.xri3.XDI3ParserAParseTest;
 import xdi2.tests.core.xri3.XDI3ParserManualTest;
 
@@ -44,7 +43,6 @@ public class AllTests {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		//$JUnit-BEGIN$
 		suite.addTestSuite(XDI3ParserAParseTest.class);
-		suite.addTestSuite(XDI3ParserAPGTest.class);
 		suite.addTestSuite(XDI3ParserManualTest.class);
 		suite.addTestSuite(MemoryGraphTest.class);
 		suite.addTestSuite(MapKeyValueGraphTest.class);
