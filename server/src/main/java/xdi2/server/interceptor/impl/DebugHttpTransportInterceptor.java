@@ -102,7 +102,7 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 
 				format = XDIDisplayWriter.FORMAT_NAME;
 				writeImplied = null;
-				writeOrdered = "on";
+				writeOrdered = null;
 				writeInner = "on";
 				writePretty = null;
 			}
