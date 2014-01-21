@@ -28,10 +28,6 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
-import com.coasttocoastresearch.apg.Parser.Result;
-import com.coasttocoastresearch.apg.Statistics;
-import com.coasttocoastresearch.apg.Trace;
-
 /**
  * Servlet implementation class for Servlet: XDIParser
  *
@@ -175,7 +171,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 				for (Entry<String, Integer> entry : countEntrySet) stream4.println(entry.getKey() + ": " + entry.getValue());
 				output4 = html(new String(buffer4.toByteArray(), "UTF-8"));
-			} else if ("apg".equals(parser)) {
+			} /*   DEPRECATED  else if ("apg".equals(parser)) {
 
 				com.coasttocoastresearch.apg.Grammar g;
 				int r = -1;
@@ -202,7 +198,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				output6 = html(new String(buffer6.toByteArray(), "UTF-8"));
 
 				output7 = html(new String(buffer7.toByteArray(), "UTF-8"));
-			} else if ("manual".equals(parser)) {
+			}*/ else if ("manual".equals(parser)) {
 
 				XDI3Segment segment;
 
@@ -249,6 +245,9 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				}
 
 				output8 = html(new String(buffer8.toByteArray(), "UTF-8"));
+			} else {
+
+				throw new RuntimeException("Parser not supported.");
 			}
 		} catch (Exception ex) {
 
