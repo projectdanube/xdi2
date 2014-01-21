@@ -158,12 +158,12 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 
 					bootstrapOwnerSynonymContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 					bootstrapOwnerSynonymContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerContextNode);
-					
+
 					bootstrapOwnerContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
 					bootstrapOwnerContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonymContextNode);
 
 					ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).findPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
-					
+
 					bootstrapOwnerSynonymPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 					bootstrapOwnerSynonymPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfPeerRootContextNode);
 				}
@@ -210,10 +210,13 @@ public class BootstrapInterceptor extends AbstractInterceptor implements Prototy
 			XDI3Statement bootstrapOwnerSynonymsIsRefStatement = XDI3Statement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE);
 			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymsIsRefStatement);
 
-			for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
+			if (this.getBootstrapOwnerSynonyms() != null) {
 
-				XDI3Statement bootstrapOwnerSynonymRefStatement = XDI3Statement.fromRelationComponents(bootstrapOwnerSynonym, XDIDictionaryConstants.XRI_S_REF, this.getBootstrapOwner());
-				bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymRefStatement);
+				for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
+
+					XDI3Statement bootstrapOwnerSynonymRefStatement = XDI3Statement.fromRelationComponents(bootstrapOwnerSynonym, XDIDictionaryConstants.XRI_S_REF, this.getBootstrapOwner());
+					bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymRefStatement);
+				}
 			}
 		}
 
