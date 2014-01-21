@@ -129,14 +129,23 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
+	 * Returns the target inner root of the operation.
+	 * @return The target inner root of the operation.
+	 */
+	public XdiInnerRoot getTargetInnerRoot() {
+
+		return XdiInnerRoot.fromContextNode(this.getRelation().follow());
+	}
+
+	/**
 	 * Returns the target address of the operation.
 	 * @return The target address of the operation.
 	 */
 	public XDI3Segment getTargetAddress() {
 
-		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
+		XdiInnerRoot targetInnerRoot = this.getTargetInnerRoot();
 
-		if (innerRoot != null) {
+		if (targetInnerRoot != null) {
 
 			return null;
 		} else {
@@ -151,11 +160,11 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public ReadOnlyIterator<XDI3Statement> getTargetStatements() {
 
-		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
+		XdiInnerRoot targetInnerRoot = this.getTargetInnerRoot();
 
-		if (innerRoot != null) {
+		if (targetInnerRoot != null) {
 
-			return innerRoot.getRelativeStatements(true);
+			return targetInnerRoot.getRelativeStatements(true);
 		} else {
 
 			return null;
