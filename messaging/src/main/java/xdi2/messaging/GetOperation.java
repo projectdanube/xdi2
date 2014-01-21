@@ -15,8 +15,8 @@ public class GetOperation extends Operation {
 
 	private static final long serialVersionUID = -1452297650590584104L;
 
-	public static final XDI3Segment XRI_PARAMETER_DEREF = XDI3Segment.create("<$deref>");
-	public static final XDI3Segment XRI_PARAMETER_PROXY = XDI3Segment.create("<$proxy>");
+	public static final XDI3Segment XRI_S_PARAMETER_DEREF = XDI3Segment.create("<$deref>");
+	public static final XDI3Segment XRI_S_PARAMETER_PROXY = XDI3Segment.create("<$proxy>");
 
 	protected GetOperation(Message message, Relation relation) {
 
