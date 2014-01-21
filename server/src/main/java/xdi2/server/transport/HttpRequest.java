@@ -18,7 +18,6 @@ public interface HttpRequest extends Request {
 	public String getParameter(String name);
 	public String getHeader(String name);
 	public String getContentType();
-	public int getContentLength();
 
 	public InputStream getBodyInputStream() throws IOException;
 

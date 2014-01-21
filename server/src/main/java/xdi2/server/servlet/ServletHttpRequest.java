@@ -86,12 +86,6 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 	}
 
 	@Override
-	public int getContentLength() {
-
-		return this.httpServletRequest.getContentLength();
-	}
-
-	@Override
 	public InputStream getBodyInputStream() throws IOException {
 
 		return this.httpServletRequest.getInputStream();
