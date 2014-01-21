@@ -46,10 +46,12 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
 	public static final String KEY_RECVMIMETYPE = "recvmimetype";
 	public static final String KEY_USERAGENT = "useragent";
+	public static final String KEY_FOLLOWREDIRECTS = "followredirects";
 
 	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;implied=0;inner=1";
 	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json;implied=0;inner=1";
 	public static final String DEFAULT_USERAGENT = "XDI2 Java Library";
+	public static final String DEFAULT_FOLLOWREDIRECTS = "false";
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
 
@@ -57,6 +59,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	protected MimeType sendMimeType;
 	protected MimeType recvMimeType;
 	protected String userAgent;
+	protected boolean followRedirects;
 
 	public XDIHttpClient() {
 
@@ -66,6 +69,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
 		this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
 		this.userAgent = DEFAULT_USERAGENT;
+		this.followRedirects = Boolean.parseBoolean(DEFAULT_FOLLOWREDIRECTS);
 	}
 
 	public XDIHttpClient(String endpointUri) {
@@ -81,6 +85,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
 		this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
 		this.userAgent = DEFAULT_USERAGENT;
+		this.followRedirects = Boolean.parseBoolean(DEFAULT_FOLLOWREDIRECTS);
 	}
 
 	public XDIHttpClient(String endpointUri, MimeType sendMimeType, MimeType recvMimeType, String userAgent) {
@@ -96,6 +101,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
 		this.recvMimeType = (recvMimeType != null) ? recvMimeType : new MimeType(DEFAULT_RECVMIMETYPE);
 		this.userAgent = (userAgent != null) ? userAgent : DEFAULT_USERAGENT;
+		this.followRedirects = Boolean.parseBoolean(DEFAULT_FOLLOWREDIRECTS);
 	}
 
 	public XDIHttpClient(Properties parameters) throws Exception {
@@ -106,12 +112,14 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
 			this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
 			this.userAgent = DEFAULT_USERAGENT;
+			this.followRedirects = Boolean.parseBoolean(DEFAULT_FOLLOWREDIRECTS);
 		} else {
 
 			this.endpointUri = new URL(parameters.getProperty(KEY_ENDPOINTURI, null));
 			this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE, DEFAULT_SENDMIMETYPE));
 			this.recvMimeType = new MimeType(parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_RECVMIMETYPE));
 			this.userAgent = parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_USERAGENT);
+			this.followRedirects = Boolean.parseBoolean(parameters.getProperty(KEY_FOLLOWREDIRECTS, DEFAULT_FOLLOWREDIRECTS));
 
 			if (log.isDebugEnabled()) log.debug("Initialized with " + parameters.toString() + ".");
 		}
@@ -143,7 +151,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		// find out which XDIReader we want to use
 
-		MimeType recvMimeType = this.recvMimeType;
+		MimeType recvMimeType = this.getRecvMimeType();
 		XDIReader reader = XDIReaderRegistry.forMimeType(recvMimeType);
 
 		if (reader == null) {
@@ -170,7 +178,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
-			connection = this.endpointUri.openConnection();
+			connection = this.getEndpointUri().openConnection();
 		} catch (Exception ex) {
 
 			throw new Xdi2ClientException("Cannot open connection: " + ex.getMessage(), ex, null);
@@ -182,11 +190,13 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
+			HttpURLConnection.setFollowRedirects(this.getFollowRedirects());
+
 			http.setDoInput(true);
 			http.setDoOutput(true);
 			http.setRequestProperty("Content-Type", sendMimeType.toString());
 			http.setRequestProperty("Accept", acceptHeader.toString());
-			http.setRequestProperty("User-Agent", this.userAgent);
+			http.setRequestProperty("User-Agent", this.getUserAgent());
 			http.setRequestMethod("POST");
 		} catch (Exception ex) {
 
@@ -302,17 +312,17 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		this.endpointUri = endpointUri;
 	}
 
-	public MimeType getSendFormat() {
+	public MimeType getSendMimeType() {
 
 		return this.sendMimeType;
 	}
 
-	public void setSendFormat(MimeType sendMimeType) {
+	public void setSendMimeType(MimeType sendMimeType) {
 
 		this.sendMimeType = sendMimeType;
 	}
 
-	public MimeType getRecvFormat() {
+	public MimeType getRecvMimeType() {
 
 		return this.recvMimeType;
 	}
@@ -330,6 +340,16 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	public void setUserAgent(String userAgent) {
 
 		this.userAgent = userAgent;
+	}
+
+	public boolean getFollowRedirects() {
+
+		return this.followRedirects;
+	}
+
+	public void setFollowRedirects(boolean followRedirects) {
+
+		this.followRedirects = followRedirects;
 	}
 
 	/*
