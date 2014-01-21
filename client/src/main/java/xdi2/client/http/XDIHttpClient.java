@@ -190,10 +190,10 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
-			HttpURLConnection.setFollowRedirects(this.getFollowRedirects());
-
 			http.setDoInput(true);
 			http.setDoOutput(true);
+			http.setInstanceFollowRedirects(this.getFollowRedirects());
+			System.setProperty("http.strictPostRedirect", "true");
 			http.setRequestProperty("Content-Type", sendMimeType.toString());
 			http.setRequestProperty("Accept", acceptHeader.toString());
 			http.setRequestProperty("User-Agent", this.getUserAgent());
