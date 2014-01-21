@@ -75,7 +75,7 @@ public final class ExecutionContext implements Serializable {
 		this.transport = null;
 		this.request = null;
 		this.response = null;
-		
+
 		this.executionContextAttributes = new HashMap<String, Object> ();
 		this.messageEnvelopeAttributes = new HashMap<String, Object> ();
 		this.messageAttributes = new HashMap<String, Object> ();
@@ -97,22 +97,22 @@ public final class ExecutionContext implements Serializable {
 	}
 
 	public void setTransport(Transport<?, ?> transport) {
-		
+
 		this.transport = transport;
 	}
 
 	public Request getRequest() {
-		
+
 		return this.request;
 	}
 
 	public void setRequest(Request request) {
-		
+
 		this.request = request;
 	}
 
 	public Response getResponse() {
-		
+
 		return this.response;
 	}
 
@@ -120,8 +120,8 @@ public final class ExecutionContext implements Serializable {
 
 		this.response = response;
 	}
-	
-	
+
+
 	/*
 	 * Attributes
 	 */
@@ -471,7 +471,8 @@ public final class ExecutionContext implements Serializable {
 
 		ExecutionPosition<T> executionPosition = (ExecutionPosition<T>) this.currentExecutionPosition;
 
-		if (this.currentExecutionPosition == this.topExecutionPosition) throw new IllegalStateException();
+		if (this.currentExecutionPosition == this.topExecutionPosition) throw new IllegalStateException("No more execution positions.");
+		if (! clazz.isAssignableFrom(this.currentExecutionPosition.executionObject.getClass())) throw new IllegalStateException("Unexpected execution position class: " + this.currentExecutionPosition.executionObject.getClass().getSimpleName() + " (should be " + clazz.getSimpleName() + ").");
 
 		this.currentExecutionPosition = executionPosition.parentExecutionPosition;
 	}
@@ -492,7 +493,7 @@ public final class ExecutionContext implements Serializable {
 	/*
 	 * Tracing
 	 */
-	
+
 	public String getTraceLine() {
 
 		StringBuffer buffer = new StringBuffer();
