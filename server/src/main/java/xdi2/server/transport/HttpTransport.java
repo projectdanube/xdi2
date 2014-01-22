@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,6 @@ import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.http.AcceptHeader;
 import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.registry.HttpMessagingTargetRegistry;
 import xdi2.server.registry.MessagingTargetMount;
@@ -546,12 +544,6 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 	public void setInterceptors(InterceptorList interceptors) {
 
 		this.interceptors = interceptors;
-	}
-
-	public void setInterceptors(List<Interceptor> interceptors) {
-
-		this.interceptors.clear();
-		this.interceptors.addAll(interceptors);
 	}
 
 	public Date getStartup() {
