@@ -519,7 +519,7 @@ public final class ExecutionContext implements Serializable {
 		@Override
 		public String toString() {
 
-			return this.executionObject.getClass().getSimpleName() + (this.comment == null ? "" : " (" + this.comment + ")");
+			return (this.executionObject == null ? "NULL" : this.executionObject.getClass().getSimpleName()) + (this.comment == null ? "" : " (" + this.comment + ")");
 		}
 	}
 }

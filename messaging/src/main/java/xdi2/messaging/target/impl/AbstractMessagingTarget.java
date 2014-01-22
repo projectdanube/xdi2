@@ -202,9 +202,21 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw (Xdi2MessagingException) ex;
 		} finally {
 
-			executionContext.popMessageEnvelope();
+			try {
 
-			executionContext.popMessagingTarget();
+				executionContext.popMessageEnvelope();
+			} catch (Exception ex) {
+
+				log.warn("Error while popping message envelope.");
+			}
+
+			try {
+
+				executionContext.popMessagingTarget();
+			} catch (Exception ex) {
+
+				log.warn("Error while popping messaging target.");
+			}
 
 			if (log.isDebugEnabled()) log.debug("Trace: " + executionContext.getTraceBlock());
 		}
@@ -283,7 +295,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw executionContext.processException(ex);
 		} finally {
 
-			executionContext.popMessage();
+			try {
+
+				executionContext.popMessage();
+			} catch (Exception ex) {
+
+				log.warn("Error while popping message.");
+			}
 		}
 	}
 
@@ -362,7 +380,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw executionContext.processException(ex);
 		} finally {
 
-			executionContext.popOperation();
+			try {
+
+				executionContext.popOperation();
+			} catch (Exception ex) {
+
+				log.warn("Error while popping operation.");
+			}
 		}
 	}
 
@@ -417,7 +441,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw executionContext.processException(ex);
 		} finally {
 
-			executionContext.popTargetAddress();
+			try {
+
+				executionContext.popTargetAddress();
+			} catch (Exception ex) {
+
+				log.warn("Error while popping target address.");
+			}
 		}
 	}
 
@@ -472,7 +502,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw executionContext.processException(ex);
 		} finally {
 
-			executionContext.popTargetStatement();
+			try {
+
+				executionContext.popTargetStatement();
+			} catch (Exception ex) {
+
+				log.warn("Error while popping target statement.");
+			}
 		}
 	}
 
