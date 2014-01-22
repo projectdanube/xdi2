@@ -8,6 +8,7 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -195,7 +196,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		if (log.isTraceEnabled()) log.trace("getRelativeStatements(" + ignoreImplied + ")");
 
-		return new SelectingMappingIterator<Statement, XDI3Statement> (this.getContextNode().getAllStatements()) {
+		return new NotNullIterator<XDI3Statement> (new SelectingMappingIterator<Statement, XDI3Statement> (this.getContextNode().getAllStatements()) {
 
 			@Override
 			public boolean select(Statement statement) {
@@ -210,7 +211,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 				return StatementUtil.removeStartXriStatement(statement.getXri(), XdiAbstractRoot.this.getContextNode().getXri(), true);
 			}
-		};
+		});
 	}
 
 	/*

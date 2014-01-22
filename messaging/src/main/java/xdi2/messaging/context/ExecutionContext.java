@@ -424,6 +424,8 @@ public final class ExecutionContext implements Serializable {
 
 	private <T> void pushExecutionPosition(T object, String comment) {
 
+		if (object == null) throw new NullPointerException();
+
 		this.currentExecutionPosition = new ExecutionPosition<T> (this.currentExecutionPosition, object, comment);
 	}
 
@@ -519,7 +521,7 @@ public final class ExecutionContext implements Serializable {
 		@Override
 		public String toString() {
 
-			return (this.executionObject == null ? "NULL" : this.executionObject.getClass().getSimpleName()) + (this.comment == null ? "" : " (" + this.comment + ")");
+			return this.executionObject.getClass().getSimpleName() + (this.comment == null ? "" : " (" + this.comment + ")");
 		}
 	}
 }
