@@ -204,7 +204,7 @@ public final class ExecutionContext implements Serializable {
 
 	public Xdi2MessagingException processException(Exception ex) {
 
-		if (log.isDebugEnabled()) log.debug("New Exception: " + ex.getMessage() + ". Current: " + this.ex.getMessage() + ". Same? " + (ex == this.ex));
+		if (log.isDebugEnabled()) log.debug("New Exception: " + (ex == null ? ex : ex.getMessage()) + ". Current: " + (this.ex == null ? null : this.ex.getMessage()) + ". Same? " + (ex == this.ex));
 
 		if (! (ex instanceof Xdi2MessagingException)) {
 
