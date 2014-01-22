@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
@@ -26,6 +29,8 @@ import xdi2.messaging.target.interceptor.Interceptor;
 public final class ExecutionContext implements Serializable {
 
 	private static final long serialVersionUID = 3238581605986543950L;
+
+	private static Logger log = LoggerFactory.getLogger(ExecutionContext.class.getName());
 
 	/**
 	 * This map is never reset.
@@ -198,6 +203,8 @@ public final class ExecutionContext implements Serializable {
 	}
 
 	public Xdi2MessagingException processException(Exception ex) {
+
+		if (log.isDebugEnabled()) log.debug("New Exception: " + ex.getMessage() + ". Current: " + this.ex.getMessage() + ". Same? " + (ex == this.ex));
 
 		if (! (ex instanceof Xdi2MessagingException)) {
 
