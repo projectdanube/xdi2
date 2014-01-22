@@ -378,7 +378,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		try {
 
-			executionContext.pushTargetAddress(targetAddress, targetAddress.toString());
+			executionContext.pushTargetAddress(targetAddress, "" + targetAddress);
 
 			// execute target interceptors (address)
 
@@ -433,7 +433,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		try {
 
-			executionContext.pushTargetStatement(targetStatement, targetStatement.toString());
+			executionContext.pushTargetStatement(targetStatement, "" + targetStatement);
 
 			// execute target interceptors (statement)
 
