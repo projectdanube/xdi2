@@ -254,6 +254,8 @@ public final class ExecutionContext implements Serializable {
 			ex = new Xdi2MessagingException(ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage(), ex, this);
 		}
 
+		if (this.ex != null) return this.ex;
+
 		this.ex = (Xdi2MessagingException) ex;
 		this.exceptionExecutionPosition = this.currentExecutionPosition;
 
