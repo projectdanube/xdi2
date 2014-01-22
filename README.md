@@ -10,13 +10,13 @@ A sample deployment of XDI2 is available at http://xdi2.projectdanube.org.
 
 * [xdi2-core](https://github.com/projectdanube/xdi2/wiki/xdi2-core) - Implementation of the XDI graph model and basic features [.jar]
 * [xdi2-messaging](https://github.com/projectdanube/xdi2/wiki/xdi2-messaging) - Implementation of XDI messaging functionality [.jar]
-* [xdi2-client](https://github.com/projectdanube/xdi2/wiki/xdi2-client) - An XDI client that can send messages to an XDI endpoint, including discovery [.jar]
-* [xdi2-server](https://github.com/projectdanube/xdi2/wiki/xdi2-server) - An XDI server exposing XDI endpoints that can process incoming XDI messages [.jar]
-* [xdi2-server-embedded](https://github.com/projectdanube/xdi2/wiki/xdi2-server-embedded) - The XDI server embedded in another application [.jar]
-* [xdi2-server-standalone](https://github.com/projectdanube/xdi2/wiki/xdi2-server-standalone) - The XDI server as a standalone application [.jar]
-* [xdi2-server-war](https://github.com/projectdanube/xdi2/wiki/xdi2-server-war) - The XDI server as a web application [.war]
+* [xdi2-client](https://github.com/projectdanube/xdi2/wiki/xdi2-client) - An XDI client can send messages to an XDI server, including discovery [.jar]
+* [xdi2-transport](https://github.com/projectdanube/xdi2/wiki/xdi2-transport) - A transport can receive XDI message and process them [.jar]
+* [xdi2-transport-http](https://github.com/projectdanube/xdi2/wiki/xdi2-transport-http) - An HTTP transport (server) that exposes XDI endpoints at URIs [.jar]
+* [xdi2-transport-http-embedded](https://github.com/projectdanube/xdi2/wiki/xdi2-transport-http-embedded) - The HTTP transport (server) embedded in another application [.jar]
+* [xdi2-transport-http-standalone](https://github.com/projectdanube/xdi2/wiki/xdi2-transport-http-standalone) - The HTTP transport (server) as a standalone application [.jar]
+* [xdi2-transport-http-war](https://github.com/projectdanube/xdi2/wiki/xdi2-transport-http-war) - The HTTP transport (server) as a web application [.war]
 * [xdi2-webtools](https://github.com/projectdanube/xdi2/wiki/xdi2-webtools) - A collection of web-based XDI tools for testing [.war]
-* [xdi2-p2p](https://github.com/projectdanube/xdi2/wiki/xdi2-p2p) - Code for peer-to-peer XDI data exchange [.jar]
 * [xdi2-samples](https://github.com/projectdanube/xdi2/wiki/xdi2-samples) - Various samples on how to work with the XDI2 library [.jar]
 
 ### How to build
