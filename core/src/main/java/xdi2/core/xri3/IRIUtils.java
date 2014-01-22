@@ -12,6 +12,7 @@ import com.ibm.icu.text.UTF16;
  * @author wtan
  *
  */
+@SuppressWarnings("unused")
 public class IRIUtils
 {
 	private static final int[] HEXCHARS = {
