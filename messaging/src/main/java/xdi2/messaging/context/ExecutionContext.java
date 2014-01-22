@@ -466,15 +466,12 @@ public final class ExecutionContext implements Serializable {
 		this.currentExecutionPosition = new ExecutionPosition<T> (this.currentExecutionPosition, object, comment);
 	}
 
-	@SuppressWarnings("unchecked")
 	private <T> void popExecutionPosition(Class<? extends T> clazz) {
-
-		ExecutionPosition<T> executionPosition = (ExecutionPosition<T>) this.currentExecutionPosition;
 
 		if (this.currentExecutionPosition == this.topExecutionPosition) throw new IllegalStateException("No more execution positions.");
 		if (! clazz.isAssignableFrom(this.currentExecutionPosition.executionObject.getClass())) throw new IllegalStateException("Unexpected execution position class: " + this.currentExecutionPosition.executionObject.getClass().getSimpleName() + " (should be " + clazz.getSimpleName() + ").");
 
-		this.currentExecutionPosition = executionPosition.parentExecutionPosition;
+		this.currentExecutionPosition = this.currentExecutionPosition.parentExecutionPosition;
 	}
 
 	@SuppressWarnings("unchecked")
