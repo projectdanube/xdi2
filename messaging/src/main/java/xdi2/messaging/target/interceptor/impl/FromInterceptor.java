@@ -5,6 +5,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
@@ -15,7 +16,7 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
  * 
  * @author markus
  */
-public class FromInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<FromInterceptor> {
+public class FromInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, Prototype<FromInterceptor> {
 
 	/*
 	 * Prototype

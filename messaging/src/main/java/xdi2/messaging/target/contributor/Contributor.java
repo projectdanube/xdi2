@@ -7,8 +7,9 @@ import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.Extension;
+import xdi2.messaging.target.MessagingTarget;
 
-public interface Contributor extends Extension {
+public interface Contributor extends Extension<MessagingTarget> {
 
 	/*
 	 * Contributor mount

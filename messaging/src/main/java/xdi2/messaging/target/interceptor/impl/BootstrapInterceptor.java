@@ -44,7 +44,7 @@ import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractIntercept
  * 
  * @author markus
  */
-public class BootstrapInterceptor extends AbstractInterceptor implements Prototype<BootstrapInterceptor> {
+public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> implements Prototype<BootstrapInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 

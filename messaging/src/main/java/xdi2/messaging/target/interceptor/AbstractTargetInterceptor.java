@@ -6,8 +6,9 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
 
-public abstract class AbstractTargetInterceptor extends AbstractInterceptor implements TargetInterceptor {
+public abstract class AbstractTargetInterceptor extends AbstractInterceptor<MessagingTarget> implements TargetInterceptor {
 
 	@Override
 	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {

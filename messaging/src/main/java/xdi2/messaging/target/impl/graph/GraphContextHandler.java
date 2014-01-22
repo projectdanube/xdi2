@@ -21,7 +21,7 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.AbstractContextHandler;
+import xdi2.messaging.target.impl.AbstractContextHandler;
 
 public class GraphContextHandler extends AbstractContextHandler {
 

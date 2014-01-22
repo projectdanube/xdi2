@@ -83,7 +83,7 @@
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
-			<artifactId>xdi2-server</artifactId>
+			<artifactId>xdi2-transport-http</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

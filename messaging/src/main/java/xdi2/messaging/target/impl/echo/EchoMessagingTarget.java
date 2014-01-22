@@ -7,9 +7,9 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.StatementHandler;
+import xdi2.messaging.target.impl.AbstractMessagingTarget;
 
 public class EchoMessagingTarget extends AbstractMessagingTarget {
 

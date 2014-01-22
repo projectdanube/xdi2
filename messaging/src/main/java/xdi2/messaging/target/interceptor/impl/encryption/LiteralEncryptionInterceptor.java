@@ -23,7 +23,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * in the XDI message result. It invokes an instance of LiteralCryptoService to
  * perform encryption and decryption. 
  */
-public class LiteralEncryptionInterceptor extends AbstractInterceptor implements TargetInterceptor, MessageResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
+public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingTarget> implements TargetInterceptor, MessageResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(LiteralEncryptionInterceptor.class);
 

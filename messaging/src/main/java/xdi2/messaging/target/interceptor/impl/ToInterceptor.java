@@ -19,7 +19,7 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
  * 
  * @author markus
  */
-public class ToInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<ToInterceptor> {
+public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, Prototype<ToInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(ToInterceptor.class.getName());
 

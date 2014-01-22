@@ -126,7 +126,7 @@
 
 	<servlet>
 		<servlet-name>EndpointServlet</servlet-name>
-		<servlet-class>xdi2.server.servlet.EndpointServlet</servlet-class>
+		<servlet-class>xdi2.transport.impl.http.impl.servlet.EndpointServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -138,7 +138,7 @@
 	<!-- LISTENERS -->
 
 	<listener>
-		<listener-class>xdi2.server.servlet.PluginsLoaderListener</listener-class>
+		<listener-class>xdi2.transport.impl.http.servlet.PluginsLoaderListener</listener-class>
 	</listener>
 
 	<listener>

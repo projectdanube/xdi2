@@ -4,6 +4,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
 
 /**
  * Interceptor that is executed before and after a message envelope is executed,
@@ -11,7 +12,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
  * 
  * @author markus
  */
-public interface MessageEnvelopeInterceptor extends Interceptor {
+public interface MessageEnvelopeInterceptor extends Interceptor<MessagingTarget> {
 
 	/**
 	 * Run before a message envelope is executed.

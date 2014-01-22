@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>xdi2-transport</artifactId>
+	<packaging>jar</packaging>
+	<name>xdi2-transport</name>
+
+	<parent>
+		<groupId>xdi2</groupId>
+		<artifactId>xdi2</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+
+	<build>
+		<plugins>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-messaging</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-client</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>3.0.0.RELEASE</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-lang</groupId>
+					<artifactId>commons-lang</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+</project>

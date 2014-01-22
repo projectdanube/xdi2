@@ -12,10 +12,11 @@ import xdi2.messaging.Operation;
 import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.AbstractExtension;
+import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.impl.AbstractExtension;
 import xdi2.messaging.target.impl.graph.GraphContextHandler;
 
-public abstract class AbstractContributor extends AbstractExtension implements Contributor {
+public abstract class AbstractContributor extends AbstractExtension<MessagingTarget> implements Contributor {
 
 	private ContributorMap contributors;
 
@@ -30,7 +31,7 @@ public abstract class AbstractContributor extends AbstractExtension implements C
 
 		super();
 
-		this.contributors = new ContributorMap();
+		this.contributors = new ContributorMap ();
 	}
 
 	/*

@@ -106,17 +106,17 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 			ByteArrayOutputStream buffer2 = new ByteArrayOutputStream();
 			ByteArrayOutputStream buffer3 = new ByteArrayOutputStream();
 			ByteArrayOutputStream buffer4 = new ByteArrayOutputStream();
-			ByteArrayOutputStream buffer5 = new ByteArrayOutputStream();
-			ByteArrayOutputStream buffer6 = new ByteArrayOutputStream();
-			ByteArrayOutputStream buffer7 = new ByteArrayOutputStream();
+//			ByteArrayOutputStream buffer5 = new ByteArrayOutputStream();
+//			ByteArrayOutputStream buffer6 = new ByteArrayOutputStream();
+//			ByteArrayOutputStream buffer7 = new ByteArrayOutputStream();
 			ByteArrayOutputStream buffer8 = new ByteArrayOutputStream();
 			PrintStream stream1 = new PrintStream(buffer1);
 			PrintStream stream2 = new PrintStream(buffer2);
 			PrintStream stream3 = new PrintStream(buffer3);
 			PrintStream stream4 = new PrintStream(buffer4);
-			PrintStream stream5 = new PrintStream(buffer5);
-			PrintStream stream6 = new PrintStream(buffer6);
-			PrintStream stream7 = new PrintStream(buffer7);
+//			PrintStream stream5 = new PrintStream(buffer5);
+//			PrintStream stream6 = new PrintStream(buffer6);
+//			PrintStream stream7 = new PrintStream(buffer7);
 			PrintStream stream8 = new PrintStream(buffer8);
 
 			if ("aparse".equals(parser)) {

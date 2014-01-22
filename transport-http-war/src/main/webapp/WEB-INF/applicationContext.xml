@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<!-- XDI ENDPOINT REGISTRY AND TRANSPORT -->
+
+	<bean id="HttpMessagingTargetRegistry" class="xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry" init-method="init" destroy-method="shutdown" />
+
+	<bean id="HttpTransport" class="xdi2.transport.impl.http.HttpTransport" init-method="init" destroy-method="shutdown">
+		<property name="httpMessagingTargetRegistry" ref="HttpMessagingTargetRegistry" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.transport.impl.http.interceptor.impl.DebugHttpTransportInterceptor" />
+			</util:list>
+		</property>
+	</bean>
+
+	<!-- SPRING -->
+
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="xdi2.transport.spring.XDI2SpringConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- MESSAGING TARGET TO BE USED AS A PROTOTYPE FOR MESSAGING TARGET FACTORIES -->
+
+	<bean id="prototypeGraphFactory" class="xdi2.core.impl.memory.MemoryGraphFactory">
+	</bean>
+
+	<bean id="prototypeGraph" factory-bean="prototypeGraphFactory" factory-method="openGraph" />
+
+	<bean id="prototypeMessagingTarget" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
+		<property name="graph" ref="prototypeGraph" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
+					<property name="bootstrapRootLinkContract" value="true" />
+					<property name="bootstrapPublicLinkContract" value="true" />
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
+					<property name="secretTokenAuthenticator">
+						<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.GraphSecretTokenAuthenticator">
+							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
+							<property name="secretTokenGraph" ref="registryGraph" />
+						</bean>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
+			</util:list>
+		</property>
+	</bean>
+
+	<!-- MESSAGING TARGET FACTORY at /any/* -->
+
+	<bean name="/any/*" class="xdi2.transport.impl.http.factory.impl.AnyGraphMessagingTargetFactory">
+		<property name="prototypeMessagingTarget" ref="prototypeMessagingTarget" />
+	</bean>
+
+	<!-- MESSAGING TARGET FACTORY at /users/* -->
+
+	<bean id="registryGraphfactory" class="xdi2.core.impl.wrapped.file.FileWrapperGraphFactory">
+		<property name="path" value="registry.xdi" />
+		<property name="mimeType" value="text/xdi;ordered=1" />
+	</bean>
+
+	<bean id="registryGraph" factory-bean="registryGraphfactory" factory-method="openGraph" />
+
+	<bean name="/users/*" class="xdi2.transport.impl.http.factory.impl.RegistryGraphMessagingTargetFactory">
+		<property name="prototypeMessagingTarget" ref="prototypeMessagingTarget" />
+		<property name="registryGraph" ref="registryGraph" />
+	</bean>
+
+	<!-- REGISTRY MESSAGING TARGET -->
+
+	<bean name="/registry" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
+		<property name="graph" ref="registryGraph" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
+					<property name="bootstrapOwner" value="[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958" />
+					<property name="bootstrapOwnerSynonyms">
+						<util:list>
+							<value>=danube</value>
+						</util:list>
+					</property>
+					<property name="bootstrapRootLinkContract" value="true" />
+					<property name="bootstrapPublicLinkContract" value="true" />
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
+					<property name="secretTokenAuthenticator">
+						<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.StaticSecretTokenAuthenticator">
+							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
+							<property name="localSaltAndDigestSecretTokens">
+								<util:map>
+									<entry key="[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958" value="xdi2-digest:00000000-0000-0000-0000-000000000000:a7292f2347aef29a9e4c05d35764019106143a339b6e9bb39faee53103e1d6f55e49213d77d16a326a91bab0fc6885779d04e2e4470125720860cf54f872b3bb" />
+								</util:map>
+							</property>
+						</bean>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
+			</util:list>
+		</property>
+	</bean>
+
+	<!-- MESSAGING TARGET at /mem-graph -->
+	<!-- MessagingTarget: GraphMessagingTarget backed by a MemoryGraph -->
+
+	<bean id="graphfactory1" class="xdi2.core.impl.memory.MemoryGraphFactory">
+	</bean>
+
+	<bean id="graph1" factory-bean="graphfactory1" factory-method="openGraph" />
+
+	<bean name="/mem-graph" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
+		<property name="graph" ref="graph1" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
+			</util:list>
+		</property>
+	</bean>
+
+	<!-- MESSAGING TARGET at /bdb-graph -->
+	<!-- MessagingTarget: GraphMessagingTarget backed by a BDBGraph -->
+
+	<bean id="graphfactory2" class="xdi2.core.impl.keyvalue.bdb.BDBKeyValueGraphFactory">
+	</bean>
+
+	<bean id="graph2" factory-bean="graphfactory2" factory-method="openGraph" />
+
+	<bean name="/bdb-graph" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
+		<property name="graph" ref="graph2" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
+			</util:list>
+		</property>
+	</bean>
+
+	<!-- MESSAGING TARGET at /file-graph -->
+	<!-- MessagingTarget: FileMessagingTarget backed by an XDI/JSON file -->
+
+	<bean name="/file-graph" class="xdi2.messaging.target.impl.file.FileMessagingTarget">
+		<property name="path" value="./xdi2-file/graph.xdi" />
+		<property name="mimeType" value="application/xdi+json;implied=1;ordered=1" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
+			</util:list>
+		</property>
+	</bean>
+
+	<!-- MESSAGING TARGET at /=markus -->
+	<!-- MessagingTarget: GraphMessagingTarget backed by a MemoryGraph -->
+
+	<bean id="graphfactory4" class="xdi2.core.impl.memory.MemoryGraphFactory">
+	</bean>
+
+	<bean id="graph4" factory-bean="graphfactory4" factory-method="openGraph" />
+
+	<bean name="/=markus" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
+		<property name="graph" ref="graph4" />
+		<property name="interceptors">
+			<util:list>
+				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
+					<property name="bootstrapOwner" value="[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24" />
+					<property name="bootstrapOwnerSynonyms">
+						<util:list>
+							<value>=markus</value>
+						</util:list>
+					</property>
+					<property name="bootstrapRootLinkContract" value="true" />
+					<property name="bootstrapPublicLinkContract" value="true" />
+					<property name="bootstrapGraph">
+						<value>
+							$public$do/$get/$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
+							$public$do/$get/($msg$encrypt$keypair/$is+/{})
+							$public$do/$get/$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
+							$public$do/$get/($msg$sig$keypair/$is+/{})
+						</value>
+					</property>
+					<property name="bootstrapMessageEnvelope">
+						<value>
+							$anon[$msg]!1$do/$do$keypair/($msg$encrypt$keypair/$is+/$rsa$2048)
+							$anon[$msg]!1$do/$do$keypair/($msg$sig$keypair/$is+/$rsa$2048)
+						</value>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
+			</util:list>
+		</property>
+		<property name="contributors">
+			<util:list>
+				<bean id="generateKeyContributor" class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
+			</util:list>
+		</property>
+	</bean>
+
+</beans>

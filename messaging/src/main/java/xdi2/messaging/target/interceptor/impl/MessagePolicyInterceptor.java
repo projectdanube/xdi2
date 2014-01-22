@@ -21,7 +21,7 @@ import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContex
  * 
  * @author markus
  */
-public class MessagePolicyInterceptor extends AbstractInterceptor implements MessageInterceptor, Prototype<MessagePolicyInterceptor> {
+public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, Prototype<MessagePolicyInterceptor> {
 
 	private Graph messagePolicyGraph; 
 

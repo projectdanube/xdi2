@@ -12,11 +12,11 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.AbstractMessagingTarget;
 import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.StatementHandler;
+import xdi2.messaging.target.impl.AbstractMessagingTarget;
 
 /**
  * An XDI messaging target backed by some implementation of the Graph interface.

@@ -4,8 +4,9 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
 
-public abstract class AbstractMessageEnvelopeInterceptor extends AbstractInterceptor implements MessageEnvelopeInterceptor {
+public abstract class AbstractMessageEnvelopeInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor {
 
 	@Override
 	public InterceptorResult before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {

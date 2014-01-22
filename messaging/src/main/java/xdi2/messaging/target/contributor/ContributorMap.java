@@ -2,7 +2,6 @@ package xdi2.messaging.target.contributor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,21 +12,13 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
-import xdi2.core.util.CopyUtil;
-import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
-import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.Prototype;
 
-public class ContributorMap implements Iterable<Contributor>, Prototype<ContributorMap>, Serializable {
+public class ContributorMap  implements Iterable<Contributor>, Prototype<ContributorMap>, Serializable {
 
 	private static final long serialVersionUID = 1645889897751813459L;
 
@@ -146,270 +137,6 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 	}
 
 	/*
-	 * Methods for executing contributors
-	 */
-
-	public ContributorResult executeContributorsAddress(XDI3Segment[] contributorChainXris, XDI3Segment relativeTargetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		ContributorResult contributorResultAddress = ContributorResult.DEFAULT;
-
-		// find an address with contributors
-
-		XDI3Segment relativeContextNodeXri = relativeTargetAddress;
-
-		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
-		contributorFounds.addAll(this.findHigherContributors(relativeContextNodeXri));
-		contributorFounds.addAll(this.findLowerContributors(relativeContextNodeXri));
-		if (contributorFounds.size() == 0) return ContributorResult.DEFAULT;
-
-		if (log.isDebugEnabled()) log.debug("For relative target address: " + relativeTargetAddress + " found contributors: " + contributorFounds);
-
-		for (ContributorFound contributorFound : contributorFounds) {
-
-			XDI3Segment contributorXri = contributorFound.getContributorXri();
-			Contributor contributor = contributorFound.getContributor();
-
-			// skip the contributor?
-
-			if (! contributor.isEnabled()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping contributor (disabled) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target address " + relativeTargetAddress + ".");
-				continue;
-			}
-
-			// calculate next addresses
-
-			XDI3Segment nextRelativeTargetAddress = relativeTargetAddress == null ? null : XDI3Util.removeStartXri(relativeTargetAddress, contributorXri);
-			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetAddress;
-
-			XDI3Segment[] nextContributorChainXris = Arrays.copyOf(contributorChainXris, contributorChainXris.length + 1);
-			nextContributorChainXris[nextContributorChainXris.length - 1] = contributorXri;
-
-			XDI3Segment nextContributorChainXri = XDI3Util.concatXris(nextContributorChainXris);
-
-			// execute the contributor
-
-			if (log.isDebugEnabled()) log.debug("Executing contributor " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributor XRI " + contributorXri + " and relative target address " + relativeTargetAddress + "." + " Next contributor chain XRI is " + nextContributorChainXri + ", and next relative target address is " + nextRelativeTargetAddress + ".");
-
-			try {
-
-				executionContext.pushContributor(contributor, "Contributor: address: " + nextRelativeTargetAddress + " [" + nextContributorChainXri + "]");
-
-				// execute sub-contributors (address)
-
-				if (! contributor.getContributors().isEmpty()) {
-
-					ContributorResult contributorResult = contributor.getContributors().executeContributorsAddress(nextContributorChainXris, nextRelativeTargetAddress, operation, operationMessageResult, executionContext);
-					contributorResultAddress = contributorResultAddress.or(contributorResult);
-
-					if (contributorResult.isSkipParentContributors()) {
-
-						if (log.isDebugEnabled()) log.debug("Skipping parent contributors according to sub-contributors (address).");
-						return contributorResultAddress;
-					}
-				}
-
-				// execute contributor (address)
-
-				MessageResult tempMessageResult = new MessageResult();
-
-				ContributorResult contributorResult = contributor.executeOnAddress(nextContributorChainXris, nextContributorChainXri, nextRelativeTargetAddress, operation, tempMessageResult, executionContext);
-				contributorResultAddress = contributorResultAddress.or(contributorResult);
-
-				XDI3Segment tempContextNodeXri = XDI3Util.concatXris(nextContributorChainXri, nextRelativeContextNodeXri);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri);
-
-				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
-
-				if (contributorResult.isSkipSiblingContributors()) {
-
-					if (log.isDebugEnabled()) log.debug("Skipping sibling contributors (address) according to " + contributor.getClass().getSimpleName() + ".");
-					return contributorResultAddress;
-				}
-			} catch (Exception ex) {
-
-				throw executionContext.processException(ex);
-			} finally {
-
-				executionContext.popContributor();
-			}
-		}
-
-		// done
-
-		return contributorResultAddress;
-	}
-
-	public ContributorResult executeContributorsStatement(XDI3Segment contributorChainXris[], XDI3Statement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		ContributorResult contributorResultStatement = ContributorResult.DEFAULT;
-
-		// find an address with contributors
-
-		XDI3Segment relativeContextNodeXri = relativeTargetStatement == null ? null : relativeTargetStatement.getContextNodeXri();
-
-		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
-		contributorFounds.addAll(this.findHigherContributors(relativeContextNodeXri));
-		if (contributorFounds.size() == 0) return ContributorResult.DEFAULT;
-
-		if (log.isDebugEnabled()) log.debug("For relative target statement: " + relativeTargetStatement + " found contributors: " + contributorFounds);
-
-		for (ContributorFound contributorFound : contributorFounds) {
-
-			XDI3Segment contributorXri = contributorFound.getContributorXri();
-			Contributor contributor = contributorFound.getContributor();
-
-			// skip contributor?
-
-			if (! contributor.isEnabled()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping contributor (disabled) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
-				continue;
-			}
-
-			// calculate next addresses
-
-			XDI3Statement nextRelativeTargetStatement = relativeTargetStatement == null ? null : StatementUtil.removeStartXriStatement(relativeTargetStatement, contributorXri, false, false, true);
-			XDI3Segment nextRelativeContextNodeXri = nextRelativeTargetStatement == null ? null : nextRelativeTargetStatement.getContextNodeXri();
-
-			XDI3Segment[] nextContributorChainXris = Arrays.copyOf(contributorChainXris, contributorChainXris.length + 1);
-			nextContributorChainXris[nextContributorChainXris.length - 1] = contributorXri;
-
-			XDI3Segment nextContributorChainXri = XDI3Util.concatXris(nextContributorChainXris);
-
-			// execute the contributor
-
-			if (log.isDebugEnabled()) log.debug("Executing contributor " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributor XRI " + contributorXri + " and relative target statement " + relativeTargetStatement + "." + " Next contributor chain XRI is " + nextContributorChainXri + ", and next relative target statement is " + nextRelativeTargetStatement + ".");
-
-			try {
-
-				executionContext.pushContributor(contributor, "Contributor: statement: " + nextRelativeTargetStatement + " [" + nextContributorChainXri + "]");
-
-				// execute sub-contributors (statement)
-
-				if (! contributor.getContributors().isEmpty()) {
-
-					ContributorResult contributorResult = contributor.getContributors().executeContributorsStatement(nextContributorChainXris, nextRelativeTargetStatement, operation, operationMessageResult, executionContext);
-					contributorResultStatement = contributorResultStatement.or(contributorResult);
-
-					if (contributorResult.isSkipParentContributors()) {
-
-						if (log.isDebugEnabled()) log.debug("Skipping parent contributors according to sub-contributors (statement).");
-						return contributorResultStatement;
-					}
-				}
-
-				// execute contributor (statement)
-
-				MessageResult tempMessageResult = new MessageResult();
-
-				ContributorResult contributorResult = contributor.executeOnStatement(nextContributorChainXris, nextContributorChainXri, nextRelativeTargetStatement, operation, operationMessageResult, executionContext);
-				contributorResultStatement = contributorResultStatement.or(contributorResult);
-
-				XDI3Segment tempContextNodeXri = XDI3Util.concatXris(nextContributorChainXri, nextRelativeContextNodeXri);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri);
-
-				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
-
-				if (contributorResult.isSkipSiblingContributors()) {
-
-					if (log.isDebugEnabled()) log.debug("Skipping sibling contributors (statement) according to " + contributor.getClass().getSimpleName() + ".");
-					return contributorResultStatement;
-				}
-			} catch (Exception ex) {
-
-				throw executionContext.processException(ex);
-			} finally {
-
-				executionContext.popContributor();
-			}
-		}
-
-		// done
-
-		return contributorResultStatement;
-	}
-
-	/*
-	 * Methods for finding contributors
-	 */
-
-	public List<ContributorFound> findHigherContributors(XDI3Segment contextNodeXri) {
-
-		if (this.contributors.isEmpty()) return new ArrayList<ContributorFound> ();
-
-		List<ContributorFound> higherContributors = new ArrayList<ContributorFound> ();
-
-		if (contextNodeXri == null) {
-
-		} else {
-
-			for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.contributors.entrySet()) {
-
-				XDI3Segment contributorXri = contributorEntry.getKey();
-				XDI3Segment startXri = XDI3Util.startsWith(contextNodeXri, contributorXri, false, true);
-				if (startXri == null) continue;
-
-				contributorXri = startXri;
-
-				List<Contributor> contributors = contributorEntry.getValue();
-				for (Contributor contributor : contributors) higherContributors.add(new ContributorFound(contributorXri, contributor));
-			}
-		}
-
-		if (higherContributors.isEmpty()) {
-
-			if (log.isDebugEnabled()) log.debug("Finding higher contributors for " + contextNodeXri + ": No matches.");
-		} else {
-
-			if (log.isDebugEnabled()) log.debug("Finding higher contributors for " + contextNodeXri + ": Matches at " + higherContributors);
-		}
-
-		return higherContributors;
-	}
-
-	public List<ContributorFound> findLowerContributors(XDI3Segment contextNodeXri) {
-
-		if (this.contributors.isEmpty()) return new ArrayList<ContributorFound> ();
-
-		List<ContributorFound> lowerContributors = new ArrayList<ContributorFound> ();
-
-		if (contextNodeXri == null) {
-
-			for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.contributors.entrySet()) {
-
-				XDI3Segment contributorXri = contributorEntry.getKey();
-
-				List<Contributor> contributors = contributorEntry.getValue();
-				for (Contributor contributor : contributors) lowerContributors.add(new ContributorFound(contributorXri, contributor));
-			}
-		} else {
-
-			for (Map.Entry<XDI3Segment, List<Contributor>> contributorEntry : this.contributors.entrySet()) {
-
-				XDI3Segment contributorXri = contributorEntry.getKey();
-				XDI3Segment startXri = XDI3Util.startsWith(contributorXri, contextNodeXri, false, true);
-				if (startXri == null) continue;
-
-				if (startXri.equals(contributorXri)) continue;
-
-				List<Contributor> contributors = contributorEntry.getValue();
-				for (Contributor contributor : contributors) lowerContributors.add(new ContributorFound(contributorXri, contributor));
-			}
-		}
-
-		if (lowerContributors.isEmpty()) {
-
-			if (log.isDebugEnabled()) log.debug("Finding lower contributors for " + contextNodeXri + ": No matches.");
-		} else {
-
-			if (log.isDebugEnabled()) log.debug("Finding lower contributors for " + contextNodeXri + ": Matches at " + lowerContributors);
-		}
-
-		return lowerContributors;
-	}
-
-	/*
 	 * Prototype
 	 */
 
@@ -457,7 +184,7 @@ public class ContributorMap implements Iterable<Contributor>, Prototype<Contribu
 	 * Helper classes
 	 */
 
-	private static class ContributorFound {
+	public static class ContributorFound {
 
 		private XDI3Segment contributorXri;
 		private Contributor contributor;

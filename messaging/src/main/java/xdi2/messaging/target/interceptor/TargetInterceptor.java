@@ -6,13 +6,14 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
 
 /**
  * Interceptor that is executed when an operation is executed on an XDI statement or an XDI address.
  * 
  * @author markus
  */
-public interface TargetInterceptor extends Interceptor {
+public interface TargetInterceptor extends Interceptor<MessagingTarget> {
 
 	/**
 	 * Replaces or skips the target address before it is executed.

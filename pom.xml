@@ -12,10 +12,11 @@
 		<module>core</module>
 		<module>messaging</module>
 		<module>client</module>
-		<module>server</module>
-		<module>server-embedded</module>
-		<module>server-standalone</module>
-		<module>server-war</module>
+		<module>transport</module>
+		<module>transport-http</module>
+		<module>transport-http-embedded</module>
+		<module>transport-http-standalone</module>
+		<module>transport-http-war</module>
 		<module>webtools</module>
 	</modules>
 

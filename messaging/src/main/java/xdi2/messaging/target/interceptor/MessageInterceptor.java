@@ -4,13 +4,14 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.MessagingTarget;
 
 /**
  * Interceptor that is executed before and after a message is executed.
  * 
  * @author markus
  */
-public interface MessageInterceptor extends Interceptor {
+public interface MessageInterceptor extends Interceptor<MessagingTarget> {
 
 	/**
 	 * Run before a message is executed.
