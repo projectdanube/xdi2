@@ -1,4 +1,4 @@
-package xdi2.server.tests;
+package xdi2.transport.tests;
 
 
 import junit.framework.Test;
