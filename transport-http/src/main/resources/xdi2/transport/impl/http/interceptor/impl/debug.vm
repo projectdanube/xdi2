@@ -42,16 +42,17 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 </table>
 <h1>General Information:</h1>
 <table class="pretty">
+	<tr><th style="width: 200px">Transport Class:</th><td>$httptransport.class.canonicalName</td></tr>
 	<tr><th style="width: 200px">Request Class:</th><td>$request.class.canonicalName</td></tr>
 	<tr><th style="width: 200px">Parser Class:</th><td>$parser.class.canonicalName</td></tr>
 	<tr><th style="width: 200px">OS and Java:</th><td>$systemproperties["os.name"] $systemproperties["os.arch"] $systemproperties["os.version"] / $systemproperties["java.vendor"] $systemproperties["java.version"]</td></tr>
 	<tr><th style="width: 200px">Startup Time:</th><td>$httptransport.getStartupAsString() ($httptransport.getStartupAsSeconds() seconds)</td></tr>
 	<tr><th style="width: 200px">Request Path:</th><td>$request.requestPath</td></tr>
-	<tr><th style="width: 200px">Server Interceptors:</th><td>
-		#if($httptransport.serverInterceptors.size()==0)
+	<tr><th style="width: 200px">Transport Interceptors:</th><td>
+		#if($httptransport.interceptors.size()==0)
 			(none)
 		#else
-		#foreach($interceptor in $httptransport.serverInterceptors) 
+		#foreach($interceptor in $httptransport.interceptors) 
 			$interceptor.class.canonicalName<br>
 		#end
 		#end
@@ -208,6 +209,43 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
     </td>
     <td valign="top">
     	$messagingtargetfactorymount.messagingTargetFactory.class.canonicalName
+    </td>
+    </tr>
+#end
+</table>
+#end
+<h1>Log:</h1>
+#if($log.size()==0)
+	(none)
+#else
+<table class="pretty">
+	<tr>
+	<th>Time</th>
+	<th>Request</th>
+	<th>MessageEnvelope</th>
+	<th>MessageResult</th>
+	<th>Exception</th>
+	</tr>
+#foreach($logentry in $log)
+	<tr>
+    <td valign="top">
+    	<b>$logentry.time</b>
+    </td>
+    <td valign="top">
+    	<b>$logentry.request.getRequestPath()</b><br>
+    	<b>$logentry.request.getRemoteAddr()</b>
+    </td>
+    <td valign="top">
+    	<textarea>$logentry.messageEnvelope</textarea>
+    </td>
+    <td valign="top">
+    	<textarea>$logentry.messageResult</textarea>
+    </td>
+    <td valign="top">
+		#if($logentry.ex)
+	    	<textarea>$logentry.ex</textarea>
+		#else
+	    #end
     </td>
     </tr>
 #end

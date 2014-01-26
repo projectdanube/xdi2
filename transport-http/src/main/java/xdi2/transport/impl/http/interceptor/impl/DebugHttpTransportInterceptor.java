@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -54,7 +55,7 @@ import xdi2.transport.interceptor.TransportInterceptor;
  */
 public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements TransportInterceptor, HttpTransportInterceptor {
 
-	public static final int DEFAULT_LOG_CAPACITY = 100;
+	public static final int DEFAULT_LOG_CAPACITY = 10;
 
 	private int logCapacity;
 	private LinkedList<LogEntry> log;
@@ -88,7 +89,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public boolean after(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
 
-		this.getLog().add(new LogEntry(request, response, messagingTarget, messageEnvelope, messageResult, null));
+		this.getLog().addFirst(new LogEntry(request, response, messagingTarget, messageEnvelope, messageResult, null));
+		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 
 		return false;
 	}
@@ -96,7 +98,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public void exception(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ErrorMessageResult errorMessageResult, ExecutionContext executionContext, Exception ex) {
 
-		this.getLog().add(new LogEntry(request, response, messagingTarget, messageEnvelope, errorMessageResult, ex));
+		this.getLog().addFirst(new LogEntry(request, response, messagingTarget, messageEnvelope, errorMessageResult, ex));
+		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 	}
 
 	/*
@@ -271,13 +274,14 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		List<MessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts();
 
 		VelocityContext context = new VelocityContext();
-		context.put("parser", XDI3ParserRegistry.getInstance().getParser());
 		context.put("httptransport", httpTransport);
 		context.put("request", request);
+		context.put("parser", XDI3ParserRegistry.getInstance().getParser());
 		context.put("pluginfiles", pluginFiles);
 		context.put("systemproperties", systemProperties);
 		context.put("messagingtargetmounts", messagingTargetMounts);
 		context.put("messagingtargetfactorymounts", messagingTargetFactoryMounts);
+		context.put("log", this.getLog());
 
 		// send response
 
@@ -336,6 +340,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 	public static class LogEntry {
 
+		private Date time;
 		private Request request;
 		private Response response;
 		private MessagingTarget messagingTarget;
@@ -345,12 +350,23 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		public LogEntry(Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, Exception ex) {
 
+			this.time = new Date();
 			this.request = request;
 			this.response = response;
 			this.messagingTarget = messagingTarget;
 			this.messageEnvelope = messageEnvelope;
 			this.messageResult = messageResult;
 			this.ex = ex;
+		}
+
+		public Date getTime() {
+
+			return this.time;
+		}
+
+		public void setTime(Date time) {
+
+			this.time = time;
 		}
 
 		public Request getRequest() {
