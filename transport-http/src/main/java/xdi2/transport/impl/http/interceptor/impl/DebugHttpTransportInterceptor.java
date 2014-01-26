@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,16 +26,25 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.plugins.PluginsLoader;
 import xdi2.core.xri3.XDI3ParserRegistry;
+import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.MessageResult;
+import xdi2.messaging.context.ExecutionContext;
+import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.transport.Request;
+import xdi2.transport.Response;
 import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpRequest;
 import xdi2.transport.impl.http.HttpResponse;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.factory.MessagingTargetFactory;
+import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
 import xdi2.transport.impl.http.registry.MessagingTargetFactoryMount;
 import xdi2.transport.impl.http.registry.MessagingTargetMount;
+import xdi2.transport.interceptor.TransportInterceptor;
 
 /**
  * This interceptor prints out a list of mounted messaging targets.
@@ -42,17 +52,56 @@ import xdi2.transport.impl.http.registry.MessagingTargetMount;
  * 
  * @author markus
  */
-public class DebugHttpTransportInterceptor extends AbstractHttpTransportInterceptor {
+public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements TransportInterceptor, HttpTransportInterceptor {
+
+	public static final int DEFAULT_LOG_CAPACITY = 100;
+
+	private int logCapacity;
+	private LinkedList<LogEntry> log;
 
 	private VelocityEngine velocityEngine;
 
-	@Override
-	public void init(Transport<?, ?> transport) {
+	public DebugHttpTransportInterceptor() {
+
+		this.logCapacity = DEFAULT_LOG_CAPACITY;
+		this.log = new LinkedList<LogEntry> ();
 
 		this.velocityEngine = new VelocityEngine();
+	}
+
+	public void init(Transport<?, ?> transport) {
+
 		this.velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "");
 		this.velocityEngine.init();
 	}
+
+	/*
+	 * TransportInterceptor
+	 */
+
+	@Override
+	public boolean before(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
+
+		return false;
+	}
+
+	@Override
+	public boolean after(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
+
+		this.getLog().add(new LogEntry(request, response, messagingTarget, messageEnvelope, messageResult, null));
+
+		return false;
+	}
+
+	@Override
+	public void exception(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ErrorMessageResult errorMessageResult, ExecutionContext executionContext, Exception ex) {
+
+		this.getLog().add(new LogEntry(request, response, messagingTarget, messageEnvelope, errorMessageResult, ex));
+	}
+
+	/*
+	 * HttpTransportInterceptor
+	 */
 
 	@Override
 	public boolean processPostRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
@@ -243,5 +292,125 @@ public class DebugHttpTransportInterceptor extends AbstractHttpTransportIntercep
 		// done
 
 		return true;
+	}
+
+	@Override
+	public boolean processPutRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+
+		return false;
+	}
+
+	@Override
+	public boolean processDeleteRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+
+		return false;
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public LinkedList<LogEntry> getLog() {
+
+		return this.log;
+	}
+
+	public void setLog(LinkedList<LogEntry> log) {
+
+		this.log = log;
+	}
+
+	public int getLogCapacity() {
+
+		return this.logCapacity;
+	}
+
+	public void setLogCapacity(int logCapacity) {
+
+		this.logCapacity = logCapacity;
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class LogEntry {
+
+		private Request request;
+		private Response response;
+		private MessagingTarget messagingTarget;
+		private MessageEnvelope messageEnvelope;
+		private MessageResult messageResult;
+		private Exception ex;
+
+		public LogEntry(Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, Exception ex) {
+
+			this.request = request;
+			this.response = response;
+			this.messagingTarget = messagingTarget;
+			this.messageEnvelope = messageEnvelope;
+			this.messageResult = messageResult;
+			this.ex = ex;
+		}
+
+		public Request getRequest() {
+
+			return this.request;
+		}
+
+		public void setRequest(Request request) {
+
+			this.request = request;
+		}
+
+		public Response getResponse() {
+
+			return this.response;
+		}
+
+		public void setResponse(Response response) {
+
+			this.response = response;
+		}
+
+		public MessagingTarget getMessagingTarget() {
+
+			return this.messagingTarget;
+		}
+
+		public void setMessagingTarget(MessagingTarget messagingTarget) {
+
+			this.messagingTarget = messagingTarget;
+		}
+
+		public MessageEnvelope getMessageEnvelope() {
+
+			return this.messageEnvelope;
+		}
+
+		public void setMessageEnvelope(MessageEnvelope messageEnvelope) {
+
+			this.messageEnvelope = messageEnvelope;
+		}
+
+		public MessageResult getMessageResult() {
+
+			return this.messageResult;
+		}
+
+		public void setMessageResult(MessageResult messageResult) {
+
+			this.messageResult = messageResult;
+		}
+
+		public Exception getEx() {
+
+			return this.ex;
+		}
+
+		public void setEx(Exception ex) {
+
+			this.ex = ex;
+		}
 	}
 }

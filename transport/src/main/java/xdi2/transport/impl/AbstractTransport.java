@@ -124,7 +124,7 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 
 			// execute interceptors (before)
 
-			InterceptorExecutor.executeTransportInterceptorsBefore(this.getInterceptors(), this, messagingTarget, messageEnvelope, messageResult, executionContext);
+			InterceptorExecutor.executeTransportInterceptorsBefore(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, messageResult, executionContext);
 
 			// execute the message envelope against the messaging target
 
@@ -134,15 +134,15 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 
 			// execute interceptors (after)
 
-			InterceptorExecutor.executeTransportInterceptorsAfter(this.getInterceptors(), this, messagingTarget, messageEnvelope, messageResult, executionContext);
+			InterceptorExecutor.executeTransportInterceptorsAfter(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, messageResult, executionContext);
 		} catch (Exception ex) {
 
 			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
-			this.handleException(request, response, ex);
+			ErrorMessageResult errorMessageResult = this.handleException(request, response, ex);
 
 			// execute interceptors (exception)
 
-			InterceptorExecutor.executeTransportInterceptorsException(this.getInterceptors(), this, messagingTarget, messageEnvelope, messageResult, executionContext, ex);
+			InterceptorExecutor.executeTransportInterceptorsException(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, errorMessageResult, executionContext, ex);
 
 			return null;
 		}
@@ -166,7 +166,7 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 		return executionContext;
 	}
 
-	protected final void handleException(REQUEST request, RESPONSE response, Exception ex) throws IOException {
+	protected final ErrorMessageResult handleException(REQUEST request, RESPONSE response, Exception ex) throws IOException {
 
 		// send error result
 
@@ -175,6 +175,8 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 		if (log.isDebugEnabled()) log.debug("ErrorMessageResult: " + errorMessageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 
 		this.handleException(request, response, errorMessageResult);
+
+		return errorMessageResult;
 	}
 
 	protected abstract void handleException(REQUEST request, RESPONSE response, ErrorMessageResult errorMessageResult) throws IOException;
