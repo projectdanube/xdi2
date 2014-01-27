@@ -232,8 +232,11 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
     	<b>$logentry.time</b>
     </td>
     <td valign="top">
-    	<b>$logentry.request.getRequestPath()</b><br>
-    	<b>$logentry.request.getRemoteAddr()</b>
+    	<b>$logentry.request.getRequestPath()</b>
+		#if($logentry.request.getRemoteAddr())
+	    	<br><b>$logentry.request.getRemoteAddr()</b>
+		#else
+	    #end
     </td>
     <td valign="top">
     	<textarea>$logentry.messageEnvelope</textarea>
