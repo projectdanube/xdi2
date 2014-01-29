@@ -21,6 +21,7 @@ import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -249,7 +250,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 				final List<JsonElement> entryList = new IteratorListMaker<JsonElement> (jsonArrayIncomingRelations.iterator()).list();
 
-				return new ReadOnlyIterator<Relation> (new MappingIterator<JsonElement, Relation> (entryList.iterator()) {
+				return new NotNullIterator<Relation> (new MappingIterator<JsonElement, Relation> (entryList.iterator()) {
 
 					@Override
 					public Relation map(JsonElement jsonElement) {
