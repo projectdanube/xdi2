@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
@@ -30,6 +33,8 @@ import com.google.gson.JsonPrimitive;
 public class JSONContextNode extends AbstractContextNode implements ContextNode {
 
 	private static final long serialVersionUID = 1222781682444161539L;
+
+	private static final Logger log = LoggerFactory.getLogger(JSONContextNode.class);
 
 	private XDI3SubSegment arcXri;
 	private XDI3Segment xri;
@@ -180,7 +185,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXri().toString(), arcXri.toString(), new JsonPrimitive(targetContextNodeXri.toString()));
 		((JSONGraph) this.getGraph()).jsonSaveToArray(targetContextNodeXri.toString(), "/" + arcXri.toString(), new JsonPrimitive(this.getXri().toString()));
-		
+
 		JSONRelation relation = new JSONRelation(this, arcXri, targetContextNodeXri);
 
 		// done
@@ -253,6 +258,13 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 						ContextNode contextNode = JSONContextNode.this.getGraph().getDeepContextNode(contextNodeXri);
 
+						if (contextNode == null) {
+
+							log.warn("In context node " + JSONContextNode.this.getXri() + " found incoming relation " + arcXri + " from non-existent context node " + contextNodeXri);
+
+							return null;
+						}
+
 						return new JSONRelation(contextNode, arcXri, JSONContextNode.this.getXri());
 					}
 				});
@@ -283,7 +295,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		// set the literal
 
 		((JSONGraph) this.getGraph()).jsonSaveToObject(this.getXri().toString(), XDIConstants.XRI_SS_LITERAL.toString(), AbstractLiteral.literalDataToJsonElement(literalData));
-		
+
 		JSONLiteral literal = new JSONLiteral(this);
 
 		// done
