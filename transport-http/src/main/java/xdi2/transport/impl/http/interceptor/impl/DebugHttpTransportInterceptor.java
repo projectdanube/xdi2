@@ -89,7 +89,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public boolean after(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
 
-		this.getLog().addFirst(new LogEntry(request, response, messagingTarget, messageEnvelope, messageResult, null));
+		this.getLog().addFirst(new LogEntry(request, response, messagingTarget, messageEnvelope, messageResult, executionContext, null));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 
 		return false;
@@ -98,7 +98,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public void exception(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ErrorMessageResult errorMessageResult, ExecutionContext executionContext, Exception ex) {
 
-		this.getLog().addFirst(new LogEntry(request, response, messagingTarget, messageEnvelope, errorMessageResult, ex));
+		this.getLog().addFirst(new LogEntry(request, response, messagingTarget, messageEnvelope, errorMessageResult, executionContext, ex));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 	}
 
@@ -346,9 +346,10 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		private MessagingTarget messagingTarget;
 		private MessageEnvelope messageEnvelope;
 		private MessageResult messageResult;
+		private ExecutionContext executionContext;
 		private Exception ex;
 
-		public LogEntry(Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, Exception ex) {
+		public LogEntry(Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
 
 			this.time = new Date();
 			this.request = request;
@@ -356,6 +357,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			this.messagingTarget = messagingTarget;
 			this.messageEnvelope = messageEnvelope;
 			this.messageResult = messageResult;
+			this.executionContext = executionContext;
 			this.ex = ex;
 		}
 
@@ -417,6 +419,16 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		public void setMessageResult(MessageResult messageResult) {
 
 			this.messageResult = messageResult;
+		}
+
+		public ExecutionContext getExecutionContext() {
+
+			return this.executionContext;
+		}
+
+		public void setExecutionContext(ExecutionContext executionContext) {
+
+			this.executionContext = executionContext;
 		}
 
 		public Exception getEx() {

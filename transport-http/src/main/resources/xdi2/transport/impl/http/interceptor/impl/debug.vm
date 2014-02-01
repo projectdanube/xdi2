@@ -224,6 +224,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	<th>Request</th>
 	<th>MessageEnvelope</th>
 	<th>MessageResult</th>
+	<th>Trace</th>
 	<th>Exception</th>
 	</tr>
 #foreach($logentry in $log)
@@ -243,6 +244,9 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
     </td>
     <td valign="top">
     	<textarea>$logentry.messageResult</textarea>
+    </td>
+    <td valign="top">
+    	<textarea>$logentry.executionContext.getTraceBlock()</textarea>
     </td>
     <td valign="top">
 		#if($logentry.ex)
