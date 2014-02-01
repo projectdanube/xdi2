@@ -20,7 +20,6 @@ import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.AddressHandler;
-import xdi2.messaging.target.ContributorExecutor;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.StatementHandler;

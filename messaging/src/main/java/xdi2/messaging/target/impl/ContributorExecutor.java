@@ -1,4 +1,4 @@
-package xdi2.messaging.target;
+package xdi2.messaging.target.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,6 @@ public class ContributorExecutor {
 	private ContributorExecutor() {
 
 	}
-
 
 	/*
 	 * Methods for executing contributors
