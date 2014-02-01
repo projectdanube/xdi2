@@ -11,7 +11,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.LinkContractBase;
+import xdi2.core.features.linkcontracts.LinkContract;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
@@ -119,7 +119,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			return InterceptorResult.DEFAULT;
 		}
 
-		LinkContractBase linkContract = LinkContractBase.fromXdiEntity(xdiEntity);
+		LinkContract linkContract = LinkContract.fromXdiEntity(xdiEntity);
 		if (linkContract == null) {
 
 			if (log.isDebugEnabled()) log.debug("No link contract found in graph.");
@@ -159,14 +159,14 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 * TargetInterceptor
 	 */
 
-	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Segment contextNodeXri, LinkContractBase linkContract) {
+	private static boolean checkLinkContractAuthorization(XDI3Segment permissionXri, XDI3Segment contextNodeXri, LinkContract linkContract) {
 
 		// check positive permissions for the target address
 
-		List<Iterator<? extends XDI3Segment>> positiveterators = new ArrayList<Iterator<? extends XDI3Segment>> ();
-		positiveterators.add(linkContract.getPermissionTargetAddresses(operation.getOperationXri()));
-		positiveterators.add(linkContract.getPermissionTargetAddresses(XDILinkContractConstants.XRI_S_ALL));
-		CompositeIterator<XDI3Segment> positiveIterator = new CompositeIterator<XDI3Segment> (positiveterators.iterator());
+		List<Iterator<? extends XDI3Segment>> positiveIterators = new ArrayList<Iterator<? extends XDI3Segment>> ();
+		positiveIterators.add(linkContract.getPermissionTargetAddresses(permissionXri));
+		positiveIterators.add(linkContract.getPermissionTargetAddresses(XDILinkContractConstants.XRI_S_ALL));
+		CompositeIterator<XDI3Segment> positiveIterator = new CompositeIterator<XDI3Segment> (positiveIterators.iterator());
 
 		int longestPositivePermission = -1;
 
@@ -177,14 +177,14 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 				int positiveMatch = targetAddress.equals(XDIConstants.XRI_S_ROOT) ? 0 : targetAddress.getNumSubSegments();
 				if (positiveMatch > longestPositivePermission) longestPositivePermission = positiveMatch;
 
-				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + operation.getOperationXri() + " on " + contextNodeXri);
+				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionXri + " on " + contextNodeXri);
 			}
 		}
 
 		// check negative permissions for the target address
 
 		List<Iterator<? extends XDI3Segment>> negativeIterators = new ArrayList<Iterator<? extends XDI3Segment>> ();
-		negativeIterators.add(linkContract.getNegativePermissionTargetAddresses(operation.getOperationXri()));
+		negativeIterators.add(linkContract.getNegativePermissionTargetAddresses(permissionXri));
 		negativeIterators.add(linkContract.getNegativePermissionTargetAddresses(XDILinkContractConstants.XRI_S_ALL));
 		CompositeIterator<XDI3Segment> negativeIterator = new CompositeIterator<XDI3Segment> (negativeIterators.iterator());
 
@@ -197,7 +197,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 				int negativeMatch = targetAddress.equals(XDIConstants.XRI_S_ROOT) ? 0 : targetAddress.getNumSubSegments();
 				if (negativeMatch > longestNegativePermission) longestNegativePermission = negativeMatch;
 
-				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + operation.getOperationXri() + " on " + contextNodeXri);
+				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionXri + " on " + contextNodeXri);
 			}
 		}
 
@@ -207,20 +207,20 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + operation.getOperationXri() + " on " + contextNodeXri + ": " + decision);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionXri + " on " + contextNodeXri + ": " + decision);
 
 		return decision;
 	}
 
-	private static boolean checkLinkContractAuthorization(Operation operation, XDI3Statement statementXri, LinkContractBase linkContract) {
+	private static boolean checkLinkContractAuthorization(XDI3Segment permissionXri, XDI3Statement statementXri, LinkContract linkContract) {
 
 		// check positive permissions for the target statement
 
-		boolean positivePermission = linkContract.hasPermissionTargetStatement(operation.getOperationXri(), statementXri);
+		boolean positivePermission = linkContract.hasPermissionTargetStatement(permissionXri, statementXri);
 
 		// check negative permissions for the target statement
 
-		boolean negativePermission = linkContract.hasNegativePermissionTargetStatement(operation.getOperationXri(), statementXri);
+		boolean negativePermission = linkContract.hasNegativePermissionTargetStatement(permissionXri, statementXri);
 
 		// decide
 
@@ -228,7 +228,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + operation.getOperationXri() + " on " + statementXri + ": " + decision);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionXri + " on " + statementXri + ": " + decision);
 
 		return decision;
 	}
@@ -238,12 +238,12 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// read the referenced link contract from the execution context
 
-		LinkContractBase linkContract = getLinkContract(executionContext);
+		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
 		// check permission on target address
 
-		boolean authorized = checkLinkContractAuthorization(operation, targetAddress, linkContract);
+		boolean authorized = checkLinkContractAuthorization(operation.getOperationXri(), targetAddress, linkContract);
 
 		if (! authorized) {
 
@@ -260,7 +260,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// read the referenced link contract from the execution context
 
-		LinkContractBase linkContract = getLinkContract(executionContext);
+		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
 		// check permission on target address and target statement
@@ -272,8 +272,8 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		else
 			targetAddress = targetStatement.getContextNodeXri();
 
-		boolean authorized = checkLinkContractAuthorization(operation, targetAddress, linkContract);
-		authorized = authorized || checkLinkContractAuthorization(operation, targetStatement, linkContract);
+		boolean authorized = checkLinkContractAuthorization(operation.getOperationXri(), targetAddress, linkContract);
+		authorized = authorized || checkLinkContractAuthorization(operation.getOperationXri(), targetStatement, linkContract);
 
 		if (! authorized) {
 
@@ -305,12 +305,12 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 	private static final String EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE = LinkContractInterceptor.class.getCanonicalName() + "#linkcontractpermessage";
 
-	public static LinkContractBase getLinkContract(ExecutionContext executionContext) {
+	public static LinkContract getLinkContract(ExecutionContext executionContext) {
 
-		return (LinkContractBase) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE);
+		return (LinkContract) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE);
 	}
 
-	public static void putLinkContract(ExecutionContext executionContext, LinkContractBase linkContract) {
+	public static void putLinkContract(ExecutionContext executionContext, LinkContract linkContract) {
 
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE, linkContract);
 	}

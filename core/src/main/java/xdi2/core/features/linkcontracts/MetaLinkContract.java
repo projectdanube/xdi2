@@ -21,7 +21,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public class MetaLinkContract extends LinkContractBase {
+public class MetaLinkContract extends LinkContract {
 
 	private static final long serialVersionUID = 1373222090414868359L;
 

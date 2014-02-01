@@ -21,7 +21,7 @@ import xdi2.core.xri3.XDI3SubSegment;
  * 
  * @author markus
  */
-public class GenericLinkContract extends LinkContractBase {
+public class GenericLinkContract extends LinkContract {
 
 	private static final long serialVersionUID = 6840561339666839961L;
 
@@ -87,7 +87,7 @@ public class GenericLinkContract extends LinkContractBase {
 
 		return XDI3Segment.fromComponents(genericLinkContractArcXris);
 	}
-	
+
 	/**
 	 * Factory method that finds or creates an XDI generic link contract for a graph.
 	 * @return The XDI generic link contract.

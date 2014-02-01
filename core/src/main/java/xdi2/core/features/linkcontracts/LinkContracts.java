@@ -20,7 +20,7 @@ public class LinkContracts {
 	 * @param graph The graph.
 	 * @return An iterator over link contracts.
 	 */
-	public static Iterator<LinkContractBase> getAllLinkContracts(Graph graph) {
+	public static Iterator<LinkContract> getAllLinkContracts(Graph graph) {
 
 		ContextNode root = graph.getRootContextNode();
 		Iterator<ContextNode> allContextNodes = root.getAllContextNodes();
@@ -33,7 +33,7 @@ public class LinkContracts {
 	 * @param create Whether to create an XDI link contract if it does not exist.
 	 * @return The existing or newly created XDI link contract.
 	 */
-	public static LinkContractBase getLinkContract(ContextNode parentContextNode, boolean create) {
+	public static LinkContract getLinkContract(ContextNode parentContextNode, boolean create) {
 
 		ContextNode contextNode = create ? parentContextNode.setDeepContextNode(XDILinkContractConstants.XRI_S_DO) : parentContextNode.getDeepContextNode(XDILinkContractConstants.XRI_S_DO);
 		if (contextNode == null) return null;
@@ -41,26 +41,26 @@ public class LinkContracts {
 		XdiEntitySingleton xdiEntitySingleton = XdiEntitySingleton.fromContextNode(contextNode);
 		if (xdiEntitySingleton == null) return null;
 
-		return LinkContractBase.fromXdiEntity(xdiEntitySingleton);
+		return LinkContract.fromXdiEntity(xdiEntitySingleton);
 	}
 
 	/*
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeLinkContractIterator extends NotNullIterator<LinkContractBase> {
+	public static class MappingContextNodeLinkContractIterator extends NotNullIterator<LinkContract> {
 
 		public MappingContextNodeLinkContractIterator(Iterator<ContextNode> iterator) {
 
-			super(new MappingIterator<ContextNode, LinkContractBase> (iterator) {
+			super(new MappingIterator<ContextNode, LinkContract> (iterator) {
 
 				@Override
-				public LinkContractBase map(ContextNode contextNode) {
+				public LinkContract map(ContextNode contextNode) {
 
 					XdiEntity xdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
 					if (xdiEntity == null) return null;
 
-					return LinkContractBase.fromXdiEntity(xdiEntity);
+					return LinkContract.fromXdiEntity(xdiEntity);
 				}
 			});
 		}

@@ -33,45 +33,6 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	}
 
 	/*
-	 * Static methods
-	 */
-
-	/**
-	 * Checks if an XDI entity is a valid XDI link contract.
-	 * @param xdiEntity The XDI entity to check.
-	 * @return True if the XDI entity is a valid XDI link contract.
-	 */
-	public static boolean isValid(XdiEntity xdiEntity) {
-
-		if (xdiEntity == null) return false;
-
-		return
-				RootLinkContract.isValid(xdiEntity) ||
-				PublicLinkContract.isValid(xdiEntity) ||
-				GenericLinkContract.isValid(xdiEntity) ||
-				LinkContractTemplate.isValid(xdiEntity) ||
-				MetaLinkContract.isValid(xdiEntity);
-	}
-
-	/**
-	 * Factory method that creates an XDI link contract bound to a given XDI entity.
-	 * @param xdiEntity The XDI entity that is an XDI link contract.
-	 * @return The XDI link contract.
-	 */
-	public static LinkContractBase fromXdiEntity(XdiEntity xdiEntity) {
-
-		LinkContractBase linkContract = null;
-
-		if ((linkContract = RootLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = LinkContractTemplate.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = MetaLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-
-		return null;
-	}
-
-	/*
 	 * Instance methods
 	 */
 
@@ -125,6 +86,8 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_GET, targetAddress);
 			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_SET, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_SET_DO, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_SET_REF, targetAddress);
 			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_DEL, targetAddress);
 		}
 
