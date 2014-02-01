@@ -27,26 +27,41 @@
 
 	<form action="XDIDiscoverer" method="post">
 
-		Cloud Name / Cloud Number: 
-		<input type="text" name="input" size="80" value="<%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %>"><br>
+		<table cellpadding="3">
+		<tr>
+		<td>Cloud Name / Cloud Number: </td>
+		<td><input type="text" name="input" size="80" value="<%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %>"></td>
+		</tr>
 
 		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
-		<% String writeImplied = (String) request.getAttribute("writeImplied"); if (writeImplied == null) writeImplied = ""; %>
 		<% String writeOrdered = (String) request.getAttribute("writeOrdered"); if (writeOrdered == null) writeOrdered = ""; %>
+		<% String writeImplied = (String) request.getAttribute("writeImplied"); if (writeImplied == null) writeImplied = ""; %>
 		<% String writeInner = (String) request.getAttribute("writeInner"); if (writeInner == null) writeInner = ""; %>
 		<% String writePretty = (String) request.getAttribute("writePretty"); if (writePretty == null) writePretty = ""; %>
 		<% String endpoint = (String) request.getAttribute("endpoint"); if (endpoint == null) endpoint = ""; %>
 		<% String authority = (String) request.getAttribute("authority"); if (authority == null) authority = ""; %>
 		<% String services = (String) request.getAttribute("services"); if (services == null) services = ""; %>
 
-		<p>Discover from registry service: 
-		<input type="text" name="endpoint" size="80" value="<%= endpoint %>"></p>
+		<tr>
+		<td>Discover from registry service: </td>
+		<td><input type="text" name="endpoint" size="80" value="<%= endpoint %>"></td>
+		</tr>
 
-		<p>Discover from XDI authority:
-		<input name="authority" type="checkbox" <%= authority.equals("on") ? "checked" : "" %>></p>
+		<tr>
+		<td>&nbsp;</td>
+		<td><span style="font-size: .8em;">Use <span style="font-size: 1em; font-weight: bold;">http://xdidiscoveryservice.xdi.net:12220/</span> for PROD. Use <span style="font-size: 1em; font-weight: bold;">http://xdidiscoveryserviceote.xdi.net:12220/</span> for OTE.</span></td>
+		</tr>
 
-		<p>Discover additional services:
-		<input type="text" name="services" size="80" value="<%= services %>"></p>
+		<tr>
+		<td>Discover from XDI authority:</td>
+		<td><input name="authority" type="checkbox" <%= authority.equals("on") ? "checked" : "" %>></td>
+		</tr>
+
+		<tr>
+		<td>Discover additional services:</td>
+		<td><input type="text" name="services" size="80" value="<%= services %>"></td>
+		</tr>
+		</table>
 
 		Result Format:
 		<select name="resultFormat">
