@@ -48,7 +48,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		sampleInputs = Collections.singletonList("=alice");
 
-		sampleEndpoint = "http://mycloud.neustar.biz:12220/"; 
+		sampleEndpoint = XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getEndpointUri().toString();
 
 		sampleServices = "<$https><$connect><$xdi>";
 	}

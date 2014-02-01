@@ -31,8 +31,8 @@ public class XDIDiscoveryClient {
 
 	private static Logger log = LoggerFactory.getLogger(XDIDiscoveryClient.class.getName());
 
-	public static final XDIHttpClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://mycloud.neustar.biz:12220/");
-	public static final XDIHttpClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://mycloud-ote.neustar.biz:12220/");
+	public static final XDIHttpClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://xdidiscoveryservice.xdi.net:12220/");
+	public static final XDIHttpClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://xdidiscoveryserviceote.xdi.net:12220/");
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT = NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
 
 	private XDIHttpClient registryXdiClient;
