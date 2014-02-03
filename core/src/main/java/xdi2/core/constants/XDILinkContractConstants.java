@@ -11,10 +11,14 @@ import xdi2.core.xri3.XDI3SubSegment;
 public final class XDILinkContractConstants {
 
 	public static final XDI3Segment XRI_S_DO = XDI3Segment.create("$do");
+	public static final XDI3Segment XRI_S_EC_DO = XDI3Segment.create("[$do]");
 
 	public static final XDI3SubSegment XRI_SS_DO = XDI3SubSegment.create("$do");
+	public static final XDI3SubSegment XRI_SS_EC_DO = XDI3SubSegment.create("[$do]");
 
 	public static final XDI3Segment XRI_S_PUBLIC = XDI3Segment.create("$public");
+
+	public static final XDI3Segment XRI_S_ANON = XDI3Segment.create("$anon");
 
 	public static final XDI3Segment XRI_S_TO = XDI3Segment.create("$to");
 	public static final XDI3Segment XRI_S_TO_VARIABLE = XDI3Segment.create("{$to}");

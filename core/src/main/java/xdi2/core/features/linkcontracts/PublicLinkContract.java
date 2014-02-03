@@ -4,6 +4,7 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityMember;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.xri3.XDI3Segment;
@@ -33,11 +34,17 @@ public class PublicLinkContract extends GenericLinkContract {
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
+		if (! GenericLinkContract.isValid(xdiEntity)) return false;
+
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
+			if (! XDILinkContractConstants.XRI_S_ANON.equals(GenericLinkContract.getRequestingAuthority(xdiEntity.getXri()))) return false;
 			if (! XDILinkContractConstants.XRI_S_PUBLIC.equals(GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXri()))) return false;
 
 			return true;
+		} else if (xdiEntity instanceof XdiEntityMember) {
+
+			return false;
 		} else {
 
 			return false;

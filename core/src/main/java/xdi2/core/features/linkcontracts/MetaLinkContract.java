@@ -6,7 +6,6 @@ import java.util.List;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
@@ -43,15 +42,11 @@ public class MetaLinkContract extends LinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (! ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO))) return false;
-
 			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 			if (getTemplateId(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
-
-			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO))) return false;
 
 			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 			if (getTemplateId(xdiEntity.getXri()) == null) return false;

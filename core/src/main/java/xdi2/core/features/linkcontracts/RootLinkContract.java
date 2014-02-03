@@ -2,6 +2,7 @@ package xdi2.core.features.linkcontracts;
 
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityMember;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.xri3.XDI3Segment;
@@ -31,11 +32,17 @@ public class RootLinkContract extends GenericLinkContract {
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
+		if (! GenericLinkContract.isValid(xdiEntity)) return false;
+
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
+			if (! GenericLinkContract.getRequestingAuthority(xdiEntity.getXri()).equals(GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXri()))) return false;
 			if (GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXri()) != null) return false;
 
 			return true;
+		} else if (xdiEntity instanceof XdiEntityMember) {
+
+			return false;
 		} else {
 
 			return false;
