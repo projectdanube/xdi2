@@ -44,16 +44,16 @@ public class GenericLinkContract extends LinkContract {
 
 			if (! ((XdiEntitySingleton) xdiEntity).getArcXri().equals(XDILinkContractConstants.XRI_SS_DO)) return false;
 
-			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
-			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+// TODO?			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
+			// TODO?			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
 
 			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getArcXri().equals(XDILinkContractConstants.XRI_SS_EC_DO)) return false;
 
-			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
-			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+			// TODO?			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
+			// TODO?			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else {

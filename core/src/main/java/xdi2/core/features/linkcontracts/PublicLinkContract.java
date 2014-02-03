@@ -38,6 +38,10 @@ public class PublicLinkContract extends GenericLinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
+			if (GenericLinkContract.getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+			if (GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
+			if (GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXri()) == null) return false;
+
 			if (! XDILinkContractConstants.XRI_S_ANON.equals(GenericLinkContract.getRequestingAuthority(xdiEntity.getXri()))) return false;
 			if (! XDILinkContractConstants.XRI_S_PUBLIC.equals(GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXri()))) return false;
 

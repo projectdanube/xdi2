@@ -36,8 +36,11 @@ public class RootLinkContract extends GenericLinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (! GenericLinkContract.getRequestingAuthority(xdiEntity.getXri()).equals(GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXri()))) return false;
+			if (GenericLinkContract.getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+			if (GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
 			if (GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXri()) != null) return false;
+
+			if (! GenericLinkContract.getRequestingAuthority(xdiEntity.getXri()).equals(GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXri()))) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
