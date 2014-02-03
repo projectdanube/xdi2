@@ -19,7 +19,7 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 public interface TransportInterceptor extends Interceptor<Transport<?, ?>> {
 
 	/**
-	 * Run after a message envelope is executed.
+	 * Run before a message envelope is executed.
 	 */
 	public boolean before(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException;
 
