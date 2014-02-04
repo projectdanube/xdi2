@@ -17,7 +17,6 @@ A sample deployment of XDI2 is available at http://xdi2.projectdanube.org.
 * [xdi2-transport-http-standalone](https://github.com/projectdanube/xdi2/wiki/xdi2-transport-http-standalone) - The HTTP transport (server) as a standalone application [.jar]
 * [xdi2-transport-http-war](https://github.com/projectdanube/xdi2/wiki/xdi2-transport-http-war) - The HTTP transport (server) as a web application [.war]
 * [xdi2-webtools](https://github.com/projectdanube/xdi2/wiki/xdi2-webtools) - A collection of web-based XDI tools for testing [.war]
-* [xdi2-samples](https://github.com/projectdanube/xdi2/wiki/xdi2-samples) - Various samples on how to work with the XDI2 library [.jar]
 
 ### How to build
 
