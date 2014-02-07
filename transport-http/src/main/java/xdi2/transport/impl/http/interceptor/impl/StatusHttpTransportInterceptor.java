@@ -19,11 +19,13 @@ public class StatusHttpTransportInterceptor extends AbstractHttpTransportInterce
 	public static final String DEFAULT_PATH = "/status";
 	public static final int DEFAULT_STATUS = 200;
 
-	private String path = DEFAULT_PATH;
-	private int status = DEFAULT_STATUS;
+	private String path;
+	private int status;
 
 	public StatusHttpTransportInterceptor() {
 
+		this.path = DEFAULT_PATH;
+		this.status = DEFAULT_STATUS;
 	}
 
 	/*
