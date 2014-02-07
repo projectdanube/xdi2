@@ -55,21 +55,25 @@ import xdi2.transport.interceptor.TransportInterceptor;
  */
 public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements TransportInterceptor, HttpTransportInterceptor {
 
+	public static final String DEFAULT_PATH = "/";
 	public static final int DEFAULT_LOG_CAPACITY = 10;
 
+	private String path = DEFAULT_PATH;
 	private int logCapacity;
-	private LinkedList<LogEntry> log;
 
+	private LinkedList<LogEntry> log;
 	private VelocityEngine velocityEngine;
 
 	public DebugHttpTransportInterceptor() {
 
+		this.path = DEFAULT_PATH;
 		this.logCapacity = DEFAULT_LOG_CAPACITY;
-		this.log = new LinkedList<LogEntry> ();
 
+		this.log = new LinkedList<LogEntry> ();
 		this.velocityEngine = new VelocityEngine();
 	}
 
+	@Override
 	public void init(Transport<?, ?> transport) {
 
 		this.velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "");
@@ -109,7 +113,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public boolean processPostRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		if (! request.getRequestPath().equals("/")) return false;
+		if (! request.getRequestPath().equals(this.getPath())) return false;
 
 		String cmd = request.getParameter("cmd");
 		String cmdMessagingTargetPath = request.getParameter("messagingtargetpath");
@@ -264,7 +268,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		if (! request.getRequestPath().equals("/")) return false;
+		if (! request.getRequestPath().equals(this.getPath())) return false;
 
 		// prepare velocity
 
@@ -314,14 +318,14 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	 * Getters and setters
 	 */
 
-	public LinkedList<LogEntry> getLog() {
+	public String getPath() {
 
-		return this.log;
+		return this.path;
 	}
 
-	public void setLog(LinkedList<LogEntry> log) {
+	public void setPath(String path) {
 
-		this.log = log;
+		this.path = path;
 	}
 
 	public int getLogCapacity() {
@@ -332,6 +336,16 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	public void setLogCapacity(int logCapacity) {
 
 		this.logCapacity = logCapacity;
+	}
+
+	public LinkedList<LogEntry> getLog() {
+
+		return this.log;
+	}
+
+	public void setLog(LinkedList<LogEntry> log) {
+
+		this.log = log;
 	}
 
 	/*
